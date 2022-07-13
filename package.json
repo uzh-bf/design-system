@@ -1,6 +1,6 @@
 {
   "name": "@uzh-bf/design-system",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "license": "MIT",
   "repository": {
     "url": "https://github.com/uzh-bf/design-system.git"
@@ -21,7 +21,8 @@
     "lint": "dts lint",
     "size": "size-limit",
     "dev": "ladle serve",
-    "test": "dts test --passWithNoTests"
+    "test": "dts test --passWithNoTests",
+    "release": "standard-version"
   },
   "husky": {
     "hooks": {
@@ -63,6 +64,7 @@
     "react-dom": "18.2.0",
     "rollup-plugin-postcss": "4.0.2",
     "size-limit": "7.0.8",
+    "standard-version": "9.5.0",
     "tailwind-merge": "1.4.0",
     "tailwindcss": "3.1.6",
     "tslib": "2.4.0",
