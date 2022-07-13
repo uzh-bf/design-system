@@ -2,6 +2,9 @@
   "name": "@uzh-bf/design-system",
   "version": "0.0.1",
   "license": "MIT",
+  "repository": {
+    "url": "https://github.com/uzh-bf/design-system.git"
+  },
   "maintainers": [
     "Roland Schlaefli <roland.schlaefli@bf.uzh.ch>"
   ],
@@ -67,5 +70,9 @@
   },
   "volta": {
     "node": "16.16.0"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/",
+    "access": "public"
   }
 }
