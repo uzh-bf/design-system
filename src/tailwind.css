@@ -1,0 +1,15 @@
+@tailwind base;
+
+/* @layer base {
+  button[role='switch'] {
+    &[data-state='checked'] {
+      @apply bg-blue-300;
+    }
+    span[data-state='checked'] {
+      @apply translate-x-4;
+    }
+  }
+} */
+
+@tailwind components;
+@tailwind utilities;
