@@ -70,9 +70,5 @@
   },
   "volta": {
     "node": "16.16.0"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/",
-    "access": "public"
   }
 }
