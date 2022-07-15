@@ -2,13 +2,24 @@ import React from 'react'
 import { twMerge } from 'tailwind-merge'
 
 export interface ButtonProps {
+  active?: boolean
   className?: string
   children: React.ReactNode
   disabled?: boolean
-  active?: boolean
   type?: 'button' | 'submit' | 'reset'
+
   onClick?: () => void
+
   [x: string]: any
+}
+
+const defaultProps = {
+  active: false,
+  className: undefined,
+  disabled: false,
+  type: 'button',
+
+  onClick: () => null,
 }
 
 export function Button({
@@ -20,9 +31,11 @@ export function Button({
   ...props
 }: ButtonProps) {
   const computedClassName = twMerge(
-    'border rounded px-3 py-1 shadow',
-    active && 'bg-orange-100',
-    disabled ? 'bg-gray-100 text-gray-300' : 'hover:bg-orange-100',
+    'border rounded px-[0.75em] py-[0.25em] shadow inline-flex bg-white items-center font-thesans',
+    active && 'bg-uzh-red-20',
+    disabled
+      ? 'bg-gray-100 text-gray-300 cursor-default'
+      : 'hover:bg-uzh-red-20 hover:border-uzh-red-40',
     className
   )
 
@@ -37,5 +50,7 @@ export function Button({
     </button>
   )
 }
+
+Button.defaultProps = defaultProps
 
 export default Button

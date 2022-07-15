@@ -1,8 +1,16 @@
-/** @type {import('tailwindcss').Config} */
+const { TailwindColorsUZH, TailwindFonts } = require('./src/constants')
+
 module.exports = {
   content: ['src/**/**.tsx'],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        ...TailwindColorsUZH,
+      },
+      fontFamily: {
+        ...TailwindFonts,
+      },
+    },
   },
   plugins: [],
-};
+}
