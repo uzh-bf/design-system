@@ -43,6 +43,13 @@ export const TailwindFonts = {
   kollektif: ['kollektif', 'sans-serif'],
 }
 
+export const TailwindBasePlugins = {
+  'tailwindcss/nesting': {},
+  tailwindcss: {},
+  autoprefixer: {},
+  ...(process.env.NODE_ENV === 'production' ? { cssnano: {} } : {}),
+}
+
 export const ESLintConfig = {
   extends: ['next', 'next/core-web-vitals'],
 }
