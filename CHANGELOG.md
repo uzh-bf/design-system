@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.10](https://github.com/uzh-bf/design-system/compare/v0.0.9...v0.0.10) (2022-07-17)
+
+
+### Bug Fixes
+
+* **build:** move constants to separate entrypoint ([5882077](https://github.com/uzh-bf/design-system/commit/58820774bfdcbbf9d074b8275fd4cdc203267cc6))
+
 ### [0.0.9](https://github.com/uzh-bf/design-system/compare/v0.0.8...v0.0.9) (2022-07-17)
 
 
