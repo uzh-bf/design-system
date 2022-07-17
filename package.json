@@ -9,7 +9,7 @@
     "Roland Schlaefli <roland.schlaefli@bf.uzh.ch>"
   ],
   "main": "dist/index.js",
-  "module": "dist/design-system.esm.js",
+  "module": "dist/index.esm.js",
   "typings": "dist/index.d.ts",
   "files": [
     "dist",
@@ -17,7 +17,7 @@
   ],
   "scripts": {
     "analyze": "size-limit --why",
-    "build": "dts build",
+    "build": "dts build --entry src/index.ts --entry src/constants.js",
     "lint": "dts lint",
     "size": "size-limit",
     "dev": "ladle serve",

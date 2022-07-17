@@ -1,6 +1,6 @@
 import './tailwind.css'
 
-export * from './constants'
+// export * from './constants'
 
 export * from './ThemeProvider'
 
