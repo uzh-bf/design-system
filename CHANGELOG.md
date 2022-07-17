@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.11](https://github.com/uzh-bf/design-system/compare/v0.0.10...v0.0.11) (2022-07-17)
+
+
+### Enhancements
+
+* **Modal:** always show prev/next if one of both is defined, but disable unavailable options ([9063a33](https://github.com/uzh-bf/design-system/commit/9063a3399278c94d206949ea7f72e07801e29c63))
+
+
+### Other
+
+* **Button:** show the primary border if button is active ([b0097ac](https://github.com/uzh-bf/design-system/commit/b0097aca95c89e1794acabc2e4c600168fbfc538))
+
 ### [0.0.10](https://github.com/uzh-bf/design-system/compare/v0.0.9...v0.0.10) (2022-07-17)
 
 
