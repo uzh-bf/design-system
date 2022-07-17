@@ -22,12 +22,8 @@
     "size": "size-limit",
     "dev": "ladle serve",
     "test": "dts test --passWithNoTests",
-    "release": "standard-version"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "dts lint"
-    }
+    "release": "standard-version",
+    "prepare": "husky install"
   },
   "jest": {
     "testEnvironment": "jsdom"
