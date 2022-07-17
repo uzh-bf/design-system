@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.12](https://github.com/uzh-bf/design-system/compare/v0.0.11...v0.0.12) (2022-07-17)
+
+
+### Features
+
+* **Header:** add basic header components ([4681649](https://github.com/uzh-bf/design-system/commit/4681649701857e932339304e494a16e689deb5d1))
+
 ### [0.0.11](https://github.com/uzh-bf/design-system/compare/v0.0.10...v0.0.11) (2022-07-17)
 
 
