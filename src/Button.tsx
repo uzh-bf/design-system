@@ -38,7 +38,7 @@ export function Button({
 
   const computedClassName = twMerge(
     'border rounded px-[0.75em] py-[0.25em] shadow inline-flex flex-row bg-white items-center font-thesans gap-2',
-    active && `${theme.primaryBg} ${theme.primaryFill}`,
+    active && `${theme.primaryBg} ${theme.primaryFill} ${theme.primaryBorder}`,
     disabled
       ? 'bg-uzh-grey-20 text-uzh-grey-80 cursor-default fill-uzh-grey-80'
       : `${theme.primaryBgHover} ${theme.primaryBorderHover} ${theme.primaryTextHover} ${theme.primaryFillHover}`,
