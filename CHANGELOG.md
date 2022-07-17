@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.9](https://github.com/uzh-bf/design-system/compare/v0.0.8...v0.0.9) (2022-07-17)
+
+
+### Bug Fixes
+
+* **ThemeProvider:** export named in addition to default ([14377df](https://github.com/uzh-bf/design-system/commit/14377df2195ecf16cb2880718e2efd661dc1dd17))
+
 ### [0.0.8](https://github.com/uzh-bf/design-system/compare/v0.0.7...v0.0.8) (2022-07-17)
 
 
