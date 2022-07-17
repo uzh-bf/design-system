@@ -1,4 +1,4 @@
-import { createContext } from 'react'
+import React, { createContext } from 'react'
 
 type Theme = {
   primaryBg: string
@@ -7,6 +7,7 @@ type Theme = {
   primaryBorderHover: string
   primaryText: string
   primaryTextHover: string
+  primaryFill: string
 }
 
 interface Props {
@@ -21,6 +22,7 @@ const BASE_THEME: Theme = {
   primaryBorderHover: 'hover:border-uzh-red-40',
   primaryText: 'text-uzh-red-100',
   primaryTextHover: 'hover:text-uzh-red-100',
+  primaryFill: 'fill-uzh-red-80',
 }
 
 export const ThemeContext = createContext<Theme>(BASE_THEME)
