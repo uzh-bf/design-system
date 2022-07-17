@@ -14,7 +14,7 @@ export interface ModalProps {
   children: React.ReactNode
   open: boolean
   title?: string | React.ReactNode
-  trigger: React.ReactNode
+  trigger?: React.ReactNode
 
   onClose: () => void
   onNext?: () => void
@@ -63,8 +63,8 @@ export function Modal({
 
       <RadixDialog.Portal>
         <RadixDialog.Overlay className="fixed top-0 bottom-0 left-0 right-0 flex justify-center gap-4 p-4 bg-opacity-50 md:items-center bg-uzh-grey-100">
-          {onPrev && (
-            <Button className="lg:text-xl" onClick={onPrev}>
+          {(onPrev || onNext) && (
+            <Button className="lg:text-xl" disabled={!onPrev} onClick={onPrev}>
               <FontAwesomeIcon icon={faChevronLeft} />
             </Button>
           )}
@@ -103,8 +103,8 @@ export function Modal({
             </div>
           </RadixDialog.Content>
 
-          {onNext && (
-            <Button className="lg:text-xl" onClick={onNext}>
+          {(onPrev || onNext) && (
+            <Button className="lg:text-xl" disabled={!onNext} onClick={onNext}>
               <FontAwesomeIcon icon={faChevronRight} />
             </Button>
           )}
