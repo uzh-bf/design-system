@@ -58,9 +58,11 @@ export function H4({ className, children }: HeaderProps) {
   )
 }
 
-export default {
+const Header = {
   H1,
   H2,
   H3,
   H4,
 }
+
+export default Header
