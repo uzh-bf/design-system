@@ -41,7 +41,7 @@ export function Button({
     active && `${theme.primaryBg} ${theme.primaryFill}`,
     disabled
       ? 'bg-uzh-grey-20 text-uzh-grey-80 cursor-default fill-uzh-grey-80'
-      : `${theme.primaryBgHover} ${theme.primaryBorderHover}`,
+      : `${theme.primaryBgHover} ${theme.primaryBorderHover} ${theme.primaryTextHover} ${theme.primaryFillHover}`,
     fluid && 'w-full justify-center',
     className
   )

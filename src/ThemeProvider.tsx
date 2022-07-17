@@ -8,6 +8,7 @@ type Theme = {
   primaryText: string
   primaryTextHover: string
   primaryFill: string
+  primaryFillHover: string
 }
 
 interface Props {
@@ -23,6 +24,7 @@ const BASE_THEME: Theme = {
   primaryText: 'text-uzh-red-100',
   primaryTextHover: 'hover:text-uzh-red-100',
   primaryFill: 'fill-uzh-red-80',
+  primaryFillHover: 'hover:fill-uzh-red-100',
 }
 
 export const ThemeContext = createContext<Theme>(BASE_THEME)
