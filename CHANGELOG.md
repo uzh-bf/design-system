@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.14](https://github.com/uzh-bf/design-system/compare/v0.0.13...v0.0.14) (2022-07-17)
+
+
+### Bug Fixes
+
+* **Header:** const before export to satisfy linter ([3a78d4e](https://github.com/uzh-bf/design-system/commit/3a78d4e2da949f0fba2f9c5765252673ab23bc10))
+* **Header:** ensure React is imported ([52cf07a](https://github.com/uzh-bf/design-system/commit/52cf07a7a05c5b3f60d34964562b19f368187eda))
+
+
+### Enhancements
+
+* **build:** add husky hooks ([7003482](https://github.com/uzh-bf/design-system/commit/7003482ab38bf8ec4a36039478e82e7cce773ca3))
+
 ### [0.0.13](https://github.com/uzh-bf/design-system/compare/v0.0.12...v0.0.13) (2022-07-17)
 
 
