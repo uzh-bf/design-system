@@ -7,6 +7,7 @@ type Theme = {
   primaryBorderHover: string
   primaryText: string
   primaryTextHover: string
+  primaryProseHover: string
   primaryFill: string
   primaryFillHover: string
 }
@@ -23,6 +24,7 @@ const BASE_THEME: Theme = {
   primaryBorderHover: 'hover:border-uzh-red-40',
   primaryText: 'text-uzh-red-100',
   primaryTextHover: 'hover:text-uzh-red-100',
+  primaryProseHover: 'hover:prose-a:text-uzh-red-100',
   primaryFill: 'fill-uzh-red-80',
   primaryFillHover: 'hover:fill-uzh-red-100',
 }
