@@ -12,6 +12,7 @@ import Button from './Button'
 export interface ModalProps {
   className?: string
   children: React.ReactNode
+  fullScreen?: boolean
   open: boolean
   title?: string | React.ReactNode
   trigger?: React.ReactNode
@@ -26,6 +27,7 @@ export interface ModalProps {
 
 const defaultProps = {
   className: '',
+  fullScreen: false,
   title: '',
 }
 
@@ -38,6 +40,7 @@ export function Modal({
   onNext,
   open,
   onOpenChange,
+  fullScreen,
   className,
   onPrimaryAction,
   onSecondaryAction,
@@ -71,7 +74,10 @@ export function Modal({
 
           <RadixDialog.Content
             className={twMerge(
-              'bg-white rounded-lg shadow max-w-7xl xl:w-[70rem] lg:w-[55rem] md:w-[40rem] xl:h-[45rem] lg:h-[40rem] md:h-[28rem] w-[27rem] min-h-[18rem] md:overflow-y-scroll p-4 gap-4 flex flex-col',
+              'bg-white rounded-lg shadow md:overflow-y-scroll p-4 gap-4 flex flex-col',
+              fullScreen
+                ? 'w-full h-full'
+                : 'max-w-7xl xl:w-[70rem] lg:w-[55rem] md:w-[40rem] xl:h-[45rem] lg:h-[40rem] md:h-[28rem] w-[27rem] min-h-[18rem]',
               className
             )}
             onEscapeKeyDown={onClose}

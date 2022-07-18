@@ -74,3 +74,17 @@ export const Secondary = () => {
     </Modal>
   )
 }
+
+export const Fullscreen = () => {
+  const [isOpen, setIsOpen] = useState(false)
+  return (
+    <Modal
+      fullScreen
+      open={isOpen}
+      trigger={<Button onClick={() => setIsOpen(true)}>Open Modal</Button>}
+      onClose={() => setIsOpen(false)}
+    >
+      content
+    </Modal>
+  )
+}
