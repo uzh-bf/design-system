@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.15](https://github.com/uzh-bf/design-system/compare/v0.0.14...v0.0.15) (2022-07-18)
+
+
+### Features
+
+* **Prose:** add prose component with link hover state ([a2ac99d](https://github.com/uzh-bf/design-system/commit/a2ac99d5757287317a342a4094e8d2f4270c669a))
+
+
+### Dependencies
+
+* add tailwind plugins ([835b3dd](https://github.com/uzh-bf/design-system/commit/835b3ddf5b9c76a06ce6a402d976d8ad2889a20e))
+
+
+### Enhancements
+
+* **Modal:** add fullScreen mode for modal ([ce1367d](https://github.com/uzh-bf/design-system/commit/ce1367d1c3cf8db1427114ca0fb6377e00066591))
+
 ### [0.0.14](https://github.com/uzh-bf/design-system/compare/v0.0.13...v0.0.14) (2022-07-17)
 
 
