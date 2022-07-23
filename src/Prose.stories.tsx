@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import Prose from './Prose'
 
 export const Default = () => {
