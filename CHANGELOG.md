@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.16](https://github.com/uzh-bf/design-system/compare/v0.0.15...v0.0.16) (2022-07-23)
+
+
+### Enhancements
+
+* add prettier-plugin-organize-imports ([583dcc1](https://github.com/uzh-bf/design-system/commit/583dcc1635e2edb5ceb18d315127ec0177ec4b39))
+
+
+### Other
+
+* downgrade node to 16 and remove npm i deps ([9e7d236](https://github.com/uzh-bf/design-system/commit/9e7d2367557178a8764e2bca317811eb1235b190))
+
 ### [0.0.15](https://github.com/uzh-bf/design-system/compare/v0.0.14...v0.0.15) (2022-07-18)
 
 
