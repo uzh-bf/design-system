@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.17](https://github.com/uzh-bf/design-system/compare/v0.0.16...v0.0.17) (2022-07-23)
+
+
+### Bug Fixes
+
+* add prettier-plugin-organize-imports to peer deps ([d2e2639](https://github.com/uzh-bf/design-system/commit/d2e263918d667edd289a75de5d08e11ae6fd28c9))
+
 ### [0.0.16](https://github.com/uzh-bf/design-system/compare/v0.0.15...v0.0.16) (2022-07-23)
 
 
