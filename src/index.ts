@@ -1,7 +1,7 @@
 import './tailwind.css'
 
-export * from './constants'
-
 export * from './ThemeProvider'
-
 export * from './Button'
+export * from './Modal'
+export * from './Header'
+export * from './Prose'

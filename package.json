@@ -1,6 +1,6 @@
 {
   "name": "@uzh-bf/design-system",
-  "version": "0.0.7",
+  "version": "0.0.15",
   "license": "MIT",
   "repository": {
     "url": "https://github.com/uzh-bf/design-system.git"
@@ -9,7 +9,7 @@
     "Roland Schlaefli <roland.schlaefli@bf.uzh.ch>"
   ],
   "main": "dist/index.js",
-  "module": "dist/design-system.esm.js",
+  "module": "dist/index.esm.js",
   "typings": "dist/index.d.ts",
   "files": [
     "dist",
@@ -17,17 +17,13 @@
   ],
   "scripts": {
     "analyze": "size-limit --why",
-    "build": "dts build",
+    "build": "dts build --entry src/index.ts --entry src/constants.js",
     "lint": "dts lint",
     "size": "size-limit",
     "dev": "ladle serve",
     "test": "dts test --passWithNoTests",
-    "release": "standard-version"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "dts lint"
-    }
+    "release": "standard-version",
+    "prepare": "husky install"
   },
   "jest": {
     "testEnvironment": "jsdom"
@@ -75,6 +71,18 @@
     "typescript": "4.7.4"
   },
   "volta": {
-    "node": "16.16.0"
+    "node": "18.6.0"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "6.1.1",
+    "@fortawesome/free-solid-svg-icons": "6.1.1",
+    "@fortawesome/react-fontawesome": "0.2.0",
+    "@radix-ui/react-dialog": "0.1.8-rc.50",
+    "@tailwindcss/aspect-ratio": "0.4.0",
+    "@tailwindcss/forms": "0.5.2",
+    "@tailwindcss/line-clamp": "0.4.0",
+    "@tailwindcss/typography": "0.5.4",
+    "i": "0.3.7",
+    "npm": "8.14.0"
   }
 }

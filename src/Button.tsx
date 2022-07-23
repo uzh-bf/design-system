@@ -7,6 +7,7 @@ export interface ButtonProps {
   className?: string
   children: React.ReactNode
   disabled?: boolean
+  fluid?: boolean
   type?: 'button' | 'submit' | 'reset'
 
   onClick?: () => void
@@ -18,6 +19,7 @@ const defaultProps = {
   active: false,
   className: undefined,
   disabled: false,
+  fluid: false,
   type: 'button',
 
   onClick: () => null,
@@ -29,16 +31,18 @@ export function Button({
   onClick,
   disabled,
   active,
+  fluid,
   ...props
 }: ButtonProps) {
   const theme = useContext(ThemeContext)
 
   const computedClassName = twMerge(
-    'border rounded px-[0.75em] py-[0.25em] shadow inline-flex flex-row bg-white items-center font-thesans',
-    active && theme.primaryBg,
+    'border rounded px-[0.75em] py-[0.25em] shadow inline-flex flex-row bg-white items-center font-thesans gap-2',
+    active && `${theme.primaryBg} ${theme.primaryFill} ${theme.primaryBorder}`,
     disabled
-      ? 'bg-uzh-grey-20 text-uzh-grey-80 cursor-default'
-      : `${theme.primaryBgHover} ${theme.primaryBorderHover}`,
+      ? 'bg-uzh-grey-20 text-uzh-grey-80 cursor-default fill-uzh-grey-80'
+      : `${theme.primaryBgHover} ${theme.primaryBorderHover} ${theme.primaryTextHover} ${theme.primaryFillHover}`,
+    fluid && 'w-full justify-center',
     className
   )
 
@@ -55,5 +59,25 @@ export function Button({
 }
 
 Button.defaultProps = defaultProps
+
+Button.Icon = function ({
+  className,
+  children,
+}: {
+  className?: string
+  children: React.ReactNode
+}) {
+  return <div className={twMerge('w-3', className)}>{children}</div>
+}
+
+Button.Label = function ({
+  className,
+  children,
+}: {
+  className?: string
+  children: React.ReactNode
+}) {
+  return <div className={twMerge('', className)}>{children}</div>
+}
 
 export default Button
