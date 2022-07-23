@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.18](https://github.com/uzh-bf/design-system/compare/v0.0.17...v0.0.18) (2022-07-23)
+
+
+### Enhancements
+
+* integrate prettier-plugin-tailwindcss for class sorting, add plugins to config explicitly ([5324699](https://github.com/uzh-bf/design-system/commit/5324699a2c4a0da69ba09ce33ae56fe2904968ca))
+
 ### [0.0.17](https://github.com/uzh-bf/design-system/compare/v0.0.16...v0.0.17) (2022-07-23)
 
 
