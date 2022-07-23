@@ -65,7 +65,7 @@ export function Modal({
       {trigger && <RadixDialog.Trigger asChild>{trigger}</RadixDialog.Trigger>}
 
       <RadixDialog.Portal>
-        <RadixDialog.Overlay className="fixed top-0 bottom-0 left-0 right-0 flex justify-center gap-4 p-4 bg-opacity-50 md:items-center bg-uzh-grey-100">
+        <RadixDialog.Overlay className="fixed top-0 bottom-0 left-0 right-0 flex justify-center gap-4 bg-uzh-grey-100 bg-opacity-50 p-4 md:items-center">
           {(onPrev || onNext) && (
             <Button className="lg:text-xl" disabled={!onPrev} onClick={onPrev}>
               <FontAwesomeIcon icon={faChevronLeft} />
@@ -74,19 +74,19 @@ export function Modal({
 
           <RadixDialog.Content
             className={twMerge(
-              'bg-white rounded-lg shadow md:overflow-y-scroll p-4 gap-4 flex flex-col',
+              'flex flex-col gap-4 rounded-lg bg-white p-4 shadow md:overflow-y-scroll',
               fullScreen
-                ? 'w-full h-full'
-                : 'max-w-7xl xl:w-[70rem] lg:w-[55rem] md:w-[40rem] xl:h-[45rem] lg:h-[40rem] md:h-[28rem] w-[27rem] min-h-[18rem]',
+                ? 'h-full w-full'
+                : 'min-h-[18rem] w-[27rem] max-w-7xl md:h-[28rem] md:w-[40rem] lg:h-[40rem] lg:w-[55rem] xl:h-[45rem] xl:w-[70rem]',
               className
             )}
             onEscapeKeyDown={onClose}
             onPointerDownOutside={onPrev || onNext ? undefined : onClose}
           >
-            <div className="flex flex-row items-end justify-between flex-initial">
+            <div className="flex flex-initial flex-row items-end justify-between">
               <div>
                 {title && (
-                  <RadixDialog.Title className="text-lg font-bold md:text-xl font-thesans">
+                  <RadixDialog.Title className="font-thesans text-lg font-bold md:text-xl">
                     {title}
                   </RadixDialog.Title>
                 )}
@@ -103,7 +103,7 @@ export function Modal({
 
             <div className="flex-1">{children}</div>
 
-            <div className="flex flex-row justify-between flex-initial">
+            <div className="flex flex-initial flex-row justify-between">
               <div>{onSecondaryAction && <div>{onSecondaryAction}</div>}</div>
               <div>{onPrimaryAction && <div>{onPrimaryAction}</div>}</div>
             </div>

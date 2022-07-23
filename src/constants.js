@@ -59,6 +59,10 @@ const PrettierConfig = {
   semi: false,
   singleQuote: true,
   trailingComma: 'es5',
+  plugins: [
+    require('prettier-plugin-tailwindcss'),
+    require('prettier-plugin-organize-imports'),
+  ],
 }
 
 const VersionConfigTypes = [

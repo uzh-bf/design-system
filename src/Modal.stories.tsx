@@ -47,7 +47,7 @@ export const Primary = () => {
       trigger={<Button onClick={() => setIsOpen(true)}>Open Modal</Button>}
       onClose={() => setIsOpen(false)}
       onPrimaryAction={
-        <Button className="text-white bg-uzh-blue-100 border-uzh-blue-80">
+        <Button className="border-uzh-blue-80 bg-uzh-blue-100 text-white">
           Primary
         </Button>
       }
@@ -65,7 +65,7 @@ export const Secondary = () => {
       trigger={<Button onClick={() => setIsOpen(true)}>Open Modal</Button>}
       onClose={() => setIsOpen(false)}
       onSecondaryAction={
-        <Button className="text-white bg-uzh-grey-100 border-uzh-grey-80">
+        <Button className="border-uzh-grey-80 bg-uzh-grey-100 text-white">
           Primary
         </Button>
       }

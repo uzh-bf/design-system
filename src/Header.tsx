@@ -10,7 +10,7 @@ export function H1({ className, children }: HeaderProps) {
   return (
     <h1
       className={twMerge(
-        'mb-[0.2em] text-2xl font-bold font-thesans',
+        'mb-[0.2em] font-thesans text-2xl font-bold',
         className
       )}
     >
@@ -23,7 +23,7 @@ export function H2({ className, children }: HeaderProps) {
   return (
     <h2
       className={twMerge(
-        'mb-[0.2em] text-xl font-bold font-thesans',
+        'mb-[0.2em] font-thesans text-xl font-bold',
         className
       )}
     >
@@ -36,7 +36,7 @@ export function H3({ className, children }: HeaderProps) {
   return (
     <h3
       className={twMerge(
-        'mb-[0.2em] text-lg font-bold font-thesans',
+        'mb-[0.2em] font-thesans text-lg font-bold',
         className
       )}
     >
@@ -49,7 +49,7 @@ export function H4({ className, children }: HeaderProps) {
   return (
     <h4
       className={twMerge(
-        'mb-[0.2em] font-bold text-md font-thesans',
+        'text-md mb-[0.2em] font-thesans font-bold',
         className
       )}
     >
