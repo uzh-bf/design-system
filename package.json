@@ -1,6 +1,6 @@
 {
   "name": "@uzh-bf/design-system",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "license": "MIT",
   "repository": {
     "url": "https://github.com/uzh-bf/design-system.git"
@@ -24,6 +24,7 @@
     "format": "prettier --write src/",
     "test": "dts test --passWithNoTests",
     "release": "standard-version",
+    "release:dry": "standard-version --dry-run",
     "prepare": "husky install"
   },
   "jest": {

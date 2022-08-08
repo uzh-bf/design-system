@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.23](https://github.com/uzh-bf/design-system/compare/v0.0.22...v0.0.23) (2022-08-08)
+
+
+### Features
+
+* **Navigation:** add navigation based on Radix NavigationMenu [#2](https://github.com/uzh-bf/design-system/issues/2)  ([69ce9c7](https://github.com/uzh-bf/design-system/commit/69ce9c7203ab8e75af2fc69c6e16d4fa742de131))
+
+
+### Refactors
+
+* extract animation config to constants ([a25f1ba](https://github.com/uzh-bf/design-system/commit/a25f1bad268fc334cc63e9fef7879818fe718877))
+
 ### [0.0.22](https://github.com/uzh-bf/design-system/compare/v0.0.21...v0.0.22) (2022-08-08)
 
 
