@@ -16,7 +16,7 @@ type buttonProps = {
   children: React.ReactNode
 }
 
-const Navigation = (props: navigationProps) => {
+export function Navigation(props: navigationProps) {
   const theme = useContext(ThemeContext)
 
   return (
@@ -32,7 +32,9 @@ const Navigation = (props: navigationProps) => {
   )
 }
 
-Navigation.NavigationMenu = (props: navigationMenuProps) => {
+Navigation.NavigationMenu = function NavigationMenu(
+  props: navigationMenuProps
+) {
   const theme = useContext(ThemeContext)
   const computedViewportClassName = twMerge(
     'absolute',
@@ -89,7 +91,7 @@ Navigation.NavigationMenu = (props: navigationMenuProps) => {
   )
 }
 
-Navigation.TriggerItem = ({
+Navigation.TriggerItem = function TriggerItem({
   triggerName,
   triggerIcon,
   children,
@@ -97,7 +99,7 @@ Navigation.TriggerItem = ({
   triggerName: string
   triggerIcon?: React.ReactNode
   children: React.ReactNode
-}) => {
+}) {
   const theme = useContext(ThemeContext)
   return (
     <NavigationMenuPrimitive.Item>
@@ -136,7 +138,7 @@ Navigation.TriggerItem = ({
   )
 }
 
-Navigation.DropdownItem = ({
+Navigation.DropdownItem = function DropdownItem({
   title,
   link,
   subtitle,
@@ -146,7 +148,7 @@ Navigation.DropdownItem = ({
   link: string
   subtitle?: string
   icon?: React.ReactNode
-}) => {
+}) {
   const theme = useContext(ThemeContext)
   return (
     <NavigationMenuPrimitive.Link
@@ -181,7 +183,7 @@ Navigation.DropdownItem = ({
   )
 }
 
-Navigation.LinkItem = ({
+Navigation.LinkItem = function LinkItem({
   linkName,
   link,
   linkIcon,
@@ -189,7 +191,7 @@ Navigation.LinkItem = ({
   linkName: string
   link: string
   linkIcon?: React.ReactNode
-}) => {
+}) {
   const theme = useContext(ThemeContext)
   return (
     <NavigationMenuPrimitive.Item asChild>
@@ -211,7 +213,7 @@ Navigation.LinkItem = ({
   )
 }
 
-Navigation.ButtonItem = (props: buttonProps) => {
+Navigation.ButtonItem = function ButtonItem(props: buttonProps) {
   return (
     <NavigationMenuPrimitive.Item asChild>
       {props.children}
