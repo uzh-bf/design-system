@@ -1,9 +1,15 @@
-const { TailwindColorsUZH, TailwindFonts } = require('./src/constants')
+const {
+  TailwindColorsUZH,
+  TailwindFonts,
+  TailwindAnimations,
+} = require('./src/constants')
 
 module.exports = {
   content: ['src/**/**.tsx'],
+  darkMode: 'class',
   theme: {
     extend: {
+      ...TailwindAnimations,
       colors: {
         ...TailwindColorsUZH,
       },
@@ -13,11 +19,11 @@ module.exports = {
     },
   },
   plugins: [
+    require('tailwindcss-radix')({ variantPrefix: 'rdx' }),
     require('@tailwindcss/typography'),
     require('@tailwindcss/aspect-ratio'),
     require('@tailwindcss/forms'),
     require('@tailwindcss/line-clamp'),
-    require('tailwindcss-radix')({ variantPrefix: 'rdx' }),
   ],
   corePlugins: {
     preflight: false,

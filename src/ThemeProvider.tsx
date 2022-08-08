@@ -3,6 +3,7 @@ import React, { createContext } from 'react'
 type Theme = {
   primaryBg: string
   primaryBgHover: string
+  primaryBgHoverNavbar: string
   primaryBorder: string
   primaryBorderHover: string
   primaryText: string
@@ -20,6 +21,7 @@ interface Props {
 const BASE_THEME: Theme = {
   primaryBg: 'bg-uzh-red-20',
   primaryBgHover: 'hover:bg-uzh-red-20',
+  primaryBgHoverNavbar: 'hover:bg-uzh-red-40',
   primaryBorder: 'border-uzh-red-40',
   primaryBorderHover: 'hover:border-uzh-red-40',
   primaryText: 'text-uzh-red-100',

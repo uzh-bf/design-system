@@ -60,7 +60,7 @@ export function Button({
 
 Button.defaultProps = defaultProps
 
-Button.Icon = function ({
+Button.Icon = function ButtonIcon({
   className,
   children,
 }: {
@@ -70,7 +70,7 @@ Button.Icon = function ({
   return <div className={twMerge('w-3', className)}>{children}</div>
 }
 
-Button.Label = function ({
+Button.Label = function ButtonLabel({
   className,
   children,
 }: {
