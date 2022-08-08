@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.20](https://github.com/uzh-bf/design-system/compare/v0.0.19...v0.0.20) (2022-08-08)
+
+
+### Other
+
+* disable preflight globally (import on case by case basis), remove peer deps for code style tooling ([cf13678](https://github.com/uzh-bf/design-system/commit/cf13678c91e2e8e94d5321c8ad7ffd9bf63669f6))
+
 ### [0.0.19](https://github.com/uzh-bf/design-system/compare/v0.0.18...v0.0.19) (2022-07-23)
 
 
