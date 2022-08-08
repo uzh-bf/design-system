@@ -19,4 +19,7 @@ module.exports = {
     require('@tailwindcss/line-clamp'),
     require('tailwindcss-radix')({ variantPrefix: 'rdx' }),
   ],
+  corePlugins: {
+    preflight: false,
+  },
 }
