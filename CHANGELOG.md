@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.24](https://github.com/uzh-bf/design-system/compare/v0.0.23...v0.0.24) (2022-08-08)
+
+
+### Bug Fixes
+
+* **Navigation:** add export for component ([6ec1c9d](https://github.com/uzh-bf/design-system/commit/6ec1c9d5f198ab2231d28915b5c76fd94eda3b88))
+
 ### [0.0.23](https://github.com/uzh-bf/design-system/compare/v0.0.22...v0.0.23) (2022-08-08)
 
 
