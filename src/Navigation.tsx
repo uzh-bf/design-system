@@ -10,6 +10,7 @@ type navigationMenuProps = {
 
 type navigationProps = {
   children: React.ReactNode
+  className?: string
 }
 
 type buttonProps = {
@@ -23,7 +24,8 @@ const Navigation = (props: navigationProps) => {
     <div
       className={twMerge(
         'flex flex-row flex-wrap flex-1 w-full rounded-lg',
-        theme.primaryBg
+        theme.primaryBg,
+        props.className
       )}
     >
       <div className="flex-1 order-2" />
@@ -35,9 +37,9 @@ const Navigation = (props: navigationProps) => {
 Navigation.NavigationMenu = (props: navigationMenuProps) => {
   const theme = useContext(ThemeContext)
   const computedViewportClassName = twMerge(
-    'absolute',
+    'absolute z-50',
     props.position == 'left' && 'w-[80%] top-[100%] justify-start',
-    props.position == 'right' && 'w-[140%] left-[-40%] top-[100%] justify-end'
+    props.position == 'right' && 'w-[140%] top-[100%] justify-end'
   )
   return (
     <NavigationMenuPrimitive.Root
@@ -136,26 +138,26 @@ Navigation.TriggerItem = ({
   )
 }
 
-Navigation.DropdownItem = ({
+Navigation.DropdownItem = function DropdownItem({
   title,
-  link,
+  onClick,
   subtitle,
   icon,
 }: {
   title: string
-  link: string
+  onClick: React.MouseEventHandler
   subtitle?: string
   icon?: React.ReactNode
-}) => {
+}) {
   const theme = useContext(ThemeContext)
   return (
-    <NavigationMenuPrimitive.Link
+    <button
       className={twMerge(
         'w-full px-4 py-3 dark:hover:bg-gray-900 rounded-md',
         'focus:outline-none focus-visible:ring focus-visible:ring-opacity-75',
         theme.primaryBgHoverNavbar
       )}
-      href={link}
+      onClick={onClick}
     >
       <span
         className={twMerge(
@@ -170,26 +172,26 @@ Navigation.DropdownItem = ({
       {subtitle && (
         <div
           className={twMerge(
-            'mt-1 text-sm dark:text-gray-400',
+            'mt-1 text-sm dark:text-gray-400 text-left',
             theme.primaryText
           )}
         >
           {subtitle}
         </div>
       )}
-    </NavigationMenuPrimitive.Link>
+    </button>
   )
 }
 
-Navigation.LinkItem = ({
+Navigation.LinkItem = function LinkItem({
   linkName,
   link,
   linkIcon,
 }: {
   linkName: string
-  link: string
+  link?: string
   linkIcon?: React.ReactNode
-}) => {
+}) {
   const theme = useContext(ThemeContext)
   return (
     <NavigationMenuPrimitive.Item asChild>
