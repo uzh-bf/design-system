@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import Button from './Button'
 import Modal from './Modal'
 
@@ -47,7 +47,7 @@ export const Primary = () => {
       trigger={<Button onClick={() => setIsOpen(true)}>Open Modal</Button>}
       onClose={() => setIsOpen(false)}
       onPrimaryAction={
-        <Button className="border-uzh-blue-80 bg-uzh-blue-100 text-white">
+        <Button className="text-white border-uzh-blue-80 bg-uzh-blue-100">
           Primary
         </Button>
       }
@@ -65,7 +65,7 @@ export const Secondary = () => {
       trigger={<Button onClick={() => setIsOpen(true)}>Open Modal</Button>}
       onClose={() => setIsOpen(false)}
       onSecondaryAction={
-        <Button className="border-uzh-grey-80 bg-uzh-grey-100 text-white">
+        <Button className="text-white border-uzh-grey-80 bg-uzh-grey-100">
           Primary
         </Button>
       }
