@@ -79,6 +79,7 @@
     "@fortawesome/free-solid-svg-icons": "6.1.2",
     "@fortawesome/react-fontawesome": "0.2.0",
     "@radix-ui/react-dialog": "1.0.0",
+    "@radix-ui/react-label": "1.0.0",
     "@radix-ui/react-navigation-menu": "1.0.0",
     "@radix-ui/react-progress": "1.0.0",
     "@radix-ui/react-switch": "1.0.0"
