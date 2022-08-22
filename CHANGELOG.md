@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.26](https://github.com/uzh-bf/design-system/compare/v0.0.25...v0.0.26) (2022-08-22)
+
+
+### Features
+
+* **Progress:** add progress bar component and upgrade packages ([#4](https://github.com/uzh-bf/design-system/issues/4)) ([52db72d](https://github.com/uzh-bf/design-system/commit/52db72dc5091b4a5ccccdcf07f5e5c28b6c55b7b))
+* **Switch:** add switch component ([#5](https://github.com/uzh-bf/design-system/issues/5)) ([5921151](https://github.com/uzh-bf/design-system/commit/5921151464a21eb892ecbbb1b533456394d92e4a))
+
 ### [0.0.25](https://github.com/uzh-bf/design-system/compare/v0.0.24...v0.0.25) (2022-08-08)
 
 ### [0.0.24](https://github.com/uzh-bf/design-system/compare/v0.0.23...v0.0.24) (2022-08-08)
