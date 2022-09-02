@@ -1,7 +1,7 @@
 import React from 'react'
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 
-interface CountdownProps {
+export interface CountdownProps {
   countdownDuration: number
   size?: number
   strokeWidth?: number
@@ -13,12 +13,16 @@ interface CountdownProps {
 }
 
 const defaultProps = {
+  size: undefined,
+  strokeWidth: undefined,
+  colors: undefined,
+  colorTimes: undefined,
   className: undefined,
   formatter: undefined,
   onExpire: () => null,
 }
 
-function Countdown({
+export function Countdown({
   countdownDuration,
   colors,
   colorTimes,
