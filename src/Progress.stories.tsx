@@ -16,3 +16,15 @@ export const Full = () => {
 export const Formatted = () => {
   return <Progress value={50} max={100} formatter={(val) => `${val}%`} />
 }
+
+export const Styled = () => {
+  return (
+    <Progress
+      value={30}
+      max={100}
+      className="h-10 font-bold"
+      indicatorClassName="bg-blue-700 h-10"
+      formatter={(val) => val}
+    />
+  )
+}

@@ -28,10 +28,7 @@ export function Progress({
 }: ProgressProps) {
   const theme = useContext(ThemeContext)
 
-  const computedClassName = twMerge(
-    'relative h-6 text-sm bg-gray-100 rounded',
-    className
-  )
+  const computedClassName = twMerge('relative h-7 text-sm rounded', className)
 
   return (
     <RadixProgress.Root
@@ -40,14 +37,14 @@ export function Progress({
       max={max}
       {...props}
     >
-      <div className="absolute w-full px-2 py-1 text-right bg-gray-200 rounded">
+      <div className="absolute flex flex-col justify-center w-full h-full px-2 py-1 text-right bg-gray-200 rounded">
         {formatter(max)}
       </div>
 
       <RadixProgress.Indicator
         style={{ width: `${(value / max) * 100}%` }}
         className={twMerge(
-          'absolute px-2 py-1 text-right min-w-[40px] text-white rounded h-full',
+          'absolute px-2 py-1 min-w-[40px] text-white rounded flex flex-col justify-center text-right',
           theme.primaryBgDark,
           indicatorClassName
         )}
