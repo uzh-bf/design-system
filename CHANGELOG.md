@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.30](https://github.com/uzh-bf/design-system/compare/v0.0.29...v0.0.30) (2022-09-02)
+
+
+### Bug Fixes
+
+* **Countdown:** add missing exports of countdown component ([ee3c9a4](https://github.com/uzh-bf/design-system/commit/ee3c9a49b65a97206cc0707bd78547a4d94fb3cb))
+
 ### [0.0.29](https://github.com/uzh-bf/design-system/compare/v0.0.28...v0.0.29) (2022-09-02)
 
 
