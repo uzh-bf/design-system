@@ -8,11 +8,13 @@ export interface ProgressProps {
   className?: string
   value: number
   max: number
+  color?: string
   formatter: (value: any) => any
   [x: string]: any
 }
 
 const defaultProps = {
+  color: undefined,
   formatter: (value: any) => value,
 }
 
@@ -20,6 +22,7 @@ export function Progress({
   formatter,
   value,
   max,
+  color,
   className,
   ...props
 }: ProgressProps) {
@@ -44,8 +47,8 @@ export function Progress({
       <RadixProgress.Indicator
         style={{ width: `${(value / max) * 100}%` }}
         className={twMerge(
-          'absolute px-2 py-1 text-right min-w-[40px] text-white rounded',
-          theme.primaryBgDark
+          'absolute px-2 py-1 text-right min-w-[40px] text-white rounded h-full',
+          color || theme.primaryBgDark
         )}
       >
         {formatter(value)}
