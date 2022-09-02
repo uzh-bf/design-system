@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.27](https://github.com/uzh-bf/design-system/compare/v0.0.25...v0.0.27) (2022-09-02)
+
+
+### Features
+
+* **Progress:** add progress bar component and upgrade packages ([#4](https://github.com/uzh-bf/design-system/issues/4)) ([52db72d](https://github.com/uzh-bf/design-system/commit/52db72dc5091b4a5ccccdcf07f5e5c28b6c55b7b))
+* **Switch:** add switch component ([#5](https://github.com/uzh-bf/design-system/issues/5)) ([5921151](https://github.com/uzh-bf/design-system/commit/5921151464a21eb892ecbbb1b533456394d92e4a))
+
+
+### Bug Fixes
+
+* fix linter warnings for navbar ([1630d87](https://github.com/uzh-bf/design-system/commit/1630d87db77b26325c1646845c592a31ca6a7eb0))
+
+
+### Other
+
+* allow for color and height changes ([c2af5a3](https://github.com/uzh-bf/design-system/commit/c2af5a3e4461d857e8aaa68ce3088d5ae139bf2a))
+* fix naming scheme ([48e0a3a](https://github.com/uzh-bf/design-system/commit/48e0a3aac5855cdafb158f5affaa6560b0207855))
+* **release:** 0.0.26 ([f7d8cf8](https://github.com/uzh-bf/design-system/commit/f7d8cf88b12569320a462fea77e2afa3c09b139d))
+
 ### [0.0.26](https://github.com/uzh-bf/design-system/compare/v0.0.25...v0.0.26) (2022-08-22)
 
 
