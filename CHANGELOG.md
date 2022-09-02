@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.28](https://github.com/uzh-bf/design-system/compare/v0.0.27...v0.0.28) (2022-09-02)
+
+
+### Features
+
+* **Countdown:** add countdown component ([58c7a75](https://github.com/uzh-bf/design-system/commit/58c7a75b6d7560dd99f145a6a4f5febd30d1a0fa))
+
+
+### Bug Fixes
+
+* fixed layout issues for progress bar and added corresponding story ([2a13641](https://github.com/uzh-bf/design-system/commit/2a13641a536d853092bbdbbe0133fa2697820fce))
+
+
+### Enhancements
+
+* implement Countdown and corresponding stories ([da963b0](https://github.com/uzh-bf/design-system/commit/da963b0c83d4b6275ac3c062b5ba608e98819944))
+
 ### [0.0.27](https://github.com/uzh-bf/design-system/compare/v0.0.25...v0.0.27) (2022-09-02)
 
 
