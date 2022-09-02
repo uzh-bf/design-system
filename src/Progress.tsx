@@ -8,13 +8,13 @@ export interface ProgressProps {
   className?: string
   value: number
   max: number
-  color?: string
+  indicatorClassName?: string
   formatter: (value: any) => any
   [x: string]: any
 }
 
 const defaultProps = {
-  color: undefined,
+  indicatorClassName: undefined,
   formatter: (value: any) => value,
 }
 
@@ -22,7 +22,7 @@ export function Progress({
   formatter,
   value,
   max,
-  color,
+  indicatorClassName,
   className,
   ...props
 }: ProgressProps) {
@@ -48,7 +48,8 @@ export function Progress({
         style={{ width: `${(value / max) * 100}%` }}
         className={twMerge(
           'absolute px-2 py-1 text-right min-w-[40px] text-white rounded h-full',
-          color || theme.primaryBgDark
+          theme.primaryBgDark,
+          indicatorClassName
         )}
       >
         {formatter(value)}
