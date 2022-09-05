@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.31](https://github.com/uzh-bf/design-system/compare/v0.0.30...v0.0.31) (2022-09-05)
+
+
+### Features
+
+* **Markdown:** add markdown component ([#8](https://github.com/uzh-bf/design-system/issues/8)) ([d8fd94e](https://github.com/uzh-bf/design-system/commit/d8fd94e34b16067d9fbce93abc1eeac8f1e056de))
+
 ### [0.0.30](https://github.com/uzh-bf/design-system/compare/v0.0.29...v0.0.30) (2022-09-02)
 
 
