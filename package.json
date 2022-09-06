@@ -83,13 +83,6 @@
     "@radix-ui/react-navigation-menu": "1.0.0",
     "@radix-ui/react-progress": "1.0.0",
     "@radix-ui/react-switch": "1.0.0",
-    "react-countdown-circle-timer": "3.0.9",
-    "rehype-katex": "6.0.2",
-    "rehype-react": "7.1.1",
-    "rehype-sanitize": "5.0.1",
-    "remark-math": "5.1.1",
-    "remark-parse": "10.0.1",
-    "remark-rehype": "10.1.0",
-    "unified": "10.1.2"
+    "react-countdown-circle-timer": "3.0.9"
   }
 }
