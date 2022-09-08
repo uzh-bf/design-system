@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.35](https://github.com/uzh-bf/design-system/compare/v0.0.34...v0.0.35) (2022-09-08)
+
+
+### Features
+
+* **NotificationBadgeWrapper:** add notification badge wrapper component ([#10](https://github.com/uzh-bf/design-system/issues/10)) ([6b8bff4](https://github.com/uzh-bf/design-system/commit/6b8bff4ed86a3224954d72090f87d6be110dfc85))
+
 ### [0.0.34](https://github.com/uzh-bf/design-system/compare/v0.0.33...v0.0.34) (2022-09-06)
 
 ### [0.0.33](https://github.com/uzh-bf/design-system/compare/v0.0.32...v0.0.33) (2022-09-06)
