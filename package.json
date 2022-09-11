@@ -82,6 +82,7 @@
     "@radix-ui/react-label": "1.0.0",
     "@radix-ui/react-navigation-menu": "1.0.0",
     "@radix-ui/react-progress": "1.0.0",
+    "@radix-ui/react-slider": "1.0.0",
     "@radix-ui/react-switch": "1.0.0",
     "react-countdown-circle-timer": "3.0.9"
   }
