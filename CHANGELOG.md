@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.36](https://github.com/uzh-bf/design-system/compare/v0.0.35...v0.0.36) (2022-09-11)
+
+
+### Enhancements
+
+* add slider component ([#11](https://github.com/uzh-bf/design-system/issues/11)) ([cdda43b](https://github.com/uzh-bf/design-system/commit/cdda43b3d2ce3a3b10b0f075b02980c878632c98))
+
 ### [0.0.35](https://github.com/uzh-bf/design-system/compare/v0.0.34...v0.0.35) (2022-09-08)
 
 
