@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.37](https://github.com/uzh-bf/design-system/compare/v0.0.34...v0.0.37) (2022-09-12)
+
+
+### Features
+
+* **NotificationBadgeWrapper:** add notification badge wrapper component ([#10](https://github.com/uzh-bf/design-system/issues/10)) ([6b8bff4](https://github.com/uzh-bf/design-system/commit/6b8bff4ed86a3224954d72090f87d6be110dfc85))
+
+
+### Other
+
+* **release:** 0.0.35 ([18b98c9](https://github.com/uzh-bf/design-system/commit/18b98c935d7c7c3acfa233a892cffdd3d6a3b888))
+* **release:** 0.0.36 ([1f8ee34](https://github.com/uzh-bf/design-system/commit/1f8ee34805e1b09b43349a338f325bfececa6dc8))
+
+
+### Enhancements
+
+* add slider component ([#11](https://github.com/uzh-bf/design-system/issues/11)) ([cdda43b](https://github.com/uzh-bf/design-system/commit/cdda43b3d2ce3a3b10b0f075b02980c878632c98))
+* **Progress:** make max number optional ([9ae2fa6](https://github.com/uzh-bf/design-system/commit/9ae2fa6616572851032db7c310cd365c663d3d8d))
+
 ### [0.0.36](https://github.com/uzh-bf/design-system/compare/v0.0.35...v0.0.36) (2022-09-11)
 
 
