@@ -10,10 +10,12 @@ export interface ProgressProps {
   max: number
   indicatorClassName?: string
   formatter: (value: any) => any
+  isMaxVisible: boolean
   [x: string]: any
 }
 
 const defaultProps = {
+  isMaxVisible: true,
   indicatorClassName: undefined,
   formatter: (value: any) => value,
 }
@@ -24,6 +26,7 @@ export function Progress({
   max,
   indicatorClassName,
   className,
+  isMaxVisible,
   ...props
 }: ProgressProps) {
   const theme = useContext(ThemeContext)
@@ -38,7 +41,7 @@ export function Progress({
       {...props}
     >
       <div className="absolute flex flex-col justify-center w-full h-full px-2 py-1 text-right bg-gray-200 rounded">
-        {formatter(max)}
+        {isMaxVisible && formatter(max)}
       </div>
 
       <RadixProgress.Indicator
