@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-globals */
+
 import {
   faCat,
   faCircleInfo,
@@ -8,6 +10,7 @@ import {
   faUser,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import React from 'react'
 import Button from './Button'
 import Navigation from './Navigation'
 
