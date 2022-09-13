@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.38](https://github.com/uzh-bf/design-system/compare/v0.0.37...v0.0.38) (2022-09-13)
+
+
+### Enhancements
+
+* implement onClick functionality ([#12](https://github.com/uzh-bf/design-system/issues/12)) ([1f3beb8](https://github.com/uzh-bf/design-system/commit/1f3beb86229cc8c09c48a02d75575068797f184d))
+
 ### [0.0.37](https://github.com/uzh-bf/design-system/compare/v0.0.34...v0.0.37) (2022-09-12)
 
 
