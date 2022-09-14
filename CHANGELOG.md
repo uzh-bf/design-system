@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.39](https://github.com/uzh-bf/design-system/compare/v0.0.38...v0.0.39) (2022-09-14)
+
+
+### Enhancements
+
+* fix and enhance switch with different sizes ([#13](https://github.com/uzh-bf/design-system/issues/13)) ([3112c8d](https://github.com/uzh-bf/design-system/commit/3112c8d23997e1b57a5ae07a1923a3118afb396c))
+
 ### [0.0.38](https://github.com/uzh-bf/design-system/compare/v0.0.37...v0.0.38) (2022-09-13)
 
 
