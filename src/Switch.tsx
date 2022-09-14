@@ -12,6 +12,16 @@ export interface SwitchProps {
   checked: boolean
   onCheckedChange: (newValue: boolean) => void
   fluid?: boolean
+  labelLeft?: boolean
+  size?: 'sm' | 'md' | 'lg'
+}
+
+const defaultProps = {
+  className: '',
+  disabled: false,
+  fluid: false,
+  labelLeft: false,
+  size: 'md',
 }
 
 export function Switch({
@@ -22,8 +32,26 @@ export function Switch({
   checked,
   onCheckedChange,
   fluid,
+  labelLeft,
+  size,
 }: SwitchProps) {
   const theme = useContext(ThemeContext)
+
+  const rootSize = {
+    sm: 'w-10 h-[1.3rem]',
+    md: 'w-12 h-[1.6rem]',
+    lg: 'w-16 h-[1.8rem]',
+  }
+  const thumbSize = {
+    sm: 'ml-[0.2rem] w-4 h-4',
+    md: 'ml-1 w-5 h-5',
+    lg: 'ml-1 w-6 h-6',
+  }
+  const transitionSize = {
+    sm: 'translate-x-[1.1rem]',
+    md: 'translate-x-[1.25rem]',
+    lg: 'translate-x-[2rem]',
+  }
 
   return (
     <div
@@ -33,27 +61,29 @@ export function Switch({
         className
       )}
     >
-      <RadixLabel.Root htmlFor={id}>{label}</RadixLabel.Root>
+      {labelLeft && <RadixLabel.Root htmlFor={id}>{label}</RadixLabel.Root>}
       <RadixSwitch.Root
-        disabled={disabled}
-        id={id}
-        className={twMerge(
-          'w-8 h-4 rounded-full',
-          theme.primaryBgDark,
-          disabled && 'bg-gray-700'
-        )}
         checked={checked}
-        onCheckedChange={onCheckedChange}
+        className={twMerge(
+          'relative bg-uzh-grey-80 rounded-full border-0 unset',
+          disabled && 'bg-uzh-grey-40 cursor-not-allowed',
+          checked && theme.primaryBgDark,
+          rootSize[size || 'md']
+        )}
+        onCheckedChange={!disabled ? onCheckedChange : () => null}
       >
         <RadixSwitch.Thumb
           className={twMerge(
-            'block w-4 h-4 bg-white border rounded-full shadow',
-            disabled && 'bg-gray-700'
+            'block bg-white rounded-full transition-transform',
+            checked && transitionSize[size || 'md'],
+            thumbSize[size || 'md']
           )}
         />
       </RadixSwitch.Root>
+      {!labelLeft && <RadixLabel.Root htmlFor={id}>{label}</RadixLabel.Root>}
     </div>
   )
 }
 
+Switch.defaultProps = defaultProps
 export default Switch
