@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.40](https://github.com/uzh-bf/design-system/compare/v0.0.39...v0.0.40) (2022-09-17)
+
+
+### Enhancements
+
+* extract font face definitions from main css ([7ba7ee8](https://github.com/uzh-bf/design-system/commit/7ba7ee86766b66dd7e0ecc337d10482e3e12dfcf))
+
+
+### Other
+
+* extend versionrc ([0781190](https://github.com/uzh-bf/design-system/commit/0781190cdf8d88a098327522b52c706a2cfb52f0))
+
 ### [0.0.39](https://github.com/uzh-bf/design-system/compare/v0.0.38...v0.0.39) (2022-09-14)
 
 
