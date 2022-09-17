@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.42](https://github.com/uzh-bf/design-system/compare/v0.0.40...v0.0.42) (2022-09-17)
+
+
+### Bug Fixes
+
+* ensure package.json is bumped as well ([0601083](https://github.com/uzh-bf/design-system/commit/0601083e3c0e08a13fdf76f616f0d5ab2c06d127))
+
+
+### Other
+
+* manual tag 0.0.41 ([65ba6ed](https://github.com/uzh-bf/design-system/commit/65ba6edb67b5c3978762063cd01a79e358d73458))
+
 ### [0.0.40](https://github.com/uzh-bf/design-system/compare/v0.0.39...v0.0.40) (2022-09-17)
 
 
