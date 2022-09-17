@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.43](https://github.com/uzh-bf/design-system/compare/v0.0.42...v0.0.43) (2022-09-17)
+
+
+### Bug Fixes
+
+* ensure woff2 is loaded before woff ([becd0e7](https://github.com/uzh-bf/design-system/commit/becd0e702a90f53ebf828b3449ce5cdf95447764))
+
 ### [0.0.42](https://github.com/uzh-bf/design-system/compare/v0.0.40...v0.0.42) (2022-09-17)
 
 
