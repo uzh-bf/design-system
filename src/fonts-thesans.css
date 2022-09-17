@@ -1,0 +1,15 @@
+@font-face {
+  font-family: 'TheSans';
+  src: url('/woff/thesans-plain.woff') format('woff'),
+    url('/woff/thesans-plain.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'TheSans';
+  src: url('/woff/thesans-bold.woff') format('woff'),
+    url('/woff/thesans-bold.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+}
