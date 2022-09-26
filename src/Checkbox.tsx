@@ -4,7 +4,7 @@ import * as RadixCheckbox from '@radix-ui/react-checkbox'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
 
-export interface Props {
+export interface CheckboxProps {
   children?: React.ReactNode
   checked: boolean | 'indeterminate'
   disabled?: boolean
@@ -15,14 +15,14 @@ export interface Props {
 }
 
 const defaultProps = {
-  className: '',
-  label: '',
-  disabled: false,
-  size: 'md',
   children: undefined,
+  disabled: false,
+  label: '',
+  size: 'md',
+  className: '',
 }
 
-export function CustomCheckbox({
+export function Checkbox({
   children,
   checked,
   disabled,
@@ -30,7 +30,7 @@ export function CustomCheckbox({
   onCheck,
   size,
   className,
-}: Props): React.ReactElement {
+}: CheckboxProps): React.ReactElement {
   const tickStyle = {
     sm: 'h-[0.8rem] mb-[0.4rem]',
     md: 'h-4 mb-[0.19rem]',
@@ -73,6 +73,5 @@ export function CustomCheckbox({
   )
 }
 
-CustomCheckbox.defaultProps = defaultProps
-
-export default CustomCheckbox
+Checkbox.defaultProps = defaultProps
+export default Checkbox

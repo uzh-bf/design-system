@@ -1,6 +1,7 @@
 import './tailwind.css'
 
 export * from './Button'
+export * from './Checkbox'
 export * from './Countdown'
 export * from './Header'
 export * from './Modal'

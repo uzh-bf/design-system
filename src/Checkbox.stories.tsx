@@ -1,4 +1,7 @@
+import { faX } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useState } from 'react'
+
 import Checkbox from './Checkbox'
 
 export const Default = () => {
@@ -68,5 +71,19 @@ export const Sizes = () => {
         size="xl"
       />
     </div>
+  )
+}
+
+export const Content = () => {
+  const [isChecked, setIsChecked] = useState(true)
+
+  return (
+    <Checkbox
+      checked={isChecked}
+      onCheck={() => setIsChecked(!isChecked)}
+      label="Checkbox with custom content"
+    >
+      <FontAwesomeIcon icon={faX} className="h-4 mb-[0.19rem]" />
+    </Checkbox>
   )
 }
