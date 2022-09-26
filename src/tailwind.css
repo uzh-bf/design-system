@@ -1,44 +1,12 @@
 @tailwind base;
 
 @layer base {
-  @font-face {
-    font-family: 'TheSans';
-    src: url('/woff/thesans-plain.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-  }
-
-  @font-face {
-    font-family: 'TheSans';
-    src: url('/woff/thesans-bold.woff') format('woff');
-    font-weight: bold;
-    font-style: normal;
-  }
-
-  @font-face {
-    font-family: 'Kollektif';
-    src: url('/woff/kollektif-bold.woff2') format('woff2');
-    font-weight: bold;
-    font-style: normal;
-  }
-
   html,
   body,
   #__next {
     @apply h-full;
   }
 }
-
-/* @layer base {
-  button[role='switch'] {
-    &[data-state='checked'] {
-      @apply bg-blue-300;
-    }
-    span[data-state='checked'] {
-      @apply translate-x-4;
-    }
-  }
-} */
 
 @tailwind components;
 @tailwind utilities;
