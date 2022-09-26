@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.44](https://github.com/uzh-bf/design-system/compare/v0.0.43...v0.0.44) (2022-09-26)
+
+
+### Features
+
+* **Checkbox:** add checkbox component ([#14](https://github.com/uzh-bf/design-system/issues/14)) ([8d2489a](https://github.com/uzh-bf/design-system/commit/8d2489a0c53c713cdea5fae647ec84136f583018))
+
 ### [0.0.43](https://github.com/uzh-bf/design-system/compare/v0.0.42...v0.0.43) (2022-09-17)
 
 
