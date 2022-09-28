@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.46](https://github.com/uzh-bf/design-system/compare/v0.0.45...v0.0.46) (2022-09-28)
+
+
+### Other
+
+* **Dropdown:** add short explanation for data handling and props ([963ea81](https://github.com/uzh-bf/design-system/commit/963ea816f69475aeb8c8045fbb78d93947ded914))
+
+
+### Enhancements
+
+* **Dropdown:** implement possibility to use custom triggers and items as well as added select attribute ([3f5282a](https://github.com/uzh-bf/design-system/commit/3f5282a5f48f2fc4775c3b07c0e8e765208e2d77))
+
 ### [0.0.45](https://github.com/uzh-bf/design-system/compare/v0.0.44...v0.0.45) (2022-09-27)
 
 
