@@ -1,12 +1,23 @@
 import * as RadixDropdown from '@radix-ui/react-dropdown-menu'
 import React, { useContext } from 'react'
 import { twMerge } from 'tailwind-merge'
+
 import { ThemeContext } from './ThemeProvider'
 
 export interface DropdownProps {
   trigger: string | React.ReactNode
-  items?: { label: string; onClick: () => void; shorting?: string }[]
-  groups?: { label: string; onClick: () => void; shorting?: string }[][]
+  items?: {
+    label: string | React.ReactNode
+    onClick: () => void
+    shorting?: string
+    selected?: boolean
+  }[]
+  groups?: {
+    label: string | React.ReactNode
+    onClick: () => void
+    shorting?: string
+    selected?: boolean
+  }[][]
   className?: string
   triggerStyle?: string
 }
@@ -30,22 +41,34 @@ export function Dropdown({
     label,
     onClick,
     shorting,
+    selected,
   }: {
-    label: string
+    label: string | React.ReactNode
     onClick: () => void
     shorting?: string
-  }) => (
-    <RadixDropdown.Item
-      key={label}
-      className={twMerge(
-        `hover:${theme.primaryBgDark} hover:!text-white px-2 py-0.5 hover:cursor-pointer rounded flex flex-row`
-      )}
-      onClick={onClick}
-    >
-      <div className="flex-1">{label}</div>
-      {shorting && <div className="ml-6">{shorting}</div>}
-    </RadixDropdown.Item>
-  )
+    selected?: boolean
+  }) => {
+    if (typeof label === 'string') {
+      return (
+        <RadixDropdown.Item
+          className={twMerge(
+            `hover:${theme.primaryBgDark} hover:!text-white px-2 py-0.5 hover:cursor-pointer rounded flex flex-row`
+          )}
+          onClick={onClick}
+        >
+          <div className={twMerge('flex-1', selected && 'font-bold')}>
+            {label}
+          </div>
+          {shorting && <div className="ml-6">{shorting}</div>}
+        </RadixDropdown.Item>
+      )
+    }
+    return (
+      <RadixDropdown.Item onClick={onClick} className="rounded-md">
+        {label}
+      </RadixDropdown.Item>
+    )
+  }
 
   return (
     <RadixDropdown.Root>
@@ -72,11 +95,13 @@ export function Dropdown({
 
         {items && (
           <div className="pt-1 pb-1 border-b border-solid first:pt-0 last:pb-0 border-uzh-grey-100 last:border-b-0">
-            {items.map((item) => (
+            {items.map((item, index) => (
               <DropdownItem
+                key={index}
                 label={item.label}
                 onClick={item.onClick}
                 shorting={item.shorting}
+                selected={item.selected}
               />
             ))}
           </div>
