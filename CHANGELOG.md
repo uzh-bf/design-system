@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.50](https://github.com/uzh-bf/design-system/compare/v0.0.49...v0.0.50) (2022-10-03)
+
+
+### Features
+
+* **Label:** add label component ([#19](https://github.com/uzh-bf/design-system/issues/19)) ([69c7e67](https://github.com/uzh-bf/design-system/commit/69c7e6766e1937940bff653ebcdf068e30634fd2))
+
+
+### Other
+
+* ensure that cursor remains default over Tooltip ([5d281fd](https://github.com/uzh-bf/design-system/commit/5d281fd0c7b4d53aa1bb6a3046a3befed3fccd90))
+
 ### [0.0.49](https://github.com/uzh-bf/design-system/compare/v0.0.48...v0.0.49) (2022-10-03)
 
 
