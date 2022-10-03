@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.49](https://github.com/uzh-bf/design-system/compare/v0.0.48...v0.0.49) (2022-10-03)
+
+
+### Features
+
+* **Tooltip:** add tooltip component ([#18](https://github.com/uzh-bf/design-system/issues/18)) ([b584a3b](https://github.com/uzh-bf/design-system/commit/b584a3bf9a955c4a9ff7bce22d117cd68fdfc50a))
+
 ### [0.0.48](https://github.com/uzh-bf/design-system/compare/v0.0.47...v0.0.48) (2022-10-03)
 
 ### [0.0.47](https://github.com/uzh-bf/design-system/compare/v0.0.46...v0.0.47) (2022-10-03)
