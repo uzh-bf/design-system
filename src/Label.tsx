@@ -1,8 +1,9 @@
 import { faQuestion } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as RadixLabel from '@radix-ui/react-label'
-import React from 'react'
+import React, { useContext } from 'react'
 import { twMerge } from 'tailwind-merge'
+import { ThemeContext } from './ThemeProvider'
 import Tooltip from './Tooltip'
 
 export interface LabelProps {
@@ -33,6 +34,8 @@ export function Label({
   tooltipSymbolSize,
   className,
 }: LabelProps): React.ReactElement {
+  const theme = useContext(ThemeContext)
+
   if (tooltip && !showTooltipSymbol) {
     return (
       <Tooltip
@@ -65,7 +68,8 @@ export function Label({
               tooltipSymbolSize === 'xl' && '!w-5 !h-5 !p-2 !mt-1',
               tooltipSymbolSize === 'lg' && '!w-4 !h-4 !p-1.5 !mt-1',
               tooltipSymbolSize === 'sm' && '!w-2 !h-2 !p-1 !mt-1',
-              'w-3 h-3 p-1 mt-1 font-bold text-white rounded-full bg-uzh-blue-100 border border-solid border-white'
+              'w-3 h-3 p-1 mt-1 text-white rounded-full border border-solid border-white',
+              theme.primaryBgDark
             )}
           />
         </Tooltip>

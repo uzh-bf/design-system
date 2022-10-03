@@ -60,17 +60,15 @@ export const TooltipSymbol = () => {
         label="Label with large styled Tooltip"
         tooltip="Tooltip Content"
         className="p-2 rounded-md bg-uzh-blue-20"
-        arrowStyle="opacity-0"
-        tooltipStyle="bg-uzh-red-100 font-bold text-black italic"
+        arrowStyle="fill-uzh-blue-100"
+        tooltipStyle="bg-uzh-blue-100 font-bold italic opacity-100"
         showTooltipSymbol={true}
         tooltipSymbolSize="lg"
       />
       <Label
-        label="Label with large styled Tooltip"
+        label="Label with large Tooltip"
         tooltip="Tooltip Content"
         className="p-2 rounded-md bg-uzh-blue-20"
-        arrowStyle="opacity-0"
-        tooltipStyle="bg-uzh-red-100 font-bold text-black italic"
         showTooltipSymbol={true}
         tooltipSymbolSize="xl"
       />
