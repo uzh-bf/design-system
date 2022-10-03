@@ -3,9 +3,8 @@ import {
   faCircleChevronUp,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { ThemeContext } from './ThemeProvider'
 
 export interface column {
   label: string
@@ -24,7 +23,6 @@ export function Table({ className, columns, data, caption }: TableProps) {
   const [tableData, setTableData] = useState(data)
   const [sortField, setSortField] = useState('')
   const [order, setOrder] = useState('asc')
-  const theme = useContext(ThemeContext)
 
   const handleSorting = (sortField: string, sortOrder: string) => {
     if (sortField) {
