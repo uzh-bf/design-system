@@ -7,7 +7,7 @@ import React, { useContext, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { ThemeContext } from './ThemeProvider'
 
-interface column {
+export interface column {
   label: string
   accessor: string
   sortable: boolean
@@ -107,3 +107,5 @@ export function Table({ className, columns, data, caption }: TableProps) {
     </>
   )
 }
+
+export default Table
