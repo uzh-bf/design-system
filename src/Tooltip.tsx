@@ -3,7 +3,7 @@ import React from 'react'
 import { twMerge } from 'tailwind-merge'
 
 // trigger is passed as child of the component
-interface TooltipProps {
+export interface TooltipProps {
   tooltip: React.ReactNode | string
   delay?: number
   tooltipStyle?: string
@@ -21,7 +21,7 @@ const defaultProps = {
   withArrow: true,
 }
 
-function Tooltip({
+export function Tooltip({
   tooltip,
   delay,
   tooltipStyle,
