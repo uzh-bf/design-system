@@ -1,7 +1,4 @@
-import {
-  faCircleChevronDown,
-  faCircleChevronUp,
-} from '@fortawesome/free-solid-svg-icons'
+import { faSort, faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useState } from 'react'
 import { twMerge } from 'tailwind-merge'
@@ -65,18 +62,22 @@ export function Table({ className, columns, data, caption }: TableProps) {
                     sortable && 'cursor-pointer'
                   )}
                 >
+                  {sortable && (
+                    <FontAwesomeIcon
+                      className={twMerge(
+                        'mr-2',
+                        !(sortField === accessor) && 'text-uzh-grey-100'
+                      )}
+                      icon={
+                        sortField === accessor
+                          ? order === 'asc'
+                            ? faSortUp
+                            : faSortDown
+                          : faSort
+                      }
+                    />
+                  )}
                   {label}
-                  <FontAwesomeIcon
-                    style={
-                      sortable && sortField === accessor
-                        ? { visibility: 'visible' }
-                        : { visibility: 'hidden' }
-                    }
-                    className="ml-2"
-                    icon={
-                      order === 'asc' ? faCircleChevronUp : faCircleChevronDown
-                    }
-                  />
                 </th>
               )
             })}
