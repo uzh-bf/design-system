@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.54](https://github.com/uzh-bf/design-system/compare/v0.0.53...v0.0.54) (2022-10-10)
+
+### [0.0.53](https://github.com/uzh-bf/design-system/compare/v0.0.52...v0.0.53) (2022-10-10)
+
+
+### Bug Fixes
+
+* Add missing export in index ([fcd2f23](https://github.com/uzh-bf/design-system/commit/fcd2f23992d2383f772de42557daf7f81b7e6f43))
+
+### [0.0.52](https://github.com/uzh-bf/design-system/compare/v0.0.51...v0.0.52) (2022-10-10)
+
 ### [0.0.51](https://github.com/uzh-bf/design-system/compare/v0.0.50...v0.0.51) (2022-10-03)
 
 
