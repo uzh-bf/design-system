@@ -88,3 +88,17 @@ export const Fullscreen = () => {
     </Modal>
   )
 }
+
+export const EscapeDisabled = () => {
+  const [isOpen, setIsOpen] = useState(false)
+  return (
+    <Modal
+      open={isOpen}
+      trigger={<Button onClick={() => setIsOpen(true)}>Open Modal</Button>}
+      onClose={() => setIsOpen(false)}
+      escapeDisabled={true}
+    >
+      content
+    </Modal>
+  )
+}

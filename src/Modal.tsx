@@ -16,6 +16,7 @@ export interface ModalProps {
   open: boolean
   title?: string | React.ReactNode
   trigger?: React.ReactNode
+  escapeDisabled?: boolean
 
   onClose: () => void
   onNext?: () => void
@@ -29,6 +30,7 @@ const defaultProps = {
   className: '',
   fullScreen: false,
   title: '',
+  escapeDisabled: false,
 }
 
 export function Modal({
@@ -44,6 +46,7 @@ export function Modal({
   className,
   onPrimaryAction,
   onSecondaryAction,
+  escapeDisabled,
 }: ModalProps) {
   useEffect(() => {
     if (onPrev || onNext) {
@@ -80,8 +83,10 @@ export function Modal({
                 : 'min-h-[18rem] w-[27rem] max-w-7xl md:h-[28rem] md:w-[40rem] lg:h-[40rem] lg:w-[55rem] xl:h-[45rem] xl:w-[70rem]',
               className
             )}
-            onEscapeKeyDown={onClose}
-            onPointerDownOutside={onPrev || onNext ? undefined : onClose}
+            onEscapeKeyDown={escapeDisabled ? undefined : onClose}
+            onPointerDownOutside={
+              onPrev || onNext || escapeDisabled ? undefined : onClose
+            }
           >
             <div className="flex flex-initial flex-row items-end justify-between">
               <div>
