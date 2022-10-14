@@ -3,16 +3,12 @@ import Select from './Select'
 
 export const Default = () => {
   const items = [
-    'Apple',
-    'Banana',
-    'Ananas',
-    'Orange',
-    'Grapes',
-    'Pear',
-    'Mango',
-    'Strawberry',
-    'Persimon',
-    'Lemon',
+    { value: 'appple', label: 'Apple' },
+    { value: 'banana', label: 'Banana' },
+    { value: 'pear', label: 'Pear' },
+    { value: 'watermeldon', label: 'Watermelon' },
+    { value: 'peach', label: 'Peach' },
+    { value: 'mango', label: 'Mango' },
   ]
   return <Select items={items} onChange={() => {}}></Select>
 }

@@ -9,19 +9,26 @@ import React from 'react'
 import { twMerge } from 'tailwind-merge'
 import Button from './Button'
 
+interface Item {
+  value: string
+  label: string
+}
+
 export interface SelectProps {
-  items: (string | number)[]
-  onChange: () => void
+  items: Item[]
+  onChange: (newIdx: String) => void
 }
 
 export function Select({ items, onChange }: SelectProps) {
   return (
     <SelectPrimitive.Root
-      defaultValue={String(items[0])}
-      onValueChange={onChange}
+      defaultValue={items[0].value}
+      onValueChange={(idx) => {
+        onChange(idx)
+      }}
     >
       <SelectPrimitive.Trigger asChild>
-        <Button className="text-sm">
+        <Button>
           <SelectPrimitive.Value />
           <SelectPrimitive.Icon className="ml-2">
             <FontAwesomeIcon icon={faChevronDown} />
@@ -37,7 +44,7 @@ export function Select({ items, onChange }: SelectProps) {
             {items.map((item, ix) => (
               <SelectPrimitive.Item
                 key={ix}
-                value={String(item)}
+                value={item.value}
                 className={twMerge(
                   'relative flex items-center px-8 py-2 rounded-md text-gray-700 dark:text-gray-300 font-medium focus:bg-gray-100 dark:focus:bg-gray-900',
                   'radix-disabled:opacity-50',
@@ -45,7 +52,7 @@ export function Select({ items, onChange }: SelectProps) {
                 )}
               >
                 <SelectPrimitive.ItemText>
-                  {String(item)}
+                  {item.label}
                 </SelectPrimitive.ItemText>
                 <SelectPrimitive.ItemIndicator className="absolute inline-flex items-center left-2">
                   <FontAwesomeIcon icon={faCheck} />
