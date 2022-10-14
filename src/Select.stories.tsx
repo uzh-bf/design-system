@@ -7,8 +7,17 @@ export const Default = () => {
     { value: 'banana', label: 'Banana' },
     { value: 'pear', label: 'Pear' },
     { value: 'watermeldon', label: 'Watermelon' },
-    { value: 'peach', label: 'Peach' },
+    { value: 'peach', label: 'Peach', disabled: true },
     { value: 'mango', label: 'Mango' },
   ]
-  return <Select items={items} onChange={() => {}}></Select>
+
+  // Attention: scrolling does not work because apparently overflow is set to "hidden" on the body
+  return (
+    <Select
+      items={items}
+      onChange={(newValue) => {
+        console.log(newValue)
+      }}
+    ></Select>
+  )
 }

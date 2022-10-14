@@ -11,21 +11,19 @@ import Button from './Button'
 
 interface Item {
   value: string
-  label: string
+  label: string // displayed name
+  disabled?: boolean
 }
 
 export interface SelectProps {
   items: Item[]
-  onChange: (newIdx: String) => void
+  onChange: (newValue: String) => void
 }
-
 export function Select({ items, onChange }: SelectProps) {
   return (
     <SelectPrimitive.Root
       defaultValue={items[0].value}
-      onValueChange={(idx) => {
-        onChange(idx)
-      }}
+      onValueChange={onChange}
     >
       <SelectPrimitive.Trigger asChild>
         <Button>
@@ -43,11 +41,12 @@ export function Select({ items, onChange }: SelectProps) {
           <SelectPrimitive.Group>
             {items.map((item, ix) => (
               <SelectPrimitive.Item
+                disabled={item.disabled}
                 key={ix}
                 value={item.value}
                 className={twMerge(
                   'relative flex items-center px-8 py-2 rounded-md text-gray-700 dark:text-gray-300 font-medium focus:bg-gray-100 dark:focus:bg-gray-900',
-                  'radix-disabled:opacity-50',
+                  'rdx-disabled:opacity-50',
                   'focus:outline-none select-none'
                 )}
               >
