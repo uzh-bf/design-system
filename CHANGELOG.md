@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.57](https://github.com/uzh-bf/design-system/compare/v0.0.56...v0.0.57) (2022-10-15)
+
+
+### Bug Fixes
+
+* **Select:** fixed incorrect typing of function arguments ([c8899e9](https://github.com/uzh-bf/design-system/commit/c8899e980a6940ee88145a159b71b6030be4a51b))
+
 ### [0.0.56](https://github.com/uzh-bf/design-system/compare/v0.0.55...v0.0.56) (2022-10-15)
 
 
