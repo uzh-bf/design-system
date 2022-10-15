@@ -24,7 +24,7 @@ export interface SelectProps {
   triggerStyle?: string
   itemStyle?: string
   size?: 'md' | 'sm'
-  onChange: (newValue: String) => void
+  onChange: (newValue: string) => void
 }
 export function Select({
   items,
