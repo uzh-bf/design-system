@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.56](https://github.com/uzh-bf/design-system/compare/v0.0.55...v0.0.56) (2022-10-15)
+
+
+### Features
+
+* **Select:** add select component ([#25](https://github.com/uzh-bf/design-system/issues/25)) ([90abd02](https://github.com/uzh-bf/design-system/commit/90abd02595bc0ba8235728f92c7c884306e3f163))
+
+
+### Other
+
+* fix version of radix-ui select component ([bfaa447](https://github.com/uzh-bf/design-system/commit/bfaa447cde95a699c048ee7724d7cec31016d918))
+
 ### [0.0.55](https://github.com/uzh-bf/design-system/compare/v0.0.54...v0.0.55) (2022-10-13)
 
 
