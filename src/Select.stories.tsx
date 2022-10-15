@@ -61,21 +61,6 @@ export const Styled = () => {
   )
 }
 
-export const Scroll = () => {
-  const items = [
-    { value: 'appple', label: 'Apple' },
-    { value: 'banana', label: 'Banana' },
-    { value: 'pear', label: 'Pear' },
-    { value: 'watermeldon', label: 'Watermelon' },
-    { value: 'peach', label: 'Peach' },
-    { value: 'mango', label: 'Mango' },
-    { value: 'kiwi', label: 'Kiwi' },
-    { value: 'orange', label: 'Orange' },
-  ]
-
-  return <Select items={items} onChange={() => null} />
-}
-
 export const Small = () => {
   const items = [
     { value: 'appple', label: 'Apple' },
