@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.55](https://github.com/uzh-bf/design-system/compare/v0.0.54...v0.0.55) (2022-10-13)
+
+
+### Enhancements
+
+* **Modal:** add escapeDisabled attribute to modal component ([#24](https://github.com/uzh-bf/design-system/issues/24)) ([629edd4](https://github.com/uzh-bf/design-system/commit/629edd46b31ff453852f741723c168d896bf6d34))
+
 ### [0.0.54](https://github.com/uzh-bf/design-system/compare/v0.0.53...v0.0.54) (2022-10-10)
 
 ### [0.0.53](https://github.com/uzh-bf/design-system/compare/v0.0.52...v0.0.53) (2022-10-10)
