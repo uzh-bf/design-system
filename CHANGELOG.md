@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.58](https://github.com/uzh-bf/design-system/compare/v0.0.57...v0.0.58) (2022-10-16)
+
+
+### Other
+
+* **Modal:** add possibility to hide close button ([f4b7a2e](https://github.com/uzh-bf/design-system/commit/f4b7a2ea570160c893bc3f1a2174977114f5b059))
+
 ### [0.0.57](https://github.com/uzh-bf/design-system/compare/v0.0.56...v0.0.57) (2022-10-15)
 
 
