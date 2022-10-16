@@ -17,6 +17,7 @@ export interface ModalProps {
   title?: string | React.ReactNode
   trigger?: React.ReactNode
   escapeDisabled?: boolean
+  hideCloseButton?: boolean
 
   onClose: () => void
   onNext?: () => void
@@ -31,6 +32,7 @@ const defaultProps = {
   fullScreen: false,
   title: '',
   escapeDisabled: false,
+  hideCloseButton: false,
 }
 
 export function Modal({
@@ -47,6 +49,7 @@ export function Modal({
   onPrimaryAction,
   onSecondaryAction,
   escapeDisabled,
+  hideCloseButton,
 }: ModalProps) {
   useEffect(() => {
     if (onPrev || onNext) {
@@ -68,7 +71,7 @@ export function Modal({
       {trigger && <RadixDialog.Trigger asChild>{trigger}</RadixDialog.Trigger>}
 
       <RadixDialog.Portal>
-        <RadixDialog.Overlay className="fixed top-0 bottom-0 left-0 right-0 flex justify-center gap-4 bg-uzh-grey-100 bg-opacity-50 p-4 md:items-center">
+        <RadixDialog.Overlay className="fixed top-0 bottom-0 left-0 right-0 flex justify-center gap-4 p-4 bg-opacity-50 bg-uzh-grey-100 md:items-center">
           {(onPrev || onNext) && (
             <Button className="lg:text-xl" disabled={!onPrev} onClick={onPrev}>
               <FontAwesomeIcon icon={faChevronLeft} />
@@ -88,16 +91,16 @@ export function Modal({
               onPrev || onNext || escapeDisabled ? undefined : onClose
             }
           >
-            <div className="flex flex-initial flex-row items-end justify-between">
+            <div className="flex flex-row items-end justify-between flex-initial">
               <div>
                 {title && (
-                  <RadixDialog.Title className="font-thesans text-lg font-bold md:text-xl">
+                  <RadixDialog.Title className="text-lg font-bold font-thesans md:text-xl">
                     {title}
                   </RadixDialog.Title>
                 )}
               </div>
 
-              {onClose && (
+              {!hideCloseButton && (
                 <RadixDialog.Close asChild>
                   <Button onClick={onClose} className="self-start">
                     <FontAwesomeIcon icon={faXmark} className="lg:text-xl" />
@@ -108,7 +111,7 @@ export function Modal({
 
             <div className="flex-1">{children}</div>
 
-            <div className="flex flex-initial flex-row justify-between">
+            <div className="flex flex-row justify-between flex-initial">
               <div>{onSecondaryAction && <div>{onSecondaryAction}</div>}</div>
               <div>{onPrimaryAction && <div>{onPrimaryAction}</div>}</div>
             </div>

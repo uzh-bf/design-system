@@ -102,3 +102,20 @@ export const EscapeDisabled = () => {
     </Modal>
   )
 }
+
+export const WithoutClose = () => {
+  const [isOpen, setIsOpen] = useState(false)
+  return (
+    <Modal
+      open={isOpen}
+      trigger={<Button onClick={() => setIsOpen(true)}>Open Modal</Button>}
+      onClose={() => setIsOpen(false)}
+      escapeDisabled={true}
+      hideCloseButton={true}
+      className="flex flex-col"
+    >
+      <div>Content</div>
+      <Button onClick={() => setIsOpen(false)}>Close</Button>
+    </Modal>
+  )
+}
