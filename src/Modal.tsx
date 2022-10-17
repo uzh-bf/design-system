@@ -11,6 +11,11 @@ import Button from './Button'
 
 export interface ModalProps {
   className?: string
+  classNames?: {
+    overlay?: string
+    content?: string
+    title?: string
+  }
   children: React.ReactNode
   fullScreen?: boolean
   open: boolean
@@ -46,6 +51,7 @@ export function Modal({
   onOpenChange,
   fullScreen,
   className,
+  classNames,
   onPrimaryAction,
   onSecondaryAction,
   escapeDisabled,
@@ -71,7 +77,12 @@ export function Modal({
       {trigger && <RadixDialog.Trigger asChild>{trigger}</RadixDialog.Trigger>}
 
       <RadixDialog.Portal>
-        <RadixDialog.Overlay className="fixed top-0 bottom-0 left-0 right-0 flex justify-center gap-4 p-4 bg-opacity-50 bg-uzh-grey-100 md:items-center">
+        <RadixDialog.Overlay
+          className={twMerge(
+            'fixed top-0 bottom-0 left-0 right-0 flex justify-center gap-4 p-4 bg-opacity-50 bg-uzh-grey-100 md:items-center',
+            classNames?.overlay
+          )}
+        >
           {(onPrev || onNext) && (
             <Button className="lg:text-xl" disabled={!onPrev} onClick={onPrev}>
               <FontAwesomeIcon icon={faChevronLeft} />
@@ -84,7 +95,8 @@ export function Modal({
               fullScreen
                 ? 'h-full w-full'
                 : 'min-h-[18rem] w-[27rem] max-w-7xl md:h-[28rem] md:w-[40rem] lg:h-[40rem] lg:w-[55rem] xl:h-[45rem] xl:w-[70rem]',
-              className
+              className,
+              classNames?.content
             )}
             onEscapeKeyDown={escapeDisabled ? undefined : onClose}
             onPointerDownOutside={
@@ -94,7 +106,12 @@ export function Modal({
             <div className="flex flex-row items-end justify-between flex-initial">
               <div>
                 {title && (
-                  <RadixDialog.Title className="text-lg font-bold font-thesans md:text-xl">
+                  <RadixDialog.Title
+                    className={twMerge(
+                      'text-lg font-bold font-thesans md:text-xl',
+                      classNames?.title
+                    )}
+                  >
                     {title}
                   </RadixDialog.Title>
                 )}
