@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.60](https://github.com/uzh-bf/design-system/compare/v0.0.59...v0.0.60) (2022-10-17)
+
+
+### Other
+
+* **Select:** fix positioning issues of viewport of select component ([4d4eb22](https://github.com/uzh-bf/design-system/commit/4d4eb22912d6ed07ada3d893a4d2e87f7ba39318))
+
 ### [0.0.59](https://github.com/uzh-bf/design-system/compare/v0.0.58...v0.0.59) (2022-10-17)
 
 
