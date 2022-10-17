@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.59](https://github.com/uzh-bf/design-system/compare/v0.0.58...v0.0.59) (2022-10-17)
+
+
+### Enhancements
+
+* **Modal:** extend Modal with new classNames approach for multi-level styling overrides ([a06fc08](https://github.com/uzh-bf/design-system/commit/a06fc08c77e74136cedff8a0618c9c8d31a3ea1c))
+
 ### [0.0.58](https://github.com/uzh-bf/design-system/compare/v0.0.57...v0.0.58) (2022-10-16)
 
 
