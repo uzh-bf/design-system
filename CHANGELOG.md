@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.61](https://github.com/uzh-bf/design-system/compare/v0.0.60...v0.0.61) (2022-10-18)
+
+
+### Bug Fixes
+
+* **Tooltip:** prevent default on clicking tooltip in order to avoid submit triggering ([4076373](https://github.com/uzh-bf/design-system/commit/40763738b592803721b2b171ffff8a3837713a58))
+
 ### [0.0.60](https://github.com/uzh-bf/design-system/compare/v0.0.59...v0.0.60) (2022-10-17)
 
 
