@@ -35,6 +35,7 @@ export function Tooltip({
       <RadixTooltip.Root delayDuration={delay || 1000}>
         <RadixTooltip.Trigger
           className={twMerge('[all:_unset] !cursor-default', triggerStyle)}
+          onClick={(e) => e.preventDefault()}
         >
           {children}
         </RadixTooltip.Trigger>
