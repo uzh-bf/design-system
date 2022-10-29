@@ -28,3 +28,7 @@ export const Styled = () => {
     />
   )
 }
+
+export const Nonlinear = () => {
+  return <Progress nonLinear value={5} max={10} formatter={(val) => val} />
+}
