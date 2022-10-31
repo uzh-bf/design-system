@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.65](https://github.com/uzh-bf/design-system/compare/v0.0.64...v0.0.65) (2022-10-31)
+
+
+### Other
+
+* add README ([653ec63](https://github.com/uzh-bf/design-system/commit/653ec639308e33126c8971ba1eab1b84f468fc4e))
+
+
+### Enhancements
+
+* **FormikTextField:** add optional required attribute for label styling ([49e5611](https://github.com/uzh-bf/design-system/commit/49e5611457ca6f4c78cbcc6c36d0acb92affaea0))
+
 ### [0.0.64](https://github.com/uzh-bf/design-system/compare/v0.0.63...v0.0.64) (2022-10-31)
 
 
