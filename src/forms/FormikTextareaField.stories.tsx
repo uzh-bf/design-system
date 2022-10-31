@@ -1,7 +1,7 @@
 import { Form, Formik } from 'formik'
 import React from 'react'
-import Button from './Button'
-import FormikTextField from './FormikTextField'
+import Button from '../Button'
+import FormikTextareaField from './FormikTextareaField'
 
 export const Default = () => (
   <div>
@@ -19,7 +19,7 @@ export const Default = () => (
         return (
           <div>
             <Form>
-              <FormikTextField
+              <FormikTextareaField
                 name="name"
                 label="Label"
                 tooltip="Tooltip for this input"
@@ -54,7 +54,7 @@ export const Required = () => (
         return (
           <div>
             <Form>
-              <FormikTextField
+              <FormikTextareaField
                 required
                 name="name"
                 label="Label"
@@ -92,7 +92,7 @@ export const OnChangeFunction = () => (
         return (
           <div>
             <Form>
-              <FormikTextField
+              <FormikTextareaField
                 value={values.name}
                 onChange={(newValue) => {
                   setFieldValue('name', newValue.replace(/\s/g, ''))
@@ -127,7 +127,7 @@ export const Styled = () => (
         return (
           <div>
             <Form>
-              <FormikTextField
+              <FormikTextareaField
                 name="name"
                 label="Label"
                 tooltip="Tooltip for this input"

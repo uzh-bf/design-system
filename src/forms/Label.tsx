@@ -3,10 +3,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as RadixLabel from '@radix-ui/react-label'
 import React, { useContext } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { ThemeContext } from './ThemeProvider'
-import Tooltip from './Tooltip'
+import { ThemeContext } from '../ThemeProvider'
+import Tooltip from '../Tooltip'
 
 export interface LabelProps {
+  forId?: string
   label: string
   required?: boolean
   tooltip?: string | React.ReactNode
@@ -18,6 +19,7 @@ export interface LabelProps {
 }
 
 const defaultProps = {
+  forId: undefined,
   required: false,
   tooltip: undefined,
   tooltipStyle: '',
@@ -28,6 +30,7 @@ const defaultProps = {
 }
 
 export function Label({
+  forId,
   label,
   required,
   tooltip,
@@ -48,7 +51,10 @@ export function Label({
         withArrow={true}
       >
         <div className="flex flex-row">
-          <RadixLabel.Root className={twMerge(className, 'cursor-default')}>
+          <RadixLabel.Root
+            htmlFor={forId}
+            className={twMerge(className, 'cursor-default')}
+          >
             {label}
           </RadixLabel.Root>
           {required && <div className="mr-2 ml-0.5 mb-1 text-red-600">*</div>}
@@ -59,6 +65,7 @@ export function Label({
     return (
       <div className={twMerge(className, 'w-max flex flex-row items-center')}>
         <RadixLabel.Root
+          htmlFor={forId}
           className={twMerge('mr-2 cursor-default', required && 'mr-0')}
         >
           {label}
@@ -87,7 +94,10 @@ export function Label({
   } else {
     return (
       <div className="flex flex-row">
-        <RadixLabel.Root className={twMerge(className, 'cursor-default')}>
+        <RadixLabel.Root
+          htmlFor={forId}
+          className={twMerge(className, 'cursor-default')}
+        >
           {label}
         </RadixLabel.Root>
         {required && <div className="mr-2 ml-0.5 mb-1 text-red-600">*</div>}
