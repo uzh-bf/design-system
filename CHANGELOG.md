@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.64](https://github.com/uzh-bf/design-system/compare/v0.0.63...v0.0.64) (2022-10-31)
+
+
+### Features
+
+* **Countdown:** add isStatic version that does not play ([3f205ba](https://github.com/uzh-bf/design-system/commit/3f205bab6ffe830e71b320761678eddc8d462415))
+
 ### [0.0.63](https://github.com/uzh-bf/design-system/compare/v0.0.62...v0.0.63) (2022-10-29)
 
 ### [0.0.62](https://github.com/uzh-bf/design-system/compare/v0.0.61...v0.0.62) (2022-10-29)
