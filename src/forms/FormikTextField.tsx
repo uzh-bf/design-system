@@ -44,6 +44,7 @@ export function FormikTextField({
       <div className="flex flex-row w-full">
         {label && (
           <Label
+            forId={id}
             required={required}
             label={label}
             className={twMerge(
@@ -58,6 +59,7 @@ export function FormikTextField({
         {name && (
           <input
             {...field}
+            id={id}
             name={name}
             type="text"
             className={twMerge(
@@ -69,6 +71,8 @@ export function FormikTextField({
         )}
         {typeof value !== undefined && onChange && (
           <input
+            {...field}
+            id={id}
             value={value}
             onChange={(e) => onChange(e.target.value)}
             type="text"

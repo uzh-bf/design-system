@@ -44,6 +44,7 @@ export function FormikTextareaField({
       <div className="flex flex-row w-full">
         {label && (
           <Label
+            forId={id}
             required={required}
             label={label}
             className={twMerge(
@@ -58,6 +59,7 @@ export function FormikTextareaField({
         {name && (
           <textarea
             {...field}
+            id={id}
             name={name}
             className={twMerge(
               'w-full rounded bg-uzh-grey-20 border border-uzh-grey-60 focus:border-uzh-blue-50 min-h-12',
@@ -68,6 +70,8 @@ export function FormikTextareaField({
         )}
         {typeof value !== undefined && onChange && (
           <textarea
+            {...field}
+            id={id}
             value={value}
             onChange={(e) => onChange(e.target.value)}
             className={twMerge(
