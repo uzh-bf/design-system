@@ -10,6 +10,7 @@ export interface CountdownProps {
   className?: string
   formatter?: (value: any) => any
   onExpire?: () => void
+  isStatic?: boolean
 }
 
 const defaultProps = {
@@ -20,6 +21,7 @@ const defaultProps = {
   className: undefined,
   formatter: undefined,
   onExpire: () => null,
+  isStatic: false,
 }
 
 export function Countdown({
@@ -31,11 +33,12 @@ export function Countdown({
   className,
   formatter,
   onExpire,
+  isStatic,
 }: CountdownProps): React.ReactElement {
   return (
     <div className={className}>
       <CountdownCircleTimer
-        isPlaying={countdownDuration > 0}
+        isPlaying={!isStatic && countdownDuration > 0}
         duration={countdownDuration > 0 ? countdownDuration : 0}
         colors={colors || ['#00A321', '#00A321', '#F7B801', '#A30000']}
         colorsTime={

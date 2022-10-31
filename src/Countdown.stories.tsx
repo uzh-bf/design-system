@@ -5,6 +5,18 @@ export const Default = () => {
   return <Countdown countdownDuration={20} />
 }
 
+export const Static = () => {
+  return (
+    <Countdown
+      isStatic
+      countdownDuration={5}
+      onExpire={() => {
+        return { shouldRepeat: true, delay: 1.5 }
+      }}
+    />
+  )
+}
+
 export const Repeating = () => {
   return (
     <Countdown
