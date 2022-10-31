@@ -8,6 +8,7 @@ import Tooltip from './Tooltip'
 
 export interface LabelProps {
   label: string
+  required?: boolean
   tooltip?: string | React.ReactNode
   tooltipStyle?: string
   arrowStyle?: string
@@ -17,6 +18,7 @@ export interface LabelProps {
 }
 
 const defaultProps = {
+  required: false,
   tooltip: undefined,
   tooltipStyle: '',
   arrowStyle: '',
@@ -27,6 +29,7 @@ const defaultProps = {
 
 export function Label({
   label,
+  required,
   tooltip,
   tooltipStyle,
   arrowStyle,
@@ -44,17 +47,23 @@ export function Label({
         arrowStyle={arrowStyle}
         withArrow={true}
       >
-        <RadixLabel.Root className={twMerge(className, 'cursor-default')}>
-          {label}
-        </RadixLabel.Root>
+        <div className="flex flex-row">
+          <RadixLabel.Root className={twMerge(className, 'cursor-default')}>
+            {label}
+          </RadixLabel.Root>
+          {required && <div className="mr-2 ml-0.5 mb-1 text-red-600">*</div>}
+        </div>
       </Tooltip>
     )
   } else if (tooltip && showTooltipSymbol) {
     return (
       <div className={twMerge(className, 'w-max flex flex-row items-center')}>
-        <RadixLabel.Root className="mr-2 cursor-default">
+        <RadixLabel.Root
+          className={twMerge('mr-2 cursor-default', required && 'mr-0')}
+        >
           {label}
         </RadixLabel.Root>
+        {required && <div className="mr-2 ml-0.5 mb-1 text-red-600">*</div>}
         <Tooltip
           tooltip={tooltip}
           tooltipStyle={tooltipStyle}
@@ -77,9 +86,12 @@ export function Label({
     )
   } else {
     return (
-      <RadixLabel.Root className={twMerge(className, 'cursor-default')}>
-        {label}
-      </RadixLabel.Root>
+      <div className="flex flex-row">
+        <RadixLabel.Root className={twMerge(className, 'cursor-default')}>
+          {label}
+        </RadixLabel.Root>
+        {required && <div className="mr-2 ml-0.5 mb-1 text-red-600">*</div>}
+      </div>
     )
   }
 }

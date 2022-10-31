@@ -7,6 +7,7 @@ export interface TextFieldProps {
   id?: string
   label?: string
   tooltip?: string
+  required?: boolean
   className?: {
     root?: string
     label?: string
@@ -34,6 +35,7 @@ export function FormikTextField({
   id,
   label,
   tooltip,
+  required,
   className,
 }: TextFieldWithNameProps | TextFieldWithOnChangeProps) {
   const [field, meta, helpers] = useField(name || 'missing')
@@ -42,6 +44,7 @@ export function FormikTextField({
       <div className="flex flex-row w-full">
         {label && (
           <Label
+            required={required}
             label={label}
             className={twMerge(
               'my-auto mr-2 font-bold min-w-max',

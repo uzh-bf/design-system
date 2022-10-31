@@ -35,6 +35,42 @@ export const Default = () => (
   </div>
 )
 
+export const Required = () => (
+  <div>
+    <div>
+      By adding a required attribute, the label of the field changes it
+      appearance
+    </div>
+    <Formik
+      initialValues={{
+        name: '',
+      }}
+      isInitialValid={false}
+      onSubmit={async (values) => {
+        alert(`Form submitted with value: ${values.name}`)
+      }}
+    >
+      {({ values }) => {
+        return (
+          <div>
+            <Form>
+              <FormikTextField
+                required
+                name="name"
+                label="Label"
+                tooltip="Tooltip for this input"
+                className={{ root: 'mb-1' }}
+              />
+              <Button type="submit">Submit</Button>
+            </Form>
+            <div>Value: {values.name}</div>
+          </div>
+        )
+      }}
+    </Formik>
+  </div>
+)
+
 export const OnChangeFunction = () => (
   <div>
     <div>
