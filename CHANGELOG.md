@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.66](https://github.com/uzh-bf/design-system/compare/v0.0.65...v0.0.66) (2022-10-31)
+
+
+### Features
+
+* **FormikTextareaField:** add new field for textareas ([13d2cb1](https://github.com/uzh-bf/design-system/commit/13d2cb12370093740c1d1f0afac6928d2cffc2e6))
+
+
+### Enhancements
+
+* **FormikText*Field:** add id to label and inputs ([048df9a](https://github.com/uzh-bf/design-system/commit/048df9a375ce8c02a35afa669d6d34a842b6dae7))
+
 ### [0.0.65](https://github.com/uzh-bf/design-system/compare/v0.0.64...v0.0.65) (2022-10-31)
 
 
