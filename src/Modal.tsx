@@ -108,7 +108,7 @@ export function Modal({
                 {title && (
                   <RadixDialog.Title
                     className={twMerge(
-                      'text-lg font-bold font-thesans md:text-xl',
+                      'text-lg font-bold font-thesans font-thesans-bold md:text-xl',
                       classNames?.title
                     )}
                   >
