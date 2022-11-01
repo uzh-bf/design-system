@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.68](https://github.com/uzh-bf/design-system/compare/v0.0.67...v0.0.68) (2022-11-01)
+
+
+### Enhancements
+
+* add next13 compatible font classes with css variable ([40335bb](https://github.com/uzh-bf/design-system/commit/40335bb3f620d39e782bd22d1005d59919f60f73))
+
 ### [0.0.67](https://github.com/uzh-bf/design-system/compare/v0.0.66...v0.0.67) (2022-11-01)
 
 
