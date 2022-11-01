@@ -24,6 +24,7 @@ export const Default = () => (
                 label="Label"
                 tooltip="Tooltip for this input"
                 className={{ root: 'mb-1' }}
+                placeholder="Placeholder"
               />
               <Button type="submit">Submit</Button>
             </Form>
@@ -60,6 +61,7 @@ export const Required = () => (
                 label="Label"
                 tooltip="Tooltip for this input"
                 className={{ root: 'mb-1' }}
+                placeholder="Placeholder"
               />
               <Button type="submit">Submit</Button>
             </Form>
@@ -100,6 +102,7 @@ export const OnChangeFunction = () => (
                 label="Label"
                 tooltip="Tooltip for this input"
                 className={{ root: 'mb-1' }}
+                placeholder="Placeholder"
               />
               <Button type="submit">Submit</Button>
             </Form>
@@ -137,6 +140,7 @@ export const Styled = () => (
                   input: 'bg-uzh-blue-20',
                   error: 'text-red-700',
                 }}
+                placeholder="Placeholder"
               />
               <Button type="submit">Submit</Button>
             </Form>

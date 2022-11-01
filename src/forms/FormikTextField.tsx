@@ -6,6 +6,7 @@ import Label from './Label'
 export interface TextFieldProps {
   id?: string
   label?: string
+  placeholder?: string
   tooltip?: string
   required?: boolean
   className?: {
@@ -34,6 +35,7 @@ export function FormikTextField({
   onChange,
   id,
   label,
+  placeholder,
   tooltip,
   required,
   className,
@@ -62,6 +64,7 @@ export function FormikTextField({
             id={id}
             name={name}
             type="text"
+            placeholder={placeholder}
             className={twMerge(
               'w-full rounded bg-uzh-grey-20 border border-uzh-grey-60 focus:border-uzh-blue-50 h-9',
               meta.error && meta.touched && 'border-red-400 bg-red-50',
@@ -76,6 +79,7 @@ export function FormikTextField({
             value={value}
             onChange={(e) => onChange(e.target.value)}
             type="text"
+            placeholder={placeholder}
             className={twMerge(
               'w-full rounded bg-uzh-grey-20 border border-uzh-grey-60 focus:border-uzh-blue-50 h-9',
               meta.error && meta.touched && 'border-red-400 bg-red-50',
