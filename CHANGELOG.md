@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.69](https://github.com/uzh-bf/design-system/compare/v0.0.68...v0.0.69) (2022-11-01)
+
+
+### Enhancements
+
+* use font-thesans-plain and font-thesans-bold for next 13 compat ([21b6d6f](https://github.com/uzh-bf/design-system/commit/21b6d6f7bc6ddf8dec30cdd5abf5a9b7204642ba))
+
 ### [0.0.68](https://github.com/uzh-bf/design-system/compare/v0.0.67...v0.0.68) (2022-11-01)
 
 
