@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.67](https://github.com/uzh-bf/design-system/compare/v0.0.66...v0.0.67) (2022-11-01)
+
+
+### Enhancements
+
+* **FormikText*Field:** add placeholder attribute ([da1d908](https://github.com/uzh-bf/design-system/commit/da1d908256367e193f10fbb56a2384837bbb7588))
+
 ### [0.0.66](https://github.com/uzh-bf/design-system/compare/v0.0.65...v0.0.66) (2022-10-31)
 
 
