@@ -4,10 +4,10 @@ import {
   faChevronUp,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import * as SelectPrimitive from '@radix-ui/react-select'
+import * as RadixSelect from '@radix-ui/react-select'
 import React, { useState } from 'react'
 import { twMerge } from 'tailwind-merge'
-import Button from './Button'
+import { Button } from './Button'
 
 // TODO Attention: scrolling does not work because apparently overflow is set to "hidden" on the body
 
@@ -19,96 +19,108 @@ export interface Item {
 
 export interface SelectProps {
   items: Item[]
-  disabled?: boolean
-  className?: string
-  triggerStyle?: string
-  itemStyle?: string
-  size?: 'md' | 'sm'
   onChange: (newValue: string) => void
+  value?: string
+  disabled?: boolean
+  size?: 'md' | 'sm'
+  className?: {
+    trigger?: string
+    viewport?: string
+    item?: string
+    text?: string
+  }
 }
+
+const defaultProps = {
+  disabled: false,
+  size: 'md',
+  className: {},
+}
+
 export function Select({
   items,
-  disabled,
-  className,
-  triggerStyle,
-  itemStyle,
-  size,
   onChange,
+  value,
+  disabled,
+  size,
+  className,
 }: SelectProps) {
   const [open, setOpen] = useState(false)
 
   return (
     <div className="relative flex">
-      <SelectPrimitive.Root
+      <RadixSelect.Root
         defaultValue={items[0].value}
         onValueChange={onChange}
         onOpenChange={(open) => setOpen(open)}
+        value={value}
       >
-        <SelectPrimitive.Trigger asChild className={triggerStyle}>
-          <Button disabled={disabled}>
-            <SelectPrimitive.Value />
-            <SelectPrimitive.Icon
+        <RadixSelect.Trigger asChild className={className?.trigger}>
+          <Button
+            disabled={disabled}
+            className={twMerge(size === 'sm' && '!text-sm')}
+          >
+            <RadixSelect.Value />
+            <RadixSelect.Icon
               className={twMerge('ml-2', size === 'sm' && 'ml-0.5')}
             >
               <FontAwesomeIcon
                 icon={open ? faChevronUp : faChevronDown}
                 size={size === 'sm' ? 'sm' : '1x'}
               />
-            </SelectPrimitive.Icon>
+            </RadixSelect.Icon>
           </Button>
-        </SelectPrimitive.Trigger>
-        <SelectPrimitive.Content>
-          <SelectPrimitive.ScrollUpButton className="flex items-center justify-center text-gray-700 dark:text-gray-300">
+        </RadixSelect.Trigger>
+        <RadixSelect.Content>
+          <RadixSelect.ScrollUpButton className="flex items-center justify-center text-gray-700 dark:text-gray-300">
             <FontAwesomeIcon
               icon={faChevronUp}
               size={size === 'sm' ? 'sm' : '1x'}
             />
-          </SelectPrimitive.ScrollUpButton>
-          <SelectPrimitive.Viewport
+          </RadixSelect.ScrollUpButton>
+          <RadixSelect.Viewport
             className={twMerge(
               'p-1 bg-white rounded-lg shadow-lg dark:bg-gray-800 z-[9999]',
-              className
+              className?.viewport
             )}
           >
-            <SelectPrimitive.Group>
+            <RadixSelect.Group>
               {items.map((item, ix) => (
-                <SelectPrimitive.Item
+                <RadixSelect.Item
                   disabled={item.disabled}
                   key={ix}
                   value={item.value}
                   className={twMerge(
                     'relative flex items-center px-8 py-2 rounded-md text-gray-700 dark:text-gray-300 font-medium focus:bg-gray-100 dark:focus:bg-gray-900',
                     'rdx-disabled:opacity-50 focus:outline-none select-none',
-                    size === 'sm' && 'px-7'
+                    size === 'sm' && 'px-7 text-sm',
+                    className?.item
                   )}
                 >
-                  <SelectPrimitive.ItemText>
-                    <div
-                      className={twMerge(itemStyle, size === 'sm' && 'text-sm')}
-                    >
-                      {item.label}
-                    </div>
-                  </SelectPrimitive.ItemText>
-                  <SelectPrimitive.ItemIndicator className="absolute inline-flex items-center left-2">
+                  <RadixSelect.ItemText className={twMerge(className?.text)}>
+                    {item.label}
+                  </RadixSelect.ItemText>
+                  <RadixSelect.ItemIndicator className="absolute inline-flex items-center left-2">
                     <FontAwesomeIcon
                       icon={faCheck}
                       size={size === 'sm' ? 'sm' : '1x'}
                     />
-                  </SelectPrimitive.ItemIndicator>
-                </SelectPrimitive.Item>
+                  </RadixSelect.ItemIndicator>
+                </RadixSelect.Item>
               ))}
-            </SelectPrimitive.Group>
-          </SelectPrimitive.Viewport>
-          <SelectPrimitive.ScrollDownButton className="flex items-center justify-center text-gray-700 dark:text-gray-300">
+            </RadixSelect.Group>
+          </RadixSelect.Viewport>
+          <RadixSelect.ScrollDownButton className="flex items-center justify-center text-gray-700 dark:text-gray-300">
             <FontAwesomeIcon
               icon={faChevronDown}
               size={size === 'sm' ? 'sm' : '1x'}
             />
-          </SelectPrimitive.ScrollDownButton>
-        </SelectPrimitive.Content>
-      </SelectPrimitive.Root>
+          </RadixSelect.ScrollDownButton>
+        </RadixSelect.Content>
+      </RadixSelect.Root>
     </div>
   )
 }
 
+Select.defaultProps = defaultProps
 export default Select

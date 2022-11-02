@@ -54,9 +54,11 @@ export const Styled = () => {
     <Select
       items={items}
       onChange={() => null}
-      triggerStyle="bg-uzh-blue-20"
-      itemStyle="text-red-700"
-      className="bg-green-200"
+      className={{
+        viewport: 'bg-green-200',
+        trigger: 'bg-uzh-blue-20',
+        item: 'text-red-700',
+      }}
     />
   )
 }
