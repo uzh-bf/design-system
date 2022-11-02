@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.70](https://github.com/uzh-bf/design-system/compare/v0.0.69...v0.0.70) (2022-11-02)
+
+
+### Refactors
+
+* **Select:** change className property to object in for more flexibility ([66af701](https://github.com/uzh-bf/design-system/commit/66af701de714bbbda7e9e9d5a8760a4bf8466a74))
+
 ### [0.0.69](https://github.com/uzh-bf/design-system/compare/v0.0.68...v0.0.69) (2022-11-01)
 
 
