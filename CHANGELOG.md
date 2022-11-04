@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.72](https://github.com/uzh-bf/design-system/compare/v0.0.71...v0.0.72) (2022-11-04)
+
+
+### Enhancements
+
+* **Select:** add root style to select component ([d0edb8c](https://github.com/uzh-bf/design-system/commit/d0edb8cecb770acbe6fa70f496796f94f4faefcf))
+
 ### [0.0.71](https://github.com/uzh-bf/design-system/compare/v0.0.70...v0.0.71) (2022-11-04)
 
 
