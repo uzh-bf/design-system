@@ -51,15 +51,18 @@ export const Styled = () => {
   ]
 
   return (
-    <Select
-      items={items}
-      onChange={() => null}
-      className={{
-        viewport: 'bg-green-200',
-        trigger: 'bg-uzh-blue-20',
-        item: 'text-red-700',
-      }}
-    />
+    <div className="w-full h-12 border border-solid rounded-md">
+      <Select
+        items={items}
+        onChange={() => null}
+        className={{
+          root: 'h-full border-none rounded-none',
+          viewport: 'bg-green-200',
+          trigger: 'bg-uzh-blue-20 border-none rounded-none',
+          item: 'text-red-700',
+        }}
+      />
+    </div>
   )
 }
 

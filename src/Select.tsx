@@ -24,6 +24,7 @@ export interface SelectProps {
   disabled?: boolean
   size?: 'md' | 'sm'
   className?: {
+    root?: string
     trigger?: string
     viewport?: string
     item?: string
@@ -48,17 +49,17 @@ export function Select({
   const [open, setOpen] = useState(false)
 
   return (
-    <div className="relative flex">
+    <div className={twMerge('relative flex', className?.root)}>
       <RadixSelect.Root
         defaultValue={items[0].value}
         onValueChange={onChange}
         onOpenChange={(open) => setOpen(open)}
         value={value}
       >
-        <RadixSelect.Trigger asChild className={className?.trigger}>
+        <RadixSelect.Trigger asChild>
           <Button
             disabled={disabled}
-            className={twMerge(size === 'sm' && '!text-sm')}
+            className={twMerge(size === 'sm' && '!text-sm', className?.trigger)}
           >
             <RadixSelect.Value />
             <RadixSelect.Icon
