@@ -22,11 +22,13 @@ export interface TextareaFieldWithNameProps extends TextareaFieldProps {
   name: string
   value?: never
   onChange?: never
+  [key: string]: any
 }
 export interface TextareaFieldWithOnChangeProps extends TextareaFieldProps {
   name?: never
   value: string
   onChange: (newValue: string) => void
+  [key: string]: any
 }
 
 export function FormikTextareaField({
@@ -39,6 +41,7 @@ export function FormikTextareaField({
   tooltip,
   required,
   className,
+  ...props
 }: TextareaFieldWithNameProps | TextareaFieldWithOnChangeProps) {
   const [field, meta, helpers] = useField(name || 'missing')
   return (
@@ -69,6 +72,7 @@ export function FormikTextareaField({
               meta.error && meta.touched && 'border-red-400 bg-red-50',
               className?.input
             )}
+            {...props}
           />
         )}
         {typeof value !== undefined && onChange && (
@@ -83,6 +87,7 @@ export function FormikTextareaField({
               meta.error && meta.touched && 'border-red-400 bg-red-50',
               className?.input
             )}
+            {...props}
           />
         )}
       </div>

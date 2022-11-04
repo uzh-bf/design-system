@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.71](https://github.com/uzh-bf/design-system/compare/v0.0.70...v0.0.71) (2022-11-04)
+
+
+### Enhancements
+
+* **FormikText*Field:** allow overriding any props with a ...props spread ([89fb34f](https://github.com/uzh-bf/design-system/commit/89fb34ff078d8c41b7e317af2d48743170cf2b69))
+
 ### [0.0.70](https://github.com/uzh-bf/design-system/compare/v0.0.69...v0.0.70) (2022-11-02)
 
 
