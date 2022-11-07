@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.75](https://github.com/uzh-bf/design-system/compare/v0.0.74...v0.0.75) (2022-11-07)
+
+
+### Bug Fixes
+
+* **Dropdown:** add disable attribute also for custom trigger ([b00ad36](https://github.com/uzh-bf/design-system/commit/b00ad369d9a068aa3f15b27e3aea208e0deb8a3a))
+
 ### [0.0.74](https://github.com/uzh-bf/design-system/compare/v0.0.73...v0.0.74) (2022-11-07)
 
 
