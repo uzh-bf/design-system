@@ -20,6 +20,7 @@ export interface DropdownProps {
   }[][]
   className?: string
   triggerStyle?: string
+  disabled?: boolean
 }
 
 const defaultProps = {
@@ -27,6 +28,7 @@ const defaultProps = {
   groups: undefined,
   className: '',
   triggerStyle: '',
+  disabled: false,
 }
 export function Dropdown({
   trigger,
@@ -34,8 +36,11 @@ export function Dropdown({
   groups,
   className,
   triggerStyle,
+  disabled,
 }: DropdownProps) {
   const theme = useContext(ThemeContext)
+
+  console.log(disabled)
 
   const DropdownItem = ({
     label,
@@ -77,8 +82,10 @@ export function Dropdown({
           className={twMerge(
             'px-2 py-1 border border-solid border-uzh-grey-60 rounded-md',
             `hover:${theme.primaryBg}`,
+            disabled && 'cursor-not-allowed text-gray-500 hover:bg-white',
             triggerStyle
           )}
+          disabled={disabled}
         >
           {trigger}
         </RadixDropdown.Trigger>

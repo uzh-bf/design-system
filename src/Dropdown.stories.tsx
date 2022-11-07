@@ -34,6 +34,30 @@ export const Default = () => {
   )
 }
 
+export const Disabled = () => {
+  return (
+    <div>
+      <div>Disabled dropdowns cannot be opened and have greyed out text.</div>
+      <Dropdown
+        disabled
+        trigger="Test"
+        items={[
+          {
+            label: 'Element 1 long',
+            onClick: () => alert('Element 1 clicked'),
+          },
+          { label: 'Element 2', onClick: () => alert('Element 2 clicked') },
+          {
+            label: 'Element 3 short',
+            onClick: () => alert('Element 3 clicked'),
+          },
+          { label: 'Element 4', onClick: () => alert('Element 4 clicked') },
+        ]}
+      />
+    </div>
+  )
+}
+
 export const Groups = () => {
   return (
     <div>

@@ -65,7 +65,7 @@ export function Switch({
       <RadixSwitch.Root
         checked={checked}
         className={twMerge(
-          'relative bg-uzh-grey-80 rounded-full border-0 unset',
+          'relative bg-uzh-grey-80 rounded-full border-0',
           disabled && 'bg-uzh-grey-40 cursor-not-allowed',
           checked && theme.primaryBgDark,
           rootSize[size || 'md']
