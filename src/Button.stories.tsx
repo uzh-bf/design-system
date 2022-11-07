@@ -9,6 +9,8 @@ const ExampleIcon = (
 
 export const Simple = () => <Button>asdasd</Button>
 
+export const Loading = () => <Button loading>asdasd</Button>
+
 export const Default = () => (
   <Button>
     <Button.Icon>{ExampleIcon}</Button.Icon>

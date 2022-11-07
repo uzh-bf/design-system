@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.73](https://github.com/uzh-bf/design-system/compare/v0.0.72...v0.0.73) (2022-11-06)
+
+
+### Enhancements
+
+* **Button:** add loading state with indicator ([f58f6f4](https://github.com/uzh-bf/design-system/commit/f58f6f487cc7b2d9b647fd4b2fa1d53bd1c4f475))
+
 ### [0.0.72](https://github.com/uzh-bf/design-system/compare/v0.0.71...v0.0.72) (2022-11-04)
 
 
