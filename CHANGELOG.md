@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.74](https://github.com/uzh-bf/design-system/compare/v0.0.73...v0.0.74) (2022-11-07)
+
+
+### Other
+
+* **Dropdown:** add possibility to disable dropdown ([4111417](https://github.com/uzh-bf/design-system/commit/411141711d64942679acc905204a68f0a714ccc2))
+
 ### [0.0.73](https://github.com/uzh-bf/design-system/compare/v0.0.72...v0.0.73) (2022-11-06)
 
 
