@@ -90,7 +90,15 @@ export function Dropdown({
           {trigger}
         </RadixDropdown.Trigger>
       ) : (
-        <RadixDropdown.Trigger>{trigger}</RadixDropdown.Trigger>
+        <RadixDropdown.Trigger
+          disabled={disabled}
+          className={twMerge(
+            disabled && 'cursor-not-allowed text-gray-500 hover:bg-white',
+            triggerStyle
+          )}
+        >
+          {trigger}
+        </RadixDropdown.Trigger>
       )}
 
       <RadixDropdown.Content
