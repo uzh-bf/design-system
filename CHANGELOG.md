@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.76](https://github.com/uzh-bf/design-system/compare/v0.0.75...v0.0.76) (2022-11-08)
+
+
+### Enhancements
+
+* **Table:** update table component with minor modifications ([72c5d50](https://github.com/uzh-bf/design-system/commit/72c5d50c358c5afbb5e51d5d7acb5b0228d12e91))
+
+
+### Other
+
+* **Table:** readd React as an import ([7aa50d9](https://github.com/uzh-bf/design-system/commit/7aa50d96274dbb60ee2dad73ab7b09190574d7c2))
+
 ### [0.0.75](https://github.com/uzh-bf/design-system/compare/v0.0.74...v0.0.75) (2022-11-07)
 
 
