@@ -1,25 +1,32 @@
 import { faSort, faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
-export interface column {
-  label: string
-  accessor: string
-  sortable: boolean
-}
-
-interface TableProps {
-  className?: string
-  columns: column[]
+export interface TableProps {
+  columns: {
+    label: string
+    accessor: string
+    sortable: boolean
+  }[]
   data: Record<string, string | number>[]
   caption?: string
+  className?: {
+    root?: string
+    tableHeader?: string
+    body?: string
+    row?: string
+  }
 }
 
 export function Table({ className, columns, data, caption }: TableProps) {
   const [tableData, setTableData] = useState(data)
   const [sortField, setSortField] = useState('')
   const [order, setOrder] = useState('asc')
+
+  useEffect(() => {
+    setTableData(data)
+  }, [data])
 
   const handleSorting = (sortField: string, sortOrder: string) => {
     if (sortField) {
@@ -45,8 +52,8 @@ export function Table({ className, columns, data, caption }: TableProps) {
   }
 
   return (
-    <>
-      <table className="table-auto">
+    <div className={twMerge('table w-full p-4', className?.root)}>
+      <table className="w-full table-auto">
         <caption className="text-sm italic">{caption}</caption>
         <thead>
           <tr>
@@ -58,8 +65,9 @@ export function Table({ className, columns, data, caption }: TableProps) {
                     sortable ? () => handleSortingChange(accessor) : undefined
                   }
                   className={twMerge(
-                    'pt-8 pb-2 pr-10 border-b-2 text-lg border-b-gray-800 text-start text-gray-800',
-                    sortable && 'cursor-pointer'
+                    'pt-8 pb-2 pr-10 mr-20 border-b-2 text-lg border-b-gray-800 text-start text-gray-800',
+                    sortable && 'cursor-pointer',
+                    className?.tableHeader
                   )}
                 >
                   {sortable && (
@@ -83,12 +91,18 @@ export function Table({ className, columns, data, caption }: TableProps) {
             })}
           </tr>
         </thead>
-        <tbody>
-          {tableData.map((data, index) => {
+        <tbody className={className?.body}>
+          {tableData.map((d, index) => {
             return (
-              <tr key={index} className="odd:bg-uzh-grey-20 first:border-t-0">
+              <tr
+                key={index}
+                className={twMerge(
+                  'odd:bg-uzh-grey-20 first:border-t-0',
+                  className?.row
+                )}
+              >
                 {columns.map(({ accessor }) => {
-                  const tData = data[accessor] ? data[accessor] : '——'
+                  const tData = d[accessor] ? d[accessor] : '——'
                   return (
                     <td
                       className="p-4 border-t-2 border-uzh-grey-60"
@@ -103,7 +117,7 @@ export function Table({ className, columns, data, caption }: TableProps) {
           })}
         </tbody>
       </table>
-    </>
+    </div>
   )
 }
 
