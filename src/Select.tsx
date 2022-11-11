@@ -11,6 +11,14 @@ import { Button } from './Button'
 
 // TODO Attention: scrolling does not work because apparently overflow is set to "hidden" on the body
 
+interface ClassName {
+  root?: string
+  trigger?: string
+  viewport?: string
+  item?: string
+  text?: string
+}
+
 export interface Item {
   value: string
   disabled?: boolean // disabled React select
@@ -24,14 +32,14 @@ export interface SelectProps {
   value?: string
   disabled?: boolean
   size?: 'md' | 'sm'
-  className?: {
-    root?: string
-    trigger?: string
-    viewport?: string
-    item?: string
-    text?: string
-  }
+  className?: ClassName
   placeholder?: string
+}
+
+interface SelectItemProps {
+  className?: ClassName
+  label: string
+  size?: string
 }
 
 const defaultProps = {
@@ -42,7 +50,7 @@ const defaultProps = {
 }
 
 const SelectItem = React.forwardRef(
-  ({ className, label, size, ...props }, forwardedRef) => {
+  ({ className, label, size, ...props }: SelectItemProps, forwardedRef) => {
     return (
       <RadixSelect.Item
         className={twMerge(
@@ -52,7 +60,7 @@ const SelectItem = React.forwardRef(
           className?.item
         )}
         {...props}
-        ref={forwardedRef}
+        ref={forwardedRef as React.ForwardedRef<HTMLDivElement>}
       >
         <RadixSelect.ItemText className={twMerge(className?.text)}>
           {label}
@@ -114,11 +122,9 @@ export function Select({
               className?.viewport
             )}
           >
-            <RadixSelect.Group>
-              {items.map((item, ix) => (
-                <SelectItem key={ix} {...item} />
-              ))}
-            </RadixSelect.Group>
+            {items.map((item, ix) => (
+              <SelectItem key={ix} {...item} className={className} />
+            ))}
           </RadixSelect.Viewport>
           <RadixSelect.ScrollDownButton className="flex items-center justify-center text-gray-700 dark:text-gray-300">
             <FontAwesomeIcon
