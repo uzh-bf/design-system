@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.77](https://github.com/uzh-bf/design-system/compare/v0.0.76...v0.0.77) (2022-11-11)
+
+
+### Features
+
+* **FormikSelectField:** add initial select input for formik ([b4b579f](https://github.com/uzh-bf/design-system/commit/b4b579f5fc61a67a9f3d498a314fc4dfc5c46b67))
+* **Progress:** add display offset to improve layout on small screens ([8fea412](https://github.com/uzh-bf/design-system/commit/8fea4122dc8c7a6eee5723b177e0c860a1b1ad5e))
+
+
+### Dependencies
+
+* upgrade everything ([435bc0f](https://github.com/uzh-bf/design-system/commit/435bc0fa6694bad82821c17413becf6af9420f93))
+
+
+### Enhancements
+
+* add source sans pro to tailwind constants ([5f0ad49](https://github.com/uzh-bf/design-system/commit/5f0ad495cadb3a46baf839d16d23f7c019793f14))
+
 ### [0.0.76](https://github.com/uzh-bf/design-system/compare/v0.0.75...v0.0.76) (2022-11-08)
 
 
