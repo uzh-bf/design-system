@@ -40,6 +40,7 @@ interface SelectItemProps {
   className?: ClassName
   label: string
   size?: string
+  value: string
 }
 
 const defaultProps = {

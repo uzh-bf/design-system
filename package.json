@@ -27,6 +27,7 @@
     "dev": "ladle serve",
     "format": "prettier --write src/",
     "test": "dts test --passWithNoTests",
+    "prerelease": "npm run build",
     "release": "standard-version",
     "release:dry": "standard-version --dry-run",
     "prepare": "husky install"
