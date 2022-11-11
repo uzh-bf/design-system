@@ -12,6 +12,7 @@ export interface ProgressProps {
   formatter: (value: any) => any
   isMaxVisible?: boolean
   nonLinear?: boolean
+  displayOffset?: number
   onItemClick?: (ix: number) => void
   [x: string]: any
 }
@@ -19,6 +20,7 @@ export interface ProgressProps {
 const defaultProps = {
   isMaxVisible: true,
   indicatorClassName: undefined,
+  displayOffset: undefined,
   formatter: (value: any) => value,
 }
 
@@ -30,6 +32,7 @@ export function Progress({
   className,
   isMaxVisible,
   nonLinear,
+  displayOffset,
   onItemClick,
   ...props
 }: ProgressProps) {
@@ -50,7 +53,7 @@ export function Progress({
         style={{ width: `${(value / max) * 100}%` }}
         className={twMerge(
           'absolute px-2 py-1 min-w-[40px] h-full text-white rounded flex flex-col justify-center text-right',
-          theme.primaryBgDark,
+          !nonLinear && theme.primaryBgDark,
           indicatorClassName
         )}
       >
@@ -58,13 +61,19 @@ export function Progress({
       </RadixProgress.Indicator>
 
       {nonLinear && (
-        <div className="absolute top-0 bottom-0 left-0 right-0 flex flex-row">
+        <div className="absolute top-0 bottom-0 left-0 right-0 flex flex-row text-xs">
           {new Array(max).fill(0).map((item, ix) => (
             <button
               className={twMerge(
-                'rounded p-1 flex-1',
-                value > ix && 'text-white',
+                'p-1 flex-1',
+                value > ix && `text-white ${theme.primaryBgDark}`,
                 value === ix && `font-bold`,
+                displayOffset &&
+                  ix < value - displayOffset &&
+                  'hidden md:block',
+                displayOffset &&
+                  ix > value + displayOffset &&
+                  'hidden md:block',
                 theme.primaryTextHover,
                 theme.primaryBgHover
               )}
