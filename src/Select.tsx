@@ -18,6 +18,7 @@ export interface Item {
 }
 
 export interface SelectProps {
+  name: string
   items: Item[]
   onChange: (newValue: string) => void
   value?: string
@@ -30,13 +31,39 @@ export interface SelectProps {
     item?: string
     text?: string
   }
+  placeholder?: string
 }
 
 const defaultProps = {
   disabled: false,
   size: 'md',
   className: {},
+  placeholder: undefined,
 }
+
+const SelectItem = React.forwardRef(
+  ({ className, label, size, ...props }, forwardedRef) => {
+    return (
+      <RadixSelect.Item
+        className={twMerge(
+          'relative flex items-center px-8 py-2 rounded-md text-gray-700 dark:text-gray-300 font-medium focus:bg-gray-100 dark:focus:bg-gray-900',
+          'rdx-disabled:opacity-50 focus:outline-none select-none',
+          size === 'sm' && 'px-7 text-sm',
+          className?.item
+        )}
+        {...props}
+        ref={forwardedRef}
+      >
+        <RadixSelect.ItemText className={twMerge(className?.text)}>
+          {label}
+        </RadixSelect.ItemText>
+        <RadixSelect.ItemIndicator className="absolute inline-flex items-center left-2">
+          <FontAwesomeIcon icon={faCheck} size={size === 'sm' ? 'sm' : '1x'} />
+        </RadixSelect.ItemIndicator>
+      </RadixSelect.Item>
+    )
+  }
+)
 
 export function Select({
   items,
@@ -45,23 +72,25 @@ export function Select({
   disabled,
   size,
   className,
+  name,
+  placeholder,
 }: SelectProps) {
   const [open, setOpen] = useState(false)
 
   return (
     <div className={twMerge('relative flex', className?.root)}>
       <RadixSelect.Root
-        defaultValue={items[0].value}
+        name={name}
         onValueChange={onChange}
         onOpenChange={(open) => setOpen(open)}
         value={value}
       >
-        <RadixSelect.Trigger asChild>
+        <RadixSelect.Trigger asChild id={name}>
           <Button
             disabled={disabled}
             className={twMerge(size === 'sm' && '!text-sm', className?.trigger)}
           >
-            <RadixSelect.Value />
+            <RadixSelect.Value placeholder={placeholder} />
             <RadixSelect.Icon
               className={twMerge('ml-2', size === 'sm' && 'ml-0.5')}
             >
@@ -87,27 +116,7 @@ export function Select({
           >
             <RadixSelect.Group>
               {items.map((item, ix) => (
-                <RadixSelect.Item
-                  disabled={item.disabled}
-                  key={ix}
-                  value={item.value}
-                  className={twMerge(
-                    'relative flex items-center px-8 py-2 rounded-md text-gray-700 dark:text-gray-300 font-medium focus:bg-gray-100 dark:focus:bg-gray-900',
-                    'rdx-disabled:opacity-50 focus:outline-none select-none',
-                    size === 'sm' && 'px-7 text-sm',
-                    className?.item
-                  )}
-                >
-                  <RadixSelect.ItemText className={twMerge(className?.text)}>
-                    {item.label}
-                  </RadixSelect.ItemText>
-                  <RadixSelect.ItemIndicator className="absolute inline-flex items-center left-2">
-                    <FontAwesomeIcon
-                      icon={faCheck}
-                      size={size === 'sm' ? 'sm' : '1x'}
-                    />
-                  </RadixSelect.ItemIndicator>
-                </RadixSelect.Item>
+                <SelectItem key={ix} {...item} />
               ))}
             </RadixSelect.Group>
           </RadixSelect.Viewport>
