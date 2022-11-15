@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.80](https://github.com/uzh-bf/design-system/compare/v0.0.79...v0.0.80) (2022-11-15)
+
+
+### Enhancements
+
+* **Select:** add possibility to add short labels to select component to be displayed on trigger ([5fd6858](https://github.com/uzh-bf/design-system/commit/5fd6858f21bcce7e5045698957878bd57d2adb12))
+
+
+### Other
+
+* **Select:** update select stories to be consistent with new prop requirements ([72b7c81](https://github.com/uzh-bf/design-system/commit/72b7c8101fc7926099bac27b47bd5331079730d9))
+
 ### [0.0.79](https://github.com/uzh-bf/design-system/compare/v0.0.78...v0.0.79) (2022-11-11)
 
 
