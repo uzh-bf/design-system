@@ -15,6 +15,7 @@ export interface Item {
   value: string
   disabled?: boolean // disabled React select
   label: string // displayed name
+  shortLabel?: string
 }
 
 export interface SelectProps {
@@ -48,6 +49,10 @@ export function Select({
 }: SelectProps) {
   const [open, setOpen] = useState(false)
 
+  const shortValue = value
+    ? items.find((item) => item.value === value)?.shortLabel
+    : undefined
+
   return (
     <div className={twMerge('relative flex', className?.root)}>
       <RadixSelect.Root
@@ -61,7 +66,8 @@ export function Select({
             disabled={disabled}
             className={twMerge(size === 'sm' && '!text-sm', className?.trigger)}
           >
-            <RadixSelect.Value />
+            {shortValue || <RadixSelect.Value />}
+
             <RadixSelect.Icon
               className={twMerge('ml-2', size === 'sm' && 'ml-0.5')}
             >

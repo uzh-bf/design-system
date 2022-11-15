@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Select from './Select'
 
 export const Default = () => {
@@ -77,4 +77,33 @@ export const Small = () => {
   ]
 
   return <Select items={items} onChange={() => null} size="sm" />
+}
+
+export const CustomTriggerLabel = () => {
+  const items = [
+    { value: 'apple', label: 'Apple long label', shortLabel: 'Apple' },
+    { value: 'banana', label: 'Banana long label', shortLabel: 'Banana' },
+    { value: 'pear', label: 'Pear long label' },
+    { value: 'watermeldon', label: 'Watermelon long label' },
+    { value: 'peach', label: 'Peach long label' },
+    { value: 'mango', label: 'Mango long label', shortLabel: 'Mango' },
+  ]
+
+  const [value, setValue] = useState('apple')
+
+  return (
+    <div>
+      <div>
+        Adding a shortLabel to the items of the component, the shortened version
+        will be displayed on the trigger if the select component is collapsed.
+        These additional attributes can be added to all items or only a
+        selection of them.
+      </div>
+      <Select
+        items={items}
+        onChange={(newValue) => setValue(newValue)}
+        value={value}
+      />
+    </div>
+  )
 }
