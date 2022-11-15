@@ -86,6 +86,7 @@ const TailwindColorsUZH = {
 const TailwindFonts = {
   thesans: ['TheSans', 'sans-serif'],
   kollektif: ['kollektif', 'sans-serif'],
+  sourcesans: ['Source Sans Pro', 'sans-serif'],
 }
 
 const TailwindBasePlugins = {
