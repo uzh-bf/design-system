@@ -13,6 +13,8 @@ export const Default = () => {
 
   return (
     <Select
+      name="default"
+      placeholder="Select an item"
       items={items}
       onChange={(newValue) => {
         console.log(newValue)
@@ -24,7 +26,15 @@ export const Default = () => {
 export const Disabled = () => {
   const items = [{ value: 'appple', label: 'Apple' }]
 
-  return <Select items={items} onChange={() => null} disabled />
+  return (
+    <Select
+      name="disabled"
+      placeholder="Select an item"
+      items={items}
+      onChange={() => null}
+      disabled
+    />
+  )
 }
 
 export const DisabledElements = () => {
@@ -37,7 +47,14 @@ export const DisabledElements = () => {
     { value: 'mango', label: 'Mango' },
   ]
 
-  return <Select items={items} onChange={() => null} />
+  return (
+    <Select
+      name="disabled_elements_select"
+      placeholder="Select an item"
+      items={items}
+      onChange={() => null}
+    />
+  )
 }
 
 export const Styled = () => {
@@ -53,6 +70,8 @@ export const Styled = () => {
   return (
     <div className="w-full h-12 border border-solid rounded-md">
       <Select
+        name="styled_select"
+        placeholder="Select an item"
         items={items}
         onChange={() => null}
         className={{
@@ -76,7 +95,15 @@ export const Small = () => {
     { value: 'mango', label: 'Mango' },
   ]
 
-  return <Select items={items} onChange={() => null} size="sm" />
+  return (
+    <Select
+      name="small_select"
+      placeholder="Select an item"
+      items={items}
+      onChange={() => null}
+      size="sm"
+    />
+  )
 }
 
 export const CustomTriggerLabel = () => {
@@ -89,7 +116,7 @@ export const CustomTriggerLabel = () => {
     { value: 'mango', label: 'Mango long label', shortLabel: 'Mango' },
   ]
 
-  const [value, setValue] = useState('apple')
+  const [value, setValue] = useState<string>()
 
   return (
     <div>
@@ -100,6 +127,8 @@ export const CustomTriggerLabel = () => {
         selection of them.
       </div>
       <Select
+        name="custom_trigger_label_select"
+        placeholder="Select an item"
         items={items}
         onChange={(newValue) => setValue(newValue)}
         value={value}
