@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.81](https://github.com/uzh-bf/design-system/compare/v0.0.80...v0.0.81) (2022-11-16)
+
+
+### Bug Fixes
+
+* **Select:** fix wrong viewport placement in case of scrolling on surrounding element ([d3a6131](https://github.com/uzh-bf/design-system/commit/d3a61310a1c22db1b774da6ed90ad03192d8b3a7))
+
 ### [0.0.80](https://github.com/uzh-bf/design-system/compare/v0.0.79...v0.0.80) (2022-11-15)
 
 
