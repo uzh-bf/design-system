@@ -99,7 +99,7 @@ export function Select({
         onOpenChange={(open) => setOpen(open)}
         value={value}
       >
-        <RadixSelect.Trigger asChild id={name}>
+        <RadixSelect.Trigger id={name}>
           <Button
             disabled={disabled}
             className={twMerge(size === 'sm' && '!text-sm', className?.trigger)}
