@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.83](https://github.com/uzh-bf/design-system/compare/v0.0.82...v0.0.83) (2022-11-20)
+
+
+### Bug Fixes
+
+* **Tabs:** ensure that Tabs is exported as a named export ([797e903](https://github.com/uzh-bf/design-system/commit/797e903c006349ebf01c899907d74e99d8020979))
+
 ### [0.0.82](https://github.com/uzh-bf/design-system/compare/v0.0.81...v0.0.82) (2022-11-20)
 
 
