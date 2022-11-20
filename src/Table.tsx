@@ -95,7 +95,7 @@ export function Table({ className, columns, data, caption }: TableProps) {
                     sortable ? () => handleSortingChange(accessor) : undefined
                   }
                   className={twMerge(
-                    'pt-8 pb-2 pl-4 pr-10 mr-20 border-b-2 text-lg border-b-gray-800 text-start text-gray-800 whitespace-nowrap',
+                    'py-2 pl-4 pr-10 mr-20 border-b-2 text-lg border-b-gray-800 text-start text-gray-800 whitespace-nowrap',
                     sortable && 'cursor-pointer pl-0',
                     className?.tableHeader
                   )}
