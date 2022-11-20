@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.85](https://github.com/uzh-bf/design-system/compare/v0.0.84...v0.0.85) (2022-11-20)
+
+
+### Bug Fixes
+
+* **Table:** remove fixed top padding ([a54b12e](https://github.com/uzh-bf/design-system/commit/a54b12e135d47c16aa19ea2ea267ff53cab809e7))
+
 ### [0.0.84](https://github.com/uzh-bf/design-system/compare/v0.0.83...v0.0.84) (2022-11-20)
 
 
