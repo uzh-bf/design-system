@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.84](https://github.com/uzh-bf/design-system/compare/v0.0.83...v0.0.84) (2022-11-20)
+
+
+### Enhancements
+
+* **Table:** improve table logic with useMemo, add transformer and make sortable optional, improve styling with nowrap and left pad for th ([8ac6799](https://github.com/uzh-bf/design-system/commit/8ac6799fedd1a42efea2583eedc58aea0651b9a8))
+
 ### [0.0.83](https://github.com/uzh-bf/design-system/compare/v0.0.82...v0.0.83) (2022-11-20)
 
 
