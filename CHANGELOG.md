@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.87](https://github.com/uzh-bf/design-system/compare/v0.0.86...v0.0.87) (2022-11-21)
+
+
+### Other
+
+* **Dropdown:** breaking change: add styling with object structure to dropdown component ([7a94fb3](https://github.com/uzh-bf/design-system/commit/7a94fb3a4607716dce768af812b40ba964944e95))
+
 ### [0.0.86](https://github.com/uzh-bf/design-system/compare/v0.0.85...v0.0.86) (2022-11-21)
 
 
