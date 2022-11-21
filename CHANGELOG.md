@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.86](https://github.com/uzh-bf/design-system/compare/v0.0.85...v0.0.86) (2022-11-21)
+
+
+### Enhancements
+
+* **Table:** pass the entire row of data to the transformer ([a3a8134](https://github.com/uzh-bf/design-system/commit/a3a8134052f94c1b819b9af78d92845c17274a53))
+
 ### [0.0.85](https://github.com/uzh-bf/design-system/compare/v0.0.84...v0.0.85) (2022-11-20)
 
 
