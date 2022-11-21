@@ -1,6 +1,6 @@
 {
   "name": "@uzh-bf/design-system",
-  "version": "0.0.81",
+  "version": "0.0.86",
   "license": "MIT",
   "repository": {
     "url": "https://github.com/uzh-bf/design-system.git"
@@ -97,6 +97,7 @@
     "@radix-ui/react-select": "1.1.1",
     "@radix-ui/react-slider": "1.1.0",
     "@radix-ui/react-switch": "1.0.1",
+    "@radix-ui/react-tabs": "1.0.1",
     "@radix-ui/react-tooltip": "1.0.2",
     "react-countdown-circle-timer": "3.0.9"
   }
