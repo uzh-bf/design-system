@@ -8,7 +8,7 @@ export interface TableProps {
     label: string
     accessor: string
     sortable?: boolean
-    transformer?: (value: any) => any
+    transformer?: (value: any, row: any) => any
   }[]
   data: Record<string, string | number>[]
   caption?: string
@@ -42,7 +42,9 @@ export function Table({ className, columns, data, caption }: TableProps) {
           >
             {columns.map(({ accessor, transformer }) => {
               const tData = d[accessor] ? d[accessor] : '——'
-              const transformedData = transformer ? transformer(tData) : tData
+              const transformedData = transformer
+                ? transformer(tData, d)
+                : tData
               return (
                 <td
                   className="p-4 border-t-2 border-uzh-grey-60"
