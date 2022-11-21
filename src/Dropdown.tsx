@@ -18,16 +18,20 @@ export interface DropdownProps {
     shorting?: string
     selected?: boolean
   }[][]
-  className?: string
-  triggerStyle?: string
+  className?: {
+    trigger?: string
+    triggerDisabled?: string
+    viewport?: string
+    item?: string
+    group?: string
+  }
   disabled?: boolean
 }
 
 const defaultProps = {
   items: undefined,
   groups: undefined,
-  className: '',
-  triggerStyle: '',
+  className: undefined,
   disabled: false,
 }
 export function Dropdown({
@@ -35,29 +39,29 @@ export function Dropdown({
   items,
   groups,
   className,
-  triggerStyle,
   disabled,
 }: DropdownProps) {
   const theme = useContext(ThemeContext)
-
-  console.log(disabled)
 
   const DropdownItem = ({
     label,
     onClick,
     shorting,
     selected,
+    className,
   }: {
     label: string | React.ReactNode
     onClick: () => void
     shorting?: string
     selected?: boolean
+    className?: string
   }) => {
     if (typeof label === 'string') {
       return (
         <RadixDropdown.Item
           className={twMerge(
-            `hover:${theme.primaryBgDark} hover:!text-white px-2 py-0.5 hover:cursor-pointer rounded flex flex-row`
+            `hover:${theme.primaryBgDark} hover:!text-white px-2 py-0.5 hover:cursor-pointer rounded flex flex-row`,
+            className
           )}
           onClick={onClick}
         >
@@ -69,7 +73,10 @@ export function Dropdown({
       )
     }
     return (
-      <RadixDropdown.Item onClick={onClick} className="rounded-md">
+      <RadixDropdown.Item
+        onClick={onClick}
+        className={twMerge('rounded-md', className)}
+      >
         {label}
       </RadixDropdown.Item>
     )
@@ -83,7 +90,8 @@ export function Dropdown({
             'px-2 py-1 border border-solid border-uzh-grey-60 rounded-md',
             `hover:${theme.primaryBg}`,
             disabled && 'cursor-not-allowed text-gray-500 hover:bg-white',
-            triggerStyle
+            className?.trigger,
+            className?.triggerDisabled
           )}
           disabled={disabled}
         >
@@ -94,7 +102,7 @@ export function Dropdown({
           disabled={disabled}
           className={twMerge(
             disabled && 'cursor-not-allowed text-gray-500 hover:bg-white',
-            triggerStyle
+            className?.trigger
           )}
         >
           {trigger}
@@ -102,7 +110,11 @@ export function Dropdown({
       )}
 
       <RadixDropdown.Content
-        className={twMerge('p-1.5 rounded-md', theme.primaryBg, className)}
+        className={twMerge(
+          'p-1.5 rounded-md',
+          theme.primaryBg,
+          className?.viewport
+        )}
       >
         <RadixDropdown.Arrow
           className={twMerge(theme.primaryFill, 'opacity-25')}
@@ -117,6 +129,7 @@ export function Dropdown({
                 onClick={item.onClick}
                 shorting={item.shorting}
                 selected={item.selected}
+                className={className?.item}
               />
             ))}
           </div>
@@ -129,12 +142,13 @@ export function Dropdown({
               key={groupIndex}
               className="pt-1 pb-1 border-b border-solid first:pt-0 last:pb-0 border-uzh-grey-100 last:border-b-0"
             >
-              <RadixDropdown.Group>
+              <RadixDropdown.Group className={className?.group}>
                 {groupItems.map((item) => (
                   <DropdownItem
                     label={item.label}
                     onClick={item.onClick}
                     shorting={item.shorting}
+                    className={className?.item}
                   />
                 ))}
               </RadixDropdown.Group>
