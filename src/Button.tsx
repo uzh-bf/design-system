@@ -8,6 +8,7 @@ export interface ButtonProps {
   children: React.ReactNode
   disabled?: boolean
   fluid?: boolean
+  basic?: boolean
   type?: 'button' | 'submit' | 'reset'
   loading?: boolean
 
@@ -21,6 +22,7 @@ const defaultProps = {
   className: undefined,
   disabled: false,
   fluid: false,
+  basic: false,
   type: 'button',
   loading: false,
   onClick: () => null,
@@ -33,17 +35,24 @@ export function Button({
   disabled,
   active,
   fluid,
+  basic,
   loading,
   ...props
 }: ButtonProps) {
   const theme = useContext(ThemeContext)
 
   const computedClassName = twMerge(
-    'border rounded px-[0.75em] py-[0.25em] shadow inline-flex flex-row bg-white items-center font-sans gap-2',
-    active && `${theme.primaryBg} ${theme.primaryFill} ${theme.primaryBorder}`,
+    !basic && 'border rounded px-[0.75em] py-[0.25em] shadow bg-white ',
+    'inline-flex flex-row items-center font-sans gap-2',
+    !basic &&
+      active &&
+      `${theme.primaryBg} ${theme.primaryFill} ${theme.primaryBorder}`,
     disabled || loading
-      ? 'bg-uzh-grey-20 text-uzh-grey-80 cursor-default fill-uzh-grey-80'
-      : `${theme.primaryBgHover} ${theme.primaryBorderHover} ${theme.primaryTextHover} ${theme.primaryFillHover}`,
+      ? !basic
+        ? 'bg-uzh-grey-20 text-uzh-grey-80 cursor-default fill-uzh-grey-80'
+        : 'cursor-default'
+      : !basic &&
+          `${theme.primaryBgHover} ${theme.primaryBorderHover} ${theme.primaryTextHover} ${theme.primaryFillHover}`,
     fluid && 'w-full justify-center',
     className
   )

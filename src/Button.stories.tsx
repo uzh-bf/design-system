@@ -7,34 +7,41 @@ const ExampleIcon = (
   </svg>
 )
 
-export const Simple = () => <Button>asdasd</Button>
+export const Simple = () => <Button>Test-Text</Button>
 
-export const Loading = () => <Button loading>asdasd</Button>
+export const Loading = () => <Button loading>Test-Text</Button>
 
 export const Default = () => (
   <Button>
     <Button.Icon>{ExampleIcon}</Button.Icon>
-    <Button.Label>asdasd</Button.Label>
+    <Button.Label>Test-Text</Button.Label>
   </Button>
 )
 
 export const Active = () => (
   <Button active>
     <Button.Icon>{ExampleIcon}</Button.Icon>
-    <Button.Label>asdasd</Button.Label>
+    <Button.Label>Test-Text</Button.Label>
   </Button>
 )
 
 export const Disabled = () => (
   <Button disabled>
     <Button.Icon>{ExampleIcon}</Button.Icon>
-    <Button.Label>asdasd</Button.Label>
+    <Button.Label>Test-Text</Button.Label>
   </Button>
 )
 
 export const Fluid = () => (
   <Button fluid>
     <Button.Icon>{ExampleIcon}</Button.Icon>
-    <Button.Label>asdasd</Button.Label>
+    <Button.Label>Test-Text</Button.Label>
+  </Button>
+)
+
+export const BasicButton = () => (
+  <Button basic>
+    <Button.Icon>{ExampleIcon}</Button.Icon>
+    <Button.Label>Test-Text</Button.Label>
   </Button>
 )
