@@ -39,7 +39,7 @@ export function Button({
   const theme = useContext(ThemeContext)
 
   const computedClassName = twMerge(
-    'border rounded px-[0.75em] py-[0.25em] shadow inline-flex flex-row bg-white items-center font-thesans font-thesans-plain gap-2',
+    'border rounded px-[0.75em] py-[0.25em] shadow inline-flex flex-row bg-white items-center font-sans gap-2',
     active && `${theme.primaryBg} ${theme.primaryFill} ${theme.primaryBorder}`,
     disabled || loading
       ? 'bg-uzh-grey-20 text-uzh-grey-80 cursor-default fill-uzh-grey-80'
