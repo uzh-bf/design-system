@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.88](https://github.com/uzh-bf/design-system/compare/v0.0.87...v0.0.88) (2022-11-22)
+
+
+### Other
+
+* **Button:** add basic button version without styling ([54359e4](https://github.com/uzh-bf/design-system/commit/54359e4f08d5819340430a3547ac144cfe8611ee))
+* fix build by removing old fonts from build step ([6e23ab9](https://github.com/uzh-bf/design-system/commit/6e23ab97270a2dd06391c1d4ea14980e25d562d5))
+* remove font-thesans from all components ([d1f3b57](https://github.com/uzh-bf/design-system/commit/d1f3b57d81452d44801f8f841e199af68c72179b))
+
 ### [0.0.87](https://github.com/uzh-bf/design-system/compare/v0.0.86...v0.0.87) (2022-11-21)
 
 
