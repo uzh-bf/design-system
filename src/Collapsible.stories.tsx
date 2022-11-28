@@ -13,8 +13,9 @@ export const Default = () => {
       }}
       staticContent="Static content"
       closedContent="Closed content"
-      children="Dynamic content"
-    />
+    >
+      Dynamic content
+    </Collapsible>
   )
 }
 
@@ -38,15 +39,14 @@ export const Complex = () => {
           <span className="font-bold">closed</span>
         </div>
       }
-      children={
-        <div>
-          This node element us usually used to display{' '}
-          <span className="font-bold">long content</span> that does not fit into
-          the general layout otherwise
-        </div>
-      }
       customTrigger={<div>Custom Trigger</div>}
-    />
+    >
+      <div>
+        This node element us usually used to display{' '}
+        <span className="font-bold">long content</span> that does not fit into
+        the general layout otherwise
+      </div>
+    </Collapsible>
   )
 }
 
@@ -59,8 +59,9 @@ export const Simple = () => {
         setOpen(!open)
       }}
       staticContent="Simple version without any content when closed"
-      children="Dynamic content"
-    />
+    >
+      Dynamic content
+    </Collapsible>
   )
 }
 
@@ -76,7 +77,6 @@ export const Styled = () => {
       }}
       staticContent="Static content"
       closedContent="Closed content"
-      children="Dynamic content"
       className={{
         root: `border-1 ${theme.primaryBg}`,
         trigger: 'text-red-500',
@@ -84,6 +84,8 @@ export const Styled = () => {
         staticContent: 'text-green-500',
         closedContent: 'text-yellow-500',
       }}
-    />
+    >
+      Dynamic content
+    </Collapsible>
   )
 }
