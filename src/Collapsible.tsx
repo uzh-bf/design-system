@@ -20,7 +20,7 @@ export interface CollapsibleProps {
   children: React.ReactNode
 }
 
-function Collapsible({
+export function Collapsible({
   open,
   onChange,
   staticContent,
