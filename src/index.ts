@@ -2,6 +2,7 @@ import './tailwind.css'
 
 export * from './Button'
 export * from './Checkbox'
+export * from './Collapsible'
 export * from './Countdown'
 export * from './Dropdown'
 export * from './forms/FormikSelectField'
