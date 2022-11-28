@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.91](https://github.com/uzh-bf/design-system/compare/v0.0.90...v0.0.91) (2022-11-28)
+
+
+### Bug Fixes
+
+* **Collapsible:** add missing export of function ([267e97f](https://github.com/uzh-bf/design-system/commit/267e97f7a70dba8d387da2b7b4bbd7db95031331))
+* **Collapsible:** update collapsible stories with correct children props ([56c7705](https://github.com/uzh-bf/design-system/commit/56c77055c4c530c11267752a141f12f5b5686b25))
+
 ### [0.0.90](https://github.com/uzh-bf/design-system/compare/v0.0.89...v0.0.90) (2022-11-28)
 
 ### [0.0.89](https://github.com/uzh-bf/design-system/compare/v0.0.88...v0.0.89) (2022-11-28)
