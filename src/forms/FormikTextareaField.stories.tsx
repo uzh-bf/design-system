@@ -36,6 +36,45 @@ export const Default = () => (
   </div>
 )
 
+export const MaxLength = () => (
+  <div>
+    <div>
+      Providing a max length to the formik field does not allow the user to
+      enter more characters than specified. At the same time the option
+      "showMaxLength" can be used to display the character limit to the user.
+    </div>
+    <Formik
+      initialValues={{
+        name: '',
+      }}
+      isInitialValid={false}
+      onSubmit={async (values) => {
+        alert(`Form submitted with value: ${values.name}`)
+      }}
+    >
+      {({ values }) => {
+        return (
+          <div>
+            <Form>
+              <FormikTextareaField
+                name="name"
+                label="Label"
+                tooltip="Tooltip for this input"
+                className={{ root: 'mb-1' }}
+                placeholder="Placeholder"
+                maxLength={80}
+                maxLengthLabel="Characters"
+              />
+              <Button type="submit">Submit</Button>
+            </Form>
+            <div>Value: {values.name}</div>
+          </div>
+        )
+      }}
+    </Formik>
+  </div>
+)
+
 export const Required = () => (
   <div>
     <div>

@@ -9,6 +9,8 @@ export interface TextareaFieldProps {
   placeholder?: string
   tooltip?: string
   required?: boolean
+  maxLength?: number
+  maxLengthLabel?: string
   className?: {
     root?: string
     label?: string
@@ -40,6 +42,8 @@ export function FormikTextareaField({
   placeholder,
   tooltip,
   required,
+  maxLength,
+  maxLengthLabel,
   className,
   ...props
 }: TextareaFieldWithNameProps | TextareaFieldWithOnChangeProps) {
@@ -67,6 +71,7 @@ export function FormikTextareaField({
             id={id}
             name={name}
             placeholder={placeholder}
+            maxLength={maxLength}
             className={twMerge(
               'w-full rounded bg-uzh-grey-20 border border-uzh-grey-60 focus:border-uzh-blue-50 min-h-12',
               meta.error && meta.touched && 'border-red-400 bg-red-50',
@@ -82,6 +87,7 @@ export function FormikTextareaField({
             value={value}
             onChange={(e) => onChange(e.target.value)}
             placeholder={placeholder}
+            maxLength={maxLength}
             className={twMerge(
               'w-full rounded bg-uzh-grey-20 border border-uzh-grey-60 focus:border-uzh-blue-50 min-h-12',
               meta.error && meta.touched && 'border-red-400 bg-red-50',
@@ -101,6 +107,13 @@ export function FormikTextareaField({
           {meta.error}
         </div>
       ) : null}
+      {maxLength && (
+        <div className="text-sm text-right">
+          {`${
+            value?.length || field.value.length
+          } / ${maxLength} ${maxLengthLabel}`}
+        </div>
+      )}
     </div>
   )
 }
