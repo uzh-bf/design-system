@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.89](https://github.com/uzh-bf/design-system/compare/v0.0.88...v0.0.89) (2022-11-28)
+
+
+### Features
+
+* **Collapsible:** add collapsible component ([fcdf3e7](https://github.com/uzh-bf/design-system/commit/fcdf3e79618908a9f11fd6f390ae4c030947e920))
+
+
+### Other
+
+* Add CodeQL workflow for GitHub code scanning ([#27](https://github.com/uzh-bf/design-system/issues/27)) ([414fa46](https://github.com/uzh-bf/design-system/commit/414fa46b9ecdf45ae02b11eb06b0f8689bf21a38))
+
 ### [0.0.88](https://github.com/uzh-bf/design-system/compare/v0.0.87...v0.0.88) (2022-11-22)
 
 
