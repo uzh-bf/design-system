@@ -67,13 +67,9 @@ export function Progress({
               className={twMerge(
                 'p-1 flex-1',
                 value > ix && `text-white ${theme.primaryBgDark}`,
-                value === ix && `font-bold`,
-                displayOffset &&
-                  ix < value - displayOffset &&
-                  'hidden md:block',
-                displayOffset &&
-                  ix > value + displayOffset &&
-                  'hidden md:block',
+                value === ix && `font-bold bg-gray-400 text-white`,
+                displayOffset && ix < value - displayOffset && 'hidden',
+                displayOffset && ix > value + displayOffset && 'hidden',
                 theme.primaryTextHover,
                 theme.primaryBgHover
               )}
