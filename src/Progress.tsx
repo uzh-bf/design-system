@@ -1,6 +1,11 @@
 import React, { useContext } from 'react'
 import { twMerge } from 'tailwind-merge'
 
+import {
+  faChevronLeft,
+  faChevronRight,
+} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as RadixProgress from '@radix-ui/react-progress'
 import { ThemeContext } from './ThemeProvider'
 
@@ -65,14 +70,14 @@ export function Progress({
           {displayOffset && value - displayOffset > 0 && (
             <button
               className={twMerge(
-                'px-2 py-1 rounded-l text-white',
+                'px-3 py-1 rounded-l text-white',
                 theme.primaryBgDark,
                 theme.primaryTextHover,
                 theme.primaryBgHover
               )}
               onClick={() => onItemClick && onItemClick(value - 1)}
             >
-              1 ...
+              <FontAwesomeIcon icon={faChevronLeft} />
             </button>
           )}
           {new Array(max).fill(0).map((item, ix) => (
@@ -96,13 +101,13 @@ export function Progress({
           {displayOffset && max > value + displayOffset + 1 && (
             <button
               className={twMerge(
-                'px-2 py-1 rounded-r',
+                'px-3 py-1 rounded-r',
                 theme.primaryTextHover,
                 theme.primaryBgHover
               )}
               onClick={() => onItemClick && onItemClick(value + 1)}
             >
-              ... {max}
+              <FontAwesomeIcon icon={faChevronRight} />
             </button>
           )}
         </div>
