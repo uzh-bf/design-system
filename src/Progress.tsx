@@ -62,10 +62,25 @@ export function Progress({
 
       {nonLinear && (
         <div className="absolute top-0 bottom-0 left-0 right-0 flex flex-row text-xs">
+          {displayOffset && value - displayOffset > 0 && (
+            <button
+              className={twMerge(
+                'px-2 py-1 rounded-l text-white',
+                theme.primaryBgDark,
+                theme.primaryTextHover,
+                theme.primaryBgHover
+              )}
+              onClick={() => onItemClick && onItemClick(value - 1)}
+            >
+              1 ...
+            </button>
+          )}
           {new Array(max).fill(0).map((item, ix) => (
             <button
               className={twMerge(
                 'p-1 flex-1',
+                ix === 0 && 'rounded-l',
+                ix === max - 1 && 'rounded-r',
                 value > ix && `text-white ${theme.primaryBgDark}`,
                 value === ix && `font-bold bg-gray-400 text-white`,
                 displayOffset && ix < value - displayOffset && 'hidden',
@@ -78,6 +93,18 @@ export function Progress({
               {ix + 1}
             </button>
           ))}
+          {displayOffset && max > value + displayOffset + 1 && (
+            <button
+              className={twMerge(
+                'px-2 py-1 rounded-r',
+                theme.primaryTextHover,
+                theme.primaryBgHover
+              )}
+              onClick={() => onItemClick && onItemClick(value + 1)}
+            >
+              ... {max}
+            </button>
+          )}
         </div>
       )}
     </RadixProgress.Root>

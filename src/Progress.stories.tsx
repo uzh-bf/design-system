@@ -38,7 +38,7 @@ export const NonlinearWithOffset = () => {
   return (
     <Progress
       nonLinear
-      displayOffset={3}
+      displayOffset={7}
       value={value}
       max={20}
       formatter={(val) => val}
