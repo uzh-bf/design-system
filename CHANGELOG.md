@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.93](https://github.com/uzh-bf/design-system/compare/v0.0.92...v0.0.93) (2022-11-29)
+
+
+### Enhancements
+
+* **Progress:** always hide when offset is enabled, clearer distinction of active progress item ([748513e](https://github.com/uzh-bf/design-system/commit/748513e35966e7fe2ce9ea920b9f2e2cbf6c8fd6))
+
 ### [0.0.92](https://github.com/uzh-bf/design-system/compare/v0.0.91...v0.0.92) (2022-11-28)
 
 
