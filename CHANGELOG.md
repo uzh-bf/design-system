@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.94](https://github.com/uzh-bf/design-system/compare/v0.0.93...v0.0.94) (2022-11-29)
+
+
+### Enhancements
+
+* **Progress:** improved display of bars with offset ([5202b37](https://github.com/uzh-bf/design-system/commit/5202b37fae028ea53cc880341603fcbee5d7b356))
+* **Progress:** use chevrons for navigation ([dddf870](https://github.com/uzh-bf/design-system/commit/dddf870c1af05ec6dd22372f51d1a53788adc7cc))
+
 ### [0.0.93](https://github.com/uzh-bf/design-system/compare/v0.0.92...v0.0.93) (2022-11-29)
 
 
