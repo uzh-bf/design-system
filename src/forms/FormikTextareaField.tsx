@@ -108,7 +108,7 @@ export function FormikTextareaField({
         </div>
       ) : null}
       {maxLength && (
-        <div className="text-sm text-right">
+        <div className="text-sm italic text-right">
           {`${
             value?.length || field.value.length
           } / ${maxLength} ${maxLengthLabel}`}
