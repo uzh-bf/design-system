@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.95](https://github.com/uzh-bf/design-system/compare/v0.0.94...v0.0.95) (2022-12-03)
+
+
+### Enhancements
+
+* **Select:** fix and enhance select component with additional logic ([#30](https://github.com/uzh-bf/design-system/issues/30)) ([d97af85](https://github.com/uzh-bf/design-system/commit/d97af85ea6bbd815040962b6549a115b95553694))
+
 ### [0.0.94](https://github.com/uzh-bf/design-system/compare/v0.0.93...v0.0.94) (2022-11-29)
 
 
