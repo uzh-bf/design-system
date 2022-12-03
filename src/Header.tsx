@@ -2,14 +2,19 @@ import React from 'react'
 import { twMerge } from 'tailwind-merge'
 
 interface HeaderProps {
-  className?: string
+  className?: {
+    root?: string
+  }
   children: React.ReactNode
 }
 
 export function H1({ className, children }: HeaderProps) {
   return (
     <h1
-      className={twMerge('mb-[0.2em] font-sans text-2xl font-bold', className)}
+      className={twMerge(
+        'mb-[0.2em] font-sans text-2xl font-bold',
+        className?.root
+      )}
     >
       {children}
     </h1>
@@ -19,7 +24,10 @@ export function H1({ className, children }: HeaderProps) {
 export function H2({ className, children }: HeaderProps) {
   return (
     <h2
-      className={twMerge('mb-[0.2em] font-sans text-xl font-bold', className)}
+      className={twMerge(
+        'mb-[0.2em] font-sans text-xl font-bold',
+        className?.root
+      )}
     >
       {children}
     </h2>
@@ -29,7 +37,10 @@ export function H2({ className, children }: HeaderProps) {
 export function H3({ className, children }: HeaderProps) {
   return (
     <h3
-      className={twMerge('mb-[0.2em] font-sans text-lg font-bold', className)}
+      className={twMerge(
+        'mb-[0.2em] font-sans text-lg font-bold',
+        className?.root
+      )}
     >
       {children}
     </h3>
@@ -39,7 +50,10 @@ export function H3({ className, children }: HeaderProps) {
 export function H4({ className, children }: HeaderProps) {
   return (
     <h4
-      className={twMerge('text-md mb-[0.2em] font-sans font-bold', className)}
+      className={twMerge(
+        'text-md mb-[0.2em] font-sans font-bold',
+        className?.root
+      )}
     >
       {children}
     </h4>
