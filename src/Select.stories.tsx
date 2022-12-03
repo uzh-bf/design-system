@@ -55,12 +55,40 @@ export const Default = () => {
 }
 
 export const Groups = () => {
+  const [value, setValue] = useState<string>()
+
   return (
     <Select
       name="default"
       placeholder="Select an item"
-      groups={groups}
+      groups={[
+        ...groups,
+        {
+          label: 'Short labels',
+          items: [
+            {
+              value: 'apple_short',
+              label: 'Apple long label',
+              shortLabel: 'Apple',
+            },
+            {
+              value: 'banana_short',
+              label: 'Banana',
+              disabled: true,
+              shortLabel: 'Banana',
+            },
+            {
+              value: 'pear_short',
+              label: 'Pear long label',
+              shortLabel: 'Pear',
+            },
+            { value: 'watermeldon_short', label: 'Watermelon' },
+          ],
+        },
+      ]}
+      value={value}
       onChange={(newValue) => {
+        setValue(newValue)
         console.log(newValue)
       }}
     />

@@ -72,10 +72,7 @@ export function Select({
   const [open, setOpen] = useState(false)
   const theme = useContext(ThemeContext)
 
-  // TODO: check if works - HANDLE GROUPS AS WELL!!
-  const shortValue = value
-    ? items?.find((item) => item.value === value)?.shortLabel
-    : undefined
+  const flatItems = items || groups?.flatMap((group) => group.items) || []
 
   return (
     <div className={twMerge('relative flex', className?.root)}>
@@ -94,7 +91,23 @@ export function Select({
           )}
           disabled={disabled}
         >
-          {shortValue || <RadixSelect.Value placeholder={placeholder} />}
+          <div
+            className={
+              flatItems?.find((item) => item.value === value)?.shortLabel &&
+              'hidden'
+            }
+          >
+            <RadixSelect.Value placeholder={placeholder} />
+          </div>
+          <div
+            className={twMerge(
+              'hidden',
+              flatItems?.find((item) => item.value === value)?.shortLabel &&
+                'block'
+            )}
+          >
+            {flatItems?.find((item) => item.value === value)?.shortLabel}
+          </div>
 
           <RadixSelect.Icon
             className={twMerge('ml-2', size === 'sm' && 'ml-0.5')}
