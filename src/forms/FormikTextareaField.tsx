@@ -56,12 +56,14 @@ export function FormikTextareaField({
             forId={id}
             required={required}
             label={label}
-            className={twMerge(
-              'my-auto mr-2 font-bold min-w-max',
-              className?.label
-            )}
+            className={{
+              root: twMerge(
+                'my-auto mr-2 font-bold min-w-max',
+                className?.label
+              ),
+              tooltip: 'text-sm font-normal opacity-100',
+            }}
             tooltip={tooltip}
-            tooltipStyle="text-sm font-normal !w-1/2 opacity-100"
             showTooltipSymbol={typeof tooltip !== 'undefined'}
           />
         )}

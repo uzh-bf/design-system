@@ -11,22 +11,22 @@ export interface LabelProps {
   label: string
   required?: boolean
   tooltip?: string | React.ReactNode
-  tooltipStyle?: string
-  arrowStyle?: string
   showTooltipSymbol?: boolean
   tooltipSymbolSize?: 'sm' | 'md' | 'lg' | 'xl'
-  className?: string
+  className?: {
+    root?: string
+    tooltip?: string
+    arrow?: string
+  }
 }
 
 const defaultProps = {
   forId: undefined,
   required: false,
   tooltip: undefined,
-  tooltipStyle: '',
-  arrowStyle: '',
   showTooltipSymbol: false,
   tooltipSymbolSize: 'md',
-  className: '',
+  className: undefined,
 }
 
 export function Label({
@@ -34,8 +34,6 @@ export function Label({
   label,
   required,
   tooltip,
-  tooltipStyle,
-  arrowStyle,
   showTooltipSymbol,
   tooltipSymbolSize,
   className,
@@ -46,14 +44,14 @@ export function Label({
     return (
       <Tooltip
         tooltip={tooltip}
-        tooltipStyle={tooltipStyle}
-        arrowStyle={arrowStyle}
+        tooltipStyle={className?.tooltip}
+        arrowStyle={className?.arrow}
         withArrow={true}
       >
         <div className="flex flex-row">
           <RadixLabel.Root
             htmlFor={forId}
-            className={twMerge(className, 'cursor-default')}
+            className={twMerge(className?.root, 'cursor-default')}
           >
             {label}
           </RadixLabel.Root>
@@ -63,7 +61,9 @@ export function Label({
     )
   } else if (tooltip && showTooltipSymbol) {
     return (
-      <div className={twMerge(className, 'w-max flex flex-row items-center')}>
+      <div
+        className={twMerge(className?.root, 'w-max flex flex-row items-center')}
+      >
         <RadixLabel.Root
           htmlFor={forId}
           className={twMerge('mr-2 cursor-default', required && 'mr-0')}
@@ -73,8 +73,8 @@ export function Label({
         {required && <div className="mr-2 ml-0.5 mb-1 text-red-600">*</div>}
         <Tooltip
           tooltip={tooltip}
-          tooltipStyle={tooltipStyle}
-          arrowStyle={arrowStyle}
+          tooltipStyle={className?.tooltip}
+          arrowStyle={className?.arrow}
           withArrow={true}
           triggerStyle="h-full"
         >
@@ -96,7 +96,7 @@ export function Label({
       <div className="flex flex-row">
         <RadixLabel.Root
           htmlFor={forId}
-          className={twMerge(className, 'cursor-default')}
+          className={twMerge(className?.root, 'cursor-default')}
         >
           {label}
         </RadixLabel.Root>
