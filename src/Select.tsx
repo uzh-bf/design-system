@@ -236,7 +236,7 @@ const SelectGroup = ({
           className={twMerge('h-0.5 bg-black', className?.separator)}
         />
       )}
-      <RadixSelect.Group>
+      <RadixSelect.Group {...props}>
         <RadixSelect.Label
           className={twMerge(
             'p-1 font-bold',

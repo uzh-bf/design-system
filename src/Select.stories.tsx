@@ -58,40 +58,48 @@ export const Groups = () => {
   const [value, setValue] = useState<string>()
 
   return (
-    <Select
-      name="default"
-      placeholder="Select an item"
-      groups={[
-        ...groups,
-        {
-          label: 'Short labels',
-          items: [
-            {
-              value: 'apple_short',
-              label: 'Apple long label',
-              shortLabel: 'Apple',
-            },
-            {
-              value: 'banana_short',
-              label: 'Banana',
-              disabled: true,
-              shortLabel: 'Banana',
-            },
-            {
-              value: 'pear_short',
-              label: 'Pear long label',
-              shortLabel: 'Pear',
-            },
-            { value: 'watermeldon_short', label: 'Watermelon' },
-          ],
-        },
-      ]}
-      value={value}
-      onChange={(newValue) => {
-        setValue(newValue)
-        console.log(newValue)
-      }}
-    />
+    <div>
+      <div>
+        To use the shortLabel functionality on this example, the state needs to
+        be kept outside of the component. If this is not done, the Select
+        component still works without issues, but the shortLabel attribute is
+        ignored
+      </div>
+      <Select
+        name="default"
+        placeholder="Select an item"
+        groups={[
+          ...groups,
+          {
+            label: 'Short labels',
+            items: [
+              {
+                value: 'apple_short',
+                label: 'Apple long label',
+                shortLabel: 'Apple',
+              },
+              {
+                value: 'banana_short',
+                label: 'Banana',
+                disabled: true,
+                shortLabel: 'Banana',
+              },
+              {
+                value: 'pear_short',
+                label: 'Pear long label',
+                shortLabel: 'Pear',
+              },
+              { value: 'watermeldon_short', label: 'Watermelon' },
+            ],
+          },
+        ]}
+        value={value}
+        onChange={(newValue) => {
+          setValue(newValue)
+          console.log(newValue)
+        }}
+      />
+    </div>
   )
 }
 
@@ -187,7 +195,8 @@ export const CustomTriggerLabel = () => {
         Adding a shortLabel to the items of the component, the shortened version
         will be displayed on the trigger if the select component is collapsed.
         These additional attributes can be added to all items or only a
-        selection of them.
+        selection of them. To use this shortLabel functionality, the state needs
+        to be kept outside of the component.
       </div>
       <Select
         name="custom_trigger_label_select"
