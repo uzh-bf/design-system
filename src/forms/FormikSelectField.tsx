@@ -50,7 +50,13 @@ export function FormikSelectField({
             showTooltipSymbol={typeof tooltip !== 'undefined'}
           />
         )}
-        <Select {...field} name={name} items={items} {...props} />
+        <Select
+          {...field}
+          onChange={(newValue: string) => helpers.setValue(newValue)}
+          name={name}
+          items={items}
+          {...props}
+        />
       </div>
       {meta.touched && meta.error ? (
         <div
