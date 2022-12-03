@@ -15,6 +15,7 @@ interface ClassName {
   content?: string
   item?: string
   text?: string
+  scrollButton?: string
   groupLabel?: string
   separator?: string
 }
@@ -107,7 +108,12 @@ export function Select({
               className?.content
             )}
           >
-            <RadixSelect.ScrollUpButton className="flex items-center justify-center bg-white h-7">
+            <RadixSelect.ScrollUpButton
+              className={twMerge(
+                'flex items-center justify-center bg-white h-7',
+                className?.scrollButton
+              )}
+            >
               <FontAwesomeIcon
                 icon={faChevronUp}
                 size={size === 'sm' ? 'sm' : '1x'}
@@ -132,7 +138,12 @@ export function Select({
                     />
                   ))}
             </RadixSelect.Viewport>
-            <RadixSelect.ScrollDownButton className="flex items-center justify-center bg-white h-7">
+            <RadixSelect.ScrollDownButton
+              className={twMerge(
+                'flex items-center justify-center bg-white h-7',
+                className?.scrollButton
+              )}
+            >
               <FontAwesomeIcon
                 icon={faChevronDown}
                 size={size === 'sm' ? 'sm' : '1x'}

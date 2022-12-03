@@ -107,13 +107,16 @@ export const Styled = () => {
       <Select
         name="styled_select"
         placeholder="Select an item"
-        items={fruits}
+        groups={groups}
         onChange={() => null}
         className={{
           root: 'h-full border-none rounded-none',
           content: 'bg-green-200',
           trigger: 'bg-uzh-blue-20 border-none rounded-none',
           item: 'text-red-700',
+          scrollButton: 'bg-blue-400',
+          groupLabel: 'text-red-700',
+          separator: 'bg-green-700',
         }}
       />
     </div>
