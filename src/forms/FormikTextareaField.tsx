@@ -47,7 +47,7 @@ export function FormikTextareaField({
   className,
   ...props
 }: TextareaFieldWithNameProps | TextareaFieldWithOnChangeProps) {
-  const [field, meta, helpers] = useField(name || 'missing')
+  const [field, meta] = useField(name || 'missing')
   return (
     <div className={twMerge('flex flex-col', className?.root)} id={id}>
       <div className="flex flex-row w-full">
@@ -82,7 +82,7 @@ export function FormikTextareaField({
             {...props}
           />
         )}
-        {typeof value !== undefined && onChange && (
+        {typeof value !== 'undefined' && onChange && (
           <textarea
             {...field}
             id={id}
