@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.96](https://github.com/uzh-bf/design-system/compare/v0.0.95...v0.0.96) (2022-12-03)
+
+
+### Bug Fixes
+
+* **Select:** add z-index on correct content element ([77fe27c](https://github.com/uzh-bf/design-system/commit/77fe27ca37d9ac5f97cef902a2dcc37e96a36e62))
+
 ### [0.0.95](https://github.com/uzh-bf/design-system/compare/v0.0.94...v0.0.95) (2022-12-03)
 
 
