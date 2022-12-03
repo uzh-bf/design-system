@@ -44,8 +44,10 @@ export function Label({
     return (
       <Tooltip
         tooltip={tooltip}
-        tooltipStyle={className?.tooltip}
-        arrowStyle={className?.arrow}
+        className={{
+          tooltip: className?.tooltip,
+          arrow: className?.arrow,
+        }}
         withArrow={true}
       >
         <div className="flex flex-row">
@@ -73,10 +75,12 @@ export function Label({
         {required && <div className="mr-2 ml-0.5 mb-1 text-red-600">*</div>}
         <Tooltip
           tooltip={tooltip}
-          tooltipStyle={className?.tooltip}
-          arrowStyle={className?.arrow}
+          className={{
+            tooltip: className?.tooltip,
+            arrow: className?.arrow,
+            trigger: 'h-full',
+          }}
           withArrow={true}
-          triggerStyle="h-full"
         >
           <FontAwesomeIcon
             icon={faQuestion}
