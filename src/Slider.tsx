@@ -15,7 +15,13 @@ export interface Props {
   icons?: Record<string, string>
   rangeColorMap?: Record<string, string>
   borderColorMap?: Record<string, string>
-  className?: string
+  className?: {
+    root?: string
+    icons?: string
+    labels?: string
+    range?: string
+    thumb?: string
+  }
 }
 
 const defaultProps = {
@@ -48,7 +54,7 @@ export function Slider({
     <RadixSlider.Root
       className={twMerge(
         'relative flex items-center w-full h-24 select-none',
-        className
+        className?.root
       )}
       defaultValue={[0]}
       disabled={disabled}
@@ -60,19 +66,25 @@ export function Slider({
     >
       <div className="absolute bottom-0 left-0 right-0 flex flex-row justify-between text-3xl">
         {icons?.min ? (
-          <div>{icons.min}</div>
+          <div className={className?.icons}>{icons.min}</div>
         ) : (
-          <div className="text-base italic">{labels.min}</div>
+          <div className={twMerge('text-base italic', className?.labels)}>
+            {labels.min}
+          </div>
         )}
         {icons?.mid ? (
-          <div>{icons.mid}</div>
+          <div className={className?.icons}>{icons.mid}</div>
         ) : (
-          <div className="text-base italic">{labels.mid}</div>
+          <div className={twMerge('text-base italic', className?.labels)}>
+            {labels.mid}
+          </div>
         )}
         {icons?.max ? (
-          <div>{icons.max}</div>
+          <div className={className?.icons}>{icons.max}</div>
         ) : (
-          <div className="text-base italic">{labels.max}</div>
+          <div className={twMerge('text-base italic', className?.labels)}>
+            {labels.max}
+          </div>
         )}
       </div>
 
@@ -82,7 +94,8 @@ export function Slider({
             'absolute h-full rounded-full',
             rangeColorMap && Object.keys(rangeColorMap).length === steps
               ? rangeColorMap[String(value)]
-              : 'bg-gray-500'
+              : 'bg-gray-500',
+            className?.range
           )}
         />
       </RadixSlider.Track>
@@ -95,7 +108,8 @@ export function Slider({
             !borderColorMap ||
             Object.keys(borderColorMap).length !== steps
             ? 'border-gray-300'
-            : borderColorMap[String(value)]
+            : borderColorMap[String(value)],
+          className?.thumb
         )}
       >
         {disabled && (
