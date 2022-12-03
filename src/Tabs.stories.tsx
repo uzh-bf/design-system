@@ -17,10 +17,18 @@ export const Default = () => {
           label="Gruppe erstellen/beitreten"
         />
       </Tabs.TabList>
-      <Tabs.TabContent key="course" value="course" className="md:px-4">
+      <Tabs.TabContent
+        key="course"
+        value="course"
+        className={{ root: 'md:px-4' }}
+      >
         hello world
       </Tabs.TabContent>
-      <Tabs.TabContent key="create" value="create" className="md:px-4">
+      <Tabs.TabContent
+        key="create"
+        value="create"
+        className={{ root: 'md:px-4' }}
+      >
         hello world
       </Tabs.TabContent>
     </Tabs>

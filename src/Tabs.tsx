@@ -6,7 +6,10 @@ interface TabProps {
   key: string
   value: string
   label: string
-  className?: string
+  className?: {
+    root?: string
+    label?: string
+  }
 }
 
 export function Tab({ key, value, label, className }: TabProps) {
@@ -23,10 +26,16 @@ export function Tab({ key, value, label, className }: TabProps) {
         'flex-1 px-3 py-2.5',
         'focus:rdx-state-active:border-b-red',
         'focus:z-10 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75',
-        className
+        className?.root
       )}
     >
-      <span className={twMerge('text-sm font-medium', 'text-gray-700')}>
+      <span
+        className={twMerge(
+          'text-sm font-medium',
+          'text-gray-700',
+          className?.label
+        )}
+      >
         {label}
       </span>
     </TabsPrimitive.Trigger>
@@ -34,7 +43,9 @@ export function Tab({ key, value, label, className }: TabProps) {
 }
 
 interface TabListProps {
-  className?: string
+  className?: {
+    root?: string
+  }
 }
 
 export function TabList({
@@ -45,7 +56,7 @@ export function TabList({
     <TabsPrimitive.List
       className={twMerge(
         'flex w-full rounded-t-lg bg-white flex-col md:flex-row',
-        className
+        className?.root
       )}
     >
       {children}
@@ -56,7 +67,9 @@ export function TabList({
 interface TabContentProps {
   key: string
   value: string
-  className?: string
+  className?: {
+    root?: string
+  }
 }
 
 export function TabContent({
@@ -69,7 +82,7 @@ export function TabContent({
     <TabsPrimitive.Content
       key={`tab-content-${key}`}
       value={value}
-      className={twMerge('rounded-t-lg bg-white md:px-6 py-4', className)}
+      className={twMerge('rounded-t-lg bg-white md:px-6 py-4', className?.root)}
     >
       {children}
     </TabsPrimitive.Content>
@@ -80,7 +93,9 @@ interface TabsProps {
   defaultValue: string
   value?: string
   onValueChange?: (newValue: string) => void
-  className?: string
+  className?: {
+    root?: string
+  }
 }
 
 function Tabs({
@@ -95,7 +110,7 @@ function Tabs({
       defaultValue={defaultValue}
       value={value}
       onValueChange={onValueChange}
-      className={twMerge(className)}
+      className={className?.root}
     >
       {children}
     </TabsPrimitive.Root>
