@@ -5,9 +5,9 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as RadixSelect from '@radix-ui/react-select'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
-import Button from './Button'
+import { ThemeContext } from './ThemeProvider'
 
 interface ClassName {
   root?: string
@@ -70,6 +70,7 @@ export function Select({
   placeholder,
 }: SelectWithItemsProps | SelectWithGroupsProps) {
   const [open, setOpen] = useState(false)
+  const theme = useContext(ThemeContext)
 
   // TODO: check if works - HANDLE GROUPS AS WELL!!
   const shortValue = value
@@ -84,22 +85,25 @@ export function Select({
         onOpenChange={(open) => setOpen(open)}
         value={value}
       >
-        <RadixSelect.Trigger className="inline-flex items-center justify-center gap-2 bg-white rounded-md shadow-sm h-7">
-          <Button
-            disabled={disabled}
-            className={twMerge(size === 'sm' && '!text-sm', className?.trigger)}
-          >
-            {shortValue || <RadixSelect.Value placeholder={placeholder} />}
+        <RadixSelect.Trigger
+          className={twMerge(
+            'inline-flex items-center justify-center gap-2 p-4 bg-white rounded-md shadow-sm h-7 border',
+            `hover:${theme.primaryBg} hover:${theme.primaryText}`,
+            size === 'sm' && '!text-sm',
+            className?.trigger
+          )}
+          disabled={disabled}
+        >
+          {shortValue || <RadixSelect.Value placeholder={placeholder} />}
 
-            <RadixSelect.Icon
-              className={twMerge('ml-2', size === 'sm' && 'ml-0.5')}
-            >
-              <FontAwesomeIcon
-                icon={open ? faChevronUp : faChevronDown}
-                size={size === 'sm' ? 'sm' : '1x'}
-              />
-            </RadixSelect.Icon>
-          </Button>
+          <RadixSelect.Icon
+            className={twMerge('ml-2', size === 'sm' && 'ml-0.5')}
+          >
+            <FontAwesomeIcon
+              icon={open ? faChevronUp : faChevronDown}
+              size={size === 'sm' ? 'sm' : '1x'}
+            />
+          </RadixSelect.Icon>
         </RadixSelect.Trigger>
         <RadixSelect.Portal>
           <RadixSelect.Content
@@ -169,11 +173,15 @@ const SelectItem = React.forwardRef(
     { className, label, size, disabled, ...props }: SelectItemProps,
     forwardedRef
   ) => {
+    const theme = useContext(ThemeContext)
+
     return (
       <RadixSelect.Item
         className={twMerge(
-          'relative flex items-center px-8 py-2 rounded-md text-gray-700 dark:text-gray-300 font-medium focus:bg-gray-100 dark:focus:bg-gray-900',
-          'rdx-disabled:opacity-50 focus:outline-none select-none',
+          'relative flex items-center px-8 py-2 rounded-md text-gray-700 dark:text-gray-300 font-medium hover:cursor-pointer',
+          `focus:outline-none select-none  hover:${theme.primaryBg} hover:${theme.primaryText}`,
+          'rdx-disabled:opacity-50 rdx-disabled:cursor-not-allowed rdx-disabled:hover:bg-white',
+          'rdx-disabled:hover:text-gray-700 rdx-disabled:dark:hover:text-gray-300',
           size === 'sm' && 'px-7 text-sm',
           className?.item
         )}

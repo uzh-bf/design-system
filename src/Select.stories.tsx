@@ -75,7 +75,9 @@ export const Disabled = () => {
       name="disabled"
       placeholder="Select an item"
       items={items}
-      onChange={() => null}
+      onChange={(newValue) => {
+        console.log(newValue)
+      }}
       disabled
     />
   )
@@ -96,7 +98,9 @@ export const DisabledElements = () => {
       name="disabled_elements_select"
       placeholder="Select an item"
       items={items}
-      onChange={() => null}
+      onChange={(newValue) => {
+        console.log(newValue)
+      }}
     />
   )
 }
@@ -108,7 +112,9 @@ export const Styled = () => {
         name="styled_select"
         placeholder="Select an item"
         groups={groups}
-        onChange={() => null}
+        onChange={(newValue) => {
+          console.log(newValue)
+        }}
         className={{
           root: 'h-full border-none rounded-none',
           content: 'bg-green-200',
@@ -129,7 +135,7 @@ export const Small = () => {
       name="small_select"
       placeholder="Select an item"
       groups={groups}
-      onChange={() => null}
+      onChange={(newValue) => console.log(newValue)}
       size="sm"
     />
   )
@@ -159,7 +165,10 @@ export const CustomTriggerLabel = () => {
         name="custom_trigger_label_select"
         placeholder="Select an item"
         items={items}
-        onChange={(newValue) => setValue(newValue)}
+        onChange={(newValue) => {
+          setValue(newValue)
+          console.log(newValue)
+        }}
         value={value}
       />
     </div>
