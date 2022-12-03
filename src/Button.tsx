@@ -4,16 +4,16 @@ import { ThemeContext } from './ThemeProvider'
 
 export interface ButtonProps {
   active?: boolean
-  className?: string
+  className?: {
+    root?: string
+  }
   children: React.ReactNode
   disabled?: boolean
   fluid?: boolean
   basic?: boolean
   type?: 'button' | 'submit' | 'reset'
   loading?: boolean
-
   onClick?: (e?: React.MouseEvent<HTMLButtonElement>) => void
-
   [x: string]: any
 }
 
@@ -54,7 +54,7 @@ export function Button({
       : !basic &&
           `${theme.primaryBgHover} ${theme.primaryBorderHover} ${theme.primaryTextHover} ${theme.primaryFillHover}`,
     fluid && 'w-full justify-center',
-    className
+    className?.root
   )
 
   return (
@@ -97,20 +97,24 @@ Button.Icon = function ButtonIcon({
   className,
   children,
 }: {
-  className?: string
+  className?: {
+    root?: string
+  }
   children: React.ReactNode
 }) {
-  return <div className={twMerge('w-3', className)}>{children}</div>
+  return <div className={twMerge('w-3', className?.root)}>{children}</div>
 }
 
 Button.Label = function ButtonLabel({
   className,
   children,
 }: {
-  className?: string
+  className?: {
+    root?: string
+  }
   children: React.ReactNode
 }) {
-  return <div className={twMerge('', className)}>{children}</div>
+  return <div className={twMerge('', className?.root)}>{children}</div>
 }
 
 export default Button

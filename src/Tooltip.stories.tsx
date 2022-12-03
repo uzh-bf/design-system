@@ -22,7 +22,11 @@ export const Styled = () => {
       arrowStyle="fill-red-400"
       withArrow={true}
     >
-      <Button className="p-2 border border-solid shadow-md border-uzh-grey-100">
+      <Button
+        className={{
+          root: 'p-2 border border-solid shadow-md border-uzh-grey-100',
+        }}
+      >
         Hover Me! and I can still be a Button
       </Button>
     </Tooltip>

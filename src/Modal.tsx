@@ -84,7 +84,11 @@ export function Modal({
           )}
         >
           {(onPrev || onNext) && (
-            <Button className="lg:text-xl" disabled={!onPrev} onClick={onPrev}>
+            <Button
+              className={{ root: 'lg:text-xl' }}
+              disabled={!onPrev}
+              onClick={onPrev}
+            >
               <FontAwesomeIcon icon={faChevronLeft} />
             </Button>
           )}
@@ -119,7 +123,7 @@ export function Modal({
 
               {!hideCloseButton && (
                 <RadixDialog.Close asChild>
-                  <Button onClick={onClose} className="self-start">
+                  <Button onClick={onClose} className={{ root: 'self-start' }}>
                     <FontAwesomeIcon icon={faXmark} className="lg:text-xl" />
                   </Button>
                 </RadixDialog.Close>
@@ -135,7 +139,11 @@ export function Modal({
           </RadixDialog.Content>
 
           {(onPrev || onNext) && (
-            <Button className="lg:text-xl" disabled={!onNext} onClick={onNext}>
+            <Button
+              className={{ root: 'lg:text-xl' }}
+              disabled={!onNext}
+              onClick={onNext}
+            >
               <FontAwesomeIcon icon={faChevronRight} />
             </Button>
           )}
