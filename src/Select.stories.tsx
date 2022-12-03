@@ -125,7 +125,7 @@ export const Small = () => {
     <Select
       name="small_select"
       placeholder="Select an item"
-      items={fruits}
+      groups={groups}
       onChange={() => null}
       size="sm"
     />

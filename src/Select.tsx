@@ -116,10 +116,20 @@ export function Select({
             <RadixSelect.Viewport className="p-1 rounded-lg dark:bg-gray-800 z-[9999]">
               {items
                 ? items.map((item, ix) => (
-                    <SelectItem key={ix} {...item} className={className} />
+                    <SelectItem
+                      key={ix}
+                      size={size}
+                      {...item}
+                      className={className}
+                    />
                   ))
                 : groups.map((group, ix) => (
-                    <SelectGroup key={ix} {...group} className={className} />
+                    <SelectGroup
+                      key={ix}
+                      size={size}
+                      {...group}
+                      className={className}
+                    />
                   ))}
             </RadixSelect.Viewport>
             <RadixSelect.ScrollDownButton className="flex items-center justify-center bg-white h-7">
@@ -173,6 +183,7 @@ const SelectItem = React.forwardRef(
 
 interface SelectGroupProps {
   items: Item[]
+  size?: 'md' | 'sm'
   showSeparator?: boolean
   label?: string
   className?: ClassName
@@ -180,6 +191,7 @@ interface SelectGroupProps {
 
 const SelectGroup = ({
   items,
+  size,
   showSeparator,
   label,
   className,
@@ -194,12 +206,16 @@ const SelectGroup = ({
       )}
       <RadixSelect.Group>
         <RadixSelect.Label
-          className={twMerge('p-1 font-bold', className?.groupLabel)}
+          className={twMerge(
+            'p-1 font-bold',
+            size === 'sm' && '!text-sm',
+            className?.groupLabel
+          )}
         >
           {label}
         </RadixSelect.Label>
         {items.map((item, ix) => (
-          <SelectItem key={ix} {...item} className={className} />
+          <SelectItem key={ix} size={size} {...item} className={className} />
         ))}
       </RadixSelect.Group>
     </>
