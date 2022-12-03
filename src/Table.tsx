@@ -57,7 +57,7 @@ export function Table({ className, columns, data, caption }: TableProps) {
           </tr>
         )
       }),
-    [tableData]
+    [tableData, columns, className]
   )
 
   const handleSorting = (sortField: string, sortOrder: string) => {

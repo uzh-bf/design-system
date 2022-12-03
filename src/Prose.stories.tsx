@@ -6,7 +6,7 @@ export const Default = () => {
     <Prose>
       <h1>this is h1</h1>
       <p>
-        Hello world, this is a <a href="#">link</a>.
+        Hello world, this is a <a href="/?story=prose--default">link</a>.
       </p>
     </Prose>
   )
