@@ -123,7 +123,7 @@ export function Select({
         <RadixSelect.Portal>
           <RadixSelect.Content
             className={twMerge(
-              'overflow-hidden bg-white rounded-md shadow-md',
+              'overflow-hidden bg-white rounded-md shadow-md z-[9999]',
               className?.content
             )}
           >
@@ -138,7 +138,7 @@ export function Select({
                 size={size === 'sm' ? 'sm' : '1x'}
               />
             </RadixSelect.ScrollUpButton>
-            <RadixSelect.Viewport className="p-1 rounded-lg dark:bg-gray-800 z-[9999]">
+            <RadixSelect.Viewport className="p-1 rounded-lg dark:bg-gray-800">
               {items
                 ? items.map((item, ix) => (
                     <SelectItem
