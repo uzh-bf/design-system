@@ -5,9 +5,10 @@ export interface NotificationBadgeWrapperProps {
   count?: number
   withoutCount?: boolean
   size?: 'sm' | 'md' | 'lg' | 'xl'
-  badgePosition?: string
-  badgeStyle?: string
-  className?: string
+  className?: {
+    root?: string
+    badge?: string
+  }
   children: React.ReactNode
 }
 
@@ -15,17 +16,13 @@ const defaultProps = {
   count: undefined,
   withoutCount: undefined,
   size: 'md',
-  badgePosition: '',
-  badgeStyle: '',
-  className: '',
+  className: undefined,
 }
 
 export function NotificationBadgeWrapper({
   count,
   withoutCount,
   size,
-  badgePosition,
-  badgeStyle,
   className,
   children,
 }: NotificationBadgeWrapperProps) {
@@ -38,14 +35,13 @@ export function NotificationBadgeWrapper({
 
   if (count || withoutCount) {
     return (
-      <div className={twMerge('relative', className)}>
+      <div className={twMerge('relative', className?.root)}>
         <div className={twMerge('flex flex-1')}>{children}</div>
         <div
           className={twMerge(
             'absolute right-1 z-10 text-center text-white bg-red-600 rounded-full top-1',
             sizeStyles[size || 'md'],
-            badgePosition,
-            badgeStyle
+            className?.badge
           )}
         >
           {!count ? '' : count < 10 && count > 0 ? count : '9+'}
@@ -53,7 +49,7 @@ export function NotificationBadgeWrapper({
       </div>
     )
   } else {
-    return <div className={className}>{children}</div>
+    return <div className={className?.root}>{children}</div>
   }
 }
 

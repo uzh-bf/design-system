@@ -54,7 +54,7 @@ export interface SelectWithGroupsProps extends SelectProps {
 const defaultProps = {
   disabled: false,
   size: 'md',
-  className: {},
+  className: undefined,
   placeholder: undefined,
 }
 
