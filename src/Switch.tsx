@@ -5,7 +5,12 @@ import { twMerge } from 'tailwind-merge'
 import { ThemeContext } from './ThemeProvider'
 
 export interface SwitchProps {
-  className?: string
+  className?: {
+    root?: string
+    element?: string
+    thumb?: string
+    label?: string
+  }
   disabled?: boolean
   id: string
   label: string
@@ -58,17 +63,22 @@ export function Switch({
       className={twMerge(
         'flex flex-row items-center gap-3',
         fluid && 'justify-between',
-        className
+        className?.root
       )}
     >
-      {labelLeft && <RadixLabel.Root htmlFor={id}>{label}</RadixLabel.Root>}
+      {labelLeft && (
+        <RadixLabel.Root htmlFor={id} className={className?.label}>
+          {label}
+        </RadixLabel.Root>
+      )}
       <RadixSwitch.Root
         checked={checked}
         className={twMerge(
           'relative bg-uzh-grey-80 rounded-full border-0',
           disabled && 'bg-uzh-grey-40 cursor-not-allowed',
           checked && theme.primaryBgDark,
-          rootSize[size || 'md']
+          rootSize[size || 'md'],
+          className?.element
         )}
         onCheckedChange={!disabled ? onCheckedChange : () => null}
       >
@@ -76,11 +86,16 @@ export function Switch({
           className={twMerge(
             'block bg-white rounded-full transition-transform',
             checked && transitionSize[size || 'md'],
-            thumbSize[size || 'md']
+            thumbSize[size || 'md'],
+            className?.thumb
           )}
         />
       </RadixSwitch.Root>
-      {!labelLeft && <RadixLabel.Root htmlFor={id}>{label}</RadixLabel.Root>}
+      {!labelLeft && (
+        <RadixLabel.Root htmlFor={id} className={className?.label}>
+          {label}
+        </RadixLabel.Root>
+      )}
     </div>
   )
 }
