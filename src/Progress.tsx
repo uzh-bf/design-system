@@ -10,30 +10,31 @@ import * as RadixProgress from '@radix-ui/react-progress'
 import { ThemeContext } from './ThemeProvider'
 
 export interface ProgressProps {
-  className?: string
   value: number
   max: number
-  indicatorClassName?: string
   formatter: (value: any) => any
   isMaxVisible?: boolean
   nonLinear?: boolean
   displayOffset?: number
+  className?: {
+    root?: string
+    indicator?: string
+  }
   onItemClick?: (ix: number) => void
   [x: string]: any
 }
 
 const defaultProps = {
   isMaxVisible: true,
-  indicatorClassName: undefined,
   displayOffset: undefined,
   formatter: (value: any) => value,
+  className: undefined,
 }
 
 export function Progress({
   formatter,
   value,
   max,
-  indicatorClassName,
   className,
   isMaxVisible,
   nonLinear,
@@ -45,7 +46,7 @@ export function Progress({
 
   return (
     <RadixProgress.Root
-      className={twMerge('relative h-7 text-sm rounded', className)}
+      className={twMerge('relative h-7 text-sm rounded', className?.root)}
       value={value}
       max={max}
       {...props}
@@ -59,7 +60,7 @@ export function Progress({
         className={twMerge(
           'absolute px-2 py-1 min-w-[40px] h-full text-white rounded flex flex-col justify-center text-right',
           !nonLinear && theme.primaryBgDark,
-          indicatorClassName
+          className?.indicator
         )}
       >
         {!nonLinear && formatter(value)}
