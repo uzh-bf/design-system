@@ -32,8 +32,8 @@ interface SelectProps {
 
 export interface Item {
   value: string
-  disabled?: boolean // disabled React select
-  label: string // displayed name
+  disabled?: boolean
+  label: string
   shortLabel?: string
 }
 
@@ -86,6 +86,8 @@ export function Select({
           className={twMerge(
             'inline-flex items-center justify-center gap-2 p-4 bg-white rounded-md shadow-sm h-7 border',
             `hover:${theme.primaryBg} hover:${theme.primaryText}`,
+            disabled &&
+              'bg-uzh-grey-20 hover:bg-none, hover:text-none opacity-70 cursor-not-allowed shadow-sm',
             size === 'sm' && '!text-sm',
             className?.trigger
           )}
