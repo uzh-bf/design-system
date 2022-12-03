@@ -8,10 +8,13 @@ export interface CheckboxProps {
   children?: React.ReactNode
   checked: boolean | 'indeterminate'
   disabled?: boolean
-  onCheck: any
+  onCheck: () => void
   label?: string | React.ReactNode
   size?: 'sm' | 'md' | 'lg' | 'xl'
-  className?: string
+  className?: {
+    root?: string
+    label?: string
+  }
 }
 
 const defaultProps = {
@@ -19,7 +22,7 @@ const defaultProps = {
   disabled: false,
   label: '',
   size: 'md',
-  className: '',
+  className: undefined,
 }
 
 export function Checkbox({
@@ -54,7 +57,7 @@ export function Checkbox({
           checked && 'border-black',
           disabled && 'cursor-not-allowed',
           checkboxSize[size || 'md'],
-          className
+          className?.root
         )}
         disabled={disabled}
         onCheckedChange={() => onCheck()}
@@ -68,7 +71,14 @@ export function Checkbox({
           )}
         </RadixCheckbox.CheckboxIndicator>
       </RadixCheckbox.Root>
-      <div className="flex flex-col justify-center h-full">{label}</div>
+      <div
+        className={twMerge(
+          'flex flex-col justify-center h-full',
+          className?.label
+        )}
+      >
+        {label}
+      </div>
     </div>
   )
 }
