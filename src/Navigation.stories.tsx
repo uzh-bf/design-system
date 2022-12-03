@@ -17,7 +17,7 @@ import Navigation from './Navigation'
 export const Default = () => {
   return (
     <div>
-      <Navigation className="z-50">
+      <Navigation className={{ root: 'z-50' }}>
         <Navigation.NavigationMenu position="left">
           <Navigation.TriggerItem
             triggerName="Dogs"
@@ -115,7 +115,7 @@ export const Default = () => {
 export const Left = () => {
   return (
     <div>
-      <Navigation className="z-50">
+      <Navigation className={{ root: 'z-50' }}>
         <Navigation.NavigationMenu position="left">
           <Navigation.TriggerItem
             triggerName="Dogs"
@@ -180,7 +180,7 @@ export const Left = () => {
 export const Right = () => {
   return (
     <div>
-      <Navigation className="z-50">
+      <Navigation className={{ root: 'z-50' }}>
         <Navigation.NavigationMenu position="right">
           <Navigation.ButtonItem>
             <Button>Click me!</Button>

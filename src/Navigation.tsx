@@ -10,7 +10,9 @@ type navigationMenuProps = {
 
 type navigationProps = {
   children: React.ReactNode
-  className?: string
+  className?: {
+    root?: string
+  }
 }
 
 type buttonProps = {
@@ -25,7 +27,7 @@ export function Navigation(props: navigationProps) {
       className={twMerge(
         'flex flex-row flex-wrap flex-1 w-full rounded-lg',
         theme.primaryBg,
-        props.className
+        props.className?.root
       )}
     >
       <div className="flex-1 order-2" />
