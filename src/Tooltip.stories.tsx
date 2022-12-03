@@ -15,11 +15,10 @@ export const Default = () => {
 export const Styled = () => {
   return (
     <Tooltip
-      tooltipStyle="bg-red-400"
+      className={{ tooltip: 'bg-red-400', arrow: 'fill-red-400' }}
       tooltip={
         <div className="italic font-bold text-black">Styled Tooltip</div>
       }
-      arrowStyle="fill-red-400"
       withArrow={true}
     >
       <Button

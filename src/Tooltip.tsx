@@ -11,30 +11,34 @@ export interface TooltipProps {
   arrowStyle?: string
   withArrow?: boolean
   children: React.ReactNode
+  className?: {
+    tooltip?: string
+    trigger?: string
+    arrow?: string
+  }
 }
 
 const defaultProps = {
   delay: 350,
-  tooltipStyle: '',
-  triggerStyle: '',
-  arrowStyle: '',
   withArrow: true,
+  className: undefined,
 }
 
 export function Tooltip({
   tooltip,
   delay,
-  tooltipStyle,
-  triggerStyle,
-  arrowStyle,
   withArrow,
   children,
+  className,
 }: TooltipProps): React.ReactElement {
   return (
     <RadixTooltip.Provider>
       <RadixTooltip.Root delayDuration={delay || 1000}>
         <RadixTooltip.Trigger
-          className={twMerge('[all:_unset] !cursor-default', triggerStyle)}
+          className={twMerge(
+            '[all:_unset] !cursor-default',
+            className?.trigger
+          )}
           onClick={(e) => e.preventDefault()}
         >
           {children}
@@ -42,11 +46,11 @@ export function Tooltip({
         <RadixTooltip.Content
           className={twMerge(
             'p-2 text-white bg-black border rounded-md opacity-80 border-1 border-grey-20',
-            tooltipStyle
+            className?.tooltip
           )}
         >
           {tooltip}
-          {withArrow && <RadixTooltip.Arrow className={arrowStyle} />}
+          {withArrow && <RadixTooltip.Arrow className={className?.arrow} />}
         </RadixTooltip.Content>
       </RadixTooltip.Root>
     </RadixTooltip.Provider>
