@@ -4,7 +4,7 @@ type Theme = {
   primaryBg: string
   primaryBgDark: string
   primaryBgHover: string
-  primaryBgHoverNavbar: string
+  primaryBgDarkHover: string
   primaryBorder: string
   primaryBorderHover: string
   primaryText: string
@@ -23,7 +23,7 @@ const BASE_THEME: Theme = {
   primaryBg: 'bg-uzh-red-20',
   primaryBgDark: 'bg-uzh-red-60',
   primaryBgHover: 'hover:bg-uzh-red-20',
-  primaryBgHoverNavbar: 'hover:bg-uzh-red-40',
+  primaryBgDarkHover: 'hover:bg-uzh-red-60',
   primaryBorder: 'border-uzh-red-40',
   primaryBorderHover: 'hover:border-uzh-red-40',
   primaryText: 'text-uzh-red-100',

@@ -75,9 +75,9 @@ Navigation.TriggerItem = function TriggerItem({
     <NavigationMenuPrimitive.Item>
       <NavigationMenuPrimitive.Trigger
         className={twMerge(
-          'px-3 py-2 rounded-md text-sm focus:outline-none focus-visible:ring flex flex-row font-medium',
-          theme.primaryBgHoverNavbar,
-          theme.primaryText,
+          'px-3 py-2 rounded-md text-sm focus:outline-none focus-visible:ring flex flex-row font-medium text-black hover:text-white',
+          theme.primaryBgDarkHover,
+
           className?.root
         )}
       >
@@ -138,15 +138,14 @@ Navigation.DropdownItem = function DropdownItem({
       href={href}
       onClick={onClick}
       className={twMerge(
-        'w-full px-4 py-3 rounded-md focus:outline-none focus-visible:ring focus-visible:ring-opacity-75',
-        theme.primaryBgHoverNavbar,
+        'w-full px-4 py-3 rounded-md focus:outline-none focus-visible:ring focus-visible:ring-opacity-75 text-black hover:text-white',
+        theme.primaryBgDarkHover,
         className?.root
       )}
     >
       <span
         className={twMerge(
           'text-sm font-medium flex flex-row',
-          theme.primaryText,
           className?.title
         )}
       >
@@ -160,7 +159,6 @@ Navigation.DropdownItem = function DropdownItem({
         <div
           className={twMerge(
             'mt-1 text-sm text-left font-normal',
-            theme.primaryText,
             className?.subtitle
           )}
         >
@@ -205,9 +203,8 @@ Navigation.ButtonItem = function ButtonItem({
         href={href}
         onClick={onClick}
         className={twMerge(
-          'px-3 py-2 text-sm rounded-md font-medium cursor-pointer',
-          theme.primaryBgHoverNavbar,
-          theme.primaryText,
+          'px-3 py-2 text-sm rounded-md font-medium cursor-pointer text-black hover:text-white',
+          theme.primaryBgDarkHover,
           className?.root
         )}
       >

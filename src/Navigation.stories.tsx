@@ -1,6 +1,9 @@
-/* eslint-disable no-restricted-globals */
-
-import { faCat, faCircleInfo, faDog } from '@fortawesome/free-solid-svg-icons'
+import {
+  faCat,
+  faCircleInfo,
+  faDog,
+  faWineBottle,
+} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useContext } from 'react'
 import Button from './Button'
@@ -40,6 +43,8 @@ const Navigation1 = () => {
           title="Fanta"
           onClick={() => console.log('Fanta')}
           subtitle="Tastes like oranges"
+          icon={<FontAwesomeIcon icon={faWineBottle} />}
+          className={{ icon: 'mr-2' }}
         />
         <Navigation.DropdownItem
           title="Sprite"
@@ -50,6 +55,8 @@ const Navigation1 = () => {
           title="Pepsi"
           onClick={() => console.log('Pepsi')}
           subtitle="Tastes like Coca Cola"
+          icon={<FontAwesomeIcon icon={faWineBottle} />}
+          className={{ icon: 'mr-2' }}
         />
       </Navigation.TriggerItem>
       <Navigation.ButtonItem
