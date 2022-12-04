@@ -3,6 +3,7 @@
 import { faCat, faCircleInfo, faDog } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useContext } from 'react'
+import Button from './Button'
 import Navigation from './Navigation'
 import { ThemeContext } from './ThemeProvider'
 
@@ -119,5 +120,30 @@ export const Combined = () => {
 }
 
 export const CustomElements = () => {
-  return <div></div>
+  return (
+    <Navigation>
+      <Navigation.TriggerItem label="Drinks" dropdownWidth="w-[16rem]">
+        <Navigation.DropdownItem
+          title="Fanta"
+          onClick={() => console.log('Fanta')}
+          subtitle="Tastes like oranges"
+        />
+        <Navigation.DropdownItem
+          title="Sprite"
+          onClick={() => console.log('Sprite')}
+          subtitle="Tastes like lemons"
+        />
+        <Navigation.DropdownItem
+          title="Pepsi"
+          onClick={() => console.log('Pepsi')}
+          subtitle="Tastes like Coca Cola"
+        />
+      </Navigation.TriggerItem>
+      <Navigation.CustomItem>
+        <Button onClick={() => console.log('test button was pressed')}>
+          TEST
+        </Button>
+      </Navigation.CustomItem>
+    </Navigation>
+  )
 }
