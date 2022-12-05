@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.97](https://github.com/uzh-bf/design-system/compare/v0.0.96...v0.0.97) (2022-12-05)
+
+
+### Bug Fixes
+
+* **FormikSelectField:** fix onChange logic of select component on formik field ([6fd3433](https://github.com/uzh-bf/design-system/commit/6fd3433feab2d4dee086334a17337ea0f911433b))
+
+
+### Refactors
+
+* **Navigation:** simplify and extend Navigation component with new approach ([#33](https://github.com/uzh-bf/design-system/issues/33)) ([efd8fce](https://github.com/uzh-bf/design-system/commit/efd8fce3a07d07a28d9f297236d98bea4aaa59a4))
+
 ### [0.0.96](https://github.com/uzh-bf/design-system/compare/v0.0.95...v0.0.96) (2022-12-03)
 
 

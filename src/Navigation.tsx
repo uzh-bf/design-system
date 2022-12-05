@@ -3,224 +3,233 @@ import React, { useContext } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { ThemeContext } from './ThemeProvider'
 
-type navigationMenuProps = {
-  children: React.ReactNode
-  position: string
-}
-
-type navigationProps = {
+type NavigationProps = {
   children: React.ReactNode
   className?: {
     root?: string
+    indicator?: string
+    viewport?: string
   }
 }
 
-type buttonProps = {
-  children: React.ReactNode
-}
-
-export function Navigation(props: navigationProps) {
+export function Navigation({ children, className }: NavigationProps) {
   const theme = useContext(ThemeContext)
 
-  return (
-    <div
-      className={twMerge(
-        'flex flex-row flex-wrap flex-1 w-full rounded-lg',
-        theme.primaryBg,
-        props.className?.root
-      )}
-    >
-      <div className="flex-1 order-2" />
-      {props.children}
-    </div>
-  )
-}
-
-Navigation.NavigationMenu = function NavigationMenu(
-  props: navigationMenuProps
-) {
-  const theme = useContext(ThemeContext)
-  const computedViewportClassName = twMerge(
-    'absolute z-50',
-    props.position === 'left' && 'w-[80%] top-[100%] justify-start',
-    props.position === 'right' && 'w-[140%] top-[100%] justify-end'
-  )
   return (
     <NavigationMenuPrimitive.Root
       className={twMerge(
-        'relative',
-        props.position === 'left' && 'order-1',
-        props.position === 'right' && 'order-3'
+        `relative ${theme.primaryBg} rounded-md w-max`,
+        className?.root
       )}
     >
-      <NavigationMenuPrimitive.List className="flex flex-row p-2 space-x-2">
-        {props.children}
-        <NavigationMenuPrimitive.Indicator
-          className={twMerge(
-            'z-1',
-            'top-[100%] flex items-end justify-center h-2 overflow-hidden',
-            'rdx-state-visible:animate-fade-in',
-            'rdx-state-hidden:animate-fade-out',
-            'transition-[width_transform] duration-[250ms] ease-[ease]'
-          )}
-        >
+      <NavigationMenuPrimitive.List className="flex flex-row gap-1.5 p-2">
+        {children}
+        <NavigationMenuPrimitive.Indicator className="z-10 flex justify-center h-2 overflow-hidden duration-300 ease-in-out">
           <div
             className={twMerge(
               'relative w-2 h-2 rotate-45 rounded-tl-sm top-1',
-              theme.primaryBg
+              theme.primaryBg,
+              className?.indicator
             )}
           />
         </NavigationMenuPrimitive.Indicator>
       </NavigationMenuPrimitive.List>
 
-      <div
-        className={computedViewportClassName}
-        style={{
-          perspective: '2000px',
-        }}
-      >
-        <NavigationMenuPrimitive.Viewport
-          className={twMerge(
-            'relative mt-2 shadow-lg rounded-md overflow-hidden',
-            'w-rdx-navigation-menu-viewport',
-            'h-rdx-navigation-menu-viewport',
-            'rdx-state-open:animate-scale-in-content',
-            'rdx-state-closed:animate-scale-out-content',
-            'origin-[top_center] transition-[width_height] duration-300 ease-[ease]',
-            theme.primaryBg
-          )}
-        />
-      </div>
+      <NavigationMenuPrimitive.Viewport
+        className={twMerge(
+          'mt-2 shadow-lg rounded-md overflow-hidden duration-300 ease-in-out',
+          'w-rdx-navigation-menu-viewport h-rdx-navigation-menu-viewport absolute z-10',
+          theme.primaryBg,
+          className?.viewport
+        )}
+      />
     </NavigationMenuPrimitive.Root>
   )
 }
 
-Navigation.TriggerItem = function TriggerItem({
-  triggerName,
-  triggerIcon,
-  children,
-}: {
-  triggerName: string
-  triggerIcon?: React.ReactNode
+interface TriggerProps {
+  label: string
+  dropdownWidth: string
+  icon?: React.ReactNode
   children: React.ReactNode
-}) {
+  className?: {
+    root?: string
+    label?: string
+    icon?: string
+    dropdown?: string
+  }
+}
+
+Navigation.TriggerItem = function TriggerItem({
+  label,
+  icon,
+  dropdownWidth,
+  children,
+  className,
+}: TriggerProps) {
   const theme = useContext(ThemeContext)
+
   return (
     <NavigationMenuPrimitive.Item>
       <NavigationMenuPrimitive.Trigger
         className={twMerge(
-          'px-3 py-2 text-sm rounded-md dark:hover:bg-gray-900',
-          'text-sm font-medium',
-          ' dark:text-gray-100',
-          'focus:outline-none focus-visible:ring',
-          theme.primaryBgHoverNavbar,
-          theme.primaryText
+          'px-3 py-2 rounded-md text-sm focus:outline-none focus-visible:ring flex flex-row font-medium text-black hover:text-white',
+          theme.primaryBgDarkHover,
+          className?.root
         )}
       >
-        <div className="flex flex-row">
-          {triggerIcon && (
-            <div className={twMerge('w-3', 'mr-3')}>{triggerIcon}</div>
-          )}
-          {triggerName}
-        </div>
+        {icon && (
+          <div className={twMerge('w-3 mr-3', className?.icon)}>{icon}</div>
+        )}
+        <div className={className?.label}>{label}</div>
       </NavigationMenuPrimitive.Trigger>
 
       <NavigationMenuPrimitive.Content
         className={twMerge(
-          'absolute w-[16rem] top-0 left-0 right-0 rounded-lg',
-          'rdx-motion-from-start:animate-enter-from-left',
-          'rdx-motion-from-end:animate-enter-from-right',
-          'rdx-motion-to-start:animate-exit-to-left',
-          'rdx-motion-to-end:animate-exit-to-right'
+          'rounded-lg flex flex-col p-2 gap-2',
+          dropdownWidth,
+          className?.dropdown
         )}
       >
-        <div className="p-3">
-          <div className="flex flex-col space-y-2">{children}</div>
-        </div>
+        {children}
       </NavigationMenuPrimitive.Content>
     </NavigationMenuPrimitive.Item>
   )
 }
 
+interface DropdownItemProps {
+  title: string
+
+  subtitle?: string
+  icon?: React.ReactNode
+  className?: {
+    root?: string
+    title?: string
+    icon?: string
+    subtitle?: string
+  }
+}
+
+interface DropdownItemWithHrefProps extends DropdownItemProps {
+  href: string
+  onClick?: never
+}
+
+interface DropdownItemWithOnClickProps extends DropdownItemProps {
+  href?: never
+  onClick: React.MouseEventHandler
+}
+
 Navigation.DropdownItem = function DropdownItem({
   title,
+  href,
   onClick,
   subtitle,
   icon,
-}: {
-  title: string
-  onClick: React.MouseEventHandler
-  subtitle?: string
-  icon?: React.ReactNode
-}) {
+  className,
+}: DropdownItemWithHrefProps | DropdownItemWithOnClickProps) {
   const theme = useContext(ThemeContext)
+
   return (
-    <button
-      className={twMerge(
-        'w-full px-4 py-3 dark:hover:bg-gray-900 rounded-md',
-        'focus:outline-none focus-visible:ring focus-visible:ring-opacity-75',
-        theme.primaryBgHoverNavbar
-      )}
+    <NavigationMenuPrimitive.Link
+      href={href}
       onClick={onClick}
+      className={twMerge(
+        'w-full px-4 py-3 rounded-md focus:outline-none focus-visible:ring focus-visible:ring-opacity-75 text-black hover:text-white',
+        theme.primaryBgDarkHover,
+        className?.root
+      )}
     >
       <span
         className={twMerge(
-          'text-sm font-medium dark:text-gray-100 flex flex-row',
-          theme.primaryText
+          'text-sm font-medium flex flex-row',
+          className?.title
         )}
       >
-        {icon && <div className={twMerge('w-3', 'mr-3')}>{icon}</div>}
-        {title}
+        {icon && (
+          <div className={twMerge('w-3 mr-3', className?.icon)}>{icon}</div>
+        )}
+        <div>{title}</div>
       </span>
 
       {subtitle && (
         <div
           className={twMerge(
-            'mt-1 text-sm dark:text-gray-400 text-left',
-            theme.primaryText
+            'mt-1 text-sm text-left font-normal',
+            className?.subtitle
           )}
         >
           {subtitle}
         </div>
       )}
-    </button>
+    </NavigationMenuPrimitive.Link>
   )
 }
 
-Navigation.LinkItem = function LinkItem({
-  linkName,
-  link,
-  linkIcon,
-}: {
-  linkName: string
-  link?: string
-  linkIcon?: React.ReactNode
-}) {
+interface ButtonItemProps {
+  label: string
+  icon?: React.ReactNode
+  className?: {
+    root?: string
+    label?: string
+    icon?: string
+  }
+}
+
+interface ButtonItemWithHrefProps extends ButtonItemProps {
+  href: string
+  onClick?: never
+}
+
+interface ButtonItemWithOnClickProps extends ButtonItemProps {
+  href?: never
+  onClick: React.MouseEventHandler
+}
+
+Navigation.ButtonItem = function ButtonItem({
+  label,
+  icon,
+  href,
+  onClick,
+  className,
+}: ButtonItemWithHrefProps | ButtonItemWithOnClickProps) {
   const theme = useContext(ThemeContext)
   return (
     <NavigationMenuPrimitive.Item asChild>
       <NavigationMenuPrimitive.Link
-        href={link}
+        href={href}
+        onClick={onClick}
         className={twMerge(
-          'px-3 py-2 text-sm rounded-md dark:hover:bg-gray-900',
-          'text-sm font-medium dark:text-gray-100',
-          theme.primaryBgHoverNavbar,
-          theme.primaryText
+          'px-3 py-2 text-sm rounded-md font-medium cursor-pointer text-black hover:text-white',
+          theme.primaryBgDarkHover,
+          className?.root
         )}
       >
         <div className="flex flex-row">
-          {linkIcon && <div className={twMerge('w-3', 'mr-3')}>{linkIcon}</div>}
-          {linkName}
+          {icon && (
+            <div className={twMerge('w-3 mr-3', className?.icon)}>{icon}</div>
+          )}
+          <div className={className?.label}>{label}</div>
         </div>
       </NavigationMenuPrimitive.Link>
     </NavigationMenuPrimitive.Item>
   )
 }
 
-Navigation.ButtonItem = function ButtonItem(props: buttonProps) {
+type CustomItemProps = {
+  children: React.ReactNode
+  className?: {
+    root?: string
+  }
+}
+
+Navigation.CustomItem = function CustomItem({
+  children,
+  className,
+}: CustomItemProps) {
   return (
-    <NavigationMenuPrimitive.Item asChild>
-      {props.children}
+    <NavigationMenuPrimitive.Item asChild className={className?.root}>
+      {children}
     </NavigationMenuPrimitive.Item>
   )
 }
