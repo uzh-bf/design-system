@@ -52,11 +52,13 @@ interface TriggerProps {
   dropdownWidth: string
   icon?: React.ReactNode
   children: React.ReactNode
+  disabled?: boolean
   className?: {
     root?: string
     label?: string
     icon?: string
     dropdown?: string
+    disabled?: string
   }
 }
 
@@ -65,6 +67,7 @@ Navigation.TriggerItem = function TriggerItem({
   icon,
   dropdownWidth,
   children,
+  disabled,
   className,
 }: TriggerProps) {
   const theme = useContext(ThemeContext)
@@ -73,10 +76,13 @@ Navigation.TriggerItem = function TriggerItem({
     <NavigationMenuPrimitive.Item>
       <NavigationMenuPrimitive.Trigger
         className={twMerge(
-          'px-3 py-2 rounded-md text-sm focus:outline-none focus-visible:ring flex flex-row font-medium text-black hover:text-white',
-          theme.primaryBgDarkHover,
-          className?.root
+          'px-3 py-2 rounded-md text-sm focus:outline-none focus-visible:ring flex flex-row items-center font-medium text-black hover:text-white',
+          !disabled && theme.primaryBgDarkHover,
+          disabled && 'text-gray-400 hover:text-none cursor-not-allowed',
+          className?.root,
+          className?.disabled
         )}
+        disabled={disabled}
       >
         {icon && (
           <div className={twMerge('w-3 mr-3', className?.icon)}>{icon}</div>
@@ -168,11 +174,13 @@ Navigation.DropdownItem = function DropdownItem({
 
 interface ButtonItemProps {
   label: string
+  disabled?: boolean
   icon?: React.ReactNode
   className?: {
     root?: string
     label?: string
     icon?: string
+    disabled?: string
   }
 }
 
@@ -188,6 +196,7 @@ interface ButtonItemWithOnClickProps extends ButtonItemProps {
 
 Navigation.ButtonItem = function ButtonItem({
   label,
+  disabled,
   icon,
   href,
   onClick,
@@ -197,12 +206,14 @@ Navigation.ButtonItem = function ButtonItem({
   return (
     <NavigationMenuPrimitive.Item asChild>
       <NavigationMenuPrimitive.Link
-        href={href}
-        onClick={onClick}
+        href={!disabled ? href : undefined}
+        onClick={!disabled ? onClick : undefined}
         className={twMerge(
           'px-3 py-2 text-sm rounded-md font-medium cursor-pointer text-black hover:text-white',
-          theme.primaryBgDarkHover,
-          className?.root
+          !disabled && theme.primaryBgDarkHover,
+          disabled && 'text-gray-400 hover:text-none cursor-not-allowed',
+          className?.root,
+          className?.disabled
         )}
       >
         <div className="flex flex-row">
