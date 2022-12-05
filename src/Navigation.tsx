@@ -3,7 +3,7 @@ import React, { useContext } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { ThemeContext } from './ThemeProvider'
 
-type NavigationProps = {
+export interface NavigationProps {
   children: React.ReactNode
   className?: {
     root?: string
@@ -48,9 +48,7 @@ export function Navigation({ children, className }: NavigationProps) {
 }
 
 interface TriggerProps {
-  label: string
   dropdownWidth: string
-  icon?: React.ReactNode
   children: React.ReactNode
   disabled?: boolean
   className?: {
@@ -62,6 +60,15 @@ interface TriggerProps {
   }
 }
 
+export interface TriggerIconProps extends TriggerProps {
+  icon: React.ReactNode
+  label?: never
+}
+export interface TriggerLabelProps extends TriggerProps {
+  label: string
+  icon?: React.ReactNode
+}
+
 Navigation.TriggerItem = function TriggerItem({
   label,
   icon,
@@ -69,25 +76,28 @@ Navigation.TriggerItem = function TriggerItem({
   children,
   disabled,
   className,
-}: TriggerProps) {
+}: TriggerIconProps | TriggerLabelProps) {
   const theme = useContext(ThemeContext)
+  const computedClassName = twMerge(
+    'px-3 py-2 rounded-md text-sm focus:outline-none focus-visible:ring flex flex-row items-center font-medium text-black hover:text-white',
+    icon && !label && 'w-9 h-9 justify-center',
+    !disabled && theme.primaryBgDarkHover,
+    disabled && 'text-gray-400 hover:text-none cursor-not-allowed',
+    className?.root,
+    disabled && className?.disabled
+  )
 
   return (
     <NavigationMenuPrimitive.Item>
       <NavigationMenuPrimitive.Trigger
-        className={twMerge(
-          'px-3 py-2 rounded-md text-sm focus:outline-none focus-visible:ring flex flex-row items-center font-medium text-black hover:text-white',
-          !disabled && theme.primaryBgDarkHover,
-          disabled && 'text-gray-400 hover:text-none cursor-not-allowed',
-          className?.root,
-          className?.disabled
-        )}
+        className={computedClassName}
         disabled={disabled}
       >
-        {icon && (
+        {icon && !label && <div className={className?.icon}>{icon}</div>}
+        {icon && label && (
           <div className={twMerge('w-3 mr-3', className?.icon)}>{icon}</div>
         )}
-        <div className={className?.label}>{label}</div>
+        {label && <div className={className?.label}>{label}</div>}
       </NavigationMenuPrimitive.Trigger>
 
       <NavigationMenuPrimitive.Content
@@ -105,7 +115,6 @@ Navigation.TriggerItem = function TriggerItem({
 
 interface DropdownItemProps {
   title: string
-
   subtitle?: string
   icon?: React.ReactNode
   className?: {
@@ -116,12 +125,12 @@ interface DropdownItemProps {
   }
 }
 
-interface DropdownItemWithHrefProps extends DropdownItemProps {
+export interface DropdownItemWithHrefProps extends DropdownItemProps {
   href: string
   onClick?: never
 }
 
-interface DropdownItemWithOnClickProps extends DropdownItemProps {
+export interface DropdownItemWithOnClickProps extends DropdownItemProps {
   href?: never
   onClick: React.MouseEventHandler
 }
@@ -184,12 +193,12 @@ interface ButtonItemProps {
   }
 }
 
-interface ButtonItemWithHrefProps extends ButtonItemProps {
+export interface ButtonItemWithHrefProps extends ButtonItemProps {
   href: string
   onClick?: never
 }
 
-interface ButtonItemWithOnClickProps extends ButtonItemProps {
+export interface ButtonItemWithOnClickProps extends ButtonItemProps {
   href?: never
   onClick: React.MouseEventHandler
 }
@@ -203,18 +212,20 @@ Navigation.ButtonItem = function ButtonItem({
   className,
 }: ButtonItemWithHrefProps | ButtonItemWithOnClickProps) {
   const theme = useContext(ThemeContext)
+  const computedClassName = twMerge(
+    'px-3 py-2 text-sm rounded-md font-medium cursor-pointer text-black hover:text-white',
+    !disabled && theme.primaryBgDarkHover,
+    disabled && 'text-gray-400 hover:text-none cursor-not-allowed',
+    className?.root,
+    disabled && className?.disabled
+  )
+
   return (
     <NavigationMenuPrimitive.Item asChild>
       <NavigationMenuPrimitive.Link
         href={!disabled ? href : undefined}
         onClick={!disabled ? onClick : undefined}
-        className={twMerge(
-          'px-3 py-2 text-sm rounded-md font-medium cursor-pointer text-black hover:text-white',
-          !disabled && theme.primaryBgDarkHover,
-          disabled && 'text-gray-400 hover:text-none cursor-not-allowed',
-          className?.root,
-          className?.disabled
-        )}
+        className={computedClassName}
       >
         <div className="flex flex-row">
           {icon && (
@@ -222,6 +233,65 @@ Navigation.ButtonItem = function ButtonItem({
           )}
           <div className={className?.label}>{label}</div>
         </div>
+      </NavigationMenuPrimitive.Link>
+    </NavigationMenuPrimitive.Item>
+  )
+}
+
+interface IconItemProps {
+  icon: React.ReactNode
+  disabled?: boolean
+  className?: {
+    root?: string
+    icon?: string
+    disabled?: string
+  }
+}
+
+export interface IconItemWithHrefProps extends IconItemProps {
+  href: string
+  onClick?: never
+}
+
+export interface IconItemWithOnClickProps extends IconItemProps {
+  href?: never
+  onClick: React.MouseEventHandler
+}
+
+/**
+ * This function returns a pre-styled IconItem component based on the custom theme.
+ *
+ * @param icon The icon of the icon item.
+ * @param disabled Allows to disable the icon item and apply some conditional styling.
+ * @param href The optional href of the icon item. This attribute is mutually exclusive with the onClick attribute.
+ * @param onClick The optional onClick handler of the icon item. This attribute is mutually exclusive with the href attribute.
+ * @param className The optional className object allows you to override the default styling.
+ * @returns Icon item component for a dropdown menu in the navigation component.
+ */
+Navigation.IconItem = function IconItem({
+  icon,
+  disabled,
+  href,
+  onClick,
+  className,
+}: IconItemWithHrefProps | IconItemWithOnClickProps) {
+  const theme = useContext(ThemeContext)
+  const computedClassName = twMerge(
+    'w-9 h-9 flex items-center justify-center rounded-md text-black hover:text-white',
+    !disabled && theme.primaryBgDarkHover,
+    disabled && 'text-gray-400 hover:text-none cursor-not-allowed',
+    className?.root,
+    disabled && className?.disabled
+  )
+
+  return (
+    <NavigationMenuPrimitive.Item asChild>
+      <NavigationMenuPrimitive.Link
+        href={!disabled ? href : undefined}
+        onClick={!disabled ? onClick : undefined}
+        className={computedClassName}
+      >
+        {icon}
       </NavigationMenuPrimitive.Link>
     </NavigationMenuPrimitive.Item>
   )
