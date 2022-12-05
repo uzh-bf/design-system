@@ -28,6 +28,7 @@ const Navigation1 = () => {
         label="Cats"
         icon={<FontAwesomeIcon icon={faCat} />}
         dropdownWidth="w-[16rem]"
+        disabled
       >
         <Navigation.DropdownItem
           title="Simba"
@@ -92,6 +93,7 @@ const Navigation2 = () => {
         href="https://www.uzh.ch"
         label="More Info"
         icon={<FontAwesomeIcon icon={faCircleInfo} />}
+        disabled
       />
       <Navigation.ButtonItem
         label="More Info Log"
