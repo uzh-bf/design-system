@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.99](https://github.com/uzh-bf/design-system/compare/v0.0.98...v0.0.99) (2022-12-05)
+
+
+### Enhancements
+
+* **Navigation:** add IconItem and allow triggers to only have an icon ([4e7ee28](https://github.com/uzh-bf/design-system/commit/4e7ee28175d8d61d2682513dc4309ee9eb93dcb2))
+
 ### [0.0.98](https://github.com/uzh-bf/design-system/compare/v0.0.97...v0.0.98) (2022-12-05)
 
 
