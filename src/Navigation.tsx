@@ -35,16 +35,14 @@ export function Navigation({ children, className }: NavigationProps) {
         </NavigationMenuPrimitive.Indicator>
       </NavigationMenuPrimitive.List>
 
-      <div className="absolute z-10">
-        <NavigationMenuPrimitive.Viewport
-          className={twMerge(
-            'relative mt-2 shadow-lg rounded-md overflow-hidden duration-300 ease-in-out',
-            'w-rdx-navigation-menu-viewport h-rdx-navigation-menu-viewport',
-            theme.primaryBg,
-            className?.viewport
-          )}
-        />
-      </div>
+      <NavigationMenuPrimitive.Viewport
+        className={twMerge(
+          'mt-2 shadow-lg rounded-md overflow-hidden duration-300 ease-in-out',
+          'w-rdx-navigation-menu-viewport h-rdx-navigation-menu-viewport absolute z-10',
+          theme.primaryBg,
+          className?.viewport
+        )}
+      />
     </NavigationMenuPrimitive.Root>
   )
 }
@@ -77,7 +75,6 @@ Navigation.TriggerItem = function TriggerItem({
         className={twMerge(
           'px-3 py-2 rounded-md text-sm focus:outline-none focus-visible:ring flex flex-row font-medium text-black hover:text-white',
           theme.primaryBgDarkHover,
-
           className?.root
         )}
       >
