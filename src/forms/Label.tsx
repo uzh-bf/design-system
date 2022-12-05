@@ -29,6 +29,18 @@ const defaultProps = {
   className: undefined,
 }
 
+/**
+ * This function returns a label component based on the RadixUI label.
+ *
+ * @param forId The id of the element that the label is for.
+ * @param label The text displayed as label.
+ * @param required Indicate whether the field is required or not.
+ * @param tooltip The optional tooltip is shown on hover over the label.
+ * @param showTooltipSymbol Indicate whether the tooltip symbol should be shown or not.
+ * @param tooltipSymbolSize The size of the tooltip symbol.
+ * @param className The optional className object allows you to override the default styling.
+ * @returns Label component with optional tooltip and required symbol.
+ */
 export function Label({
   forId,
   label,

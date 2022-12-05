@@ -20,6 +20,18 @@ export interface SelectFieldProps {
   }
 }
 
+/**
+ * This component returns a select field that works as to be expected in a Formik environment.
+ * State is managed by Formik through the name attribute.
+ *
+ * @param name The name of the field. This is used to identify the field in Formik.
+ * @param label The optional label is shown next to the field in the form.
+ * @param tooltip The optional tooltip is shown on hover next to the label.
+ * @param items The array of items that should be available on the select component.
+ * @param required  Indicate whether the field is required or not.
+ * @param className The optional className object allows you to override the default styling.
+ * @returns Select component with formik state management.
+ */
 export function FormikSelectField({
   name,
   label,
