@@ -75,6 +75,7 @@ interface TriggerProps {
  * @param label The label of the trigger item.
  * @param icon The optional icon of the trigger item.
  * @param dropdownWidth The width of the dropdown menu. Currently, this attribute needs to be provided in order to work around a bug in the RadixUI navigation component. Ensure that this width is correct for all responsive breakpoints.
+ * @param disabled Allows to disable the trigger item and apply some conditional styling.
  * @param children The content of the dropdown menu.
  * @param className The optional className object allows you to override the default styling.
  * @returns Trigger component for a dropdown menu in the navigation component.
@@ -228,6 +229,7 @@ interface ButtonItemWithOnClickProps extends ButtonItemProps {
  *
  * @param label The label of the button item.
  * @param icon The optional icon of the button item.
+ * @param disabled Allows to disable the button item and apply some conditional styling.
  * @param href The optional href of the button item. This attribute is mutually exclusive with the onClick attribute.
  * @param onClick The optional onClick handler of the button item. This attribute is mutually exclusive with the href attribute.
  * @param className The optional className object allows you to override the default styling.
