@@ -1,15 +1,14 @@
-import * as RadixLabel from '@radix-ui/react-label'
 import * as RadixSwitch from '@radix-ui/react-switch'
 import React, { useContext } from 'react'
 import { twMerge } from 'tailwind-merge'
+import Label from './forms/Label'
 import { ThemeContext } from './ThemeProvider'
 
 export interface SwitchProps {
-  disabled?: boolean
-  id: string
-  label: string
   checked: boolean
   onCheckedChange: (newValue: boolean) => void
+  disabled?: boolean
+  label?: string
   fluid?: boolean
   labelLeft?: boolean
   size?: 'sm' | 'md' | 'lg'
@@ -27,13 +26,13 @@ const defaultProps = {
   fluid: false,
   labelLeft: false,
   size: 'md',
+  label: undefined,
 }
 
 /**
  * This function returns a pre-styled Switch component based on the RadixUI switch component and the custom theme.
  * The state of the switch is maintained by the parent component.
  *
- * @param id The id of the switch.
  * @param label The label that is displayed next to the switch.
  * @param checked Indicator whether the switch is checked or not. State is managed by the parent component.
  * @param onCheckedChange The function that is called when the switch is checked or unchecked. The new value is passed as a parameter.
@@ -46,7 +45,6 @@ const defaultProps = {
  */
 export function Switch({
   disabled,
-  id,
   label,
   checked,
   onCheckedChange,
@@ -81,10 +79,8 @@ export function Switch({
         className?.root
       )}
     >
-      {labelLeft && (
-        <RadixLabel.Root htmlFor={id} className={className?.label}>
-          {label}
-        </RadixLabel.Root>
+      {labelLeft && label && (
+        <Label className={{ root: className?.label }} label={label} />
       )}
       <RadixSwitch.Root
         checked={checked}
@@ -106,10 +102,8 @@ export function Switch({
           )}
         />
       </RadixSwitch.Root>
-      {!labelLeft && (
-        <RadixLabel.Root htmlFor={id} className={className?.label}>
-          {label}
-        </RadixLabel.Root>
+      {!labelLeft && label && (
+        <Label className={{ root: className?.label }} label={label} />
       )}
     </div>
   )

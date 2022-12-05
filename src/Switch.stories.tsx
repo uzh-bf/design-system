@@ -5,7 +5,6 @@ export const Default = () => {
   const [isChecked, setIsChecked] = useState(false)
   return (
     <Switch
-      id="default"
       checked={isChecked}
       label="Unchecked"
       onCheckedChange={(newValue) => setIsChecked(newValue)}
@@ -18,7 +17,6 @@ export const Disabled = () => {
   return (
     <Switch
       disabled
-      id="default"
       checked={isChecked}
       label="Unchecked"
       onCheckedChange={(newValue) => setIsChecked(newValue)}
@@ -35,7 +33,6 @@ export const Sizes = () => {
     <>
       <div className="mb-3">
         <Switch
-          id="default"
           checked={isChecked1}
           label="Standard switch"
           onCheckedChange={(newValue) => setIsChecked1(newValue)}
@@ -43,7 +40,6 @@ export const Sizes = () => {
       </div>
       <div className="mb-3">
         <Switch
-          id="default"
           checked={isChecked2}
           size="lg"
           label="Large switch"
@@ -52,7 +48,6 @@ export const Sizes = () => {
       </div>
       <div>
         <Switch
-          id="default"
           checked={isChecked3}
           size="sm"
           label="Small switch"
