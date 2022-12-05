@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.1](https://github.com/uzh-bf/design-system/compare/v0.1.0...v0.1.1) (2022-12-05)
+
+
+### Bug Fixes
+
+* **Switch:** make label optional on switch component ([a50c414](https://github.com/uzh-bf/design-system/commit/a50c414d7db97442d90b60db9fd400c0a7e7721f))
+* **Tooltip:** fix tooltip opacity for better readbility ([9a236e0](https://github.com/uzh-bf/design-system/commit/9a236e006eb000e4a055d2f9a032eb4a7d2d8347))
+
 ## [0.1.0](https://github.com/uzh-bf/design-system/compare/v0.0.99...v0.1.0) (2022-12-05)
 
 
