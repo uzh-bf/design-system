@@ -52,7 +52,7 @@ export function Tooltip({
         </RadixTooltip.Trigger>
         <RadixTooltip.Content
           className={twMerge(
-            'p-2 text-white bg-black border rounded-md opacity-80 border-1 border-grey-20',
+            'p-2 text-white bg-gray-800 border rounded-md border-1 border-grey-20',
             className?.tooltip
           )}
         >

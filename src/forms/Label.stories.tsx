@@ -70,7 +70,7 @@ export const TooltipSymbol = () => {
         className={{
           root: 'p-2 rounded-md bg-uzh-blue-20',
           arrow: 'fill-uzh-blue-100',
-          tooltip: 'bg-uzh-blue-100 font-bold italic opacity-100',
+          tooltip: 'bg-uzh-blue-100 font-bold italic',
         }}
         showTooltipSymbol={true}
         tooltipSymbolSize="lg"

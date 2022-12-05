@@ -78,7 +78,7 @@ export function FormikTextareaField({
                 'my-auto mr-2 font-bold min-w-max',
                 className?.label
               ),
-              tooltip: 'text-sm font-normal opacity-100',
+              tooltip: 'text-sm font-normal',
             }}
             tooltip={tooltip}
             showTooltipSymbol={typeof tooltip !== 'undefined'}
