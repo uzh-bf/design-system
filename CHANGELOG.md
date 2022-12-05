@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.98](https://github.com/uzh-bf/design-system/compare/v0.0.97...v0.0.98) (2022-12-05)
+
+
+### Enhancements
+
+* **Navigation:** add disabled attributes and styling to ButtonItem and TriggerItem ([9dd44e2](https://github.com/uzh-bf/design-system/commit/9dd44e249feca2b34dbe3c3c555273484f522377))
+
 ### [0.0.97](https://github.com/uzh-bf/design-system/compare/v0.0.96...v0.0.97) (2022-12-05)
 
 
