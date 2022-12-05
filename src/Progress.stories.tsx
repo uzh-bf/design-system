@@ -22,8 +22,7 @@ export const Styled = () => {
     <Progress
       value={30}
       max={100}
-      className="h-10 font-bold"
-      indicatorClassName="bg-blue-700 h-10"
+      className={{ root: 'h-10 font-bold', indicator: 'bg-blue-700 h-10' }}
       formatter={(val) => val}
     />
   )

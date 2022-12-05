@@ -20,6 +20,16 @@ export interface TableProps {
   }
 }
 
+/**
+ * This function returns a pre-styled Table component based on the RadixUI table component and the custom theme.
+ * The table is sortable by clicking on the column header.
+ *
+ * @param columns The columns of the table. The columns are defined by an array of objects where each object has a label, an accessor and an optional transformer.
+ * @param data The data of the table. The data is defined by an array of objects where each object has a key-value pair for each column.
+ * @param caption The optional caption of the table.
+ * @param className The optional className object allows you to override the default styling.
+ * @returns Table component
+ */
 export function Table({ className, columns, data, caption }: TableProps) {
   const [tableData, setTableData] = useState(data)
   const [sortField, setSortField] = useState('')
@@ -57,7 +67,7 @@ export function Table({ className, columns, data, caption }: TableProps) {
           </tr>
         )
       }),
-    [tableData]
+    [tableData, columns, className]
   )
 
   const handleSorting = (sortField: string, sortOrder: string) => {

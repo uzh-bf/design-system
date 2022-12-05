@@ -4,16 +4,16 @@ import { ThemeContext } from './ThemeProvider'
 
 export interface ButtonProps {
   active?: boolean
-  className?: string
+  className?: {
+    root?: string
+  }
   children: React.ReactNode
   disabled?: boolean
   fluid?: boolean
   basic?: boolean
   type?: 'button' | 'submit' | 'reset'
   loading?: boolean
-
   onClick?: (e?: React.MouseEvent<HTMLButtonElement>) => void
-
   [x: string]: any
 }
 
@@ -28,6 +28,20 @@ const defaultProps = {
   onClick: () => null,
 }
 
+/**
+ * This function returns a pre-styled Button component based on the custom theme.
+ *
+ * @param children The content of the button.
+ * @param active Indicate whether the button is active or not. Conditional styling is applied, if this is true.
+ * @param disabled Indicate whether the button is disabled or not. Conditional styling is applied, if this is true.
+ * @param fluid Indicate whether the button should be fluid or not. Conditional styling is applied, if this is true.
+ * @param basic This attribute allows to directly remove significant pre-styling and only applies basic styles and functionally required attributes.
+ * @param type The html type of the button.
+ * @param loading Indicate whether the button is loading or not. Conditional styling / loading symbol is applied, if this is true.
+ * @param onClick Function that is applied when the button is clicked.
+ * @param className The optional className object allows you to override the default styling.
+ * @returns Button component
+ */
 export function Button({
   children,
   className,
@@ -54,7 +68,7 @@ export function Button({
       : !basic &&
           `${theme.primaryBgHover} ${theme.primaryBorderHover} ${theme.primaryTextHover} ${theme.primaryFillHover}`,
     fluid && 'w-full justify-center',
-    className
+    className?.root
   )
 
   return (
@@ -97,20 +111,24 @@ Button.Icon = function ButtonIcon({
   className,
   children,
 }: {
-  className?: string
+  className?: {
+    root?: string
+  }
   children: React.ReactNode
 }) {
-  return <div className={twMerge('w-3', className)}>{children}</div>
+  return <div className={twMerge('w-3', className?.root)}>{children}</div>
 }
 
 Button.Label = function ButtonLabel({
   className,
   children,
 }: {
-  className?: string
+  className?: {
+    root?: string
+  }
   children: React.ReactNode
 }) {
-  return <div className={twMerge('', className)}>{children}</div>
+  return <div className={twMerge('', className?.root)}>{children}</div>
 }
 
 export default Button

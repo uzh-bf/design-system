@@ -11,31 +11,41 @@ export interface LabelProps {
   label: string
   required?: boolean
   tooltip?: string | React.ReactNode
-  tooltipStyle?: string
-  arrowStyle?: string
   showTooltipSymbol?: boolean
   tooltipSymbolSize?: 'sm' | 'md' | 'lg' | 'xl'
-  className?: string
+  className?: {
+    root?: string
+    tooltip?: string
+    arrow?: string
+  }
 }
 
 const defaultProps = {
   forId: undefined,
   required: false,
   tooltip: undefined,
-  tooltipStyle: '',
-  arrowStyle: '',
   showTooltipSymbol: false,
   tooltipSymbolSize: 'md',
-  className: '',
+  className: undefined,
 }
 
+/**
+ * This function returns a label component based on the RadixUI label.
+ *
+ * @param forId The id of the element that the label is for.
+ * @param label The text displayed as label.
+ * @param required Indicate whether the field is required or not.
+ * @param tooltip The optional tooltip is shown on hover over the label.
+ * @param showTooltipSymbol Indicate whether the tooltip symbol should be shown or not.
+ * @param tooltipSymbolSize The size of the tooltip symbol.
+ * @param className The optional className object allows you to override the default styling.
+ * @returns Label component with optional tooltip and required symbol.
+ */
 export function Label({
   forId,
   label,
   required,
   tooltip,
-  tooltipStyle,
-  arrowStyle,
   showTooltipSymbol,
   tooltipSymbolSize,
   className,
@@ -46,14 +56,16 @@ export function Label({
     return (
       <Tooltip
         tooltip={tooltip}
-        tooltipStyle={tooltipStyle}
-        arrowStyle={arrowStyle}
-        withArrow={true}
+        className={{
+          tooltip: className?.tooltip,
+          arrow: className?.arrow,
+        }}
+        withIndicator={true}
       >
         <div className="flex flex-row">
           <RadixLabel.Root
             htmlFor={forId}
-            className={twMerge(className, 'cursor-default')}
+            className={twMerge(className?.root, 'cursor-default')}
           >
             {label}
           </RadixLabel.Root>
@@ -63,7 +75,9 @@ export function Label({
     )
   } else if (tooltip && showTooltipSymbol) {
     return (
-      <div className={twMerge(className, 'w-max flex flex-row items-center')}>
+      <div
+        className={twMerge(className?.root, 'w-max flex flex-row items-center')}
+      >
         <RadixLabel.Root
           htmlFor={forId}
           className={twMerge('mr-2 cursor-default', required && 'mr-0')}
@@ -73,10 +87,12 @@ export function Label({
         {required && <div className="mr-2 ml-0.5 mb-1 text-red-600">*</div>}
         <Tooltip
           tooltip={tooltip}
-          tooltipStyle={tooltipStyle}
-          arrowStyle={arrowStyle}
-          withArrow={true}
-          triggerStyle="h-full"
+          className={{
+            tooltip: className?.tooltip,
+            arrow: className?.arrow,
+            trigger: 'h-full',
+          }}
+          withIndicator={true}
         >
           <FontAwesomeIcon
             icon={faQuestion}
@@ -96,7 +112,7 @@ export function Label({
       <div className="flex flex-row">
         <RadixLabel.Root
           htmlFor={forId}
-          className={twMerge(className, 'cursor-default')}
+          className={twMerge(className?.root, 'cursor-default')}
         >
           {label}
         </RadixLabel.Root>

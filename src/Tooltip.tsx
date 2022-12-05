@@ -6,35 +6,46 @@ import { twMerge } from 'tailwind-merge'
 export interface TooltipProps {
   tooltip: React.ReactNode | string
   delay?: number
-  tooltipStyle?: string
-  triggerStyle?: string
-  arrowStyle?: string
-  withArrow?: boolean
+  withIndicator?: boolean
   children: React.ReactNode
+  className?: {
+    tooltip?: string
+    trigger?: string
+    arrow?: string
+  }
 }
 
 const defaultProps = {
   delay: 350,
-  tooltipStyle: '',
-  triggerStyle: '',
-  arrowStyle: '',
-  withArrow: true,
+  withIndicator: true,
+  className: undefined,
 }
 
+/**
+ * This function returns a pre-styled Tooltip component based on the RadixUI tooltip component and the custom theme.
+ *
+ * @param tooltip The content of the tooltip.
+ * @param delay The delay in milliseconds before the tooltip is shown.
+ * @param withIndicator Determines whether the tooltip should have a small indicator or not.
+ * @param children The child component that triggers the tooltip.
+ * @param className The optional className object allows you to override the default styling.
+ * @returns Tooltip component
+ */
 export function Tooltip({
   tooltip,
   delay,
-  tooltipStyle,
-  triggerStyle,
-  arrowStyle,
-  withArrow,
+  withIndicator,
   children,
+  className,
 }: TooltipProps): React.ReactElement {
   return (
     <RadixTooltip.Provider>
       <RadixTooltip.Root delayDuration={delay || 1000}>
         <RadixTooltip.Trigger
-          className={twMerge('[all:_unset] !cursor-default', triggerStyle)}
+          className={twMerge(
+            '[all:_unset] !cursor-default',
+            className?.trigger
+          )}
           onClick={(e) => e.preventDefault()}
         >
           {children}
@@ -42,11 +53,11 @@ export function Tooltip({
         <RadixTooltip.Content
           className={twMerge(
             'p-2 text-white bg-black border rounded-md opacity-80 border-1 border-grey-20',
-            tooltipStyle
+            className?.tooltip
           )}
         >
           {tooltip}
-          {withArrow && <RadixTooltip.Arrow className={arrowStyle} />}
+          {withIndicator && <RadixTooltip.Arrow className={className?.arrow} />}
         </RadixTooltip.Content>
       </RadixTooltip.Root>
     </RadixTooltip.Provider>

@@ -9,7 +9,9 @@ export const Styled = () => {
   return (
     <Label
       label="Labels"
-      className="p-2 border border-solid rounded-md border-uzh-grey-100 bg-uzh-blue-20"
+      className={{
+        root: 'p-2 border border-solid rounded-md border-uzh-grey-100 bg-uzh-blue-20',
+      }}
     />
   )
 }
@@ -19,7 +21,7 @@ export const Tooltip = () => {
     <Label
       label="Hover this Label!"
       tooltip="Tooltip Content"
-      className="p-2 rounded-md bg-uzh-blue-20"
+      className={{ root: 'p-2 rounded-md bg-uzh-blue-20' }}
     />
   )
 }
@@ -29,9 +31,11 @@ export const TooltipStyled = () => {
     <Label
       label="Label with styled Tooltip"
       tooltip="Tooltip Content"
-      className="p-2 rounded-md bg-uzh-blue-20"
-      arrowStyle="opacity-0"
-      tooltipStyle="bg-uzh-red-100 font-bold text-black italic"
+      className={{
+        root: 'p-2 rounded-md bg-uzh-blue-20',
+        arrow: 'opacity-0',
+        tooltip: 'bg-uzh-red-100 font-bold text-black italic',
+      }}
     />
   )
 }
@@ -42,33 +46,39 @@ export const TooltipSymbol = () => {
       <Label
         label="Label with small styled Tooltip"
         tooltip="Tooltip Content"
-        className="p-2 rounded-md bg-uzh-blue-20"
-        arrowStyle="opacity-0"
-        tooltipStyle="bg-uzh-red-100 font-bold text-black italic"
+        className={{
+          root: 'p-2 rounded-md bg-uzh-blue-20',
+          arrow: 'opacity-0',
+          tooltip: 'bg-uzh-red-100 font-bold text-black italic',
+        }}
         showTooltipSymbol={true}
         tooltipSymbolSize="sm"
       />
       <Label
         label="Default Label with styled Tooltip"
         tooltip="Tooltip Content"
-        className="p-2 rounded-md bg-uzh-blue-20"
-        arrowStyle="opacity-0"
-        tooltipStyle="bg-uzh-red-100 font-bold text-black italic"
+        className={{
+          root: 'p-2 rounded-md bg-uzh-blue-20',
+          arrow: 'opacity-0',
+          tooltip: 'bg-uzh-red-100 font-bold text-black italic',
+        }}
         showTooltipSymbol={true}
       />
       <Label
         label="Label with large styled Tooltip"
         tooltip="Tooltip Content"
-        className="p-2 rounded-md bg-uzh-blue-20"
-        arrowStyle="fill-uzh-blue-100"
-        tooltipStyle="bg-uzh-blue-100 font-bold italic opacity-100"
+        className={{
+          root: 'p-2 rounded-md bg-uzh-blue-20',
+          arrow: 'fill-uzh-blue-100',
+          tooltip: 'bg-uzh-blue-100 font-bold italic opacity-100',
+        }}
         showTooltipSymbol={true}
         tooltipSymbolSize="lg"
       />
       <Label
         label="Label with large Tooltip"
         tooltip="Tooltip Content"
-        className="p-2 rounded-md bg-uzh-blue-20"
+        className={{ root: 'p-2 rounded-md bg-uzh-blue-20' }}
         showTooltipSymbol={true}
         tooltipSymbolSize="xl"
       />

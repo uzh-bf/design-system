@@ -44,7 +44,6 @@ const groups = [
 export const Default = () => {
   return (
     <Select
-      name="default"
       placeholder="Select an item"
       items={fruits}
       onChange={(newValue) => {
@@ -66,7 +65,6 @@ export const Groups = () => {
         ignored
       </div>
       <Select
-        name="default"
         placeholder="Select an item"
         groups={[
           ...groups,
@@ -108,7 +106,6 @@ export const Disabled = () => {
 
   return (
     <Select
-      name="disabled"
       placeholder="Select an item"
       items={items}
       onChange={(newValue) => {
@@ -131,7 +128,6 @@ export const DisabledElements = () => {
 
   return (
     <Select
-      name="disabled_elements_select"
       placeholder="Select an item"
       items={items}
       onChange={(newValue) => {
@@ -145,7 +141,6 @@ export const Styled = () => {
   return (
     <div className="w-full h-12 border border-solid rounded-md">
       <Select
-        name="styled_select"
         placeholder="Select an item"
         groups={groups}
         onChange={(newValue) => {
@@ -168,7 +163,6 @@ export const Styled = () => {
 export const Small = () => {
   return (
     <Select
-      name="small_select"
       placeholder="Select an item"
       groups={groups}
       onChange={(newValue) => console.log(newValue)}
@@ -199,7 +193,6 @@ export const CustomTriggerLabel = () => {
         to be kept outside of the component.
       </div>
       <Select
-        name="custom_trigger_label_select"
         placeholder="Select an item"
         items={items}
         onChange={(newValue) => {

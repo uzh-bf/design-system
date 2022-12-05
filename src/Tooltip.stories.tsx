@@ -15,14 +15,17 @@ export const Default = () => {
 export const Styled = () => {
   return (
     <Tooltip
-      tooltipStyle="bg-red-400"
+      className={{ tooltip: 'bg-red-400', arrow: 'fill-red-400' }}
       tooltip={
         <div className="italic font-bold text-black">Styled Tooltip</div>
       }
-      arrowStyle="fill-red-400"
-      withArrow={true}
+      withIndicator={true}
     >
-      <Button className="p-2 border border-solid shadow-md border-uzh-grey-100">
+      <Button
+        className={{
+          root: 'p-2 border border-solid shadow-md border-uzh-grey-100',
+        }}
+      >
         Hover Me! and I can still be a Button
       </Button>
     </Tooltip>

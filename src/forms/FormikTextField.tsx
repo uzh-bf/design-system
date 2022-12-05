@@ -31,6 +31,21 @@ export interface TextFieldWithOnChangeProps extends TextFieldProps {
   [key: string]: any
 }
 
+/**
+ * This function returns a text field that works as to be expected in a Formik environment.
+ * State can be managed either through Formik or internally by passing a value and onChange function.
+ *
+ * @param id The id of the field.
+ * @param name The name of the field as used to keep track of the state in Formik. If no value and onChange function are provided, this field is required.
+ * @param value The value of the field. This is used to manage the state internally. If no name is provided, this field is required.
+ * @param onChange The onChange function is called when the value of the field changes. This is used to manage the state internally. If no name is provided, this field is required.
+ * @param label The optional label is shown next to the field in the form.
+ * @param placeholder The optional placeholder is shown when the field is empty.
+ * @param tooltip The optional tooltip is shown on hover next to the label.
+ * @param required Indicate whether the field is required or not.
+ * @param className The optional className object allows you to override the default styling.
+ * @returns Text field component with Formik state management.
+ */
 export function FormikTextField({
   name,
   value,
@@ -43,7 +58,7 @@ export function FormikTextField({
   className,
   ...props
 }: TextFieldWithNameProps | TextFieldWithOnChangeProps) {
-  const [field, meta, helpers] = useField(name || 'missing')
+  const [field, meta] = useField(name || 'missing')
   return (
     <div className={twMerge('flex flex-col', className?.root)} id={id}>
       <div className="flex flex-row w-full">
@@ -52,12 +67,14 @@ export function FormikTextField({
             forId={id}
             required={required}
             label={label}
-            className={twMerge(
-              'my-auto mr-2 font-bold min-w-max',
-              className?.label
-            )}
+            className={{
+              root: twMerge(
+                'my-auto mr-2 font-bold min-w-max',
+                className?.label
+              ),
+              tooltip: 'text-sm font-normal opacity-100',
+            }}
             tooltip={tooltip}
-            tooltipStyle="text-sm font-normal !w-1/2 opacity-100"
             showTooltipSymbol={typeof tooltip !== 'undefined'}
           />
         )}
@@ -76,7 +93,7 @@ export function FormikTextField({
             {...props}
           />
         )}
-        {typeof value !== undefined && onChange && (
+        {typeof value !== 'undefined' && onChange && (
           <input
             {...field}
             id={id}

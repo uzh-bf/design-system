@@ -156,7 +156,7 @@ export const CustomLabel = () => {
                     `hover:${theme.primaryBgDark}`
                   )}
                 >
-                  <Checkbox checked={label1Active} onCheck={undefined} />
+                  <Checkbox checked={label1Active} onCheck={() => undefined} />
                   Element 1
                 </span>
               ),
@@ -178,7 +178,7 @@ export const CustomLabel = () => {
                     `hover:${theme.primaryBgDark}`
                   )}
                 >
-                  <Checkbox checked={label4Active} onCheck={undefined} />
+                  <Checkbox checked={label4Active} onCheck={() => undefined} />
                   Element 4
                 </span>
               ),
