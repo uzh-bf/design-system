@@ -9,6 +9,13 @@ export interface ProseProps {
   children: React.ReactNode
 }
 
+/**
+ * This function returns a pre-styled prose component based on TailwindCSS prose and the custom theme.
+ *
+ * @param children The content of the prose component.
+ * @param className The optional className object allows you to override the default styling.
+ * @returns Children with the standard prose and some custom styling applied to them.
+ */
 export function Prose({ className, children }: ProseProps) {
   const theme = useContext(ThemeContext)
 

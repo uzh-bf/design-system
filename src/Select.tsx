@@ -21,7 +21,7 @@ interface ClassName {
 }
 
 interface SelectProps {
-  name: string
+  name?: string
   onChange: (newValue: string) => void
   value?: string
   disabled?: boolean
@@ -58,6 +58,21 @@ const defaultProps = {
   placeholder: undefined,
 }
 
+/**
+ * This function returns a pre-styled Select component based on the RadixUI select component and the custom theme.
+ * While the open state of the component is managed internally, the value of the component is managed externally and passed to the function.
+ *
+ * @param items The array of items that are displayed in the select component. This prop is mutually exclusive with the groups prop. If items are provided, the component does not look for groups anymore.
+ * @param groups The array of groups that are displayed in the select component. This prop is mutually exclusive with the items prop.
+ * @param name The name attribute of the select component needed for Formik integration --> see FormikSelectField
+ * @param onChange The function that is called when the value of the select component changes (changes externally managed value).
+ * @param value The current value of the select component (managed externally).
+ * @param placeholder The placeholder text that is displayed when no value is selected.
+ * @param disabled Specifies whether the select component is disabled or not.
+ * @param size The size of the select component. Currently only medium and small are supported.
+ * @param className The optional className object allows you to override the default styling.
+ * @return Select component
+ */
 export function Select({
   items,
   groups,

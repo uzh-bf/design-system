@@ -4,15 +4,14 @@ import * as RadixSlider from '@radix-ui/react-slider'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
 
-export interface Props {
+interface SliderProps {
   value: number
-  labels: Record<string, string>
   handleChange: (newValue: number) => void
   min: number
   max: number
   step: number
   disabled?: boolean
-  icons?: Record<string, string>
+
   rangeColorMap?: Record<string, string>
   borderColorMap?: Record<string, string>
   className?: {
@@ -23,15 +22,48 @@ export interface Props {
     thumb?: string
   }
 }
+export interface SliderWithLabelProps extends SliderProps {
+  labels: {
+    min: string
+    mid: string
+    max: string
+  }
+  icons?: never
+}
+export interface SliderWithIconsProps extends SliderProps {
+  icons: {
+    min: React.ReactNode
+    mid: React.ReactNode
+    max: React.ReactNode
+  }
+  labels?: never
+}
 
 const defaultProps = {
   disabled: false,
   icons: undefined,
+  labels: undefined,
   rangeColorMap: undefined,
   borderColorMap: undefined,
   className: undefined,
 }
 
+/**
+ * This function returns a pre-styled Slider component based on the RadixUI slider component and the custom theme.
+ *
+ * @param value The value of the slider. The value should be between the min and max value and is maintained by the parent component.
+ * @param labels The labels that are displayed on the slider. The labels and icons props should be mutually exclusive.
+ * @param icons The icons that are displayed on the slider. The labels and icons props should be mutually exclusive.
+ * @param handleChange The function that is called when the slider value is changed. The new value is passed as a parameter.
+ * @param min The minimum value of the slider.
+ * @param max The maximum value of the slider.
+ * @param step The step size of the slider.
+ * @param disabled Indicator whether the slider is disabled or not.
+ * @param rangeColorMap A map that maps a range of values to colors. The color is used to color the range of the slider. The length of the map should be equal to the number of steps and the keys should correspond to the possible values of the slider.
+ * @param borderColorMap A map that maps a range of values to colors. The color is used to color the thumb of the slider. The length of the map should be equal to the number of steps and the keys should correspond to the possible values of the slider.
+ * @param className The optional className object allows you to override the default styling.
+ * @returns Slider component.
+ */
 export function Slider({
   value,
   labels,
@@ -44,7 +76,7 @@ export function Slider({
   rangeColorMap,
   borderColorMap,
   className,
-}: Props): React.ReactElement {
+}: SliderWithLabelProps | SliderWithIconsProps): React.ReactElement {
   const steps =
     min < 0 && max > 0
       ? ((max - min + 1) / step) >> 0
@@ -69,21 +101,21 @@ export function Slider({
           <div className={className?.icons}>{icons.min}</div>
         ) : (
           <div className={twMerge('text-base italic', className?.labels)}>
-            {labels.min}
+            {labels?.min}
           </div>
         )}
         {icons?.mid ? (
           <div className={className?.icons}>{icons.mid}</div>
         ) : (
           <div className={twMerge('text-base italic', className?.labels)}>
-            {labels.mid}
+            {labels?.mid}
           </div>
         )}
         {icons?.max ? (
           <div className={className?.icons}>{icons.max}</div>
         ) : (
           <div className={twMerge('text-base italic', className?.labels)}>
-            {labels.max}
+            {labels?.max}
           </div>
         )}
       </div>

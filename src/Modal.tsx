@@ -10,8 +10,7 @@ import { twMerge } from 'tailwind-merge'
 import Button from './Button'
 
 export interface ModalProps {
-  className?: string
-  classNames?: {
+  className?: {
     overlay?: string
     content?: string
     title?: string
@@ -40,6 +39,25 @@ const defaultProps = {
   hideCloseButton: false,
 }
 
+/**
+ * This function returns a pre-styled modal component based on the RadixUI dialog component and the custom theme.
+ *
+ * @param trigger The optional trigger that opens the modal, if the state is not managed by some parent component already.
+ * @param title The optional title of the modal.
+ * @param children The content of the modal.
+ * @param onClose Function that is called when the modal is closed.
+ * @param onPrev Function that is called when the optional previous button is clicked.
+ * @param onNext Function that is called when the optional next button is clicked.
+ * @param open Indicate whether the modal is open or not. This state is managed outside of the component.
+ * @param onOpenChange Function that is called when the modal is opened or closed.
+ * @param fullScreen Indicate whether the modal should be full screen or not.
+ * @param onPrimaryAction The optional primary action button.
+ * @param onSecondaryAction The optional secondary action button.
+ * @param escapeDisabled Indicate whether the modal should be closed when the escape key is pressed.
+ * @param hideCloseButton Indicate whether the close button should be hidden.
+ * @param className The optional className object allows you to override the default styling.
+ * @returns Modal component
+ */
 export function Modal({
   trigger,
   title,
@@ -51,7 +69,6 @@ export function Modal({
   onOpenChange,
   fullScreen,
   className,
-  classNames,
   onPrimaryAction,
   onSecondaryAction,
   escapeDisabled,
@@ -80,7 +97,7 @@ export function Modal({
         <RadixDialog.Overlay
           className={twMerge(
             'fixed top-0 bottom-0 left-0 right-0 flex justify-center gap-4 p-4 bg-opacity-50 bg-uzh-grey-100 md:items-center',
-            classNames?.overlay
+            className?.overlay
           )}
         >
           {(onPrev || onNext) && (
@@ -99,8 +116,7 @@ export function Modal({
               fullScreen
                 ? 'h-full w-full'
                 : 'min-h-[18rem] w-[27rem] max-w-7xl md:h-[28rem] md:w-[40rem] lg:h-[40rem] lg:w-[55rem] xl:h-[45rem] xl:w-[70rem]',
-              className,
-              classNames?.content
+              className?.content
             )}
             onEscapeKeyDown={escapeDisabled ? undefined : onClose}
             onPointerDownOutside={
@@ -113,7 +129,7 @@ export function Modal({
                   <RadixDialog.Title
                     className={twMerge(
                       'text-lg font-bold font-sans md:text-xl',
-                      classNames?.title
+                      className?.title
                     )}
                   >
                     {title}

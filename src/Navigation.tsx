@@ -12,6 +12,13 @@ type NavigationProps = {
   }
 }
 
+/**
+ * This function returns a pre-styled Navigation component based on the RadixUI navigation component and the custom theme.
+ *
+ * @param children The content of the navigation. Children should be subcomponents of the Navigation component like TriggerItem / ButtonItem / CustomItem for the correct functionality.
+ * @param className The optional className object allows you to override the default styling.
+ * @returns Navigation component
+ */
 export function Navigation({ children, className }: NavigationProps) {
   const theme = useContext(ThemeContext)
 
@@ -60,6 +67,16 @@ interface TriggerProps {
   }
 }
 
+/**
+ * This function returns a pre-styled TriggerItem component based on the RadixUI navigation component and the custom theme.
+ *
+ * @param label The label of the trigger item.
+ * @param icon The optional icon of the trigger item.
+ * @param dropdownWidth The width of the dropdown menu. Currently, this attribute needs to be provided in order to work around a bug in the RadixUI navigation component. Ensure that this width is correct for all responsive breakpoints.
+ * @param children The content of the dropdown menu.
+ * @param className The optional className object allows you to override the default styling.
+ * @returns Trigger component for a dropdown menu in the navigation component.
+ */
 Navigation.TriggerItem = function TriggerItem({
   label,
   icon,
@@ -120,6 +137,18 @@ interface DropdownItemWithOnClickProps extends DropdownItemProps {
   onClick: React.MouseEventHandler
 }
 
+/**
+ * This function returns a pre-styled DropdownItem component based on the RadixUI navigation component and the custom theme.
+ * It is designed for use in the dropdown menu (child) of the TriggerItem component.
+ *
+ * @param title The title of the dropdown item.
+ * @param subtitle The optional subtitle of the dropdown item.
+ * @param icon The optional icon of the dropdown item.
+ * @param href The optional href of the dropdown item. This attribute is mutually exclusive with the onClick attribute.
+ * @param onClick The optional onClick handler of the dropdown item. This attribute is mutually exclusive with the href attribute.
+ * @param className The optional className object allows you to override the default styling.
+ * @returns Dropdown item component for a dropdown menu in the navigation component.
+ */
 Navigation.DropdownItem = function DropdownItem({
   title,
   href,
@@ -186,6 +215,16 @@ interface ButtonItemWithOnClickProps extends ButtonItemProps {
   onClick: React.MouseEventHandler
 }
 
+/**
+ * This function returns a pre-styled ButtonItem component based on the RadixUI navigation component and the custom theme.
+ *
+ * @param label The label of the button item.
+ * @param icon The optional icon of the button item.
+ * @param href The optional href of the button item. This attribute is mutually exclusive with the onClick attribute.
+ * @param onClick The optional onClick handler of the button item. This attribute is mutually exclusive with the href attribute.
+ * @param className The optional className object allows you to override the default styling.
+ * @returns Button item component to be used in the navigation component.
+ */
 Navigation.ButtonItem = function ButtonItem({
   label,
   icon,
@@ -223,6 +262,13 @@ type CustomItemProps = {
   }
 }
 
+/**
+ * This function returns a Navigation CustomItem component.
+ *
+ * @param children The custom component that should be rendered as an item in the navigation component.
+ * @param className The optional className object allows you to override the default styling of the wrapper.
+ * @returns Custom item component to be used in the navigation component.
+ */
 Navigation.CustomItem = function CustomItem({
   children,
   className,

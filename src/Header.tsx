@@ -8,6 +8,13 @@ interface HeaderProps {
   children: React.ReactNode
 }
 
+/**
+ * This function returns a pre-styled header component with custom font similarly sized to the default h1 tag.
+ *
+ * @param className The optional className object allows you to override the default styling.
+ * @param children The content of the header.
+ * @returns Header H1 component
+ */
 export function H1({ className, children }: HeaderProps) {
   return (
     <h1
@@ -21,6 +28,13 @@ export function H1({ className, children }: HeaderProps) {
   )
 }
 
+/**
+ * This function returns a pre-styled header component with custom font similarly sized to the default h2 tag.
+ *
+ * @param className The optional className object allows you to override the default styling.
+ * @param children The content of the header.
+ * @returns Header H2 component
+ */
 export function H2({ className, children }: HeaderProps) {
   return (
     <h2
@@ -34,6 +48,13 @@ export function H2({ className, children }: HeaderProps) {
   )
 }
 
+/**
+ * This function returns a pre-styled header component with custom font similarly sized to the default h3 tag.
+ *
+ * @param className The optional className object allows you to override the default styling.
+ * @param children The content of the header.
+ * @returns Header H3 component
+ */
 export function H3({ className, children }: HeaderProps) {
   return (
     <h3
@@ -47,6 +68,13 @@ export function H3({ className, children }: HeaderProps) {
   )
 }
 
+/**
+ * This function returns a pre-styled header component with custom font similarly sized to the default h4 tag.
+ *
+ * @param className The optional className object allows you to override the default styling.
+ * @param children The content of the header.
+ * @returns Header H4 component
+ */
 export function H4({ className, children }: HeaderProps) {
   return (
     <h4
@@ -60,6 +88,9 @@ export function H4({ className, children }: HeaderProps) {
   )
 }
 
+/**
+ * This function returns a pre-styled header component with custom font similarly sized to the chosen h* tag.
+ */
 const Header = {
   H1,
   H2,

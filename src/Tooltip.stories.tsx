@@ -19,7 +19,7 @@ export const Styled = () => {
       tooltip={
         <div className="italic font-bold text-black">Styled Tooltip</div>
       }
-      withArrow={true}
+      withIndicator={true}
     >
       <Button
         className={{

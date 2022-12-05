@@ -93,10 +93,7 @@ export const NoCount = () => {
       used to display a notification badge on top of its child component.
       Various positioning and styling options are available, while still hiding
       as much of the logic as possible.
-      <NotificationBadgeWrapper
-        withoutCount={true}
-        className={{ root: 'w-32' }}
-      >
+      <NotificationBadgeWrapper className={{ root: 'w-32' }}>
         <div className="flex flex-col justify-center h-10 border border-solid rounded-md w-28 border-uzh-grey-80">
           Content DIV
         </div>

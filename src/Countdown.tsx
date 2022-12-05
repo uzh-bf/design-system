@@ -26,6 +26,20 @@ const defaultProps = {
   isStatic: false,
 }
 
+/**
+ * This function returnes a pre-styled Countdown component based on the react-countdown-circle-timer component.
+ *
+ * @param countdownDuration The duration of the countdown in seconds.
+ * @param size The size of the countdown in pixels.
+ * @param strokeWidth The width of the countdown stroke in pixels.
+ * @param colors The colors that are shown in the countdown (from the start to the end). The length of this array needs to be consistent with the colorTimes array.
+ * @param colorTimes The times at which the colors change (automatic interpolation). The length of this array needs to be consistent with the colors array.
+ * @param className The optional className object allows you to override the default styling.
+ * @param formatter The function that is called to format the countdown value.
+ * @param onExpire The function that is called when the countdown expires.
+ * @param isStatic Indicate whether the countdown is static (does not run) or not.
+ * @returns Countdown component
+ */
 export function Countdown({
   countdownDuration,
   colors,

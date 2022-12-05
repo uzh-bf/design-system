@@ -45,7 +45,6 @@ export const Icons = () => {
     <>
       <Slider
         value={value}
-        labels={{ min: 'min', mid: 'mid', max: 'max' }}
         icons={{ min: '😴', mid: '😀', max: '🤯' }}
         handleChange={(newValue: number) => setValue(newValue)}
         min={-5}
@@ -78,7 +77,6 @@ export const Styled = () => {
     <>
       <Slider
         value={value}
-        labels={{ min: 'min', mid: 'mid', max: 'max' }}
         icons={{ min: '😴', mid: '😀', max: '🤯' }}
         handleChange={(newValue: number) => setValue(newValue)}
         min={-2}

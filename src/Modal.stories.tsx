@@ -116,7 +116,7 @@ export const WithoutClose = () => {
       onClose={() => setIsOpen(false)}
       escapeDisabled={true}
       hideCloseButton={true}
-      className="flex flex-col"
+      className={{ content: 'flex flex-col' }}
     >
       <div>Content</div>
       <Button onClick={() => setIsOpen(false)}>Close</Button>

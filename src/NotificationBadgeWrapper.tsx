@@ -1,9 +1,8 @@
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
 
-export interface NotificationBadgeWrapperProps {
+interface NotificationBadgeWrapperProps {
   count?: number
-  withoutCount?: boolean
   size?: 'sm' | 'md' | 'lg' | 'xl'
   className?: {
     root?: string
@@ -19,13 +18,21 @@ const defaultProps = {
   className: undefined,
 }
 
+/**
+ * This function returns a pre-styled wrapper for some custom component with navigation badge on it.
+ *
+ * @param count The number of notifications to be displayed on the badge. If no count is provided, the badge will be displayed as a simple red notification dot.
+ * @param size The size of the badge (can be small, medium, large or extra large).
+ * @param className The optional className object allows you to override the default styling.
+ * @param children The component the notification badge should be placed on.
+ * @returns Notification badge wrapper component
+ */
 export function NotificationBadgeWrapper({
   count,
-  withoutCount,
   size,
   className,
   children,
-}: NotificationBadgeWrapperProps) {
+}: NotificationBadgeWrapperProps): React.ReactElement {
   const sizeStyles = {
     sm: 'h-4 w-4 text-xs',
     md: 'h-5 w-5 text-sm leading-[1.1rem]',
@@ -33,24 +40,20 @@ export function NotificationBadgeWrapper({
     xl: 'h-7 w-7 text-xl leading-7',
   }
 
-  if (count || withoutCount) {
-    return (
-      <div className={twMerge('relative', className?.root)}>
-        <div className={twMerge('flex flex-1')}>{children}</div>
-        <div
-          className={twMerge(
-            'absolute right-1 z-10 text-center text-white bg-red-600 rounded-full top-1',
-            sizeStyles[size || 'md'],
-            className?.badge
-          )}
-        >
-          {!count ? '' : count < 10 && count > 0 ? count : '9+'}
-        </div>
+  return (
+    <div className={twMerge('relative', className?.root)}>
+      <div className={twMerge('flex flex-1')}>{children}</div>
+      <div
+        className={twMerge(
+          'absolute right-1 z-10 text-center text-white bg-red-600 rounded-full top-1',
+          sizeStyles[size || 'md'],
+          className?.badge
+        )}
+      >
+        {!count ? '' : count < 10 && count > 0 ? count : '9+'}
       </div>
-    )
-  } else {
-    return <div className={className?.root}>{children}</div>
-  }
+    </div>
+  )
 }
 
 NotificationBadgeWrapper.defaultProps = defaultProps

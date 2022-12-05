@@ -19,6 +19,15 @@ export interface UserNotificationProps {
   }
 }
 
+/**
+ * This function returns a pre-styled UserNotification component based on the custom theme.
+ *
+ * @param message The message that is displayed in the notification.
+ * @param notificationType The type of the notification. This can be either 'success', 'info' or 'error'. This determines the icon that is displayed and some conditional styling. If not type is provided, the information icon is displayed.
+ * @param children The optional children are displayed in the notification in addition to the provided message icon.
+ * @param className The optional className object allows you to override the default styling.
+ * @returns UserNotification component
+ */
 export function UserNotification({
   message,
   notificationType,
