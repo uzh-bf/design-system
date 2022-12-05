@@ -60,7 +60,7 @@ export function Label({
           tooltip: className?.tooltip,
           arrow: className?.arrow,
         }}
-        withArrow={true}
+        withIndicator={true}
       >
         <div className="flex flex-row">
           <RadixLabel.Root
@@ -92,7 +92,7 @@ export function Label({
             arrow: className?.arrow,
             trigger: 'h-full',
           }}
-          withArrow={true}
+          withIndicator={true}
         >
           <FontAwesomeIcon
             icon={faQuestion}
