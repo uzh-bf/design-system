@@ -2,6 +2,7 @@ import {
   faCat,
   faCircleInfo,
   faDog,
+  faPlayCircle,
   faWineBottle,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -65,6 +66,10 @@ const Navigation1 = () => {
         label="More Info"
         icon={<FontAwesomeIcon icon={faCircleInfo} />}
       />
+      <Navigation.IconItem
+        href="https://www.uzh.ch"
+        icon={<FontAwesomeIcon icon={faPlayCircle} className="h-6" />}
+      />
     </Navigation>
   )
 }
@@ -72,7 +77,10 @@ const Navigation1 = () => {
 const Navigation2 = () => {
   return (
     <Navigation>
-      <Navigation.TriggerItem label="Drinks" dropdownWidth="w-[16rem]">
+      <Navigation.TriggerItem
+        icon={<FontAwesomeIcon icon={faWineBottle} className="h-6" />}
+        dropdownWidth="w-[16rem]"
+      >
         <Navigation.DropdownItem
           title="Fanta"
           onClick={() => console.log('Fanta')}
