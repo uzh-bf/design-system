@@ -2,6 +2,65 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.1.0](https://github.com/uzh-bf/design-system/compare/v0.0.99...v0.1.0) (2022-12-05)
+
+
+### ⚠ BREAKING CHANGES
+
+* className is now an object for all components
+
+* wip(Label): add className object structure to label component
+
+* wip(Button): add className object structure to button component
+
+* wip(Checkbox): add className object structure to checkbox component
+
+* wip(Countdown): add className object structure to countdown component
+
+* wip(Header): add className object structure to header component
+
+* wip(Navigation): add className object structure to navigation component
+
+* wip(NotificationBadgeWrapper): add className object structure to notification badge component
+
+* wip(Progress): add className object structure to progress component
+
+* wip(Prose): add className object structure to prose component
+
+* wip(Slider): add className object structure to slider component
+
+* wip(Switch): add className object structure to switch component
+
+* wip(Tabs): add className object structure to tab component
+
+* wip(Tooltip): add className object structure to tooltip component
+
+* chore(Label): correct className attributes of Tooltip
+
+* wip(UserNotification): add className object structure to user notification component
+
+* chore: fix warnings
+
+* chore: fix warnings
+
+* docs(forms): add documentation for all forms components
+
+* enhance: add documentation to all design-system components
+
+* fix(Label): fix tooltip changes
+
+* chore(Navigation): add documentation for updated props
+
+### Other
+
+* **deps:** bump decode-uri-component from 0.2.0 to 0.2.2 ([#31](https://github.com/uzh-bf/design-system/issues/31)) ([7651d82](https://github.com/uzh-bf/design-system/commit/7651d8253ae51752773c67cb1218e01b2da77974))
+* **deps:** bump loader-utils from 3.2.0 to 3.2.1 ([#28](https://github.com/uzh-bf/design-system/issues/28)) ([931a6cd](https://github.com/uzh-bf/design-system/commit/931a6cdb0c931cf44c1f32818a8f5a1e1766a2fa))
+
+
+### Refactors
+
+* adapt className structure for all components to object-based approach ([#32](https://github.com/uzh-bf/design-system/issues/32)) ([3706469](https://github.com/uzh-bf/design-system/commit/370646968ea76d946a3d109f541315227df66e1a))
+
 ### [0.0.99](https://github.com/uzh-bf/design-system/compare/v0.0.98...v0.0.99) (2022-12-05)
 
 
