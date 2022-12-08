@@ -25,6 +25,7 @@
     "lint": "dts lint",
     "size": "size-limit",
     "dev": "ladle serve",
+    "deploy": "ladle build",
     "format": "prettier --write src/",
     "test": "dts test --passWithNoTests",
     "prerelease": "npm run build",
