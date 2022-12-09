@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.2](https://github.com/uzh-bf/design-system/compare/v0.1.1...v0.1.2) (2022-12-09)
+
+
+### Features
+
+* **Tag:** add basic Tag component ([a8943af](https://github.com/uzh-bf/design-system/commit/a8943afbd66e820349054099fb61ee94fd289745))
+
+
+### Other
+
+* add build folder to gitignore ([3669922](https://github.com/uzh-bf/design-system/commit/366992244a58f4d1d8a91fb4e216ec7260c30c70))
+* add deploy command for ladle build ([97808f9](https://github.com/uzh-bf/design-system/commit/97808f93a6d35c1cbf4472a48fea1d51ca2e83ff))
+
+
+### Dependencies
+
+* upgrade packages ([80451ec](https://github.com/uzh-bf/design-system/commit/80451ec0e33ee9603278b0d01db1a96a6fa42538))
+
 ### [0.1.1](https://github.com/uzh-bf/design-system/compare/v0.1.0...v0.1.1) (2022-12-05)
 
 
