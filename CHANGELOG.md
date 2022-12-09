@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.3](https://github.com/uzh-bf/design-system/compare/v0.1.2...v0.1.3) (2022-12-09)
+
+
+### Other
+
+* update all tsdoc to conform with hyphen ([0420d63](https://github.com/uzh-bf/design-system/commit/0420d638ed62d3a99263e4648b9952260f0f4915))
+
 ### [0.1.2](https://github.com/uzh-bf/design-system/compare/v0.1.1...v0.1.2) (2022-12-09)
 
 
