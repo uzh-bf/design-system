@@ -33,14 +33,14 @@ const defaultProps = {
  * This function returns a pre-styled Switch component based on the RadixUI switch component and the custom theme.
  * The state of the switch is maintained by the parent component.
  *
- * @param label The label that is displayed next to the switch.
- * @param checked Indicator whether the switch is checked or not. State is managed by the parent component.
- * @param onCheckedChange The function that is called when the switch is checked or unchecked. The new value is passed as a parameter.
- * @param disabled Indicator whether the switch is disabled or not.
- * @param fluid Indicator whether the switch should be fluid or not.
- * @param labelLeft Indicator whether the label should be displayed on the left or right side of the switch.
- * @param size The size of the switch. The size can be small, medium or large.
- * @param className The optional className object allows you to override the default styling.
+ * @param label - The label that is displayed next to the switch.
+ * @param checked - Indicator whether the switch is checked or not. State is managed by the parent component.
+ * @param onCheckedChange - The function that is called when the switch is checked or unchecked. The new value is passed as a parameter.
+ * @param disabled - Indicator whether the switch is disabled or not.
+ * @param fluid - Indicator whether the switch should be fluid or not.
+ * @param labelLeft - Indicator whether the label should be displayed on the left or right side of the switch.
+ * @param size - The size of the switch. The size can be small, medium or large.
+ * @param className - The optional className object allows you to override the default styling.
  * @returns Switch component
  */
 export function Switch({

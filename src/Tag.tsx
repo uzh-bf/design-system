@@ -17,7 +17,7 @@ const defaultProps = {
  * This function returns a pre-styled tag component
  *
  * @param label - The label of the tag.
- * @param className The optional className object allows you to override the default styling.
+ * @param className - The optional className object allows you to override the default styling.
  * @returns Tag component
  */
 export function Tag({ className, label }: TagProps) {

@@ -42,20 +42,20 @@ const defaultProps = {
 /**
  * This function returns a pre-styled modal component based on the RadixUI dialog component and the custom theme.
  *
- * @param trigger The optional trigger that opens the modal, if the state is not managed by some parent component already.
- * @param title The optional title of the modal.
- * @param children The content of the modal.
- * @param onClose Function that is called when the modal is closed.
- * @param onPrev Function that is called when the optional previous button is clicked.
- * @param onNext Function that is called when the optional next button is clicked.
- * @param open Indicate whether the modal is open or not. This state is managed outside of the component.
- * @param onOpenChange Function that is called when the modal is opened or closed.
- * @param fullScreen Indicate whether the modal should be full screen or not.
- * @param onPrimaryAction The optional primary action button.
- * @param onSecondaryAction The optional secondary action button.
- * @param escapeDisabled Indicate whether the modal should be closed when the escape key is pressed.
- * @param hideCloseButton Indicate whether the close button should be hidden.
- * @param className The optional className object allows you to override the default styling.
+ * @param trigger - The optional trigger that opens the modal, if the state is not managed by some parent component already.
+ * @param title - The optional title of the modal.
+ * @param children - The content of the modal.
+ * @param onClose - Function that is called when the modal is closed.
+ * @param onPrev - Function that is called when the optional previous button is clicked.
+ * @param onNext - Function that is called when the optional next button is clicked.
+ * @param open - Indicate whether the modal is open or not. This state is managed outside of the component.
+ * @param onOpenChange - Function that is called when the modal is opened or closed.
+ * @param fullScreen - Indicate whether the modal should be full screen or not.
+ * @param onPrimaryAction - The optional primary action button.
+ * @param onSecondaryAction - The optional secondary action button.
+ * @param escapeDisabled - Indicate whether the modal should be closed when the escape key is pressed.
+ * @param hideCloseButton - Indicate whether the close button should be hidden.
+ * @param className - The optional className object allows you to override the default styling.
  * @returns Modal component
  */
 export function Modal({

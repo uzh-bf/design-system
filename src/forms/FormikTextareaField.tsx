@@ -37,17 +37,17 @@ export interface TextareaFieldWithOnChangeProps extends TextareaFieldProps {
  * This component returns a textarea field that works as to be expected in a Formik environment.
  * State can be managed either through Formik or internally by passing a value and onChange function.
  *
- * @param id The id of the field.
- * @param name The name of the field as used to keep track of the state in Formik. If no value and onChange function are provided, this field is required.
- * @param label The optional label is shown next to the field in the form.
- * @param tooltip The optional tooltip is shown on hover next to the label.
- * @param required Indicate whether the field is required or not.
- * @param placeholder The optional placeholder is shown when the field is empty.
- * @param value The value of the field. This is used to manage the state internally. If no name is provided, this field is required.
- * @param onChange The onChange function is called when the value of the field changes. This is used to manage the state internally. If no name is provided, this field is required.
- * @param maxLength The optional maxLength is used to limit the number of characters that can be entered in the field.
- * @param maxLengthLabel This optional label allows to specify a custom label for the maxLength indicator (e.g. "characters left" supporting internationalization).
- * @param className The optional className object allows you to override the default styling.
+ * @param id - The id of the field.
+ * @param name - The name of the field as used to keep track of the state in Formik. If no value and onChange function are provided, this field is required.
+ * @param label - The optional label is shown next to the field in the form.
+ * @param tooltip - The optional tooltip is shown on hover next to the label.
+ * @param required - Indicate whether the field is required or not.
+ * @param placeholder - The optional placeholder is shown when the field is empty.
+ * @param value - The value of the field. This is used to manage the state internally. If no name is provided, this field is required.
+ * @param onChange - The onChange function is called when the value of the field changes. This is used to manage the state internally. If no name is provided, this field is required.
+ * @param maxLength - The optional maxLength is used to limit the number of characters that can be entered in the field.
+ * @param maxLengthLabel - This optional label allows to specify a custom label for the maxLength indicator (e.g. "characters left" supporting internationalization).
+ * @param className - The optional className object allows you to override the default styling.
  * @returns Textarea component with Formik state management.
  */
 export function FormikTextareaField({

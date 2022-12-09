@@ -31,15 +31,15 @@ const defaultProps = {
 /**
  * This function returns a pre-styled Button component based on the custom theme.
  *
- * @param children The content of the button.
- * @param active Indicate whether the button is active or not. Conditional styling is applied, if this is true.
- * @param disabled Indicate whether the button is disabled or not. Conditional styling is applied, if this is true.
- * @param fluid Indicate whether the button should be fluid or not. Conditional styling is applied, if this is true.
- * @param basic This attribute allows to directly remove significant pre-styling and only applies basic styles and functionally required attributes.
- * @param type The html type of the button.
- * @param loading Indicate whether the button is loading or not. Conditional styling / loading symbol is applied, if this is true.
- * @param onClick Function that is applied when the button is clicked.
- * @param className The optional className object allows you to override the default styling.
+ * @param children - The content of the button.
+ * @param active - Indicate whether the button is active or not. Conditional styling is applied, if this is true.
+ * @param disabled - Indicate whether the button is disabled or not. Conditional styling is applied, if this is true.
+ * @param fluid - Indicate whether the button should be fluid or not. Conditional styling is applied, if this is true.
+ * @param basic - This attribute allows to directly remove significant pre-styling and only applies basic styles and functionally required attributes.
+ * @param type - The html type of the button.
+ * @param loading - Indicate whether the button is loading or not. Conditional styling / loading symbol is applied, if this is true.
+ * @param onClick - Function that is applied when the button is clicked.
+ * @param className - The optional className object allows you to override the default styling.
  * @returns Button component
  */
 export function Button({

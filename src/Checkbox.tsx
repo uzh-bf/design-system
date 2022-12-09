@@ -29,13 +29,13 @@ const defaultProps = {
  * This function returns a pre-styled Checkbox component based on the RadixUI Checkbox component and the custom theme.
  * State is not managed internally and needs to be passed to the component through the checked and onCheck props.
  *
- * @param children Optional content of the checkbox that is shown when the checked attribute is true. By default, this is just replaced by a tick symbol.
- * @param checked Indicate whether the checkbox is checked or not.
- * @param onCheck The function that is called when the checkbox is checked or unchecked.
- * @param disabled Indicate whether the checkbox is disabled or not.
- * @param label The label of the checkbox.
- * @param size The size of the checkbox (can be small, medium, large or extra large).
- * @param className The optional className object allows you to override the default styling.
+ * @param children - Optional content of the checkbox that is shown when the checked attribute is true. By default, this is just replaced by a tick symbol.
+ * @param checked - Indicate whether the checkbox is checked or not.
+ * @param onCheck - The function that is called when the checkbox is checked or unchecked.
+ * @param disabled - Indicate whether the checkbox is disabled or not.
+ * @param label - The label of the checkbox.
+ * @param size - The size of the checkbox (can be small, medium, large or extra large).
+ * @param className - The optional className object allows you to override the default styling.
  * @returns Checkbox component
  */
 export function Checkbox({

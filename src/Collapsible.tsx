@@ -24,13 +24,13 @@ export interface CollapsibleProps {
  * This function returns a pre-styled collapsible component based on the RadixUI collapsible component and the implemented theme.
  * State need to be managed by the parent component.
  *
- * @param open Indicate whether the collapsible is open or not.
- * @param onChange Function that is called when the collapsible is toggled.
- * @param staticContent The static content that is always shown.
- * @param closedContent The optional content that is only shown when the collapsible is closed.
- * @param customTrigger The optional custom trigger that is shown instead of the default arrow trigger.
- * @param className The optional className object allows you to override the default styling.
- * @param children The content of the collapsible that is shown when the collapsible is open.
+ * @param open - Indicate whether the collapsible is open or not.
+ * @param onChange - Function that is called when the collapsible is toggled.
+ * @param staticContent - The static content that is always shown.
+ * @param closedContent - The optional content that is only shown when the collapsible is closed.
+ * @param customTrigger - The optional custom trigger that is shown instead of the default arrow trigger.
+ * @param className - The optional className object allows you to override the default styling.
+ * @param children - The content of the collapsible that is shown when the collapsible is open.
  * @returns Collapsible component
  */
 export function Collapsible({

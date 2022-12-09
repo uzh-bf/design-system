@@ -35,15 +35,15 @@ export interface TextFieldWithOnChangeProps extends TextFieldProps {
  * This function returns a text field that works as to be expected in a Formik environment.
  * State can be managed either through Formik or internally by passing a value and onChange function.
  *
- * @param id The id of the field.
- * @param name The name of the field as used to keep track of the state in Formik. If no value and onChange function are provided, this field is required.
- * @param value The value of the field. This is used to manage the state internally. If no name is provided, this field is required.
- * @param onChange The onChange function is called when the value of the field changes. This is used to manage the state internally. If no name is provided, this field is required.
- * @param label The optional label is shown next to the field in the form.
- * @param placeholder The optional placeholder is shown when the field is empty.
- * @param tooltip The optional tooltip is shown on hover next to the label.
- * @param required Indicate whether the field is required or not.
- * @param className The optional className object allows you to override the default styling.
+ * @param id - The id of the field.
+ * @param name - The name of the field as used to keep track of the state in Formik. If no value and onChange function are provided, this field is required.
+ * @param value - The value of the field. This is used to manage the state internally. If no name is provided, this field is required.
+ * @param onChange - The onChange function is called when the value of the field changes. This is used to manage the state internally. If no name is provided, this field is required.
+ * @param label - The optional label is shown next to the field in the form.
+ * @param placeholder - The optional placeholder is shown when the field is empty.
+ * @param tooltip - The optional tooltip is shown on hover next to the label.
+ * @param required - Indicate whether the field is required or not.
+ * @param className - The optional className object allows you to override the default styling.
  * @returns Text field component with Formik state management.
  */
 export function FormikTextField({

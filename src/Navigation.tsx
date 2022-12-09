@@ -15,8 +15,8 @@ export interface NavigationProps {
 /**
  * This function returns a pre-styled Navigation component based on the RadixUI navigation component and the custom theme.
  *
- * @param children The content of the navigation. Children should be subcomponents of the Navigation component like TriggerItem / ButtonItem / CustomItem for the correct functionality.
- * @param className The optional className object allows you to override the default styling.
+ * @param children - The content of the navigation. Children should be subcomponents of the Navigation component like TriggerItem / ButtonItem / CustomItem for the correct functionality.
+ * @param className - The optional className object allows you to override the default styling.
  * @returns Navigation component
  */
 export function Navigation({ children, className }: NavigationProps) {
@@ -79,12 +79,12 @@ export interface TriggerLabelProps extends TriggerProps {
 /**
  * This function returns a pre-styled TriggerItem component based on the RadixUI navigation component and the custom theme.
  *
- * @param label The label of the trigger item.
- * @param icon The optional icon of the trigger item.
- * @param dropdownWidth The width of the dropdown menu. Currently, this attribute needs to be provided in order to work around a bug in the RadixUI navigation component. Ensure that this width is correct for all responsive breakpoints.
- * @param disabled Allows to disable the trigger item and apply some conditional styling.
- * @param children The content of the dropdown menu.
- * @param className The optional className object allows you to override the default styling.
+ * @param label - The label of the trigger item.
+ * @param icon - The optional icon of the trigger item.
+ * @param dropdownWidth - The width of the dropdown menu. Currently, this attribute needs to be provided in order to work around a bug in the RadixUI navigation component. Ensure that this width is correct for all responsive breakpoints.
+ * @param disabled - Allows to disable the trigger item and apply some conditional styling.
+ * @param children - The content of the dropdown menu.
+ * @param className - The optional className object allows you to override the default styling.
  * @returns Trigger component for a dropdown menu in the navigation component.
  */
 Navigation.TriggerItem = function TriggerItem({

@@ -24,11 +24,11 @@ const defaultProps = {
 /**
  * This function returns a pre-styled Tooltip component based on the RadixUI tooltip component and the custom theme.
  *
- * @param tooltip The content of the tooltip.
- * @param delay The delay in milliseconds before the tooltip is shown.
- * @param withIndicator Determines whether the tooltip should have a small indicator or not.
- * @param children The child component that triggers the tooltip.
- * @param className The optional className object allows you to override the default styling.
+ * @param tooltip - The content of the tooltip.
+ * @param delay - The delay in milliseconds before the tooltip is shown.
+ * @param withIndicator - Determines whether the tooltip should have a small indicator or not.
+ * @param children - The child component that triggers the tooltip.
+ * @param className - The optional className object allows you to override the default styling.
  * @returns Tooltip component
  */
 export function Tooltip({

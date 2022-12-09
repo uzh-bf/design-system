@@ -34,14 +34,15 @@ const defaultProps = {
 /**
  * This function returns a pre-styled Progress component based on the RadixUI progress component and the custom theme.
  *
- * @param value The value of the progress bar. The value should be between 0 and an optionally provided max value.
- * @param max The maximum value of the progress bar.
- * @param formatter The function that formats the value of the progress bar.
- * @param isMaxVisible The boolean that determines if the maximum value should be displayed.
- * @param nonLinear The boolean that determines if the progress bar should have discrete steps and allow the user to jump between different elements.
- * @param displayOffset The number that determines the maximum number of elements that are shown on a non-linear progress bar.
- * @onItemClick The function that is called when a non-linear progress bar item is clicked.
- * @param className The optional className object allows you to override the default styling.
+ * @param value - The value of the progress bar. The value should be between 0 and an optionally provided max value.
+ * @param max - The maximum value of the progress bar.
+ * @param formatter - The function that formats the value of the progress bar.
+ * @param isMaxVisible - The boolean that determines if the maximum value should be displayed.
+ * @param nonLinear - The boolean that determines if the progress bar should have discrete steps and allow the user to jump between different elements.
+ * @param displayOffset - The number that determines the maximum number of elements that are shown on a non-linear progress bar.
+ * @param onItemClick - The function that is called when a non-linear progress bar item is clicked.
+ * @param className - The optional className object allows you to override the default styling.
+ * @return Progress component
  */
 export function Progress({
   formatter,

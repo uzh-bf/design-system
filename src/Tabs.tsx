@@ -16,10 +16,10 @@ interface TabProps {
  * This function returns a pre-styled Tab trigger component to be used inside a Tabs.Tablist.
  * The value of this tab is required for both the internally and externally controlled state.
  *
- * @param key The key of the tab.
- * @param value The value of the tab. This is required for the internal and external state.
- * @param label The label of the tab.
- * @param className The optional className object allows you to override the default styling.
+ * @param key - The key of the tab.
+ * @param value - The value of the tab. This is required for the internal and external state.
+ * @param label - The label of the tab.
+ * @param className - The optional className object allows you to override the default styling.
  * @returns Tab trigger component
  */
 export function Tab({ key, value, label, className }: TabProps) {

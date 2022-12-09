@@ -43,11 +43,11 @@ const defaultProps = {
 /**
  * This function returns a pre-styled Dropdown component based on the RadixUI dropdown component and the custom theme.
  *
- * @param trigger The content of the trigger button or a custom trigger component to replace the default button.
- * @param items The items that are displayed in the dropdown menu. This attribute should not be set, if groups are used.
- * @param groups The groups of items that are displayed in the dropdown menu. This attribute should not be set, if items are used.
- * @param className The optional className object allows you to override the default styling.
- * @param disabled Indicate whether the dropdown is disabled or not. Conditional styling is applied, if this is true.
+ * @param trigger - The content of the trigger button or a custom trigger component to replace the default button.
+ * @param items - The items that are displayed in the dropdown menu. This attribute should not be set, if groups are used.
+ * @param groups - The groups of items that are displayed in the dropdown menu. This attribute should not be set, if items are used.
+ * @param className - The optional className object allows you to override the default styling.
+ * @param disabled - Indicate whether the dropdown is disabled or not. Conditional styling is applied, if this is true.
  * @returns Dropdown component
  */
 export function Dropdown({
