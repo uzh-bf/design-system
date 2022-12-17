@@ -2,8 +2,10 @@ import React, { createContext } from 'react'
 
 type Theme = {
   primaryBg: string
+  primaryBgMedium: string
   primaryBgDark: string
   primaryBgHover: string
+  primaryBgMediumHover: string
   primaryBgDarkHover: string
   primaryBorder: string
   primaryBorderHover: string
@@ -21,9 +23,11 @@ interface Props {
 
 const BASE_THEME: Theme = {
   primaryBg: 'bg-uzh-red-20',
-  primaryBgDark: 'bg-uzh-red-60',
+  primaryBgMedium: 'bg-uzh-red-60',
+  primaryBgDark: 'bg-uzh-red-80',
   primaryBgHover: 'hover:bg-uzh-red-20',
-  primaryBgDarkHover: 'hover:bg-uzh-red-60',
+  primaryBgMediumHover: 'hover:bg-uzh-red-60',
+  primaryBgDarkHover: 'hover:bg-uzh-red-80',
   primaryBorder: 'border-uzh-red-40',
   primaryBorderHover: 'hover:border-uzh-red-40',
   primaryText: 'text-uzh-red-100',

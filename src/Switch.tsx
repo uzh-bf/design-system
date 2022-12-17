@@ -87,7 +87,7 @@ export function Switch({
         className={twMerge(
           'relative bg-uzh-grey-80 rounded-full border-0',
           disabled && 'bg-uzh-grey-40 cursor-not-allowed',
-          checked && theme.primaryBgDark,
+          checked && theme.primaryBgMedium,
           rootSize[size || 'md'],
           className?.element
         )}

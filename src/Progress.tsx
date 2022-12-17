@@ -72,7 +72,7 @@ export function Progress({
         style={{ width: `${(value / max) * 100}%` }}
         className={twMerge(
           'absolute px-2 py-1 min-w-[40px] h-full text-white rounded flex flex-col justify-center text-right',
-          !nonLinear && theme.primaryBgDark,
+          !nonLinear && theme.primaryBgMedium,
           className?.indicator
         )}
       >
@@ -85,7 +85,7 @@ export function Progress({
             <button
               className={twMerge(
                 'px-3 py-1 rounded-l text-white',
-                theme.primaryBgDark,
+                theme.primaryBgMedium,
                 theme.primaryTextHover,
                 theme.primaryBgHover
               )}
@@ -100,7 +100,7 @@ export function Progress({
                 'p-1 flex-1',
                 ix === 0 && 'rounded-l',
                 ix === max - 1 && 'rounded-r',
-                value > ix && `text-white ${theme.primaryBgDark}`,
+                value > ix && `text-white ${theme.primaryBgMedium}`,
                 value === ix && `font-bold bg-gray-400 text-white`,
                 displayOffset && ix < value - displayOffset && 'hidden',
                 displayOffset && ix > value + displayOffset && 'hidden',

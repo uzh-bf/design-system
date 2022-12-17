@@ -99,7 +99,7 @@ Navigation.TriggerItem = function TriggerItem({
   const computedClassName = twMerge(
     'px-3 py-2 rounded-md text-sm focus:outline-none focus-visible:ring flex flex-row items-center font-medium text-black hover:text-white',
     icon && !label && 'w-9 h-9 justify-center',
-    !disabled && theme.primaryBgDarkHover,
+    !disabled && theme.primaryBgMediumHover,
     disabled && 'text-gray-400 hover:text-none cursor-not-allowed',
     className?.root,
     disabled && className?.disabled
@@ -181,7 +181,7 @@ Navigation.DropdownItem = function DropdownItem({
       onClick={onClick}
       className={twMerge(
         'w-full px-4 py-3 rounded-md focus:outline-none focus-visible:ring focus-visible:ring-opacity-75 text-black hover:text-white',
-        theme.primaryBgDarkHover,
+        theme.primaryBgMediumHover,
         className?.root
       )}
     >
@@ -255,7 +255,7 @@ Navigation.ButtonItem = function ButtonItem({
   const theme = useContext(ThemeContext)
   const computedClassName = twMerge(
     'px-3 py-2 text-sm rounded-md font-medium cursor-pointer text-black hover:text-white',
-    !disabled && theme.primaryBgDarkHover,
+    !disabled && theme.primaryBgMediumHover,
     disabled && 'text-gray-400 hover:text-none cursor-not-allowed',
     className?.root,
     disabled && className?.disabled
@@ -319,7 +319,7 @@ Navigation.IconItem = function IconItem({
   const theme = useContext(ThemeContext)
   const computedClassName = twMerge(
     'w-9 h-9 flex items-center justify-center rounded-md text-black hover:text-white',
-    !disabled && theme.primaryBgDarkHover,
+    !disabled && theme.primaryBgMediumHover,
     disabled && 'text-gray-400 hover:text-none cursor-not-allowed',
     className?.root,
     disabled && className?.disabled

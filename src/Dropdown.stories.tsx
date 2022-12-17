@@ -153,7 +153,7 @@ export const CustomLabel = () => {
                 <span
                   className={twMerge(
                     'flex items-center hover:cursor-pointer px-2 py-0.5',
-                    `hover:${theme.primaryBgDark}`
+                    `hover:${theme.primaryBgMedium}`
                   )}
                 >
                   <Checkbox checked={label1Active} onCheck={() => undefined} />
@@ -175,7 +175,7 @@ export const CustomLabel = () => {
                 <span
                   className={twMerge(
                     'flex items-center hover:cursor-pointer px-2 py-0.5',
-                    `hover:${theme.primaryBgDark}`
+                    `hover:${theme.primaryBgMedium}`
                   )}
                 >
                   <Checkbox checked={label4Active} onCheck={() => undefined} />

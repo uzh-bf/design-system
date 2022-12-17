@@ -76,7 +76,7 @@ export function Dropdown({
       return (
         <RadixDropdown.Item
           className={twMerge(
-            `hover:${theme.primaryBgDark} hover:!text-white px-2 py-0.5 hover:cursor-pointer rounded flex flex-row`,
+            `hover:${theme.primaryBgMedium} hover:!text-white px-2 py-0.5 hover:cursor-pointer rounded flex flex-row`,
             className
           )}
           onClick={onClick}

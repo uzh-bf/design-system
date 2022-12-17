@@ -101,7 +101,7 @@ export function Label({
               tooltipSymbolSize === 'lg' && '!w-4 !h-4 !p-1.5 !mt-1',
               tooltipSymbolSize === 'sm' && '!w-2 !h-2 !p-1 !mt-1',
               'w-3 h-3 p-1 mt-1 text-white rounded-full border border-solid border-white',
-              theme.primaryBgDark
+              theme.primaryBgMedium
             )}
           />
         </Tooltip>
