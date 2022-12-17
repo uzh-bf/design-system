@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.5](https://github.com/uzh-bf/design-system/compare/v0.1.4...v0.1.5) (2022-12-17)
+
+
+### Other
+
+* add more border styles to theme ([37940b9](https://github.com/uzh-bf/design-system/commit/37940b9b6b717607e85c29511efec1f3e4bab17e))
+
 ### [0.1.4](https://github.com/uzh-bf/design-system/compare/v0.1.3...v0.1.4) (2022-12-17)
 
 
