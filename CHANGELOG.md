@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.4](https://github.com/uzh-bf/design-system/compare/v0.1.3...v0.1.4) (2022-12-17)
+
+
+### Other
+
+* add additional background theme prop ([b3ec9c0](https://github.com/uzh-bf/design-system/commit/b3ec9c07faf1d8033b04f69dcb5756e213c78990))
+
 ### [0.1.3](https://github.com/uzh-bf/design-system/compare/v0.1.2...v0.1.3) (2022-12-09)
 
 
