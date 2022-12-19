@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.6](https://github.com/uzh-bf/design-system/compare/v0.1.5...v0.1.6) (2022-12-19)
+
+
+### Other
+
+* **FormikText*:** add additional className to potentially override width full style ([03a3f2d](https://github.com/uzh-bf/design-system/commit/03a3f2d66662b8443c59ada0624453c4223bad17))
+
 ### [0.1.5](https://github.com/uzh-bf/design-system/compare/v0.1.4...v0.1.5) (2022-12-17)
 
 
