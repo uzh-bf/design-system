@@ -11,6 +11,7 @@ export interface TextFieldProps {
   required?: boolean
   className?: {
     root?: string
+    field?: string
     label?: string
     input?: string
     error?: string
@@ -61,7 +62,7 @@ export function FormikTextField({
   const [field, meta] = useField(name || 'missing')
   return (
     <div className={twMerge('flex flex-col', className?.root)} id={id}>
-      <div className="flex flex-row w-full">
+      <div className={twMerge('flex flex-row w-full', className?.field)}>
         {label && (
           <Label
             forId={id}
