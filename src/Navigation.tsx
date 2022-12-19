@@ -4,6 +4,8 @@ import { twMerge } from 'tailwind-merge'
 import { ThemeContext } from './ThemeProvider'
 
 export interface NavigationProps {
+  id?: string
+  data_cy?: string
   children: React.ReactNode
   className?: {
     root?: string
@@ -15,11 +17,18 @@ export interface NavigationProps {
 /**
  * This function returns a pre-styled Navigation component based on the RadixUI navigation component and the custom theme.
  *
+ * @param id - The id of the navigation.
+ * @param data_cy - The data-cy attribute is used for testing purposes.
  * @param children - The content of the navigation. Children should be subcomponents of the Navigation component like TriggerItem / ButtonItem / CustomItem for the correct functionality.
  * @param className - The optional className object allows you to override the default styling.
  * @returns Navigation component
  */
-export function Navigation({ children, className }: NavigationProps) {
+export function Navigation({
+  id,
+  data_cy,
+  children,
+  className,
+}: NavigationProps) {
   const theme = useContext(ThemeContext)
 
   return (
@@ -28,6 +37,8 @@ export function Navigation({ children, className }: NavigationProps) {
         `relative ${theme.primaryBg} rounded-md w-max`,
         className?.root
       )}
+      id={id}
+      data-cy={data_cy}
     >
       <NavigationMenuPrimitive.List className="flex flex-row gap-1.5 p-2">
         {children}
@@ -55,6 +66,8 @@ export function Navigation({ children, className }: NavigationProps) {
 }
 
 interface TriggerProps {
+  id?: string
+  data_cy?: string
   dropdownWidth: string
   children: React.ReactNode
   disabled?: boolean
@@ -79,6 +92,8 @@ export interface TriggerLabelProps extends TriggerProps {
 /**
  * This function returns a pre-styled TriggerItem component based on the RadixUI navigation component and the custom theme.
  *
+ * @param id - The id of the trigger item.
+ * @param data_cy - The data-cy attribute is used for testing purposes.
  * @param label - The label of the trigger item.
  * @param icon - The optional icon of the trigger item.
  * @param dropdownWidth - The width of the dropdown menu. Currently, this attribute needs to be provided in order to work around a bug in the RadixUI navigation component. Ensure that this width is correct for all responsive breakpoints.
@@ -88,6 +103,8 @@ export interface TriggerLabelProps extends TriggerProps {
  * @returns Trigger component for a dropdown menu in the navigation component.
  */
 Navigation.TriggerItem = function TriggerItem({
+  id,
+  data_cy,
   label,
   icon,
   dropdownWidth,
@@ -108,6 +125,8 @@ Navigation.TriggerItem = function TriggerItem({
   return (
     <NavigationMenuPrimitive.Item>
       <NavigationMenuPrimitive.Trigger
+        id={id}
+        data-cy={data_cy}
         className={computedClassName}
         disabled={disabled}
       >
@@ -132,6 +151,8 @@ Navigation.TriggerItem = function TriggerItem({
 }
 
 interface DropdownItemProps {
+  id?: string
+  data_cy?: string
   title: string
   subtitle?: string
   icon?: React.ReactNode
@@ -157,6 +178,8 @@ export interface DropdownItemWithOnClickProps extends DropdownItemProps {
  * This function returns a pre-styled DropdownItem component based on the RadixUI navigation component and the custom theme.
  * It is designed for use in the dropdown menu (child) of the TriggerItem component.
  *
+ * @param id The id of the dropdown item.
+ * @param data_cy The data-cy attribute is used for testing purposes.
  * @param title The title of the dropdown item.
  * @param subtitle The optional subtitle of the dropdown item.
  * @param icon The optional icon of the dropdown item.
@@ -166,6 +189,8 @@ export interface DropdownItemWithOnClickProps extends DropdownItemProps {
  * @returns Dropdown item component for a dropdown menu in the navigation component.
  */
 Navigation.DropdownItem = function DropdownItem({
+  id,
+  data_cy,
   title,
   href,
   onClick,
@@ -177,6 +202,8 @@ Navigation.DropdownItem = function DropdownItem({
 
   return (
     <NavigationMenuPrimitive.Link
+      id={id}
+      data-cy={data_cy}
       href={href}
       onClick={onClick}
       className={twMerge(
@@ -212,6 +239,8 @@ Navigation.DropdownItem = function DropdownItem({
 }
 
 interface ButtonItemProps {
+  id?: string
+  data_cy?: string
   label: string
   disabled?: boolean
   icon?: React.ReactNode
@@ -236,6 +265,8 @@ export interface ButtonItemWithOnClickProps extends ButtonItemProps {
 /**
  * This function returns a pre-styled ButtonItem component based on the RadixUI navigation component and the custom theme.
  *
+ * @param id The id of the button item.
+ * @param data_cy The data-cy attribute is used for testing purposes.
  * @param label The label of the button item.
  * @param icon The optional icon of the button item.
  * @param disabled Allows to disable the button item and apply some conditional styling.
@@ -245,6 +276,8 @@ export interface ButtonItemWithOnClickProps extends ButtonItemProps {
  * @returns Button item component to be used in the navigation component.
  */
 Navigation.ButtonItem = function ButtonItem({
+  id,
+  data_cy,
   label,
   disabled,
   icon,
@@ -264,6 +297,8 @@ Navigation.ButtonItem = function ButtonItem({
   return (
     <NavigationMenuPrimitive.Item asChild>
       <NavigationMenuPrimitive.Link
+        id={id}
+        data-cy={data_cy}
         href={!disabled ? href : undefined}
         onClick={!disabled ? onClick : undefined}
         className={computedClassName}
@@ -280,6 +315,8 @@ Navigation.ButtonItem = function ButtonItem({
 }
 
 interface IconItemProps {
+  id?: string
+  data_cy?: string
   icon: React.ReactNode
   disabled?: boolean
   className?: {
@@ -302,6 +339,8 @@ export interface IconItemWithOnClickProps extends IconItemProps {
 /**
  * This function returns a pre-styled IconItem component based on the custom theme.
  *
+ * @param id The id of the icon item.
+ * @param data_cy The data-cy attribute is used for testing purposes.
  * @param icon The icon of the icon item.
  * @param disabled Allows to disable the icon item and apply some conditional styling.
  * @param href The optional href of the icon item. This attribute is mutually exclusive with the onClick attribute.
@@ -310,6 +349,8 @@ export interface IconItemWithOnClickProps extends IconItemProps {
  * @returns Icon item component for a dropdown menu in the navigation component.
  */
 Navigation.IconItem = function IconItem({
+  id,
+  data_cy,
   icon,
   disabled,
   href,
@@ -328,6 +369,8 @@ Navigation.IconItem = function IconItem({
   return (
     <NavigationMenuPrimitive.Item asChild>
       <NavigationMenuPrimitive.Link
+        id={id}
+        data-cy={data_cy}
         href={!disabled ? href : undefined}
         onClick={!disabled ? onClick : undefined}
         className={computedClassName}
@@ -339,6 +382,8 @@ Navigation.IconItem = function IconItem({
 }
 
 type CustomItemProps = {
+  id?: string
+  data_cy?: string
   children: React.ReactNode
   className?: {
     root?: string
@@ -348,16 +393,25 @@ type CustomItemProps = {
 /**
  * This function returns a Navigation CustomItem component.
  *
+ * @param id The id of the custom item.
+ * @param data_cy The data-cy attribute is used for testing purposes.
  * @param children The custom component that should be rendered as an item in the navigation component.
  * @param className The optional className object allows you to override the default styling of the wrapper.
  * @returns Custom item component to be used in the navigation component.
  */
 Navigation.CustomItem = function CustomItem({
+  id,
+  data_cy,
   children,
   className,
 }: CustomItemProps) {
   return (
-    <NavigationMenuPrimitive.Item asChild className={className?.root}>
+    <NavigationMenuPrimitive.Item
+      asChild
+      className={className?.root}
+      id={id}
+      data-cy={data_cy}
+    >
       {children}
     </NavigationMenuPrimitive.Item>
   )

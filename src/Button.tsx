@@ -3,6 +3,8 @@ import { twMerge } from 'tailwind-merge'
 import { ThemeContext } from './ThemeProvider'
 
 export interface ButtonProps {
+  id?: string
+  data_cy?: string
   active?: boolean
   className?: {
     root?: string
@@ -18,6 +20,8 @@ export interface ButtonProps {
 }
 
 const defaultProps = {
+  id: undefined,
+  data_cy: undefined,
   active: false,
   className: undefined,
   disabled: false,
@@ -31,6 +35,8 @@ const defaultProps = {
 /**
  * This function returns a pre-styled Button component based on the custom theme.
  *
+ * @param id - The id of the button.
+ * @param data_cy - The data-cy attribute is used for testing purposes.
  * @param children - The content of the button.
  * @param active - Indicate whether the button is active or not. Conditional styling is applied, if this is true.
  * @param disabled - Indicate whether the button is disabled or not. Conditional styling is applied, if this is true.
@@ -43,6 +49,8 @@ const defaultProps = {
  * @returns Button component
  */
 export function Button({
+  id,
+  data_cy,
   children,
   className,
   onClick,
@@ -74,6 +82,8 @@ export function Button({
   return (
     <button
       {...props}
+      id={id}
+      data-cy={data_cy}
       className={computedClassName}
       disabled={disabled || loading}
       onClick={onClick}

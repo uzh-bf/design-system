@@ -5,6 +5,7 @@ import Label from './Label'
 
 export interface TextareaFieldProps {
   id?: string
+  data_cy?: string
   label?: string
   placeholder?: string
   tooltip?: string
@@ -34,11 +35,24 @@ export interface TextareaFieldWithOnChangeProps extends TextareaFieldProps {
   [key: string]: any
 }
 
+const defaultProps = {
+  id: undefined,
+  data_cy: undefined,
+  label: undefined,
+  placeholder: undefined,
+  tooltip: undefined,
+  required: false,
+  maxLength: undefined,
+  maxLengthLabel: undefined,
+  className: undefined,
+}
+
 /**
  * This component returns a textarea field that works as to be expected in a Formik environment.
  * State can be managed either through Formik or internally by passing a value and onChange function.
  *
  * @param id - The id of the field.
+ * @param data_cy - The data_cy attribute is used for testing purposes.
  * @param name - The name of the field as used to keep track of the state in Formik. If no value and onChange function are provided, this field is required.
  * @param label - The optional label is shown next to the field in the form.
  * @param tooltip - The optional tooltip is shown on hover next to the label.
@@ -52,10 +66,11 @@ export interface TextareaFieldWithOnChangeProps extends TextareaFieldProps {
  * @returns Textarea component with Formik state management.
  */
 export function FormikTextareaField({
+  id,
+  data_cy,
   name,
   value,
   onChange,
-  id,
   label,
   placeholder,
   tooltip,
@@ -89,6 +104,7 @@ export function FormikTextareaField({
           <textarea
             {...field}
             id={id}
+            data-cy={data_cy}
             name={name}
             placeholder={placeholder}
             maxLength={maxLength}
@@ -104,6 +120,7 @@ export function FormikTextareaField({
           <textarea
             {...field}
             id={id}
+            data-cy={data_cy}
             value={value}
             onChange={(e) => onChange(e.target.value)}
             placeholder={placeholder}
@@ -138,4 +155,5 @@ export function FormikTextareaField({
   )
 }
 
+FormikTextareaField.defaultProps = defaultProps
 export default FormikTextareaField

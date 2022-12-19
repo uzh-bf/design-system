@@ -2,6 +2,7 @@ import React from 'react'
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 
 export interface CountdownProps {
+  data_cy?: string
   countdownDuration: number
   size?: number
   strokeWidth?: number
@@ -16,6 +17,8 @@ export interface CountdownProps {
 }
 
 const defaultProps = {
+  id: undefined,
+  data_cy: undefined,
   size: undefined,
   strokeWidth: undefined,
   colors: undefined,
@@ -29,6 +32,7 @@ const defaultProps = {
 /**
  * This function returnes a pre-styled Countdown component based on the react-countdown-circle-timer component.
  *
+ * @param data_cy - The data-cy attribute is used for testing purposes.
  * @param countdownDuration - The duration of the countdown in seconds.
  * @param size - The size of the countdown in pixels.
  * @param strokeWidth - The width of the countdown stroke in pixels.
@@ -41,6 +45,7 @@ const defaultProps = {
  * @returns Countdown component
  */
 export function Countdown({
+  data_cy,
   countdownDuration,
   colors,
   colorTimes,
@@ -54,6 +59,7 @@ export function Countdown({
   return (
     <div className={className?.root}>
       <CountdownCircleTimer
+        data-cy={data_cy}
         isPlaying={!isStatic && countdownDuration > 0}
         duration={countdownDuration > 0 ? countdownDuration : 0}
         colors={colors || ['#00A321', '#00A321', '#F7B801', '#A30000']}

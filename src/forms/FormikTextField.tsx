@@ -5,6 +5,7 @@ import Label from './Label'
 
 export interface TextFieldProps {
   id?: string
+  data_cy?: string
   label?: string
   placeholder?: string
   tooltip?: string
@@ -32,11 +33,22 @@ export interface TextFieldWithOnChangeProps extends TextFieldProps {
   [key: string]: any
 }
 
+const defaultProps = {
+  id: undefined,
+  data_cy: undefined,
+  label: undefined,
+  placeholder: undefined,
+  tooltip: undefined,
+  required: false,
+  className: undefined,
+}
+
 /**
  * This function returns a text field that works as to be expected in a Formik environment.
  * State can be managed either through Formik or internally by passing a value and onChange function.
  *
  * @param id - The id of the field.
+ * @param data_cy - The data_cy attribute is used for testing purposes.
  * @param name - The name of the field as used to keep track of the state in Formik. If no value and onChange function are provided, this field is required.
  * @param value - The value of the field. This is used to manage the state internally. If no name is provided, this field is required.
  * @param onChange - The onChange function is called when the value of the field changes. This is used to manage the state internally. If no name is provided, this field is required.
@@ -48,10 +60,11 @@ export interface TextFieldWithOnChangeProps extends TextFieldProps {
  * @returns Text field component with Formik state management.
  */
 export function FormikTextField({
+  id,
+  data_cy,
   name,
   value,
   onChange,
-  id,
   label,
   placeholder,
   tooltip,
@@ -61,7 +74,7 @@ export function FormikTextField({
 }: TextFieldWithNameProps | TextFieldWithOnChangeProps) {
   const [field, meta] = useField(name || 'missing')
   return (
-    <div className={twMerge('flex flex-col', className?.root)} id={id}>
+    <div className={twMerge('flex flex-col', className?.root)}>
       <div className={twMerge('flex flex-row w-full', className?.field)}>
         {label && (
           <Label
@@ -83,6 +96,7 @@ export function FormikTextField({
           <input
             {...field}
             id={id}
+            data-cy={data_cy}
             name={name}
             type="text"
             placeholder={placeholder}
@@ -98,6 +112,7 @@ export function FormikTextField({
           <input
             {...field}
             id={id}
+            data-cy={data_cy}
             value={value}
             onChange={(e) => onChange(e.target.value)}
             type="text"
@@ -125,4 +140,5 @@ export function FormikTextField({
   )
 }
 
+FormikTextField.defaultProps = defaultProps
 export default FormikTextField

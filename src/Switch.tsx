@@ -5,6 +5,8 @@ import Label from './forms/Label'
 import { ThemeContext } from './ThemeProvider'
 
 export interface SwitchProps {
+  id?: string
+  data_cy?: string
   checked: boolean
   onCheckedChange: (newValue: boolean) => void
   disabled?: boolean
@@ -21,18 +23,22 @@ export interface SwitchProps {
 }
 
 const defaultProps = {
+  id: undefined,
+  data_cy: undefined,
   className: undefined,
   disabled: false,
-  fluid: false,
-  labelLeft: false,
-  size: 'md',
   label: undefined,
+  labelLeft: false,
+  fluid: false,
+  size: 'md',
 }
 
 /**
  * This function returns a pre-styled Switch component based on the RadixUI switch component and the custom theme.
  * The state of the switch is maintained by the parent component.
  *
+ * @param id - The id of the switch.
+ * @param data_cy - The data_cy attribute of the switch.
  * @param label - The label that is displayed next to the switch.
  * @param checked - Indicator whether the switch is checked or not. State is managed by the parent component.
  * @param onCheckedChange - The function that is called when the switch is checked or unchecked. The new value is passed as a parameter.
@@ -44,6 +50,8 @@ const defaultProps = {
  * @returns Switch component
  */
 export function Switch({
+  id,
+  data_cy,
   disabled,
   label,
   checked,
@@ -83,6 +91,8 @@ export function Switch({
         <Label className={{ root: className?.label }} label={label} />
       )}
       <RadixSwitch.Root
+        id={id}
+        data-cy={data_cy}
         checked={checked}
         className={twMerge(
           'relative bg-uzh-grey-80 rounded-full border-0',

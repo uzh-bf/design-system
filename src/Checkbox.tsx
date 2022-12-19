@@ -5,6 +5,8 @@ import React from 'react'
 import { twMerge } from 'tailwind-merge'
 
 export interface CheckboxProps {
+  id?: string
+  data_cy?: string
   children?: React.ReactNode
   checked: boolean | 'indeterminate'
   disabled?: boolean
@@ -18,9 +20,11 @@ export interface CheckboxProps {
 }
 
 const defaultProps = {
+  id: undefined,
+  data_cy: undefined,
   children: undefined,
   disabled: false,
-  label: '',
+  label: undefined,
   size: 'md',
   className: undefined,
 }
@@ -29,6 +33,8 @@ const defaultProps = {
  * This function returns a pre-styled Checkbox component based on the RadixUI Checkbox component and the custom theme.
  * State is not managed internally and needs to be passed to the component through the checked and onCheck props.
  *
+ * @param id - The id of the checkbox.
+ * @param data_cy - The data-cy attribute is used for testing purposes.
  * @param children - Optional content of the checkbox that is shown when the checked attribute is true. By default, this is just replaced by a tick symbol.
  * @param checked - Indicate whether the checkbox is checked or not.
  * @param onCheck - The function that is called when the checkbox is checked or unchecked.
@@ -39,6 +45,8 @@ const defaultProps = {
  * @returns Checkbox component
  */
 export function Checkbox({
+  id,
+  data_cy,
   children,
   checked,
   disabled,
@@ -63,6 +71,8 @@ export function Checkbox({
   return (
     <div className="flex flex-row gap-2">
       <RadixCheckbox.Root
+        id={id}
+        data-cy={data_cy}
         defaultChecked
         checked={checked}
         className={twMerge(
@@ -84,14 +94,16 @@ export function Checkbox({
           )}
         </RadixCheckbox.CheckboxIndicator>
       </RadixCheckbox.Root>
-      <div
-        className={twMerge(
-          'flex flex-col justify-center h-full',
-          className?.label
-        )}
-      >
-        {label}
-      </div>
+      {label && (
+        <div
+          className={twMerge(
+            'flex flex-col justify-center h-full',
+            className?.label
+          )}
+        >
+          {label}
+        </div>
+      )}
     </div>
   )
 }

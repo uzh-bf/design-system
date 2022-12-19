@@ -7,6 +7,8 @@ import { ThemeContext } from '../ThemeProvider'
 import Tooltip from '../Tooltip'
 
 export interface LabelProps {
+  id?: string
+  data_cy?: string
   forId?: string
   label: string
   required?: boolean
@@ -21,6 +23,8 @@ export interface LabelProps {
 }
 
 const defaultProps = {
+  id: undefined,
+  data_cy: undefined,
   forId: undefined,
   required: false,
   tooltip: undefined,
@@ -32,6 +36,8 @@ const defaultProps = {
 /**
  * This function returns a label component based on the RadixUI label.
  *
+ * @param id - The id of the label.
+ * @param data_cy - The data-cy attribute is used for testing purposes.
  * @param forId - The id of the element that the label is for.
  * @param label - The text displayed as label.
  * @param required - Indicate whether the field is required or not.
@@ -42,6 +48,8 @@ const defaultProps = {
  * @returns Label component with optional tooltip and required symbol.
  */
 export function Label({
+  id,
+  data_cy,
   forId,
   label,
   required,
@@ -64,6 +72,8 @@ export function Label({
       >
         <div className="flex flex-row">
           <RadixLabel.Root
+            id={id}
+            data-cy={data_cy}
             htmlFor={forId}
             className={twMerge(className?.root, 'cursor-default')}
           >
@@ -79,6 +89,8 @@ export function Label({
         className={twMerge(className?.root, 'w-max flex flex-row items-center')}
       >
         <RadixLabel.Root
+          id={id}
+          data-cy={data_cy}
           htmlFor={forId}
           className={twMerge('mr-2 cursor-default', required && 'mr-0')}
         >
@@ -111,6 +123,8 @@ export function Label({
     return (
       <div className="flex flex-row">
         <RadixLabel.Root
+          id={id}
+          data-cy={data_cy}
           htmlFor={forId}
           className={twMerge(className?.root, 'cursor-default')}
         >

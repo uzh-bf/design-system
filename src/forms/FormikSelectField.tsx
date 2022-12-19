@@ -5,6 +5,8 @@ import Select, { Item } from '../Select'
 import Label from './Label'
 
 export interface SelectFieldProps {
+  id?: string
+  data_cy?: string
   name: string
   label?: string
   placeholder?: string
@@ -20,10 +22,23 @@ export interface SelectFieldProps {
   }
 }
 
+const defaultProps = {
+  id: undefined,
+  data_cy: undefined,
+  label: undefined,
+  placeholder: undefined,
+  tooltip: undefined,
+  required: false,
+  disabled: false,
+  className: undefined,
+}
+
 /**
  * This component returns a select field that works as to be expected in a Formik environment.
  * State is managed by Formik through the name attribute.
  *
+ * @param id - The id of the field.
+ * @param data_cy - The data-cy attribute is used for testing purposes.
  * @param name - The name of the field. This is used to identify the field in Formik.
  * @param label - The optional label is shown next to the field in the form.
  * @param tooltip - The optional tooltip is shown on hover next to the label.
@@ -33,6 +48,8 @@ export interface SelectFieldProps {
  * @returns Select component with formik state management.
  */
 export function FormikSelectField({
+  id,
+  data_cy,
   name,
   label,
   tooltip,
@@ -44,7 +61,7 @@ export function FormikSelectField({
   const [field, meta, helpers] = useField(name)
 
   return (
-    <div className={twMerge('flex flex-col', className?.root)}>
+    <div className={twMerge('flex flex-col', className?.root)} id={id}>
       <div className="flex flex-row w-full">
         {label && (
           <Label
@@ -64,6 +81,7 @@ export function FormikSelectField({
         )}
         <Select
           {...field}
+          data-cy={data_cy}
           onChange={(newValue: string) => helpers.setValue(newValue)}
           name={name}
           items={items}
@@ -84,4 +102,5 @@ export function FormikSelectField({
   )
 }
 
+FormikSelectField.defaultProps = defaultProps
 export default FormikSelectField
