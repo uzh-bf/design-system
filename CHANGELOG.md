@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.7](https://github.com/uzh-bf/design-system/compare/v0.1.6...v0.1.7) (2022-12-19)
+
+
+### Enhancements
+
+* add tailwindcss preflight.css to dist ([ad98864](https://github.com/uzh-bf/design-system/commit/ad98864e939b5bff03eedf013145f4b145633b57))
+
 ### [0.1.6](https://github.com/uzh-bf/design-system/compare/v0.1.5...v0.1.6) (2022-12-19)
 
 
