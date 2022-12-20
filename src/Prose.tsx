@@ -4,7 +4,10 @@ import { ThemeContext } from './ThemeProvider'
 
 export interface ProseProps {
   id?: string
-  data_cy?: string
+  data?: {
+    cy?: string
+    test?: string
+  }
   className?: {
     root?: string
   }
@@ -13,7 +16,7 @@ export interface ProseProps {
 
 const defaultProps = {
   id: undefined,
-  data_cy: undefined,
+  data: undefined,
   className: undefined,
 }
 
@@ -21,18 +24,19 @@ const defaultProps = {
  * This function returns a pre-styled prose component based on TailwindCSS prose and the custom theme.
  *
  * @param id - The id of the prose component.
- * @param data_cy - The data-cy attribute is used for testing purposes.
+ * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param children - The content of the prose component.
  * @param className - The optional className object allows you to override the default styling.
  * @returns Children with the standard prose and some custom styling applied to them.
  */
-export function Prose({ id, data_cy, className, children }: ProseProps) {
+export function Prose({ id, data, className, children }: ProseProps) {
   const theme = useContext(ThemeContext)
 
   return (
     <div
       id={id}
-      data-cy={data_cy}
+      data-cy={data?.cy}
+      data-test={data?.test}
       className={twMerge(
         'prose-h4:text-md prose prose-headings:font-sans prose-headings:font-bold prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg',
         theme.primaryProseHover,

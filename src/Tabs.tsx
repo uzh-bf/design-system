@@ -4,7 +4,10 @@ import { twMerge } from 'tailwind-merge'
 
 interface TabProps {
   id?: string
-  data_cy?: string
+  data?: {
+    cy?: string
+    test?: string
+  }
   key: string
   value: string
   label: string
@@ -19,18 +22,19 @@ interface TabProps {
  * The value of this tab is required for both the internally and externally controlled state.
  *
  * @param id - The id of the tab.
- * @param data_cy - The data-cy attribute is used for testing purposes.
+ * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param key - The key of the tab.
  * @param value - The value of the tab. This is required for the internal and external state.
  * @param label - The label of the tab.
  * @param className - The optional className object allows you to override the default styling.
  * @returns Tab trigger component
  */
-export function Tab({ id, data_cy, key, value, label, className }: TabProps) {
+export function Tab({ id, data, key, value, label, className }: TabProps) {
   return (
     <TabsPrimitive.Trigger
       id={id}
-      data-cy={data_cy}
+      data-cy={data?.cy}
+      data-test={data?.test}
       key={`tab-trigger-${key}`}
       value={value}
       className={twMerge(
@@ -54,7 +58,10 @@ export function Tab({ id, data_cy, key, value, label, className }: TabProps) {
 
 interface TabListProps {
   id?: string
-  data_cy?: string
+  data?: {
+    cy?: string
+    test?: string
+  }
   className?: {
     root?: string
   }
@@ -64,21 +71,22 @@ interface TabListProps {
  * This function returns a pre-styled TabList component to be used inside a Tabs component.
  *
  * @param id The id of the tab list.
- * @param data_cy The data-cy attribute is used for testing purposes.
+ * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param children The tab triggers should be passed as children to this component.
  * @param className The optional className object allows you to override the default styling.
  * @returns TabList component
  */
 export function TabList({
   id,
-  data_cy,
+  data,
   children,
   className,
 }: PropsWithChildren<TabListProps>) {
   return (
     <TabsPrimitive.List
       id={id}
-      data-cy={data_cy}
+      data-cy={data?.cy}
+      data-test={data?.test}
       className={twMerge(
         'flex w-full rounded-t-lg bg-white flex-col md:flex-row',
         className?.root
@@ -91,7 +99,10 @@ export function TabList({
 
 interface TabContentProps {
   id?: string
-  data_cy?: string
+  data?: {
+    cy?: string
+    test?: string
+  }
   key: string
   value: string
   className?: {
@@ -104,7 +115,7 @@ interface TabContentProps {
  * The value of this tab is required for both the internally and externally controlled state.
  *
  * @param id The id of the tab content.
- * @param data_cy The data-cy attribute is used for testing purposes.
+ * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param key The key of the tab.
  * @param value The value of the tab. This is required for the internal and external state.
  * @param children The content of the tab should be passed as children to this component.
@@ -113,7 +124,7 @@ interface TabContentProps {
  */
 export function TabContent({
   id,
-  data_cy,
+  data,
   key,
   value,
   children,
@@ -122,7 +133,8 @@ export function TabContent({
   return (
     <TabsPrimitive.Content
       id={id}
-      data-cy={data_cy}
+      data-cy={data?.cy}
+      data-test={data?.test}
       key={`tab-content-${key}`}
       value={value}
       className={twMerge('rounded-t-lg bg-white md:px-6 py-4', className?.root)}
@@ -134,7 +146,10 @@ export function TabContent({
 
 interface TabsProps {
   id?: string
-  data_cy?: string
+  data?: {
+    cy?: string
+    test?: string
+  }
   defaultValue: string
   value?: string
   onValueChange?: (newValue: string) => void
@@ -148,7 +163,7 @@ interface TabsProps {
  * The active tab / component state can be either controlled internally or controlled through the parent component.
  *
  * @param id The id of the tab list.
- * @param data_cy The data-cy attribute is used for testing purposes.
+ * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param defaultValue The default value of the tab that is active when the component is initially rendered.
  * @param value The value of the tab that is active. This value is required, if the state is controlled by the parent component.
  * @param onValueChange The function that is called when the active tab is changed. The new value is passed as a parameter. This function is required, if the state is controlled by the parent component.
@@ -158,7 +173,7 @@ interface TabsProps {
  */
 function Tabs({
   id,
-  data_cy,
+  data,
   defaultValue,
   value,
   children,
@@ -168,7 +183,8 @@ function Tabs({
   return (
     <TabsPrimitive.Root
       id={id}
-      data-cy={data_cy}
+      data-cy={data?.cy}
+      data-test={data?.test}
       defaultValue={defaultValue}
       value={value}
       onValueChange={onValueChange}

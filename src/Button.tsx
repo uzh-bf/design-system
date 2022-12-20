@@ -4,7 +4,10 @@ import { ThemeContext } from './ThemeProvider'
 
 export interface ButtonProps {
   id?: string
-  data_cy?: string
+  data?: {
+    cy?: string
+    test?: string
+  }
   active?: boolean
   className?: {
     root?: string
@@ -21,7 +24,7 @@ export interface ButtonProps {
 
 const defaultProps = {
   id: undefined,
-  data_cy: undefined,
+  data: undefined,
   active: false,
   className: undefined,
   disabled: false,
@@ -36,7 +39,7 @@ const defaultProps = {
  * This function returns a pre-styled Button component based on the custom theme.
  *
  * @param id - The id of the button.
- * @param data_cy - The data-cy attribute is used for testing purposes.
+ * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param children - The content of the button.
  * @param active - Indicate whether the button is active or not. Conditional styling is applied, if this is true.
  * @param disabled - Indicate whether the button is disabled or not. Conditional styling is applied, if this is true.
@@ -50,7 +53,7 @@ const defaultProps = {
  */
 export function Button({
   id,
-  data_cy,
+  data,
   children,
   className,
   onClick,
@@ -83,7 +86,8 @@ export function Button({
     <button
       {...props}
       id={id}
-      data-cy={data_cy}
+      data-cy={data?.cy}
+      data-test={data?.test}
       className={computedClassName}
       disabled={disabled || loading}
       onClick={onClick}

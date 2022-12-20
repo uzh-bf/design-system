@@ -6,7 +6,10 @@ import { twMerge } from 'tailwind-merge'
 
 export interface CheckboxProps {
   id?: string
-  data_cy?: string
+  data?: {
+    cy?: string
+    test?: string
+  }
   children?: React.ReactNode
   checked: boolean | 'indeterminate'
   disabled?: boolean
@@ -21,7 +24,7 @@ export interface CheckboxProps {
 
 const defaultProps = {
   id: undefined,
-  data_cy: undefined,
+  data: undefined,
   children: undefined,
   disabled: false,
   label: undefined,
@@ -34,7 +37,7 @@ const defaultProps = {
  * State is not managed internally and needs to be passed to the component through the checked and onCheck props.
  *
  * @param id - The id of the checkbox.
- * @param data_cy - The data-cy attribute is used for testing purposes.
+ * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param children - Optional content of the checkbox that is shown when the checked attribute is true. By default, this is just replaced by a tick symbol.
  * @param checked - Indicate whether the checkbox is checked or not.
  * @param onCheck - The function that is called when the checkbox is checked or unchecked.
@@ -46,7 +49,7 @@ const defaultProps = {
  */
 export function Checkbox({
   id,
-  data_cy,
+  data,
   children,
   checked,
   disabled,
@@ -72,7 +75,8 @@ export function Checkbox({
     <div className="flex flex-row gap-2">
       <RadixCheckbox.Root
         id={id}
-        data-cy={data_cy}
+        data-cy={data?.cy}
+        data-test={data?.test}
         defaultChecked
         checked={checked}
         className={twMerge(

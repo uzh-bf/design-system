@@ -6,7 +6,10 @@ import Label from './Label'
 
 export interface SelectFieldProps {
   id?: string
-  data_cy?: string
+  data?: {
+    cy?: string
+    test?: string
+  }
   name: string
   label?: string
   placeholder?: string
@@ -24,7 +27,7 @@ export interface SelectFieldProps {
 
 const defaultProps = {
   id: undefined,
-  data_cy: undefined,
+  data: undefined,
   label: undefined,
   placeholder: undefined,
   tooltip: undefined,
@@ -38,7 +41,7 @@ const defaultProps = {
  * State is managed by Formik through the name attribute.
  *
  * @param id - The id of the field.
- * @param data_cy - The data-cy attribute is used for testing purposes.
+ * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param name - The name of the field. This is used to identify the field in Formik.
  * @param label - The optional label is shown next to the field in the form.
  * @param tooltip - The optional tooltip is shown on hover next to the label.
@@ -49,7 +52,7 @@ const defaultProps = {
  */
 export function FormikSelectField({
   id,
-  data_cy,
+  data,
   name,
   label,
   tooltip,
@@ -81,7 +84,8 @@ export function FormikSelectField({
         )}
         <Select
           {...field}
-          data-cy={data_cy}
+          data-cy={data?.cy}
+          data-test={data?.test}
           onChange={(newValue: string) => helpers.setValue(newValue)}
           name={name}
           items={items}

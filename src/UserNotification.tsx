@@ -9,7 +9,10 @@ import { twMerge } from 'tailwind-merge'
 
 export interface UserNotificationProps {
   id?: string
-  data_cy?: string
+  data?: {
+    cy?: string
+    test?: string
+  }
   message: string
   notificationType: string
   children?: React.ReactNode
@@ -23,7 +26,7 @@ export interface UserNotificationProps {
 
 const defaultProps = {
   id: undefined,
-  data_cy: undefined,
+  data: undefined,
   children: undefined,
   className: undefined,
 }
@@ -32,7 +35,7 @@ const defaultProps = {
  * This function returns a pre-styled UserNotification component based on the custom theme.
  *
  * @param id - The id of the notification.
- * @param data_cy - The data-cy attribute of the notification.
+ * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param message - The message that is displayed in the notification.
  * @param notificationType - The type of the notification. This can be either 'success', 'info' or 'error'. This determines the icon that is displayed and some conditional styling. If not type is provided, the information icon is displayed.
  * @param children - The optional children are displayed in the notification in addition to the provided message icon.
@@ -41,7 +44,7 @@ const defaultProps = {
  */
 export function UserNotification({
   id,
-  data_cy,
+  data,
   message,
   notificationType,
   children,
@@ -71,7 +74,8 @@ export function UserNotification({
   return (
     <div
       id={id}
-      data-cy={data_cy}
+      data-cy={data?.cy}
+      data-test={data?.test}
       className={twMerge(
         'p-2 mt-6 mb-4 text-sm rounded-md',
         className?.root,

@@ -6,7 +6,10 @@ import { twMerge } from 'tailwind-merge'
 
 export interface CollapsibleProps {
   id?: string
-  data_cy?: string
+  data?: {
+    cy?: string
+    test?: string
+  }
   open: boolean
   onChange: () => void
   staticContent: React.ReactNode | string // static content that is only
@@ -35,7 +38,7 @@ const defaultProps = {
  * State need to be managed by the parent component.
  *
  * @param id - The id of the collapsible.
- * @param data_cy - The data-cy attribute is used for testing purposes.
+ * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param open - Indicate whether the collapsible is open or not.
  * @param onChange - Function that is called when the collapsible is toggled.
  * @param staticContent - The static content that is always shown.
@@ -47,7 +50,7 @@ const defaultProps = {
  */
 export function Collapsible({
   id,
-  data_cy,
+  data,
   open,
   onChange,
   staticContent,
@@ -74,7 +77,8 @@ export function Collapsible({
         <RadixCollapsible.Trigger
           className={twMerge('w-full text-center', className?.trigger)}
           id={id}
-          data-cy={data_cy}
+          data-cy={data?.cy}
+          data-test={data?.test}
         >
           {customTrigger ?? (
             <FontAwesomeIcon

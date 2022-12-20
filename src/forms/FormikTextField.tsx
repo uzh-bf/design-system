@@ -5,7 +5,10 @@ import Label from './Label'
 
 export interface TextFieldProps {
   id?: string
-  data_cy?: string
+  data?: {
+    cy?: string
+    test?: string
+  }
   label?: string
   placeholder?: string
   tooltip?: string
@@ -35,7 +38,7 @@ export interface TextFieldWithOnChangeProps extends TextFieldProps {
 
 const defaultProps = {
   id: undefined,
-  data_cy: undefined,
+  data: undefined,
   label: undefined,
   placeholder: undefined,
   tooltip: undefined,
@@ -48,7 +51,7 @@ const defaultProps = {
  * State can be managed either through Formik or internally by passing a value and onChange function.
  *
  * @param id - The id of the field.
- * @param data_cy - The data_cy attribute is used for testing purposes.
+ * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param name - The name of the field as used to keep track of the state in Formik. If no value and onChange function are provided, this field is required.
  * @param value - The value of the field. This is used to manage the state internally. If no name is provided, this field is required.
  * @param onChange - The onChange function is called when the value of the field changes. This is used to manage the state internally. If no name is provided, this field is required.
@@ -61,7 +64,7 @@ const defaultProps = {
  */
 export function FormikTextField({
   id,
-  data_cy,
+  data,
   name,
   value,
   onChange,
@@ -96,7 +99,8 @@ export function FormikTextField({
           <input
             {...field}
             id={id}
-            data-cy={data_cy}
+            data-cy={data?.cy}
+            data-test={data?.test}
             name={name}
             type="text"
             placeholder={placeholder}
@@ -112,7 +116,8 @@ export function FormikTextField({
           <input
             {...field}
             id={id}
-            data-cy={data_cy}
+            data-cy={data?.cy}
+            data-test={data?.test}
             value={value}
             onChange={(e) => onChange(e.target.value)}
             type="text"

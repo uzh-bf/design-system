@@ -6,7 +6,10 @@ import { ThemeContext } from './ThemeProvider'
 
 export interface SwitchProps {
   id?: string
-  data_cy?: string
+  data?: {
+    cy?: string
+    test?: string
+  }
   checked: boolean
   onCheckedChange: (newValue: boolean) => void
   disabled?: boolean
@@ -24,7 +27,7 @@ export interface SwitchProps {
 
 const defaultProps = {
   id: undefined,
-  data_cy: undefined,
+  data: undefined,
   className: undefined,
   disabled: false,
   label: undefined,
@@ -38,7 +41,7 @@ const defaultProps = {
  * The state of the switch is maintained by the parent component.
  *
  * @param id - The id of the switch.
- * @param data_cy - The data_cy attribute of the switch.
+ * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param label - The label that is displayed next to the switch.
  * @param checked - Indicator whether the switch is checked or not. State is managed by the parent component.
  * @param onCheckedChange - The function that is called when the switch is checked or unchecked. The new value is passed as a parameter.
@@ -51,7 +54,7 @@ const defaultProps = {
  */
 export function Switch({
   id,
-  data_cy,
+  data,
   disabled,
   label,
   checked,
@@ -92,7 +95,8 @@ export function Switch({
       )}
       <RadixSwitch.Root
         id={id}
-        data-cy={data_cy}
+        data-cy={data?.cy}
+        data-test={data?.test}
         checked={checked}
         className={twMerge(
           'relative bg-uzh-grey-80 rounded-full border-0',

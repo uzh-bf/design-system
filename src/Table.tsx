@@ -5,7 +5,10 @@ import { twMerge } from 'tailwind-merge'
 
 export interface TableProps {
   id?: string
-  data_cy?: string
+  dataAttributes?: {
+    cy?: string
+    test?: string
+  }
   columns: {
     label: string
     accessor: string
@@ -24,7 +27,7 @@ export interface TableProps {
 
 const defaultProps = {
   id: undefined,
-  data_cy: undefined,
+  dataAttributes: undefined,
   caption: undefined,
   className: undefined,
 }
@@ -34,7 +37,7 @@ const defaultProps = {
  * The table is sortable by clicking on the column header.
  *
  * @param id - The id of the table.
- * @param data_cy - The data-cy attribute of the table.
+ * @param dataAttributes - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param columns - The columns of the table. The columns are defined by an array of objects where each object has a label, an accessor and an optional transformer.
  * @param data - The data of the table. The data is defined by an array of objects where each object has a key-value pair for each column.
  * @param caption - The optional caption of the table.
@@ -43,7 +46,7 @@ const defaultProps = {
  */
 export function Table({
   id,
-  data_cy,
+  dataAttributes,
   className,
   columns,
   data,
@@ -115,7 +118,8 @@ export function Table({
     <div
       className={twMerge('table w-full', className?.root)}
       id={id}
-      data-cy={data_cy}
+      data-cy={dataAttributes?.cy}
+      data-test={dataAttributes?.test}
     >
       <table className="w-full table-auto">
         <caption className="text-sm italic">{caption}</caption>
