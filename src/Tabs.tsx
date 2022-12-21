@@ -3,12 +3,14 @@ import React, { PropsWithChildren } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 interface TabProps {
-  key: string
+  key?: string
   value: string
   label: string
+  disabled?: boolean
   className?: {
     root?: string
     label?: string
+    disabled?: string
   }
 }
 
@@ -19,10 +21,11 @@ interface TabProps {
  * @param key - The key of the tab.
  * @param value - The value of the tab. This is required for the internal and external state.
  * @param label - The label of the tab.
+ * @param disabled - The optional disabled property allows you to disable the tab.
  * @param className - The optional className object allows you to override the default styling.
  * @returns Tab trigger component
  */
-export function Tab({ key, value, label, className }: TabProps) {
+export function Tab({ key, value, label, disabled, className }: TabProps) {
   return (
     <TabsPrimitive.Trigger
       key={`tab-trigger-${key}`}
@@ -33,6 +36,7 @@ export function Tab({ key, value, label, className }: TabProps) {
         'focus:rdx-state-active:border-b-red focus:z-10 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75',
         className?.root
       )}
+      disabled={disabled}
     >
       <span
         className={twMerge(
