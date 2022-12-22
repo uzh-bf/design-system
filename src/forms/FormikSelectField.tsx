@@ -11,7 +11,6 @@ export interface SelectFieldProps {
   tooltip?: string
   required?: boolean
   items: Item[]
-  defaultValue?: string
   disabled?: boolean
   className?: {
     root?: string
@@ -26,7 +25,6 @@ const defaultProps = {
   placeholder: undefined,
   tooltip: undefined,
   required: false,
-  defaultValue: undefined,
   disabled: false,
   className: undefined,
 }
@@ -37,9 +35,10 @@ const defaultProps = {
  *
  * @param name - The name of the field. This is used to identify the field in Formik.
  * @param label - The optional label is shown next to the field in the form.
+ * @param placeholder - The optional placeholder is shown when no value is selected / initialization with 'undefined' is chosen.
+ * @param disabled - The optional disabled prop disables the select component.
  * @param tooltip - The optional tooltip is shown on hover next to the label.
  * @param items - The array of items that should be available on the select component.
- * @param defaultValue - The optional defaultValue is the value that is selected by default.
  * @param required - Indicate whether the field is required or not.
  * @param className - The optional className object allows you to override the default styling.
  * @returns Select component with formik state management.
@@ -47,11 +46,12 @@ const defaultProps = {
 export function FormikSelectField({
   name,
   label,
+  placeholder,
   tooltip,
   required,
-  className,
   items,
-  defaultValue,
+  disabled,
+  className,
   ...props
 }: SelectFieldProps) {
   const [field, meta, helpers] = useField(name)
@@ -78,9 +78,11 @@ export function FormikSelectField({
         <Select
           {...field}
           onChange={(newValue: string) => helpers.setValue(newValue)}
+          value={field.value}
           name={name}
           items={items}
-          defaultValue={defaultValue}
+          placeholder={placeholder}
+          disabled={disabled}
           {...props}
         />
       </div>
