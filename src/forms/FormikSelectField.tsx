@@ -44,6 +44,8 @@ const defaultProps = {
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param name - The name of the field. This is used to identify the field in Formik.
  * @param label - The optional label is shown next to the field in the form.
+ * @param placeholder - The optional placeholder is shown when no value is selected / initialization with 'undefined' is chosen.
+ * @param disabled - The optional disabled prop disables the select component.
  * @param tooltip - The optional tooltip is shown on hover next to the label.
  * @param items - The array of items that should be available on the select component.
  * @param required - Indicate whether the field is required or not.
@@ -55,10 +57,12 @@ export function FormikSelectField({
   data,
   name,
   label,
+  placeholder,
   tooltip,
   required,
-  className,
   items,
+  disabled,
+  className,
   ...props
 }: SelectFieldProps) {
   const [field, meta, helpers] = useField(name)
@@ -87,8 +91,11 @@ export function FormikSelectField({
           data-cy={data?.cy}
           data-test={data?.test}
           onChange={(newValue: string) => helpers.setValue(newValue)}
+          value={field.value}
           name={name}
           items={items}
+          placeholder={placeholder}
+          disabled={disabled}
           {...props}
         />
       </div>

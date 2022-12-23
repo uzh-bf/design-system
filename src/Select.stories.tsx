@@ -53,6 +53,19 @@ export const Default = () => {
   )
 }
 
+export const DefaultValue = () => {
+  return (
+    <Select
+      placeholder="Select an item"
+      items={fruits}
+      onChange={(newValue) => {
+        console.log(newValue)
+      }}
+      defaultValue={fruits[2].value}
+    />
+  )
+}
+
 export const Groups = () => {
   const [value, setValue] = useState<string>()
 

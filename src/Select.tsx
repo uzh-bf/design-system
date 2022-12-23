@@ -33,6 +33,7 @@ interface SelectProps {
   size?: 'md' | 'sm'
   className?: ClassName
   placeholder?: string
+  defaultValue?: string
 }
 
 export interface Item {
@@ -70,6 +71,7 @@ const defaultProps = {
   size: 'md',
   className: undefined,
   placeholder: undefined,
+  defaultValue: undefined,
 }
 
 /**
@@ -83,6 +85,7 @@ const defaultProps = {
  * @param name - The name attribute of the select component needed for Formik integration --> see FormikSelectField
  * @param onChange - The function that is called when the value of the select component changes (changes externally managed value).
  * @param value - The current value of the select component (managed externally).
+ * @param defaultValue - The default value of the select component set initially.
  * @param placeholder - The placeholder text that is displayed when no value is selected.
  * @param disabled - Specifies whether the select component is disabled or not.
  * @param size - The size of the select component. Currently only medium and small are supported.
@@ -101,6 +104,7 @@ export function Select({
   className,
   name,
   placeholder,
+  defaultValue,
 }: SelectWithItemsProps | SelectWithGroupsProps) {
   const [open, setOpen] = useState(false)
   const theme = useContext(ThemeContext)
@@ -114,6 +118,7 @@ export function Select({
         onValueChange={onChange}
         onOpenChange={(open) => setOpen(open)}
         value={value}
+        defaultValue={defaultValue}
       >
         <RadixSelect.Trigger
           id={id}

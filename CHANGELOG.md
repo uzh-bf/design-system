@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.8](https://github.com/uzh-bf/design-system/compare/v0.1.7...v0.1.8) (2022-12-22)
+
+
+### Bug Fixes
+
+* **FormikSelectField:** ensure that placeholder logic is working ([d8e3ad8](https://github.com/uzh-bf/design-system/commit/d8e3ad8bb18a8c19d97f8dca3a7e9ff53202ba00))
+
+
+### Enhancements
+
+* **Select:** add defaultValue prop to select component ([36cbb92](https://github.com/uzh-bf/design-system/commit/36cbb92a46b886b1d73fb0d71671d3fe1e5abd41))
+* **Tabs:** add possibility to disable tab triggers ([85e8655](https://github.com/uzh-bf/design-system/commit/85e8655201104e1be988bb42389f613e9003b19b))
+
 ### [0.1.7](https://github.com/uzh-bf/design-system/compare/v0.1.6...v0.1.7) (2022-12-19)
 
 
