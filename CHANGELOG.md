@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.10](https://github.com/uzh-bf/design-system/compare/v0.1.9...v0.1.10) (2022-12-23)
+
+
+### Features
+
+* **FormikNumberField:** add formik number field component ([#35](https://github.com/uzh-bf/design-system/issues/35)) ([1862ff9](https://github.com/uzh-bf/design-system/commit/1862ff9e1aac8ea9b1b276fe7eeecccecabf9e1c))
+
 ### [0.1.9](https://github.com/uzh-bf/design-system/compare/v0.1.8...v0.1.9) (2022-12-23)
 
 
