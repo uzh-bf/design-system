@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.11](https://github.com/uzh-bf/design-system/compare/v0.1.10...v0.1.11) (2022-12-23)
+
+
+### Other
+
+* **FormikNumberField:** add missing export from index file ([0f26c5f](https://github.com/uzh-bf/design-system/commit/0f26c5f81e58aa7c121f125f5f2ff5918854d4b0))
+
 ### [0.1.10](https://github.com/uzh-bf/design-system/compare/v0.1.9...v0.1.10) (2022-12-23)
 
 
