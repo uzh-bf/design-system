@@ -4,6 +4,16 @@ import { twMerge } from 'tailwind-merge'
 
 // trigger is passed as child of the component
 export interface TooltipProps {
+  id?: string
+  contentId?: string
+  data?: {
+    cy?: string
+    test?: string
+  }
+  dataContent?: {
+    cy?: string
+    test?: string
+  }
   tooltip: React.ReactNode | string
   delay?: number
   withIndicator?: boolean
@@ -16,6 +26,10 @@ export interface TooltipProps {
 }
 
 const defaultProps = {
+  id: undefined,
+  contentId: undefined,
+  data: undefined,
+  dataContent: undefined,
   delay: 350,
   withIndicator: true,
   className: undefined,
@@ -24,6 +38,10 @@ const defaultProps = {
 /**
  * This function returns a pre-styled Tooltip component based on the RadixUI tooltip component and the custom theme.
  *
+ * @param id - The id of the tooltip.
+ * @param contentId - The id of the tooltip content.
+ * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
+ * @param dataContent - The object of data attributes that can be used for testing (e.g. data-test or data-cy) of the content
  * @param tooltip - The content of the tooltip.
  * @param delay - The delay in milliseconds before the tooltip is shown.
  * @param withIndicator - Determines whether the tooltip should have a small indicator or not.
@@ -32,6 +50,10 @@ const defaultProps = {
  * @returns Tooltip component
  */
 export function Tooltip({
+  id,
+  contentId,
+  data,
+  dataContent,
   tooltip,
   delay,
   withIndicator,
@@ -42,6 +64,9 @@ export function Tooltip({
     <RadixTooltip.Provider>
       <RadixTooltip.Root delayDuration={delay || 1000}>
         <RadixTooltip.Trigger
+          id={id}
+          data-cy={data?.cy}
+          data-test={data?.test}
           className={twMerge(
             '[all:_unset] !cursor-default',
             className?.trigger
@@ -51,6 +76,9 @@ export function Tooltip({
           {children}
         </RadixTooltip.Trigger>
         <RadixTooltip.Content
+          id={contentId}
+          data-cy={dataContent?.cy}
+          data-test={dataContent?.test}
           className={twMerge(
             'p-2 text-white bg-gray-800 border rounded-md border-1 border-grey-20',
             className?.tooltip

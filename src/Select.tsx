@@ -21,6 +21,11 @@ interface ClassName {
 }
 
 interface SelectProps {
+  id?: string
+  data?: {
+    cy?: string
+    test?: string
+  }
   name?: string
   onChange: (newValue: string) => void
   value?: string
@@ -32,6 +37,11 @@ interface SelectProps {
 }
 
 export interface Item {
+  id?: string
+  data?: {
+    cy?: string
+    test?: string
+  }
   value: string
   disabled?: boolean
   label: string
@@ -53,6 +63,10 @@ export interface SelectWithGroupsProps extends SelectProps {
 }
 
 const defaultProps = {
+  id: undefined,
+  data: undefined,
+  name: undefined,
+  value: undefined,
   disabled: false,
   size: 'md',
   className: undefined,
@@ -64,6 +78,8 @@ const defaultProps = {
  * This function returns a pre-styled Select component based on the RadixUI select component and the custom theme.
  * While the open state of the component is managed internally, the value of the component is managed externally and passed to the function.
  *
+ * @param id - The id of the select component.
+ * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param items - The array of items that are displayed in the select component. This prop is mutually exclusive with the groups prop. If items are provided, the component does not look for groups anymore.
  * @param groups - The array of groups that are displayed in the select component. This prop is mutually exclusive with the items prop.
  * @param name - The name attribute of the select component needed for Formik integration --> see FormikSelectField
@@ -77,6 +93,8 @@ const defaultProps = {
  * @return Select component
  */
 export function Select({
+  id,
+  data,
   items,
   groups,
   onChange,
@@ -103,9 +121,12 @@ export function Select({
         defaultValue={defaultValue}
       >
         <RadixSelect.Trigger
+          id={id}
+          data-cy={data?.cy}
+          data-test={data?.test}
           className={twMerge(
             'inline-flex items-center justify-center gap-2 p-4 bg-white rounded-md shadow-sm h-7 border',
-            `hover:${theme.primaryBg} hover:${theme.primaryText}`,
+            `${theme.primaryBgHover} ${theme.primaryTextHover}`,
             disabled &&
               'bg-uzh-grey-20 hover:bg-none, hover:text-none opacity-70 cursor-not-allowed shadow-sm',
             size === 'sm' && '!text-sm',
@@ -162,6 +183,9 @@ export function Select({
               {items
                 ? items.map((item, ix) => (
                     <SelectItem
+                      id={id}
+                      data-cy={data?.cy}
+                      data-test={data?.test}
                       key={ix}
                       size={size}
                       {...item}
@@ -196,6 +220,11 @@ export function Select({
 }
 
 interface SelectItemProps {
+  id?: string
+  data?: {
+    cy?: string
+    test?: string
+  }
   label: string
   className?: ClassName
   size?: string
@@ -205,18 +234,21 @@ interface SelectItemProps {
 
 const SelectItem = React.forwardRef(
   (
-    { className, label, size, disabled, ...props }: SelectItemProps,
+    { id, data, className, label, size, disabled, ...props }: SelectItemProps,
     forwardedRef
   ) => {
     const theme = useContext(ThemeContext)
 
     return (
       <RadixSelect.Item
+        id={id}
+        data-cy={data?.cy}
+        data-test={data?.test}
         className={twMerge(
-          'relative flex items-center px-8 py-2 rounded-md text-gray-700 dark:text-gray-300 font-medium hover:cursor-pointer',
-          `focus:outline-none select-none  hover:${theme.primaryBg} hover:${theme.primaryText}`,
-          'rdx-disabled:opacity-50 rdx-disabled:cursor-not-allowed rdx-disabled:hover:bg-white',
-          'rdx-disabled:hover:text-gray-700 rdx-disabled:dark:hover:text-gray-300',
+          'relative flex items-center px-8 py-2 rounded-md text-gray-700 dark:text-gray-300 font-medium hover:cursor-pointer hover:outline-none',
+          `${theme.primaryBgHover} ${theme.primaryTextHover} ${theme.primaryBorderFocus}`,
+          disabled &&
+            'hover:text-gray-700 dark:hover:text-gray-300 opacity-50 cursor-not-allowed hover:bg-white',
           size === 'sm' && 'px-7 text-sm',
           className?.item
         )}

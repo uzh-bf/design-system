@@ -5,6 +5,11 @@ import React from 'react'
 import { twMerge } from 'tailwind-merge'
 
 interface SliderProps {
+  id?: string
+  data?: {
+    cy?: string
+    test?: string
+  }
   value: number
   handleChange: (newValue: number) => void
   min: number
@@ -40,6 +45,8 @@ export interface SliderWithIconsProps extends SliderProps {
 }
 
 const defaultProps = {
+  id: undefined,
+  data: undefined,
   disabled: false,
   icons: undefined,
   labels: undefined,
@@ -51,6 +58,8 @@ const defaultProps = {
 /**
  * This function returns a pre-styled Slider component based on the RadixUI slider component and the custom theme.
  *
+ * @param id - The id of the slider.
+ * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param value - The value of the slider. The value should be between the min and max value and is maintained by the parent component.
  * @param labels - The labels that are displayed on the slider. The labels and icons props should be mutually exclusive.
  * @param icons - The icons that are displayed on the slider. The labels and icons props should be mutually exclusive.
@@ -65,6 +74,8 @@ const defaultProps = {
  * @returns Slider component.
  */
 export function Slider({
+  id,
+  data,
   value,
   labels,
   handleChange,
@@ -84,6 +95,9 @@ export function Slider({
 
   return (
     <RadixSlider.Root
+      id={id}
+      data-cy={data?.cy}
+      data-test={data?.test}
       className={twMerge(
         'relative flex items-center w-full h-24 select-none',
         className?.root

@@ -5,6 +5,10 @@ import Label from './Label'
 
 export interface TextareaFieldProps {
   id?: string
+  data?: {
+    cy?: string
+    test?: string
+  }
   label?: string
   placeholder?: string
   tooltip?: string
@@ -36,6 +40,7 @@ export interface TextareaFieldWithOnChangeProps extends TextareaFieldProps {
 
 const defaultProps = {
   id: undefined,
+  data: undefined,
   label: undefined,
   placeholder: undefined,
   tooltip: undefined,
@@ -50,6 +55,7 @@ const defaultProps = {
  * State can be managed either through Formik or internally by passing a value and onChange function.
  *
  * @param id - The id of the field.
+ * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param name - The name of the field as used to keep track of the state in Formik. If no value and onChange function are provided, this field is required.
  * @param label - The optional label is shown next to the field in the form.
  * @param tooltip - The optional tooltip is shown on hover next to the label.
@@ -63,10 +69,11 @@ const defaultProps = {
  * @returns Textarea component with Formik state management.
  */
 export function FormikTextareaField({
+  id,
+  data,
   name,
   value,
   onChange,
-  id,
   label,
   placeholder,
   tooltip,
@@ -100,6 +107,8 @@ export function FormikTextareaField({
           <textarea
             {...field}
             id={id}
+            data-cy={data?.cy}
+            data-test={data?.test}
             name={name}
             placeholder={placeholder}
             maxLength={maxLength}
@@ -115,6 +124,8 @@ export function FormikTextareaField({
           <textarea
             {...field}
             id={id}
+            data-cy={data?.cy}
+            data-test={data?.test}
             value={value}
             onChange={(e) => onChange(e.target.value)}
             placeholder={placeholder}

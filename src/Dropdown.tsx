@@ -5,12 +5,22 @@ import { twMerge } from 'tailwind-merge'
 import { ThemeContext } from './ThemeProvider'
 
 interface Item {
+  id?: string
+  data?: {
+    cy?: string
+    test?: string
+  }
   label: string | React.ReactNode
   onClick: () => void
   shorting?: string
   selected?: boolean
 }
 interface DropdownProps {
+  id?: string
+  data?: {
+    cy?: string
+    test?: string
+  }
   trigger: string | React.ReactNode
   items?: Item[]
   groups?: Item[][]
@@ -34,6 +44,8 @@ export interface DropdownWithGroupsProps extends DropdownProps {
 }
 
 const defaultProps = {
+  id: undefined,
+  data: undefined,
   items: undefined,
   groups: undefined,
   className: undefined,
@@ -43,6 +55,8 @@ const defaultProps = {
 /**
  * This function returns a pre-styled Dropdown component based on the RadixUI dropdown component and the custom theme.
  *
+ * @param id - The id of the dropdown.
+ * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param trigger - The content of the trigger button or a custom trigger component to replace the default button.
  * @param items - The items that are displayed in the dropdown menu. This attribute should not be set, if groups are used.
  * @param groups - The groups of items that are displayed in the dropdown menu. This attribute should not be set, if items are used.
@@ -51,6 +65,8 @@ const defaultProps = {
  * @returns Dropdown component
  */
 export function Dropdown({
+  id,
+  data,
   trigger,
   items,
   groups,
@@ -60,12 +76,19 @@ export function Dropdown({
   const theme = useContext(ThemeContext)
 
   const DropdownItem = ({
+    id,
+    data,
     label,
     onClick,
     shorting,
     selected,
     className,
   }: {
+    id?: string
+    data?: {
+      cy?: string
+      test?: string
+    }
     label: string | React.ReactNode
     onClick: () => void
     shorting?: string
@@ -75,6 +98,9 @@ export function Dropdown({
     if (typeof label === 'string') {
       return (
         <RadixDropdown.Item
+          id={id}
+          data-cy={data?.cy}
+          data-test={data?.test}
           className={twMerge(
             `hover:${theme.primaryBgMedium} hover:!text-white px-2 py-0.5 hover:cursor-pointer rounded flex flex-row`,
             className
@@ -90,6 +116,9 @@ export function Dropdown({
     }
     return (
       <RadixDropdown.Item
+        id={id}
+        data-cy={data?.cy}
+        data-test={data?.test}
         onClick={onClick}
         className={twMerge('rounded-md', className)}
       >
@@ -102,6 +131,9 @@ export function Dropdown({
     <RadixDropdown.Root>
       {typeof trigger === 'string' ? (
         <RadixDropdown.Trigger
+          id={id}
+          data-cy={data?.cy}
+          data-test={data?.test}
           className={twMerge(
             'px-2 py-1 border border-solid border-uzh-grey-60 rounded-md',
             `hover:${theme.primaryBg}`,
@@ -115,6 +147,9 @@ export function Dropdown({
         </RadixDropdown.Trigger>
       ) : (
         <RadixDropdown.Trigger
+          id={id}
+          data-cy={data?.cy}
+          data-test={data?.test}
           disabled={disabled}
           className={twMerge(
             disabled && 'cursor-not-allowed text-gray-500 hover:bg-white',

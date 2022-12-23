@@ -10,6 +10,11 @@ import { twMerge } from 'tailwind-merge'
 import Button from './Button'
 
 export interface ModalProps {
+  id?: string
+  data?: {
+    cy?: string
+    test?: string
+  }
   className?: {
     overlay?: string
     content?: string
@@ -32,16 +37,26 @@ export interface ModalProps {
 }
 
 const defaultProps = {
-  className: '',
+  id: undefined,
+  data: undefined,
+  className: undefined,
   fullScreen: false,
   title: '',
+  trigger: undefined,
   escapeDisabled: false,
   hideCloseButton: false,
+  onNext: undefined,
+  onOpenChange: undefined,
+  onPrev: undefined,
+  onPrimaryAction: undefined,
+  onSecondaryAction: undefined,
 }
 
 /**
  * This function returns a pre-styled modal component based on the RadixUI dialog component and the custom theme.
  *
+ * @param id - The id of the modal.
+ * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param trigger - The optional trigger that opens the modal, if the state is not managed by some parent component already.
  * @param title - The optional title of the modal.
  * @param children - The content of the modal.
@@ -59,6 +74,8 @@ const defaultProps = {
  * @returns Modal component
  */
 export function Modal({
+  id,
+  data,
   trigger,
   title,
   children,
@@ -91,7 +108,16 @@ export function Modal({
 
   return (
     <RadixDialog.Root open={open} onOpenChange={onOpenChange}>
-      {trigger && <RadixDialog.Trigger asChild>{trigger}</RadixDialog.Trigger>}
+      {trigger && (
+        <RadixDialog.Trigger
+          id={id}
+          data-cy={data?.cy}
+          data-test={data?.test}
+          asChild
+        >
+          {trigger}
+        </RadixDialog.Trigger>
+      )}
 
       <RadixDialog.Portal>
         <RadixDialog.Overlay

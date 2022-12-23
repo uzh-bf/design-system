@@ -5,6 +5,11 @@ import React from 'react'
 import { twMerge } from 'tailwind-merge'
 
 export interface CollapsibleProps {
+  id?: string
+  data?: {
+    cy?: string
+    test?: string
+  }
   open: boolean
   onChange: () => void
   staticContent: React.ReactNode | string // static content that is only
@@ -20,10 +25,20 @@ export interface CollapsibleProps {
   children: React.ReactNode
 }
 
+const defaultProps = {
+  id: undefined,
+  data_cy: undefined,
+  closedContent: undefined,
+  customTrigger: undefined,
+  className: undefined,
+}
+
 /**
  * This function returns a pre-styled collapsible component based on the RadixUI collapsible component and the implemented theme.
  * State need to be managed by the parent component.
  *
+ * @param id - The id of the collapsible.
+ * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param open - Indicate whether the collapsible is open or not.
  * @param onChange - Function that is called when the collapsible is toggled.
  * @param staticContent - The static content that is always shown.
@@ -34,6 +49,8 @@ export interface CollapsibleProps {
  * @returns Collapsible component
  */
 export function Collapsible({
+  id,
+  data,
   open,
   onChange,
   staticContent,
@@ -59,6 +76,9 @@ export function Collapsible({
         </RadixCollapsible.Content>
         <RadixCollapsible.Trigger
           className={twMerge('w-full text-center', className?.trigger)}
+          id={id}
+          data-cy={data?.cy}
+          data-test={data?.test}
         >
           {customTrigger ?? (
             <FontAwesomeIcon
@@ -72,4 +92,5 @@ export function Collapsible({
   )
 }
 
+Collapsible.defaultProps = defaultProps
 export default Collapsible

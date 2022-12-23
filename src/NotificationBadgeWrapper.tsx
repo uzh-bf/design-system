@@ -2,6 +2,11 @@ import React from 'react'
 import { twMerge } from 'tailwind-merge'
 
 interface NotificationBadgeWrapperProps {
+  id?: string
+  data?: {
+    cy?: string
+    test?: string
+  }
   count?: number
   size?: 'sm' | 'md' | 'lg' | 'xl'
   className?: {
@@ -12,8 +17,9 @@ interface NotificationBadgeWrapperProps {
 }
 
 const defaultProps = {
+  id: undefined,
+  data: undefined,
   count: undefined,
-  withoutCount: undefined,
   size: 'md',
   className: undefined,
 }
@@ -21,6 +27,8 @@ const defaultProps = {
 /**
  * This function returns a pre-styled wrapper for some custom component with navigation badge on it.
  *
+ * @param id - The id of the notification badge wrapper.
+ * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param count - The number of notifications to be displayed on the badge. If no count is provided, the badge will be displayed as a simple red notification dot.
  * @param size - The size of the badge (can be small, medium, large or extra large).
  * @param className - The optional className object allows you to override the default styling.
@@ -28,6 +36,8 @@ const defaultProps = {
  * @returns Notification badge wrapper component
  */
 export function NotificationBadgeWrapper({
+  id,
+  data,
   count,
   size,
   className,
@@ -41,7 +51,12 @@ export function NotificationBadgeWrapper({
   }
 
   return (
-    <div className={twMerge('relative', className?.root)}>
+    <div
+      className={twMerge('relative', className?.root)}
+      id={id}
+      data-cy={data?.cy}
+      data-test={data?.test}
+    >
       <div className={twMerge('flex flex-1')}>{children}</div>
       <div
         className={twMerge(

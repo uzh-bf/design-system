@@ -10,6 +10,11 @@ import * as RadixProgress from '@radix-ui/react-progress'
 import { ThemeContext } from './ThemeProvider'
 
 export interface ProgressProps {
+  id?: string
+  data?: {
+    cy?: string
+    test?: string
+  }
   value: number
   max: number
   formatter: (value: any) => any
@@ -25,15 +30,20 @@ export interface ProgressProps {
 }
 
 const defaultProps = {
+  id: undefined,
+  data: undefined,
   isMaxVisible: true,
+  nonLinear: false,
   displayOffset: undefined,
-  formatter: (value: any) => value,
+  onItemClick: undefined,
   className: undefined,
 }
 
 /**
  * This function returns a pre-styled Progress component based on the RadixUI progress component and the custom theme.
  *
+ * @param id - The id of the progress bar.
+ * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param value - The value of the progress bar. The value should be between 0 and an optionally provided max value.
  * @param max - The maximum value of the progress bar.
  * @param formatter - The function that formats the value of the progress bar.
@@ -45,6 +55,8 @@ const defaultProps = {
  * @return Progress component
  */
 export function Progress({
+  id,
+  data,
   formatter,
   value,
   max,
@@ -59,6 +71,9 @@ export function Progress({
 
   return (
     <RadixProgress.Root
+      id={id}
+      data-cy={data?.cy}
+      data-test={data?.test}
       className={twMerge('relative h-7 text-sm rounded', className?.root)}
       value={value}
       max={max}

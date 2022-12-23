@@ -4,6 +4,11 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 export interface TableProps {
+  id?: string
+  dataAttributes?: {
+    cy?: string
+    test?: string
+  }
   columns: {
     label: string
     accessor: string
@@ -20,17 +25,33 @@ export interface TableProps {
   }
 }
 
+const defaultProps = {
+  id: undefined,
+  dataAttributes: undefined,
+  caption: undefined,
+  className: undefined,
+}
+
 /**
  * This function returns a pre-styled Table component based on the RadixUI table component and the custom theme.
  * The table is sortable by clicking on the column header.
  *
+ * @param id - The id of the table.
+ * @param dataAttributes - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param columns - The columns of the table. The columns are defined by an array of objects where each object has a label, an accessor and an optional transformer.
  * @param data - The data of the table. The data is defined by an array of objects where each object has a key-value pair for each column.
  * @param caption - The optional caption of the table.
  * @param className - The optional className object allows you to override the default styling.
  * @returns Table component
  */
-export function Table({ className, columns, data, caption }: TableProps) {
+export function Table({
+  id,
+  dataAttributes,
+  className,
+  columns,
+  data,
+  caption,
+}: TableProps) {
   const [tableData, setTableData] = useState(data)
   const [sortField, setSortField] = useState('')
   const [order, setOrder] = useState('asc')
@@ -94,7 +115,12 @@ export function Table({ className, columns, data, caption }: TableProps) {
   }
 
   return (
-    <div className={twMerge('table w-full', className?.root)}>
+    <div
+      className={twMerge('table w-full', className?.root)}
+      id={id}
+      data-cy={dataAttributes?.cy}
+      data-test={dataAttributes?.test}
+    >
       <table className="w-full table-auto">
         <caption className="text-sm italic">{caption}</caption>
         <thead>
@@ -139,4 +165,5 @@ export function Table({ className, columns, data, caption }: TableProps) {
   )
 }
 
+Table.defaultProps = defaultProps
 export default Table
