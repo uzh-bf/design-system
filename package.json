@@ -85,8 +85,8 @@
     "@fortawesome/fontawesome-svg-core": "^6.2.0",
     "@fortawesome/free-solid-svg-icons": "^6.2.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
-    "formik": "2.2.9",
-    "tailwind-merge": "1.8.0"
+    "formik": "^2.2.9",
+    "tailwind-merge": "^1.8.0"
   },
   "dependencies": {
     "@radix-ui/react-checkbox": "1.0.1",
