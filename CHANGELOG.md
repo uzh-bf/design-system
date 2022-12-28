@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.12](https://github.com/uzh-bf/design-system/compare/v0.1.11...v0.1.12) (2022-12-28)
+
+
+### Bug Fixes
+
+* relax peer dependencies ([936bf47](https://github.com/uzh-bf/design-system/commit/936bf47237ef1422d0e32013f82d90d07d4c2d49))
+
 ### [0.1.11](https://github.com/uzh-bf/design-system/compare/v0.1.10...v0.1.11) (2022-12-23)
 
 
