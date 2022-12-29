@@ -5,6 +5,21 @@ export const Default = () => {
   return <Label label="Labels cannot be selected with double click" />
 }
 
+export const Required = () => {
+  return <Label label="Required label" required />
+}
+
+export const RequiredTooltip = () => {
+  return (
+    <Label
+      label="Required label"
+      tooltip="Tooltip of a required label with required symbol"
+      showTooltipSymbol
+      required
+    />
+  )
+}
+
 export const Styled = () => {
   return (
     <Label

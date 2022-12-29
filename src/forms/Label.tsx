@@ -79,7 +79,7 @@ export function Label({
             data-cy={data?.cy}
             data-test={data?.test}
             htmlFor={forId}
-            className={twMerge(className?.root, 'cursor-default')}
+            className={twMerge('cursor-default', className?.root)}
           >
             {label}
           </RadixLabel.Root>
@@ -90,7 +90,7 @@ export function Label({
   } else if (tooltip && showTooltipSymbol) {
     return (
       <div
-        className={twMerge(className?.root, 'w-max flex flex-row items-center')}
+        className={twMerge('w-max flex flex-row items-center', className?.root)}
       >
         <RadixLabel.Root
           id={id}
@@ -126,18 +126,19 @@ export function Label({
     )
   } else {
     return (
-      <div className="flex flex-row">
-        <RadixLabel.Root
-          id={id}
-          data-cy={data?.cy}
-          data-test={data?.test}
-          htmlFor={forId}
-          className={twMerge(className?.root, 'cursor-default')}
-        >
-          {label}
-        </RadixLabel.Root>
+      <RadixLabel.Root
+        id={id}
+        data-cy={data?.cy}
+        data-test={data?.test}
+        htmlFor={forId}
+        className={twMerge(
+          'flex flex-row cursor-default items-center',
+          className?.root
+        )}
+      >
+        {label}
         {required && <div className="mr-2 ml-0.5 mb-1 text-red-600">*</div>}
-      </div>
+      </RadixLabel.Root>
     )
   }
 }
