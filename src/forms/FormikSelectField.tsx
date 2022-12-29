@@ -17,6 +17,7 @@ export interface SelectFieldProps {
   required?: boolean
   items: Item[]
   disabled?: boolean
+  hideError?: boolean
   className?: {
     root?: string
     label?: string
@@ -33,6 +34,7 @@ const defaultProps = {
   tooltip: undefined,
   required: false,
   disabled: false,
+  hideError: false,
   className: undefined,
 }
 
@@ -46,6 +48,7 @@ const defaultProps = {
  * @param label - The optional label is shown next to the field in the form.
  * @param placeholder - The optional placeholder is shown when no value is selected / initialization with 'undefined' is chosen.
  * @param disabled - The optional disabled prop disables the select component.
+ * @param hideError - Hide the error message below this component as is might be more appropriate to show it somewhere else.
  * @param tooltip - The optional tooltip is shown on hover next to the label.
  * @param items - The array of items that should be available on the select component.
  * @param required - Indicate whether the field is required or not.
@@ -62,6 +65,7 @@ export function FormikSelectField({
   required,
   items,
   disabled,
+  hideError,
   className,
   ...props
 }: SelectFieldProps) {
@@ -99,7 +103,7 @@ export function FormikSelectField({
           {...props}
         />
       </div>
-      {meta.touched && meta.error ? (
+      {!hideError && meta.touched && meta.error && (
         <div
           className={twMerge(
             'w-full text-sm text-right text-red-400',
@@ -108,7 +112,7 @@ export function FormikSelectField({
         >
           {meta.error}
         </div>
-      ) : null}
+      )}
     </div>
   )
 }

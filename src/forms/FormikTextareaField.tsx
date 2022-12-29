@@ -15,6 +15,7 @@ export interface TextareaFieldProps {
   required?: boolean
   maxLength?: number
   maxLengthLabel?: string
+  hideError?: boolean
   className?: {
     root?: string
     field?: string
@@ -47,6 +48,7 @@ const defaultProps = {
   required: false,
   maxLength: undefined,
   maxLengthLabel: undefined,
+  hideError: false,
   className: undefined,
 }
 
@@ -65,6 +67,7 @@ const defaultProps = {
  * @param onChange - The onChange function is called when the value of the field changes. This is used to manage the state internally. If no name is provided, this field is required.
  * @param maxLength - The optional maxLength is used to limit the number of characters that can be entered in the field.
  * @param maxLengthLabel - This optional label allows to specify a custom label for the maxLength indicator (e.g. "characters left" supporting internationalization).
+ * @param hideError - Hide the error message below this component as is might be more appropriate to show it somewhere else.
  * @param className - The optional className object allows you to override the default styling.
  * @returns Textarea component with Formik state management.
  */
@@ -80,6 +83,7 @@ export function FormikTextareaField({
   required,
   maxLength,
   maxLengthLabel,
+  hideError,
   className,
   ...props
 }: TextareaFieldWithNameProps | TextareaFieldWithOnChangeProps) {
@@ -139,7 +143,7 @@ export function FormikTextareaField({
           />
         )}
       </div>
-      {meta.touched && meta.error ? (
+      {!hideError && meta.touched && meta.error && (
         <div
           className={twMerge(
             'w-full text-sm text-right text-red-400',
@@ -148,7 +152,7 @@ export function FormikTextareaField({
         >
           {meta.error}
         </div>
-      ) : null}
+      )}
       {maxLength && (
         <div className="text-sm italic text-right">
           {`${

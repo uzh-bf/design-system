@@ -13,6 +13,7 @@ export interface TextFieldProps {
   placeholder?: string
   tooltip?: string
   required?: boolean
+  hideError?: boolean
   className?: {
     root?: string
     field?: string
@@ -43,6 +44,7 @@ const defaultProps = {
   placeholder: undefined,
   tooltip: undefined,
   required: false,
+  hideError: false,
   className: undefined,
 }
 
@@ -59,6 +61,7 @@ const defaultProps = {
  * @param placeholder - The optional placeholder is shown when the field is empty.
  * @param tooltip - The optional tooltip is shown on hover next to the label.
  * @param required - Indicate whether the field is required or not.
+ * @param hideError - Hide the error message below this component as is might be more appropriate to show it somewhere else.
  * @param className - The optional className object allows you to override the default styling.
  * @returns Text field component with Formik state management.
  */
@@ -72,6 +75,7 @@ export function FormikTextField({
   placeholder,
   tooltip,
   required,
+  hideError,
   className,
   ...props
 }: TextFieldWithNameProps | TextFieldWithOnChangeProps) {
@@ -131,7 +135,7 @@ export function FormikTextField({
           />
         )}
       </div>
-      {meta.touched && meta.error ? (
+      {!hideError && meta.touched && meta.error && (
         <div
           className={twMerge(
             'w-full text-sm text-right text-red-400',
@@ -140,7 +144,7 @@ export function FormikTextField({
         >
           {meta.error}
         </div>
-      ) : null}
+      )}
     </div>
   )
 }

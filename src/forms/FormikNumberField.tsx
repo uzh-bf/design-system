@@ -149,7 +149,7 @@ export function FormikNumberField({
           />
         )}
       </div>
-      {!hideError && meta.touched && meta.error ? (
+      {!hideError && meta.touched && meta.error && (
         <div
           className={twMerge(
             'w-full text-sm text-right text-red-400',
@@ -158,7 +158,7 @@ export function FormikNumberField({
         >
           {meta.error}
         </div>
-      ) : null}
+      )}
     </div>
   )
 }
