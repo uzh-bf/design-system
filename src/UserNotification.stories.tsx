@@ -3,10 +3,7 @@ import UserNotification from './UserNotification'
 
 export const Default = () => {
   return (
-    <UserNotification
-      message="This is the default notif style when the provided notificationType is not 'success', 'error', or 'info'"
-      notificationType="default"
-    />
+    <UserNotification message="This is the default notif style when the provided notificationType is not 'success', 'error', or 'info'" />
   )
 }
 

@@ -14,7 +14,7 @@ export interface UserNotificationProps {
     test?: string
   }
   message: string
-  notificationType: string
+  notificationType?: string
   children?: React.ReactNode
   className?: {
     root?: string
@@ -25,6 +25,7 @@ export interface UserNotificationProps {
 }
 
 const defaultProps = {
+  notificationType: 'default',
   id: undefined,
   data: undefined,
   children: undefined,
