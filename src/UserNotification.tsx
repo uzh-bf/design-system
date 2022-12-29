@@ -77,27 +77,19 @@ export function UserNotification({
       data-cy={data?.cy}
       data-test={data?.test}
       className={twMerge(
-        'p-2 mt-6 mb-4 text-sm rounded-md',
+        'flex flex-row gap-2 p-2 text-sm rounded-md',
         className?.root,
         computedClassName!
       )}
     >
-      <div className="flex flex-row">
-        <span>
-          <FontAwesomeIcon
-            icon={notifIcon!}
-            className={twMerge('mr-2', className?.icon)}
-          />
-        </span>
+      <span>
+        <FontAwesomeIcon icon={notifIcon!} className={className?.icon} />
+      </span>
+      <div>
         <span className={className?.message}>{message}</span>
-      </div>
-      <div
-        className={twMerge(
-          'flex items-center justify-center mt-2',
-          className?.content
+        {children && (
+          <div className={twMerge('mt-2', className?.content)}>{children}</div>
         )}
-      >
-        {children}
       </div>
     </div>
   )
