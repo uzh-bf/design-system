@@ -16,6 +16,7 @@ export interface TextareaFieldProps {
   maxLength?: number
   maxLengthLabel?: string
   hideError?: boolean
+  disabled?: boolean
   className?: {
     root?: string
     field?: string
@@ -49,6 +50,7 @@ const defaultProps = {
   maxLength: undefined,
   maxLengthLabel: undefined,
   hideError: false,
+  disabled: false,
   className: undefined,
 }
 
@@ -68,6 +70,7 @@ const defaultProps = {
  * @param maxLength - The optional maxLength is used to limit the number of characters that can be entered in the field.
  * @param maxLengthLabel - This optional label allows to specify a custom label for the maxLength indicator (e.g. "characters left" supporting internationalization).
  * @param hideError - Hide the error message below this component as is might be more appropriate to show it somewhere else.
+ * @param disabled - Disable the field.
  * @param className - The optional className object allows you to override the default styling.
  * @returns Textarea component with Formik state management.
  */
@@ -84,6 +87,7 @@ export function FormikTextareaField({
   maxLength,
   maxLengthLabel,
   hideError,
+  disabled,
   className,
   ...props
 }: TextareaFieldWithNameProps | TextareaFieldWithOnChangeProps) {
@@ -116,8 +120,10 @@ export function FormikTextareaField({
             name={name}
             placeholder={placeholder}
             maxLength={maxLength}
+            disabled={disabled}
             className={twMerge(
               'w-full rounded bg-uzh-grey-20 border border-uzh-grey-60 focus:border-uzh-blue-50 min-h-12',
+              disabled && 'cursor-not-allowed',
               meta.error && meta.touched && 'border-red-400 bg-red-50',
               className?.input
             )}
@@ -134,8 +140,10 @@ export function FormikTextareaField({
             onChange={(e) => onChange(e.target.value)}
             placeholder={placeholder}
             maxLength={maxLength}
+            disabled={disabled}
             className={twMerge(
               'w-full rounded bg-uzh-grey-20 border border-uzh-grey-60 focus:border-uzh-blue-50 min-h-12',
+              disabled && 'cursor-not-allowed',
               meta.error && meta.touched && 'border-red-400 bg-red-50',
               className?.input
             )}

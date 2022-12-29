@@ -36,6 +36,40 @@ export const Default = () => (
   </div>
 )
 
+export const Disabled = () => (
+  <div>
+    <div>The default Formik field works with a "name" input</div>
+    <Formik
+      initialValues={{
+        name: '',
+      }}
+      isInitialValid={false}
+      onSubmit={async (values) => {
+        alert(`Form submitted with value: ${values.name}`)
+      }}
+    >
+      {({ values }) => {
+        return (
+          <div>
+            <Form>
+              <FormikTextField
+                disabled
+                name="name"
+                label="Label"
+                tooltip="Tooltip for a disabled text field"
+                className={{ root: 'mb-1' }}
+                placeholder="Placeholder (disabled field)"
+              />
+              <Button type="submit">Submit</Button>
+            </Form>
+            <div>Value: {values.name}</div>
+          </div>
+        )
+      }}
+    </Formik>
+  </div>
+)
+
 export const Required = () => (
   <div>
     <div>

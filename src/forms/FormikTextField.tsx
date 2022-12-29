@@ -14,6 +14,7 @@ export interface TextFieldProps {
   tooltip?: string
   required?: boolean
   hideError?: boolean
+  disabled?: boolean
   className?: {
     root?: string
     field?: string
@@ -45,6 +46,7 @@ const defaultProps = {
   tooltip: undefined,
   required: false,
   hideError: false,
+  disabled: false,
   className: undefined,
 }
 
@@ -62,6 +64,7 @@ const defaultProps = {
  * @param tooltip - The optional tooltip is shown on hover next to the label.
  * @param required - Indicate whether the field is required or not.
  * @param hideError - Hide the error message below this component as is might be more appropriate to show it somewhere else.
+ * @param disabled - Disable the field.
  * @param className - The optional className object allows you to override the default styling.
  * @returns Text field component with Formik state management.
  */
@@ -76,6 +79,7 @@ export function FormikTextField({
   tooltip,
   required,
   hideError,
+  disabled,
   className,
   ...props
 }: TextFieldWithNameProps | TextFieldWithOnChangeProps) {
@@ -108,8 +112,10 @@ export function FormikTextField({
             name={name}
             type="text"
             placeholder={placeholder}
+            disabled={disabled}
             className={twMerge(
               'w-full rounded bg-uzh-grey-20 border border-uzh-grey-60 focus:border-uzh-blue-50 h-9',
+              disabled && 'cursor-not-allowed',
               meta.error && meta.touched && 'border-red-400 bg-red-50',
               className?.input
             )}
@@ -126,8 +132,10 @@ export function FormikTextField({
             onChange={(e) => onChange(e.target.value)}
             type="text"
             placeholder={placeholder}
+            disabled={disabled}
             className={twMerge(
               'w-full rounded bg-uzh-grey-20 border border-uzh-grey-60 focus:border-uzh-blue-50 h-9',
+              disabled && 'cursor-not-allowed',
               meta.error && meta.touched && 'border-red-400 bg-red-50',
               className?.input
             )}

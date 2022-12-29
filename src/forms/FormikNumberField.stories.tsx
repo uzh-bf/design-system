@@ -36,6 +36,43 @@ export const Default = () => (
   </div>
 )
 
+export const Disabled = () => (
+  <div>
+    <div>
+      Number inputs can also be disabled with a corresponding prop, not allowing
+      the user to make changes to the field.
+    </div>
+    <Formik
+      initialValues={{
+        name: '',
+      }}
+      isInitialValid={false}
+      onSubmit={async (values) => {
+        alert(`Form submitted with value: ${values.name}`)
+      }}
+    >
+      {({ values }) => {
+        return (
+          <div>
+            <Form>
+              <FormikNumberField
+                disabled
+                name="name"
+                label="Label"
+                tooltip="Tooltip for disabled field"
+                className={{ root: 'mb-1' }}
+                placeholder="Placeholder (disabled field)"
+              />
+              <Button type="submit">Submit</Button>
+            </Form>
+            <div>Value: {values.name}</div>
+          </div>
+        )
+      }}
+    </Formik>
+  </div>
+)
+
 export const Decimals = () => (
   <div>
     <div>

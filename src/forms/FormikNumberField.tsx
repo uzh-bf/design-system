@@ -15,6 +15,7 @@ export interface NumberFieldProps {
   required?: boolean
   hideError?: boolean
   allowDecimals?: boolean
+  disabled?: boolean
   className?: {
     root?: string
     field?: string
@@ -47,6 +48,7 @@ const defaultProps = {
   required: false,
   hideError: false,
   allowDecimals: false,
+  disabled: false,
   className: undefined,
 }
 
@@ -65,6 +67,7 @@ const defaultProps = {
  * @param required - Indicate whether the field is required or not.
  * @param hideError - Hide the error message below this component as is might be more appropriate to show it somewhere else.
  * @param allowDecimals - Allow the user to enter decimal numbers instead of only integers
+ * @param disabled - Disables the field.
  * @param className - The optional className object allows you to override the default styling.
  * @returns Text field component with Formik state management.
  */
@@ -80,6 +83,7 @@ export function FormikNumberField({
   required,
   hideError,
   allowDecimals,
+  disabled,
   className,
   ...props
 }: NumberFieldWithNameProps | NumberFieldWithOnChangeProps) {
@@ -118,8 +122,10 @@ export function FormikNumberField({
                 : helpers.setValue(e.target.value.replace(/[^0-9]/g, ''))
             }
             placeholder={placeholder}
+            disabled={disabled}
             className={twMerge(
               'w-full rounded bg-uzh-grey-20 border border-uzh-grey-60 focus:border-uzh-blue-50 h-9',
+              disabled && 'cursor-not-allowed',
               meta.error && meta.touched && 'border-red-400 bg-red-50',
               className?.input
             )}
@@ -140,8 +146,10 @@ export function FormikNumberField({
                 : onChange(e.target.value.replace(/[^0-9]/g, ''))
             }
             placeholder={placeholder}
+            disabled={disabled}
             className={twMerge(
               'w-full rounded bg-uzh-grey-20 border border-uzh-grey-60 focus:border-uzh-blue-50 h-9',
+              disabled && 'cursor-not-allowed',
               meta.error && meta.touched && 'border-red-400 bg-red-50',
               className?.input
             )}
