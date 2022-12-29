@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.13](https://github.com/uzh-bf/design-system/compare/v0.1.12...v0.1.13) (2022-12-29)
+
+
+### Other
+
+* **UserNotification:** make notificationType prop actually optional as described ([699712d](https://github.com/uzh-bf/design-system/commit/699712de58125bd9f92d8ae8584e63146ea9e460))
+* **UserNotification:** rework styling of component and remove unnecessary paddings ([4704109](https://github.com/uzh-bf/design-system/commit/4704109f7530aa887574fa80c8070e4a4c7edb3d))
+
 ### [0.1.12](https://github.com/uzh-bf/design-system/compare/v0.1.11...v0.1.12) (2022-12-28)
 
 
