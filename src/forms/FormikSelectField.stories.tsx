@@ -9,8 +9,9 @@ export const Default = () => (
       initialValues={{
         name: undefined,
       }}
-      onSubmit={async (values) => {
+      onSubmit={async (values, { resetForm }) => {
         alert(`Form submitted with value: ${values.name}`)
+        resetForm()
       }}
     >
       {({ values }) => {
@@ -42,8 +43,9 @@ export const Required = () => (
       initialValues={{
         name: undefined,
       }}
-      onSubmit={async (values) => {
+      onSubmit={async (values, { resetForm }) => {
         alert(`Form submitted with value: ${values.name}`)
+        resetForm()
       }}
     >
       {({ values }) => {
@@ -77,8 +79,9 @@ export const DefaultValue = () => (
       initialValues={{
         name: 'world',
       }}
-      onSubmit={async (values) => {
+      onSubmit={async (values, { resetForm }) => {
         alert(`Form submitted with value: ${values.name}`)
+        resetForm()
       }}
     >
       {({ values }) => {
@@ -111,8 +114,9 @@ export const Disabled = () => (
       initialValues={{
         name: undefined,
       }}
-      onSubmit={async (values) => {
+      onSubmit={async (values, { resetForm }) => {
         alert(`Form submitted with value: ${values.name}`)
+        resetForm()
       }}
     >
       {({ values }) => {

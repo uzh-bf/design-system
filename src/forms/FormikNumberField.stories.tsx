@@ -11,8 +11,9 @@ export const Default = () => (
         name: '',
       }}
       isInitialValid={false}
-      onSubmit={async (values) => {
+      onSubmit={async (values, { resetForm }) => {
         alert(`Form submitted with value: ${values.name}`)
+        resetForm()
       }}
     >
       {({ values }) => {
@@ -47,8 +48,9 @@ export const Disabled = () => (
         name: '',
       }}
       isInitialValid={false}
-      onSubmit={async (values) => {
+      onSubmit={async (values, { resetForm }) => {
         alert(`Form submitted with value: ${values.name}`)
+        resetForm()
       }}
     >
       {({ values }) => {
@@ -84,8 +86,9 @@ export const Decimals = () => (
         name: undefined,
       }}
       isInitialValid={false}
-      onSubmit={async (values) => {
+      onSubmit={async (values, { resetForm }) => {
         alert(`Form submitted with value: ${parseFloat(values.name || '')}`)
+        resetForm()
       }}
     >
       {({ values }) => {
@@ -124,8 +127,9 @@ export const Required = () => (
         name: '',
       }}
       isInitialValid={false}
-      onSubmit={async (values) => {
+      onSubmit={async (values, { resetForm }) => {
         alert(`Form submitted with value: ${values.name}`)
+        resetForm()
       }}
     >
       {({ values }) => {
@@ -163,8 +167,9 @@ export const OnChangeFunction = () => (
         name: '',
       }}
       isInitialValid={false}
-      onSubmit={async (values) => {
+      onSubmit={async (values, { resetForm }) => {
         alert(`Form submitted with value: ${values.name}`)
+        resetForm()
       }}
     >
       {({ values, setFieldValue }) => {
@@ -199,8 +204,9 @@ export const Styled = () => (
         name: '',
       }}
       isInitialValid={false}
-      onSubmit={async (values) => {
+      onSubmit={async (values, { resetForm }) => {
         alert(`Form submitted with value: ${values.name}`)
+        resetForm()
       }}
     >
       {({ values }) => {
