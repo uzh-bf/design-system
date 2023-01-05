@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.16](https://github.com/uzh-bf/design-system/compare/v0.1.15...v0.1.16) (2023-01-05)
+
+
+### Enhancements
+
+* **Toast:** add toast styles for success, error and warning ([acfe4f1](https://github.com/uzh-bf/design-system/commit/acfe4f1019518432d5c664d342ad61b13b38f72c))
+
 ### [0.1.15](https://github.com/uzh-bf/design-system/compare/v0.1.14...v0.1.15) (2023-01-05)
 
 
