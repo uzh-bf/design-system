@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Button from './Button'
+import { H4 } from './Header'
 import Toast from './Toast'
 
 export const Default = () => {
@@ -68,6 +69,41 @@ export const Action = () => {
         actionOnClick={() => alert('Action clicked')}
       >
         Content
+      </Toast>
+    </div>
+  )
+}
+
+export const Success = () => {
+  return (
+    <div>
+      <div>Styled toast component with success type.</div>
+      <Toast triggerText="Trigger" duration={5000} type="success">
+        <H4>Title</H4>
+        <div>Content Success</div>
+      </Toast>
+    </div>
+  )
+}
+
+export const Warning = () => {
+  return (
+    <div>
+      <div>Styled toast component with warning type.</div>
+      <Toast triggerText="Trigger" duration={5000} type="warning">
+        Content of Tooltip
+      </Toast>
+    </div>
+  )
+}
+
+export const Error = () => {
+  return (
+    <div>
+      <div>Styled toast component with error type.</div>
+      <Toast triggerText="Trigger" duration={5000} type="error">
+        Content with a bit more text so that it will be split onto multiple
+        lines due to the maximum width specified for the tooltip
       </Toast>
     </div>
   )

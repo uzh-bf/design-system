@@ -1,3 +1,9 @@
+import {
+  faCheckCircle,
+  faCircleExclamation,
+  faTriangleExclamation,
+} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as RadixToast from '@radix-ui/react-toast'
 import * as React from 'react'
 import { useEffect, useRef, useState } from 'react'
@@ -14,6 +20,7 @@ interface ToastProps {
   position?: string
   openExternal?: boolean
   setOpenExternal?: (open: boolean) => void
+  type?: 'default' | 'success' | 'warning' | 'error'
   children?: React.ReactNode
   className?: {
     root?: string
@@ -67,6 +74,7 @@ export const defaultProps = {
   actionText: undefined,
   actionOnClick: undefined,
   position: 'topRight',
+  type: 'default',
   children: undefined,
   className: undefined,
 }
@@ -81,6 +89,7 @@ export function Toast({
   position,
   openExternal,
   setOpenExternal,
+  type,
   children,
   className,
 }:
@@ -123,40 +132,69 @@ export function Toast({
 
       <RadixToast.Root
         className={twMerge(
-          'grid items-center p-4 bg-white rounded-md shadow-md border-md gap-x-4',
+          'grid items-center p-3 bg-white rounded-md shadow-md border-md gap-x-4',
+          type === 'success' && 'border-2 border-solid border-green-500',
+          type === 'warning' && 'border-2 border-solid border-orange-500',
+          type === 'error' && 'border-2 border-solid border-red-500',
           className?.root
         )}
         open={openExternal || open}
         onOpenChange={setOpenExternal || setOpen}
         duration={duration || 4000}
       >
-        {!children && (
-          <>
-            <RadixToast.Title
-              className={twMerge('mb-2 font-bold', className?.title)}
-            >
-              {title}
-            </RadixToast.Title>
-            <RadixToast.Description
-              asChild
-              className={twMerge('m-0', className?.description)}
-            >
-              {description}
-            </RadixToast.Description>
-          </>
-        )}
-        <div className={className?.children}>{children}</div>
-        {actionText && actionOnClick && (
-          <RadixToast.Action asChild altText="Goto schedule to undo">
-            <Button
-              onClick={actionOnClick}
-              className={{ root: className?.action }}
-              basic
-            >
-              {actionText}
-            </Button>
-          </RadixToast.Action>
-        )}
+        <div className="flex flex-row items-center gap-4">
+          {type === 'success' && (
+            <FontAwesomeIcon
+              icon={faCheckCircle}
+              size="lg"
+              className="text-green-500"
+            />
+          )}
+          {type === 'warning' && (
+            <FontAwesomeIcon
+              icon={faTriangleExclamation}
+              size="lg"
+              className="text-orange-500"
+            />
+          )}
+          {type === 'error' && (
+            <FontAwesomeIcon
+              icon={faCircleExclamation}
+              size="lg"
+              className="text-red-500"
+            />
+          )}
+          <div>
+            {!children && (
+              <>
+                <RadixToast.Title
+                  className={twMerge('mb-2 font-bold', className?.title)}
+                >
+                  {title}
+                </RadixToast.Title>
+                <RadixToast.Description
+                  asChild
+                  className={twMerge('m-0', className?.description)}
+                >
+                  {description}
+                </RadixToast.Description>
+              </>
+            )}
+            <div className={className?.children}>{children}</div>
+
+            {actionText && actionOnClick && (
+              <RadixToast.Action asChild altText="Goto schedule to undo">
+                <Button
+                  onClick={actionOnClick}
+                  className={{ root: className?.action }}
+                  basic
+                >
+                  {actionText}
+                </Button>
+              </RadixToast.Action>
+            )}
+          </div>
+        </div>
       </RadixToast.Root>
       <RadixToast.Viewport
         className={twMerge(
