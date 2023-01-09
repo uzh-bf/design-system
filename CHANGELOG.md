@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.17](https://github.com/uzh-bf/design-system/compare/v0.1.16...v0.1.17) (2023-01-09)
+
+
+### Enhancements
+
+* **Toast:** add option to create dismissible toast ([4bf9867](https://github.com/uzh-bf/design-system/commit/4bf9867cddd8a0b831e23578d6dac0853ecf3736))
+
 ### [0.1.16](https://github.com/uzh-bf/design-system/compare/v0.1.15...v0.1.16) (2023-01-05)
 
 
