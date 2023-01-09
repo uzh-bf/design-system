@@ -2,6 +2,7 @@ import {
   faCheckCircle,
   faCircleExclamation,
   faTriangleExclamation,
+  faXmark,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as RadixToast from '@radix-ui/react-toast'
@@ -14,6 +15,7 @@ interface ToastProps {
   title?: string
   description?: string
   duration?: number
+  dismissible?: boolean
   triggerText?: string
   actionText?: string
   actionOnClick?: () => void
@@ -70,7 +72,8 @@ export interface ToastPropsWithChildrenNoTrigger
 export const defaultProps = {
   title: undefined,
   description: undefined,
-  duration: 4000,
+  duration: undefined,
+  dismissible: undefined,
   actionText: undefined,
   actionOnClick: undefined,
   position: 'topRight',
@@ -83,6 +86,7 @@ export function Toast({
   title,
   description,
   duration,
+  dismissible,
   triggerText,
   actionText,
   actionOnClick,
@@ -100,6 +104,7 @@ export function Toast({
   const [open, setOpen] = useState(false)
   const eventDateRef = useRef(new Date())
   const timerRef = useRef(0)
+  const defaultDuration = dismissible ? 60000 : 4000
 
   const positionDict: Record<string, string> = {
     topRight: 'top-0 right-0',
@@ -140,9 +145,26 @@ export function Toast({
         )}
         open={openExternal || open}
         onOpenChange={setOpenExternal || setOpen}
-        duration={duration || 4000}
+        duration={duration || defaultDuration}
       >
-        <div className="flex flex-row items-center gap-4">
+        {dismissible && (
+          <Button
+            className={{ root: 'fixed top-4 right-6' }}
+            basic
+            onClick={() =>
+              setOpenExternal ? setOpenExternal(false) : setOpen(false)
+            }
+          >
+            <Button.Icon>
+              <FontAwesomeIcon
+                icon={faXmark}
+                size="xl"
+                className="text-uzh-grey-100 hover:text-black"
+              />
+            </Button.Icon>
+          </Button>
+        )}
+        <div className="flex flex-row items-center gap-4 mr-4">
           {type === 'success' && (
             <FontAwesomeIcon
               icon={faCheckCircle}

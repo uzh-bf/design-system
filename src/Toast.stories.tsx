@@ -90,7 +90,7 @@ export const Warning = () => {
   return (
     <div>
       <div>Styled toast component with warning type.</div>
-      <Toast triggerText="Trigger" duration={5000} type="warning">
+      <Toast triggerText="Trigger" type="warning">
         Content of Tooltip
       </Toast>
     </div>
@@ -104,6 +104,29 @@ export const Error = () => {
       <Toast triggerText="Trigger" duration={5000} type="error">
         Content with a bit more text so that it will be split onto multiple
         lines due to the maximum width specified for the tooltip
+      </Toast>
+    </div>
+  )
+}
+
+export const Dismissible = () => {
+  return (
+    <div>
+      <div className="mb-2">
+        Toast components can have an "addimissible" prop set to true. This will
+        set the duration automatically to a minute, but offer an option to the
+        user to manually close the tooltip. Optionally, the duration of a minute
+        can also be overwritten using the duration prop.
+      </div>
+      <Toast
+        triggerText="Trigger - no overwritten duration"
+        className={{ trigger: 'mb-2' }}
+        dismissible
+      >
+        Toast Content
+      </Toast>
+      <Toast triggerText="Trigger - duration 5s" duration={5000} dismissible>
+        Toast Content
       </Toast>
     </div>
   )
