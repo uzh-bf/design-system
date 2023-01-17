@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.19](https://github.com/uzh-bf/design-system/compare/v0.1.18...v0.1.19) (2023-01-17)
+
+
+### Bug Fixes
+
+* **NotificationBadgeWrapper:** Fix typo in prop naming ([5d992f0](https://github.com/uzh-bf/design-system/commit/5d992f05497d2ac80df19db3ef17220b6158defb))
+
 ### [0.1.18](https://github.com/uzh-bf/design-system/compare/v0.1.17...v0.1.18) (2023-01-17)
 
 
