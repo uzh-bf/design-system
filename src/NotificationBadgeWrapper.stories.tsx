@@ -101,3 +101,27 @@ export const NoCount = () => {
     </div>
   )
 }
+
+export const NoBatch = () => {
+  return (
+    <div>
+      No batch will be displayed, whenever the count is undefined and showBadge
+      is not set to true.
+      <NotificationBadgeWrapper className={{ root: 'w-32' }}>
+        <div className="flex flex-col justify-center h-10 border border-solid rounded-md w-28 border-uzh-grey-80">
+          Content DIV
+        </div>
+      </NotificationBadgeWrapper>
+      <NotificationBadgeWrapper className={{ root: 'w-32' }} showBatch>
+        <div className="flex flex-col justify-center h-10 border border-solid rounded-md w-28 border-uzh-grey-80">
+          Content DIV
+        </div>
+      </NotificationBadgeWrapper>
+      <NotificationBadgeWrapper className={{ root: 'w-32' }} count={3}>
+        <div className="flex flex-col justify-center h-10 border border-solid rounded-md w-28 border-uzh-grey-80">
+          Content DIV
+        </div>
+      </NotificationBadgeWrapper>
+    </div>
+  )
+}

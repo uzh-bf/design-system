@@ -8,6 +8,7 @@ interface NotificationBadgeWrapperProps {
     test?: string
   }
   count?: number
+  showBatch?: boolean
   size?: 'sm' | 'md' | 'lg' | 'xl'
   className?: {
     root?: string
@@ -20,6 +21,7 @@ const defaultProps = {
   id: undefined,
   data: undefined,
   count: undefined,
+  showBatch: false,
   size: 'md',
   className: undefined,
 }
@@ -30,6 +32,7 @@ const defaultProps = {
  * @param id - The id of the notification badge wrapper.
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param count - The number of notifications to be displayed on the badge. If no count is provided, the badge will be displayed as a simple red notification dot.
+ * @param showBatch - If true, the badge will be displayed as a red dot, even if the number notifications is undefined.
  * @param size - The size of the badge (can be small, medium, large or extra large).
  * @param className - The optional className object allows you to override the default styling.
  * @param children - The component the notification badge should be placed on.
@@ -39,6 +42,7 @@ export function NotificationBadgeWrapper({
   id,
   data,
   count,
+  showBatch,
   size,
   className,
   children,
@@ -49,6 +53,8 @@ export function NotificationBadgeWrapper({
     lg: 'h-[1.6rem] w-[1.6rem] text-lg leading-6',
     xl: 'h-7 w-7 text-xl leading-7',
   }
+
+  if (!count && !showBatch) return <>{children}</>
 
   return (
     <div
