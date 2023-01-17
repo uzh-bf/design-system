@@ -112,7 +112,7 @@ export const NoBatch = () => {
           Content DIV
         </div>
       </NotificationBadgeWrapper>
-      <NotificationBadgeWrapper className={{ root: 'w-32' }} showBatch>
+      <NotificationBadgeWrapper className={{ root: 'w-32' }} showBadge>
         <div className="flex flex-col justify-center h-10 border border-solid rounded-md w-28 border-uzh-grey-80">
           Content DIV
         </div>
