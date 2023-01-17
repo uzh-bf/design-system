@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.18](https://github.com/uzh-bf/design-system/compare/v0.1.17...v0.1.18) (2023-01-17)
+
+
+### Bug Fixes
+
+* **NotificationBadgeWrapper:** hide badge on default with undefined props ([95d87be](https://github.com/uzh-bf/design-system/commit/95d87be3c11217cbcbe6a1e76650e41971da6dcf))
+
 ### [0.1.17](https://github.com/uzh-bf/design-system/compare/v0.1.16...v0.1.17) (2023-01-09)
 
 
