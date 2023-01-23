@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.20](https://github.com/uzh-bf/design-system/compare/v0.1.19...v0.1.20) (2023-01-23)
+
+
+### Features
+
+* **useArrowNavigation:** add hook for arrow key navigation handling ([#38](https://github.com/uzh-bf/design-system/issues/38)) ([9ce17b8](https://github.com/uzh-bf/design-system/commit/9ce17b8eadbfd09d80b612e4944fc8919ca4fe36))
+
 ### [0.1.19](https://github.com/uzh-bf/design-system/compare/v0.1.18...v0.1.19) (2023-01-17)
 
 
