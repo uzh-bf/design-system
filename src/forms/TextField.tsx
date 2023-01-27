@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
-import Label from './forms/Label'
+import Label from './Label'
 
 export interface TextFieldProps {
   id?: string
