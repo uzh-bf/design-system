@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.21](https://github.com/uzh-bf/design-system/compare/v0.1.20...v0.1.21) (2023-01-27)
+
+
+### Features
+
+* **TextField:** add text field component ([b5991e2](https://github.com/uzh-bf/design-system/commit/b5991e272297e12ff16592e52abcf33b0f44d690))
+
 ### [0.1.20](https://github.com/uzh-bf/design-system/compare/v0.1.19...v0.1.20) (2023-01-23)
 
 
