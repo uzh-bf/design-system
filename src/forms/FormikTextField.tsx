@@ -3,7 +3,7 @@ import React from 'react'
 import { twMerge } from 'tailwind-merge'
 import Label from './Label'
 
-export interface TextFieldProps {
+interface TextFieldProps {
   id?: string
   data?: {
     cy?: string

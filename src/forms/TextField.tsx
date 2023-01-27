@@ -25,26 +25,13 @@ export interface TextFieldProps {
     error?: string
   }
   icon?: any
-}
-
-// type structure ensures that either a name or a value and onChange function are passed
-export interface TextFieldWithNameProps extends TextFieldProps {
-  name: string
-  value?: never
-  onChange?: never
-  [key: string]: any
-}
-export interface TextFieldWithOnChangeProps extends TextFieldProps {
-  name?: never
   value: string
   onChange: (newValue: string) => void
-  [key: string]: any
 }
 
 export function TextField({
   id,
   data,
-  name,
   value,
   onChange,
   label,
@@ -58,7 +45,7 @@ export function TextField({
   className,
   icon,
   ...props
-}: TextFieldWithNameProps | TextFieldWithOnChangeProps) {
+}: TextFieldProps) {
   return (
     <div className={twMerge('flex flex-row w-full', className?.field)}>
       {label && (
@@ -74,65 +61,35 @@ export function TextField({
           showTooltipSymbol={typeof tooltip !== 'undefined'}
         />
       )}
-      {name && (
-        <div className="relative">
-          <input
-            id={id}
-            data-cy={data?.cy}
-            data-test={data?.test}
-            name={name}
-            type="text"
-            placeholder={placeholder}
-            disabled={disabled}
-            className={twMerge(
-              `w-full rounded bg-uzh-grey-20 border border-uzh-grey-60 focus:border-uzh-blue-50 h-9 ${
-                icon ? 'pl-8' : 'pl-2'
-              }`,
-              disabled && 'cursor-not-allowed',
-              hasError && isTouched && 'border-red-400 bg-red-50',
-              className?.input
-            )}
-            {...props}
-          />
-          {icon && (
-            <FontAwesomeIcon
-              className="absolute left-0 pl-1.5 inset-y-2"
-              icon={icon}
-              size="lg"
-            />
+
+      <div className="relative">
+        <input
+          id={id}
+          data-cy={data?.cy}
+          data-test={data?.test}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          type="text"
+          placeholder={placeholder}
+          disabled={disabled}
+          className={twMerge(
+            `w-full rounded border border-uzh-grey-60 focus:border-uzh-blue-50 h-9 text-slate-600 ${
+              icon ? 'pl-8' : 'pl-2'
+            }`,
+            disabled && 'cursor-not-allowed',
+            hasError && isTouched && 'border-red-400 bg-red-50',
+            className?.input
           )}
-        </div>
-      )}
-      {typeof value !== 'undefined' && onChange && (
-        <div className="relative">
-          <input
-            id={id}
-            data-cy={data?.cy}
-            data-test={data?.test}
-            value={value}
-            onChange={(e) => onChange(e.target.value)}
-            type="text"
-            placeholder={placeholder}
-            disabled={disabled}
-            className={twMerge(
-              `w-full rounded bg-uzh-grey-20 border border-uzh-grey-60 focus:border-uzh-blue-50 h-9 ${
-                icon ? 'pl-8' : 'pl-2'
-              }`,
-              disabled && 'cursor-not-allowed',
-              hasError && isTouched && 'border-red-400 bg-red-50',
-              className?.input
-            )}
-            {...props}
+          {...props}
+        />
+        {icon && (
+          <FontAwesomeIcon
+            className="absolute left-2 inset-y-2 text-slate-500"
+            icon={icon}
+            size="lg"
           />
-          {icon && (
-            <FontAwesomeIcon
-              className={`absolute pl-20 left-5 inset-y-20`}
-              icon={icon}
-              size="lg"
-            />
-          )}
-        </div>
-      )}
+        )}
+      </div>
     </div>
   )
 }
