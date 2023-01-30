@@ -1,3 +1,4 @@
+import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
@@ -24,7 +25,7 @@ export interface TextFieldProps {
     input?: string
     error?: string
   }
-  icon?: any
+  icon?: IconProp
   value: string
   onChange: (newValue: string) => void
 }
@@ -73,9 +74,8 @@ export function TextField({
           placeholder={placeholder}
           disabled={disabled}
           className={twMerge(
-            `w-full rounded border border-uzh-grey-60 focus:border-uzh-blue-50 h-9 text-slate-600 ${
-              icon ? 'pl-8' : 'pl-2'
-            }`,
+            'w-full rounded border border-uzh-grey-60 focus:border-uzh-blue-50 h-9 text-slate-600 pl-2',
+            icon && 'pl-8',
             disabled && 'cursor-not-allowed',
             hasError && isTouched && 'border-red-400 bg-red-50',
             className?.input
