@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.22](https://github.com/uzh-bf/design-system/compare/v0.1.20...v1.0.22) (2023-01-30)
+
+
+### Features
+
+* **TextField:** add text field component ([#39](https://github.com/uzh-bf/design-system/issues/39)) ([25e2d37](https://github.com/uzh-bf/design-system/commit/25e2d37166273a7d89af9ffbb5b72da230fd6fba))
+
+
+### Other
+
+* **TextField:** refactor styling to resolve tailwind issue ([491bf50](https://github.com/uzh-bf/design-system/commit/491bf50f61d5abb0bdaadc5a2f38425f61850643))
+
 ### [0.1.20](https://github.com/uzh-bf/design-system/compare/v0.1.19...v0.1.20) (2023-01-23)
 
 
