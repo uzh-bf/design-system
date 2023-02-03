@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.23](https://github.com/uzh-bf/design-system/compare/v1.0.22...v1.0.23) (2023-02-03)
+
+
+### Enhancements
+
+* **Button:** allow to create button without children ([920adb6](https://github.com/uzh-bf/design-system/commit/920adb6b9ad0f13a893a5806b6604d9f70b23da4))
+
 ### [1.0.22](https://github.com/uzh-bf/design-system/compare/v0.1.20...v1.0.22) (2023-01-30)
 
 

@@ -12,7 +12,7 @@ export interface ButtonProps {
   className?: {
     root?: string
   }
-  children: React.ReactNode
+  children?: React.ReactNode
   disabled?: boolean
   fluid?: boolean
   basic?: boolean
