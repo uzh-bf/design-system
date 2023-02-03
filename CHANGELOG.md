@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.24](https://github.com/uzh-bf/design-system/compare/v1.0.23...v1.0.24) (2023-02-03)
+
+
+### Bug Fixes
+
+* **Select:** solve automatic highlighting for select component ([#40](https://github.com/uzh-bf/design-system/issues/40)) ([1d09597](https://github.com/uzh-bf/design-system/commit/1d09597c4cf4772aa1b0c3e1c2e394b77b3a6b00))
+
 ### [1.0.23](https://github.com/uzh-bf/design-system/compare/v1.0.22...v1.0.23) (2023-02-03)
 
 
