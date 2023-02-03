@@ -45,3 +45,10 @@ export const BasicButton = () => (
     <Button.Label>Test-Text</Button.Label>
   </Button>
 )
+
+export const ColorButton = () => (
+  <Button
+    className={{ root: 'h-8 w-8 rounded-full bg-red-300 hover:bg-red-500' }}
+    onClick={() => alert('Red button was pressed!')}
+  />
+)
