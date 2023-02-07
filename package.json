@@ -102,6 +102,7 @@
     "@radix-ui/react-tabs": "1.0.1",
     "@radix-ui/react-toast": "1.1.2",
     "@radix-ui/react-tooltip": "1.0.2",
+    "dayjs": "1.11.7",
     "react-countdown-circle-timer": "3.1.0"
   }
 }
