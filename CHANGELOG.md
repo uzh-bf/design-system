@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/uzh-bf/design-system/compare/v1.0.24...v1.1.0) (2023-02-07)
+
+
+### Features
+
+* add formik switch field ([877b9b4](https://github.com/uzh-bf/design-system/commit/877b9b42df905d1236ee0a61e8b7d53145c91272))
+
+
+### Refactors
+
+* reuse existing switch component ([38d0b81](https://github.com/uzh-bf/design-system/commit/38d0b81dba66165648ec390f074ea86ed0798d11))
+
+
+### Other
+
+* remove not needed attributes ([09bea92](https://github.com/uzh-bf/design-system/commit/09bea926cea92d9b03dd8b9ac65f1d35a7d078c2))
+
 ### [1.0.24](https://github.com/uzh-bf/design-system/compare/v1.0.23...v1.0.24) (2023-02-03)
 
 
