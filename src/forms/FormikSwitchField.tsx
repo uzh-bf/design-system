@@ -11,8 +11,6 @@ export interface FormikSwitchFieldProps {
   }
   disabled?: boolean
   label?: string
-  fluid?: boolean
-  labelLeft?: boolean
   size?: 'sm' | 'md' | 'lg'
   className?: {
     root?: string
@@ -28,8 +26,6 @@ const defaultProps = {
   className: undefined,
   disabled: false,
   label: undefined,
-  labelLeft: false,
-  fluid: false,
   size: 'md',
 }
 
@@ -42,8 +38,6 @@ const defaultProps = {
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param label - The label that is displayed next to the switch.
  * @param disabled - Indicator whether the switch is disabled or not.
- * @param fluid - Indicator whether the switch should be fluid or not.
- * @param labelLeft - Indicator whether the label should be displayed on the left or right side of the switch.
  * @param size - The size of the switch. The size can be small, medium or large.
  * @param className - The optional className object allows you to override the default styling.
  * @returns Switch component with formik state management
@@ -54,8 +48,6 @@ export function FormikSwitchField({
   data,
   disabled,
   label,
-  fluid,
-  labelLeft,
   size,
   className,
 }: FormikSwitchFieldProps) {
@@ -68,8 +60,6 @@ export function FormikSwitchField({
       onCheckedChange={helpers.setValue}
       data={data}
       disabled={disabled}
-      fluid={fluid}
-      labelLeft={labelLeft}
       label={label}
       size={size}
       className={className}
