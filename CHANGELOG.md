@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.1](https://github.com/uzh-bf/design-system/compare/v1.1.0...v1.1.1) (2023-02-07)
+
+
+### Other
+
+* **FormikSwitchField:** add FormikSwitchField to index.ts ([#42](https://github.com/uzh-bf/design-system/issues/42)) ([157bf46](https://github.com/uzh-bf/design-system/commit/157bf468c67763acb07b15e0ff72187fed5915fa))
+
 ## [1.1.0](https://github.com/uzh-bf/design-system/compare/v1.0.24...v1.1.0) (2023-02-07)
 
 
