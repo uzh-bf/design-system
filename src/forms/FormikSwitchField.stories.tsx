@@ -1,5 +1,6 @@
 import { Form, Formik } from 'formik'
 import React from 'react'
+import Button from '../Button'
 import FormikSwitchField from './FormikSwitchField'
 
 export const Default = () => {
@@ -7,11 +8,11 @@ export const Default = () => {
     <div>
       <Formik
         initialValues={{
-          name: '',
+          switch: false,
         }}
         isInitialValid={false}
-        onSubmit={() => {
-          console.log('nothing to submit')
+        onSubmit={(values) => {
+          alert(`Switch value:  ${values.switch}`)
         }}
       >
         {() => {
@@ -19,6 +20,9 @@ export const Default = () => {
             <div>
               <Form>
                 <FormikSwitchField name="switch" label="unchecked" />
+                <Button className={{ root: 'mt-2' }} type="submit">
+                  Submit
+                </Button>
               </Form>
             </div>
           )
@@ -33,11 +37,11 @@ export const Disabled = () => {
     <div>
       <Formik
         initialValues={{
-          name: '',
+          switch: false,
         }}
         isInitialValid={false}
-        onSubmit={() => {
-          console.log('nothing to submit')
+        onSubmit={(values) => {
+          alert('Switch is disabled')
         }}
       >
         {() => {
@@ -45,6 +49,9 @@ export const Disabled = () => {
             <div>
               <Form>
                 <FormikSwitchField name="switch" label="disabled" disabled />
+                <Button className={{ root: 'mt-2' }} type="submit">
+                  Submit
+                </Button>
               </Form>
             </div>
           )
