@@ -15,18 +15,12 @@ export const Default = () => {
           alert(`Submitted end date: ${values.endDate}`)
         }}
       >
-        {() => {
-          return (
-            <div>
-              <Form>
-                <FormikDateField name="endDate" label="End Date" />
-                <Button className={{ root: 'mt-2' }} type="submit">
-                  Submit
-                </Button>
-              </Form>
-            </div>
-          )
-        }}
+        <Form>
+          <FormikDateField name="endDate" label="End Date" />
+          <Button className={{ root: 'mt-2' }} type="submit">
+            Submit
+          </Button>
+        </Form>
       </Formik>
     </div>
   )
@@ -44,18 +38,12 @@ export const Disabled = () => {
           alert("Date button is disabled. Can't submit")
         }}
       >
-        {() => {
-          return (
-            <div>
-              <Form>
-                <FormikDateField name="endDate" label="End Date" disabled />
-                <Button className={{ root: 'mt-2' }} type="submit">
-                  Submit
-                </Button>
-              </Form>
-            </div>
-          )
-        }}
+        <Form>
+          <FormikDateField name="endDate" label="End Date" disabled />
+          <Button className={{ root: 'mt-2' }} type="submit">
+            Submit
+          </Button>
+        </Form>
       </Formik>
     </div>
   )
@@ -73,18 +61,12 @@ export const Required = () => {
           alert(`Submitted end date: ${values.endDate}`)
         }}
       >
-        {() => {
-          return (
-            <div>
-              <Form>
-                <FormikDateField name="endDate" label="End Date" required />
-                <Button className={{ root: 'mt-2' }} type="submit">
-                  Submit
-                </Button>
-              </Form>
-            </div>
-          )
-        }}
+        <Form>
+          <FormikDateField name="endDate" label="End Date" required />
+          <Button className={{ root: 'mt-2' }} type="submit">
+            Submit
+          </Button>
+        </Form>
       </Formik>
     </div>
   )

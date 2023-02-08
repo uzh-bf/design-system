@@ -93,7 +93,6 @@ export function FormikDateField({
         )}
 
         <input
-          {...field}
           id={id}
           data-cy={data?.cy}
           data-test={data?.test}
