@@ -1,5 +1,3 @@
-import dayjs from 'dayjs'
-import utc from 'dayjs/plugin/utc'
 import { useField } from 'formik'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
@@ -70,7 +68,6 @@ export function FormikDateField({
   ...props
 }: DateFieldProps) {
   const [field, meta, helpers] = useField(name)
-  dayjs.extend(utc)
 
   return (
     <div className={twMerge('flex flex-col', className?.root)}>
@@ -97,26 +94,24 @@ export function FormikDateField({
           data-cy={data?.cy}
           data-test={data?.test}
           type="datetime-local"
-          value={(dayjs(field.value).local().format() || '')
-            .toString()
-            .substring(0, 16)}
+          value={field.value}
           onChange={(e) => {
             if (e.target['validity'].valid) {
-              helpers.setValue(dayjs(e.target['value']).utc().format())
+              helpers.setValue(e.target['value'])
             }
           }}
           placeholder={placeholder}
           disabled={disabled}
           className={twMerge(
             'w-full rounded bg-uzh-grey-20 border border-uzh-grey-60 focus:border-uzh-blue-50 h-9',
-            disabled && 'cursor-not-allowed',
+            disabled && 'cursor-not-allowed text-uzh-grey-100',
             meta.error && meta.touched && 'border-red-400 bg-red-50',
             className?.input
           )}
           {...props}
         />
       </div>
-      {!hideError && meta.touched && meta.error && (
+      {!hideError && meta.error && (
         <div
           className={twMerge(
             'w-full text-sm text-right text-red-400',
