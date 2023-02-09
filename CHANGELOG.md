@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.1](https://github.com/uzh-bf/design-system/compare/v1.2.0...v1.2.1) (2023-02-09)
+
+
+### Enhancements
+
+* **Navigation:** add style props to allow common CSS styling ([#44](https://github.com/uzh-bf/design-system/issues/44)) ([0d2eaae](https://github.com/uzh-bf/design-system/commit/0d2eaaea71d7a17d040b8d20b802506581d576a0))
+
 ## [1.2.0](https://github.com/uzh-bf/design-system/compare/v1.1.1...v1.2.0) (2023-02-08)
 
 
