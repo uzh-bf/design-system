@@ -15,6 +15,11 @@ export interface NavigationProps {
     indicator?: string
     viewport?: string
   }
+  style?: {
+    root?: React.CSSProperties
+    indicator?: React.CSSProperties
+    viewport?: React.CSSProperties
+  }
 }
 
 /**
@@ -24,9 +29,16 @@ export interface NavigationProps {
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param children - The content of the navigation. Children should be subcomponents of the Navigation component like TriggerItem / ButtonItem / CustomItem for the correct functionality.
  * @param className - The optional className object allows you to override the default styling.
+ * @param style - The optional style object allows you to override the default styling using CSS key-value styles.
  * @returns Navigation component
  */
-export function Navigation({ id, data, children, className }: NavigationProps) {
+export function Navigation({
+  id,
+  data,
+  children,
+  className,
+  style,
+}: NavigationProps) {
   const theme = useContext(ThemeContext)
 
   return (
@@ -38,6 +50,7 @@ export function Navigation({ id, data, children, className }: NavigationProps) {
       id={id}
       data-cy={data?.cy}
       data-test={data?.test}
+      style={style?.root}
     >
       <NavigationMenuPrimitive.List className="flex flex-row gap-1.5 p-2">
         {children}
@@ -48,6 +61,7 @@ export function Navigation({ id, data, children, className }: NavigationProps) {
               theme.primaryBg,
               className?.indicator
             )}
+            style={style?.indicator}
           />
         </NavigationMenuPrimitive.Indicator>
       </NavigationMenuPrimitive.List>
@@ -59,6 +73,7 @@ export function Navigation({ id, data, children, className }: NavigationProps) {
           theme.primaryBg,
           className?.viewport
         )}
+        style={style?.viewport}
       />
     </NavigationMenuPrimitive.Root>
   )
@@ -79,6 +94,13 @@ interface TriggerProps {
     icon?: string
     dropdown?: string
     disabled?: string
+  }
+  style?: {
+    root?: React.CSSProperties
+    label?: React.CSSProperties
+    icon?: React.CSSProperties
+    dropdown?: React.CSSProperties
+    disabled?: React.CSSProperties
   }
 }
 
@@ -102,6 +124,7 @@ export interface TriggerLabelProps extends TriggerProps {
  * @param disabled - Allows to disable the trigger item and apply some conditional styling.
  * @param children - The content of the dropdown menu.
  * @param className - The optional className object allows you to override the default styling.
+ * @param style - The optional style object allows you to override the default styling using CSS key-value styles.
  * @returns Trigger component for a dropdown menu in the navigation component.
  */
 Navigation.TriggerItem = function TriggerItem({
@@ -113,6 +136,7 @@ Navigation.TriggerItem = function TriggerItem({
   children,
   disabled,
   className,
+  style,
 }: TriggerIconProps | TriggerLabelProps) {
   const theme = useContext(ThemeContext)
   const computedClassName = twMerge(
@@ -132,12 +156,26 @@ Navigation.TriggerItem = function TriggerItem({
         data-test={data?.test}
         className={computedClassName}
         disabled={disabled}
+        style={disabled ? { ...style?.root, ...style?.disabled } : style?.root}
       >
-        {icon && !label && <div className={className?.icon}>{icon}</div>}
-        {icon && label && (
-          <div className={twMerge('w-3 mr-3', className?.icon)}>{icon}</div>
+        {icon && !label && (
+          <div className={className?.icon} style={style?.icon}>
+            {icon}
+          </div>
         )}
-        {label && <div className={className?.label}>{label}</div>}
+        {icon && label && (
+          <div
+            className={twMerge('w-3 mr-3', className?.icon)}
+            style={style?.icon}
+          >
+            {icon}
+          </div>
+        )}
+        {label && (
+          <div className={className?.label} style={style?.label}>
+            {label}
+          </div>
+        )}
       </NavigationMenuPrimitive.Trigger>
 
       <NavigationMenuPrimitive.Content
@@ -146,6 +184,7 @@ Navigation.TriggerItem = function TriggerItem({
           dropdownWidth,
           className?.dropdown
         )}
+        style={style?.dropdown}
       >
         {children}
       </NavigationMenuPrimitive.Content>
@@ -167,6 +206,12 @@ interface DropdownItemProps {
     title?: string
     icon?: string
     subtitle?: string
+  }
+  style?: {
+    root?: React.CSSProperties
+    title?: React.CSSProperties
+    icon?: React.CSSProperties
+    subtitle?: React.CSSProperties
   }
 }
 
@@ -192,6 +237,7 @@ export interface DropdownItemWithOnClickProps extends DropdownItemProps {
  * @param href The optional href of the dropdown item. This attribute is mutually exclusive with the onClick attribute.
  * @param onClick The optional onClick handler of the dropdown item. This attribute is mutually exclusive with the href attribute.
  * @param className The optional className object allows you to override the default styling.
+ * @param style The optional style object allows you to override the default styling using CSS key-value styles.
  * @returns Dropdown item component for a dropdown menu in the navigation component.
  */
 Navigation.DropdownItem = function DropdownItem({
@@ -203,6 +249,7 @@ Navigation.DropdownItem = function DropdownItem({
   subtitle,
   icon,
   className,
+  style,
 }: DropdownItemWithHrefProps | DropdownItemWithOnClickProps) {
   const theme = useContext(ThemeContext)
 
@@ -218,15 +265,22 @@ Navigation.DropdownItem = function DropdownItem({
         theme.primaryBgMediumHover,
         className?.root
       )}
+      style={style?.root}
     >
       <span
         className={twMerge(
           'text-sm font-medium flex flex-row',
           className?.title
         )}
+        style={style?.title}
       >
         {icon && (
-          <div className={twMerge('w-3 mr-3', className?.icon)}>{icon}</div>
+          <div
+            className={twMerge('w-3 mr-3', className?.icon)}
+            style={style?.icon}
+          >
+            {icon}
+          </div>
         )}
         <div>{title}</div>
       </span>
@@ -237,6 +291,7 @@ Navigation.DropdownItem = function DropdownItem({
             'mt-1 text-sm text-left font-normal',
             className?.subtitle
           )}
+          style={style?.subtitle}
         >
           {subtitle}
         </div>
@@ -259,6 +314,12 @@ interface ButtonItemProps {
     label?: string
     icon?: string
     disabled?: string
+  }
+  style?: {
+    root?: React.CSSProperties
+    label?: React.CSSProperties
+    icon?: React.CSSProperties
+    disabled?: React.CSSProperties
   }
 }
 
@@ -283,6 +344,7 @@ export interface ButtonItemWithOnClickProps extends ButtonItemProps {
  * @param href The optional href of the button item. This attribute is mutually exclusive with the onClick attribute.
  * @param onClick The optional onClick handler of the button item. This attribute is mutually exclusive with the href attribute.
  * @param className The optional className object allows you to override the default styling.
+ * @param style The optional style object allows you to override the default styling using CSS key-value styles.
  * @returns Button item component to be used in the navigation component.
  */
 Navigation.ButtonItem = function ButtonItem({
@@ -294,6 +356,7 @@ Navigation.ButtonItem = function ButtonItem({
   href,
   onClick,
   className,
+  style,
 }: ButtonItemWithHrefProps | ButtonItemWithOnClickProps) {
   const theme = useContext(ThemeContext)
   const computedClassName = twMerge(
@@ -313,12 +376,20 @@ Navigation.ButtonItem = function ButtonItem({
         href={!disabled ? href : undefined}
         onClick={!disabled ? onClick : undefined}
         className={computedClassName}
+        style={disabled ? { ...style?.root, ...style?.disabled } : style?.root}
       >
         <div className="flex flex-row">
           {icon && (
-            <div className={twMerge('w-3 mr-3', className?.icon)}>{icon}</div>
+            <div
+              className={twMerge('w-3 mr-3', className?.icon)}
+              style={style?.icon}
+            >
+              {icon}
+            </div>
           )}
-          <div className={className?.label}>{label}</div>
+          <div className={className?.label} style={style?.label}>
+            {label}
+          </div>
         </div>
       </NavigationMenuPrimitive.Link>
     </NavigationMenuPrimitive.Item>
@@ -335,8 +406,11 @@ interface IconItemProps {
   disabled?: boolean
   className?: {
     root?: string
-    icon?: string
     disabled?: string
+  }
+  style?: {
+    root?: React.CSSProperties
+    disabled?: React.CSSProperties
   }
 }
 
@@ -360,6 +434,7 @@ export interface IconItemWithOnClickProps extends IconItemProps {
  * @param href The optional href of the icon item. This attribute is mutually exclusive with the onClick attribute.
  * @param onClick The optional onClick handler of the icon item. This attribute is mutually exclusive with the href attribute.
  * @param className The optional className object allows you to override the default styling.
+ * @param style The optional style object allows you to override the default styling using CSS key-value styles.
  * @returns Icon item component for a dropdown menu in the navigation component.
  */
 Navigation.IconItem = function IconItem({
@@ -370,6 +445,7 @@ Navigation.IconItem = function IconItem({
   href,
   onClick,
   className,
+  style,
 }: IconItemWithHrefProps | IconItemWithOnClickProps) {
   const theme = useContext(ThemeContext)
   const computedClassName = twMerge(
@@ -389,6 +465,7 @@ Navigation.IconItem = function IconItem({
         href={!disabled ? href : undefined}
         onClick={!disabled ? onClick : undefined}
         className={computedClassName}
+        style={disabled ? { ...style?.root, ...style?.disabled } : style?.root}
       >
         {icon}
       </NavigationMenuPrimitive.Link>
@@ -406,6 +483,9 @@ type CustomItemProps = {
   className?: {
     root?: string
   }
+  style?: {
+    root?: React.CSSProperties
+  }
 }
 
 /**
@@ -415,6 +495,7 @@ type CustomItemProps = {
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param children The custom component that should be rendered as an item in the navigation component.
  * @param className The optional className object allows you to override the default styling of the wrapper.
+ * @param style The optional style object allows you to override the default styling of the wrapper using CSS key-value styles.
  * @returns Custom item component to be used in the navigation component.
  */
 Navigation.CustomItem = function CustomItem({
@@ -422,6 +503,7 @@ Navigation.CustomItem = function CustomItem({
   data,
   children,
   className,
+  style,
 }: CustomItemProps) {
   return (
     <NavigationMenuPrimitive.Item
@@ -430,6 +512,7 @@ Navigation.CustomItem = function CustomItem({
       id={id}
       data-cy={data?.cy}
       data-test={data?.test}
+      style={style?.root}
     >
       {children}
     </NavigationMenuPrimitive.Item>
