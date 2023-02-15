@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.2](https://github.com/uzh-bf/design-system/compare/v1.2.1...v1.2.2) (2023-02-15)
+
+
+### Bug Fixes
+
+* **Tooltip:** make the tooltip not reachable with tab ([7ab94ab](https://github.com/uzh-bf/design-system/commit/7ab94ab060eb83f8242a35052caed02fde60ac72))
+
 ### [1.2.1](https://github.com/uzh-bf/design-system/compare/v1.2.0...v1.2.1) (2023-02-09)
 
 
