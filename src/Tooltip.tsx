@@ -64,6 +64,7 @@ export function Tooltip({
     <RadixTooltip.Provider>
       <RadixTooltip.Root delayDuration={delay || 1000}>
         <RadixTooltip.Trigger
+          tabIndex={-1}
           id={id}
           data-cy={data?.cy}
           data-test={data?.test}
