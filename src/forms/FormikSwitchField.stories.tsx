@@ -60,3 +60,38 @@ export const Disabled = () => {
     </div>
   )
 }
+
+export const StandardLabel = () => {
+  return (
+    <div>
+      <Formik
+        initialValues={{
+          switch: false,
+        }}
+        isInitialValid={false}
+        onSubmit={(values) => {
+          alert(`Switch value:  ${values.switch}`)
+        }}
+      >
+        {() => {
+          return (
+            <div>
+              <Form>
+                <FormikSwitchField
+                  name="switch"
+                  label="unchecked"
+                  tooltip="Switch Field Tooltip"
+                  standardLabel
+                  required
+                />
+                <Button className={{ root: 'mt-2' }} type="submit">
+                  Submit
+                </Button>
+              </Form>
+            </div>
+          )
+        }}
+      </Formik>
+    </div>
+  )
+}

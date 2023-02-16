@@ -1,6 +1,8 @@
 import { useField } from 'formik'
 import React from 'react'
+import { twMerge } from 'tailwind-merge'
 import Switch from '../Switch'
+import Label from './Label'
 
 export interface FormikSwitchFieldProps {
   id?: string
@@ -12,6 +14,9 @@ export interface FormikSwitchFieldProps {
   disabled?: boolean
   label?: string
   size?: 'sm' | 'md' | 'lg'
+  standardLabel?: boolean
+  tooltip?: string
+  required?: boolean
   className?: {
     root?: string
     element?: string
@@ -27,6 +32,9 @@ const defaultProps = {
   disabled: false,
   label: undefined,
   size: 'md',
+  standardLabel: false,
+  tooltip: undefined,
+  required: false,
 }
 
 /**
@@ -39,6 +47,9 @@ const defaultProps = {
  * @param label - The label that is displayed next to the switch.
  * @param disabled - Indicator whether the switch is disabled or not.
  * @param size - The size of the switch. The size can be small, medium or large.
+ * @param standardLabel - Indicator whether the label is displayed in the standard format (left of the component) instead of being optimized to a switch.
+ * @param tooltip - The tooltip that is displayed when hovering over the label. Tooltips are only available with the standardLabel setting.
+ * @param required - Indicator whether the field is required or not. This is only available with the standardLabel setting.
  * @param className - The optional className object allows you to override the default styling.
  * @returns Switch component with formik state management
  */
@@ -49,21 +60,39 @@ export function FormikSwitchField({
   disabled,
   label,
   size,
+  standardLabel,
+  required,
+  tooltip,
   className,
 }: FormikSwitchFieldProps) {
   const [field, meta, helpers] = useField(name)
 
   return (
-    <Switch
-      id={id}
-      checked={field.value}
-      onCheckedChange={helpers.setValue}
-      data={data}
-      disabled={disabled}
-      label={label}
-      size={size}
-      className={className}
-    />
+    <div className="flex flex-row items-center">
+      {standardLabel && label && (
+        <Label
+          forId={name}
+          required={required}
+          label={label}
+          className={{
+            root: twMerge('my-auto mr-2 font-bold min-w-max', className?.label),
+            tooltip: 'text-sm font-normal',
+          }}
+          tooltip={tooltip}
+          showTooltipSymbol={typeof tooltip !== 'undefined'}
+        />
+      )}
+      <Switch
+        id={id}
+        checked={field.value}
+        onCheckedChange={helpers.setValue}
+        data={data}
+        disabled={disabled}
+        label={standardLabel ? undefined : label}
+        size={size}
+        className={className}
+      />
+    </div>
   )
 }
 
