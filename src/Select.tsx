@@ -164,7 +164,7 @@ export function Select({
         <RadixSelect.Portal>
           <RadixSelect.Content
             className={twMerge(
-              'overflow-hidden bg-white rounded-md shadow-md z-[9999]',
+              'overflow-hidden bg-white rounded-md shadow-md z-50',
               className?.content
             )}
           >
