@@ -122,7 +122,7 @@ export function Modal({
       <RadixDialog.Portal>
         <RadixDialog.Overlay
           className={twMerge(
-            'fixed top-0 bottom-0 left-0 right-0 flex justify-center gap-4 p-4 bg-opacity-50 bg-uzh-grey-100 md:items-center',
+            'z-20 fixed top-0 bottom-0 left-0 right-0 flex justify-center gap-4 p-4 bg-opacity-50 bg-uzh-grey-100 md:items-center',
             className?.overlay
           )}
         >
@@ -138,7 +138,7 @@ export function Modal({
 
           <RadixDialog.Content
             className={twMerge(
-              'flex flex-col gap-4 rounded-lg bg-white p-4 shadow md:overflow-y-scroll',
+              'z-30 flex flex-col gap-4 rounded-lg bg-white p-4 shadow md:overflow-y-scroll',
               fullScreen
                 ? 'h-full w-full'
                 : 'min-h-[18rem] w-[27rem] max-w-7xl md:h-[28rem] md:w-[40rem] lg:h-[40rem] lg:w-[55rem] xl:h-[45rem] xl:w-[70rem]',
