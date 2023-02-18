@@ -9,6 +9,10 @@ export interface FormikDateChangerProps {
     cy?: string
     test?: string
   }
+  dataButton?: {
+    cy?: string
+    test?: string
+  }
   label?: string
   tooltip?: string
   required?: boolean
@@ -16,6 +20,7 @@ export interface FormikDateChangerProps {
   disabled?: boolean
   className?: {
     root?: string
+    changer?: string
     label?: string
     field?: string
     input?: string
@@ -28,6 +33,7 @@ export interface FormikDateChangerProps {
 const defaultProps = {
   id: undefined,
   data: undefined,
+  dataButton: undefined,
   label: undefined,
   tooltip: undefined,
   required: false,
@@ -42,6 +48,7 @@ const defaultProps = {
  *
  * @param id - The id of the field.
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
+ * @param dataButton - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the button
  * @param name - The name of the field as used to keep track of the state in Formik.
  * @param label - The optional label is shown next to the field in the form.
  * @param tooltip - The optional tooltip is shown on hover next to the label.
@@ -55,6 +62,7 @@ const defaultProps = {
 export function FormikDateChanger({
   id,
   data,
+  dataButton,
   name,
   label,
   tooltip,
@@ -67,15 +75,16 @@ export function FormikDateChanger({
   const [edit, setEdit] = useState(false)
 
   return (
-    <div>
+    <div className={className?.root}>
       <DateChanger
         id={id}
         data={data}
+        dataButton={dataButton}
         disabled={disabled}
         label={label}
         required={required}
         tooltip={tooltip}
-        className={className}
+        className={{ ...className, root: className?.changer }}
         onSave={(newValue) => {
           helpers.setValue(newValue)
           helpers.setTouched(true)
