@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/uzh-bf/design-system/compare/v1.3.0...v1.4.0) (2023-02-18)
+
+
+### Features
+
+* **FormikDateChanger:** add formik date changer component ([#46](https://github.com/uzh-bf/design-system/issues/46)) ([e5fd345](https://github.com/uzh-bf/design-system/commit/e5fd345b83b5f557d89ee9955d7e41fa8b77ada5))
+
+
+### Bug Fixes
+
+* **DateChanger:** add missing exports for date changer ([197a65a](https://github.com/uzh-bf/design-system/commit/197a65a597672c85c2bec732537cb14d785f0086))
+
+
+### Enhancements
+
+* **DateChanger:** add possibility to disable component ([2e4453d](https://github.com/uzh-bf/design-system/commit/2e4453d7a1aac06c504f72c402b6732149a253d2))
+* **DateChanger:** add tooltip prop to date changer component ([3ceda49](https://github.com/uzh-bf/design-system/commit/3ceda491afbf9fd173d4441adc729163f6f8f5e5))
+
 ## [1.3.0](https://github.com/uzh-bf/design-system/compare/v1.2.4...v1.3.0) (2023-02-18)
 
 
