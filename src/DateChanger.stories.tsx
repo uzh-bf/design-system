@@ -19,6 +19,24 @@ export function Default() {
   )
 }
 
+export function Disabled() {
+  const [date, setDate] = useState('2021-01-01')
+  const [edit, setEdit] = useState(false)
+
+  return (
+    <DateChanger
+      date={date}
+      edit={edit}
+      onEdit={() => setEdit(true)}
+      onSave={(date) => {
+        setDate(date)
+        setEdit(false)
+      }}
+      disabled
+    />
+  )
+}
+
 export function Tooltip() {
   const [date, setDate] = useState('2021-01-01')
   const [edit, setEdit] = useState(false)
