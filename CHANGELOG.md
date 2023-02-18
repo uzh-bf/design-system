@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/uzh-bf/design-system/compare/v1.2.4...v1.3.0) (2023-02-18)
+
+
+### Features
+
+* **DateChanger:** add date changer component ([#45](https://github.com/uzh-bf/design-system/issues/45)) ([22ee820](https://github.com/uzh-bf/design-system/commit/22ee8204a65fe75c504c31f698e9beeb49bafb29))
+
+
+### Other
+
+* **TextField:** add docstring to text field ([ff13511](https://github.com/uzh-bf/design-system/commit/ff13511bb4f82105c849981b54154f0a88b8ac66))
+
 ### [1.2.4](https://github.com/uzh-bf/design-system/compare/v1.2.3...v1.2.4) (2023-02-18)
 
 
