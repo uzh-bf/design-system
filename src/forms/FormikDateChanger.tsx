@@ -101,4 +101,5 @@ export function FormikDateChanger({
   )
 }
 
+FormikDateChanger.defaultProps = defaultProps
 export default FormikDateChanger
