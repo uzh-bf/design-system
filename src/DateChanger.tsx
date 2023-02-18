@@ -8,9 +8,19 @@ import Button from './Button'
 import Label from './forms/Label'
 
 export interface DateChangerProps {
+  id?: string
+  data?: {
+    cy?: string
+    test?: string
+  }
+  dataButton?: {
+    cy?: string
+    test?: string
+  }
   label?: string
   required?: boolean
   tooltip?: string
+  disabled?: boolean
   format?: string
   edit: boolean
   date: string
@@ -23,15 +33,20 @@ export interface DateChangerProps {
     label?: string
     field?: string
     input?: string
+    disabled?: string
     editButton?: string
     saveButton?: string
   }
 }
 
 const defaultProps = {
+  id: undefined,
+  data: undefined,
+  dataButton: undefined,
   label: '',
   tooltip: undefined,
   required: false,
+  disabled: false,
   format: 'DD / MM / YYYY',
   editIcon: faPencil,
   saveIcon: faSave,
@@ -41,9 +56,13 @@ const defaultProps = {
 /**
  * This component provides a simple date changer with a label and a button to edit the date (not coupled to a formik context).
  *
+ * @param id - The id of the date changer
+ * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
+ * @param dataButton - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the button
  * @param label - The label of the date changer
  * @param tooltip - The tooltip of the date changer (is only shown if a label is given)
  * @param required - Whether the date label should contain a required symbol
+ * @param disabled - Whether the date changer is disabled or not
  * @param format - The format of the date when the edit mode is not active (then the display is up to the browser implementation)
  * @param edit - Whether the date changer is in edit mode or not
  * @param date - The date to be displayed
@@ -56,9 +75,13 @@ const defaultProps = {
  */
 
 export function DateChanger({
+  id,
+  data,
+  dataButton,
   label,
   tooltip,
   required,
+  disabled,
   format,
   edit,
   date,
@@ -83,14 +106,18 @@ export function DateChanger({
           required={required}
         />
       )}
-      {edit ? (
+      {edit && !disabled ? (
         <div
           className={twMerge(
             'flex flex-row gap-2 border border-solid rounded',
+
             className?.field
           )}
         >
           <input
+            data-cy={data?.cy}
+            data-test={data?.test}
+            id={id}
             type="date"
             className={twMerge(
               'px-0 py-1 pl-2 border-none w-max',
@@ -101,6 +128,7 @@ export function DateChanger({
           />
           <Button
             basic
+            data={dataButton}
             onClick={() => onSave(dateState)}
             className={{
               root: twMerge(
@@ -116,18 +144,32 @@ export function DateChanger({
         </div>
       ) : (
         <div className="flex flex-row gap-2 border border-solid rounded">
-          <div className="py-1 pl-2">
+          <div
+            className={twMerge(
+              'py-1 pl-2',
+              disabled && twMerge('text-uzh-grey-100', className?.disabled)
+            )}
+          >
             {dayjs(dateState).format(format || 'DD / MM / YYYY')}
           </div>
           <Button
             basic
+            data={dataButton}
             onClick={onEdit}
             className={{
-              root: twMerge('bg-uzh-grey-20 py-1 px-2', className?.editButton),
+              root: twMerge(
+                'bg-uzh-grey-20 py-1 px-2',
+                className?.editButton,
+                disabled && twMerge('cursor-not-allowed', className?.disabled)
+              ),
             }}
+            disabled={disabled}
           >
             <Button.Icon>
-              <FontAwesomeIcon icon={editIcon || faPencil} />
+              <FontAwesomeIcon
+                icon={editIcon || faPencil}
+                className={twMerge(disabled && 'text-uzh-grey-80')}
+              />
             </Button.Icon>
           </Button>
         </div>
