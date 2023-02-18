@@ -29,8 +29,28 @@ interface DateChangerProps {
 
 const defaultProps = {
   label: '',
+  required: false,
   format: 'DD / MM / YYYY',
+  editIcon: faPencil,
+  saveIcon: faSave,
+  className: undefined,
 }
+
+/**
+ * This component provides a simple date changer with a label and a button to edit the date (not coupled to a formik context).
+ *
+ * @param label - The label of the date changer
+ * @param required - Whether the date label should contain a required symbol
+ * @param format - The format of the date when the edit mode is not active (then the display is up to the browser implementation)
+ * @param edit - Whether the date changer is in edit mode or not
+ * @param date - The date to be displayed
+ * @param onEdit - The function to be called when the edit button is clicked (external state management)
+ * @param onSave - The function to be called when the save button is clicked (external state management)
+ * @param editIcon - The icon to be displayed on the edit button
+ * @param saveIcon - The icon to be displayed on the save button
+ * @param className - The optional className object allows you to override the default styling.
+ * @returns Date changer component with optional label, edit button and save button.
+ */
 
 function DateChanger({
   label,
