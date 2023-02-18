@@ -10,6 +10,7 @@ import Label from './forms/Label'
 export interface DateChangerProps {
   label?: string
   required?: boolean
+  tooltip?: string
   format?: string
   edit: boolean
   date: string
@@ -29,6 +30,7 @@ export interface DateChangerProps {
 
 const defaultProps = {
   label: '',
+  tooltip: undefined,
   required: false,
   format: 'DD / MM / YYYY',
   editIcon: faPencil,
@@ -40,6 +42,7 @@ const defaultProps = {
  * This component provides a simple date changer with a label and a button to edit the date (not coupled to a formik context).
  *
  * @param label - The label of the date changer
+ * @param tooltip - The tooltip of the date changer (is only shown if a label is given)
  * @param required - Whether the date label should contain a required symbol
  * @param format - The format of the date when the edit mode is not active (then the display is up to the browser implementation)
  * @param edit - Whether the date changer is in edit mode or not
@@ -54,6 +57,7 @@ const defaultProps = {
 
 export function DateChanger({
   label,
+  tooltip,
   required,
   format,
   edit,
@@ -74,6 +78,8 @@ export function DateChanger({
         <Label
           label={label}
           className={{ root: twMerge('mr-1.5', className?.label) }}
+          tooltip={tooltip}
+          showTooltipSymbol={!!tooltip}
           required={required}
         />
       )}

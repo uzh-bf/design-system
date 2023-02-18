@@ -19,6 +19,25 @@ export function Default() {
   )
 }
 
+export function Tooltip() {
+  const [date, setDate] = useState('2021-01-01')
+  const [edit, setEdit] = useState(false)
+
+  return (
+    <DateChanger
+      date={date}
+      edit={edit}
+      onEdit={() => setEdit(true)}
+      onSave={(date) => {
+        setDate(date)
+        setEdit(false)
+      }}
+      label="Label for date changer"
+      tooltip="Tooltip for date changer with label"
+    />
+  )
+}
+
 export function CustomIcons() {
   const [date, setDate] = useState('2021-01-01')
   const [edit, setEdit] = useState(false)
