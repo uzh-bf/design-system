@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.2](https://github.com/uzh-bf/design-system/compare/v1.4.1...v1.4.2) (2023-02-18)
+
+
+### Bug Fixes
+
+* **Select:** asPortal ([c1e4ce9](https://github.com/uzh-bf/design-system/commit/c1e4ce9869b15d0bb3ac600ec16e1c0325756b73))
+
 ### [1.4.1](https://github.com/uzh-bf/design-system/compare/v1.4.0...v1.4.1) (2023-02-18)
 
 
