@@ -9,6 +9,7 @@ import Label from './forms/Label'
 
 interface DateChangerProps {
   label?: string
+  required?: boolean
   format?: string
   edit: boolean
   date: string
@@ -33,6 +34,7 @@ const defaultProps = {
 
 function DateChanger({
   label,
+  required,
   format,
   edit,
   date,
@@ -45,11 +47,14 @@ function DateChanger({
   const [dateState, setDateState] = useState(dayjs(date).format('YYYY-MM-DD'))
 
   return (
-    <div className={twMerge('flex flex-row items-center', className?.root)}>
+    <div
+      className={twMerge('flex flex-row items-center w-max', className?.root)}
+    >
       {label && (
         <Label
           label={label}
           className={{ root: twMerge('mr-1.5', className?.label) }}
+          required={required}
         />
       )}
       {edit ? (
