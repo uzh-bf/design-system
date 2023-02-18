@@ -34,6 +34,7 @@ interface SelectProps {
   className?: ClassName
   placeholder?: string
   defaultValue?: string
+  asPortal?: boolean
 }
 
 export interface Item {
@@ -72,6 +73,7 @@ const defaultProps = {
   className: undefined,
   placeholder: undefined,
   defaultValue: undefined,
+  asPortal: false,
 }
 
 /**
@@ -90,6 +92,7 @@ const defaultProps = {
  * @param disabled - Specifies whether the select component is disabled or not.
  * @param size - The size of the select component. Currently only medium and small are supported.
  * @param className - The optional className object allows you to override the default styling.
+ * @param asPortal - If true, the select component is rendered as a portal.
  * @return Select component
  */
 export function Select({
@@ -105,11 +108,66 @@ export function Select({
   name,
   placeholder,
   defaultValue,
+  asPortal,
 }: SelectWithItemsProps | SelectWithGroupsProps) {
   const [open, setOpen] = useState(false)
   const theme = useContext(ThemeContext)
 
   const flatItems = items || groups?.flatMap((group) => group.items) || []
+
+  const selectContent = (
+    <RadixSelect.Content
+      className={twMerge(
+        'overflow-hidden bg-white rounded-md shadow-md z-50',
+        className?.content
+      )}
+    >
+      <RadixSelect.ScrollUpButton
+        className={twMerge(
+          'flex items-center justify-center bg-white h-7',
+          className?.scrollButton
+        )}
+      >
+        <FontAwesomeIcon
+          icon={faChevronUp}
+          size={size === 'sm' ? 'sm' : '1x'}
+        />
+      </RadixSelect.ScrollUpButton>
+      <RadixSelect.Viewport className="p-1 rounded-lg dark:bg-gray-800">
+        {items
+          ? items.map((item, ix) => (
+              <SelectItem
+                id={id}
+                data-cy={data?.cy}
+                data-test={data?.test}
+                key={ix}
+                size={size}
+                {...item}
+                className={className}
+              />
+            ))
+          : groups.map((group, ix) => (
+              <SelectGroup
+                key={ix}
+                size={size}
+                {...group}
+                className={className}
+              />
+            ))}
+      </RadixSelect.Viewport>
+      <RadixSelect.ScrollDownButton
+        className={twMerge(
+          'flex items-center justify-center bg-white h-7',
+          className?.scrollButton
+        )}
+      >
+        <FontAwesomeIcon
+          icon={faChevronDown}
+          size={size === 'sm' ? 'sm' : '1x'}
+        />
+      </RadixSelect.ScrollDownButton>
+    </RadixSelect.Content>
+  )
 
   return (
     <div className={twMerge('relative flex', className?.root)}>
@@ -161,59 +219,11 @@ export function Select({
             />
           </RadixSelect.Icon>
         </RadixSelect.Trigger>
-        <RadixSelect.Portal>
-          <RadixSelect.Content
-            className={twMerge(
-              'overflow-hidden bg-white rounded-md shadow-md z-50',
-              className?.content
-            )}
-          >
-            <RadixSelect.ScrollUpButton
-              className={twMerge(
-                'flex items-center justify-center bg-white h-7',
-                className?.scrollButton
-              )}
-            >
-              <FontAwesomeIcon
-                icon={faChevronUp}
-                size={size === 'sm' ? 'sm' : '1x'}
-              />
-            </RadixSelect.ScrollUpButton>
-            <RadixSelect.Viewport className="p-1 rounded-lg dark:bg-gray-800">
-              {items
-                ? items.map((item, ix) => (
-                    <SelectItem
-                      id={id}
-                      data-cy={data?.cy}
-                      data-test={data?.test}
-                      key={ix}
-                      size={size}
-                      {...item}
-                      className={className}
-                    />
-                  ))
-                : groups.map((group, ix) => (
-                    <SelectGroup
-                      key={ix}
-                      size={size}
-                      {...group}
-                      className={className}
-                    />
-                  ))}
-            </RadixSelect.Viewport>
-            <RadixSelect.ScrollDownButton
-              className={twMerge(
-                'flex items-center justify-center bg-white h-7',
-                className?.scrollButton
-              )}
-            >
-              <FontAwesomeIcon
-                icon={faChevronDown}
-                size={size === 'sm' ? 'sm' : '1x'}
-              />
-            </RadixSelect.ScrollDownButton>
-          </RadixSelect.Content>
-        </RadixSelect.Portal>
+        {asPortal ? (
+          <RadixSelect.Portal>{selectContent}</RadixSelect.Portal>
+        ) : (
+          selectContent
+        )}
       </RadixSelect.Root>
     </div>
   )
