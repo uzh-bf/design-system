@@ -7,7 +7,7 @@ import { twMerge } from 'tailwind-merge'
 import Button from './Button'
 import Label from './forms/Label'
 
-interface DateChangerProps {
+export interface DateChangerProps {
   label?: string
   required?: boolean
   format?: string
@@ -52,7 +52,7 @@ const defaultProps = {
  * @returns Date changer component with optional label, edit button and save button.
  */
 
-function DateChanger({
+export function DateChanger({
   label,
   required,
   format,
