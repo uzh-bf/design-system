@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.1](https://github.com/uzh-bf/design-system/compare/v1.4.0...v1.4.1) (2023-02-18)
+
+
+### Enhancements
+
+* **Modal:** allow to decide on Portal usage ([346138f](https://github.com/uzh-bf/design-system/commit/346138fdd03ca0e788b0a0818c3a3f562c581a33))
+
 ## [1.4.0](https://github.com/uzh-bf/design-system/compare/v1.3.0...v1.4.0) (2023-02-18)
 
 
