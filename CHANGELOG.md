@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.4](https://github.com/uzh-bf/design-system/compare/v1.2.3...v1.2.4) (2023-02-18)
+
+
+### Enhancements
+
+* **Modal:** add z-index to overlay and content ([66820e9](https://github.com/uzh-bf/design-system/commit/66820e9849bd84ed5009a9bcfc811267f7060d9d))
+
+
+### Other
+
+* remove kollektiv font and integrate with source sans ([d8d75f1](https://github.com/uzh-bf/design-system/commit/d8d75f17daf4c8a50ab95bf9f2f909b403cec0b7))
+* too high z-index from select component ([1c3117c](https://github.com/uzh-bf/design-system/commit/1c3117c22453212c706ec4f34daf62e95ac0509e))
+
 ### [1.2.3](https://github.com/uzh-bf/design-system/compare/v1.2.2...v1.2.3) (2023-02-16)
 
 
