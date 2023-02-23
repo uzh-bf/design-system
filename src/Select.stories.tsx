@@ -53,6 +53,19 @@ export const Default = () => {
   )
 }
 
+export const Basic = () => {
+  return (
+    <Select
+      placeholder="Select an item"
+      items={fruits}
+      onChange={(newValue) => {
+        console.log(newValue)
+      }}
+      basic
+    />
+  )
+}
+
 export const DefaultValue = () => {
   return (
     <Select

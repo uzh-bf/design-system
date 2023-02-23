@@ -34,6 +34,7 @@ interface SelectProps {
   className?: ClassName
   placeholder?: string
   defaultValue?: string
+  basic?: boolean
 }
 
 export interface Item {
@@ -72,6 +73,7 @@ const defaultProps = {
   className: undefined,
   placeholder: undefined,
   defaultValue: undefined,
+  basic: false,
 }
 
 /**
@@ -89,6 +91,7 @@ const defaultProps = {
  * @param placeholder - The placeholder text that is displayed when no value is selected.
  * @param disabled - Specifies whether the select component is disabled or not.
  * @param size - The size of the select component. Currently only medium and small are supported.
+ * @param basic - Specifies whether the select component is basic or not. A basic select component does only have minimal styling of the trigger.
  * @param className - The optional className object allows you to override the default styling.
  * @return Select component
  */
@@ -105,6 +108,7 @@ export function Select({
   name,
   placeholder,
   defaultValue,
+  basic,
 }: SelectWithItemsProps | SelectWithGroupsProps) {
   const [open, setOpen] = useState(false)
   const theme = useContext(ThemeContext)
@@ -125,7 +129,9 @@ export function Select({
           data-cy={data?.cy}
           data-test={data?.test}
           className={twMerge(
-            'inline-flex items-center justify-center gap-2 p-4 bg-white rounded-md shadow-sm h-7 border',
+            'px-2 py-1 rounded-md',
+            !basic &&
+              'inline-flex items-center justify-center gap-2 p-4 bg-white  shadow-sm h-7 border',
             `${theme.primaryBgHover} ${theme.primaryTextHover}`,
             disabled &&
               'bg-uzh-grey-20 hover:bg-none, hover:text-none opacity-70 cursor-not-allowed shadow-sm',
@@ -152,14 +158,16 @@ export function Select({
             {flatItems?.find((item) => item.value === value)?.shortLabel}
           </div>
 
-          <RadixSelect.Icon
-            className={twMerge('ml-2', size === 'sm' && 'ml-0.5')}
-          >
-            <FontAwesomeIcon
-              icon={open ? faChevronUp : faChevronDown}
-              size={size === 'sm' ? 'sm' : '1x'}
-            />
-          </RadixSelect.Icon>
+          {!basic && (
+            <RadixSelect.Icon
+              className={twMerge('ml-2', size === 'sm' && 'ml-0.5')}
+            >
+              <FontAwesomeIcon
+                icon={open ? faChevronUp : faChevronDown}
+                size={size === 'sm' ? 'sm' : '1x'}
+              />
+            </RadixSelect.Icon>
+          )}
         </RadixSelect.Trigger>
         <RadixSelect.Portal>
           <RadixSelect.Content
