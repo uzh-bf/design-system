@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.3](https://github.com/uzh-bf/design-system/compare/v1.4.2...v1.4.3) (2023-02-23)
+
+
+### Enhancements
+
+* **Select:** add basic prop for simple trigger ([780b3a8](https://github.com/uzh-bf/design-system/commit/780b3a8b4d1f0b6bf9113d35f6c8ef7e075a643c))
+
 ### [1.4.2](https://github.com/uzh-bf/design-system/compare/v1.4.1...v1.4.2) (2023-02-18)
 
 
