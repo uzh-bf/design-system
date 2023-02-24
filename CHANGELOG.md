@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.4](https://github.com/uzh-bf/design-system/compare/v1.4.3...v1.4.4) (2023-02-24)
+
+
+### Other
+
+* **Modal:** add children className prop ([c34197f](https://github.com/uzh-bf/design-system/commit/c34197f56082e2e3c12fc340201ac4edcbfac7db))
+* **Modal:** add className props for onPrev and onNext buttons ([915540b](https://github.com/uzh-bf/design-system/commit/915540b1433011d41fee8a13c8685bc263819a3e))
+
 ### [1.4.3](https://github.com/uzh-bf/design-system/compare/v1.4.2...v1.4.3) (2023-02-23)
 
 
