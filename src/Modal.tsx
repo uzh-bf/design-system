@@ -19,6 +19,8 @@ export interface ModalProps {
     overlay?: string
     content?: string
     title?: string
+    onPrev?: string
+    onNext?: string
   }
   children: React.ReactNode
   fullScreen?: boolean
@@ -119,7 +121,7 @@ export function Modal({
     >
       {(onPrev || onNext) && (
         <Button
-          className={{ root: 'lg:text-xl' }}
+          className={{ root: twMerge('lg:text-xl', className?.onPrev) }}
           disabled={!onPrev}
           onClick={onPrev}
         >
@@ -173,7 +175,7 @@ export function Modal({
 
       {(onPrev || onNext) && (
         <Button
-          className={{ root: 'lg:text-xl' }}
+          className={{ root: twMerge('lg:text-xl', className?.onNext) }}
           disabled={!onNext}
           onClick={onNext}
         >
