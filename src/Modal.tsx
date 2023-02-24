@@ -19,6 +19,7 @@ export interface ModalProps {
     overlay?: string
     content?: string
     title?: string
+    children?: string
     onPrev?: string
     onNext?: string
   }
@@ -165,7 +166,7 @@ export function Modal({
           )}
         </div>
 
-        <div className="flex-1">{children}</div>
+        <div className={twMerge('flex-1', className?.children)}>{children}</div>
 
         <div className="flex flex-row justify-between flex-initial">
           <div>{onSecondaryAction && <div>{onSecondaryAction}</div>}</div>
