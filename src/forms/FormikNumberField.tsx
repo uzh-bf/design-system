@@ -3,7 +3,7 @@ import React from 'react'
 import { twMerge } from 'tailwind-merge'
 import Label from './Label'
 
-export interface NumberFieldProps {
+export interface FormikNumberFieldProps {
   id?: string
   data?: {
     cy?: string
@@ -26,13 +26,13 @@ export interface NumberFieldProps {
 }
 
 // type structure ensures that either a name or a value and onChange function are passed
-export interface NumberFieldWithNameProps extends NumberFieldProps {
+export interface NumberFieldWithNameProps extends FormikNumberFieldProps {
   name: string
   value?: never
   onChange?: never
   [key: string]: any
 }
-export interface NumberFieldWithOnChangeProps extends NumberFieldProps {
+export interface NumberFieldWithOnChangeProps extends FormikNumberFieldProps {
   name?: never
   value: string
   onChange: (newValue: string) => void
