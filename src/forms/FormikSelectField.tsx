@@ -38,8 +38,6 @@ const defaultProps = {
   className: undefined,
 }
 
-// TODO: style error field to be below actual select field
-
 /**
  * This component returns a select field that works as to be expected in a Formik environment.
  * State is managed by Formik through the name attribute.
