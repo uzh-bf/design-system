@@ -38,6 +38,8 @@ const defaultProps = {
   className: undefined,
 }
 
+// TODO: style error field to be below actual select field
+
 /**
  * This component returns a select field that works as to be expected in a Formik environment.
  * State is managed by Formik through the name attribute.
@@ -72,7 +74,7 @@ export function FormikSelectField({
   const [field, meta, helpers] = useField(name)
 
   return (
-    <div className={twMerge('flex flex-col', className?.root)} id={id}>
+    <div className={twMerge('flex flex-col w-max', className?.root)} id={id}>
       <div className="flex flex-row w-full">
         {label && (
           <Label
