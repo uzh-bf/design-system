@@ -14,7 +14,7 @@ export interface NumberFieldProps {
   className?: {
     input?: string
   }
-  accuracy?: number
+  precision?: number
   [key: string]: any
 }
 
@@ -26,7 +26,7 @@ export function NumberField({
   placeholder,
   disabled,
   className,
-  accuracy,
+  precision,
 }: NumberFieldProps): React.ReactElement {
   return (
     <input
@@ -38,11 +38,11 @@ export function NumberField({
       onChange={(e) => {
         let regex
 
-        if (typeof accuracy !== 'undefined') {
+        if (typeof precision !== 'undefined') {
           regex =
-            accuracy === 0
+            precision === 0
               ? /^[-]?\d*$/
-              : new RegExp(`^[-]?\\d*\\.?\\d{0,${accuracy}}$`)
+              : new RegExp(`^[-]?\\d*\\.?\\d{0,${precision}}$`)
         } else {
           regex = /^[-]?\d*\.?\d*$/
         }

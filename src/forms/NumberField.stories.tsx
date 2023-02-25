@@ -21,13 +21,13 @@ export function Precision() {
   return (
     <div>
       <div>
-        The accuracy prop can be used to limit the number of decimal places. For
-        this example, this value is set to 2.
+        The precision prop can be used to limit the number of decimal places.
+        For this example, this value is set to 2.
       </div>
       <NumberField
         value={value}
         onChange={(newValue) => setValue(newValue)}
-        accuracy={2}
+        precision={2}
       />
       <div>Value: {value}</div>
     </div>
@@ -39,13 +39,13 @@ export function Integer() {
   return (
     <div>
       <div>
-        The accuracy prop of the number field can easily be used to limit the
+        The precision prop of the number field can easily be used to limit the
         allowed values to integers by setting it to 0.
       </div>
       <NumberField
         value={value}
         onChange={(newValue) => setValue(newValue)}
-        accuracy={0}
+        precision={0}
       />
       <div>Value: {value}</div>
     </div>
