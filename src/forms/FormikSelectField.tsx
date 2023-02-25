@@ -91,10 +91,10 @@ export function FormikSelectField({
           />
         )}
         <Select
-          {...field}
           data-cy={data?.cy}
           data-test={data?.test}
           onChange={(newValue: string) => helpers.setValue(newValue)}
+          onBlur={() => helpers.setTouched(true)}
           value={field.value}
           name={name}
           items={items}

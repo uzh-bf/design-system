@@ -28,6 +28,7 @@ interface SelectProps {
   }
   name?: string
   onChange: (newValue: string) => void
+  onBlur?: () => void
   value?: string
   disabled?: boolean
   size?: 'md' | 'sm'
@@ -88,6 +89,7 @@ const defaultProps = {
  * @param groups - The array of groups that are displayed in the select component. This prop is mutually exclusive with the items prop.
  * @param name - The name attribute of the select component needed for Formik integration --> see FormikSelectField
  * @param onChange - The function that is called when the value of the select component changes (changes externally managed value).
+ * @param onBlur - The function that is called when the viewport of the select component is closed.
  * @param value - The current value of the select component (managed externally).
  * @param defaultValue - The default value of the select component set initially.
  * @param placeholder - The placeholder text that is displayed when no value is selected.
@@ -104,6 +106,7 @@ export function Select({
   items,
   groups,
   onChange,
+  onBlur,
   value,
   disabled,
   size,
@@ -178,7 +181,12 @@ export function Select({
       <RadixSelect.Root
         name={name}
         onValueChange={onChange}
-        onOpenChange={(open) => setOpen(open)}
+        onOpenChange={(open) => {
+          setOpen(open)
+          if (!open && onBlur) {
+            onBlur()
+          }
+        }}
         value={value}
         defaultValue={defaultValue}
       >
