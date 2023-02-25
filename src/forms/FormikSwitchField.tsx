@@ -12,6 +12,7 @@ export interface FormikSwitchFieldProps {
     test?: string
   }
   disabled?: boolean
+  hideError?: boolean
   label?: string
   size?: 'sm' | 'md' | 'lg'
   standardLabel?: boolean
@@ -22,6 +23,7 @@ export interface FormikSwitchFieldProps {
     element?: string
     thumb?: string
     label?: string
+    error?: string
   }
 }
 
@@ -30,6 +32,7 @@ const defaultProps = {
   data: undefined,
   className: undefined,
   disabled: false,
+  hideError: false,
   label: undefined,
   size: 'md',
   standardLabel: false,
@@ -46,6 +49,7 @@ const defaultProps = {
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param label - The label that is displayed next to the switch.
  * @param disabled - Indicator whether the switch is disabled or not.
+ * @param hideError - Indicator whether the error message is displayed or not.
  * @param size - The size of the switch. The size can be small, medium or large.
  * @param standardLabel - Indicator whether the label is displayed in the standard format (left of the component) instead of being optimized to a switch.
  * @param tooltip - The tooltip that is displayed when hovering over the label. Tooltips are only available with the standardLabel setting.
@@ -58,6 +62,7 @@ export function FormikSwitchField({
   name,
   data,
   disabled,
+  hideError,
   label,
   size,
   standardLabel,
@@ -68,30 +73,46 @@ export function FormikSwitchField({
   const [field, meta, helpers] = useField(name)
 
   return (
-    <div className="flex flex-row items-center">
-      {standardLabel && label && (
-        <Label
-          forId={name}
-          required={required}
-          label={label}
-          className={{
-            root: twMerge('my-auto mr-2 font-bold min-w-max', className?.label),
-            tooltip: 'text-sm font-normal',
-          }}
-          tooltip={tooltip}
-          showTooltipSymbol={typeof tooltip !== 'undefined'}
+    <div className="w-max">
+      <div className="flex flex-row items-center">
+        {standardLabel && label && (
+          <Label
+            forId={name}
+            required={required}
+            label={label}
+            className={{
+              root: twMerge(
+                'my-auto mr-2 font-bold min-w-max',
+                className?.label
+              ),
+              tooltip: 'text-sm font-normal',
+            }}
+            tooltip={tooltip}
+            showTooltipSymbol={typeof tooltip !== 'undefined'}
+          />
+        )}
+        <Switch
+          id={id}
+          checked={field.value}
+          onCheckedChange={(newValue) => helpers.setValue(newValue)}
+          onBlur={() => helpers.setTouched(true)}
+          data={data}
+          disabled={disabled}
+          label={standardLabel ? undefined : label}
+          size={size}
+          className={className}
         />
+      </div>
+      {!hideError && meta.touched && meta.error && (
+        <div
+          className={twMerge(
+            'text-sm text-right text-red-400',
+            className?.error
+          )}
+        >
+          {meta.error}
+        </div>
       )}
-      <Switch
-        id={id}
-        checked={field.value}
-        onCheckedChange={helpers.setValue}
-        data={data}
-        disabled={disabled}
-        label={standardLabel ? undefined : label}
-        size={size}
-        className={className}
-      />
     </div>
   )
 }
