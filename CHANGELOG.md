@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.1](https://github.com/uzh-bf/design-system/compare/v1.5.0...v1.5.1) (2023-02-25)
+
+
+### Refactors
+
+* **FormikNumberField:** use new nunber field for formik implementation ([4dae16d](https://github.com/uzh-bf/design-system/commit/4dae16df82c6568ba8543e3ae1268c783c57c6e5))
+
+
+### Enhancements
+
+* **Formik*:** ensure that the validation and onBlur logic works on all formik fields ([#48](https://github.com/uzh-bf/design-system/issues/48)) ([fb6a728](https://github.com/uzh-bf/design-system/commit/fb6a7284bcc779181222f74ea370a536420ea376))
+
 ## [1.5.0](https://github.com/uzh-bf/design-system/compare/v1.4.4...v1.5.0) (2023-02-25)
 
 
