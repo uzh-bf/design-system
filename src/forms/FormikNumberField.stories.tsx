@@ -1,5 +1,6 @@
 import { Form, Formik } from 'formik'
 import React from 'react'
+import * as yup from 'yup'
 import Button from '../Button'
 import FormikNumberField from './FormikNumberField'
 
@@ -75,15 +76,59 @@ export const Disabled = () => (
   </div>
 )
 
+export const Validation = () => (
+  <div>
+    <div>
+      This formik field has validation functionalities included. The value is
+      required and should be at least 100.
+    </div>
+    <Formik
+      initialValues={{
+        name: '',
+      }}
+      isInitialValid={false}
+      onSubmit={async (values, { resetForm }) => {
+        alert(`Form submitted with value: ${parseFloat(values.name || '')}`)
+        resetForm()
+      }}
+      validationSchema={yup.object().shape({
+        name: yup.number().required('This field is required.').min(100),
+      })}
+    >
+      {({ values }) => {
+        return (
+          <div>
+            <Form>
+              <FormikNumberField
+                name="name"
+                label="Label"
+                tooltip="Tooltip for this input"
+                className={{ root: 'mb-1' }}
+                placeholder="Placeholder"
+              />
+              <Button type="submit">Submit</Button>
+            </Form>
+            <div>
+              Value that will be submitted with parseFloat():{' '}
+              {parseFloat(values.name || '')}
+            </div>
+          </div>
+        )
+      }}
+    </Formik>
+  </div>
+)
+
 export const Decimals = () => (
   <div>
     <div>
       The default Formik field works with a "name" input and allows the user to
-      input decimal numbers as well as integers
+      input decimal numbers as well as integers. The number of decimal places
+      can be specified through the precision prop (set to 2 for this example).
     </div>
     <Formik
       initialValues={{
-        name: undefined,
+        name: '',
       }}
       isInitialValid={false}
       onSubmit={async (values, { resetForm }) => {
@@ -101,7 +146,47 @@ export const Decimals = () => (
                 tooltip="Tooltip for this input"
                 className={{ root: 'mb-1' }}
                 placeholder="Placeholder"
-                allowDecimals
+                precision={2}
+              />
+              <Button type="submit">Submit</Button>
+            </Form>
+            <div>
+              Value that will be submitted with parseFloat():{' '}
+              {parseFloat(values.name || '')}
+            </div>
+          </div>
+        )
+      }}
+    </Formik>
+  </div>
+)
+
+export const Integer = () => (
+  <div>
+    <div>
+      By fixing the precision parameter to 0, the user can only input integers.
+    </div>
+    <Formik
+      initialValues={{
+        name: '',
+      }}
+      isInitialValid={false}
+      onSubmit={async (values, { resetForm }) => {
+        alert(`Form submitted with value: ${parseFloat(values.name || '')}`)
+        resetForm()
+      }}
+    >
+      {({ values }) => {
+        return (
+          <div>
+            <Form>
+              <FormikNumberField
+                name="name"
+                label="Label"
+                tooltip="Tooltip for this input"
+                className={{ root: 'mb-1' }}
+                placeholder="Placeholder"
+                precision={0}
               />
               <Button type="submit">Submit</Button>
             </Form>
@@ -139,48 +224,6 @@ export const Required = () => (
               <FormikNumberField
                 required
                 name="name"
-                label="Label"
-                tooltip="Tooltip for this input"
-                className={{ root: 'mb-1' }}
-                placeholder="Placeholder"
-              />
-              <Button type="submit">Submit</Button>
-            </Form>
-            <div>Value: {values.name}</div>
-          </div>
-        )
-      }}
-    </Formik>
-  </div>
-)
-
-export const OnChangeFunction = () => (
-  <div>
-    <div>
-      An alternative version of the text field input allows to work with a
-      "value" and "onChange" attribute instead of the "name" attribute. This
-      field is modified in a way that whitespaces are removed from the input on
-      change.
-    </div>
-    <Formik
-      initialValues={{
-        name: '',
-      }}
-      isInitialValid={false}
-      onSubmit={async (values, { resetForm }) => {
-        alert(`Form submitted with value: ${values.name}`)
-        resetForm()
-      }}
-    >
-      {({ values, setFieldValue }) => {
-        return (
-          <div>
-            <Form>
-              <FormikNumberField
-                value={values.name}
-                onChange={(newValue) => {
-                  setFieldValue('name', newValue.replace(/\s/g, ''))
-                }}
                 label="Label"
                 tooltip="Tooltip for this input"
                 className={{ root: 'mb-1' }}
