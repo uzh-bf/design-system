@@ -70,3 +70,19 @@ export function NumberState() {
     </div>
   )
 }
+
+export function Labelled() {
+  const [value, setValue] = useState('')
+  return (
+    <div>
+      <NumberField
+        value={value}
+        onChange={(newValue) => setValue(newValue)}
+        label="Nunber Field"
+        tooltip="This is a tooltip for the number field"
+        required
+      />
+      <div>Value: {value}</div>
+    </div>
+  )
+}
