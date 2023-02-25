@@ -1,5 +1,6 @@
 import { Form, Formik } from 'formik'
 import React from 'react'
+import * as yup from 'yup'
 import Button from '../Button'
 import FormikTextField from './FormikTextField'
 
@@ -179,6 +180,49 @@ export const Styled = () => (
                   input: 'bg-uzh-blue-20',
                   error: 'text-red-700',
                 }}
+                placeholder="Placeholder"
+              />
+              <Button type="submit">Submit</Button>
+            </Form>
+            <div>Value: {values.name}</div>
+          </div>
+        )
+      }}
+    </Formik>
+  </div>
+)
+
+export const Validation = () => (
+  <div>
+    <div>
+      This text field should have a maximum length of 10 characters or will
+      display an error otherwise.
+    </div>
+    <Formik
+      initialValues={{
+        name: '',
+      }}
+      isInitialValid={false}
+      onSubmit={async (values, { resetForm }) => {
+        alert(`Form submitted with value: ${values.name}`)
+        resetForm()
+      }}
+      validationSchema={yup.object().shape({
+        name: yup
+          .string()
+          .required('This field is required')
+          .max(10, 'Max 10 characters'),
+      })}
+    >
+      {({ values }) => {
+        return (
+          <div>
+            <Form>
+              <FormikTextField
+                name="name"
+                label="Label"
+                tooltip="Tooltip for this input"
+                className={{ root: 'mb-1' }}
                 placeholder="Placeholder"
               />
               <Button type="submit">Submit</Button>

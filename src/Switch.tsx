@@ -12,6 +12,7 @@ export interface SwitchProps {
   }
   checked: boolean
   onCheckedChange: (newValue: boolean) => void
+  onBlur?: () => void
   disabled?: boolean
   label?: string
   fluid?: boolean
@@ -34,6 +35,7 @@ const defaultProps = {
   labelLeft: false,
   fluid: false,
   size: 'md',
+  onBlur: undefined,
 }
 
 /**
@@ -45,6 +47,7 @@ const defaultProps = {
  * @param label - The label that is displayed next to the switch.
  * @param checked - Indicator whether the switch is checked or not. State is managed by the parent component.
  * @param onCheckedChange - The function that is called when the switch is checked or unchecked. The new value is passed as a parameter.
+ * @param onBlur - The function that is called when the switch loses focus.
  * @param disabled - Indicator whether the switch is disabled or not.
  * @param fluid - Indicator whether the switch should be fluid or not.
  * @param labelLeft - Indicator whether the label should be displayed on the left or right side of the switch.
@@ -59,6 +62,7 @@ export function Switch({
   label,
   checked,
   onCheckedChange,
+  onBlur,
   fluid,
   labelLeft,
   size,
@@ -106,6 +110,7 @@ export function Switch({
           className?.element
         )}
         onCheckedChange={!disabled ? onCheckedChange : () => null}
+        onClick={() => (onBlur ? onBlur() : null)}
       >
         <RadixSwitch.Thumb
           className={twMerge(

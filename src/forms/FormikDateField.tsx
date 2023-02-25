@@ -100,6 +100,7 @@ export function FormikDateField({
               helpers.setValue(e.target['value'])
             }
           }}
+          onBlur={() => helpers.setTouched(true)}
           placeholder={placeholder}
           disabled={disabled}
           className={twMerge(

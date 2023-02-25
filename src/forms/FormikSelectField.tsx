@@ -72,7 +72,7 @@ export function FormikSelectField({
   const [field, meta, helpers] = useField(name)
 
   return (
-    <div className={twMerge('flex flex-col', className?.root)} id={id}>
+    <div className={twMerge('flex flex-col w-max', className?.root)} id={id}>
       <div className="flex flex-row w-full">
         {label && (
           <Label
@@ -91,10 +91,10 @@ export function FormikSelectField({
           />
         )}
         <Select
-          {...field}
           data-cy={data?.cy}
           data-test={data?.test}
           onChange={(newValue: string) => helpers.setValue(newValue)}
+          onBlur={() => helpers.setTouched(true)}
           value={field.value}
           name={name}
           items={items}

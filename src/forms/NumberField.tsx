@@ -9,6 +9,7 @@ export interface NumberFieldProps {
   }
   value: string | number
   onChange: (newValue: string) => void
+  onBlur?: () => void
   placeholder?: string
   disabled?: boolean
   className?: {
@@ -23,6 +24,7 @@ export function NumberField({
   data,
   value,
   onChange,
+  onBlur,
   placeholder,
   disabled,
   className,
@@ -51,6 +53,7 @@ export function NumberField({
           onChange(e.target.value)
         }
       }}
+      onBlur={onBlur}
       placeholder={placeholder}
       disabled={disabled}
       className={twMerge(

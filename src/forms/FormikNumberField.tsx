@@ -96,10 +96,8 @@ export function FormikNumberField({
           id={id}
           data={data}
           value={field.value}
-          onChange={(newValue) => {
-            helpers.setTouched(true)
-            helpers.setValue(newValue)
-          }}
+          onChange={(newValue) => helpers.setValue(newValue)}
+          onBlur={() => helpers.setTouched(true)}
           placeholder={placeholder}
           disabled={disabled}
           precision={
