@@ -25,13 +25,6 @@ export interface TableProps {
   }
 }
 
-const defaultProps = {
-  id: undefined,
-  dataAttributes: undefined,
-  caption: undefined,
-  className: undefined,
-}
-
 /**
  * This function returns a pre-styled Table component based on the RadixUI table component and the custom theme.
  * The table is sortable by clicking on the column header.
@@ -165,5 +158,4 @@ export function Table({
   )
 }
 
-Table.defaultProps = defaultProps
 export default Table

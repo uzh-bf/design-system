@@ -27,19 +27,6 @@ export interface FormikNumberFieldProps {
   }
 }
 
-const defaultProps = {
-  id: undefined,
-  data: undefined,
-  label: undefined,
-  placeholder: undefined,
-  tooltip: undefined,
-  required: false,
-  hideError: false,
-  precision: undefined,
-  disabled: false,
-  className: undefined,
-}
-
 /**
  * This function returns a text field that works as to be expected in a Formik environment.
  * State can be managed either through Formik or internally by passing a value and onChange function.
@@ -64,10 +51,10 @@ export function FormikNumberField({
   label,
   placeholder,
   tooltip,
-  required,
-  hideError,
+  required = false,
+  hideError = false,
   precision,
-  disabled,
+  disabled = false,
   className,
   ...props
 }: FormikNumberFieldProps) {
@@ -125,5 +112,4 @@ export function FormikNumberField({
   )
 }
 
-FormikNumberField.defaultProps = defaultProps
 export default FormikNumberField

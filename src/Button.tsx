@@ -22,19 +22,6 @@ export interface ButtonProps {
   [x: string]: any
 }
 
-const defaultProps = {
-  id: undefined,
-  data: undefined,
-  active: false,
-  className: undefined,
-  disabled: false,
-  fluid: false,
-  basic: false,
-  type: 'button',
-  loading: false,
-  onClick: () => null,
-}
-
 /**
  * This function returns a pre-styled Button component based on the custom theme.
  *
@@ -57,11 +44,12 @@ export function Button({
   children,
   className,
   onClick,
-  disabled,
-  active,
-  fluid,
-  basic,
-  loading,
+  disabled = false,
+  active = false,
+  fluid = false,
+  basic = false,
+  loading = false,
+  type = 'button',
   ...props
 }: ButtonProps) {
   const theme = useContext(ThemeContext)
@@ -91,6 +79,7 @@ export function Button({
       className={computedClassName}
       disabled={disabled || loading}
       onClick={onClick}
+      type={type}
     >
       {loading && (
         <svg
@@ -118,8 +107,6 @@ export function Button({
     </button>
   )
 }
-
-Button.defaultProps = defaultProps
 
 Button.Icon = function ButtonIcon({
   className,

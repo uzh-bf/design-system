@@ -44,17 +44,6 @@ export interface SliderWithIconsProps extends SliderProps {
   labels?: never
 }
 
-const defaultProps = {
-  id: undefined,
-  data: undefined,
-  disabled: false,
-  icons: undefined,
-  labels: undefined,
-  rangeColorMap: undefined,
-  borderColorMap: undefined,
-  className: undefined,
-}
-
 /**
  * This function returns a pre-styled Slider component based on the RadixUI slider component and the custom theme.
  *
@@ -82,7 +71,7 @@ export function Slider({
   min,
   max,
   step,
-  disabled,
+  disabled = false,
   icons,
   rangeColorMap,
   borderColorMap,
@@ -165,7 +154,5 @@ export function Slider({
     </RadixSlider.Root>
   )
 }
-
-Slider.defaultProps = defaultProps
 
 export default Slider

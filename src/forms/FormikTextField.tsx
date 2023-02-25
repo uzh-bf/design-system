@@ -38,18 +38,6 @@ export interface TextFieldWithOnChangeProps extends TextFieldProps {
   [key: string]: any
 }
 
-const defaultProps = {
-  id: undefined,
-  data: undefined,
-  label: undefined,
-  placeholder: undefined,
-  tooltip: undefined,
-  required: false,
-  hideError: false,
-  disabled: false,
-  className: undefined,
-}
-
 /**
  * This function returns a text field that works as to be expected in a Formik environment.
  * State can be managed either through Formik or internally by passing a value and onChange function.
@@ -77,9 +65,9 @@ export function FormikTextField({
   label,
   placeholder,
   tooltip,
-  required,
-  hideError,
-  disabled,
+  required = false,
+  hideError = false,
+  disabled = false,
   className,
   ...props
 }: TextFieldWithNameProps | TextFieldWithOnChangeProps) {
@@ -158,5 +146,4 @@ export function FormikTextField({
   )
 }
 
-FormikTextField.defaultProps = defaultProps
 export default FormikTextField

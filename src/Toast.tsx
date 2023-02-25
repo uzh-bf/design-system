@@ -69,19 +69,6 @@ export interface ToastPropsWithChildrenNoTrigger
   setOpenExternal: (open: boolean) => void
 }
 
-export const defaultProps = {
-  title: undefined,
-  description: undefined,
-  duration: undefined,
-  dismissible: undefined,
-  actionText: undefined,
-  actionOnClick: undefined,
-  position: 'topRight',
-  type: 'default',
-  children: undefined,
-  className: undefined,
-}
-
 export function Toast({
   title,
   description,
@@ -90,10 +77,10 @@ export function Toast({
   triggerText,
   actionText,
   actionOnClick,
-  position,
+  position = 'topRight',
   openExternal,
   setOpenExternal,
-  type,
+  type = 'default',
   children,
   className,
 }:
@@ -229,5 +216,4 @@ export function Toast({
   )
 }
 
-Toast.defaultProps = defaultProps
 export default Toast

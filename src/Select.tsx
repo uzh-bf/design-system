@@ -65,20 +65,6 @@ export interface SelectWithGroupsProps extends SelectProps {
   items?: never
 }
 
-const defaultProps = {
-  id: undefined,
-  data: undefined,
-  name: undefined,
-  value: undefined,
-  disabled: false,
-  size: 'md',
-  className: undefined,
-  placeholder: undefined,
-  defaultValue: undefined,
-  basic: false,
-  asPortal: false,
-}
-
 /**
  * This function returns a pre-styled Select component based on the RadixUI select component and the custom theme.
  * While the open state of the component is managed internally, the value of the component is managed externally and passed to the function.
@@ -108,14 +94,14 @@ export function Select({
   onChange,
   onBlur,
   value,
-  disabled,
-  size,
+  disabled = false,
+  size = 'md',
   className,
   name,
   placeholder,
   defaultValue,
-  basic,
-  asPortal,
+  basic = false,
+  asPortal = false,
 }: SelectWithItemsProps | SelectWithGroupsProps) {
   const [open, setOpen] = useState(false)
   const theme = useContext(ThemeContext)
@@ -334,5 +320,4 @@ const SelectGroup = ({
   )
 }
 
-Select.defaultProps = defaultProps
 export default Select

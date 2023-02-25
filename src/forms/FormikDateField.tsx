@@ -26,18 +26,6 @@ export interface DateFieldProps {
   [key: string]: any
 }
 
-const defaultProps = {
-  id: undefined,
-  data: undefined,
-  label: undefined,
-  placeholder: undefined,
-  tooltip: undefined,
-  required: false,
-  hideError: false,
-  disabled: false,
-  className: undefined,
-}
-
 /**
  * This function returns a date field that works as to be expected in a Formik environment.
  * State is managed by Formik through the name attribute.
@@ -61,9 +49,9 @@ export function FormikDateField({
   label,
   placeholder,
   tooltip,
-  required,
-  hideError,
-  disabled,
+  required = false,
+  hideError = false,
+  disabled = false,
   className,
   ...props
 }: DateFieldProps) {
@@ -126,5 +114,4 @@ export function FormikDateField({
   )
 }
 
-FormikDateField.defaultProps = defaultProps
 export default FormikDateField

@@ -27,19 +27,6 @@ export interface FormikSwitchFieldProps {
   }
 }
 
-const defaultProps = {
-  id: undefined,
-  data: undefined,
-  className: undefined,
-  disabled: false,
-  hideError: false,
-  label: undefined,
-  size: 'md',
-  standardLabel: false,
-  tooltip: undefined,
-  required: false,
-}
-
 /**
  * This function extends the pre-styled Switch component so that it works as to be expected in a Formik environment.
  * State, in this case, is managed by Formik through the name attribute.
@@ -61,12 +48,12 @@ export function FormikSwitchField({
   id,
   name,
   data,
-  disabled,
-  hideError,
+  disabled = false,
+  hideError = false,
   label,
-  size,
-  standardLabel,
-  required,
+  size = 'md',
+  standardLabel = false,
+  required = false,
   tooltip,
   className,
 }: FormikSwitchFieldProps) {
@@ -117,5 +104,4 @@ export function FormikSwitchField({
   )
 }
 
-FormikSwitchField.defaultProps = defaultProps
 export default FormikSwitchField

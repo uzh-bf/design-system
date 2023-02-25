@@ -25,14 +25,6 @@ export interface CollapsibleProps {
   children: React.ReactNode
 }
 
-const defaultProps = {
-  id: undefined,
-  data_cy: undefined,
-  closedContent: undefined,
-  customTrigger: undefined,
-  className: undefined,
-}
-
 /**
  * This function returns a pre-styled collapsible component based on the RadixUI collapsible component and the implemented theme.
  * State need to be managed by the parent component.
@@ -92,5 +84,4 @@ export function Collapsible({
   )
 }
 
-Collapsible.defaultProps = defaultProps
 export default Collapsible

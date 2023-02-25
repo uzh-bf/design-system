@@ -29,16 +29,6 @@ export interface ProgressProps {
   [x: string]: any
 }
 
-const defaultProps = {
-  id: undefined,
-  data: undefined,
-  isMaxVisible: true,
-  nonLinear: false,
-  displayOffset: undefined,
-  onItemClick: undefined,
-  className: undefined,
-}
-
 /**
  * This function returns a pre-styled Progress component based on the RadixUI progress component and the custom theme.
  *
@@ -61,8 +51,8 @@ export function Progress({
   value,
   max,
   className,
-  isMaxVisible,
-  nonLinear,
+  isMaxVisible = true,
+  nonLinear = false,
   displayOffset,
   onItemClick,
   ...props
@@ -144,7 +134,5 @@ export function Progress({
     </RadixProgress.Root>
   )
 }
-
-Progress.defaultProps = defaultProps
 
 export default Progress

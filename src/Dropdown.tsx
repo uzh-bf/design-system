@@ -43,15 +43,6 @@ export interface DropdownWithGroupsProps extends DropdownProps {
   groups: Item[][]
 }
 
-const defaultProps = {
-  id: undefined,
-  data: undefined,
-  items: undefined,
-  groups: undefined,
-  className: undefined,
-  disabled: false,
-}
-
 /**
  * This function returns a pre-styled Dropdown component based on the RadixUI dropdown component and the custom theme.
  *
@@ -71,7 +62,7 @@ export function Dropdown({
   items,
   groups,
   className,
-  disabled,
+  disabled = false,
 }: DropdownWithItemsProps | DropdownWithGroupsProps) {
   const theme = useContext(ThemeContext)
 
@@ -210,5 +201,4 @@ export function Dropdown({
   )
 }
 
-Dropdown.defaultProps = defaultProps
 export default Dropdown

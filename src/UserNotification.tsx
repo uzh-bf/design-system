@@ -24,14 +24,6 @@ export interface UserNotificationProps {
   }
 }
 
-const defaultProps = {
-  notificationType: 'default',
-  id: undefined,
-  data: undefined,
-  children: undefined,
-  className: undefined,
-}
-
 /**
  * This function returns a pre-styled UserNotification component based on the custom theme.
  *
@@ -47,7 +39,7 @@ export function UserNotification({
   id,
   data,
   message,
-  notificationType,
+  notificationType = 'default',
   children,
   className,
 }: UserNotificationProps) {
@@ -96,5 +88,4 @@ export function UserNotification({
   )
 }
 
-UserNotification.defaultProps = defaultProps
 export default UserNotification

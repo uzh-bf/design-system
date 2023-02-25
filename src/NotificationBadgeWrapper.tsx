@@ -17,15 +17,6 @@ interface NotificationBadgeWrapperProps {
   children: React.ReactNode
 }
 
-const defaultProps = {
-  id: undefined,
-  data: undefined,
-  count: undefined,
-  showBadge: false,
-  size: 'md',
-  className: undefined,
-}
-
 /**
  * This function returns a pre-styled wrapper for some custom component with navigation badge on it.
  *
@@ -42,8 +33,8 @@ export function NotificationBadgeWrapper({
   id,
   data,
   count,
-  showBadge,
-  size,
+  showBadge = false,
+  size = 'md',
   className,
   children,
 }: NotificationBadgeWrapperProps): React.ReactElement {
@@ -76,7 +67,5 @@ export function NotificationBadgeWrapper({
     </div>
   )
 }
-
-NotificationBadgeWrapper.defaultProps = defaultProps
 
 export default NotificationBadgeWrapper

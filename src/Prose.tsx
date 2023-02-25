@@ -14,12 +14,6 @@ export interface ProseProps {
   children: React.ReactNode
 }
 
-const defaultProps = {
-  id: undefined,
-  data: undefined,
-  className: undefined,
-}
-
 /**
  * This function returns a pre-styled prose component based on TailwindCSS prose and the custom theme.
  *
@@ -48,5 +42,4 @@ export function Prose({ id, data, className, children }: ProseProps) {
   )
 }
 
-Prose.defaultProps = defaultProps
 export default Prose

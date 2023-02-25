@@ -25,17 +25,6 @@ export interface LabelProps {
   }
 }
 
-const defaultProps = {
-  id: undefined,
-  data: undefined,
-  forId: undefined,
-  required: false,
-  tooltip: undefined,
-  showTooltipSymbol: false,
-  tooltipSymbolSize: 'md',
-  className: undefined,
-}
-
 /**
  * This function returns a label component based on the RadixUI label.
  *
@@ -55,10 +44,10 @@ export function Label({
   data,
   forId,
   label,
-  required,
+  required = false,
   tooltip,
-  showTooltipSymbol,
-  tooltipSymbolSize,
+  showTooltipSymbol = false,
+  tooltipSymbolSize = 'md',
   className,
 }: LabelProps): React.ReactElement {
   const theme = useContext(ThemeContext)
@@ -143,5 +132,4 @@ export function Label({
   }
 }
 
-Label.defaultProps = defaultProps
 export default Label

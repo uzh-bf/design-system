@@ -40,23 +40,6 @@ export interface ModalProps {
   onSecondaryAction?: React.ReactNode
 }
 
-const defaultProps = {
-  id: undefined,
-  data: undefined,
-  className: undefined,
-  fullScreen: false,
-  title: '',
-  trigger: undefined,
-  escapeDisabled: false,
-  hideCloseButton: false,
-  onNext: undefined,
-  onOpenChange: undefined,
-  onPrev: undefined,
-  onPrimaryAction: undefined,
-  onSecondaryAction: undefined,
-  asPortal: false,
-}
-
 /**
  * This function returns a pre-styled modal component based on the RadixUI dialog component and the custom theme.
  *
@@ -83,20 +66,20 @@ export function Modal({
   id,
   data,
   trigger,
-  title,
+  title = '',
   children,
   onClose,
   onPrev,
   onNext,
   open,
   onOpenChange,
-  fullScreen,
+  fullScreen = false,
   className,
   onPrimaryAction,
   onSecondaryAction,
-  escapeDisabled,
-  hideCloseButton,
-  asPortal,
+  escapeDisabled = false,
+  hideCloseButton = false,
+  asPortal = false,
 }: ModalProps) {
   useEffect(() => {
     if (onPrev || onNext) {
@@ -207,7 +190,5 @@ export function Modal({
     </RadixDialog.Root>
   )
 }
-
-Modal.defaultProps = defaultProps
 
 export default Modal

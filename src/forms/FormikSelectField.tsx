@@ -26,18 +26,6 @@ export interface SelectFieldProps {
   }
 }
 
-const defaultProps = {
-  id: undefined,
-  data: undefined,
-  label: undefined,
-  placeholder: undefined,
-  tooltip: undefined,
-  required: false,
-  disabled: false,
-  hideError: false,
-  className: undefined,
-}
-
 /**
  * This component returns a select field that works as to be expected in a Formik environment.
  * State is managed by Formik through the name attribute.
@@ -62,10 +50,10 @@ export function FormikSelectField({
   label,
   placeholder,
   tooltip,
-  required,
+  required = false,
   items,
-  disabled,
-  hideError,
+  disabled = false,
+  hideError = false,
   className,
   ...props
 }: SelectFieldProps) {
@@ -117,5 +105,4 @@ export function FormikSelectField({
   )
 }
 
-FormikSelectField.defaultProps = defaultProps
 export default FormikSelectField

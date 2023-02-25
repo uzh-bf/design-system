@@ -19,19 +19,6 @@ export interface CountdownProps {
   isStatic?: boolean
 }
 
-const defaultProps = {
-  id: undefined,
-  data: undefined,
-  size: undefined,
-  strokeWidth: undefined,
-  colors: undefined,
-  colorTimes: undefined,
-  className: undefined,
-  formatter: undefined,
-  onExpire: () => null,
-  isStatic: false,
-}
-
 /**
  * This function returnes a pre-styled Countdown component based on the react-countdown-circle-timer component.
  *
@@ -57,7 +44,7 @@ export function Countdown({
   className,
   formatter,
   onExpire,
-  isStatic,
+  isStatic = false,
 }: CountdownProps): React.ReactElement {
   return (
     <div className={className?.root}>
@@ -90,7 +77,5 @@ export function Countdown({
     </div>
   )
 }
-
-Countdown.defaultProps = defaultProps
 
 export default Countdown

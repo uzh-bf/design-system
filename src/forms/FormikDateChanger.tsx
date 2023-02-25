@@ -30,18 +30,6 @@ export interface FormikDateChangerProps {
   }
 }
 
-const defaultProps = {
-  id: undefined,
-  data: undefined,
-  dataButton: undefined,
-  label: undefined,
-  tooltip: undefined,
-  required: false,
-  hideError: false,
-  disabled: false,
-  className: undefined,
-}
-
 /**
  * This function returns a date field that works as to be expected in a Formik environment.
  * State is managed by Formik through the name attribute.
@@ -66,9 +54,9 @@ export function FormikDateChanger({
   name,
   label,
   tooltip,
-  required,
-  hideError,
-  disabled,
+  required = false,
+  hideError = false,
+  disabled = false,
   className,
 }: FormikDateChangerProps) {
   const [field, meta, helpers] = useField(name)
@@ -101,5 +89,4 @@ export function FormikDateChanger({
   )
 }
 
-FormikDateChanger.defaultProps = defaultProps
 export default FormikDateChanger

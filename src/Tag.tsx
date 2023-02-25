@@ -13,13 +13,6 @@ export interface TagProps {
   label: string
 }
 
-const defaultProps = {
-  id: undefined,
-  data: undefined,
-  className: undefined,
-  label: '',
-}
-
 /**
  * This function returns a pre-styled tag component
  *
@@ -29,7 +22,7 @@ const defaultProps = {
  * @param className - The optional className object allows you to override the default styling.
  * @returns Tag component
  */
-export function Tag({ id, data, className, label }: TagProps) {
+export function Tag({ id, data, className, label = '' }: TagProps) {
   return (
     <div
       id={id}
@@ -44,7 +37,5 @@ export function Tag({ id, data, className, label }: TagProps) {
     </div>
   )
 }
-
-Tag.defaultProps = defaultProps
 
 export default Tag

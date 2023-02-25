@@ -26,18 +26,6 @@ export interface SwitchProps {
   }
 }
 
-const defaultProps = {
-  id: undefined,
-  data: undefined,
-  className: undefined,
-  disabled: false,
-  label: undefined,
-  labelLeft: false,
-  fluid: false,
-  size: 'md',
-  onBlur: undefined,
-}
-
 /**
  * This function returns a pre-styled Switch component based on the RadixUI switch component and the custom theme.
  * The state of the switch is maintained by the parent component.
@@ -58,14 +46,14 @@ const defaultProps = {
 export function Switch({
   id,
   data,
-  disabled,
+  disabled = false,
   label,
   checked,
   onCheckedChange,
   onBlur,
-  fluid,
-  labelLeft,
-  size,
+  fluid = false,
+  labelLeft = false,
+  size = 'md',
   className,
 }: SwitchProps) {
   const theme = useContext(ThemeContext)
@@ -128,5 +116,4 @@ export function Switch({
   )
 }
 
-Switch.defaultProps = defaultProps
 export default Switch

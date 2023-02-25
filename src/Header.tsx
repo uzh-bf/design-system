@@ -13,12 +13,6 @@ interface HeaderProps {
   children: React.ReactNode
 }
 
-const defaultProps = {
-  id: undefined,
-  data_cy: undefined,
-  className: undefined,
-}
-
 /**
  * This function returns a pre-styled header component with custom font similarly sized to the default h1 tag.
  *
@@ -118,11 +112,6 @@ export function H4({ id, data, className, children }: HeaderProps) {
     </h4>
   )
 }
-
-H1.defaultProps = defaultProps
-H2.defaultProps = defaultProps
-H3.defaultProps = defaultProps
-H4.defaultProps = defaultProps
 
 /**
  * This function returns a pre-styled header component with custom font similarly sized to the chosen h* tag.

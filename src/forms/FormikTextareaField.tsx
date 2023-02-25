@@ -40,20 +40,6 @@ export interface TextareaFieldWithOnChangeProps extends TextareaFieldProps {
   [key: string]: any
 }
 
-const defaultProps = {
-  id: undefined,
-  data: undefined,
-  label: undefined,
-  placeholder: undefined,
-  tooltip: undefined,
-  required: false,
-  maxLength: undefined,
-  maxLengthLabel: undefined,
-  hideError: false,
-  disabled: false,
-  className: undefined,
-}
-
 /**
  * This component returns a textarea field that works as to be expected in a Formik environment.
  * State can be managed either through Formik or internally by passing a value and onChange function.
@@ -83,11 +69,11 @@ export function FormikTextareaField({
   label,
   placeholder,
   tooltip,
-  required,
+  required = false,
   maxLength,
   maxLengthLabel,
-  hideError,
-  disabled,
+  hideError = false,
+  disabled = false,
   className,
   ...props
 }: TextareaFieldWithNameProps | TextareaFieldWithOnChangeProps) {
@@ -173,5 +159,4 @@ export function FormikTextareaField({
   )
 }
 
-FormikTextareaField.defaultProps = defaultProps
 export default FormikTextareaField

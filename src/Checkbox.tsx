@@ -22,16 +22,6 @@ export interface CheckboxProps {
   }
 }
 
-const defaultProps = {
-  id: undefined,
-  data: undefined,
-  children: undefined,
-  disabled: false,
-  label: undefined,
-  size: 'md',
-  className: undefined,
-}
-
 /**
  * This function returns a pre-styled Checkbox component based on the RadixUI Checkbox component and the custom theme.
  * State is not managed internally and needs to be passed to the component through the checked and onCheck props.
@@ -52,10 +42,10 @@ export function Checkbox({
   data,
   children,
   checked,
-  disabled,
+  disabled = false,
   label,
   onCheck,
-  size,
+  size = 'md',
   className,
 }: CheckboxProps): React.ReactElement {
   const tickStyle = {
@@ -112,5 +102,4 @@ export function Checkbox({
   )
 }
 
-Checkbox.defaultProps = defaultProps
 export default Checkbox

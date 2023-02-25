@@ -39,20 +39,6 @@ export interface DateChangerProps {
   }
 }
 
-const defaultProps = {
-  id: undefined,
-  data: undefined,
-  dataButton: undefined,
-  label: '',
-  tooltip: undefined,
-  required: false,
-  disabled: false,
-  format: 'DD / MM / YYYY',
-  editIcon: faPencil,
-  saveIcon: faSave,
-  className: undefined,
-}
-
 /**
  * This component provides a simple date changer with a label and a button to edit the date (not coupled to a formik context).
  *
@@ -78,17 +64,17 @@ export function DateChanger({
   id,
   data,
   dataButton,
-  label,
+  label = '',
   tooltip,
-  required,
-  disabled,
-  format,
+  required = false,
+  disabled = false,
+  format = 'DD / MM / YYYY',
   edit,
   date,
   onEdit,
   onSave,
-  editIcon,
-  saveIcon,
+  editIcon = faPencil,
+  saveIcon = faSave,
   className,
 }: DateChangerProps) {
   const [dateState, setDateState] = useState(dayjs(date).format('YYYY-MM-DD'))
@@ -178,5 +164,4 @@ export function DateChanger({
   )
 }
 
-DateChanger.defaultProps = defaultProps
 export default DateChanger

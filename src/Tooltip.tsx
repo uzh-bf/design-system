@@ -25,16 +25,6 @@ export interface TooltipProps {
   }
 }
 
-const defaultProps = {
-  id: undefined,
-  contentId: undefined,
-  data: undefined,
-  dataContent: undefined,
-  delay: 350,
-  withIndicator: true,
-  className: undefined,
-}
-
 /**
  * This function returns a pre-styled Tooltip component based on the RadixUI tooltip component and the custom theme.
  *
@@ -55,8 +45,8 @@ export function Tooltip({
   data,
   dataContent,
   tooltip,
-  delay,
-  withIndicator,
+  delay = 350,
+  withIndicator = true,
   children,
   className,
 }: TooltipProps): React.ReactElement {
@@ -93,5 +83,4 @@ export function Tooltip({
   )
 }
 
-Tooltip.defaultProps = defaultProps
 export default Tooltip

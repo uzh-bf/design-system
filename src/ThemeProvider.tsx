@@ -47,16 +47,12 @@ const BASE_THEME: Theme = {
 
 export const ThemeContext = createContext<Theme>(BASE_THEME)
 
-export function ThemeProvider({ theme, children }: Props) {
+export function ThemeProvider({ theme = {}, children }: Props) {
   return (
     <ThemeContext.Provider value={{ ...BASE_THEME, ...theme }}>
       {children}
     </ThemeContext.Provider>
   )
-}
-
-ThemeProvider.defaultProps = {
-  theme: {},
 }
 
 export default ThemeProvider
