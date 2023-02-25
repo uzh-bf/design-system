@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.2](https://github.com/uzh-bf/design-system/compare/v1.5.1...v1.5.2) (2023-02-25)
+
+
+### Enhancements
+
+* **NumberField:** add optional label to number field ([bc1f363](https://github.com/uzh-bf/design-system/commit/bc1f36353ef3e50be49d0d9eb24214e136bbf7bb))
+
 ### [1.5.1](https://github.com/uzh-bf/design-system/compare/v1.5.0...v1.5.1) (2023-02-25)
 
 
