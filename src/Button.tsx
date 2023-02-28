@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { Dispatch, useContext } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { ThemeContext } from './ThemeProvider'
 
@@ -130,6 +130,57 @@ Button.Label = function ButtonLabel({
   children: React.ReactNode
 }) {
   return <div className={twMerge('', className?.root)}>{children}</div>
+}
+
+export interface ButtonIconGroupProps {
+  state: number | undefined
+  setState: Dispatch<React.SetStateAction<number | undefined>>
+  className?: {
+    root?: string
+    children?: string
+  }
+  children: React.ReactNode[]
+}
+
+Button.IconGroup = function ButtonIconGroup({
+  state,
+  setState,
+  className,
+  children,
+}: ButtonIconGroupProps) {
+  const theme = useContext(ThemeContext)
+
+  return (
+    <div
+      className={twMerge(
+        'flex flex-row justify-between border border-solid w-max rounded',
+        theme.primaryBorder,
+        className?.root
+      )}
+    >
+      {children.map((child, index) => {
+        return (
+          <Button
+            key={index}
+            className={{
+              root: twMerge(
+                'p-1.5 first:rounded-l-sm last:rounded-r-sm',
+                theme.primaryBgHover,
+                state === index
+                  ? `${theme.primaryBgDark} text-white hover:bg-unset`
+                  : 'bg-white',
+                className?.children
+              ),
+            }}
+            onClick={() => setState(index)}
+            basic
+          >
+            {child}
+          </Button>
+        )
+      })}
+    </div>
+  )
 }
 
 export default Button
