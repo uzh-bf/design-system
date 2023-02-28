@@ -1,4 +1,10 @@
-import React from 'react'
+import {
+  faHouse,
+  faPlaneArrival,
+  faPlaneDeparture,
+} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import React, { useState } from 'react'
 import Button from './Button'
 
 const ExampleIcon = (
@@ -52,3 +58,15 @@ export const ColorButton = () => (
     onClick={() => alert('Red button was pressed!')}
   />
 )
+
+export const ButtonIconGroup = () => {
+  const [state, setState] = useState<number | undefined>(undefined)
+
+  return (
+    <Button.IconGroup state={state} setState={setState}>
+      <FontAwesomeIcon icon={faPlaneArrival} />
+      <FontAwesomeIcon icon={faPlaneDeparture} />
+      <FontAwesomeIcon icon={faHouse} />
+    </Button.IconGroup>
+  )
+}
