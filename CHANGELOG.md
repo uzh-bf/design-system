@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.3](https://github.com/uzh-bf/design-system/compare/v1.5.2...v1.5.3) (2023-03-10)
+
+
+### Bug Fixes
+
+* **FormikSelectField:** provide whole data object to select component as prop ([#50](https://github.com/uzh-bf/design-system/issues/50)) ([cf98bad](https://github.com/uzh-bf/design-system/commit/cf98bad89ede2ae9a0538e97c9d2047ce8cf97c8))
+
+
+### Refactors
+
+* change defaultProps definition to inline approach ([3d930eb](https://github.com/uzh-bf/design-system/commit/3d930eb5343ac4b592eefc84d2df86d8a4bf9746))
+
+
+### Enhancements
+
+* **Button:** add button icon group component ([#49](https://github.com/uzh-bf/design-system/issues/49)) ([da703b9](https://github.com/uzh-bf/design-system/commit/da703b941a22ba60c6cd85dfce1b6e63f568d632))
+
 ### [1.5.2](https://github.com/uzh-bf/design-system/compare/v1.5.1...v1.5.2) (2023-02-25)
 
 
