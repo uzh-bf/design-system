@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2022 Roland Schlaefli
+Copyright (c) 2022 Department of Banking and Finance, University of Zurich, Switzerland
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
