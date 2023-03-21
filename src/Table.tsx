@@ -23,7 +23,6 @@ export interface TableProps {
   }[]
   data: Record<string, string | number>[]
   caption?: string
-  ref?: any
   className?: {
     root?: string
     tableHeader?: string
@@ -41,14 +40,13 @@ export interface TableProps {
  * @param columns - The columns of the table. The columns are defined by an array of objects where each object has a label, an accessor and an optional transformer.
  * @param data - The data of the table. The data is defined by an array of objects where each object has a key-value pair for each column.
  * @param caption - The optional caption of the table.
- * @param reset - The optional external reset state that can be used to reset the sorting of the table.
- * @param unsetReset - This function is required to unset the reset state again after resetting the table.
+ * @param ref - The optional ref object allows you to access the table methods.
  * @param className - The optional className object allows you to override the default styling.
  * @returns Table component
  */
 export const Table = forwardRef(function Table(
   { id, dataAttributes, columns, data, caption, className }: TableProps,
-  ref: any
+  ref?: any
 ) {
   const [tableData, setTableData] = useState(data)
   const [sortField, setSortField] = useState('')
