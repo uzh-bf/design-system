@@ -74,15 +74,16 @@ export function Table<
   const handleTransforming = (
     data: RowType[],
     columns: ColumnType<RowType>[]
-  ) => {
-    return data.map((row) =>
-      columns
-        .map(({ accessor, transformer }) =>
-          transformer
-            ? { [accessor]: transformer(row) }
-            : { [accessor]: row[accessor] }
-        )
-        .reduce((acc, cur) => ({ ...acc, ...cur }), {})
+  ): RowType[] => {
+    return data.map(
+      (row) =>
+        columns
+          .map(({ accessor, transformer }) =>
+            transformer
+              ? { [accessor]: transformer(row) }
+              : { [accessor]: row[accessor] }
+          )
+          .reduce((acc, cur) => ({ ...acc, ...cur }), {}) as RowType
     )
   }
 
@@ -111,7 +112,7 @@ export function Table<
   const tableData = useMemo(() => {
     const transformedData = handleTransforming(data, columns)
     const sortedData = sortField
-      ? handleSorting(transformedData as RowType[], sortField, order)
+      ? handleSorting(transformedData, sortField, order)
       : transformedData
 
     return sortedData.map((row, index) => (
@@ -130,7 +131,7 @@ export function Table<
 
           return (
             <td className="p-4 border-t-2 border-uzh-grey-60" key={accessor}>
-              {formatter ? formatter(row as RowType, index) : field}
+              {formatter ? formatter(row, index) : field}
             </td>
           )
         })}
