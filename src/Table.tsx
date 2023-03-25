@@ -116,7 +116,10 @@ export const Table = forwardRef(function Table(
         )}
       >
         {columns.map(({ accessor, formatter }) => {
-          const field = row[accessor] ? row[accessor] : '——'
+          const field =
+            typeof row[accessor] === 'undefined' || row[accessor] === null
+              ? '——'
+              : row[accessor]
 
           return (
             <td className="p-4 border-t-2 border-uzh-grey-60" key={accessor}>
