@@ -136,7 +136,15 @@ export function Table<
         })}
       </tr>
     ))
-  }, [data, columns, sortField, order, className])
+  }, [
+    data,
+    columns,
+    sortField,
+    order,
+    className,
+    handleSorting,
+    handleTransforming,
+  ])
 
   return (
     <div
