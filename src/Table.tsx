@@ -35,7 +35,7 @@ export type ColumnType<RowType> = {
   ) => string | number | React.ReactElement
 }
 
-export interface TableProps<RowType extends unknown> {
+export interface TableProps<RowType> {
   id?: string
   dataAttributes?: {
     cy?: string
