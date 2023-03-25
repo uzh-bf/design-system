@@ -2,6 +2,15 @@ import React, { useRef } from 'react'
 import Button from './Button'
 import Table from './Table'
 import { data } from './tableData'
+import UserNotification from './UserNotification'
+
+const GenericWarning = () => (
+  <UserNotification
+    notificationType="info"
+    message="When using the table component with custom transformers and / or formatters, be aware of the use of suitable generics to avoid type errors in your code. All column names (as well as possible derived ones) and their corresponding data type have to be combine in one key-value object and passed to the table component as a generic. E.g. the Combined component illustrates how this can be accomplished"
+    className={{ root: 'mb-4' }}
+  />
+)
 
 export const Simple = () => {
   const columns = [
@@ -10,7 +19,10 @@ export const Simple = () => {
     { label: 'Username', accessor: 'username', sortable: false },
   ]
   return (
-    <Table columns={columns} data={data} caption="Table with example data" />
+    <div>
+      <GenericWarning />
+      <Table columns={columns} data={data} caption="Table with example data" />
+    </div>
   )
 }
 
@@ -31,11 +43,14 @@ export const Transformed = () => {
     },
   ]
   return (
-    <Table<RowType>
-      columns={columns}
-      data={data}
-      caption="Table with example data"
-    />
+    <div>
+      <GenericWarning />
+      <Table<RowType>
+        columns={columns}
+        data={data}
+        caption="Table with example data"
+      />
+    </div>
   )
 }
 
@@ -49,6 +64,7 @@ export const ResetTable = () => {
 
   return (
     <>
+      <GenericWarning />
       <Button
         onClick={() => {
           ref.current!.reset()
@@ -87,17 +103,20 @@ export const Formatted = () => {
   ]
 
   return (
-    <Table<RowType>
-      columns={columns}
-      data={data}
-      caption="Table with example data"
-      className={{
-        root: 'bg-white',
-        tableHeader: 'bg-gray-200',
-        body: 'bg-gray-100',
-        row: 'bg-white',
-      }}
-    />
+    <div>
+      <GenericWarning />
+      <Table<RowType>
+        columns={columns}
+        data={data}
+        caption="Table with example data"
+        className={{
+          root: 'bg-white',
+          tableHeader: 'bg-gray-200',
+          body: 'bg-gray-100',
+          row: 'bg-white',
+        }}
+      />
+    </div>
   )
 }
 
@@ -125,16 +144,19 @@ export const Combined = () => {
   ]
 
   return (
-    <Table<RowType>
-      columns={columns}
-      data={data}
-      caption="Table with example data"
-      className={{
-        root: 'bg-white',
-        tableHeader: 'bg-gray-200',
-        body: 'bg-gray-100',
-        row: 'bg-white',
-      }}
-    />
+    <div>
+      <GenericWarning />
+      <Table<RowType>
+        columns={columns}
+        data={data}
+        caption="Table with example data"
+        className={{
+          root: 'bg-white',
+          tableHeader: 'bg-gray-200',
+          body: 'bg-gray-100',
+          row: 'bg-white',
+        }}
+      />
+    </div>
   )
 }
