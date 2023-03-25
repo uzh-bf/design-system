@@ -1,28 +1,7 @@
 import { faSort, faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useImperativeHandle, useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
-
-// export type dataType = Record<string, string | number>[]
-// export type columnType = {
-//   label: string
-//   accessor: string
-//   sortable?: boolean
-//   transformer?: (value: any, row?: number) => any
-//   formatter?: (value: any, row?: number) => any
-// }
-
-// export type StringFieldType = {
-//   [key: string]: string
-// }
-// export type NumberFieldType = {
-//   [key: string]: number
-// }
-// export type BooleanFieldType = {
-//   [key: string]: boolean
-// }
-
-// export type RowType = Record<string, string | number | boolean>
 
 export type ColumnType<RowType> = {
   label: string
@@ -70,36 +49,41 @@ export interface TableProps<RowType> {
 export function Table<
   RowType extends Record<string, string | number | boolean>
 >(
-  ref: any,
-  { id, dataAttributes, columns, data, caption, className }: TableProps<RowType>
+  {
+    id,
+    dataAttributes,
+    columns,
+    data,
+    caption,
+    className,
+  }: TableProps<RowType>,
+  ref?: any
 ) {
   const [sortField, setSortField] = useState<string | undefined>(undefined)
   const [order, setOrder] = useState<'asc' | 'desc'>('asc')
 
-  useImperativeHandle(ref, () => {
-    return {
-      reset() {
-        setSortField(undefined)
-        setOrder('asc')
-      },
-    }
-  })
+  //   useImperativeHandle(ref, () => {
+  //     return {
+  //       reset() {
+  //         setSortField(undefined)
+  //         setOrder('asc')
+  //       },
+  //     }
+  //   })
 
   const handleTransforming = (
     data: RowType[],
     columns: ColumnType<RowType>[]
   ) => {
-    return data.map((row) => {
-      const transformedRow = { ...row }
-
-      columns.forEach(({ accessor, transformer }) => {
-        if (transformer) {
-          transformedRow[accessor] = transformer(row)
-        }
-      })
-
-      return transformedRow
-    })
+    return data.map((row) =>
+      columns
+        .map(({ accessor, transformer }) =>
+          transformer
+            ? { [accessor]: transformer(row) }
+            : { [accessor]: row[accessor] }
+        )
+        .reduce((acc, cur) => ({ ...acc, ...cur }), {})
+    )
   }
 
   const handleSorting = (
@@ -127,7 +111,7 @@ export function Table<
   const tableData = useMemo(() => {
     const transformedData = handleTransforming(data, columns)
     const sortedData = sortField
-      ? handleSorting(transformedData, sortField, order)
+      ? handleSorting(transformedData as RowType[], sortField, order)
       : transformedData
 
     return sortedData.map((row, index) => (
@@ -146,7 +130,7 @@ export function Table<
 
           return (
             <td className="p-4 border-t-2 border-uzh-grey-60" key={accessor}>
-              {formatter ? formatter(row, index) : field}
+              {formatter ? formatter(row as RowType, index) : field}
             </td>
           )
         })}

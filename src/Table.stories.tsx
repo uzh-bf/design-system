@@ -15,23 +15,27 @@ export const Simple = () => {
 }
 
 export const Transformed = () => {
+  type RowType = { count: number; answer: string; username: string }
   const columns = [
     {
       label: 'Count',
       accessor: 'count',
       sortable: true,
-      transformer: (value: number) => value * 2,
+      transformer: (row: RowType) => row['count'] * 200,
     },
     { label: 'Answer', accessor: 'answer', sortable: true },
     {
       label: 'Username',
       accessor: 'username',
       sortable: false,
-      transformer: (value: string) => value.toUpperCase(),
     },
   ]
   return (
-    <Table columns={columns} data={data} caption="Table with example data" />
+    <Table<RowType>
+      columns={columns}
+      data={data}
+      caption="Table with example data"
+    />
   )
 }
 
@@ -63,24 +67,27 @@ export const ResetTable = () => {
 }
 
 export const Formatted = () => {
+  type RowType = { count: number; answer: string; username: string }
   const columns = [
     {
       label: 'Count',
       accessor: 'count',
       sortable: true,
-      formatter: (value: number) => `${value}%`,
+      formatter: (row: RowType) => `${row['count']}%`,
     },
     {
       label: 'Answer',
       accessor: 'answer',
       sortable: true,
-      formatter: (value: string) => <div className="bg-red-300">{value}</div>,
+      formatter: (row: RowType) => (
+        <div className="bg-red-300">{row['answer']}</div>
+      ),
     },
     { label: 'Username', accessor: 'username', sortable: false },
   ]
 
   return (
-    <Table
+    <Table<RowType>
       columns={columns}
       data={data}
       caption="Table with example data"
@@ -95,28 +102,30 @@ export const Formatted = () => {
 }
 
 export const Combined = () => {
+  type RowType = { count: number; answer: string; username: string }
   const columns = [
     {
       label: 'Count',
       accessor: 'count',
       sortable: true,
       // the transformer will be applied to the data before sorting
-      transformer: (value: number) => (value > 10 ? value : value * 10),
-      formatter: (value: number) => `${value}%`,
+      transformer: (row: RowType) =>
+        row['count'] > 10 ? row['count'] : row['count'] * 10,
+      formatter: (row: RowType) => `${row['count']}%`,
     },
     {
       label: 'Answer',
       accessor: 'answer',
       sortable: true,
-      formatter: (value: string) => (
-        <div className="bg-red-300">{value.toUpperCase()}</div>
+      formatter: (row: RowType) => (
+        <div className="bg-red-300">{row['answer'].toUpperCase()}</div>
       ),
     },
     { label: 'Username', accessor: 'username', sortable: false },
   ]
 
   return (
-    <Table
+    <Table<RowType>
       columns={columns}
       data={data}
       caption="Table with example data"
