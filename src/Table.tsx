@@ -2,12 +2,20 @@ import { faSort, faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, {
   forwardRef,
-  useEffect,
   useImperativeHandle,
   useMemo,
   useState,
 } from 'react'
 import { twMerge } from 'tailwind-merge'
+
+export type dataType = Record<string, string | number>[]
+export type columnType = {
+  label: string
+  accessor: string
+  sortable?: boolean
+  transformer?: (value: any, row?: number) => any
+  formatter?: (value: any, row?: number) => any
+}
 
 export interface TableProps {
   id?: string
@@ -15,14 +23,8 @@ export interface TableProps {
     cy?: string
     test?: string
   }
-  columns: {
-    label: string
-    accessor: string
-    sortable?: boolean
-    transformer?: (value: any, row?: number) => any
-    formatter?: (value: any, row?: number) => any
-  }[]
-  data: Record<string, string | number>[]
+  columns: columnType[]
+  data: dataType
   caption?: string
   className?: {
     root?: string
@@ -35,10 +37,12 @@ export interface TableProps {
 /**
  * This function returns a pre-styled Table component based on the RadixUI table component and the custom theme.
  * The table is sortable by clicking on the column header.
+ * Before the table is being sorted according to the sorting parameters, the transformer will be applied to the data.
+ * The formatter is meant to be used for visual modifications of the fields and applied after sorting.
  *
  * @param id - The id of the table.
  * @param dataAttributes - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
- * @param columns - The columns of the table. The columns are defined by an array of objects where each object has a label, an accessor and an optional transformer.
+ * @param columns - The columns of the table. The columns are defined by an array of objects where each object has a label, an accessor and optional transformer and formatters.
  * @param data - The data of the table. The data is defined by an array of objects where each object has a key-value pair for each column.
  * @param caption - The optional caption of the table.
  * @param ref - The optional ref object allows you to access the table methods.
@@ -49,79 +53,80 @@ export const Table = forwardRef(function Table(
   { id, dataAttributes, columns, data, caption, className }: TableProps,
   ref?: any
 ) {
-  const [tableData, setTableData] = useState(data)
-  const [sortField, setSortField] = useState('')
-  const [order, setOrder] = useState('asc')
+  const [sortField, setSortField] = useState<string | undefined>(undefined)
+  const [order, setOrder] = useState<'asc' | 'desc'>('asc')
 
   useImperativeHandle(ref, () => {
     return {
       reset() {
-        setTableData(data)
-        setSortField('')
+        setSortField(undefined)
         setOrder('asc')
       },
     }
   })
 
-  useEffect(() => {
-    setTableData(data)
-  }, [data])
+  const handleTransforming = (data: dataType, columns: columnType[]) => {
+    return data.map((row) => {
+      const transformedRow = { ...row }
 
-  const tableContents = useMemo(
-    () =>
-      tableData.map((d, index) => {
-        return (
-          <tr
-            key={index}
-            className={twMerge(
-              'odd:bg-uzh-grey-20 first:border-t-0',
-              className?.row
-            )}
-          >
-            {columns.map(({ accessor, transformer, formatter }) => {
-              const tData = d[accessor] ? d[accessor] : '——'
-              const transformedData = transformer
-                ? transformer(tData, index)
-                : tData
-              return (
-                <td
-                  className="p-4 border-t-2 border-uzh-grey-60"
-                  key={accessor}
-                >
-                  {formatter
-                    ? formatter(transformedData, index)
-                    : transformedData}
-                </td>
-              )
-            })}
-          </tr>
-        )
-      }),
-    [tableData, columns, className]
-  )
-
-  const handleSorting = (sortField: string, sortOrder: string) => {
-    if (sortField) {
-      const sorted = [...tableData].sort((a, b) => {
-        if (a[sortField] === null) return 1
-        if (b[sortField] === null) return -1
-        if (a[sortField] === null && b[sortField] === null) return 0
-        return (
-          a[sortField].toString().localeCompare(b[sortField].toString(), 'en', {
-            numeric: true,
-          }) * (sortOrder === 'asc' ? 1 : -1)
-        )
+      columns.forEach(({ accessor, transformer }) => {
+        if (transformer) {
+          transformedRow[accessor] = transformer(row[accessor])
+        }
       })
-      setTableData(sorted)
-    }
+
+      return transformedRow
+    })
   }
+
+  const handleSorting = (
+    data: Record<string, string | number>[],
+    sortField: string,
+    sortOrder: string
+  ) =>
+    data.sort((a, b) => {
+      if (a[sortField] === null) return 1
+      if (b[sortField] === null) return -1
+      if (a[sortField] === null && b[sortField] === null) return 0
+      return (
+        a[sortField].toString().localeCompare(b[sortField].toString(), 'en', {
+          numeric: true,
+        }) * (sortOrder === 'asc' ? 1 : -1)
+      )
+    })
 
   const handleSortingChange = (accessor: string) => {
     const sortOrder = accessor === sortField && order === 'asc' ? 'desc' : 'asc'
     setSortField(accessor)
     setOrder(sortOrder)
-    handleSorting(accessor, sortOrder)
   }
+
+  const tableData = useMemo(() => {
+    const transformedData = handleTransforming(data, columns)
+    const sortedData = sortField
+      ? handleSorting(transformedData, sortField, order)
+      : transformedData
+
+    return sortedData.map((row, index) => (
+      <tr
+        key={index}
+        className={twMerge(
+          'odd:bg-uzh-grey-20 first:border-t-0',
+          className?.row
+        )}
+      >
+        {columns.map(({ accessor, formatter }) => {
+          const field = row[accessor] ? row[accessor] : '——'
+
+          return (
+            <td className="p-4 border-t-2 border-uzh-grey-60" key={accessor}>
+              {formatter ? formatter(field, index) : field}
+            </td>
+          )
+        })}
+      </tr>
+    ))
+  }, [data, columns, sortField, order, className])
 
   return (
     <div
@@ -168,7 +173,7 @@ export const Table = forwardRef(function Table(
             })}
           </tr>
         </thead>
-        <tbody className={className?.body}>{tableContents}</tbody>
+        <tbody className={className?.body}>{tableData}</tbody>
       </table>
     </div>
   )

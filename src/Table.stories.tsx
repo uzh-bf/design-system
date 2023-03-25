@@ -100,15 +100,17 @@ export const Combined = () => {
       label: 'Count',
       accessor: 'count',
       sortable: true,
-      transformer: (value: number) => value * 10,
+      // the transformer will be applied to the data before sorting
+      transformer: (value: number) => (value > 10 ? value : value * 10),
       formatter: (value: number) => `${value}%`,
     },
     {
       label: 'Answer',
       accessor: 'answer',
       sortable: true,
-      transformer: (value: string) => value.toUpperCase(),
-      formatter: (value: string) => <div className="bg-red-300">{value}</div>,
+      formatter: (value: string) => (
+        <div className="bg-red-300">{value.toUpperCase()}</div>
+      ),
     },
     { label: 'Username', accessor: 'username', sortable: false },
   ]
