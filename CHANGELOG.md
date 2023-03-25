@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.5](https://github.com/uzh-bf/design-system/compare/v1.5.4...v1.5.5) (2023-03-25)
+
+
+### Enhancements
+
+* **Table:** add formatter to table component ([c380588](https://github.com/uzh-bf/design-system/commit/c3805883eb9adbbea8ced51b1f70dd241e1a6fe5))
+* **Table:** rework data processing of the table component ([fb69dd4](https://github.com/uzh-bf/design-system/commit/fb69dd4233b479ebc6efcc35187987b7ed9130ce))
+
 ### [1.5.4](https://github.com/uzh-bf/design-system/compare/v1.5.2...v1.5.4) (2023-03-21)
 
 
