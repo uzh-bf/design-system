@@ -1,30 +1,48 @@
 import { faSort, faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, {
-  forwardRef,
-  useImperativeHandle,
-  useMemo,
-  useState,
-} from 'react'
+import React, { useImperativeHandle, useMemo, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
-export type dataType = Record<string, string | number>[]
-export type columnType = {
+// export type dataType = Record<string, string | number>[]
+// export type columnType = {
+//   label: string
+//   accessor: string
+//   sortable?: boolean
+//   transformer?: (value: any, row?: number) => any
+//   formatter?: (value: any, row?: number) => any
+// }
+
+// export type StringFieldType = {
+//   [key: string]: string
+// }
+// export type NumberFieldType = {
+//   [key: string]: number
+// }
+// export type BooleanFieldType = {
+//   [key: string]: boolean
+// }
+
+// export type RowType = Record<string, string | number | boolean>
+
+export type ColumnType<RowType> = {
   label: string
   accessor: string
   sortable?: boolean
-  transformer?: (value: any, row?: number) => any
-  formatter?: (value: any, row?: number) => any
+  transformer?: (row: RowType, ix?: number) => string | number | boolean
+  formatter?: (
+    row: RowType,
+    ix?: number
+  ) => string | number | React.ReactElement
 }
 
-export interface TableProps {
+export interface TableProps<RowType extends unknown> {
   id?: string
   dataAttributes?: {
     cy?: string
     test?: string
   }
-  columns: columnType[]
-  data: dataType
+  columns: ColumnType<RowType>[]
+  data: RowType[]
   caption?: string
   className?: {
     root?: string
@@ -49,9 +67,11 @@ export interface TableProps {
  * @param className - The optional className object allows you to override the default styling.
  * @returns Table component
  */
-export const Table = forwardRef(function Table(
-  { id, dataAttributes, columns, data, caption, className }: TableProps,
-  ref?: any
+export function Table<
+  RowType extends Record<string, string | number | boolean>
+>(
+  ref: any,
+  { id, dataAttributes, columns, data, caption, className }: TableProps<RowType>
 ) {
   const [sortField, setSortField] = useState<string | undefined>(undefined)
   const [order, setOrder] = useState<'asc' | 'desc'>('asc')
@@ -65,13 +85,16 @@ export const Table = forwardRef(function Table(
     }
   })
 
-  const handleTransforming = (data: dataType, columns: columnType[]) => {
+  const handleTransforming = (
+    data: RowType[],
+    columns: ColumnType<RowType>[]
+  ) => {
     return data.map((row) => {
       const transformedRow = { ...row }
 
       columns.forEach(({ accessor, transformer }) => {
         if (transformer) {
-          transformedRow[accessor] = transformer(row[accessor])
+          transformedRow[accessor] = transformer(row)
         }
       })
 
@@ -80,7 +103,7 @@ export const Table = forwardRef(function Table(
   }
 
   const handleSorting = (
-    data: Record<string, string | number>[],
+    data: RowType[],
     sortField: string,
     sortOrder: string
   ) =>
@@ -123,7 +146,7 @@ export const Table = forwardRef(function Table(
 
           return (
             <td className="p-4 border-t-2 border-uzh-grey-60" key={accessor}>
-              {formatter ? formatter(field, index) : field}
+              {formatter ? formatter(row, index) : field}
             </td>
           )
         })}
@@ -180,6 +203,6 @@ export const Table = forwardRef(function Table(
       </table>
     </div>
   )
-})
+}
 
 export default Table
