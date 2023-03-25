@@ -1,6 +1,6 @@
 import { faSort, faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useMemo, useState } from 'react'
+import React, { useImperativeHandle, useMemo, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 export type ColumnType<RowType> = {
@@ -62,14 +62,14 @@ export function Table<
   const [sortField, setSortField] = useState<string | undefined>(undefined)
   const [order, setOrder] = useState<'asc' | 'desc'>('asc')
 
-  //   useImperativeHandle(ref, () => {
-  //     return {
-  //       reset() {
-  //         setSortField(undefined)
-  //         setOrder('asc')
-  //       },
-  //     }
-  //   })
+  useImperativeHandle(ref, () => {
+    return {
+      reset() {
+        setSortField(undefined)
+        setOrder('asc')
+      },
+    }
+  })
 
   const handleTransforming = (
     data: RowType[],
@@ -197,4 +197,24 @@ export function Table<
   )
 }
 
-export default Table
+const TableRef = React.forwardRef(Table)
+export const TableWrapper = <
+  RowType extends Record<string, string | number | boolean>
+>({
+  ref,
+  ...rest
+}: TableProps<RowType> & { ref?: any }) => (
+  <TableRef
+    id={rest.id}
+    dataAttributes={rest.dataAttributes}
+    columns={
+      rest.columns as ColumnType<Record<string, string | number | boolean>>[]
+    }
+    data={rest.data}
+    caption={rest.caption}
+    className={rest.className}
+    ref={ref}
+  />
+)
+
+export default TableWrapper
