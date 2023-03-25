@@ -19,7 +19,8 @@ export interface TableProps {
     label: string
     accessor: string
     sortable?: boolean
-    transformer?: (value: any, row: any) => any
+    transformer?: (value: any, row?: number) => any
+    formatter?: (value: any, row?: number) => any
   }[]
   data: Record<string, string | number>[]
   caption?: string
@@ -77,17 +78,19 @@ export const Table = forwardRef(function Table(
               className?.row
             )}
           >
-            {columns.map(({ accessor, transformer }) => {
+            {columns.map(({ accessor, transformer, formatter }) => {
               const tData = d[accessor] ? d[accessor] : '——'
               const transformedData = transformer
-                ? transformer(tData, d)
+                ? transformer(tData, index)
                 : tData
               return (
                 <td
                   className="p-4 border-t-2 border-uzh-grey-60"
                   key={accessor}
                 >
-                  {transformedData}
+                  {formatter
+                    ? formatter(transformedData, index)
+                    : transformedData}
                 </td>
               )
             })}

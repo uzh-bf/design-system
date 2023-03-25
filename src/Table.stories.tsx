@@ -61,3 +61,69 @@ export const ResetTable = () => {
     </>
   )
 }
+
+export const Formatted = () => {
+  const columns = [
+    {
+      label: 'Count',
+      accessor: 'count',
+      sortable: true,
+      formatter: (value: number) => `${value}%`,
+    },
+    {
+      label: 'Answer',
+      accessor: 'answer',
+      sortable: true,
+      formatter: (value: string) => <div className="bg-red-300">{value}</div>,
+    },
+    { label: 'Username', accessor: 'username', sortable: false },
+  ]
+
+  return (
+    <Table
+      columns={columns}
+      data={data}
+      caption="Table with example data"
+      className={{
+        root: 'bg-white',
+        tableHeader: 'bg-gray-200',
+        body: 'bg-gray-100',
+        row: 'bg-white',
+      }}
+    />
+  )
+}
+
+export const Combined = () => {
+  const columns = [
+    {
+      label: 'Count',
+      accessor: 'count',
+      sortable: true,
+      transformer: (value: number) => value * 10,
+      formatter: (value: number) => `${value}%`,
+    },
+    {
+      label: 'Answer',
+      accessor: 'answer',
+      sortable: true,
+      transformer: (value: string) => value.toUpperCase(),
+      formatter: (value: string) => <div className="bg-red-300">{value}</div>,
+    },
+    { label: 'Username', accessor: 'username', sortable: false },
+  ]
+
+  return (
+    <Table
+      columns={columns}
+      data={data}
+      caption="Table with example data"
+      className={{
+        root: 'bg-white',
+        tableHeader: 'bg-gray-200',
+        body: 'bg-gray-100',
+        row: 'bg-white',
+      }}
+    />
+  )
+}
