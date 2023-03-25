@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.6](https://github.com/uzh-bf/design-system/compare/v1.5.5...v1.5.6) (2023-03-25)
+
+
+### Bug Fixes
+
+* **Table:** fix conditional statement with numbers ([1fe2e59](https://github.com/uzh-bf/design-system/commit/1fe2e5954bc0ed34797b6793f26c91a38e640db6))
+
 ### [1.5.5](https://github.com/uzh-bf/design-system/compare/v1.5.4...v1.5.5) (2023-03-25)
 
 
