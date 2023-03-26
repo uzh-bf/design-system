@@ -1,30 +1,27 @@
 import { faSort, faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, {
-  forwardRef,
-  useImperativeHandle,
-  useMemo,
-  useState,
-} from 'react'
+import React, { useImperativeHandle, useMemo, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
-export type dataType = Record<string, string | number>[]
-export type columnType = {
+export type ColumnType<RowType> = {
   label: string
   accessor: string
   sortable?: boolean
-  transformer?: (value: any, row?: number) => any
-  formatter?: (value: any, row?: number) => any
+  transformer?: (row: RowType, ix?: number) => string | number | boolean
+  formatter?: (
+    row: RowType,
+    ix?: number
+  ) => string | number | React.ReactElement
 }
 
-export interface TableProps {
+export interface TableProps<RowType> {
   id?: string
   dataAttributes?: {
     cy?: string
     test?: string
   }
-  columns: columnType[]
-  data: dataType
+  columns: ColumnType<RowType>[]
+  data: RowType[]
   caption?: string
   className?: {
     root?: string
@@ -32,6 +29,7 @@ export interface TableProps {
     body?: string
     row?: string
   }
+  forwardedRef?: React.Ref<any>
 }
 
 /**
@@ -47,16 +45,24 @@ export interface TableProps {
  * @param caption - The optional caption of the table.
  * @param ref - The optional ref object allows you to access the table methods.
  * @param className - The optional className object allows you to override the default styling.
+ * @param forwardedRef - The optional forwardedRef object allows you to access table methods from the parent component.
  * @returns Table component
  */
-export const Table = forwardRef(function Table(
-  { id, dataAttributes, columns, data, caption, className }: TableProps,
-  ref?: any
-) {
+export default function Table<
+  RowType extends Record<string, string | number | boolean>
+>({
+  id,
+  dataAttributes,
+  columns,
+  data,
+  caption,
+  className,
+  forwardedRef,
+}: TableProps<RowType>) {
   const [sortField, setSortField] = useState<string | undefined>(undefined)
   const [order, setOrder] = useState<'asc' | 'desc'>('asc')
 
-  useImperativeHandle(ref, () => {
+  useImperativeHandle(forwardedRef, () => {
     return {
       reset() {
         setSortField(undefined)
@@ -65,22 +71,24 @@ export const Table = forwardRef(function Table(
     }
   })
 
-  const handleTransforming = (data: dataType, columns: columnType[]) => {
-    return data.map((row) => {
-      const transformedRow = { ...row }
-
-      columns.forEach(({ accessor, transformer }) => {
-        if (transformer) {
-          transformedRow[accessor] = transformer(row[accessor])
-        }
-      })
-
-      return transformedRow
-    })
+  const handleTransforming = (
+    data: RowType[],
+    columns: ColumnType<RowType>[]
+  ): RowType[] => {
+    return data.map(
+      (row) =>
+        columns
+          .map(({ accessor, transformer }) =>
+            transformer
+              ? { [accessor]: transformer(row) }
+              : { [accessor]: row[accessor] }
+          )
+          .reduce((acc, cur) => ({ ...acc, ...cur }), {}) as RowType
+    )
   }
 
   const handleSorting = (
-    data: Record<string, string | number>[],
+    data: RowType[],
     sortField: string,
     sortOrder: string
   ) =>
@@ -123,13 +131,21 @@ export const Table = forwardRef(function Table(
 
           return (
             <td className="p-4 border-t-2 border-uzh-grey-60" key={accessor}>
-              {formatter ? formatter(field, index) : field}
+              {formatter ? formatter(row, index) : field}
             </td>
           )
         })}
       </tr>
     ))
-  }, [data, columns, sortField, order, className])
+  }, [
+    data,
+    columns,
+    sortField,
+    order,
+    className,
+    handleSorting,
+    handleTransforming,
+  ])
 
   return (
     <div
@@ -180,6 +196,4 @@ export const Table = forwardRef(function Table(
       </table>
     </div>
   )
-})
-
-export default Table
+}
