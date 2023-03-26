@@ -36,7 +36,7 @@ export const ResetTable = () => {
       label: 'Count',
       accessor: 'count',
       sortable: true,
-      transformer: (row: RowType) => row['count'] * 200,
+      transformer: ({ row }: { row: RowType }) => row['count'] * 200,
     },
     { label: 'Answer', accessor: 'answer', sortable: true },
     { label: 'Username', accessor: 'username', sortable: false },
@@ -69,13 +69,13 @@ export const Formatted = () => {
       label: 'Count',
       accessor: 'count',
       sortable: true,
-      formatter: (row: RowType) => `${row['count']}%`,
+      formatter: ({ row }: { row: RowType }) => `${row['count']}%`,
     },
     {
       label: 'Answer',
       accessor: 'answer',
       sortable: true,
-      formatter: (row: RowType) => (
+      formatter: ({ row }: { row: RowType }) => (
         <div className="bg-red-300">{row['answer']}</div>
       ),
     },
@@ -108,15 +108,15 @@ export const Combined = () => {
       accessor: 'count',
       sortable: true,
       // the transformer will be applied to the data before sorting
-      transformer: (row: RowType) =>
+      transformer: ({ row }: { row: RowType }) =>
         row['count'] > 10 ? row['count'] : row['count'] * 10,
-      formatter: (row: RowType) => `${row['count']}%`,
+      formatter: ({ row }: { row: RowType }) => `${row['count']}%`,
     },
     {
       label: 'Answer',
       accessor: 'answer',
       sortable: true,
-      formatter: (row: RowType) => (
+      formatter: ({ row }: { row: RowType }) => (
         <div className="bg-red-300">{row['answer'].toUpperCase()}</div>
       ),
     },

@@ -7,11 +7,20 @@ export type ColumnType<RowType> = {
   label: string
   accessor: string
   sortable?: boolean
-  transformer?: (row: RowType, ix?: number) => string | number | boolean
-  formatter?: (
-    row: RowType,
+  transformer?: ({
+    row,
+    ix,
+  }: {
+    row: RowType
     ix?: number
-  ) => string | number | React.ReactElement
+  }) => string | number | boolean
+  formatter?: ({
+    row,
+    ix,
+  }: {
+    row: RowType
+    ix?: number
+  }) => string | number | React.ReactElement
 }
 
 export interface TableProps<RowType> {
@@ -76,32 +85,16 @@ export function Table<
     columns: ColumnType<RowType>[]
   ): RowType[] => {
     return data.map(
-      (row) =>
+      (row, index) =>
         columns
           .map(({ accessor, transformer }) =>
             transformer
-              ? { [accessor]: transformer(row) }
+              ? { [accessor]: transformer({ row, ix: index }) }
               : { [accessor]: row[accessor] }
           )
           .reduce((acc, cur) => ({ ...acc, ...cur }), {}) as RowType
     )
   }
-
-  const handleSorting = (
-    data: RowType[],
-    sortField: string,
-    sortOrder: string
-  ) =>
-    data.sort((a, b) => {
-      if (a[sortField] === null) return 1
-      if (b[sortField] === null) return -1
-      if (a[sortField] === null && b[sortField] === null) return 0
-      return (
-        a[sortField].toString().localeCompare(b[sortField].toString(), 'en', {
-          numeric: true,
-        }) * (sortOrder === 'asc' ? 1 : -1)
-      )
-    })
 
   const handleSortingChange = (accessor: string) => {
     const sortOrder = accessor === sortField && order === 'asc' ? 'desc' : 'asc'
@@ -112,7 +105,18 @@ export function Table<
   const tableData = useMemo(() => {
     const transformedData = handleTransforming(data, columns)
     const sortedData = sortField
-      ? handleSorting(transformedData, sortField, order)
+      ? transformedData.sort((a, b) => {
+          if (a[sortField] === null) return 1
+          if (b[sortField] === null) return -1
+          if (a[sortField] === null && b[sortField] === null) return 0
+          return (
+            a[sortField]
+              .toString()
+              .localeCompare(b[sortField].toString(), 'en', {
+                numeric: true,
+              }) * (order === 'asc' ? 1 : -1)
+          )
+        })
       : transformedData
 
     return sortedData.map((row, index) => (
@@ -131,21 +135,13 @@ export function Table<
 
           return (
             <td className="p-4 border-t-2 border-uzh-grey-60" key={accessor}>
-              {formatter ? formatter(row, index) : field}
+              {formatter ? formatter({ row, ix: index }) : field}
             </td>
           )
         })}
       </tr>
     ))
-  }, [
-    data,
-    columns,
-    sortField,
-    order,
-    className,
-    handleSorting,
-    handleTransforming,
-  ])
+  }, [data, columns, sortField, order, className, handleTransforming])
 
   return (
     <div
