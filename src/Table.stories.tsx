@@ -26,8 +26,11 @@ export const Simple = () => {
   )
 }
 
-export const Transformed = () => {
+export const ResetTable = () => {
+  const ref = useRef<{ reset: () => void }>(null)
+
   type RowType = { count: number; answer: string; username: string }
+
   const columns = [
     {
       label: 'Count',
@@ -35,29 +38,6 @@ export const Transformed = () => {
       sortable: true,
       transformer: (row: RowType) => row['count'] * 200,
     },
-    { label: 'Answer', accessor: 'answer', sortable: true },
-    {
-      label: 'Username',
-      accessor: 'username',
-      sortable: false,
-    },
-  ]
-  return (
-    <div>
-      <GenericWarning />
-      <Table<RowType>
-        columns={columns}
-        data={data}
-        caption="Table with example data"
-      />
-    </div>
-  )
-}
-
-export const ResetTable = () => {
-  const ref = useRef<{ reset: () => void }>(null)
-  const columns = [
-    { label: 'Count', accessor: 'count', sortable: true },
     { label: 'Answer', accessor: 'answer', sortable: true },
     { label: 'Username', accessor: 'username', sortable: false },
   ]
@@ -72,11 +52,11 @@ export const ResetTable = () => {
       >
         Reset Table Filters
       </Button>
-      <Table
+      <Table<RowType>
         columns={columns}
         data={data}
         caption="Table with example data"
-        ref={ref}
+        forwardedRef={ref}
       />
     </>
   )

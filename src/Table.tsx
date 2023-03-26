@@ -29,6 +29,7 @@ export interface TableProps<RowType> {
     body?: string
     row?: string
   }
+  forwardedRef?: React.Ref<any>
 }
 
 /**
@@ -44,25 +45,24 @@ export interface TableProps<RowType> {
  * @param caption - The optional caption of the table.
  * @param ref - The optional ref object allows you to access the table methods.
  * @param className - The optional className object allows you to override the default styling.
+ * @param forwardedRef - The optional forwardedRef object allows you to access table methods from the parent component.
  * @returns Table component
  */
-export function Table<
+export default function Table<
   RowType extends Record<string, string | number | boolean>
->(
-  {
-    id,
-    dataAttributes,
-    columns,
-    data,
-    caption,
-    className,
-  }: TableProps<RowType>,
-  ref?: any
-) {
+>({
+  id,
+  dataAttributes,
+  columns,
+  data,
+  caption,
+  className,
+  forwardedRef,
+}: TableProps<RowType>) {
   const [sortField, setSortField] = useState<string | undefined>(undefined)
   const [order, setOrder] = useState<'asc' | 'desc'>('asc')
 
-  useImperativeHandle(ref, () => {
+  useImperativeHandle(forwardedRef, () => {
     return {
       reset() {
         setSortField(undefined)
@@ -197,25 +197,3 @@ export function Table<
     </div>
   )
 }
-
-const TableRef = React.forwardRef(Table)
-export const TableWrapper = <
-  RowType extends Record<string, string | number | boolean>
->({
-  ref,
-  ...rest
-}: TableProps<RowType> & { ref?: any }) => (
-  <TableRef
-    id={rest.id}
-    dataAttributes={rest.dataAttributes}
-    columns={
-      rest.columns as ColumnType<Record<string, string | number | boolean>>[]
-    }
-    data={rest.data}
-    caption={rest.caption}
-    className={rest.className}
-    ref={ref}
-  />
-)
-
-export default TableWrapper
