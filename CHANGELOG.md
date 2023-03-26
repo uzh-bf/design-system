@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.8](https://github.com/uzh-bf/design-system/compare/v1.5.7...v1.5.8) (2023-03-26)
+
+
+### Bug Fixes
+
+* **Table:** fix export structure for table component ([5f94650](https://github.com/uzh-bf/design-system/commit/5f94650eadb0921775a08d3f6a3c06a46b5a61f3))
+
 ### [1.5.7](https://github.com/uzh-bf/design-system/compare/v1.5.6...v1.5.7) (2023-03-26)
 
 
