@@ -48,7 +48,7 @@ export interface TableProps<RowType> {
  * @param forwardedRef - The optional forwardedRef object allows you to access table methods from the parent component.
  * @returns Table component
  */
-export default function Table<
+export function Table<
   RowType extends Record<string, string | number | boolean>
 >({
   id,
@@ -197,3 +197,5 @@ export default function Table<
     </div>
   )
 }
+
+export default Table
