@@ -80,11 +80,14 @@ export function Table<
     }
   })
 
-  const handleTransforming = (
-    data: RowType[],
-    columns: ColumnType<RowType>[]
-  ): RowType[] => {
-    return data.map(
+  const handleSortingChange = (accessor: string) => {
+    const sortOrder = accessor === sortField && order === 'asc' ? 'desc' : 'asc'
+    setSortField(accessor)
+    setOrder(sortOrder)
+  }
+
+  const tableData = useMemo(() => {
+    const transformedData = data.map(
       (row, index) =>
         columns
           .map(({ accessor, transformer }) =>
@@ -94,16 +97,7 @@ export function Table<
           )
           .reduce((acc, cur) => ({ ...acc, ...cur }), {}) as RowType
     )
-  }
 
-  const handleSortingChange = (accessor: string) => {
-    const sortOrder = accessor === sortField && order === 'asc' ? 'desc' : 'asc'
-    setSortField(accessor)
-    setOrder(sortOrder)
-  }
-
-  const tableData = useMemo(() => {
-    const transformedData = handleTransforming(data, columns)
     const sortedData = sortField
       ? transformedData.sort((a, b) => {
           if (a[sortField] === null) return 1
@@ -141,7 +135,7 @@ export function Table<
         })}
       </tr>
     ))
-  }, [data, columns, sortField, order, className, handleTransforming])
+  }, [data, columns, sortField, order, className])
 
   return (
     <div
