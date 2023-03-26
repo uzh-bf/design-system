@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.7](https://github.com/uzh-bf/design-system/compare/v1.5.6...v1.5.7) (2023-03-26)
+
+
+### Other
+
+* move react to peer deps ([88d86db](https://github.com/uzh-bf/design-system/commit/88d86dbe4a707ce99eccaacab6427d3d29e0bed9))
+* update peer deps and typescript, add check and format:check commands ([fbb52ee](https://github.com/uzh-bf/design-system/commit/fbb52eeed866e32784aa8b4335291668f2e2c212))
+
+
+### Enhancements
+
+* **Table:** implement generic table row types ([#51](https://github.com/uzh-bf/design-system/issues/51)) ([d9f45bd](https://github.com/uzh-bf/design-system/commit/d9f45bdf1a1984764768890ef105aa34d3e6e980))
+
 ### [1.5.6](https://github.com/uzh-bf/design-system/compare/v1.5.5...v1.5.6) (2023-03-25)
 
 
