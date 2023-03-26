@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.9](https://github.com/uzh-bf/design-system/compare/v1.5.8...v1.5.9) (2023-03-26)
+
+
+### Enhancements
+
+* **Table:** refactor transformer and formatter args to object structure ([ec84eea](https://github.com/uzh-bf/design-system/commit/ec84eea685c4c5a7f079646e9def792c1f3d6c20))
+
+
+### Other
+
+* **Table:** resolve linter warning through formatter application refactoring ([f990980](https://github.com/uzh-bf/design-system/commit/f99098061697b8e04d43ff22a8e55a9cfa618d32))
+
 ### [1.5.8](https://github.com/uzh-bf/design-system/compare/v1.5.7...v1.5.8) (2023-03-26)
 
 
