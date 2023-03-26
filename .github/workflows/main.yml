@@ -1,32 +1,73 @@
 name: CI
 on: [push]
 jobs:
-  build:
-    name: Build, lint, and test on Node ${{ matrix.node }} and ${{ matrix.os }}
-
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        node: ['18.x']
-        os: [ubuntu-latest]
-
+  lint:
+    runs-on: ubuntu-latest
+    name: Lint
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Use Node ${{ matrix.node }}
+      - name: Use Node 18
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node }}
+          node-version: 18.x
 
-      - name: Install deps and build (with cache)
+      - name: Install dependencies
         uses: bahmutov/npm-install@v1
 
-      - name: Lint
-        run: npm run lint
+      - run: npm run lint
 
-      - name: Test
-        run: npm run test --ci --coverage --maxWorkers=2
+  check:
+    runs-on: ubuntu-latest
+    name: Check Types
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Use Node 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+
+      - name: Install dependencies
+        uses: bahmutov/npm-install@v1
+
+      - run: npm run check
+
+  test:
+    runs-on: ubuntu-latest
+    name: Test
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Use Node 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+
+      - name: Install dependencies
+        uses: bahmutov/npm-install@v1
+
+      - run: npm run test --ci --coverage --maxWorkers=2
+
+
+  build:
+    name: Build and Publish
+    runs-on: ubuntu-latest
+    needs: [lint, check, test]
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Use Node 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+
+      - name: Install dependencies
+        uses: bahmutov/npm-install@v1
 
       - name: Build
         run: npm run build
