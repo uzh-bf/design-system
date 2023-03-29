@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 import {
@@ -16,6 +16,7 @@ export interface ProgressProps {
     test?: string
   }
   value: number
+  offset?: number
   max: number
   formatter: (value: any) => any
   isMaxVisible?: boolean
@@ -29,12 +30,22 @@ export interface ProgressProps {
   [x: string]: any
 }
 
+export interface ContinuousProgressProps extends ProgressProps {
+  offset?: number
+  nonLinear?: false
+}
+export interface NonLinearProgressProps extends ProgressProps {
+  offset?: never
+  nonLinear: true
+}
+
 /**
  * This function returns a pre-styled Progress component based on the RadixUI progress component and the custom theme.
  *
  * @param id - The id of the progress bar.
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param value - The value of the progress bar. The value should be between 0 and an optionally provided max value.
+ * @param offset - The number that determines the offset of the progress bar. The offset is subtracted from the value.
  * @param max - The maximum value of the progress bar.
  * @param formatter - The function that formats the value of the progress bar.
  * @param isMaxVisible - The boolean that determines if the maximum value should be displayed.
@@ -49,6 +60,7 @@ export function Progress({
   data,
   formatter,
   value,
+  offset = 0,
   max,
   className,
   isMaxVisible = true,
@@ -56,8 +68,17 @@ export function Progress({
   displayOffset,
   onItemClick,
   ...props
-}: ProgressProps) {
+}: ContinuousProgressProps | NonLinearProgressProps) {
   const theme = useContext(ThemeContext)
+  const [internalValue, setInternalValue] = useState(0)
+
+  useEffect(() => {
+    if (offset > 0) {
+      setInternalValue(Math.max(value - offset, 0))
+    } else {
+      setInternalValue(value)
+    }
+  }, [value, offset])
 
   return (
     <RadixProgress.Root
@@ -65,7 +86,7 @@ export function Progress({
       data-cy={data?.cy}
       data-test={data?.test}
       className={twMerge('relative h-7 text-sm rounded', className?.root)}
-      value={value}
+      value={internalValue}
       max={max}
       {...props}
     >
@@ -74,7 +95,9 @@ export function Progress({
       </div>
 
       <RadixProgress.Indicator
-        style={{ width: `${(value / max) * 100}%` }}
+        style={{
+          width: `${(internalValue / Math.max(max - offset, 0)) * 100}%`,
+        }}
         className={twMerge(
           'absolute px-2 py-1 min-w-[40px] h-full text-white rounded flex flex-col justify-center text-right',
           !nonLinear && theme.primaryBgMedium,

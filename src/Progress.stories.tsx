@@ -45,3 +45,7 @@ export const NonlinearWithOffset = () => {
     />
   )
 }
+
+export const Offset = () => {
+  return <Progress offset={50} value={60} max={100} formatter={(val) => val} />
+}
