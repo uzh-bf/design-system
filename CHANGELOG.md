@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.10](https://github.com/uzh-bf/design-system/compare/v1.5.9...v1.5.10) (2023-03-29)
+
+
+### Enhancements
+
+* **Progress:** add offset to start progress bar at specified value ([ef5482a](https://github.com/uzh-bf/design-system/commit/ef5482ae380426e0e5135b24121aaa6192060034))
+
 ### [1.5.9](https://github.com/uzh-bf/design-system/compare/v1.5.8...v1.5.9) (2023-03-26)
 
 
