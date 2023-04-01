@@ -6,7 +6,7 @@ import UserNotification from './UserNotification'
 
 const GenericWarning = () => (
   <UserNotification
-    notificationType="info"
+    type="info"
     message="When using the table component with custom transformers and / or formatters, be aware of the use of suitable generics to avoid type errors in your code. All column names (as well as possible derived ones) and their corresponding data type have to be combine in one key-value object and passed to the table component as a generic. E.g. the Combined component illustrates how this can be accomplished"
     className={{ root: 'mb-4' }}
   />
@@ -18,6 +18,7 @@ export const Simple = () => {
     { label: 'Answer', accessor: 'answer', sortable: true },
     { label: 'Username', accessor: 'username', sortable: false },
   ]
+
   return (
     <div>
       <GenericWarning />
