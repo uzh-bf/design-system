@@ -15,8 +15,8 @@ export interface StepProgressProps {
   }
   value: number
   max: number
+  onItemClick: (ix: number) => void
   displayOffset?: number
-  onItemClick?: (ix: number) => void
   className?: {
     root?: string
   }
@@ -29,8 +29,8 @@ export interface StepProgressProps {
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param value - The value of the progress bar. The value should be between 0 and an optionally provided max value.
  * @param max - The maximum value of the progress bar.
- * @param displayOffset - The number that determines the maximum number of elements that are shown to the left and right of the current value on the step progress bar.
  * @param onItemClick - The function that is called when an item is clicked.
+ * @param displayOffset - The number that determines the maximum number of elements that are shown to the left and right of the current value on the step progress bar.
  * @param className - The optional className object allows you to override the default styling.
  * @return Step progress component
  */
@@ -39,8 +39,8 @@ export function StepProgress({
   data,
   value,
   max,
-  displayOffset,
   onItemClick,
+  displayOffset,
   className,
 }: StepProgressProps) {
   const theme = useContext(ThemeContext)
@@ -63,7 +63,7 @@ export function StepProgress({
             theme.primaryTextHover,
             theme.primaryBgHover
           )}
-          onClick={() => onItemClick && onItemClick(value - 1)}
+          onClick={() => onItemClick(value - 1)}
         >
           <FontAwesomeIcon icon={faChevronLeft} />
         </button>
@@ -81,7 +81,7 @@ export function StepProgress({
             theme.primaryTextHover,
             theme.primaryBgHover
           )}
-          onClick={() => onItemClick && onItemClick(ix)}
+          onClick={() => onItemClick(ix)}
         >
           {ix + 1}
         </button>
@@ -93,7 +93,7 @@ export function StepProgress({
             theme.primaryTextHover,
             theme.primaryBgHover
           )}
-          onClick={() => onItemClick && onItemClick(value + 1)}
+          onClick={() => onItemClick(value + 1)}
         >
           <FontAwesomeIcon icon={faChevronRight} />
         </button>
