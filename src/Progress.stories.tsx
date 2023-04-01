@@ -28,24 +28,6 @@ export const Styled = () => {
   )
 }
 
-export const Nonlinear = () => {
-  return <Progress nonLinear value={6} max={20} formatter={(val) => val} />
-}
-
-export const NonlinearWithOffset = () => {
-  const [value, setValue] = React.useState(0)
-  return (
-    <Progress
-      nonLinear
-      displayOffset={7}
-      value={value}
-      max={20}
-      formatter={(val) => val}
-      onItemClick={(val) => setValue(val)}
-    />
-  )
-}
-
 export const Offset = () => {
   return <Progress offset={50} value={60} max={100} formatter={(val) => val} />
 }
