@@ -15,7 +15,7 @@ export interface UserNotificationProps {
     test?: string
   }
   message: string
-  type?: string
+  type?: 'default' | 'info' | 'success' | 'warning' | 'error'
   children?: React.ReactNode
   className?: {
     root?: string
