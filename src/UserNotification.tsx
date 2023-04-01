@@ -2,6 +2,7 @@ import {
   faCircleCheck,
   faCircleInfo,
   faCircleXmark,
+  faTriangleExclamation,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
@@ -14,7 +15,7 @@ export interface UserNotificationProps {
     test?: string
   }
   message: string
-  notificationType?: string
+  type?: string
   children?: React.ReactNode
   className?: {
     root?: string
@@ -30,7 +31,7 @@ export interface UserNotificationProps {
  * @param id - The id of the notification.
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param message - The message that is displayed in the notification.
- * @param notificationType - The type of the notification. This can be either 'success', 'info' or 'error'. This determines the icon that is displayed and some conditional styling. If not type is provided, the information icon is displayed.
+ * @param type - The type of the notification. This can be either 'success', 'info' or 'error'. This determines the icon that is displayed and some conditional styling. If not type is provided, the information icon is displayed.
  * @param children - The optional children are displayed in the notification in addition to the provided message icon.
  * @param className - The optional className object allows you to override the default styling.
  * @returns UserNotification component
@@ -39,16 +40,20 @@ export function UserNotification({
   id,
   data,
   message,
-  notificationType = 'default',
+  type = 'default',
   children,
   className,
 }: UserNotificationProps) {
   let notifIcon: any
   let computedClassName: string
 
-  switch (notificationType) {
-    case 'error':
+  switch (type) {
+    case 'warning':
       computedClassName = 'text-uzh-red-100 bg-uzh-red-20'
+      notifIcon = faTriangleExclamation
+      break
+    case 'error':
+      computedClassName = 'text-red-600 bg-red-100'
       notifIcon = faCircleXmark
       break
     case 'info':

@@ -3,15 +3,26 @@ import UserNotification from './UserNotification'
 
 export const Default = () => {
   return (
-    <UserNotification message="This is the default notif style when the provided notificationType is not 'success', 'error', or 'info'" />
+    <UserNotification message="This is the default notif style when the provided type is not 'success', 'error', or 'info'" />
   )
 }
 
 export const Success = () => {
   return (
     <UserNotification
-      notificationType="success"
+      type="success"
       message="You have been registered successfully"
+    >
+      Content
+    </UserNotification>
+  )
+}
+
+export const Warning = () => {
+  return (
+    <UserNotification
+      type="warning"
+      message="You are about to create a new account with a different email address."
     >
       Content
     </UserNotification>
@@ -21,7 +32,7 @@ export const Success = () => {
 export const Error = () => {
   return (
     <UserNotification
-      notificationType="error"
+      type="error"
       message="An error occurred during registration"
     >
       Content
@@ -32,7 +43,7 @@ export const Error = () => {
 export const Info = () => {
   return (
     <UserNotification
-      notificationType="info"
+      type="info"
       message="There are five more places available"
     >
       Content
@@ -43,7 +54,7 @@ export const Info = () => {
 export const Styled = () => {
   return (
     <UserNotification
-      notificationType="default"
+      type="default"
       message="This is a notification with default type but added custom styling"
       className={{
         root: 'text-lg gap-4',
