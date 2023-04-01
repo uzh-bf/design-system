@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0](https://github.com/uzh-bf/design-system/compare/v1.5.10...v1.6.0) (2023-04-01)
+
+
+### Features
+
+* **StepProgress:** add stepwise progress component ([#52](https://github.com/uzh-bf/design-system/issues/52)) ([f43f7c3](https://github.com/uzh-bf/design-system/commit/f43f7c30c161ef1dff3a233610abf044dd5f9085))
+
+
+### Enhancements
+
+* **UserNotification:** add new warning type and rename prop ([0bc9835](https://github.com/uzh-bf/design-system/commit/0bc98350351af3d6e5f2ee9f5ad9db0176985a74))
+
 ### [1.5.10](https://github.com/uzh-bf/design-system/compare/v1.5.9...v1.5.10) (2023-03-29)
 
 
