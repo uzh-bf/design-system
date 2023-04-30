@@ -261,7 +261,7 @@ Navigation.DropdownItem = function DropdownItem({
       href={href}
       onClick={onClick}
       className={twMerge(
-        'w-full px-4 py-3 rounded-md focus:outline-none focus-visible:ring focus-visible:ring-opacity-75 text-black hover:text-white',
+        'w-full px-4 py-3 rounded-md focus:outline-none focus-visible:ring focus-visible:ring-opacity-75 text-black sm:hover:text-white',
         theme.primaryBgMediumHover,
         className?.root
       )}
@@ -360,7 +360,7 @@ Navigation.ButtonItem = function ButtonItem({
 }: ButtonItemWithHrefProps | ButtonItemWithOnClickProps) {
   const theme = useContext(ThemeContext)
   const computedClassName = twMerge(
-    'px-3 py-2 text-sm rounded-md font-medium cursor-pointer text-black hover:text-white',
+    'px-3 py-2 text-sm rounded-md font-medium cursor-pointer text-black sm:hover:text-white',
     !disabled && theme.primaryBgMediumHover,
     disabled && 'text-gray-400 hover:text-none cursor-not-allowed',
     className?.root,
@@ -449,7 +449,7 @@ Navigation.IconItem = function IconItem({
 }: IconItemWithHrefProps | IconItemWithOnClickProps) {
   const theme = useContext(ThemeContext)
   const computedClassName = twMerge(
-    'w-9 h-9 flex items-center justify-center rounded-md text-black hover:text-white',
+    'w-9 h-9 flex items-center justify-center rounded-md text-black sm:hover:text-white',
     !disabled && theme.primaryBgMediumHover,
     disabled && 'text-gray-400 hover:text-none cursor-not-allowed',
     className?.root,

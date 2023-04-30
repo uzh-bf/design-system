@@ -93,7 +93,7 @@ export function Dropdown({
           data-cy={data?.cy}
           data-test={data?.test}
           className={twMerge(
-            `hover:${theme.primaryBgMedium} hover:!text-white px-2 py-0.5 hover:cursor-pointer rounded flex flex-row`,
+            `hover:${theme.primaryBgMedium} sm:hover:!text-white px-2 py-0.5 hover:cursor-pointer rounded flex flex-row`,
             className
           )}
           onClick={onClick}
@@ -126,8 +126,7 @@ export function Dropdown({
           data-cy={data?.cy}
           data-test={data?.test}
           className={twMerge(
-            'px-2 py-1 border border-solid border-uzh-grey-60 rounded-md',
-            `hover:${theme.primaryBg}`,
+            `px-2 py-1 border border-solid border-uzh-grey-60 rounded-md ${theme.primaryBgHover}`,
             disabled && 'cursor-not-allowed text-gray-500 hover:bg-white',
             className?.trigger,
             className?.triggerDisabled
