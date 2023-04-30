@@ -123,9 +123,7 @@ export function DateChanger({
               ),
             }}
           >
-            <Button.Icon>
-              <FontAwesomeIcon icon={saveIcon || faSave} />
-            </Button.Icon>
+            <FontAwesomeIcon icon={saveIcon || faSave} />
           </Button>
         </div>
       ) : (
@@ -144,19 +142,17 @@ export function DateChanger({
             onClick={onEdit}
             className={{
               root: twMerge(
-                'bg-uzh-grey-20 py-1 px-2',
+                'bg-uzh-grey-20 py-1 px-2 hover:bg-uzh-grey-40',
                 className?.editButton,
                 disabled && twMerge('cursor-not-allowed', className?.disabled)
               ),
             }}
             disabled={disabled}
           >
-            <Button.Icon>
-              <FontAwesomeIcon
-                icon={editIcon || faPencil}
-                className={twMerge(disabled && 'text-uzh-grey-80')}
-              />
-            </Button.Icon>
+            <FontAwesomeIcon
+              icon={editIcon || faPencil}
+              className={twMerge(disabled && 'text-uzh-grey-80')}
+            />
           </Button>
         </div>
       )}
