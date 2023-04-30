@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.1](https://github.com/uzh-bf/design-system/compare/v1.6.0...v1.6.1) (2023-04-30)
+
+
+### Bug Fixes
+
+* ensure that hover styles are not applied on mobile devices ([#53](https://github.com/uzh-bf/design-system/issues/53)) ([be5e348](https://github.com/uzh-bf/design-system/commit/be5e3489da9bca3525742f3485f6f2850b14a177))
+
+
+### Other
+
+* **UserNotification:** restrict types to implemented options ([414c55a](https://github.com/uzh-bf/design-system/commit/414c55a87620d1ef33fc076931121ee31ffa2230))
+
 ## [1.6.0](https://github.com/uzh-bf/design-system/compare/v1.5.10...v1.6.0) (2023-04-01)
 
 
