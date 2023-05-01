@@ -6,7 +6,6 @@ const {
 
 module.exports = {
   content: ['src/**/**.tsx'],
-  darkMode: 'class',
   theme: {
     extend: {
       ...TailwindAnimations,
