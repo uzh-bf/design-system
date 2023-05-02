@@ -1,7 +1,7 @@
 // @ts-ignore
 import register from 'preact-custom-element'
 
-import cssText from 'bundle-text:./index.css'
+import cssText from 'bundle-text:./Tag.css'
 
 import Tag from './Tag'
 
