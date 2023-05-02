@@ -17,5 +17,8 @@
   "workspaces": [
     "packages/*"
   ],
-  "devDependencies": {}
+  "devDependencies": {},
+  "volta": {
+    "node": "18.16.0"
+  }
 }

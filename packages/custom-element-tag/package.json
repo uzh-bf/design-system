@@ -15,7 +15,7 @@
     "preact-custom-element": "4.2.1"
   },
   "volta": {
-    "node": "18.16.0"
+    "extends": "../../package.json"
   },
   "scripts": {
     "start": "parcel index.html --open",
