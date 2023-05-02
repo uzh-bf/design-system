@@ -1,6 +1,7 @@
 {
   "type": "module",
   "devDependencies": {
+    "@types/preact-custom-element": "^4.0.1",
     "parcel": "2.8.3",
     "postcss": "^8.4.23",
     "tailwindcss": "^3.3.2",
@@ -29,7 +30,8 @@
       "distDir": "dist",
       "outputFormat": "esmodule",
       "includeNodeModules": false,
-      "optimize": true
+      "optimize": true,
+      "publicUrl": "https://www.getinvolved.uzh.ch/module/"
     }
   }
 }
