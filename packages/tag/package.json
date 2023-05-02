@@ -1,0 +1,35 @@
+{
+  "type": "module",
+  "devDependencies": {
+    "parcel": "2.8.3",
+    "postcss": "^8.4.23",
+    "tailwindcss": "^3.3.2",
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "htm": "3.1.1",
+    "preact": "10.13.2",
+    "preact-custom-element": "4.2.1"
+  },
+  "volta": {
+    "node": "18.16.0"
+  },
+  "scripts": {
+    "start": "parcel index.html --open",
+    "build": "parcel build index.html"
+  },
+  "alias": {
+    "react": "preact/compat",
+    "react-dom/test-utils": "preact/test-utils",
+    "react-dom": "preact/compat",
+    "react/jsx-runtime": "preact/jsx-runtime"
+  },
+  "targets": {
+    "module": {
+      "distDir": "dist",
+      "outputFormat": "esmodule",
+      "includeNodeModules": false,
+      "optimize": true
+    }
+  }
+}

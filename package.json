@@ -1,0 +1,9 @@
+{
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "@parcel/transformer-inline-string": "^2.8.3",
+    "tsup": "6.7.0"
+  }
+}
