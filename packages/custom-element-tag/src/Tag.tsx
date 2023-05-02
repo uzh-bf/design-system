@@ -43,11 +43,11 @@ export function Tag({ id, data, className, label = '' }: TagProps) {
         myRef.current.shadowRoot.adoptedStyleSheets = [sheet]
       }
     }
-  }, [])
+  }, [myRef])
 
   return html`
     <div
-      ref="{myRef}"
+      ref=${myRef}
       id="${id}"
       data-cy="${data?.cy}"
       data-test="${data?.test}"
