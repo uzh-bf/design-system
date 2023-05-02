@@ -24,7 +24,6 @@
     "prerelease": "npm run build",
     "release": "standard-version",
     "release:dry": "standard-version --dry-run",
-    "prepare": "husky install",
     "check": "tsc --noEmit"
   },
   "jest": {
@@ -61,7 +60,6 @@
     "autoprefixer": "10.4.13",
     "dts-cli": "1.6.3",
     "eslint": "8.29.0",
-    "husky": "8.0.2",
     "npm-run-all": "4.1.5",
     "prettier": "2.8.1",
     "prettier-plugin-organize-imports": "3.2.1",
@@ -84,6 +82,8 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "dayjs": "^1.0.0",
     "formik": "^2.2.9",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
     "tailwind-merge": "^1.8.1",
     "yup": "^1.0.0"
   },
@@ -101,8 +101,6 @@
     "@radix-ui/react-tabs": "1.0.1",
     "@radix-ui/react-toast": "1.1.2",
     "@radix-ui/react-tooltip": "1.0.2",
-    "preact": "10.13.2",
-    "preact-custom-element": "4.2.1",
     "react-countdown-circle-timer": "3.1.0"
   }
 }
