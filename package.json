@@ -1,19 +1,21 @@
 {
+  "private": true,
+  "name": "@uzh-bf/design-system-monorepo",
+  "version": "1.6.1",
   "license": "MIT",
   "repository": {
     "url": "https://github.com/uzh-bf/design-system.git"
   },
   "maintainers": [
     "Roland Schlaefli <roland.schlaefli@bf.uzh.ch>",
-    "Julius Schlapbach <julius.schlapbach@bf.uzh.ch>",
-    "Florina Vogel <florina.vogel@bf.uzh.ch>"
+    "Julius Schlapbach <julius.schlapbach@bf.uzh.ch>"
   ],
-  "version": "1.6.1",
+  "contributors": [
+    "Florina Vogel <florina.vogel@bf.uzh.ch>",
+    "Bulin Shaqiri <bulin.shaqiri@bf.uzh.ch>"
+  ],
   "workspaces": [
     "packages/*"
   ],
-  "devDependencies": {
-    "@parcel/transformer-inline-string": "^2.8.3",
-    "tsup": "6.7.0"
-  }
+  "devDependencies": {}
 }

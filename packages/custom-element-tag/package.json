@@ -1,4 +1,6 @@
 {
+  "name": "@uzh-bf/custom-element-tag",
+  "version": "1.6.1",
   "type": "module",
   "devDependencies": {
     "@types/preact-custom-element": "^4.0.1",
