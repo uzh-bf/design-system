@@ -1,4 +1,14 @@
 {
+  "license": "MIT",
+  "repository": {
+    "url": "https://github.com/uzh-bf/design-system.git"
+  },
+  "maintainers": [
+    "Roland Schlaefli <roland.schlaefli@bf.uzh.ch>",
+    "Julius Schlapbach <julius.schlapbach@bf.uzh.ch>",
+    "Florina Vogel <florina.vogel@bf.uzh.ch>"
+  ],
+  "version": "1.6.1",
   "workspaces": [
     "packages/*"
   ],
