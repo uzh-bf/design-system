@@ -1,7 +1,10 @@
 {
   "name": "@uzh-bf/custom-element-tag",
-  "version": "1.6.1",
+  "version": "0.0.2",
   "type": "module",
+  "files": [
+    "dist"
+  ],
   "source": "src/index.ts",
   "module": "dist/index.js",
   "devDependencies": {
