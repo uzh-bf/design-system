@@ -1,6 +1,6 @@
 {
   "name": "@uzh-bf/design-system-react-tag",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "files": [
     "dist"
@@ -25,9 +25,10 @@
   },
   "scripts": {
     "dev": "parcel index.html --open",
-    "build:parcel": "parcel build",
     "build:purge": "rimraf dist",
-    "build": "run-s build:purge build:parcel"
+    "build:parcel": "parcel build",
+    "build:tailwind": "tailwindcss -i src/styles.css -o dist/styles.css",
+    "build": "run-s build:purge build:parcel build:tailwind"
   },
   "dependencies": {
     "react": "18.2.0",
