@@ -1,6 +1,6 @@
 {
   "name": "@uzh-bf/design-system-react-tag",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "type": "module",
   "files": [
     "dist"
@@ -37,7 +37,8 @@
   },
   "targets": {
     "module": {
-      "optimize": true
+      "optimize": false,
+      "includeNodeModules": false
     }
   }
 }

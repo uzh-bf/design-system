@@ -21,7 +21,7 @@ export interface TagProps {
  * @param className - The optional className object allows you to override the default styling.
  * @returns Tag component
  */
-export function Tag({ id, data, className, label = '' }: TagProps) {
+function Tag({ id, data, className, label = '' }: TagProps) {
   return (
     <div
       id={id}
