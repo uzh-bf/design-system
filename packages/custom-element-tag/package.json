@@ -2,6 +2,8 @@
   "name": "@uzh-bf/custom-element-tag",
   "version": "1.6.1",
   "type": "module",
+  "source": "src/index.ts",
+  "module": "dist/index.js",
   "devDependencies": {
     "@parcel/transformer-inline-string": "2.8.3",
     "@types/preact-custom-element": "^4.0.1",
@@ -22,7 +24,7 @@
   },
   "scripts": {
     "dev": "parcel index.html --open",
-    "build:parcel": "parcel build index.html",
+    "build:parcel": "parcel build",
     "build:purge": "rimraf dist",
     "build": "run-s build:purge build:parcel"
   },
@@ -34,8 +36,6 @@
   },
   "targets": {
     "module": {
-      "distDir": "dist",
-      "outputFormat": "esmodule",
       "includeNodeModules": false,
       "optimize": true
     }
