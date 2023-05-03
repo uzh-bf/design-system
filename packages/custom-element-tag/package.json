@@ -21,7 +21,7 @@
     "extends": "../../package.json"
   },
   "scripts": {
-    "start": "parcel index.html --open",
+    "dev": "parcel index.html --open",
     "build:parcel": "parcel build index.html",
     "build:purge": "rimraf dist",
     "build": "run-s build:purge build:parcel"
@@ -37,8 +37,7 @@
       "distDir": "dist",
       "outputFormat": "esmodule",
       "includeNodeModules": false,
-      "optimize": true,
-      "publicUrl": "https://www.getinvolved.uzh.ch/module/"
+      "optimize": true
     }
   }
 }

@@ -1,8 +1,3 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: ['./**/*.{html,js,ts,jsx,tsx}'],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-}
+const tailwindConfig = require('@uzh-bf/tailwind-config-design-system')
+module.exports = tailwindConfig
