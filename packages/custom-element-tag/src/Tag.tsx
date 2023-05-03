@@ -2,7 +2,6 @@
 import htm from 'htm'
 
 import { h } from 'preact'
-import { useEffect, useRef } from 'preact/hooks'
 
 import cssText from 'bundle-text:./styles.css'
 
@@ -30,31 +29,20 @@ export interface TagProps {
  * @returns Tag component
  */
 export function Tag({ id, data, className, label = '' }: TagProps) {
-  const myRef = useRef<HTMLElement>(null)
-
-  useEffect(() => {
-    if (myRef.current) {
-      var sheet = new CSSStyleSheet()
-      sheet.replaceSync(cssText)
-
-      console.log(myRef.current.shadowRoot)
-
-      if (myRef.current.shadowRoot) {
-        myRef.current.shadowRoot.adoptedStyleSheets = [sheet]
-      }
-    }
-  }, [myRef])
-
   return html`
-    <div
-      ref=${myRef}
-      id="${id}"
-      data-cy="${data?.cy}"
-      data-test="${data?.test}"
-      className="px-2 py-1 text-sm rounded bg-slate-100 text-slate-700"
-    >
-      ${label}
-    </div>
+    <Fragment>
+      <div
+        id="${id}"
+        data-cy="${data?.cy}"
+        data-test="${data?.test}"
+        className="px-2 py-1 text-sm rounded bg-slate-100 text-slate-700"
+      >
+        ${label}
+      </div>
+      <style>
+        ${cssText}
+      </style>
+    </Fragment>
   `
 }
 
