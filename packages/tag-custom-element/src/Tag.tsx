@@ -3,6 +3,8 @@ import htm from 'htm'
 
 import { h } from 'preact'
 
+import BFTag from '@uzh-bf/design-system-react-tag'
+
 import cssText from 'bundle-text:./styles.css'
 
 const html = htm.bind(h)
@@ -31,14 +33,7 @@ export interface TagProps {
 export function Tag({ id, data, className, label = '' }: TagProps) {
   return html`
     <Fragment>
-      <div
-        id="${id}"
-        data-cy="${data?.cy}"
-        data-test="${data?.test}"
-        className="px-2 py-1 text-sm rounded bg-slate-100 text-slate-700"
-      >
-        ${label}
-      </div>
+      <${BFTag} label=${label} />
       <style>
         ${cssText}
       </style>
