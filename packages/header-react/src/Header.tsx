@@ -1,15 +1,15 @@
-import { twMerge } from "tailwind-merge";
+import { twMerge } from 'tailwind-merge'
 
 interface HeaderProps {
-  id?: string;
+  id?: string
   data?: {
-    cy?: string;
-    test?: string;
-  };
+    cy?: string
+    test?: string
+  }
   className?: {
-    root?: string;
-  };
-  children: React.ReactNode;
+    root?: string
+  }
+  children: React.ReactNode
 }
 
 /**
@@ -28,13 +28,13 @@ export function H1({ id, data, className, children }: HeaderProps) {
       data-cy={data?.cy}
       data-test={data?.test}
       className={twMerge(
-        "mb-[0.2em] font-sans text-2xl font-bold",
+        'mb-[0.2em] font-sans text-2xl font-bold',
         className?.root
       )}
     >
       {children}
     </h1>
-  );
+  )
 }
 
 /**
@@ -53,13 +53,13 @@ export function H2({ id, data, className, children }: HeaderProps) {
       data-cy={data?.cy}
       data-test={data?.test}
       className={twMerge(
-        "mb-[0.2em] font-sans text-xl font-bold",
+        'mb-[0.2em] font-sans text-xl font-bold',
         className?.root
       )}
     >
       {children}
     </h2>
-  );
+  )
 }
 
 /**
@@ -78,13 +78,13 @@ export function H3({ id, data, className, children }: HeaderProps) {
       data-cy={data?.cy}
       data-test={data?.test}
       className={twMerge(
-        "mb-[0.2em] font-sans text-lg font-bold",
+        'mb-[0.2em] font-sans text-lg font-bold',
         className?.root
       )}
     >
       {children}
     </h3>
-  );
+  )
 }
 
 /**
@@ -103,13 +103,13 @@ export function H4({ id, data, className, children }: HeaderProps) {
       data-cy={data?.cy}
       data-test={data?.test}
       className={twMerge(
-        "text-md mb-[0.2em] font-sans font-bold",
+        'text-md mb-[0.2em] font-sans font-bold',
         className?.root
       )}
     >
       {children}
     </h4>
-  );
+  )
 }
 
 /**
@@ -120,6 +120,6 @@ const Header = {
   H2,
   H3,
   H4,
-};
+}
 
-export default Header;
+export default Header
