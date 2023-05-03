@@ -1,3 +1,7 @@
 {
-  "extends": "@uzh-bf/parcel-config-design-system"
+  "extends": "@uzh-bf/parcel-config-design-system",
+  "resolvers": [
+    "@uzh-bf/parcel-resolver-preact",
+    "..."
+  ]
 }

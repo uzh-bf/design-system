@@ -1,13 +1,27 @@
 {
   "name": "@uzh-bf/design-system-custom-element-tag",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "type": "module",
   "files": [
     "dist"
   ],
   "source": "src/index.ts",
   "module": "dist/index.js",
+  "scripts": {
+    "dev": "parcel index.html --open",
+    "build:parcel": "parcel build",
+    "build:purge": "rimraf dist",
+    "build": "run-s build:purge build:parcel"
+  },
+  "dependencies": {
+    "@uzh-bf/design-system-react-tag": "*",
+    "htm": "3.1.1",
+    "preact": "10.13.2",
+    "preact-custom-element": "4.2.1",
+    "tailwind-merge": "1.12.0"
+  },
   "devDependencies": {
+    "@uzh-bf/parcel-resolver-preact": "*",
     "@parcel/transformer-inline-string": "2.8.3",
     "@types/preact-custom-element": "^4.0.1",
     "npm-run-all": "4.1.5",
@@ -17,30 +31,20 @@
     "tailwindcss": "3.3.2",
     "typescript": "5.0.4"
   },
-  "volta": {
-    "extends": "../../package.json"
-  },
-  "scripts": {
-    "dev": "parcel index.html --open",
-    "build:parcel": "parcel build",
-    "build:purge": "rimraf dist",
-    "build": "run-s build:purge build:parcel"
+  "targets": {
+    "module": {
+      "optimize": true,
+      "includeNodeModules": false
+    }
   },
   "alias": {
     "react": "preact/compat",
     "react-dom/test-utils": "preact/test-utils",
     "react-dom": "preact/compat",
-    "react/jsx-runtime": "preact/jsx-runtime"
+    "react/jsx-runtime": "preact/jsx-runtime",
+    "react/jsx-dev-runtime": "preact/jsx-runtime"
   },
-  "dependencies": {
-    "htm": "3.1.1",
-    "preact": "10.13.2",
-    "preact-custom-element": "4.2.1",
-    "tailwind-merge": "1.12.0"
-  },
-  "targets": {
-    "module": {
-      "optimize": true
-    }
+  "volta": {
+    "extends": "../../package.json"
   }
 }
