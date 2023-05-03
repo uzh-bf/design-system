@@ -1,6 +1,6 @@
 {
   "name": "@uzh-bf/design-system-custom-element-tag",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "type": "module",
   "files": [
     "dist"
@@ -34,7 +34,13 @@
   "targets": {
     "module": {
       "optimize": true,
-      "includeNodeModules": true
+      "includeNodeModules": {
+        "react": false,
+        "preact": false,
+        "htm": false,
+        "preact-custom-element": false,
+        "tailwind-merge": false
+      }
     }
   },
   "alias": {
