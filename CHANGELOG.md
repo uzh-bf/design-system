@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.2](https://github.com/uzh-bf/design-system/compare/v1.6.1...v1.6.2) (2023-05-04)
+
+
+### Other
+
+* remove darkMode class to use media-query based dark mode toggle ([598091b](https://github.com/uzh-bf/design-system/commit/598091bc03b84c0525b77a9e1f8c03e9ced5966a))
+
+
+### Enhancements
+
+* **UserNotification:** make message prop optional if children are provided ([0fad5cd](https://github.com/uzh-bf/design-system/commit/0fad5cd032edebe7640e92587448639cd90be888))
+
 ### [1.6.1](https://github.com/uzh-bf/design-system/compare/v1.6.0...v1.6.1) (2023-04-30)
 
 
