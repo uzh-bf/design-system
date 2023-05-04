@@ -14,7 +14,7 @@ export interface UserNotificationProps {
     cy?: string
     test?: string
   }
-  message: string
+  message?: string
   type?: 'default' | 'info' | 'success' | 'warning' | 'error'
   children?: React.ReactNode
   className?: {
@@ -23,6 +23,15 @@ export interface UserNotificationProps {
     message?: string
     content?: string
   }
+}
+
+export interface UserNotificationMessageProps extends UserNotificationProps {
+  message: string
+  children?: React.ReactNode
+}
+export interface UserNotificationChildrenProps extends UserNotificationProps {
+  message?: never
+  children: React.ReactNode
 }
 
 /**
@@ -43,7 +52,7 @@ export function UserNotification({
   type = 'default',
   children,
   className,
-}: UserNotificationProps) {
+}: UserNotificationMessageProps | UserNotificationChildrenProps) {
   let notifIcon: any
   let computedClassName: string
 
@@ -84,9 +93,11 @@ export function UserNotification({
         <FontAwesomeIcon icon={notifIcon!} className={className?.icon} />
       </span>
       <div>
-        <span className={className?.message}>{message}</span>
+        {message && <span className={className?.message}>{message}</span>}
         {children && (
-          <div className={twMerge('mt-2', className?.content)}>{children}</div>
+          <div className={twMerge(message && 'mt-2', className?.content)}>
+            {children}
+          </div>
         )}
       </div>
     </div>
