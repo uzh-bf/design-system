@@ -126,7 +126,7 @@ export function Select({
           size={size === 'sm' ? 'sm' : '1x'}
         />
       </RadixSelect.ScrollUpButton>
-      <RadixSelect.Viewport className="p-1 rounded-lg dark:bg-gray-800">
+      <RadixSelect.Viewport className="p-1 rounded-lg">
         {items
           ? items.map((item, ix) => (
               <SelectItem
@@ -257,10 +257,10 @@ const SelectItem = React.forwardRef(
         data-cy={data?.cy}
         data-test={data?.test}
         className={twMerge(
-          'select-none relative flex items-center px-8 py-2 rounded-md text-gray-700 dark:text-gray-300 font-medium hover:cursor-pointer hover:outline-none',
+          'select-none relative flex items-center px-8 py-2 rounded-md text-gray-700 font-medium hover:cursor-pointer hover:outline-none',
           `${theme.primaryBgHover} ${theme.primaryTextHover} ${theme.primaryBorderFocus}`,
           disabled &&
-            'hover:text-gray-700 dark:hover:text-gray-300 opacity-50 cursor-not-allowed hover:bg-white',
+            'hover:text-gray-700 opacity-50 cursor-not-allowed hover:bg-white',
           size === 'sm' && 'px-7 text-sm',
           className?.item
         )}
