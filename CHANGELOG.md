@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.3](https://github.com/uzh-bf/design-system/compare/v1.6.2...v1.6.3) (2023-05-09)
+
+
+### Bug Fixes
+
+* **Select:** remove dark styles that are always applied ([869fab5](https://github.com/uzh-bf/design-system/commit/869fab5c88b65570b9f131b6a08d51b7c5fc09ac))
+
 ### [1.6.2](https://github.com/uzh-bf/design-system/compare/v1.6.1...v1.6.2) (2023-05-04)
 
 
