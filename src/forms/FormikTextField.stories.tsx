@@ -1,5 +1,6 @@
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 import { Form, Formik } from 'formik'
-import React from 'react'
+import React, { useState } from 'react'
 import * as yup from 'yup'
 import Button from '../Button'
 import FormikTextField from './FormikTextField'
@@ -273,3 +274,47 @@ export const SmallLabel = () => (
     </Formik>
   </div>
 )
+
+export const Icon = () => {
+  const [textHidden, setTextHidden] = useState(true)
+
+  return (
+    <div>
+      <div>
+        The icon prop allows to pass a fontawesom icon to the component, which
+        will then be displayed on the right side of the input field
+      </div>
+      <Formik
+        initialValues={{
+          name: '',
+        }}
+        isInitialValid={false}
+        onSubmit={async (values, { resetForm }) => {
+          alert(`Form submitted with value: ${values.name}`)
+          resetForm()
+        }}
+      >
+        {({ values }) => {
+          return (
+            <div>
+              <Form>
+                <FormikTextField
+                  name="name"
+                  label="Label"
+                  tooltip="Tooltip for this input"
+                  className={{ root: 'mb-1' }}
+                  placeholder="Placeholder"
+                  icon={textHidden ? faEye : faEyeSlash}
+                  onIconClick={() => setTextHidden(!textHidden)}
+                  type={textHidden ? 'password' : 'text'}
+                />
+                <Button type="submit">Submit</Button>
+              </Form>
+              <div>Value: {values.name}</div>
+            </div>
+          )
+        }}
+      </Formik>
+    </div>
+  )
+}

@@ -1,3 +1,5 @@
+import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useField } from 'formik'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
@@ -11,6 +13,8 @@ interface TextFieldProps {
   }
   label?: string
   labelType?: 'small' | 'normal'
+  icon?: IconDefinition
+  onIconClick?: () => void
   placeholder?: string
   tooltip?: string
   required?: boolean
@@ -19,6 +23,7 @@ interface TextFieldProps {
   className?: {
     root?: string
     field?: string
+    icon?: string
     label?: string
     input?: string
     error?: string
@@ -50,6 +55,8 @@ export interface TextFieldWithOnChangeProps extends TextFieldProps {
  * @param onChange - The onChange function is called when the value of the field changes. This is used to manage the state internally. If no name is provided, this field is required.
  * @param label - The optional label is shown next to the field in the form.
  * @param labelType - The optional labelType can be used to change the size and position of the label according to pre-defined standards.
+ * @param icon - An optional icon (FontAwesomeIcon IconDefinition) that is shown on the right side of the text input component
+ * @param onIconClick - An optional function that is called when the icon (previous prop) is clicked
  * @param placeholder - The optional placeholder is shown when the field is empty.
  * @param tooltip - The optional tooltip is shown on hover next to the label.
  * @param required - Indicate whether the field is required or not.
@@ -66,6 +73,8 @@ export function FormikTextField({
   onChange,
   label,
   labelType = 'normal',
+  icon,
+  onIconClick,
   placeholder,
   tooltip,
   required = false,
@@ -105,43 +114,67 @@ export function FormikTextField({
           />
         )}
         {name && (
-          <input
-            {...field}
-            id={id}
-            data-cy={data?.cy}
-            data-test={data?.test}
-            name={name}
-            type="text"
-            placeholder={placeholder}
-            disabled={disabled}
-            className={twMerge(
-              'w-full rounded bg-uzh-grey-20 border border-uzh-grey-60 focus:border-uzh-blue-50 h-9',
-              disabled && 'cursor-not-allowed',
-              meta.error && meta.touched && 'border-red-400 bg-red-50',
-              className?.input
+          <div className={twMerge('relative w-full flex flex-row')}>
+            <input
+              {...field}
+              id={id}
+              data-cy={data?.cy}
+              data-test={data?.test}
+              name={name}
+              type="text"
+              placeholder={placeholder}
+              disabled={disabled}
+              className={twMerge(
+                'w-full rounded bg-uzh-grey-20 border border-uzh-grey-60 focus:border-uzh-blue-50 h-9',
+                disabled && 'cursor-not-allowed',
+                meta.error && meta.touched && 'border-red-400 bg-red-50',
+                className?.input
+              )}
+              {...props}
+            />
+            {icon && (
+              <FontAwesomeIcon
+                icon={icon}
+                onClick={onIconClick}
+                className={twMerge(
+                  'absolute right-2 self-center hover:cursor-pointer z-10 p-2 bg-uzh-grey-20',
+                  className?.icon
+                )}
+              />
             )}
-            {...props}
-          />
+          </div>
         )}
         {typeof value !== 'undefined' && onChange && (
-          <input
-            {...field}
-            id={id}
-            data-cy={data?.cy}
-            data-test={data?.test}
-            value={value}
-            onChange={(e) => onChange(e.target.value)}
-            type="text"
-            placeholder={placeholder}
-            disabled={disabled}
-            className={twMerge(
-              'w-full rounded bg-uzh-grey-20 border border-uzh-grey-60 focus:border-uzh-blue-50 h-9',
-              disabled && 'cursor-not-allowed',
-              meta.error && meta.touched && 'border-red-400 bg-red-50',
-              className?.input
+          <div className={twMerge('relative w-full flex flex-row')}>
+            <input
+              {...field}
+              id={id}
+              data-cy={data?.cy}
+              data-test={data?.test}
+              value={value}
+              onChange={(e) => onChange(e.target.value)}
+              type="text"
+              placeholder={placeholder}
+              disabled={disabled}
+              className={twMerge(
+                'w-full rounded bg-uzh-grey-20 border border-uzh-grey-60 focus:border-uzh-blue-50 h-9',
+                disabled && 'cursor-not-allowed',
+                meta.error && meta.touched && 'border-red-400 bg-red-50',
+                className?.input
+              )}
+              {...props}
+            />
+            {icon && (
+              <FontAwesomeIcon
+                icon={icon}
+                onClick={onIconClick}
+                className={twMerge(
+                  'absolute right-2 self-center hover:cursor-pointer z-10 p-2 bg-uzh-grey-20',
+                  className?.icon
+                )}
+              />
             )}
-            {...props}
-          />
+          </div>
         )}
       </div>
       {!hideError && meta.touched && meta.error && (
