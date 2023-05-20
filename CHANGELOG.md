@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.4](https://github.com/uzh-bf/design-system/compare/v1.6.3...v1.6.4) (2023-05-20)
+
+
+### Enhancements
+
+* **forms/Formik*:** add small label display option through labelType prop ([588d01a](https://github.com/uzh-bf/design-system/commit/588d01a103a4fdd44821807d59be1714d309a832))
+* **forms/FormikTextField:** implement possibility to add icons with optional onClick function ([e4c3791](https://github.com/uzh-bf/design-system/commit/e4c3791f4fbaaf3096dd2bfa0c131d537e0400a2))
+
 ### [1.6.3](https://github.com/uzh-bf/design-system/compare/v1.6.2...v1.6.3) (2023-05-09)
 
 
