@@ -12,6 +12,7 @@ export interface SelectFieldProps {
   }
   name: string
   label?: string
+  labelType?: 'small' | 'normal'
   placeholder?: string
   tooltip?: string
   required?: boolean
@@ -34,6 +35,7 @@ export interface SelectFieldProps {
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param name - The name of the field. This is used to identify the field in Formik.
  * @param label - The optional label is shown next to the field in the form.
+ * @param labelType - The optional labelType can be used to change the size and position of the label according to pre-defined standards.
  * @param placeholder - The optional placeholder is shown when no value is selected / initialization with 'undefined' is chosen.
  * @param disabled - The optional disabled prop disables the select component.
  * @param hideError - Hide the error message below this component as is might be more appropriate to show it somewhere else.
@@ -48,6 +50,7 @@ export function FormikSelectField({
   data,
   name,
   label,
+  labelType = 'normal',
   placeholder,
   tooltip,
   required = false,
@@ -61,7 +64,12 @@ export function FormikSelectField({
 
   return (
     <div className={twMerge('flex flex-col w-max', className?.root)} id={id}>
-      <div className="flex flex-row w-full">
+      <div
+        className={twMerge(
+          'flex flex-row w-full',
+          labelType === 'small' && 'flex-col'
+        )}
+      >
         {label && (
           <Label
             forId={name}
@@ -70,9 +78,12 @@ export function FormikSelectField({
             className={{
               root: twMerge(
                 'my-auto mr-2 font-bold min-w-max',
+                labelType === 'small' &&
+                  'text-sm leading-6 text-gray-600 font-normal mt-1',
                 className?.label
               ),
               tooltip: 'text-sm font-normal',
+              tooltipSymbol: twMerge(labelType === 'small' && 'w-2 h-2'),
             }}
             tooltip={tooltip}
             showTooltipSymbol={typeof tooltip !== 'undefined'}

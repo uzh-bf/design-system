@@ -10,6 +10,7 @@ interface TextFieldProps {
     test?: string
   }
   label?: string
+  labelType?: 'small' | 'normal'
   placeholder?: string
   tooltip?: string
   required?: boolean
@@ -48,6 +49,7 @@ export interface TextFieldWithOnChangeProps extends TextFieldProps {
  * @param value - The value of the field. This is used to manage the state internally. If no name is provided, this field is required.
  * @param onChange - The onChange function is called when the value of the field changes. This is used to manage the state internally. If no name is provided, this field is required.
  * @param label - The optional label is shown next to the field in the form.
+ * @param labelType - The optional labelType can be used to change the size and position of the label according to pre-defined standards.
  * @param placeholder - The optional placeholder is shown when the field is empty.
  * @param tooltip - The optional tooltip is shown on hover next to the label.
  * @param required - Indicate whether the field is required or not.
@@ -63,6 +65,7 @@ export function FormikTextField({
   value,
   onChange,
   label,
+  labelType = 'normal',
   placeholder,
   tooltip,
   required = false,
@@ -75,7 +78,13 @@ export function FormikTextField({
 
   return (
     <div className={twMerge('flex flex-col', className?.root)}>
-      <div className={twMerge('flex flex-row w-full', className?.field)}>
+      <div
+        className={twMerge(
+          'flex flex-row w-full',
+          labelType === 'small' && 'flex-col',
+          className?.field
+        )}
+      >
         {label && (
           <Label
             forId={id}
@@ -84,9 +93,12 @@ export function FormikTextField({
             className={{
               root: twMerge(
                 'my-auto mr-2 font-bold min-w-max',
+                labelType === 'small' &&
+                  'text-sm leading-6 text-gray-600 font-normal mt-1',
                 className?.label
               ),
               tooltip: 'text-sm font-normal',
+              tooltipSymbol: twMerge(labelType === 'small' && 'w-2 h-2'),
             }}
             tooltip={tooltip}
             showTooltipSymbol={typeof tooltip !== 'undefined'}

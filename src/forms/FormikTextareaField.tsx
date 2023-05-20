@@ -10,6 +10,7 @@ export interface TextareaFieldProps {
     test?: string
   }
   label?: string
+  labelType?: 'small' | 'normal'
   placeholder?: string
   tooltip?: string
   required?: boolean
@@ -48,6 +49,7 @@ export interface TextareaFieldWithOnChangeProps extends TextareaFieldProps {
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param name - The name of the field as used to keep track of the state in Formik. If no value and onChange function are provided, this field is required.
  * @param label - The optional label is shown next to the field in the form.
+ * @param labelType - The optional labelType can be used to change the size and position of the label according to pre-defined standards.
  * @param tooltip - The optional tooltip is shown on hover next to the label.
  * @param required - Indicate whether the field is required or not.
  * @param placeholder - The optional placeholder is shown when the field is empty.
@@ -67,6 +69,7 @@ export function FormikTextareaField({
   value,
   onChange,
   label,
+  labelType,
   placeholder,
   tooltip,
   required = false,
@@ -81,7 +84,13 @@ export function FormikTextareaField({
 
   return (
     <div className={twMerge('flex flex-col', className?.root)} id={id}>
-      <div className={twMerge('flex flex-row w-full', className?.field)}>
+      <div
+        className={twMerge(
+          'flex flex-row w-full',
+          labelType === 'small' && 'flex-col',
+          className?.field
+        )}
+      >
         {label && (
           <Label
             forId={id}
@@ -90,9 +99,12 @@ export function FormikTextareaField({
             className={{
               root: twMerge(
                 'my-auto mr-2 font-bold min-w-max',
+                labelType === 'small' &&
+                  'text-sm leading-6 text-gray-600 font-normal mt-1',
                 className?.label
               ),
               tooltip: 'text-sm font-normal',
+              tooltipSymbol: twMerge(labelType === 'small' && 'w-2 h-2'),
             }}
             tooltip={tooltip}
             showTooltipSymbol={typeof tooltip !== 'undefined'}
