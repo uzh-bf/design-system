@@ -4,7 +4,7 @@ import { twMerge } from 'tailwind-merge'
 import { ThemeContext } from '../ThemeProvider'
 import Label from './Label'
 
-interface PinFieldProps {
+export interface PinFieldProps {
   id?: string
   name: string
   required?: boolean
@@ -23,7 +23,7 @@ interface PinFieldProps {
   }
 }
 
-function PinField({
+export function PinField({
   id,
   name,
   required = false,
