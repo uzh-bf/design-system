@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.7.0](https://github.com/uzh-bf/design-system/compare/v1.6.4...v1.7.0) (2023-05-24)
+
+
+### Features
+
+* **FormikPinField:** add formik pin field component ([#55](https://github.com/uzh-bf/design-system/issues/55)) ([f29ed56](https://github.com/uzh-bf/design-system/commit/f29ed56a0404f90ba4980d68482b85531350a10b))
+
 ### [1.6.4](https://github.com/uzh-bf/design-system/compare/v1.6.3...v1.6.4) (2023-05-20)
 
 
