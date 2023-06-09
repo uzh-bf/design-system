@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.7.2](https://github.com/uzh-bf/design-system/compare/v1.7.1...v1.7.2) (2023-06-09)
+
+
+### Enhancements
+
+* **Collapsible:** add optional primary and secondary buttons or custom components on trigger level ([4533f52](https://github.com/uzh-bf/design-system/commit/4533f529abe35a041c80d83c6e45ff68435c52f8))
+
 ### [1.7.1](https://github.com/uzh-bf/design-system/compare/v1.7.0...v1.7.1) (2023-05-24)
 
 
