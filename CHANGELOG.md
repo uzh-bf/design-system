@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.7.3](https://github.com/uzh-bf/design-system/compare/v1.7.2...v1.7.3) (2023-06-09)
+
+
+### Bug Fixes
+
+* **Collapsible:** remove test styling and fix width issue ([ea653d5](https://github.com/uzh-bf/design-system/commit/ea653d5f927e56940bbc72dcdcb87b125ccec061))
+
 ### [1.7.2](https://github.com/uzh-bf/design-system/compare/v1.7.1...v1.7.2) (2023-06-09)
 
 
