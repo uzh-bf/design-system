@@ -31,6 +31,7 @@ export interface CollapsibleProps {
     primaryButton?: string
     secondary?: string
     secondaryButton?: string
+    bottomWrapper?: string
   }
   children: React.ReactNode
 }
@@ -86,10 +87,15 @@ export function Collapsible({
         <RadixCollapsible.Content className={className?.content}>
           {children}
         </RadixCollapsible.Content>
-        <div className="grid grid-cols-5 sm:grid-cols-7 md:grid-cols-9 lg:grid-cols-11">
+        <div
+          className={twMerge(
+            'grid w-full grid-cols-5 sm:grid-cols-7 md:grid-cols-9 lg:grid-cols-11 mb-1.5',
+            className?.bottomWrapper
+          )}
+        >
           <div
             className={twMerge(
-              'col-span-2 bg-red-300 sm:col-span-3 md:col-span-4 lg:col-span-5',
+              'col-span-2 sm:col-span-3 md:col-span-4 lg:col-span-5',
               className?.secondary
             )}
           >
@@ -106,7 +112,7 @@ export function Collapsible({
           </div>
           <RadixCollapsible.Trigger
             className={twMerge(
-              'w-full text-center col-span-1 flex flex-col justify-end mb-1',
+              'w-full text-center col-span-1 flex flex-col justify-end',
               className?.trigger
             )}
             id={id}
@@ -122,7 +128,7 @@ export function Collapsible({
           </RadixCollapsible.Trigger>
           <div
             className={twMerge(
-              'col-span-2 bg-red-300 sm:col-span-3 md:col-span-4 lg:col-span-5',
+              'col-span-2 sm:col-span-3 md:col-span-4 lg:col-span-5',
               className?.primary
             )}
           >
