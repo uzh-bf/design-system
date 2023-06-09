@@ -19,6 +19,44 @@ export const Default = () => {
   )
 }
 
+export const Buttons = () => {
+  const [open, setOpen] = useState(false)
+  return (
+    <Collapsible
+      open={open}
+      onChange={() => {
+        setOpen(!open)
+      }}
+      staticContent="Static content"
+      closedContent="Closed content"
+      primary="Primary"
+      secondary="Secondary"
+      onPrimaryClick={() => alert('Primary button was pushed')}
+      onSecondaryClick={() => alert('Secondary button was clicked')}
+    >
+      Dynamic content
+    </Collapsible>
+  )
+}
+
+export const PrimarySecondary = () => {
+  const [open, setOpen] = useState(false)
+  return (
+    <Collapsible
+      open={open}
+      onChange={() => {
+        setOpen(!open)
+      }}
+      staticContent="Static content"
+      closedContent="Closed content"
+      primary={<div className="bg-red-300">Custom primary component</div>}
+      secondary={<div className="bg-green-300">Custom secondary component</div>}
+    >
+      Dynamic content
+    </Collapsible>
+  )
+}
+
 export const Complex = () => {
   const [open, setOpen] = useState(false)
   return (
@@ -28,7 +66,7 @@ export const Complex = () => {
         setOpen(!open)
       }}
       staticContent={
-        <div className="flex flex-row justify-between items-center">
+        <div className="flex flex-row items-center justify-between">
           <H2>This is a title</H2>
           <div className="text-sm">Meta-Info</div>
         </div>
