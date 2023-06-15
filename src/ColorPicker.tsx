@@ -37,7 +37,7 @@ export interface ColorPickerProps {
     trigger?: string
     popover?: string
     presetButtons?: string
-    label?: string
+    inputLabel?: string
     input?: string
     abort?: string
     submit?: string
@@ -116,7 +116,7 @@ export function ColorPicker({
           <div className="flex flex-row">
             <Label
               className={{
-                root: twMerge('pr-1', className?.label),
+                root: twMerge('pr-1', className?.inputLabel),
                 tooltip: 'ml-4',
               }}
               label="Farbe:"

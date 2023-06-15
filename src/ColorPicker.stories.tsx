@@ -67,7 +67,7 @@ export const Styled = () => {
         trigger: 'bg-gray-200',
         popover: 'bg-yellow-200',
         presetButtons: 'bg-yellow-200',
-        label: 'bg-green-200',
+        inputLabel: 'bg-green-200',
         input: 'bg-green-200',
         abort: 'bg-blue-200',
         submit: 'bg-blue-200',
