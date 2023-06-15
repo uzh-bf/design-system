@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.7.4](https://github.com/uzh-bf/design-system/compare/v1.7.3...v1.7.4) (2023-06-15)
+
+
+### Enhancements
+
+* **ColorPicker:** add color picker component ([#56](https://github.com/uzh-bf/design-system/issues/56)) ([f7cd6d6](https://github.com/uzh-bf/design-system/commit/f7cd6d65073e7894362d5a0a32b06e1b8b3e125a))
+
 ### [1.7.3](https://github.com/uzh-bf/design-system/compare/v1.7.2...v1.7.3) (2023-06-09)
 
 
