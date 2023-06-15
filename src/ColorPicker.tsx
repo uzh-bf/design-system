@@ -8,7 +8,7 @@ import { PRESET_COURSE_COLORS } from './constants'
 import Label from './forms/Label'
 import { ThemeContext } from './ThemeProvider'
 
-interface ColorPickerProps {
+export interface ColorPickerProps {
   color: string
   onSubmit: (newColor: string) => void
   disabled?: boolean
@@ -33,7 +33,7 @@ interface ColorPickerProps {
   }
 }
 
-function ColorPicker({
+export function ColorPicker({
   color,
   onSubmit,
   disabled,
