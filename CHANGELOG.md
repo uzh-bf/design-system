@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.8.0](https://github.com/uzh-bf/design-system/compare/v1.7.4...v1.8.0) (2023-06-16)
+
+
+### Features
+
+* **FormikColorPicker:** add formik color picker component ([#57](https://github.com/uzh-bf/design-system/issues/57)) ([33a2b8d](https://github.com/uzh-bf/design-system/commit/33a2b8dc87c9e6a78a86d2ba533397a0fb851c66))
+
 ### [1.7.4](https://github.com/uzh-bf/design-system/compare/v1.7.3...v1.7.4) (2023-06-15)
 
 
