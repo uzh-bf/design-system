@@ -31,6 +31,40 @@ export const Default = () => (
   </div>
 )
 
+export const Label = () => (
+  <div>
+    <Formik
+      initialValues={{
+        color: '#FF0000',
+      }}
+      onSubmit={async (values, { resetForm }) => {
+        alert(
+          `Form submitted with color: ${values.color}. The form will be reset.`
+        )
+        resetForm()
+      }}
+    >
+      {({ values }) => {
+        return (
+          <div>
+            <Form>
+              <FormikColorPicker
+                required
+                label="Color Picker"
+                tooltip="This is a tooltip"
+                name="color"
+                className={{ root: 'mb-4' }}
+              />
+              <Button type="submit">Submit</Button>
+            </Form>
+            <div>Value: {values.color}</div>
+          </div>
+        )
+      }}
+    </Formik>
+  </div>
+)
+
 export const Disabled = () => (
   <div>
     <Formik
