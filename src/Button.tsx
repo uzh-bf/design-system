@@ -59,12 +59,8 @@ export function Button({
   const computedClassName = twMerge(
     !basic && 'border rounded px-[0.75em] py-[0.25em] shadow bg-white ',
     'inline-flex flex-row items-center font-sans gap-2',
-    !basic &&
-      active &&
-      twMerge(
-        `${theme.primaryBg} ${theme.primaryFill} ${theme.primaryBorder}`,
-        className?.active
-      ),
+    fluid && 'w-full justify-center',
+    className?.root,
     disabled || loading
       ? !basic
         ? twMerge(
@@ -74,8 +70,12 @@ export function Button({
         : 'cursor-default'
       : !basic &&
           `${theme.primaryBgHover} ${theme.primaryBorderHover} ${theme.primaryTextHover} ${theme.primaryFillHover}`,
-    fluid && 'w-full justify-center',
-    className?.root
+    !basic &&
+      active &&
+      twMerge(
+        `${theme.primaryBg} ${theme.primaryFill} ${theme.primaryBorder}`,
+        className?.active
+      )
   )
 
   return (
