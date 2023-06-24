@@ -11,6 +11,8 @@ export interface ButtonProps {
   active?: boolean
   className?: {
     root?: string
+    active?: string
+    disabled?: string
   }
   children?: React.ReactNode
   disabled?: boolean
@@ -35,7 +37,7 @@ export interface ButtonProps {
  * @param type - The html type of the button.
  * @param loading - Indicate whether the button is loading or not. Conditional styling / loading symbol is applied, if this is true.
  * @param onClick - Function that is applied when the button is clicked.
- * @param className - The optional className object allows you to override the default styling.
+ * @param className - The optional className object allows you to override the default styling. Active and disabled styles will not be applied to basic buttons
  * @returns Button component
  */
 export function Button({
@@ -59,10 +61,16 @@ export function Button({
     'inline-flex flex-row items-center font-sans gap-2',
     !basic &&
       active &&
-      `${theme.primaryBg} ${theme.primaryFill} ${theme.primaryBorder}`,
+      twMerge(
+        `${theme.primaryBg} ${theme.primaryFill} ${theme.primaryBorder}`,
+        className?.active
+      ),
     disabled || loading
       ? !basic
-        ? 'bg-uzh-grey-20 text-uzh-grey-80 cursor-default fill-uzh-grey-80'
+        ? twMerge(
+            'bg-uzh-grey-20 text-uzh-grey-80 cursor-default fill-uzh-grey-80',
+            className?.disabled
+          )
         : 'cursor-default'
       : !basic &&
           `${theme.primaryBgHover} ${theme.primaryBorderHover} ${theme.primaryTextHover} ${theme.primaryFillHover}`,
