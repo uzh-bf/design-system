@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.8.1](https://github.com/uzh-bf/design-system/compare/v1.8.0...v1.8.1) (2023-06-24)
+
+
+### Other
+
+* lockfile maintenance ([08352ee](https://github.com/uzh-bf/design-system/commit/08352ee79dde42b7eea1848393169c34a62652e1))
+
+
+### Enhancements
+
+* **Table:** improve styling capabilities on row and column level, improve code clarity, allow customizing empty cell text ([a20b325](https://github.com/uzh-bf/design-system/commit/a20b32536705733620b54f89321443fcd35d040c))
+
 ## [1.8.0](https://github.com/uzh-bf/design-system/compare/v1.7.4...v1.8.0) (2023-06-16)
 
 
