@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.8.2](https://github.com/uzh-bf/design-system/compare/v1.8.1...v1.8.2) (2023-06-24)
+
+
+### Enhancements
+
+* **Button:** add conditional custom styling options for disabled and active states ([781b74d](https://github.com/uzh-bf/design-system/commit/781b74d1500b665a7836a68e61ec30e7c3be22b3))
+
 ### [1.8.1](https://github.com/uzh-bf/design-system/compare/v1.8.0...v1.8.1) (2023-06-24)
 
 
