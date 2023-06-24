@@ -64,7 +64,12 @@ export const ResetTable = () => {
 }
 
 export const Formatted = () => {
-  type RowType = { count: number; answer: string; username: string }
+  type RowType = {
+    count: number
+    answer: string
+    username: string
+    className?: string
+  }
   const columns = [
     {
       label: 'Count',
@@ -76,6 +81,7 @@ export const Formatted = () => {
       label: 'Answer',
       accessor: 'answer',
       sortable: true,
+      className: 'font-bold italic',
       formatter: ({ row }: { row: RowType }) => (
         <div className="bg-red-300">{row['answer']}</div>
       ),
@@ -88,7 +94,13 @@ export const Formatted = () => {
       <GenericWarning />
       <Table<RowType>
         columns={columns}
-        data={data}
+        data={[
+          {
+            className: 'text-green-200',
+            ...data[0],
+          },
+          ...data,
+        ]}
         caption="Table with example data"
         className={{
           root: 'bg-white',
