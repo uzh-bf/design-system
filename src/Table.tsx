@@ -45,6 +45,8 @@ export interface TableProps<RowType extends BaseRowType> {
   }
   forwardedRef?: React.Ref<any>
   emptyCellText?: string
+  defaultSortField?: string
+  defaultSortOrder?: 'asc' | 'desc'
 }
 
 /**
@@ -62,6 +64,8 @@ export interface TableProps<RowType extends BaseRowType> {
  * @param className - The optional className object allows you to override the default styling.
  * @param forwardedRef - The optional forwardedRef object allows you to access table methods from the parent component.
  * @param emptyCellText - The optional emptyCellText allows you to define the text that should be displayed in empty cells.
+ * @param defaultSortField - The optional defaultSortField allows you to define the default sorting field.
+ * @param defaultSortOrder - The optional defaultSortOrder allows you to define the default sorting order.
  * @returns Table component
  */
 export function Table<
@@ -75,15 +79,19 @@ export function Table<
   className,
   forwardedRef,
   emptyCellText = '——',
+  defaultSortField,
+  defaultSortOrder = 'asc',
 }: TableProps<RowType>) {
-  const [sortField, setSortField] = useState<string | undefined>(undefined)
-  const [order, setOrder] = useState<'asc' | 'desc'>('asc')
+  const [sortField, setSortField] = useState<string | undefined>(
+    defaultSortField
+  )
+  const [order, setOrder] = useState<'asc' | 'desc'>(defaultSortOrder)
 
   useImperativeHandle(forwardedRef, () => {
     return {
       reset() {
-        setSortField(undefined)
-        setOrder('asc')
+        setSortField(defaultSortField)
+        setOrder(defaultSortOrder)
       },
     }
   })
