@@ -103,7 +103,7 @@ export function Styled() {
         }}
         activeIx={activeIx}
         className={{
-          root: 'bg-red-400',
+          root: 'w-1/2',
           item: 'bg-blue-400',
           active: 'bg-green-400',
         }}

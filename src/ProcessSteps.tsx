@@ -1,6 +1,5 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { twMerge } from 'tailwind-merge'
-import { ThemeContext } from './ThemeProvider'
 
 interface StepItem {
   title: string
@@ -12,10 +11,16 @@ export interface ProcessStepsProps {
   items: StepItem[]
   onClick: (item: StepItem) => void
   activeIx: number
+  twStyles?: {
+    bgHover: string
+    bgActive: string
+    bgPast: string
+  }
   className?: {
     root?: string
     item?: string
     active?: string
+    past?: string
     title?: string
     description?: string
   }
@@ -25,9 +30,13 @@ export function ProcessSteps({
   items,
   onClick,
   activeIx,
+  twStyles = {
+    bgHover: 'hover:bg-uzh-blue-20 hover:after:!border-l-uzh-blue-20',
+    bgActive: 'bg-uzh-blue-80 after:border-l-uzh-blue-80',
+    bgPast: 'bg-uzh-blue-20 after:border-l-uzh-blue-20',
+  },
   className,
 }: ProcessStepsProps) {
-  const theme = useContext(ThemeContext)
   const hasDescription = items.reduce(
     (acc, item) => acc || Boolean(item.description),
     false
@@ -44,28 +53,25 @@ export function ProcessSteps({
       {items.map((item, ix) => (
         <div
           key={`${item.title}-${ix}`}
-          // TODO: properly switch to either theme or hardcoded color implementation for consistency
           className={twMerge(
             'relative text-center flex items-center justify-center bg-uzh-grey-40 step',
             'mr-1 last:mr-0 cursor-pointer select-none first:before:!border-none after:last:!border-none',
-            "hover:after:!border-l-uzh-blue-20 after:content-[''] after:absolute",
             'after:z-10 after:border after:border-solid after:border-y-transparent after:border-r-0',
             "before:content-[''] before:absolute before:z-0 before:right-auto before:left-0",
             'before:border before:border-solid before:border-r-0 before:border-y-transparent',
-            'after:border-l-uzh-grey-40 before:border-l-white',
-            theme.primaryBgHover,
+            "after:content-[''] after:absolute after:border-l-uzh-grey-40 before:border-l-white",
+            twStyles.bgHover,
+            hasDescription
+              ? 'pl-[25px] first:pl-0 last:pl-0 h-[50px] after:right-[-25px] after:border-y-[25px] after:border-l-[25px] before:border-y-[25px] before:border-l-[25px]'
+              : 'pl-[17px] first:pl-0 last:pl-0 h-[34px] after:right-[-17px] after:border-y-[17px] after:border-l-[17px] before:border-y-[17px] before:border-l-[17px]',
             ix === activeIx &&
               twMerge(
-                theme.primaryBgDark,
-                'text-white hover:text-black after:border-l-uzh-blue-80',
+                twStyles.bgActive,
+                'text-white hover:text-black',
                 className?.active
               ),
             ix < activeIx &&
-              twMerge(theme.primaryBg, 'after:border-l-uzh-blue-20'),
-            hasDescription
-              ? 'h-[50px] after:right-[-26px] after:border-y-[25px] after:border-l-[25px] before:border-y-[25px] before:border-l-[25px]'
-              : 'h-[34px] after:right-[-17px] after:border-y-[17px] after:border-l-[17px] before:border-y-[17px] before:border-l-[17px]',
-            theme.primaryBgHover,
+              twMerge(twStyles.bgPast, 'text-gray-500', className?.past),
             className?.item
           )}
           onClick={() => onClick(item)}
