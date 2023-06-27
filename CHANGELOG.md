@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.9.0](https://github.com/uzh-bf/design-system/compare/v1.8.4...v1.9.0) (2023-06-27)
+
+
+### Features
+
+* **Workflow:** introduce new workflow component ([#58](https://github.com/uzh-bf/design-system/issues/58)) ([54e6df7](https://github.com/uzh-bf/design-system/commit/54e6df7b8ee5077f771009d34e5556a963c6c9fb))
+
 ### [1.8.4](https://github.com/uzh-bf/design-system/compare/v1.8.3...v1.8.4) (2023-06-25)
 
 
