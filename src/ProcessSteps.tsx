@@ -8,14 +8,10 @@ interface StepItem {
   [x: string]: any
 }
 
-interface ProcessStepsProps {
+export interface ProcessStepsProps {
   items: StepItem[]
   onClick: (item: StepItem) => void
   activeIx: number
-  color?: string
-  activeColor?: string
-  pastColor?: string
-  hoverColor?: string
   className?: {
     root?: string
     item?: string
@@ -25,14 +21,10 @@ interface ProcessStepsProps {
   }
 }
 
-function ProcessSteps({
+export function ProcessSteps({
   items,
   onClick,
   activeIx,
-  color = '#ddd',
-  activeColor = '#0028A5',
-  pastColor = '#99A9DB',
-  hoverColor = '#99A9DB',
   className,
 }: ProcessStepsProps) {
   const theme = useContext(ThemeContext)
@@ -52,73 +44,35 @@ function ProcessSteps({
       {items.map((item, ix) => (
         <div
           key={`${item.title}-${ix}`}
+          // TODO: properly switch to either theme or hardcoded color implementation for consistency
           className={twMerge(
-            'relative text-center flex items-center justify-center step',
-            `mr-1 last:mr-0 cursor-pointer select-none w-[${
-              100 / items.length
-            }%]`,
-            hasDescription ? 'h-[50px]' : 'h-[34px]',
-            ix === activeIx && 'text-white hover:text-black',
-            ix === activeIx && className?.active,
+            'relative text-center flex items-center justify-center bg-uzh-grey-40 step',
+            'mr-1 last:mr-0 cursor-pointer select-none first:before:!border-none after:last:!border-none',
+            "hover:after:!border-l-uzh-blue-20 after:content-[''] after:absolute",
+            'after:z-10 after:border after:border-solid after:border-y-transparent after:border-r-0',
+            "before:content-[''] before:absolute before:z-0 before:right-auto before:left-0",
+            'before:border before:border-solid before:border-r-0 before:border-y-transparent',
+            'after:border-l-uzh-grey-40 before:border-l-white',
+            theme.primaryBgHover,
+            ix === activeIx &&
+              twMerge(
+                theme.primaryBgDark,
+                'text-white hover:text-black after:border-l-uzh-blue-80',
+                className?.active
+              ),
+            ix < activeIx &&
+              twMerge(theme.primaryBg, 'after:border-l-uzh-blue-20'),
+            hasDescription
+              ? 'h-[50px] after:right-[-26px] after:border-y-[25px] after:border-l-[25px] before:border-y-[25px] before:border-l-[25px]'
+              : 'h-[34px] after:right-[-17px] after:border-y-[17px] after:border-l-[17px] before:border-y-[17px] before:border-l-[17px]',
             theme.primaryBgHover,
             className?.item
           )}
           onClick={() => onClick(item)}
+          style={{
+            width: `${100 / items.length}%`,
+          }}
         >
-          <style>{`
-            .step {
-              background-color: ${
-                ix === activeIx
-                  ? activeColor
-                  : ix < activeIx
-                  ? pastColor
-                  : color
-              };
-            }
-
-            .step:hover {
-              background-color: ${hoverColor};
-            }
-
-            .step:after,
-            .step:before {
-              content: '';
-              position: absolute;
-              right: ${hasDescription ? '-25px' : '-16px'};
-              border-top: ${hasDescription ? '25px' : '16px'} solid transparent;
-              border-bottom: ${hasDescription ? '25px' : '16px'} solid
-                transparent;
-              border-left: ${hasDescription ? '25px' : '16px'} solid
-                ${
-                  ix === activeIx
-                    ? activeColor
-                    : ix < activeIx
-                    ? pastColor
-                    : color
-                };
-              z-index: 2;
-            }
-
-            .step:hover:after {
-              border-left: ${hasDescription ? '25px' : '16px'} solid
-                ${hoverColor};
-              z-index: 2;
-            }
-
-            .step:before {
-              right: auto;
-              left: 0;
-              border-left: ${hasDescription ? '25px' : '16px'} solid #fff;
-              z-index: 0;
-            }
-
-            .step:first-child:before {
-              border: none;
-            }
-            .step:last-child:after {
-              border: none;
-            }
-          `}</style>
           <div className="flex flex-col">
             <div
               className={twMerge(
