@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import ProcessSteps from './ProcessSteps'
+import Workflow from './Workflow'
 
 const itemsDescriptions = [
   {
@@ -43,13 +43,13 @@ export function Default() {
   return (
     <div className="w-full">
       <div>
-        The process steps component always grows to 100% width of the parent
+        The workflow component always grows to 100% width of the parent
         container and splits the available space evenly between the number of
         passed items. If a description is passed, the height of the component
         adapts accordingly. Limited custom styling is available. The items can
         contain custom data, which is passed back to the onClick handler.
       </div>
-      <ProcessSteps
+      <Workflow
         items={items}
         onClick={(item) => {
           alert(`Item with title ${item.title} was clicked!`)
@@ -66,13 +66,13 @@ export function Description() {
   return (
     <div className="w-full">
       <div>
-        The process steps component always grows to 100% width of the parent
+        The workflow component always grows to 100% width of the parent
         container and splits the available space evenly between the number of
         passed items. If a description is passed, the height of the component
         adapts accordingly. Limited custom styling is available. The items can
         contain custom data, which is passed back to the onClick handler.
       </div>
-      <ProcessSteps
+      <Workflow
         items={itemsDescriptions}
         onClick={(item) => {
           alert(`Item with title ${item.title} was clicked!`)
@@ -89,13 +89,13 @@ export function Styled() {
   return (
     <div className="w-full">
       <div>
-        The process steps component always grows to 100% width of the parent
+        The workflow component always grows to 100% width of the parent
         container and splits the available space evenly between the number of
         passed items. If a description is passed, the height of the component
         adapts accordingly. Limited custom styling is available. The items can
         contain custom data, which is passed back to the onClick handler.
       </div>
-      <ProcessSteps
+      <Workflow
         items={items}
         onClick={(item) => {
           alert(`Item with title ${item.title} was clicked!`)

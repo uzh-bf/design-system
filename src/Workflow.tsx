@@ -1,15 +1,15 @@
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
 
-interface StepItem {
+interface StepProps {
   title: string
   description?: string
   [x: string]: any
 }
 
-export interface ProcessStepsProps {
-  items: StepItem[]
-  onClick: (item: StepItem) => void
+export interface WorkflowProps {
+  items: StepProps[]
+  onClick: (item: StepProps) => void
   activeIx: number
   twStyles?: {
     bgHover: string
@@ -26,7 +26,17 @@ export interface ProcessStepsProps {
   }
 }
 
-export function ProcessSteps({
+/**
+ * This function returns a pre-styled Workflow component. Theme-based styling is not available for this component at the moment, use the twStyles or className objects instead to override default styling.
+ *
+ * @param items - The array of steps that should be displayed in the workflow.
+ * @param onClick - The function that is called when a step is clicked. The step object is passed as an argument.
+ * @param activeIx - The index of the active step. State management is not handled by this component.
+ * @param twStyles - The optional twStyles object allows you to override the default styling.
+ * @param className - The optional className object allows you to override the default styling.
+ * @returns Workflow component
+ */
+export function Workflow({
   items,
   onClick,
   activeIx,
@@ -36,7 +46,7 @@ export function ProcessSteps({
     bgPast: 'bg-uzh-blue-20 after:border-l-uzh-blue-20',
   },
   className,
-}: ProcessStepsProps) {
+}: WorkflowProps) {
   const hasDescription = items.reduce(
     (acc, item) => acc || Boolean(item.description),
     false
@@ -54,7 +64,7 @@ export function ProcessSteps({
         <div
           key={`${item.title}-${ix}`}
           className={twMerge(
-            'relative text-center flex items-center justify-center bg-uzh-grey-40 step',
+            'relative text-center flex items-center justify-center bg-uzh-grey-40 stepProps',
             'mr-1 last:mr-0 cursor-pointer select-none first:before:!border-none after:last:!border-none',
             'after:z-10 after:border after:border-solid after:border-y-transparent after:border-r-0',
             "before:content-[''] before:absolute before:z-0 before:right-auto before:left-0",
@@ -100,4 +110,4 @@ export function ProcessSteps({
   )
 }
 
-export default ProcessSteps
+export default Workflow
