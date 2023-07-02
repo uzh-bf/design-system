@@ -1,7 +1,6 @@
 import React, { Dispatch, useContext } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { ThemeContext } from './ThemeProvider'
-import Tooltip from './Tooltip'
 
 export interface ButtonProps {
   id?: string
@@ -13,13 +12,10 @@ export interface ButtonProps {
   type?: 'button' | 'submit' | 'reset'
   loading?: boolean
   onClick?: (e?: React.MouseEvent<HTMLButtonElement>) => void
-  tooltip?: string
-  tooltipDelay?: number
   className?: {
     root?: string
     active?: string
     disabled?: string
-    tooltip?: string
   }
   data?: {
     cy?: string
@@ -41,8 +37,6 @@ export interface ButtonProps {
  * @param type - The html type of the button.
  * @param loading - Indicate whether the button is loading or not. Conditional styling / loading symbol is applied, if this is true.
  * @param onClick - Function that is applied when the button is clicked.
- * @param tooltip - The tooltip text that is displayed when hovering over the button.
- * @param tooltipDelay - The delay in ms before the tooltip is shown.
  * @param className - The optional className object allows you to override the default styling. Active and disabled styles will not be applied to basic buttons
  * @returns Button component
  */
@@ -56,8 +50,6 @@ export function Button({
   basic = false,
   loading = false,
   type = 'button',
-  tooltip,
-  tooltipDelay = 1000,
   className,
   data,
   ...props
@@ -86,7 +78,7 @@ export function Button({
       )
   )
 
-  const buttonComponent = (
+  return (
     <button
       {...props}
       id={id}
@@ -122,20 +114,6 @@ export function Button({
       {children}
     </button>
   )
-
-  if (tooltip) {
-    return (
-      <Tooltip
-        tooltip={tooltip}
-        delay={tooltipDelay}
-        className={{ tooltip: className?.tooltip }}
-      >
-        {buttonComponent}
-      </Tooltip>
-    )
-  }
-
-  return buttonComponent
 }
 
 Button.Icon = function ButtonIcon({
