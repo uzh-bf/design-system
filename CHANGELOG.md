@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.9.1](https://github.com/uzh-bf/design-system/compare/v1.9.0...v1.9.1) (2023-07-02)
+
+
+### Enhancements
+
+* **Button:** add optional tooltip on hover ([2b38d94](https://github.com/uzh-bf/design-system/commit/2b38d94234d795788a70983ff752dafaa955f2b6))
+
 ## [1.9.0](https://github.com/uzh-bf/design-system/compare/v1.8.4...v1.9.0) (2023-06-27)
 
 
