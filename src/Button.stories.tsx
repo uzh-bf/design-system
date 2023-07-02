@@ -24,6 +24,13 @@ export const Default = () => (
   </Button>
 )
 
+export const Tooltip = () => (
+  <Button tooltip="This tooltip will be shown when hovering over the button">
+    <Button.Icon>{ExampleIcon}</Button.Icon>
+    <Button.Label>Test-Text</Button.Label>
+  </Button>
+)
+
 export const Active = () => (
   <Button active>
     <Button.Icon>{ExampleIcon}</Button.Icon>
