@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.9.2](https://github.com/uzh-bf/design-system/compare/v1.9.1...v1.9.2) (2023-07-02)
+
+
+### Bug Fixes
+
+* **Button:** rewind tooltip wrapper changes to fix next-hydration error ([41ce240](https://github.com/uzh-bf/design-system/commit/41ce2409513ff231609c175b2e4ba07744a2b52c))
+
 ### [1.9.1](https://github.com/uzh-bf/design-system/compare/v1.9.0...v1.9.1) (2023-07-02)
 
 
