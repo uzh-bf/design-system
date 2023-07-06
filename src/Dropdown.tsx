@@ -30,6 +30,7 @@ interface DropdownProps {
     viewport?: string
     item?: string
     group?: string
+    arrow?: string
   }
   disabled?: boolean
 }
@@ -158,7 +159,7 @@ export function Dropdown({
         )}
       >
         <RadixDropdown.Arrow
-          className={twMerge(theme.primaryFill, 'opacity-25')}
+          className={twMerge(theme.primaryFill, 'opacity-25', className?.arrow)}
         />
 
         {items && (
