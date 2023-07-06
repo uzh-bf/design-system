@@ -23,12 +23,14 @@ interface DropdownProps {
   }
   trigger: string | React.ReactNode
   items?: Item[]
+  activeItems?: string[]
   groups?: Item[][]
   className?: {
     trigger?: string
     triggerDisabled?: string
     viewport?: string
     item?: string
+    activeItem?: string
     group?: string
     arrow?: string
   }
@@ -51,6 +53,7 @@ export interface DropdownWithGroupsProps extends DropdownProps {
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param trigger - The content of the trigger button or a custom trigger component to replace the default button.
  * @param items - The items that are displayed in the dropdown menu. This attribute should not be set, if groups are used.
+ * @param activeItems - List of labels that should be considered active. This attribute has a similar function as the "select" attribute on the item props and should not be used at the same time.
  * @param groups - The groups of items that are displayed in the dropdown menu. This attribute should not be set, if items are used.
  * @param className - The optional className object allows you to override the default styling.
  * @param disabled - Indicate whether the dropdown is disabled or not. Conditional styling is applied, if this is true.
@@ -61,6 +64,7 @@ export function Dropdown({
   data,
   trigger,
   items,
+  activeItems,
   groups,
   className,
   disabled = false,
@@ -71,6 +75,7 @@ export function Dropdown({
     id,
     data,
     label,
+    active = false,
     onClick,
     shorting,
     selected,
@@ -82,10 +87,14 @@ export function Dropdown({
       test?: string
     }
     label: string | React.ReactNode
+    active?: boolean
     onClick: () => void
     shorting?: string
     selected?: boolean
-    className?: string
+    className?: {
+      root?: string
+      active?: string
+    }
   }) => {
     if (typeof label === 'string') {
       return (
@@ -95,7 +104,8 @@ export function Dropdown({
           data-test={data?.test}
           className={twMerge(
             `hover:${theme.primaryBgMedium} sm:hover:!text-white px-2 py-0.5 hover:cursor-pointer rounded flex flex-row`,
-            className
+            active && twMerge('font-bold', className?.active),
+            className?.root
           )}
           onClick={onClick}
         >
@@ -112,7 +122,7 @@ export function Dropdown({
         data-cy={data?.cy}
         data-test={data?.test}
         onClick={onClick}
-        className={twMerge('rounded-md', className)}
+        className={twMerge('rounded-md', className?.root)}
       >
         {label}
       </RadixDropdown.Item>
@@ -171,7 +181,14 @@ export function Dropdown({
                 onClick={item.onClick}
                 shorting={item.shorting}
                 selected={item.selected}
-                className={className?.item}
+                active={
+                  typeof item.label === 'string' &&
+                  activeItems?.includes(item.label)
+                }
+                className={{
+                  root: className?.item,
+                  active: className?.activeItem,
+                }}
               />
             ))}
           </div>
@@ -190,7 +207,10 @@ export function Dropdown({
                     label={item.label}
                     onClick={item.onClick}
                     shorting={item.shorting}
-                    className={className?.item}
+                    className={{
+                      root: className?.item,
+                      active: className?.activeItem,
+                    }}
                   />
                 ))}
               </RadixDropdown.Group>
