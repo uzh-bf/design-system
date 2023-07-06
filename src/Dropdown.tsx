@@ -109,7 +109,12 @@ export function Dropdown({
           )}
           onClick={onClick}
         >
-          <div className={twMerge('flex-1', selected && 'font-bold')}>
+          <div
+            className={twMerge(
+              'flex-1',
+              selected && twMerge('font-bold', className?.active)
+            )}
+          >
             {label}
           </div>
           {shorting && <div className="ml-6">{shorting}</div>}
