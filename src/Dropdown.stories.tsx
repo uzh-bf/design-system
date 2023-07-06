@@ -191,3 +191,33 @@ export const CustomLabel = () => {
     </div>
   )
 }
+
+export const Active = () => {
+  return (
+    <div>
+      <div>
+        One possibility to highlight active elements is through the "selected"
+        prop on the item itself. To make the dropdown component keep the correct
+        state, a list of strings, so-called "activeItems" can be passed, which
+        are then compared to the label values. If the label is given as a React
+        node, the active value will not be considered.
+      </div>
+      <Dropdown
+        trigger="Test"
+        activeItems={['Element 1 long', 'Element 3 short']}
+        items={[
+          {
+            label: 'Element 1 long',
+            onClick: () => alert('Element 1 clicked'),
+          },
+          { label: 'Element 2', onClick: () => alert('Element 2 clicked') },
+          {
+            label: 'Element 3 short',
+            onClick: () => alert('Element 3 clicked'),
+          },
+          { label: 'Element 4', onClick: () => alert('Element 4 clicked') },
+        ]}
+      />
+    </div>
+  )
+}
