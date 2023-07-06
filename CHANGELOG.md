@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.9.3](https://github.com/uzh-bf/design-system/compare/v1.9.2...v1.9.3) (2023-07-06)
+
+
+### Bug Fixes
+
+* **Table:** ensure positive and negative numbers are sorted correctly ([83bc936](https://github.com/uzh-bf/design-system/commit/83bc936721620e5b0347bbe9a4070d4c9a806d26))
+
 ### [1.9.2](https://github.com/uzh-bf/design-system/compare/v1.9.1...v1.9.2) (2023-07-02)
 
 
