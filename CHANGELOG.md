@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.9.4](https://github.com/uzh-bf/design-system/compare/v1.9.3...v1.9.4) (2023-07-06)
+
+
+### Enhancements
+
+* **Dropdown:** extend styling possibilities and active states ([#59](https://github.com/uzh-bf/design-system/issues/59)) ([61dc02e](https://github.com/uzh-bf/design-system/commit/61dc02ed1fcda48e500a84595330a08d7ed33e3c))
+
 ### [1.9.3](https://github.com/uzh-bf/design-system/compare/v1.9.2...v1.9.3) (2023-07-06)
 
 
