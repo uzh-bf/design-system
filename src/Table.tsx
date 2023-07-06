@@ -122,12 +122,21 @@ export function Table<
           if (a[sortField] === null) return 1
           if (b[sortField] === null) return -1
           if (a[sortField] === null && b[sortField] === null) return 0
+
+          const direction = order === 'asc' ? 1 : -1
+
+          if (typeof a[sortField] === 'number') {
+            return (
+              ((a[sortField] as number) - (b[sortField] as number)) * direction
+            )
+          }
+
           return (
             a[sortField]
               .toString()
               .localeCompare(b[sortField].toString(), 'en', {
                 numeric: true,
-              }) * (order === 'asc' ? 1 : -1)
+              }) * direction
           )
         })
       : transformedData

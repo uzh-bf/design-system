@@ -27,6 +27,21 @@ export const Simple = () => {
   )
 }
 
+export const Sorting = () => {
+  const columns = [{ label: 'Count', accessor: 'count', sortable: true }]
+
+  return (
+    <div>
+      <GenericWarning />
+      <Table
+        columns={columns}
+        data={[{ count: 100 }, { count: -50 }, { count: -70 }, { count: 30 }]}
+        caption="Table with example data"
+      />
+    </div>
+  )
+}
+
 export const ResetTable = () => {
   const ref = useRef<{ reset: () => void }>(null)
 
