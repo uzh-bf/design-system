@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.9.5](https://github.com/uzh-bf/design-system/compare/v1.9.4...v1.9.5) (2023-07-07)
+
+
+### Enhancements
+
+* **Countdown:** add onUpdate ([4687ee5](https://github.com/uzh-bf/design-system/commit/4687ee54de6b600a7d237b489e46005358b194d2))
+
 ### [1.9.4](https://github.com/uzh-bf/design-system/compare/v1.9.3...v1.9.4) (2023-07-06)
 
 
