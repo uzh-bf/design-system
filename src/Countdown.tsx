@@ -16,6 +16,7 @@ export interface CountdownProps {
   }
   formatter?: (value: any) => any
   onExpire?: () => void
+  onUpdate?: (timeRemaining: number) => void
   isStatic?: boolean
 }
 
@@ -31,6 +32,7 @@ export interface CountdownProps {
  * @param className - The optional className object allows you to override the default styling.
  * @param formatter - The function that is called to format the countdown value.
  * @param onExpire - The function that is called when the countdown expires.
+ * @param onUpdate - The function that is called when the remaining time is updated.
  * @param isStatic - Indicate whether the countdown is static (does not run) or not.
  * @returns Countdown component
  */
@@ -44,6 +46,7 @@ export function Countdown({
   className,
   formatter,
   onExpire,
+  onUpdate,
   isStatic = false,
 }: CountdownProps): React.ReactElement {
   return (
@@ -65,6 +68,7 @@ export function Countdown({
         size={size || 45}
         strokeWidth={strokeWidth || 7}
         onComplete={onExpire}
+        onUpdate={onUpdate}
       >
         {({ remainingTime }: any) => {
           return formatter
