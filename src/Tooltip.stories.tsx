@@ -5,7 +5,7 @@ import Tooltip from './Tooltip'
 export const Default = () => {
   return (
     <Tooltip tooltip="Content Tooltip">
-      <div className="p-2 border border-solid shadow-md border-uzh-grey-100">
+      <div className="border border-solid border-uzh-grey-100 p-2 shadow-md">
         Hover Me!
       </div>
     </Tooltip>
@@ -17,13 +17,13 @@ export const Styled = () => {
     <Tooltip
       className={{ tooltip: 'bg-red-400', arrow: 'fill-red-400' }}
       tooltip={
-        <div className="italic font-bold text-black">Styled Tooltip</div>
+        <div className="font-bold italic text-black">Styled Tooltip</div>
       }
       withIndicator={true}
     >
       <Button
         className={{
-          root: 'p-2 border border-solid shadow-md border-uzh-grey-100',
+          root: 'border border-solid border-uzh-grey-100 p-2 shadow-md',
         }}
       >
         Hover Me! and I can still be a Button
@@ -35,7 +35,7 @@ export const Styled = () => {
 export const Delay = () => {
   return (
     <Tooltip tooltip="Content Tooltip" delay={3000}>
-      <div className="p-2 border border-solid shadow-md border-uzh-grey-100">
+      <div className="border border-solid border-uzh-grey-100 p-2 shadow-md">
         Delayed Tooltip...
       </div>
     </Tooltip>

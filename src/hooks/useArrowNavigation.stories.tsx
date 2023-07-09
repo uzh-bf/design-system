@@ -26,7 +26,7 @@ export const Default = () => {
       <div className="flex flex-row gap-2">
         <div
           className={twMerge(
-            'p-1 border border-solid rounded',
+            'rounded border border-solid p-1',
             arrowPressed === 'Arrow Left' && theme.primaryBg
           )}
         >
@@ -34,7 +34,7 @@ export const Default = () => {
         </div>
         <div
           className={twMerge(
-            'p-1 border border-solid rounded',
+            'rounded border border-solid p-1',
             arrowPressed === 'Arrow Right' && theme.primaryBg
           )}
         >
@@ -42,7 +42,7 @@ export const Default = () => {
         </div>
         <div
           className={twMerge(
-            'p-1 border border-solid rounded',
+            'rounded border border-solid p-1',
             arrowPressed === 'Arrow Up' && theme.primaryBg
           )}
         >
@@ -50,7 +50,7 @@ export const Default = () => {
         </div>
         <div
           className={twMerge(
-            'p-1 border border-solid rounded',
+            'rounded border border-solid p-1',
             arrowPressed === 'Arrow Down' && theme.primaryBg
           )}
         >

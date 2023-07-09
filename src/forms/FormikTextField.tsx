@@ -89,7 +89,7 @@ export function FormikTextField({
     <div className={twMerge('flex flex-col', className?.root)}>
       <div
         className={twMerge(
-          'flex flex-row w-full',
+          'flex w-full flex-row',
           labelType === 'small' && 'flex-col',
           className?.field
         )}
@@ -101,20 +101,20 @@ export function FormikTextField({
             label={label}
             className={{
               root: twMerge(
-                'my-auto mr-2 font-bold min-w-max',
+                'my-auto mr-2 min-w-max font-bold',
                 labelType === 'small' &&
-                  'text-sm leading-6 text-gray-600 font-normal mt-1',
+                  'mt-1 text-sm font-normal leading-6 text-gray-600',
                 className?.label
               ),
               tooltip: 'text-sm font-normal',
-              tooltipSymbol: twMerge(labelType === 'small' && 'w-2 h-2'),
+              tooltipSymbol: twMerge(labelType === 'small' && 'h-2 w-2'),
             }}
             tooltip={tooltip}
             showTooltipSymbol={typeof tooltip !== 'undefined'}
           />
         )}
         {name && (
-          <div className={twMerge('relative w-full flex flex-row')}>
+          <div className={twMerge('relative flex w-full flex-row')}>
             <input
               {...field}
               id={id}
@@ -125,7 +125,7 @@ export function FormikTextField({
               placeholder={placeholder}
               disabled={disabled}
               className={twMerge(
-                'w-full rounded bg-uzh-grey-20 border border-uzh-grey-60 focus:border-uzh-blue-50 h-9',
+                'focus:border-uzh-blue-50 h-9 w-full rounded border border-uzh-grey-60 bg-uzh-grey-20',
                 disabled && 'cursor-not-allowed',
                 meta.error && meta.touched && 'border-red-400 bg-red-50',
                 className?.input
@@ -137,7 +137,7 @@ export function FormikTextField({
                 icon={icon}
                 onClick={onIconClick}
                 className={twMerge(
-                  'absolute right-2 self-center hover:cursor-pointer z-10 p-2 bg-uzh-grey-20',
+                  'absolute right-2 z-10 self-center bg-uzh-grey-20 p-2 hover:cursor-pointer',
                   className?.icon
                 )}
               />
@@ -145,7 +145,7 @@ export function FormikTextField({
           </div>
         )}
         {typeof value !== 'undefined' && onChange && (
-          <div className={twMerge('relative w-full flex flex-row')}>
+          <div className={twMerge('relative flex w-full flex-row')}>
             <input
               {...field}
               id={id}
@@ -157,7 +157,7 @@ export function FormikTextField({
               placeholder={placeholder}
               disabled={disabled}
               className={twMerge(
-                'w-full rounded bg-uzh-grey-20 border border-uzh-grey-60 focus:border-uzh-blue-50 h-9',
+                'focus:border-uzh-blue-50 h-9 w-full rounded border border-uzh-grey-60 bg-uzh-grey-20',
                 disabled && 'cursor-not-allowed',
                 meta.error && meta.touched && 'border-red-400 bg-red-50',
                 className?.input
@@ -169,7 +169,7 @@ export function FormikTextField({
                 icon={icon}
                 onClick={onIconClick}
                 className={twMerge(
-                  'absolute right-2 self-center hover:cursor-pointer z-10 p-2 bg-uzh-grey-20',
+                  'absolute right-2 z-10 self-center bg-uzh-grey-20 p-2 hover:cursor-pointer',
                   className?.icon
                 )}
               />
@@ -180,7 +180,7 @@ export function FormikTextField({
       {!hideError && meta.touched && meta.error && (
         <div
           className={twMerge(
-            'w-full text-sm text-right text-red-400',
+            'w-full text-right text-sm text-red-400',
             className?.error
           )}
         >

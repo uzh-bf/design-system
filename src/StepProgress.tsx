@@ -48,7 +48,7 @@ export function StepProgress({
   return (
     <div
       className={twMerge(
-        'flex flex-row text-xs bg-gray-200 rounded h-7',
+        'flex h-7 flex-row rounded bg-gray-200 text-xs',
         className?.root
       )}
       id={id}
@@ -58,7 +58,7 @@ export function StepProgress({
       {displayOffset && value - displayOffset > 0 && (
         <button
           className={twMerge(
-            'px-3 py-1 rounded-l text-white',
+            'rounded-l px-3 py-1 text-white',
             theme.primaryBgMedium,
             theme.primaryTextHover,
             theme.primaryBgHover
@@ -71,11 +71,11 @@ export function StepProgress({
       {new Array(max).fill(0).map((_, ix) => (
         <button
           className={twMerge(
-            'p-1 flex-1',
+            'flex-1 p-1',
             ix === 0 && 'rounded-l',
             ix === max - 1 && 'rounded-r',
             value > ix && `text-white ${theme.primaryBgMedium}`,
-            value === ix && `font-bold bg-gray-400 text-white`,
+            value === ix && `bg-gray-400 font-bold text-white`,
             displayOffset && ix < value - displayOffset && 'hidden',
             displayOffset && ix > value + displayOffset && 'hidden',
             theme.primaryTextHover,
@@ -89,7 +89,7 @@ export function StepProgress({
       {displayOffset && max > value + displayOffset + 1 && (
         <button
           className={twMerge(
-            'px-3 py-1 rounded-r',
+            'rounded-r px-3 py-1',
             theme.primaryTextHover,
             theme.primaryBgHover
           )}

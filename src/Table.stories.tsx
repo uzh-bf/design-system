@@ -1,8 +1,8 @@
 import React, { useRef } from 'react'
 import Button from './Button'
 import Table from './Table'
-import { data } from './tableData'
 import UserNotification from './UserNotification'
+import { data } from './tableData'
 
 const GenericWarning = () => (
   <UserNotification

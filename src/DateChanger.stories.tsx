@@ -90,7 +90,7 @@ export function Styled() {
       }}
       label="Testlabel"
       className={{
-        label: 'font-bold mr-1',
+        label: 'mr-1 font-bold',
         editButton: 'text-red-500',
       }}
     />

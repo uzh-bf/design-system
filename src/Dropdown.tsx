@@ -103,7 +103,7 @@ export function Dropdown({
           data-cy={data?.cy}
           data-test={data?.test}
           className={twMerge(
-            `hover:${theme.primaryBgMedium} sm:hover:!text-white px-2 py-0.5 hover:cursor-pointer rounded flex flex-row`,
+            `hover:${theme.primaryBgMedium} flex flex-row rounded px-2 py-0.5 hover:cursor-pointer sm:hover:!text-white`,
             active && twMerge('font-bold', className?.active),
             className?.root
           )}
@@ -142,7 +142,7 @@ export function Dropdown({
           data-cy={data?.cy}
           data-test={data?.test}
           className={twMerge(
-            `px-2 py-1 border border-solid border-uzh-grey-60 rounded-md ${theme.primaryBgHover}`,
+            `rounded-md border border-solid border-uzh-grey-60 px-2 py-1 ${theme.primaryBgHover}`,
             disabled && 'cursor-not-allowed text-gray-500 hover:bg-white',
             className?.trigger,
             className?.triggerDisabled
@@ -168,7 +168,7 @@ export function Dropdown({
 
       <RadixDropdown.Content
         className={twMerge(
-          'p-1.5 rounded-md',
+          'rounded-md p-1.5',
           theme.primaryBg,
           className?.viewport
         )}
@@ -178,7 +178,7 @@ export function Dropdown({
         />
 
         {items && (
-          <div className="pt-1 pb-1 border-b border-solid first:pt-0 last:pb-0 border-uzh-grey-100 last:border-b-0">
+          <div className="border-b border-solid border-uzh-grey-100 pb-1 pt-1 first:pt-0 last:border-b-0 last:pb-0">
             {items.map((item, index) => (
               <DropdownItem
                 key={index}
@@ -204,7 +204,7 @@ export function Dropdown({
           groups.map((groupItems, groupIndex) => (
             <div
               key={groupIndex}
-              className="pt-1 pb-1 border-b border-solid first:pt-0 last:pb-0 border-uzh-grey-100 last:border-b-0"
+              className="border-b border-solid border-uzh-grey-100 pb-1 pt-1 first:pt-0 last:border-b-0 last:pb-0"
             >
               <RadixDropdown.Group className={className?.group}>
                 {groupItems.map((item) => (

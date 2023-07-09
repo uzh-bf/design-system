@@ -67,7 +67,7 @@ export function FormikNumberField({
     <div className={twMerge('flex flex-col', className?.root)}>
       <div
         className={twMerge(
-          'flex flex-row w-full',
+          'flex w-full flex-row',
           labelType === 'small' && 'flex-col',
           className?.field
         )}
@@ -79,13 +79,13 @@ export function FormikNumberField({
             label={label}
             className={{
               root: twMerge(
-                'my-auto mr-2 font-bold min-w-max',
+                'my-auto mr-2 min-w-max font-bold',
                 labelType === 'small' &&
-                  'text-sm leading-6 text-gray-600 font-normal mt-1',
+                  'mt-1 text-sm font-normal leading-6 text-gray-600',
                 className?.label
               ),
               tooltip: 'text-sm font-normal',
-              tooltipSymbol: twMerge(labelType === 'small' && 'w-2 h-2'),
+              tooltipSymbol: twMerge(labelType === 'small' && 'h-2 w-2'),
             }}
             tooltip={tooltip}
             showTooltipSymbol={typeof tooltip !== 'undefined'}
@@ -113,7 +113,7 @@ export function FormikNumberField({
       {!hideError && meta.touched && meta.error && (
         <div
           className={twMerge(
-            'w-full text-sm text-right text-red-400',
+            'w-full text-right text-sm text-red-400',
             className?.error
           )}
         >

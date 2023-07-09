@@ -81,7 +81,7 @@ export function DateChanger({
 
   return (
     <div
-      className={twMerge('flex flex-row items-center w-max', className?.root)}
+      className={twMerge('flex w-max flex-row items-center', className?.root)}
     >
       {label && (
         <Label
@@ -95,7 +95,7 @@ export function DateChanger({
       {edit && !disabled ? (
         <div
           className={twMerge(
-            'flex flex-row gap-2 border border-solid rounded',
+            'flex flex-row gap-2 rounded border border-solid',
 
             className?.field
           )}
@@ -106,7 +106,7 @@ export function DateChanger({
             id={id}
             type="date"
             className={twMerge(
-              'px-0 py-1 pl-2 border-none w-max',
+              'w-max border-none px-0 py-1 pl-2',
               className?.input
             )}
             value={dateState}
@@ -118,7 +118,7 @@ export function DateChanger({
             onClick={() => onSave(dateState)}
             className={{
               root: twMerge(
-                'px-2 py-1 bg-uzh-blue-20 hover:bg-uzh-blue-40',
+                'bg-uzh-blue-20 px-2 py-1 hover:bg-uzh-blue-40',
                 className?.saveButton
               ),
             }}
@@ -127,7 +127,7 @@ export function DateChanger({
           </Button>
         </div>
       ) : (
-        <div className="flex flex-row gap-2 border border-solid rounded">
+        <div className="flex flex-row gap-2 rounded border border-solid">
           <div
             className={twMerge(
               'py-1 pl-2',
@@ -142,7 +142,7 @@ export function DateChanger({
             onClick={onEdit}
             className={{
               root: twMerge(
-                'bg-uzh-grey-20 py-1 px-2 hover:bg-uzh-grey-40',
+                'bg-uzh-grey-20 px-2 py-1 hover:bg-uzh-grey-40',
                 className?.editButton,
                 disabled && twMerge('cursor-not-allowed', className?.disabled)
               ),

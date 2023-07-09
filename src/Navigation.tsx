@@ -44,7 +44,7 @@ export function Navigation({
   return (
     <NavigationMenuPrimitive.Root
       className={twMerge(
-        `relative ${theme.primaryBg} rounded-md w-max`,
+        `relative ${theme.primaryBg} w-max rounded-md`,
         className?.root
       )}
       id={id}
@@ -54,10 +54,10 @@ export function Navigation({
     >
       <NavigationMenuPrimitive.List className="flex flex-row gap-1.5 p-2">
         {children}
-        <NavigationMenuPrimitive.Indicator className="z-10 flex justify-center h-2 overflow-hidden duration-300 ease-in-out">
+        <NavigationMenuPrimitive.Indicator className="z-10 flex h-2 justify-center overflow-hidden duration-300 ease-in-out">
           <div
             className={twMerge(
-              'relative w-2 h-2 rotate-45 rounded-tl-sm top-1',
+              'relative top-1 h-2 w-2 rotate-45 rounded-tl-sm',
               theme.primaryBg,
               className?.indicator
             )}
@@ -68,8 +68,8 @@ export function Navigation({
 
       <NavigationMenuPrimitive.Viewport
         className={twMerge(
-          'mt-2 shadow-lg rounded-md overflow-hidden duration-300 ease-in-out',
-          'w-rdx-navigation-menu-viewport h-rdx-navigation-menu-viewport absolute z-10',
+          'mt-2 overflow-hidden rounded-md shadow-lg duration-300 ease-in-out',
+          'absolute z-10 w-rdx-navigation-menu-viewport h-rdx-navigation-menu-viewport',
           theme.primaryBg,
           className?.viewport
         )}
@@ -165,7 +165,7 @@ Navigation.TriggerItem = function TriggerItem({
         )}
         {icon && label && (
           <div
-            className={twMerge('w-3 mr-3', className?.icon)}
+            className={twMerge('mr-3 w-3', className?.icon)}
             style={style?.icon}
           >
             {icon}
@@ -180,7 +180,7 @@ Navigation.TriggerItem = function TriggerItem({
 
       <NavigationMenuPrimitive.Content
         className={twMerge(
-          'rounded-lg flex flex-col p-2 gap-2',
+          'flex flex-col gap-2 rounded-lg p-2',
           dropdownWidth,
           className?.dropdown
         )}
@@ -261,7 +261,7 @@ Navigation.DropdownItem = function DropdownItem({
       href={href}
       onClick={onClick}
       className={twMerge(
-        'w-full px-4 py-3 rounded-md focus:outline-none focus-visible:ring focus-visible:ring-opacity-75 text-black sm:hover:text-white',
+        'w-full rounded-md px-4 py-3 text-black focus:outline-none focus-visible:ring focus-visible:ring-opacity-75 sm:hover:text-white',
         theme.primaryBgMediumHover,
         className?.root
       )}
@@ -269,14 +269,14 @@ Navigation.DropdownItem = function DropdownItem({
     >
       <span
         className={twMerge(
-          'text-sm font-medium flex flex-row',
+          'flex flex-row text-sm font-medium',
           className?.title
         )}
         style={style?.title}
       >
         {icon && (
           <div
-            className={twMerge('w-3 mr-3', className?.icon)}
+            className={twMerge('mr-3 w-3', className?.icon)}
             style={style?.icon}
           >
             {icon}
@@ -288,7 +288,7 @@ Navigation.DropdownItem = function DropdownItem({
       {subtitle && (
         <div
           className={twMerge(
-            'mt-1 text-sm text-left font-normal',
+            'mt-1 text-left text-sm font-normal',
             className?.subtitle
           )}
           style={style?.subtitle}
@@ -381,7 +381,7 @@ Navigation.ButtonItem = function ButtonItem({
         <div className="flex flex-row">
           {icon && (
             <div
-              className={twMerge('w-3 mr-3', className?.icon)}
+              className={twMerge('mr-3 w-3', className?.icon)}
               style={style?.icon}
             >
               {icon}

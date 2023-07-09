@@ -84,7 +84,7 @@ export function UserNotification({
       data-cy={data?.cy}
       data-test={data?.test}
       className={twMerge(
-        'flex flex-row gap-2 p-2 text-sm rounded-md',
+        'flex flex-row gap-2 rounded-md p-2 text-sm',
         className?.root,
         computedClassName!
       )}

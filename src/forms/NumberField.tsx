@@ -47,7 +47,7 @@ export function NumberField({
           required={required}
           label={label}
           className={{
-            root: twMerge('my-auto mr-2 font-bold min-w-max', className?.label),
+            root: twMerge('my-auto mr-2 min-w-max font-bold', className?.label),
             tooltip: 'text-sm font-normal',
           }}
           tooltip={tooltip}
@@ -81,7 +81,7 @@ export function NumberField({
         placeholder={placeholder}
         disabled={disabled}
         className={twMerge(
-          'w-full rounded bg-uzh-grey-20 border border-uzh-grey-60 focus:border-uzh-blue-50 h-9',
+          'focus:border-uzh-blue-50 h-9 w-full rounded border border-uzh-grey-60 bg-uzh-grey-20',
           disabled && 'cursor-not-allowed',
           className?.input
         )}

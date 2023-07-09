@@ -76,7 +76,7 @@ export function Collapsible({
     <RadixCollapsible.Root open={open} onOpenChange={onChange}>
       <div
         className={twMerge(
-          'w-full p-2 pb-0 border-2 border-solid rounded-md border-uzh-grey-80',
+          'w-full rounded-md border-2 border-solid border-uzh-grey-80 p-2 pb-0',
           className?.root
         )}
       >
@@ -89,7 +89,7 @@ export function Collapsible({
         </RadixCollapsible.Content>
         <div
           className={twMerge(
-            'grid w-full grid-cols-5 sm:grid-cols-7 md:grid-cols-9 lg:grid-cols-11 mb-1.5',
+            'mb-1.5 grid w-full grid-cols-5 sm:grid-cols-7 md:grid-cols-9 lg:grid-cols-11',
             className?.bottomWrapper
           )}
         >
@@ -112,7 +112,7 @@ export function Collapsible({
           </div>
           <RadixCollapsible.Trigger
             className={twMerge(
-              'w-full text-center col-span-1 flex flex-col justify-end',
+              'col-span-1 flex w-full flex-col justify-end text-center',
               className?.trigger
             )}
             id={id}

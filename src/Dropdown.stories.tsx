@@ -138,7 +138,7 @@ export const CustomLabel = () => {
         trigger={
           <div
             className={twMerge(
-              'flex flex-row items-center gap-2 p-2 border border-solid border-uzh-grey-60 rounded-md shadow-md  hover:shadow-none',
+              'flex flex-row items-center gap-2 rounded-md border border-solid border-uzh-grey-60 p-2 shadow-md  hover:shadow-none',
               `hover:${theme.primaryBg}`
             )}
           >
@@ -152,7 +152,7 @@ export const CustomLabel = () => {
               label: (
                 <span
                   className={twMerge(
-                    'flex items-center hover:cursor-pointer px-2 py-0.5',
+                    'flex items-center px-2 py-0.5 hover:cursor-pointer',
                     `hover:${theme.primaryBgMedium}`
                   )}
                 >
@@ -174,7 +174,7 @@ export const CustomLabel = () => {
               label: (
                 <span
                   className={twMerge(
-                    'flex items-center hover:cursor-pointer px-2 py-0.5',
+                    'flex items-center px-2 py-0.5 hover:cursor-pointer',
                     `hover:${theme.primaryBgMedium}`
                   )}
                 >

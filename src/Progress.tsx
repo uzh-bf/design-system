@@ -62,12 +62,12 @@ export function Progress({
       id={id}
       data-cy={data?.cy}
       data-test={data?.test}
-      className={twMerge('relative h-7 text-sm rounded', className?.root)}
+      className={twMerge('relative h-7 rounded text-sm', className?.root)}
       value={internalValue}
       max={max}
       {...props}
     >
-      <div className="absolute flex flex-col justify-center w-full h-full px-2 py-1 text-right bg-gray-200 rounded">
+      <div className="absolute flex h-full w-full flex-col justify-center rounded bg-gray-200 px-2 py-1 text-right">
         {isMaxVisible && formatter(max)}
       </div>
 
@@ -76,7 +76,7 @@ export function Progress({
           width: `${(internalValue / Math.max(max - offset, 0)) * 100}%`,
         }}
         className={twMerge(
-          'absolute px-2 py-1 min-w-[40px] h-full text-white rounded flex flex-col justify-center text-right',
+          'absolute flex h-full min-w-[40px] flex-col justify-center rounded px-2 py-1 text-right text-white',
           theme.primaryBgMedium,
           className?.indicator
         )}

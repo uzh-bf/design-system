@@ -49,7 +49,7 @@ export function Tab({
       key={`tab-trigger-${key}`}
       value={value}
       className={twMerge(
-        'group first:rounded-tl-lg last:rounded-tr-lg border-b border-r last:border-r-0 border-gray-300 flex-1 px-3 py-2.5',
+        'group flex-1 border-b border-r border-gray-300 px-3 py-2.5 first:rounded-tl-lg last:rounded-tr-lg last:border-r-0',
         'rdx-state-active:border-b-slate-600 focus-visible:rdx-state-active:border-b-transparent rdx-state-inactive:bg-gray-50',
         'focus:rdx-state-active:border-b-red focus:z-10 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75',
         className?.root
@@ -100,7 +100,7 @@ export function TabList({
       data-cy={data?.cy}
       data-test={data?.test}
       className={twMerge(
-        'flex w-full rounded-t-lg bg-white flex-col md:flex-row',
+        'flex w-full flex-col rounded-t-lg bg-white md:flex-row',
         className?.root
       )}
     >
@@ -149,7 +149,7 @@ export function TabContent({
       data-test={data?.test}
       key={`tab-content-${key}`}
       value={value}
-      className={twMerge('rounded-t-lg bg-white md:px-6 py-4', className?.root)}
+      className={twMerge('rounded-t-lg bg-white py-4 md:px-6', className?.root)}
     >
       {children}
     </TabsPrimitive.Content>

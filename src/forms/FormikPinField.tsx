@@ -45,13 +45,13 @@ export function PinField({
           label={label}
           className={{
             root: twMerge(
-              'my-auto mr-2 font-bold min-w-max',
+              'my-auto mr-2 min-w-max font-bold',
               labelType === 'small' &&
-                'text-sm leading-6 text-gray-600 font-normal mt-1',
+                'mt-1 text-sm font-normal leading-6 text-gray-600',
               className?.label
             ),
             tooltip: 'text-sm font-normal',
-            tooltipSymbol: twMerge(labelType === 'small' && 'w-2 h-2'),
+            tooltipSymbol: twMerge(labelType === 'small' && 'h-2 w-2'),
           }}
           tooltip={tooltip}
           showTooltipSymbol={typeof tooltip !== 'undefined'}
@@ -64,9 +64,9 @@ export function PinField({
         data-test={data?.test}
         placeholder="### ### ###"
         className={twMerge(
-          'w-full rounded bg-uzh-grey-20 bg-opacity-50 border border-uzh-grey-60 mb-2',
+          'mb-2 w-full rounded border border-uzh-grey-60 bg-uzh-grey-20 bg-opacity-50',
           theme.primaryBorderFocus,
-          meta.error && meta.touched && 'border-red-400 bg-red-50 mb-0',
+          meta.error && meta.touched && 'mb-0 border-red-400 bg-red-50',
           className?.field
         )}
         maxLength={11}

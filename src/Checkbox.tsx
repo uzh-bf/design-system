@@ -70,7 +70,7 @@ export function Checkbox({
         defaultChecked
         checked={checked}
         className={twMerge(
-          'flex justify-center p-0 bg-white border border-solid rounded-md border-grey-80 align-center my-auto',
+          'border-grey-80 align-center my-auto flex justify-center rounded-md border border-solid bg-white p-0',
           checked && 'border-black',
           disabled && 'cursor-not-allowed',
           checkboxSize[size || 'md'],
@@ -91,7 +91,7 @@ export function Checkbox({
       {label && (
         <div
           className={twMerge(
-            'flex flex-col justify-center h-full',
+            'flex h-full flex-col justify-center',
             className?.label
           )}
         >

@@ -99,7 +99,7 @@ export function Modal({
   const overlayContent = (
     <RadixDialog.Overlay
       className={twMerge(
-        'z-20 fixed top-0 bottom-0 left-0 right-0 flex justify-center gap-4 p-4 bg-opacity-50 bg-uzh-grey-100 md:items-center',
+        'fixed bottom-0 left-0 right-0 top-0 z-20 flex justify-center gap-4 bg-uzh-grey-100 bg-opacity-50 p-4 md:items-center',
         className?.overlay
       )}
     >
@@ -126,12 +126,12 @@ export function Modal({
           onPrev || onNext || escapeDisabled ? undefined : onClose
         }
       >
-        <div className="flex flex-row items-end justify-between flex-initial">
+        <div className="flex flex-initial flex-row items-end justify-between">
           <div>
             {title && (
               <RadixDialog.Title
                 className={twMerge(
-                  'text-lg font-bold font-sans md:text-xl',
+                  'font-sans text-lg font-bold md:text-xl',
                   className?.title
                 )}
               >
@@ -151,7 +151,7 @@ export function Modal({
 
         <div className={twMerge('flex-1', className?.children)}>{children}</div>
 
-        <div className="flex flex-row justify-between flex-initial">
+        <div className="flex flex-initial flex-row justify-between">
           <div>{onSecondaryAction && <div>{onSecondaryAction}</div>}</div>
           <div>{onPrimaryAction && <div>{onPrimaryAction}</div>}</div>
         </div>

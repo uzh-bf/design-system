@@ -1,8 +1,8 @@
 import * as RadixSwitch from '@radix-ui/react-switch'
 import React, { useContext } from 'react'
 import { twMerge } from 'tailwind-merge'
-import Label from './forms/Label'
 import { ThemeContext } from './ThemeProvider'
+import Label from './forms/Label'
 
 export interface SwitchProps {
   id?: string
@@ -91,8 +91,8 @@ export function Switch({
         data-test={data?.test}
         checked={checked}
         className={twMerge(
-          'relative bg-uzh-grey-80 rounded-full border-0',
-          disabled && 'bg-uzh-grey-40 cursor-not-allowed',
+          'relative rounded-full border-0 bg-uzh-grey-80',
+          disabled && 'cursor-not-allowed bg-uzh-grey-40',
           checked && theme.primaryBgMedium,
           rootSize[size || 'md'],
           className?.element
@@ -102,7 +102,7 @@ export function Switch({
       >
         <RadixSwitch.Thumb
           className={twMerge(
-            'block bg-white rounded-full transition-transform',
+            'block rounded-full bg-white transition-transform',
             checked && transitionSize[size || 'md'],
             thumbSize[size || 'md'],
             className?.thumb

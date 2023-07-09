@@ -48,7 +48,7 @@ export const Primary = () => {
       onClose={() => setIsOpen(false)}
       onPrimaryAction={
         <Button
-          className={{ root: 'text-white border-uzh-blue-80 bg-uzh-blue-100' }}
+          className={{ root: 'border-uzh-blue-80 bg-uzh-blue-100 text-white' }}
         >
           Primary
         </Button>
@@ -68,7 +68,7 @@ export const Secondary = () => {
       onClose={() => setIsOpen(false)}
       onSecondaryAction={
         <Button
-          className={{ root: 'text-white border-uzh-grey-80 bg-uzh-grey-100' }}
+          className={{ root: 'border-uzh-grey-80 bg-uzh-grey-100 text-white' }}
         >
           Primary
         </Button>

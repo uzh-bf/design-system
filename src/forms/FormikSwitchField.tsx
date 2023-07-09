@@ -69,7 +69,7 @@ export function FormikSwitchField({
             label={label}
             className={{
               root: twMerge(
-                'my-auto mr-2 font-bold min-w-max',
+                'my-auto mr-2 min-w-max font-bold',
                 className?.label
               ),
               tooltip: 'text-sm font-normal',
@@ -93,7 +93,7 @@ export function FormikSwitchField({
       {!hideError && meta.touched && meta.error && (
         <div
           className={twMerge(
-            'text-sm text-right text-red-400',
+            'text-right text-sm text-red-400',
             className?.error
           )}
         >

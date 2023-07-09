@@ -165,7 +165,7 @@ export const DisabledElements = () => {
 
 export const Styled = () => {
   return (
-    <div className="w-full h-12 border border-solid rounded-md">
+    <div className="h-12 w-full rounded-md border border-solid">
       <Select
         placeholder="Select an item"
         groups={groups}
@@ -173,9 +173,9 @@ export const Styled = () => {
           console.log(newValue)
         }}
         className={{
-          root: 'h-full border-none rounded-none',
+          root: 'h-full rounded-none border-none',
           content: 'bg-green-200',
-          trigger: 'bg-uzh-blue-20 border-none rounded-none',
+          trigger: 'rounded-none border-none bg-uzh-blue-20',
           item: 'text-red-700',
           scrollButton: 'bg-blue-400',
           groupLabel: 'text-red-700',

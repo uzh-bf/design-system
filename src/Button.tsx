@@ -91,7 +91,7 @@ export function Button({
     >
       {loading && (
         <svg
-          className={`w-5 h-5 -ml-1 ${theme.primaryText} animate-spin`}
+          className={`-ml-1 h-5 w-5 ${theme.primaryText} animate-spin`}
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
@@ -161,7 +161,7 @@ Button.IconGroup = function ButtonIconGroup({
   return (
     <div
       className={twMerge(
-        'flex flex-row justify-between border border-solid w-max rounded',
+        'flex w-max flex-row justify-between rounded border border-solid',
         theme.primaryBorder,
         className?.root
       )}
@@ -175,7 +175,7 @@ Button.IconGroup = function ButtonIconGroup({
                 'p-1.5 first:rounded-l-sm last:rounded-r-sm',
                 theme.primaryBgHover,
                 state === index
-                  ? `${theme.primaryBgDark} text-white hover:bg-unset`
+                  ? `${theme.primaryBgDark} hover:bg-unset text-white`
                   : 'bg-white',
                 className?.children
               ),
