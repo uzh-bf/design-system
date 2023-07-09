@@ -1,7 +1,6 @@
 import * as RadixSwitch from '@radix-ui/react-switch'
-import React, { useContext } from 'react'
+import React from 'react'
 import { twMerge } from 'tailwind-merge'
-import { ThemeContext } from './ThemeProvider'
 import Label from './forms/Label'
 
 export interface SwitchProps {
@@ -56,8 +55,6 @@ export function Switch({
   size = 'md',
   className,
 }: SwitchProps) {
-  const theme = useContext(ThemeContext)
-
   const rootSize = {
     sm: 'w-10 h-[1.3rem]',
     md: 'w-12 h-[1.6rem]',
@@ -93,7 +90,7 @@ export function Switch({
         className={twMerge(
           'relative rounded-full border-0 bg-uzh-grey-80',
           disabled && 'cursor-not-allowed bg-uzh-grey-40',
-          checked && theme.primaryBgMedium,
+          checked && 'bg-primary-60',
           rootSize[size || 'md'],
           className?.element
         )}

@@ -5,9 +5,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as RadixSelect from '@radix-ui/react-select'
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { ThemeContext } from './ThemeProvider'
 
 interface ClassName {
   root?: string
@@ -104,8 +103,6 @@ export function Select({
   asPortal = false,
 }: SelectWithItemsProps | SelectWithGroupsProps) {
   const [open, setOpen] = useState(false)
-  const theme = useContext(ThemeContext)
-
   const flatItems = items || groups?.flatMap((group) => group.items) || []
 
   const selectContent = (
@@ -183,8 +180,7 @@ export function Select({
           className={twMerge(
             'rounded-md px-2 py-1',
             !basic &&
-              'inline-flex h-7 items-center justify-center gap-2 border  bg-white p-4 shadow-sm',
-            `${theme.primaryBgHover} ${theme.primaryTextHover}`,
+              'inline-flex h-7 items-center justify-center gap-2 border  bg-white p-4 shadow-sm hover:bg-primary-20 sm:hover:text-primary',
             disabled &&
               'hover:bg-none, hover:text-none cursor-not-allowed bg-uzh-grey-20 opacity-70 shadow-sm',
             size === 'sm' && '!text-sm',
@@ -249,16 +245,14 @@ const SelectItem = React.forwardRef(
     { id, data, className, label, size, disabled, ...props }: SelectItemProps,
     forwardedRef
   ) => {
-    const theme = useContext(ThemeContext)
-
     return (
       <RadixSelect.Item
         id={id}
         data-cy={data?.cy}
         data-test={data?.test}
         className={twMerge(
-          'relative flex select-none items-center rounded-md px-8 py-2 font-medium text-gray-700 hover:cursor-pointer hover:outline-none',
-          `${theme.primaryBgHover} ${theme.primaryTextHover} ${theme.primaryBorderFocus}`,
+          'relative flex select-none items-center rounded-md px-8 py-2 font-medium text-gray-700',
+          'hover:cursor-pointer hover:bg-primary-20 hover:outline-none focus:border-primary-40 sm:hover:text-primary',
           disabled &&
             'cursor-not-allowed opacity-50 hover:bg-white hover:text-gray-700',
           size === 'sm' && 'px-7 text-sm',

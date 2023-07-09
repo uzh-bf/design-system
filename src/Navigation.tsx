@@ -1,7 +1,6 @@
 import * as NavigationMenuPrimitive from '@radix-ui/react-navigation-menu'
-import React, { useContext } from 'react'
+import React from 'react'
 import { twMerge } from 'tailwind-merge'
-import { ThemeContext } from './ThemeProvider'
 
 export interface NavigationProps {
   id?: string
@@ -39,12 +38,10 @@ export function Navigation({
   className,
   style,
 }: NavigationProps) {
-  const theme = useContext(ThemeContext)
-
   return (
     <NavigationMenuPrimitive.Root
       className={twMerge(
-        `relative ${theme.primaryBg} w-max rounded-md`,
+        `relative w-max rounded-md bg-primary-20`,
         className?.root
       )}
       id={id}
@@ -57,8 +54,7 @@ export function Navigation({
         <NavigationMenuPrimitive.Indicator className="z-10 flex h-2 justify-center overflow-hidden duration-300 ease-in-out">
           <div
             className={twMerge(
-              'relative top-1 h-2 w-2 rotate-45 rounded-tl-sm',
-              theme.primaryBg,
+              'relative top-1 h-2 w-2 rotate-45 rounded-tl-sm bg-primary-20',
               className?.indicator
             )}
             style={style?.indicator}
@@ -68,9 +64,8 @@ export function Navigation({
 
       <NavigationMenuPrimitive.Viewport
         className={twMerge(
-          'mt-2 overflow-hidden rounded-md shadow-lg duration-300 ease-in-out',
+          'mt-2 overflow-hidden rounded-md bg-primary-20 shadow-lg duration-300 ease-in-out',
           'absolute z-10 w-rdx-navigation-menu-viewport h-rdx-navigation-menu-viewport',
-          theme.primaryBg,
           className?.viewport
         )}
         style={style?.viewport}
@@ -138,23 +133,20 @@ Navigation.TriggerItem = function TriggerItem({
   className,
   style,
 }: TriggerIconProps | TriggerLabelProps) {
-  const theme = useContext(ThemeContext)
-  const computedClassName = twMerge(
-    'px-3 py-2 rounded-md text-sm focus:outline-none focus-visible:ring flex flex-row items-center font-medium text-black hover:text-white',
-    icon && !label && 'w-9 h-9 justify-center',
-    !disabled && theme.primaryBgMediumHover,
-    disabled && 'text-gray-400 hover:text-none cursor-not-allowed',
-    className?.root,
-    disabled && className?.disabled
-  )
-
   return (
     <NavigationMenuPrimitive.Item>
       <NavigationMenuPrimitive.Trigger
         id={id}
         data-cy={data?.cy}
         data-test={data?.test}
-        className={computedClassName}
+        className={twMerge(
+          'flex flex-row items-center rounded-md px-3 py-2 text-sm font-medium text-black hover:text-white focus:outline-none focus-visible:ring',
+          icon && !label && 'h-9 w-9 justify-center',
+          !disabled && 'hover:bg-primary-60',
+          disabled && 'hover:text-none cursor-not-allowed text-gray-400',
+          className?.root,
+          disabled && className?.disabled
+        )}
         disabled={disabled}
         style={disabled ? { ...style?.root, ...style?.disabled } : style?.root}
       >
@@ -251,8 +243,6 @@ Navigation.DropdownItem = function DropdownItem({
   className,
   style,
 }: DropdownItemWithHrefProps | DropdownItemWithOnClickProps) {
-  const theme = useContext(ThemeContext)
-
   return (
     <NavigationMenuPrimitive.Link
       id={id}
@@ -261,8 +251,8 @@ Navigation.DropdownItem = function DropdownItem({
       href={href}
       onClick={onClick}
       className={twMerge(
-        'w-full rounded-md px-4 py-3 text-black focus:outline-none focus-visible:ring focus-visible:ring-opacity-75 sm:hover:text-white',
-        theme.primaryBgMediumHover,
+        'w-full rounded-md px-4 py-3 text-black hover:bg-primary-60',
+        'focus:outline-none focus-visible:ring focus-visible:ring-opacity-75 sm:hover:text-white',
         className?.root
       )}
       style={style?.root}
@@ -358,15 +348,6 @@ Navigation.ButtonItem = function ButtonItem({
   className,
   style,
 }: ButtonItemWithHrefProps | ButtonItemWithOnClickProps) {
-  const theme = useContext(ThemeContext)
-  const computedClassName = twMerge(
-    'px-3 py-2 text-sm rounded-md font-medium cursor-pointer text-black sm:hover:text-white',
-    !disabled && theme.primaryBgMediumHover,
-    disabled && 'text-gray-400 hover:text-none cursor-not-allowed',
-    className?.root,
-    disabled && className?.disabled
-  )
-
   return (
     <NavigationMenuPrimitive.Item asChild>
       <NavigationMenuPrimitive.Link
@@ -375,7 +356,13 @@ Navigation.ButtonItem = function ButtonItem({
         data-test={data?.test}
         href={!disabled ? href : undefined}
         onClick={!disabled ? onClick : undefined}
-        className={computedClassName}
+        className={twMerge(
+          'cursor-pointer rounded-md px-3 py-2 text-sm font-medium text-black sm:hover:text-white',
+          !disabled && 'hover:bg-primary-60',
+          disabled && 'hover:text-none cursor-not-allowed text-gray-400',
+          className?.root,
+          disabled && className?.disabled
+        )}
         style={disabled ? { ...style?.root, ...style?.disabled } : style?.root}
       >
         <div className="flex flex-row">
@@ -447,15 +434,6 @@ Navigation.IconItem = function IconItem({
   className,
   style,
 }: IconItemWithHrefProps | IconItemWithOnClickProps) {
-  const theme = useContext(ThemeContext)
-  const computedClassName = twMerge(
-    'w-9 h-9 flex items-center justify-center rounded-md text-black sm:hover:text-white',
-    !disabled && theme.primaryBgMediumHover,
-    disabled && 'text-gray-400 hover:text-none cursor-not-allowed',
-    className?.root,
-    disabled && className?.disabled
-  )
-
   return (
     <NavigationMenuPrimitive.Item asChild>
       <NavigationMenuPrimitive.Link
@@ -464,7 +442,13 @@ Navigation.IconItem = function IconItem({
         data-test={data?.test}
         href={!disabled ? href : undefined}
         onClick={!disabled ? onClick : undefined}
-        className={computedClassName}
+        className={twMerge(
+          'flex h-9 w-9 items-center justify-center rounded-md text-black sm:hover:text-white',
+          !disabled && 'hover:bg-primary-60',
+          disabled && 'hover:text-none cursor-not-allowed text-gray-400',
+          className?.root,
+          disabled && className?.disabled
+        )}
         style={disabled ? { ...style?.root, ...style?.disabled } : style?.root}
       >
         {icon}

@@ -1,10 +1,9 @@
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as RadixCollapsible from '@radix-ui/react-collapsible'
-import React, { useContext } from 'react'
+import React from 'react'
 import { twMerge } from 'tailwind-merge'
 import Button from './Button'
-import { ThemeContext } from './ThemeProvider'
 
 export interface CollapsibleProps {
   id?: string
@@ -70,8 +69,6 @@ export function Collapsible({
   className,
   children,
 }: CollapsibleProps) {
-  const theme = useContext(ThemeContext)
-
   return (
     <RadixCollapsible.Root open={open} onOpenChange={onChange}>
       <div
@@ -137,9 +134,7 @@ export function Collapsible({
                 onClick={onPrimaryClick}
                 className={{
                   root: twMerge(
-                    'float-right font-bold text-white',
-                    theme.primaryBgDark,
-                    theme.primaryBorderDark,
+                    'float-right border-primary-80 bg-primary-80 font-bold text-white',
                     className?.primaryButton
                   ),
                 }}

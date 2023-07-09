@@ -1,8 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 import * as RadixProgress from '@radix-ui/react-progress'
-import { ThemeContext } from './ThemeProvider'
 
 export interface ProgressProps {
   id?: string
@@ -46,7 +45,6 @@ export function Progress({
   isMaxVisible = true,
   ...props
 }: ProgressProps) {
-  const theme = useContext(ThemeContext)
   const [internalValue, setInternalValue] = useState(0)
 
   useEffect(() => {
@@ -76,8 +74,7 @@ export function Progress({
           width: `${(internalValue / Math.max(max - offset, 0)) * 100}%`,
         }}
         className={twMerge(
-          'absolute flex h-full min-w-[40px] flex-col justify-center rounded px-2 py-1 text-right text-white',
-          theme.primaryBgMedium,
+          'absolute flex h-full min-w-[40px] flex-col justify-center rounded bg-primary-60 px-2 py-1 text-right text-white',
           className?.indicator
         )}
       >

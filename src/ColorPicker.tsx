@@ -1,11 +1,10 @@
 import { faPalette, IconDefinition } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { HexColorInput, HexColorPicker } from 'react-colorful'
 import { twMerge } from 'tailwind-merge'
 import Button from './Button'
 import Label from './forms/Label'
-import { ThemeContext } from './ThemeProvider'
 
 export interface ColorPickerProps {
   color: string
@@ -65,7 +64,6 @@ export function ColorPicker({
       : ['#262FAD', '#016272', '#5FB1F9', '#FE7408', '#D84B39']
 
   const [colorPickerOpen, setColorPickerOpen] = useState(false)
-  const theme = useContext(ThemeContext)
   const [newColor, setNewColor] = useState(color)
 
   return (
@@ -146,7 +144,7 @@ export function ColorPicker({
             <Button
               className={{
                 root: twMerge(
-                  `float-right text-white disabled:opacity-60 ${theme.primaryBgDark}`,
+                  `float-right bg-primary-80 text-white disabled:opacity-60`,
                   className?.submit
                 ),
               }}

@@ -1,10 +1,8 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { twMerge } from 'tailwind-merge'
-import { ThemeContext } from '../ThemeProvider'
 import useArrowNavigation from './useArrowNavigation'
 
 export const Default = () => {
-  const theme = useContext(ThemeContext)
   const [arrowPressed, setArrowPressed] = React.useState<string | undefined>(
     undefined
   )
@@ -27,7 +25,7 @@ export const Default = () => {
         <div
           className={twMerge(
             'rounded border border-solid p-1',
-            arrowPressed === 'Arrow Left' && theme.primaryBg
+            arrowPressed === 'Arrow Left' && 'bg-primary-20'
           )}
         >
           Arrow Left
@@ -35,7 +33,7 @@ export const Default = () => {
         <div
           className={twMerge(
             'rounded border border-solid p-1',
-            arrowPressed === 'Arrow Right' && theme.primaryBg
+            arrowPressed === 'Arrow Right' && 'bg-primary-20'
           )}
         >
           Arrow Right
@@ -43,7 +41,7 @@ export const Default = () => {
         <div
           className={twMerge(
             'rounded border border-solid p-1',
-            arrowPressed === 'Arrow Up' && theme.primaryBg
+            arrowPressed === 'Arrow Up' && 'bg-primary-20'
           )}
         >
           Arrow Up
@@ -51,7 +49,7 @@ export const Default = () => {
         <div
           className={twMerge(
             'rounded border border-solid p-1',
-            arrowPressed === 'Arrow Down' && theme.primaryBg
+            arrowPressed === 'Arrow Down' && 'bg-primary-20'
           )}
         >
           Arrow Down

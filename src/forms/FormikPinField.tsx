@@ -1,7 +1,6 @@
 import { ErrorMessage, Field, useField } from 'formik'
-import React, { useContext } from 'react'
+import React from 'react'
 import { twMerge } from 'tailwind-merge'
-import { ThemeContext } from '../ThemeProvider'
 import Label from './Label'
 
 export interface PinFieldProps {
@@ -33,7 +32,6 @@ export function PinField({
   className,
   data,
 }: PinFieldProps) {
-  const theme = useContext(ThemeContext)
   const [field, meta, helpers] = useField(name)
 
   return (
@@ -64,8 +62,7 @@ export function PinField({
         data-test={data?.test}
         placeholder="### ### ###"
         className={twMerge(
-          'mb-2 w-full rounded border border-uzh-grey-60 bg-uzh-grey-20 bg-opacity-50',
-          theme.primaryBorderFocus,
+          'mb-2 w-full rounded border border-uzh-grey-60 bg-uzh-grey-20 bg-opacity-50 focus:border-primary-40',
           meta.error && meta.touched && 'mb-0 border-red-400 bg-red-50',
           className?.field
         )}

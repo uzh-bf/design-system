@@ -1,11 +1,10 @@
 import { faFilter } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 import Checkbox from './Checkbox'
 import Dropdown from './Dropdown'
-import { ThemeContext } from './ThemeProvider'
 
 export const Default = () => {
   return (
@@ -120,7 +119,6 @@ export const Selection = () => {
   )
 }
 export const CustomLabel = () => {
-  const theme = useContext(ThemeContext)
   const [label1Active, setLabel1Active] = useState(false)
   const [label4Active, setLabel4Active] = useState(false)
 
@@ -139,7 +137,7 @@ export const CustomLabel = () => {
           <div
             className={twMerge(
               'flex flex-row items-center gap-2 rounded-md border border-solid border-uzh-grey-60 p-2 shadow-md  hover:shadow-none',
-              `hover:${theme.primaryBg}`
+              `hover:bg-primary-20`
             )}
           >
             <div>Trigger Icon </div>
@@ -153,7 +151,7 @@ export const CustomLabel = () => {
                 <span
                   className={twMerge(
                     'flex items-center px-2 py-0.5 hover:cursor-pointer',
-                    `hover:${theme.primaryBgMedium}`
+                    `hover:bg-primary-60`
                   )}
                 >
                   <Checkbox checked={label1Active} onCheck={() => undefined} />
@@ -175,7 +173,7 @@ export const CustomLabel = () => {
                 <span
                   className={twMerge(
                     'flex items-center px-2 py-0.5 hover:cursor-pointer',
-                    `hover:${theme.primaryBgMedium}`
+                    `hover:bg-primary-60`
                   )}
                 >
                   <Checkbox checked={label4Active} onCheck={() => undefined} />
