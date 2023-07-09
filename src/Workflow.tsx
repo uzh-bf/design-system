@@ -64,7 +64,7 @@ export function Workflow({
         <div
           key={`${item.title}-${ix}`}
           className={twMerge(
-            'stepProps relative flex items-center justify-center bg-uzh-grey-40 text-center',
+            'relative flex items-center justify-center bg-uzh-grey-40 text-center',
             'mr-1 cursor-pointer select-none first:before:!border-none last:mr-0 after:last:!border-none',
             'after:z-10 after:border after:border-r-0 after:border-solid after:border-y-transparent',
             "before:absolute before:left-0 before:right-auto before:z-0 before:content-['']",

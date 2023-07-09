@@ -84,7 +84,7 @@ export function PinField({
           } else if (
             typeof paste === 'string' &&
             paste.length === 11 &&
-            paste.match(/^[0-9]{3}\ [0-9]{3}\ [0-9]{3}$/g)
+            paste.match(/^[0-9]{3} [0-9]{3} [0-9]{3}$/g)
           ) {
             helpers.setValue(paste)
           }
@@ -92,15 +92,15 @@ export function PinField({
         onChange={(e: any) => {
           // regex magic to only allow numerical pins in the format ### ### ###
           const regexToMatch =
-            /([0-9]{3}\ [0-9]{3}\ [0-9]{0,3})|([0-9]{3}\ [0-9]{3}[\ ]{0,1})|([0-9]{3}\ [0-9]{0,3})|([0-9]{3}[\ ]{0,1})|([0-9]{0,3})/g
+            /([0-9]{3} [0-9]{3} [0-9]{0,3})|([0-9]{3} [0-9]{3}[ ]{0,1})|([0-9]{3} [0-9]{0,3})|([0-9]{3}[ ]{0,1})|([0-9]{0,3})/g
           const valueMatched = e.target.value.match(regexToMatch)[0]
 
           // only add a whitespace after a block of 3 numbers if the user is typing - otherwise deletions are not possible
           if (
             (valueMatched.match(/^[0-9]{3}$/g) &&
               field.value.match(/^[0-9]{2}$/g)) ||
-            (valueMatched.match(/^[0-9]{3}\ [0-9]{3}$/g) &&
-              field.value.match(/^[0-9]{3}\ [0-9]{2}$/g))
+            (valueMatched.match(/^[0-9]{3} [0-9]{3}$/g) &&
+              field.value.match(/^[0-9]{3} [0-9]{2}$/g))
           ) {
             helpers.setValue(valueMatched + ' ')
           } else {

@@ -61,7 +61,7 @@ export function Button({
     disabled || loading
       ? !basic
         ? twMerge(
-            'bg-secondary-20 text-secondary-80 cursor-default fill-secondary',
+            'bg-uzh-grey-20 text-uzh-grey-80 cursor-default fill-uzh-grey-80',
             className?.disabled
           )
         : 'cursor-default'

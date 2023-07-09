@@ -58,10 +58,7 @@ export function Tooltip({
           id={id}
           data-cy={data?.cy}
           data-test={data?.test}
-          className={twMerge(
-            '!cursor-default [all:_unset]',
-            className?.trigger
-          )}
+          className={twMerge('[all:_unset]', className?.trigger)}
           onClick={(e) => e.preventDefault()}
         >
           {children}
@@ -71,7 +68,7 @@ export function Tooltip({
           data-cy={dataContent?.cy}
           data-test={dataContent?.test}
           className={twMerge(
-            'border-1 border-grey-20 rounded-md border bg-gray-800 p-2 text-white',
+            'rounded-md bg-gray-800 p-2 text-white',
             className?.tooltip
           )}
         >
