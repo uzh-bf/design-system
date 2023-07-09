@@ -11,6 +11,7 @@ module.exports = {
       ...TailwindAnimations,
       colors: {
         ...TailwindColorsUZH,
+        primary: 'var(--theme-color-primary)',
       },
       fontFamily: {
         ...TailwindFonts,

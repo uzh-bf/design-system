@@ -1,7 +1,5 @@
+const { TailwindBasePlugins } = require('./src/constants')
+
 module.exports = {
-  plugins: {
-    'tailwindcss/nesting': {},
-    tailwindcss: {},
-    autoprefixer: {},
-  },
+  plugins: TailwindBasePlugins,
 }
