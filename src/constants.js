@@ -87,7 +87,7 @@ const TailwindColorsUZH = {
 
 const TailwindFonts = {
   sans: [
-    'var(--font-primary)',
+    'var(--theme-font-primary)',
     'var(--source-sans-pro)',
     '"Source Sans 3"',
     '"Source Sans Pro"',
