@@ -55,7 +55,7 @@ export function Workflow({
   return (
     <div
       className={twMerge(
-        'flex flex-row w-full',
+        'flex w-full flex-row',
         hasDescription ? 'h-[50px]' : 'h-[34px]',
         className?.root
       )}
@@ -64,16 +64,16 @@ export function Workflow({
         <div
           key={`${item.title}-${ix}`}
           className={twMerge(
-            'relative text-center flex items-center justify-center bg-uzh-grey-40 stepProps',
-            'mr-1 last:mr-0 cursor-pointer select-none first:before:!border-none after:last:!border-none',
-            'after:z-10 after:border after:border-solid after:border-y-transparent after:border-r-0',
-            "before:content-[''] before:absolute before:z-0 before:right-auto before:left-0",
-            'before:border before:border-solid before:border-r-0 before:border-y-transparent',
-            "after:content-[''] after:absolute after:border-l-uzh-grey-40 before:border-l-white",
+            'relative flex items-center justify-center bg-uzh-grey-40 text-center',
+            'mr-1 cursor-pointer select-none first:before:!border-none last:mr-0 after:last:!border-none',
+            'after:z-10 after:border after:border-r-0 after:border-solid after:border-y-transparent',
+            "before:absolute before:left-0 before:right-auto before:z-0 before:content-['']",
+            'before:border before:border-r-0 before:border-solid before:border-y-transparent',
+            "before:border-l-white after:absolute after:border-l-uzh-grey-40 after:content-['']",
             twStyles.bgHover,
             hasDescription
-              ? 'pl-[25px] first:pl-0 last:pl-0 h-[50px] after:right-[-25px] after:border-y-[25px] after:border-l-[25px] before:border-y-[25px] before:border-l-[25px]'
-              : 'pl-[17px] first:pl-0 last:pl-0 h-[34px] after:right-[-17px] after:border-y-[17px] after:border-l-[17px] before:border-y-[17px] before:border-l-[17px]',
+              ? 'h-[50px] pl-[25px] before:border-y-[25px] before:border-l-[25px] after:right-[-25px] after:border-y-[25px] after:border-l-[25px] first:pl-0 last:pl-0'
+              : 'h-[34px] pl-[17px] before:border-y-[17px] before:border-l-[17px] after:right-[-17px] after:border-y-[17px] after:border-l-[17px] first:pl-0 last:pl-0',
             ix === activeIx &&
               twMerge(
                 twStyles.bgActive,

@@ -1,8 +1,6 @@
 import * as RadixDropdown from '@radix-ui/react-dropdown-menu'
-import React, { useContext } from 'react'
+import React from 'react'
 import { twMerge } from 'tailwind-merge'
-
-import { ThemeContext } from './ThemeProvider'
 
 interface Item {
   id?: string
@@ -69,8 +67,6 @@ export function Dropdown({
   className,
   disabled = false,
 }: DropdownWithItemsProps | DropdownWithGroupsProps) {
-  const theme = useContext(ThemeContext)
-
   const DropdownItem = ({
     id,
     data,
@@ -103,7 +99,7 @@ export function Dropdown({
           data-cy={data?.cy}
           data-test={data?.test}
           className={twMerge(
-            `hover:${theme.primaryBgMedium} sm:hover:!text-white px-2 py-0.5 hover:cursor-pointer rounded flex flex-row`,
+            `flex flex-row rounded px-2 py-0.5 hover:cursor-pointer hover:bg-primary-60 sm:hover:!text-white`,
             active && twMerge('font-bold', className?.active),
             className?.root
           )}
@@ -142,7 +138,7 @@ export function Dropdown({
           data-cy={data?.cy}
           data-test={data?.test}
           className={twMerge(
-            `px-2 py-1 border border-solid border-uzh-grey-60 rounded-md ${theme.primaryBgHover}`,
+            `rounded-md border border-solid border-uzh-grey-60 px-2 py-1 hover:bg-primary-20`,
             disabled && 'cursor-not-allowed text-gray-500 hover:bg-white',
             className?.trigger,
             className?.triggerDisabled
@@ -168,17 +164,16 @@ export function Dropdown({
 
       <RadixDropdown.Content
         className={twMerge(
-          'p-1.5 rounded-md',
-          theme.primaryBg,
+          'rounded-md bg-primary-20 p-1.5',
           className?.viewport
         )}
       >
         <RadixDropdown.Arrow
-          className={twMerge(theme.primaryFill, 'opacity-25', className?.arrow)}
+          className={twMerge('fill-primary-80 opacity-25', className?.arrow)}
         />
 
         {items && (
-          <div className="pt-1 pb-1 border-b border-solid first:pt-0 last:pb-0 border-uzh-grey-100 last:border-b-0">
+          <div className="border-b border-solid border-uzh-grey-100 pb-1 pt-1 first:pt-0 last:border-b-0 last:pb-0">
             {items.map((item, index) => (
               <DropdownItem
                 key={index}
@@ -204,7 +199,7 @@ export function Dropdown({
           groups.map((groupItems, groupIndex) => (
             <div
               key={groupIndex}
-              className="pt-1 pb-1 border-b border-solid first:pt-0 last:pb-0 border-uzh-grey-100 last:border-b-0"
+              className="border-b border-solid border-uzh-grey-100 pb-1 pt-1 first:pt-0 last:border-b-0 last:pb-0"
             >
               <RadixDropdown.Group className={className?.group}>
                 {groupItems.map((item) => (

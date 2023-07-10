@@ -1,9 +1,8 @@
 import { faQuestion } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as RadixLabel from '@radix-ui/react-label'
-import React, { useContext } from 'react'
+import React from 'react'
 import { twMerge } from 'tailwind-merge'
-import { ThemeContext } from '../ThemeProvider'
 import Tooltip from '../Tooltip'
 
 export interface LabelProps {
@@ -51,8 +50,6 @@ export function Label({
   tooltipSymbolSize = 'md',
   className,
 }: LabelProps): React.ReactElement {
-  const theme = useContext(ThemeContext)
-
   if (tooltip && !showTooltipSymbol) {
     return (
       <Tooltip
@@ -73,14 +70,14 @@ export function Label({
           >
             {label}
           </RadixLabel.Root>
-          {required && <div className="mr-2 ml-0.5 mb-1 text-red-600">*</div>}
+          {required && <div className="mb-1 ml-0.5 mr-2 text-red-600">*</div>}
         </div>
       </Tooltip>
     )
   } else if (tooltip && showTooltipSymbol) {
     return (
       <div
-        className={twMerge('w-max flex flex-row items-center', className?.root)}
+        className={twMerge('flex w-max flex-row items-center', className?.root)}
       >
         <RadixLabel.Root
           id={id}
@@ -91,7 +88,7 @@ export function Label({
         >
           {label}
         </RadixLabel.Root>
-        {required && <div className="mr-2 ml-0.5 mb-1 text-red-600">*</div>}
+        {required && <div className="mb-1 ml-0.5 mr-2 text-red-600">*</div>}
         <Tooltip
           tooltip={tooltip}
           className={{
@@ -104,11 +101,10 @@ export function Label({
           <FontAwesomeIcon
             icon={faQuestion}
             className={twMerge(
-              tooltipSymbolSize === 'xl' && '!w-5 !h-5 !p-2 !mt-1',
-              tooltipSymbolSize === 'lg' && '!w-4 !h-4 !p-1.5 !mt-1',
-              tooltipSymbolSize === 'sm' && '!w-2 !h-2 !p-1 !mt-1',
-              'w-3 h-3 p-1 mt-1 text-white rounded-full border border-solid border-white',
-              theme.primaryBgMedium,
+              tooltipSymbolSize === 'xl' && '!mt-1 !h-5 !w-5 !p-2',
+              tooltipSymbolSize === 'lg' && '!mt-1 !h-4 !w-4 !p-1.5',
+              tooltipSymbolSize === 'sm' && '!mt-1 !h-2 !w-2 !p-1',
+              'mt-1 h-3 w-3 rounded-full border border-solid border-white bg-primary-60 p-1 text-white',
               className?.tooltipSymbol
             )}
           />
@@ -123,12 +119,12 @@ export function Label({
         data-test={data?.test}
         htmlFor={forId}
         className={twMerge(
-          'flex flex-row cursor-default items-center',
+          'flex cursor-default flex-row items-center',
           className?.root
         )}
       >
         {label}
-        {required && <div className="mr-2 ml-0.5 mb-1 text-red-600">*</div>}
+        {required && <div className="mb-1 ml-0.5 mr-2 text-red-600">*</div>}
       </RadixLabel.Root>
     )
   }

@@ -6,10 +6,9 @@ import {
   faWineBottle,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useContext } from 'react'
+import React from 'react'
 import Button from './Button'
 import Navigation from './Navigation'
-import { ThemeContext } from './ThemeProvider'
 
 const Navigation1 = () => {
   return (
@@ -124,12 +123,8 @@ export const Right = () => {
 }
 
 export const Combined = () => {
-  const theme = useContext(ThemeContext)
-
   return (
-    <div
-      className={`flex flex-row justify-between ${theme.primaryBg} rounded-md`}
-    >
+    <div className={`flex flex-row justify-between rounded-md bg-primary-20`}>
       <Navigation1 />
       <Navigation2 />
     </div>

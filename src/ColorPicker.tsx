@@ -1,11 +1,10 @@
 import { faPalette, IconDefinition } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { HexColorInput, HexColorPicker } from 'react-colorful'
 import { twMerge } from 'tailwind-merge'
 import Button from './Button'
 import Label from './forms/Label'
-import { ThemeContext } from './ThemeProvider'
 
 export interface ColorPickerProps {
   color: string
@@ -65,13 +64,12 @@ export function ColorPicker({
       : ['#262FAD', '#016272', '#5FB1F9', '#FE7408', '#D84B39']
 
   const [colorPickerOpen, setColorPickerOpen] = useState(false)
-  const theme = useContext(ThemeContext)
   const [newColor, setNewColor] = useState(color)
 
   return (
     <div
       className={twMerge(
-        'flex relative w-20 rounded-lg align-center justify-end',
+        'align-center relative flex w-20 justify-end rounded-lg',
         className?.root
       )}
       style={{ backgroundColor: color ?? '#0028A5' }}
@@ -87,9 +85,9 @@ export function ColorPicker({
       {colorPickerOpen && (
         <div
           className={twMerge(
-            'absolute flex flex-col p-1 bg-white rounded-md shadow-md w-80',
+            'absolute flex w-80 flex-col rounded-md bg-white p-1 shadow-md',
             position === 'bottom' && 'left-10 top-8',
-            position === 'top' && 'left-10 bottom-8',
+            position === 'top' && 'bottom-8 left-10',
             className?.popover
           )}
         >
@@ -98,13 +96,13 @@ export function ColorPicker({
             color={newColor}
             onChange={setNewColor}
           />
-          <div className="grid grid-cols-5 gap-0.5 pt-3 pb-3 justify-items-center">
+          <div className="grid grid-cols-5 justify-items-center gap-0.5 pb-3 pt-3">
             {PRESET_COURSE_COLORS.map((presetColor, index) => (
               <Button
                 key={index}
                 className={{
                   root: twMerge(
-                    'h-7 w-7 border-none rounded-2xl',
+                    'h-7 w-7 rounded-2xl border-none',
                     className?.presetButtons
                   ),
                 }}
@@ -125,7 +123,7 @@ export function ColorPicker({
             />
             <HexColorInput
               className={twMerge(
-                'w-full pl-2 border rounded border-uzh-grey-60 focus:border-uzh-blue-50 h-9 text-slate-600',
+                'focus:border-uzh-blue-50 h-9 w-full rounded border border-uzh-grey-60 pl-2 text-slate-600',
                 className?.input
               )}
               color={newColor}
@@ -134,7 +132,7 @@ export function ColorPicker({
               data-text={dataHexInput?.test}
             />
           </div>
-          <div className="flex flex-row justify-between w-full pt-5">
+          <div className="flex w-full flex-row justify-between pt-5">
             <Button
               className={{ root: twMerge('float-right', className?.abort) }}
               type="submit"
@@ -146,7 +144,7 @@ export function ColorPicker({
             <Button
               className={{
                 root: twMerge(
-                  `float-right text-white disabled:opacity-60 ${theme.primaryBgDark}`,
+                  `float-right bg-primary-80 text-white disabled:opacity-60`,
                   className?.submit
                 ),
               }}

@@ -75,8 +75,8 @@ export const Styled = () => {
       type="default"
       message="This is a notification with default type but added custom styling"
       className={{
-        root: 'text-lg gap-4',
-        content: 'text-red-400 text-base italic',
+        root: 'gap-4 text-lg',
+        content: 'text-base italic text-red-400',
         icon: 'text-blue-500',
         message: 'text-green-500',
       }}

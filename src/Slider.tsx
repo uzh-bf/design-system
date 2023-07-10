@@ -88,7 +88,7 @@ export function Slider({
       data-cy={data?.cy}
       data-test={data?.test}
       className={twMerge(
-        'relative flex items-center w-full h-24 select-none',
+        'relative flex h-24 w-full select-none items-center',
         className?.root
       )}
       defaultValue={[0]}
@@ -123,7 +123,7 @@ export function Slider({
         )}
       </div>
 
-      <RadixSlider.Track className="relative flex-1 h-4 bg-gray-200 rounded-xl">
+      <RadixSlider.Track className="relative h-4 flex-1 rounded-xl bg-gray-200">
         <RadixSlider.Range
           className={twMerge(
             'absolute h-full rounded-full',
@@ -137,7 +137,7 @@ export function Slider({
 
       <RadixSlider.Thumb
         className={twMerge(
-          'w-12 h-12 flex flex-col items-center justify-center bg-white border-[3px] border-solid rounded-full shadow-lg focus:outline-none',
+          'flex h-12 w-12 flex-col items-center justify-center rounded-full border-[3px] border-solid bg-white shadow-lg focus:outline-none',
           disabled ? 'cursor-not-allowed' : 'cursor-move',
           disabled ||
             !borderColorMap ||

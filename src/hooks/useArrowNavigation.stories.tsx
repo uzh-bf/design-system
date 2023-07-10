@@ -1,10 +1,8 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { twMerge } from 'tailwind-merge'
-import { ThemeContext } from '../ThemeProvider'
 import useArrowNavigation from './useArrowNavigation'
 
 export const Default = () => {
-  const theme = useContext(ThemeContext)
   const [arrowPressed, setArrowPressed] = React.useState<string | undefined>(
     undefined
   )
@@ -26,32 +24,32 @@ export const Default = () => {
       <div className="flex flex-row gap-2">
         <div
           className={twMerge(
-            'p-1 border border-solid rounded',
-            arrowPressed === 'Arrow Left' && theme.primaryBg
+            'rounded border border-solid p-1',
+            arrowPressed === 'Arrow Left' && 'bg-primary-20'
           )}
         >
           Arrow Left
         </div>
         <div
           className={twMerge(
-            'p-1 border border-solid rounded',
-            arrowPressed === 'Arrow Right' && theme.primaryBg
+            'rounded border border-solid p-1',
+            arrowPressed === 'Arrow Right' && 'bg-primary-20'
           )}
         >
           Arrow Right
         </div>
         <div
           className={twMerge(
-            'p-1 border border-solid rounded',
-            arrowPressed === 'Arrow Up' && theme.primaryBg
+            'rounded border border-solid p-1',
+            arrowPressed === 'Arrow Up' && 'bg-primary-20'
           )}
         >
           Arrow Up
         </div>
         <div
           className={twMerge(
-            'p-1 border border-solid rounded',
-            arrowPressed === 'Arrow Down' && theme.primaryBg
+            'rounded border border-solid p-1',
+            arrowPressed === 'Arrow Down' && 'bg-primary-20'
           )}
         >
           Arrow Down

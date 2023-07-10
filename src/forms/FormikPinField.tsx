@@ -1,7 +1,6 @@
 import { ErrorMessage, Field, useField } from 'formik'
-import React, { useContext } from 'react'
+import React from 'react'
 import { twMerge } from 'tailwind-merge'
-import { ThemeContext } from '../ThemeProvider'
 import Label from './Label'
 
 export interface PinFieldProps {
@@ -33,7 +32,6 @@ export function PinField({
   className,
   data,
 }: PinFieldProps) {
-  const theme = useContext(ThemeContext)
   const [field, meta, helpers] = useField(name)
 
   return (
@@ -45,13 +43,13 @@ export function PinField({
           label={label}
           className={{
             root: twMerge(
-              'my-auto mr-2 font-bold min-w-max',
+              'my-auto mr-2 min-w-max font-bold',
               labelType === 'small' &&
-                'text-sm leading-6 text-gray-600 font-normal mt-1',
+                'mt-1 text-sm font-normal leading-6 text-gray-600',
               className?.label
             ),
             tooltip: 'text-sm font-normal',
-            tooltipSymbol: twMerge(labelType === 'small' && 'w-2 h-2'),
+            tooltipSymbol: twMerge(labelType === 'small' && 'h-2 w-2'),
           }}
           tooltip={tooltip}
           showTooltipSymbol={typeof tooltip !== 'undefined'}
@@ -64,9 +62,8 @@ export function PinField({
         data-test={data?.test}
         placeholder="### ### ###"
         className={twMerge(
-          'w-full rounded bg-uzh-grey-20 bg-opacity-50 border border-uzh-grey-60 mb-2',
-          theme.primaryBorderFocus,
-          meta.error && meta.touched && 'border-red-400 bg-red-50 mb-0',
+          'mb-2 w-full rounded border border-uzh-grey-60 bg-uzh-grey-20 bg-opacity-50 focus:border-primary-40',
+          meta.error && meta.touched && 'mb-0 border-red-400 bg-red-50',
           className?.field
         )}
         maxLength={11}
@@ -84,7 +81,7 @@ export function PinField({
           } else if (
             typeof paste === 'string' &&
             paste.length === 11 &&
-            paste.match(/^[0-9]{3}\ [0-9]{3}\ [0-9]{3}$/g)
+            paste.match(/^[0-9]{3} [0-9]{3} [0-9]{3}$/g)
           ) {
             helpers.setValue(paste)
           }
@@ -92,15 +89,15 @@ export function PinField({
         onChange={(e: any) => {
           // regex magic to only allow numerical pins in the format ### ### ###
           const regexToMatch =
-            /([0-9]{3}\ [0-9]{3}\ [0-9]{0,3})|([0-9]{3}\ [0-9]{3}[\ ]{0,1})|([0-9]{3}\ [0-9]{0,3})|([0-9]{3}[\ ]{0,1})|([0-9]{0,3})/g
+            /([0-9]{3} [0-9]{3} [0-9]{0,3})|([0-9]{3} [0-9]{3}[ ]{0,1})|([0-9]{3} [0-9]{0,3})|([0-9]{3}[ ]{0,1})|([0-9]{0,3})/g
           const valueMatched = e.target.value.match(regexToMatch)[0]
 
           // only add a whitespace after a block of 3 numbers if the user is typing - otherwise deletions are not possible
           if (
             (valueMatched.match(/^[0-9]{3}$/g) &&
               field.value.match(/^[0-9]{2}$/g)) ||
-            (valueMatched.match(/^[0-9]{3}\ [0-9]{3}$/g) &&
-              field.value.match(/^[0-9]{3}\ [0-9]{2}$/g))
+            (valueMatched.match(/^[0-9]{3} [0-9]{3}$/g) &&
+              field.value.match(/^[0-9]{3} [0-9]{2}$/g))
           ) {
             helpers.setValue(valueMatched + ' ')
           } else {

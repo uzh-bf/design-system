@@ -1,7 +1,6 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import Collapsible from './Collapsible'
 import { H2 } from './Header'
-import { ThemeContext } from './ThemeProvider'
 
 export const Default = () => {
   const [open, setOpen] = useState(false)
@@ -105,7 +104,6 @@ export const Simple = () => {
 
 export const Styled = () => {
   const [open, setOpen] = useState(false)
-  const theme = useContext(ThemeContext)
 
   return (
     <Collapsible
@@ -116,7 +114,7 @@ export const Styled = () => {
       staticContent="Static content"
       closedContent="Closed content"
       className={{
-        root: `border-1 ${theme.primaryBg}`,
+        root: `border-1 bg-primary-20`,
         trigger: 'text-red-500',
         content: 'text-blue-500',
         staticContent: 'text-green-500',

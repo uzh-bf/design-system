@@ -1,6 +1,5 @@
-import React, { Dispatch, useContext } from 'react'
+import React, { Dispatch } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { ThemeContext } from './ThemeProvider'
 
 export interface ButtonProps {
   id?: string
@@ -54,10 +53,8 @@ export function Button({
   data,
   ...props
 }: ButtonProps) {
-  const theme = useContext(ThemeContext)
-
   const computedClassName = twMerge(
-    !basic && 'border rounded px-[0.75em] py-[0.25em] shadow bg-white ',
+    !basic && 'border rounded px-[0.75em] py-[0.25em] shadow bg-white',
     'inline-flex flex-row items-center font-sans gap-2',
     fluid && 'w-full justify-center',
     className?.root,
@@ -69,13 +66,10 @@ export function Button({
           )
         : 'cursor-default'
       : !basic &&
-          `${theme.primaryBgHover} ${theme.primaryBorderHover} ${theme.primaryTextHover} ${theme.primaryFillHover}`,
+          `hover:bg-primary-20 hover:border-primary-40 hover:text-primary hover:fill-primary`,
     !basic &&
       active &&
-      twMerge(
-        `${theme.primaryBg} ${theme.primaryFill} ${theme.primaryBorder}`,
-        className?.active
-      )
+      twMerge(`bg-primary-20 border-primary-40`, className?.active)
   )
 
   return (
@@ -91,7 +85,7 @@ export function Button({
     >
       {loading && (
         <svg
-          className={`w-5 h-5 -ml-1 ${theme.primaryText} animate-spin`}
+          className={`-ml-1 h-5 w-5 animate-spin text-primary`}
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
@@ -156,13 +150,10 @@ Button.IconGroup = function ButtonIconGroup({
   className,
   children,
 }: ButtonIconGroupProps) {
-  const theme = useContext(ThemeContext)
-
   return (
     <div
       className={twMerge(
-        'flex flex-row justify-between border border-solid w-max rounded',
-        theme.primaryBorder,
+        'flex w-max flex-row justify-between rounded border border-solid border-primary',
         className?.root
       )}
     >
@@ -172,10 +163,9 @@ Button.IconGroup = function ButtonIconGroup({
             key={index}
             className={{
               root: twMerge(
-                'p-1.5 first:rounded-l-sm last:rounded-r-sm',
-                theme.primaryBgHover,
+                'p-1.5 first:rounded-l-sm last:rounded-r-sm hover:border-primary',
                 state === index
-                  ? `${theme.primaryBgDark} text-white hover:bg-unset`
+                  ? `hover:bg-unset bg-primary-80 text-white`
                   : 'bg-white',
                 className?.children
               ),
