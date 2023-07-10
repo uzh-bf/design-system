@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/uzh-bf/design-system/compare/v1.9.5...v2.0.0) (2023-07-10)
+
+
+### Refactors
+
+* new theme approach ([#60](https://github.com/uzh-bf/design-system/issues/60)) ([422ac6c](https://github.com/uzh-bf/design-system/commit/422ac6c0edf6c8e9c8e34fae78124239daf34113))
+
 ### [1.9.5](https://github.com/uzh-bf/design-system/compare/v1.9.4...v1.9.5) (2023-07-07)
 
 
