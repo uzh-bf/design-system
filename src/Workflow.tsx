@@ -17,6 +17,7 @@ export interface WorkflowProps {
     bgPast: string
   }
   minimal?: boolean
+  disabledFrom?: number
   className?: {
     root?: string
     item?: string
@@ -35,6 +36,7 @@ export interface WorkflowProps {
  * @param activeIx - The index of the active step. State management is not handled by this component.
  * @param twStyles - The optional twStyles object allows you to override the default styling.
  * @param minimal - The optional minimal boolean allows you to render the workflow with minimal space requirements.
+ * @param disabledFrom - The optional disabledFrom number allows you to disable steps from a certain index onwards.
  * @param className - The optional className object allows you to override the default styling.
  * @returns Workflow component
  */
@@ -48,6 +50,7 @@ export function Workflow({
     bgPast: 'bg-uzh-blue-20 after:border-l-uzh-blue-20',
   },
   minimal = false,
+  disabledFrom,
   className,
 }: WorkflowProps) {
   const hasDescription = items.reduce(
@@ -87,9 +90,13 @@ export function Workflow({
               ),
             ix < activeIx &&
               twMerge(twStyles.bgPast, 'text-gray-500', className?.past),
+            ix > (disabledFrom || items.length) - 1 &&
+              'cursor-not-allowed text-uzh-grey-100 hover:bg-uzh-grey-40 hover:after:!border-l-uzh-grey-40',
             className?.item
           )}
-          onClick={() => onClick(item)}
+          onClick={() =>
+            ix > (disabledFrom || items.length) - 1 ? null : onClick(item)
+          }
           style={{
             width: `${100 / items.length}%`,
           }}

@@ -84,6 +84,51 @@ export function Description() {
   )
 }
 
+export function Minimal() {
+  const [activeIx, setActiveIx] = useState(0)
+  return (
+    <div className="w-full">
+      <div>
+        With the minimal prop set, the workflow component only takes up as much
+        space as needed to display the items.
+      </div>
+      <Workflow
+        items={items}
+        onClick={(item) => {
+          alert(`Item with title ${item.title} was clicked!`)
+          setActiveIx(item.ix)
+        }}
+        activeIx={activeIx}
+        minimal
+      />
+    </div>
+  )
+}
+
+export function Disabled() {
+  const [activeIx, setActiveIx] = useState(0)
+  return (
+    <div className="w-full">
+      <div>
+        As many processes require the user to carry out some actions
+        sequentially, the workflow component allows you to disable steps from a
+        certain index onwards. This opens up the possibility to use validity
+        checks to determine whether a step can be carried out or not. In this
+        example, only the step following the current one is enabled.
+      </div>
+      <Workflow
+        items={items}
+        onClick={(item) => {
+          alert(`Item with title ${item.title} was clicked!`)
+          setActiveIx(item.ix)
+        }}
+        activeIx={activeIx}
+        disabledFrom={activeIx + 2}
+      />
+    </div>
+  )
+}
+
 export function Styled() {
   const [activeIx, setActiveIx] = useState(0)
   return (
