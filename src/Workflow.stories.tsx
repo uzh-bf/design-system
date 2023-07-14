@@ -5,54 +5,44 @@ const itemsDescriptions = [
   {
     title: 'Step 1',
     description: 'This is the first step',
-    ix: 0,
   },
   {
     title: 'Step 2',
     description: 'This is the second step',
-    ix: 1,
   },
   {
     title: 'Step 3',
     description: 'This is the third step',
-    ix: 2,
   },
   {
     title: 'Step 4',
-    ix: 3,
   },
 ]
 
 const items = [
   {
     title: 'Step 1',
-    ix: 0,
   },
   {
     title: 'Step 2',
-    ix: 1,
   },
   {
     title: 'Step 3',
-    ix: 2,
   },
 ]
 
 const tooltipItems = [
   {
     title: 'Step 1',
-    ix: 0,
     tooltip: 'This is the first step',
     tooltipDisabled: 'This step is disabled',
   },
   {
     title: 'Step 2',
-    ix: 1,
     tooltip: 'This is the second step',
   },
   {
     title: 'Step 3',
-    ix: 2,
     tooltipDisabled: 'This step is disabled',
   },
 ]
@@ -70,9 +60,9 @@ export function Default() {
       </div>
       <Workflow
         items={items}
-        onClick={(item) => {
+        onClick={(item, ix) => {
           alert(`Item with title ${item.title} was clicked!`)
-          setActiveIx(item.ix)
+          setActiveIx(ix)
         }}
         activeIx={activeIx}
       />
@@ -93,9 +83,9 @@ export function Description() {
       </div>
       <Workflow
         items={itemsDescriptions}
-        onClick={(item) => {
+        onClick={(item, ix) => {
           alert(`Item with title ${item.title} was clicked!`)
-          setActiveIx(item.ix)
+          setActiveIx(ix)
         }}
         activeIx={activeIx}
       />
@@ -113,9 +103,9 @@ export function Minimal() {
       </div>
       <Workflow
         items={items}
-        onClick={(item) => {
+        onClick={(item, ix) => {
           alert(`Item with title ${item.title} was clicked!`)
-          setActiveIx(item.ix)
+          setActiveIx(ix)
         }}
         activeIx={activeIx}
         minimal
@@ -137,9 +127,9 @@ export function Disabled() {
       </div>
       <Workflow
         items={items}
-        onClick={(item) => {
+        onClick={(item, ix) => {
           alert(`Item with title ${item.title} was clicked!`)
-          setActiveIx(item.ix)
+          setActiveIx(ix)
         }}
         activeIx={activeIx}
         disabledFrom={activeIx + 2}
@@ -160,9 +150,9 @@ export function Tooltip() {
       </div>
       <Workflow
         items={tooltipItems}
-        onClick={(item) => {
+        onClick={(item, ix) => {
           alert(`Item with title ${item.title} was clicked!`)
-          setActiveIx(item.ix)
+          setActiveIx(ix)
         }}
         activeIx={activeIx}
         disabledFrom={activeIx + 2}
@@ -184,9 +174,9 @@ export function Styled() {
       </div>
       <Workflow
         items={items}
-        onClick={(item) => {
+        onClick={(item, ix) => {
           alert(`Item with title ${item.title} was clicked!`)
-          setActiveIx(item.ix)
+          setActiveIx(ix)
         }}
         activeIx={activeIx}
         className={{

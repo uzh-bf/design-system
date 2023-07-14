@@ -12,7 +12,7 @@ interface StepProps {
 
 export interface WorkflowProps {
   items: StepProps[]
-  onClick: (item: StepProps) => void
+  onClick: (item: StepProps, ix: number) => void
   activeIx: number
   twStyles?: {
     bgHover: string
@@ -100,7 +100,7 @@ interface WorkflowItemProps {
   activeIx: number
   disabled: boolean
   tooltip?: string
-  onClick: (item: StepProps) => void
+  onClick: (item: StepProps, ix: number) => void
   numItems: number
   twStyles: {
     bgHover: string
@@ -176,7 +176,7 @@ export function WorkflowItem({
           'cursor-not-allowed text-uzh-grey-100 hover:bg-uzh-grey-40 hover:after:!border-l-uzh-grey-40',
         className?.item
       )}
-      onClick={() => (disabled ? null : onClick(item))}
+      onClick={() => (disabled ? null : onClick(item, ix))}
       style={{
         width: `${100 / numItems}%`,
       }}
