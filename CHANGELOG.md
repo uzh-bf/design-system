@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.1](https://github.com/uzh-bf/design-system/compare/v2.0.0...v2.0.1) (2023-07-14)
+
+
+### Enhancements
+
+* **Workflow:** add possibility to disable elements and extend stories ([ed9a442](https://github.com/uzh-bf/design-system/commit/ed9a442d823c4e0d75e01576606d32e160244e20))
+* **Workflow:** add prop for minimal vertical extension and slim appearance ([0bbee0d](https://github.com/uzh-bf/design-system/commit/0bbee0d895ab30acc7eb6a3e1c7dc0c72575f987))
+* **Workflow:** add tooltips to workflow steps ([47cc261](https://github.com/uzh-bf/design-system/commit/47cc261f660214106cd99050c0e37564c9f13c00))
+
 ## [2.0.0](https://github.com/uzh-bf/design-system/compare/v1.9.5...v2.0.0) (2023-07-10)
 
 
