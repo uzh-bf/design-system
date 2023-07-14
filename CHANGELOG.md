@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.2](https://github.com/uzh-bf/design-system/compare/v2.0.1...v2.0.2) (2023-07-14)
+
+
+### Enhancements
+
+* **Workflow:** pass step index to onClick function for easier state changes ([7840451](https://github.com/uzh-bf/design-system/commit/7840451f3b4a80b2fc5694c1ee49a30f3401a7e1))
+
 ### [2.0.1](https://github.com/uzh-bf/design-system/compare/v2.0.0...v2.0.1) (2023-07-14)
 
 
