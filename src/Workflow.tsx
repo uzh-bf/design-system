@@ -16,6 +16,7 @@ export interface WorkflowProps {
     bgActive: string
     bgPast: string
   }
+  minimal?: boolean
   className?: {
     root?: string
     item?: string
@@ -33,6 +34,7 @@ export interface WorkflowProps {
  * @param onClick - The function that is called when a step is clicked. The step object is passed as an argument.
  * @param activeIx - The index of the active step. State management is not handled by this component.
  * @param twStyles - The optional twStyles object allows you to override the default styling.
+ * @param minimal - The optional minimal boolean allows you to render the workflow with minimal space requirements.
  * @param className - The optional className object allows you to override the default styling.
  * @returns Workflow component
  */
@@ -45,6 +47,7 @@ export function Workflow({
     bgActive: 'bg-uzh-blue-80 after:border-l-uzh-blue-80',
     bgPast: 'bg-uzh-blue-20 after:border-l-uzh-blue-20',
   },
+  minimal = false,
   className,
 }: WorkflowProps) {
   const hasDescription = items.reduce(
@@ -56,7 +59,7 @@ export function Workflow({
     <div
       className={twMerge(
         'flex w-full flex-row',
-        hasDescription ? 'h-[50px]' : 'h-[34px]',
+        hasDescription ? 'h-[50px]' : minimal ? 'h-[26px]' : 'h-[34px]',
         className?.root
       )}
     >
@@ -73,6 +76,8 @@ export function Workflow({
             twStyles.bgHover,
             hasDescription
               ? 'h-[50px] pl-[25px] before:border-y-[25px] before:border-l-[25px] after:right-[-25px] after:border-y-[25px] after:border-l-[25px] first:pl-0 last:pl-0'
+              : minimal
+              ? 'h-[26px] pl-[13px] before:border-y-[13px] before:border-l-[13px] after:right-[-13px] after:border-y-[13px] after:border-l-[13px] first:pl-0 last:pl-0'
               : 'h-[34px] pl-[17px] before:border-y-[17px] before:border-l-[17px] after:right-[-17px] after:border-y-[17px] after:border-l-[17px] first:pl-0 last:pl-0',
             ix === activeIx &&
               twMerge(
