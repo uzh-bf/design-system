@@ -38,6 +38,25 @@ const items = [
   },
 ]
 
+const tooltipItems = [
+  {
+    title: 'Step 1',
+    ix: 0,
+    tooltip: 'This is the first step',
+    tooltipDisabled: 'This step is disabled',
+  },
+  {
+    title: 'Step 2',
+    ix: 1,
+    tooltip: 'This is the second step',
+  },
+  {
+    title: 'Step 3',
+    ix: 2,
+    tooltipDisabled: 'This step is disabled',
+  },
+]
+
 export function Default() {
   const [activeIx, setActiveIx] = useState(0)
   return (
@@ -118,6 +137,29 @@ export function Disabled() {
       </div>
       <Workflow
         items={items}
+        onClick={(item) => {
+          alert(`Item with title ${item.title} was clicked!`)
+          setActiveIx(item.ix)
+        }}
+        activeIx={activeIx}
+        disabledFrom={activeIx + 2}
+      />
+    </div>
+  )
+}
+
+export function Tooltip() {
+  const [activeIx, setActiveIx] = useState(0)
+  return (
+    <div className="w-full">
+      <div>
+        With the two props tooltip and tooltipDisabled, you can pass custom
+        tooltips to the workflow component. The tooltipDisabled prop is used
+        when the step is disabled. It is also possible to only define one of the
+        two props.
+      </div>
+      <Workflow
+        items={tooltipItems}
         onClick={(item) => {
           alert(`Item with title ${item.title} was clicked!`)
           setActiveIx(item.ix)
