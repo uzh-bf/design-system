@@ -9,6 +9,8 @@ interface StepBaseProps {
   description?: string
   tooltip?: string
   tooltipDisabled?: string
+  progress?: number
+  completed?: boolean
   [x: string]: any
 }
 
@@ -44,13 +46,13 @@ interface WorkflowBaseProps {
 export interface WorkflowProps extends WorkflowBaseProps {
   activeIx: number
   items: StepProps[]
-  onClick: (item: StepProps, ix: number) => void
+  onClick: (item: StepProps | StepProgressProps, ix: number) => void
 }
 
 export interface WorkflowProgressProps extends WorkflowBaseProps {
   activeIx?: never
   items: StepProgressProps[]
-  onClick: (item: StepProgressProps, ix: number) => void
+  onClick: (item: StepProps | StepProgressProps, ix: number) => void
 }
 
 /**
@@ -78,7 +80,7 @@ export function Workflow({
   disabledFrom,
   className,
 }: WorkflowProps | WorkflowProgressProps) {
-  const hasDescription = items.reduce(
+  const hasDescription = (items as StepBaseProps[]).reduce(
     (acc, item) => acc || Boolean(item.description),
     false
   )
@@ -133,7 +135,9 @@ export function Workflow({
   )
 }
 
-interface WorkflowItemBaseProps {
+interface WorkflowItemProps {
+  item: StepProps | StepProgressProps
+  onClick: (item: StepProps | StepProgressProps, ix: number) => void
   ix: number
   hasDescription: boolean
   minimal: boolean
@@ -156,16 +160,6 @@ interface WorkflowItemBaseProps {
   }
 }
 
-interface WorkflowItemProps extends WorkflowItemBaseProps {
-  item: StepProps
-  onClick: (item: StepProps, ix: number) => void
-}
-
-interface WorkflowItemProgressProps extends WorkflowItemBaseProps {
-  item: StepProgressProps
-  onClick: (item: StepProgressProps, ix: number) => void
-}
-
 export function WorkflowItem({
   item,
   ix,
@@ -178,7 +172,7 @@ export function WorkflowItem({
   numItems,
   twStyles,
   className,
-}: WorkflowItemProps | WorkflowItemProgressProps) {
+}: WorkflowItemProps) {
   const content = (
     <div className="flex w-full flex-col">
       <div
