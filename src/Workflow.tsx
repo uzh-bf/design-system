@@ -1,19 +1,31 @@
+import { faCheck, faPencil } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Tooltip } from './Tooltip'
 
-interface StepProps {
+interface StepBaseProps {
   title: string
   description?: string
   tooltip?: string
   tooltipDisabled?: string
+  progress?: number
+  completed?: boolean
   [x: string]: any
 }
 
-export interface WorkflowProps {
-  items: StepProps[]
-  onClick: (item: StepProps, ix: number) => void
-  activeIx: number
+interface StepProps extends StepBaseProps {
+  progress?: never
+  completed?: never
+}
+
+interface StepProgressProps extends StepBaseProps {
+  progress: number
+  completed?: boolean
+}
+
+interface WorkflowBaseProps {
+  activeIx?: number
   twStyles?: {
     bgHover: string
     bgActive: string
@@ -29,6 +41,18 @@ export interface WorkflowProps {
     title?: string
     description?: string
   }
+}
+
+export interface WorkflowProps extends WorkflowBaseProps {
+  activeIx: number
+  items: StepProps[]
+  onClick: (item: StepProps | StepProgressProps, ix: number) => void
+}
+
+export interface WorkflowProgressProps extends WorkflowBaseProps {
+  activeIx?: never
+  items: StepProgressProps[]
+  onClick: (item: StepProps | StepProgressProps, ix: number) => void
 }
 
 /**
@@ -55,8 +79,8 @@ export function Workflow({
   minimal = false,
   disabledFrom,
   className,
-}: WorkflowProps) {
-  const hasDescription = items.reduce(
+}: WorkflowProps | WorkflowProgressProps) {
+  const hasDescription = (items as StepBaseProps[]).reduce(
     (acc, item) => acc || Boolean(item.description),
     false
   )
@@ -71,14 +95,33 @@ export function Workflow({
     >
       {items.map((item, ix) => {
         const disabled = ix > (disabledFrom || items.length) - 1
+
+        if (typeof activeIx !== 'undefined') {
+          return (
+            <WorkflowItem
+              key={`${item.title}-${ix}`}
+              item={item as StepProps}
+              ix={ix}
+              hasDescription={hasDescription}
+              minimal={minimal}
+              activeIx={activeIx}
+              disabled={disabled}
+              tooltip={disabled ? item.tooltipDisabled : item.tooltip}
+              onClick={onClick}
+              numItems={items.length}
+              twStyles={twStyles}
+              className={className}
+            />
+          )
+        }
+
         return (
           <WorkflowItem
-            key={`${item.title}-${ix}`}
-            item={item}
+            key={`${item.title}-${item.progress}-${item.completed}-${ix}`}
+            item={item as StepProgressProps}
             ix={ix}
             hasDescription={hasDescription}
             minimal={minimal}
-            activeIx={activeIx}
             disabled={disabled}
             tooltip={disabled ? item.tooltipDisabled : item.tooltip}
             onClick={onClick}
@@ -93,14 +136,14 @@ export function Workflow({
 }
 
 interface WorkflowItemProps {
-  item: StepProps
+  item: StepProps | StepProgressProps
+  onClick: (item: StepProps | StepProgressProps, ix: number) => void
   ix: number
   hasDescription: boolean
   minimal: boolean
-  activeIx: number
+  activeIx?: number
   disabled: boolean
   tooltip?: string
-  onClick: (item: StepProps, ix: number) => void
   numItems: number
   twStyles: {
     bgHover: string
@@ -135,7 +178,11 @@ export function WorkflowItem({
       <div
         className={twMerge(
           'leading-5',
-          ix === activeIx && 'font-bold',
+          (ix === activeIx ||
+            (typeof item.progress !== 'undefined' &&
+              0 < item.progress &&
+              item.progress < 1)) &&
+            'font-bold',
           className?.title
         )}
       >
@@ -150,7 +197,6 @@ export function WorkflowItem({
 
   return (
     <div
-      key={`${item.title}-${ix}`}
       className={twMerge(
         'relative flex items-center justify-center bg-uzh-grey-40 text-center',
         'mr-1 cursor-pointer select-none first:before:!border-none last:mr-0 after:last:!border-none',
@@ -170,27 +216,58 @@ export function WorkflowItem({
             'text-white hover:text-black',
             className?.active
           ),
-        ix < activeIx &&
+        (item.completed || item.progress === 1) &&
+          'bg-green-200 text-gray-500 after:border-l-green-200 hover:bg-green-200 hover:after:!border-l-green-200',
+        ix < (activeIx || -1) &&
           twMerge(twStyles.bgPast, 'text-gray-500', className?.past),
+        !item.completed &&
+          item.progress !== 1 &&
+          item.progress &&
+          'hover:bg-none hover:after:!border-l-uzh-grey-40',
         disabled &&
-          'cursor-not-allowed text-uzh-grey-100 hover:bg-uzh-grey-40 hover:after:!border-l-uzh-grey-40',
+          'cursor-not-allowed text-gray-500 hover:bg-uzh-grey-40 hover:after:!border-l-uzh-grey-40',
         className?.item
       )}
       onClick={() => (disabled ? null : onClick(item, ix))}
       style={{
         width: `${100 / numItems}%`,
+        background:
+          !item.completed && item.progress !== 1 && item.progress
+            ? `linear-gradient(to right, rgb(74 222 128) 0%, rgb(74 222 128) ${
+                item.progress * 100
+              }%, rgb(218 222 226) ${
+                item.progress * 100
+              }%, rgb(218 222 226) 100%)`
+            : '',
       }}
     >
       {typeof tooltip !== 'undefined' ? (
         <Tooltip
           tooltip={tooltip}
           delay={1500}
-          className={{ trigger: '!w-full', tooltip: 'z-20' }}
+          className={{
+            trigger: 'flex !w-full flex-row gap-2',
+            tooltip: 'z-20',
+          }}
         >
+          {(item.completed || item.progress === 1) && (
+            <FontAwesomeIcon icon={faCheck} />
+          )}
+          {!item.completed && item.progress && item.progress < 1 ? (
+            <FontAwesomeIcon icon={faPencil} />
+          ) : null}
           {content}
         </Tooltip>
       ) : (
-        content
+        <div className="flex flex-row gap-2">
+          {(item.completed || item.progress === 1) && (
+            <FontAwesomeIcon icon={faCheck} />
+          )}
+          {!item.completed && item.progress && item.progress < 1 ? (
+            <FontAwesomeIcon icon={faPencil} />
+          ) : null}
+          {content}
+        </div>
       )}
     </div>
   )
