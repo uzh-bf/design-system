@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.3](https://github.com/uzh-bf/design-system/compare/v2.0.2...v2.0.3) (2023-07-18)
+
+
+### Enhancements
+
+* **Workflow:** add progress highlighting ([#61](https://github.com/uzh-bf/design-system/issues/61)) ([e6c7810](https://github.com/uzh-bf/design-system/commit/e6c7810fe5545de0c18f02d98dd6f62b6ee6d09a))
+
 ### [2.0.2](https://github.com/uzh-bf/design-system/compare/v2.0.1...v2.0.2) (2023-07-14)
 
 
