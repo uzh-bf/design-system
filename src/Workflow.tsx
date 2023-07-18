@@ -1,4 +1,4 @@
-import { faCheck } from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faPencil } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
@@ -217,7 +217,7 @@ export function WorkflowItem({
             className?.active
           ),
         (item.completed || item.progress === 1) &&
-          'bg-green-200 after:border-l-green-200 hover:bg-green-200 hover:after:!border-l-green-200',
+          'bg-green-200 text-gray-500 after:border-l-green-200 hover:bg-green-200 hover:after:!border-l-green-200',
         ix < (activeIx || -1) &&
           twMerge(twStyles.bgPast, 'text-gray-500', className?.past),
         !item.completed &&
@@ -225,7 +225,7 @@ export function WorkflowItem({
           item.progress &&
           'hover:bg-none hover:after:!border-l-uzh-grey-40',
         disabled &&
-          'cursor-not-allowed text-uzh-grey-100 hover:bg-uzh-grey-40 hover:after:!border-l-uzh-grey-40',
+          'cursor-not-allowed text-gray-500 hover:bg-uzh-grey-40 hover:after:!border-l-uzh-grey-40',
         className?.item
       )}
       onClick={() => (disabled ? null : onClick(item, ix))}
@@ -233,7 +233,7 @@ export function WorkflowItem({
         width: `${100 / numItems}%`,
         background:
           !item.completed && item.progress !== 1 && item.progress
-            ? `linear-gradient(to right, rgb(187 247 208) 0%, rgb(187 247 208) ${
+            ? `linear-gradient(to right, rgb(74 222 128) 0%, rgb(74 222 128) ${
                 item.progress * 100
               }%, rgb(218 222 226) ${
                 item.progress * 100
@@ -253,6 +253,9 @@ export function WorkflowItem({
           {(item.completed || item.progress === 1) && (
             <FontAwesomeIcon icon={faCheck} />
           )}
+          {!item.completed && item.progress && item.progress < 1 ? (
+            <FontAwesomeIcon icon={faPencil} />
+          ) : null}
           {content}
         </Tooltip>
       ) : (
@@ -260,6 +263,9 @@ export function WorkflowItem({
           {(item.completed || item.progress === 1) && (
             <FontAwesomeIcon icon={faCheck} />
           )}
+          {!item.completed && item.progress && item.progress < 1 ? (
+            <FontAwesomeIcon icon={faPencil} />
+          ) : null}
           {content}
         </div>
       )}
