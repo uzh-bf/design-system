@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.5](https://github.com/uzh-bf/design-system/compare/v2.0.4...v2.0.5) (2023-07-21)
+
+
+### Other
+
+* make peer deps less strict ([b0a0d48](https://github.com/uzh-bf/design-system/commit/b0a0d48e3e1e3e56b1cab906a6a312b1af18cc27))
+
 ### [2.0.4](https://github.com/uzh-bf/design-system/compare/v2.0.3...v2.0.4) (2023-07-18)
 
 
