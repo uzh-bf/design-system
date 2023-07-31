@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.6](https://github.com/uzh-bf/design-system/compare/v2.0.5...v2.0.6) (2023-07-31)
+
+
+### Other
+
+* **Formik*:** add tooltip styling attributes to all formik components ([3f93a20](https://github.com/uzh-bf/design-system/commit/3f93a20773c5d21fc4a9f87f0e0fbf261c70d086))
+
 ### [2.0.5](https://github.com/uzh-bf/design-system/compare/v2.0.4...v2.0.5) (2023-07-21)
 
 
