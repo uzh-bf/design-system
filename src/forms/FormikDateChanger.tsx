@@ -27,6 +27,7 @@ export interface FormikDateChangerProps {
     error?: string
     editButton?: string
     saveButton?: string
+    tooltip?: string
   }
 }
 

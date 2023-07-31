@@ -20,6 +20,7 @@ export interface NumberFieldProps {
     root?: string
     input?: string
     label?: string
+    tooltip?: string
   }
   precision?: number
   [key: string]: any
@@ -48,7 +49,7 @@ export function NumberField({
           label={label}
           className={{
             root: twMerge('my-auto mr-2 min-w-max font-bold', className?.label),
-            tooltip: 'text-sm font-normal',
+            tooltip: twMerge('text-sm font-normal', className?.tooltip),
           }}
           tooltip={tooltip}
           showTooltipSymbol={typeof tooltip !== 'undefined'}

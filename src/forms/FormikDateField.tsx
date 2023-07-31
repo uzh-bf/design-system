@@ -22,6 +22,7 @@ export interface DateFieldProps {
     label?: string
     input?: string
     error?: string
+    tooltip?: string
   }
   name: string
   [key: string]: any
@@ -81,7 +82,7 @@ export function FormikDateField({
                   'mt-1 text-sm font-normal leading-6 text-gray-600',
                 className?.label
               ),
-              tooltip: 'text-sm font-normal',
+              tooltip: twMerge('text-sm font-normal', className?.tooltip),
               tooltipSymbol: twMerge(labelType === 'small' && 'h-2 w-2'),
             }}
             tooltip={tooltip}

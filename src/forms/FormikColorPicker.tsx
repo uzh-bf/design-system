@@ -33,6 +33,7 @@ export interface FormikColorPickerProps {
     pickerInput?: string
     abort?: string
     submit?: string
+    tooltip?: string
   }
   dataTrigger?: {
     cy?: string
@@ -95,7 +96,7 @@ export function FormikColorPicker({
                   'mt-1 text-sm font-normal leading-6 text-gray-600',
                 className?.label
               ),
-              tooltip: 'text-sm font-normal',
+              tooltip: twMerge('text-sm font-normal', className?.tooltip),
               tooltipSymbol: twMerge(labelType === 'small' && 'h-2 w-2'),
             }}
             tooltip={tooltip}

@@ -36,6 +36,7 @@ export interface DateChangerProps {
     disabled?: string
     editButton?: string
     saveButton?: string
+    tooltip?: string
   }
 }
 
@@ -86,7 +87,10 @@ export function DateChanger({
       {label && (
         <Label
           label={label}
-          className={{ root: twMerge('mr-1.5', className?.label) }}
+          className={{
+            root: twMerge('mr-1.5', className?.label),
+            tooltip: className?.tooltip,
+          }}
           tooltip={tooltip}
           showTooltipSymbol={!!tooltip}
           required={required}

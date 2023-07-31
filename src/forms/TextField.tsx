@@ -24,6 +24,7 @@ export interface TextFieldProps {
     label?: string
     input?: string
     error?: string
+    tooltip?: string
   }
   icon?: IconProp
   value: string
@@ -76,7 +77,7 @@ export function TextField({
           label={label}
           className={{
             root: twMerge('my-auto mr-2 min-w-max font-bold', className?.label),
-            tooltip: 'text-sm font-normal',
+            tooltip: twMerge('text-sm font-normal', className?.tooltip),
           }}
           tooltip={tooltip}
           showTooltipSymbol={typeof tooltip !== 'undefined'}
