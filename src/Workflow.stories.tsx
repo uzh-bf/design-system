@@ -161,6 +161,43 @@ export function Tooltip() {
   )
 }
 
+export function TooltipSymbol() {
+  const [activeIx, setActiveIx] = useState(0)
+  const [activeIx2, setActiveIx2] = useState(1)
+
+  return (
+    <div className="w-full">
+      <div>
+        Optionally, in addition to the tooltips on hover, it is also possible to
+        mark elements on the workflow bar with a tooltip symbol. This is done by
+        passing the showTooltipSymbols prop to the Label component.
+      </div>
+      <Workflow
+        items={tooltipItems}
+        onClick={(item, ix) => {
+          alert(`Item with title ${item.title} was clicked!`)
+          setActiveIx(ix)
+        }}
+        activeIx={activeIx}
+        disabledFrom={activeIx + 2}
+        showTooltipSymbols
+      />
+      <div className="mt-2">Similar example with minimal height:</div>
+      <Workflow
+        items={tooltipItems}
+        onClick={(item, ix) => {
+          alert(`Item with title ${item.title} was clicked!`)
+          setActiveIx2(ix)
+        }}
+        activeIx={activeIx2}
+        disabledFrom={activeIx2 + 2}
+        minimal
+        showTooltipSymbols
+      />
+    </div>
+  )
+}
+
 export function Styled() {
   const [activeIx, setActiveIx] = useState(0)
   return (

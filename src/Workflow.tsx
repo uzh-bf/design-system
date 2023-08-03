@@ -1,4 +1,8 @@
-import { faCheck, faPencil } from '@fortawesome/free-solid-svg-icons'
+import {
+  faCheck,
+  faPencil,
+  faQuestion,
+} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
@@ -33,6 +37,7 @@ interface WorkflowBaseProps {
   }
   minimal?: boolean
   disabledFrom?: number
+  showTooltipSymbols?: boolean
   className?: {
     root?: string
     item?: string
@@ -64,6 +69,7 @@ export interface WorkflowProgressProps extends WorkflowBaseProps {
  * @param twStyles - The optional twStyles object allows you to override the default styling.
  * @param minimal - The optional minimal boolean allows you to render the workflow with minimal space requirements.
  * @param disabledFrom - The optional disabledFrom number allows you to disable steps from a certain index onwards.
+ * @param showTooltipSymbols - The optional showTooltipSymbols boolean allows you to show the tooltip symbols.
  * @param className - The optional className object allows you to override the default styling.
  * @returns Workflow component
  */
@@ -78,6 +84,7 @@ export function Workflow({
   },
   minimal = false,
   disabledFrom,
+  showTooltipSymbols,
   className,
 }: WorkflowProps | WorkflowProgressProps) {
   const hasDescription = (items as StepBaseProps[]).reduce(
@@ -107,6 +114,7 @@ export function Workflow({
               activeIx={activeIx}
               disabled={disabled}
               tooltip={disabled ? item.tooltipDisabled : item.tooltip}
+              showTooltipSymbols={showTooltipSymbols}
               onClick={onClick}
               numItems={items.length}
               twStyles={twStyles}
@@ -124,6 +132,7 @@ export function Workflow({
             minimal={minimal}
             disabled={disabled}
             tooltip={disabled ? item.tooltipDisabled : item.tooltip}
+            showTooltipSymbols={showTooltipSymbols}
             onClick={onClick}
             numItems={items.length}
             twStyles={twStyles}
@@ -144,6 +153,7 @@ interface WorkflowItemProps {
   activeIx?: number
   disabled: boolean
   tooltip?: string
+  showTooltipSymbols?: boolean
   numItems: number
   twStyles: {
     bgHover: string
@@ -168,6 +178,7 @@ export function WorkflowItem({
   activeIx,
   disabled,
   tooltip,
+  showTooltipSymbols,
   onClick,
   numItems,
   twStyles,
@@ -246,27 +257,35 @@ export function WorkflowItem({
           tooltip={tooltip}
           delay={1500}
           className={{
-            trigger: 'flex !w-full flex-row gap-2',
             tooltip: 'z-20',
           }}
         >
-          {(item.completed || item.progress === 1) && (
-            <FontAwesomeIcon icon={faCheck} />
-          )}
-          {!item.completed && item.progress && item.progress < 1 ? (
-            <FontAwesomeIcon icon={faPencil} />
-          ) : null}
-          {content}
+          <div className="flex flex-row items-center gap-2">
+            {(item.completed || item.progress === 1) && (
+              <FontAwesomeIcon className="mt-0.5" icon={faCheck} />
+            )}
+            {!item.completed && item.progress && item.progress < 1 ? (
+              <FontAwesomeIcon className="mt-0.5" icon={faPencil} />
+            ) : null}
+            <div className="mt-0.5">{content}</div>
+            {showTooltipSymbols && (
+              <FontAwesomeIcon
+                icon={faQuestion}
+                size="lg"
+                className="my-auto h-3 w-3 rounded-full border border-solid border-white bg-primary-60 px-0.5 py-0.5 text-white"
+              />
+            )}
+          </div>
         </Tooltip>
       ) : (
         <div className="flex flex-row gap-2">
           {(item.completed || item.progress === 1) && (
-            <FontAwesomeIcon icon={faCheck} />
+            <FontAwesomeIcon className="mt-0.5" icon={faCheck} />
           )}
           {!item.completed && item.progress && item.progress < 1 ? (
-            <FontAwesomeIcon icon={faPencil} />
+            <FontAwesomeIcon className="mt-0.5" icon={faPencil} />
           ) : null}
-          {content}
+          <div className="mt-0.5">{content}</div>
         </div>
       )}
     </div>
