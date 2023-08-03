@@ -258,9 +258,10 @@ export function WorkflowItem({
           delay={1500}
           className={{
             tooltip: 'z-20',
+            trigger: '!w-full',
           }}
         >
-          <div className="flex flex-row items-center gap-2">
+          <div className="flex flex-row items-center justify-center gap-2">
             {(item.completed || item.progress === 1) && (
               <FontAwesomeIcon className="mt-0.5" icon={faCheck} />
             )}
