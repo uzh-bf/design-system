@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.8](https://github.com/uzh-bf/design-system/compare/v2.0.7...v2.0.8) (2023-08-08)
+
+
+### Other
+
+* **Workflow:** simplify styling of tooltip symbol ([1333816](https://github.com/uzh-bf/design-system/commit/1333816e7ffe402d117a6a0bbd4b478a0bbf29b8))
+
 ### [2.0.7](https://github.com/uzh-bf/design-system/compare/v2.0.6...v2.0.7) (2023-08-03)
 
 
