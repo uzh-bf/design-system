@@ -209,7 +209,7 @@ export function WorkflowItem({
   return (
     <div
       className={twMerge(
-        'relative flex items-center justify-center bg-uzh-grey-40 text-center',
+        'group relative flex items-center justify-center bg-uzh-grey-40 text-center',
         'mr-1 cursor-pointer select-none first:before:!border-none last:mr-0 after:last:!border-none',
         'after:z-10 after:border after:border-r-0 after:border-solid after:border-y-transparent',
         "before:absolute before:left-0 before:right-auto before:z-0 before:content-['']",
@@ -261,19 +261,32 @@ export function WorkflowItem({
             trigger: '!w-full',
           }}
         >
-          <div className="flex flex-row items-center justify-center gap-2">
-            {(item.completed || item.progress === 1) && (
-              <FontAwesomeIcon className="mt-0.5" icon={faCheck} />
+          <div
+            className={twMerge(
+              'flex flex-row items-center justify-center gap-2',
+              showTooltipSymbols && 'justify-between'
             )}
-            {!item.completed && item.progress && item.progress < 1 ? (
-              <FontAwesomeIcon className="mt-0.5" icon={faPencil} />
-            ) : null}
-            <div className="mt-0.5">{content}</div>
+          >
+            {showTooltipSymbols && <div className="ml-2 w-3" />}
+            <div>
+              {(item.completed || item.progress === 1) && (
+                <FontAwesomeIcon className="mt-0.5" icon={faCheck} />
+              )}
+              {!item.completed && item.progress && item.progress < 1 ? (
+                <FontAwesomeIcon className="mt-0.5" icon={faPencil} />
+              ) : null}
+              <div className="mt-0.5">{content}</div>
+            </div>
             {showTooltipSymbols && (
               <FontAwesomeIcon
                 icon={faQuestion}
                 size="lg"
-                className="my-auto h-3 w-3 rounded-full border border-solid border-white bg-primary-60 px-0.5 py-0.5 text-white"
+                className={twMerge(
+                  'my-auto mr-2 h-3 w-3 rounded-full border border-solid border-white px-0.5 py-0.5 group-hover:border-black',
+                  ix !== activeIx && 'border-black ',
+                  ix < (activeIx || -1) &&
+                    'border-gray-500 group-hover:border-gray-500'
+                )}
               />
             )}
           </div>
