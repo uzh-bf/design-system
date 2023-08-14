@@ -1,6 +1,6 @@
 import { useField } from 'formik'
 import React, { useState } from 'react'
-import DateChanger from '../DateChanger'
+import DateChanger, { DateChangerClassName } from '../DateChanger'
 
 export interface FormikDateChangerProps {
   id?: string
@@ -20,14 +20,7 @@ export interface FormikDateChangerProps {
   disabled?: boolean
   className?: {
     root?: string
-    changer?: string
-    label?: string
-    field?: string
-    input?: string
-    error?: string
-    editButton?: string
-    saveButton?: string
-    tooltip?: string
+    dateChanger?: DateChangerClassName
   }
 }
 
@@ -73,7 +66,7 @@ export function FormikDateChanger({
         label={label}
         required={required}
         tooltip={tooltip}
-        className={{ ...className, root: className?.changer }}
+        className={className?.dateChanger}
         onSave={(newValue) => {
           helpers.setValue(newValue)
           helpers.setTouched(true)

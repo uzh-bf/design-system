@@ -1,7 +1,7 @@
 import { useField } from 'formik'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
-import Select, { Item } from '../Select'
+import Select, { Item, SelectClassName } from '../Select'
 import Label from './Label'
 
 export interface SelectFieldProps {
@@ -22,9 +22,9 @@ export interface SelectFieldProps {
   className?: {
     root?: string
     label?: string
-    select?: string
     error?: string
     tooltip?: string
+    select?: SelectClassName
   }
 }
 
@@ -99,6 +99,7 @@ export function FormikSelectField({
           items={items}
           placeholder={placeholder}
           disabled={disabled}
+          className={className?.select}
           {...props}
         />
       </div>

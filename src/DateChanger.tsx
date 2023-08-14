@@ -7,6 +7,17 @@ import { twMerge } from 'tailwind-merge'
 import Button from './Button'
 import Label from './forms/Label'
 
+export interface DateChangerClassName {
+  root?: string
+  label?: string
+  field?: string
+  input?: string
+  disabled?: string
+  editButton?: string
+  saveButton?: string
+  tooltip?: string
+}
+
 export interface DateChangerProps {
   id?: string
   data?: {
@@ -28,16 +39,7 @@ export interface DateChangerProps {
   onSave: (date: string) => void
   editIcon?: IconDefinition
   saveIcon?: IconDefinition
-  className?: {
-    root?: string
-    label?: string
-    field?: string
-    input?: string
-    disabled?: string
-    editButton?: string
-    saveButton?: string
-    tooltip?: string
-  }
+  className?: DateChangerClassName
 }
 
 /**

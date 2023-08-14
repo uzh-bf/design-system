@@ -263,8 +263,10 @@ export const Styled = () => (
                 className={{
                   root: 'mb-1 w-1/2',
                   label: 'text-red-500',
-                  input: 'bg-uzh-blue-20',
                   error: 'text-red-700',
+                  numberField: {
+                    input: 'bg-uzh-blue-20',
+                  },
                 }}
                 placeholder="Placeholder"
               />
