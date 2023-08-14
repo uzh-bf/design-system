@@ -180,7 +180,7 @@ export function Select({
           className={twMerge(
             'rounded-md px-2 py-1',
             !basic &&
-              'inline-flex h-7 items-center justify-center gap-2 border  bg-white p-4 shadow-sm hover:bg-primary-20 sm:hover:text-primary',
+              'inline-flex h-7 items-center justify-between gap-2 border  bg-white p-4 shadow-sm hover:bg-primary-20 sm:hover:text-primary',
             disabled &&
               'hover:bg-none, hover:text-none cursor-not-allowed bg-uzh-grey-20 opacity-70 shadow-sm',
             size === 'sm' && '!text-sm',
