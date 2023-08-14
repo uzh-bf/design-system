@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.10](https://github.com/uzh-bf/design-system/compare/v2.0.9...v2.0.10) (2023-08-14)
+
+
+### Enhancements
+
+* add nested classNames to formik components passed on to base components ([#64](https://github.com/uzh-bf/design-system/issues/64)) ([af0ef7f](https://github.com/uzh-bf/design-system/commit/af0ef7fadbd1b0e0cbbf01e72fddd22a7716df2c))
+
 ### [2.0.9](https://github.com/uzh-bf/design-system/compare/v2.0.8...v2.0.9) (2023-08-14)
 
 
