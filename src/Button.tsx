@@ -13,8 +13,6 @@ export interface ButtonProps {
   onClick?: (e?: React.MouseEvent<HTMLButtonElement>) => void
   className?: {
     root?: string
-    active?: string
-    disabled?: string
   }
   data?: {
     cy?: string
@@ -36,7 +34,7 @@ export interface ButtonProps {
  * @param type - The html type of the button.
  * @param loading - Indicate whether the button is loading or not. Conditional styling / loading symbol is applied, if this is true.
  * @param onClick - Function that is applied when the button is clicked.
- * @param className - The optional className object allows you to override the default styling. Active and disabled styles will not be applied to basic buttons
+ * @param className - The optional className object allows you to override the default styling.
  * @returns Button component
  */
 export function Button({
@@ -57,19 +55,14 @@ export function Button({
     !basic && 'border rounded px-[0.75em] py-[0.25em] shadow bg-white',
     'inline-flex flex-row items-center font-sans gap-2',
     fluid && 'w-full justify-center',
-    className?.root,
     disabled || loading
       ? !basic
-        ? twMerge(
-            'bg-uzh-grey-20 text-uzh-grey-80 cursor-default fill-uzh-grey-80',
-            className?.disabled
-          )
+        ? 'bg-uzh-grey-20 text-uzh-grey-80 cursor-default fill-uzh-grey-80'
         : 'cursor-default'
       : !basic &&
           `hover:bg-primary-20 hover:border-primary-40 hover:text-primary hover:fill-primary`,
-    !basic &&
-      active &&
-      twMerge(`bg-primary-20 border-primary-40`, className?.active)
+    !basic && active && 'bg-primary-20 border-primary-40',
+    className?.root
   )
 
   return (
