@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.9](https://github.com/uzh-bf/design-system/compare/v2.0.8...v2.0.9) (2023-08-14)
+
+
+### Bug Fixes
+
+* **Button:** ensure that root style always overrides default styling ([25f42fa](https://github.com/uzh-bf/design-system/commit/25f42fa39ed651c21845fc91efcbffb3e0cc9403))
+* **Modal:** use overflow-y-auto instead of scroll ([8b81484](https://github.com/uzh-bf/design-system/commit/8b81484498edbaff137ca9ab70139fdaa023e31e))
+
+
+### Refactors
+
+* **NumberField:** remove validation regex definition from onChange function ([5b1c497](https://github.com/uzh-bf/design-system/commit/5b1c49799024843ae20517c176e5bc47b7bc8d97))
+
 ### [2.0.8](https://github.com/uzh-bf/design-system/compare/v2.0.7...v2.0.8) (2023-08-08)
 
 
