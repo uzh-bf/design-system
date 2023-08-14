@@ -2,7 +2,7 @@ import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
 import { useField } from 'formik'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
-import ColorPicker from '../ColorPicker'
+import ColorPicker, { ColorPickerClassName } from '../ColorPicker'
 import Label from './Label'
 
 export interface FormikColorPickerProps {
@@ -21,19 +21,11 @@ export interface FormikColorPickerProps {
   submitText?: string
   className?: {
     root?: string
-    field?: string
     label?: string
-    input?: string
-    error?: string
-    pickerRoot?: string
-    trigger?: string
-    popover?: string
-    presetButtons?: string
-    inputLabel?: string
-    pickerInput?: string
-    abort?: string
-    submit?: string
+    field?: string
     tooltip?: string
+    error?: string
+    colorPicker?: ColorPickerClassName
   }
   dataTrigger?: {
     cy?: string
@@ -116,16 +108,7 @@ export function FormikColorPicker({
           dataHexInput={dataHexInput}
           dataAbort={dataAbort}
           dataSubmit={dataSubmit}
-          className={{
-            root: className?.pickerRoot,
-            trigger: className?.trigger,
-            popover: className?.popover,
-            presetButtons: className?.presetButtons,
-            inputLabel: className?.inputLabel,
-            input: className?.pickerInput,
-            abort: className?.abort,
-            submit: className?.submit,
-          }}
+          className={className?.colorPicker}
         />
       </div>
       {!hideError && meta.touched && meta.error && (

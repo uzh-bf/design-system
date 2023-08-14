@@ -2,6 +2,13 @@ import React from 'react'
 import { twMerge } from 'tailwind-merge'
 import Label from './Label'
 
+export interface NumberFieldClassName {
+  root?: string
+  input?: string
+  label?: string
+  tooltip?: string
+}
+
 export interface NumberFieldProps {
   id?: string
   data?: {
@@ -16,12 +23,7 @@ export interface NumberFieldProps {
   onBlur?: () => void
   placeholder?: string
   disabled?: boolean
-  className?: {
-    root?: string
-    input?: string
-    label?: string
-    tooltip?: string
-  }
+  className?: NumberFieldClassName
   precision?: number
   [key: string]: any
 }

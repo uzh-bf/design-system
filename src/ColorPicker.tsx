@@ -6,6 +6,17 @@ import { twMerge } from 'tailwind-merge'
 import Button from './Button'
 import Label from './forms/Label'
 
+export interface ColorPickerClassName {
+  root?: string
+  trigger?: string
+  popover?: string
+  presetButtons?: string
+  inputLabel?: string
+  input?: string
+  abort?: string
+  submit?: string
+}
+
 export interface ColorPickerProps {
   color: string
   onSubmit: (newColor: string) => void
@@ -31,16 +42,7 @@ export interface ColorPickerProps {
     cy?: string
     test?: string
   }
-  className?: {
-    root?: string
-    trigger?: string
-    popover?: string
-    presetButtons?: string
-    inputLabel?: string
-    input?: string
-    abort?: string
-    submit?: string
-  }
+  className?: ColorPickerClassName
 }
 
 export function ColorPicker({

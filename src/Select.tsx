@@ -8,7 +8,7 @@ import * as RadixSelect from '@radix-ui/react-select'
 import React, { useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
-interface ClassName {
+export interface SelectClassName {
   root?: string
   trigger?: string
   content?: string
@@ -31,7 +31,7 @@ interface SelectProps {
   value?: string
   disabled?: boolean
   size?: 'md' | 'sm'
-  className?: ClassName
+  className?: SelectClassName
   placeholder?: string
   defaultValue?: string
   basic?: boolean
@@ -234,7 +234,7 @@ interface SelectItemProps {
     test?: string
   }
   label: string
-  className?: ClassName
+  className?: SelectClassName
   size?: string
   value: string
   disabled?: boolean
@@ -278,7 +278,7 @@ interface SelectGroupProps {
   size?: 'md' | 'sm'
   showSeparator?: boolean
   label?: string
-  className?: ClassName
+  className?: SelectClassName
 }
 
 const SelectGroup = ({

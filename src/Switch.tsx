@@ -3,6 +3,13 @@ import React from 'react'
 import { twMerge } from 'tailwind-merge'
 import Label from './forms/Label'
 
+export interface SwitchClassName {
+  root?: string
+  element?: string
+  thumb?: string
+  label?: string
+}
+
 export interface SwitchProps {
   id?: string
   data?: {
@@ -17,12 +24,7 @@ export interface SwitchProps {
   fluid?: boolean
   labelLeft?: boolean
   size?: 'sm' | 'md' | 'lg'
-  className?: {
-    root?: string
-    element?: string
-    thumb?: string
-    label?: string
-  }
+  className?: SwitchClassName
 }
 
 /**

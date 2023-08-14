@@ -1,7 +1,7 @@
 import { useField } from 'formik'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
-import Switch from '../Switch'
+import Switch, { SwitchClassName } from '../Switch'
 import Label from './Label'
 
 export interface FormikSwitchFieldProps {
@@ -20,11 +20,10 @@ export interface FormikSwitchFieldProps {
   required?: boolean
   className?: {
     root?: string
-    element?: string
-    thumb?: string
     label?: string
-    error?: string
     tooltip?: string
+    error?: string
+    switch?: SwitchClassName
   }
 }
 
@@ -61,7 +60,7 @@ export function FormikSwitchField({
   const [field, meta, helpers] = useField(name)
 
   return (
-    <div className="w-max">
+    <div className={twMerge('w-max', className?.root)}>
       <div className="flex flex-row items-center">
         {standardLabel && label && (
           <Label
@@ -88,7 +87,7 @@ export function FormikSwitchField({
           disabled={disabled}
           label={standardLabel ? undefined : label}
           size={size}
-          className={className}
+          className={className?.switch}
         />
       </div>
       {!hideError && meta.touched && meta.error && (

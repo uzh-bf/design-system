@@ -2,7 +2,7 @@ import { useField } from 'formik'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
 import Label from './Label'
-import NumberField from './NumberField'
+import NumberField, { NumberFieldClassName } from './NumberField'
 
 export interface FormikNumberFieldProps {
   id?: string
@@ -23,9 +23,9 @@ export interface FormikNumberFieldProps {
     root?: string
     field?: string
     label?: string
-    input?: string
-    error?: string
     tooltip?: string
+    error?: string
+    numberField?: NumberFieldClassName
   }
 }
 
@@ -104,9 +104,10 @@ export function FormikNumberField({
             typeof precision !== 'undefined' ? Math.round(precision) : undefined
           }
           className={{
+            ...className?.numberField,
             input: twMerge(
               meta.error && meta.touched && 'border-red-400 bg-red-50',
-              className?.input
+              className?.numberField?.input
             ),
           }}
         />
