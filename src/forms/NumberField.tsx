@@ -40,6 +40,13 @@ export function NumberField({
   className,
   precision,
 }: NumberFieldProps): React.ReactElement {
+  const regex =
+    typeof precision !== 'undefined'
+      ? precision === 0
+        ? /^[-]?\d*$/
+        : new RegExp(`^[-]?\\d*\\.?\\d{0,${precision}}$`)
+      : /^[-]?\d*\.?\d*$/
+
   return (
     <div className={twMerge('flex flex-row', className?.root)}>
       {label && (
@@ -63,17 +70,6 @@ export function NumberField({
         type="text"
         value={value}
         onChange={(e) => {
-          let regex
-
-          if (typeof precision !== 'undefined') {
-            regex =
-              precision === 0
-                ? /^[-]?\d*$/
-                : new RegExp(`^[-]?\\d*\\.?\\d{0,${precision}}$`)
-          } else {
-            regex = /^[-]?\d*\.?\d*$/
-          }
-
           if (e.target.value.match(regex) !== null) {
             onChange(e.target.value)
           }
