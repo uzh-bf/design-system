@@ -115,7 +115,7 @@ export function Modal({
 
       <RadixDialog.Content
         className={twMerge(
-          'z-30 flex flex-col gap-4 rounded-lg bg-white p-4 shadow md:overflow-y-scroll',
+          'z-30 flex flex-col gap-4 rounded-lg bg-white p-4 shadow md:overflow-y-auto',
           fullScreen
             ? 'h-full w-full'
             : 'min-h-[18rem] w-[27rem] max-w-7xl md:h-[28rem] md:w-[40rem] lg:h-[40rem] lg:w-[55rem] xl:h-[45rem] xl:w-[70rem]',
