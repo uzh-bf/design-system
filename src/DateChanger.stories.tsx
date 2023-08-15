@@ -1,4 +1,4 @@
-import { faPaperPlane, faPen } from '@fortawesome/free-solid-svg-icons'
+import { faPen } from '@fortawesome/free-solid-svg-icons'
 import React, { useState } from 'react'
 import DateChanger from './DateChanger'
 
@@ -70,7 +70,6 @@ export function CustomIcons() {
         setEdit(false)
       }}
       editIcon={faPen}
-      saveIcon={faPaperPlane}
     />
   )
 }
