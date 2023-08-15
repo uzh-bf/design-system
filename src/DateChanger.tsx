@@ -1,4 +1,3 @@
-import { faSave } from '@fortawesome/free-regular-svg-icons'
 import { faPencil, IconDefinition } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import dayjs from 'dayjs'
@@ -38,7 +37,6 @@ export interface DateChangerProps {
   onEdit: () => void
   onSave: (date: string) => void
   editIcon?: IconDefinition
-  saveIcon?: IconDefinition
   className?: DateChangerClassName
 }
 
@@ -58,7 +56,6 @@ export interface DateChangerProps {
  * @param onEdit - The function to be called when the edit button is clicked (external state management)
  * @param onSave - The function to be called when the save button is clicked (external state management)
  * @param editIcon - The icon to be displayed on the edit button
- * @param saveIcon - The icon to be displayed on the save button
  * @param className - The optional className object allows you to override the default styling.
  * @returns Date changer component with optional label, edit button and save button.
  */
@@ -77,7 +74,6 @@ export function DateChanger({
   onEdit,
   onSave,
   editIcon = faPencil,
-  saveIcon = faSave,
   className,
 }: DateChangerProps) {
   const [dateState, setDateState] = useState(dayjs(date).format('YYYY-MM-DD'))
@@ -117,20 +113,8 @@ export function DateChanger({
             )}
             value={dateState}
             onChange={(e) => setDateState(e.target.value)}
+            onBlur={() => onSave(dateState)}
           />
-          <Button
-            basic
-            data={dataButton}
-            onClick={() => onSave(dateState)}
-            className={{
-              root: twMerge(
-                'bg-uzh-blue-20 px-2 py-1 hover:bg-uzh-blue-40',
-                className?.saveButton
-              ),
-            }}
-          >
-            <FontAwesomeIcon icon={saveIcon || faSave} />
-          </Button>
         </div>
       ) : (
         <div className="flex flex-row gap-2 rounded border border-solid">
