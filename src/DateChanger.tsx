@@ -1,7 +1,7 @@
 import { faPencil, IconDefinition } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import dayjs from 'dayjs'
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import Button from './Button'
 import Label from './forms/Label'
@@ -77,6 +77,13 @@ export function DateChanger({
   className,
 }: DateChangerProps) {
   const [dateState, setDateState] = useState(dayjs(date).format('YYYY-MM-DD'))
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    if (edit) {
+      inputRef.current?.focus()
+    }
+  }, [edit])
 
   return (
     <div
@@ -103,6 +110,7 @@ export function DateChanger({
           )}
         >
           <input
+            ref={inputRef}
             data-cy={data?.cy}
             data-test={data?.test}
             id={id}
