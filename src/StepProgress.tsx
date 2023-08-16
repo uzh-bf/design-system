@@ -133,7 +133,7 @@ export function StepProgress({
         return (
           <button
             className={twMerge(
-              'flex flex-1 items-center justify-center p-1 hover:bg-primary-20 hover:text-primary',
+              'flex flex-1 items-center justify-center border-r border-white p-1 last:border-r-0 hover:bg-primary-20 hover:text-primary',
               ix === 0 && 'rounded-l',
               ix === length - 1 && 'rounded-r',
               value > ix && !items && 'bg-primary-60 text-white',
