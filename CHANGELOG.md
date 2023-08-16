@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.12](https://github.com/uzh-bf/design-system/compare/v2.0.11...v2.0.12) (2023-08-16)
+
+
+### Enhancements
+
+* **DateChanger:** save changes on blur instead of button click ([#65](https://github.com/uzh-bf/design-system/issues/65)) ([b9f287e](https://github.com/uzh-bf/design-system/commit/b9f287e398ac7d98707dd8833c1684748ae403e6))
+* **StepProgress:** make StepProgress generic by using a formatter function ([#66](https://github.com/uzh-bf/design-system/issues/66)) ([0822e26](https://github.com/uzh-bf/design-system/commit/0822e268a2e6ee6ecbbc3a398c4ac973956d9e1a))
+
 ### [2.0.11](https://github.com/uzh-bf/design-system/compare/v2.0.10...v2.0.11) (2023-08-14)
 
 
