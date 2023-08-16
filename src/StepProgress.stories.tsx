@@ -23,15 +23,15 @@ export const WithOffset = () => {
 }
 
 const statusItems: StepItem[] = [
-  { status: 'correct', id: 'id_1' },
-  { status: 'incorrect', id: 'id_2' },
+  { status: 'correct', id: 'id_1', points: 3, maxPoints: 3 },
+  { status: 'incorrect', id: 'id_2', points: 0, maxPoints: 2 },
   {
     status: 'unanswered',
     id: 'id_3',
   },
-  { status: 'partial', id: 'id_4' },
-  { status: 'correct', id: 'id_5' },
-  { status: 'correct', id: 'id_6' },
+  { status: 'partial', id: 'id_4', points: 1, maxPoints: 2 },
+  { status: 'correct', id: 'id_5', points: 2, maxPoints: 2 },
+  { status: 'correct', id: 'id_6', points: 2, maxPoints: 2 },
   {
     status: 'unanswered',
     id: 'id_7',

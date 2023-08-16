@@ -9,8 +9,45 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
 
+export interface FormatterArgs {
+  element: StepItem
+  ix: number
+}
+
+function defaultFormatter({ element, ix }: FormatterArgs) {
+  if (element.status === 'correct') {
+    return {
+      className: 'bg-green-600 bg-opacity-60 text-white',
+      element: <FontAwesomeIcon icon={faCheckDouble} />,
+    }
+  }
+
+  if (element.status === 'incorrect') {
+    return {
+      className: 'bg-red-600 bg-opacity-60 text-white',
+      element: <FontAwesomeIcon icon={faX} />,
+    }
+  }
+
+  if (element.status === 'partial') {
+    return {
+      className: 'bg-uzh-red-100 bg-opacity-60 text-white',
+      element: <FontAwesomeIcon icon={faCheck} />,
+    }
+  }
+
+  if (!element.status || element.status === 'unanswered') {
+    return {
+      element: <div>{ix + 1}</div>,
+    }
+  }
+
+  return {
+    element: <div>{ix + 1}</div>,
+  }
+}
+
 export interface StepItem {
-  status: 'correct' | 'incorrect' | 'partial' | 'unanswered'
   [x: string]: any
 }
 
@@ -25,6 +62,10 @@ interface StepProgressBaseProps {
   displayOffset?: number
   className?: {
     root?: string
+  }
+  formatter?: ({ element, ix }: { element: StepItem; ix: number }) => {
+    className?: string
+    element: React.ReactNode
   }
 }
 
@@ -45,9 +86,11 @@ export interface StepProgressItemProps extends StepProgressBaseProps {
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param value - The value of the progress bar. The value should be between 0 and an optionally provided max value.
  * @param max - The maximum value of the progress bar.
+ * @param items - The array of items that are displayed in the step progress bar.
  * @param onItemClick - The function that is called when an item is clicked.
  * @param displayOffset - The number that determines the maximum number of elements that are shown to the left and right of the current value on the step progress bar.
  * @param className - The optional className object allows you to override the default styling.
+ * @param formatter - The optional formatter function allows you to override the rendering of each item.
  * @return Step progress component
  */
 export function StepProgress({
@@ -59,6 +102,7 @@ export function StepProgress({
   onItemClick,
   displayOffset,
   className,
+  formatter = defaultFormatter,
 }: StepProgressProps | StepProgressItemProps) {
   const length = items ? items.length : max
   const elements = items || new Array(length).fill(0)
@@ -84,36 +128,27 @@ export function StepProgress({
           <FontAwesomeIcon icon={faChevronLeft} />
         </button>
       )}
-      {elements.map((element, ix) => (
-        <button
-          className={twMerge(
-            'flex flex-1 items-center justify-center p-1 hover:bg-primary-20 hover:text-primary',
-            ix === 0 && 'rounded-l',
-            ix === length - 1 && 'rounded-r',
-            value > ix && !items && 'bg-primary-60 text-white',
-            value === ix && 'bg-gray-400 font-bold text-white',
-            element.status === 'correct' &&
-              'bg-green-600 bg-opacity-60 text-white',
-            element.status === 'incorrect' &&
-              'bg-red-600 bg-opacity-60 text-white',
-            element.status === 'partial' &&
-              'bg-uzh-red-100 bg-opacity-60 text-white',
-            value === ix && 'bg-opacity-100',
-            displayOffset && ix < value - displayOffset && 'hidden',
-            displayOffset && ix > value + displayOffset && 'hidden'
-          )}
-          onClick={() => onItemClick(ix, items && items[ix])}
-        >
-          {element.status === 'correct' && (
-            <FontAwesomeIcon icon={faCheckDouble} />
-          )}
-          {element.status === 'incorrect' && <FontAwesomeIcon icon={faX} />}
-          {element.status === 'partial' && <FontAwesomeIcon icon={faCheck} />}
-          {(!element.status || element.status === 'unanswered') && (
-            <div>{ix + 1}</div>
-          )}
-        </button>
-      ))}
+      {elements.map((element, ix) => {
+        const formattedElement = formatter({ element, ix })
+        return (
+          <button
+            className={twMerge(
+              'flex flex-1 items-center justify-center p-1 hover:bg-primary-20 hover:text-primary',
+              ix === 0 && 'rounded-l',
+              ix === length - 1 && 'rounded-r',
+              value > ix && !items && 'bg-primary-60 text-white',
+              value === ix && 'bg-gray-400 font-bold text-white',
+              displayOffset && ix < value - displayOffset && 'hidden',
+              displayOffset && ix > value + displayOffset && 'hidden',
+              formattedElement.className,
+              value === ix && 'bg-opacity-100'
+            )}
+            onClick={() => onItemClick(ix, items && items[ix])}
+          >
+            {formattedElement.element}
+          </button>
+        )
+      })}
       {displayOffset && length > value + displayOffset + 1 && (
         <button
           className="rounded-r px-3 py-1 hover:bg-primary-20 hover:text-primary"
