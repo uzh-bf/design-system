@@ -101,7 +101,13 @@ export const CustomFormatter = () => {
       }}
       items={statusItems}
       formatter={({ element, ix }) => {
-        function render({ className, element }) {
+        function render({
+          className,
+          element,
+        }: {
+          className: string
+          element: StepItem
+        }) {
           return {
             className,
             element: (
