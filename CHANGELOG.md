@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.13](https://github.com/uzh-bf/design-system/compare/v2.0.12...v2.0.13) (2023-08-24)
+
+
+### Enhancements
+
+* **Checkbox:** add partial state to checkboxes ([#67](https://github.com/uzh-bf/design-system/issues/67)) ([130b976](https://github.com/uzh-bf/design-system/commit/130b9760fd96ed8cd585d4089de8e5c60ba690a0))
+
 ### [2.0.12](https://github.com/uzh-bf/design-system/compare/v2.0.11...v2.0.12) (2023-08-16)
 
 
