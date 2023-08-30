@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.14](https://github.com/uzh-bf/design-system/compare/v2.0.13...v2.0.14) (2023-08-30)
+
+
+### Bug Fixes
+
+* ***NumberField:** ensure that only considered props are accepted by components ([eff027c](https://github.com/uzh-bf/design-system/commit/eff027c324ca893f2c646bd05e997928c37a33aa))
+
 ### [2.0.13](https://github.com/uzh-bf/design-system/compare/v2.0.12...v2.0.13) (2023-08-24)
 
 
