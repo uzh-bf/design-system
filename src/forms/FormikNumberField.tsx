@@ -60,7 +60,6 @@ export function FormikNumberField({
   precision,
   disabled = false,
   className,
-  ...props
 }: FormikNumberFieldProps) {
   const [field, meta, helpers] = useField(name)
 
@@ -101,7 +100,9 @@ export function FormikNumberField({
           placeholder={placeholder}
           disabled={disabled}
           precision={
-            typeof precision !== 'undefined' ? Math.round(precision) : undefined
+            typeof precision !== 'undefined' && !isNaN(precision)
+              ? Math.round(precision)
+              : undefined
           }
           className={{
             ...className?.numberField,
