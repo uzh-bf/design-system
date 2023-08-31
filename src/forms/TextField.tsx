@@ -19,6 +19,7 @@ export interface TextFieldProps {
   isTouched?: boolean
   disabled?: boolean
   className?: {
+    override?: string
     root?: string
     field?: string
     label?: string
@@ -95,6 +96,7 @@ export function TextField({
           placeholder={placeholder}
           disabled={disabled}
           className={twMerge(
+            className?.override,
             'focus:border-uzh-blue-50 h-9 w-full rounded border border-uzh-grey-60 pl-2 text-slate-600',
             icon && 'pl-8',
             disabled && 'cursor-not-allowed',

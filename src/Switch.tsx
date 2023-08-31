@@ -4,6 +4,8 @@ import { twMerge } from 'tailwind-merge'
 import Label from './forms/Label'
 
 export interface SwitchClassName {
+  override?: string
+  thumbOverride?: string
   root?: string
   element?: string
   thumb?: string
@@ -90,6 +92,7 @@ export function Switch({
         data-test={data?.test}
         checked={checked}
         className={twMerge(
+          className?.override,
           'relative rounded-full border-0 bg-uzh-grey-80',
           disabled && 'cursor-not-allowed bg-uzh-grey-40',
           checked && 'bg-primary-60',
@@ -101,6 +104,7 @@ export function Switch({
       >
         <RadixSwitch.Thumb
           className={twMerge(
+            className?.thumbOverride,
             'block rounded-full bg-white transition-transform',
             checked && transitionSize[size || 'md'],
             thumbSize[size || 'md'],

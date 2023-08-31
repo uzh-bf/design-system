@@ -24,6 +24,8 @@ interface DropdownProps {
   activeItems?: string[]
   groups?: Item[][]
   className?: {
+    triggerOverride?: string
+    viewportOverride?: string
     trigger?: string
     triggerDisabled?: string
     viewport?: string
@@ -88,6 +90,7 @@ export function Dropdown({
     shorting?: string
     selected?: boolean
     className?: {
+      override?: string
       root?: string
       active?: string
     }
@@ -99,6 +102,7 @@ export function Dropdown({
           data-cy={data?.cy}
           data-test={data?.test}
           className={twMerge(
+            className?.override,
             `flex flex-row rounded px-2 py-0.5 hover:cursor-pointer hover:bg-primary-60 sm:hover:!text-white`,
             active && twMerge('font-bold', className?.active),
             className?.root
@@ -138,6 +142,7 @@ export function Dropdown({
           data-cy={data?.cy}
           data-test={data?.test}
           className={twMerge(
+            className?.triggerOverride,
             `rounded-md border border-solid border-uzh-grey-60 px-2 py-1 hover:bg-primary-20`,
             disabled && 'cursor-not-allowed text-gray-500 hover:bg-white',
             className?.trigger,
@@ -154,6 +159,7 @@ export function Dropdown({
           data-test={data?.test}
           disabled={disabled}
           className={twMerge(
+            className?.triggerOverride,
             disabled && 'cursor-not-allowed text-gray-500 hover:bg-white',
             className?.trigger
           )}
@@ -164,6 +170,7 @@ export function Dropdown({
 
       <RadixDropdown.Content
         className={twMerge(
+          className?.viewportOverride,
           'rounded-md bg-primary-20 p-1.5',
           className?.viewport
         )}

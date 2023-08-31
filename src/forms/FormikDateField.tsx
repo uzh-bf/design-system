@@ -17,6 +17,7 @@ export interface DateFieldProps {
   hideError?: boolean
   disabled?: boolean
   className?: {
+    override?: string
     root?: string
     field?: string
     label?: string
@@ -105,6 +106,7 @@ export function FormikDateField({
           placeholder={placeholder}
           disabled={disabled}
           className={twMerge(
+            className?.override,
             'focus:border-uzh-blue-50 h-9 w-full rounded border border-uzh-grey-60 bg-uzh-grey-20',
             disabled && 'cursor-not-allowed text-uzh-grey-100',
             meta.error && meta.touched && 'border-red-400 bg-red-50',

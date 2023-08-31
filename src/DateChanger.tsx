@@ -7,6 +7,7 @@ import Button from './Button'
 import Label from './forms/Label'
 
 export interface DateChangerClassName {
+  override?: string
   root?: string
   label?: string
   field?: string
@@ -116,6 +117,7 @@ export function DateChanger({
             id={id}
             type="date"
             className={twMerge(
+              className?.override,
               'w-max border-none px-0 py-1 pl-2',
               className?.input
             )}

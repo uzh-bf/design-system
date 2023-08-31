@@ -18,6 +18,7 @@ export interface LabelProps {
   showTooltipSymbol?: boolean
   tooltipSymbolSize?: 'sm' | 'md' | 'lg' | 'xl'
   className?: {
+    override?: string
     root?: string
     tooltip?: string
     tooltipSymbol?: string
@@ -66,7 +67,11 @@ export function Label({
             data-cy={data?.cy}
             data-test={data?.test}
             htmlFor={forId}
-            className={twMerge('cursor-default', className?.root)}
+            className={twMerge(
+              className?.override,
+              'cursor-default',
+              className?.root
+            )}
           >
             {label}
           </RadixLabel.Root>
@@ -84,7 +89,11 @@ export function Label({
           data-cy={data?.cy}
           data-test={data?.test}
           htmlFor={forId}
-          className={twMerge('mr-2 cursor-default', required && 'mr-0')}
+          className={twMerge(
+            className?.override,
+            'mr-2 cursor-default',
+            required && 'mr-0'
+          )}
         >
           {label}
         </RadixLabel.Root>
@@ -119,6 +128,7 @@ export function Label({
         data-test={data?.test}
         htmlFor={forId}
         className={twMerge(
+          className?.override,
           'flex cursor-default flex-row items-center',
           className?.root
         )}

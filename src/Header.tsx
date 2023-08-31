@@ -8,6 +8,7 @@ interface HeaderProps {
     test?: string
   }
   className?: {
+    override?: string
     root?: string
   }
   children: React.ReactNode
@@ -29,6 +30,7 @@ export function H1({ id, data, className, children }: HeaderProps) {
       data-cy={data?.cy}
       data-test={data?.test}
       className={twMerge(
+        className?.override,
         'mb-[0.2em] font-sans text-2xl font-bold',
         className?.root
       )}
@@ -54,6 +56,7 @@ export function H2({ id, data, className, children }: HeaderProps) {
       data-cy={data?.cy}
       data-test={data?.test}
       className={twMerge(
+        className?.override,
         'mb-[0.2em] font-sans text-xl font-bold',
         className?.root
       )}
@@ -79,6 +82,7 @@ export function H3({ id, data, className, children }: HeaderProps) {
       data-cy={data?.cy}
       data-test={data?.test}
       className={twMerge(
+        className?.override,
         'mb-[0.2em] font-sans text-lg font-bold',
         className?.root
       )}
@@ -104,6 +108,7 @@ export function H4({ id, data, className, children }: HeaderProps) {
       data-cy={data?.cy}
       data-test={data?.test}
       className={twMerge(
+        className?.override,
         'text-md mb-[0.2em] font-sans font-bold',
         className?.root
       )}

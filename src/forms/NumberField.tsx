@@ -3,6 +3,7 @@ import { twMerge } from 'tailwind-merge'
 import Label from './Label'
 
 export interface NumberFieldClassName {
+  override?: string
   root?: string
   input?: string
   label?: string
@@ -80,6 +81,7 @@ export function NumberField({
         placeholder={placeholder}
         disabled={disabled}
         className={twMerge(
+          className?.override,
           'focus:border-uzh-blue-50 h-9 w-full rounded border border-uzh-grey-60 bg-uzh-grey-20',
           disabled && 'cursor-not-allowed',
           className?.input

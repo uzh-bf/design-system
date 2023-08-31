@@ -11,6 +11,7 @@ export interface PinFieldProps {
   labelType?: 'small' | 'normal'
   tooltip?: string
   className?: {
+    override?: string
     root?: string
     field?: string
     label?: string
@@ -63,6 +64,7 @@ export function PinField({
         data-test={data?.test}
         placeholder="### ### ###"
         className={twMerge(
+          className?.override,
           'mb-2 w-full rounded border border-uzh-grey-60 bg-uzh-grey-20 bg-opacity-50 focus:border-primary-40',
           meta.error && meta.touched && 'mb-0 border-red-400 bg-red-50',
           className?.field

@@ -16,6 +16,8 @@ export interface ModalProps {
     test?: string
   }
   className?: {
+    overlayOverride?: string
+    contentOverride?: string
     overlay?: string
     content?: string
     title?: string
@@ -99,6 +101,7 @@ export function Modal({
   const overlayContent = (
     <RadixDialog.Overlay
       className={twMerge(
+        className?.overlayOverride,
         'fixed bottom-0 left-0 right-0 top-0 z-20 flex justify-center gap-4 bg-uzh-grey-100 bg-opacity-50 p-4 md:items-center',
         className?.overlay
       )}
@@ -115,6 +118,7 @@ export function Modal({
 
       <RadixDialog.Content
         className={twMerge(
+          className?.contentOverride,
           'z-30 flex flex-col gap-4 rounded-lg bg-white p-4 shadow md:overflow-y-auto',
           fullScreen
             ? 'h-full w-full'
