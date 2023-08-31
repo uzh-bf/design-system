@@ -55,7 +55,7 @@ export function Button({
   const computedClassName = twMerge(
     className?.override,
     !basic && 'border rounded px-[0.75em] py-[0.25em] shadow bg-white',
-    'inline-flex flex-row items-center font-sans gap-2',
+    'inline-flex flex-row items-center font-sans gap-2 cursor-pointer',
     fluid && 'w-full justify-center',
     disabled || loading
       ? !basic
