@@ -10,6 +10,7 @@ export interface NavigationProps {
   }
   children: React.ReactNode
   className?: {
+    override?: string
     root?: string
     indicator?: string
     viewport?: string
@@ -41,7 +42,8 @@ export function Navigation({
   return (
     <NavigationMenuPrimitive.Root
       className={twMerge(
-        `relative w-max rounded-md bg-primary-20`,
+        className?.override,
+        'relative w-max rounded-md bg-primary-20',
         className?.root
       )}
       id={id}
@@ -84,6 +86,8 @@ interface TriggerProps {
   children: React.ReactNode
   disabled?: boolean
   className?: {
+    override?: string
+    dropdownOverride?: string
     root?: string
     label?: string
     icon?: string
@@ -140,6 +144,7 @@ Navigation.TriggerItem = function TriggerItem({
         data-cy={data?.cy}
         data-test={data?.test}
         className={twMerge(
+          className?.override,
           'flex flex-row items-center rounded-md px-3 py-2 text-sm font-medium text-black hover:text-white focus:outline-none focus-visible:ring',
           icon && !label && 'h-9 w-9 justify-center',
           !disabled && 'hover:bg-primary-60',
@@ -172,6 +177,7 @@ Navigation.TriggerItem = function TriggerItem({
 
       <NavigationMenuPrimitive.Content
         className={twMerge(
+          className?.dropdownOverride,
           'flex flex-col gap-2 rounded-lg p-2',
           dropdownWidth,
           className?.dropdown
@@ -194,6 +200,7 @@ interface DropdownItemProps {
   subtitle?: string
   icon?: React.ReactNode
   className?: {
+    override?: string
     root?: string
     title?: string
     icon?: string
@@ -251,6 +258,7 @@ Navigation.DropdownItem = function DropdownItem({
       href={href}
       onClick={onClick}
       className={twMerge(
+        className?.override,
         'w-full rounded-md px-4 py-3 text-black hover:bg-primary-60',
         'focus:outline-none focus-visible:ring focus-visible:ring-opacity-75 sm:hover:text-white',
         className?.root
@@ -300,6 +308,7 @@ interface ButtonItemProps {
   disabled?: boolean
   icon?: React.ReactNode
   className?: {
+    override?: string
     root?: string
     label?: string
     icon?: string
@@ -357,6 +366,7 @@ Navigation.ButtonItem = function ButtonItem({
         href={!disabled ? href : undefined}
         onClick={!disabled ? onClick : undefined}
         className={twMerge(
+          className?.override,
           'cursor-pointer rounded-md px-3 py-2 text-sm font-medium text-black sm:hover:text-white',
           !disabled && 'hover:bg-primary-60',
           disabled && 'hover:text-none cursor-not-allowed text-gray-400',
@@ -392,6 +402,7 @@ interface IconItemProps {
   icon: React.ReactNode
   disabled?: boolean
   className?: {
+    override?: string
     root?: string
     disabled?: string
   }
@@ -443,6 +454,7 @@ Navigation.IconItem = function IconItem({
         href={!disabled ? href : undefined}
         onClick={!disabled ? onClick : undefined}
         className={twMerge(
+          className?.override,
           'flex h-9 w-9 items-center justify-center rounded-md text-black sm:hover:text-white',
           !disabled && 'hover:bg-primary-60',
           disabled && 'hover:text-none cursor-not-allowed text-gray-400',

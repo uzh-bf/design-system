@@ -19,6 +19,7 @@ export interface TooltipProps {
   withIndicator?: boolean
   children: React.ReactNode
   className?: {
+    override?: string
     tooltip?: string
     trigger?: string
     arrow?: string
@@ -68,6 +69,7 @@ export function Tooltip({
           data-cy={dataContent?.cy}
           data-test={dataContent?.test}
           className={twMerge(
+            className?.override,
             'rounded-md bg-gray-800 p-2 text-white',
             className?.tooltip
           )}
