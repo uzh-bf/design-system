@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.1](https://github.com/uzh-bf/design-system/compare/v2.1.0...v2.1.1) (2023-09-07)
+
+
+### Bug Fixes
+
+* **Select:** add contentPosition to prevent scrolling issue ([1c8a830](https://github.com/uzh-bf/design-system/commit/1c8a83015e0926175cc8dd7c3521a3821359e36e))
+
 ## [2.1.0](https://github.com/uzh-bf/design-system/compare/v2.0.14...v2.1.0) (2023-08-31)
 
 
