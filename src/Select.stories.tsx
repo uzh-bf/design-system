@@ -53,6 +53,19 @@ export const Default = () => {
   )
 }
 
+export const Popper = () => {
+  return (
+    <Select
+      contentPosition="popper"
+      placeholder="Select an item"
+      items={fruits}
+      onChange={(newValue) => {
+        console.log(newValue)
+      }}
+    />
+  )
+}
+
 export const Basic = () => {
   return (
     <Select

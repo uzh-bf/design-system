@@ -39,6 +39,7 @@ interface SelectProps {
   defaultValue?: string
   basic?: boolean
   asPortal?: boolean
+  contentPosition?: 'item-aligned' | 'popper'
 }
 
 export interface Item {
@@ -86,6 +87,7 @@ export interface SelectWithGroupsProps extends SelectProps {
  * @param basic - Specifies whether the select component is basic or not. A basic select component does only have minimal styling of the trigger.
  * @param className - The optional className object allows you to override the default styling.
  * @param asPortal - If true, the select component is rendered as a portal.
+ * @param contentPosition - The position of the content of the select component. Currently only 'item-aligned' and 'popper' are supported.
  * @return Select component
  */
 export function Select({
@@ -104,12 +106,14 @@ export function Select({
   defaultValue,
   basic = false,
   asPortal = false,
+  contentPosition = 'item-aligned',
 }: SelectWithItemsProps | SelectWithGroupsProps) {
   const [open, setOpen] = useState(false)
   const flatItems = items || groups?.flatMap((group) => group.items) || []
 
   const selectContent = (
     <RadixSelect.Content
+      position={contentPosition}
       className={twMerge(
         className?.contentOverride,
         'z-50 overflow-hidden rounded-md bg-white shadow-md',
