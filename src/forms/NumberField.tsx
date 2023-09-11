@@ -44,7 +44,7 @@ export function NumberField({
   precision,
 }: NumberFieldProps): React.ReactElement {
   const regex =
-    typeof precision !== 'undefined' && !isNaN(precision)
+    typeof precision === 'number' && !isNaN(precision)
       ? precision === 0
         ? /^[-]?\d*$/
         : new RegExp(`^[-]?\\d*\\.?\\d{0,${precision}}$`)
