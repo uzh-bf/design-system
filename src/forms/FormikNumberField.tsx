@@ -100,7 +100,9 @@ export function FormikNumberField({
           placeholder={placeholder}
           disabled={disabled}
           precision={
-            typeof precision !== 'undefined' && !isNaN(precision)
+            typeof precision !== 'undefined' &&
+            precision !== null &&
+            !isNaN(precision)
               ? Math.round(precision)
               : undefined
           }
