@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.3](https://github.com/uzh-bf/design-system/compare/v2.1.2...v2.1.3) (2023-09-11)
+
+
+### Bug Fixes
+
+* **FormikNumberField:** use typeof number instead of undefined and null ([9d473ef](https://github.com/uzh-bf/design-system/commit/9d473ef8b0abbb9763204d47c5c054f86894d86d))
+
 ### [2.1.2](https://github.com/uzh-bf/design-system/compare/v2.1.1...v2.1.2) (2023-09-11)
 
 
