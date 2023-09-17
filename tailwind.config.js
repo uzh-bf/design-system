@@ -76,7 +76,6 @@ module.exports = {
     },
   },
   plugins: [
-    require('tailwindcss-radix')({ variantPrefix: 'rdx' }),
     require('@tailwindcss/typography'),
     require('@tailwindcss/aspect-ratio'),
     require('@tailwindcss/forms'),

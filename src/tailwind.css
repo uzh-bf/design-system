@@ -34,6 +34,19 @@
     --ring: 215 20.2% 65.1%;
 
     --radius: 0.5rem;
+
+    /* UZH colors */
+    --primary: 19 72% 51%;
+    --primary-80: 19 72% 61%;
+    --primary-60: 19 72% 70%;
+    --primary-40: 18 72% 80%;
+    --primary-20: 18 72% 90%;
+    --secondary: 210 12% 68%;
+    --secondary-80: 210 12% 74%;
+    --secondary-60: 210 12% 81%;
+    --secondary-40: 210 12% 87%;
+    --secondary-20: 210 12% 94%;
+    --font-sans: 'Source Sans 3';
   }
 
   .dark {
