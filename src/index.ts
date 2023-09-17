@@ -38,3 +38,5 @@ export * from './forms/Label'
 export * from './forms/NumberField'
 export * from './forms/TextField'
 export * from './hooks/useArrowNavigation'
+
+export { cn } from './lib/utils'
