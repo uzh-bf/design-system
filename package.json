@@ -110,7 +110,7 @@
     "@radix-ui/react-tabs": "1.0.4",
     "@radix-ui/react-toast": "1.1.4",
     "@radix-ui/react-tooltip": "1.0.6",
-    "class-variance-authority": "^0.7.0",
+    "class-variance-authority": "0.7.0",
     "clsx": "2.0.0",
     "react-colorful": "5.6.1",
     "react-countdown-circle-timer": "3.2.1",
