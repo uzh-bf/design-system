@@ -75,6 +75,8 @@ export function NumberField({
         onChange={(e) => {
           if (e.target.value.match(regex) !== null) {
             onChange(e.target.value)
+          } else {
+            console.log(`input ${e.target.value} does not match regex ${regex}`)
           }
         }}
         onBlur={onBlur}
