@@ -4,6 +4,10 @@
   "include": ["src", "types", ".ladle"],
   "compilerOptions": {
     "target": "ES6",
-    "jsx": "react"
+    "jsx": "react",
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./*"]
+    }
   }
 }
