@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { twMerge } from 'tailwind-merge'
+import TextField from '../forms/TextField'
 import useArrowNavigation from './useArrowNavigation'
 
 export const Default = () => {
   const [arrowPressed, setArrowPressed] = React.useState<string | undefined>(
     undefined
   )
+  const [value, setValue] = useState('')
 
   useArrowNavigation({
     onArrowLeft: () => setArrowPressed('Arrow Left'),
@@ -54,6 +56,17 @@ export const Default = () => {
         >
           Arrow Down
         </div>
+      </div>
+      <div className="mt-4 italic">
+        Note that when using the arrow navigation, all arrow keys that are used
+        for a custom functionality cannot be used in other fields anymore. E.g.
+        in the current example where all arrow keys are used with key listeners,
+        navigating through the input field with the corresponding keys will not
+        be possible anymore.
+      </div>
+      <div className="mt-2 flex flex-row">
+        <div className="my-auto w-32">Generic Input: </div>
+        <TextField value={value} onChange={(newValue) => setValue(newValue)} />
       </div>
     </div>
   )

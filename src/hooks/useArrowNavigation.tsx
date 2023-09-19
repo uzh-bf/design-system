@@ -15,15 +15,18 @@ export function useArrowNavigation({
 }: useArrowNavigationProps) {
   const handleUserKeyPress = useCallback(
     (event: KeyboardEvent) => {
-      event.preventDefault()
       const { key } = event
       if (key === 'ArrowLeft' && onArrowLeft) {
+        event.preventDefault()
         onArrowLeft()
       } else if (key === 'ArrowRight' && onArrowRight) {
+        event.preventDefault()
         onArrowRight()
       } else if (key === 'ArrowUp' && onArrowUp) {
+        event.preventDefault()
         onArrowUp()
       } else if (key === 'ArrowDown' && onArrowDown) {
+        event.preventDefault()
         onArrowDown()
       }
     },
