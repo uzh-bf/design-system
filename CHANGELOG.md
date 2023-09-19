@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.6](https://github.com/uzh-bf/design-system/compare/v2.1.5...v2.1.6) (2023-09-19)
+
+
+### Bug Fixes
+
+* **hooks/useArrowNavigation:** ensure that only keys with valid key listener action contain a prevent default action ([925b982](https://github.com/uzh-bf/design-system/commit/925b9829ab3090da49dbdfe832a31cd510e47f18))
+
 ### [2.1.5](https://github.com/uzh-bf/design-system/compare/v2.1.4...v2.1.5) (2023-09-17)
 
 
