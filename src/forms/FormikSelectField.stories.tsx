@@ -38,6 +38,51 @@ export const Default = () => (
   </div>
 )
 
+export const AdditionalAction = () => (
+  <div>
+    <div>
+      It is possible to define additional actions that should be executed on a
+      value change. They can be based on the new value or not.
+    </div>
+    <Formik
+      initialValues={{
+        name: undefined,
+      }}
+      onSubmit={async (values, { resetForm }) => {
+        alert(`Form submitted with value: ${values.name}`)
+        resetForm()
+      }}
+    >
+      {({ values }) => {
+        return (
+          <div>
+            <Form>
+              <FormikSelectField
+                name="name"
+                items={[
+                  { value: 'hello', label: 'hello' },
+                  { value: 'world', label: 'world' },
+                ]}
+                label="Name"
+                placeholder="Select a name"
+                onSelect={(newValue) =>
+                  alert(
+                    'Additional action executed and new value: ' +
+                      newValue +
+                      ' hast been selected'
+                  )
+                }
+              />
+              <Button type="submit">Submit</Button>
+            </Form>
+            <div>Value: {values.name}</div>
+          </div>
+        )
+      }}
+    </Formik>
+  </div>
+)
+
 export const Required = () => (
   <div>
     <Formik

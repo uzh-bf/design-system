@@ -11,6 +11,7 @@ export interface SelectFieldProps {
     test?: string
   }
   name: string
+  onSelect?: (newValue?: string) => void
   label?: string
   labelType?: 'small' | 'normal'
   placeholder?: string
@@ -35,6 +36,7 @@ export interface SelectFieldProps {
  * @param id - The id of the field.
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param name - The name of the field. This is used to identify the field in Formik.
+ * @param onSelect - The optional onSelect function is called when the value of the select component changes and allows to define additional actions that should be executed beyond the value change.
  * @param label - The optional label is shown next to the field in the form.
  * @param labelType - The optional labelType can be used to change the size and position of the label according to pre-defined standards.
  * @param placeholder - The optional placeholder is shown when no value is selected / initialization with 'undefined' is chosen.
@@ -50,6 +52,7 @@ export function FormikSelectField({
   id,
   data,
   name,
+  onSelect,
   label,
   labelType = 'normal',
   placeholder,
@@ -92,7 +95,10 @@ export function FormikSelectField({
         )}
         <Select
           data={data}
-          onChange={(newValue: string) => helpers.setValue(newValue)}
+          onChange={(newValue: string) => {
+            helpers.setValue(newValue)
+            onSelect?.(newValue)
+          }}
           onBlur={() => helpers.setTouched(true)}
           value={field.value}
           name={name}
