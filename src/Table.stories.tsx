@@ -27,6 +27,27 @@ export const Simple = () => {
   )
 }
 
+export const DefaultSorting = () => {
+  const columns = [
+    { label: 'Count', accessor: 'count', sortable: true },
+    { label: 'Answer', accessor: 'answer', sortable: true },
+    { label: 'Username', accessor: 'username', sortable: false },
+  ]
+
+  return (
+    <div>
+      <GenericWarning />
+      <Table
+        columns={columns}
+        data={data}
+        caption="Table with example data"
+        defaultSortField="count"
+        defaultSortOrder="desc"
+      />
+    </div>
+  )
+}
+
 export const Sorting = () => {
   const columns = [{ label: 'Count', accessor: 'count', sortable: true }]
 
