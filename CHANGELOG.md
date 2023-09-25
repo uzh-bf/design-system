@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.7](https://github.com/uzh-bf/design-system/compare/v2.1.6...v2.1.7) (2023-09-25)
+
+
+### Other
+
+* **Table:** extend stories to show default sorting functionality ([3fb69b8](https://github.com/uzh-bf/design-system/commit/3fb69b82f006379bf31f07fbbce8e3e22f46f4c9))
+
+
+### Enhancements
+
+* **forms/FormikSelectField:** allow to define additional actions that should be executed on value change ([fbfe243](https://github.com/uzh-bf/design-system/commit/fbfe24318ae22ffa8c0736f22a5762654df059a6))
+
 ### [2.1.6](https://github.com/uzh-bf/design-system/compare/v2.1.5...v2.1.6) (2023-09-19)
 
 
