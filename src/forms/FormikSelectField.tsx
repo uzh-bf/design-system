@@ -19,6 +19,7 @@ export interface SelectFieldProps {
   items: Item[]
   disabled?: boolean
   hideError?: boolean
+  contentPosition?: 'item-aligned' | 'popper'
   className?: {
     root?: string
     label?: string
@@ -40,6 +41,7 @@ export interface SelectFieldProps {
  * @param placeholder - The optional placeholder is shown when no value is selected / initialization with 'undefined' is chosen.
  * @param disabled - The optional disabled prop disables the select component.
  * @param hideError - Hide the error message below this component as is might be more appropriate to show it somewhere else.
+ * @param contentPosition - The position of the content of the select component. Currently only 'item-aligned' and 'popper' are supported.
  * @param tooltip - The optional tooltip is shown on hover next to the label.
  * @param items - The array of items that should be available on the select component.
  * @param required - Indicate whether the field is required or not.
@@ -58,6 +60,7 @@ export function FormikSelectField({
   items,
   disabled = false,
   hideError = false,
+  contentPosition = 'item-aligned',
   className,
   ...props
 }: SelectFieldProps) {
@@ -100,6 +103,7 @@ export function FormikSelectField({
           placeholder={placeholder}
           disabled={disabled}
           className={className?.select}
+          contentPosition={contentPosition}
           {...props}
         />
       </div>
