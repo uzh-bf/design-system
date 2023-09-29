@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.8](https://github.com/uzh-bf/design-system/compare/v2.1.7...v2.1.8) (2023-09-29)
+
+
+### Other
+
+* **forms/FormikSelectField:** remove unused onSelect method ([342e11e](https://github.com/uzh-bf/design-system/commit/342e11eb6a101bc7ab64a2fc6bf5e4aca3b14095))
+
+
+### Enhancements
+
+* **forms/FormikSelectField:** add contentPosition prop to formik select field ([79bff8f](https://github.com/uzh-bf/design-system/commit/79bff8f18b9ec4233f2789b3c295ddb3ee79d7ff))
+
 ### [2.1.7](https://github.com/uzh-bf/design-system/compare/v2.1.6...v2.1.7) (2023-09-25)
 
 
