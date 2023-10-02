@@ -25,10 +25,22 @@ export const Default = () => (
 )
 
 export const Active = () => (
-  <Button active>
-    <Button.Icon>{ExampleIcon}</Button.Icon>
-    <Button.Label>Test-Text</Button.Label>
-  </Button>
+  <div className="flex flex-col gap-4">
+    <Button active className={{ root: 'w-max' }}>
+      <Button.Icon>{ExampleIcon}</Button.Icon>
+      <Button.Label>Test-Text</Button.Label>
+    </Button>
+    <Button
+      active
+      className={{
+        root: 'w-max',
+        active: 'bg-red-300 hover:bg-red-400 hover:text-black',
+      }}
+    >
+      <Button.Icon>{ExampleIcon}</Button.Icon>
+      <Button.Label>Custom Active Style</Button.Label>
+    </Button>
+  </div>
 )
 
 export const Disabled = () => (

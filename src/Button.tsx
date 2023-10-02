@@ -14,6 +14,7 @@ export interface ButtonProps {
   className?: {
     override?: string
     root?: string
+    active?: string
   }
   data?: {
     cy?: string
@@ -63,7 +64,9 @@ export function Button({
         : 'cursor-default'
       : !basic &&
           `hover:bg-primary-20 hover:border-primary-40 hover:text-primary hover:fill-primary`,
-    !basic && active && 'bg-primary-20 border-primary-40',
+    !basic &&
+      active &&
+      twMerge('bg-primary-20 border-primary-40', className?.active),
     className?.root
   )
 
