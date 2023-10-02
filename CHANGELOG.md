@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.10](https://github.com/uzh-bf/design-system/compare/v2.1.9...v2.1.10) (2023-10-02)
+
+
+### Bug Fixes
+
+* **Button:** re-introduce active style as long as tailwind pseudo-class does not work ([cfc7235](https://github.com/uzh-bf/design-system/commit/cfc723573bf530260e027554d9379d994393309e))
+
 ### [2.1.9](https://github.com/uzh-bf/design-system/compare/v2.1.8...v2.1.9) (2023-10-02)
 
 
