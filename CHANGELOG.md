@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.9](https://github.com/uzh-bf/design-system/compare/v2.1.8...v2.1.9) (2023-10-02)
+
+
+### Enhancements
+
+* add possibility to pass react nodes as tooltip content ([f195658](https://github.com/uzh-bf/design-system/commit/f195658e6b7629cbfc3653232ef984a425370fe3))
+
 ### [2.1.8](https://github.com/uzh-bf/design-system/compare/v2.1.7...v2.1.8) (2023-09-29)
 
 
