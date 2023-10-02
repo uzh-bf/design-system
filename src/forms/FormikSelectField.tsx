@@ -14,7 +14,7 @@ export interface SelectFieldProps {
   label?: string
   labelType?: 'small' | 'normal'
   placeholder?: string
-  tooltip?: string
+  tooltip?: string | React.ReactNode
   required?: boolean
   items: Item[]
   disabled?: boolean

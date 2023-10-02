@@ -12,7 +12,7 @@ export interface TextareaFieldProps {
   label?: string
   labelType?: 'small' | 'normal'
   placeholder?: string
-  tooltip?: string
+  tooltip?: string | React.ReactNode
   required?: boolean
   maxLength?: number
   maxLengthLabel?: string

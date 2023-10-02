@@ -14,7 +14,7 @@ export interface FormikNumberFieldProps {
   label?: string
   labelType?: 'small' | 'normal'
   placeholder?: string
-  tooltip?: string
+  tooltip?: string | React.ReactNode
   required?: boolean
   hideError?: boolean
   precision?: number

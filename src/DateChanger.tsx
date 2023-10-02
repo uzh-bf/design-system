@@ -30,7 +30,7 @@ export interface DateChangerProps {
   }
   label?: string
   required?: boolean
-  tooltip?: string
+  tooltip?: string | React.ReactNode
   disabled?: boolean
   format?: string
   edit: boolean

@@ -10,7 +10,7 @@ export interface FormikColorPickerProps {
   name: string
   label?: string
   labelType?: 'small' | 'normal'
-  tooltip?: string
+  tooltip?: string | React.ReactNode
   required?: boolean
   hideError?: boolean
   disabled?: boolean

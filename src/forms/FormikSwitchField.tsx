@@ -16,7 +16,7 @@ export interface FormikSwitchFieldProps {
   label?: string
   size?: 'sm' | 'md' | 'lg'
   standardLabel?: boolean
-  tooltip?: string
+  tooltip?: string | React.ReactNode
   required?: boolean
   className?: {
     root?: string

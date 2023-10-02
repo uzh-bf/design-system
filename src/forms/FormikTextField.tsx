@@ -16,7 +16,7 @@ interface TextFieldProps {
   icon?: IconDefinition
   onIconClick?: () => void
   placeholder?: string
-  tooltip?: string
+  tooltip?: string | React.ReactNode
   required?: boolean
   hideError?: boolean
   disabled?: boolean

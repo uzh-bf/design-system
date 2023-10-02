@@ -19,7 +19,7 @@ export interface NumberFieldProps {
   value: string | number
   onChange: (newValue: string) => void
   label?: string
-  tooltip?: string
+  tooltip?: string | React.ReactNode
   required?: boolean
   onBlur?: () => void
   placeholder?: string

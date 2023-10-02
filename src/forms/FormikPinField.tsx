@@ -9,7 +9,7 @@ export interface PinFieldProps {
   required?: boolean
   label?: string
   labelType?: 'small' | 'normal'
-  tooltip?: string
+  tooltip?: string | React.ReactNode
   className?: {
     override?: string
     root?: string

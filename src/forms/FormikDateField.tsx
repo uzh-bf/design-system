@@ -12,7 +12,7 @@ export interface DateFieldProps {
   label?: string
   labelType?: 'small' | 'normal'
   placeholder?: string
-  tooltip?: string
+  tooltip?: string | React.ReactNode
   required?: boolean
   hideError?: boolean
   disabled?: boolean

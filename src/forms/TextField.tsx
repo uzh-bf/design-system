@@ -12,7 +12,7 @@ export interface TextFieldProps {
   }
   label?: string
   placeholder?: string
-  tooltip?: string
+  tooltip?: string | React.ReactNode
   required?: boolean
   hideError?: boolean
   hasError?: boolean
