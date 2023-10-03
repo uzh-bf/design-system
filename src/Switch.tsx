@@ -96,6 +96,7 @@ export function Switch({
           'relative rounded-full border-0 bg-uzh-grey-80',
           disabled && 'cursor-not-allowed bg-uzh-grey-40',
           checked && 'bg-primary-60',
+          checked && disabled && 'bg-primary-20',
           rootSize[size || 'md'],
           className?.element
         )}
