@@ -154,6 +154,44 @@ export const OnChangeFunction = () => (
   </div>
 )
 
+export const OnChangeError = () => (
+  <div>
+    <Formik
+      initialValues={{
+        name: '',
+      }}
+      isInitialValid={false}
+      onSubmit={async (values, { resetForm }) => {
+        alert(`Form submitted with value: ${values.name}`)
+        resetForm()
+      }}
+    >
+      {({ values, setFieldValue }) => {
+        return (
+          <div>
+            <Form>
+              <FormikTextField
+                error="Error message"
+                hideError={false}
+                value={values.name}
+                onChange={(newValue) => {
+                  setFieldValue('name', newValue.replace(/\s/g, ''))
+                }}
+                label="Label"
+                tooltip="Tooltip for this input"
+                className={{ root: 'mb-1' }}
+                placeholder="Placeholder"
+              />
+              <Button type="submit">Submit</Button>
+            </Form>
+            <div>Value: {values.name}</div>
+          </div>
+        )
+      }}
+    </Formik>
+  </div>
+)
+
 export const Styled = () => (
   <div>
     <div>The default Formik field works with a "name" input</div>

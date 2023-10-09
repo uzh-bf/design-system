@@ -37,12 +37,14 @@ export interface TextFieldWithNameProps extends TextFieldProps {
   name: string
   value?: never
   onChange?: never
+  error?: never
   [key: string]: any
 }
 export interface TextFieldWithOnChangeProps extends TextFieldProps {
   name?: never
   value: string
   onChange: (newValue: string) => void
+  error?: string
   [key: string]: any
 }
 
@@ -55,6 +57,7 @@ export interface TextFieldWithOnChangeProps extends TextFieldProps {
  * @param name - The name of the field as used to keep track of the state in Formik. If no value and onChange function are provided, this field is required.
  * @param value - The value of the field. This is used to manage the state internally. If no name is provided, this field is required.
  * @param onChange - The onChange function is called when the value of the field changes. This is used to manage the state internally. If no name is provided, this field is required.
+ * @param error - The error message that is shown below the field. If a name is provided, this prop will not be used.
  * @param label - The optional label is shown next to the field in the form.
  * @param labelType - The optional labelType can be used to change the size and position of the label according to pre-defined standards.
  * @param icon - An optional icon (FontAwesomeIcon IconDefinition) that is shown on the right side of the text input component
@@ -73,6 +76,7 @@ export function FormikTextField({
   name,
   value,
   onChange,
+  error,
   label,
   labelType = 'normal',
   icon,
@@ -181,14 +185,14 @@ export function FormikTextField({
           </div>
         )}
       </div>
-      {!hideError && meta.touched && meta.error && (
+      {!hideError && ((meta.touched && meta.error) || error) && (
         <div
           className={twMerge(
             'w-full text-right text-sm text-red-400',
             className?.error
           )}
         >
-          {meta.error}
+          {meta.error || error}
         </div>
       )}
     </div>
