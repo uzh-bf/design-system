@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.12](https://github.com/uzh-bf/design-system/compare/v2.1.11...v2.1.12) (2023-10-09)
+
+
+### Enhancements
+
+* **FormikTextField:** add possibility to pass error string to field with onChange function ([a3e08c7](https://github.com/uzh-bf/design-system/commit/a3e08c761943ddce7292c11e957b765068b80a2e))
+
 ### [2.1.11](https://github.com/uzh-bf/design-system/compare/v2.1.10...v2.1.11) (2023-10-03)
 
 
