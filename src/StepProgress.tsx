@@ -59,7 +59,8 @@ interface StepProgressBaseProps {
   }
   value: number
   onItemClick: (ix: number, item?: StepItem) => void
-  displayOffset?: number
+  displayOffsetLeft?: number
+  displayOffsetRight?: number
   className?: {
     override?: string
     root?: string
@@ -89,7 +90,8 @@ export interface StepProgressItemProps extends StepProgressBaseProps {
  * @param max - The maximum value of the progress bar.
  * @param items - The array of items that are displayed in the step progress bar.
  * @param onItemClick - The function that is called when an item is clicked.
- * @param displayOffset - The number that determines the maximum number of elements that are shown to the left and right of the current value on the step progress bar.
+ * @param displayOffsetLeft - The number that determines the maximum number of elements that are shown to the left of the current value on the step progress bar.
+ * @param displayOffsetRight - The number that determines the maximum number of elements that are shown to the right of the current value on the step progress bar.
  * @param className - The optional className object allows you to override the default styling.
  * @param formatter - The optional formatter function allows you to override the rendering of each item.
  * @return Step progress component
@@ -101,7 +103,8 @@ export function StepProgress({
   max,
   items,
   onItemClick,
-  displayOffset,
+  displayOffsetLeft,
+  displayOffsetRight,
   className,
   formatter = defaultFormatter,
 }: StepProgressProps | StepProgressItemProps) {
@@ -118,18 +121,19 @@ export function StepProgress({
       data-cy={data?.cy}
       data-test={data?.test}
     >
-      {displayOffset && value - displayOffset > 0 && (
-        <button
-          className={twMerge(
-            className?.override,
-            'rounded-l px-3 py-1 hover:bg-primary-20 hover:text-primary',
-            !items && 'bg-primary-60 text-white'
-          )}
-          onClick={() => onItemClick(value - 1, items && items[value - 1])}
-        >
-          <FontAwesomeIcon icon={faChevronLeft} />
-        </button>
-      )}
+      {typeof displayOffsetLeft !== 'undefined' &&
+        value - displayOffsetLeft > 0 && (
+          <button
+            className={twMerge(
+              className?.override,
+              'rounded-l px-3 py-1 hover:bg-primary-20 hover:text-primary',
+              !items && 'bg-primary-60 text-white'
+            )}
+            onClick={() => onItemClick(value - 1, items && items[value - 1])}
+          >
+            <FontAwesomeIcon icon={faChevronLeft} />
+          </button>
+        )}
       {elements.map((element, ix) => {
         const formattedElement = formatter({ element, ix })
         return (
@@ -141,8 +145,12 @@ export function StepProgress({
               ix === length - 1 && 'rounded-r',
               value > ix && !items && 'bg-primary-60 text-white',
               value === ix && 'bg-gray-400 font-bold text-white',
-              displayOffset && ix < value - displayOffset && 'hidden',
-              displayOffset && ix > value + displayOffset && 'hidden',
+              typeof displayOffsetLeft !== 'undefined' &&
+                ix < value - displayOffsetLeft &&
+                'hidden',
+              typeof displayOffsetRight !== 'undefined' &&
+                ix > value + displayOffsetRight &&
+                'hidden',
               formattedElement.className,
               value === ix && 'bg-opacity-100'
             )}
@@ -152,17 +160,18 @@ export function StepProgress({
           </button>
         )
       })}
-      {displayOffset && length > value + displayOffset + 1 && (
-        <button
-          className={twMerge(
-            className?.override,
-            'rounded-r px-3 py-1 hover:bg-primary-20 hover:text-primary'
-          )}
-          onClick={() => onItemClick(value + 1, items && items[value + 1])}
-        >
-          <FontAwesomeIcon icon={faChevronRight} />
-        </button>
-      )}
+      {typeof displayOffsetRight !== 'undefined' &&
+        length > value + displayOffsetRight + 1 && (
+          <button
+            className={twMerge(
+              className?.override,
+              'rounded-r px-3 py-1 hover:bg-primary-20 hover:text-primary'
+            )}
+            onClick={() => onItemClick(value + 1, items && items[value + 1])}
+          >
+            <FontAwesomeIcon icon={faChevronRight} />
+          </button>
+        )}
     </div>
   )
 }
