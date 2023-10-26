@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.13](https://github.com/uzh-bf/design-system/compare/v2.1.12...v2.1.13) (2023-10-26)
+
+
+### Enhancements
+
+* **StepProgress:** add possibility to define asymmetric step offsets ([#70](https://github.com/uzh-bf/design-system/issues/70)) ([e0d2cad](https://github.com/uzh-bf/design-system/commit/e0d2cad56aefcf37cd35d6b5f6a8ebcfa8ccb255))
+
 ### [2.1.12](https://github.com/uzh-bf/design-system/compare/v2.1.11...v2.1.12) (2023-10-09)
 
 
