@@ -24,7 +24,8 @@ export const WithOffset = () => {
     <StepProgress
       value={value}
       max={20}
-      displayOffset={7}
+      displayOffsetLeft={7}
+      displayOffsetRight={7}
       onItemClick={(val) => setValue(val)}
     />
   )
@@ -77,8 +78,41 @@ export const StatusOffset = () => {
         setValue(val)
       }}
       items={statusItems}
-      displayOffset={2}
+      displayOffsetLeft={2}
+      displayOffsetRight={2}
     />
+  )
+}
+
+export const AsymmetricOffset = () => {
+  const [value, setValue] = useState(5)
+  const [value2, setValue2] = useState(2)
+  return (
+    <div className="flex flex-col gap-4">
+      <div>
+        This demo contains two examples with asymchronous offset, one with 3
+        elements to the left and zero to the right and the second one with 1
+        element to the left and 5 to the right
+      </div>
+      <StepProgress
+        value={value}
+        onItemClick={(val, _) => {
+          setValue(val)
+        }}
+        items={statusItems}
+        displayOffsetLeft={3}
+        displayOffsetRight={0}
+      />
+      <StepProgress
+        value={value2}
+        onItemClick={(val, _) => {
+          setValue2(val)
+        }}
+        items={statusItems}
+        displayOffsetLeft={1}
+        displayOffsetRight={5}
+      />
+    </div>
   )
 }
 
