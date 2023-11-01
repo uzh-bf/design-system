@@ -105,3 +105,17 @@ export const Styled = () => {
     />
   )
 }
+
+export const TerminalSettings = () => {
+  let time = new Date()
+  time.setSeconds(time.getSeconds() + 10)
+
+  return (
+    <CycleCountdown
+      expiresAt={time}
+      totalDuration={10}
+      terminalColor="#FF0000"
+      terminalPercentage={100}
+    />
+  )
+}
