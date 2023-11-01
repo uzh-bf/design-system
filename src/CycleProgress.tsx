@@ -3,6 +3,7 @@ import { twMerge } from 'tailwind-merge'
 
 export interface CycleProgressProps {
   size?: 'sm' | 'md'
+  overrideSize?: number
   percentage: number
   color?: string
   strokeWidthRem?: number
@@ -21,6 +22,7 @@ export interface CycleProgressProps {
  * This function create a circular progress bar with custom content in the middle (children)
  *
  * @param size - Size of the progress bar, can be 'sm' or 'md'
+ * @param overrideSize - If size adjustments of the relative placement are required due to font changes, this value can be used to override the circle size
  * @param percentage - Percentage of the progress bar (0-100)
  * @param color - Color of the progress bar (static for the moment)
  * @param strokeWidthRem - Width of the progress bar. For small size, a smaller value is recommended
@@ -31,6 +33,7 @@ export interface CycleProgressProps {
  */
 export function CycleProgress({
   size = 'md',
+  overrideSize,
   percentage,
   color = '#00A321',
   strokeWidthRem = 0.35,
@@ -38,7 +41,7 @@ export function CycleProgress({
   data,
   className,
 }: CycleProgressProps) {
-  const sizeNumber = size === 'sm' ? 14 : 24
+  const sizeNumber = overrideSize || (size === 'sm' ? 14 : 24)
   const r = Math.round(0.8 * sizeNumber)
   const circ = 2 * Math.PI * r
   const strokePct = ((100 - percentage) * circ) / 100
