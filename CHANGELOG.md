@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.2](https://github.com/uzh-bf/design-system/compare/v2.4.1...v2.4.2) (2023-11-01)
+
+
+### Enhancements
+
+* **CycleCountdown:** add terminal settings and size override ([5da00f5](https://github.com/uzh-bf/design-system/commit/5da00f5ff583a72151e0b1d584a9129438c118d0))
+* **CycleProgress:** add possibility to override circle size ([ab37bb5](https://github.com/uzh-bf/design-system/commit/ab37bb523e3f988159002a97259dbf839637c9e5))
+
 ### [2.4.1](https://github.com/uzh-bf/design-system/compare/v2.4.0...v2.4.1) (2023-11-01)
 
 
