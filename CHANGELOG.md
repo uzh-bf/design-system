@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.0](https://github.com/uzh-bf/design-system/compare/v2.1.13...v2.2.0) (2023-11-01)
+
+
+### Features
+
+* **CycleProgress:** add cycle progress component ([#71](https://github.com/uzh-bf/design-system/issues/71)) ([1d4923c](https://github.com/uzh-bf/design-system/commit/1d4923c82f6106ba39c55fbb9508448d4913aa25))
+
 ### [2.1.13](https://github.com/uzh-bf/design-system/compare/v2.1.12...v2.1.13) (2023-10-26)
 
 
