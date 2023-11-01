@@ -7,6 +7,14 @@ interface CycleProgressProps {
   color?: string
   strokeWidthRem?: number
   children?: React.ReactNode
+  data?: {
+    cy?: string
+    test?: string
+  }
+  className?: {
+    root?: string
+    children?: string
+  }
 }
 
 /**
@@ -17,6 +25,8 @@ interface CycleProgressProps {
  * @param color - Color of the progress bar (static for the moment)
  * @param strokeWidthRem - Width of the progress bar. For small size, a smaller value is recommended
  * @param children - Content of the progress bar, displayed in the center
+ * @param data - Optional data object that can be used for testing (e.g. data-test or data-cy)
+ * @param className - Optional className object allows you to override the default styling
  * @returns A circular progress bar with children content in the middle
  */
 function CycleProgress({
@@ -25,6 +35,8 @@ function CycleProgress({
   color = '#00A321',
   strokeWidthRem = 0.35,
   children,
+  data,
+  className,
 }: CycleProgressProps) {
   const sizeNumber = size === 'sm' ? 14 : 24
   const r = Math.round(0.8 * sizeNumber)
@@ -32,7 +44,15 @@ function CycleProgress({
   const strokePct = ((100 - percentage) * circ) / 100
 
   return (
-    <div className={twMerge('relative h-12 w-12', size === 'sm' && 'h-7 w-7')}>
+    <div
+      className={twMerge(
+        'relative h-12 w-12',
+        size === 'sm' && 'h-7 w-7',
+        className?.root
+      )}
+      data-cy={data?.cy}
+      data-test={data?.test}
+    >
       <svg className="absolute h-full w-full">
         <circle
           r={r}
@@ -59,8 +79,9 @@ function CycleProgress({
       </svg>
       <div
         className={twMerge(
-          'absolute left-1/2 top-1/2 flex h-full w-full items-center justify-center bg-transparent text-sm',
-          size === 'sm' && 'text-xs'
+          'absolute flex h-full w-full items-center justify-center bg-transparent text-sm',
+          size === 'sm' && 'text-xs',
+          className?.children
         )}
       >
         {children}
