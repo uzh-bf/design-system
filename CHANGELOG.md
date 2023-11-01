@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.3.0](https://github.com/uzh-bf/design-system/compare/v2.2.0...v2.3.0) (2023-11-01)
+
+
+### Features
+
+* **Countdown:** add new countdown component based on react-countdown ([#72](https://github.com/uzh-bf/design-system/issues/72)) ([275a2cb](https://github.com/uzh-bf/design-system/commit/275a2cbc9564a84863a9fb988d1518b84745f1ac))
+
 ## [2.2.0](https://github.com/uzh-bf/design-system/compare/v2.1.13...v2.2.0) (2023-11-01)
 
 
