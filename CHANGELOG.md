@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.4.0](https://github.com/uzh-bf/design-system/compare/v2.3.0...v2.4.0) (2023-11-01)
+
+
+### Features
+
+* **CycleCountdown:** add cycle countdown component ([#73](https://github.com/uzh-bf/design-system/issues/73)) ([1d48fa4](https://github.com/uzh-bf/design-system/commit/1d48fa4f84e50fcb999ba96403a8fff8ae9f7d94))
+
+
+### Bug Fixes
+
+* **CycleProgress:** fix absolute positioning issues on cycle progress component ([a7175ec](https://github.com/uzh-bf/design-system/commit/a7175ec81746d2977526d5026c2fed5d590c7f6a))
+
+
+### Other
+
+* **Countdown:** add prop descriptions for countdown component ([daa67aa](https://github.com/uzh-bf/design-system/commit/daa67aae659c0a432c5ac6d4168d4ba679e0cd4c))
+* remove react-countdown-circle-timer dependency ([35267a7](https://github.com/uzh-bf/design-system/commit/35267a71a7fed5a8e7304b26beb8d1c5d7fd49ff))
+
 ## [2.3.0](https://github.com/uzh-bf/design-system/compare/v2.2.0...v2.3.0) (2023-11-01)
 
 
