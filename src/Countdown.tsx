@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactCountdown from 'react-countdown'
 
-interface CountdownProps {
+export interface CountdownProps {
   isStatic?: boolean
   expiresAt: Date
   formatter?: (value: any) => any
@@ -28,7 +28,7 @@ interface CountdownProps {
  * @param className - Optional className object allows you to override the default styling
  * @returns A simple text countdown component
  */
-function Countdown({
+export function Countdown({
   isStatic,
   expiresAt,
   formatter,

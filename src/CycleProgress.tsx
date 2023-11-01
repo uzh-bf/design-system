@@ -1,7 +1,7 @@
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
 
-interface CycleProgressProps {
+export interface CycleProgressProps {
   size?: 'sm' | 'md'
   percentage: number
   color?: string
@@ -29,7 +29,7 @@ interface CycleProgressProps {
  * @param className - Optional className object allows you to override the default styling
  * @returns A circular progress bar with children content in the middle
  */
-function CycleProgress({
+export function CycleProgress({
   size = 'md',
   percentage,
   color = '#00A321',
