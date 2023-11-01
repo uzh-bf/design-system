@@ -9,6 +9,16 @@ interface CycleProgressProps {
   children?: React.ReactNode
 }
 
+/**
+ * This function create a circular progress bar with custom content in the middle (children)
+ *
+ * @param size - Size of the progress bar, can be 'sm' or 'md'
+ * @param percentage - Percentage of the progress bar (0-100)
+ * @param color - Color of the progress bar (static for the moment)
+ * @param strokeWidthRem - Width of the progress bar. For small size, a smaller value is recommended
+ * @param children - Content of the progress bar, displayed in the center
+ * @returns A circular progress bar with children content in the middle
+ */
 function CycleProgress({
   size = 'md',
   percentage,
