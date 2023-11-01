@@ -1,78 +1,80 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import Countdown from './Countdown'
 
 export const Default = () => {
-  return <Countdown countdownDuration={20} />
+  let time = new Date()
+  time.setSeconds(time.getSeconds() + 40)
+
+  return <Countdown expiresAt={time} />
 }
 
 export const Static = () => {
+  let time = new Date()
+  time.setSeconds(time.getSeconds() + 40)
+
+  return <Countdown expiresAt={time} isStatic />
+}
+
+export const Formatter = () => {
+  let time = new Date()
+  time.setSeconds(time.getSeconds() + 40)
+
   return (
     <Countdown
-      isStatic
-      countdownDuration={5}
-      onExpire={() => {
-        return { shouldRepeat: true, delay: 1.5 }
+      expiresAt={time}
+      formatter={(value) => {
+        return `${value} seconds`
       }}
     />
   )
 }
 
-export const Repeating = () => {
+export const onExpire = () => {
+  let time = new Date()
+  time.setSeconds(time.getSeconds() + 10)
+
   return (
     <Countdown
-      countdownDuration={5}
+      expiresAt={time}
       onExpire={() => {
-        return { shouldRepeat: true, delay: 1.5 }
+        alert('expired')
       }}
     />
   )
 }
 
-export const Coloring = () => {
-  return (
-    <Countdown
-      size={70}
-      strokeWidth={10}
-      countdownDuration={15}
-      colors={['#4fda22', '#1c17bf', '#edff18', '#A30000']}
-      colorTimes={[15, 10, 2, 0]}
-      onExpire={() => {
-        return { shouldRepeat: true, delay: 1.5 }
-      }}
-    />
-  )
-}
+export const UpdateFunction = () => {
+  const time = useMemo(() => {
+    let t = new Date()
+    t.setSeconds(t.getSeconds() + 40)
+    return t
+  }, [])
 
-export const Formatted = () => {
-  return (
-    <Countdown
-      size={100}
-      countdownDuration={15}
-      formatter={(time) =>
-        time === 0 ? (
-          <div>Time's up</div>
-        ) : (
-          <div className="text-center">
-            {time}s<br />
-            remaining
-          </div>
-        )
-      }
-    />
-  )
-}
+  const [number, setNumber] = useState(0)
 
-export const Expiration = () => {
-  const [expired, setExpired] = useState(false)
   return (
-    <>
+    <div>
       <Countdown
-        countdownDuration={5}
-        onExpire={() => {
-          setExpired(true)
+        expiresAt={time}
+        onUpdate={(value) => {
+          setNumber(value)
         }}
       />
-      Function executed: {expired ? 'yes' : 'no'}
-    </>
+      Number through onUpdate: {number}
+    </div>
+  )
+}
+
+export const Styled = () => {
+  let time = new Date()
+  time.setSeconds(time.getSeconds() + 40)
+
+  return (
+    <Countdown
+      expiresAt={time}
+      className={{
+        root: 'w-max bg-red-300 text-blue-500',
+      }}
+    />
   )
 }
