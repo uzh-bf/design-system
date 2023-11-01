@@ -1,85 +1,74 @@
-import React from 'react'
-import { CountdownCircleTimer } from 'react-countdown-circle-timer'
+import dayjs from 'dayjs'
+import React, { useState } from 'react'
+import Countdown from './Countdown'
+import CycleProgress from './CycleProgress'
 
-export interface CountdownProps {
+export interface CycleCountdownProps {
+  expiresAt: Date
+  totalDuration: number
+  size?: 'sm' | 'md'
+  color?: string
+  strokeWidthRem?: number
+  isStatic?: boolean
+  formatter?: (value: any) => any
+  onExpire?: () => void
+  onUpdate?: (timeRemaining: number) => void
   data?: {
     cy?: string
     test?: string
   }
-  countdownDuration: number
-  size?: number
-  strokeWidth?: number
-  colors?: [`#${string}`, `#${string}`, ...`#${string}`[]]
-  colorTimes?: [number, number, ...number[]]
   className?: {
     root?: string
+    countdownWrapper?: string
+    countdown?: string
   }
-  formatter?: (value: any) => any
-  onExpire?: () => void
-  onUpdate?: (timeRemaining: number) => void
-  isStatic?: boolean
 }
 
-/**
- * This function returnes a pre-styled Countdown component based on the react-countdown-circle-timer component.
- *
- * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
- * @param countdownDuration - The duration of the countdown in seconds.
- * @param size - The size of the countdown in pixels.
- * @param strokeWidth - The width of the countdown stroke in pixels.
- * @param colors - The colors that are shown in the countdown (from the start to the end). The length of this array needs to be consistent with the colorTimes array.
- * @param colorTimes - The times at which the colors change (automatic interpolation). The length of this array needs to be consistent with the colors array.
- * @param className - The optional className object allows you to override the default styling.
- * @param formatter - The function that is called to format the countdown value.
- * @param onExpire - The function that is called when the countdown expires.
- * @param onUpdate - The function that is called when the remaining time is updated.
- * @param isStatic - Indicate whether the countdown is static (does not run) or not.
- * @returns Countdown component
- */
-export function Countdown({
-  data,
-  countdownDuration,
-  colors,
-  colorTimes,
-  size,
-  strokeWidth,
-  className,
+export function CycleCountdown({
+  expiresAt,
+  totalDuration,
+  size = 'md',
+  color = '#00A321',
+  strokeWidthRem = 0.35,
+  isStatic,
   formatter,
   onExpire,
   onUpdate,
-  isStatic = false,
-}: CountdownProps): React.ReactElement {
+  data,
+  className,
+}: CycleCountdownProps) {
+  const [percentage, setPercentage] = useState(
+    (dayjs(expiresAt).diff(dayjs(), 'second') / totalDuration) * 100
+  )
+
   return (
-    <div className={className?.root}>
-      <CountdownCircleTimer
-        data-cy={data?.cy}
-        data-test={data?.test}
-        isPlaying={!isStatic && countdownDuration > 0}
-        duration={countdownDuration > 0 ? countdownDuration : 0}
-        colors={colors || ['#00A321', '#00A321', '#F7B801', '#A30000']}
-        colorsTime={
-          colorTimes || [
-            countdownDuration,
-            (countdownDuration / 2) >> 0,
-            (countdownDuration / 4) >> 0,
-            0,
-          ]
-        }
-        size={size || 45}
-        strokeWidth={strokeWidth || 7}
-        onComplete={onExpire}
-        onUpdate={onUpdate}
-      >
-        {({ remainingTime }: any) => {
-          return formatter
-            ? formatter(remainingTime)
-            : remainingTime > 0
-            ? remainingTime
-            : 0
+    <CycleProgress
+      size={size}
+      percentage={percentage}
+      color={color}
+      strokeWidthRem={strokeWidthRem}
+      data={data}
+      className={{
+        root: className?.root,
+        children: className?.countdownWrapper,
+      }}
+    >
+      <Countdown
+        isStatic={isStatic}
+        expiresAt={expiresAt}
+        formatter={formatter}
+        onExpire={() => {
+          onExpire?.()
+          setPercentage(0)
         }}
-      </CountdownCircleTimer>
-    </div>
+        onUpdate={(remainingSeconds) => {
+          onUpdate?.(remainingSeconds)
+          setPercentage((remainingSeconds / totalDuration) * 100)
+        }}
+        className={{ root: className?.countdown }}
+      />
+    </CycleProgress>
   )
 }
 
-export default Countdown
+export default CycleCountdown
