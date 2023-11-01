@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.1](https://github.com/uzh-bf/design-system/compare/v2.4.0...v2.4.1) (2023-11-01)
+
+
+### Other
+
+* add missing component exports for CycleProgress and Countdown ([e97fed7](https://github.com/uzh-bf/design-system/commit/e97fed70937e82d9702512b5ac45eacdd8379219))
+
 ## [2.4.0](https://github.com/uzh-bf/design-system/compare/v2.3.0...v2.4.0) (2023-11-01)
 
 
