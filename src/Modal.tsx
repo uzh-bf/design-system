@@ -119,7 +119,7 @@ export function Modal({
       <RadixDialog.Content
         className={twMerge(
           className?.contentOverride,
-          'z-30 flex flex-col gap-4 rounded-lg bg-white p-4 shadow md:overflow-y-auto',
+          'z-30 flex flex-col gap-4 rounded-lg bg-white p-4 shadow overflow-y-auto',
           fullScreen
             ? 'h-full w-full'
             : 'min-h-[18rem] w-[27rem] max-w-7xl md:h-[28rem] md:w-[40rem] lg:h-[40rem] lg:w-[55rem] xl:h-[45rem] xl:w-[70rem]',
@@ -130,7 +130,7 @@ export function Modal({
           onPrev || onNext || escapeDisabled ? undefined : onClose
         }
       >
-        <div className="flex flex-initial flex-row items-end justify-between">
+        <div className="flex flex-row items-end justify-between flex-initial">
           <div>
             {title && (
               <RadixDialog.Title
@@ -155,7 +155,7 @@ export function Modal({
 
         <div className={twMerge('flex-1', className?.children)}>{children}</div>
 
-        <div className="flex flex-initial flex-row justify-between">
+        <div className="flex flex-row justify-between flex-initial">
           <div>{onSecondaryAction && <div>{onSecondaryAction}</div>}</div>
           <div>{onPrimaryAction && <div>{onPrimaryAction}</div>}</div>
         </div>
