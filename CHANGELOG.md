@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.3](https://github.com/uzh-bf/design-system/compare/v2.4.2...v2.4.3) (2023-11-06)
+
+
+### Bug Fixes
+
+* **Modal:** enable scroll for mobile device ([#74](https://github.com/uzh-bf/design-system/issues/74)) ([e98f5a9](https://github.com/uzh-bf/design-system/commit/e98f5a9754269f81dfa0b6511953fd0ba1ef7155))
+
 ### [2.4.2](https://github.com/uzh-bf/design-system/compare/v2.4.1...v2.4.2) (2023-11-01)
 
 
