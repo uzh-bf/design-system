@@ -5,6 +5,7 @@
   body,
   #__next {
     @apply h-full;
+    @apply font-sans;
   }
 }
 

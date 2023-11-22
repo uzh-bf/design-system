@@ -1,8 +1,8 @@
 import React, { useRef } from 'react'
 import Button from './Button'
 import Table from './Table'
-import { data } from './tableData'
 import UserNotification from './UserNotification'
+import { data } from './tableData'
 
 const GenericWarning = () => (
   <UserNotification
@@ -23,6 +23,42 @@ export const Simple = () => {
     <div>
       <GenericWarning />
       <Table columns={columns} data={data} caption="Table with example data" />
+    </div>
+  )
+}
+
+export const DefaultSorting = () => {
+  const columns = [
+    { label: 'Count', accessor: 'count', sortable: true },
+    { label: 'Answer', accessor: 'answer', sortable: true },
+    { label: 'Username', accessor: 'username', sortable: false },
+  ]
+
+  return (
+    <div>
+      <GenericWarning />
+      <Table
+        columns={columns}
+        data={data}
+        caption="Table with example data"
+        defaultSortField="count"
+        defaultSortOrder="desc"
+      />
+    </div>
+  )
+}
+
+export const Sorting = () => {
+  const columns = [{ label: 'Count', accessor: 'count', sortable: true }]
+
+  return (
+    <div>
+      <GenericWarning />
+      <Table
+        columns={columns}
+        data={[{ count: 100 }, { count: -50 }, { count: -70 }, { count: 30 }]}
+        caption="Table with example data"
+      />
     </div>
   )
 }
@@ -64,7 +100,12 @@ export const ResetTable = () => {
 }
 
 export const Formatted = () => {
-  type RowType = { count: number; answer: string; username: string }
+  type RowType = {
+    count: number
+    answer: string
+    username: string
+    className?: string
+  }
   const columns = [
     {
       label: 'Count',
@@ -76,6 +117,7 @@ export const Formatted = () => {
       label: 'Answer',
       accessor: 'answer',
       sortable: true,
+      className: 'font-bold italic',
       formatter: ({ row }: { row: RowType }) => (
         <div className="bg-red-300">{row['answer']}</div>
       ),
@@ -88,7 +130,13 @@ export const Formatted = () => {
       <GenericWarning />
       <Table<RowType>
         columns={columns}
-        data={data}
+        data={[
+          {
+            className: 'text-green-200',
+            ...data[0],
+          },
+          ...data,
+        ]}
         caption="Table with example data"
         className={{
           root: 'bg-white',

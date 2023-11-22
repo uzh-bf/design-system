@@ -1,11 +1,10 @@
 import { faFilter } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 import Checkbox from './Checkbox'
 import Dropdown from './Dropdown'
-import { ThemeContext } from './ThemeProvider'
 
 export const Default = () => {
   return (
@@ -120,7 +119,6 @@ export const Selection = () => {
   )
 }
 export const CustomLabel = () => {
-  const theme = useContext(ThemeContext)
   const [label1Active, setLabel1Active] = useState(false)
   const [label4Active, setLabel4Active] = useState(false)
 
@@ -138,8 +136,8 @@ export const CustomLabel = () => {
         trigger={
           <div
             className={twMerge(
-              'flex flex-row items-center gap-2 p-2 border border-solid border-uzh-grey-60 rounded-md shadow-md  hover:shadow-none',
-              `hover:${theme.primaryBg}`
+              'flex flex-row items-center gap-2 rounded-md border border-solid border-uzh-grey-60 p-2 shadow-md  hover:shadow-none',
+              `hover:bg-primary-20`
             )}
           >
             <div>Trigger Icon </div>
@@ -152,8 +150,8 @@ export const CustomLabel = () => {
               label: (
                 <span
                   className={twMerge(
-                    'flex items-center hover:cursor-pointer px-2 py-0.5',
-                    `hover:${theme.primaryBgMedium}`
+                    'flex items-center px-2 py-0.5 hover:cursor-pointer',
+                    `hover:bg-primary-60`
                   )}
                 >
                   <Checkbox checked={label1Active} onCheck={() => undefined} />
@@ -174,8 +172,8 @@ export const CustomLabel = () => {
               label: (
                 <span
                   className={twMerge(
-                    'flex items-center hover:cursor-pointer px-2 py-0.5',
-                    `hover:${theme.primaryBgMedium}`
+                    'flex items-center px-2 py-0.5 hover:cursor-pointer',
+                    `hover:bg-primary-60`
                   )}
                 >
                   <Checkbox checked={label4Active} onCheck={() => undefined} />
@@ -186,6 +184,36 @@ export const CustomLabel = () => {
             },
           ],
           [{ label: 'Element 5', onClick: () => alert('Element 5 clicked') }],
+        ]}
+      />
+    </div>
+  )
+}
+
+export const Active = () => {
+  return (
+    <div>
+      <div>
+        One possibility to highlight active elements is through the "selected"
+        prop on the item itself. To make the dropdown component keep the correct
+        state, a list of strings, so-called "activeItems" can be passed, which
+        are then compared to the label values. If the label is given as a React
+        node, the active value will not be considered.
+      </div>
+      <Dropdown
+        trigger="Test"
+        activeItems={['Element 1 long', 'Element 3 short']}
+        items={[
+          {
+            label: 'Element 1 long',
+            onClick: () => alert('Element 1 clicked'),
+          },
+          { label: 'Element 2', onClick: () => alert('Element 2 clicked') },
+          {
+            label: 'Element 3 short',
+            onClick: () => alert('Element 3 clicked'),
+          },
+          { label: 'Element 4', onClick: () => alert('Element 4 clicked') },
         ]}
       />
     </div>

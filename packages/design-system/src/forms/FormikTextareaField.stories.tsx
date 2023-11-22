@@ -279,3 +279,42 @@ export const Validation = () => (
     </Formik>
   </div>
 )
+
+export const SmallLabel = () => (
+  <div>
+    <div>
+      Formik text area component with a small label (designed e.g. for login
+      forms)
+    </div>
+    <Formik
+      initialValues={{
+        name: '',
+      }}
+      isInitialValid={false}
+      onSubmit={async (values, { resetForm }) => {
+        alert(`Form submitted with value: ${values.name}`)
+        resetForm()
+      }}
+    >
+      {({ values }) => {
+        return (
+          <div>
+            <Form>
+              <FormikTextareaField
+                required
+                name="name"
+                label="Label"
+                labelType="small"
+                tooltip="Tooltip for this input"
+                className={{ root: 'mb-1' }}
+                placeholder="Placeholder"
+              />
+              <Button type="submit">Submit</Button>
+            </Form>
+            <div>Value: {values.name}</div>
+          </div>
+        )
+      }}
+    </Formik>
+  </div>
+)

@@ -1,7 +1,6 @@
 import * as NavigationMenuPrimitive from '@radix-ui/react-navigation-menu'
-import React, { useContext } from 'react'
+import React from 'react'
 import { twMerge } from 'tailwind-merge'
-import { ThemeContext } from './ThemeProvider'
 
 export interface NavigationProps {
   id?: string
@@ -11,6 +10,7 @@ export interface NavigationProps {
   }
   children: React.ReactNode
   className?: {
+    override?: string
     root?: string
     indicator?: string
     viewport?: string
@@ -39,12 +39,11 @@ export function Navigation({
   className,
   style,
 }: NavigationProps) {
-  const theme = useContext(ThemeContext)
-
   return (
     <NavigationMenuPrimitive.Root
       className={twMerge(
-        `relative ${theme.primaryBg} rounded-md w-max`,
+        className?.override,
+        'relative w-max rounded-md bg-primary-20',
         className?.root
       )}
       id={id}
@@ -54,11 +53,10 @@ export function Navigation({
     >
       <NavigationMenuPrimitive.List className="flex flex-row gap-1.5 p-2">
         {children}
-        <NavigationMenuPrimitive.Indicator className="z-10 flex justify-center h-2 overflow-hidden duration-300 ease-in-out">
+        <NavigationMenuPrimitive.Indicator className="z-10 flex h-2 justify-center overflow-hidden duration-300 ease-in-out">
           <div
             className={twMerge(
-              'relative w-2 h-2 rotate-45 rounded-tl-sm top-1',
-              theme.primaryBg,
+              'relative top-1 h-2 w-2 rotate-45 rounded-tl-sm bg-primary-20',
               className?.indicator
             )}
             style={style?.indicator}
@@ -68,9 +66,8 @@ export function Navigation({
 
       <NavigationMenuPrimitive.Viewport
         className={twMerge(
-          'mt-2 shadow-lg rounded-md overflow-hidden duration-300 ease-in-out',
-          'w-rdx-navigation-menu-viewport h-rdx-navigation-menu-viewport absolute z-10',
-          theme.primaryBg,
+          'mt-2 overflow-hidden rounded-md bg-primary-20 shadow-lg duration-300 ease-in-out',
+          'absolute z-10 w-rdx-navigation-menu-viewport h-rdx-navigation-menu-viewport',
           className?.viewport
         )}
         style={style?.viewport}
@@ -89,6 +86,8 @@ interface TriggerProps {
   children: React.ReactNode
   disabled?: boolean
   className?: {
+    override?: string
+    dropdownOverride?: string
     root?: string
     label?: string
     icon?: string
@@ -138,23 +137,21 @@ Navigation.TriggerItem = function TriggerItem({
   className,
   style,
 }: TriggerIconProps | TriggerLabelProps) {
-  const theme = useContext(ThemeContext)
-  const computedClassName = twMerge(
-    'px-3 py-2 rounded-md text-sm focus:outline-none focus-visible:ring flex flex-row items-center font-medium text-black hover:text-white',
-    icon && !label && 'w-9 h-9 justify-center',
-    !disabled && theme.primaryBgMediumHover,
-    disabled && 'text-gray-400 hover:text-none cursor-not-allowed',
-    className?.root,
-    disabled && className?.disabled
-  )
-
   return (
     <NavigationMenuPrimitive.Item>
       <NavigationMenuPrimitive.Trigger
         id={id}
         data-cy={data?.cy}
         data-test={data?.test}
-        className={computedClassName}
+        className={twMerge(
+          className?.override,
+          'flex flex-row items-center rounded-md px-3 py-2 text-sm font-medium text-black hover:text-white focus:outline-none focus-visible:ring',
+          icon && !label && 'h-9 w-9 justify-center',
+          !disabled && 'hover:bg-primary-60',
+          disabled && 'hover:text-none cursor-not-allowed text-gray-400',
+          className?.root,
+          disabled && className?.disabled
+        )}
         disabled={disabled}
         style={disabled ? { ...style?.root, ...style?.disabled } : style?.root}
       >
@@ -165,7 +162,7 @@ Navigation.TriggerItem = function TriggerItem({
         )}
         {icon && label && (
           <div
-            className={twMerge('w-3 mr-3', className?.icon)}
+            className={twMerge('mr-3 w-3', className?.icon)}
             style={style?.icon}
           >
             {icon}
@@ -180,7 +177,8 @@ Navigation.TriggerItem = function TriggerItem({
 
       <NavigationMenuPrimitive.Content
         className={twMerge(
-          'rounded-lg flex flex-col p-2 gap-2',
+          className?.dropdownOverride,
+          'flex flex-col gap-2 rounded-lg p-2',
           dropdownWidth,
           className?.dropdown
         )}
@@ -202,6 +200,7 @@ interface DropdownItemProps {
   subtitle?: string
   icon?: React.ReactNode
   className?: {
+    override?: string
     root?: string
     title?: string
     icon?: string
@@ -251,8 +250,6 @@ Navigation.DropdownItem = function DropdownItem({
   className,
   style,
 }: DropdownItemWithHrefProps | DropdownItemWithOnClickProps) {
-  const theme = useContext(ThemeContext)
-
   return (
     <NavigationMenuPrimitive.Link
       id={id}
@@ -261,22 +258,23 @@ Navigation.DropdownItem = function DropdownItem({
       href={href}
       onClick={onClick}
       className={twMerge(
-        'w-full px-4 py-3 rounded-md focus:outline-none focus-visible:ring focus-visible:ring-opacity-75 text-black sm:hover:text-white',
-        theme.primaryBgMediumHover,
+        className?.override,
+        'w-full rounded-md px-4 py-3 text-black hover:bg-primary-60',
+        'focus:outline-none focus-visible:ring focus-visible:ring-opacity-75 sm:hover:text-white',
         className?.root
       )}
       style={style?.root}
     >
       <span
         className={twMerge(
-          'text-sm font-medium flex flex-row',
+          'flex flex-row text-sm font-medium',
           className?.title
         )}
         style={style?.title}
       >
         {icon && (
           <div
-            className={twMerge('w-3 mr-3', className?.icon)}
+            className={twMerge('mr-3 w-3', className?.icon)}
             style={style?.icon}
           >
             {icon}
@@ -288,7 +286,7 @@ Navigation.DropdownItem = function DropdownItem({
       {subtitle && (
         <div
           className={twMerge(
-            'mt-1 text-sm text-left font-normal',
+            'mt-1 text-left text-sm font-normal',
             className?.subtitle
           )}
           style={style?.subtitle}
@@ -310,6 +308,7 @@ interface ButtonItemProps {
   disabled?: boolean
   icon?: React.ReactNode
   className?: {
+    override?: string
     root?: string
     label?: string
     icon?: string
@@ -358,15 +357,6 @@ Navigation.ButtonItem = function ButtonItem({
   className,
   style,
 }: ButtonItemWithHrefProps | ButtonItemWithOnClickProps) {
-  const theme = useContext(ThemeContext)
-  const computedClassName = twMerge(
-    'px-3 py-2 text-sm rounded-md font-medium cursor-pointer text-black sm:hover:text-white',
-    !disabled && theme.primaryBgMediumHover,
-    disabled && 'text-gray-400 hover:text-none cursor-not-allowed',
-    className?.root,
-    disabled && className?.disabled
-  )
-
   return (
     <NavigationMenuPrimitive.Item asChild>
       <NavigationMenuPrimitive.Link
@@ -375,13 +365,20 @@ Navigation.ButtonItem = function ButtonItem({
         data-test={data?.test}
         href={!disabled ? href : undefined}
         onClick={!disabled ? onClick : undefined}
-        className={computedClassName}
+        className={twMerge(
+          className?.override,
+          'cursor-pointer rounded-md px-3 py-2 text-sm font-medium text-black sm:hover:text-white',
+          !disabled && 'hover:bg-primary-60',
+          disabled && 'hover:text-none cursor-not-allowed text-gray-400',
+          className?.root,
+          disabled && className?.disabled
+        )}
         style={disabled ? { ...style?.root, ...style?.disabled } : style?.root}
       >
         <div className="flex flex-row">
           {icon && (
             <div
-              className={twMerge('w-3 mr-3', className?.icon)}
+              className={twMerge('mr-3 w-3', className?.icon)}
               style={style?.icon}
             >
               {icon}
@@ -405,6 +402,7 @@ interface IconItemProps {
   icon: React.ReactNode
   disabled?: boolean
   className?: {
+    override?: string
     root?: string
     disabled?: string
   }
@@ -447,15 +445,6 @@ Navigation.IconItem = function IconItem({
   className,
   style,
 }: IconItemWithHrefProps | IconItemWithOnClickProps) {
-  const theme = useContext(ThemeContext)
-  const computedClassName = twMerge(
-    'w-9 h-9 flex items-center justify-center rounded-md text-black sm:hover:text-white',
-    !disabled && theme.primaryBgMediumHover,
-    disabled && 'text-gray-400 hover:text-none cursor-not-allowed',
-    className?.root,
-    disabled && className?.disabled
-  )
-
   return (
     <NavigationMenuPrimitive.Item asChild>
       <NavigationMenuPrimitive.Link
@@ -464,7 +453,14 @@ Navigation.IconItem = function IconItem({
         data-test={data?.test}
         href={!disabled ? href : undefined}
         onClick={!disabled ? onClick : undefined}
-        className={computedClassName}
+        className={twMerge(
+          className?.override,
+          'flex h-9 w-9 items-center justify-center rounded-md text-black sm:hover:text-white',
+          !disabled && 'hover:bg-primary-60',
+          disabled && 'hover:text-none cursor-not-allowed text-gray-400',
+          className?.root,
+          disabled && className?.disabled
+        )}
         style={disabled ? { ...style?.root, ...style?.disabled } : style?.root}
       >
         {icon}

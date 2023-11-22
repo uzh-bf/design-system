@@ -19,6 +19,7 @@ export interface TooltipProps {
   withIndicator?: boolean
   children: React.ReactNode
   className?: {
+    override?: string
     tooltip?: string
     trigger?: string
     arrow?: string
@@ -58,10 +59,7 @@ export function Tooltip({
           id={id}
           data-cy={data?.cy}
           data-test={data?.test}
-          className={twMerge(
-            '[all:_unset] !cursor-default',
-            className?.trigger
-          )}
+          className={twMerge('[all:_unset]', className?.trigger)}
           onClick={(e) => e.preventDefault()}
         >
           {children}
@@ -71,7 +69,8 @@ export function Tooltip({
           data-cy={dataContent?.cy}
           data-test={dataContent?.test}
           className={twMerge(
-            'p-2 text-white bg-gray-800 border rounded-md border-1 border-grey-20',
+            className?.override,
+            'rounded-md bg-gray-800 p-2 text-white',
             className?.tooltip
           )}
         >

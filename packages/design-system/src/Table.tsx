@@ -3,7 +3,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useImperativeHandle, useMemo, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
+type BaseRowType = {
+  className?: string
+}
+
 export type ColumnType<RowType> = {
+  className?: string
   label: string
   accessor: string
   sortable?: boolean
@@ -23,7 +28,7 @@ export type ColumnType<RowType> = {
   }) => string | number | React.ReactElement
 }
 
-export interface TableProps<RowType> {
+export interface TableProps<RowType extends BaseRowType> {
   id?: string
   dataAttributes?: {
     cy?: string
@@ -39,6 +44,9 @@ export interface TableProps<RowType> {
     row?: string
   }
   forwardedRef?: React.Ref<any>
+  emptyCellText?: string
+  defaultSortField?: string
+  defaultSortOrder?: 'asc' | 'desc'
 }
 
 /**
@@ -55,6 +63,9 @@ export interface TableProps<RowType> {
  * @param ref - The optional ref object allows you to access the table methods.
  * @param className - The optional className object allows you to override the default styling.
  * @param forwardedRef - The optional forwardedRef object allows you to access table methods from the parent component.
+ * @param emptyCellText - The optional emptyCellText allows you to define the text that should be displayed in empty cells.
+ * @param defaultSortField - The optional defaultSortField allows you to define the default sorting field.
+ * @param defaultSortOrder - The optional defaultSortOrder allows you to define the default sorting order.
  * @returns Table component
  */
 export function Table<
@@ -67,15 +78,20 @@ export function Table<
   caption,
   className,
   forwardedRef,
+  emptyCellText = '——',
+  defaultSortField,
+  defaultSortOrder = 'asc',
 }: TableProps<RowType>) {
-  const [sortField, setSortField] = useState<string | undefined>(undefined)
-  const [order, setOrder] = useState<'asc' | 'desc'>('asc')
+  const [sortField, setSortField] = useState<string | undefined>(
+    defaultSortField
+  )
+  const [order, setOrder] = useState<'asc' | 'desc'>(defaultSortOrder)
 
   useImperativeHandle(forwardedRef, () => {
     return {
       reset() {
-        setSortField(undefined)
-        setOrder('asc')
+        setSortField(defaultSortField)
+        setOrder(defaultSortOrder)
       },
     }
   })
@@ -90,10 +106,13 @@ export function Table<
     const transformedData = data.map(
       (row, index) =>
         columns
-          .map(({ accessor, transformer }) =>
-            transformer
-              ? { [accessor]: transformer({ row, ix: index }) }
-              : { [accessor]: row[accessor] }
+          .map((col) =>
+            typeof col.transformer === 'function'
+              ? {
+                  [col.accessor]: col.transformer({ row, ix: index }),
+                  className: row.className,
+                }
+              : { [col.accessor]: row[col.accessor], className: row.className }
           )
           .reduce((acc, cur) => ({ ...acc, ...cur }), {}) as RowType
     )
@@ -103,12 +122,21 @@ export function Table<
           if (a[sortField] === null) return 1
           if (b[sortField] === null) return -1
           if (a[sortField] === null && b[sortField] === null) return 0
+
+          const direction = order === 'asc' ? 1 : -1
+
+          if (typeof a[sortField] === 'number') {
+            return (
+              ((a[sortField] as number) - (b[sortField] as number)) * direction
+            )
+          }
+
           return (
             a[sortField]
               .toString()
               .localeCompare(b[sortField].toString(), 'en', {
                 numeric: true,
-              }) * (order === 'asc' ? 1 : -1)
+              }) * direction
           )
         })
       : transformedData
@@ -117,25 +145,35 @@ export function Table<
       <tr
         key={index}
         className={twMerge(
-          'odd:bg-uzh-grey-20 first:border-t-0',
-          className?.row
+          'first:border-t-0 odd:bg-uzh-grey-20',
+          className?.row,
+          row.className as string
         )}
       >
-        {columns.map(({ accessor, formatter }) => {
+        {columns.map((col) => {
           const field =
-            typeof row[accessor] === 'undefined' || row[accessor] === null
-              ? '——'
-              : row[accessor]
+            typeof row[col.accessor] === 'undefined' ||
+            row[col.accessor] === null
+              ? emptyCellText
+              : row[col.accessor]
 
           return (
-            <td className="p-4 border-t-2 border-uzh-grey-60" key={accessor}>
-              {formatter ? formatter({ row, ix: index }) : field}
+            <td
+              className={twMerge(
+                'border-t-2 border-uzh-grey-60 p-4',
+                col.className
+              )}
+              key={col.accessor}
+            >
+              {typeof col.formatter === 'function'
+                ? col.formatter({ row, ix: index })
+                : field}
             </td>
           )
         })}
       </tr>
     ))
-  }, [data, columns, sortField, order, className])
+  }, [data, columns, sortField, order, className, emptyCellText])
 
   return (
     <div
@@ -148,27 +186,30 @@ export function Table<
         <caption className="text-sm italic">{caption}</caption>
         <thead>
           <tr>
-            {columns.map(({ label, accessor, sortable }) => {
+            {columns.map((col) => {
               return (
                 <th
-                  key={accessor}
+                  key={col.accessor}
                   onClick={
-                    sortable ? () => handleSortingChange(accessor) : undefined
+                    col.sortable
+                      ? () => handleSortingChange(col.accessor)
+                      : undefined
                   }
                   className={twMerge(
-                    'py-2 pl-4 pr-10 mr-20 border-b-2 text-lg border-b-gray-800 text-start text-gray-800 whitespace-nowrap',
-                    sortable && 'cursor-pointer pl-0',
-                    className?.tableHeader
+                    'mr-20 whitespace-nowrap border-b-2 border-b-gray-800 py-2 pl-4 pr-10 text-start text-lg text-gray-800',
+                    col.sortable && 'cursor-pointer pl-0',
+                    className?.tableHeader,
+                    col.className
                   )}
                 >
-                  {sortable && (
+                  {col.sortable && (
                     <FontAwesomeIcon
                       className={twMerge(
                         'mr-2',
-                        !(sortField === accessor) && 'text-uzh-grey-100'
+                        !(sortField === col.accessor) && 'text-uzh-grey-100'
                       )}
                       icon={
-                        sortField === accessor
+                        sortField === col.accessor
                           ? order === 'asc'
                             ? faSortUp
                             : faSortDown
@@ -176,7 +217,7 @@ export function Table<
                       }
                     />
                   )}
-                  {label}
+                  {col.label}
                 </th>
               )
             })}

@@ -1,4 +1,4 @@
-import { faPaperPlane, faPen } from '@fortawesome/free-solid-svg-icons'
+import { faPen } from '@fortawesome/free-solid-svg-icons'
 import React, { useState } from 'react'
 import DateChanger from './DateChanger'
 
@@ -70,7 +70,6 @@ export function CustomIcons() {
         setEdit(false)
       }}
       editIcon={faPen}
-      saveIcon={faPaperPlane}
     />
   )
 }
@@ -90,7 +89,7 @@ export function Styled() {
       }}
       label="Testlabel"
       className={{
-        label: 'font-bold mr-1',
+        label: 'mr-1 font-bold',
         editButton: 'text-red-500',
       }}
     />

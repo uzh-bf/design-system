@@ -1,17 +1,9 @@
-import React, { Dispatch, useContext } from 'react'
+import React, { Dispatch } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { ThemeContext } from './ThemeProvider'
 
 export interface ButtonProps {
   id?: string
-  data?: {
-    cy?: string
-    test?: string
-  }
   active?: boolean
-  className?: {
-    root?: string
-  }
   children?: React.ReactNode
   disabled?: boolean
   fluid?: boolean
@@ -19,6 +11,15 @@ export interface ButtonProps {
   type?: 'button' | 'submit' | 'reset'
   loading?: boolean
   onClick?: (e?: React.MouseEvent<HTMLButtonElement>) => void
+  className?: {
+    override?: string
+    root?: string
+    active?: string
+  }
+  data?: {
+    cy?: string
+    test?: string
+  }
   [x: string]: any
 }
 
@@ -40,9 +41,7 @@ export interface ButtonProps {
  */
 export function Button({
   id,
-  data,
   children,
-  className,
   onClick,
   disabled = false,
   active = false,
@@ -50,23 +49,24 @@ export function Button({
   basic = false,
   loading = false,
   type = 'button',
+  className,
+  data,
   ...props
 }: ButtonProps) {
-  const theme = useContext(ThemeContext)
-
   const computedClassName = twMerge(
-    !basic && 'border rounded px-[0.75em] py-[0.25em] shadow bg-white ',
-    'inline-flex flex-row items-center font-sans gap-2',
-    !basic &&
-      active &&
-      `${theme.primaryBg} ${theme.primaryFill} ${theme.primaryBorder}`,
+    className?.override,
+    !basic && 'border rounded px-[0.75em] py-[0.25em] shadow bg-white',
+    'inline-flex flex-row items-center font-sans gap-2 cursor-pointer',
+    fluid && 'w-full justify-center',
     disabled || loading
       ? !basic
         ? 'bg-uzh-grey-20 text-uzh-grey-80 cursor-default fill-uzh-grey-80'
         : 'cursor-default'
       : !basic &&
-          `${theme.primaryBgHover} ${theme.primaryBorderHover} ${theme.primaryTextHover} ${theme.primaryFillHover}`,
-    fluid && 'w-full justify-center',
+          `hover:bg-primary-20 hover:border-primary-40 hover:text-primary hover:fill-primary`,
+    !basic &&
+      active &&
+      twMerge('bg-primary-20 border-primary-40', className?.active),
     className?.root
   )
 
@@ -83,7 +83,7 @@ export function Button({
     >
       {loading && (
         <svg
-          className={`w-5 h-5 -ml-1 ${theme.primaryText} animate-spin`}
+          className={`-ml-1 h-5 w-5 animate-spin text-primary`}
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
@@ -148,13 +148,10 @@ Button.IconGroup = function ButtonIconGroup({
   className,
   children,
 }: ButtonIconGroupProps) {
-  const theme = useContext(ThemeContext)
-
   return (
     <div
       className={twMerge(
-        'flex flex-row justify-between border border-solid w-max rounded',
-        theme.primaryBorder,
+        'flex w-max flex-row justify-between rounded border border-solid border-primary',
         className?.root
       )}
     >
@@ -164,10 +161,9 @@ Button.IconGroup = function ButtonIconGroup({
             key={index}
             className={{
               root: twMerge(
-                'p-1.5 first:rounded-l-sm last:rounded-r-sm',
-                theme.primaryBgHover,
+                'p-1.5 first:rounded-l-sm last:rounded-r-sm hover:border-primary',
                 state === index
-                  ? `${theme.primaryBgDark} text-white hover:bg-unset`
+                  ? `hover:bg-unset bg-primary-80 text-white`
                   : 'bg-white',
                 className?.children
               ),

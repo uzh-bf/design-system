@@ -2,6 +2,431 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.3](https://github.com/uzh-bf/design-system/compare/v2.4.2...v2.4.3) (2023-11-06)
+
+
+### Bug Fixes
+
+* **Modal:** enable scroll for mobile device ([#74](https://github.com/uzh-bf/design-system/issues/74)) ([e98f5a9](https://github.com/uzh-bf/design-system/commit/e98f5a9754269f81dfa0b6511953fd0ba1ef7155))
+
+### [2.4.2](https://github.com/uzh-bf/design-system/compare/v2.4.1...v2.4.2) (2023-11-01)
+
+
+### Enhancements
+
+* **CycleCountdown:** add terminal settings and size override ([5da00f5](https://github.com/uzh-bf/design-system/commit/5da00f5ff583a72151e0b1d584a9129438c118d0))
+* **CycleProgress:** add possibility to override circle size ([ab37bb5](https://github.com/uzh-bf/design-system/commit/ab37bb523e3f988159002a97259dbf839637c9e5))
+
+### [2.4.1](https://github.com/uzh-bf/design-system/compare/v2.4.0...v2.4.1) (2023-11-01)
+
+
+### Other
+
+* add missing component exports for CycleProgress and Countdown ([e97fed7](https://github.com/uzh-bf/design-system/commit/e97fed70937e82d9702512b5ac45eacdd8379219))
+
+## [2.4.0](https://github.com/uzh-bf/design-system/compare/v2.3.0...v2.4.0) (2023-11-01)
+
+
+### Features
+
+* **CycleCountdown:** add cycle countdown component ([#73](https://github.com/uzh-bf/design-system/issues/73)) ([1d48fa4](https://github.com/uzh-bf/design-system/commit/1d48fa4f84e50fcb999ba96403a8fff8ae9f7d94))
+
+
+### Bug Fixes
+
+* **CycleProgress:** fix absolute positioning issues on cycle progress component ([a7175ec](https://github.com/uzh-bf/design-system/commit/a7175ec81746d2977526d5026c2fed5d590c7f6a))
+
+
+### Other
+
+* **Countdown:** add prop descriptions for countdown component ([daa67aa](https://github.com/uzh-bf/design-system/commit/daa67aae659c0a432c5ac6d4168d4ba679e0cd4c))
+* remove react-countdown-circle-timer dependency ([35267a7](https://github.com/uzh-bf/design-system/commit/35267a71a7fed5a8e7304b26beb8d1c5d7fd49ff))
+
+## [2.3.0](https://github.com/uzh-bf/design-system/compare/v2.2.0...v2.3.0) (2023-11-01)
+
+
+### Features
+
+* **Countdown:** add new countdown component based on react-countdown ([#72](https://github.com/uzh-bf/design-system/issues/72)) ([275a2cb](https://github.com/uzh-bf/design-system/commit/275a2cbc9564a84863a9fb988d1518b84745f1ac))
+
+## [2.2.0](https://github.com/uzh-bf/design-system/compare/v2.1.13...v2.2.0) (2023-11-01)
+
+
+### Features
+
+* **CycleProgress:** add cycle progress component ([#71](https://github.com/uzh-bf/design-system/issues/71)) ([1d4923c](https://github.com/uzh-bf/design-system/commit/1d4923c82f6106ba39c55fbb9508448d4913aa25))
+
+### [2.1.13](https://github.com/uzh-bf/design-system/compare/v2.1.12...v2.1.13) (2023-10-26)
+
+
+### Enhancements
+
+* **StepProgress:** add possibility to define asymmetric step offsets ([#70](https://github.com/uzh-bf/design-system/issues/70)) ([e0d2cad](https://github.com/uzh-bf/design-system/commit/e0d2cad56aefcf37cd35d6b5f6a8ebcfa8ccb255))
+
+### [2.1.12](https://github.com/uzh-bf/design-system/compare/v2.1.11...v2.1.12) (2023-10-09)
+
+
+### Enhancements
+
+* **FormikTextField:** add possibility to pass error string to field with onChange function ([a3e08c7](https://github.com/uzh-bf/design-system/commit/a3e08c761943ddce7292c11e957b765068b80a2e))
+
+### [2.1.11](https://github.com/uzh-bf/design-system/compare/v2.1.10...v2.1.11) (2023-10-03)
+
+
+### Enhancements
+
+* **Switch:** ensure that disabled also affects styling in active state ([47cfa1e](https://github.com/uzh-bf/design-system/commit/47cfa1e942d43c03ac39dba3809e1e7d3b5c336e))
+
+### [2.1.10](https://github.com/uzh-bf/design-system/compare/v2.1.9...v2.1.10) (2023-10-02)
+
+
+### Bug Fixes
+
+* **Button:** re-introduce active style as long as tailwind pseudo-class does not work ([cfc7235](https://github.com/uzh-bf/design-system/commit/cfc723573bf530260e027554d9379d994393309e))
+
+### [2.1.9](https://github.com/uzh-bf/design-system/compare/v2.1.8...v2.1.9) (2023-10-02)
+
+
+### Enhancements
+
+* add possibility to pass react nodes as tooltip content ([f195658](https://github.com/uzh-bf/design-system/commit/f195658e6b7629cbfc3653232ef984a425370fe3))
+
+### [2.1.8](https://github.com/uzh-bf/design-system/compare/v2.1.7...v2.1.8) (2023-09-29)
+
+
+### Other
+
+* **forms/FormikSelectField:** remove unused onSelect method ([342e11e](https://github.com/uzh-bf/design-system/commit/342e11eb6a101bc7ab64a2fc6bf5e4aca3b14095))
+
+
+### Enhancements
+
+* **forms/FormikSelectField:** add contentPosition prop to formik select field ([79bff8f](https://github.com/uzh-bf/design-system/commit/79bff8f18b9ec4233f2789b3c295ddb3ee79d7ff))
+
+### [2.1.7](https://github.com/uzh-bf/design-system/compare/v2.1.6...v2.1.7) (2023-09-25)
+
+
+### Other
+
+* **Table:** extend stories to show default sorting functionality ([3fb69b8](https://github.com/uzh-bf/design-system/commit/3fb69b82f006379bf31f07fbbce8e3e22f46f4c9))
+
+
+### Enhancements
+
+* **forms/FormikSelectField:** allow to define additional actions that should be executed on value change ([fbfe243](https://github.com/uzh-bf/design-system/commit/fbfe24318ae22ffa8c0736f22a5762654df059a6))
+
+### [2.1.6](https://github.com/uzh-bf/design-system/compare/v2.1.5...v2.1.6) (2023-09-19)
+
+
+### Bug Fixes
+
+* **hooks/useArrowNavigation:** ensure that only keys with valid key listener action contain a prevent default action ([925b982](https://github.com/uzh-bf/design-system/commit/925b9829ab3090da49dbdfe832a31cd510e47f18))
+
+### [2.1.5](https://github.com/uzh-bf/design-system/compare/v2.1.4...v2.1.5) (2023-09-17)
+
+
+### Other
+
+* **forms/NumberField:** log invalid inputs that were discarded ([fd91352](https://github.com/uzh-bf/design-system/commit/fd9135219fd40aeaffc6b0b9f71fa0b349bdecdd))
+
+### [2.1.4](https://github.com/uzh-bf/design-system/compare/v2.1.3...v2.1.4) (2023-09-11)
+
+
+### Bug Fixes
+
+* **NumberField:** fix precision isNaN bug with typeof number ([33ae814](https://github.com/uzh-bf/design-system/commit/33ae814200daadbb31d155c186b8662276963c52))
+
+### [2.1.3](https://github.com/uzh-bf/design-system/compare/v2.1.2...v2.1.3) (2023-09-11)
+
+
+### Bug Fixes
+
+* **FormikNumberField:** use typeof number instead of undefined and null ([9d473ef](https://github.com/uzh-bf/design-system/commit/9d473ef8b0abbb9763204d47c5c054f86894d86d))
+
+### [2.1.2](https://github.com/uzh-bf/design-system/compare/v2.1.1...v2.1.2) (2023-09-11)
+
+
+### Bug Fixes
+
+* **NumberField:** add null check for precision ([880e4bb](https://github.com/uzh-bf/design-system/commit/880e4bb941d9285775ec2908ed282c4d1a7f4490))
+
+### [2.1.1](https://github.com/uzh-bf/design-system/compare/v2.1.0...v2.1.1) (2023-09-07)
+
+
+### Bug Fixes
+
+* **Select:** add contentPosition to prevent scrolling issue ([1c8a830](https://github.com/uzh-bf/design-system/commit/1c8a83015e0926175cc8dd7c3521a3821359e36e))
+
+## [2.1.0](https://github.com/uzh-bf/design-system/compare/v2.0.14...v2.1.0) (2023-08-31)
+
+
+### Features
+
+* introduce override styles for all affected components ([#68](https://github.com/uzh-bf/design-system/issues/68)) ([a4d5f93](https://github.com/uzh-bf/design-system/commit/a4d5f93138a2c91bbeb6713d6d6bb4efcb86f531))
+
+
+### Bug Fixes
+
+* **Button:** set cursor-pointer ([f2ba18f](https://github.com/uzh-bf/design-system/commit/f2ba18f211bdbf56e3658bc701ddc60f36f9c1a0))
+
+### [2.0.14](https://github.com/uzh-bf/design-system/compare/v2.0.13...v2.0.14) (2023-08-30)
+
+
+### Bug Fixes
+
+* ***NumberField:** ensure that only considered props are accepted by components ([eff027c](https://github.com/uzh-bf/design-system/commit/eff027c324ca893f2c646bd05e997928c37a33aa))
+
+### [2.0.13](https://github.com/uzh-bf/design-system/compare/v2.0.12...v2.0.13) (2023-08-24)
+
+
+### Enhancements
+
+* **Checkbox:** add partial state to checkboxes ([#67](https://github.com/uzh-bf/design-system/issues/67)) ([130b976](https://github.com/uzh-bf/design-system/commit/130b9760fd96ed8cd585d4089de8e5c60ba690a0))
+
+### [2.0.12](https://github.com/uzh-bf/design-system/compare/v2.0.11...v2.0.12) (2023-08-16)
+
+
+### Enhancements
+
+* **DateChanger:** save changes on blur instead of button click ([#65](https://github.com/uzh-bf/design-system/issues/65)) ([b9f287e](https://github.com/uzh-bf/design-system/commit/b9f287e398ac7d98707dd8833c1684748ae403e6))
+* **StepProgress:** make StepProgress generic by using a formatter function ([#66](https://github.com/uzh-bf/design-system/issues/66)) ([0822e26](https://github.com/uzh-bf/design-system/commit/0822e268a2e6ee6ecbbc3a398c4ac973956d9e1a))
+
+### [2.0.11](https://github.com/uzh-bf/design-system/compare/v2.0.10...v2.0.11) (2023-08-14)
+
+
+### Other
+
+* **Select:** justify space between content and arrow on trigger ([3de4ea5](https://github.com/uzh-bf/design-system/commit/3de4ea593c9ab5a098f7e896518b74ad995867c0))
+
+### [2.0.10](https://github.com/uzh-bf/design-system/compare/v2.0.9...v2.0.10) (2023-08-14)
+
+
+### Enhancements
+
+* add nested classNames to formik components passed on to base components ([#64](https://github.com/uzh-bf/design-system/issues/64)) ([af0ef7f](https://github.com/uzh-bf/design-system/commit/af0ef7fadbd1b0e0cbbf01e72fddd22a7716df2c))
+
+### [2.0.9](https://github.com/uzh-bf/design-system/compare/v2.0.8...v2.0.9) (2023-08-14)
+
+
+### Bug Fixes
+
+* **Button:** ensure that root style always overrides default styling ([25f42fa](https://github.com/uzh-bf/design-system/commit/25f42fa39ed651c21845fc91efcbffb3e0cc9403))
+* **Modal:** use overflow-y-auto instead of scroll ([8b81484](https://github.com/uzh-bf/design-system/commit/8b81484498edbaff137ca9ab70139fdaa023e31e))
+
+
+### Refactors
+
+* **NumberField:** remove validation regex definition from onChange function ([5b1c497](https://github.com/uzh-bf/design-system/commit/5b1c49799024843ae20517c176e5bc47b7bc8d97))
+
+### [2.0.8](https://github.com/uzh-bf/design-system/compare/v2.0.7...v2.0.8) (2023-08-08)
+
+
+### Other
+
+* **Workflow:** simplify styling of tooltip symbol ([1333816](https://github.com/uzh-bf/design-system/commit/1333816e7ffe402d117a6a0bbd4b478a0bbf29b8))
+
+### [2.0.7](https://github.com/uzh-bf/design-system/compare/v2.0.6...v2.0.7) (2023-08-03)
+
+
+### Enhancements
+
+* **Workflow:** add optional tooltip symbols to workflow component items ([#63](https://github.com/uzh-bf/design-system/issues/63)) ([c2dc398](https://github.com/uzh-bf/design-system/commit/c2dc398009682090b3b4ad42c5c4b8fc7652fba5))
+
+### [2.0.6](https://github.com/uzh-bf/design-system/compare/v2.0.5...v2.0.6) (2023-07-31)
+
+
+### Other
+
+* **Formik*:** add tooltip styling attributes to all formik components ([3f93a20](https://github.com/uzh-bf/design-system/commit/3f93a20773c5d21fc4a9f87f0e0fbf261c70d086))
+
+### [2.0.5](https://github.com/uzh-bf/design-system/compare/v2.0.4...v2.0.5) (2023-07-21)
+
+
+### Other
+
+* make peer deps less strict ([b0a0d48](https://github.com/uzh-bf/design-system/commit/b0a0d48e3e1e3e56b1cab906a6a312b1af18cc27))
+
+### [2.0.4](https://github.com/uzh-bf/design-system/compare/v2.0.3...v2.0.4) (2023-07-18)
+
+
+### Enhancements
+
+* **StepProgress:** add status and highlighting to step progress elements ([#62](https://github.com/uzh-bf/design-system/issues/62)) ([8957b28](https://github.com/uzh-bf/design-system/commit/8957b28a865f9bdf8450183a3734cb3677b6711d))
+
+### [2.0.3](https://github.com/uzh-bf/design-system/compare/v2.0.2...v2.0.3) (2023-07-18)
+
+
+### Enhancements
+
+* **Workflow:** add progress highlighting ([#61](https://github.com/uzh-bf/design-system/issues/61)) ([e6c7810](https://github.com/uzh-bf/design-system/commit/e6c7810fe5545de0c18f02d98dd6f62b6ee6d09a))
+
+### [2.0.2](https://github.com/uzh-bf/design-system/compare/v2.0.1...v2.0.2) (2023-07-14)
+
+
+### Enhancements
+
+* **Workflow:** pass step index to onClick function for easier state changes ([7840451](https://github.com/uzh-bf/design-system/commit/7840451f3b4a80b2fc5694c1ee49a30f3401a7e1))
+
+### [2.0.1](https://github.com/uzh-bf/design-system/compare/v2.0.0...v2.0.1) (2023-07-14)
+
+
+### Enhancements
+
+* **Workflow:** add possibility to disable elements and extend stories ([ed9a442](https://github.com/uzh-bf/design-system/commit/ed9a442d823c4e0d75e01576606d32e160244e20))
+* **Workflow:** add prop for minimal vertical extension and slim appearance ([0bbee0d](https://github.com/uzh-bf/design-system/commit/0bbee0d895ab30acc7eb6a3e1c7dc0c72575f987))
+* **Workflow:** add tooltips to workflow steps ([47cc261](https://github.com/uzh-bf/design-system/commit/47cc261f660214106cd99050c0e37564c9f13c00))
+
+## [2.0.0](https://github.com/uzh-bf/design-system/compare/v1.9.5...v2.0.0) (2023-07-10)
+
+
+### Refactors
+
+* new theme approach ([#60](https://github.com/uzh-bf/design-system/issues/60)) ([422ac6c](https://github.com/uzh-bf/design-system/commit/422ac6c0edf6c8e9c8e34fae78124239daf34113))
+
+### [1.9.5](https://github.com/uzh-bf/design-system/compare/v1.9.4...v1.9.5) (2023-07-07)
+
+
+### Enhancements
+
+* **Countdown:** add onUpdate ([4687ee5](https://github.com/uzh-bf/design-system/commit/4687ee54de6b600a7d237b489e46005358b194d2))
+
+### [1.9.4](https://github.com/uzh-bf/design-system/compare/v1.9.3...v1.9.4) (2023-07-06)
+
+
+### Enhancements
+
+* **Dropdown:** extend styling possibilities and active states ([#59](https://github.com/uzh-bf/design-system/issues/59)) ([61dc02e](https://github.com/uzh-bf/design-system/commit/61dc02ed1fcda48e500a84595330a08d7ed33e3c))
+
+### [1.9.3](https://github.com/uzh-bf/design-system/compare/v1.9.2...v1.9.3) (2023-07-06)
+
+
+### Bug Fixes
+
+* **Table:** ensure positive and negative numbers are sorted correctly ([83bc936](https://github.com/uzh-bf/design-system/commit/83bc936721620e5b0347bbe9a4070d4c9a806d26))
+
+### [1.9.2](https://github.com/uzh-bf/design-system/compare/v1.9.1...v1.9.2) (2023-07-02)
+
+
+### Bug Fixes
+
+* **Button:** rewind tooltip wrapper changes to fix next-hydration error ([41ce240](https://github.com/uzh-bf/design-system/commit/41ce2409513ff231609c175b2e4ba07744a2b52c))
+
+### [1.9.1](https://github.com/uzh-bf/design-system/compare/v1.9.0...v1.9.1) (2023-07-02)
+
+
+### Enhancements
+
+* **Button:** add optional tooltip on hover ([2b38d94](https://github.com/uzh-bf/design-system/commit/2b38d94234d795788a70983ff752dafaa955f2b6))
+
+## [1.9.0](https://github.com/uzh-bf/design-system/compare/v1.8.4...v1.9.0) (2023-06-27)
+
+
+### Features
+
+* **Workflow:** introduce new workflow component ([#58](https://github.com/uzh-bf/design-system/issues/58)) ([54e6df7](https://github.com/uzh-bf/design-system/commit/54e6df7b8ee5077f771009d34e5556a963c6c9fb))
+
+### [1.8.4](https://github.com/uzh-bf/design-system/compare/v1.8.3...v1.8.4) (2023-06-25)
+
+
+### Enhancements
+
+* **Table:** add default sort parameters ([611eaf6](https://github.com/uzh-bf/design-system/commit/611eaf619b88a53156efdbc50ea2cc975828b97d))
+
+### [1.8.3](https://github.com/uzh-bf/design-system/compare/v1.8.2...v1.8.3) (2023-06-24)
+
+
+### Bug Fixes
+
+* **Button:** ensure that conditional styles are applied in correct order ([29fdb9d](https://github.com/uzh-bf/design-system/commit/29fdb9dd661baaa69cd1939e14df6269afce3e8f))
+
+### [1.8.2](https://github.com/uzh-bf/design-system/compare/v1.8.1...v1.8.2) (2023-06-24)
+
+
+### Enhancements
+
+* **Button:** add conditional custom styling options for disabled and active states ([781b74d](https://github.com/uzh-bf/design-system/commit/781b74d1500b665a7836a68e61ec30e7c3be22b3))
+
+### [1.8.1](https://github.com/uzh-bf/design-system/compare/v1.8.0...v1.8.1) (2023-06-24)
+
+
+### Other
+
+* lockfile maintenance ([08352ee](https://github.com/uzh-bf/design-system/commit/08352ee79dde42b7eea1848393169c34a62652e1))
+
+
+### Enhancements
+
+* **Table:** improve styling capabilities on row and column level, improve code clarity, allow customizing empty cell text ([a20b325](https://github.com/uzh-bf/design-system/commit/a20b32536705733620b54f89321443fcd35d040c))
+
+## [1.8.0](https://github.com/uzh-bf/design-system/compare/v1.7.4...v1.8.0) (2023-06-16)
+
+
+### Features
+
+* **FormikColorPicker:** add formik color picker component ([#57](https://github.com/uzh-bf/design-system/issues/57)) ([33a2b8d](https://github.com/uzh-bf/design-system/commit/33a2b8dc87c9e6a78a86d2ba533397a0fb851c66))
+
+### [1.7.4](https://github.com/uzh-bf/design-system/compare/v1.7.3...v1.7.4) (2023-06-15)
+
+
+### Enhancements
+
+* **ColorPicker:** add color picker component ([#56](https://github.com/uzh-bf/design-system/issues/56)) ([f7cd6d6](https://github.com/uzh-bf/design-system/commit/f7cd6d65073e7894362d5a0a32b06e1b8b3e125a))
+
+### [1.7.3](https://github.com/uzh-bf/design-system/compare/v1.7.2...v1.7.3) (2023-06-09)
+
+
+### Bug Fixes
+
+* **Collapsible:** remove test styling and fix width issue ([ea653d5](https://github.com/uzh-bf/design-system/commit/ea653d5f927e56940bbc72dcdcb87b125ccec061))
+
+### [1.7.2](https://github.com/uzh-bf/design-system/compare/v1.7.1...v1.7.2) (2023-06-09)
+
+
+### Enhancements
+
+* **Collapsible:** add optional primary and secondary buttons or custom components on trigger level ([4533f52](https://github.com/uzh-bf/design-system/commit/4533f529abe35a041c80d83c6e45ff68435c52f8))
+
+### [1.7.1](https://github.com/uzh-bf/design-system/compare/v1.7.0...v1.7.1) (2023-05-24)
+
+
+### Bug Fixes
+
+* **FormikPinField:** add missing exports for formik pin field ([9608d3f](https://github.com/uzh-bf/design-system/commit/9608d3faeed63e2e7f4bcabb88f7091704b446f0))
+
+## [1.7.0](https://github.com/uzh-bf/design-system/compare/v1.6.4...v1.7.0) (2023-05-24)
+
+
+### Features
+
+* **FormikPinField:** add formik pin field component ([#55](https://github.com/uzh-bf/design-system/issues/55)) ([f29ed56](https://github.com/uzh-bf/design-system/commit/f29ed56a0404f90ba4980d68482b85531350a10b))
+
+### [1.6.4](https://github.com/uzh-bf/design-system/compare/v1.6.3...v1.6.4) (2023-05-20)
+
+
+### Enhancements
+
+* **forms/Formik*:** add small label display option through labelType prop ([588d01a](https://github.com/uzh-bf/design-system/commit/588d01a103a4fdd44821807d59be1714d309a832))
+* **forms/FormikTextField:** implement possibility to add icons with optional onClick function ([e4c3791](https://github.com/uzh-bf/design-system/commit/e4c3791f4fbaaf3096dd2bfa0c131d537e0400a2))
+
+### [1.6.3](https://github.com/uzh-bf/design-system/compare/v1.6.2...v1.6.3) (2023-05-09)
+
+
+### Bug Fixes
+
+* **Select:** remove dark styles that are always applied ([869fab5](https://github.com/uzh-bf/design-system/commit/869fab5c88b65570b9f131b6a08d51b7c5fc09ac))
+
+### [1.6.2](https://github.com/uzh-bf/design-system/compare/v1.6.1...v1.6.2) (2023-05-04)
+
+
+### Other
+
+* remove darkMode class to use media-query based dark mode toggle ([598091b](https://github.com/uzh-bf/design-system/commit/598091bc03b84c0525b77a9e1f8c03e9ced5966a))
+
+
+### Enhancements
+
+* **UserNotification:** make message prop optional if children are provided ([0fad5cd](https://github.com/uzh-bf/design-system/commit/0fad5cd032edebe7640e92587448639cd90be888))
+
 ### [1.6.1](https://github.com/uzh-bf/design-system/compare/v1.6.0...v1.6.1) (2023-04-30)
 
 

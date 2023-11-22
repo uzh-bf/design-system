@@ -1,8 +1,16 @@
 import * as RadixSwitch from '@radix-ui/react-switch'
-import React, { useContext } from 'react'
+import React from 'react'
 import { twMerge } from 'tailwind-merge'
 import Label from './forms/Label'
-import { ThemeContext } from './ThemeProvider'
+
+export interface SwitchClassName {
+  override?: string
+  thumbOverride?: string
+  root?: string
+  element?: string
+  thumb?: string
+  label?: string
+}
 
 export interface SwitchProps {
   id?: string
@@ -18,12 +26,7 @@ export interface SwitchProps {
   fluid?: boolean
   labelLeft?: boolean
   size?: 'sm' | 'md' | 'lg'
-  className?: {
-    root?: string
-    element?: string
-    thumb?: string
-    label?: string
-  }
+  className?: SwitchClassName
 }
 
 /**
@@ -56,8 +59,6 @@ export function Switch({
   size = 'md',
   className,
 }: SwitchProps) {
-  const theme = useContext(ThemeContext)
-
   const rootSize = {
     sm: 'w-10 h-[1.3rem]',
     md: 'w-12 h-[1.6rem]',
@@ -91,9 +92,11 @@ export function Switch({
         data-test={data?.test}
         checked={checked}
         className={twMerge(
-          'relative bg-uzh-grey-80 rounded-full border-0',
-          disabled && 'bg-uzh-grey-40 cursor-not-allowed',
-          checked && theme.primaryBgMedium,
+          className?.override,
+          'relative rounded-full border-0 bg-uzh-grey-80',
+          disabled && 'cursor-not-allowed bg-uzh-grey-40',
+          checked && 'bg-primary-60',
+          checked && disabled && 'bg-primary-20',
           rootSize[size || 'md'],
           className?.element
         )}
@@ -102,7 +105,8 @@ export function Switch({
       >
         <RadixSwitch.Thumb
           className={twMerge(
-            'block bg-white rounded-full transition-transform',
+            className?.thumbOverride,
+            'block rounded-full bg-white transition-transform',
             checked && transitionSize[size || 'md'],
             thumbSize[size || 'md'],
             className?.thumb

@@ -24,6 +24,18 @@ export const Disabled = () => {
   )
 }
 
+export const DisabledActive = () => {
+  const [isChecked, setIsChecked] = useState(true)
+  return (
+    <Switch
+      disabled
+      checked={isChecked}
+      label="Unchecked"
+      onCheckedChange={(newValue) => setIsChecked(newValue)}
+    />
+  )
+}
+
 export const Sizes = () => {
   const [isChecked1, setIsChecked1] = useState(false)
   const [isChecked2, setIsChecked2] = useState(false)

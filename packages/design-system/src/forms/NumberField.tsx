@@ -2,6 +2,14 @@ import React from 'react'
 import { twMerge } from 'tailwind-merge'
 import Label from './Label'
 
+export interface NumberFieldClassName {
+  override?: string
+  root?: string
+  input?: string
+  label?: string
+  tooltip?: string
+}
+
 export interface NumberFieldProps {
   id?: string
   data?: {
@@ -11,16 +19,12 @@ export interface NumberFieldProps {
   value: string | number
   onChange: (newValue: string) => void
   label?: string
-  tooltip?: string
+  tooltip?: string | React.ReactNode
   required?: boolean
   onBlur?: () => void
   placeholder?: string
   disabled?: boolean
-  className?: {
-    root?: string
-    input?: string
-    label?: string
-  }
+  className?: NumberFieldClassName
   precision?: number
   [key: string]: any
 }
@@ -39,6 +43,13 @@ export function NumberField({
   className,
   precision,
 }: NumberFieldProps): React.ReactElement {
+  const regex =
+    typeof precision === 'number' && !isNaN(precision)
+      ? precision === 0
+        ? /^[-]?\d*$/
+        : new RegExp(`^[-]?\\d*\\.?\\d{0,${precision}}$`)
+      : /^[-]?\d*\.?\d*$/
+
   return (
     <div className={twMerge('flex flex-row', className?.root)}>
       {label && (
@@ -47,8 +58,8 @@ export function NumberField({
           required={required}
           label={label}
           className={{
-            root: twMerge('my-auto mr-2 font-bold min-w-max', className?.label),
-            tooltip: 'text-sm font-normal',
+            root: twMerge('my-auto mr-2 min-w-max font-bold', className?.label),
+            tooltip: twMerge('text-sm font-normal', className?.tooltip),
           }}
           tooltip={tooltip}
           showTooltipSymbol={typeof tooltip !== 'undefined'}
@@ -62,26 +73,18 @@ export function NumberField({
         type="text"
         value={value}
         onChange={(e) => {
-          let regex
-
-          if (typeof precision !== 'undefined') {
-            regex =
-              precision === 0
-                ? /^[-]?\d*$/
-                : new RegExp(`^[-]?\\d*\\.?\\d{0,${precision}}$`)
-          } else {
-            regex = /^[-]?\d*\.?\d*$/
-          }
-
           if (e.target.value.match(regex) !== null) {
             onChange(e.target.value)
+          } else {
+            console.log(`input ${e.target.value} does not match regex ${regex}`)
           }
         }}
         onBlur={onBlur}
         placeholder={placeholder}
         disabled={disabled}
         className={twMerge(
-          'w-full rounded bg-uzh-grey-20 border border-uzh-grey-60 focus:border-uzh-blue-50 h-9',
+          className?.override,
+          'focus:border-uzh-blue-50 h-9 w-full rounded border border-uzh-grey-60 bg-uzh-grey-20',
           disabled && 'cursor-not-allowed',
           className?.input
         )}

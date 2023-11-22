@@ -12,18 +12,20 @@ export interface TextFieldProps {
   }
   label?: string
   placeholder?: string
-  tooltip?: string
+  tooltip?: string | React.ReactNode
   required?: boolean
   hideError?: boolean
   hasError?: boolean
   isTouched?: boolean
   disabled?: boolean
   className?: {
+    override?: string
     root?: string
     field?: string
     label?: string
     input?: string
     error?: string
+    tooltip?: string
   }
   icon?: IconProp
   value: string
@@ -68,15 +70,15 @@ export function TextField({
   ...props
 }: TextFieldProps) {
   return (
-    <div className={twMerge('flex flex-row w-full', className?.field)}>
+    <div className={twMerge('flex w-full flex-row', className?.field)}>
       {label && (
         <Label
           forId={id}
           required={required}
           label={label}
           className={{
-            root: twMerge('my-auto mr-2 font-bold min-w-max', className?.label),
-            tooltip: 'text-sm font-normal',
+            root: twMerge('my-auto mr-2 min-w-max font-bold', className?.label),
+            tooltip: twMerge('text-sm font-normal', className?.tooltip),
           }}
           tooltip={tooltip}
           showTooltipSymbol={typeof tooltip !== 'undefined'}
@@ -94,7 +96,8 @@ export function TextField({
           placeholder={placeholder}
           disabled={disabled}
           className={twMerge(
-            'w-full rounded border border-uzh-grey-60 focus:border-uzh-blue-50 h-9 text-slate-600 pl-2',
+            className?.override,
+            'focus:border-uzh-blue-50 h-9 w-full rounded border border-uzh-grey-60 pl-2 text-slate-600',
             icon && 'pl-8',
             disabled && 'cursor-not-allowed',
             hasError && isTouched && 'border-red-400 bg-red-50',
@@ -104,7 +107,7 @@ export function TextField({
         />
         {icon && (
           <FontAwesomeIcon
-            className="absolute left-2 inset-y-2 text-slate-500"
+            className="absolute inset-y-2 left-2 text-slate-500"
             icon={icon}
             size="lg"
           />

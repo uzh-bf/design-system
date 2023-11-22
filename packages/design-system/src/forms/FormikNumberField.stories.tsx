@@ -263,9 +263,49 @@ export const Styled = () => (
                 className={{
                   root: 'mb-1 w-1/2',
                   label: 'text-red-500',
-                  input: 'bg-uzh-blue-20',
                   error: 'text-red-700',
+                  numberField: {
+                    input: 'bg-uzh-blue-20',
+                  },
                 }}
+                placeholder="Placeholder"
+              />
+              <Button type="submit">Submit</Button>
+            </Form>
+            <div>Value: {values.name}</div>
+          </div>
+        )
+      }}
+    </Formik>
+  </div>
+)
+
+export const SmallLabel = () => (
+  <div>
+    <div>
+      Formik text area component with a small label (designed e.g. for login
+      forms)
+    </div>
+    <Formik
+      initialValues={{
+        name: '',
+      }}
+      isInitialValid={false}
+      onSubmit={async (values, { resetForm }) => {
+        alert(`Form submitted with value: ${values.name}`)
+        resetForm()
+      }}
+    >
+      {({ values }) => {
+        return (
+          <div>
+            <Form>
+              <FormikNumberField
+                required
+                name="name"
+                label="Label"
+                labelType="small"
+                className={{ root: 'mb-1' }}
                 placeholder="Placeholder"
               />
               <Button type="submit">Submit</Button>

@@ -1,7 +1,7 @@
 import { useField } from 'formik'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
-import Switch from '../Switch'
+import Switch, { SwitchClassName } from '../Switch'
 import Label from './Label'
 
 export interface FormikSwitchFieldProps {
@@ -16,14 +16,14 @@ export interface FormikSwitchFieldProps {
   label?: string
   size?: 'sm' | 'md' | 'lg'
   standardLabel?: boolean
-  tooltip?: string
+  tooltip?: string | React.ReactNode
   required?: boolean
   className?: {
     root?: string
-    element?: string
-    thumb?: string
     label?: string
+    tooltip?: string
     error?: string
+    switch?: SwitchClassName
   }
 }
 
@@ -60,7 +60,7 @@ export function FormikSwitchField({
   const [field, meta, helpers] = useField(name)
 
   return (
-    <div className="w-max">
+    <div className={twMerge('w-max', className?.root)}>
       <div className="flex flex-row items-center">
         {standardLabel && label && (
           <Label
@@ -69,10 +69,10 @@ export function FormikSwitchField({
             label={label}
             className={{
               root: twMerge(
-                'my-auto mr-2 font-bold min-w-max',
+                'my-auto mr-2 min-w-max font-bold',
                 className?.label
               ),
-              tooltip: 'text-sm font-normal',
+              tooltip: twMerge('text-sm font-normal', className?.tooltip),
             }}
             tooltip={tooltip}
             showTooltipSymbol={typeof tooltip !== 'undefined'}
@@ -87,13 +87,13 @@ export function FormikSwitchField({
           disabled={disabled}
           label={standardLabel ? undefined : label}
           size={size}
-          className={className}
+          className={className?.switch}
         />
       </div>
       {!hideError && meta.touched && meta.error && (
         <div
           className={twMerge(
-            'text-sm text-right text-red-400',
+            'text-right text-sm text-red-400',
             className?.error
           )}
         >

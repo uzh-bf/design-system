@@ -186,3 +186,48 @@ export const Required = () => {
     </div>
   )
 }
+
+export const SmallLabel = () => {
+  dayjs.extend(utc)
+
+  return (
+    <div>
+      <div>
+        Formik text area component with a small label (designed e.g. for login
+        forms)
+      </div>
+      <Formik
+        initialValues={{
+          endDate: (dayjs('').local().format() || '')
+            .toString()
+            .substring(0, 16),
+        }}
+        isInitialValid={false}
+        validationSchema={dateSchema}
+        onSubmit={(values, isValid) => {
+          if (!isValid) {
+            alert('Form is not valid')
+          }
+          alert(`Submitted end date: ${dayjs(values.endDate).utc().format()}`)
+        }}
+      >
+        {({ isValid }) => (
+          <Form>
+            <FormikDateField
+              name="endDate"
+              label="End Date"
+              labelType="small"
+            />
+            <Button
+              className={{ root: 'mt-2' }}
+              type="submit"
+              disabled={!isValid}
+            >
+              Submit
+            </Button>
+          </Form>
+        )}
+      </Formik>
+    </div>
+  )
+}

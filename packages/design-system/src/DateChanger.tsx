@@ -1,11 +1,22 @@
-import { faSave } from '@fortawesome/free-regular-svg-icons'
 import { faPencil, IconDefinition } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import dayjs from 'dayjs'
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import Button from './Button'
 import Label from './forms/Label'
+
+export interface DateChangerClassName {
+  override?: string
+  root?: string
+  label?: string
+  field?: string
+  input?: string
+  disabled?: string
+  editButton?: string
+  saveButton?: string
+  tooltip?: string
+}
 
 export interface DateChangerProps {
   id?: string
@@ -19,7 +30,7 @@ export interface DateChangerProps {
   }
   label?: string
   required?: boolean
-  tooltip?: string
+  tooltip?: string | React.ReactNode
   disabled?: boolean
   format?: string
   edit: boolean
@@ -27,16 +38,7 @@ export interface DateChangerProps {
   onEdit: () => void
   onSave: (date: string) => void
   editIcon?: IconDefinition
-  saveIcon?: IconDefinition
-  className?: {
-    root?: string
-    label?: string
-    field?: string
-    input?: string
-    disabled?: string
-    editButton?: string
-    saveButton?: string
-  }
+  className?: DateChangerClassName
 }
 
 /**
@@ -55,7 +57,6 @@ export interface DateChangerProps {
  * @param onEdit - The function to be called when the edit button is clicked (external state management)
  * @param onSave - The function to be called when the save button is clicked (external state management)
  * @param editIcon - The icon to be displayed on the edit button
- * @param saveIcon - The icon to be displayed on the save button
  * @param className - The optional className object allows you to override the default styling.
  * @returns Date changer component with optional label, edit button and save button.
  */
@@ -74,19 +75,28 @@ export function DateChanger({
   onEdit,
   onSave,
   editIcon = faPencil,
-  saveIcon = faSave,
   className,
 }: DateChangerProps) {
   const [dateState, setDateState] = useState(dayjs(date).format('YYYY-MM-DD'))
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    if (edit) {
+      inputRef.current?.focus()
+    }
+  }, [edit])
 
   return (
     <div
-      className={twMerge('flex flex-row items-center w-max', className?.root)}
+      className={twMerge('flex w-max flex-row items-center', className?.root)}
     >
       {label && (
         <Label
           label={label}
-          className={{ root: twMerge('mr-1.5', className?.label) }}
+          className={{
+            root: twMerge('mr-1.5', className?.label),
+            tooltip: className?.tooltip,
+          }}
           tooltip={tooltip}
           showTooltipSymbol={!!tooltip}
           required={required}
@@ -95,39 +105,29 @@ export function DateChanger({
       {edit && !disabled ? (
         <div
           className={twMerge(
-            'flex flex-row gap-2 border border-solid rounded',
+            'flex flex-row gap-2 rounded border border-solid',
 
             className?.field
           )}
         >
           <input
+            ref={inputRef}
             data-cy={data?.cy}
             data-test={data?.test}
             id={id}
             type="date"
             className={twMerge(
-              'px-0 py-1 pl-2 border-none w-max',
+              className?.override,
+              'w-max border-none px-0 py-1 pl-2',
               className?.input
             )}
             value={dateState}
             onChange={(e) => setDateState(e.target.value)}
+            onBlur={() => onSave(dateState)}
           />
-          <Button
-            basic
-            data={dataButton}
-            onClick={() => onSave(dateState)}
-            className={{
-              root: twMerge(
-                'px-2 py-1 bg-uzh-blue-20 hover:bg-uzh-blue-40',
-                className?.saveButton
-              ),
-            }}
-          >
-            <FontAwesomeIcon icon={saveIcon || faSave} />
-          </Button>
         </div>
       ) : (
-        <div className="flex flex-row gap-2 border border-solid rounded">
+        <div className="flex flex-row gap-2 rounded border border-solid">
           <div
             className={twMerge(
               'py-1 pl-2',
@@ -142,7 +142,7 @@ export function DateChanger({
             onClick={onEdit}
             className={{
               root: twMerge(
-                'bg-uzh-grey-20 py-1 px-2 hover:bg-uzh-grey-40',
+                'bg-uzh-grey-20 px-2 py-1 hover:bg-uzh-grey-40',
                 className?.editButton,
                 disabled && twMerge('cursor-not-allowed', className?.disabled)
               ),

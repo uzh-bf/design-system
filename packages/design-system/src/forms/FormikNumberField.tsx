@@ -2,7 +2,7 @@ import { useField } from 'formik'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
 import Label from './Label'
-import NumberField from './NumberField'
+import NumberField, { NumberFieldClassName } from './NumberField'
 
 export interface FormikNumberFieldProps {
   id?: string
@@ -12,8 +12,9 @@ export interface FormikNumberFieldProps {
     test?: string
   }
   label?: string
+  labelType?: 'small' | 'normal'
   placeholder?: string
-  tooltip?: string
+  tooltip?: string | React.ReactNode
   required?: boolean
   hideError?: boolean
   precision?: number
@@ -22,8 +23,9 @@ export interface FormikNumberFieldProps {
     root?: string
     field?: string
     label?: string
-    input?: string
+    tooltip?: string
     error?: string
+    numberField?: NumberFieldClassName
   }
 }
 
@@ -35,6 +37,7 @@ export interface FormikNumberFieldProps {
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param name - The name of the field as used to keep track of the state in Formik. If no value and onChange function are provided, this field is required.
  * @param label - The optional label is shown next to the field in the form.
+ * @param labelType - The optional labelType can be used to change the size and position of the label according to pre-defined standards.
  * @param placeholder - The optional placeholder is shown when the field is empty.
  * @param tooltip - The optional tooltip is shown on hover next to the label.
  * @param required - Indicate whether the field is required or not.
@@ -49,6 +52,7 @@ export function FormikNumberField({
   data,
   name,
   label,
+  labelType,
   placeholder,
   tooltip,
   required = false,
@@ -56,13 +60,18 @@ export function FormikNumberField({
   precision,
   disabled = false,
   className,
-  ...props
 }: FormikNumberFieldProps) {
   const [field, meta, helpers] = useField(name)
 
   return (
     <div className={twMerge('flex flex-col', className?.root)}>
-      <div className={twMerge('flex flex-row w-full', className?.field)}>
+      <div
+        className={twMerge(
+          'flex w-full flex-row',
+          labelType === 'small' && 'flex-col',
+          className?.field
+        )}
+      >
         {label && (
           <Label
             forId={id}
@@ -70,10 +79,13 @@ export function FormikNumberField({
             label={label}
             className={{
               root: twMerge(
-                'my-auto mr-2 font-bold min-w-max',
+                'my-auto mr-2 min-w-max font-bold',
+                labelType === 'small' &&
+                  'mt-1 text-sm font-normal leading-6 text-gray-600',
                 className?.label
               ),
-              tooltip: 'text-sm font-normal',
+              tooltip: twMerge('text-sm font-normal', className?.tooltip),
+              tooltipSymbol: twMerge(labelType === 'small' && 'h-2 w-2'),
             }}
             tooltip={tooltip}
             showTooltipSymbol={typeof tooltip !== 'undefined'}
@@ -88,12 +100,15 @@ export function FormikNumberField({
           placeholder={placeholder}
           disabled={disabled}
           precision={
-            typeof precision !== 'undefined' ? Math.round(precision) : undefined
+            typeof precision === 'number' && !isNaN(precision)
+              ? Math.round(precision)
+              : undefined
           }
           className={{
+            ...className?.numberField,
             input: twMerge(
               meta.error && meta.touched && 'border-red-400 bg-red-50',
-              className?.input
+              className?.numberField?.input
             ),
           }}
         />
@@ -101,7 +116,7 @@ export function FormikNumberField({
       {!hideError && meta.touched && meta.error && (
         <div
           className={twMerge(
-            'w-full text-sm text-right text-red-400',
+            'w-full text-right text-sm text-red-400',
             className?.error
           )}
         >

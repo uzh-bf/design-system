@@ -25,6 +25,8 @@ interface ToastProps {
   type?: 'default' | 'success' | 'warning' | 'error'
   children?: React.ReactNode
   className?: {
+    override?: string
+    viewportOverride?: string
     root?: string
     viewport?: string
     trigger?: string
@@ -124,7 +126,8 @@ export function Toast({
 
       <RadixToast.Root
         className={twMerge(
-          'grid items-center p-3 bg-white rounded-md shadow-md border-md gap-x-4',
+          className?.override,
+          'border-md grid items-center gap-x-4 rounded-md bg-white p-3 shadow-md',
           type === 'success' && 'border-2 border-solid border-green-500',
           type === 'warning' && 'border-2 border-solid border-orange-500',
           type === 'error' && 'border-2 border-solid border-red-500',
@@ -136,7 +139,7 @@ export function Toast({
       >
         {dismissible && (
           <Button
-            className={{ root: 'fixed top-4 right-6' }}
+            className={{ root: 'fixed right-6 top-4' }}
             basic
             onClick={() =>
               setOpenExternal ? setOpenExternal(false) : setOpen(false)
@@ -151,7 +154,7 @@ export function Toast({
             </Button.Icon>
           </Button>
         )}
-        <div className="flex flex-row items-center gap-4 mr-4">
+        <div className="mr-4 flex flex-row items-center gap-4">
           {type === 'success' && (
             <FontAwesomeIcon
               icon={faCheckCircle}
@@ -207,7 +210,8 @@ export function Toast({
       </RadixToast.Root>
       <RadixToast.Viewport
         className={twMerge(
-          'fixed top-0 right-0 flex flex-col p-3 gap-2 max-w-3xl min-w-[20rem] m-0 list-none z-[1000] outline-none',
+          className?.viewportOverride,
+          'fixed right-0 top-0 z-[1000] m-0 flex min-w-[20rem] max-w-3xl list-none flex-col gap-2 p-3 outline-none',
           positionDict[position || 'topRight'],
           className?.viewport
         )}

@@ -5,11 +5,13 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as RadixSelect from '@radix-ui/react-select'
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { ThemeContext } from './ThemeProvider'
 
-interface ClassName {
+export interface SelectClassName {
+  triggerOverride?: string
+  contentOverride?: string
+  itemOverride?: string
   root?: string
   trigger?: string
   content?: string
@@ -32,11 +34,12 @@ interface SelectProps {
   value?: string
   disabled?: boolean
   size?: 'md' | 'sm'
-  className?: ClassName
+  className?: SelectClassName
   placeholder?: string
   defaultValue?: string
   basic?: boolean
   asPortal?: boolean
+  contentPosition?: 'item-aligned' | 'popper'
 }
 
 export interface Item {
@@ -84,6 +87,7 @@ export interface SelectWithGroupsProps extends SelectProps {
  * @param basic - Specifies whether the select component is basic or not. A basic select component does only have minimal styling of the trigger.
  * @param className - The optional className object allows you to override the default styling.
  * @param asPortal - If true, the select component is rendered as a portal.
+ * @param contentPosition - The position of the content of the select component. Currently only 'item-aligned' and 'popper' are supported.
  * @return Select component
  */
 export function Select({
@@ -102,22 +106,23 @@ export function Select({
   defaultValue,
   basic = false,
   asPortal = false,
+  contentPosition = 'item-aligned',
 }: SelectWithItemsProps | SelectWithGroupsProps) {
   const [open, setOpen] = useState(false)
-  const theme = useContext(ThemeContext)
-
   const flatItems = items || groups?.flatMap((group) => group.items) || []
 
   const selectContent = (
     <RadixSelect.Content
+      position={contentPosition}
       className={twMerge(
-        'overflow-hidden bg-white rounded-md shadow-md z-50',
+        className?.contentOverride,
+        'z-50 overflow-hidden rounded-md bg-white shadow-md',
         className?.content
       )}
     >
       <RadixSelect.ScrollUpButton
         className={twMerge(
-          'flex items-center justify-center bg-white h-7',
+          'flex h-7 items-center justify-center bg-white',
           className?.scrollButton
         )}
       >
@@ -126,7 +131,7 @@ export function Select({
           size={size === 'sm' ? 'sm' : '1x'}
         />
       </RadixSelect.ScrollUpButton>
-      <RadixSelect.Viewport className="p-1 rounded-lg dark:bg-gray-800">
+      <RadixSelect.Viewport className="rounded-lg p-1">
         {items
           ? items.map((item, ix) => (
               <SelectItem
@@ -150,7 +155,7 @@ export function Select({
       </RadixSelect.Viewport>
       <RadixSelect.ScrollDownButton
         className={twMerge(
-          'flex items-center justify-center bg-white h-7',
+          'flex h-7 items-center justify-center bg-white',
           className?.scrollButton
         )}
       >
@@ -181,12 +186,12 @@ export function Select({
           data-cy={data?.cy}
           data-test={data?.test}
           className={twMerge(
-            'px-2 py-1 rounded-md',
+            className?.triggerOverride,
+            'rounded-md px-2 py-1',
             !basic &&
-              'inline-flex items-center justify-center gap-2 p-4 bg-white  shadow-sm h-7 border',
-            `${theme.primaryBgHover} ${theme.primaryTextHover}`,
+              'inline-flex h-7 items-center justify-between gap-2 border  bg-white p-4 shadow-sm hover:bg-primary-20 sm:hover:text-primary',
             disabled &&
-              'bg-uzh-grey-20 hover:bg-none, hover:text-none opacity-70 cursor-not-allowed shadow-sm',
+              'hover:bg-none, hover:text-none cursor-not-allowed bg-uzh-grey-20 opacity-70 shadow-sm',
             size === 'sm' && '!text-sm',
             className?.trigger
           )}
@@ -238,7 +243,7 @@ interface SelectItemProps {
     test?: string
   }
   label: string
-  className?: ClassName
+  className?: SelectClassName
   size?: string
   value: string
   disabled?: boolean
@@ -249,18 +254,17 @@ const SelectItem = React.forwardRef(
     { id, data, className, label, size, disabled, ...props }: SelectItemProps,
     forwardedRef
   ) => {
-    const theme = useContext(ThemeContext)
-
     return (
       <RadixSelect.Item
         id={id}
         data-cy={data?.cy}
         data-test={data?.test}
         className={twMerge(
-          'select-none relative flex items-center px-8 py-2 rounded-md text-gray-700 dark:text-gray-300 font-medium hover:cursor-pointer hover:outline-none',
-          `${theme.primaryBgHover} ${theme.primaryTextHover} ${theme.primaryBorderFocus}`,
+          className?.itemOverride,
+          'relative flex select-none items-center rounded-md px-8 py-2 font-medium text-gray-700',
+          'hover:cursor-pointer hover:bg-primary-20 hover:outline-none focus:border-primary-40 sm:hover:text-primary',
           disabled &&
-            'hover:text-gray-700 dark:hover:text-gray-300 opacity-50 cursor-not-allowed hover:bg-white',
+            'cursor-not-allowed opacity-50 hover:bg-white hover:text-gray-700',
           size === 'sm' && 'px-7 text-sm',
           className?.item
         )}
@@ -271,7 +275,7 @@ const SelectItem = React.forwardRef(
         <RadixSelect.ItemText className={twMerge(className?.text)}>
           {label}
         </RadixSelect.ItemText>
-        <RadixSelect.ItemIndicator className="absolute inline-flex items-center left-2">
+        <RadixSelect.ItemIndicator className="absolute left-2 inline-flex items-center">
           <FontAwesomeIcon icon={faCheck} size={size === 'sm' ? 'sm' : '1x'} />
         </RadixSelect.ItemIndicator>
       </RadixSelect.Item>
@@ -284,7 +288,7 @@ interface SelectGroupProps {
   size?: 'md' | 'sm'
   showSeparator?: boolean
   label?: string
-  className?: ClassName
+  className?: SelectClassName
 }
 
 const SelectGroup = ({

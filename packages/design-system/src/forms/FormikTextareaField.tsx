@@ -10,19 +10,22 @@ export interface TextareaFieldProps {
     test?: string
   }
   label?: string
+  labelType?: 'small' | 'normal'
   placeholder?: string
-  tooltip?: string
+  tooltip?: string | React.ReactNode
   required?: boolean
   maxLength?: number
   maxLengthLabel?: string
   hideError?: boolean
   disabled?: boolean
   className?: {
+    override?: string
     root?: string
     field?: string
     label?: string
     input?: string
     error?: string
+    tooltip?: string
   }
 }
 
@@ -48,6 +51,7 @@ export interface TextareaFieldWithOnChangeProps extends TextareaFieldProps {
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param name - The name of the field as used to keep track of the state in Formik. If no value and onChange function are provided, this field is required.
  * @param label - The optional label is shown next to the field in the form.
+ * @param labelType - The optional labelType can be used to change the size and position of the label according to pre-defined standards.
  * @param tooltip - The optional tooltip is shown on hover next to the label.
  * @param required - Indicate whether the field is required or not.
  * @param placeholder - The optional placeholder is shown when the field is empty.
@@ -67,6 +71,7 @@ export function FormikTextareaField({
   value,
   onChange,
   label,
+  labelType,
   placeholder,
   tooltip,
   required = false,
@@ -81,7 +86,13 @@ export function FormikTextareaField({
 
   return (
     <div className={twMerge('flex flex-col', className?.root)} id={id}>
-      <div className={twMerge('flex flex-row w-full', className?.field)}>
+      <div
+        className={twMerge(
+          'flex w-full flex-row',
+          labelType === 'small' && 'flex-col',
+          className?.field
+        )}
+      >
         {label && (
           <Label
             forId={id}
@@ -89,10 +100,13 @@ export function FormikTextareaField({
             label={label}
             className={{
               root: twMerge(
-                'my-auto mr-2 font-bold min-w-max',
+                'my-auto mr-2 min-w-max font-bold',
+                labelType === 'small' &&
+                  'mt-1 text-sm font-normal leading-6 text-gray-600',
                 className?.label
               ),
-              tooltip: 'text-sm font-normal',
+              tooltip: twMerge('text-sm font-normal', className?.tooltip),
+              tooltipSymbol: twMerge(labelType === 'small' && 'h-2 w-2'),
             }}
             tooltip={tooltip}
             showTooltipSymbol={typeof tooltip !== 'undefined'}
@@ -109,7 +123,8 @@ export function FormikTextareaField({
             maxLength={maxLength}
             disabled={disabled}
             className={twMerge(
-              'w-full rounded bg-uzh-grey-20 border border-uzh-grey-60 focus:border-uzh-blue-50 min-h-12',
+              className?.override,
+              'focus:border-uzh-blue-50 min-h-12 w-full rounded border border-uzh-grey-60 bg-uzh-grey-20',
               disabled && 'cursor-not-allowed',
               meta.error && meta.touched && 'border-red-400 bg-red-50',
               className?.input
@@ -129,7 +144,8 @@ export function FormikTextareaField({
             maxLength={maxLength}
             disabled={disabled}
             className={twMerge(
-              'w-full rounded bg-uzh-grey-20 border border-uzh-grey-60 focus:border-uzh-blue-50 min-h-12',
+              className?.override,
+              'focus:border-uzh-blue-50 min-h-12 w-full rounded border border-uzh-grey-60 bg-uzh-grey-20',
               disabled && 'cursor-not-allowed',
               meta.error && meta.touched && 'border-red-400 bg-red-50',
               className?.input
@@ -141,7 +157,7 @@ export function FormikTextareaField({
       {!hideError && meta.touched && meta.error && (
         <div
           className={twMerge(
-            'w-full text-sm text-right text-red-400',
+            'w-full text-right text-sm text-red-400',
             className?.error
           )}
         >
@@ -149,7 +165,7 @@ export function FormikTextareaField({
         </div>
       )}
       {maxLength && (
-        <div className="text-sm italic text-right">
+        <div className="text-right text-sm italic">
           {`${
             value?.length || field.value.length
           } / ${maxLength} ${maxLengthLabel}`}

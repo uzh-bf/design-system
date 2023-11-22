@@ -51,14 +51,32 @@ export const Info = () => {
   )
 }
 
+export const CustomContent = () => {
+  return (
+    <div>
+      <div>
+        It is also possible to only provide children to the notification
+        component, if not message text is available or if the content has to be
+        passed as a React node.
+      </div>
+      <UserNotification type="info">
+        <div>
+          <strong>This content is passed as a separate node</strong>
+          <div>Contains multiple lines</div>
+        </div>
+      </UserNotification>
+    </div>
+  )
+}
+
 export const Styled = () => {
   return (
     <UserNotification
       type="default"
       message="This is a notification with default type but added custom styling"
       className={{
-        root: 'text-lg gap-4',
-        content: 'text-red-400 text-base italic',
+        root: 'gap-4 text-lg',
+        content: 'text-base italic text-red-400',
         icon: 'text-blue-500',
         message: 'text-green-500',
       }}

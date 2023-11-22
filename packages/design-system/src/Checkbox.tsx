@@ -1,4 +1,4 @@
-import { faCheck } from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faMinus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as RadixCheckbox from '@radix-ui/react-checkbox'
 import React from 'react'
@@ -12,11 +12,13 @@ export interface CheckboxProps {
   }
   children?: React.ReactNode
   checked: boolean | 'indeterminate'
+  partial?: boolean
   disabled?: boolean
   onCheck: () => void
   label?: string | React.ReactNode
   size?: 'sm' | 'md' | 'lg' | 'xl'
   className?: {
+    override?: string
     root?: string
     label?: string
   }
@@ -30,6 +32,7 @@ export interface CheckboxProps {
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param children - Optional content of the checkbox that is shown when the checked attribute is true. By default, this is just replaced by a tick symbol.
  * @param checked - Indicate whether the checkbox is checked or not.
+ * @param partial - Indicate whether the checkbox is partially checked or not. If the checked attribute is true, it will alwawys override the partial condition simplified logic.
  * @param onCheck - The function that is called when the checkbox is checked or unchecked.
  * @param disabled - Indicate whether the checkbox is disabled or not.
  * @param label - The label of the checkbox.
@@ -42,6 +45,7 @@ export function Checkbox({
   data,
   children,
   checked,
+  partial = false,
   disabled = false,
   label,
   onCheck,
@@ -68,10 +72,11 @@ export function Checkbox({
         data-cy={data?.cy}
         data-test={data?.test}
         defaultChecked
-        checked={checked}
+        checked={checked || partial}
         className={twMerge(
-          'flex justify-center p-0 bg-white border border-solid rounded-md border-grey-80 align-center my-auto',
-          checked && 'border-black',
+          className?.override,
+          'border-grey-80 align-center my-auto flex justify-center rounded-md border border-solid bg-white p-0',
+          (checked || partial) && 'border-black',
           disabled && 'cursor-not-allowed',
           checkboxSize[size || 'md'],
           className?.root
@@ -82,7 +87,7 @@ export function Checkbox({
         <RadixCheckbox.CheckboxIndicator>
           {children || (
             <FontAwesomeIcon
-              icon={faCheck}
+              icon={checked ? faCheck : faMinus}
               className={tickStyle[size || 'md']}
             />
           )}
@@ -91,7 +96,7 @@ export function Checkbox({
       {label && (
         <div
           className={twMerge(
-            'flex flex-col justify-center h-full',
+            'flex h-full flex-col justify-center',
             className?.label
           )}
         >

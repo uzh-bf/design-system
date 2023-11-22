@@ -1,7 +1,6 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import Collapsible from './Collapsible'
 import { H2 } from './Header'
-import { ThemeContext } from './ThemeProvider'
 
 export const Default = () => {
   const [open, setOpen] = useState(false)
@@ -19,6 +18,44 @@ export const Default = () => {
   )
 }
 
+export const Buttons = () => {
+  const [open, setOpen] = useState(false)
+  return (
+    <Collapsible
+      open={open}
+      onChange={() => {
+        setOpen(!open)
+      }}
+      staticContent="Static content"
+      closedContent="Closed content"
+      primary="Primary"
+      secondary="Secondary"
+      onPrimaryClick={() => alert('Primary button was pushed')}
+      onSecondaryClick={() => alert('Secondary button was clicked')}
+    >
+      Dynamic content
+    </Collapsible>
+  )
+}
+
+export const PrimarySecondary = () => {
+  const [open, setOpen] = useState(false)
+  return (
+    <Collapsible
+      open={open}
+      onChange={() => {
+        setOpen(!open)
+      }}
+      staticContent="Static content"
+      closedContent="Closed content"
+      primary={<div className="bg-red-300">Custom primary component</div>}
+      secondary={<div className="bg-green-300">Custom secondary component</div>}
+    >
+      Dynamic content
+    </Collapsible>
+  )
+}
+
 export const Complex = () => {
   const [open, setOpen] = useState(false)
   return (
@@ -28,7 +65,7 @@ export const Complex = () => {
         setOpen(!open)
       }}
       staticContent={
-        <div className="flex flex-row justify-between items-center">
+        <div className="flex flex-row items-center justify-between">
           <H2>This is a title</H2>
           <div className="text-sm">Meta-Info</div>
         </div>
@@ -67,7 +104,6 @@ export const Simple = () => {
 
 export const Styled = () => {
   const [open, setOpen] = useState(false)
-  const theme = useContext(ThemeContext)
 
   return (
     <Collapsible
@@ -78,7 +114,7 @@ export const Styled = () => {
       staticContent="Static content"
       closedContent="Closed content"
       className={{
-        root: `border-1 ${theme.primaryBg}`,
+        root: `border-1 bg-primary-20`,
         trigger: 'text-red-500',
         content: 'text-blue-500',
         staticContent: 'text-green-500',

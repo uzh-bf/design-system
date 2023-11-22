@@ -86,10 +86,17 @@ const TailwindColorsUZH = {
 }
 
 const TailwindFonts = {
-  sans: ['var(--source-sans-pro)', 'Source Sans Pro', ...fontFamily.sans],
+  sans: [
+    'var(--theme-font-primary)',
+    'var(--source-sans-pro)',
+    '"Source Sans 3"',
+    '"Source Sans Pro"',
+    ...fontFamily.sans,
+  ],
 }
 
 const TailwindBasePlugins = {
+  'postcss-import': {},
   'tailwindcss/nesting': {},
   tailwindcss: {},
   autoprefixer: {},
@@ -108,10 +115,10 @@ const PrettierConfig = {
   singleQuote: true,
   trailingComma: 'es5',
   plugins: [
-    // FIXME: currently cannot use tailwindcss together with organize imports (https://github.com/tailwindlabs/prettier-plugin-tailwindcss/issues/31)
-    // require('prettier-plugin-tailwindcss'),
     require('prettier-plugin-organize-imports'),
+    require('prettier-plugin-tailwindcss'),
   ],
+  pluginSearchDirs: false,
 }
 
 const VersionConfigTypes = [
