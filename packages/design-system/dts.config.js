@@ -19,10 +19,11 @@ module.exports = {
       }),
       alias({
         entries: [
-          { find: 'react', replacement: 'preact/compat' },
-          { find: 'react-dom/test-utils', replacement: 'preact/test-utils' },
-          { find: 'react-dom', replacement: 'preact/compat' },
-          { find: 'react/jsx-runtime', replacement: 'preact/jsx-runtime' },
+          // TODO: enable if/when switching to preact
+          // { find: 'react', replacement: 'preact/compat' },
+          // { find: 'react-dom/test-utils', replacement: 'preact/test-utils' },
+          // { find: 'react-dom', replacement: 'preact/compat' },
+          // { find: 'react/jsx-runtime', replacement: 'preact/jsx-runtime' },
         ],
       })
     )
