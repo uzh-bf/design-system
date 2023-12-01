@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.4](https://github.com/uzh-bf/design-system/compare/v2.4.3...v2.4.4) (2023-12-01)
+
+
+### Bug Fixes
+
+* **ColorPicker:** prevent submit propagation of color picker change form ([c400a59](https://github.com/uzh-bf/design-system/commit/c400a59c89e9022fc0d2e4940b6b9b3df90f39c2))
+
 ### [2.4.3](https://github.com/uzh-bf/design-system/compare/v2.4.2...v2.4.3) (2023-11-06)
 
 
