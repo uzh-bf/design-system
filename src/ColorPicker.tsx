@@ -151,7 +151,9 @@ export function ColorPicker({
                 ),
               }}
               type="submit"
-              onClick={() => {
+              onClick={(e) => {
+                e?.preventDefault()
+                e?.stopPropagation()
                 onSubmit(newColor)
                 setColorPickerOpen(false)
               }}
