@@ -23,6 +23,18 @@ export interface ModalProps {
     cy?: string
     test?: string
   }
+  dataCloseButton?: {
+    cy?: string
+    test?: string
+  }
+  dataNextButton?: {
+    cy?: string
+    test?: string
+  }
+  dataPrevButton?: {
+    cy?: string
+    test?: string
+  }
   className?: {
     overlayOverride?: string
     contentOverride?: string
@@ -57,6 +69,9 @@ export interface ModalProps {
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param dataOverlay - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the overlay
  * @param dataContent - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the content
+ * @param dataCloseButton - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the close button
+ * @param dataNextButton - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the next button
+ * @param dataPrevButton - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the previous button
  * @param trigger - The optional trigger that opens the modal, if the state is not managed by some parent component already.
  * @param title - The optional title of the modal.
  * @param children - The content of the modal.
@@ -79,6 +94,9 @@ export function Modal({
   data,
   dataOverlay,
   dataContent,
+  dataCloseButton,
+  dataNextButton,
+  dataPrevButton,
   trigger,
   title = '',
   children,
@@ -125,6 +143,7 @@ export function Modal({
           className={{ root: twMerge('lg:text-xl', className?.onPrev) }}
           disabled={!onPrev}
           onClick={onPrev}
+          data={dataPrevButton}
         >
           <FontAwesomeIcon icon={faChevronLeft} />
         </Button>
@@ -162,7 +181,11 @@ export function Modal({
 
           {!hideCloseButton && (
             <RadixDialog.Close asChild>
-              <Button onClick={onClose} className={{ root: 'self-start' }}>
+              <Button
+                onClick={onClose}
+                className={{ root: 'self-start' }}
+                data={dataCloseButton}
+              >
                 <FontAwesomeIcon icon={faXmark} className="lg:text-xl" />
               </Button>
             </RadixDialog.Close>
@@ -182,6 +205,7 @@ export function Modal({
           className={{ root: twMerge('lg:text-xl', className?.onNext) }}
           disabled={!onNext}
           onClick={onNext}
+          data={dataNextButton}
         >
           <FontAwesomeIcon icon={faChevronRight} />
         </Button>
