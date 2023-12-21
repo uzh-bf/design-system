@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.7](https://github.com/uzh-bf/design-system/compare/v2.4.6...v2.4.7) (2023-12-21)
+
+
+### Bug Fixes
+
+* **Select:** ensure that options receive correct data testing attributes ([ce8401c](https://github.com/uzh-bf/design-system/commit/ce8401c1de42c730a5d77ab493bb6be55b15a49b))
+
 ### [2.4.6](https://github.com/uzh-bf/design-system/compare/v2.4.5...v2.4.6) (2023-12-01)
 
 
