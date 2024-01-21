@@ -1,0 +1,7 @@
+{
+  "name": "@uzh-bf/parcel-resolver-preact",
+  "main": "index.js",
+  "engines": {
+    "parcel": "^2.0.0"
+  }
+}
