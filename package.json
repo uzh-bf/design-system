@@ -22,6 +22,7 @@
     "node": "18.16.0"
   },
   "scripts": {
+    "dev": "npm run -w packages/design-system dev",
     "lint": "turbo run lint",
     "test": "turbo run test",
     "build": "turbo run build",
