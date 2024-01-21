@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.7](https://github.com/uzh-bf/design-system/compare/v2.4.6...v2.4.7) (2023-12-21)
+
+
+### Bug Fixes
+
+* **Select:** ensure that options receive correct data testing attributes ([ce8401c](https://github.com/uzh-bf/design-system/commit/ce8401c1de42c730a5d77ab493bb6be55b15a49b))
+
+### [2.4.6](https://github.com/uzh-bf/design-system/compare/v2.4.5...v2.4.6) (2023-12-01)
+
+
+### Other
+
+* **Modal:** add close, next and previous data attributes ([6d28ae1](https://github.com/uzh-bf/design-system/commit/6d28ae16c7e04947cc2327a69998f43333929c7f))
+
+### [2.4.5](https://github.com/uzh-bf/design-system/compare/v2.4.4...v2.4.5) (2023-12-01)
+
+
+### Other
+
+* **Modal:** add more testing data attributes ([e5870d4](https://github.com/uzh-bf/design-system/commit/e5870d430c3dc44457438929838cb7e83d384b65))
+
+### [2.4.4](https://github.com/uzh-bf/design-system/compare/v2.4.3...v2.4.4) (2023-12-01)
+
+
+### Bug Fixes
+
+* **ColorPicker:** prevent submit propagation of color picker change form ([c400a59](https://github.com/uzh-bf/design-system/commit/c400a59c89e9022fc0d2e4940b6b9b3df90f39c2))
+
 ### [2.4.3](https://github.com/uzh-bf/design-system/compare/v2.4.2...v2.4.3) (2023-11-06)
 
 

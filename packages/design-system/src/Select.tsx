@@ -136,8 +136,7 @@ export function Select({
           ? items.map((item, ix) => (
               <SelectItem
                 id={id}
-                data-cy={data?.cy}
-                data-test={data?.test}
+                data={item.data}
                 key={ix}
                 size={size}
                 {...item}
@@ -317,7 +316,13 @@ const SelectGroup = ({
           {label}
         </RadixSelect.Label>
         {items.map((item, ix) => (
-          <SelectItem key={ix} size={size} {...item} className={className} />
+          <SelectItem
+            key={ix}
+            size={size}
+            data={item.data}
+            {...item}
+            className={className}
+          />
         ))}
       </RadixSelect.Group>
     </>
