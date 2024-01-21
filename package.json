@@ -22,10 +22,14 @@
     "node": "18.16.0"
   },
   "scripts": {
-    "lint": "npm run -w packages/design-system lint",
-    "test": "npm run -w packages/design-system test",
-    "build": "npm run -w packages/design-system build",
-    "check": "npm run -w packages/design-system check",
-    "format:check": "npm run -w packages/design-system format:check"
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "build": "turbo run build",
+    "check": "turbo run check",
+    "format": "turbo run format",
+    "format:check": "turbo run format:check"
+  },
+  "devDependencies": {
+    "turbo": "1.11.3"
   }
 }
