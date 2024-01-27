@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.4.8](https://github.com/uzh-bf/design-system/compare/v2.4.7...v2.4.8) (2024-01-27)
+
+
+### Bug Fixes
+
+* **StepProgress:** add data-cy to buttons ([4f76b19](https://github.com/uzh-bf/design-system/commit/4f76b19639d0f23f46324b0a309ee043e93d63ae))
+
 ### [2.4.7](https://github.com/uzh-bf/design-system/compare/v2.4.6...v2.4.7) (2023-12-21)
 
 
