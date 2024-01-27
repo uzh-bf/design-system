@@ -124,6 +124,7 @@ export function StepProgress({
       {typeof displayOffsetLeft !== 'undefined' &&
         value - displayOffsetLeft > 0 && (
           <button
+            data-cy={data?.cy ? `${data?.cy}-left` : undefined}
             className={twMerge(
               className?.override,
               'rounded-l px-3 py-1 hover:bg-primary-20 hover:text-primary',
@@ -138,6 +139,8 @@ export function StepProgress({
         const formattedElement = formatter({ element, ix })
         return (
           <button
+            key={ix}
+            data-cy={data?.cy ? `${data?.cy}-${ix}` : undefined}
             className={twMerge(
               className?.override,
               'flex flex-1 items-center justify-center border-r border-white p-1 last:border-r-0 hover:bg-primary-20 hover:text-primary',
@@ -163,6 +166,7 @@ export function StepProgress({
       {typeof displayOffsetRight !== 'undefined' &&
         length > value + displayOffsetRight + 1 && (
           <button
+            data-cy={data?.cy ? `${data?.cy}-right` : undefined}
             className={twMerge(
               className?.override,
               'rounded-r px-3 py-1 hover:bg-primary-20 hover:text-primary'
