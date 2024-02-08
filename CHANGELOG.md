@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.4.9](https://github.com/uzh-bf/design-system/compare/v2.4.8...v2.4.9) (2024-02-08)
+
+
+### Bug Fixes
+
+* **StepProgress:** ensure that undefined value is treated correctly ([7bf2a94](https://github.com/uzh-bf/design-system/commit/7bf2a94c49dd953ff6b3517ada13a5d3e25f5961))
+
+
+### Miscellaneous Chores
+
+* release 2.4.9 ([28c675c](https://github.com/uzh-bf/design-system/commit/28c675c108f0b22855eefdb59c0ff11bece9db63))
+
 ### [2.4.9](https://github.com/uzh-bf/design-system/compare/v2.4.8...v2.4.9) (2024-02-07)
 
 
