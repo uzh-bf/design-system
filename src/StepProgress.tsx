@@ -131,7 +131,10 @@ export function StepProgress({
               !items && 'bg-primary-60 text-white'
             )}
             onClick={() =>
-              onItemClick((value || 0) - 1, items && items[(value || 0) - 1])
+              onItemClick(
+                (typeof value === 'undefined' ? 1 : value) - 1,
+                items && items[(typeof value === 'undefined' ? 1 : value) - 1]
+              )
             }
           >
             <FontAwesomeIcon icon={faChevronLeft} />
@@ -174,7 +177,10 @@ export function StepProgress({
               'rounded-r px-3 py-1 hover:bg-primary-20 hover:text-primary'
             )}
             onClick={() =>
-              onItemClick((value || 0) + 1, items && items[(value || 0) + 1])
+              onItemClick(
+                (typeof value === 'undefined' ? -1 : value) + 1,
+                items && items[(typeof value === 'undefined' ? -1 : value) + 1]
+              )
             }
           >
             <FontAwesomeIcon icon={faChevronRight} />
