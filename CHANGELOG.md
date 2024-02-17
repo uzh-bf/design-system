@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.5.0](https://github.com/uzh-bf/design-system/compare/v2.4.11...v2.5.0) (2024-02-17)
+
+
+### Features
+
+* **Dropdown:** restyle dropdown menu with modern appearance ([#82](https://github.com/uzh-bf/design-system/issues/82)) ([b5cb846](https://github.com/uzh-bf/design-system/commit/b5cb846b21c0329ba4a6bbf7638c00d5c9bc2cc4))
+
 ## [2.4.11](https://github.com/uzh-bf/design-system/compare/v2.4.10...v2.4.11) (2024-02-17)
 
 
