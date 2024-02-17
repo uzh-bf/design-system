@@ -1,4 +1,4 @@
-import { faFilter } from '@fortawesome/free-solid-svg-icons'
+import { faFilter, faList } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useState } from 'react'
 import { twMerge } from 'tailwind-merge'
@@ -15,7 +15,7 @@ export const Default = () => {
         not displayed.
       </div>
       <Dropdown
-        trigger="Test"
+        trigger="Test Content"
         items={[
           {
             label: 'Element 1 long',
@@ -28,6 +28,29 @@ export const Default = () => {
           },
           { label: 'Element 4', onClick: () => alert('Element 4 clicked') },
         ]}
+      />
+    </div>
+  )
+}
+
+export const CustomIcon = () => {
+  return (
+    <div>
+      <Dropdown
+        trigger="Test Content"
+        items={[
+          {
+            label: 'Element 1 long',
+            onClick: () => alert('Element 1 clicked'),
+          },
+          { label: 'Element 2', onClick: () => alert('Element 2 clicked') },
+          {
+            label: 'Element 3 short',
+            onClick: () => alert('Element 3 clicked'),
+          },
+          { label: 'Element 4', onClick: () => alert('Element 4 clicked') },
+        ]}
+        triggerIcon={faList}
       />
     </div>
   )
