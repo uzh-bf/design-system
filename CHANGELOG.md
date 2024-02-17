@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.4.11](https://github.com/uzh-bf/design-system/compare/v2.4.10...v2.4.11) (2024-02-17)
+
+
+### Bug Fixes
+
+* **Tabs:** add possibility to define tab header through children ([d87420d](https://github.com/uzh-bf/design-system/commit/d87420d16bf0d939f545b013f15a6aae3429bdc8))
+
 ## [2.4.10](https://github.com/uzh-bf/design-system/compare/v2.4.8...v2.4.10) (2024-02-08)
 
 
