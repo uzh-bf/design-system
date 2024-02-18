@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.5.1](https://github.com/uzh-bf/design-system/compare/v2.5.0...v2.5.1) (2024-02-18)
+
+
+### Bug Fixes
+
+* **Dropdown:** data attributes for items should be passed on to item component ([037276d](https://github.com/uzh-bf/design-system/commit/037276d66a187485c947fb382d367a12d007d142))
+
 ## [2.5.0](https://github.com/uzh-bf/design-system/compare/v2.4.11...v2.5.0) (2024-02-17)
 
 
