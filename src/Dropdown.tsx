@@ -135,6 +135,7 @@ export function Dropdown({
                   root: className?.item,
                   active: className?.activeItem,
                 }}
+                data={item.data}
               />
             ))}
           </div>
@@ -157,6 +158,7 @@ export function Dropdown({
                       root: className?.item,
                       active: className?.activeItem,
                     }}
+                    data={item.data}
                   />
                 ))}
               </RadixDropdown.Group>
