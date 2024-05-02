@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.5.2](https://github.com/uzh-bf/design-system/compare/v2.5.1...v2.5.2) (2024-05-02)
+
+
+### Bug Fixes
+
+* **Checkbox:** ensure that checkbox cannot be compressed through label size ([#85](https://github.com/uzh-bf/design-system/issues/85)) ([c0ca56b](https://github.com/uzh-bf/design-system/commit/c0ca56bc3c4a1fa7cd5766816a481e0fc92203a4))
+
 ## [2.5.1](https://github.com/uzh-bf/design-system/compare/v2.5.0...v2.5.1) (2024-02-18)
 
 
