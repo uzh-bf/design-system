@@ -18,6 +18,8 @@ export interface FormikNumberFieldProps {
   required?: boolean
   hideError?: boolean
   precision?: number
+  min?: number
+  max?: number
   disabled?: boolean
   className?: {
     root?: string
@@ -43,6 +45,8 @@ export interface FormikNumberFieldProps {
  * @param required - Indicate whether the field is required or not.
  * @param hideError - Hide the error message below this component as is might be more appropriate to show it somewhere else.
  * @param precision - The optional precision defines the number of decimal places that are allowed.
+ * @param min - The optional min defines the minimum value that is allowed.
+ * @param max - The optional max defines the maximum value that is allowed.
  * @param disabled - Disables the field.
  * @param className - The optional className object allows you to override the default styling.
  * @returns Text field component with Formik state management.
@@ -58,6 +62,8 @@ export function FormikNumberField({
   required = false,
   hideError = false,
   precision,
+  min,
+  max,
   disabled = false,
   className,
 }: FormikNumberFieldProps) {
@@ -104,6 +110,8 @@ export function FormikNumberField({
               ? Math.round(precision)
               : undefined
           }
+          min={min}
+          max={max}
           className={{
             ...className?.numberField,
             input: twMerge(

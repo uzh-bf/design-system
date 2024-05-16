@@ -26,6 +26,8 @@ export interface NumberFieldProps {
   disabled?: boolean
   className?: NumberFieldClassName
   precision?: number
+  min?: number
+  max?: number
   [key: string]: any
 }
 
@@ -42,6 +44,8 @@ export function NumberField({
   disabled,
   className,
   precision,
+  min,
+  max,
 }: NumberFieldProps): React.ReactElement {
   const regex =
     typeof precision === 'number' && !isNaN(precision)
@@ -73,7 +77,15 @@ export function NumberField({
         type="text"
         value={value}
         onChange={(e) => {
-          if (e.target.value.match(regex) !== null) {
+          if (
+            e.target.value.match(regex) !== null &&
+            (e.target.value === '' ||
+              typeof min === 'undefined' ||
+              parseFloat(e.target.value) >= min) &&
+            (e.target.value === '' ||
+              typeof max === 'undefined' ||
+              parseFloat(e.target.value) <= max)
+          ) {
             onChange(e.target.value)
           } else {
             console.log(`input ${e.target.value} does not match regex ${regex}`)
