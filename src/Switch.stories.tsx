@@ -12,6 +12,18 @@ export const Default = () => {
   )
 }
 
+export const Undefined = () => {
+  const [isChecked, setIsChecked] = useState<boolean | undefined>(undefined)
+
+  return (
+    <Switch
+      checked={isChecked}
+      label="Unchecked"
+      onCheckedChange={(newValue) => setIsChecked(newValue)}
+    />
+  )
+}
+
 export const Disabled = () => {
   const [isChecked, setIsChecked] = useState(false)
   return (
