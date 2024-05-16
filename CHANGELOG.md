@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.7.0](https://github.com/uzh-bf/design-system/compare/v2.6.0...v2.7.0) (2024-05-16)
+
+
+### Features
+
+* ***NumberField:** add possibility to specify minimum and maximum values ([#89](https://github.com/uzh-bf/design-system/issues/89)) ([1181c96](https://github.com/uzh-bf/design-system/commit/1181c964182cd919423f486743452ec32814b717))
+
+
+### Bug Fixes
+
+* **NumberField:** add missing docstring to component ([7ac34ea](https://github.com/uzh-bf/design-system/commit/7ac34eafe22a92fda9090503292b2e0d666d6dc3))
+
 ## [2.6.0](https://github.com/uzh-bf/design-system/compare/v2.5.2...v2.6.0) (2024-05-16)
 
 
