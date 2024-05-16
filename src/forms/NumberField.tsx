@@ -31,6 +31,25 @@ export interface NumberFieldProps {
   [key: string]: any
 }
 
+/**
+ * This function returns a text field component for use without formik
+ *
+ * @param id - The id of the input field.
+ * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
+ * @param value - The value of the input field (external state management).
+ * @param onChange - The onChange function of the input field (external state management).
+ * @param label - The text displayed as label.
+ * @param tooltip - The optional tooltip is shown on hover over the tooltip next to the label.
+ * @param required - Indicate whether the field is required or not.
+ * @param onBlur - The onBlur function of the input field.
+ * @param placeholder - The placeholder text for the input field.
+ * @param disabled - Indicate whether the field is disabled or not.
+ * @param precision - The optional precision defines the number of decimal places that are allowed.
+ * @param min - The optional min defines the minimum value that is allowed.
+ * @param max - The optional max defines the maximum value that is allowed.
+ * @param className - The optional className object allows you to override the default styling.
+ */
+
 export function NumberField({
   id,
   data,
@@ -42,10 +61,10 @@ export function NumberField({
   onBlur,
   placeholder,
   disabled,
-  className,
   precision,
   min,
   max,
+  className,
 }: NumberFieldProps): React.ReactElement {
   const regex =
     typeof precision === 'number' && !isNaN(precision)
