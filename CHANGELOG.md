@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.6.0](https://github.com/uzh-bf/design-system/compare/v2.5.2...v2.6.0) (2024-05-16)
+
+
+### Features
+
+* **Switch:** add undefined switch state with corresponding UI state ([8fc1a8f](https://github.com/uzh-bf/design-system/commit/8fc1a8f83596f1007d6ed27c5f769382e00687a7))
+
 ## [2.5.2](https://github.com/uzh-bf/design-system/compare/v2.5.1...v2.5.2) (2024-05-02)
 
 
