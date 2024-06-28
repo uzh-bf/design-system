@@ -10,7 +10,8 @@ interface TabProps {
   }
   key?: string
   value: string
-  label: string
+  label?: string
+  children?: React.ReactNode
   disabled?: boolean
   className?: {
     override?: string
@@ -18,6 +19,16 @@ interface TabProps {
     label?: string
     disabled?: string
   }
+}
+
+interface TabPropsWithLabel extends TabProps {
+  label: string
+  children?: never
+}
+
+interface TabPropsWithChildren extends TabProps {
+  label?: never
+  children: React.ReactNode
 }
 
 /**
@@ -29,6 +40,7 @@ interface TabProps {
  * @param key - The key of the tab.
  * @param value - The value of the tab. This is required for the internal and external state.
  * @param label - The label of the tab.
+ * @param children - A child component of the tab header, which can optionally replace the label
  * @param disabled - The optional disabled property allows you to disable the tab.
  * @param className - The optional className object allows you to override the default styling.
  * @returns Tab trigger component
@@ -39,9 +51,10 @@ export function Tab({
   key,
   value,
   label,
+  children,
   disabled,
   className,
-}: TabProps) {
+}: TabPropsWithLabel | TabPropsWithChildren) {
   return (
     <TabsPrimitive.Trigger
       id={id}
@@ -64,7 +77,7 @@ export function Tab({
           className?.label
         )}
       >
-        {label}
+        {label ?? children}
       </span>
     </TabsPrimitive.Trigger>
   )

@@ -34,6 +34,26 @@ export function Precision() {
   )
 }
 
+export function MinMax() {
+  const [value, setValue] = useState('')
+  return (
+    <div>
+      <div>
+        The min and max props can be used to limit the allowed values. For this
+        example, the minimum value is set to 0 and the maximum value is set to
+        100.
+      </div>
+      <NumberField
+        value={value}
+        onChange={(newValue) => setValue(newValue)}
+        min={0}
+        max={100}
+      />
+      <div>Value: {value}</div>
+    </div>
+  )
+}
+
 export function Integer() {
   const [value, setValue] = useState('')
   return (

@@ -2,6 +2,80 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.7.0](https://github.com/uzh-bf/design-system/compare/v2.6.0...v2.7.0) (2024-05-16)
+
+
+### Features
+
+* ***NumberField:** add possibility to specify minimum and maximum values ([#89](https://github.com/uzh-bf/design-system/issues/89)) ([1181c96](https://github.com/uzh-bf/design-system/commit/1181c964182cd919423f486743452ec32814b717))
+
+
+### Bug Fixes
+
+* **NumberField:** add missing docstring to component ([7ac34ea](https://github.com/uzh-bf/design-system/commit/7ac34eafe22a92fda9090503292b2e0d666d6dc3))
+
+## [2.6.0](https://github.com/uzh-bf/design-system/compare/v2.5.2...v2.6.0) (2024-05-16)
+
+
+### Features
+
+* **Switch:** add undefined switch state with corresponding UI state ([8fc1a8f](https://github.com/uzh-bf/design-system/commit/8fc1a8f83596f1007d6ed27c5f769382e00687a7))
+
+## [2.5.2](https://github.com/uzh-bf/design-system/compare/v2.5.1...v2.5.2) (2024-05-02)
+
+
+### Bug Fixes
+
+* **Checkbox:** ensure that checkbox cannot be compressed through label size ([#85](https://github.com/uzh-bf/design-system/issues/85)) ([c0ca56b](https://github.com/uzh-bf/design-system/commit/c0ca56bc3c4a1fa7cd5766816a481e0fc92203a4))
+
+## [2.5.1](https://github.com/uzh-bf/design-system/compare/v2.5.0...v2.5.1) (2024-02-18)
+
+
+### Bug Fixes
+
+* **Dropdown:** data attributes for items should be passed on to item component ([037276d](https://github.com/uzh-bf/design-system/commit/037276d66a187485c947fb382d367a12d007d142))
+
+## [2.5.0](https://github.com/uzh-bf/design-system/compare/v2.4.11...v2.5.0) (2024-02-17)
+
+
+### Features
+
+* **Dropdown:** restyle dropdown menu with modern appearance ([#82](https://github.com/uzh-bf/design-system/issues/82)) ([b5cb846](https://github.com/uzh-bf/design-system/commit/b5cb846b21c0329ba4a6bbf7638c00d5c9bc2cc4))
+
+## [2.4.11](https://github.com/uzh-bf/design-system/compare/v2.4.10...v2.4.11) (2024-02-17)
+
+
+### Bug Fixes
+
+* **Tabs:** add possibility to define tab header through children ([d87420d](https://github.com/uzh-bf/design-system/commit/d87420d16bf0d939f545b013f15a6aae3429bdc8))
+
+## [2.4.10](https://github.com/uzh-bf/design-system/compare/v2.4.8...v2.4.10) (2024-02-08)
+
+
+### Bug Fixes
+
+* **StepProgress:** ensure that undefined value is treated correctly ([7bf2a94](https://github.com/uzh-bf/design-system/commit/7bf2a94c49dd953ff6b3517ada13a5d3e25f5961))
+
+
+### Miscellaneous Chores
+
+* release 2.4.10 ([aa5735e](https://github.com/uzh-bf/design-system/commit/aa5735ee10f60ab76630e14139e39b1e587e2e00))
+* release 2.4.9 ([28c675c](https://github.com/uzh-bf/design-system/commit/28c675c108f0b22855eefdb59c0ff11bece9db63))
+
+### [2.4.9](https://github.com/uzh-bf/design-system/compare/v2.4.8...v2.4.9) (2024-02-07)
+
+
+### Enhancements
+
+* **StepProgress:** make value for step progress optional ([cfc25dd](https://github.com/uzh-bf/design-system/commit/cfc25dd9097f3a4fbab2f53da796492b442d0d08))
+
+## [2.4.8](https://github.com/uzh-bf/design-system/compare/v2.4.7...v2.4.8) (2024-01-27)
+
+
+### Bug Fixes
+
+* **StepProgress:** add data-cy to buttons ([4f76b19](https://github.com/uzh-bf/design-system/commit/4f76b19639d0f23f46324b0a309ee043e93d63ae))
+
 ### [2.4.7](https://github.com/uzh-bf/design-system/compare/v2.4.6...v2.4.7) (2023-12-21)
 
 

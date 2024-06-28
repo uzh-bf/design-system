@@ -1,3 +1,5 @@
+import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as RadixDropdown from '@radix-ui/react-dropdown-menu'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
@@ -20,12 +22,11 @@ interface DropdownProps {
     test?: string
   }
   trigger: string | React.ReactNode
+  triggerIcon?: IconDefinition
   items?: Item[]
   activeItems?: string[]
   groups?: Item[][]
   className?: {
-    triggerOverride?: string
-    viewportOverride?: string
     trigger?: string
     triggerDisabled?: string
     viewport?: string
@@ -52,6 +53,7 @@ export interface DropdownWithGroupsProps extends DropdownProps {
  * @param id - The id of the dropdown.
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param trigger - The content of the trigger button or a custom trigger component to replace the default button.
+ * @param triggerIcon - The icon that is displayed next to the trigger content.
  * @param items - The items that are displayed in the dropdown menu. This attribute should not be set, if groups are used.
  * @param activeItems - List of labels that should be considered active. This attribute has a similar function as the "select" attribute on the item props and should not be used at the same time.
  * @param groups - The groups of items that are displayed in the dropdown menu. This attribute should not be set, if items are used.
@@ -63,77 +65,13 @@ export function Dropdown({
   id,
   data,
   trigger,
+  triggerIcon,
   items,
   activeItems,
   groups,
   className,
   disabled = false,
 }: DropdownWithItemsProps | DropdownWithGroupsProps) {
-  const DropdownItem = ({
-    id,
-    data,
-    label,
-    active = false,
-    onClick,
-    shorting,
-    selected,
-    className,
-  }: {
-    id?: string
-    data?: {
-      cy?: string
-      test?: string
-    }
-    label: string | React.ReactNode
-    active?: boolean
-    onClick: () => void
-    shorting?: string
-    selected?: boolean
-    className?: {
-      override?: string
-      root?: string
-      active?: string
-    }
-  }) => {
-    if (typeof label === 'string') {
-      return (
-        <RadixDropdown.Item
-          id={id}
-          data-cy={data?.cy}
-          data-test={data?.test}
-          className={twMerge(
-            className?.override,
-            `flex flex-row rounded px-2 py-0.5 hover:cursor-pointer hover:bg-primary-60 sm:hover:!text-white`,
-            active && twMerge('font-bold', className?.active),
-            className?.root
-          )}
-          onClick={onClick}
-        >
-          <div
-            className={twMerge(
-              'flex-1',
-              selected && twMerge('font-bold', className?.active)
-            )}
-          >
-            {label}
-          </div>
-          {shorting && <div className="ml-6">{shorting}</div>}
-        </RadixDropdown.Item>
-      )
-    }
-    return (
-      <RadixDropdown.Item
-        id={id}
-        data-cy={data?.cy}
-        data-test={data?.test}
-        onClick={onClick}
-        className={twMerge('rounded-md', className?.root)}
-      >
-        {label}
-      </RadixDropdown.Item>
-    )
-  }
-
   return (
     <RadixDropdown.Root>
       {typeof trigger === 'string' ? (
@@ -142,15 +80,18 @@ export function Dropdown({
           data-cy={data?.cy}
           data-test={data?.test}
           className={twMerge(
-            className?.triggerOverride,
-            `rounded-md border border-solid border-uzh-grey-60 px-2 py-1 hover:bg-primary-20`,
-            disabled && 'cursor-not-allowed text-gray-500 hover:bg-white',
-            className?.trigger,
-            className?.triggerDisabled
+            'inline-flex h-7 items-center justify-between gap-3 rounded-md border',
+            'bg-white py-1.5 pl-2 pr-2 shadow-sm hover:bg-primary-20 sm:hover:text-primary',
+            disabled &&
+              'hover:bg-none, sm:hover:text-none cursor-not-allowed bg-uzh-grey-20 opacity-70 shadow-sm',
+            className?.trigger
           )}
           disabled={disabled}
         >
-          {trigger}
+          <div>{trigger}</div>
+          {triggerIcon && (
+            <FontAwesomeIcon icon={triggerIcon} size="sm" className="mb-0.5" />
+          )}
         </RadixDropdown.Trigger>
       ) : (
         <RadixDropdown.Trigger
@@ -159,7 +100,6 @@ export function Dropdown({
           data-test={data?.test}
           disabled={disabled}
           className={twMerge(
-            className?.triggerOverride,
             disabled && 'cursor-not-allowed text-gray-500 hover:bg-white',
             className?.trigger
           )}
@@ -170,17 +110,16 @@ export function Dropdown({
 
       <RadixDropdown.Content
         className={twMerge(
-          className?.viewportOverride,
-          'rounded-md bg-primary-20 p-1.5',
+          'rounded-lg border border-solid p-1 shadow-md',
           className?.viewport
         )}
       >
         <RadixDropdown.Arrow
-          className={twMerge('fill-primary-80 opacity-25', className?.arrow)}
+          className={twMerge('fill-gray-500 opacity-25', className?.arrow)}
         />
 
         {items && (
-          <div className="border-b border-solid border-uzh-grey-100 pb-1 pt-1 first:pt-0 last:border-b-0 last:pb-0">
+          <div className="border-b border-solid border-uzh-grey-100 pb-1 first:pt-0 last:border-b-0 last:pb-0">
             {items.map((item, index) => (
               <DropdownItem
                 key={index}
@@ -196,6 +135,7 @@ export function Dropdown({
                   root: className?.item,
                   active: className?.activeItem,
                 }}
+                data={item.data}
               />
             ))}
           </div>
@@ -218,6 +158,7 @@ export function Dropdown({
                       root: className?.item,
                       active: className?.activeItem,
                     }}
+                    data={item.data}
                   />
                 ))}
               </RadixDropdown.Group>
@@ -225,6 +166,73 @@ export function Dropdown({
           ))}
       </RadixDropdown.Content>
     </RadixDropdown.Root>
+  )
+}
+
+const DropdownItem = ({
+  id,
+  data,
+  label,
+  active = false,
+  onClick,
+  shorting,
+  selected,
+  className,
+}: {
+  id?: string
+  data?: {
+    cy?: string
+    test?: string
+  }
+  label: string | React.ReactNode
+  active?: boolean
+  onClick: () => void
+  shorting?: string
+  selected?: boolean
+  className?: {
+    override?: string
+    root?: string
+    active?: string
+  }
+}) => {
+  if (typeof label === 'string') {
+    return (
+      <RadixDropdown.Item
+        id={id}
+        data-cy={data?.cy}
+        data-test={data?.test}
+        className={twMerge(
+          className?.override,
+          `flex flex-row rounded px-2 py-0.5 hover:cursor-pointer hover:bg-primary-20 sm:hover:text-primary`,
+          active && twMerge('font-bold', className?.active),
+          className?.root
+        )}
+        onClick={onClick}
+      >
+        <div
+          className={twMerge(
+            'flex-1',
+            selected && twMerge('font-bold', className?.active)
+          )}
+        >
+          {label}
+        </div>
+
+        {shorting && <div className="ml-6">{shorting}</div>}
+      </RadixDropdown.Item>
+    )
+  }
+
+  return (
+    <RadixDropdown.Item
+      id={id}
+      data-cy={data?.cy}
+      data-test={data?.test}
+      onClick={onClick}
+      className={twMerge('rounded-md', className?.root)}
+    >
+      {label}
+    </RadixDropdown.Item>
   )
 }
 

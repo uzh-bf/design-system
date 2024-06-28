@@ -64,6 +64,12 @@ export function Checkbox({
     lg: 'w-6 h-6',
     xl: 'w-7 h-7',
   }
+  const maxLabelWidth = {
+    sm: 'max-w-[calc(100%-1.5rem)]',
+    md: 'max-w-[calc(100%-1.75rem)]',
+    lg: 'max-w-[calc(100%-2rem)]',
+    xl: 'max-w-[calc(100%-2.25rem)]',
+  }
 
   return (
     <div className="flex flex-row gap-2">
@@ -78,7 +84,7 @@ export function Checkbox({
           'border-grey-80 align-center my-auto flex justify-center rounded-md border border-solid bg-white p-0',
           (checked || partial) && 'border-black',
           disabled && 'cursor-not-allowed',
-          checkboxSize[size || 'md'],
+          checkboxSize[size],
           className?.root
         )}
         disabled={disabled}
@@ -97,6 +103,7 @@ export function Checkbox({
         <div
           className={twMerge(
             'flex h-full flex-col justify-center',
+            maxLabelWidth[size],
             className?.label
           )}
         >

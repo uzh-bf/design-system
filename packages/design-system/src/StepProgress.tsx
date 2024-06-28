@@ -57,7 +57,7 @@ interface StepProgressBaseProps {
     cy?: string
     test?: string
   }
-  value: number
+  value?: number
   onItemClick: (ix: number, item?: StepItem) => void
   displayOffsetLeft?: number
   displayOffsetRight?: number
@@ -122,14 +122,20 @@ export function StepProgress({
       data-test={data?.test}
     >
       {typeof displayOffsetLeft !== 'undefined' &&
-        value - displayOffsetLeft > 0 && (
+        (value || 0) - displayOffsetLeft > 0 && (
           <button
+            data-cy={data?.cy ? `${data?.cy}-left` : undefined}
             className={twMerge(
               className?.override,
               'rounded-l px-3 py-1 hover:bg-primary-20 hover:text-primary',
               !items && 'bg-primary-60 text-white'
             )}
-            onClick={() => onItemClick(value - 1, items && items[value - 1])}
+            onClick={() =>
+              onItemClick(
+                (typeof value === 'undefined' ? 1 : value) - 1,
+                items && items[(typeof value === 'undefined' ? 1 : value) - 1]
+              )
+            }
           >
             <FontAwesomeIcon icon={faChevronLeft} />
           </button>
@@ -138,18 +144,20 @@ export function StepProgress({
         const formattedElement = formatter({ element, ix })
         return (
           <button
+            key={ix}
+            data-cy={data?.cy ? `${data?.cy}-${ix}` : undefined}
             className={twMerge(
               className?.override,
               'flex flex-1 items-center justify-center border-r border-white p-1 last:border-r-0 hover:bg-primary-20 hover:text-primary',
               ix === 0 && 'rounded-l',
               ix === length - 1 && 'rounded-r',
-              value > ix && !items && 'bg-primary-60 text-white',
+              (value || 0) > ix && !items && 'bg-primary-60 text-white',
               value === ix && 'bg-gray-400 font-bold text-white',
               typeof displayOffsetLeft !== 'undefined' &&
-                ix < value - displayOffsetLeft &&
+                ix < (value || 0) - displayOffsetLeft &&
                 'hidden',
               typeof displayOffsetRight !== 'undefined' &&
-                ix > value + displayOffsetRight &&
+                ix > (value || 0) + displayOffsetRight &&
                 'hidden',
               formattedElement.className,
               value === ix && 'bg-opacity-100'
@@ -161,13 +169,19 @@ export function StepProgress({
         )
       })}
       {typeof displayOffsetRight !== 'undefined' &&
-        length > value + displayOffsetRight + 1 && (
+        length > (value || 0) + displayOffsetRight + 1 && (
           <button
+            data-cy={data?.cy ? `${data?.cy}-right` : undefined}
             className={twMerge(
               className?.override,
               'rounded-r px-3 py-1 hover:bg-primary-20 hover:text-primary'
             )}
-            onClick={() => onItemClick(value + 1, items && items[value + 1])}
+            onClick={() =>
+              onItemClick(
+                (typeof value === 'undefined' ? -1 : value) + 1,
+                items && items[(typeof value === 'undefined' ? -1 : value) + 1]
+              )
+            }
           >
             <FontAwesomeIcon icon={faChevronRight} />
           </button>
