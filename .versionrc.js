@@ -1,4 +1,4 @@
-const { VersionConfigTypes } = require('./src/constants')
+const { VersionConfigTypes } = require('./packages/design-system/src/constants')
 
 module.exports = {
   types: VersionConfigTypes,
