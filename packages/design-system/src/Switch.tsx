@@ -18,7 +18,7 @@ export interface SwitchProps {
     cy?: string
     test?: string
   }
-  checked: boolean
+  checked?: boolean
   onCheckedChange: (newValue: boolean) => void
   onBlur?: () => void
   disabled?: boolean
@@ -36,7 +36,7 @@ export interface SwitchProps {
  * @param id - The id of the switch.
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param label - The label that is displayed next to the switch.
- * @param checked - Indicator whether the switch is checked or not. State is managed by the parent component.
+ * @param checked - Indicator whether the switch is checked or not (or indefinite if undefined value). State is managed by the parent component.
  * @param onCheckedChange - The function that is called when the switch is checked or unchecked. The new value is passed as a parameter.
  * @param onBlur - The function that is called when the switch loses focus.
  * @param disabled - Indicator whether the switch is disabled or not.
@@ -74,6 +74,11 @@ export function Switch({
     md: 'translate-x-[1.25rem]',
     lg: 'translate-x-[2rem]',
   }
+  const transitionSizeUndefined = {
+    sm: 'translate-x-[0.55rem]',
+    md: 'translate-x-[0.625rem]',
+    lg: 'translate-x-[1rem]',
+  }
 
   return (
     <div
@@ -107,7 +112,9 @@ export function Switch({
           className={twMerge(
             className?.thumbOverride,
             'block rounded-full bg-white transition-transform',
-            checked && transitionSize[size || 'md'],
+            typeof checked === 'undefined' &&
+              transitionSizeUndefined[size || 'md'],
+            checked === true && transitionSize[size || 'md'],
             thumbSize[size || 'md'],
             className?.thumb
           )}
