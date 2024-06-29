@@ -40,8 +40,6 @@ export class TcGridContainer {
         return "md:grid-cols-5 ";
       case 6:
         return "md:grid-cols-6";
-      default:
-        return `grid-cols-${this.mdColumns}`;
     }
   }
 
@@ -59,8 +57,6 @@ export class TcGridContainer {
         return "lg:grid-cols-5";
       case 6:
         return "lg:grid-cols-6";
-      default:
-        return `lg:grid-cols-${this.lgColumns}`;
     }
   }
 
@@ -78,8 +74,6 @@ export class TcGridContainer {
         return "grid-cols-5";
       case 6:
         return "grid-cols-6";
-      default:
-        return `grid-cols-${this.columns}`;
     }
   }
 
@@ -94,7 +88,7 @@ export class TcGridContainer {
       case "xl":
         return "gap-12 md:gap-16 lg: gap-20";
       default:
-        return `gap-4 md:gap-8 lg:gap-6`;
+        return `gap-4 md:gap-8 lg:gap-12`;
     }
   }
 }
