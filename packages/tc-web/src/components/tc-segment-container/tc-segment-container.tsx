@@ -7,7 +7,7 @@ import { Component, Prop, h, Host } from "@stencil/core";
   shadow: true,
 })
 export class SegmentContainer {
-  @Prop() segTitle: string;
+  @Prop({attribute:"title"}) segTitle: string;
   @Prop() backgroundColor: string;
 
   render() {
