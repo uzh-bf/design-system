@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.8.0](https://github.com/uzh-bf/design-system/compare/v2.7.1...v2.8.0) (2024-07-15)
+
+
+### Features
+
+* ensure that hover styles are not applied on mobile devices ([e9573dc](https://github.com/uzh-bf/design-system/commit/e9573dcacc51f9319d7d13d7d85cba90e9e46330))
+
 ## [2.7.1](https://github.com/uzh-bf/design-system/compare/v2.7.0...v2.7.1) (2024-07-15)
 
 
