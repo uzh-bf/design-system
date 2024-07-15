@@ -107,6 +107,7 @@ export function Switch({
         )}
         onCheckedChange={!disabled ? onCheckedChange : () => null}
         onClick={() => (onBlur ? onBlur() : null)}
+        disabled={disabled}
       >
         <RadixSwitch.Thumb
           className={twMerge(
