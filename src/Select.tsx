@@ -188,7 +188,7 @@ export function Select({
             className?.triggerOverride,
             'rounded-md px-2 py-1',
             !basic &&
-              'inline-flex h-7 items-center justify-between gap-2 border  bg-white p-4 shadow-sm hover:bg-primary-20 sm:hover:text-primary',
+              'inline-flex h-7 items-center justify-between gap-2 border  bg-white p-4 shadow-sm hover:bg-primary-20 hover:text-primary',
             disabled &&
               'hover:bg-none, hover:text-none cursor-not-allowed bg-uzh-grey-20 opacity-70 shadow-sm',
             size === 'sm' && '!text-sm',
@@ -261,7 +261,7 @@ const SelectItem = React.forwardRef(
         className={twMerge(
           className?.itemOverride,
           'relative flex select-none items-center rounded-md px-8 py-2 font-medium text-gray-700',
-          'hover:cursor-pointer hover:bg-primary-20 hover:outline-none focus:border-primary-40 sm:hover:text-primary',
+          'hover:cursor-pointer hover:bg-primary-20 hover:text-primary hover:outline-none focus:border-primary-40',
           disabled &&
             'cursor-not-allowed opacity-50 hover:bg-white hover:text-gray-700',
           size === 'sm' && 'px-7 text-sm',

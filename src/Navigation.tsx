@@ -260,7 +260,7 @@ Navigation.DropdownItem = function DropdownItem({
       className={twMerge(
         className?.override,
         'w-full rounded-md px-4 py-3 text-black hover:bg-primary-60',
-        'focus:outline-none focus-visible:ring focus-visible:ring-opacity-75 sm:hover:text-white',
+        'hover:text-white focus:outline-none focus-visible:ring focus-visible:ring-opacity-75',
         className?.root
       )}
       style={style?.root}
@@ -367,7 +367,7 @@ Navigation.ButtonItem = function ButtonItem({
         onClick={!disabled ? onClick : undefined}
         className={twMerge(
           className?.override,
-          'cursor-pointer rounded-md px-3 py-2 text-sm font-medium text-black sm:hover:text-white',
+          'cursor-pointer rounded-md px-3 py-2 text-sm font-medium text-black hover:text-white',
           !disabled && 'hover:bg-primary-60',
           disabled && 'hover:text-none cursor-not-allowed text-gray-400',
           className?.root,
@@ -455,7 +455,7 @@ Navigation.IconItem = function IconItem({
         onClick={!disabled ? onClick : undefined}
         className={twMerge(
           className?.override,
-          'flex h-9 w-9 items-center justify-center rounded-md text-black sm:hover:text-white',
+          'flex h-9 w-9 items-center justify-center rounded-md text-black hover:text-white',
           !disabled && 'hover:bg-primary-60',
           disabled && 'hover:text-none cursor-not-allowed text-gray-400',
           className?.root,
