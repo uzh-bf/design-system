@@ -38,6 +38,45 @@ export const Default = () => (
   </div>
 )
 
+export const MinMax = () => (
+  <div>
+    <div>
+      Specifying minimum and maximum values will enable additional validation
+      steps. In this case, values between 0 and 1000 will be accepted
+    </div>
+    <Formik
+      initialValues={{
+        name: undefined,
+      }}
+      isInitialValid={false}
+      onSubmit={async (values, { resetForm }) => {
+        alert(`Form submitted with value: ${values.name}`)
+        resetForm()
+      }}
+    >
+      {({ values }) => {
+        return (
+          <div>
+            <Form>
+              <FormikNumberField
+                name="name"
+                label="Label"
+                tooltip="Tooltip for this input"
+                className={{ root: 'mb-1' }}
+                placeholder="Placeholder"
+                min={0}
+                max={1000}
+              />
+              <Button type="submit">Submit</Button>
+            </Form>
+            <div>Value: {values.name}</div>
+          </div>
+        )
+      }}
+    </Formik>
+  </div>
+)
+
 export const Disabled = () => (
   <div>
     <div>
