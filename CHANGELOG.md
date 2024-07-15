@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.7.1](https://github.com/uzh-bf/design-system/compare/v2.7.0...v2.7.1) (2024-07-15)
+
+
+### Bug Fixes
+
+* **forms/FormikNumberField:** add missing example for number field validation ([fd9d457](https://github.com/uzh-bf/design-system/commit/fd9d457ed4e83f5e576c4acf8b3b796ec38be019))
+* **Switch:** pass disabled prop correctly to radix switch component ([714742f](https://github.com/uzh-bf/design-system/commit/714742f1e99a5be4cc6fb685ea79f9cb16897227))
+
 ## [2.7.0](https://github.com/uzh-bf/design-system/compare/v2.6.0...v2.7.0) (2024-05-16)
 
 
