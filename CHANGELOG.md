@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.8.1](https://github.com/uzh-bf/design-system/compare/v2.8.0...v2.8.1) (2024-07-16)
+
+
+### Bug Fixes
+
+* **Tooltip:** ensure that tooltip also accepts zero delay ([6ab8a6d](https://github.com/uzh-bf/design-system/commit/6ab8a6dbec8b2734ac85eebce45da8e76bd68f78))
+
 ## [2.8.0](https://github.com/uzh-bf/design-system/compare/v2.7.1...v2.8.0) (2024-07-15)
 
 
