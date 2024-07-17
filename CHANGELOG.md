@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.9.0](https://github.com/uzh-bf/design-system/compare/v2.8.1...v2.9.0) (2024-07-17)
+
+
+### Features
+
+* **forms/NewFormikTextField:** add simplified formik text field with enhanced error illustration ([#99](https://github.com/uzh-bf/design-system/issues/99)) ([56f95a4](https://github.com/uzh-bf/design-system/commit/56f95a4e525b1c014adbddc193c18ae60016b242))
+* **forms/TextareaField:** add new textarea field and corresponding formik component ([#101](https://github.com/uzh-bf/design-system/issues/101)) ([a3e7192](https://github.com/uzh-bf/design-system/commit/a3e7192e58c1fe131a89fe9ed4764fef7f1ecaf1))
+
 ## [2.8.1](https://github.com/uzh-bf/design-system/compare/v2.8.0...v2.8.1) (2024-07-16)
 
 
