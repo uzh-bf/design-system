@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.10.0](https://github.com/uzh-bf/design-system/compare/v2.9.0...v2.10.0) (2024-07-17)
+
+
+### Features
+
+* **formst/SelectField:** add new select field component with corresponding formik wrapper component ([#104](https://github.com/uzh-bf/design-system/issues/104)) ([ac74e58](https://github.com/uzh-bf/design-system/commit/ac74e586e9dc199f7ee1d5600eb532be172b4175))
+* **Switch:** introduce enhanced switch and new formik switch field components ([#102](https://github.com/uzh-bf/design-system/issues/102)) ([426b78d](https://github.com/uzh-bf/design-system/commit/426b78da4086c9adbb8d773f7797554a896f9fa6))
+
+
+### Bug Fixes
+
+* remove ineffective styles across different components ([5520b16](https://github.com/uzh-bf/design-system/commit/5520b16f45ec82379b1e6d77fdfdc18fbfc1e283))
+
 ## [2.9.0](https://github.com/uzh-bf/design-system/compare/v2.8.1...v2.9.0) (2024-07-17)
 
 
