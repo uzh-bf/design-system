@@ -51,17 +51,19 @@ export interface Item {
   shortLabel?: string
 }
 
+export interface Group {
+  label?: string
+  showSeparator?: boolean
+  items: Item[]
+}
+
 export interface SelectWithItemsProps extends SelectProps {
   items: Item[]
   groups?: never
 }
 
 export interface SelectWithGroupsProps extends SelectProps {
-  groups: {
-    label?: string
-    showSeparator?: boolean
-    items: Item[]
-  }[]
+  groups: Group[]
   items?: never
 }
 
