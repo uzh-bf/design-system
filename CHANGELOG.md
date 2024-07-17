@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.11.0](https://github.com/uzh-bf/design-system/compare/v2.10.0...v2.11.0) (2024-07-17)
+
+
+### Features
+
+* **forms/Select*:** extend all select fields to support groups ([#105](https://github.com/uzh-bf/design-system/issues/105)) ([5a92307](https://github.com/uzh-bf/design-system/commit/5a923072db81c58ebbe9c5cd9e959871ee81d25e))
+
 ## [2.10.0](https://github.com/uzh-bf/design-system/compare/v2.9.0...v2.10.0) (2024-07-17)
 
 
