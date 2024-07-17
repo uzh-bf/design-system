@@ -5,7 +5,7 @@ const fruits = [
   { value: 'apple', label: 'Apple' },
   { value: 'banana', label: 'Banana' },
   { value: 'pear', label: 'Pear' },
-  { value: 'watermeldon', label: 'Watermelon' },
+  { value: 'watermelon', label: 'Watermelon' },
   { value: 'peach', label: 'Peach' },
   { value: 'mango', label: 'Mango' },
 ]
@@ -126,7 +126,7 @@ export const Groups = () => {
                 label: 'Pear long label',
                 shortLabel: 'Pear',
               },
-              { value: 'watermeldon_short', label: 'Watermelon' },
+              { value: 'watermelon_short', label: 'Watermelon' },
             ],
           },
         ]}
@@ -160,7 +160,7 @@ export const DisabledElements = () => {
     { value: 'apple', label: 'Apple' },
     { value: 'banana', label: 'Banana', disabled: true },
     { value: 'pear', label: 'Pear' },
-    { value: 'watermeldon', label: 'Watermelon' },
+    { value: 'watermelon', label: 'Watermelon' },
     { value: 'peach', label: 'Peach', disabled: true },
     { value: 'mango', label: 'Mango' },
   ]
@@ -215,7 +215,7 @@ export const CustomTriggerLabel = () => {
     { value: 'apple', label: 'Apple long label', shortLabel: 'Apple' },
     { value: 'banana', label: 'Banana long label', shortLabel: 'Banana' },
     { value: 'pear', label: 'Pear long label' },
-    { value: 'watermeldon', label: 'Watermelon long label' },
+    { value: 'watermelon', label: 'Watermelon long label' },
     { value: 'peach', label: 'Peach long label' },
     { value: 'mango', label: 'Mango long label', shortLabel: 'Mango' },
   ]
