@@ -1,6 +1,9 @@
+import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as RadixSwitch from '@radix-ui/react-switch'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
+import { Tooltip } from './Tooltip'
 import Label from './forms/Label'
 
 export interface SwitchClassName {
@@ -24,6 +27,9 @@ export interface SwitchProps {
   disabled?: boolean
   label?: string
   fluid?: boolean
+  error?: string
+  hideError?: boolean
+  required?: boolean
   labelLeft?: boolean
   size?: 'sm' | 'md' | 'lg'
   className?: SwitchClassName
@@ -41,6 +47,9 @@ export interface SwitchProps {
  * @param onBlur - The function that is called when the switch loses focus.
  * @param disabled - Indicator whether the switch is disabled or not.
  * @param fluid - Indicator whether the switch should be fluid or not.
+ * @param error - The error message that is shown next the switch.
+ * @param hideError - Indicator whether the error message should be hidden or not.
+ * @param required - Indicator whether the switch is required or not.
  * @param labelLeft - Indicator whether the label should be displayed on the left or right side of the switch.
  * @param size - The size of the switch. The size can be small, medium or large.
  * @param className - The optional className object allows you to override the default styling.
@@ -55,6 +64,9 @@ export function Switch({
   onCheckedChange,
   onBlur,
   fluid = false,
+  error,
+  hideError = false,
+  required = false,
   labelLeft = false,
   size = 'md',
   className,
@@ -122,7 +134,19 @@ export function Switch({
         />
       </RadixSwitch.Root>
       {!labelLeft && label && (
-        <Label className={{ root: className?.label }} label={label} />
+        <Label
+          className={{ root: className?.label }}
+          label={label}
+          required={required}
+        />
+      )}
+      {error && !hideError && (
+        <Tooltip tooltip={error} delay={0} className={{ tooltip: 'text-sm' }}>
+          <FontAwesomeIcon
+            icon={faCircleExclamation}
+            className="-mx-2 text-red-600"
+          />
+        </Tooltip>
       )}
     </div>
   )

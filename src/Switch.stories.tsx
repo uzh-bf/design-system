@@ -6,7 +6,32 @@ export const Default = () => {
   return (
     <Switch
       checked={isChecked}
-      label="Unchecked"
+      label={isChecked ? 'Checked' : 'Unchecked'}
+      onCheckedChange={(newValue) => setIsChecked(newValue)}
+    />
+  )
+}
+
+export const Required = () => {
+  const [isChecked, setIsChecked] = useState(false)
+  return (
+    <Switch
+      required
+      checked={isChecked}
+      label={isChecked ? 'Checked' : 'Unchecked'}
+      onCheckedChange={(newValue) => setIsChecked(newValue)}
+    />
+  )
+}
+
+export const Error = () => {
+  const [isChecked, setIsChecked] = useState(false)
+  return (
+    <Switch
+      required
+      error={isChecked ? undefined : 'This field is required'}
+      checked={isChecked}
+      label={isChecked ? 'Checked' : 'Unchecked'}
       onCheckedChange={(newValue) => setIsChecked(newValue)}
     />
   )
@@ -18,7 +43,13 @@ export const Undefined = () => {
   return (
     <Switch
       checked={isChecked}
-      label="Unchecked"
+      label={
+        typeof isChecked === 'undefined'
+          ? 'Undefined'
+          : isChecked
+          ? 'Checked'
+          : 'Unchecked'
+      }
       onCheckedChange={(newValue) => setIsChecked(newValue)}
     />
   )
@@ -30,7 +61,7 @@ export const Disabled = () => {
     <Switch
       disabled
       checked={isChecked}
-      label="Unchecked"
+      label={isChecked ? 'Checked' : 'Unchecked'}
       onCheckedChange={(newValue) => setIsChecked(newValue)}
     />
   )
@@ -42,7 +73,7 @@ export const DisabledActive = () => {
     <Switch
       disabled
       checked={isChecked}
-      label="Unchecked"
+      label={isChecked ? 'Checked' : 'Unchecked'}
       onCheckedChange={(newValue) => setIsChecked(newValue)}
     />
   )

@@ -164,7 +164,7 @@ export function TextareaField({
               {...props}
             />
           )}
-          {error && (
+          {error && !hideError && (
             <Tooltip
               tooltip={error}
               delay={0}
