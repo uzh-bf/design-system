@@ -19,7 +19,6 @@ export interface TextareaFieldProps {
   hideError?: boolean
   disabled?: boolean
   className?: {
-    override?: string
     root?: string
     field?: string
     label?: string
@@ -123,7 +122,6 @@ export function FormikTextareaField({
             maxLength={maxLength}
             disabled={disabled}
             className={twMerge(
-              className?.override,
               'focus:border-uzh-blue-50 min-h-12 w-full rounded border border-uzh-grey-60 bg-uzh-grey-20',
               disabled && 'cursor-not-allowed',
               meta.error && meta.touched && 'border-red-400 bg-red-50',
@@ -144,7 +142,6 @@ export function FormikTextareaField({
             maxLength={maxLength}
             disabled={disabled}
             className={twMerge(
-              className?.override,
               'focus:border-uzh-blue-50 min-h-12 w-full rounded border border-uzh-grey-60 bg-uzh-grey-20',
               disabled && 'cursor-not-allowed',
               meta.error && meta.touched && 'border-red-400 bg-red-50',

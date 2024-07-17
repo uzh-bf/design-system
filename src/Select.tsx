@@ -9,9 +9,6 @@ import React, { useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 export interface SelectClassName {
-  triggerOverride?: string
-  contentOverride?: string
-  itemOverride?: string
   root?: string
   trigger?: string
   content?: string
@@ -115,7 +112,6 @@ export function Select({
     <RadixSelect.Content
       position={contentPosition}
       className={twMerge(
-        className?.contentOverride,
         'z-50 overflow-hidden rounded-md bg-white shadow-md',
         className?.content
       )}
@@ -185,7 +181,6 @@ export function Select({
           data-cy={data?.cy}
           data-test={data?.test}
           className={twMerge(
-            className?.triggerOverride,
             'rounded-md px-2 py-1',
             !basic &&
               'inline-flex h-7 items-center justify-between gap-2 border  bg-white p-4 shadow-sm hover:bg-primary-20 hover:text-primary',
@@ -259,7 +254,6 @@ const SelectItem = React.forwardRef(
         data-cy={data?.cy}
         data-test={data?.test}
         className={twMerge(
-          className?.itemOverride,
           'relative flex select-none items-center rounded-md px-8 py-2 font-medium text-gray-700',
           'hover:cursor-pointer hover:bg-primary-20 hover:text-primary hover:outline-none focus:border-primary-40',
           disabled &&

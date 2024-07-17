@@ -190,7 +190,6 @@ const DropdownItem = ({
   shorting?: string
   selected?: boolean
   className?: {
-    override?: string
     root?: string
     active?: string
   }
@@ -202,7 +201,6 @@ const DropdownItem = ({
         data-cy={data?.cy}
         data-test={data?.test}
         className={twMerge(
-          className?.override,
           `flex flex-row rounded px-2 py-0.5 hover:cursor-pointer hover:bg-primary-20 hover:text-primary`,
           active && twMerge('font-bold', className?.active),
           className?.root
