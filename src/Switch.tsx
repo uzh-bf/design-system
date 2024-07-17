@@ -26,6 +26,7 @@ export interface SwitchProps {
   onBlur?: () => void
   disabled?: boolean
   label?: string
+  tooltip?: string | React.ReactNode
   fluid?: boolean
   error?: string
   hideError?: boolean
@@ -42,6 +43,7 @@ export interface SwitchProps {
  * @param id - The id of the switch.
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param label - The label that is displayed next to the switch.
+ * @param tooltip - The tooltip that is displayed when hovering over the label.
  * @param checked - Indicator whether the switch is checked or not (or indefinite if undefined value). State is managed by the parent component.
  * @param onCheckedChange - The function that is called when the switch is checked or unchecked. The new value is passed as a parameter.
  * @param onBlur - The function that is called when the switch loses focus.
@@ -60,6 +62,7 @@ export function Switch({
   data,
   disabled = false,
   label,
+  tooltip,
   checked,
   onCheckedChange,
   onBlur,
@@ -114,6 +117,7 @@ export function Switch({
           disabled && 'cursor-not-allowed bg-uzh-grey-40',
           checked && 'bg-primary-60',
           checked && disabled && 'bg-primary-20',
+          !!error && !hideError && 'outline outline-2 outline-red-600',
           rootSize[size || 'md'],
           className?.element
         )}
@@ -135,9 +139,11 @@ export function Switch({
       </RadixSwitch.Root>
       {!labelLeft && label && (
         <Label
-          className={{ root: className?.label }}
+          className={{ root: twMerge('mr-2', className?.label) }}
           label={label}
           required={required}
+          tooltip={tooltip}
+          showTooltipSymbol={typeof tooltip !== 'undefined'}
         />
       )}
       {error && !hideError && (

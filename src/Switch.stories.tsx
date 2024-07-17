@@ -24,6 +24,29 @@ export const Required = () => {
   )
 }
 
+export const Tooltip = () => {
+  const [isChecked, setIsChecked] = useState(false)
+  return (
+    <>
+      <Switch
+        required
+        checked={isChecked}
+        label={isChecked ? 'Checked' : 'Unchecked'}
+        tooltip="This is a tooltip"
+        onCheckedChange={(newValue) => setIsChecked(newValue)}
+      />
+      <Switch
+        required
+        checked={isChecked}
+        label={isChecked ? 'Checked' : 'Unchecked'}
+        tooltip="This is a tooltip"
+        error="Error message"
+        onCheckedChange={(newValue) => setIsChecked(newValue)}
+      />
+    </>
+  )
+}
+
 export const Error = () => {
   const [isChecked, setIsChecked] = useState(false)
   return (
