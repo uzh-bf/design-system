@@ -4,7 +4,7 @@ import { twMerge } from 'tailwind-merge'
 import Select, { Item, SelectClassName } from '../Select'
 import Label from './Label'
 
-export interface SelectFieldProps {
+interface SelectFieldProps {
   id?: string
   data?: {
     cy?: string
@@ -16,7 +16,6 @@ export interface SelectFieldProps {
   placeholder?: string
   tooltip?: string | React.ReactNode
   required?: boolean
-  items: Item[]
   disabled?: boolean
   hideError?: boolean
   contentPosition?: 'item-aligned' | 'popper'
@@ -29,6 +28,20 @@ export interface SelectFieldProps {
   }
 }
 
+export interface SelectFieldItemsProps extends SelectFieldProps {
+  items: Item[]
+  groups?: never
+}
+
+export interface SelectFieldGroupsProps extends SelectFieldProps {
+  groups: {
+    label?: string
+    showSeparator?: boolean
+    items: Item[]
+  }[]
+  items?: never
+}
+
 /**
  * This component returns a select field that works as to be expected in a Formik environment.
  * State is managed by Formik through the name attribute.
@@ -36,6 +49,8 @@ export interface SelectFieldProps {
  * @param id - The id of the field.
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param name - The name of the field. This is used to identify the field in Formik.
+ * @param items - The array of items that should be available on the select component.
+ * @param groups - The optional groups array can be used to group items in the select component.
  * @param label - The optional label is shown next to the field in the form.
  * @param labelType - The optional labelType can be used to change the size and position of the label according to pre-defined standards.
  * @param placeholder - The optional placeholder is shown when no value is selected / initialization with 'undefined' is chosen.
@@ -43,7 +58,6 @@ export interface SelectFieldProps {
  * @param hideError - Hide the error message below this component as is might be more appropriate to show it somewhere else.
  * @param contentPosition - The position of the content of the select component. Currently only 'item-aligned' and 'popper' are supported.
  * @param tooltip - The optional tooltip is shown on hover next to the label.
- * @param items - The array of items that should be available on the select component.
  * @param required - Indicate whether the field is required or not.
  * @param className - The optional className object allows you to override the default styling.
  * @returns Select component with formik state management.
@@ -52,18 +66,19 @@ export function FormikSelectField({
   id,
   data,
   name,
+  items,
+  groups,
   label,
   labelType = 'normal',
   placeholder,
   tooltip,
   required = false,
-  items,
   disabled = false,
   hideError = false,
   contentPosition = 'item-aligned',
   className,
   ...props
-}: SelectFieldProps) {
+}: SelectFieldItemsProps | SelectFieldGroupsProps) {
   const [field, meta, helpers] = useField(name)
 
   return (
@@ -93,19 +108,35 @@ export function FormikSelectField({
             showTooltipSymbol={typeof tooltip !== 'undefined'}
           />
         )}
-        <Select
-          data={data}
-          onChange={(newValue: string) => helpers.setValue(newValue)}
-          onBlur={() => helpers.setTouched(true)}
-          value={field.value}
-          name={name}
-          items={items}
-          placeholder={placeholder}
-          disabled={disabled}
-          className={className?.select}
-          contentPosition={contentPosition}
-          {...props}
-        />
+        {items ? (
+          <Select
+            data={data}
+            onChange={(newValue: string) => helpers.setValue(newValue)}
+            onBlur={() => helpers.setTouched(true)}
+            value={field.value}
+            name={name}
+            items={items}
+            placeholder={placeholder}
+            disabled={disabled}
+            className={className?.select}
+            contentPosition={contentPosition}
+            {...props}
+          />
+        ) : (
+          <Select
+            data={data}
+            onChange={(newValue: string) => helpers.setValue(newValue)}
+            onBlur={() => helpers.setTouched(true)}
+            value={field.value}
+            name={name}
+            groups={groups}
+            placeholder={placeholder}
+            disabled={disabled}
+            className={className?.select}
+            contentPosition={contentPosition}
+            {...props}
+          />
+        )}
       </div>
       {!hideError && meta.touched && meta.error && (
         <div

@@ -2,6 +2,7 @@ import { Form, Formik } from 'formik'
 import React from 'react'
 import * as yup from 'yup'
 import Button from '../Button'
+import { groupValues } from '../Select.stories'
 import FormikSelectField from './FormikSelectField'
 
 export const Default = () => (
@@ -25,6 +26,37 @@ export const Default = () => (
                   { value: 'hello', label: 'hello' },
                   { value: 'world', label: 'world' },
                 ]}
+                label="Name"
+                placeholder="Select a name"
+              />
+              <Button type="submit">Submit</Button>
+            </Form>
+            <div>Value: {values.name}</div>
+          </div>
+        )
+      }}
+    </Formik>
+  </div>
+)
+
+export const Groups = () => (
+  <div>
+    <Formik
+      initialValues={{
+        name: undefined,
+      }}
+      onSubmit={async (values, { resetForm }) => {
+        alert(`Form submitted with value: ${values.name}`)
+        resetForm()
+      }}
+    >
+      {({ values }) => {
+        return (
+          <div>
+            <Form>
+              <FormikSelectField
+                name="name"
+                groups={groupValues}
                 label="Name"
                 placeholder="Select a name"
               />

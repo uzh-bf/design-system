@@ -1,21 +1,28 @@
 import React, { useState } from 'react'
+import { fruitsValues, groupValues } from '../Select.stories'
 import SelectField from './SelectField'
 
-const items = [
-  { value: 'apple', label: 'Apple' },
-  { value: 'banana', label: 'Banana' },
-  { value: 'pear', label: 'Pear' },
-  { value: 'watermelon', label: 'Watermelon' },
-  { value: 'peach', label: 'Peach' },
-  { value: 'mango', label: 'Mango' },
-]
-
 export const Default = () => {
-  const [value, setValue] = useState(items[0].value)
+  const [value, setValue] = useState(fruitsValues[0].value)
 
   return (
     <SelectField
-      items={items}
+      items={fruitsValues}
+      value={value}
+      onChange={(newValue) => {
+        alert(`Value changed to: ${newValue}`)
+        setValue(newValue)
+      }}
+    />
+  )
+}
+
+export const Groups = () => {
+  const [value, setValue] = useState(groupValues[0].items[0].value)
+
+  return (
+    <SelectField
+      groups={groupValues}
       value={value}
       onChange={(newValue) => {
         alert(`Value changed to: ${newValue}`)
@@ -26,13 +33,13 @@ export const Default = () => {
 }
 
 export const Required = () => {
-  const [value, setValue] = useState(items[0].value)
+  const [value, setValue] = useState(fruitsValues[0].value)
 
   return (
     <SelectField
       required
       label="Label"
-      items={items}
+      items={fruitsValues}
       value={value}
       onChange={(newValue) => {
         alert(`Value changed to: ${newValue}`)
@@ -43,12 +50,12 @@ export const Required = () => {
 }
 
 export const Disabled = () => {
-  const [value, setValue] = useState(items[0].value)
+  const [value, setValue] = useState(fruitsValues[0].value)
 
   return (
     <SelectField
       disabled
-      items={items}
+      items={fruitsValues}
       value={value}
       onChange={(newValue) => {
         alert(`Value changed to: ${newValue}`)
@@ -59,12 +66,12 @@ export const Disabled = () => {
 }
 
 export const Label = () => {
-  const [value, setValue] = useState(items[0].value)
+  const [value, setValue] = useState(fruitsValues[0].value)
 
   return (
     <SelectField
       label="Label"
-      items={items}
+      items={fruitsValues}
       value={value}
       onChange={(newValue) => {
         alert(`Value changed to: ${newValue}`)
@@ -75,13 +82,13 @@ export const Label = () => {
 }
 
 export const LargeLabel = () => {
-  const [value, setValue] = useState(items[0].value)
+  const [value, setValue] = useState(fruitsValues[0].value)
 
   return (
     <SelectField
       label="Label"
       labelType="large"
-      items={items}
+      items={fruitsValues}
       value={value}
       onChange={(newValue) => {
         alert(`Value changed to: ${newValue}`)
@@ -92,7 +99,7 @@ export const LargeLabel = () => {
 }
 
 export const Error = () => {
-  const [value, setValue] = useState(items[0].value)
+  const [value, setValue] = useState(fruitsValues[0].value)
 
   return (
     <div className="flex flex-col gap-4">
@@ -100,7 +107,7 @@ export const Error = () => {
         required
         label="Label"
         error="Error message"
-        items={items}
+        items={fruitsValues}
         value={value}
         onChange={(newValue) => {
           alert(`Value changed to: ${newValue}`)
@@ -112,7 +119,7 @@ export const Error = () => {
         label="Label"
         labelType="large"
         error="Error message"
-        items={items}
+        items={fruitsValues}
         value={value}
         onChange={(newValue) => {
           alert(`Value changed to: ${newValue}`)
@@ -124,7 +131,7 @@ export const Error = () => {
 }
 
 export const Tooltip = () => {
-  const [value, setValue] = useState(items[0].value)
+  const [value, setValue] = useState(fruitsValues[0].value)
 
   return (
     <div className="flex flex-col gap-4">
@@ -132,7 +139,7 @@ export const Tooltip = () => {
         required
         label="Label"
         tooltip="Tooltip for this input"
-        items={items}
+        items={fruitsValues}
         value={value}
         onChange={(newValue) => {
           alert(`Value changed to: ${newValue}`)
@@ -144,7 +151,7 @@ export const Tooltip = () => {
         label="Label"
         labelType="large"
         tooltip="Tooltip for this input"
-        items={items}
+        items={fruitsValues}
         value={value}
         onChange={(newValue) => {
           alert(`Value changed to: ${newValue}`)
@@ -157,7 +164,7 @@ export const Tooltip = () => {
         labelType="large"
         tooltip="Tooltip for this input"
         error="Error message"
-        items={items}
+        items={fruitsValues}
         value={value}
         onChange={(newValue) => {
           alert(`Value changed to: ${newValue}`)
