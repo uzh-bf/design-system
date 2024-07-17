@@ -1,7 +1,7 @@
 import { useField } from 'formik'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
-import Select, { Item, SelectClassName } from '../Select'
+import Select, { Group, Item, SelectClassName } from '../Select'
 import Label from './Label'
 
 interface SelectFieldProps {
@@ -34,11 +34,7 @@ export interface SelectFieldItemsProps extends SelectFieldProps {
 }
 
 export interface SelectFieldGroupsProps extends SelectFieldProps {
-  groups: {
-    label?: string
-    showSeparator?: boolean
-    items: Item[]
-  }[]
+  groups: Group[]
   items?: never
 }
 
