@@ -11,7 +11,7 @@ export const Default = () => {
       <TextField
         label="Label"
         tooltip="Tooltip for this input"
-        className={{ root: 'mb-1' }}
+        className={{ field: 'mb-1' }}
         placeholder="Placeholder"
         value={value}
         onChange={setValue}
@@ -30,7 +30,7 @@ export const SmallLabel = () => {
         label="Label"
         labelType="small"
         tooltip="Tooltip for this input"
-        className={{ root: 'mb-1' }}
+        className={{ field: 'mb-1' }}
         placeholder="Placeholder"
         value={value}
         onChange={setValue}
@@ -39,7 +39,7 @@ export const SmallLabel = () => {
         label="Search"
         labelType="small"
         tooltip="Tooltip for this input"
-        className={{ root: 'mb-1' }}
+        className={{ field: 'mb-1' }}
         placeholder="Placeholder"
         value={value}
         onChange={setValue}
@@ -50,7 +50,7 @@ export const SmallLabel = () => {
         label="Label 3"
         labelType="small"
         tooltip="Tooltip for this input"
-        className={{ root: 'mb-1' }}
+        className={{ field: 'mb-1' }}
         placeholder="Placeholder"
         value={value}
         onChange={setValue}
@@ -69,7 +69,7 @@ export const Disabled = () => {
         disabled
         label="Label"
         tooltip="Tooltip for this input"
-        className={{ root: 'mb-1' }}
+        className={{ field: 'mb-1' }}
         placeholder="Placeholder"
         value={value}
         onChange={setValue}
@@ -91,7 +91,7 @@ export const Required = () => {
         required
         label="Label"
         tooltip="Tooltip for this input"
-        className={{ root: 'mb-1' }}
+        className={{ field: 'mb-1' }}
         placeholder="Placeholder"
         value={value}
         onChange={setValue}
@@ -113,7 +113,7 @@ export const Styled = () => {
         label="Label"
         tooltip="Tooltip for this input"
         className={{
-          root: 'mb-1 w-1/2',
+          field: 'mb-1 w-1/2',
           label: 'text-red-500',
           input: 'bg-blue-100',
           error: 'text-red-700',
