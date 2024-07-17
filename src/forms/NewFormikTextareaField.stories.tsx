@@ -1,9 +1,8 @@
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 import { Form, Formik } from 'formik'
-import React, { useState } from 'react'
+import React from 'react'
 import * as yup from 'yup'
 import Button from '../Button'
-import FormikTextField from './NewFormikTextField'
+import FormikTextareaField from './NewFormikTextareaField'
 
 export const Default = () => (
   <div>
@@ -22,12 +21,51 @@ export const Default = () => (
         return (
           <div>
             <Form>
-              <FormikTextField
+              <FormikTextareaField
                 name="name"
                 label="Label"
                 tooltip="Tooltip for this input"
                 className={{ root: 'mb-1' }}
                 placeholder="Placeholder"
+              />
+              <Button type="submit">Submit</Button>
+            </Form>
+            <div>Value: {values.name}</div>
+          </div>
+        )
+      }}
+    </Formik>
+  </div>
+)
+
+export const MaxLength = () => (
+  <div>
+    <div>
+      The Formik field works with a "name" input and maximum length (including
+      label)
+    </div>
+    <Formik
+      initialValues={{
+        name: '',
+      }}
+      isInitialValid={false}
+      onSubmit={async (values, { resetForm }) => {
+        alert(`Form submitted with value: ${values.name}`)
+        resetForm()
+      }}
+    >
+      {({ values }) => {
+        return (
+          <div>
+            <Form>
+              <FormikTextareaField
+                name="name"
+                label="Label"
+                tooltip="Tooltip for this input"
+                className={{ root: 'mb-1' }}
+                placeholder="Placeholder"
+                maxLength={20}
+                maxLengthUnit="characters"
               />
               <Button type="submit">Submit</Button>
             </Form>
@@ -56,7 +94,7 @@ export const Disabled = () => (
         return (
           <div>
             <Form>
-              <FormikTextField
+              <FormikTextareaField
                 disabled
                 name="name"
                 label="Label"
@@ -94,7 +132,7 @@ export const Required = () => (
         return (
           <div>
             <Form>
-              <FormikTextField
+              <FormikTextareaField
                 required
                 name="name"
                 label="Label"
@@ -134,7 +172,7 @@ export const OnChangeFunction = () => (
         return (
           <div>
             <Form>
-              <FormikTextField
+              <FormikTextareaField
                 value={values.name}
                 onChange={(newValue) => {
                   setFieldValue('name', newValue.replace(/\s/g, ''))
@@ -170,7 +208,7 @@ export const OnChangeError = () => (
         return (
           <div>
             <Form>
-              <FormikTextField
+              <FormikTextareaField
                 isTouched
                 error="Error message"
                 value={values.name}
@@ -209,7 +247,7 @@ export const Styled = () => (
         return (
           <div>
             <Form>
-              <FormikTextField
+              <FormikTextareaField
                 name="name"
                 label="Label"
                 tooltip="Tooltip for this input"
@@ -257,7 +295,7 @@ export const Validation = () => (
         return (
           <div>
             <Form>
-              <FormikTextField
+              <FormikTextareaField
                 name="name"
                 label="Label"
                 tooltip="Tooltip for this input"
@@ -291,7 +329,7 @@ export const LargeLabel = () => (
         return (
           <div>
             <Form>
-              <FormikTextField
+              <FormikTextareaField
                 required
                 name="name"
                 label="Label"
@@ -309,47 +347,3 @@ export const LargeLabel = () => (
     </Formik>
   </div>
 )
-
-export const Icon = () => {
-  const [textHidden, setTextHidden] = useState(true)
-
-  return (
-    <div>
-      <div>
-        The icon prop allows to pass a fontawesom icon to the component, which
-        will then be displayed on the right side of the input field
-      </div>
-      <Formik
-        initialValues={{
-          name: '',
-        }}
-        isInitialValid={false}
-        onSubmit={async (values, { resetForm }) => {
-          alert(`Form submitted with value: ${values.name}`)
-          resetForm()
-        }}
-      >
-        {({ values }) => {
-          return (
-            <div>
-              <Form>
-                <FormikTextField
-                  name="name"
-                  label="Label"
-                  tooltip="Tooltip for this input"
-                  className={{ root: 'mb-1' }}
-                  placeholder="Placeholder"
-                  icon={textHidden ? faEye : faEyeSlash}
-                  onIconClick={() => setTextHidden(!textHidden)}
-                  type={textHidden ? 'password' : 'text'}
-                />
-                <Button type="submit">Submit</Button>
-              </Form>
-              <div>Value: {values.name}</div>
-            </div>
-          )
-        }}
-      </Formik>
-    </div>
-  )
-}

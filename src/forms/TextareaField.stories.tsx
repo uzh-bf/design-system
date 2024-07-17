@@ -1,22 +1,74 @@
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import React from 'react'
-import TextField from './TextField'
+import TextareaField from './TextareaField'
 
 export const Default = () => {
   const [value, setValue] = React.useState('')
 
   return (
-    <>
-      <div>The default TextField</div>
-      <TextField
+    <div>
+      <div>The default TextareaField</div>
+      <TextareaField
         label="Label"
         tooltip="Tooltip for this input"
-        className={{ field: 'mb-1' }}
         placeholder="Placeholder"
         value={value}
         onChange={setValue}
       />
-    </>
+    </div>
+  )
+}
+
+export const MaxLength = () => {
+  const [value, setValue] = React.useState('')
+
+  return (
+    <div>
+      <div>
+        This TextareaField has an additional maximum length prop and shows a
+        corresponding message at the bottom.
+      </div>
+      <TextareaField
+        label="Label"
+        tooltip="Tooltip for this input"
+        placeholder="Placeholder"
+        value={value}
+        onChange={setValue}
+        maxLength={30}
+        className={{ root: 'mb-8' }}
+      />
+      <TextareaField
+        label="Label"
+        tooltip="Tooltip for this input"
+        placeholder="Placeholder"
+        value={value}
+        onChange={setValue}
+        maxLength={30}
+        maxLengthUnit="characters"
+        className={{ root: 'mb-8' }}
+      />
+      <TextareaField
+        label="Label"
+        tooltip="Tooltip for this input"
+        placeholder="Placeholder"
+        value={value}
+        onChange={setValue}
+        maxLength={30}
+        hideMaxLength
+        className={{ root: 'mb-8' }}
+      />
+      <TextareaField
+        label="Label"
+        labelType="small"
+        tooltip="Tooltip for this input"
+        placeholder="Placeholder"
+        value={value}
+        onChange={setValue}
+        maxLength={30}
+        maxLengthUnit="characters"
+        className={{ root: 'mb-8' }}
+      />
+    </div>
   )
 }
 
@@ -25,8 +77,8 @@ export const SmallLabel = () => {
 
   return (
     <>
-      <div>The TextField with a small label</div>
-      <TextField
+      <div>The TextareaField with a small label</div>
+      <TextareaField
         label="Label"
         labelType="small"
         tooltip="Tooltip for this input"
@@ -35,7 +87,7 @@ export const SmallLabel = () => {
         value={value}
         onChange={setValue}
       />
-      <TextField
+      <TextareaField
         label="Search"
         labelType="small"
         tooltip="Tooltip for this input"
@@ -45,7 +97,7 @@ export const SmallLabel = () => {
         onChange={setValue}
         icon={faMagnifyingGlass}
       />
-      <TextField
+      <TextareaField
         required
         label="Label 3"
         labelType="small"
@@ -64,8 +116,8 @@ export const Disabled = () => {
 
   return (
     <>
-      <div>The TextField can be disabled</div>
-      <TextField
+      <div>The TextareaField can be disabled</div>
+      <TextareaField
         disabled
         label="Label"
         tooltip="Tooltip for this input"
@@ -87,7 +139,7 @@ export const Required = () => {
         By adding a required attribute, the label of the field changes it
         appearance
       </div>
-      <TextField
+      <TextareaField
         required
         label="Label"
         tooltip="Tooltip for this input"
@@ -106,10 +158,10 @@ export const Styled = () => {
   return (
     <>
       <div>
-        The default TextField can be customized and icons from FontAwesome can
-        be included at the beginning of the field
+        The default TextareaField can be customized and icons from FontAwesome
+        can be included at the beginning of the field
       </div>
-      <TextField
+      <TextareaField
         label="Label"
         tooltip="Tooltip for this input"
         className={{
