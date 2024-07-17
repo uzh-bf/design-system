@@ -1,6 +1,5 @@
 import { useField } from 'formik'
 import React from 'react'
-import { twMerge } from 'tailwind-merge'
 import Switch, { SwitchClassName } from '../Switch'
 
 export interface NewFormikSwitchFieldProps {
@@ -53,23 +52,21 @@ export function NewFormikSwitchField({
   const [field, meta, helpers] = useField(name)
 
   return (
-    <div className={twMerge('w-full', className?.root)}>
-      <Switch
-        id={id}
-        required={required}
-        checked={field.value}
-        onCheckedChange={(newValue) => helpers.setValue(newValue)}
-        onBlur={() => helpers.setTouched(true)}
-        data={data}
-        disabled={disabled}
-        label={label}
-        tooltip={tooltip}
-        size={size}
-        error={!!meta.error && meta.touched ? meta.error : error}
-        hideError={hideError}
-        className={className}
-      />
-    </div>
+    <Switch
+      id={id}
+      required={required}
+      checked={field.value}
+      onCheckedChange={(newValue) => helpers.setValue(newValue)}
+      onBlur={() => helpers.setTouched(true)}
+      data={data}
+      disabled={disabled}
+      label={label}
+      tooltip={tooltip}
+      size={size}
+      error={!!meta.error && meta.touched ? meta.error : error}
+      hideError={hideError}
+      className={className}
+    />
   )
 }
 
