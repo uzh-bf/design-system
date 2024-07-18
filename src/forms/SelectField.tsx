@@ -2,7 +2,7 @@ import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
-import Select, { Group, Item, SelectClassName } from '../Select'
+import Select, { SelectClassName, SelectGroup, SelectItem } from '../Select'
 import { Tooltip } from '../Tooltip'
 import Label from './Label'
 
@@ -35,12 +35,12 @@ interface SelectFieldProps {
 }
 
 export interface SelectFieldItemsProps extends SelectFieldProps {
-  items: Item[]
+  items: SelectItem[]
   groups?: never
 }
 
 export interface SelectFieldGroupsProps extends SelectFieldProps {
-  groups: Group[]
+  groups: SelectGroup[]
   items?: never
 }
 

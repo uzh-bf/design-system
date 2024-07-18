@@ -2,7 +2,7 @@ import { useField } from 'formik'
 import React from 'react'
 import Switch, { SwitchClassName } from '../Switch'
 
-export interface NewFormikSwitchFieldProps {
+export interface FormikSwitchFieldProps {
   id?: string
   name: string
   data?: {
@@ -36,7 +36,7 @@ export interface NewFormikSwitchFieldProps {
  * @param className - The optional className object allows you to override the default styling.
  * @returns Switch component with formik state management
  */
-export function NewFormikSwitchField({
+export function FormikSwitchField({
   id,
   name,
   data,
@@ -48,7 +48,7 @@ export function NewFormikSwitchField({
   required = false,
   tooltip,
   className,
-}: NewFormikSwitchFieldProps) {
+}: FormikSwitchFieldProps) {
   const [field, meta, helpers] = useField(name)
 
   return (
@@ -70,4 +70,4 @@ export function NewFormikSwitchField({
   )
 }
 
-export default NewFormikSwitchField
+export default FormikSwitchField

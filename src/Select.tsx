@@ -39,7 +39,7 @@ interface SelectProps {
   contentPosition?: 'item-aligned' | 'popper'
 }
 
-export interface Item {
+export interface SelectItem {
   id?: string
   data?: {
     cy?: string
@@ -51,19 +51,19 @@ export interface Item {
   shortLabel?: string
 }
 
-export interface Group {
+export interface SelectGroup {
   label?: string
   showSeparator?: boolean
-  items: Item[]
+  items: SelectItem[]
 }
 
 export interface SelectWithItemsProps extends SelectProps {
-  items: Item[]
+  items: SelectItem[]
   groups?: never
 }
 
 export interface SelectWithGroupsProps extends SelectProps {
-  groups: Group[]
+  groups: SelectGroup[]
   items?: never
 }
 
@@ -132,7 +132,7 @@ export function Select({
       <RadixSelect.Viewport className="rounded-lg p-1">
         {items
           ? items.map((item, ix) => (
-              <SelectItem
+              <SelectItemComponent
                 id={id}
                 data={item.data}
                 key={ix}
@@ -142,7 +142,7 @@ export function Select({
               />
             ))
           : groups.map((group, ix) => (
-              <SelectGroup
+              <SelectGroupComponent
                 key={ix}
                 size={size}
                 {...group}
@@ -245,7 +245,7 @@ interface SelectItemProps {
   disabled?: boolean
 }
 
-const SelectItem = React.forwardRef(
+const SelectItemComponent = React.forwardRef(
   (
     { id, data, className, label, size, disabled, ...props }: SelectItemProps,
     forwardedRef
@@ -279,14 +279,14 @@ const SelectItem = React.forwardRef(
 )
 
 interface SelectGroupProps {
-  items: Item[]
+  items: SelectItem[]
   size?: 'md' | 'sm'
   showSeparator?: boolean
   label?: string
   className?: SelectClassName
 }
 
-const SelectGroup = ({
+const SelectGroupComponent = ({
   items,
   size,
   showSeparator,
@@ -312,7 +312,7 @@ const SelectGroup = ({
           {label}
         </RadixSelect.Label>
         {items.map((item, ix) => (
-          <SelectItem
+          <SelectItemComponent
             key={ix}
             size={size}
             data={item.data}

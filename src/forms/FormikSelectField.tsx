@@ -1,10 +1,10 @@
 import { useField } from 'formik'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
-import Select, { Group, Item, SelectClassName } from '../Select'
+import Select, { SelectClassName, SelectGroup, SelectItem } from '../Select'
 import Label from './Label'
 
-interface SelectFieldProps {
+interface FormikSelectFieldProps {
   id?: string
   data?: {
     cy?: string
@@ -28,13 +28,13 @@ interface SelectFieldProps {
   }
 }
 
-export interface SelectFieldItemsProps extends SelectFieldProps {
-  items: Item[]
+export interface FormikSelectFieldItemsProps extends FormikSelectFieldProps {
+  items: SelectItem[]
   groups?: never
 }
 
-export interface SelectFieldGroupsProps extends SelectFieldProps {
-  groups: Group[]
+export interface FormikSelectFieldGroupsProps extends FormikSelectFieldProps {
+  groups: SelectGroup[]
   items?: never
 }
 
@@ -74,7 +74,7 @@ export function FormikSelectField({
   contentPosition = 'item-aligned',
   className,
   ...props
-}: SelectFieldItemsProps | SelectFieldGroupsProps) {
+}: FormikSelectFieldItemsProps | FormikSelectFieldGroupsProps) {
   const [field, meta, helpers] = useField(name)
 
   return (

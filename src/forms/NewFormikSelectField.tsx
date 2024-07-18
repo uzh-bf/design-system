@@ -1,6 +1,6 @@
 import { useField } from 'formik'
 import React from 'react'
-import { Group, Item, SelectClassName } from '../Select'
+import { SelectClassName, SelectGroup, SelectItem } from '../Select'
 import SelectField from './SelectField'
 
 interface FormikSelectFieldProps {
@@ -29,12 +29,12 @@ interface FormikSelectFieldProps {
 }
 
 export interface FormikSelectFieldItemsProps extends FormikSelectFieldProps {
-  items: Item[]
+  items: SelectItem[]
   groups?: never
 }
 
 export interface FormikSelectFieldGroupsProps extends FormikSelectFieldProps {
-  groups: Group[]
+  groups: SelectGroup[]
   items?: never
 }
 

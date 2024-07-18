@@ -7,6 +7,14 @@ import { twMerge } from 'tailwind-merge'
 import { Tooltip } from '../Tooltip'
 import Label from './Label'
 
+export interface TextFieldClassName {
+  field?: string
+  label?: string
+  input?: string
+  error?: string
+  tooltip?: string
+}
+
 interface TextFieldProps {
   id?: string
   data?: {
@@ -22,13 +30,8 @@ interface TextFieldProps {
   error?: string
   isTouched?: boolean
   disabled?: boolean
-  className?: {
-    field?: string
-    label?: string
-    input?: string
-    error?: string
-    tooltip?: string
-  }
+  onPaste?: (e: any) => void
+  className?: TextFieldClassName
   icon?: IconProp
 }
 
@@ -66,6 +69,7 @@ export interface TextFieldOnChangeProps extends TextFieldProps {
  * @param hideError - Indicate whether the error message should be hidden or not.
  * @param error - The error message that is shown below the field.
  * @param disabled - Indicate whether the field is disabled or not.
+ * @param onPaste - The optional onPaste function is called when the user pastes text into the input field.
  * @param className - The optional className object allows you to override the default styling.
  * @param icon - The optional icon is shown on the right side of the input field.
  * @returns Text field component with optional label, tooltip, error message and icon.
@@ -87,6 +91,7 @@ export function TextField({
   hideError,
   error,
   disabled,
+  onPaste,
   className,
   icon,
   ...props
@@ -131,6 +136,7 @@ export function TextField({
               type="text"
               placeholder={placeholder}
               disabled={disabled}
+              onPaste={onPaste}
               className={twMerge(
                 'focus:border-uzh-blue-50 h-9 w-full rounded border border-uzh-grey-60 pl-2 text-slate-600',
                 icon && 'pl-8',
@@ -150,6 +156,7 @@ export function TextField({
               type="text"
               placeholder={placeholder}
               disabled={disabled}
+              onPaste={onPaste}
               className={twMerge(
                 'focus:border-uzh-blue-50 h-9 w-full rounded border border-uzh-grey-60 pl-2 text-slate-600',
                 icon && 'pl-8',
