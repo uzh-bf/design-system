@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.13.0](https://github.com/uzh-bf/design-system/compare/v2.12.0...v2.13.0) (2024-07-18)
+
+
+### Features
+
+* **forms/DateChanger:** implement date changer components with unified errors and labelling ([#111](https://github.com/uzh-bf/design-system/issues/111)) ([6b82fe0](https://github.com/uzh-bf/design-system/commit/6b82fe0021a86780410bc5a2497798f01403e273))
+* **forms/FormikColorPicker:** generalize color picker and standardize styling with error and labels ([#113](https://github.com/uzh-bf/design-system/issues/113)) ([8cef39d](https://github.com/uzh-bf/design-system/commit/8cef39d4a7aa9bfc408af652504e1502656c7310))
+
+
+### Bug Fixes
+
+* **ColorPicker:** remove hardcoded text label ([5e47ebf](https://github.com/uzh-bf/design-system/commit/5e47ebf392b9dd33666386207d3ec5a919ddabc4))
+
 ## [2.12.0](https://github.com/uzh-bf/design-system/compare/v2.11.0...v2.12.0) (2024-07-18)
 
 
