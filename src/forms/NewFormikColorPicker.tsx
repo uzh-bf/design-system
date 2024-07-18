@@ -1,14 +1,18 @@
 import { IconDefinition } from '@fortawesome/free-regular-svg-icons'
+import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useField } from 'formik'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { twMerge } from 'tailwind-merge'
 import ColorPicker, { ColorPickerClassName } from '../ColorPicker'
+import { Tooltip } from '../Tooltip'
 import { Label } from './Label'
 
 export interface FormikColorPickerProps {
   name: string
   label?: string
   labelType?: 'small' | 'large'
+  validateForm?: () => void
   tooltip?: string | React.ReactNode
   required?: boolean
   disabled?: boolean
@@ -42,6 +46,7 @@ export function FormikColorPicker({
   name,
   label,
   labelType = 'small',
+  validateForm,
   tooltip,
   required,
   disabled,
@@ -56,7 +61,12 @@ export function FormikColorPicker({
   dataSubmit,
   className,
 }: FormikColorPickerProps) {
-  const [field, _, helpers] = useField(name)
+  const [field, meta, helpers] = useField(name)
+
+  useEffect(() => {
+    validateForm?.()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [field.value])
 
   return (
     <div
@@ -84,21 +94,38 @@ export function FormikColorPicker({
           showTooltipSymbol={typeof tooltip !== 'undefined'}
         />
       )}
-      <ColorPicker
-        color={field.value}
-        onSubmit={(newValue) => helpers.setValue(newValue)}
-        disabled={disabled}
-        triggerIcon={triggerIcon}
-        presetColors={presetColors}
-        position={position}
-        submitText={submitText}
-        colorLabel={colorLabel}
-        tooltip={colorTooltip}
-        dataTrigger={dataTrigger}
-        dataHexInput={dataHexInput}
-        dataSubmit={dataSubmit}
-        className={className?.picker}
-      />
+      <div className="flex flex-row items-center gap-2">
+        <ColorPicker
+          color={field.value}
+          onSubmit={(newValue) => {
+            helpers.setValue(newValue)
+            helpers.setTouched(true)
+          }}
+          disabled={disabled}
+          triggerIcon={triggerIcon}
+          presetColors={presetColors}
+          position={position}
+          submitText={submitText}
+          colorLabel={colorLabel}
+          tooltip={colorTooltip}
+          dataTrigger={dataTrigger}
+          dataHexInput={dataHexInput}
+          dataSubmit={dataSubmit}
+          className={className?.picker}
+        />
+        {meta.error && meta.touched && (
+          <Tooltip
+            tooltip={meta.error}
+            delay={0}
+            className={{ tooltip: 'text-sm' }}
+          >
+            <FontAwesomeIcon
+              icon={faCircleExclamation}
+              className="mr-1 text-red-600"
+            />
+          </Tooltip>
+        )}
+      </div>
     </div>
   )
 }
