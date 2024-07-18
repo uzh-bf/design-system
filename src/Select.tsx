@@ -39,7 +39,7 @@ interface SelectProps {
   contentPosition?: 'item-aligned' | 'popper'
 }
 
-export interface Item {
+export interface SelectItem {
   id?: string
   data?: {
     cy?: string
@@ -51,19 +51,19 @@ export interface Item {
   shortLabel?: string
 }
 
-export interface Group {
+export interface SelectGroup {
   label?: string
   showSeparator?: boolean
-  items: Item[]
+  items: SelectItem[]
 }
 
 export interface SelectWithItemsProps extends SelectProps {
-  items: Item[]
+  items: SelectItem[]
   groups?: never
 }
 
 export interface SelectWithGroupsProps extends SelectProps {
-  groups: Group[]
+  groups: SelectGroup[]
   items?: never
 }
 
@@ -279,7 +279,7 @@ const SelectItem = React.forwardRef(
 )
 
 interface SelectGroupProps {
-  items: Item[]
+  items: SelectItem[]
   size?: 'md' | 'sm'
   showSeparator?: boolean
   label?: string
