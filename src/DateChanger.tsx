@@ -72,7 +72,6 @@ export interface DateChangerProps {
  * @param className - The optional className object allows you to override the default styling.
  * @returns Date changer component with optional label, edit button and save button.
  */
-
 export function DateChanger({
   id,
   data,
