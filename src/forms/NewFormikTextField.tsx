@@ -2,7 +2,7 @@ import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
 import { useField } from 'formik'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
-import TextField from './TextField'
+import TextField, { TextFieldClassName } from './TextField'
 
 interface FormikTextFieldProps {
   id?: string
@@ -19,14 +19,9 @@ interface FormikTextFieldProps {
   required?: boolean
   hideError?: boolean
   disabled?: boolean
-  className?: {
+  onPaste?: (e: any) => void
+  className?: TextFieldClassName & {
     root?: string
-    field?: string
-    icon?: string
-    label?: string
-    input?: string
-    error?: string
-    tooltip?: string
   }
 }
 
@@ -65,6 +60,7 @@ export interface FormikTextFieldWithOnChangeProps extends FormikTextFieldProps {
  * @param required - Indicate whether the field is required or not.
  * @param hideError - Hide the error message below this component as is might be more appropriate to show it somewhere else.
  * @param disabled - Disable the field.
+ * @param onPaste - An optional function that is called when the user pastes text into the field.
  * @param className - The optional className object allows you to override the default styling.
  * @returns Text field component with Formik state management.
  */
@@ -84,6 +80,7 @@ export function FormikTextField({
   required = false,
   hideError = false,
   disabled = false,
+  onPaste,
   className,
   ...props
 }: FormikTextFieldWithNameProps | FormikTextFieldWithOnChangeProps) {
@@ -106,6 +103,7 @@ export function FormikTextField({
           isTouched={meta.touched}
           hideError={hideError}
           disabled={disabled}
+          onPaste={onPaste}
           className={className}
           icon={icon}
           {...props}
@@ -131,8 +129,10 @@ export function FormikTextField({
           tooltip={tooltip}
           required={required}
           error={error}
+          isTouched={meta.touched}
           hideError={hideError}
           disabled={disabled}
+          onPaste={onPaste}
           className={className}
           icon={icon}
           {...props}
