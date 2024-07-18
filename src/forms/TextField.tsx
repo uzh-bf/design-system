@@ -176,7 +176,7 @@ export function TextField({
             />
           )}
         </div>
-        {error && !hideError && (
+        {error && !hideError && isTouched && (
           <Tooltip tooltip={error} delay={0} className={{ tooltip: 'text-sm' }}>
             <FontAwesomeIcon
               icon={faCircleExclamation}
