@@ -92,7 +92,7 @@ export function NumberField({
     <div
       className={twMerge(
         'flex w-full flex-row',
-        labelType === 'small' && 'max-w-80 flex-col',
+        labelType === 'small' && 'flex-col',
         className?.field
       )}
     >
@@ -117,42 +117,40 @@ export function NumberField({
       )}
 
       <div className="flex flex-row items-center gap-2">
-        <div className="relative">
-          <input
-            id={id}
-            data-cy={data?.cy}
-            data-test={data?.test}
-            type="text"
-            value={value}
-            onChange={(e) => {
-              if (
-                e.target.value.match(validInput) !== null &&
-                (e.target.value === '' ||
-                  typeof min === 'undefined' ||
-                  parseFloat(e.target.value) >= min) &&
-                (e.target.value === '' ||
-                  typeof max === 'undefined' ||
-                  parseFloat(e.target.value) <= max)
-              ) {
-                onChange(e.target.value)
-              } else {
-                console.log(
-                  `input ${e.target.value} does not match regex ${validInput}`
-                )
-              }
-            }}
-            onBlur={onBlur}
-            placeholder={placeholder}
-            disabled={disabled}
-            className={twMerge(
-              'focus:border-uzh-blue-50 h-9 w-full rounded border border-uzh-grey-60 pl-2 text-slate-600',
-              disabled && 'cursor-not-allowed',
-              !!error && isTouched && 'border-red-400 bg-red-50',
-              className?.input
-            )}
-            {...props}
-          />
-        </div>
+        <input
+          id={id}
+          data-cy={data?.cy}
+          data-test={data?.test}
+          type="text"
+          value={value}
+          onChange={(e) => {
+            if (
+              e.target.value.match(validInput) !== null &&
+              (e.target.value === '' ||
+                typeof min === 'undefined' ||
+                parseFloat(e.target.value) >= min) &&
+              (e.target.value === '' ||
+                typeof max === 'undefined' ||
+                parseFloat(e.target.value) <= max)
+            ) {
+              onChange(e.target.value)
+            } else {
+              console.log(
+                `input ${e.target.value} does not match regex ${validInput}`
+              )
+            }
+          }}
+          onBlur={onBlur}
+          placeholder={placeholder}
+          disabled={disabled}
+          className={twMerge(
+            'focus:border-uzh-blue-50 h-9 w-full rounded border border-uzh-grey-60 pl-2 text-slate-600',
+            disabled && 'cursor-not-allowed',
+            !!error && isTouched && 'border-red-400 bg-red-50',
+            className?.input
+          )}
+          {...props}
+        />
         {error && !hideError && isTouched && (
           <Tooltip tooltip={error} delay={0} className={{ tooltip: 'text-sm' }}>
             <FontAwesomeIcon

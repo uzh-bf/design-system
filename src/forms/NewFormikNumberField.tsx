@@ -1,5 +1,6 @@
 import { useField } from 'formik'
 import React from 'react'
+import { twMerge } from 'tailwind-merge'
 import NumberField, { NumberFieldClassName } from './NumberField'
 
 interface FormikNumberFieldProps {
@@ -86,10 +87,41 @@ export function FormikNumberField({
 
   if (name) {
     return (
+      <div className={twMerge('w-80', className?.root)}>
+        <NumberField
+          id={id}
+          value={field.value}
+          onChange={(newValue: string) => helpers.setValue(newValue)}
+          label={label}
+          labelType={labelType}
+          placeholder={placeholder}
+          precision={precision}
+          min={min}
+          max={max}
+          tooltip={tooltip}
+          required={required}
+          hideError={hideError}
+          error={meta.error}
+          isTouched={meta.touched}
+          disabled={disabled}
+          onBlur={() => {
+            helpers.setTouched(true)
+            onBlur?.()
+          }}
+          data={data}
+          className={className}
+          {...props}
+        />
+      </div>
+    )
+  }
+
+  return (
+    <div className={twMerge('w-80', className?.root)}>
       <NumberField
         id={id}
-        value={field.value}
-        onChange={(newValue: string) => helpers.setValue(newValue)}
+        value={value!}
+        onChange={onChange!}
         label={label}
         labelType={labelType}
         placeholder={placeholder}
@@ -99,8 +131,8 @@ export function FormikNumberField({
         tooltip={tooltip}
         required={required}
         hideError={hideError}
-        error={meta.error}
-        isTouched={meta.touched}
+        error={error}
+        isTouched={isTouched}
         disabled={disabled}
         onBlur={() => {
           helpers.setTouched(true)
@@ -110,34 +142,7 @@ export function FormikNumberField({
         className={className}
         {...props}
       />
-    )
-  }
-
-  return (
-    <NumberField
-      id={id}
-      value={value!}
-      onChange={onChange!}
-      label={label}
-      labelType={labelType}
-      placeholder={placeholder}
-      precision={precision}
-      min={min}
-      max={max}
-      tooltip={tooltip}
-      required={required}
-      hideError={hideError}
-      error={error}
-      isTouched={isTouched}
-      disabled={disabled}
-      onBlur={() => {
-        helpers.setTouched(true)
-        onBlur?.()
-      }}
-      data={data}
-      className={className}
-      {...props}
-    />
+    </div>
   )
 }
 
