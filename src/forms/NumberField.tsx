@@ -60,7 +60,6 @@ export interface NumberFieldProps {
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param className - The optional className object allows you to override the default styling.
  */
-
 export function NumberField({
   id,
   value,
