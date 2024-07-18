@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.12.0](https://github.com/uzh-bf/design-system/compare/v2.11.0...v2.12.0) (2024-07-18)
+
+
+### Features
+
+* **forms/FormikDateField:** add new formik date field with consistent styling and error messages ([#110](https://github.com/uzh-bf/design-system/issues/110)) ([d330a3f](https://github.com/uzh-bf/design-system/commit/d330a3f122e1ebd065f9acd3f470bbc110d1724c))
+* **forms/FormikNumberField:** introduce new formik number field with unified errors and styling ([#109](https://github.com/uzh-bf/design-system/issues/109)) ([e70da1c](https://github.com/uzh-bf/design-system/commit/e70da1c61a0b556be56fe5acec9a9bb78838a6af))
+* **forms/FormikPinField:** introduce new formik pin field component with unified errors and labelling ([#107](https://github.com/uzh-bf/design-system/issues/107)) ([8fded95](https://github.com/uzh-bf/design-system/commit/8fded9504775e735dc017090cf3b09551c3ca952))
+
 ## [2.11.0](https://github.com/uzh-bf/design-system/compare/v2.10.0...v2.11.0) (2024-07-17)
 
 
