@@ -67,6 +67,7 @@ function FormikDateChanger({
 
   useEffect(() => {
     validateField?.()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [edit])
 
   return (
