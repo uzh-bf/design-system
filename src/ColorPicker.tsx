@@ -139,7 +139,7 @@ export function ColorPicker({
           <div className="ml-4 flex flex-col justify-between">
             <div className="flex flex-col">
               <Label
-                label={colorLabel ?? 'Farbe'}
+                label={colorLabel}
                 className={{
                   root: twMerge(
                     'my-auto -mb-1 min-w-max text-base font-bold leading-6 text-gray-600',
