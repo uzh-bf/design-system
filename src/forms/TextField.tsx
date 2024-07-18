@@ -100,7 +100,7 @@ export function TextField({
     <div
       className={twMerge(
         'flex w-full flex-row',
-        labelType === 'small' && 'max-w-80 flex-col',
+        labelType === 'small' && 'flex-col',
         className?.field
       )}
     >
@@ -176,7 +176,7 @@ export function TextField({
             />
           )}
         </div>
-        {error && !hideError && (
+        {error && !hideError && isTouched && (
           <Tooltip tooltip={error} delay={0} className={{ tooltip: 'text-sm' }}>
             <FontAwesomeIcon
               icon={faCircleExclamation}

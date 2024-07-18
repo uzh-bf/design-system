@@ -106,3 +106,45 @@ export function Labelled() {
     </div>
   )
 }
+
+export function SmallLabel() {
+  const [value, setValue] = useState('')
+  return (
+    <div>
+      <NumberField
+        value={value}
+        onChange={(newValue) => setValue(newValue)}
+        label="Nunber Field"
+        labelType="small"
+        tooltip="This is a tooltip for the number field"
+        required
+      />
+      <div>Value: {value}</div>
+    </div>
+  )
+}
+
+export function Error() {
+  const [value, setValue] = useState('')
+  const [touched, setTouched] = useState(false)
+
+  return (
+    <div>
+      <div>
+        As soon as the field has been touched, an error will be displayed.
+      </div>
+      <NumberField
+        value={value}
+        onChange={(newValue) => setValue(newValue)}
+        onBlur={() => setTouched(true)}
+        label="Nunber Field"
+        labelType="small"
+        tooltip="This is a tooltip for the number field"
+        error="This is an error message"
+        isTouched={touched}
+        required
+      />
+      <div>Value: {value}</div>
+    </div>
+  )
+}

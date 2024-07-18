@@ -31,6 +31,7 @@ export interface FormikTextFieldWithNameProps extends FormikTextFieldProps {
   value?: never
   onChange?: never
   error?: never
+  isTouched?: never
   [key: string]: any
 }
 export interface FormikTextFieldWithOnChangeProps extends FormikTextFieldProps {
@@ -38,6 +39,7 @@ export interface FormikTextFieldWithOnChangeProps extends FormikTextFieldProps {
   value: string
   onChange: (newValue: string) => void
   error?: string
+  isTouched?: boolean
   [key: string]: any
 }
 
@@ -79,6 +81,7 @@ export function FormikTextField({
   tooltip,
   required = false,
   hideError = false,
+  isTouched = false,
   disabled = false,
   onPaste,
   className,
@@ -88,7 +91,7 @@ export function FormikTextField({
 
   if (name) {
     return (
-      <div className={twMerge('flex w-80 flex-row gap-2', className?.root)}>
+      <div className={twMerge('w-80', className?.root)}>
         <TextField
           id={id}
           data={data}
@@ -112,12 +115,7 @@ export function FormikTextField({
     )
   } else {
     return (
-      <div
-        className={twMerge(
-          'flex w-80 flex-row items-end gap-2',
-          className?.root
-        )}
-      >
+      <div className={twMerge('w-80', className?.root)}>
         <TextField
           id={id}
           data={data}
@@ -129,7 +127,7 @@ export function FormikTextField({
           tooltip={tooltip}
           required={required}
           error={error}
-          isTouched={meta.touched}
+          isTouched={isTouched}
           hideError={hideError}
           disabled={disabled}
           onPaste={onPaste}
