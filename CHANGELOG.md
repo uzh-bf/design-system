@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.13.1](https://github.com/uzh-bf/design-system/compare/v2.13.0...v2.13.1) (2024-07-19)
+
+
+### Bug Fixes
+
+* ensure that input field components are full width by default ([#114](https://github.com/uzh-bf/design-system/issues/114)) ([95dc393](https://github.com/uzh-bf/design-system/commit/95dc393a91b0cf9e47e3cae8b9b5b156d3634b0a))
+
 ## [2.13.0](https://github.com/uzh-bf/design-system/compare/v2.12.0...v2.13.0) (2024-07-18)
 
 
