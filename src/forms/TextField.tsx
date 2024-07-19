@@ -124,8 +124,8 @@ export function TextField({
         />
       )}
 
-      <div className="flex flex-row items-center gap-2">
-        <div className="relative">
+      <div className="flex w-full flex-row items-center gap-2">
+        <div className="relative w-full">
           {name && field ? (
             <input
               {...field}

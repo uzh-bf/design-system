@@ -25,7 +25,7 @@ export const Default = () => (
                 name="name"
                 label="Label"
                 tooltip="Tooltip for this input"
-                className={{ root: 'mb-1' }}
+                className={{ root: 'mb-1 w-96' }}
                 placeholder="Placeholder"
               />
               <Button type="submit">Submit</Button>

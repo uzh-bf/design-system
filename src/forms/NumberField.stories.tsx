@@ -10,7 +10,11 @@ export function Default() {
         precision (negative and positive) and its value is maintained as a
         string.
       </div>
-      <NumberField value={value} onChange={(newValue) => setValue(newValue)} />
+      <NumberField
+        value={value}
+        onChange={(newValue) => setValue(newValue)}
+        className={{ field: 'w-80' }}
+      />
       <div>Value: {value}</div>
     </div>
   )
