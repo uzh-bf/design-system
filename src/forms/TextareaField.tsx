@@ -74,7 +74,6 @@ export interface TextareaFieldOnChangeProps extends TextareaFieldProps {
  * @param className - The optional className object allows you to override the default styling.
  * @returns Text field component with optional label, tooltip, error message and icon.
  */
-
 export function TextareaField({
   id,
   data,
@@ -98,7 +97,7 @@ export function TextareaField({
   ...props
 }: TextareaFieldNameProps | TextareaFieldOnChangeProps) {
   return (
-    <div className={twMerge('flex flex-col', className?.root)}>
+    <div className={twMerge('flex w-full flex-col', className?.root)}>
       <div
         className={twMerge(
           'flex w-full flex-row',

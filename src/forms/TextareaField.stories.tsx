@@ -14,6 +14,7 @@ export const Default = () => {
         placeholder="Placeholder"
         value={value}
         onChange={setValue}
+        className={{ root: 'w-[30rem]' }}
       />
     </div>
   )

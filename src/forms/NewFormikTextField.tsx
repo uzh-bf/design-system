@@ -91,7 +91,7 @@ export function FormikTextField({
 
   if (name) {
     return (
-      <div className={twMerge('w-80', className?.root)}>
+      <div className={twMerge('w-full', className?.root)}>
         <TextField
           id={id}
           data={data}
@@ -115,7 +115,7 @@ export function FormikTextField({
     )
   } else {
     return (
-      <div className={twMerge('w-80', className?.root)}>
+      <div className={twMerge('w-full', className?.root)}>
         <TextField
           id={id}
           data={data}

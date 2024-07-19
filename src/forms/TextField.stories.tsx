@@ -11,7 +11,9 @@ export const Default = () => {
       <TextField
         label="Label"
         tooltip="Tooltip for this input"
-        className={{ field: 'mb-1' }}
+        className={{
+          field: 'mb-1 w-80',
+        }}
         placeholder="Placeholder"
         value={value}
         onChange={setValue}

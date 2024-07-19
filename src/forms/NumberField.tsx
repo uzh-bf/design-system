@@ -116,7 +116,7 @@ export function NumberField({
         />
       )}
 
-      <div className="flex flex-row items-center gap-2">
+      <div className="flex w-full flex-row items-center gap-2">
         <input
           id={id}
           data-cy={data?.cy}

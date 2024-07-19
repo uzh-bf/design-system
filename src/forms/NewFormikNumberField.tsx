@@ -87,7 +87,7 @@ export function FormikNumberField({
 
   if (name) {
     return (
-      <div className={twMerge('w-80', className?.root)}>
+      <div className={twMerge('w-full', className?.root)}>
         <NumberField
           id={id}
           value={field.value}
@@ -117,7 +117,7 @@ export function FormikNumberField({
   }
 
   return (
-    <div className={twMerge('w-80', className?.root)}>
+    <div className={twMerge('w-full', className?.root)}>
       <NumberField
         id={id}
         value={value!}
