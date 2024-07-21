@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.13.2](https://github.com/uzh-bf/design-system/compare/v2.13.1...v2.13.2) (2024-07-21)
+
+
+### Bug Fixes
+
+* **forms/NewFormikDateField:** fix styling of label for formik date field and color picker ([ff80ac1](https://github.com/uzh-bf/design-system/commit/ff80ac1c1e89f126ade8e780ee4feee28ca8c952))
+
 ## [2.13.1](https://github.com/uzh-bf/design-system/compare/v2.13.0...v2.13.1) (2024-07-19)
 
 
