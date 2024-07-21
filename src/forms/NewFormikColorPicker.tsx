@@ -82,9 +82,9 @@ export function FormikColorPicker({
           label={label}
           className={{
             root: twMerge(
-              'my-auto -mb-1 mr-2 min-w-max font-bold',
+              'my-auto mr-2 min-w-max font-bold',
               labelType === 'small' &&
-                'mt-1 text-sm font-normal leading-6 text-gray-600',
+                '-mb-1 mt-1 text-sm leading-6 text-gray-600',
               className?.label
             ),
             tooltip: twMerge('text-sm font-normal', className?.tooltip),

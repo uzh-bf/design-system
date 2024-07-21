@@ -75,14 +75,13 @@ export function NewFormikDateField({
       >
         {label && (
           <Label
-            forId={id}
             required={required}
             label={label}
             className={{
               root: twMerge(
                 'my-auto mr-2 min-w-max font-bold',
                 labelType === 'small' &&
-                  'mt-1 text-sm font-normal leading-6 text-gray-600',
+                  '-mb-1 mt-1 text-sm leading-6 text-gray-600',
                 className?.label
               ),
               tooltip: twMerge('text-sm font-normal', className?.tooltip),
