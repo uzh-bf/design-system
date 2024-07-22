@@ -156,7 +156,7 @@ export function ColorPicker({
               />
               <HexColorInput
                 className={twMerge(
-                  'focus:border-uzh-blue-50 h-9 w-24 rounded border border-uzh-grey-60 pl-2 text-slate-600',
+                  'focus:border-uzh-blue-50 h-9 w-24 rounded border border-uzh-grey-60 pl-2 placeholder-slate-400',
                   className?.input
                 )}
                 color={newColor}

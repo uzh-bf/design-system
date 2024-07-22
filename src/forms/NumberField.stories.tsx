@@ -20,6 +20,21 @@ export function Default() {
   )
 }
 
+export function Placeholder() {
+  const [value, setValue] = useState('')
+  return (
+    <div>
+      <NumberField
+        value={value}
+        onChange={(newValue) => setValue(newValue)}
+        className={{ field: 'w-80' }}
+        placeholder="Enter a number"
+      />
+      <div>Value: {value}</div>
+    </div>
+  )
+}
+
 export function Precision() {
   const [value, setValue] = useState('')
   return (

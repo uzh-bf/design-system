@@ -137,7 +137,7 @@ export function TextareaField({
               maxLength={maxLength}
               disabled={disabled}
               className={twMerge(
-                'focus:border-uzh-blue-50 w-full rounded border border-uzh-grey-60 pl-2 text-slate-600',
+                'focus:border-uzh-blue-50 w-full rounded border border-uzh-grey-60 pl-2 placeholder-slate-400',
                 disabled && 'cursor-not-allowed',
                 !!error && isTouched && 'border-red-400 bg-red-50',
                 className?.input
@@ -155,7 +155,7 @@ export function TextareaField({
               maxLength={maxLength}
               disabled={disabled}
               className={twMerge(
-                'focus:border-uzh-blue-50 w-full rounded border border-uzh-grey-60 pl-2 text-slate-600',
+                'focus:border-uzh-blue-50 w-full rounded border border-uzh-grey-60 pl-2 placeholder-slate-400',
                 disabled && 'cursor-not-allowed',
                 !!error && isTouched && 'border-red-400 bg-red-50',
                 className?.input

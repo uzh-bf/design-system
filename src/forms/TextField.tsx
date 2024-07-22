@@ -138,7 +138,7 @@ export function TextField({
               disabled={disabled}
               onPaste={onPaste}
               className={twMerge(
-                'focus:border-uzh-blue-50 h-9 w-full rounded border border-uzh-grey-60 pl-2 text-slate-600',
+                'focus:border-uzh-blue-50 h-9 w-full rounded border border-uzh-grey-60 pl-2 placeholder-slate-400',
                 icon && 'pl-8',
                 disabled && 'cursor-not-allowed',
                 !!error && isTouched && 'border-red-400 bg-red-50',
@@ -158,7 +158,7 @@ export function TextField({
               disabled={disabled}
               onPaste={onPaste}
               className={twMerge(
-                'focus:border-uzh-blue-50 h-9 w-full rounded border border-uzh-grey-60 pl-2 text-slate-600',
+                'focus:border-uzh-blue-50 h-9 w-full rounded border border-uzh-grey-60 pl-2 placeholder-slate-400',
                 icon && 'pl-8',
                 disabled && 'cursor-not-allowed',
                 !!error && isTouched && 'border-red-400 bg-red-50',
