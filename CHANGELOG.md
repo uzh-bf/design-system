@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.13.3](https://github.com/uzh-bf/design-system/compare/v2.13.2...v2.13.3) (2024-07-22)
+
+
+### Bug Fixes
+
+* ensure that text color of input fields and placeholders is different ([d4b6fbb](https://github.com/uzh-bf/design-system/commit/d4b6fbb24eb629498f16622673ce728065bc3566))
+* **forms/NewFormikNumberField:** ensure that default label is small for number field ([b7577d6](https://github.com/uzh-bf/design-system/commit/b7577d619be7da750f11de6cc8a030267778dc87))
+
 ## [2.13.2](https://github.com/uzh-bf/design-system/compare/v2.13.1...v2.13.2) (2024-07-21)
 
 
