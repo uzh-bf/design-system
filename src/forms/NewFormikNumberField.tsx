@@ -67,7 +67,7 @@ export function FormikNumberField({
   value,
   onChange,
   label,
-  labelType,
+  labelType = 'small',
   placeholder,
   precision,
   min,
