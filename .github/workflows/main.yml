@@ -75,7 +75,7 @@ jobs:
           version: 9.6.0
           run_install: true
 
-      - run: pnpm run test --ci --coverage --maxWorkers=2
+      - run: pnpm run test -- --ci --coverage --maxWorkers=2
 
   build:
     name: Build and Publish
