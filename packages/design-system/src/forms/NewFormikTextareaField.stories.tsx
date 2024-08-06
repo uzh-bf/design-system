@@ -2,7 +2,7 @@ import { Form, Formik } from 'formik'
 import React from 'react'
 import * as yup from 'yup'
 import Button from '../Button'
-import FormikNumberField from './FormikNumberField'
+import FormikTextareaField from './NewFormikTextareaField'
 
 export const Default = () => (
   <div>
@@ -21,11 +21,11 @@ export const Default = () => (
         return (
           <div>
             <Form>
-              <FormikNumberField
+              <FormikTextareaField
                 name="name"
                 label="Label"
                 tooltip="Tooltip for this input"
-                className={{ root: 'mb-1' }}
+                className={{ root: 'mb-1 w-96' }}
                 placeholder="Placeholder"
               />
               <Button type="submit">Submit</Button>
@@ -38,15 +38,15 @@ export const Default = () => (
   </div>
 )
 
-export const MinMax = () => (
+export const MaxLength = () => (
   <div>
     <div>
-      Specifying minimum and maximum values will enable additional validation
-      steps. In this case, values between 0 and 1000 will be accepted
+      The Formik field works with a "name" input and maximum length (including
+      label)
     </div>
     <Formik
       initialValues={{
-        name: undefined,
+        name: '',
       }}
       isInitialValid={false}
       onSubmit={async (values, { resetForm }) => {
@@ -58,14 +58,14 @@ export const MinMax = () => (
         return (
           <div>
             <Form>
-              <FormikNumberField
+              <FormikTextareaField
                 name="name"
                 label="Label"
                 tooltip="Tooltip for this input"
                 className={{ root: 'mb-1' }}
                 placeholder="Placeholder"
-                min={0}
-                max={1000}
+                maxLength={20}
+                maxLengthUnit="characters"
               />
               <Button type="submit">Submit</Button>
             </Form>
@@ -79,10 +79,7 @@ export const MinMax = () => (
 
 export const Disabled = () => (
   <div>
-    <div>
-      Number inputs can also be disabled with a corresponding prop, not allowing
-      the user to make changes to the field.
-    </div>
+    <div>The default Formik field works with a "name" input</div>
     <Formik
       initialValues={{
         name: '',
@@ -97,142 +94,17 @@ export const Disabled = () => (
         return (
           <div>
             <Form>
-              <FormikNumberField
+              <FormikTextareaField
                 disabled
                 name="name"
                 label="Label"
-                tooltip="Tooltip for disabled field"
+                tooltip="Tooltip for a disabled text field"
                 className={{ root: 'mb-1' }}
                 placeholder="Placeholder (disabled field)"
               />
               <Button type="submit">Submit</Button>
             </Form>
             <div>Value: {values.name}</div>
-          </div>
-        )
-      }}
-    </Formik>
-  </div>
-)
-
-export const Validation = () => (
-  <div>
-    <div>
-      This formik field has validation functionalities included. The value is
-      required and should be at least 100.
-    </div>
-    <Formik
-      initialValues={{
-        name: '',
-      }}
-      isInitialValid={false}
-      onSubmit={async (values, { resetForm }) => {
-        alert(`Form submitted with value: ${parseFloat(values.name || '')}`)
-        resetForm()
-      }}
-      validationSchema={yup.object().shape({
-        name: yup.number().required('This field is required.').min(100),
-      })}
-    >
-      {({ values }) => {
-        return (
-          <div>
-            <Form>
-              <FormikNumberField
-                name="name"
-                label="Label"
-                tooltip="Tooltip for this input"
-                className={{ root: 'mb-1' }}
-                placeholder="Placeholder"
-              />
-              <Button type="submit">Submit</Button>
-            </Form>
-            <div>
-              Value that will be submitted with parseFloat():{' '}
-              {parseFloat(values.name || '')}
-            </div>
-          </div>
-        )
-      }}
-    </Formik>
-  </div>
-)
-
-export const Decimals = () => (
-  <div>
-    <div>
-      The default Formik field works with a "name" input and allows the user to
-      input decimal numbers as well as integers. The number of decimal places
-      can be specified through the precision prop (set to 2 for this example).
-    </div>
-    <Formik
-      initialValues={{
-        name: '',
-      }}
-      isInitialValid={false}
-      onSubmit={async (values, { resetForm }) => {
-        alert(`Form submitted with value: ${parseFloat(values.name || '')}`)
-        resetForm()
-      }}
-    >
-      {({ values }) => {
-        return (
-          <div>
-            <Form>
-              <FormikNumberField
-                name="name"
-                label="Label"
-                tooltip="Tooltip for this input"
-                className={{ root: 'mb-1' }}
-                placeholder="Placeholder"
-                precision={2}
-              />
-              <Button type="submit">Submit</Button>
-            </Form>
-            <div>
-              Value that will be submitted with parseFloat():{' '}
-              {parseFloat(values.name || '')}
-            </div>
-          </div>
-        )
-      }}
-    </Formik>
-  </div>
-)
-
-export const Integer = () => (
-  <div>
-    <div>
-      By fixing the precision parameter to 0, the user can only input integers.
-    </div>
-    <Formik
-      initialValues={{
-        name: '',
-      }}
-      isInitialValid={false}
-      onSubmit={async (values, { resetForm }) => {
-        alert(`Form submitted with value: ${parseFloat(values.name || '')}`)
-        resetForm()
-      }}
-    >
-      {({ values }) => {
-        return (
-          <div>
-            <Form>
-              <FormikNumberField
-                name="name"
-                label="Label"
-                tooltip="Tooltip for this input"
-                className={{ root: 'mb-1' }}
-                placeholder="Placeholder"
-                precision={0}
-              />
-              <Button type="submit">Submit</Button>
-            </Form>
-            <div>
-              Value that will be submitted with parseFloat():{' '}
-              {parseFloat(values.name || '')}
-            </div>
           </div>
         )
       }}
@@ -260,9 +132,89 @@ export const Required = () => (
         return (
           <div>
             <Form>
-              <FormikNumberField
+              <FormikTextareaField
                 required
                 name="name"
+                label="Label"
+                tooltip="Tooltip for this input"
+                className={{ root: 'mb-1' }}
+                placeholder="Placeholder"
+              />
+              <Button type="submit">Submit</Button>
+            </Form>
+            <div>Value: {values.name}</div>
+          </div>
+        )
+      }}
+    </Formik>
+  </div>
+)
+
+export const OnChangeFunction = () => (
+  <div>
+    <div>
+      An alternative version of the text field input allows to work with a
+      "value" and "onChange" attribute instead of the "name" attribute. This
+      field is modified in a way that whitespaces are removed from the input on
+      change.
+    </div>
+    <Formik
+      initialValues={{
+        name: '',
+      }}
+      isInitialValid={false}
+      onSubmit={async (values, { resetForm }) => {
+        alert(`Form submitted with value: ${values.name}`)
+        resetForm()
+      }}
+    >
+      {({ values, setFieldValue }) => {
+        return (
+          <div>
+            <Form>
+              <FormikTextareaField
+                value={values.name}
+                onChange={(newValue) => {
+                  setFieldValue('name', newValue.replace(/\s/g, ''))
+                }}
+                label="Label"
+                tooltip="Tooltip for this input"
+                className={{ root: 'mb-1' }}
+                placeholder="Placeholder"
+              />
+              <Button type="submit">Submit</Button>
+            </Form>
+            <div>Value: {values.name}</div>
+          </div>
+        )
+      }}
+    </Formik>
+  </div>
+)
+
+export const OnChangeError = () => (
+  <div>
+    <Formik
+      initialValues={{
+        name: '',
+      }}
+      isInitialValid={false}
+      onSubmit={async (values, { resetForm }) => {
+        alert(`Form submitted with value: ${values.name}`)
+        resetForm()
+      }}
+    >
+      {({ values, setFieldValue }) => {
+        return (
+          <div>
+            <Form>
+              <FormikTextareaField
+                isTouched
+                error="Error message"
+                value={values.name}
+                onChange={(newValue) => {
+                  setFieldValue('name', newValue)
+                }}
                 label="Label"
                 tooltip="Tooltip for this input"
                 className={{ root: 'mb-1' }}
@@ -295,17 +247,15 @@ export const Styled = () => (
         return (
           <div>
             <Form>
-              <FormikNumberField
+              <FormikTextareaField
                 name="name"
                 label="Label"
                 tooltip="Tooltip for this input"
                 className={{
                   root: 'mb-1 w-1/2',
                   label: 'text-red-500',
+                  input: 'bg-uzh-blue-20',
                   error: 'text-red-700',
-                  numberField: {
-                    input: 'bg-uzh-blue-20',
-                  },
                 }}
                 placeholder="Placeholder"
               />
@@ -319,12 +269,52 @@ export const Styled = () => (
   </div>
 )
 
-export const SmallLabel = () => (
+export const Validation = () => (
   <div>
     <div>
-      Formik text area component with a small label (designed e.g. for login
-      forms)
+      This text field should have a maximum length of 10 characters or will
+      display an error otherwise.
     </div>
+    <Formik
+      initialValues={{
+        name: '',
+      }}
+      isInitialValid={false}
+      onSubmit={async (values, { resetForm }) => {
+        alert(`Form submitted with value: ${values.name}`)
+        resetForm()
+      }}
+      validationSchema={yup.object().shape({
+        name: yup
+          .string()
+          .required('This field is required')
+          .max(10, 'Max 10 characters'),
+      })}
+    >
+      {({ values }) => {
+        return (
+          <div>
+            <Form>
+              <FormikTextareaField
+                name="name"
+                label="Label"
+                tooltip="Tooltip for this input"
+                className={{ root: 'mb-1' }}
+                placeholder="Placeholder"
+              />
+              <Button type="submit">Submit</Button>
+            </Form>
+            <div>Value: {values.name}</div>
+          </div>
+        )
+      }}
+    </Formik>
+  </div>
+)
+
+export const LargeLabel = () => (
+  <div>
+    <div>Formik text area component with a large label</div>
     <Formik
       initialValues={{
         name: '',
@@ -339,11 +329,12 @@ export const SmallLabel = () => (
         return (
           <div>
             <Form>
-              <FormikNumberField
+              <FormikTextareaField
                 required
                 name="name"
                 label="Label"
-                labelType="small"
+                labelType="large"
+                tooltip="Tooltip for this input"
                 className={{ root: 'mb-1' }}
                 placeholder="Placeholder"
               />

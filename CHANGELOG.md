@@ -2,6 +2,100 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.13.3](https://github.com/uzh-bf/design-system/compare/v2.13.2...v2.13.3) (2024-07-22)
+
+
+### Bug Fixes
+
+* ensure that text color of input fields and placeholders is different ([d4b6fbb](https://github.com/uzh-bf/design-system/commit/d4b6fbb24eb629498f16622673ce728065bc3566))
+* **forms/NewFormikNumberField:** ensure that default label is small for number field ([b7577d6](https://github.com/uzh-bf/design-system/commit/b7577d619be7da750f11de6cc8a030267778dc87))
+
+## [2.13.2](https://github.com/uzh-bf/design-system/compare/v2.13.1...v2.13.2) (2024-07-21)
+
+
+### Bug Fixes
+
+* **forms/NewFormikDateField:** fix styling of label for formik date field and color picker ([ff80ac1](https://github.com/uzh-bf/design-system/commit/ff80ac1c1e89f126ade8e780ee4feee28ca8c952))
+
+## [2.13.1](https://github.com/uzh-bf/design-system/compare/v2.13.0...v2.13.1) (2024-07-19)
+
+
+### Bug Fixes
+
+* ensure that input field components are full width by default ([#114](https://github.com/uzh-bf/design-system/issues/114)) ([95dc393](https://github.com/uzh-bf/design-system/commit/95dc393a91b0cf9e47e3cae8b9b5b156d3634b0a))
+
+## [2.13.0](https://github.com/uzh-bf/design-system/compare/v2.12.0...v2.13.0) (2024-07-18)
+
+
+### Features
+
+* **forms/DateChanger:** implement date changer components with unified errors and labelling ([#111](https://github.com/uzh-bf/design-system/issues/111)) ([6b82fe0](https://github.com/uzh-bf/design-system/commit/6b82fe0021a86780410bc5a2497798f01403e273))
+* **forms/FormikColorPicker:** generalize color picker and standardize styling with error and labels ([#113](https://github.com/uzh-bf/design-system/issues/113)) ([8cef39d](https://github.com/uzh-bf/design-system/commit/8cef39d4a7aa9bfc408af652504e1502656c7310))
+
+
+### Bug Fixes
+
+* **ColorPicker:** remove hardcoded text label ([5e47ebf](https://github.com/uzh-bf/design-system/commit/5e47ebf392b9dd33666386207d3ec5a919ddabc4))
+
+## [2.12.0](https://github.com/uzh-bf/design-system/compare/v2.11.0...v2.12.0) (2024-07-18)
+
+
+### Features
+
+* **forms/FormikDateField:** add new formik date field with consistent styling and error messages ([#110](https://github.com/uzh-bf/design-system/issues/110)) ([d330a3f](https://github.com/uzh-bf/design-system/commit/d330a3f122e1ebd065f9acd3f470bbc110d1724c))
+* **forms/FormikNumberField:** introduce new formik number field with unified errors and styling ([#109](https://github.com/uzh-bf/design-system/issues/109)) ([e70da1c](https://github.com/uzh-bf/design-system/commit/e70da1c61a0b556be56fe5acec9a9bb78838a6af))
+* **forms/FormikPinField:** introduce new formik pin field component with unified errors and labelling ([#107](https://github.com/uzh-bf/design-system/issues/107)) ([8fded95](https://github.com/uzh-bf/design-system/commit/8fded9504775e735dc017090cf3b09551c3ca952))
+
+## [2.11.0](https://github.com/uzh-bf/design-system/compare/v2.10.0...v2.11.0) (2024-07-17)
+
+
+### Features
+
+* **forms/Select*:** extend all select fields to support groups ([#105](https://github.com/uzh-bf/design-system/issues/105)) ([5a92307](https://github.com/uzh-bf/design-system/commit/5a923072db81c58ebbe9c5cd9e959871ee81d25e))
+
+## [2.10.0](https://github.com/uzh-bf/design-system/compare/v2.9.0...v2.10.0) (2024-07-17)
+
+
+### Features
+
+* **formst/SelectField:** add new select field component with corresponding formik wrapper component ([#104](https://github.com/uzh-bf/design-system/issues/104)) ([ac74e58](https://github.com/uzh-bf/design-system/commit/ac74e586e9dc199f7ee1d5600eb532be172b4175))
+* **Switch:** introduce enhanced switch and new formik switch field components ([#102](https://github.com/uzh-bf/design-system/issues/102)) ([426b78d](https://github.com/uzh-bf/design-system/commit/426b78da4086c9adbb8d773f7797554a896f9fa6))
+
+
+### Bug Fixes
+
+* remove ineffective styles across different components ([5520b16](https://github.com/uzh-bf/design-system/commit/5520b16f45ec82379b1e6d77fdfdc18fbfc1e283))
+
+## [2.9.0](https://github.com/uzh-bf/design-system/compare/v2.8.1...v2.9.0) (2024-07-17)
+
+
+### Features
+
+* **forms/NewFormikTextField:** add simplified formik text field with enhanced error illustration ([#99](https://github.com/uzh-bf/design-system/issues/99)) ([56f95a4](https://github.com/uzh-bf/design-system/commit/56f95a4e525b1c014adbddc193c18ae60016b242))
+* **forms/TextareaField:** add new textarea field and corresponding formik component ([#101](https://github.com/uzh-bf/design-system/issues/101)) ([a3e7192](https://github.com/uzh-bf/design-system/commit/a3e7192e58c1fe131a89fe9ed4764fef7f1ecaf1))
+
+## [2.8.1](https://github.com/uzh-bf/design-system/compare/v2.8.0...v2.8.1) (2024-07-16)
+
+
+### Bug Fixes
+
+* **Tooltip:** ensure that tooltip also accepts zero delay ([6ab8a6d](https://github.com/uzh-bf/design-system/commit/6ab8a6dbec8b2734ac85eebce45da8e76bd68f78))
+
+## [2.8.0](https://github.com/uzh-bf/design-system/compare/v2.7.1...v2.8.0) (2024-07-15)
+
+
+### Features
+
+* ensure that hover styles are not applied on mobile devices ([e9573dc](https://github.com/uzh-bf/design-system/commit/e9573dcacc51f9319d7d13d7d85cba90e9e46330))
+
+## [2.7.1](https://github.com/uzh-bf/design-system/compare/v2.7.0...v2.7.1) (2024-07-15)
+
+
+### Bug Fixes
+
+* **forms/FormikNumberField:** add missing example for number field validation ([fd9d457](https://github.com/uzh-bf/design-system/commit/fd9d457ed4e83f5e576c4acf8b3b796ec38be019))
+* **Switch:** pass disabled prop correctly to radix switch component ([714742f](https://github.com/uzh-bf/design-system/commit/714742f1e99a5be4cc6fb685ea79f9cb16897227))
+
 ## [2.7.0](https://github.com/uzh-bf/design-system/compare/v2.6.0...v2.7.0) (2024-05-16)
 
 

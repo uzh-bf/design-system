@@ -6,6 +6,9 @@ const {
 
 module.exports = {
   content: ['src/**/**.tsx'],
+  future: {
+    hoverOnlyWhenSupported: true,
+  },
   theme: {
     extend: {
       ...TailwindAnimations,

@@ -10,7 +10,26 @@ export function Default() {
         precision (negative and positive) and its value is maintained as a
         string.
       </div>
-      <NumberField value={value} onChange={(newValue) => setValue(newValue)} />
+      <NumberField
+        value={value}
+        onChange={(newValue) => setValue(newValue)}
+        className={{ field: 'w-80' }}
+      />
+      <div>Value: {value}</div>
+    </div>
+  )
+}
+
+export function Placeholder() {
+  const [value, setValue] = useState('')
+  return (
+    <div>
+      <NumberField
+        value={value}
+        onChange={(newValue) => setValue(newValue)}
+        className={{ field: 'w-80' }}
+        placeholder="Enter a number"
+      />
       <div>Value: {value}</div>
     </div>
   )
@@ -100,6 +119,48 @@ export function Labelled() {
         onChange={(newValue) => setValue(newValue)}
         label="Nunber Field"
         tooltip="This is a tooltip for the number field"
+        required
+      />
+      <div>Value: {value}</div>
+    </div>
+  )
+}
+
+export function SmallLabel() {
+  const [value, setValue] = useState('')
+  return (
+    <div>
+      <NumberField
+        value={value}
+        onChange={(newValue) => setValue(newValue)}
+        label="Nunber Field"
+        labelType="small"
+        tooltip="This is a tooltip for the number field"
+        required
+      />
+      <div>Value: {value}</div>
+    </div>
+  )
+}
+
+export function Error() {
+  const [value, setValue] = useState('')
+  const [touched, setTouched] = useState(false)
+
+  return (
+    <div>
+      <div>
+        As soon as the field has been touched, an error will be displayed.
+      </div>
+      <NumberField
+        value={value}
+        onChange={(newValue) => setValue(newValue)}
+        onBlur={() => setTouched(true)}
+        label="Nunber Field"
+        labelType="small"
+        tooltip="This is a tooltip for the number field"
+        error="This is an error message"
+        isTouched={touched}
         required
       />
       <div>Value: {value}</div>

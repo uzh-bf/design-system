@@ -102,11 +102,10 @@ export function FormikColorPicker({
           triggerIcon={triggerIcon}
           presetColors={presetColors}
           position={position}
-          abortText={abortText}
-          submitText={submitText}
+          submitText={submitText ?? 'Submit'}
+          colorLabel={label ?? 'Color'}
           dataTrigger={dataTrigger}
           dataHexInput={dataHexInput}
-          dataAbort={dataAbort}
           dataSubmit={dataSubmit}
           className={className?.colorPicker}
         />

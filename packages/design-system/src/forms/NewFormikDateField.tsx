@@ -1,16 +1,20 @@
+import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useField } from 'formik'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
+import { Tooltip } from '../Tooltip'
 import Label from './Label'
 
-export interface DateFieldProps {
+export interface NewFormikDateFieldProps {
   id?: string
+  name: string
   data?: {
     cy?: string
     test?: string
   }
   label?: string
-  labelType?: 'small' | 'normal'
+  labelType?: 'small' | 'large'
   placeholder?: string
   tooltip?: string | React.ReactNode
   required?: boolean
@@ -24,7 +28,6 @@ export interface DateFieldProps {
     error?: string
     tooltip?: string
   }
-  name: string
   [key: string]: any
 }
 
@@ -45,12 +48,12 @@ export interface DateFieldProps {
  * @param className - The optional className object allows you to override the default styling.
  * @returns Date field component with Formik state management.
  */
-export function FormikDateField({
+export function NewFormikDateField({
   id,
   data,
   name,
   label,
-  labelType,
+  labelType = 'small',
   placeholder,
   tooltip,
   required = false,
@@ -58,11 +61,11 @@ export function FormikDateField({
   disabled = false,
   className,
   ...props
-}: DateFieldProps) {
+}: NewFormikDateFieldProps) {
   const [field, meta, helpers] = useField(name)
 
   return (
-    <div className={twMerge('flex flex-col', className?.root)}>
+    <div className={twMerge('w-max', className?.root)}>
       <div
         className={twMerge(
           'flex w-full flex-row',
@@ -72,14 +75,13 @@ export function FormikDateField({
       >
         {label && (
           <Label
-            forId={id}
             required={required}
             label={label}
             className={{
               root: twMerge(
                 'my-auto mr-2 min-w-max font-bold',
                 labelType === 'small' &&
-                  'mt-1 text-sm font-normal leading-6 text-gray-600',
+                  '-mb-1 mt-1 text-sm leading-6 text-gray-600',
                 className?.label
               ),
               tooltip: twMerge('text-sm font-normal', className?.tooltip),
@@ -89,42 +91,45 @@ export function FormikDateField({
             showTooltipSymbol={typeof tooltip !== 'undefined'}
           />
         )}
-
-        <input
-          id={id}
-          data-cy={data?.cy}
-          data-test={data?.test}
-          type="datetime-local"
-          value={field.value}
-          onChange={(e) => {
-            if (e.target['validity'].valid) {
-              helpers.setValue(e.target['value'])
-            }
-          }}
-          onBlur={() => helpers.setTouched(true)}
-          placeholder={placeholder}
-          disabled={disabled}
-          className={twMerge(
-            'focus:border-uzh-blue-50 h-9 w-full rounded border border-uzh-grey-60 bg-uzh-grey-20',
-            disabled && 'cursor-not-allowed text-uzh-grey-100',
-            meta.error && meta.touched && 'border-red-400 bg-red-50',
-            className?.input
+        <div className="flex flex-row items-center gap-2">
+          <input
+            id={id}
+            data-cy={data?.cy}
+            data-test={data?.test}
+            type="datetime-local"
+            value={field.value}
+            onChange={(e) => {
+              if (e.target['validity'].valid) {
+                helpers.setValue(e.target['value'])
+              }
+            }}
+            onBlur={() => helpers.setTouched(true)}
+            placeholder={placeholder}
+            disabled={disabled}
+            className={twMerge(
+              'focus:border-uzh-blue-50 h-9 w-full rounded border border-uzh-grey-60 bg-uzh-grey-20',
+              disabled && 'cursor-not-allowed text-uzh-grey-100',
+              meta.error && meta.touched && 'border-red-400 bg-red-50',
+              className?.input
+            )}
+            {...props}
+          />
+          {meta.error && !hideError && meta.touched && (
+            <Tooltip
+              tooltip={meta.error}
+              delay={0}
+              className={{ tooltip: 'text ml-3' }}
+            >
+              <FontAwesomeIcon
+                icon={faCircleExclamation}
+                className="mr-1 text-red-600"
+              />
+            </Tooltip>
           )}
-          {...props}
-        />
-      </div>
-      {!hideError && meta.error && (
-        <div
-          className={twMerge(
-            'w-full text-right text-sm text-red-400',
-            className?.error
-          )}
-        >
-          {meta.error}
         </div>
-      )}
+      </div>
     </div>
   )
 }
 
-export default FormikDateField
+export default NewFormikDateField

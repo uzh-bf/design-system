@@ -1,7 +1,8 @@
 import { Form, Formik } from 'formik'
 import React from 'react'
+import * as yup from 'yup'
 import Button from '../Button'
-import FormikPinField from './FormikPinField'
+import FormikPinField from './NewFormikPinField'
 
 export const Default = () => (
   <div>
@@ -77,13 +78,8 @@ export const Required = () => (
   </div>
 )
 
-export const SmallLabel = () => (
+export const LargeLabel = () => (
   <div>
-    <div>
-      As especially useful for loginForms, etc. the label can be chosen to be
-      smaller, while still offering the required prop and an optional tooltip
-      (scaled accordingly).
-    </div>
     <Formik
       initialValues={{
         pin: '',
@@ -100,7 +96,7 @@ export const SmallLabel = () => (
             <Form>
               <FormikPinField
                 required
-                labelType="small"
+                labelType="large"
                 tooltip="Tooltip for this input"
                 label="PIN"
                 name="pin"
@@ -179,7 +175,7 @@ export const Styled = () => (
                 name="pin"
                 className={{
                   root: 'mb-1 w-1/2',
-                  field: 'bg-red-200',
+                  input: 'bg-red-200',
                   label: 'text-blue-500',
                 }}
                 data={{ cy: 'test' }}
@@ -187,6 +183,52 @@ export const Styled = () => (
               <Button type="submit">Submit</Button>
             </Form>
             <div>Value: {values.pin}</div>
+          </div>
+        )
+      }}
+    </Formik>
+  </div>
+)
+
+export const Validation = () => (
+  <div>
+    <div>
+      This PIN field should have an exact length of 11 characters or will
+      display an error after being touched otherwise.
+    </div>
+    <Formik
+      initialValues={{
+        pin: '',
+      }}
+      isInitialValid={false}
+      onSubmit={async (values, { resetForm }) => {
+        alert(`Form submitted with value: ${values.pin}`)
+        resetForm()
+      }}
+      validationSchema={yup.object().shape({
+        pin: yup
+          .string()
+          .required('This field is required')
+          .min(11, 'Please ensure that the entire PIN is entered')
+          .max(11, 'Please ensure that the entire PIN is entered'),
+      })}
+    >
+      {({ values, isValid }) => {
+        return (
+          <div>
+            <Form>
+              <FormikPinField
+                required
+                label="PIN"
+                name="pin"
+                className={{ root: 'mb-1' }}
+              />
+              <Button type="submit" disabled={!isValid}>
+                Submit
+              </Button>
+            </Form>
+            <div>Value: {values.pin}</div>
+            <div>Valid?: {String(isValid)}</div>
           </div>
         )
       }}
