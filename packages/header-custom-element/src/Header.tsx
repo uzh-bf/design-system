@@ -10,7 +10,7 @@ import {
   H4 as BFH4,
 } from '@uzh-bf/design-system-react-header'
 
-import cssText from 'bundle-text:./styles.css'
+import * as style from 'bundle-text:./styles.css'
 
 const html = htm.bind(h)
 
@@ -38,7 +38,7 @@ export function H1({ text = '' }: HeaderProps) {
     <Fragment>
       <${BFH1}>${text}</${BFH1}>
       <style>
-        ${cssText}
+        ${style}
       </style>
     </Fragment>
   `
@@ -55,7 +55,7 @@ export function H2({ text = '' }: HeaderProps) {
     <Fragment>
       <${BFH2}>${text}</${BFH2}>
       <style>
-        ${cssText}
+        ${style}
       </style>
     </Fragment>
   `
@@ -72,7 +72,7 @@ export function H3({ text = '' }: HeaderProps) {
     <Fragment>
       <${BFH3}>${text}</${BFH3}>
       <style>
-        ${cssText}
+        ${style}
       </style>
     </Fragment>
   `
@@ -89,7 +89,7 @@ export function H4({ text = '' }: HeaderProps) {
     <Fragment>
       <${BFH4}>${text}</${BFH4}>
       <style>
-        ${cssText}
+        ${style}
       </style>
     </Fragment>
   `
