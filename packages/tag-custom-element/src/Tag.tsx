@@ -5,7 +5,7 @@ import { h } from 'preact'
 
 import BFTag from '@uzh-bf/design-system-react-tag'
 
-import cssText from 'bundle-text:./styles.css'
+import * as style from 'bundle-text:./styles.css'
 
 const html = htm.bind(h)
 
@@ -35,7 +35,7 @@ export function Tag({ id, data, className, label = '' }: TagProps) {
     <Fragment>
       <${BFTag} label=${label} />
       <style>
-        ${cssText}
+        ${style}
       </style>
     </Fragment>
   `

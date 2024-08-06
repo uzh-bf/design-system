@@ -81,9 +81,9 @@ export function Dropdown({
           data-test={data?.test}
           className={twMerge(
             'inline-flex h-7 items-center justify-between gap-3 rounded-md border',
-            'bg-white py-1.5 pl-2 pr-2 shadow-sm hover:bg-primary-20 sm:hover:text-primary',
+            'bg-white py-1.5 pl-2 pr-2 shadow-sm hover:bg-primary-20 hover:text-primary',
             disabled &&
-              'hover:bg-none, sm:hover:text-none cursor-not-allowed bg-uzh-grey-20 opacity-70 shadow-sm',
+              'hover:bg-none, hover:text-none cursor-not-allowed bg-uzh-grey-20 opacity-70 shadow-sm',
             className?.trigger
           )}
           disabled={disabled}
@@ -110,7 +110,7 @@ export function Dropdown({
 
       <RadixDropdown.Content
         className={twMerge(
-          'rounded-lg border border-solid p-1 shadow-md',
+          'rounded-lg border border-solid bg-white p-1 shadow-md',
           className?.viewport
         )}
       >
@@ -190,7 +190,6 @@ const DropdownItem = ({
   shorting?: string
   selected?: boolean
   className?: {
-    override?: string
     root?: string
     active?: string
   }
@@ -202,8 +201,7 @@ const DropdownItem = ({
         data-cy={data?.cy}
         data-test={data?.test}
         className={twMerge(
-          className?.override,
-          `flex flex-row rounded px-2 py-0.5 hover:cursor-pointer hover:bg-primary-20 sm:hover:text-primary`,
+          `flex flex-row rounded px-2 py-0.5 hover:cursor-pointer hover:bg-primary-20 hover:text-primary`,
           active && twMerge('font-bold', className?.active),
           className?.root
         )}

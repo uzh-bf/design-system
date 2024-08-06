@@ -15,7 +15,6 @@ export interface ProgressProps {
   formatter: (value: any) => any
   isMaxVisible?: boolean
   className?: {
-    override?: string
     root?: string
     indicator?: string
   }
@@ -61,11 +60,7 @@ export function Progress({
       id={id}
       data-cy={data?.cy}
       data-test={data?.test}
-      className={twMerge(
-        className?.override,
-        'relative h-7 rounded text-sm',
-        className?.root
-      )}
+      className={twMerge('relative h-7 rounded text-sm', className?.root)}
       value={internalValue}
       max={max}
       {...props}

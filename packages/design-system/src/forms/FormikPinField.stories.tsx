@@ -33,6 +33,10 @@ export const Default = () => (
         )
       }}
     </Formik>
+    <div>
+      Values can be pasted into the field using either the format including
+      spaces "123 456 789" or without "123456789"
+    </div>
   </div>
 )
 

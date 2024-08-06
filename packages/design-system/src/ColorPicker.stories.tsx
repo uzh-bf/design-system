@@ -10,6 +10,9 @@ export const Default = () => {
         setColor(newColor)
         alert('Color set to ' + newColor)
       }}
+      tooltip="This is a tooltip"
+      colorLabel="Color"
+      submitText="Save"
     />
   )
 }
@@ -25,7 +28,7 @@ export const Disabled = () => {
         alert('Color set to ' + newColor)
       }}
       submitText="Speichern"
-      abortText="Abbrechen"
+      colorLabel="Farbe"
     />
   )
 }
@@ -47,6 +50,8 @@ export const Position = () => {
           setColor(newColor)
           alert('Color set to ' + newColor)
         }}
+        submitText="Save"
+        colorLabel="Color"
       />
     </div>
   )
@@ -62,6 +67,8 @@ export const Styled = () => {
         setColor(newColor)
         alert('Color set to ' + newColor)
       }}
+      submitText="Save"
+      colorLabel="Color"
       className={{
         root: 'bg-gray-100',
         trigger: 'bg-gray-200',
@@ -87,7 +94,7 @@ export const CustomText = () => {
         alert('Color set to ' + newColor)
       }}
       submitText="Custom Submit"
-      abortText="Custom Abort"
+      colorLabel="Custom Color Label"
     />
   )
 }

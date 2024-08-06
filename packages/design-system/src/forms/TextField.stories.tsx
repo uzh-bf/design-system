@@ -7,11 +7,52 @@ export const Default = () => {
 
   return (
     <>
-      <div>The default TextField works with a name input</div>
+      <div>The default TextField</div>
       <TextField
-        label="label"
+        label="Label"
         tooltip="Tooltip for this input"
-        className={{ root: 'mb-1' }}
+        className={{
+          field: 'mb-1 w-80',
+        }}
+        placeholder="Placeholder"
+        value={value}
+        onChange={setValue}
+      />
+    </>
+  )
+}
+
+export const SmallLabel = () => {
+  const [value, setValue] = React.useState('')
+
+  return (
+    <>
+      <div>The TextField with a small label</div>
+      <TextField
+        label="Label"
+        labelType="small"
+        tooltip="Tooltip for this input"
+        className={{ field: 'mb-1' }}
+        placeholder="Placeholder"
+        value={value}
+        onChange={setValue}
+      />
+      <TextField
+        label="Search"
+        labelType="small"
+        tooltip="Tooltip for this input"
+        className={{ field: 'mb-1' }}
+        placeholder="Placeholder"
+        value={value}
+        onChange={setValue}
+        icon={faMagnifyingGlass}
+      />
+      <TextField
+        required
+        label="Label 3"
+        labelType="small"
+        tooltip="Tooltip for this input"
+        className={{ field: 'mb-1' }}
         placeholder="Placeholder"
         value={value}
         onChange={setValue}
@@ -28,9 +69,9 @@ export const Disabled = () => {
       <div>The TextField can be disabled</div>
       <TextField
         disabled
-        label="label"
+        label="Label"
         tooltip="Tooltip for this input"
-        className={{ root: 'mb-1' }}
+        className={{ field: 'mb-1' }}
         placeholder="Placeholder"
         value={value}
         onChange={setValue}
@@ -50,9 +91,9 @@ export const Required = () => {
       </div>
       <TextField
         required
-        label="label"
+        label="Label"
         tooltip="Tooltip for this input"
-        className={{ root: 'mb-1' }}
+        className={{ field: 'mb-1' }}
         placeholder="Placeholder"
         value={value}
         onChange={setValue}
@@ -71,10 +112,10 @@ export const Styled = () => {
         be included at the beginning of the field
       </div>
       <TextField
-        label="label"
+        label="Label"
         tooltip="Tooltip for this input"
         className={{
-          root: 'mb-1 w-1/2',
+          field: 'mb-1 w-1/2',
           label: 'text-red-500',
           input: 'bg-blue-100',
           error: 'text-red-700',

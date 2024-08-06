@@ -1,5 +1,5 @@
 @import 'npm:tailwindcss/src/css/preflight.css';
-@import 'npm:@uzh-bf/design-system-react-tag/dist/styles.css';
+@import 'npm:@uzh-bf/design-system-react-header/dist/styles.css';
 
 @tailwind base;
 @tailwind components;

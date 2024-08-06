@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
 import Select from './Select'
 
-const fruits = [
+export const fruitsValues = [
   { value: 'apple', label: 'Apple' },
   { value: 'banana', label: 'Banana' },
   { value: 'pear', label: 'Pear' },
-  { value: 'watermeldon', label: 'Watermelon' },
+  { value: 'watermelon', label: 'Watermelon' },
   { value: 'peach', label: 'Peach' },
   { value: 'mango', label: 'Mango' },
 ]
-const vegetables = [
+export const vegetablesValues = [
   { value: 'carrot', label: 'Carrot' },
   { value: 'cucumber', label: 'Cucumber' },
   { value: 'onion', label: 'Onion' },
@@ -17,7 +17,7 @@ const vegetables = [
   { value: 'tomato', label: 'Tomato' },
   { value: 'broccoli', label: 'Broccoli' },
 ]
-const transport = [
+export const transportValues = [
   { value: 'car', label: 'Car' },
   { value: 'bike', label: 'Bike' },
   { value: 'train', label: 'Train' },
@@ -25,7 +25,7 @@ const transport = [
   { value: 'boat', label: 'Boat' },
   { value: 'bus', label: 'Bus' },
 ]
-const programming = [
+export const programmingValues = [
   { value: 'javascript', label: 'JavaScript' },
   { value: 'typescript', label: 'TypeScript' },
   { value: 'python', label: 'Python' },
@@ -34,18 +34,22 @@ const programming = [
   { value: 'csharp', label: 'C#' },
 ]
 
-const groups = [
-  { items: fruits },
-  { items: vegetables, showSeparator: true },
-  { items: transport, showSeparator: true, label: 'Transport' },
-  { items: programming, showSeparator: true, label: 'Programming Languages' },
+export const groupValues = [
+  { items: fruitsValues },
+  { items: vegetablesValues, showSeparator: true },
+  { items: transportValues, showSeparator: true, label: 'Transport' },
+  {
+    items: programmingValues,
+    showSeparator: true,
+    label: 'Programming Languages',
+  },
 ]
 
 export const Default = () => {
   return (
     <Select
       placeholder="Select an item"
-      items={fruits}
+      items={fruitsValues}
       onChange={(newValue) => {
         console.log(newValue)
       }}
@@ -58,7 +62,7 @@ export const Popper = () => {
     <Select
       contentPosition="popper"
       placeholder="Select an item"
-      items={fruits}
+      items={fruitsValues}
       onChange={(newValue) => {
         console.log(newValue)
       }}
@@ -70,7 +74,7 @@ export const Basic = () => {
   return (
     <Select
       placeholder="Select an item"
-      items={fruits}
+      items={fruitsValues}
       onChange={(newValue) => {
         console.log(newValue)
       }}
@@ -83,11 +87,11 @@ export const DefaultValue = () => {
   return (
     <Select
       placeholder="Select an item"
-      items={fruits}
+      items={fruitsValues}
       onChange={(newValue) => {
         console.log(newValue)
       }}
-      defaultValue={fruits[2].value}
+      defaultValue={fruitsValues[2].value}
     />
   )
 }
@@ -106,7 +110,7 @@ export const Groups = () => {
       <Select
         placeholder="Select an item"
         groups={[
-          ...groups,
+          ...groupValues,
           {
             label: 'Short labels',
             items: [
@@ -126,7 +130,7 @@ export const Groups = () => {
                 label: 'Pear long label',
                 shortLabel: 'Pear',
               },
-              { value: 'watermeldon_short', label: 'Watermelon' },
+              { value: 'watermelon_short', label: 'Watermelon' },
             ],
           },
         ]}
@@ -160,7 +164,7 @@ export const DisabledElements = () => {
     { value: 'apple', label: 'Apple' },
     { value: 'banana', label: 'Banana', disabled: true },
     { value: 'pear', label: 'Pear' },
-    { value: 'watermeldon', label: 'Watermelon' },
+    { value: 'watermelon', label: 'Watermelon' },
     { value: 'peach', label: 'Peach', disabled: true },
     { value: 'mango', label: 'Mango' },
   ]
@@ -181,7 +185,7 @@ export const Styled = () => {
     <div className="h-12 w-full rounded-md border border-solid">
       <Select
         placeholder="Select an item"
-        groups={groups}
+        groups={groupValues}
         onChange={(newValue) => {
           console.log(newValue)
         }}
@@ -203,7 +207,7 @@ export const Small = () => {
   return (
     <Select
       placeholder="Select an item"
-      groups={groups}
+      groups={groupValues}
       onChange={(newValue) => console.log(newValue)}
       size="sm"
     />
@@ -215,7 +219,7 @@ export const CustomTriggerLabel = () => {
     { value: 'apple', label: 'Apple long label', shortLabel: 'Apple' },
     { value: 'banana', label: 'Banana long label', shortLabel: 'Banana' },
     { value: 'pear', label: 'Pear long label' },
-    { value: 'watermeldon', label: 'Watermelon long label' },
+    { value: 'watermelon', label: 'Watermelon long label' },
     { value: 'peach', label: 'Peach long label' },
     { value: 'mango', label: 'Mango long label', shortLabel: 'Mango' },
   ]

@@ -9,9 +9,6 @@ import React, { useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 export interface SelectClassName {
-  triggerOverride?: string
-  contentOverride?: string
-  itemOverride?: string
   root?: string
   trigger?: string
   content?: string
@@ -42,7 +39,7 @@ interface SelectProps {
   contentPosition?: 'item-aligned' | 'popper'
 }
 
-export interface Item {
+export interface SelectItem {
   id?: string
   data?: {
     cy?: string
@@ -54,17 +51,19 @@ export interface Item {
   shortLabel?: string
 }
 
+export interface SelectGroup {
+  label?: string
+  showSeparator?: boolean
+  items: SelectItem[]
+}
+
 export interface SelectWithItemsProps extends SelectProps {
-  items: Item[]
+  items: SelectItem[]
   groups?: never
 }
 
 export interface SelectWithGroupsProps extends SelectProps {
-  groups: {
-    label?: string
-    showSeparator?: boolean
-    items: Item[]
-  }[]
+  groups: SelectGroup[]
   items?: never
 }
 
@@ -115,7 +114,6 @@ export function Select({
     <RadixSelect.Content
       position={contentPosition}
       className={twMerge(
-        className?.contentOverride,
         'z-50 overflow-hidden rounded-md bg-white shadow-md',
         className?.content
       )}
@@ -134,7 +132,7 @@ export function Select({
       <RadixSelect.Viewport className="rounded-lg p-1">
         {items
           ? items.map((item, ix) => (
-              <SelectItem
+              <SelectItemComponent
                 id={id}
                 data={item.data}
                 key={ix}
@@ -144,7 +142,7 @@ export function Select({
               />
             ))
           : groups.map((group, ix) => (
-              <SelectGroup
+              <SelectGroupComponent
                 key={ix}
                 size={size}
                 {...group}
@@ -185,10 +183,9 @@ export function Select({
           data-cy={data?.cy}
           data-test={data?.test}
           className={twMerge(
-            className?.triggerOverride,
             'rounded-md px-2 py-1',
             !basic &&
-              'inline-flex h-7 items-center justify-between gap-2 border  bg-white p-4 shadow-sm hover:bg-primary-20 sm:hover:text-primary',
+              'inline-flex h-7 items-center justify-between gap-2 border  bg-white p-4 shadow-sm hover:bg-primary-20 hover:text-primary',
             disabled &&
               'hover:bg-none, hover:text-none cursor-not-allowed bg-uzh-grey-20 opacity-70 shadow-sm',
             size === 'sm' && '!text-sm',
@@ -248,7 +245,7 @@ interface SelectItemProps {
   disabled?: boolean
 }
 
-const SelectItem = React.forwardRef(
+const SelectItemComponent = React.forwardRef(
   (
     { id, data, className, label, size, disabled, ...props }: SelectItemProps,
     forwardedRef
@@ -259,9 +256,8 @@ const SelectItem = React.forwardRef(
         data-cy={data?.cy}
         data-test={data?.test}
         className={twMerge(
-          className?.itemOverride,
           'relative flex select-none items-center rounded-md px-8 py-2 font-medium text-gray-700',
-          'hover:cursor-pointer hover:bg-primary-20 hover:outline-none focus:border-primary-40 sm:hover:text-primary',
+          'hover:cursor-pointer hover:bg-primary-20 hover:text-primary hover:outline-none focus:border-primary-40',
           disabled &&
             'cursor-not-allowed opacity-50 hover:bg-white hover:text-gray-700',
           size === 'sm' && 'px-7 text-sm',
@@ -283,14 +279,14 @@ const SelectItem = React.forwardRef(
 )
 
 interface SelectGroupProps {
-  items: Item[]
+  items: SelectItem[]
   size?: 'md' | 'sm'
   showSeparator?: boolean
   label?: string
   className?: SelectClassName
 }
 
-const SelectGroup = ({
+const SelectGroupComponent = ({
   items,
   size,
   showSeparator,
@@ -316,7 +312,7 @@ const SelectGroup = ({
           {label}
         </RadixSelect.Label>
         {items.map((item, ix) => (
-          <SelectItem
+          <SelectItemComponent
             key={ix}
             size={size}
             data={item.data}
