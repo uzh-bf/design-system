@@ -21,7 +21,6 @@ export interface CollapsibleProps {
   secondary?: string | React.ReactNode
   onSecondaryClick?: () => void
   className?: {
-    override?: string
     root?: string
     staticContent?: string
     closedContent?: string
@@ -71,11 +70,7 @@ export function Collapsible({
   children,
 }: CollapsibleProps) {
   return (
-    <RadixCollapsible.Root
-      open={open}
-      onOpenChange={onChange}
-      className={className?.override}
-    >
+    <RadixCollapsible.Root open={open} onOpenChange={onChange}>
       <div
         className={twMerge(
           'w-full rounded-md border-2 border-solid border-uzh-grey-80 p-2 pb-0',

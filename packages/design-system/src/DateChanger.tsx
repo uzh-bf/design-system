@@ -1,13 +1,17 @@
-import { faPencil, IconDefinition } from '@fortawesome/free-solid-svg-icons'
+import {
+  faCircleExclamation,
+  faPencil,
+  IconDefinition,
+} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import dayjs from 'dayjs'
 import React, { useEffect, useRef, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import Button from './Button'
 import Label from './forms/Label'
+import { Tooltip } from './Tooltip'
 
 export interface DateChangerClassName {
-  override?: string
   root?: string
   label?: string
   field?: string
@@ -29,9 +33,13 @@ export interface DateChangerProps {
     test?: string
   }
   label?: string
+  labelType?: 'small' | 'large'
   required?: boolean
   tooltip?: string | React.ReactNode
   disabled?: boolean
+  error?: string
+  hideError?: boolean
+  isTouched?: boolean
   format?: string
   edit: boolean
   date: string
@@ -48,9 +56,13 @@ export interface DateChangerProps {
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param dataButton - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the button
  * @param label - The label of the date changer
+ * @param labelType - The type of the label (small or large)
  * @param tooltip - The tooltip of the date changer (is only shown if a label is given)
  * @param required - Whether the date label should contain a required symbol
  * @param disabled - Whether the date changer is disabled or not
+ * @param error - The error message to be displayed
+ * @param hideError - Whether the error message should be hidden
+ * @param isTouched - Whether the date changer has been touched
  * @param format - The format of the date when the edit mode is not active (then the display is up to the browser implementation)
  * @param edit - Whether the date changer is in edit mode or not
  * @param date - The date to be displayed
@@ -60,15 +72,18 @@ export interface DateChangerProps {
  * @param className - The optional className object allows you to override the default styling.
  * @returns Date changer component with optional label, edit button and save button.
  */
-
 export function DateChanger({
   id,
   data,
   dataButton,
   label = '',
+  labelType = 'large',
   tooltip,
   required = false,
   disabled = false,
+  error,
+  hideError = false,
+  isTouched = false,
   format = 'DD / MM / YYYY',
   edit,
   date,
@@ -88,74 +103,101 @@ export function DateChanger({
 
   return (
     <div
-      className={twMerge('flex w-max flex-row items-center', className?.root)}
+      className={twMerge(
+        'flex w-max flex-row',
+        labelType === 'small' && 'flex-col',
+        className?.field
+      )}
     >
       {label && (
         <Label
+          forId={id}
+          required={required}
           label={label}
           className={{
-            root: twMerge('mr-1.5', className?.label),
-            tooltip: className?.tooltip,
+            root: twMerge(
+              'my-auto mr-2 min-w-max font-bold',
+              labelType === 'small' &&
+                '-mb-1 mt-1 text-sm leading-6 text-gray-600',
+              className?.label
+            ),
+            tooltip: twMerge('text-sm font-normal', className?.tooltip),
+            tooltipSymbol: twMerge(labelType === 'small' && 'h-2 w-2'),
           }}
           tooltip={tooltip}
-          showTooltipSymbol={!!tooltip}
-          required={required}
+          showTooltipSymbol={typeof tooltip !== 'undefined'}
         />
       )}
-      {edit && !disabled ? (
-        <div
-          className={twMerge(
-            'flex flex-row gap-2 rounded border border-solid',
 
-            className?.field
-          )}
-        >
-          <input
-            ref={inputRef}
-            data-cy={data?.cy}
-            data-test={data?.test}
-            id={id}
-            type="date"
-            className={twMerge(
-              className?.override,
-              'w-max border-none px-0 py-1 pl-2',
-              className?.input
-            )}
-            value={dateState}
-            onChange={(e) => setDateState(e.target.value)}
-            onBlur={() => onSave(dateState)}
-          />
-        </div>
-      ) : (
-        <div className="flex flex-row gap-2 rounded border border-solid">
+      <div className="flex flex-row items-center gap-2">
+        {edit && !disabled ? (
           <div
             className={twMerge(
-              'py-1 pl-2',
-              disabled && twMerge('text-uzh-grey-100', className?.disabled)
+              'flex flex-row gap-2 rounded border border-solid',
+              error && 'border-red-600',
+              className?.field
             )}
           >
-            {dayjs(dateState).format(format || 'DD / MM / YYYY')}
-          </div>
-          <Button
-            basic
-            data={dataButton}
-            onClick={onEdit}
-            className={{
-              root: twMerge(
-                'bg-uzh-grey-20 px-2 py-1 hover:bg-uzh-grey-40',
-                className?.editButton,
-                disabled && twMerge('cursor-not-allowed', className?.disabled)
-              ),
-            }}
-            disabled={disabled}
-          >
-            <FontAwesomeIcon
-              icon={editIcon || faPencil}
-              className={twMerge(disabled && 'text-uzh-grey-80')}
+            <input
+              ref={inputRef}
+              data-cy={data?.cy}
+              data-test={data?.test}
+              id={id}
+              type="date"
+              className={twMerge(
+                'w-max border-none px-0 py-1 pl-2',
+                className?.input
+              )}
+              value={dateState}
+              onChange={(e) => setDateState(e.target.value)}
+              onBlur={() => onSave(dateState)}
             />
-          </Button>
-        </div>
-      )}
+          </div>
+        ) : (
+          <div
+            className={twMerge(
+              'flex flex-row gap-2 rounded border border-solid',
+              error && 'border-red-600',
+              className?.field
+            )}
+          >
+            <div
+              className={twMerge(
+                'py-1 pl-2',
+                disabled && twMerge('text-uzh-grey-100', className?.disabled)
+              )}
+            >
+              {dayjs(dateState).format(format || 'DD / MM / YYYY')}
+            </div>
+            <Button
+              basic
+              data={dataButton}
+              onClick={onEdit}
+              className={{
+                root: twMerge(
+                  'rounded-r bg-uzh-grey-20 px-2 py-1 hover:bg-uzh-grey-40',
+                  className?.editButton,
+                  disabled && twMerge('cursor-not-allowed', className?.disabled)
+                ),
+              }}
+              disabled={disabled}
+            >
+              <FontAwesomeIcon
+                icon={editIcon || faPencil}
+                className={twMerge(disabled && 'text-uzh-grey-80')}
+              />
+            </Button>
+          </div>
+        )}
+        {error && !hideError && isTouched && (
+          <Tooltip tooltip={error} delay={0} className={{ tooltip: 'text-sm' }}>
+            <FontAwesomeIcon
+              icon={faCircleExclamation}
+              className="mr-1 text-red-600"
+            />
+          </Tooltip>
+        )}
+      </div>
     </div>
   )
 }

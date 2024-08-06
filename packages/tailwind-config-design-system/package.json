@@ -1,4 +1,5 @@
 {
   "name": "@uzh-bf/tailwind-config-design-system",
+  "version": "2.13.3",
   "main": "index.js"
 }

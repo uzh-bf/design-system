@@ -19,7 +19,6 @@ export interface TooltipProps {
   withIndicator?: boolean
   children: React.ReactNode
   className?: {
-    override?: string
     tooltip?: string
     trigger?: string
     arrow?: string
@@ -53,7 +52,7 @@ export function Tooltip({
 }: TooltipProps): React.ReactElement {
   return (
     <RadixTooltip.Provider>
-      <RadixTooltip.Root delayDuration={delay || 1000}>
+      <RadixTooltip.Root delayDuration={delay ?? 1000}>
         <RadixTooltip.Trigger
           tabIndex={-1}
           id={id}
@@ -69,7 +68,6 @@ export function Tooltip({
           data-cy={dataContent?.cy}
           data-test={dataContent?.test}
           className={twMerge(
-            className?.override,
             'rounded-md bg-gray-800 p-2 text-white',
             className?.tooltip
           )}
