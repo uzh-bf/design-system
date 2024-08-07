@@ -24,63 +24,59 @@
     "react-countdown": "2.3.5"
   },
   "devDependencies": {
-    "@ladle/react": "2.15.0",
-    "@rollup/plugin-alias": "5.0.1",
-    "@rollup/plugin-html": "1.0.3",
-    "@size-limit/preset-small-lib": "7.0.8",
+    "@ladle/react": "4.1.0",
     "@tailwindcss/aspect-ratio": "0.4.2",
-    "@tailwindcss/forms": "0.5.3",
-    "@tailwindcss/typography": "0.5.9",
-    "@tsconfig/create-react-app": "1.0.3",
-    "@tsconfig/recommended": "1.0.1",
-    "@types/node": "^20.0.0",
-    "@types/react": "^18.2.0",
-    "@types/react-dom": "^18.2.1",
-    "@vitejs/plugin-react-swc": "3.3.2",
-    "autoprefixer": "10.4.16",
-    "dts-cli": "1.6.3",
-    "eslint": "8.44.0",
-    "husky": "8.0.3",
+    "@tailwindcss/forms": "0.5.7",
+    "@tailwindcss/typography": "0.5.13",
+    "@types/node": "^20.14.14",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@typescript-eslint/eslint-plugin": "7.15.0",
+    "@typescript-eslint/parser": "7.15.0",
+    "@vitejs/plugin-react-swc": "3.7.0",
+    "autoprefixer": "10.4.20",
+    "eslint": "8.57.0",
+    "eslint-plugin-react-hooks": "4.6.2",
+    "eslint-plugin-react-refresh": "0.4.9",
     "npm-run-all": "4.1.5",
-    "prettier": "2.8.1",
-    "prettier-plugin-organize-imports": "3.2.2",
-    "prettier-plugin-tailwindcss": "0.3.0",
-    "rollup-plugin-postcss": "4.0.2",
-    "ts-jest": "29.0.5",
-    "tslib": "2.6.0",
-    "typescript": "5.1.6"
+    "postcss": "8.4.41",
+    "prettier": "3.3.3",
+    "prettier-plugin-organize-imports": "4.0.0",
+    "prettier-plugin-tailwindcss": "0.6.5",
+    "tsx": "4.16.5",
+    "typescript": "5.4.2",
+    "vite": "5.3.5",
+    "vite-plugin-dts": "4.0.1"
   },
   "peerDependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.3.0",
-    "@fortawesome/free-regular-svg-icons": "^6.3.0",
-    "@fortawesome/free-solid-svg-icons": "^6.3.0",
-    "@fortawesome/react-fontawesome": "^0.2.0",
-    "autoprefixer": "10.4.16",
+    "@fortawesome/fontawesome-svg-core": "^6.6.0",
+    "@fortawesome/free-regular-svg-icons": "^6.6.0",
+    "@fortawesome/free-solid-svg-icons": "^6.6.0",
+    "@fortawesome/react-fontawesome": "^0.2.2",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
     "dayjs": "^1.0.0",
-    "formik": "^2.2.9",
+    "formik": "^2.4.3",
+    "lucide-react": "^0.424.0",
     "postcss-import": "^15.1.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "tailwind-merge": "1.12.0",
-    "tailwindcss": "3.3.2",
-    "tailwindcss-radix": "^2.8.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tailwind-merge": "^2.4.0",
+    "tailwindcss": "^3.4.7",
+    "tailwindcss-animate": "^1.0.7",
     "yup": "^1.0.0"
   },
   "scripts": {
-    "analyze": "size-limit --why",
-    "build": "npm-run-all build:dts build:copy",
-    "build:copy": "node src/copy.js",
-    "build:dts": "dts build --entry src/index.ts --entry src/constants.js",
-    "check": "tsc --noEmit",
-    "deploy": "ladle build",
+    "build": "run-s build:tsc build:vite build:copy",
+    "build:copy": "tsx src/copy.ts",
+    "build:ladle": "ladle build",
+    "build:tsc": "tsc -b",
+    "build:vite": "vite build",
     "dev": "ladle serve",
-    "format": "prettier --write src/",
-    "format:check": "prettier --check src/",
-    "lint": "dts lint",
-    "prerelease": "npm run build",
-    "preview": "ladle build && ladle preview -p 61000",
-    "size": "size-limit",
-    "test": "dts test --passWithNoTests"
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "ladle preview"
   },
   "engines": {
     "node": "=20"
@@ -88,19 +84,6 @@
   "volta": {
     "extends": "../../package.json"
   },
-  "jest": {
-    "testEnvironment": "jsdom"
-  },
-  "module": "dist/index.esm.js",
-  "size-limit": [
-    {
-      "path": "dist/index.cjs.production.min.js",
-      "limit": "10 KB"
-    },
-    {
-      "path": "dist/index.esm.js",
-      "limit": "10 KB"
-    }
-  ],
+  "type": "module",
   "typings": "dist/index.d.ts"
 }

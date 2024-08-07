@@ -1,5 +1,5 @@
 import { useField } from 'formik'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import DateChanger, { DateChangerClassName } from '../DateChanger'
 
 export interface FormikDateChangerProps {

@@ -1,7 +1,6 @@
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import { Form, Formik } from 'formik'
-import React from 'react'
 import * as yup from 'yup'
 
 import Button from '../Button'
@@ -132,7 +131,7 @@ export const Disabled = () => {
           endDate: '',
         }}
         isInitialValid={false}
-        onSubmit={(values) => {
+        onSubmit={() => {
           alert("Date button is disabled. Can't submit")
         }}
       >

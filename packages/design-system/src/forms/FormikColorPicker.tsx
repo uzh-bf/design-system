@@ -57,12 +57,10 @@ export function FormikColorPicker({
   triggerIcon,
   presetColors,
   position,
-  abortText,
   submitText,
   className,
   dataTrigger,
   dataHexInput,
-  dataAbort,
   dataSubmit,
 }: FormikColorPickerProps) {
   const [field, meta, helpers] = useField(name || 'missing')

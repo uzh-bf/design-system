@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import Collapsible from './Collapsible'
 import { H2 } from './Header'
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import Switch from './Switch'
 
 export const Default = () => {
@@ -70,8 +70,8 @@ export const Undefined = () => {
         typeof isChecked === 'undefined'
           ? 'Undefined'
           : isChecked
-          ? 'Checked'
-          : 'Unchecked'
+            ? 'Checked'
+            : 'Unchecked'
       }
       onCheckedChange={(newValue) => setIsChecked(newValue)}
     />

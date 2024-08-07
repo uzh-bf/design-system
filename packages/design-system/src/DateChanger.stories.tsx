@@ -1,5 +1,5 @@
 import { faPen } from '@fortawesome/free-solid-svg-icons'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import DateChanger from './DateChanger'
 
 export function Default() {
