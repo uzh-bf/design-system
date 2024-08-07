@@ -1,22 +1,22 @@
-import React, { useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import CycleCountdown from './CycleCountdown'
 
 export const Default = () => {
-  let time = new Date()
+  const time = new Date()
   time.setSeconds(time.getSeconds() + 10)
 
   return <CycleCountdown expiresAt={time} totalDuration={10} />
 }
 
 export const Static = () => {
-  let time = new Date()
+  const time = new Date()
   time.setSeconds(time.getSeconds() + 10)
 
   return <CycleCountdown expiresAt={time} totalDuration={10} isStatic />
 }
 
 export const Small = () => {
-  let time = new Date()
+  const time = new Date()
   time.setSeconds(time.getSeconds() + 10)
 
   return (
@@ -30,7 +30,7 @@ export const Small = () => {
 }
 
 export const Formatter = () => {
-  let time = new Date()
+  const time = new Date()
   time.setSeconds(time.getSeconds() + 10)
 
   return (
@@ -46,7 +46,7 @@ export const Formatter = () => {
 
 export const Expiration = () => {
   const [expired, setExpired] = useState(false)
-  let time = new Date()
+  const time = new Date()
   time.setSeconds(time.getSeconds() + 10)
 
   return (
@@ -65,7 +65,7 @@ export const Expiration = () => {
 
 export const Updating = () => {
   const time = useMemo(() => {
-    let t = new Date()
+    const t = new Date()
     t.setSeconds(t.getSeconds() + 10)
     return t
   }, [])
@@ -92,7 +92,7 @@ export const Updating = () => {
 }
 
 export const Styled = () => {
-  let time = new Date()
+  const time = new Date()
   time.setSeconds(time.getSeconds() + 10)
 
   return (
@@ -107,7 +107,7 @@ export const Styled = () => {
 }
 
 export const TerminalSettings = () => {
-  let time = new Date()
+  const time = new Date()
   time.setSeconds(time.getSeconds() + 10)
 
   return (

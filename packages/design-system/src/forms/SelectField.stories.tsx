@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { fruitsValues, groupValues } from '../Select.stories'
 import SelectField from './SelectField'
 

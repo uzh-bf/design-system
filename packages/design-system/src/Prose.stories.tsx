@@ -1,4 +1,3 @@
-import React from 'react'
 import Prose from './Prose'
 
 export const Default = () => {

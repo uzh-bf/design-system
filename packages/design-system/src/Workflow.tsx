@@ -4,7 +4,6 @@ import {
   faQuestion,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Tooltip } from './Tooltip'
 
@@ -15,7 +14,7 @@ interface StepBaseProps {
   tooltipDisabled?: string
   progress?: number
   completed?: boolean
-  [x: string]: any
+  [x: string]: unknown
 }
 
 interface StepProps extends StepBaseProps {
@@ -219,8 +218,8 @@ export function WorkflowItem({
         hasDescription
           ? 'h-[50px] pl-[25px] before:border-y-[25px] before:border-l-[25px] after:right-[-25px] after:border-y-[25px] after:border-l-[25px] first:pl-0 last:pl-0'
           : minimal
-          ? 'h-[26px] pl-[13px] before:border-y-[13px] before:border-l-[13px] after:right-[-13px] after:border-y-[13px] after:border-l-[13px] first:pl-0 last:pl-0'
-          : 'h-[34px] pl-[17px] before:border-y-[17px] before:border-l-[17px] after:right-[-17px] after:border-y-[17px] after:border-l-[17px] first:pl-0 last:pl-0',
+            ? 'h-[26px] pl-[13px] before:border-y-[13px] before:border-l-[13px] after:right-[-13px] after:border-y-[13px] after:border-l-[13px] first:pl-0 last:pl-0'
+            : 'h-[34px] pl-[17px] before:border-y-[17px] before:border-l-[17px] after:right-[-17px] after:border-y-[17px] after:border-l-[17px] first:pl-0 last:pl-0',
         ix === activeIx &&
           twMerge(
             twStyles.bgActive,
@@ -283,7 +282,7 @@ export function WorkflowItem({
                 size="lg"
                 className={twMerge(
                   'my-auto mr-2 h-3 w-3 rounded-full border border-solid border-white px-0.5 py-0.5 group-hover:border-black',
-                  ix !== activeIx && 'border-black ',
+                  ix !== activeIx && 'border-black',
                   ix < (activeIx || -1) &&
                     'border-gray-500 group-hover:border-gray-500'
                 )}

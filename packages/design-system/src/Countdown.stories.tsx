@@ -1,22 +1,22 @@
-import React, { useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import Countdown from './Countdown'
 
 export const Default = () => {
-  let time = new Date()
+  const time = new Date()
   time.setSeconds(time.getSeconds() + 40)
 
   return <Countdown expiresAt={time} />
 }
 
 export const Static = () => {
-  let time = new Date()
+  const time = new Date()
   time.setSeconds(time.getSeconds() + 40)
 
   return <Countdown expiresAt={time} isStatic />
 }
 
 export const Formatter = () => {
-  let time = new Date()
+  const time = new Date()
   time.setSeconds(time.getSeconds() + 40)
 
   return (
@@ -30,7 +30,7 @@ export const Formatter = () => {
 }
 
 export const onExpire = () => {
-  let time = new Date()
+  const time = new Date()
   time.setSeconds(time.getSeconds() + 10)
 
   return (
@@ -45,7 +45,7 @@ export const onExpire = () => {
 
 export const UpdateFunction = () => {
   const time = useMemo(() => {
-    let t = new Date()
+    const t = new Date()
     t.setSeconds(t.getSeconds() + 40)
     return t
   }, [])
@@ -66,7 +66,7 @@ export const UpdateFunction = () => {
 }
 
 export const Styled = () => {
-  let time = new Date()
+  const time = new Date()
   time.setSeconds(time.getSeconds() + 40)
 
   return (

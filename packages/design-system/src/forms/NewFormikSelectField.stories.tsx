@@ -1,5 +1,4 @@
 import { Form, Formik } from 'formik'
-import React from 'react'
 import { Button } from '../Button'
 import { fruitsValues, groupValues } from '../Select.stories'
 import FormikSelectField from './NewFormikSelectField'

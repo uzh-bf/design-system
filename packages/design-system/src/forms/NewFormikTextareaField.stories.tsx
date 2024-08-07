@@ -1,5 +1,4 @@
 import { Form, Formik } from 'formik'
-import React from 'react'
 import * as yup from 'yup'
 import Button from '../Button'
 import FormikTextareaField from './NewFormikTextareaField'

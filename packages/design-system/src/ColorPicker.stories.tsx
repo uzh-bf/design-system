@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import ColorPicker from './ColorPicker'
 
 export const Default = () => {

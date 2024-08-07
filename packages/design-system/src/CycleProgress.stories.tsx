@@ -1,4 +1,3 @@
-import React from 'react'
 import CycleProgress from './CycleProgress'
 
 export function Default() {

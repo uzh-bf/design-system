@@ -1,4 +1,3 @@
-import React from 'react'
 import ReactCountdown from 'react-countdown'
 
 export interface CountdownProps {
