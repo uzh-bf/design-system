@@ -5,7 +5,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from 'react'
-import Button from './Button.js'
+import Button from './Button'
 
 const ExampleIcon = (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
