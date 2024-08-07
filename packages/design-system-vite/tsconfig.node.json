@@ -7,8 +7,7 @@
     "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
     "strict": true,
-    "noEmit": true,
-    "jsx": "react-jsx"
+    "noEmit": true
   },
-  "include": ["vite.config.ts", ".ladle"]
+  "include": ["vite.config.ts"]
 }
