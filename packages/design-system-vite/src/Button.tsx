@@ -19,7 +19,7 @@ export interface ButtonProps {
     cy?: string
     test?: string
   }
-  [x: string]: any
+  [x: string]: unknown
 }
 
 /**
