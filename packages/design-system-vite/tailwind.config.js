@@ -68,5 +68,10 @@ export default {
       },
     },
   },
-  plugins: [import('tailwindcss-animate')],
+  plugins: [
+    import('tailwindcss-animate'),
+    import('@tailwindcss/typography'),
+    import('@tailwindcss/aspect-ratio'),
+    import('@tailwindcss/forms'),
+  ],
 }
