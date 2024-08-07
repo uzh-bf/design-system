@@ -67,4 +67,11 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  html,
+  body,
+  #__next {
+    @apply h-full;
+    @apply font-sans;
+  }
 }

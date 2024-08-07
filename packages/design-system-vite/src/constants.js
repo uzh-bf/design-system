@@ -1,6 +1,6 @@
 import { fontFamily } from 'tailwindcss/defaultTheme.js'
 
-const TailwindAnimations = {
+export const TailwindAnimations = {
   keyframes: {
     'enter-from-right': {
       '0%': { transform: 'translateX(200px)', opacity: 0 },
@@ -47,7 +47,7 @@ const TailwindAnimations = {
   },
 }
 
-const TailwindColorsUZH = {
+export const TailwindColorsUZH = {
   'uzh-blue-100': '#0028a5',
   'uzh-blue-80': '#3353b7',
   'uzh-blue-60': '#667ec9',
@@ -85,7 +85,7 @@ const TailwindColorsUZH = {
   'uzh-turqoise-20': '#cfe8ec',
 }
 
-const TailwindFonts = {
+export const TailwindFonts = {
   sans: [
     'var(--theme-font-primary)',
     'var(--source-sans-pro)',
@@ -95,37 +95,22 @@ const TailwindFonts = {
   ],
 }
 
-const TailwindBasePlugins = {
+export const TailwindBasePlugins = {
   'postcss-import': {},
   'tailwindcss/nesting': {},
   tailwindcss: {},
   autoprefixer: {},
 }
 
-const TailwindProdPlugins = {
+export const TailwindProdPlugins = {
   ...(process.env.NODE_ENV === 'production' ? { cssnano: {} } : {}),
 }
 
-const ESLintConfig = {
+export const ESLintConfig = {
   extends: ['next', 'next/core-web-vitals'],
 }
 
-/**
- * @see https://prettier.io/docs/en/configuration.html
- * @type {import("prettier").Config}
- */
-const PrettierConfig = {
-  semi: false,
-  singleQuote: true,
-  trailingComma: 'es5',
-  plugins: [
-    import('prettier-plugin-organize-imports'),
-    import('prettier-plugin-tailwindcss'),
-  ],
-  pluginSearchDirs: false,
-}
-
-const VersionConfigTypes = [
+export const VersionConfigTypes = [
   {
     type: 'feat',
     section: 'Features',
@@ -183,14 +168,3 @@ const VersionConfigTypes = [
     section: 'Other',
   },
 ]
-
-export {
-  ESLintConfig,
-  PrettierConfig,
-  TailwindAnimations,
-  TailwindBasePlugins,
-  TailwindColorsUZH,
-  TailwindFonts,
-  TailwindProdPlugins,
-  VersionConfigTypes,
-}
