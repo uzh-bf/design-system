@@ -1,4 +1,8 @@
-import { TailwindAnimations, TailwindColorsUZH, TailwindFonts } from './src/constants'
+import {
+  TailwindAnimations,
+  TailwindColorsUZH,
+  TailwindFonts,
+} from './src/constants'
 
 /** @type {import('tailwindcss').Config} */
 export default {
