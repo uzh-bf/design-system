@@ -75,6 +75,9 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "ladle preview"
   },
+  "engines": {
+    "node": "=20"
+  },
   "volta": {
     "extends": "../../package.json"
   },

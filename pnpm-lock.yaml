@@ -113,9 +113,15 @@ importers:
       tailwind-merge:
         specifier: ^2.4.0
         version: 2.4.0
+      tailwindcss:
+        specifier: ^3.4.7
+        version: 3.4.7(ts-node@10.9.2(@swc/core@1.7.6(@swc/helpers@0.5.12))(@types/node@20.14.14)(typescript@5.4.2))
       tailwindcss-animate:
-        specifier: 1.0.7
+        specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.7(ts-node@10.9.2(@swc/core@1.7.6(@swc/helpers@0.5.12))(@types/node@20.14.14)(typescript@5.4.2)))
+      yup:
+        specifier: ^1.0.0
+        version: 1.4.0
     devDependencies:
       '@ladle/react':
         specifier: 4.1.0
@@ -174,9 +180,6 @@ importers:
       prettier-plugin-tailwindcss:
         specifier: 0.6.5
         version: 0.6.5(prettier-plugin-organize-imports@4.0.0(prettier@3.3.3)(typescript@5.4.2)(vue-tsc@2.0.29(typescript@5.4.2)))(prettier@3.3.3)
-      tailwindcss:
-        specifier: 3.4.7
-        version: 3.4.7(ts-node@10.9.2(@swc/core@1.7.6(@swc/helpers@0.5.12))(@types/node@20.14.14)(typescript@5.4.2))
       tsx:
         specifier: 4.16.5
         version: 4.16.5
@@ -4477,6 +4480,9 @@ packages:
   prop-types@15.8.1:
     resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==}
 
+  property-expr@2.0.6:
+    resolution: {integrity: sha512-SVtmxhRE/CGkn3eZY1T6pC8Nln6Fr/lu1mKSgRud0eC73whjGfoAogbn78LkD8aFL0zz3bAFerKSnOl7NlErBA==}
+
   property-information@6.5.0:
     resolution: {integrity: sha512-PgTgs/BlvHxOu8QuEN7wi5A0OmXaBcHpmCSTehcs6Uuu9IkDIEo13Hy7n898RHfrQ49vKCoGeWZSaAK01nwVig==}
 
@@ -5046,6 +5052,9 @@ packages:
   timsort@0.3.0:
     resolution: {integrity: sha512-qsdtZH+vMoCARQtyod4imc2nIJwg9Cc7lPRrw9CzF8ZKR0khdr8+2nX80PBhET3tcyTtJDxAffGh2rXH4tyU8A==}
 
+  tiny-case@1.0.3:
+    resolution: {integrity: sha512-Eet/eeMhkO6TX8mnUteS9zgPbUMQa4I6Kkp5ORiBD5476/m+PIRiumP5tmh5ioJpH7k51Kehawy2UDfsnxxY8Q==}
+
   to-fast-properties@2.0.0:
     resolution: {integrity: sha512-/OaKK0xYrs3DmxRYqL/yDc+FxFUVYhDlXMhRmv3z915w2HF1tnN1omB354j8VUGO/hbRzyD6Y3sA7v7GS/ceog==}
     engines: {node: '>=4'}
@@ -5057,6 +5066,9 @@ packages:
   toidentifier@1.0.1:
     resolution: {integrity: sha512-o5sSPKEkg/DIQNmH43V0/uerLrpzVedkUh8tGNvaeXpfpuwjKenlSox/2O/BTlZUtEe+JG7s5YhEz608PlAHRA==}
     engines: {node: '>=0.6'}
+
+  toposort@2.0.2:
+    resolution: {integrity: sha512-0a5EOkAUp8D4moMi2W8ZF8jcga7BgZd91O/yabJCFY8az+XSzeGyTKs0Aoo897iV1Nj6guFq8orWDS96z91oGg==}
 
   tough-cookie@4.1.4:
     resolution: {integrity: sha512-Loo5UUvLD9ScZ6jh8beX1T6sO1w2/MpCRpEP7V280GKMVUQ0Jzar2U3UJPsrdbziLEMMhu3Ujnq//rhiFuIeag==}
@@ -5495,6 +5507,9 @@ packages:
   yoctocolors-cjs@2.1.2:
     resolution: {integrity: sha512-cYVsTjKl8b+FrnidjibDWskAv7UKOfcwaVZdp/it9n1s9fU3IkgDbhdIRKCW4JDsAlECJY0ytoVPT3sK6kideA==}
     engines: {node: '>=18'}
+
+  yup@1.4.0:
+    resolution: {integrity: sha512-wPbgkJRCqIf+OHyiTBQoJiP5PFuAXaWiJK6AmYkzQAh5/c2K9hzSApBZG5wV9KoKSePF7sAxmNSvh/13YHkFDg==}
 
   zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
@@ -10738,6 +10753,8 @@ snapshots:
       object-assign: 4.1.1
       react-is: 16.13.1
 
+  property-expr@2.0.6: {}
+
   property-information@6.5.0: {}
 
   psl@1.9.0: {}
@@ -11421,6 +11438,8 @@ snapshots:
 
   timsort@0.3.0: {}
 
+  tiny-case@1.0.3: {}
+
   to-fast-properties@2.0.0: {}
 
   to-regex-range@5.0.1:
@@ -11428,6 +11447,8 @@ snapshots:
       is-number: 7.0.0
 
   toidentifier@1.0.1: {}
+
+  toposort@2.0.2: {}
 
   tough-cookie@4.1.4:
     dependencies:
@@ -11875,5 +11896,12 @@ snapshots:
   yocto-queue@0.1.0: {}
 
   yoctocolors-cjs@2.1.2: {}
+
+  yup@1.4.0:
+    dependencies:
+      property-expr: 2.0.6
+      tiny-case: 1.0.3
+      toposort: 2.0.2
+      type-fest: 2.19.0
 
   zwitch@2.0.4: {}
