@@ -1,23 +1,7 @@
 {
-  "name": "design-system-vite",
   "private": true,
+  "name": "design-system-vite",
   "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "run-s build:tsc build:vite build:copy",
-    "build:tsc": "tsc -b",
-    "build:vite": "vite build",
-    "build:copy": "tsx src/copy.ts",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview",
-    "format": "prettier --write .",
-    "format:check": "prettier --check ."
-  },
-  "peerDependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
-  },
   "devDependencies": {
     "@types/node": "^20.14.14",
     "@types/react": "^18.3.3",
@@ -40,7 +24,28 @@
     "vite": "5.3.4",
     "vite-plugin-dts": "4.0.0"
   },
+  "peerDependencies": {
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.424.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tailwind-merge": "1.12.0",
+    "tailwindcss-animate": "1.0.7"
+  },
+  "scripts": {
+    "build": "run-s build:tsc build:vite build:copy",
+    "build:copy": "tsx src/copy.ts",
+    "build:tsc": "tsc -b",
+    "build:vite": "vite build",
+    "dev": "vite",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
   "volta": {
     "extends": "../../package.json"
-  }
+  },
+  "type": "module"
 }
