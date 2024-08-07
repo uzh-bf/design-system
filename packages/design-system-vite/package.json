@@ -3,6 +3,7 @@
   "name": "design-system-vite",
   "version": "0.0.0",
   "devDependencies": {
+    "@ladle/react": "4.1.0",
     "@tailwindcss/aspect-ratio": "0.4.2",
     "@tailwindcss/forms": "0.5.3",
     "@tailwindcss/typography": "0.5.9",
@@ -45,11 +46,12 @@
     "build:copy": "tsx src/copy.ts",
     "build:tsc": "tsc -b",
     "build:vite": "vite build",
-    "dev": "vite",
+    "build:ladle": "ladle build",
+    "dev": "ladle serve",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "ladle preview"
   },
   "volta": {
     "extends": "../../package.json"
