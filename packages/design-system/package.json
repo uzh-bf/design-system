@@ -111,6 +111,5 @@
   "volta": {
     "extends": "../../package.json"
   },
-  "type": "module",
-  "typings": "dist/index.d.ts"
+  "type": "module"
 }
