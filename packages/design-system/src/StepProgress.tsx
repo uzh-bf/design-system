@@ -125,7 +125,7 @@ export function StepProgress({
           <button
             data-cy={data?.cy ? `${data?.cy}-left` : undefined}
             className={twMerge(
-              'hover:text-primary-100 rounded-l px-3 py-1 hover:bg-primary-20',
+              'rounded-l px-3 py-1 hover:bg-primary-20 hover:text-primary-100',
               !items && 'bg-primary-60 text-white'
             )}
             onClick={() =>
@@ -145,7 +145,7 @@ export function StepProgress({
             key={ix}
             data-cy={data?.cy ? `${data?.cy}-${ix}` : undefined}
             className={twMerge(
-              'hover:text-primary-100 flex flex-1 items-center justify-center border-r border-white p-1 last:border-r-0 hover:bg-primary-20',
+              'flex flex-1 items-center justify-center border-r border-white p-1 last:border-r-0 hover:bg-primary-20 hover:text-primary-100',
               ix === 0 && 'rounded-l',
               ix === length - 1 && 'rounded-r',
               (value || 0) > ix && !items && 'bg-primary-60 text-white',
@@ -170,7 +170,7 @@ export function StepProgress({
           <button
             data-cy={data?.cy ? `${data?.cy}-right` : undefined}
             className={twMerge(
-              'hover:text-primary-100 rounded-r px-3 py-1 hover:bg-primary-20'
+              'rounded-r px-3 py-1 hover:bg-primary-20 hover:text-primary-100'
             )}
             onClick={() =>
               onItemClick(

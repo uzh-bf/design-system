@@ -81,7 +81,7 @@ export function Dropdown({
           data-test={data?.test}
           className={twMerge(
             'inline-flex h-7 items-center justify-between gap-3 rounded-md border',
-            'hover:text-primary-100 bg-white py-1.5 pl-2 pr-2 shadow-sm hover:bg-primary-20',
+            'bg-white py-1.5 pl-2 pr-2 shadow-sm hover:bg-primary-20 hover:text-primary-100',
             disabled &&
               'hover:bg-none, hover:text-none cursor-not-allowed bg-uzh-grey-20 opacity-70 shadow-sm',
             className?.trigger
@@ -201,7 +201,7 @@ const DropdownItem = ({
         data-cy={data?.cy}
         data-test={data?.test}
         className={twMerge(
-          `hover:text-primary-100 flex flex-row rounded px-2 py-0.5 hover:cursor-pointer hover:bg-primary-20`,
+          `flex flex-row rounded px-2 py-0.5 hover:cursor-pointer hover:bg-primary-20 hover:text-primary-100`,
           active && twMerge('font-bold', className?.active),
           className?.root
         )}
