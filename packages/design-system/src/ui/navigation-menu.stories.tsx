@@ -11,6 +11,12 @@ import {
 } from '@/ui/navigation-menu'
 import React from 'react'
 
+import type { Story, StoryDefault } from '@ladle/react'
+
+export default {
+  title: 'Shadcn/NavigationMenu',
+} satisfies StoryDefault
+
 const components: { title: string; href: string; description: string }[] = [
   {
     title: 'Alert Dialog',
@@ -75,7 +81,7 @@ const ListItem = React.forwardRef<
 })
 ListItem.displayName = 'ListItem'
 
-export const Default = () => (
+export const Default: Story = () => (
   <NavigationMenu>
     <NavigationMenuList>
       <NavigationMenuItem>
