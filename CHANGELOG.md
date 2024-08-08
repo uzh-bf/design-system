@@ -2,6 +2,37 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.0](https://github.com/uzh-bf/design-system/compare/v2.13.3...v3.0.0-alpha.0) (2024-08-08)
+
+
+### Features
+
+* transform to monorepo and prepare for web components ([#75](https://github.com/uzh-bf/design-system/issues/75)) ([557b339](https://github.com/uzh-bf/design-system/commit/557b339e6e0e8da9f3a73aa05854a5c9f6b4b1e9))
+
+
+### Refactors
+
+* convert to PNPM ([#118](https://github.com/uzh-bf/design-system/issues/118)) ([80aa2b9](https://github.com/uzh-bf/design-system/commit/80aa2b923458f1af68080b2207c78c5f2bdfe9ab))
+
+
+### Enhancements
+
+* add shadcn accordion ([1d7cbc1](https://github.com/uzh-bf/design-system/commit/1d7cbc1f8455bd80d9453490f61e07fe9b4ed35a))
+* add shadcn components and initial set of stories ([#121](https://github.com/uzh-bf/design-system/issues/121)) ([f84f0f0](https://github.com/uzh-bf/design-system/commit/f84f0f0a169d0e6f5608de6b8a76d991a6100ed9))
+* migrate design-system package to vite bundler and integrate shadcn ([#76](https://github.com/uzh-bf/design-system/issues/76)) ([81e0dd6](https://github.com/uzh-bf/design-system/commit/81e0dd64b1a69ea34febc86fefedc1b0123c4162)), closes [#119](https://github.com/uzh-bf/design-system/issues/119)
+
+
+### Build and CI
+
+* make build independent of lint step ([02c3a21](https://github.com/uzh-bf/design-system/commit/02c3a214543f8c9c31bb972b72dca49f61669c05))
+* update publish workflow to publish design system build ([6486aa7](https://github.com/uzh-bf/design-system/commit/6486aa75292e73d7043b3e31a3ca7f186357b950))
+* update ts build configuration for .d.ts generation ([#122](https://github.com/uzh-bf/design-system/issues/122)) ([a856592](https://github.com/uzh-bf/design-system/commit/a8565928915ffeebf895c8f2b4d3dfc5f8f8b38b))
+
+
+### Other
+
+* extend versionrc ([da2e3b9](https://github.com/uzh-bf/design-system/commit/da2e3b9f42adc72dfa302428d3d995924069a008))
+
 ## [2.13.3](https://github.com/uzh-bf/design-system/compare/v2.13.2...v2.13.3) (2024-07-22)
 
 
