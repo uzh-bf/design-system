@@ -49,3 +49,10 @@ export { default as SelectField } from './forms/SelectField'
 export { default as TextField } from './forms/TextField'
 export { default as TextareaField } from './forms/TextareaField'
 export { useArrowNavigation } from './hooks/useArrowNavigation'
+
+export {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from './ui/accordion'
