@@ -61,7 +61,7 @@ export function Button({
         ? 'bg-uzh-grey-20 text-uzh-grey-80 cursor-default fill-uzh-grey-80'
         : 'cursor-default'
       : !basic &&
-          `hover:bg-primary-20 hover:border-primary-40 hover:text-primary hover:fill-primary`,
+          `hover:bg-primary-20 hover:border-primary-40 hover:text-primary-100 hover:fill-primary-100`,
     !basic &&
       active &&
       twMerge('bg-primary-20 border-primary-40', className?.active),
@@ -159,7 +159,7 @@ Button.IconGroup = function ButtonIconGroup({
             key={index}
             className={{
               root: twMerge(
-                'p-1.5 first:rounded-l-sm last:rounded-r-sm hover:border-primary',
+                'hover:border-primary-100 p-1.5 first:rounded-l-sm last:rounded-r-sm',
                 state === index
                   ? `hover:bg-unset bg-primary-80 text-white`
                   : 'bg-white',
