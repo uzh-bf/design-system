@@ -20,9 +20,11 @@ export default defineConfig({
   ],
   build: {
     lib: {
-      entry: path.resolve(__dirname, 'src/index.ts'),
+      entry: [
+        path.resolve(__dirname, 'src/index.ts'),
+        path.resolve(__dirname, 'src/ui/future.ts'),
+      ],
       formats: ['es'],
-      fileName: 'index',
     },
     rollupOptions: {
       external: ['react'],

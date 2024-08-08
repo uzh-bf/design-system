@@ -150,8 +150,8 @@ importers:
         specifier: 3.6.0
         version: 3.6.0
       dayjs:
-        specifier: 1.0.0
-        version: 1.0.0
+        specifier: 1.11.12
+        version: 1.11.12
       embla-carousel-react:
         specifier: 8.1.8
         version: 8.1.8(react@18.3.1)
@@ -3512,8 +3512,8 @@ packages:
   dateformat@3.0.3:
     resolution: {integrity: sha512-jyCETtSl3VMZMWeRo7iY1FL19ges1t55hMo5yaam4Jrsm5EPL89UQkoQRyiI+Yf4k8r2ZpdngkV8hr1lIdjb3Q==}
 
-  dayjs@1.0.0:
-    resolution: {integrity: sha512-Vd/01iVwNVDxDqs+6pEyNAC9pC9DiF3HNlW+C0Tlqo7zwZ2rh768aL2UZL9+rwPLlwNtDg3vUwkEzk7PXrMf2g==}
+  dayjs@1.11.12:
+    resolution: {integrity: sha512-Rt2g+nTbLlDWZTwwrIXjy9MeiZmSDI375FvZs72ngxx8PDC6YXOeR3q5LAuPzjZQxhiWdRKac7RKV+YyQYfYIg==}
 
   de-indent@1.0.2:
     resolution: {integrity: sha512-e/1zu3xH5MQryN2zdVaF0OrdNLUbvWxzMbi+iNA6Bky7l1RoP8a2fIbRocyHclXt/arDrrR6lL3TqFD9pMQTsg==}
@@ -10672,7 +10672,7 @@ snapshots:
 
   dateformat@3.0.3: {}
 
-  dayjs@1.0.0: {}
+  dayjs@1.11.12: {}
 
   de-indent@1.0.2: {}
 
