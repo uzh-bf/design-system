@@ -1,6 +1,6 @@
 {
   "name": "@uzh-bf/design-system-custom-element-tag",
-  "version": "2.13.3",
+  "version": "3.0.0-alpha.2",
   "files": [
     "dist"
   ],
