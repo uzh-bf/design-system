@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.3](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.2...v3.0.0-alpha.3) (2024-08-08)
+
+
+### Other
+
+* fix versioning config ([8fc004f](https://github.com/uzh-bf/design-system/commit/8fc004ffbffd46621da3742ddcb70f8ae9e175f4))
+
+
+### Build and CI
+
+* ensure d.ts files are built ([54723ac](https://github.com/uzh-bf/design-system/commit/54723accb5dfe54fe35b30fbc3bffb5a6bee9815))
+
 ## [3.0.0-alpha.2](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.1...v3.0.0-alpha.2) (2024-08-08)
 
 ## [3.0.0-alpha.1](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.0...v3.0.0-alpha.1) (2024-08-08)
