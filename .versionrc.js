@@ -64,9 +64,19 @@ module.exports = {
     },
   ],
   bumpFiles: [
-    {
-      filename: `package.json`,
+    '',
+    'packages/design-system',
+    'packages/header-custom-element',
+    'packages/header-react',
+    'packages/tag-custom-element',
+    'packages/tag-react',
+    'packages/parcel-config-design-system',
+    'packages/parcel-resolver-preact',
+    'packages/tailwind-config-design-system',
+  ].reduce((acc, path) => {
+    return acc.concat({
+      filename: `${path}package.json`,
       type: 'json',
-    },
-  ],
+    })
+  }, []),
 }
