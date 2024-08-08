@@ -36,6 +36,8 @@
     "lint": "turbo run lint",
     "release": "standard-version",
     "release:dry": "standard-version --dry-run",
+    "release:alpha": "standard-version --prerelease alpha",
+    "release:alpha:dry": "standard-version --dry-run --prerelease alpha",
     "syncpack": "syncpack",
     "test": "turbo run test"
   },

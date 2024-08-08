@@ -96,19 +96,20 @@ jobs:
           run_install: true
 
       - name: Build
+        working-directory: packages/design-system
         run: pnpm run build
 
-      - uses: JS-DevTools/npm-publish@v1
+      - uses: JS-DevTools/npm-publish@v3
         with:
           token: ${{ secrets.NPM_TOKEN }}
           access: public
-          check-version: true
+          package: packages/design-system/package.json
         if: startsWith(github.ref, 'refs/tags/')
 
-      - uses: JS-DevTools/npm-publish@v1
+      - uses: JS-DevTools/npm-publish@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           registry: https://npm.pkg.github.com
           access: public
-          check-version: true
+          package: packages/design-system/package.json
         if: startsWith(github.ref, 'refs/tags/')
