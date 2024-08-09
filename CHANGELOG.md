@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.11](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.10...v3.0.0-alpha.11) (2024-08-09)
+
+
+### Bug Fixes
+
+* add formik to external deps ([0528ef0](https://github.com/uzh-bf/design-system/commit/0528ef09f0cd1934766703ac632b0f52e90398be))
+
 ## [3.0.0-alpha.10](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.9...v3.0.0-alpha.10) (2024-08-09)
 
 
