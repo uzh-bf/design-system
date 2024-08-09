@@ -28,7 +28,7 @@ export default defineConfig({
       formats: ['es'],
     },
     rollupOptions: {
-      external: ['react'],
+      external: ['react', 'formik'],
       output: {
         sourcemapExcludeSources: true,
       },
