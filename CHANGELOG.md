@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.10](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.9...v3.0.0-alpha.10) (2024-08-09)
+
+
+### Build and CI
+
+* remove format check step ([d14b875](https://github.com/uzh-bf/design-system/commit/d14b8751b2ec25e28aa6004bc01f6bea68619c51))
+
+
+### Dependencies
+
+* update formik peer dep ([5c12e46](https://github.com/uzh-bf/design-system/commit/5c12e46b7c308f6a43dde8d983336c6097204bb9))
+* update peer deps ([8322a68](https://github.com/uzh-bf/design-system/commit/8322a6893799461feab5396957f56860eec0e806))
+
 ## [3.0.0-alpha.9](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.8...v3.0.0-alpha.9) (2024-08-09)
 
 
