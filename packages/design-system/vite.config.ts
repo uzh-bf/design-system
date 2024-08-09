@@ -8,13 +8,13 @@ export default defineConfig({
   plugins: [
     react(),
     dts({
-      // outDir: ['dist', 'types'],
+      outDir: ['dist', 'types'],
       // include: ['src/index.ts'],
       // exclude: ['src/ignore'],
       // aliasesExclude: [/^@components/],
-      staticImport: true,
-      // rollupTypes: true,
-      insertTypesEntry: true,
+      // staticImport: true,
+      rollupTypes: true,
+      // insertTypesEntry: true,
       tsconfigPath: './tsconfig.build.json',
     }),
   ],
