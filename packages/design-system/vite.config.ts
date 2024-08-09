@@ -28,9 +28,9 @@ export default defineConfig({
     },
     rollupOptions: {
       external: ['react'],
-      // output: {
-      //   sourcemapExcludeSources: true,
-      // },
+      output: {
+        sourcemapExcludeSources: true,
+      },
     },
     sourcemap: true,
     target: 'esnext',
