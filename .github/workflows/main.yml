@@ -41,7 +41,7 @@ jobs:
 
   check-format:
     runs-on: ubuntu-latest
-    name: Test
+    name: Check Formatting
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
