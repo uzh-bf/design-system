@@ -65,7 +65,7 @@ export function Navigation({
       <NavigationMenuPrimitive.Viewport
         className={twMerge(
           'mt-2 overflow-hidden rounded-md bg-primary-20 shadow-lg duration-300 ease-in-out',
-          'w-rdx-navigation-menu-viewport h-rdx-navigation-menu-viewport absolute z-10',
+          'absolute z-10 w-rdx-navigation-menu-viewport h-rdx-navigation-menu-viewport',
           className?.viewport
         )}
         style={style?.viewport}
