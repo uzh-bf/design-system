@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.6](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.5...v3.0.0-alpha.6) (2024-08-09)
+
+
+### Bug Fixes
+
+* ensure that css is also built ([4cd04e1](https://github.com/uzh-bf/design-system/commit/4cd04e1ae476b31cb20e9b59b6cff2439ccb3f70))
+
 ## [3.0.0-alpha.5](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.4...v3.0.0-alpha.5) (2024-08-09)
 
 
