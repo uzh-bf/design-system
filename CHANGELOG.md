@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.8](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.7...v3.0.0-alpha.8) (2024-08-09)
+
+
+### Bug Fixes
+
+* add removed tailwindcss radix plugin again ([2ec7b62](https://github.com/uzh-bf/design-system/commit/2ec7b62cfed1113c4bf5711861fb9ac89456c292))
+
 ## [3.0.0-alpha.7](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.6...v3.0.0-alpha.7) (2024-08-09)
 
 
