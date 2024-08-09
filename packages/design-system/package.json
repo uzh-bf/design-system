@@ -83,7 +83,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.12",
-    "formik": "^2.4.3",
+    "formik": "^2.4.6",
     "lucide-react": "^0.424.0",
     "postcss": "^8.4.41",
     "postcss-import": "^16.1.0",
