@@ -1,6 +1,6 @@
 {
   "name": "@uzh-bf/design-system",
-  "version": "3.0.0-alpha.3",
+  "version": "3.0.0-alpha.4",
   "main": "dist/index.js",
   "files": [
     "dist",

@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.4](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.3...v3.0.0-alpha.4) (2024-08-09)
+
+
+### Other
+
+* rollup types and generate types directory ([caa3258](https://github.com/uzh-bf/design-system/commit/caa325826563028f41225455603c57afe4e78e74))
+
 ## [3.0.0-alpha.3](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.2...v3.0.0-alpha.3) (2024-08-08)
 
 
