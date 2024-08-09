@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.5](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.4...v3.0.0-alpha.5) (2024-08-09)
+
+
+### Other
+
+* do not format types/ dir ([9e43fb4](https://github.com/uzh-bf/design-system/commit/9e43fb4abf8aaf1d93df1266eeb52c00e34f6f2f))
+
 ## [3.0.0-alpha.4](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.3...v3.0.0-alpha.4) (2024-08-09)
 
 
