@@ -259,7 +259,7 @@ const SelectItemComponent = React.forwardRef(
           'relative flex select-none items-center rounded-md px-8 py-2 font-medium text-gray-700',
           'hover:cursor-pointer hover:bg-primary-20 hover:text-primary-100 hover:outline-none focus:border-primary-40',
           disabled &&
-            'cursor-not-allowed opacity-50 hover:bg-white hover:text-gray-700',
+            'cursor-not-allowed opacity-50 hover:cursor-not-allowed hover:bg-white hover:text-gray-700',
           size === 'sm' && 'px-7 text-sm',
           className?.item
         )}

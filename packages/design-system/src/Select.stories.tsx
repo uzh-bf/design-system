@@ -34,12 +34,32 @@ export const programmingValues = [
   { value: 'csharp', label: 'C#' },
 ]
 
+export const programmingValuesDisabled = [
+  { value: 'javascript', label: 'JavaScript (disabled)', disabled: true },
+  { value: 'typescript', label: 'TypeScript' },
+  { value: 'python', label: 'Python (disabled)', disabled: true },
+  { value: 'ruby', label: 'Ruby' },
+  { value: 'java', label: 'Java (disabled)' },
+  { value: 'csharp', label: 'C#' },
+]
+
 export const groupValues = [
   { items: fruitsValues },
   { items: vegetablesValues, showSeparator: true },
   { items: transportValues, showSeparator: true, label: 'Transport' },
   {
     items: programmingValues,
+    showSeparator: true,
+    label: 'Programming Languages',
+  },
+]
+
+export const groupValuesDisabled = [
+  { items: fruitsValues },
+  { items: vegetablesValues, showSeparator: true },
+  { items: transportValues, showSeparator: true, label: 'Transport' },
+  {
+    items: programmingValuesDisabled,
     showSeparator: true,
     label: 'Programming Languages',
   },

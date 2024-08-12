@@ -1,6 +1,11 @@
 import { Form, Formik } from 'formik'
 import { Button } from '../Button'
-import { fruitsValues, groupValues } from '../Select.stories'
+import {
+  fruitsValues,
+  groupValues,
+  groupValuesDisabled,
+  programmingValuesDisabled,
+} from '../Select.stories'
 import FormikSelectField from './NewFormikSelectField'
 
 export const Default = () => {
@@ -53,6 +58,70 @@ export const Groups = () => {
               <FormikSelectField
                 name="fruit"
                 groups={groupValues}
+                label="Fruits"
+                placeholder="Select a fruit"
+                className={{ root: 'mb-2' }}
+              />
+              <Button type="submit">Submit</Button>
+            </Form>
+            <div>Value: {values.fruit}</div>
+          </div>
+        )
+      }}
+    </Formik>
+  )
+}
+
+export const DisabledElement = () => {
+  return (
+    <Formik
+      initialValues={{
+        fruit: programmingValuesDisabled[1].value,
+      }}
+      onSubmit={async (values, { resetForm }) => {
+        alert(`Form submitted with value: ${values.fruit}`)
+        resetForm()
+      }}
+    >
+      {({ values }) => {
+        return (
+          <div className="flex flex-col gap-2">
+            <Form>
+              <FormikSelectField
+                name="fruit"
+                items={programmingValuesDisabled}
+                label="Fruits"
+                placeholder="Select a fruit"
+                className={{ root: 'mb-2' }}
+              />
+              <Button type="submit">Submit</Button>
+            </Form>
+            <div>Value: {values.fruit}</div>
+          </div>
+        )
+      }}
+    </Formik>
+  )
+}
+
+export const DisabledElementGroups = () => {
+  return (
+    <Formik
+      initialValues={{
+        fruit: groupValues[0].items[0].value,
+      }}
+      onSubmit={async (values, { resetForm }) => {
+        alert(`Form submitted with value: ${values.fruit}`)
+        resetForm()
+      }}
+    >
+      {({ values }) => {
+        return (
+          <div className="flex flex-col gap-2">
+            <Form>
+              <FormikSelectField
+                name="fruit"
+                groups={groupValuesDisabled}
                 label="Fruits"
                 placeholder="Select a fruit"
                 className={{ root: 'mb-2' }}
