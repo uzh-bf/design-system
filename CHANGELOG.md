@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.13](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.12...v3.0.0-alpha.13) (2024-08-12)
+
+
+### Bug Fixes
+
+* **forms/NewFormikSelectField:** ensure that cursor does not show pointer over disabled elements ([a7dd924](https://github.com/uzh-bf/design-system/commit/a7dd924258f411fb66c732ebc55e8cef4ad59331))
+
 ## [3.0.0-alpha.12](https://github.com/uzh-bf/design-system/compare/v2.14.0...v3.0.0-alpha.12) (2024-08-12)
 
 ## [3.0.0-alpha.11](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.10...v3.0.0-alpha.11) (2024-08-09)
