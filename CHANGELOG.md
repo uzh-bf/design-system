@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.14.0](https://github.com/uzh-bf/design-system/compare/v2.13.3...v2.14.0) (2024-08-12)
+
+
+### Other
+
+* **forms/NewFormikDateField:** add option to set field touched directly on change ([bb4072c](https://github.com/uzh-bf/design-system/commit/bb4072c2733c1d8a701a0968d572d9ae14f7fdf9))
+
+
+
 ## [3.0.0-alpha.11](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.10...v3.0.0-alpha.11) (2024-08-09)
 
 
@@ -86,7 +95,6 @@ All notable changes to this project will be documented in this file. See [standa
 * fix formatting ([17d8751](https://github.com/uzh-bf/design-system/commit/17d87511c625101e3aa6780c99e9ca6b379fe31a))
 
 ## [3.0.0-alpha.0](https://github.com/uzh-bf/design-system/compare/v2.13.3...v3.0.0-alpha.0) (2024-08-08)
-
 
 ### Features
 
