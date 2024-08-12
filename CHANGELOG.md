@@ -2,6 +2,158 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.12](https://github.com/uzh-bf/design-system/compare/v2.14.0...v3.0.0-alpha.12) (2024-08-12)
+
+## [3.0.0-alpha.11](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.10...v3.0.0-alpha.11) (2024-08-09)
+
+
+### Bug Fixes
+
+* add formik to external deps ([0528ef0](https://github.com/uzh-bf/design-system/commit/0528ef09f0cd1934766703ac632b0f52e90398be))
+
+
+### Other
+
+* **release:** 3.0.0-alpha.11 ([b9b9d57](https://github.com/uzh-bf/design-system/commit/b9b9d57c5a59d45e402a8a5ea0245f5e4796bcd2))
+
+## [3.0.0-alpha.10](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.9...v3.0.0-alpha.10) (2024-08-09)
+
+
+### Build and CI
+
+* remove format check step ([d14b875](https://github.com/uzh-bf/design-system/commit/d14b8751b2ec25e28aa6004bc01f6bea68619c51))
+
+
+### Dependencies
+
+* update formik peer dep ([5c12e46](https://github.com/uzh-bf/design-system/commit/5c12e46b7c308f6a43dde8d983336c6097204bb9))
+* update peer deps ([8322a68](https://github.com/uzh-bf/design-system/commit/8322a6893799461feab5396957f56860eec0e806))
+
+
+### Other
+
+* **release:** 3.0.0-alpha.10 ([fdeef41](https://github.com/uzh-bf/design-system/commit/fdeef41eff9ff620da065ba8add401f522838316))
+
+## [3.0.0-alpha.9](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.8...v3.0.0-alpha.9) (2024-08-09)
+
+
+### Other
+
+* reformat and make formatting not fail build ([0c2ee82](https://github.com/uzh-bf/design-system/commit/0c2ee82a414269e480331e86ba0b47a2a8b2a521))
+* **release:** 3.0.0-alpha.9 ([5bb4ac3](https://github.com/uzh-bf/design-system/commit/5bb4ac3081f211a7b6603a1c23fdae1dac63b5f1))
+
+## [3.0.0-alpha.8](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.7...v3.0.0-alpha.8) (2024-08-09)
+
+
+### Bug Fixes
+
+* add removed tailwindcss radix plugin again ([2ec7b62](https://github.com/uzh-bf/design-system/commit/2ec7b62cfed1113c4bf5711861fb9ac89456c292))
+
+
+### Other
+
+* **release:** 3.0.0-alpha.8 ([4293c50](https://github.com/uzh-bf/design-system/commit/4293c50499946712b8707b12b45ed5419b0225fd))
+
+## [3.0.0-alpha.7](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.6...v3.0.0-alpha.7) (2024-08-09)
+
+
+### Bug Fixes
+
+* add constants to build ([19fcdcd](https://github.com/uzh-bf/design-system/commit/19fcdcde78644b79e3e81ec622119030149984e3))
+
+
+### Other
+
+* **release:** 3.0.0-alpha.7 ([c4e0e34](https://github.com/uzh-bf/design-system/commit/c4e0e340972cb4e6987efddaf574a7d2777a9509))
+
+## [3.0.0-alpha.6](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.5...v3.0.0-alpha.6) (2024-08-09)
+
+
+### Bug Fixes
+
+* ensure that css is also built ([4cd04e1](https://github.com/uzh-bf/design-system/commit/4cd04e1ae476b31cb20e9b59b6cff2439ccb3f70))
+
+
+### Other
+
+* **release:** 3.0.0-alpha.6 ([1774337](https://github.com/uzh-bf/design-system/commit/17743376b97fbb7798e4c979c0d05149c730218c))
+
+## [3.0.0-alpha.5](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.4...v3.0.0-alpha.5) (2024-08-09)
+
+
+### Other
+
+* do not format types/ dir ([9e43fb4](https://github.com/uzh-bf/design-system/commit/9e43fb4abf8aaf1d93df1266eeb52c00e34f6f2f))
+* **release:** 3.0.0-alpha.5 ([a948375](https://github.com/uzh-bf/design-system/commit/a948375aaa0d3b9a70e6975968624ae31167a350))
+
+## [3.0.0-alpha.4](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.3...v3.0.0-alpha.4) (2024-08-09)
+
+
+### Other
+
+* **release:** 3.0.0-alpha.4 ([24c8439](https://github.com/uzh-bf/design-system/commit/24c8439cdf36ff64f50fb8358520fabfd5b4a8e1))
+* rollup types and generate types directory ([caa3258](https://github.com/uzh-bf/design-system/commit/caa325826563028f41225455603c57afe4e78e74))
+
+## [3.0.0-alpha.3](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.2...v3.0.0-alpha.3) (2024-08-08)
+
+
+### Build and CI
+
+* ensure d.ts files are built ([54723ac](https://github.com/uzh-bf/design-system/commit/54723accb5dfe54fe35b30fbc3bffb5a6bee9815))
+
+
+### Other
+
+* fix versioning config ([8fc004f](https://github.com/uzh-bf/design-system/commit/8fc004ffbffd46621da3742ddcb70f8ae9e175f4))
+* **release:** 3.0.0-alpha.3 ([05d1f6d](https://github.com/uzh-bf/design-system/commit/05d1f6d4cf67248ce12a36189cff7a1b7bee94a4))
+
+## [3.0.0-alpha.2](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.1...v3.0.0-alpha.2) (2024-08-08)
+
+
+### Other
+
+* **release:** 3.0.0-alpha.2 ([9da67ae](https://github.com/uzh-bf/design-system/commit/9da67aeb8c690605035eb175e9ae7f86c0483c2c))
+
+## [3.0.0-alpha.1](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.0...v3.0.0-alpha.1) (2024-08-08)
+
+
+### Other
+
+* fix formatting ([17d8751](https://github.com/uzh-bf/design-system/commit/17d87511c625101e3aa6780c99e9ca6b379fe31a))
+* **release:** 3.0.0-alpha.1 ([cc342c5](https://github.com/uzh-bf/design-system/commit/cc342c53aadb1d1ea3c3b3632b06049bdeea6408))
+
+## [3.0.0-alpha.0](https://github.com/uzh-bf/design-system/compare/v2.13.3...v3.0.0-alpha.0) (2024-08-08)
+
+
+### Features
+
+* transform to monorepo and prepare for web components ([#75](https://github.com/uzh-bf/design-system/issues/75)) ([557b339](https://github.com/uzh-bf/design-system/commit/557b339e6e0e8da9f3a73aa05854a5c9f6b4b1e9))
+
+
+### Refactors
+
+* convert to PNPM ([#118](https://github.com/uzh-bf/design-system/issues/118)) ([80aa2b9](https://github.com/uzh-bf/design-system/commit/80aa2b923458f1af68080b2207c78c5f2bdfe9ab))
+
+
+### Enhancements
+
+* add shadcn accordion ([1d7cbc1](https://github.com/uzh-bf/design-system/commit/1d7cbc1f8455bd80d9453490f61e07fe9b4ed35a))
+* add shadcn components and initial set of stories ([#121](https://github.com/uzh-bf/design-system/issues/121)) ([f84f0f0](https://github.com/uzh-bf/design-system/commit/f84f0f0a169d0e6f5608de6b8a76d991a6100ed9))
+* migrate design-system package to vite bundler and integrate shadcn ([#76](https://github.com/uzh-bf/design-system/issues/76)) ([81e0dd6](https://github.com/uzh-bf/design-system/commit/81e0dd64b1a69ea34febc86fefedc1b0123c4162)), closes [#119](https://github.com/uzh-bf/design-system/issues/119)
+
+
+### Build and CI
+
+* make build independent of lint step ([02c3a21](https://github.com/uzh-bf/design-system/commit/02c3a214543f8c9c31bb972b72dca49f61669c05))
+* update publish workflow to publish design system build ([6486aa7](https://github.com/uzh-bf/design-system/commit/6486aa75292e73d7043b3e31a3ca7f186357b950))
+* update ts build configuration for .d.ts generation ([#122](https://github.com/uzh-bf/design-system/issues/122)) ([a856592](https://github.com/uzh-bf/design-system/commit/a8565928915ffeebf895c8f2b4d3dfc5f8f8b38b))
+
+
+### Other
+
+* extend versionrc ([da2e3b9](https://github.com/uzh-bf/design-system/commit/da2e3b9f42adc72dfa302428d3d995924069a008))
+* **release:** 3.0.0-alpha.0 ([872ccdc](https://github.com/uzh-bf/design-system/commit/872ccdc641f332d926108fc2c05a8021a54858dd))
+
 ## [2.14.0](https://github.com/uzh-bf/design-system/compare/v2.13.3...v2.14.0) (2024-08-12)
 
 
