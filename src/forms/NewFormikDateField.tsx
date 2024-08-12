@@ -19,6 +19,7 @@ export interface NewFormikDateFieldProps {
   tooltip?: string | React.ReactNode
   required?: boolean
   hideError?: boolean
+  touchedOnChange?: boolean
   disabled?: boolean
   className?: {
     root?: string
@@ -44,6 +45,7 @@ export interface NewFormikDateFieldProps {
  * @param tooltip - The optional tooltip is shown on hover next to the label.
  * @param required - Indicate whether the field is required or not.
  * @param hideError - Hide the error message below this component as is might be more appropriate to show it somewhere else.
+ * @param touchedOnChange - Indicate whether the field should be marked as touched on change.
  * @param disabled - Disable the field.
  * @param className - The optional className object allows you to override the default styling.
  * @returns Date field component with Formik state management.
@@ -58,6 +60,7 @@ export function NewFormikDateField({
   tooltip,
   required = false,
   hideError = false,
+  touchedOnChange = false,
   disabled = false,
   className,
   ...props
@@ -101,6 +104,10 @@ export function NewFormikDateField({
             onChange={(e) => {
               if (e.target['validity'].valid) {
                 helpers.setValue(e.target['value'])
+
+                if (touchedOnChange) {
+                  helpers.setTouched(true)
+                }
               }
             }}
             onBlur={() => helpers.setTouched(true)}
