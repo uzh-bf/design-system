@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.14](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.13...v3.0.0-alpha.14) (2024-08-13)
+
+
+### Bug Fixes
+
+* resolve typo in component name for formik number field ([9bba247](https://github.com/uzh-bf/design-system/commit/9bba247dace1ea97e3550069095f939db0771bac))
+
 ## [3.0.0-alpha.13](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.12...v3.0.0-alpha.13) (2024-08-12)
 
 
