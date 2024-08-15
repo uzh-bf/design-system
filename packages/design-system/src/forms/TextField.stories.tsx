@@ -1,3 +1,4 @@
+import { faEyeSlash } from '@fortawesome/free-regular-svg-icons'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import React from 'react'
 import TextField from './TextField'
@@ -17,6 +18,51 @@ export const Default = () => {
         placeholder="Placeholder"
         value={value}
         onChange={setValue}
+      />
+    </>
+  )
+}
+
+export const Icon = () => {
+  const [value, setValue] = React.useState('')
+
+  return (
+    <>
+      <div>The default TextField</div>
+      <TextField
+        label="Label"
+        tooltip="Tooltip for this input"
+        className={{
+          field: 'mb-1 w-80',
+        }}
+        placeholder="Placeholder"
+        value={value}
+        onChange={setValue}
+        icon={faMagnifyingGlass}
+        onIconClick={() => alert('Icon clicked')}
+      />
+    </>
+  )
+}
+
+export const IconRight = () => {
+  const [value, setValue] = React.useState('')
+
+  return (
+    <>
+      <div>The default TextField</div>
+      <TextField
+        label="Label"
+        tooltip="Tooltip for this input"
+        className={{
+          field: 'mb-1 w-80',
+        }}
+        placeholder="Placeholder"
+        value={value}
+        onChange={setValue}
+        icon={faEyeSlash}
+        iconPosition="right"
+        onIconClick={() => alert('Icon clicked')}
       />
     </>
   )
