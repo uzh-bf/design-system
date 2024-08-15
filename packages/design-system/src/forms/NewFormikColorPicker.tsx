@@ -5,8 +5,8 @@ import { useField } from 'formik'
 import React, { useEffect } from 'react'
 import { twMerge } from 'tailwind-merge'
 import ColorPicker, { ColorPickerClassName } from '../ColorPicker'
+import FormLabel from '../FormLabel'
 import { Tooltip } from '../Tooltip'
-import { Label } from './Label'
 
 export interface FormikColorPickerProps {
   name: string
@@ -48,7 +48,7 @@ export function FormikColorPicker({
   labelType = 'small',
   validateForm,
   tooltip,
-  required,
+  required = false,
   disabled,
   triggerIcon,
   presetColors,
@@ -77,21 +77,12 @@ export function FormikColorPicker({
       )}
     >
       {label && (
-        <Label
+        <FormLabel
           required={required}
           label={label}
-          className={{
-            root: twMerge(
-              'my-auto mr-2 min-w-max font-bold',
-              labelType === 'small' &&
-                '-mb-1 mt-1 text-sm leading-6 text-gray-600',
-              className?.label
-            ),
-            tooltip: twMerge('text-sm font-normal', className?.tooltip),
-            tooltipSymbol: twMerge(labelType === 'small' && 'h-2 w-2'),
-          }}
+          labelType={labelType}
           tooltip={tooltip}
-          showTooltipSymbol={typeof tooltip !== 'undefined'}
+          className={className}
         />
       )}
       <div className="flex flex-row items-center gap-2">

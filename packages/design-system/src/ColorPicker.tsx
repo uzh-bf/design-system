@@ -142,7 +142,7 @@ export function ColorPicker({
                 label={colorLabel}
                 className={{
                   root: twMerge(
-                    'my-auto -mb-1 min-w-max text-base font-bold leading-6 text-gray-600',
+                    'my-auto -mb-0.5 min-w-max text-base font-bold leading-6 text-gray-600',
                     className?.inputLabel
                   ),
                   tooltip: twMerge(
