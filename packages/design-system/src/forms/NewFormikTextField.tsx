@@ -13,6 +13,7 @@ interface FormikTextFieldProps {
   label?: string
   labelType?: 'small' | 'large'
   icon?: IconDefinition
+  iconPosition?: 'left' | 'right'
   onIconClick?: () => void
   placeholder?: string
   tooltip?: string | React.ReactNode
@@ -56,6 +57,7 @@ export interface FormikTextFieldWithOnChangeProps extends FormikTextFieldProps {
  * @param label - The optional label is shown next to the field in the form.
  * @param labelType - The optional labelType can be used to change the size and position of the label according to pre-defined standards.
  * @param icon - An optional icon (FontAwesomeIcon IconDefinition) that is shown on the right side of the text input component
+ * @param iconPosition - The optional iconPosition can be used to change the position of the icon according to pre-defined standards.
  * @param onIconClick - An optional function that is called when the icon (previous prop) is clicked
  * @param placeholder - The optional placeholder is shown when the field is empty.
  * @param tooltip - The optional tooltip is shown on hover next to the label.
@@ -76,6 +78,7 @@ export function FormikTextField({
   label,
   labelType = 'small',
   icon,
+  iconPosition = 'left',
   onIconClick,
   placeholder,
   tooltip,
@@ -109,6 +112,8 @@ export function FormikTextField({
           onPaste={onPaste}
           className={className}
           icon={icon}
+          iconPosition={iconPosition}
+          onIconClick={onIconClick}
           {...props}
         />
       </div>
@@ -133,6 +138,8 @@ export function FormikTextField({
           onPaste={onPaste}
           className={className}
           icon={icon}
+          iconPosition={iconPosition}
+          onIconClick={onIconClick}
           {...props}
         />
       </div>

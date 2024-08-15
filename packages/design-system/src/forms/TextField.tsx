@@ -13,6 +13,7 @@ export interface TextFieldClassName {
   input?: string
   error?: string
   tooltip?: string
+  icon?: string
 }
 
 interface TextFieldProps {
@@ -33,6 +34,8 @@ interface TextFieldProps {
   onPaste?: (e: any) => void
   className?: TextFieldClassName
   icon?: IconProp
+  iconPosition?: 'left' | 'right'
+  onIconClick?: () => void
 }
 
 export interface TextFieldNameProps extends TextFieldProps {
@@ -72,6 +75,8 @@ export interface TextFieldOnChangeProps extends TextFieldProps {
  * @param onPaste - The optional onPaste function is called when the user pastes text into the input field.
  * @param className - The optional className object allows you to override the default styling.
  * @param icon - The optional icon is shown on the right side of the input field.
+ * @param iconPosition - The optional iconPosition can be used to change the position of the icon to the left side of the input field.
+ * @param onIconClick - The optional onIconClick function is called when the icon is clicked.
  * @returns Text field component with optional label, tooltip, error message and icon.
  */
 
@@ -94,6 +99,8 @@ export function TextField({
   onPaste,
   className,
   icon,
+  iconPosition = 'left',
+  onIconClick,
   ...props
 }: TextFieldNameProps | TextFieldOnChangeProps) {
   return (
@@ -125,7 +132,7 @@ export function TextField({
       )}
 
       <div className="flex w-full flex-row items-center gap-2">
-        <div className="relative w-full">
+        <div className="relative flex w-full flex-row items-center">
           {name && field ? (
             <input
               {...field}
@@ -139,7 +146,8 @@ export function TextField({
               onPaste={onPaste}
               className={twMerge(
                 'focus:border-uzh-blue-50 h-9 w-full rounded border border-uzh-grey-60 pl-2 placeholder-slate-400',
-                icon && 'pl-8',
+                icon && iconPosition === 'left' && 'pl-8',
+                icon && iconPosition === 'right' && 'pr-10',
                 disabled && 'cursor-not-allowed',
                 !!error && isTouched && 'border-red-400 bg-red-50',
                 className?.input
@@ -159,7 +167,8 @@ export function TextField({
               onPaste={onPaste}
               className={twMerge(
                 'focus:border-uzh-blue-50 h-9 w-full rounded border border-uzh-grey-60 pl-2 placeholder-slate-400',
-                icon && 'pl-8',
+                icon && iconPosition === 'left' && 'pl-8',
+                icon && iconPosition === 'right' && 'pr-10',
                 disabled && 'cursor-not-allowed',
                 !!error && isTouched && 'border-red-400 bg-red-50',
                 className?.input
@@ -168,11 +177,25 @@ export function TextField({
             />
           )}
 
-          {icon && (
+          {icon && iconPosition === 'left' && (
             <FontAwesomeIcon
-              className="absolute inset-y-2 left-2 text-slate-500"
+              className={twMerge(
+                'absolute inset-y-2 left-2 text-slate-500',
+                className?.icon
+              )}
+              onClick={onIconClick}
               icon={icon}
               size="lg"
+            />
+          )}
+          {icon && iconPosition === 'right' && (
+            <FontAwesomeIcon
+              icon={icon}
+              onClick={onIconClick}
+              className={twMerge(
+                'absolute right-0 z-10 p-2 pr-3 hover:cursor-pointer',
+                className?.icon
+              )}
             />
           )}
         </div>
