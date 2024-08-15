@@ -11,6 +11,7 @@ export interface SwitchClassName {
   element?: string
   thumb?: string
   label?: string
+  tooltip?: string
 }
 
 export interface SwitchProps {
@@ -103,7 +104,10 @@ export function Switch({
     >
       {labelLeft && label && (
         <FormLabel
-          className={{ label: twMerge('mr-0', className?.label) }}
+          className={{
+            label: twMerge('mr-0', className?.label),
+            tooltip: className?.tooltip,
+          }}
           label={label}
           labelType="large"
           required={required}
@@ -142,7 +146,7 @@ export function Switch({
       </RadixSwitch.Root>
       {!labelLeft && label && (
         <FormLabel
-          className={{ label: className?.label }}
+          className={{ label: className?.label, tooltip: className?.tooltip }}
           label={label}
           labelType="large"
           required={required}
