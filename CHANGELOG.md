@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.17](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.16...v3.0.0-alpha.17) (2024-08-15)
+
+
+### Refactors
+
+* define unified form labels for all new formik fields ([#126](https://github.com/uzh-bf/design-system/issues/126)) ([5c5b27e](https://github.com/uzh-bf/design-system/commit/5c5b27ed64811fcc4b6ca1815208208113121abc))
+
 ## [3.0.0-alpha.16](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.15...v3.0.0-alpha.16) (2024-08-15)
 
 
