@@ -2,8 +2,8 @@ import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
+import FormLabel from '../FormLabel'
 import { Tooltip } from '../Tooltip'
-import Label from './Label'
 
 export interface NumberFieldClassName {
   field?: string
@@ -65,13 +65,13 @@ export function NumberField({
   value,
   onChange,
   label,
-  labelType,
+  labelType = 'small',
   placeholder,
   precision,
   min,
   max,
   tooltip,
-  required,
+  required = false,
   hideError,
   error,
   isTouched,
@@ -97,22 +97,13 @@ export function NumberField({
       )}
     >
       {label && (
-        <Label
-          forId={id}
+        <FormLabel
+          id={id}
           required={required}
           label={label}
-          className={{
-            root: twMerge(
-              'my-auto mr-2 min-w-max font-bold',
-              labelType === 'small' &&
-                '-mb-1 mt-1 text-sm leading-6 text-gray-600',
-              className?.label
-            ),
-            tooltip: twMerge('text-sm font-normal', className?.tooltip),
-            tooltipSymbol: twMerge(labelType === 'small' && 'h-2 w-2'),
-          }}
+          labelType={labelType}
           tooltip={tooltip}
-          showTooltipSymbol={typeof tooltip !== 'undefined'}
+          className={className}
         />
       )}
 
