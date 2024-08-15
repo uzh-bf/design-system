@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.16](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.15...v3.0.0-alpha.16) (2024-08-15)
+
+
+### Enhancements
+
+* ***TextField:** add icons to text fields with flexible functionality ([#125](https://github.com/uzh-bf/design-system/issues/125)) ([6b6511d](https://github.com/uzh-bf/design-system/commit/6b6511dd48ffaea5686c82ef4715bfbd4578c620))
+
 ## [3.0.0-alpha.15](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.14...v3.0.0-alpha.15) (2024-08-15)
 
 
