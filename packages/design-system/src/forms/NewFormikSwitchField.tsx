@@ -13,6 +13,7 @@ export interface FormikSwitchFieldProps {
   error?: string
   hideError?: boolean
   label?: string
+  labelLeft?: boolean
   size?: 'sm' | 'md' | 'lg'
   tooltip?: string | React.ReactNode
   required?: boolean
@@ -27,6 +28,7 @@ export interface FormikSwitchFieldProps {
  * @param name - The name of the field. This is used to identify the field in Formik.
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param label - The label that is displayed next to the switch.
+ * @param labelLeft - Indicator whether the label should be displayed on the left or right side of the switch.
  * @param disabled - Indicator whether the switch is disabled or not.
  * @param error - The error message that is shown below the switch.
  * @param hideError - Indicator whether the error message is displayed or not.
@@ -44,6 +46,7 @@ export function FormikSwitchField({
   error,
   hideError = false,
   label,
+  labelLeft,
   size = 'md',
   required = false,
   tooltip,
@@ -61,6 +64,7 @@ export function FormikSwitchField({
       data={data}
       disabled={disabled}
       label={label}
+      labelLeft={labelLeft}
       tooltip={tooltip}
       size={size}
       error={!!meta.error && meta.touched ? meta.error : error}

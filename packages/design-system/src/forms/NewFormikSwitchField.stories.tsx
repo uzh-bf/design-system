@@ -101,6 +101,45 @@ export const Tooltip = () => {
   )
 }
 
+export const LeftLabel = () => {
+  return (
+    <Formik
+      initialValues={{
+        switch: false,
+      }}
+      isInitialValid={false}
+      onSubmit={(values) => {
+        alert(`Switch value:  ${values.switch}`)
+      }}
+    >
+      {({ values }) => {
+        return (
+          <div>
+            <Form className="flex flex-col gap-5">
+              <FormikSwitchField
+                labelLeft
+                name="switch"
+                label={values.switch ? 'Checked' : 'Unchecked'}
+                tooltip="This is a tooltip"
+              />
+              <FormikSwitchField
+                labelLeft
+                name="switch"
+                label={values.switch ? 'Checked' : 'Unchecked'}
+                tooltip="This is a tooltip"
+                error="Error message"
+              />
+              <Button className={{ root: 'mt-2' }} type="submit">
+                Submit
+              </Button>
+            </Form>
+          </div>
+        )
+      }}
+    </Formik>
+  )
+}
+
 export const Error = () => {
   return (
     <Formik
