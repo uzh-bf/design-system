@@ -3,8 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as RadixSwitch from '@radix-ui/react-switch'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
+import FormLabel from './FormLabel'
 import { Tooltip } from './Tooltip'
-import Label from './forms/Label'
 
 export interface SwitchClassName {
   root?: string
@@ -102,7 +102,13 @@ export function Switch({
       )}
     >
       {labelLeft && label && (
-        <Label className={{ root: className?.label }} label={label} />
+        <FormLabel
+          className={{ label: twMerge('mr-0', className?.label) }}
+          label={label}
+          labelType="large"
+          required={required}
+          tooltip={tooltip}
+        />
       )}
       <RadixSwitch.Root
         id={id}
@@ -116,6 +122,7 @@ export function Switch({
           checked && disabled && 'bg-primary-20',
           !!error && !hideError && 'outline outline-2 outline-red-600',
           rootSize[size || 'md'],
+          labelLeft && 'mr-2',
           className?.element
         )}
         onCheckedChange={!disabled ? onCheckedChange : () => null}
@@ -134,12 +141,12 @@ export function Switch({
         />
       </RadixSwitch.Root>
       {!labelLeft && label && (
-        <Label
-          className={{ root: twMerge('mr-2', className?.label) }}
+        <FormLabel
+          className={{ label: className?.label }}
           label={label}
+          labelType="large"
           required={required}
           tooltip={tooltip}
-          showTooltipSymbol={typeof tooltip !== 'undefined'}
         />
       )}
       {error && !hideError && (
