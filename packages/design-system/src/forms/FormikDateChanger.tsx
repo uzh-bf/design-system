@@ -46,7 +46,7 @@ export interface FormikDateChangerProps {
  * @param className - The optional className object allows you to override the default styling.
  * @returns Date changer component with optional label, edit button and save button.
  */
-function FormikDateChanger({
+export function FormikDateChanger({
   id,
   name,
   label = '',
