@@ -80,7 +80,6 @@ export function FormikTextareaField({
   label,
   labelType = 'small',
   icon,
-  onIconClick,
   placeholder,
   tooltip,
   required = false,
