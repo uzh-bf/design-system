@@ -1,6 +1,6 @@
 import { useField } from 'formik'
 import React from 'react'
-import TextaraeField from './TextareaField'
+import TextareaField from './TextareaField'
 
 interface FormikTextareaFieldProps {
   id?: string
@@ -92,7 +92,7 @@ export function FormikTextareaField({
 
   if (name) {
     return (
-      <TextaraeField
+      <TextareaField
         id={id}
         data={data}
         label={label}
@@ -113,7 +113,7 @@ export function FormikTextareaField({
     )
   } else {
     return (
-      <TextaraeField
+      <TextareaField
         id={id}
         data={data}
         value={value!}
