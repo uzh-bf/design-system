@@ -1,27 +1,27 @@
-import { default as React } from 'react';
-export interface NewFormikDateFieldProps {
-    id?: string;
-    name: string;
-    data?: {
-        cy?: string;
-        test?: string;
-    };
-    label?: string;
-    labelType?: 'small' | 'large';
-    placeholder?: string;
-    tooltip?: string | React.ReactNode;
-    required?: boolean;
-    hideError?: boolean;
-    disabled?: boolean;
-    className?: {
-        root?: string;
-        field?: string;
-        label?: string;
-        input?: string;
-        error?: string;
-        tooltip?: string;
-    };
-    [key: string]: any;
+import { default as React } from 'react'
+export interface FormikDateFieldProps {
+  id?: string
+  name: string
+  data?: {
+    cy?: string
+    test?: string
+  }
+  label?: string
+  labelType?: 'small' | 'large'
+  placeholder?: string
+  tooltip?: string | React.ReactNode
+  required?: boolean
+  hideError?: boolean
+  disabled?: boolean
+  className?: {
+    root?: string
+    field?: string
+    label?: string
+    input?: string
+    error?: string
+    tooltip?: string
+  }
+  [key: string]: any
 }
 /**
  * This function returns a date field that works as to be expected in a Formik environment.
@@ -40,5 +40,18 @@ export interface NewFormikDateFieldProps {
  * @param className - The optional className object allows you to override the default styling.
  * @returns Date field component with Formik state management.
  */
-export declare function NewFormikDateField({ id, data, name, label, labelType, placeholder, tooltip, required, hideError, disabled, className, ...props }: NewFormikDateFieldProps): import("react/jsx-runtime").JSX.Element;
-export default NewFormikDateField;
+export declare function FormikDateField({
+  id,
+  data,
+  name,
+  label,
+  labelType,
+  placeholder,
+  tooltip,
+  required,
+  hideError,
+  disabled,
+  className,
+  ...props
+}: FormikDateFieldProps): import('react/jsx-runtime').JSX.Element
+export default FormikDateField

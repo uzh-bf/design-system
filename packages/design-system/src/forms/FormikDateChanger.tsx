@@ -1,10 +1,20 @@
+import { IconDefinition } from '@fortawesome/free-regular-svg-icons'
 import { useField } from 'formik'
-import { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import DateChanger, { DateChangerClassName } from '../DateChanger'
 
 export interface FormikDateChangerProps {
   id?: string
   name: string
+  label?: string
+  labelType?: 'small' | 'large'
+  required?: boolean
+  tooltip?: string | React.ReactNode
+  disabled?: boolean
+  hideError?: boolean
+  format?: string
+  editIcon?: IconDefinition
+  validateField?: () => void
   data?: {
     cy?: string
     test?: string
@@ -13,73 +23,78 @@ export interface FormikDateChangerProps {
     cy?: string
     test?: string
   }
-  label?: string
-  tooltip?: string
-  required?: boolean
-  hideError?: boolean
-  disabled?: boolean
-  className?: {
-    root?: string
-    dateChanger?: DateChangerClassName
-  }
+  className?: DateChangerClassName
 }
 
 /**
- * This function returns a date field that works as to be expected in a Formik environment.
- * State is managed by Formik through the name attribute.
+ * This component provides a simple date changer with a label and a button to edit the date (not coupled to a formik context).
  *
- * @param id - The id of the field.
+ * @param id - The id of the date changer
+ * @param name - The name of the field as used to keep track of the state in Formik.
+ * @param label - The label of the date changer
+ * @param labelType - The type of the label (small or large)
+ * @param tooltip - The tooltip of the date changer (is only shown if a label is given)
+ * @param required - Whether the date label should contain a required symbol
+ * @param disabled - Whether the date changer is disabled or not
+ * @param hideError - Whether the error message should be hidden
+ * @param format - The format of the date when the edit mode is not active (then the display is up to the browser implementation)
+ * @param date - The date to be displayed
+ * @param editIcon - The icon to be displayed on the edit button
+ * @param validateField - Function to trigger validation of the field under consideration
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param dataButton - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the button
- * @param name - The name of the field as used to keep track of the state in Formik.
- * @param label - The optional label is shown next to the field in the form.
- * @param tooltip - The optional tooltip is shown on hover next to the label.
- * @param required - Indicate whether the field is required or not.
- * @param hideError - Hide the error message below this component as is might be more appropriate to show it somewhere else.
- * @param disabled - Disable the field.
  * @param className - The optional className object allows you to override the default styling.
- * @returns Date field component with Formik state management.
+ * @returns Date changer component with optional label, edit button and save button.
  */
-
-export function FormikDateChanger({
+function FormikDateChanger({
   id,
-  data,
-  dataButton,
   name,
-  label,
+  label = '',
+  labelType = 'small',
   tooltip,
   required = false,
-  hideError = false,
   disabled = false,
+  hideError = false,
+  format,
+  editIcon,
+  validateField,
+  data,
+  dataButton,
   className,
 }: FormikDateChangerProps) {
-  const [field, meta, helpers] = useField(name)
   const [edit, setEdit] = useState(false)
+  const [field, meta, helpers] = useField(name)
+
+  useEffect(() => {
+    validateField?.()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [edit])
 
   return (
-    <div className={className?.root}>
-      <DateChanger
-        id={id}
-        data={data}
-        dataButton={dataButton}
-        disabled={disabled}
-        label={label}
-        required={required}
-        tooltip={tooltip}
-        className={className?.dateChanger}
-        onSave={(newValue) => {
-          helpers.setValue(newValue)
-          helpers.setTouched(true)
-          setEdit(false)
-        }}
-        onEdit={() => setEdit(true)}
-        edit={edit}
-        date={field.value}
-      />
-      {meta.error && meta.touched && !hideError && (
-        <div className="text-sm text-red-500">{meta.error}</div>
-      )}
-    </div>
+    <DateChanger
+      id={id}
+      data={data}
+      dataButton={dataButton}
+      label={label}
+      labelType={labelType}
+      tooltip={tooltip}
+      required={required}
+      disabled={disabled}
+      error={meta.error}
+      hideError={hideError}
+      isTouched={meta.touched}
+      format={format}
+      edit={edit}
+      date={field.value}
+      onEdit={() => setEdit(true)}
+      onSave={(newValue) => {
+        helpers.setValue(newValue)
+        helpers.setTouched(true)
+        setEdit(false)
+      }}
+      editIcon={editIcon}
+      className={className}
+    />
   )
 }
 

@@ -24,7 +24,7 @@ export const Default = () => (
                 name="name"
                 label="Label"
                 tooltip="Tooltip for this input"
-                className={{ root: 'mb-1' }}
+                className={{ root: 'mb-1 w-80' }}
                 placeholder="Placeholder"
               />
               <Button type="submit">Submit</Button>
@@ -302,9 +302,7 @@ export const Styled = () => (
                   root: 'mb-1 w-1/2',
                   label: 'text-red-500',
                   error: 'text-red-700',
-                  numberField: {
-                    input: 'bg-uzh-blue-20',
-                  },
+                  input: 'bg-uzh-blue-20',
                 }}
                 placeholder="Placeholder"
               />
@@ -318,12 +316,9 @@ export const Styled = () => (
   </div>
 )
 
-export const SmallLabel = () => (
+export const LargeLabel = () => (
   <div>
-    <div>
-      Formik text area component with a small label (designed e.g. for login
-      forms)
-    </div>
+    <div>Formik text area component with a large label</div>
     <Formik
       initialValues={{
         name: '',
@@ -342,7 +337,7 @@ export const SmallLabel = () => (
                 required
                 name="name"
                 label="Label"
-                labelType="small"
+                labelType="large"
                 className={{ root: 'mb-1' }}
                 placeholder="Placeholder"
               />
