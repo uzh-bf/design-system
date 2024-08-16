@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.20](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.19...v3.0.0-alpha.20) (2024-08-16)
+
+
+### Refactors
+
+* replace old formik components through new versions ([#128](https://github.com/uzh-bf/design-system/issues/128)) ([6b8c390](https://github.com/uzh-bf/design-system/commit/6b8c390288bd4f2b1d41e8b01eff467e0b99fc6f))
+
 ## [3.0.0-alpha.19](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.18...v3.0.0-alpha.19) (2024-08-16)
 
 
