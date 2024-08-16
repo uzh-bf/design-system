@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.21](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.20...v3.0.0-alpha.21) (2024-08-16)
+
+
+### Bug Fixes
+
+* **forms/FormikDateChanger:** add missing export for date changer component ([2409764](https://github.com/uzh-bf/design-system/commit/24097647837ef7662ba07f56e8a902dcfb38a3f9))
+
 ## [3.0.0-alpha.20](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.19...v3.0.0-alpha.20) (2024-08-16)
 
 
