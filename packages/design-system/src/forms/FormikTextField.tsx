@@ -1,50 +1,47 @@
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useField } from 'formik'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
-import Label from './Label'
+import TextField, { TextFieldClassName } from './TextField'
 
-interface TextFieldProps {
+interface FormikTextFieldProps {
   id?: string
   data?: {
     cy?: string
     test?: string
   }
   label?: string
-  labelType?: 'small' | 'normal'
+  labelType?: 'small' | 'large'
   icon?: IconDefinition
+  iconPosition?: 'left' | 'right'
   onIconClick?: () => void
   placeholder?: string
   tooltip?: string | React.ReactNode
   required?: boolean
   hideError?: boolean
   disabled?: boolean
-  className?: {
+  onPaste?: (e: any) => void
+  className?: TextFieldClassName & {
     root?: string
-    field?: string
-    icon?: string
-    label?: string
-    input?: string
-    error?: string
-    tooltip?: string
   }
 }
 
 // type structure ensures that either a name or a value and onChange function are passed
-export interface TextFieldWithNameProps extends TextFieldProps {
+export interface FormikTextFieldWithNameProps extends FormikTextFieldProps {
   name: string
   value?: never
   onChange?: never
   error?: never
-  [key: string]: any
+  isTouched?: never
+  [key: string]: unknown
 }
-export interface TextFieldWithOnChangeProps extends TextFieldProps {
+export interface FormikTextFieldWithOnChangeProps extends FormikTextFieldProps {
   name?: never
   value: string
   onChange: (newValue: string) => void
   error?: string
-  [key: string]: any
+  isTouched?: boolean
+  [key: string]: unknown
 }
 
 /**
@@ -60,12 +57,14 @@ export interface TextFieldWithOnChangeProps extends TextFieldProps {
  * @param label - The optional label is shown next to the field in the form.
  * @param labelType - The optional labelType can be used to change the size and position of the label according to pre-defined standards.
  * @param icon - An optional icon (FontAwesomeIcon IconDefinition) that is shown on the right side of the text input component
+ * @param iconPosition - The optional iconPosition can be used to change the position of the icon according to pre-defined standards.
  * @param onIconClick - An optional function that is called when the icon (previous prop) is clicked
  * @param placeholder - The optional placeholder is shown when the field is empty.
  * @param tooltip - The optional tooltip is shown on hover next to the label.
  * @param required - Indicate whether the field is required or not.
  * @param hideError - Hide the error message below this component as is might be more appropriate to show it somewhere else.
  * @param disabled - Disable the field.
+ * @param onPaste - An optional function that is called when the user pastes text into the field.
  * @param className - The optional className object allows you to override the default styling.
  * @returns Text field component with Formik state management.
  */
@@ -77,123 +76,75 @@ export function FormikTextField({
   onChange,
   error,
   label,
-  labelType = 'normal',
+  labelType = 'small',
   icon,
+  iconPosition = 'left',
   onIconClick,
   placeholder,
   tooltip,
   required = false,
   hideError = false,
+  isTouched = false,
   disabled = false,
+  onPaste,
   className,
   ...props
-}: TextFieldWithNameProps | TextFieldWithOnChangeProps) {
-  const [field, meta] = useField(name || 'missing')
+}: FormikTextFieldWithNameProps | FormikTextFieldWithOnChangeProps) {
+  const [field, meta] = useField(name || '')
 
-  return (
-    <div className={twMerge('flex flex-col', className?.root)}>
-      <div
-        className={twMerge(
-          'flex w-full flex-row',
-          labelType === 'small' && 'flex-col',
-          className?.field
-        )}
-      >
-        {label && (
-          <Label
-            forId={id}
-            required={required}
-            label={label}
-            className={{
-              root: twMerge(
-                'my-auto mr-2 min-w-max font-bold',
-                labelType === 'small' &&
-                  'mt-1 text-sm font-normal leading-6 text-gray-600',
-                className?.label
-              ),
-              tooltip: twMerge('text-sm font-normal', className?.tooltip),
-              tooltipSymbol: twMerge(labelType === 'small' && 'h-2 w-2'),
-            }}
-            tooltip={tooltip}
-            showTooltipSymbol={typeof tooltip !== 'undefined'}
-          />
-        )}
-        {name && (
-          <div className={twMerge('relative flex w-full flex-row')}>
-            <input
-              {...field}
-              id={id}
-              data-cy={data?.cy}
-              data-test={data?.test}
-              name={name}
-              type="text"
-              placeholder={placeholder}
-              disabled={disabled}
-              className={twMerge(
-                'focus:border-uzh-blue-50 h-9 w-full rounded border border-uzh-grey-60 bg-uzh-grey-20',
-                disabled && 'cursor-not-allowed',
-                meta.error && meta.touched && 'border-red-400 bg-red-50',
-                className?.input
-              )}
-              {...props}
-            />
-            {icon && (
-              <FontAwesomeIcon
-                icon={icon}
-                onClick={onIconClick}
-                className={twMerge(
-                  'absolute right-2 z-10 self-center bg-uzh-grey-20 p-2 hover:cursor-pointer',
-                  className?.icon
-                )}
-              />
-            )}
-          </div>
-        )}
-        {typeof value !== 'undefined' && onChange && (
-          <div className={twMerge('relative flex w-full flex-row')}>
-            <input
-              {...field}
-              id={id}
-              data-cy={data?.cy}
-              data-test={data?.test}
-              value={value}
-              onChange={(e) => onChange(e.target.value)}
-              type="text"
-              placeholder={placeholder}
-              disabled={disabled}
-              className={twMerge(
-                'focus:border-uzh-blue-50 h-9 w-full rounded border border-uzh-grey-60 bg-uzh-grey-20',
-                disabled && 'cursor-not-allowed',
-                meta.error && meta.touched && 'border-red-400 bg-red-50',
-                className?.input
-              )}
-              {...props}
-            />
-            {icon && (
-              <FontAwesomeIcon
-                icon={icon}
-                onClick={onIconClick}
-                className={twMerge(
-                  'absolute right-2 z-10 self-center bg-uzh-grey-20 p-2 hover:cursor-pointer',
-                  className?.icon
-                )}
-              />
-            )}
-          </div>
-        )}
+  if (name) {
+    return (
+      <div className={twMerge('w-full', className?.root)}>
+        <TextField
+          id={id}
+          data={data}
+          label={label}
+          name={name}
+          field={field}
+          labelType={labelType}
+          placeholder={placeholder}
+          tooltip={tooltip}
+          required={required}
+          error={!!meta.error && meta.touched ? meta.error : undefined}
+          isTouched={meta.touched}
+          hideError={hideError}
+          disabled={disabled}
+          onPaste={onPaste}
+          className={className}
+          icon={icon}
+          iconPosition={iconPosition}
+          onIconClick={onIconClick}
+          {...props}
+        />
       </div>
-      {!hideError && ((meta.touched && meta.error) || error) && (
-        <div
-          className={twMerge(
-            'w-full text-right text-sm text-red-400',
-            className?.error
-          )}
-        >
-          {meta.error || error}
-        </div>
-      )}
-    </div>
-  )
+    )
+  } else {
+    return (
+      <div className={twMerge('w-full', className?.root)}>
+        <TextField
+          id={id}
+          data={data}
+          value={value!}
+          onChange={onChange!}
+          label={label}
+          labelType={labelType}
+          placeholder={placeholder}
+          tooltip={tooltip}
+          required={required}
+          error={error}
+          isTouched={isTouched}
+          hideError={hideError}
+          disabled={disabled}
+          onPaste={onPaste}
+          className={className}
+          icon={icon}
+          iconPosition={iconPosition}
+          onIconClick={onIconClick}
+          {...props}
+        />
+      </div>
+    )
+  }
 }
 
 export default FormikTextField

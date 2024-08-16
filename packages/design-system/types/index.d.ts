@@ -1326,7 +1326,7 @@ export declare interface NavigationProps {
  * @param className - The optional className object allows you to override the default styling.
  * @returns Date changer component with optional label, edit button and save button.
  */
-export declare function NewFormikDateChanger({ id, name, label, labelType, tooltip, required, disabled, hideError, format, editIcon, validateField, data, dataButton, className, }: FormikDateChangerProps_2): JSX_2.Element;
+export declare function FormikDateChanger({ id, name, label, labelType, tooltip, required, disabled, hideError, format, editIcon, validateField, data, dataButton, className, }: FormikDateChangerProps_2): JSX_2.Element;
 
 /**
  * This function returns a date field that works as to be expected in a Formik environment.
@@ -1345,9 +1345,9 @@ export declare function NewFormikDateChanger({ id, name, label, labelType, toolt
  * @param className - The optional className object allows you to override the default styling.
  * @returns Date field component with Formik state management.
  */
-export declare function NewFormikDateField({ id, data, name, label, labelType, placeholder, tooltip, required, hideError, disabled, className, ...props }: NewFormikDateFieldProps): JSX_2.Element;
+export declare function FormikDateField({ id, data, name, label, labelType, placeholder, tooltip, required, hideError, disabled, className, ...props }: FormikDateFieldProps): JSX_2.Element;
 
-declare interface NewFormikDateFieldProps {
+declare interface FormikDateFieldProps {
     id?: string;
     name: string;
     data?: {
@@ -1372,7 +1372,7 @@ declare interface NewFormikDateFieldProps {
     [key: string]: any;
 }
 
-export declare function NewFormikPinField({ id, name, required, label, labelType, tooltip, className, data, }: FormikPinFieldProps): JSX_2.Element;
+export declare function FormikPinField({ id, name, required, label, labelType, tooltip, className, data, }: FormikPinFieldProps): JSX_2.Element;
 
 /**
  * This component returns a select field that works as to be expected in a Formik environment.
@@ -1395,7 +1395,7 @@ export declare function NewFormikPinField({ id, name, required, label, labelType
  * @param className - The optional className object allows you to override the default styling.
  * @returns Select component with formik state management.
  */
-export declare function NewFormikSelectField({ id, data, name, items, groups, label, labelType, placeholder, tooltip, required, disabled, error, hideError, contentPosition, className, ...props }: FormikSelectFieldItemsProps_2 | FormikSelectFieldGroupsProps_2): JSX_2.Element;
+export declare function FormikSelectField({ id, data, name, items, groups, label, labelType, placeholder, tooltip, required, disabled, error, hideError, contentPosition, className, ...props }: FormikSelectFieldItemsProps_2 | FormikSelectFieldGroupsProps_2): JSX_2.Element;
 
 /**
  * This function extends the pre-styled Switch component so that it works as to be expected in a Formik environment.
@@ -1414,7 +1414,7 @@ export declare function NewFormikSelectField({ id, data, name, items, groups, la
  * @param className - The optional className object allows you to override the default styling.
  * @returns Switch component with formik state management
  */
-export declare function NewFormikSwitchField({ id, name, data, disabled, error, hideError, label, size, required, tooltip, className, }: FormikSwitchFieldProps_2): JSX_2.Element;
+export declare function FormikSwitchField({ id, name, data, disabled, error, hideError, label, size, required, tooltip, className, }: FormikSwitchFieldProps_2): JSX_2.Element;
 
 /**
  * This function returns a text field that works as to be expected in a Formik environment.
@@ -1439,7 +1439,7 @@ export declare function NewFormikSwitchField({ id, name, data, disabled, error, 
  * @param className - The optional className object allows you to override the default styling.
  * @returns Text field component with Formik state management.
  */
-export declare function NewFormikTextareaField({ id, data, name, value, onChange, error, label, labelType, icon, onIconClick, placeholder, tooltip, required, hideError, disabled, className, ...props }: FormikTextareaFieldWithNameProps | FormikTextareaFieldWithOnChangeProps): JSX_2.Element;
+export declare function FormikTextareaField({ id, data, name, value, onChange, error, label, labelType, icon, onIconClick, placeholder, tooltip, required, hideError, disabled, className, ...props }: FormikTextareaFieldWithNameProps | FormikTextareaFieldWithOnChangeProps): JSX_2.Element;
 
 /**
  * This function returns a text field that works as to be expected in a Formik environment.
@@ -1464,7 +1464,7 @@ export declare function NewFormikTextareaField({ id, data, name, value, onChange
  * @param className - The optional className object allows you to override the default styling.
  * @returns Text field component with Formik state management.
  */
-export declare function NewFormikTextField({ id, data, name, value, onChange, error, label, labelType, icon, onIconClick, placeholder, tooltip, required, hideError, isTouched, disabled, onPaste, className, ...props }: FormikTextFieldWithNameProps | FormikTextFieldWithOnChangeProps): JSX_2.Element;
+export declare function FormikTextField({ id, data, name, value, onChange, error, label, labelType, icon, onIconClick, placeholder, tooltip, required, hideError, isTouched, disabled, onPaste, className, ...props }: FormikTextFieldWithNameProps | FormikTextFieldWithOnChangeProps): JSX_2.Element;
 
 /**
  * This function returns a text field component for use without formik

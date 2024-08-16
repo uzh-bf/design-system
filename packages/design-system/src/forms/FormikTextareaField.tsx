@@ -1,26 +1,27 @@
 import { useField } from 'formik'
 import React from 'react'
-import { twMerge } from 'tailwind-merge'
-import Label from './Label'
+import TextaraeField from './TextareaField'
 
-export interface TextareaFieldProps {
+interface FormikTextareaFieldProps {
   id?: string
   data?: {
     cy?: string
     test?: string
   }
   label?: string
-  labelType?: 'small' | 'normal'
+  labelType?: 'small' | 'large'
   placeholder?: string
   tooltip?: string | React.ReactNode
-  required?: boolean
   maxLength?: number
-  maxLengthLabel?: string
+  maxLengthUnit?: string
+  hideMaxLength?: boolean
+  required?: boolean
   hideError?: boolean
   disabled?: boolean
   className?: {
     root?: string
     field?: string
+    icon?: string
     label?: string
     input?: string
     error?: string
@@ -29,39 +30,45 @@ export interface TextareaFieldProps {
 }
 
 // type structure ensures that either a name or a value and onChange function are passed
-export interface TextareaFieldWithNameProps extends TextareaFieldProps {
+export interface FormikTextareaFieldWithNameProps
+  extends FormikTextareaFieldProps {
   name: string
   value?: never
   onChange?: never
-  [key: string]: any
+  error?: never
+  [key: string]: unknown
 }
-export interface TextareaFieldWithOnChangeProps extends TextareaFieldProps {
+export interface FormikTextareaFieldWithOnChangeProps
+  extends FormikTextareaFieldProps {
   name?: never
   value: string
   onChange: (newValue: string) => void
-  [key: string]: any
+  error?: string
+  [key: string]: unknown
 }
 
 /**
- * This component returns a textarea field that works as to be expected in a Formik environment.
+ * This function returns a text field that works as to be expected in a Formik environment.
  * State can be managed either through Formik or internally by passing a value and onChange function.
  *
  * @param id - The id of the field.
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param name - The name of the field as used to keep track of the state in Formik. If no value and onChange function are provided, this field is required.
- * @param label - The optional label is shown next to the field in the form.
- * @param labelType - The optional labelType can be used to change the size and position of the label according to pre-defined standards.
- * @param tooltip - The optional tooltip is shown on hover next to the label.
- * @param required - Indicate whether the field is required or not.
- * @param placeholder - The optional placeholder is shown when the field is empty.
  * @param value - The value of the field. This is used to manage the state internally. If no name is provided, this field is required.
  * @param onChange - The onChange function is called when the value of the field changes. This is used to manage the state internally. If no name is provided, this field is required.
- * @param maxLength - The optional maxLength is used to limit the number of characters that can be entered in the field.
- * @param maxLengthLabel - This optional label allows to specify a custom label for the maxLength indicator (e.g. "characters left" supporting internationalization).
+ * @param error - The error message that is shown below the field. If a name is provided, this prop will not be used.
+ * @param label - The optional label is shown next to the field in the form.
+ * @param labelType - The optional labelType can be used to change the size and position of the label according to pre-defined standards.
+ * @param placeholder - The optional placeholder is shown when the field is empty.
+ * @param tooltip - The optional tooltip is shown on hover next to the label.
+ * @param maxLength - The optional maxLength is shown below the field to indicate the maximum number of characters allowed.
+ * @param maxLengthUnit - The optional maxLengthUnit is shown next to the maxLength to indicate the unit of the maximum number of characters allowed.
+ * @param hideMaxLength - Indicate whether the maxLength should be hidden or not.
+ * @param required - Indicate whether the field is required or not.
  * @param hideError - Hide the error message below this component as is might be more appropriate to show it somewhere else.
  * @param disabled - Disable the field.
  * @param className - The optional className object allows you to override the default styling.
- * @returns Textarea component with Formik state management.
+ * @returns Text field component with Formik state management.
  */
 export function FormikTextareaField({
   id,
@@ -69,107 +76,62 @@ export function FormikTextareaField({
   name,
   value,
   onChange,
+  error,
   label,
-  labelType,
+  labelType = 'small',
+  icon,
   placeholder,
   tooltip,
   required = false,
-  maxLength,
-  maxLengthLabel,
   hideError = false,
   disabled = false,
   className,
   ...props
-}: TextareaFieldWithNameProps | TextareaFieldWithOnChangeProps) {
-  const [field, meta] = useField(name || 'missing')
+}: FormikTextareaFieldWithNameProps | FormikTextareaFieldWithOnChangeProps) {
+  const [field, meta] = useField(name || '')
 
-  return (
-    <div className={twMerge('flex flex-col', className?.root)} id={id}>
-      <div
-        className={twMerge(
-          'flex w-full flex-row',
-          labelType === 'small' && 'flex-col',
-          className?.field
-        )}
-      >
-        {label && (
-          <Label
-            forId={id}
-            required={required}
-            label={label}
-            className={{
-              root: twMerge(
-                'my-auto mr-2 min-w-max font-bold',
-                labelType === 'small' &&
-                  'mt-1 text-sm font-normal leading-6 text-gray-600',
-                className?.label
-              ),
-              tooltip: twMerge('text-sm font-normal', className?.tooltip),
-              tooltipSymbol: twMerge(labelType === 'small' && 'h-2 w-2'),
-            }}
-            tooltip={tooltip}
-            showTooltipSymbol={typeof tooltip !== 'undefined'}
-          />
-        )}
-        {name && (
-          <textarea
-            {...field}
-            id={id}
-            data-cy={data?.cy}
-            data-test={data?.test}
-            name={name}
-            placeholder={placeholder}
-            maxLength={maxLength}
-            disabled={disabled}
-            className={twMerge(
-              'focus:border-uzh-blue-50 min-h-12 w-full rounded border border-uzh-grey-60 bg-uzh-grey-20',
-              disabled && 'cursor-not-allowed',
-              meta.error && meta.touched && 'border-red-400 bg-red-50',
-              className?.input
-            )}
-            {...props}
-          />
-        )}
-        {typeof value !== 'undefined' && onChange && (
-          <textarea
-            {...field}
-            id={id}
-            data-cy={data?.cy}
-            data-test={data?.test}
-            value={value}
-            onChange={(e) => onChange(e.target.value)}
-            placeholder={placeholder}
-            maxLength={maxLength}
-            disabled={disabled}
-            className={twMerge(
-              'focus:border-uzh-blue-50 min-h-12 w-full rounded border border-uzh-grey-60 bg-uzh-grey-20',
-              disabled && 'cursor-not-allowed',
-              meta.error && meta.touched && 'border-red-400 bg-red-50',
-              className?.input
-            )}
-            {...props}
-          />
-        )}
-      </div>
-      {!hideError && meta.touched && meta.error && (
-        <div
-          className={twMerge(
-            'w-full text-right text-sm text-red-400',
-            className?.error
-          )}
-        >
-          {meta.error}
-        </div>
-      )}
-      {maxLength && (
-        <div className="text-right text-sm italic">
-          {`${
-            value?.length || field.value.length
-          } / ${maxLength} ${maxLengthLabel}`}
-        </div>
-      )}
-    </div>
-  )
+  if (name) {
+    return (
+      <TextaraeField
+        id={id}
+        data={data}
+        label={label}
+        name={name}
+        field={field}
+        labelType={labelType}
+        placeholder={placeholder}
+        tooltip={tooltip}
+        required={required}
+        error={!!meta.error && meta.touched ? meta.error : undefined}
+        isTouched={meta.touched}
+        hideError={hideError}
+        disabled={disabled}
+        className={className}
+        icon={icon}
+        {...props}
+      />
+    )
+  } else {
+    return (
+      <TextaraeField
+        id={id}
+        data={data}
+        value={value!}
+        onChange={onChange!}
+        label={label}
+        labelType={labelType}
+        placeholder={placeholder}
+        tooltip={tooltip}
+        required={required}
+        error={error}
+        hideError={hideError}
+        disabled={disabled}
+        className={className}
+        icon={icon}
+        {...props}
+      />
+    )
+  }
 }
 
 export default FormikTextareaField

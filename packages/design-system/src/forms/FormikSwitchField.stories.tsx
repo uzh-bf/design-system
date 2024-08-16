@@ -5,94 +5,272 @@ import FormikSwitchField from './FormikSwitchField'
 
 export const Default = () => {
   return (
-    <div>
-      <Formik
-        initialValues={{
-          switch: false,
-        }}
-        isInitialValid={false}
-        onSubmit={(values) => {
-          alert(`Switch value:  ${values.switch}`)
-        }}
-      >
-        {() => {
-          return (
-            <div>
-              <Form>
-                <FormikSwitchField name="switch" label="unchecked" />
-                <Button className={{ root: 'mt-2' }} type="submit">
-                  Submit
-                </Button>
-              </Form>
-            </div>
-          )
-        }}
-      </Formik>
-    </div>
+    <Formik
+      initialValues={{
+        switch: false,
+      }}
+      isInitialValid={false}
+      onSubmit={(values) => {
+        alert(`Switch value:  ${values.switch}`)
+      }}
+    >
+      {({ values }) => {
+        return (
+          <div>
+            <Form>
+              <FormikSwitchField
+                name="switch"
+                label={values.switch ? 'Checked' : 'Unchecked'}
+              />
+              <Button className={{ root: 'mt-2' }} type="submit">
+                Submit
+              </Button>
+            </Form>
+          </div>
+        )
+      }}
+    </Formik>
+  )
+}
+
+export const Required = () => {
+  return (
+    <Formik
+      initialValues={{
+        switch: false,
+      }}
+      isInitialValid={false}
+      onSubmit={(values) => {
+        alert(`Switch value:  ${values.switch}`)
+      }}
+    >
+      {({ values }) => {
+        return (
+          <div>
+            <Form>
+              <FormikSwitchField
+                required
+                name="switch"
+                label={values.switch ? 'Checked' : 'Unchecked'}
+              />
+              <Button className={{ root: 'mt-2' }} type="submit">
+                Submit
+              </Button>
+            </Form>
+          </div>
+        )
+      }}
+    </Formik>
+  )
+}
+
+export const Tooltip = () => {
+  return (
+    <Formik
+      initialValues={{
+        switch: false,
+      }}
+      isInitialValid={false}
+      onSubmit={(values) => {
+        alert(`Switch value:  ${values.switch}`)
+      }}
+    >
+      {({ values }) => {
+        return (
+          <div>
+            <Form>
+              <FormikSwitchField
+                name="switch"
+                label={values.switch ? 'Checked' : 'Unchecked'}
+                tooltip="This is a tooltip"
+              />
+              <FormikSwitchField
+                name="switch"
+                label={values.switch ? 'Checked' : 'Unchecked'}
+                tooltip="This is a tooltip"
+                error="Error message"
+              />
+              <Button className={{ root: 'mt-2' }} type="submit">
+                Submit
+              </Button>
+            </Form>
+          </div>
+        )
+      }}
+    </Formik>
+  )
+}
+
+export const LeftLabel = () => {
+  return (
+    <Formik
+      initialValues={{
+        switch: false,
+      }}
+      isInitialValid={false}
+      onSubmit={(values) => {
+        alert(`Switch value:  ${values.switch}`)
+      }}
+    >
+      {({ values }) => {
+        return (
+          <div>
+            <Form className="flex flex-col gap-5">
+              <FormikSwitchField
+                labelLeft
+                name="switch"
+                label={values.switch ? 'Checked' : 'Unchecked'}
+                tooltip="This is a tooltip"
+              />
+              <FormikSwitchField
+                labelLeft
+                name="switch"
+                label={values.switch ? 'Checked' : 'Unchecked'}
+                tooltip="This is a tooltip"
+                error="Error message"
+              />
+              <Button className={{ root: 'mt-2' }} type="submit">
+                Submit
+              </Button>
+            </Form>
+          </div>
+        )
+      }}
+    </Formik>
+  )
+}
+
+export const Error = () => {
+  return (
+    <Formik
+      initialValues={{
+        switch: false,
+      }}
+      isInitialValid={false}
+      onSubmit={(values) => {
+        alert(`Switch value:  ${values.switch}`)
+      }}
+    >
+      {({ values }) => {
+        return (
+          <div>
+            <Form>
+              <FormikSwitchField
+                required
+                name="switch"
+                label={values.switch ? 'Checked' : 'Unchecked'}
+                error="This field is required"
+              />
+              <Button className={{ root: 'mt-2' }} type="submit">
+                Submit
+              </Button>
+            </Form>
+          </div>
+        )
+      }}
+    </Formik>
+  )
+}
+
+export const Undefined = () => {
+  return (
+    <Formik
+      initialValues={{
+        switch: undefined,
+      }}
+      isInitialValid={false}
+      onSubmit={(values) => {
+        alert(`Switch value:  ${values.switch}`)
+      }}
+    >
+      {({ values }) => {
+        return (
+          <div>
+            <Form>
+              <FormikSwitchField
+                required
+                name="switch"
+                label={values.switch ? 'Checked' : 'Unchecked'}
+              />
+              <Button className={{ root: 'mt-2' }} type="submit">
+                Submit
+              </Button>
+            </Form>
+          </div>
+        )
+      }}
+    </Formik>
   )
 }
 
 export const Disabled = () => {
   return (
-    <div>
-      <Formik
-        initialValues={{
-          switch: false,
-        }}
-        isInitialValid={false}
-        onSubmit={() => {
-          alert('Switch is disabled')
-        }}
-      >
-        {() => {
-          return (
-            <div>
-              <Form>
-                <FormikSwitchField name="switch" label="disabled" disabled />
-                <Button className={{ root: 'mt-2' }} type="submit">
-                  Submit
-                </Button>
-              </Form>
-            </div>
-          )
-        }}
-      </Formik>
-    </div>
+    <Formik
+      initialValues={{
+        switch: false,
+      }}
+      isInitialValid={false}
+      onSubmit={(values) => {
+        alert(`Switch value:  ${values.switch}`)
+      }}
+    >
+      {({ values }) => {
+        return (
+          <div>
+            <Form>
+              <FormikSwitchField
+                disabled
+                required
+                name="switch"
+                label={values.switch ? 'Checked' : 'Unchecked'}
+              />
+              <Button className={{ root: 'mt-2' }} type="submit">
+                Submit
+              </Button>
+            </Form>
+          </div>
+        )
+      }}
+    </Formik>
   )
 }
 
-export const StandardLabel = () => {
+export const Sizes = () => {
   return (
-    <div>
-      <Formik
-        initialValues={{
-          switch: false,
-        }}
-        isInitialValid={false}
-        onSubmit={(values) => {
-          alert(`Switch value:  ${values.switch}`)
-        }}
-      >
-        {() => {
-          return (
-            <div>
-              <Form>
-                <FormikSwitchField
-                  name="switch"
-                  label="unchecked"
-                  tooltip="Switch Field Tooltip"
-                  standardLabel
-                  required
-                />
-                <Button className={{ root: 'mt-2' }} type="submit">
-                  Submit
-                </Button>
-              </Form>
-            </div>
-          )
-        }}
-      </Formik>
-    </div>
+    <Formik
+      initialValues={{
+        switch: false,
+      }}
+      isInitialValid={false}
+      onSubmit={(values) => {
+        alert(`Switch value:  ${values.switch}`)
+      }}
+    >
+      {({ values }) => {
+        return (
+          <Form className="flex flex-col gap-2">
+            <FormikSwitchField
+              name="switch"
+              label={values.switch ? 'Checked' : 'Unchecked'}
+              size="sm"
+            />
+            <FormikSwitchField
+              name="switch"
+              label={values.switch ? 'Checked' : 'Unchecked'}
+              size="md"
+            />
+            <FormikSwitchField
+              name="switch"
+              label={values.switch ? 'Checked' : 'Unchecked'}
+              size="lg"
+            />
+            <Button className={{ root: 'mt-2 w-max' }} type="submit">
+              Submit
+            </Button>
+          </Form>
+        )
+      }}
+    </Formik>
   )
 }
 
@@ -114,22 +292,25 @@ export const Validation = () => {
             .equals([true], 'Must be checked'),
         })}
       >
-        {() => {
+        {({ values, isValid }) => {
           return (
             <div>
               <div>
                 This switch is validated to be true and displayes an error
-                otherwise
+                otherwise (as soon as the field was touched)
               </div>
               <Form>
                 <FormikSwitchField
                   name="switch"
-                  label="unchecked"
+                  label={values.switch ? 'Checked' : 'Unchecked'}
                   tooltip="Switch Field Tooltip"
-                  standardLabel
                   required
                 />
-                <Button className={{ root: 'mt-2' }} type="submit">
+                <Button
+                  disabled={!isValid}
+                  className={{ root: 'mt-2' }}
+                  type="submit"
+                >
                   Submit
                 </Button>
               </Form>
