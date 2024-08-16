@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.19](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.18...v3.0.0-alpha.19) (2024-08-16)
+
+
+### Bug Fixes
+
+* **Switch:** add tooltip styling for switch component ([8779313](https://github.com/uzh-bf/design-system/commit/8779313b0d84f2cb8018757969ca2f7d5c82bd27))
+
+
+### Other
+
+* add missing export for new formik color picker ([2c68f4b](https://github.com/uzh-bf/design-system/commit/2c68f4ba49b1326701ada9f8803c6ae4829d70df))
+
 ## [3.0.0-alpha.18](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.17...v3.0.0-alpha.18) (2024-08-15)
 
 
