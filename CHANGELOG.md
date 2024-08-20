@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.22](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.21...v3.0.0-alpha.22) (2024-08-20)
+
+
+### Bug Fixes
+
+* **forms/TextareaField:** fix styling of input field ([15b6b30](https://github.com/uzh-bf/design-system/commit/15b6b30e67df73ce81e40a2b9768e07869154dc3))
+
 ## [3.0.0-alpha.21](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.20...v3.0.0-alpha.21) (2024-08-16)
 
 
