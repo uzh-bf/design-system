@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.23](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.22...v3.0.0-alpha.23) (2024-08-29)
+
+
+### Enhancements
+
+* **ColorPicker:** include label and styling for color picker component and formik wrapper ([#130](https://github.com/uzh-bf/design-system/issues/130)) ([222e58b](https://github.com/uzh-bf/design-system/commit/222e58bbadcbe2e8a7dac6d781a664f077c02e54))
+
 ## [3.0.0-alpha.22](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.21...v3.0.0-alpha.22) (2024-08-20)
 
 
