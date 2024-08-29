@@ -17,6 +17,24 @@ export const Default = () => {
   )
 }
 
+export const Label = () => {
+  const [color, setColor] = useState('#0028A5')
+  return (
+    <ColorPicker
+      color={color}
+      onSubmit={(newColor) => {
+        setColor(newColor)
+        alert('Color set to ' + newColor)
+      }}
+      label="Color Picker"
+      tooltip="This is a tooltip"
+      colorLabel="Color"
+      submitText="Save"
+      required
+    />
+  )
+}
+
 export const Disabled = () => {
   const [color, setColor] = useState('#0028A5')
   return (
