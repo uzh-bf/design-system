@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.24](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.23...v3.0.0-alpha.24) (2024-08-30)
+
+
+### Enhancements
+
+* **ColorPicker:** additional positions for color picker modal layout ([265a2b0](https://github.com/uzh-bf/design-system/commit/265a2b06806a3deccbf5523136b8e415b3e8d105))
+
 ## [3.0.0-alpha.23](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.22...v3.0.0-alpha.23) (2024-08-29)
 
 
