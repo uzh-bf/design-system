@@ -36,7 +36,7 @@ export interface ColorPickerProps {
   disabled?: boolean
   triggerIcon?: IconDefinition
   presetColors?: string[]
-  position?: 'bottom' | 'top'
+  position?: 'bottom' | 'top' | 'bottom-left' | 'top-left'
   submitText: string
   colorLabel: string
   tooltip?: string | React.ReactNode
@@ -149,6 +149,8 @@ export function ColorPicker({
                 'absolute flex h-[10rem] w-[23rem] flex-row rounded-md bg-white p-1 shadow-md outline outline-2 outline-uzh-grey-40',
                 position === 'bottom' && 'left-10 top-8',
                 position === 'top' && 'bottom-8 left-10',
+                position === 'bottom-left' && '-left-[18rem] top-8',
+                position === 'top-left' && '-left-[18rem] bottom-8',
                 className?.popover
               )}
               ref={overlayRef}

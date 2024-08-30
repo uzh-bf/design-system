@@ -61,16 +61,38 @@ export const Position = () => {
         position prop allows to define different default positions. Others can
         be added using the className override.
       </div>
-      <ColorPicker
-        position="top"
-        color={color}
-        onSubmit={(newColor) => {
-          setColor(newColor)
-          alert('Color set to ' + newColor)
-        }}
-        submitText="Save"
-        colorLabel="Color"
-      />
+      <div className="flex flex-col gap-4">
+        <ColorPicker
+          position="top"
+          color={color}
+          onSubmit={(newColor) => {
+            setColor(newColor)
+            alert('Color set to ' + newColor)
+          }}
+          submitText="Save"
+          colorLabel="Color"
+        />
+        <ColorPicker
+          position="top-left"
+          color={color}
+          onSubmit={(newColor) => {
+            setColor(newColor)
+            alert('Color set to ' + newColor)
+          }}
+          submitText="Save"
+          colorLabel="Color"
+        />
+        <ColorPicker
+          position="bottom-left"
+          color={color}
+          onSubmit={(newColor) => {
+            setColor(newColor)
+            alert('Color set to ' + newColor)
+          }}
+          submitText="Save"
+          colorLabel="Color"
+        />
+      </div>
     </div>
   )
 }

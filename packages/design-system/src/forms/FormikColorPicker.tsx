@@ -13,7 +13,7 @@ export interface FormikColorPickerProps {
   disabled?: boolean
   triggerIcon?: IconDefinition
   presetColors?: string[]
-  position?: 'bottom' | 'top'
+  position?: 'bottom' | 'top' | 'bottom-left' | 'top-left'
   submitText: string
   colorLabel: string
   colorTooltip?: string
