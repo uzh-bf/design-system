@@ -1,9 +1,10 @@
+/// <reference types="react" />
+
 import { default as default_2 } from 'react';
 import { Dispatch } from 'react';
 import { FieldInputProps } from 'formik';
-import { IconDefinition } from '@fortawesome/free-regular-svg-icons';
-import { IconDefinition as IconDefinition_2 } from '@fortawesome/free-solid-svg-icons';
-import { IconDefinition as IconDefinition_3 } from '@fortawesome/fontawesome-svg-core';
+import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition as IconDefinition_2 } from '@fortawesome/free-regular-svg-icons';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { JSX as JSX_2 } from 'react/jsx-runtime';
 import { PropsWithChildren } from 'react';
@@ -200,10 +201,13 @@ export declare interface CollapsibleProps {
     children: default_2.ReactNode;
 }
 
-export declare function ColorPicker({ color, onSubmit, disabled, triggerIcon, presetColors, position, submitText, colorLabel, tooltip, dataTrigger, dataHexInput, dataSubmit, className, }: ColorPickerProps): JSX_2.Element;
+export declare function ColorPicker({ color, label, labelType, required, onSubmit, disabled, triggerIcon, presetColors, position, submitText, colorLabel, tooltip, colorTooltip, error, isTouched, dataTrigger, dataHexInput, dataSubmit, className, }: ColorPickerProps): JSX_2.Element;
 
 export declare interface ColorPickerClassName {
     root?: string;
+    pickerRoot?: string;
+    label?: string;
+    tooltip?: string;
     trigger?: string;
     popover?: string;
     presetButtons?: string;
@@ -216,14 +220,20 @@ export declare interface ColorPickerClassName {
 
 export declare interface ColorPickerProps {
     color: string;
+    label?: string;
+    labelType?: 'small' | 'large';
+    required?: boolean;
     onSubmit: (newColor: string) => void;
     disabled?: boolean;
-    triggerIcon?: IconDefinition_2;
+    triggerIcon?: IconDefinition;
     presetColors?: string[];
-    position?: 'bottom' | 'top';
+    position?: 'bottom' | 'top' | 'bottom-left' | 'top-left';
     submitText: string;
     colorLabel: string;
-    tooltip?: string;
+    tooltip?: string | React.ReactNode;
+    colorTooltip?: string;
+    error?: string;
+    isTouched?: boolean;
     dataTrigger?: {
         cy?: string;
         test?: string;
@@ -434,33 +444,8 @@ export declare interface DateChangerProps {
     date: string;
     onEdit: () => void;
     onSave: (date: string) => void;
-    editIcon?: IconDefinition_2;
+    editIcon?: IconDefinition;
     className?: DateChangerClassName;
-}
-
-export declare interface DateFieldProps {
-    id?: string;
-    data?: {
-        cy?: string;
-        test?: string;
-    };
-    label?: string;
-    labelType?: 'small' | 'normal';
-    placeholder?: string;
-    tooltip?: string | default_2.ReactNode;
-    required?: boolean;
-    hideError?: boolean;
-    disabled?: boolean;
-    className?: {
-        root?: string;
-        field?: string;
-        label?: string;
-        input?: string;
-        error?: string;
-        tooltip?: string;
-    };
-    name: string;
-    [key: string]: any;
 }
 
 /**
@@ -519,7 +504,7 @@ declare interface DropdownProps {
         test?: string;
     };
     trigger: string | default_2.ReactNode;
-    triggerIcon?: IconDefinition_2;
+    triggerIcon?: IconDefinition;
     items?: Item[];
     activeItems?: string[];
     groups?: Item[][];
@@ -550,30 +535,22 @@ export declare interface FormatterArgs {
     ix: number;
 }
 
-export declare function FormikColorPicker({ id, name, label, labelType, tooltip, required, hideError, disabled, triggerIcon, presetColors, position, submitText, className, dataTrigger, dataHexInput, dataSubmit, }: FormikColorPickerProps): JSX_2.Element;
+export declare function FormikColorPicker({ name, label, labelType, validateForm, tooltip, required, disabled, triggerIcon, presetColors, position, submitText, colorLabel, colorTooltip, dataTrigger, dataHexInput, dataSubmit, className, }: FormikColorPickerProps): JSX_2.Element;
 
 export declare interface FormikColorPickerProps {
-    id?: string;
     name: string;
     label?: string;
-    labelType?: 'small' | 'normal';
+    labelType?: 'small' | 'large';
+    validateForm?: () => void;
     tooltip?: string | default_2.ReactNode;
     required?: boolean;
-    hideError?: boolean;
     disabled?: boolean;
-    triggerIcon?: IconDefinition_3;
+    triggerIcon?: IconDefinition_2;
     presetColors?: string[];
-    position?: 'bottom' | 'top';
-    abortText?: string;
-    submitText?: string;
-    className?: {
-        root?: string;
-        label?: string;
-        field?: string;
-        tooltip?: string;
-        error?: string;
-        colorPicker?: ColorPickerClassName;
-    };
+    position?: 'bottom' | 'top' | 'bottom-left' | 'top-left';
+    submitText: string;
+    colorLabel: string;
+    colorTooltip?: string;
     dataTrigger?: {
         cy?: string;
         test?: string;
@@ -582,57 +559,36 @@ export declare interface FormikColorPickerProps {
         cy?: string;
         test?: string;
     };
-    dataAbort?: {
-        cy?: string;
-        test?: string;
-    };
     dataSubmit?: {
         cy?: string;
         test?: string;
     };
+    className?: ColorPickerClassName;
 }
 
 /**
- * This function returns a date field that works as to be expected in a Formik environment.
- * State is managed by Formik through the name attribute.
+ * This component provides a simple date changer with a label and a button to edit the date (not coupled to a formik context).
  *
- * @param id - The id of the field.
+ * @param id - The id of the date changer
+ * @param name - The name of the field as used to keep track of the state in Formik.
+ * @param label - The label of the date changer
+ * @param labelType - The type of the label (small or large)
+ * @param tooltip - The tooltip of the date changer (is only shown if a label is given)
+ * @param required - Whether the date label should contain a required symbol
+ * @param disabled - Whether the date changer is disabled or not
+ * @param hideError - Whether the error message should be hidden
+ * @param format - The format of the date when the edit mode is not active (then the display is up to the browser implementation)
+ * @param date - The date to be displayed
+ * @param editIcon - The icon to be displayed on the edit button
+ * @param validateField - Function to trigger validation of the field under consideration
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param dataButton - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the button
- * @param name - The name of the field as used to keep track of the state in Formik.
- * @param label - The optional label is shown next to the field in the form.
- * @param tooltip - The optional tooltip is shown on hover next to the label.
- * @param required - Indicate whether the field is required or not.
- * @param hideError - Hide the error message below this component as is might be more appropriate to show it somewhere else.
- * @param disabled - Disable the field.
  * @param className - The optional className object allows you to override the default styling.
- * @returns Date field component with Formik state management.
+ * @returns Date changer component with optional label, edit button and save button.
  */
-export declare function FormikDateChanger({ id, data, dataButton, name, label, tooltip, required, hideError, disabled, className, }: FormikDateChangerProps): JSX_2.Element;
+export declare function FormikDateChanger({ id, name, label, labelType, tooltip, required, disabled, hideError, format, editIcon, validateField, data, dataButton, className, }: FormikDateChangerProps): JSX_2.Element;
 
 export declare interface FormikDateChangerProps {
-    id?: string;
-    name: string;
-    data?: {
-        cy?: string;
-        test?: string;
-    };
-    dataButton?: {
-        cy?: string;
-        test?: string;
-    };
-    label?: string;
-    tooltip?: string;
-    required?: boolean;
-    hideError?: boolean;
-    disabled?: boolean;
-    className?: {
-        root?: string;
-        dateChanger?: DateChangerClassName;
-    };
-}
-
-declare interface FormikDateChangerProps_2 {
     id?: string;
     name: string;
     label?: string;
@@ -642,7 +598,7 @@ declare interface FormikDateChangerProps_2 {
     disabled?: boolean;
     hideError?: boolean;
     format?: string;
-    editIcon?: IconDefinition;
+    editIcon?: IconDefinition_2;
     validateField?: () => void;
     data?: {
         cy?: string;
@@ -668,49 +624,14 @@ declare interface FormikDateChangerProps_2 {
  * @param tooltip - The optional tooltip is shown on hover next to the label.
  * @param required - Indicate whether the field is required or not.
  * @param hideError - Hide the error message below this component as is might be more appropriate to show it somewhere else.
+ * @param touchedOnChange - Indicate whether the field should be marked as touched on change.
  * @param disabled - Disable the field.
  * @param className - The optional className object allows you to override the default styling.
  * @returns Date field component with Formik state management.
  */
-export declare function FormikDateField({ id, data, name, label, labelType, placeholder, tooltip, required, hideError, disabled, className, ...props }: DateFieldProps): JSX_2.Element;
+export declare function FormikDateField({ id, data, name, label, labelType, placeholder, tooltip, required, hideError, touchedOnChange, disabled, className, ...props }: FormikDateFieldProps): JSX_2.Element;
 
-/**
- * This function returns a text field that works as to be expected in a Formik environment.
- * State can be managed either through Formik or internally by passing a value and onChange function.
- *
- * @param id - The id of the field.
- * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
- * @param name - The name of the field as used to keep track of the state in Formik. If no value and onChange function are provided, this field is required.
- * @param label - The optional label is shown next to the field in the form.
- * @param labelType - The optional labelType can be used to change the size and position of the label according to pre-defined standards.
- * @param placeholder - The optional placeholder is shown when the field is empty.
- * @param tooltip - The optional tooltip is shown on hover next to the label.
- * @param required - Indicate whether the field is required or not.
- * @param hideError - Hide the error message below this component as is might be more appropriate to show it somewhere else.
- * @param precision - The optional precision defines the number of decimal places that are allowed.
- * @param min - The optional min defines the minimum value that is allowed.
- * @param max - The optional max defines the maximum value that is allowed.
- * @param disabled - Disables the field.
- * @param className - The optional className object allows you to override the default styling.
- * @returns Text field component with Formik state management.
- */
-export declare function FormikNumberField({ id, data, name, label, labelType, placeholder, tooltip, required, hideError, precision, min, max, disabled, className, }: FormikNumberFieldProps): JSX_2.Element;
-
-declare interface FormikNumberFieldNameProps extends FormikNumberFieldProps_2 {
-    name: string;
-    value?: never;
-    onChange?: never;
-    isTouched?: never;
-}
-
-declare interface FormikNumberFieldOnChangeProps extends FormikNumberFieldProps_2 {
-    name?: never;
-    value: string;
-    onChange: (newValue: string) => void;
-    isTouched?: boolean;
-}
-
-export declare interface FormikNumberFieldProps {
+export declare interface FormikDateFieldProps {
     id?: string;
     name: string;
     data?: {
@@ -718,26 +639,63 @@ export declare interface FormikNumberFieldProps {
         test?: string;
     };
     label?: string;
-    labelType?: 'small' | 'normal';
+    labelType?: 'small' | 'large';
     placeholder?: string;
     tooltip?: string | default_2.ReactNode;
     required?: boolean;
     hideError?: boolean;
-    precision?: number;
-    min?: number;
-    max?: number;
+    touchedOnChange?: boolean;
     disabled?: boolean;
     className?: {
         root?: string;
         field?: string;
         label?: string;
-        tooltip?: string;
+        input?: string;
         error?: string;
-        numberField?: NumberFieldClassName;
+        tooltip?: string;
     };
+    [key: string]: unknown;
 }
 
-declare interface FormikNumberFieldProps_2 {
+/**
+ * This function returns a text field component for use without formik
+ *
+ * @param id - The id of the input field.
+ * @param value - The value of the input field (external state management).
+ * @param onChange - The onChange function of the input field (external state management).
+ * @param label - The text displayed as label.
+ * @param labelType - The optional labelType can be used to change the size and position of the label according to pre-defined standards.
+ * @param placeholder - The placeholder text for the input field.
+ * @param precision - The optional precision defines the number of decimal places that are allowed.
+ * @param min - The optional min defines the minimum value that is allowed.
+ * @param max - The optional max defines the maximum value that is allowed.
+ * @param tooltip - The optional tooltip is shown on hover over the tooltip next to the label.
+ * @param required - Indicate whether the field is required or not.
+ * @param hideError - Indicate whether the error message should be hidden or not.
+ * @param error - The error message that is displayed below the input field.
+ * @param isTouched - Indicate whether the field has been touched or not (validation is not handled by this component).
+ * @param disabled - Indicate whether the field is disabled or not.
+ * @param onBlur - The onBlur function of the input field.
+ * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
+ * @param className - The optional className object allows you to override the default styling.
+ */
+export declare function FormikNumberField({ id, name, value, onChange, label, labelType, placeholder, precision, min, max, tooltip, required, hideError, error, isTouched, disabled, onBlur, data, className, ...props }: FormikNumberFieldNameProps | FormikNumberFieldOnChangeProps): JSX_2.Element;
+
+export declare interface FormikNumberFieldNameProps extends FormikNumberFieldProps {
+    name: string;
+    value?: never;
+    onChange?: never;
+    isTouched?: never;
+}
+
+export declare interface FormikNumberFieldOnChangeProps extends FormikNumberFieldProps {
+    name?: never;
+    value: string;
+    onChange: (newValue: string) => void;
+    isTouched?: boolean;
+}
+
+declare interface FormikNumberFieldProps {
     id?: string;
     label?: string;
     labelType?: 'small' | 'large';
@@ -758,10 +716,12 @@ declare interface FormikNumberFieldProps_2 {
     className?: NumberFieldClassName & {
         root?: string;
     };
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
-declare interface FormikPinFieldProps {
+export declare function FormikPinField({ id, name, required, label, labelType, tooltip, className, data, }: FormikPinFieldProps): JSX_2.Element;
+
+export declare interface FormikPinFieldProps {
     id?: string;
     name: string;
     required?: boolean;
@@ -783,13 +743,14 @@ declare interface FormikPinFieldProps {
  *
  * @param id - The id of the field.
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
- * @param name - The name of the field. This is used to identify the field in Formik.
+ * @param name - The name of the field.
  * @param items - The array of items that should be available on the select component.
  * @param groups - The optional groups array can be used to group items in the select component.
  * @param label - The optional label is shown next to the field in the form.
  * @param labelType - The optional labelType can be used to change the size and position of the label according to pre-defined standards.
  * @param placeholder - The optional placeholder is shown when no value is selected / initialization with 'undefined' is chosen.
  * @param disabled - The optional disabled prop disables the select component.
+ * @param error - The optional error message is shown next to the component.
  * @param hideError - Hide the error message below this component as is might be more appropriate to show it somewhere else.
  * @param contentPosition - The position of the content of the select component. Currently only 'item-aligned' and 'popper' are supported.
  * @param tooltip - The optional tooltip is shown on hover next to the label.
@@ -797,24 +758,14 @@ declare interface FormikPinFieldProps {
  * @param className - The optional className object allows you to override the default styling.
  * @returns Select component with formik state management.
  */
-export declare function FormikSelectField({ id, data, name, items, groups, label, labelType, placeholder, tooltip, required, disabled, hideError, contentPosition, className, ...props }: FormikSelectFieldItemsProps | FormikSelectFieldGroupsProps): JSX_2.Element;
+export declare function FormikSelectField({ id, data, name, items, groups, label, labelType, placeholder, tooltip, required, disabled, error, hideError, contentPosition, className, ...props }: FormikSelectFieldItemsProps | FormikSelectFieldGroupsProps): JSX_2.Element;
 
-export declare interface FormikSelectFieldGroupsProps extends FormikSelectFieldProps_2 {
+export declare interface FormikSelectFieldGroupsProps extends FormikSelectFieldProps {
     groups: SelectGroup[];
     items?: never;
 }
 
-declare interface FormikSelectFieldGroupsProps_2 extends FormikSelectFieldProps {
-    groups: SelectGroup[];
-    items?: never;
-}
-
-export declare interface FormikSelectFieldItemsProps extends FormikSelectFieldProps_2 {
-    items: SelectItem[];
-    groups?: never;
-}
-
-declare interface FormikSelectFieldItemsProps_2 extends FormikSelectFieldProps {
+export declare interface FormikSelectFieldItemsProps extends FormikSelectFieldProps {
     items: SelectItem[];
     groups?: never;
 }
@@ -844,30 +795,6 @@ declare interface FormikSelectFieldProps {
     };
 }
 
-declare interface FormikSelectFieldProps_2 {
-    id?: string;
-    data?: {
-        cy?: string;
-        test?: string;
-    };
-    name: string;
-    label?: string;
-    labelType?: 'small' | 'normal';
-    placeholder?: string;
-    tooltip?: string | default_2.ReactNode;
-    required?: boolean;
-    disabled?: boolean;
-    hideError?: boolean;
-    contentPosition?: 'item-aligned' | 'popper';
-    className?: {
-        root?: string;
-        label?: string;
-        error?: string;
-        tooltip?: string;
-        select?: SelectClassName;
-    };
-}
-
 /**
  * This function extends the pre-styled Switch component so that it works as to be expected in a Formik environment.
  * State, in this case, is managed by Formik through the name attribute.
@@ -876,41 +803,19 @@ declare interface FormikSelectFieldProps_2 {
  * @param name - The name of the field. This is used to identify the field in Formik.
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param label - The label that is displayed next to the switch.
+ * @param labelLeft - Indicator whether the label should be displayed on the left or right side of the switch.
  * @param disabled - Indicator whether the switch is disabled or not.
+ * @param error - The error message that is shown below the switch.
  * @param hideError - Indicator whether the error message is displayed or not.
  * @param size - The size of the switch. The size can be small, medium or large.
- * @param standardLabel - Indicator whether the label is displayed in the standard format (left of the component) instead of being optimized to a switch.
  * @param tooltip - The tooltip that is displayed when hovering over the label. Tooltips are only available with the standardLabel setting.
  * @param required - Indicator whether the field is required or not. This is only available with the standardLabel setting.
  * @param className - The optional className object allows you to override the default styling.
  * @returns Switch component with formik state management
  */
-export declare function FormikSwitchField({ id, name, data, disabled, hideError, label, size, standardLabel, required, tooltip, className, }: FormikSwitchFieldProps): JSX_2.Element;
+export declare function FormikSwitchField({ id, name, data, disabled, error, hideError, label, labelLeft, size, required, tooltip, className, }: FormikSwitchFieldProps): JSX_2.Element;
 
 export declare interface FormikSwitchFieldProps {
-    id?: string;
-    name: string;
-    data?: {
-        cy?: string;
-        test?: string;
-    };
-    disabled?: boolean;
-    hideError?: boolean;
-    label?: string;
-    size?: 'sm' | 'md' | 'lg';
-    standardLabel?: boolean;
-    tooltip?: string | default_2.ReactNode;
-    required?: boolean;
-    className?: {
-        root?: string;
-        label?: string;
-        tooltip?: string;
-        error?: string;
-        switch?: SwitchClassName;
-    };
-}
-
-declare interface FormikSwitchFieldProps_2 {
     id?: string;
     name: string;
     data?: {
@@ -921,6 +826,7 @@ declare interface FormikSwitchFieldProps_2 {
     error?: string;
     hideError?: boolean;
     label?: string;
+    labelLeft?: boolean;
     size?: 'sm' | 'md' | 'lg';
     tooltip?: string | default_2.ReactNode;
     required?: boolean;
@@ -928,27 +834,29 @@ declare interface FormikSwitchFieldProps_2 {
 }
 
 /**
- * This component returns a textarea field that works as to be expected in a Formik environment.
+ * This function returns a text field that works as to be expected in a Formik environment.
  * State can be managed either through Formik or internally by passing a value and onChange function.
  *
  * @param id - The id of the field.
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param name - The name of the field as used to keep track of the state in Formik. If no value and onChange function are provided, this field is required.
- * @param label - The optional label is shown next to the field in the form.
- * @param labelType - The optional labelType can be used to change the size and position of the label according to pre-defined standards.
- * @param tooltip - The optional tooltip is shown on hover next to the label.
- * @param required - Indicate whether the field is required or not.
- * @param placeholder - The optional placeholder is shown when the field is empty.
  * @param value - The value of the field. This is used to manage the state internally. If no name is provided, this field is required.
  * @param onChange - The onChange function is called when the value of the field changes. This is used to manage the state internally. If no name is provided, this field is required.
- * @param maxLength - The optional maxLength is used to limit the number of characters that can be entered in the field.
- * @param maxLengthLabel - This optional label allows to specify a custom label for the maxLength indicator (e.g. "characters left" supporting internationalization).
+ * @param error - The error message that is shown below the field. If a name is provided, this prop will not be used.
+ * @param label - The optional label is shown next to the field in the form.
+ * @param labelType - The optional labelType can be used to change the size and position of the label according to pre-defined standards.
+ * @param placeholder - The optional placeholder is shown when the field is empty.
+ * @param tooltip - The optional tooltip is shown on hover next to the label.
+ * @param maxLength - The optional maxLength is shown below the field to indicate the maximum number of characters allowed.
+ * @param maxLengthUnit - The optional maxLengthUnit is shown next to the maxLength to indicate the unit of the maximum number of characters allowed.
+ * @param hideMaxLength - Indicate whether the maxLength should be hidden or not.
+ * @param required - Indicate whether the field is required or not.
  * @param hideError - Hide the error message below this component as is might be more appropriate to show it somewhere else.
  * @param disabled - Disable the field.
  * @param className - The optional className object allows you to override the default styling.
- * @returns Textarea component with Formik state management.
+ * @returns Text field component with Formik state management.
  */
-export declare function FormikTextareaField({ id, data, name, value, onChange, label, labelType, placeholder, tooltip, required, maxLength, maxLengthLabel, hideError, disabled, className, ...props }: TextareaFieldWithNameProps | TextareaFieldWithOnChangeProps): JSX_2.Element;
+export declare function FormikTextareaField({ id, data, name, value, onChange, error, label, labelType, icon, placeholder, tooltip, required, hideError, disabled, className, ...props }: FormikTextareaFieldWithNameProps | FormikTextareaFieldWithOnChangeProps): JSX_2.Element;
 
 declare interface FormikTextareaFieldProps {
     id?: string;
@@ -977,20 +885,20 @@ declare interface FormikTextareaFieldProps {
     };
 }
 
-declare interface FormikTextareaFieldWithNameProps extends FormikTextareaFieldProps {
+export declare interface FormikTextareaFieldWithNameProps extends FormikTextareaFieldProps {
     name: string;
     value?: never;
     onChange?: never;
     error?: never;
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
-declare interface FormikTextareaFieldWithOnChangeProps extends FormikTextareaFieldProps {
+export declare interface FormikTextareaFieldWithOnChangeProps extends FormikTextareaFieldProps {
     name?: never;
     value: string;
     onChange: (newValue: string) => void;
     error?: string;
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
 /**
@@ -1006,16 +914,18 @@ declare interface FormikTextareaFieldWithOnChangeProps extends FormikTextareaFie
  * @param label - The optional label is shown next to the field in the form.
  * @param labelType - The optional labelType can be used to change the size and position of the label according to pre-defined standards.
  * @param icon - An optional icon (FontAwesomeIcon IconDefinition) that is shown on the right side of the text input component
+ * @param iconPosition - The optional iconPosition can be used to change the position of the icon according to pre-defined standards.
  * @param onIconClick - An optional function that is called when the icon (previous prop) is clicked
  * @param placeholder - The optional placeholder is shown when the field is empty.
  * @param tooltip - The optional tooltip is shown on hover next to the label.
  * @param required - Indicate whether the field is required or not.
  * @param hideError - Hide the error message below this component as is might be more appropriate to show it somewhere else.
  * @param disabled - Disable the field.
+ * @param onPaste - An optional function that is called when the user pastes text into the field.
  * @param className - The optional className object allows you to override the default styling.
  * @returns Text field component with Formik state management.
  */
-export declare function FormikTextField({ id, data, name, value, onChange, error, label, labelType, icon, onIconClick, placeholder, tooltip, required, hideError, disabled, className, ...props }: TextFieldWithNameProps | TextFieldWithOnChangeProps): JSX_2.Element;
+export declare function FormikTextField({ id, data, name, value, onChange, error, label, labelType, icon, iconPosition, onIconClick, placeholder, tooltip, required, hideError, isTouched, disabled, onPaste, className, ...props }: FormikTextFieldWithNameProps | FormikTextFieldWithOnChangeProps): JSX_2.Element;
 
 declare interface FormikTextFieldProps {
     id?: string;
@@ -1025,7 +935,8 @@ declare interface FormikTextFieldProps {
     };
     label?: string;
     labelType?: 'small' | 'large';
-    icon?: IconDefinition_2;
+    icon?: IconDefinition;
+    iconPosition?: 'left' | 'right';
     onIconClick?: () => void;
     placeholder?: string;
     tooltip?: string | default_2.ReactNode;
@@ -1038,22 +949,36 @@ declare interface FormikTextFieldProps {
     };
 }
 
-declare interface FormikTextFieldWithNameProps extends FormikTextFieldProps {
+export declare interface FormikTextFieldWithNameProps extends FormikTextFieldProps {
     name: string;
     value?: never;
     onChange?: never;
     error?: never;
     isTouched?: never;
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
-declare interface FormikTextFieldWithOnChangeProps extends FormikTextFieldProps {
+export declare interface FormikTextFieldWithOnChangeProps extends FormikTextFieldProps {
     name?: never;
     value: string;
     onChange: (newValue: string) => void;
     error?: string;
     isTouched?: boolean;
-    [key: string]: any;
+    [key: string]: unknown;
+}
+
+export declare function FormLabel({ id, required, label, labelType, className, tooltip, }: FormLabelProps): JSX_2.Element;
+
+export declare interface FormLabelProps {
+    id?: string;
+    required: boolean;
+    label: string;
+    labelType: 'small' | 'large';
+    className?: {
+        label?: string;
+        tooltip?: string;
+    };
+    tooltip?: string | React.ReactNode;
 }
 
 /**
@@ -1307,190 +1232,6 @@ export declare interface NavigationProps {
 }
 
 /**
- * This component provides a simple date changer with a label and a button to edit the date (not coupled to a formik context).
- *
- * @param id - The id of the date changer
- * @param name - The name of the field as used to keep track of the state in Formik.
- * @param label - The label of the date changer
- * @param labelType - The type of the label (small or large)
- * @param tooltip - The tooltip of the date changer (is only shown if a label is given)
- * @param required - Whether the date label should contain a required symbol
- * @param disabled - Whether the date changer is disabled or not
- * @param hideError - Whether the error message should be hidden
- * @param format - The format of the date when the edit mode is not active (then the display is up to the browser implementation)
- * @param date - The date to be displayed
- * @param editIcon - The icon to be displayed on the edit button
- * @param validateField - Function to trigger validation of the field under consideration
- * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
- * @param dataButton - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the button
- * @param className - The optional className object allows you to override the default styling.
- * @returns Date changer component with optional label, edit button and save button.
- */
-export declare function FormikDateChanger({ id, name, label, labelType, tooltip, required, disabled, hideError, format, editIcon, validateField, data, dataButton, className, }: FormikDateChangerProps_2): JSX_2.Element;
-
-/**
- * This function returns a date field that works as to be expected in a Formik environment.
- * State is managed by Formik through the name attribute.
- *
- * @param id - The id of the field.
- * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
- * @param name - The name of the field as used to keep track of the state in Formik.
- * @param label - The optional label is shown next to the field in the form.
- * @param labelType - The optional labelType can be used to change the size and position of the label according to pre-defined standards.
- * @param placeholder - The optional placeholder is shown when the field is empty.
- * @param tooltip - The optional tooltip is shown on hover next to the label.
- * @param required - Indicate whether the field is required or not.
- * @param hideError - Hide the error message below this component as is might be more appropriate to show it somewhere else.
- * @param disabled - Disable the field.
- * @param className - The optional className object allows you to override the default styling.
- * @returns Date field component with Formik state management.
- */
-export declare function FormikDateField({ id, data, name, label, labelType, placeholder, tooltip, required, hideError, disabled, className, ...props }: FormikDateFieldProps): JSX_2.Element;
-
-declare interface FormikDateFieldProps {
-    id?: string;
-    name: string;
-    data?: {
-        cy?: string;
-        test?: string;
-    };
-    label?: string;
-    labelType?: 'small' | 'large';
-    placeholder?: string;
-    tooltip?: string | default_2.ReactNode;
-    required?: boolean;
-    hideError?: boolean;
-    disabled?: boolean;
-    className?: {
-        root?: string;
-        field?: string;
-        label?: string;
-        input?: string;
-        error?: string;
-        tooltip?: string;
-    };
-    [key: string]: any;
-}
-
-export declare function FormikPinField({ id, name, required, label, labelType, tooltip, className, data, }: FormikPinFieldProps): JSX_2.Element;
-
-/**
- * This component returns a select field that works as to be expected in a Formik environment.
- * State is managed by Formik through the name attribute.
- *
- * @param id - The id of the field.
- * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
- * @param name - The name of the field.
- * @param items - The array of items that should be available on the select component.
- * @param groups - The optional groups array can be used to group items in the select component.
- * @param label - The optional label is shown next to the field in the form.
- * @param labelType - The optional labelType can be used to change the size and position of the label according to pre-defined standards.
- * @param placeholder - The optional placeholder is shown when no value is selected / initialization with 'undefined' is chosen.
- * @param disabled - The optional disabled prop disables the select component.
- * @param error - The optional error message is shown next to the component.
- * @param hideError - Hide the error message below this component as is might be more appropriate to show it somewhere else.
- * @param contentPosition - The position of the content of the select component. Currently only 'item-aligned' and 'popper' are supported.
- * @param tooltip - The optional tooltip is shown on hover next to the label.
- * @param required - Indicate whether the field is required or not.
- * @param className - The optional className object allows you to override the default styling.
- * @returns Select component with formik state management.
- */
-export declare function FormikSelectField({ id, data, name, items, groups, label, labelType, placeholder, tooltip, required, disabled, error, hideError, contentPosition, className, ...props }: FormikSelectFieldItemsProps_2 | FormikSelectFieldGroupsProps_2): JSX_2.Element;
-
-/**
- * This function extends the pre-styled Switch component so that it works as to be expected in a Formik environment.
- * State, in this case, is managed by Formik through the name attribute.
- *
- * @param id - The id of the switch.
- * @param name - The name of the field. This is used to identify the field in Formik.
- * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
- * @param label - The label that is displayed next to the switch.
- * @param disabled - Indicator whether the switch is disabled or not.
- * @param error - The error message that is shown below the switch.
- * @param hideError - Indicator whether the error message is displayed or not.
- * @param size - The size of the switch. The size can be small, medium or large.
- * @param tooltip - The tooltip that is displayed when hovering over the label. Tooltips are only available with the standardLabel setting.
- * @param required - Indicator whether the field is required or not. This is only available with the standardLabel setting.
- * @param className - The optional className object allows you to override the default styling.
- * @returns Switch component with formik state management
- */
-export declare function FormikSwitchField({ id, name, data, disabled, error, hideError, label, size, required, tooltip, className, }: FormikSwitchFieldProps_2): JSX_2.Element;
-
-/**
- * This function returns a text field that works as to be expected in a Formik environment.
- * State can be managed either through Formik or internally by passing a value and onChange function.
- *
- * @param id - The id of the field.
- * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
- * @param name - The name of the field as used to keep track of the state in Formik. If no value and onChange function are provided, this field is required.
- * @param value - The value of the field. This is used to manage the state internally. If no name is provided, this field is required.
- * @param onChange - The onChange function is called when the value of the field changes. This is used to manage the state internally. If no name is provided, this field is required.
- * @param error - The error message that is shown below the field. If a name is provided, this prop will not be used.
- * @param label - The optional label is shown next to the field in the form.
- * @param labelType - The optional labelType can be used to change the size and position of the label according to pre-defined standards.
- * @param placeholder - The optional placeholder is shown when the field is empty.
- * @param tooltip - The optional tooltip is shown on hover next to the label.
- * @param maxLength - The optional maxLength is shown below the field to indicate the maximum number of characters allowed.
- * @param maxLengthUnit - The optional maxLengthUnit is shown next to the maxLength to indicate the unit of the maximum number of characters allowed.
- * @param hideMaxLength - Indicate whether the maxLength should be hidden or not.
- * @param required - Indicate whether the field is required or not.
- * @param hideError - Hide the error message below this component as is might be more appropriate to show it somewhere else.
- * @param disabled - Disable the field.
- * @param className - The optional className object allows you to override the default styling.
- * @returns Text field component with Formik state management.
- */
-export declare function FormikTextareaField({ id, data, name, value, onChange, error, label, labelType, icon, onIconClick, placeholder, tooltip, required, hideError, disabled, className, ...props }: FormikTextareaFieldWithNameProps | FormikTextareaFieldWithOnChangeProps): JSX_2.Element;
-
-/**
- * This function returns a text field that works as to be expected in a Formik environment.
- * State can be managed either through Formik or internally by passing a value and onChange function.
- *
- * @param id - The id of the field.
- * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
- * @param name - The name of the field as used to keep track of the state in Formik. If no value and onChange function are provided, this field is required.
- * @param value - The value of the field. This is used to manage the state internally. If no name is provided, this field is required.
- * @param onChange - The onChange function is called when the value of the field changes. This is used to manage the state internally. If no name is provided, this field is required.
- * @param error - The error message that is shown below the field. If a name is provided, this prop will not be used.
- * @param label - The optional label is shown next to the field in the form.
- * @param labelType - The optional labelType can be used to change the size and position of the label according to pre-defined standards.
- * @param icon - An optional icon (FontAwesomeIcon IconDefinition) that is shown on the right side of the text input component
- * @param onIconClick - An optional function that is called when the icon (previous prop) is clicked
- * @param placeholder - The optional placeholder is shown when the field is empty.
- * @param tooltip - The optional tooltip is shown on hover next to the label.
- * @param required - Indicate whether the field is required or not.
- * @param hideError - Hide the error message below this component as is might be more appropriate to show it somewhere else.
- * @param disabled - Disable the field.
- * @param onPaste - An optional function that is called when the user pastes text into the field.
- * @param className - The optional className object allows you to override the default styling.
- * @returns Text field component with Formik state management.
- */
-export declare function FormikTextField({ id, data, name, value, onChange, error, label, labelType, icon, onIconClick, placeholder, tooltip, required, hideError, isTouched, disabled, onPaste, className, ...props }: FormikTextFieldWithNameProps | FormikTextFieldWithOnChangeProps): JSX_2.Element;
-
-/**
- * This function returns a text field component for use without formik
- *
- * @param id - The id of the input field.
- * @param value - The value of the input field (external state management).
- * @param onChange - The onChange function of the input field (external state management).
- * @param label - The text displayed as label.
- * @param labelType - The optional labelType can be used to change the size and position of the label according to pre-defined standards.
- * @param placeholder - The placeholder text for the input field.
- * @param precision - The optional precision defines the number of decimal places that are allowed.
- * @param min - The optional min defines the minimum value that is allowed.
- * @param max - The optional max defines the maximum value that is allowed.
- * @param tooltip - The optional tooltip is shown on hover over the tooltip next to the label.
- * @param required - Indicate whether the field is required or not.
- * @param hideError - Indicate whether the error message should be hidden or not.
- * @param error - The error message that is displayed below the input field.
- * @param isTouched - Indicate whether the field has been touched or not (validation is not handled by this component).
- * @param disabled - Indicate whether the field is disabled or not.
- * @param onBlur - The onBlur function of the input field.
- * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
- * @param className - The optional className object allows you to override the default styling.
- */
-export declare function NewFromikNumberField({ id, name, value, onChange, label, labelType, placeholder, precision, min, max, tooltip, required, hideError, error, isTouched, disabled, onBlur, data, className, ...props }: FormikNumberFieldNameProps | FormikNumberFieldOnChangeProps): JSX_2.Element;
-
-/**
  * This function returns a pre-styled wrapper for some custom component with navigation badge on it.
  *
  * @param id - The id of the notification badge wrapper.
@@ -1575,28 +1316,6 @@ export declare interface NumberFieldProps {
     };
     className?: NumberFieldClassName;
     [key: string]: any;
-}
-
-export declare function PinField({ id, name, required, label, labelType, tooltip, className, data, }: PinFieldProps): JSX_2.Element;
-
-export declare interface PinFieldProps {
-    id?: string;
-    name: string;
-    required?: boolean;
-    label?: string;
-    labelType?: 'small' | 'normal';
-    tooltip?: string | default_2.ReactNode;
-    className?: {
-        root?: string;
-        field?: string;
-        label?: string;
-        error?: string;
-        tooltip?: string;
-    };
-    data?: {
-        cy?: string;
-        test?: string;
-    };
 }
 
 /**
@@ -1964,6 +1683,7 @@ export declare interface SwitchClassName {
     element?: string;
     thumb?: string;
     label?: string;
+    tooltip?: string;
 }
 
 export declare interface SwitchProps {
@@ -2373,7 +2093,7 @@ export declare interface TagProps {
  */
 export declare function TextareaField({ id, data, name, field, value, onChange, label, labelType, placeholder, tooltip, maxLength, maxLengthUnit, hideMaxLength, required, isTouched, hideError, error, disabled, className, ...props }: TextareaFieldNameProps | TextareaFieldOnChangeProps): JSX_2.Element;
 
-export declare interface TextareaFieldNameProps extends TextareaFieldProps_2 {
+export declare interface TextareaFieldNameProps extends TextareaFieldProps {
     name: string;
     field: FieldInputProps<any>;
     value?: never;
@@ -2381,7 +2101,7 @@ export declare interface TextareaFieldNameProps extends TextareaFieldProps_2 {
     [key: string]: any;
 }
 
-export declare interface TextareaFieldOnChangeProps extends TextareaFieldProps_2 {
+export declare interface TextareaFieldOnChangeProps extends TextareaFieldProps {
     name?: never;
     field?: never;
     value: string;
@@ -2389,32 +2109,7 @@ export declare interface TextareaFieldOnChangeProps extends TextareaFieldProps_2
     [key: string]: any;
 }
 
-export declare interface TextareaFieldProps {
-    id?: string;
-    data?: {
-        cy?: string;
-        test?: string;
-    };
-    label?: string;
-    labelType?: 'small' | 'normal';
-    placeholder?: string;
-    tooltip?: string | default_2.ReactNode;
-    required?: boolean;
-    maxLength?: number;
-    maxLengthLabel?: string;
-    hideError?: boolean;
-    disabled?: boolean;
-    className?: {
-        root?: string;
-        field?: string;
-        label?: string;
-        input?: string;
-        error?: string;
-        tooltip?: string;
-    };
-}
-
-declare interface TextareaFieldProps_2 {
+declare interface TextareaFieldProps {
     id?: string;
     data?: {
         cy?: string;
@@ -2442,20 +2137,6 @@ declare interface TextareaFieldProps_2 {
     };
 }
 
-export declare interface TextareaFieldWithNameProps extends TextareaFieldProps {
-    name: string;
-    value?: never;
-    onChange?: never;
-    [key: string]: any;
-}
-
-export declare interface TextareaFieldWithOnChangeProps extends TextareaFieldProps {
-    name?: never;
-    value: string;
-    onChange: (newValue: string) => void;
-    [key: string]: any;
-}
-
 /**
  * This function returns a text field component for use without formik
  *
@@ -2477,9 +2158,11 @@ export declare interface TextareaFieldWithOnChangeProps extends TextareaFieldPro
  * @param onPaste - The optional onPaste function is called when the user pastes text into the input field.
  * @param className - The optional className object allows you to override the default styling.
  * @param icon - The optional icon is shown on the right side of the input field.
+ * @param iconPosition - The optional iconPosition can be used to change the position of the icon to the left side of the input field.
+ * @param onIconClick - The optional onIconClick function is called when the icon is clicked.
  * @returns Text field component with optional label, tooltip, error message and icon.
  */
-export declare function TextField({ id, data, name, field, value, onChange, label, labelType, placeholder, tooltip, required, isTouched, hideError, error, disabled, onPaste, className, icon, ...props }: TextFieldNameProps | TextFieldOnChangeProps): JSX_2.Element;
+export declare function TextField({ id, data, name, field, value, onChange, label, labelType, placeholder, tooltip, required, isTouched, hideError, error, disabled, onPaste, className, icon, iconPosition, onIconClick, ...props }: TextFieldNameProps | TextFieldOnChangeProps): JSX_2.Element;
 
 export declare interface TextFieldClassName {
     field?: string;
@@ -2487,9 +2170,10 @@ export declare interface TextFieldClassName {
     input?: string;
     error?: string;
     tooltip?: string;
+    icon?: string;
 }
 
-export declare interface TextFieldNameProps extends TextFieldProps_2 {
+export declare interface TextFieldNameProps extends TextFieldProps {
     name: string;
     field: FieldInputProps<any>;
     value?: never;
@@ -2497,7 +2181,7 @@ export declare interface TextFieldNameProps extends TextFieldProps_2 {
     [key: string]: any;
 }
 
-export declare interface TextFieldOnChangeProps extends TextFieldProps_2 {
+export declare interface TextFieldOnChangeProps extends TextFieldProps {
     name?: never;
     field?: never;
     value: string;
@@ -2506,32 +2190,6 @@ export declare interface TextFieldOnChangeProps extends TextFieldProps_2 {
 }
 
 declare interface TextFieldProps {
-    id?: string;
-    data?: {
-        cy?: string;
-        test?: string;
-    };
-    label?: string;
-    labelType?: 'small' | 'normal';
-    icon?: IconDefinition_2;
-    onIconClick?: () => void;
-    placeholder?: string;
-    tooltip?: string | default_2.ReactNode;
-    required?: boolean;
-    hideError?: boolean;
-    disabled?: boolean;
-    className?: {
-        root?: string;
-        field?: string;
-        icon?: string;
-        label?: string;
-        input?: string;
-        error?: string;
-        tooltip?: string;
-    };
-}
-
-declare interface TextFieldProps_2 {
     id?: string;
     data?: {
         cy?: string;
@@ -2549,22 +2207,8 @@ declare interface TextFieldProps_2 {
     onPaste?: (e: any) => void;
     className?: TextFieldClassName;
     icon?: IconProp;
-}
-
-export declare interface TextFieldWithNameProps extends TextFieldProps {
-    name: string;
-    value?: never;
-    onChange?: never;
-    error?: never;
-    [key: string]: any;
-}
-
-export declare interface TextFieldWithOnChangeProps extends TextFieldProps {
-    name?: never;
-    value: string;
-    onChange: (newValue: string) => void;
-    error?: string;
-    [key: string]: any;
+    iconPosition?: 'left' | 'right';
+    onIconClick?: () => void;
 }
 
 export declare function Toast({ title, description, duration, dismissible, triggerText, actionText, actionOnClick, position, openExternal, setOpenExternal, type, children, className, }: ToastPropsWithTitleTrigger | ToastPropsWithTitleNoTrigger | ToastPropsWithChildrenTrigger | ToastPropsWithChildrenNoTrigger): React_3.ReactElement;

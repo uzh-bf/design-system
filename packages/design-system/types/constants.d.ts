@@ -136,6 +136,49 @@ export declare const TailwindColorsUZH: {
     'uzh-turqoise-60': string;
     'uzh-turqoise-40': string;
     'uzh-turqoise-20': string;
+    'primary-100': string;
+    'primary-80': string;
+    'primary-60': string;
+    'primary-40': string;
+    'primary-20': string;
+    'secondary-100': string;
+    'secondary-80': string;
+    'secondary-60': string;
+    'secondary-40': string;
+    'secondary-20': string;
+    border: string;
+    input: string;
+    ring: string;
+    background: string;
+    foreground: string;
+    primary: {
+        DEFAULT: string;
+        foreground: string;
+    };
+    secondary: {
+        DEFAULT: string;
+        foreground: string;
+    };
+    destructive: {
+        DEFAULT: string;
+        foreground: string;
+    };
+    muted: {
+        DEFAULT: string;
+        foreground: string;
+    };
+    accent: {
+        DEFAULT: string;
+        foreground: string;
+    };
+    popover: {
+        DEFAULT: string;
+        foreground: string;
+    };
+    card: {
+        DEFAULT: string;
+        foreground: string;
+    };
 };
 
 export declare const TailwindFonts: {

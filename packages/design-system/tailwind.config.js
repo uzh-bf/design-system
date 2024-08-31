@@ -46,6 +46,9 @@ export default {
       },
     },
   },
+  corePlugins: {
+    preflight: false,
+  },
   plugins: [
     import('tailwindcss-animate'),
     import('@tailwindcss/typography'),
