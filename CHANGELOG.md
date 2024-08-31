@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.25](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.24...v3.0.0-alpha.25) (2024-08-31)
+
+
+### Bug Fixes
+
+* do not include preflight in style.css, upgrade turbo and pin latest pnpm ([59fc18f](https://github.com/uzh-bf/design-system/commit/59fc18f32b5039adecd39becf7435f696b92788e))
+
 ## [3.0.0-alpha.24](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.23...v3.0.0-alpha.24) (2024-08-30)
 
 
