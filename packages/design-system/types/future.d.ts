@@ -666,7 +666,9 @@ declare interface State {
 
 export declare const Switch: React_2.ForwardRefExoticComponent<Omit<SwitchPrimitives.SwitchProps & React_2.RefAttributes<HTMLButtonElement>, "ref"> & React_2.RefAttributes<HTMLButtonElement>>;
 
-export declare const Table: React_2.ForwardRefExoticComponent<React_2.HTMLAttributes<HTMLTableElement> & React_2.RefAttributes<HTMLTableElement>>;
+export declare const Table: React_2.ForwardRefExoticComponent<React_2.HTMLAttributes<HTMLTableElement> & {
+    containerClassName?: string | undefined;
+} & React_2.RefAttributes<HTMLTableElement>>;
 
 export declare const TableBody: React_2.ForwardRefExoticComponent<React_2.HTMLAttributes<HTMLTableSectionElement> & React_2.RefAttributes<HTMLTableSectionElement>>;
 
@@ -791,13 +793,13 @@ export declare function useToast(): {
 export { }
 
 
-declare namespace Calendar {
-    var displayName: string;
-}
-
-
 declare namespace Tabs {
     var Tab: typeof import("@/Tabs").Tab;
     var TabList: typeof import("@/Tabs").TabList;
     var TabContent: typeof import("@/Tabs").TabContent;
+}
+
+
+declare namespace Calendar {
+    var displayName: string;
 }
