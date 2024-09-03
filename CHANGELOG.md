@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.26](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.25...v3.0.0-alpha.26) (2024-09-03)
+
+
+### Bug Fixes
+
+* add containerClassName on table ([438c0e2](https://github.com/uzh-bf/design-system/commit/438c0e2f7dedcb8d78cac7b687f481b0ae70d8cd))
+
+
+### Other
+
+* regenerate types ([2119e9c](https://github.com/uzh-bf/design-system/commit/2119e9c4ae8388050ec36ecffdafe683b59d0c8f))
+
 ## [3.0.0-alpha.25](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.24...v3.0.0-alpha.25) (2024-08-31)
 
 
