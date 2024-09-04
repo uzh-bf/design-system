@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.27](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.26...v3.0.0-alpha.27) (2024-09-04)
+
+
+### Enhancements
+
+* **Toast:** hide dismissible button on toast and show with group hover ([#132](https://github.com/uzh-bf/design-system/issues/132)) ([4888814](https://github.com/uzh-bf/design-system/commit/4888814a49233a924fd3a6cb8a3833298aad234d))
+
 ## [3.0.0-alpha.26](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.25...v3.0.0-alpha.26) (2024-09-03)
 
 
