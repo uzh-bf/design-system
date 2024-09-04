@@ -124,7 +124,7 @@ export function Toast({
 
       <RadixToast.Root
         className={twMerge(
-          'border-md grid items-center gap-x-4 rounded-md bg-white p-3 shadow-md',
+          'border-md group grid items-center gap-x-4 rounded-md bg-white p-3 shadow-md',
           type === 'success' && 'border-2 border-solid border-green-500',
           type === 'warning' && 'border-2 border-solid border-orange-500',
           type === 'error' && 'border-2 border-solid border-red-500',
@@ -136,7 +136,7 @@ export function Toast({
       >
         {dismissible && (
           <Button
-            className={{ root: 'fixed right-6 top-4' }}
+            className={{ root: 'fixed right-6 top-4 hidden group-hover:block' }}
             basic
             onClick={() =>
               setOpenExternal ? setOpenExternal(false) : setOpen(false)
