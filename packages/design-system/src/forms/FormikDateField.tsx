@@ -117,7 +117,7 @@ export function FormikDateField({
             <Tooltip
               tooltip={meta.error}
               delay={0}
-              className={{ tooltip: 'text ml-3' }}
+              className={{ tooltip: 'text ml-3 max-w-[30rem]' }}
             >
               <FontAwesomeIcon
                 icon={faCircleExclamation}

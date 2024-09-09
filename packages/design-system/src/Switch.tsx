@@ -158,7 +158,11 @@ export function Switch({
         />
       )}
       {error && !hideError && (
-        <Tooltip tooltip={error} delay={0} className={{ tooltip: 'text-sm' }}>
+        <Tooltip
+          tooltip={error}
+          delay={0}
+          className={{ tooltip: 'max-w-[30rem] text-sm' }}
+        >
           <FontAwesomeIcon
             icon={faCircleExclamation}
             className="-mx-2 text-red-600"

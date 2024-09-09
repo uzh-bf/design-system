@@ -154,7 +154,7 @@ export function SelectField({
             <Tooltip
               tooltip={error}
               delay={0}
-              className={{ tooltip: 'text-sm' }}
+              className={{ tooltip: 'max-w-[30rem] text-sm' }}
             >
               <FontAwesomeIcon
                 icon={faCircleExclamation}
