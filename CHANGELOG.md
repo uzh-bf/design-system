@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.29](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.28...v3.0.0-alpha.29) (2024-09-09)
+
+
+### Other
+
+* add maximum width to tooltips of form components and errors ([#133](https://github.com/uzh-bf/design-system/issues/133)) ([8ff9e7b](https://github.com/uzh-bf/design-system/commit/8ff9e7bb03d8291272a625f8250f5809788c2d9b))
+
 ## [3.0.0-alpha.28](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.27...v3.0.0-alpha.28) (2024-09-09)
 
 
