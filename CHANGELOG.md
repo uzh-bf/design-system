@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.28](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.27...v3.0.0-alpha.28) (2024-09-09)
+
+
+### Enhancements
+
+* **Switch:** show lock on switch thumb component when disabled ([0f779c4](https://github.com/uzh-bf/design-system/commit/0f779c49108bdf192bbb991a6439e172ed3701a0))
+
 ## [3.0.0-alpha.27](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.26...v3.0.0-alpha.27) (2024-09-04)
 
 

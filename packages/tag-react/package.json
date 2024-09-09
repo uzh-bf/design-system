@@ -1,6 +1,6 @@
 {
   "name": "@uzh-bf/design-system-react-tag",
-  "version": "3.0.0-alpha.27",
+  "version": "3.0.0-alpha.28",
   "types": "dist/index.d.ts",
   "files": [
     "dist"
