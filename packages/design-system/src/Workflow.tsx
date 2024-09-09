@@ -256,7 +256,7 @@ export function WorkflowItem({
           tooltip={tooltip}
           delay={1500}
           className={{
-            tooltip: 'z-20',
+            tooltip: 'z-20 max-w-[30rem]',
             trigger: '!w-full',
           }}
         >

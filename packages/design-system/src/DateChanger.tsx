@@ -181,7 +181,11 @@ export function DateChanger({
           </div>
         )}
         {error && !hideError && isTouched && (
-          <Tooltip tooltip={error} delay={0} className={{ tooltip: 'text-sm' }}>
+          <Tooltip
+            tooltip={error}
+            delay={0}
+            className={{ tooltip: 'max-w-[30rem] text-sm' }}
+          >
             <FontAwesomeIcon
               icon={faCircleExclamation}
               className="mr-1 text-red-600"
