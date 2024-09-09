@@ -1,4 +1,4 @@
-import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons'
+import { faCircleExclamation, faLock } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as RadixSwitch from '@radix-ui/react-switch'
 import React from 'react'
@@ -135,14 +135,18 @@ export function Switch({
       >
         <RadixSwitch.Thumb
           className={twMerge(
-            'block rounded-full bg-white transition-transform',
+            'flex items-center justify-center rounded-full bg-white transition-transform',
             typeof checked === 'undefined' &&
               transitionSizeUndefined[size || 'md'],
             checked === true && transitionSize[size || 'md'],
             thumbSize[size || 'md'],
             className?.thumb
           )}
-        />
+        >
+          {disabled && (
+            <FontAwesomeIcon icon={faLock} className="h-3 w-3 text-gray-400" />
+          )}
+        </RadixSwitch.Thumb>
       </RadixSwitch.Root>
       {!labelLeft && label && (
         <FormLabel

@@ -124,8 +124,34 @@ export const Sizes = () => {
           onCheckedChange={(newValue) => setIsChecked2(newValue)}
         />
       </div>
+      <div className="mb-3">
+        <Switch
+          checked={isChecked3}
+          size="sm"
+          label="Small switch"
+          onCheckedChange={(newValue) => setIsChecked3(newValue)}
+        />
+      </div>
+      <div className="mb-3">
+        <Switch
+          disabled
+          checked={isChecked1}
+          label="Standard switch"
+          onCheckedChange={(newValue) => setIsChecked1(newValue)}
+        />
+      </div>
+      <div className="mb-3">
+        <Switch
+          disabled
+          checked={isChecked2}
+          size="lg"
+          label="Large switch"
+          onCheckedChange={(newValue) => setIsChecked2(newValue)}
+        />
+      </div>
       <div>
         <Switch
+          disabled
           checked={isChecked3}
           size="sm"
           label="Small switch"
