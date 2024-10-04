@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.30](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.29...v3.0.0-alpha.30) (2024-10-04)
+
+
+### Other
+
+* **Modal:** improve styling of content component to adapt dynamically to content height ([8046f16](https://github.com/uzh-bf/design-system/commit/8046f16af44d4f9464f95fa7eae9b584180e4bd8))
+
 ## [3.0.0-alpha.29](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.28...v3.0.0-alpha.29) (2024-09-09)
 
 
