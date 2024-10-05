@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.31](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.30...v3.0.0-alpha.31) (2024-10-05)
+
+
+### Features
+
+* introduce new select field based on shadcn implementation with custom interfaces ([#134](https://github.com/uzh-bf/design-system/issues/134)) ([808b052](https://github.com/uzh-bf/design-system/commit/808b052e1f0806c8aa9ca48416fb9e40f0ee22bd))
+
 ## [3.0.0-alpha.30](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.29...v3.0.0-alpha.30) (2024-10-04)
 
 
