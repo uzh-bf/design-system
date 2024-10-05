@@ -149,25 +149,13 @@ export const Styled = () => {
         className={{
           root: 'h-full rounded-none border-none',
           content: 'bg-green-200',
-          trigger: 'rounded-none border-none bg-uzh-blue-20',
+          trigger: 'rounded-none border-none bg-uzh-blue-20 text-lg',
           item: 'text-red-700',
-          scrollButton: 'bg-blue-400',
           groupLabel: 'text-red-700',
           separator: 'bg-green-700',
         }}
       />
     </div>
-  )
-}
-
-export const Small = () => {
-  return (
-    <Select
-      placeholder="Select an item"
-      groups={groupValues}
-      onChange={(newValue) => console.log(newValue)}
-      size="sm"
-    />
   )
 }
 
