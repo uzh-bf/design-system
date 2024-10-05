@@ -5,7 +5,7 @@ import {
   groupValues,
   groupValuesDisabled,
   programmingValuesDisabled,
-} from '../Select.stories'
+} from '../values'
 import FormikSelectField from './FormikSelectField'
 
 export const Default = () => {

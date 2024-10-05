@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { fruitsValues, groupValues } from '../Select.stories'
+import { fruitsValues, groupValues } from '../values'
 import SelectField from './SelectField'
 
 export const Default = () => {
