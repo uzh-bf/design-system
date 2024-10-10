@@ -1,8 +1,9 @@
-*.log
-.DS_Store
-node_modules
-.cache
+.parcel-cache/
+node_modules/
 dist/
+.turbo/
+
+.DS_Store
+.vercel/
+.vscode/
 build/
-.vercel
-.vscode
