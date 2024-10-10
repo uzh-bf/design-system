@@ -7,7 +7,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as RadixToast from '@radix-ui/react-toast'
 import * as React from 'react'
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import Button from './Button'
 
@@ -21,7 +21,7 @@ interface ToastProps {
   actionOnClick?: () => void
   position?: string
   openExternal?: boolean
-  setOpenExternal?: (open: boolean) => void
+  onCloseExternal?: () => void
   type?: 'default' | 'success' | 'warning' | 'error'
   children?: React.ReactNode
   className?: {
@@ -50,23 +50,23 @@ interface ToastPropsWithChildren extends ToastProps {
 export interface ToastPropsWithTitleTrigger extends ToastPropsWithTitle {
   triggerText: string
   openExternal?: never
-  setOpenExternal?: never
+  onCloseExternal?: never
 }
 export interface ToastPropsWithTitleNoTrigger extends ToastPropsWithTitle {
   triggerText?: never
   openExternal: boolean
-  setOpenExternal: (open: boolean) => void
+  onCloseExternal: () => void
 }
 export interface ToastPropsWithChildrenTrigger extends ToastPropsWithChildren {
   triggerText: string
   openExternal?: never
-  setOpenExternal?: never
+  onCloseExternal?: never
 }
 export interface ToastPropsWithChildrenNoTrigger
   extends ToastPropsWithChildren {
   triggerText?: never
   openExternal: boolean
-  setOpenExternal: (open: boolean) => void
+  onCloseExternal: () => void
 }
 
 export function Toast({
@@ -79,7 +79,7 @@ export function Toast({
   actionOnClick,
   position = 'topRight',
   openExternal,
-  setOpenExternal,
+  onCloseExternal,
   type = 'default',
   children,
   className,
@@ -89,7 +89,6 @@ export function Toast({
   | ToastPropsWithChildrenTrigger
   | ToastPropsWithChildrenNoTrigger): React.ReactElement {
   const [open, setOpen] = useState(false)
-  const eventDateRef = useRef(new Date())
   const timerRef = useRef(0)
   const defaultDuration = dismissible ? 60000 : 4000
 
@@ -100,19 +99,14 @@ export function Toast({
     bottomLeft: 'bottom-0 left-0',
   }
 
-  useEffect(() => {
-    return () => clearTimeout(timerRef.current)
-  }, [])
-
   return (
     <RadixToast.Provider swipeDirection="right">
-      {!openExternal && !setOpenExternal && (
+      {!openExternal && !onCloseExternal ? (
         <Button
           onClick={() => {
             setOpen(false)
             window.clearTimeout(timerRef.current)
             timerRef.current = window.setTimeout(() => {
-              eventDateRef.current = new Date('2020-01-01T00:00:00')
               setOpen(true)
             }, 100)
           }}
@@ -120,7 +114,7 @@ export function Toast({
         >
           {triggerText}
         </Button>
-      )}
+      ) : null}
 
       <RadixToast.Root
         className={twMerge(
@@ -131,16 +125,14 @@ export function Toast({
           className?.root
         )}
         open={openExternal || open}
-        onOpenChange={setOpenExternal || setOpen}
+        onOpenChange={onCloseExternal || setOpen}
         duration={duration || defaultDuration}
       >
         {dismissible && (
           <Button
             className={{ root: 'fixed right-6 top-4 hidden group-hover:block' }}
             basic
-            onClick={() =>
-              setOpenExternal ? setOpenExternal(false) : setOpen(false)
-            }
+            onClick={() => onCloseExternal?.() ?? setOpen(false)}
           >
             <Button.Icon>
               <FontAwesomeIcon

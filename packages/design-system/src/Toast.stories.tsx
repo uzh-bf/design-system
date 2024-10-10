@@ -47,7 +47,11 @@ export const ExternalState = () => {
         not hover on it.
       </div>
       <Button onClick={() => setOpen(true)}>Trigger now is a Button</Button>
-      <Toast duration={5000} openExternal={open} setOpenExternal={setOpen}>
+      <Toast
+        duration={5000}
+        openExternal={open}
+        onCloseExternal={() => setOpen(false)}
+      >
         Content as Children
       </Toast>
     </div>
