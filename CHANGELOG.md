@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.32](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.31...v3.0.0-alpha.32) (2024-10-10)
+
+
+### Enhancements
+
+* **Toast:** generalize interface to use arbitrary open attribute and on close function ([ace91f7](https://github.com/uzh-bf/design-system/commit/ace91f7fec0561e7b6868b0a5975c4468892897d))
+
 ## [3.0.0-alpha.31](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.30...v3.0.0-alpha.31) (2024-10-05)
 
 
