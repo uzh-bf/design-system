@@ -231,11 +231,13 @@ export function Progress() {
     {
       title: 'Step 1',
       progress: 1,
+      tooltip: 'This is the first step',
     },
     {
       title: 'Step 2',
       progress: 1,
       completed: true,
+      tooltip: 'This is the second step',
     },
     {
       title: 'Step 3',
@@ -248,7 +250,7 @@ export function Progress() {
   ])
 
   return (
-    <div className="w-full">
+    <div className="flex w-full flex-col gap-3">
       <div>
         An enhanced version of the workflow component also allows to display the
         progress of a certain step on the corresponding button. If it is
@@ -258,6 +260,23 @@ export function Progress() {
         on the custom application.
       </div>
       <Workflow
+        items={itemsProgress}
+        onClick={(item, ix) => {
+          if (item.progress !== 1) {
+            setItemsProgress((prev) => {
+              const newItems = [...prev]
+              newItems[ix].progress += 0.1
+              if (newItems[ix].progress >= 0.999) {
+                newItems[ix].progress = 1
+                newItems[ix].completed = true
+              }
+              return newItems
+            })
+          }
+        }}
+      />
+      <Workflow
+        showTooltipSymbols
         items={itemsProgress}
         onClick={(item, ix) => {
           if (item.progress !== 1) {

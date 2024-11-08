@@ -267,7 +267,7 @@ export function WorkflowItem({
             )}
           >
             {showTooltipSymbols && <div className="ml-2 w-3" />}
-            <div>
+            <div className="flex flex-row items-center gap-2">
               {(item.completed || item.progress === 1) && (
                 <FontAwesomeIcon className="mt-0.5" icon={faCheck} />
               )}
