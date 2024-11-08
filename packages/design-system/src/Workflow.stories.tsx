@@ -249,6 +249,32 @@ export function Progress() {
     },
   ])
 
+  const [activeIx, setActiveIx] = useState(2)
+  const errorItems = [
+    {
+      title: 'Step 1',
+      tooltip: 'This is the first step',
+      completed: true,
+      error: false,
+    },
+    {
+      title: 'Step 2',
+      tooltip: 'This is the second step',
+      completed: true,
+      error: true,
+    },
+    {
+      title: 'Step 3',
+      completed: false,
+      error: true,
+    },
+    {
+      title: 'Step 4',
+      completed: false,
+      error: false,
+    },
+  ]
+
   return (
     <div className="flex w-full flex-col gap-3">
       <div>
@@ -290,6 +316,23 @@ export function Progress() {
               return newItems
             })
           }
+        }}
+      />
+      <Workflow
+        showTooltipSymbols
+        items={errorItems}
+        activeIx={activeIx}
+        onClick={(_, ix) => {
+          setActiveIx(ix)
+        }}
+      />
+      <Workflow
+        minimal
+        showTooltipSymbols
+        items={errorItems}
+        activeIx={activeIx}
+        onClick={(_, ix) => {
+          setActiveIx(ix)
         }}
       />
     </div>

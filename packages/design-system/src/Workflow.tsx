@@ -1,5 +1,6 @@
 import {
   faCheck,
+  faExclamationCircle,
   faPencil,
   faQuestion,
 } from '@fortawesome/free-solid-svg-icons'
@@ -14,17 +15,20 @@ interface StepBaseProps {
   tooltipDisabled?: string
   progress?: number
   completed?: boolean
+  error?: boolean
   [x: string]: unknown
 }
 
 interface StepProps extends StepBaseProps {
   progress?: never
   completed?: never
+  error?: never
 }
 
 interface StepProgressProps extends StepBaseProps {
-  progress: number
+  progress?: number
   completed?: boolean
+  error?: boolean
 }
 
 interface WorkflowBaseProps {
@@ -54,7 +58,7 @@ export interface WorkflowProps extends WorkflowBaseProps {
 }
 
 export interface WorkflowProgressProps extends WorkflowBaseProps {
-  activeIx?: never
+  activeIx?: number
   items: StepProgressProps[]
   onClick: (item: StepProps | StepProgressProps, ix: number) => void
 }
@@ -220,6 +224,8 @@ export function WorkflowItem({
           : minimal
             ? 'h-[26px] pl-[13px] before:border-y-[13px] before:border-l-[13px] after:right-[-13px] after:border-y-[13px] after:border-l-[13px] first:pl-0 last:pl-0'
             : 'h-[34px] pl-[17px] before:border-y-[17px] before:border-l-[17px] after:right-[-17px] after:border-y-[17px] after:border-l-[17px] first:pl-0 last:pl-0',
+        ix < (activeIx || -1) &&
+          twMerge(twStyles.bgPast, 'text-gray-500', className?.past),
         ix === activeIx &&
           twMerge(
             twStyles.bgActive,
@@ -227,9 +233,13 @@ export function WorkflowItem({
             className?.active
           ),
         (item.completed || item.progress === 1) &&
-          'bg-green-200 text-gray-500 after:border-l-green-200 hover:bg-green-200 hover:after:!border-l-green-200',
-        ix < (activeIx || -1) &&
-          twMerge(twStyles.bgPast, 'text-gray-500', className?.past),
+          (ix === activeIx
+            ? 'bg-green-600 after:border-l-green-600 hover:bg-green-200 hover:after:!border-l-green-200'
+            : 'bg-green-200 after:border-l-green-200 hover:bg-green-200 hover:after:!border-l-green-200'),
+        item.error &&
+          (ix === activeIx
+            ? 'bg-red-600 after:border-l-red-600 hover:bg-red-200 hover:after:!border-l-red-200'
+            : 'bg-red-200 after:border-l-red-200 hover:bg-red-200 hover:after:!border-l-red-200'),
         !item.completed &&
           item.progress !== 1 &&
           item.progress &&
@@ -242,7 +252,7 @@ export function WorkflowItem({
       style={{
         width: `${100 / numItems}%`,
         background:
-          !item.completed && item.progress !== 1 && item.progress
+          !item.error && !item.completed && item.progress !== 1 && item.progress
             ? `linear-gradient(to right, rgb(74 222 128) 0%, rgb(74 222 128) ${
                 item.progress * 100
               }%, rgb(218 222 226) ${
@@ -266,12 +276,23 @@ export function WorkflowItem({
               showTooltipSymbols && 'justify-between'
             )}
           >
-            {showTooltipSymbols && <div className="ml-2 w-3" />}
+            {showTooltipSymbols &&
+              (item.error ? (
+                <FontAwesomeIcon
+                  icon={faExclamationCircle}
+                  className="ml-2 text-red-600"
+                />
+              ) : (
+                <div className="ml-2 w-3" />
+              ))}
             <div className="flex flex-row items-center gap-2">
-              {(item.completed || item.progress === 1) && (
+              {!item.error && (item.completed || item.progress === 1) && (
                 <FontAwesomeIcon className="mt-0.5" icon={faCheck} />
               )}
-              {!item.completed && item.progress && item.progress < 1 ? (
+              {!item.error &&
+              !item.completed &&
+              item.progress &&
+              item.progress < 1 ? (
                 <FontAwesomeIcon className="mt-0.5" icon={faPencil} />
               ) : null}
               <div className="mt-0.5">{content}</div>
@@ -283,7 +304,7 @@ export function WorkflowItem({
                 className={twMerge(
                   'my-auto mr-2 h-3 w-3 rounded-full border border-solid border-white px-0.5 py-0.5 group-hover:border-black',
                   ix !== activeIx && 'border-black',
-                  ix < (activeIx || -1) &&
+                  (ix < (activeIx || -1) || disabled) &&
                     'border-gray-500 group-hover:border-gray-500'
                 )}
               />
@@ -291,14 +312,29 @@ export function WorkflowItem({
           </div>
         </Tooltip>
       ) : (
-        <div className="flex flex-row gap-2">
-          {(item.completed || item.progress === 1) && (
+        <div
+          className={twMerge(
+            'flex flex-row items-center gap-2',
+            item.error && 'ga-0 w-full justify-between'
+          )}
+        >
+          {item.error && (
+            <FontAwesomeIcon
+              icon={faExclamationCircle}
+              className="ml-2 text-red-600"
+            />
+          )}
+          {!item.error && (item.completed || item.progress === 1) && (
             <FontAwesomeIcon className="mt-0.5" icon={faCheck} />
           )}
-          {!item.completed && item.progress && item.progress < 1 ? (
+          {!item.error &&
+          !item.completed &&
+          item.progress &&
+          item.progress < 1 ? (
             <FontAwesomeIcon className="mt-0.5" icon={faPencil} />
           ) : null}
           <div className="mt-0.5">{content}</div>
+          {item.error && <div className="w-3" />}
         </div>
       )}
     </div>
