@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.34](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.33...v3.0.0-alpha.34) (2024-11-08)
+
+
+### Enhancements
+
+* **Workflow:** add error styling to workflow items ([26c629e](https://github.com/uzh-bf/design-system/commit/26c629e191ce0728601484ae0f1c9ce031539cd6))
+
 ## [3.0.0-alpha.33](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.32...v3.0.0-alpha.33) (2024-11-08)
 
 
