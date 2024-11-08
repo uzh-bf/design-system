@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.33](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.32...v3.0.0-alpha.33) (2024-11-08)
+
+
+### Bug Fixes
+
+* **Workflow:** ensure that resolved steps are rendered correctly in the presence of tooltip symbol ([0a6c520](https://github.com/uzh-bf/design-system/commit/0a6c5205a1552a8afc666dc9975d1e4cca742ab6))
+
 ## [3.0.0-alpha.32](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.31...v3.0.0-alpha.32) (2024-10-10)
 
 
