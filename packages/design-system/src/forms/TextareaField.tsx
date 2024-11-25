@@ -170,7 +170,7 @@ export function TextareaField({
       </div>
       {maxLength && !hideMaxLength && (
         <div className="text-right text-sm italic">
-          {`${value?.length ?? field!.value.length} / ${maxLength} ${
+          {`${value?.length ?? field?.value.length ?? 0} / ${maxLength} ${
             maxLengthUnit ?? ''
           }`}
         </div>
