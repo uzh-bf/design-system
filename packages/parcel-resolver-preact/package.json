@@ -1,6 +1,6 @@
 {
   "name": "@uzh-bf/parcel-resolver-preact",
-  "version": "3.0.0-alpha.34",
+  "version": "3.0.0-alpha.35",
   "main": "index.js",
   "peerDependencies": {
     "@parcel/node-resolver-core": "^2.0.0",

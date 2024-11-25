@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.35](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.34...v3.0.0-alpha.35) (2024-11-25)
+
+
+### Bug Fixes
+
+* **packages/design-system:** field can be undefined in TextareaField ([70db230](https://github.com/uzh-bf/design-system/commit/70db2304f1bd3ba7c8975142a053988552a0f692))
+
 ## [3.0.0-alpha.34](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.33...v3.0.0-alpha.34) (2024-11-08)
 
 
