@@ -2,7 +2,6 @@
 
 <!-- Auto Generated Below -->
 
-
 ## Properties
 
 | Property              | Attribute              | Description | Type      | Default     |
@@ -14,7 +13,6 @@
 | `shortDescription`    | `short-description`    |             | `string`  | `undefined` |
 | `tcImgTextCardTitle`  | `title`                |             | `string`  | `undefined` |
 
+---
 
-----------------------------------------------
-
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

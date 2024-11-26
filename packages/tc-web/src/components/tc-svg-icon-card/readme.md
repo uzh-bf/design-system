@@ -2,7 +2,6 @@
 
 <!-- Auto Generated Below -->
 
-
 ## Properties
 
 | Property          | Attribute           | Description | Type     | Default                        |
@@ -16,7 +15,6 @@
 | `iconSvgXmlns`    | `icon-svg-xmlns`    |             | `string` | `"http://www.w3.org/2000/svg"` |
 | `text`            | `text`              |             | `string` | `undefined`                    |
 
+---
 
-----------------------------------------------
-
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

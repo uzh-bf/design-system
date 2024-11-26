@@ -1,26 +1,26 @@
-import { Component, Prop, h } from "@stencil/core";
-import { parseTags } from "../../util/util";
+import { Component, Prop, h } from '@stencil/core'
+import { parseTags } from '../../util/util'
 
 @Component({
-  tag: "tc-job-listing",
+  tag: 'tc-job-listing',
   shadow: true,
-  styleUrl: "../../util/base.css",
+  styleUrl: '../../util/base.css',
 })
 export class JobListing {
-  @Prop() jobTitle: string;
-  @Prop() description: string;
-  @Prop() tags: string;
-  @Prop() imageSrc: string;
+  @Prop() jobTitle: string
+  @Prop() description: string
+  @Prop() tags: string
+  @Prop() imageSrc: string
 
   render() {
     return (
-      <div class="flex flex-col font-sans items-start border-uzhblue border-solid justify-between md:flex-row px-3 py-2 ">
+      <div class="flex flex-col items-start justify-between border-solid border-uzhblue px-3 py-2 font-sans md:flex-row">
         <div class="p-2">
-          <h5 class="text-xl font-bold pl-1 m-0">{this.jobTitle}</h5>
+          <h5 class="m-0 pl-1 text-xl font-bold">{this.jobTitle}</h5>
           <p class="p-1">{this.description}</p>
-          <ul class="flex flex-row flex-wrap gap-2 mt-2 pl-1">
+          <ul class="mt-2 flex flex-row flex-wrap gap-2 pl-1">
             {parseTags(this.tags).map((tag) => (
-              <div class="px-2 py-1 text-gray-600 bg-gray-200 md:mt-0 font-medium">
+              <div class="bg-gray-200 px-2 py-1 font-medium text-gray-600 md:mt-0">
                 {tag}
               </div>
             ))}
@@ -34,6 +34,6 @@ export class JobListing {
           />
         </div>
       </div>
-    );
+    )
   }
 }

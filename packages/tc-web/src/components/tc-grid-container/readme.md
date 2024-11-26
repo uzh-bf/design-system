@@ -2,7 +2,6 @@
 
 <!-- Auto Generated Below -->
 
-
 ## Properties
 
 | Property          | Attribute          | Description | Type                           | Default                |
@@ -13,7 +12,6 @@
 | `lgColumns`       | `lg-columns`       |             | `1 \| 2 \| 3 \| 4 \| 5 \| 6`   | `4`                    |
 | `mdColumns`       | `md-columns`       |             | `1 \| 2 \| 3 \| 4 \| 5 \| 6`   | `2`                    |
 
+---
 
-----------------------------------------------
-
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

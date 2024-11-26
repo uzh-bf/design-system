@@ -1,49 +1,49 @@
-import { Component, Prop, h } from "@stencil/core";
+import { Component, Prop, h } from '@stencil/core'
 
 @Component({
-  tag: "tc-img-text-card",
+  tag: 'tc-img-text-card',
   shadow: true,
-  styleUrl: "../../util/base.css",
+  styleUrl: '../../util/base.css',
 })
 export class TcImgTextCard {
-  @Prop() imageSrc: string;
-  @Prop({ attribute: "title" }) tcImgTextCardTitle: string;
-  @Prop() shortDescription: string;
-  @Prop() detailedDescription: string;
-  @Prop() imageOnLeft: boolean = false;
-  @Prop() borderColor: string = "";
+  @Prop() imageSrc: string
+  @Prop({ attribute: 'title' }) tcImgTextCardTitle: string
+  @Prop() shortDescription: string
+  @Prop() detailedDescription: string
+  @Prop() imageOnLeft: boolean = false
+  @Prop() borderColor: string = ''
 
   render() {
-    const imageClass = this.imageOnLeft ? "lg:order-1" : "lg:order-2";
-    const textClass = this.imageOnLeft ? "lg:order-2" : "lg:order-1";
+    const imageClass = this.imageOnLeft ? 'lg:order-1' : 'lg:order-2'
+    const textClass = this.imageOnLeft ? 'lg:order-2' : 'lg:order-1'
     const borderStyle = this.borderColor
       ? `border-${this.borderColor} border-solid`
-      : "";
+      : ''
 
     return (
       <div
-        class={`m-2 mt-6 max-w-[90rem] p-2 md:p-4 font-sans ${borderStyle} shadow-md font-normal`}
+        class={`m-2 mt-6 max-w-[90rem] p-2 font-sans md:p-4 ${borderStyle} font-normal shadow-md`}
       >
         <div class="flex flex-col gap-16 md:gap-24">
-          <div class="flex flex-col lg:flex-row lg:items-top">
-            <div class={`items-center flex-1 p-1 md:p-4 order-1 ${imageClass}`}>
+          <div class="lg:items-top flex flex-col lg:flex-row">
+            <div class={`order-1 flex-1 items-center p-1 md:p-4 ${imageClass}`}>
               <img
                 src={this.imageSrc}
                 alt={this.tcImgTextCardTitle}
-                class="max-w-full max-h- h-auto p-auto m-auto"
+                class="max-h- p-auto m-auto h-auto max-w-full"
               />
             </div>
-            <div class={`items-top flex-1 p-4 order-2 ${textClass}`}>
-              <h4 class="text-xl md:text-3xl font-semibold m-0">
+            <div class={`items-top order-2 flex-1 p-4 ${textClass}`}>
+              <h4 class="m-0 text-xl font-semibold md:text-3xl">
                 {this.tcImgTextCardTitle}
               </h4>
-              <p class="text-l md:text-xl mb-1">{this.shortDescription}</p>
+              <p class="text-l mb-1 md:text-xl">{this.shortDescription}</p>
               <p>{this.detailedDescription}</p>
-              <div class="flex flex-row flex-wrap gap-2 mt-2"></div>
+              <div class="mt-2 flex flex-row flex-wrap gap-2"></div>
             </div>
           </div>
         </div>
       </div>
-    );
+    )
   }
 }

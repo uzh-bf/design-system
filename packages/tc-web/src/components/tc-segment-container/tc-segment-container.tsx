@@ -1,26 +1,26 @@
 // segment-container.tsx
-import { Component, Prop, h, Host } from "@stencil/core";
+import { Component, h, Host, Prop } from '@stencil/core'
 
 @Component({
-  tag: "segment-container",
+  tag: 'segment-container',
   shadow: true,
-  styleUrl: "../../util/base.css",
+  styleUrl: '../../util/base.css',
 })
 export class SegmentContainer {
-  @Prop({ attribute: "title" }) segTitle: string;
-  @Prop() backgroundColor: string;
+  @Prop({ attribute: 'title' }) segTitle: string
+  @Prop() backgroundColor: string
 
   render() {
     const style = this.backgroundColor
-      ? { "background-color": this.backgroundColor }
-      : {};
+      ? { 'background-color': this.backgroundColor }
+      : {}
 
     return (
       <Host class="m-0" style={style}>
-        <div class="px-0 py-4  m-0 md:py-8 font-sans font-normal">
+        <div class="m-0 px-0 py-4 font-sans font-normal md:py-8">
           <div class="m-auto max-w-[90rem]">
             {this.segTitle && (
-              <h3 class="mb-12 text-2xl md:text-4xl text-center font-semibold">
+              <h3 class="mb-12 text-center text-2xl font-semibold md:text-4xl">
                 {this.segTitle}
               </h3>
             )}
@@ -28,6 +28,6 @@ export class SegmentContainer {
           </div>
         </div>
       </Host>
-    );
+    )
   }
 }

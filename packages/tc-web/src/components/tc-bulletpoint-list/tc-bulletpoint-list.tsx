@@ -1,31 +1,31 @@
-import { Component, Prop, h } from "@stencil/core";
+import { Component, Prop, h } from '@stencil/core'
 
 @Component({
-  tag: "tc-bulletpoint-list",
+  tag: 'tc-bulletpoint-list',
   shadow: true,
-  styleUrl: "../../util/base.css",
+  styleUrl: '../../util/base.css',
 })
 export class BulletpointList {
-  @Prop({ attribute: "title" }) header: string;
-  @Prop() bulletpoints: "[]";
-  @Prop() backgroundColor: string = "rgb(255, 255, 255)";
+  @Prop({ attribute: 'title' }) header: string
+  @Prop() bulletpoints: '[]'
+  @Prop() backgroundColor: string = 'rgb(255, 255, 255)'
 
   get bulletpointArray() {
     try {
-      return JSON.parse(this.bulletpoints);
+      return JSON.parse(this.bulletpoints)
     } catch (e) {
-      console.error("Error parsing tags:", e);
-      return [];
+      console.error('Error parsing tags:', e)
+      return []
     }
   }
 
   render() {
     return (
       <div
-        class="px-4 py-2 font-sans shadow-md m-2"
+        class="m-2 px-4 py-2 font-sans shadow-md"
         style={{ backgroundColor: this.backgroundColor }}
       >
-        <h4 class="text-2xl  md:text-3xl leading-normal text-center px-4">
+        <h4 class="px-4 text-center text-2xl leading-normal md:text-3xl">
           {this.header}
         </h4>
 
@@ -37,6 +37,6 @@ export class BulletpointList {
           ))}
         </ul>
       </div>
-    );
+    )
   }
 }
