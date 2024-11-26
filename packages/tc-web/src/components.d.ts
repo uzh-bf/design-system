@@ -23,10 +23,10 @@ export namespace Components {
     }
     interface TcGridContainer {
         "backgroundColor": string;
-        "columns": number;
-        "gap": string;
-        "lgColumns": number;
-        "mdColumns": number;
+        "columns": 1|2|3|4|5|6;
+        "gap": 'sm' | 'md' | 'lg' | 'xl';
+        "lgColumns": 1|2|3|4|5|6;
+        "mdColumns": 1|2|3|4|5|6;
     }
     interface TcGridItem {
         "giTitle": string;
@@ -164,10 +164,10 @@ declare namespace LocalJSX {
     }
     interface TcGridContainer {
         "backgroundColor"?: string;
-        "columns"?: number;
-        "gap"?: string;
-        "lgColumns"?: number;
-        "mdColumns"?: number;
+        "columns"?: 1|2|3|4|5|6;
+        "gap"?: 'sm' | 'md' | 'lg' | 'xl';
+        "lgColumns"?: 1|2|3|4|5|6;
+        "mdColumns"?: 1|2|3|4|5|6;
     }
     interface TcGridItem {
         "giTitle"?: string;
