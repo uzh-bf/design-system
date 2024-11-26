@@ -2,7 +2,6 @@ import { Component, Prop, h } from "@stencil/core";
 
 @Component({
   tag: "tc-img-text-card",
-  styleUrl: "tc-img-text-card.css",
   shadow: true,
 })
 export class TcImgTextCard {

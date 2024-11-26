@@ -1,9 +1,8 @@
 import { Component, Prop, h } from "@stencil/core";
-import { parseTags } from "../../../util/util";
+import { parseTags } from "../../util/util";
 
 @Component({
   tag: "tc-job-listing",
-  styleUrl: "tc-job-listing.css",
   shadow: true,
 })
 export class JobListing {

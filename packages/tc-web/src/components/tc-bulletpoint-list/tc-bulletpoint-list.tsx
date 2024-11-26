@@ -2,7 +2,6 @@ import { Component, Prop, h } from "@stencil/core";
 
 @Component({
   tag: "tc-bulletpoint-list",
-  styleUrl: "tc-bulletpoint-list.css",
   shadow: true,
 })
 export class BulletpointList {

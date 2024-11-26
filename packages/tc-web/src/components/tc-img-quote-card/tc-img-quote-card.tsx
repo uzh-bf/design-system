@@ -2,7 +2,6 @@ import { Component, Prop, h } from "@stencil/core";
 
 @Component({
   tag: "tc-img-quote-card",
-  styleUrl: "tc-img-quote-card.css",
   shadow: true,
 })
 export class ImgQuoteCard {

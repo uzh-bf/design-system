@@ -3,13 +3,12 @@ import { Component, Prop, h } from "@stencil/core";
 @Component({
   tag: "tc-grid-container",
   shadow: true,
-  styleUrl: "tc-grid-container.css",
 })
 export class TcGridContainer {
-  @Prop() mdColumns: 1|2|3|4|5|6 = 2;
-  @Prop() lgColumns: 1|2|3|4|5|6 = 4;
-  @Prop() columns: 1|2|3|4|5|6 = 1;
-  @Prop() gap: 'sm' | 'md' | 'lg' | 'xl' = "md";
+  @Prop() mdColumns: 1 | 2 | 3 | 4 | 5 | 6 = 2;
+  @Prop() lgColumns: 1 | 2 | 3 | 4 | 5 | 6 = 4;
+  @Prop() columns: 1 | 2 | 3 | 4 | 5 | 6 = 1;
+  @Prop() gap: "sm" | "md" | "lg" | "xl" = "md";
   @Prop() backgroundColor: string = "rgb(255, 255, 255)";
 
   // Default to 2 columns

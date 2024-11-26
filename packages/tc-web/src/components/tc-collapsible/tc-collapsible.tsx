@@ -3,7 +3,6 @@ import { parseTags } from "../../util/util";
 
 @Component({
   tag: "tc-collapsible",
-  styleUrl: "tc-collapsible.css",
   shadow: true,
 })
 export class TcCollapsible {

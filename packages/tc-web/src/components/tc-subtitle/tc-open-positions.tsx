@@ -2,7 +2,6 @@ import { Component, Prop, h } from "@stencil/core";
 
 @Component({
   tag: "tc-open-positions",
-  styleUrl: "tc-open-positions.css",
   shadow: true,
 })
 export class OpenPositions {

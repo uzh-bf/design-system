@@ -2,7 +2,6 @@ import { Component, Prop, h } from "@stencil/core";
 
 @Component({
   tag: "tc-grid-item",
-  styleUrl: "tc-grid-item.css",
   shadow: true,
 })
 export class GridItem {

@@ -3,11 +3,10 @@ import { Component, Prop, h, Host } from "@stencil/core";
 
 @Component({
   tag: "segment-container",
-  styleUrl: "tc-segment-container.css",
   shadow: true,
 })
 export class SegmentContainer {
-  @Prop({attribute:"title"}) segTitle: string;
+  @Prop({ attribute: "title" }) segTitle: string;
   @Prop() backgroundColor: string;
 
   render() {
