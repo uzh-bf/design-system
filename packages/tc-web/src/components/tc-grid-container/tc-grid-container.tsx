@@ -3,6 +3,7 @@ import { Component, Prop, h } from "@stencil/core";
 @Component({
   tag: "tc-grid-container",
   shadow: true,
+  styleUrl: "../../util/base.css",
 })
 export class TcGridContainer {
   @Prop() mdColumns: 1 | 2 | 3 | 4 | 5 | 6 = 2;

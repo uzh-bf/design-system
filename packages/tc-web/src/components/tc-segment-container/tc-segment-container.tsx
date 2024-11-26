@@ -4,6 +4,7 @@ import { Component, Prop, h, Host } from "@stencil/core";
 @Component({
   tag: "segment-container",
   shadow: true,
+  styleUrl: "../../util/base.css",
 })
 export class SegmentContainer {
   @Prop({ attribute: "title" }) segTitle: string;

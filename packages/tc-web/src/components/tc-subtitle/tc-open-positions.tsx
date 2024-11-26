@@ -3,6 +3,7 @@ import { Component, Prop, h } from "@stencil/core";
 @Component({
   tag: "tc-open-positions",
   shadow: true,
+  styleUrl: "../../util/base.css",
 })
 export class OpenPositions {
   @Prop() level: string; // Corrected the property name spelling.

@@ -4,6 +4,7 @@ import { parseTags } from "../../util/util";
 @Component({
   tag: "tc-collapsible",
   shadow: true,
+  styleUrl: "../../util/base.css",
 })
 export class TcCollapsible {
   @Prop() colTitle: string;

@@ -4,6 +4,7 @@ import { parseTags } from "../../util/util";
 @Component({
   tag: "tc-job-listing",
   shadow: true,
+  styleUrl: "../../util/base.css",
 })
 export class JobListing {
   @Prop() jobTitle: string;

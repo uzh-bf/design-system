@@ -3,6 +3,7 @@ import { Component, Prop, h } from "@stencil/core";
 @Component({
   tag: "tc-svg-icon-card",
   shadow: true,
+  styleUrl: "../../util/base.css",
 })
 export class SVGIconCard {
   @Prop({ attribute: "title" }) advantageTitle: string;
