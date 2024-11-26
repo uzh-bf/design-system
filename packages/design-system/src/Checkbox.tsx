@@ -18,7 +18,6 @@ export interface CheckboxProps {
   label?: string | React.ReactNode
   size?: 'sm' | 'md' | 'lg' | 'xl'
   className?: {
-    override?: string
     root?: string
     label?: string
   }
@@ -80,7 +79,6 @@ export function Checkbox({
         defaultChecked
         checked={checked || partial}
         className={twMerge(
-          className?.override,
           'border-grey-80 align-center my-auto flex justify-center rounded-md border border-solid bg-white p-0',
           (checked || partial) && 'border-black',
           disabled && 'cursor-not-allowed',

@@ -1,5 +1,5 @@
 import dayjs from 'dayjs'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import Countdown from './Countdown'
 import CycleProgress from './CycleProgress'
 

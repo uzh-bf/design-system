@@ -1,7 +1,6 @@
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import { Form, Formik } from 'formik'
-import React from 'react'
 import * as yup from 'yup'
 
 import Button from '../Button'
@@ -124,6 +123,54 @@ export const InitialDate = () => {
   )
 }
 
+export const InitialInvalid = () => {
+  dayjs.extend(utc)
+
+  // A dayjs datestring in UTC time can be passed to the form for initialization and is parsed correctly
+  const initialDate = '0999-01-31T20:12:00Z'
+
+  return (
+    <div>
+      <div className="mb-4">
+        This date field is initialized with a date string.
+      </div>
+      <Formik
+        initialValues={{
+          endDate: (dayjs(initialDate).local().format() || '')
+            .toString()
+            .substring(0, 16),
+        }}
+        validationSchema={dateSchema}
+        onSubmit={(values, isValid) => {
+          if (!isValid) {
+            alert('Form is not valid')
+          }
+          alert(`Submitted end date: ${dayjs(values.endDate).utc().format()}`)
+        }}
+        initialTouched={{ endDate: true }}
+        validateOnMount={true}
+      >
+        {({ isValid }) => (
+          <Form>
+            <FormikDateField
+              name="endDate"
+              label="End Date"
+              tooltip="Initial date is invalid!"
+            />
+            <Button
+              className={{ root: 'mt-2' }}
+              type="submit"
+              disabled={!isValid}
+            >
+              Submit
+            </Button>
+          </Form>
+        )}
+      </Formik>
+    </div>
+  )
+}
+
 export const Disabled = () => {
   return (
     <div>
@@ -132,7 +179,7 @@ export const Disabled = () => {
           endDate: '',
         }}
         isInitialValid={false}
-        onSubmit={(values) => {
+        onSubmit={() => {
           alert("Date button is disabled. Can't submit")
         }}
       >
@@ -187,7 +234,7 @@ export const Required = () => {
   )
 }
 
-export const SmallLabel = () => {
+export const LargeLabel = () => {
   dayjs.extend(utc)
 
   return (
@@ -216,7 +263,8 @@ export const SmallLabel = () => {
             <FormikDateField
               name="endDate"
               label="End Date"
-              labelType="small"
+              labelType="large"
+              tooltip="This is a tooltip"
             />
             <Button
               className={{ root: 'mt-2' }}

@@ -1,5 +1,4 @@
 import { Form, Formik } from 'formik'
-import React from 'react'
 import * as yup from 'yup'
 import Button from '../Button'
 import FormikNumberField from './FormikNumberField'
@@ -25,8 +24,47 @@ export const Default = () => (
                 name="name"
                 label="Label"
                 tooltip="Tooltip for this input"
+                className={{ root: 'mb-1 w-80' }}
+                placeholder="Placeholder"
+              />
+              <Button type="submit">Submit</Button>
+            </Form>
+            <div>Value: {values.name}</div>
+          </div>
+        )
+      }}
+    </Formik>
+  </div>
+)
+
+export const MinMax = () => (
+  <div>
+    <div>
+      Specifying minimum and maximum values will enable additional validation
+      steps. In this case, values between 0 and 1000 will be accepted
+    </div>
+    <Formik
+      initialValues={{
+        name: undefined,
+      }}
+      isInitialValid={false}
+      onSubmit={async (values, { resetForm }) => {
+        alert(`Form submitted with value: ${values.name}`)
+        resetForm()
+      }}
+    >
+      {({ values }) => {
+        return (
+          <div>
+            <Form>
+              <FormikNumberField
+                name="name"
+                label="Label"
+                tooltip="Tooltip for this input"
                 className={{ root: 'mb-1' }}
                 placeholder="Placeholder"
+                min={0}
+                max={1000}
               />
               <Button type="submit">Submit</Button>
             </Form>
@@ -264,9 +302,7 @@ export const Styled = () => (
                   root: 'mb-1 w-1/2',
                   label: 'text-red-500',
                   error: 'text-red-700',
-                  numberField: {
-                    input: 'bg-uzh-blue-20',
-                  },
+                  input: 'bg-uzh-blue-20',
                 }}
                 placeholder="Placeholder"
               />
@@ -280,12 +316,9 @@ export const Styled = () => (
   </div>
 )
 
-export const SmallLabel = () => (
+export const LargeLabel = () => (
   <div>
-    <div>
-      Formik text area component with a small label (designed e.g. for login
-      forms)
-    </div>
+    <div>Formik text area component with a large label</div>
     <Formik
       initialValues={{
         name: '',
@@ -304,7 +337,7 @@ export const SmallLabel = () => (
                 required
                 name="name"
                 label="Label"
-                labelType="small"
+                labelType="large"
                 className={{ root: 'mb-1' }}
                 placeholder="Placeholder"
               />

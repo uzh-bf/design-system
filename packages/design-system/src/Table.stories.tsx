@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 import Button from './Button'
 import Table from './Table'
 import UserNotification from './UserNotification'

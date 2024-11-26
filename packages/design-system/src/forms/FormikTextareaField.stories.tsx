@@ -1,5 +1,4 @@
 import { Form, Formik } from 'formik'
-import React from 'react'
 import * as yup from 'yup'
 import Button from '../Button'
 import FormikTextareaField from './FormikTextareaField'
@@ -25,46 +24,8 @@ export const Default = () => (
                 name="name"
                 label="Label"
                 tooltip="Tooltip for this input"
-                className={{ root: 'mb-1' }}
+                className={{ root: 'mb-1 w-96' }}
                 placeholder="Placeholder"
-              />
-              <Button type="submit">Submit</Button>
-            </Form>
-            <div>Value: {values.name}</div>
-          </div>
-        )
-      }}
-    </Formik>
-  </div>
-)
-
-export const Disabled = () => (
-  <div>
-    <div>
-      The textarea Formik field can be easily disabled using a corresponding
-      prop, keeping the user from changing the field's value.
-    </div>
-    <Formik
-      initialValues={{
-        name: '',
-      }}
-      isInitialValid={false}
-      onSubmit={async (values, { resetForm }) => {
-        alert(`Form submitted with value: ${values.name}`)
-        resetForm()
-      }}
-    >
-      {({ values }) => {
-        return (
-          <div>
-            <Form>
-              <FormikTextareaField
-                disabled
-                name="name"
-                label="Label"
-                tooltip="Disabled textarea input field tooltip"
-                className={{ root: 'mb-1' }}
-                placeholder="Placeholder (disabled field)"
               />
               <Button type="submit">Submit</Button>
             </Form>
@@ -79,9 +40,8 @@ export const Disabled = () => (
 export const MaxLength = () => (
   <div>
     <div>
-      Providing a max length to the formik field does not allow the user to
-      enter more characters than specified. At the same time the option
-      "showMaxLength" can be used to display the character limit to the user.
+      The Formik field works with a "name" input and maximum length (including
+      label)
     </div>
     <Formik
       initialValues={{
@@ -103,8 +63,43 @@ export const MaxLength = () => (
                 tooltip="Tooltip for this input"
                 className={{ root: 'mb-1' }}
                 placeholder="Placeholder"
-                maxLength={80}
-                maxLengthLabel="Characters"
+                maxLength={20}
+                maxLengthUnit="characters"
+              />
+              <Button type="submit">Submit</Button>
+            </Form>
+            <div>Value: {values.name}</div>
+          </div>
+        )
+      }}
+    </Formik>
+  </div>
+)
+
+export const Disabled = () => (
+  <div>
+    <div>The default Formik field works with a "name" input</div>
+    <Formik
+      initialValues={{
+        name: '',
+      }}
+      isInitialValid={false}
+      onSubmit={async (values, { resetForm }) => {
+        alert(`Form submitted with value: ${values.name}`)
+        resetForm()
+      }}
+    >
+      {({ values }) => {
+        return (
+          <div>
+            <Form>
+              <FormikTextareaField
+                disabled
+                name="name"
+                label="Label"
+                tooltip="Tooltip for a disabled text field"
+                className={{ root: 'mb-1' }}
+                placeholder="Placeholder (disabled field)"
               />
               <Button type="submit">Submit</Button>
             </Form>
@@ -196,6 +191,44 @@ export const OnChangeFunction = () => (
   </div>
 )
 
+export const OnChangeError = () => (
+  <div>
+    <Formik
+      initialValues={{
+        name: '',
+      }}
+      isInitialValid={false}
+      onSubmit={async (values, { resetForm }) => {
+        alert(`Form submitted with value: ${values.name}`)
+        resetForm()
+      }}
+    >
+      {({ values, setFieldValue }) => {
+        return (
+          <div>
+            <Form>
+              <FormikTextareaField
+                isTouched
+                error="Error message"
+                value={values.name}
+                onChange={(newValue) => {
+                  setFieldValue('name', newValue)
+                }}
+                label="Label"
+                tooltip="Tooltip for this input"
+                className={{ root: 'mb-1' }}
+                placeholder="Placeholder"
+              />
+              <Button type="submit">Submit</Button>
+            </Form>
+            <div>Value: {values.name}</div>
+          </div>
+        )
+      }}
+    </Formik>
+  </div>
+)
+
 export const Styled = () => (
   <div>
     <div>The default Formik field works with a "name" input</div>
@@ -238,8 +271,8 @@ export const Styled = () => (
 export const Validation = () => (
   <div>
     <div>
-      This textarea field should have at most 10 characters and will display an
-      error otherwise
+      This text field should have a maximum length of 10 characters or will
+      display an error otherwise.
     </div>
     <Formik
       initialValues={{
@@ -250,10 +283,10 @@ export const Validation = () => (
         alert(`Form submitted with value: ${values.name}`)
         resetForm()
       }}
-      validationSchema={yup.object({
+      validationSchema={yup.object().shape({
         name: yup
           .string()
-          .required('This field is requried')
+          .required('This field is required')
           .max(10, 'Max 10 characters'),
       })}
     >
@@ -265,9 +298,7 @@ export const Validation = () => (
                 name="name"
                 label="Label"
                 tooltip="Tooltip for this input"
-                className={{
-                  root: 'mb-1 w-1/2',
-                }}
+                className={{ root: 'mb-1' }}
                 placeholder="Placeholder"
               />
               <Button type="submit">Submit</Button>
@@ -280,12 +311,9 @@ export const Validation = () => (
   </div>
 )
 
-export const SmallLabel = () => (
+export const LargeLabel = () => (
   <div>
-    <div>
-      Formik text area component with a small label (designed e.g. for login
-      forms)
-    </div>
+    <div>Formik text area component with a large label</div>
     <Formik
       initialValues={{
         name: '',
@@ -304,7 +332,7 @@ export const SmallLabel = () => (
                 required
                 name="name"
                 label="Label"
-                labelType="small"
+                labelType="large"
                 tooltip="Tooltip for this input"
                 className={{ root: 'mb-1' }}
                 placeholder="Placeholder"

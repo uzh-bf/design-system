@@ -1,32 +1,22 @@
-import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
+import { IconDefinition } from '@fortawesome/free-regular-svg-icons'
 import { useField } from 'formik'
-import React from 'react'
-import { twMerge } from 'tailwind-merge'
+import React, { useEffect } from 'react'
 import ColorPicker, { ColorPickerClassName } from '../ColorPicker'
-import Label from './Label'
 
 export interface FormikColorPickerProps {
-  id?: string
   name: string
   label?: string
-  labelType?: 'small' | 'normal'
+  labelType?: 'small' | 'large'
+  validateForm?: () => void
   tooltip?: string | React.ReactNode
   required?: boolean
-  hideError?: boolean
   disabled?: boolean
   triggerIcon?: IconDefinition
   presetColors?: string[]
-  position?: 'bottom' | 'top'
-  abortText?: string
-  submitText?: string
-  className?: {
-    root?: string
-    label?: string
-    field?: string
-    tooltip?: string
-    error?: string
-    colorPicker?: ColorPickerClassName
-  }
+  position?: 'bottom' | 'top' | 'bottom-left' | 'top-left'
+  submitText: string
+  colorLabel: string
+  colorTooltip?: string
   dataTrigger?: {
     cy?: string
     test?: string
@@ -35,93 +25,64 @@ export interface FormikColorPickerProps {
     cy?: string
     test?: string
   }
-  dataAbort?: {
-    cy?: string
-    test?: string
-  }
   dataSubmit?: {
     cy?: string
     test?: string
   }
+  className?: ColorPickerClassName
 }
 
 export function FormikColorPicker({
-  id,
   name,
   label,
-  labelType,
+  labelType = 'small',
+  validateForm,
   tooltip,
   required = false,
-  hideError = false,
-  disabled = false,
+  disabled,
   triggerIcon,
   presetColors,
   position,
-  abortText,
   submitText,
-  className,
+  colorLabel,
+  colorTooltip,
   dataTrigger,
   dataHexInput,
-  dataAbort,
   dataSubmit,
+  className,
 }: FormikColorPickerProps) {
-  const [field, meta, helpers] = useField(name || 'missing')
+  const [field, meta, helpers] = useField(name)
+
+  useEffect(() => {
+    validateForm?.()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [field.value])
 
   return (
-    <div className={twMerge('flex flex-col', className?.root)} id={id}>
-      <div
-        className={twMerge(
-          'flex w-full flex-row',
-          labelType === 'small' && 'flex-col',
-          className?.field
-        )}
-      >
-        {label && (
-          <Label
-            forId={id}
-            required={required}
-            label={label}
-            className={{
-              root: twMerge(
-                'my-auto mr-2 min-w-max font-bold',
-                labelType === 'small' &&
-                  'mt-1 text-sm font-normal leading-6 text-gray-600',
-                className?.label
-              ),
-              tooltip: twMerge('text-sm font-normal', className?.tooltip),
-              tooltipSymbol: twMerge(labelType === 'small' && 'h-2 w-2'),
-            }}
-            tooltip={tooltip}
-            showTooltipSymbol={typeof tooltip !== 'undefined'}
-          />
-        )}
-        <ColorPicker
-          color={field.value}
-          onSubmit={(newColor: string) => helpers.setValue(newColor)}
-          disabled={disabled}
-          triggerIcon={triggerIcon}
-          presetColors={presetColors}
-          position={position}
-          abortText={abortText}
-          submitText={submitText}
-          dataTrigger={dataTrigger}
-          dataHexInput={dataHexInput}
-          dataAbort={dataAbort}
-          dataSubmit={dataSubmit}
-          className={className?.colorPicker}
-        />
-      </div>
-      {!hideError && meta.touched && meta.error && (
-        <div
-          className={twMerge(
-            'w-full text-right text-sm text-red-400',
-            className?.error
-          )}
-        >
-          {meta.error}
-        </div>
-      )}
-    </div>
+    <ColorPicker
+      color={field.value}
+      label={label}
+      labelType={labelType}
+      required={required}
+      onSubmit={(newValue) => {
+        helpers.setValue(newValue)
+        helpers.setTouched(true)
+      }}
+      disabled={disabled}
+      triggerIcon={triggerIcon}
+      presetColors={presetColors}
+      position={position}
+      submitText={submitText}
+      colorLabel={colorLabel}
+      tooltip={tooltip}
+      colorTooltip={colorTooltip}
+      error={meta.error}
+      isTouched={meta.touched}
+      dataTrigger={dataTrigger}
+      dataHexInput={dataHexInput}
+      dataSubmit={dataSubmit}
+      className={className}
+    />
   )
 }
 

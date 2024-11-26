@@ -1,39 +1,61 @@
-const {
+import tailwindRadix from 'tailwindcss-radix'
+import {
+  TailwindAnimations,
   TailwindColorsUZH,
   TailwindFonts,
-  TailwindAnimations,
-} = require('./src/constants')
+} from './src/constants'
 
-module.exports = {
-  content: ['src/**/**.tsx'],
+/** @type {import('tailwindcss').Config} */
+export default {
+  darkMode: ['class'],
+  content: ['./src/**/*.{ts,tsx}'],
+  prefix: '',
+  future: {
+    hoverOnlyWhenSupported: true,
+  },
   theme: {
+    container: {
+      center: true,
+      padding: '2rem',
+      screens: {
+        '2xl': '1400px',
+      },
+    },
     extend: {
       ...TailwindAnimations,
-      colors: {
-        ...TailwindColorsUZH,
-        primary: 'var(--theme-color-primary)',
-        'primary-80': 'var(--theme-color-primary-80)',
-        'primary-60': 'var(--theme-color-primary-60)',
-        'primary-40': 'var(--theme-color-primary-40)',
-        'primary-20': 'var(--theme-color-primary-20)',
-        secondary: 'var(--theme-color-secondary)',
-        'secondary-80': 'var(--theme-color-secondary-80)',
-        'secondary-60': 'var(--theme-color-secondary-60)',
-        'secondary-40': 'var(--theme-color-secondary-40)',
-        'secondary-20': 'var(--theme-color-secondary-20)',
+      fontFamily: TailwindFonts,
+      colors: TailwindColorsUZH,
+      borderRadius: {
+        lg: 'var(--radius)',
+        md: 'calc(var(--radius) - 2px)',
+        sm: 'calc(var(--radius) - 4px)',
       },
-      fontFamily: {
-        ...TailwindFonts,
+      keyframes: {
+        'accordion-down': {
+          from: { height: '0' },
+          to: { height: 'var(--radix-accordion-content-height)' },
+        },
+        'accordion-up': {
+          from: { height: 'var(--radix-accordion-content-height)' },
+          to: { height: '0' },
+        },
+      },
+      animation: {
+        'accordion-down': 'accordion-down 0.2s ease-out',
+        'accordion-up': 'accordion-up 0.2s ease-out',
       },
     },
   },
-  plugins: [
-    require('tailwindcss-radix')({ variantPrefix: 'rdx' }),
-    require('@tailwindcss/typography'),
-    require('@tailwindcss/aspect-ratio'),
-    require('@tailwindcss/forms'),
-  ],
   corePlugins: {
     preflight: false,
   },
+  plugins: [
+    import('tailwindcss-animate'),
+    import('@tailwindcss/typography'),
+    import('@tailwindcss/aspect-ratio'),
+    import('@tailwindcss/forms'),
+    tailwindRadix({
+      variantPrefix: 'rdx',
+    }),
+  ],
 }

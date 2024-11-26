@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import Button from './Button'
 import { H4 } from './Header'
 import Toast from './Toast'
@@ -47,7 +47,11 @@ export const ExternalState = () => {
         not hover on it.
       </div>
       <Button onClick={() => setOpen(true)}>Trigger now is a Button</Button>
-      <Toast duration={5000} openExternal={open} setOpenExternal={setOpen}>
+      <Toast
+        duration={5000}
+        openExternal={open}
+        onCloseExternal={() => setOpen(false)}
+      >
         Content as Children
       </Toast>
     </div>
@@ -111,21 +115,36 @@ export const Error = () => {
 
 export const Dismissible = () => {
   return (
-    <div>
-      <div className="mb-2">
+    <div className="flex flex-col gap-2">
+      <div>
         Toast components can have an "addimissible" prop set to true. This will
         set the duration automatically to a minute, but offer an option to the
         user to manually close the tooltip. Optionally, the duration of a minute
         can also be overwritten using the duration prop.
       </div>
+      <Toast triggerText="Trigger - no overwritten duration" dismissible>
+        Toast Content
+      </Toast>
+      <Toast triggerText="Trigger - duration 5s" duration={5000} dismissible>
+        Toast Content
+      </Toast>
       <Toast
-        triggerText="Trigger - no overwritten duration"
-        className={{ trigger: 'mb-2' }}
+        type="success"
+        triggerText="Success Toast"
+        duration={5000}
         dismissible
       >
         Toast Content
       </Toast>
-      <Toast triggerText="Trigger - duration 5s" duration={5000} dismissible>
+      <Toast
+        type="warning"
+        triggerText="Warning Toast"
+        duration={5000}
+        dismissible
+      >
+        Toast Content
+      </Toast>
+      <Toast type="error" triggerText="Error Toast" duration={5000} dismissible>
         Toast Content
       </Toast>
     </div>

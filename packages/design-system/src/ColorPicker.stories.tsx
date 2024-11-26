@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import ColorPicker from './ColorPicker'
 
 export const Default = () => {
@@ -10,6 +10,27 @@ export const Default = () => {
         setColor(newColor)
         alert('Color set to ' + newColor)
       }}
+      tooltip="This is a tooltip"
+      colorLabel="Color"
+      submitText="Save"
+    />
+  )
+}
+
+export const Label = () => {
+  const [color, setColor] = useState('#0028A5')
+  return (
+    <ColorPicker
+      color={color}
+      onSubmit={(newColor) => {
+        setColor(newColor)
+        alert('Color set to ' + newColor)
+      }}
+      label="Color Picker"
+      tooltip="This is a tooltip"
+      colorLabel="Color"
+      submitText="Save"
+      required
     />
   )
 }
@@ -25,7 +46,7 @@ export const Disabled = () => {
         alert('Color set to ' + newColor)
       }}
       submitText="Speichern"
-      abortText="Abbrechen"
+      colorLabel="Farbe"
     />
   )
 }
@@ -40,14 +61,38 @@ export const Position = () => {
         position prop allows to define different default positions. Others can
         be added using the className override.
       </div>
-      <ColorPicker
-        position="top"
-        color={color}
-        onSubmit={(newColor) => {
-          setColor(newColor)
-          alert('Color set to ' + newColor)
-        }}
-      />
+      <div className="flex flex-col gap-4">
+        <ColorPicker
+          position="top"
+          color={color}
+          onSubmit={(newColor) => {
+            setColor(newColor)
+            alert('Color set to ' + newColor)
+          }}
+          submitText="Save"
+          colorLabel="Color"
+        />
+        <ColorPicker
+          position="top-left"
+          color={color}
+          onSubmit={(newColor) => {
+            setColor(newColor)
+            alert('Color set to ' + newColor)
+          }}
+          submitText="Save"
+          colorLabel="Color"
+        />
+        <ColorPicker
+          position="bottom-left"
+          color={color}
+          onSubmit={(newColor) => {
+            setColor(newColor)
+            alert('Color set to ' + newColor)
+          }}
+          submitText="Save"
+          colorLabel="Color"
+        />
+      </div>
     </div>
   )
 }
@@ -62,6 +107,8 @@ export const Styled = () => {
         setColor(newColor)
         alert('Color set to ' + newColor)
       }}
+      submitText="Save"
+      colorLabel="Color"
       className={{
         root: 'bg-gray-100',
         trigger: 'bg-gray-200',
@@ -87,7 +134,7 @@ export const CustomText = () => {
         alert('Color set to ' + newColor)
       }}
       submitText="Custom Submit"
-      abortText="Custom Abort"
+      colorLabel="Custom Color Label"
     />
   )
 }

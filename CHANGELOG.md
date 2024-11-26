@@ -2,6 +2,545 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.35](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.34...v3.0.0-alpha.35) (2024-11-25)
+
+
+### Bug Fixes
+
+* **packages/design-system:** field can be undefined in TextareaField ([70db230](https://github.com/uzh-bf/design-system/commit/70db2304f1bd3ba7c8975142a053988552a0f692))
+
+## [3.0.0-alpha.34](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.33...v3.0.0-alpha.34) (2024-11-08)
+
+
+### Enhancements
+
+* **Workflow:** add error styling to workflow items ([26c629e](https://github.com/uzh-bf/design-system/commit/26c629e191ce0728601484ae0f1c9ce031539cd6))
+
+## [3.0.0-alpha.33](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.32...v3.0.0-alpha.33) (2024-11-08)
+
+
+### Bug Fixes
+
+* **Workflow:** ensure that resolved steps are rendered correctly in the presence of tooltip symbol ([0a6c520](https://github.com/uzh-bf/design-system/commit/0a6c5205a1552a8afc666dc9975d1e4cca742ab6))
+
+## [3.0.0-alpha.32](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.31...v3.0.0-alpha.32) (2024-10-10)
+
+
+### Enhancements
+
+* **Toast:** generalize interface to use arbitrary open attribute and on close function ([ace91f7](https://github.com/uzh-bf/design-system/commit/ace91f7fec0561e7b6868b0a5975c4468892897d))
+
+## [3.0.0-alpha.31](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.30...v3.0.0-alpha.31) (2024-10-05)
+
+
+### Features
+
+* introduce new select field based on shadcn implementation with custom interfaces ([#134](https://github.com/uzh-bf/design-system/issues/134)) ([808b052](https://github.com/uzh-bf/design-system/commit/808b052e1f0806c8aa9ca48416fb9e40f0ee22bd))
+
+## [3.0.0-alpha.30](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.29...v3.0.0-alpha.30) (2024-10-04)
+
+
+### Other
+
+* **Modal:** improve styling of content component to adapt dynamically to content height ([8046f16](https://github.com/uzh-bf/design-system/commit/8046f16af44d4f9464f95fa7eae9b584180e4bd8))
+
+## [3.0.0-alpha.29](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.28...v3.0.0-alpha.29) (2024-09-09)
+
+
+### Other
+
+* add maximum width to tooltips of form components and errors ([#133](https://github.com/uzh-bf/design-system/issues/133)) ([8ff9e7b](https://github.com/uzh-bf/design-system/commit/8ff9e7bb03d8291272a625f8250f5809788c2d9b))
+
+## [3.0.0-alpha.28](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.27...v3.0.0-alpha.28) (2024-09-09)
+
+
+### Enhancements
+
+* **Switch:** show lock on switch thumb component when disabled ([0f779c4](https://github.com/uzh-bf/design-system/commit/0f779c49108bdf192bbb991a6439e172ed3701a0))
+
+## [3.0.0-alpha.27](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.26...v3.0.0-alpha.27) (2024-09-04)
+
+
+### Enhancements
+
+* **Toast:** hide dismissible button on toast and show with group hover ([#132](https://github.com/uzh-bf/design-system/issues/132)) ([4888814](https://github.com/uzh-bf/design-system/commit/4888814a49233a924fd3a6cb8a3833298aad234d))
+
+## [3.0.0-alpha.26](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.25...v3.0.0-alpha.26) (2024-09-03)
+
+
+### Bug Fixes
+
+* add containerClassName on table ([438c0e2](https://github.com/uzh-bf/design-system/commit/438c0e2f7dedcb8d78cac7b687f481b0ae70d8cd))
+
+
+### Other
+
+* regenerate types ([2119e9c](https://github.com/uzh-bf/design-system/commit/2119e9c4ae8388050ec36ecffdafe683b59d0c8f))
+
+## [3.0.0-alpha.25](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.24...v3.0.0-alpha.25) (2024-08-31)
+
+
+### Bug Fixes
+
+* do not include preflight in style.css, upgrade turbo and pin latest pnpm ([59fc18f](https://github.com/uzh-bf/design-system/commit/59fc18f32b5039adecd39becf7435f696b92788e))
+
+## [3.0.0-alpha.24](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.23...v3.0.0-alpha.24) (2024-08-30)
+
+
+### Enhancements
+
+* **ColorPicker:** additional positions for color picker modal layout ([265a2b0](https://github.com/uzh-bf/design-system/commit/265a2b06806a3deccbf5523136b8e415b3e8d105))
+
+## [3.0.0-alpha.23](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.22...v3.0.0-alpha.23) (2024-08-29)
+
+
+### Enhancements
+
+* **ColorPicker:** include label and styling for color picker component and formik wrapper ([#130](https://github.com/uzh-bf/design-system/issues/130)) ([222e58b](https://github.com/uzh-bf/design-system/commit/222e58bbadcbe2e8a7dac6d781a664f077c02e54))
+
+## [3.0.0-alpha.22](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.21...v3.0.0-alpha.22) (2024-08-20)
+
+
+### Bug Fixes
+
+* **forms/TextareaField:** fix styling of input field ([15b6b30](https://github.com/uzh-bf/design-system/commit/15b6b30e67df73ce81e40a2b9768e07869154dc3))
+
+## [3.0.0-alpha.21](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.20...v3.0.0-alpha.21) (2024-08-16)
+
+
+### Bug Fixes
+
+* **forms/FormikDateChanger:** add missing export for date changer component ([2409764](https://github.com/uzh-bf/design-system/commit/24097647837ef7662ba07f56e8a902dcfb38a3f9))
+
+## [3.0.0-alpha.20](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.19...v3.0.0-alpha.20) (2024-08-16)
+
+
+### Refactors
+
+* replace old formik components through new versions ([#128](https://github.com/uzh-bf/design-system/issues/128)) ([6b8c390](https://github.com/uzh-bf/design-system/commit/6b8c390288bd4f2b1d41e8b01eff467e0b99fc6f))
+
+## [3.0.0-alpha.19](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.18...v3.0.0-alpha.19) (2024-08-16)
+
+
+### Bug Fixes
+
+* **Switch:** add tooltip styling for switch component ([8779313](https://github.com/uzh-bf/design-system/commit/8779313b0d84f2cb8018757969ca2f7d5c82bd27))
+
+
+### Other
+
+* add missing export for new formik color picker ([2c68f4b](https://github.com/uzh-bf/design-system/commit/2c68f4ba49b1326701ada9f8803c6ae4829d70df))
+
+## [3.0.0-alpha.18](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.17...v3.0.0-alpha.18) (2024-08-15)
+
+
+### Enhancements
+
+* **forms/NewFormikSwitchField:** add option for left positioning of switch label ([#127](https://github.com/uzh-bf/design-system/issues/127)) ([9ccf575](https://github.com/uzh-bf/design-system/commit/9ccf57585c59c4a81bd1be3222cf4a81d2c5ac0f))
+
+## [3.0.0-alpha.17](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.16...v3.0.0-alpha.17) (2024-08-15)
+
+
+### Refactors
+
+* define unified form labels for all new formik fields ([#126](https://github.com/uzh-bf/design-system/issues/126)) ([5c5b27e](https://github.com/uzh-bf/design-system/commit/5c5b27ed64811fcc4b6ca1815208208113121abc))
+
+## [3.0.0-alpha.16](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.15...v3.0.0-alpha.16) (2024-08-15)
+
+
+### Enhancements
+
+* ***TextField:** add icons to text fields with flexible functionality ([#125](https://github.com/uzh-bf/design-system/issues/125)) ([6b6511d](https://github.com/uzh-bf/design-system/commit/6b6511dd48ffaea5686c82ef4715bfbd4578c620))
+
+## [3.0.0-alpha.15](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.14...v3.0.0-alpha.15) (2024-08-15)
+
+
+### Bug Fixes
+
+* **design-system:** add primary and secondary colors and shadcn colors to constants file ([2234686](https://github.com/uzh-bf/design-system/commit/2234686a8db958c32bc358ec69d9f6005f9360c8))
+
+## [3.0.0-alpha.14](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.13...v3.0.0-alpha.14) (2024-08-13)
+
+
+### Bug Fixes
+
+* resolve typo in component name for formik number field ([9bba247](https://github.com/uzh-bf/design-system/commit/9bba247dace1ea97e3550069095f939db0771bac))
+
+## [3.0.0-alpha.13](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.12...v3.0.0-alpha.13) (2024-08-12)
+
+
+### Bug Fixes
+
+* **forms/NewFormikSelectField:** ensure that cursor does not show pointer over disabled elements ([a7dd924](https://github.com/uzh-bf/design-system/commit/a7dd924258f411fb66c732ebc55e8cef4ad59331))
+
+## [3.0.0-alpha.12](https://github.com/uzh-bf/design-system/compare/v2.14.0...v3.0.0-alpha.12) (2024-08-12)
+
+## [3.0.0-alpha.11](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.10...v3.0.0-alpha.11) (2024-08-09)
+
+
+### Bug Fixes
+
+* add formik to external deps ([0528ef0](https://github.com/uzh-bf/design-system/commit/0528ef09f0cd1934766703ac632b0f52e90398be))
+
+
+### Other
+
+* **release:** 3.0.0-alpha.11 ([b9b9d57](https://github.com/uzh-bf/design-system/commit/b9b9d57c5a59d45e402a8a5ea0245f5e4796bcd2))
+
+## [3.0.0-alpha.10](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.9...v3.0.0-alpha.10) (2024-08-09)
+
+
+### Build and CI
+
+* remove format check step ([d14b875](https://github.com/uzh-bf/design-system/commit/d14b8751b2ec25e28aa6004bc01f6bea68619c51))
+
+
+### Dependencies
+
+* update formik peer dep ([5c12e46](https://github.com/uzh-bf/design-system/commit/5c12e46b7c308f6a43dde8d983336c6097204bb9))
+* update peer deps ([8322a68](https://github.com/uzh-bf/design-system/commit/8322a6893799461feab5396957f56860eec0e806))
+
+
+### Other
+
+* **release:** 3.0.0-alpha.10 ([fdeef41](https://github.com/uzh-bf/design-system/commit/fdeef41eff9ff620da065ba8add401f522838316))
+
+## [3.0.0-alpha.9](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.8...v3.0.0-alpha.9) (2024-08-09)
+
+
+### Other
+
+* reformat and make formatting not fail build ([0c2ee82](https://github.com/uzh-bf/design-system/commit/0c2ee82a414269e480331e86ba0b47a2a8b2a521))
+* **release:** 3.0.0-alpha.9 ([5bb4ac3](https://github.com/uzh-bf/design-system/commit/5bb4ac3081f211a7b6603a1c23fdae1dac63b5f1))
+
+## [3.0.0-alpha.8](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.7...v3.0.0-alpha.8) (2024-08-09)
+
+
+### Bug Fixes
+
+* add removed tailwindcss radix plugin again ([2ec7b62](https://github.com/uzh-bf/design-system/commit/2ec7b62cfed1113c4bf5711861fb9ac89456c292))
+
+
+### Other
+
+* **release:** 3.0.0-alpha.8 ([4293c50](https://github.com/uzh-bf/design-system/commit/4293c50499946712b8707b12b45ed5419b0225fd))
+
+## [3.0.0-alpha.7](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.6...v3.0.0-alpha.7) (2024-08-09)
+
+
+### Bug Fixes
+
+* add constants to build ([19fcdcd](https://github.com/uzh-bf/design-system/commit/19fcdcde78644b79e3e81ec622119030149984e3))
+
+
+### Other
+
+* **release:** 3.0.0-alpha.7 ([c4e0e34](https://github.com/uzh-bf/design-system/commit/c4e0e340972cb4e6987efddaf574a7d2777a9509))
+
+## [3.0.0-alpha.6](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.5...v3.0.0-alpha.6) (2024-08-09)
+
+
+### Bug Fixes
+
+* ensure that css is also built ([4cd04e1](https://github.com/uzh-bf/design-system/commit/4cd04e1ae476b31cb20e9b59b6cff2439ccb3f70))
+
+
+### Other
+
+* **release:** 3.0.0-alpha.6 ([1774337](https://github.com/uzh-bf/design-system/commit/17743376b97fbb7798e4c979c0d05149c730218c))
+
+## [3.0.0-alpha.5](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.4...v3.0.0-alpha.5) (2024-08-09)
+
+
+### Other
+
+* do not format types/ dir ([9e43fb4](https://github.com/uzh-bf/design-system/commit/9e43fb4abf8aaf1d93df1266eeb52c00e34f6f2f))
+* **release:** 3.0.0-alpha.5 ([a948375](https://github.com/uzh-bf/design-system/commit/a948375aaa0d3b9a70e6975968624ae31167a350))
+
+## [3.0.0-alpha.4](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.3...v3.0.0-alpha.4) (2024-08-09)
+
+
+### Other
+
+* **release:** 3.0.0-alpha.4 ([24c8439](https://github.com/uzh-bf/design-system/commit/24c8439cdf36ff64f50fb8358520fabfd5b4a8e1))
+* rollup types and generate types directory ([caa3258](https://github.com/uzh-bf/design-system/commit/caa325826563028f41225455603c57afe4e78e74))
+
+## [3.0.0-alpha.3](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.2...v3.0.0-alpha.3) (2024-08-08)
+
+
+### Build and CI
+
+* ensure d.ts files are built ([54723ac](https://github.com/uzh-bf/design-system/commit/54723accb5dfe54fe35b30fbc3bffb5a6bee9815))
+
+
+### Other
+
+* fix versioning config ([8fc004f](https://github.com/uzh-bf/design-system/commit/8fc004ffbffd46621da3742ddcb70f8ae9e175f4))
+* **release:** 3.0.0-alpha.3 ([05d1f6d](https://github.com/uzh-bf/design-system/commit/05d1f6d4cf67248ce12a36189cff7a1b7bee94a4))
+
+## [3.0.0-alpha.2](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.1...v3.0.0-alpha.2) (2024-08-08)
+
+
+### Other
+
+* **release:** 3.0.0-alpha.2 ([9da67ae](https://github.com/uzh-bf/design-system/commit/9da67aeb8c690605035eb175e9ae7f86c0483c2c))
+
+## [3.0.0-alpha.1](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.0...v3.0.0-alpha.1) (2024-08-08)
+
+
+### Other
+
+* fix formatting ([17d8751](https://github.com/uzh-bf/design-system/commit/17d87511c625101e3aa6780c99e9ca6b379fe31a))
+* **release:** 3.0.0-alpha.1 ([cc342c5](https://github.com/uzh-bf/design-system/commit/cc342c53aadb1d1ea3c3b3632b06049bdeea6408))
+
+## [3.0.0-alpha.0](https://github.com/uzh-bf/design-system/compare/v2.13.3...v3.0.0-alpha.0) (2024-08-08)
+
+
+### Features
+
+* transform to monorepo and prepare for web components ([#75](https://github.com/uzh-bf/design-system/issues/75)) ([557b339](https://github.com/uzh-bf/design-system/commit/557b339e6e0e8da9f3a73aa05854a5c9f6b4b1e9))
+
+
+### Refactors
+
+* convert to PNPM ([#118](https://github.com/uzh-bf/design-system/issues/118)) ([80aa2b9](https://github.com/uzh-bf/design-system/commit/80aa2b923458f1af68080b2207c78c5f2bdfe9ab))
+
+
+### Enhancements
+
+* add shadcn accordion ([1d7cbc1](https://github.com/uzh-bf/design-system/commit/1d7cbc1f8455bd80d9453490f61e07fe9b4ed35a))
+* add shadcn components and initial set of stories ([#121](https://github.com/uzh-bf/design-system/issues/121)) ([f84f0f0](https://github.com/uzh-bf/design-system/commit/f84f0f0a169d0e6f5608de6b8a76d991a6100ed9))
+* migrate design-system package to vite bundler and integrate shadcn ([#76](https://github.com/uzh-bf/design-system/issues/76)) ([81e0dd6](https://github.com/uzh-bf/design-system/commit/81e0dd64b1a69ea34febc86fefedc1b0123c4162)), closes [#119](https://github.com/uzh-bf/design-system/issues/119)
+
+
+### Build and CI
+
+* make build independent of lint step ([02c3a21](https://github.com/uzh-bf/design-system/commit/02c3a214543f8c9c31bb972b72dca49f61669c05))
+* update publish workflow to publish design system build ([6486aa7](https://github.com/uzh-bf/design-system/commit/6486aa75292e73d7043b3e31a3ca7f186357b950))
+* update ts build configuration for .d.ts generation ([#122](https://github.com/uzh-bf/design-system/issues/122)) ([a856592](https://github.com/uzh-bf/design-system/commit/a8565928915ffeebf895c8f2b4d3dfc5f8f8b38b))
+
+
+### Other
+
+* extend versionrc ([da2e3b9](https://github.com/uzh-bf/design-system/commit/da2e3b9f42adc72dfa302428d3d995924069a008))
+* **release:** 3.0.0-alpha.0 ([872ccdc](https://github.com/uzh-bf/design-system/commit/872ccdc641f332d926108fc2c05a8021a54858dd))
+
+## [2.14.0](https://github.com/uzh-bf/design-system/compare/v2.13.3...v2.14.0) (2024-08-12)
+
+
+### Other
+
+* **forms/NewFormikDateField:** add option to set field touched directly on change ([bb4072c](https://github.com/uzh-bf/design-system/commit/bb4072c2733c1d8a701a0968d572d9ae14f7fdf9))
+
+
+
+## [3.0.0-alpha.11](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.10...v3.0.0-alpha.11) (2024-08-09)
+
+
+### Bug Fixes
+
+* add formik to external deps ([0528ef0](https://github.com/uzh-bf/design-system/commit/0528ef09f0cd1934766703ac632b0f52e90398be))
+
+## [3.0.0-alpha.10](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.9...v3.0.0-alpha.10) (2024-08-09)
+
+
+### Build and CI
+
+* remove format check step ([d14b875](https://github.com/uzh-bf/design-system/commit/d14b8751b2ec25e28aa6004bc01f6bea68619c51))
+
+
+### Dependencies
+
+* update formik peer dep ([5c12e46](https://github.com/uzh-bf/design-system/commit/5c12e46b7c308f6a43dde8d983336c6097204bb9))
+* update peer deps ([8322a68](https://github.com/uzh-bf/design-system/commit/8322a6893799461feab5396957f56860eec0e806))
+
+## [3.0.0-alpha.9](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.8...v3.0.0-alpha.9) (2024-08-09)
+
+
+### Other
+
+* reformat and make formatting not fail build ([0c2ee82](https://github.com/uzh-bf/design-system/commit/0c2ee82a414269e480331e86ba0b47a2a8b2a521))
+
+## [3.0.0-alpha.8](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.7...v3.0.0-alpha.8) (2024-08-09)
+
+
+### Bug Fixes
+
+* add removed tailwindcss radix plugin again ([2ec7b62](https://github.com/uzh-bf/design-system/commit/2ec7b62cfed1113c4bf5711861fb9ac89456c292))
+
+## [3.0.0-alpha.7](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.6...v3.0.0-alpha.7) (2024-08-09)
+
+
+### Bug Fixes
+
+* add constants to build ([19fcdcd](https://github.com/uzh-bf/design-system/commit/19fcdcde78644b79e3e81ec622119030149984e3))
+
+## [3.0.0-alpha.6](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.5...v3.0.0-alpha.6) (2024-08-09)
+
+
+### Bug Fixes
+
+* ensure that css is also built ([4cd04e1](https://github.com/uzh-bf/design-system/commit/4cd04e1ae476b31cb20e9b59b6cff2439ccb3f70))
+
+## [3.0.0-alpha.5](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.4...v3.0.0-alpha.5) (2024-08-09)
+
+
+### Other
+
+* do not format types/ dir ([9e43fb4](https://github.com/uzh-bf/design-system/commit/9e43fb4abf8aaf1d93df1266eeb52c00e34f6f2f))
+
+## [3.0.0-alpha.4](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.3...v3.0.0-alpha.4) (2024-08-09)
+
+
+### Other
+
+* rollup types and generate types directory ([caa3258](https://github.com/uzh-bf/design-system/commit/caa325826563028f41225455603c57afe4e78e74))
+
+## [3.0.0-alpha.3](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.2...v3.0.0-alpha.3) (2024-08-08)
+
+
+### Other
+
+* fix versioning config ([8fc004f](https://github.com/uzh-bf/design-system/commit/8fc004ffbffd46621da3742ddcb70f8ae9e175f4))
+
+
+### Build and CI
+
+* ensure d.ts files are built ([54723ac](https://github.com/uzh-bf/design-system/commit/54723accb5dfe54fe35b30fbc3bffb5a6bee9815))
+
+## [3.0.0-alpha.2](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.1...v3.0.0-alpha.2) (2024-08-08)
+
+## [3.0.0-alpha.1](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.0...v3.0.0-alpha.1) (2024-08-08)
+
+
+### Other
+
+* fix formatting ([17d8751](https://github.com/uzh-bf/design-system/commit/17d87511c625101e3aa6780c99e9ca6b379fe31a))
+
+## [3.0.0-alpha.0](https://github.com/uzh-bf/design-system/compare/v2.13.3...v3.0.0-alpha.0) (2024-08-08)
+
+### Features
+
+* transform to monorepo and prepare for web components ([#75](https://github.com/uzh-bf/design-system/issues/75)) ([557b339](https://github.com/uzh-bf/design-system/commit/557b339e6e0e8da9f3a73aa05854a5c9f6b4b1e9))
+
+
+### Refactors
+
+* convert to PNPM ([#118](https://github.com/uzh-bf/design-system/issues/118)) ([80aa2b9](https://github.com/uzh-bf/design-system/commit/80aa2b923458f1af68080b2207c78c5f2bdfe9ab))
+
+
+### Enhancements
+
+* add shadcn accordion ([1d7cbc1](https://github.com/uzh-bf/design-system/commit/1d7cbc1f8455bd80d9453490f61e07fe9b4ed35a))
+* add shadcn components and initial set of stories ([#121](https://github.com/uzh-bf/design-system/issues/121)) ([f84f0f0](https://github.com/uzh-bf/design-system/commit/f84f0f0a169d0e6f5608de6b8a76d991a6100ed9))
+* migrate design-system package to vite bundler and integrate shadcn ([#76](https://github.com/uzh-bf/design-system/issues/76)) ([81e0dd6](https://github.com/uzh-bf/design-system/commit/81e0dd64b1a69ea34febc86fefedc1b0123c4162)), closes [#119](https://github.com/uzh-bf/design-system/issues/119)
+
+
+### Build and CI
+
+* make build independent of lint step ([02c3a21](https://github.com/uzh-bf/design-system/commit/02c3a214543f8c9c31bb972b72dca49f61669c05))
+* update publish workflow to publish design system build ([6486aa7](https://github.com/uzh-bf/design-system/commit/6486aa75292e73d7043b3e31a3ca7f186357b950))
+* update ts build configuration for .d.ts generation ([#122](https://github.com/uzh-bf/design-system/issues/122)) ([a856592](https://github.com/uzh-bf/design-system/commit/a8565928915ffeebf895c8f2b4d3dfc5f8f8b38b))
+
+
+### Other
+
+* extend versionrc ([da2e3b9](https://github.com/uzh-bf/design-system/commit/da2e3b9f42adc72dfa302428d3d995924069a008))
+
+## [2.13.3](https://github.com/uzh-bf/design-system/compare/v2.13.2...v2.13.3) (2024-07-22)
+
+
+### Bug Fixes
+
+* ensure that text color of input fields and placeholders is different ([d4b6fbb](https://github.com/uzh-bf/design-system/commit/d4b6fbb24eb629498f16622673ce728065bc3566))
+* **forms/NewFormikNumberField:** ensure that default label is small for number field ([b7577d6](https://github.com/uzh-bf/design-system/commit/b7577d619be7da750f11de6cc8a030267778dc87))
+
+## [2.13.2](https://github.com/uzh-bf/design-system/compare/v2.13.1...v2.13.2) (2024-07-21)
+
+
+### Bug Fixes
+
+* **forms/NewFormikDateField:** fix styling of label for formik date field and color picker ([ff80ac1](https://github.com/uzh-bf/design-system/commit/ff80ac1c1e89f126ade8e780ee4feee28ca8c952))
+
+## [2.13.1](https://github.com/uzh-bf/design-system/compare/v2.13.0...v2.13.1) (2024-07-19)
+
+
+### Bug Fixes
+
+* ensure that input field components are full width by default ([#114](https://github.com/uzh-bf/design-system/issues/114)) ([95dc393](https://github.com/uzh-bf/design-system/commit/95dc393a91b0cf9e47e3cae8b9b5b156d3634b0a))
+
+## [2.13.0](https://github.com/uzh-bf/design-system/compare/v2.12.0...v2.13.0) (2024-07-18)
+
+
+### Features
+
+* **forms/DateChanger:** implement date changer components with unified errors and labelling ([#111](https://github.com/uzh-bf/design-system/issues/111)) ([6b82fe0](https://github.com/uzh-bf/design-system/commit/6b82fe0021a86780410bc5a2497798f01403e273))
+* **forms/FormikColorPicker:** generalize color picker and standardize styling with error and labels ([#113](https://github.com/uzh-bf/design-system/issues/113)) ([8cef39d](https://github.com/uzh-bf/design-system/commit/8cef39d4a7aa9bfc408af652504e1502656c7310))
+
+
+### Bug Fixes
+
+* **ColorPicker:** remove hardcoded text label ([5e47ebf](https://github.com/uzh-bf/design-system/commit/5e47ebf392b9dd33666386207d3ec5a919ddabc4))
+
+## [2.12.0](https://github.com/uzh-bf/design-system/compare/v2.11.0...v2.12.0) (2024-07-18)
+
+
+### Features
+
+* **forms/FormikDateField:** add new formik date field with consistent styling and error messages ([#110](https://github.com/uzh-bf/design-system/issues/110)) ([d330a3f](https://github.com/uzh-bf/design-system/commit/d330a3f122e1ebd065f9acd3f470bbc110d1724c))
+* **forms/FormikNumberField:** introduce new formik number field with unified errors and styling ([#109](https://github.com/uzh-bf/design-system/issues/109)) ([e70da1c](https://github.com/uzh-bf/design-system/commit/e70da1c61a0b556be56fe5acec9a9bb78838a6af))
+* **forms/FormikPinField:** introduce new formik pin field component with unified errors and labelling ([#107](https://github.com/uzh-bf/design-system/issues/107)) ([8fded95](https://github.com/uzh-bf/design-system/commit/8fded9504775e735dc017090cf3b09551c3ca952))
+
+## [2.11.0](https://github.com/uzh-bf/design-system/compare/v2.10.0...v2.11.0) (2024-07-17)
+
+
+### Features
+
+* **forms/Select*:** extend all select fields to support groups ([#105](https://github.com/uzh-bf/design-system/issues/105)) ([5a92307](https://github.com/uzh-bf/design-system/commit/5a923072db81c58ebbe9c5cd9e959871ee81d25e))
+
+## [2.10.0](https://github.com/uzh-bf/design-system/compare/v2.9.0...v2.10.0) (2024-07-17)
+
+
+### Features
+
+* **formst/SelectField:** add new select field component with corresponding formik wrapper component ([#104](https://github.com/uzh-bf/design-system/issues/104)) ([ac74e58](https://github.com/uzh-bf/design-system/commit/ac74e586e9dc199f7ee1d5600eb532be172b4175))
+* **Switch:** introduce enhanced switch and new formik switch field components ([#102](https://github.com/uzh-bf/design-system/issues/102)) ([426b78d](https://github.com/uzh-bf/design-system/commit/426b78da4086c9adbb8d773f7797554a896f9fa6))
+
+
+### Bug Fixes
+
+* remove ineffective styles across different components ([5520b16](https://github.com/uzh-bf/design-system/commit/5520b16f45ec82379b1e6d77fdfdc18fbfc1e283))
+
+## [2.9.0](https://github.com/uzh-bf/design-system/compare/v2.8.1...v2.9.0) (2024-07-17)
+
+
+### Features
+
+* **forms/NewFormikTextField:** add simplified formik text field with enhanced error illustration ([#99](https://github.com/uzh-bf/design-system/issues/99)) ([56f95a4](https://github.com/uzh-bf/design-system/commit/56f95a4e525b1c014adbddc193c18ae60016b242))
+* **forms/TextareaField:** add new textarea field and corresponding formik component ([#101](https://github.com/uzh-bf/design-system/issues/101)) ([a3e7192](https://github.com/uzh-bf/design-system/commit/a3e7192e58c1fe131a89fe9ed4764fef7f1ecaf1))
+
+## [2.8.1](https://github.com/uzh-bf/design-system/compare/v2.8.0...v2.8.1) (2024-07-16)
+
+
+### Bug Fixes
+
+* **Tooltip:** ensure that tooltip also accepts zero delay ([6ab8a6d](https://github.com/uzh-bf/design-system/commit/6ab8a6dbec8b2734ac85eebce45da8e76bd68f78))
+
+## [2.8.0](https://github.com/uzh-bf/design-system/compare/v2.7.1...v2.8.0) (2024-07-15)
+
+
+### Features
+
+* ensure that hover styles are not applied on mobile devices ([e9573dc](https://github.com/uzh-bf/design-system/commit/e9573dcacc51f9319d7d13d7d85cba90e9e46330))
+
+## [2.7.1](https://github.com/uzh-bf/design-system/compare/v2.7.0...v2.7.1) (2024-07-15)
+
+
+### Bug Fixes
+
+* **forms/FormikNumberField:** add missing example for number field validation ([fd9d457](https://github.com/uzh-bf/design-system/commit/fd9d457ed4e83f5e576c4acf8b3b796ec38be019))
+* **Switch:** pass disabled prop correctly to radix switch component ([714742f](https://github.com/uzh-bf/design-system/commit/714742f1e99a5be4cc6fb685ea79f9cb16897227))
+
 ## [2.7.0](https://github.com/uzh-bf/design-system/compare/v2.6.0...v2.7.0) (2024-05-16)
 
 

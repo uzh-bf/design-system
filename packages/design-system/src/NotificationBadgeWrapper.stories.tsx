@@ -1,4 +1,3 @@
-import React from 'react'
 import NotificationBadgeWrapper from './NotificationBadgeWrapper'
 
 export const Default = () => {

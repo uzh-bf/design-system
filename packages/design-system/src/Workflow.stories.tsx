@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import Workflow from './Workflow'
 
 const itemsDescriptions = [
@@ -231,11 +231,13 @@ export function Progress() {
     {
       title: 'Step 1',
       progress: 1,
+      tooltip: 'This is the first step',
     },
     {
       title: 'Step 2',
       progress: 1,
       completed: true,
+      tooltip: 'This is the second step',
     },
     {
       title: 'Step 3',
@@ -247,8 +249,34 @@ export function Progress() {
     },
   ])
 
+  const [activeIx, setActiveIx] = useState(2)
+  const errorItems = [
+    {
+      title: 'Step 1',
+      tooltip: 'This is the first step',
+      completed: true,
+      error: false,
+    },
+    {
+      title: 'Step 2',
+      tooltip: 'This is the second step',
+      completed: true,
+      error: true,
+    },
+    {
+      title: 'Step 3',
+      completed: false,
+      error: true,
+    },
+    {
+      title: 'Step 4',
+      completed: false,
+      error: false,
+    },
+  ]
+
   return (
-    <div className="w-full">
+    <div className="flex w-full flex-col gap-3">
       <div>
         An enhanced version of the workflow component also allows to display the
         progress of a certain step on the corresponding button. If it is
@@ -271,6 +299,40 @@ export function Progress() {
               return newItems
             })
           }
+        }}
+      />
+      <Workflow
+        showTooltipSymbols
+        items={itemsProgress}
+        onClick={(item, ix) => {
+          if (item.progress !== 1) {
+            setItemsProgress((prev) => {
+              const newItems = [...prev]
+              newItems[ix].progress += 0.1
+              if (newItems[ix].progress >= 0.999) {
+                newItems[ix].progress = 1
+                newItems[ix].completed = true
+              }
+              return newItems
+            })
+          }
+        }}
+      />
+      <Workflow
+        showTooltipSymbols
+        items={errorItems}
+        activeIx={activeIx}
+        onClick={(_, ix) => {
+          setActiveIx(ix)
+        }}
+      />
+      <Workflow
+        minimal
+        showTooltipSymbols
+        items={errorItems}
+        activeIx={activeIx}
+        onClick={(_, ix) => {
+          setActiveIx(ix)
         }}
       />
     </div>

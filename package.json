@@ -1,36 +1,52 @@
 {
   "private": true,
   "name": "@uzh-bf/design-system-monorepo",
-  "version": "2.7.0",
+  "version": "3.0.0-alpha.35",
+  "repository": "uzh-bf/design-system.git",
   "license": "MIT",
-  "repository": {
-    "url": "https://github.com/uzh-bf/design-system.git"
-  },
   "maintainers": [
-    "Roland Schlaefli <roland.schlaefli@bf.uzh.ch>",
-    "Julius Schlapbach <julius.schlapbach@bf.uzh.ch>",
-    "Maximilian Weber <maximilian.weber@bf.uzh.ch>"
+    "Roland Schlaefli <roland.schlaefli@df.uzh.ch>",
+    "Julius Schlapbach <julius.schlapbach@df.uzh.ch>"
   ],
   "contributors": [
-    "Florina Vogel <florina.vogel@bf.uzh.ch>",
-    "Bulin Shaqiri <bulin.shaqiri@bf.uzh.ch>"
+    "Florina Vogel <florina.vogel@df.uzh.ch>",
+    "Bulin Shaqiri <bulin.shaqiri@df.uzh.ch>",
+    "Maximilian Weber <maximilian.weber@df.uzh.ch>",
+    "Liine Kasak <liine.kasak@df.uzh.ch>",
+    "Jakob Jakob <jakob.jakob@df.uzh.ch>"
   ],
-  "workspaces": [
-    "packages/*"
-  ],
-  "volta": {
-    "node": "18.16.0"
+  "devDependencies": {
+    "@parcel/packager-ts": "2.12.0",
+    "@parcel/transformer-inline-string": "2.12.0",
+    "@parcel/transformer-typescript-types": "2.12.0",
+    "@size-limit/preset-big-lib": "11.1.4",
+    "prettier": "2.8.1",
+    "size-limit": "7.0.8",
+    "standard-version": "9.5.0",
+    "syncpack": "12.4.0",
+    "turbo": "2.1.1",
+    "typescript": "5.1.6"
   },
   "scripts": {
-    "dev": "npm run -w packages/design-system dev",
-    "lint": "turbo run lint",
-    "test": "turbo run test",
     "build": "turbo run build",
     "check": "turbo run check",
+    "dev": "npm run -w packages/design-system dev",
     "format": "turbo run format",
-    "format:check": "turbo run format:check"
+    "format:check": "turbo run format:check",
+    "lint": "turbo run lint",
+    "release": "standard-version",
+    "release:dry": "standard-version --dry-run",
+    "release:alpha": "standard-version --prerelease alpha",
+    "release:alpha:dry": "standard-version --dry-run --prerelease alpha",
+    "syncpack": "syncpack",
+    "test": "turbo run test"
   },
-  "devDependencies": {
-    "turbo": "1.11.3"
-  }
+  "volta": {
+    "node": "20.17.0",
+    "pnpm": "9.9.0"
+  },
+  "packageManager": "pnpm@9.7.0",
+  "workspaces": [
+    "packages/*"
+  ]
 }

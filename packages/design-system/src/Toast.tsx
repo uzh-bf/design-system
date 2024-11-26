@@ -7,7 +7,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as RadixToast from '@radix-ui/react-toast'
 import * as React from 'react'
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import Button from './Button'
 
@@ -21,12 +21,10 @@ interface ToastProps {
   actionOnClick?: () => void
   position?: string
   openExternal?: boolean
-  setOpenExternal?: (open: boolean) => void
+  onCloseExternal?: () => void
   type?: 'default' | 'success' | 'warning' | 'error'
   children?: React.ReactNode
   className?: {
-    override?: string
-    viewportOverride?: string
     root?: string
     viewport?: string
     trigger?: string
@@ -52,23 +50,23 @@ interface ToastPropsWithChildren extends ToastProps {
 export interface ToastPropsWithTitleTrigger extends ToastPropsWithTitle {
   triggerText: string
   openExternal?: never
-  setOpenExternal?: never
+  onCloseExternal?: never
 }
 export interface ToastPropsWithTitleNoTrigger extends ToastPropsWithTitle {
   triggerText?: never
   openExternal: boolean
-  setOpenExternal: (open: boolean) => void
+  onCloseExternal: () => void
 }
 export interface ToastPropsWithChildrenTrigger extends ToastPropsWithChildren {
   triggerText: string
   openExternal?: never
-  setOpenExternal?: never
+  onCloseExternal?: never
 }
 export interface ToastPropsWithChildrenNoTrigger
   extends ToastPropsWithChildren {
   triggerText?: never
   openExternal: boolean
-  setOpenExternal: (open: boolean) => void
+  onCloseExternal: () => void
 }
 
 export function Toast({
@@ -81,7 +79,7 @@ export function Toast({
   actionOnClick,
   position = 'topRight',
   openExternal,
-  setOpenExternal,
+  onCloseExternal,
   type = 'default',
   children,
   className,
@@ -91,7 +89,6 @@ export function Toast({
   | ToastPropsWithChildrenTrigger
   | ToastPropsWithChildrenNoTrigger): React.ReactElement {
   const [open, setOpen] = useState(false)
-  const eventDateRef = useRef(new Date())
   const timerRef = useRef(0)
   const defaultDuration = dismissible ? 60000 : 4000
 
@@ -102,19 +99,14 @@ export function Toast({
     bottomLeft: 'bottom-0 left-0',
   }
 
-  useEffect(() => {
-    return () => clearTimeout(timerRef.current)
-  }, [])
-
   return (
     <RadixToast.Provider swipeDirection="right">
-      {!openExternal && !setOpenExternal && (
+      {!openExternal && !onCloseExternal ? (
         <Button
           onClick={() => {
             setOpen(false)
             window.clearTimeout(timerRef.current)
             timerRef.current = window.setTimeout(() => {
-              eventDateRef.current = new Date('2020-01-01T00:00:00')
               setOpen(true)
             }, 100)
           }}
@@ -122,28 +114,25 @@ export function Toast({
         >
           {triggerText}
         </Button>
-      )}
+      ) : null}
 
       <RadixToast.Root
         className={twMerge(
-          className?.override,
-          'border-md grid items-center gap-x-4 rounded-md bg-white p-3 shadow-md',
+          'border-md group grid items-center gap-x-4 rounded-md bg-white p-3 shadow-md',
           type === 'success' && 'border-2 border-solid border-green-500',
           type === 'warning' && 'border-2 border-solid border-orange-500',
           type === 'error' && 'border-2 border-solid border-red-500',
           className?.root
         )}
         open={openExternal || open}
-        onOpenChange={setOpenExternal || setOpen}
+        onOpenChange={onCloseExternal || setOpen}
         duration={duration || defaultDuration}
       >
         {dismissible && (
           <Button
-            className={{ root: 'fixed right-6 top-4' }}
+            className={{ root: 'fixed right-6 top-4 hidden group-hover:block' }}
             basic
-            onClick={() =>
-              setOpenExternal ? setOpenExternal(false) : setOpen(false)
-            }
+            onClick={() => onCloseExternal?.() ?? setOpen(false)}
           >
             <Button.Icon>
               <FontAwesomeIcon
@@ -210,7 +199,6 @@ export function Toast({
       </RadixToast.Root>
       <RadixToast.Viewport
         className={twMerge(
-          className?.viewportOverride,
           'fixed right-0 top-0 z-[1000] m-0 flex min-w-[20rem] max-w-3xl list-none flex-col gap-2 p-3 outline-none',
           positionDict[position || 'topRight'],
           className?.viewport

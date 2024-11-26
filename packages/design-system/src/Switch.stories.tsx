@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import Switch from './Switch'
 
 export const Default = () => {
@@ -6,7 +6,55 @@ export const Default = () => {
   return (
     <Switch
       checked={isChecked}
-      label="Unchecked"
+      label={isChecked ? 'Checked' : 'Unchecked'}
+      onCheckedChange={(newValue) => setIsChecked(newValue)}
+    />
+  )
+}
+
+export const Required = () => {
+  const [isChecked, setIsChecked] = useState(false)
+  return (
+    <Switch
+      required
+      checked={isChecked}
+      label={isChecked ? 'Checked' : 'Unchecked'}
+      onCheckedChange={(newValue) => setIsChecked(newValue)}
+    />
+  )
+}
+
+export const Tooltip = () => {
+  const [isChecked, setIsChecked] = useState(false)
+  return (
+    <>
+      <Switch
+        required
+        checked={isChecked}
+        label={isChecked ? 'Checked' : 'Unchecked'}
+        tooltip="This is a tooltip"
+        onCheckedChange={(newValue) => setIsChecked(newValue)}
+      />
+      <Switch
+        required
+        checked={isChecked}
+        label={isChecked ? 'Checked' : 'Unchecked'}
+        tooltip="This is a tooltip"
+        error="Error message"
+        onCheckedChange={(newValue) => setIsChecked(newValue)}
+      />
+    </>
+  )
+}
+
+export const Error = () => {
+  const [isChecked, setIsChecked] = useState(false)
+  return (
+    <Switch
+      required
+      error={isChecked ? undefined : 'This field is required'}
+      checked={isChecked}
+      label={isChecked ? 'Checked' : 'Unchecked'}
       onCheckedChange={(newValue) => setIsChecked(newValue)}
     />
   )
@@ -18,7 +66,13 @@ export const Undefined = () => {
   return (
     <Switch
       checked={isChecked}
-      label="Unchecked"
+      label={
+        typeof isChecked === 'undefined'
+          ? 'Undefined'
+          : isChecked
+            ? 'Checked'
+            : 'Unchecked'
+      }
       onCheckedChange={(newValue) => setIsChecked(newValue)}
     />
   )
@@ -30,7 +84,7 @@ export const Disabled = () => {
     <Switch
       disabled
       checked={isChecked}
-      label="Unchecked"
+      label={isChecked ? 'Checked' : 'Unchecked'}
       onCheckedChange={(newValue) => setIsChecked(newValue)}
     />
   )
@@ -42,7 +96,7 @@ export const DisabledActive = () => {
     <Switch
       disabled
       checked={isChecked}
-      label="Unchecked"
+      label={isChecked ? 'Checked' : 'Unchecked'}
       onCheckedChange={(newValue) => setIsChecked(newValue)}
     />
   )
@@ -70,8 +124,34 @@ export const Sizes = () => {
           onCheckedChange={(newValue) => setIsChecked2(newValue)}
         />
       </div>
+      <div className="mb-3">
+        <Switch
+          checked={isChecked3}
+          size="sm"
+          label="Small switch"
+          onCheckedChange={(newValue) => setIsChecked3(newValue)}
+        />
+      </div>
+      <div className="mb-3">
+        <Switch
+          disabled
+          checked={isChecked1}
+          label="Standard switch"
+          onCheckedChange={(newValue) => setIsChecked1(newValue)}
+        />
+      </div>
+      <div className="mb-3">
+        <Switch
+          disabled
+          checked={isChecked2}
+          size="lg"
+          label="Large switch"
+          onCheckedChange={(newValue) => setIsChecked2(newValue)}
+        />
+      </div>
       <div>
         <Switch
+          disabled
           checked={isChecked3}
           size="sm"
           label="Small switch"

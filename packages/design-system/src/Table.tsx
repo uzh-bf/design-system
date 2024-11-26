@@ -69,7 +69,7 @@ export interface TableProps<RowType extends BaseRowType> {
  * @returns Table component
  */
 export function Table<
-  RowType extends Record<string, string | number | boolean>
+  RowType extends Record<string, string | number | boolean>,
 >({
   id,
   dataAttributes,

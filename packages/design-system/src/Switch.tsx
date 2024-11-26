@@ -1,15 +1,17 @@
+import { faCircleExclamation, faLock } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as RadixSwitch from '@radix-ui/react-switch'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
-import Label from './forms/Label'
+import FormLabel from './FormLabel'
+import { Tooltip } from './Tooltip'
 
 export interface SwitchClassName {
-  override?: string
-  thumbOverride?: string
   root?: string
   element?: string
   thumb?: string
   label?: string
+  tooltip?: string
 }
 
 export interface SwitchProps {
@@ -23,7 +25,11 @@ export interface SwitchProps {
   onBlur?: () => void
   disabled?: boolean
   label?: string
+  tooltip?: string | React.ReactNode
   fluid?: boolean
+  error?: string
+  hideError?: boolean
+  required?: boolean
   labelLeft?: boolean
   size?: 'sm' | 'md' | 'lg'
   className?: SwitchClassName
@@ -36,11 +42,15 @@ export interface SwitchProps {
  * @param id - The id of the switch.
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param label - The label that is displayed next to the switch.
+ * @param tooltip - The tooltip that is displayed when hovering over the label.
  * @param checked - Indicator whether the switch is checked or not (or indefinite if undefined value). State is managed by the parent component.
  * @param onCheckedChange - The function that is called when the switch is checked or unchecked. The new value is passed as a parameter.
  * @param onBlur - The function that is called when the switch loses focus.
  * @param disabled - Indicator whether the switch is disabled or not.
  * @param fluid - Indicator whether the switch should be fluid or not.
+ * @param error - The error message that is shown next the switch.
+ * @param hideError - Indicator whether the error message should be hidden or not.
+ * @param required - Indicator whether the switch is required or not.
  * @param labelLeft - Indicator whether the label should be displayed on the left or right side of the switch.
  * @param size - The size of the switch. The size can be small, medium or large.
  * @param className - The optional className object allows you to override the default styling.
@@ -51,10 +61,14 @@ export function Switch({
   data,
   disabled = false,
   label,
+  tooltip,
   checked,
   onCheckedChange,
   onBlur,
   fluid = false,
+  error,
+  hideError = false,
+  required = false,
   labelLeft = false,
   size = 'md',
   className,
@@ -89,7 +103,16 @@ export function Switch({
       )}
     >
       {labelLeft && label && (
-        <Label className={{ root: className?.label }} label={label} />
+        <FormLabel
+          className={{
+            label: twMerge('mr-0', className?.label),
+            tooltip: className?.tooltip,
+          }}
+          label={label}
+          labelType="large"
+          required={required}
+          tooltip={tooltip}
+        />
       )}
       <RadixSwitch.Root
         id={id}
@@ -97,31 +120,54 @@ export function Switch({
         data-test={data?.test}
         checked={checked}
         className={twMerge(
-          className?.override,
           'relative rounded-full border-0 bg-uzh-grey-80',
           disabled && 'cursor-not-allowed bg-uzh-grey-40',
           checked && 'bg-primary-60',
           checked && disabled && 'bg-primary-20',
+          !!error && !hideError && 'outline outline-2 outline-red-600',
           rootSize[size || 'md'],
+          labelLeft && 'mr-2',
           className?.element
         )}
         onCheckedChange={!disabled ? onCheckedChange : () => null}
         onClick={() => (onBlur ? onBlur() : null)}
+        disabled={disabled}
       >
         <RadixSwitch.Thumb
           className={twMerge(
-            className?.thumbOverride,
-            'block rounded-full bg-white transition-transform',
+            'flex items-center justify-center rounded-full bg-white transition-transform',
             typeof checked === 'undefined' &&
               transitionSizeUndefined[size || 'md'],
             checked === true && transitionSize[size || 'md'],
             thumbSize[size || 'md'],
             className?.thumb
           )}
-        />
+        >
+          {disabled && (
+            <FontAwesomeIcon icon={faLock} className="h-3 w-3 text-gray-400" />
+          )}
+        </RadixSwitch.Thumb>
       </RadixSwitch.Root>
       {!labelLeft && label && (
-        <Label className={{ root: className?.label }} label={label} />
+        <FormLabel
+          className={{ label: className?.label, tooltip: className?.tooltip }}
+          label={label}
+          labelType="large"
+          required={required}
+          tooltip={tooltip}
+        />
+      )}
+      {error && !hideError && (
+        <Tooltip
+          tooltip={error}
+          delay={0}
+          className={{ tooltip: 'max-w-[30rem] text-sm' }}
+        >
+          <FontAwesomeIcon
+            icon={faCircleExclamation}
+            className="-mx-2 text-red-600"
+          />
+        </Tooltip>
       )}
     </div>
   )

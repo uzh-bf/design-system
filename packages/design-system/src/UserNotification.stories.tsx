@@ -1,4 +1,3 @@
-import React from 'react'
 import UserNotification from './UserNotification'
 
 export const Default = () => {

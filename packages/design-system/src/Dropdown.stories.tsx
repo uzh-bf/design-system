@@ -1,6 +1,6 @@
 import { faFilter, faList } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 import Checkbox from './Checkbox'
@@ -159,7 +159,7 @@ export const CustomLabel = () => {
         trigger={
           <div
             className={twMerge(
-              'flex flex-row items-center gap-2 rounded-md border border-solid border-uzh-grey-60 p-2 shadow-md  hover:shadow-none',
+              'flex flex-row items-center gap-2 rounded-md border border-solid border-uzh-grey-60 p-2 shadow-md hover:shadow-none',
               `hover:bg-primary-20`
             )}
           >

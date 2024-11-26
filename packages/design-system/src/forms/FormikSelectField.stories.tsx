@@ -1,264 +1,329 @@
 import { Form, Formik } from 'formik'
-import React from 'react'
-import * as yup from 'yup'
-import Button from '../Button'
+import { Button } from '../Button'
+import {
+  fruitsValues,
+  groupValues,
+  groupValuesDisabled,
+  programmingValuesDisabled,
+} from '../values'
 import FormikSelectField from './FormikSelectField'
 
-export const Default = () => (
-  <div>
+export const Default = () => {
+  return (
     <Formik
       initialValues={{
-        name: undefined,
+        fruit: undefined,
       }}
       onSubmit={async (values, { resetForm }) => {
-        alert(`Form submitted with value: ${values.name}`)
+        alert(`Form submitted with value: ${values.fruit}`)
         resetForm()
       }}
     >
       {({ values }) => {
         return (
-          <div>
+          <div className="flex flex-col gap-2">
             <Form>
               <FormikSelectField
-                name="name"
-                items={[
-                  { value: 'hello', label: 'hello' },
-                  { value: 'world', label: 'world' },
-                ]}
-                label="Name"
-                placeholder="Select a name"
+                name="fruit"
+                items={fruitsValues}
+                label="Fruits"
+                placeholder="Select a fruit"
+                className={{ root: 'mb-2' }}
               />
               <Button type="submit">Submit</Button>
             </Form>
-            <div>Value: {values.name}</div>
+            <div>Value: {values.fruit}</div>
           </div>
         )
       }}
     </Formik>
-  </div>
-)
+  )
+}
 
-export const Popper = () => (
-  <div>
+export const Groups = () => {
+  return (
     <Formik
       initialValues={{
-        name: undefined,
+        fruit: groupValues[0].items[0].value,
       }}
       onSubmit={async (values, { resetForm }) => {
-        alert(`Form submitted with value: ${values.name}`)
+        alert(`Form submitted with value: ${values.fruit}`)
         resetForm()
       }}
     >
       {({ values }) => {
         return (
-          <div>
+          <div className="flex flex-col gap-2">
             <Form>
               <FormikSelectField
-                name="name"
-                items={[
-                  { value: 'hello', label: 'hello' },
-                  { value: 'world', label: 'world' },
-                ]}
-                label="Name"
-                placeholder="Select a name"
-                contentPosition="popper"
+                name="fruit"
+                groups={groupValues}
+                label="Fruits"
+                placeholder="Select a fruit"
+                className={{ root: 'mb-2' }}
               />
               <Button type="submit">Submit</Button>
             </Form>
-            <div>Value: {values.name}</div>
+            <div>Value: {values.fruit}</div>
           </div>
         )
       }}
     </Formik>
-  </div>
-)
+  )
+}
 
-export const Required = () => (
-  <div>
+export const DisabledElement = () => {
+  return (
     <Formik
       initialValues={{
-        name: undefined,
+        fruit: programmingValuesDisabled[1].value,
       }}
       onSubmit={async (values, { resetForm }) => {
-        alert(`Form submitted with value: ${values.name}`)
+        alert(`Form submitted with value: ${values.fruit}`)
         resetForm()
       }}
     >
       {({ values }) => {
         return (
-          <div>
+          <div className="flex flex-col gap-2">
+            <Form>
+              <FormikSelectField
+                name="fruit"
+                items={programmingValuesDisabled}
+                label="Fruits"
+                placeholder="Select a fruit"
+                className={{ root: 'mb-2' }}
+              />
+              <Button type="submit">Submit</Button>
+            </Form>
+            <div>Value: {values.fruit}</div>
+          </div>
+        )
+      }}
+    </Formik>
+  )
+}
+
+export const DisabledElementGroups = () => {
+  return (
+    <Formik
+      initialValues={{
+        fruit: groupValues[0].items[0].value,
+      }}
+      onSubmit={async (values, { resetForm }) => {
+        alert(`Form submitted with value: ${values.fruit}`)
+        resetForm()
+      }}
+    >
+      {({ values }) => {
+        return (
+          <div className="flex flex-col gap-2">
+            <Form>
+              <FormikSelectField
+                name="fruit"
+                groups={groupValuesDisabled}
+                label="Fruits"
+                placeholder="Select a fruit"
+                className={{ root: 'mb-2' }}
+              />
+              <Button type="submit">Submit</Button>
+            </Form>
+            <div>Value: {values.fruit}</div>
+          </div>
+        )
+      }}
+    </Formik>
+  )
+}
+
+export const Required = () => {
+  return (
+    <Formik
+      initialValues={{
+        fruit: undefined,
+      }}
+      onSubmit={async (values, { resetForm }) => {
+        alert(`Form submitted with value: ${values.fruit}`)
+        resetForm()
+      }}
+    >
+      {({ values }) => {
+        return (
+          <div className="flex flex-col gap-2">
             <Form>
               <FormikSelectField
                 required
-                tooltip="This is a tooltip"
-                name="name"
-                items={[
-                  { value: 'hello', label: 'hello' },
-                  { value: 'world', label: 'world' },
-                ]}
-                label="Name"
-                placeholder="Select a name"
+                name="fruit"
+                items={fruitsValues}
+                label="Fruits"
+                placeholder="Select a fruit"
+                className={{ root: 'mb-2' }}
               />
               <Button type="submit">Submit</Button>
             </Form>
-            <div>Value: {values.name}</div>
+            <div>Value: {values.fruit}</div>
           </div>
         )
       }}
     </Formik>
-  </div>
-)
+  )
+}
 
-export const DefaultValue = () => (
-  <div>
+export const Disabled = () => {
+  return (
     <Formik
       initialValues={{
-        name: 'world',
+        fruit: fruitsValues[0].value,
       }}
       onSubmit={async (values, { resetForm }) => {
-        alert(`Form submitted with value: ${values.name}`)
+        alert(`Form submitted with value: ${values.fruit}`)
         resetForm()
       }}
     >
       {({ values }) => {
         return (
-          <div>
-            <Form>
-              <FormikSelectField
-                tooltip="This is a tooltip"
-                name="name"
-                items={[
-                  { value: 'hello', label: 'hello' },
-                  { value: 'world', label: 'world' },
-                ]}
-                label="Name"
-                placeholder="Select a name"
-              />
-              <Button type="submit">Submit</Button>
-            </Form>
-            <div>Value: {values.name}</div>
-          </div>
-        )
-      }}
-    </Formik>
-  </div>
-)
-
-export const Disabled = () => (
-  <div>
-    <Formik
-      initialValues={{
-        name: undefined,
-      }}
-      onSubmit={async (values, { resetForm }) => {
-        alert(`Form submitted with value: ${values.name}`)
-        resetForm()
-      }}
-    >
-      {({ values }) => {
-        return (
-          <div>
+          <div className="flex flex-col gap-2">
             <Form>
               <FormikSelectField
                 disabled
-                tooltip="This formik select component is disabled."
-                name="name"
-                items={[
-                  { value: 'hello', label: 'hello' },
-                  { value: 'world', label: 'world' },
-                ]}
-                label="Name"
-                placeholder="Select a name"
+                name="fruit"
+                items={fruitsValues}
+                label="Fruits"
+                placeholder="Select a fruit"
+                className={{ root: 'mb-2' }}
               />
               <Button type="submit">Submit</Button>
             </Form>
-            <div>Value: {values.name}</div>
+            <div>Value: {values.fruit}</div>
           </div>
         )
       }}
     </Formik>
-  </div>
-)
+  )
+}
 
-export const Validation = () => (
-  <div>
+export const LargeLabel = () => {
+  return (
     <Formik
       initialValues={{
-        name: undefined,
+        fruit: undefined,
       }}
       onSubmit={async (values, { resetForm }) => {
-        alert(`Form submitted with value: ${values.name}`)
+        alert(`Form submitted with value: ${values.fruit}`)
         resetForm()
       }}
-      validationSchema={yup.object().shape({
-        name: yup
-          .string()
-          .required('Name is required')
-          .equals(['hello'], 'Name must be hello'),
-      })}
     >
       {({ values }) => {
         return (
-          <div>
-            <div>
-              The form should have the value 'hello' in order for validation not
-              to fail.
-            </div>
+          <div className="flex flex-col gap-2">
             <Form>
               <FormikSelectField
-                tooltip="This formik select component is disabled."
-                name="name"
-                items={[
-                  { value: 'hello', label: 'hello' },
-                  { value: 'world', label: 'world' },
-                  { value: 'new', label: 'new' },
-                ]}
-                label="Name"
-                placeholder="Select a name"
+                name="fruit"
+                items={fruitsValues}
+                label="Fruits"
+                labelType="large"
+                placeholder="Select a fruit"
+                className={{ root: 'mb-2' }}
               />
               <Button type="submit">Submit</Button>
             </Form>
-            <div>Value: {values.name}</div>
+            <div>Value: {values.fruit}</div>
           </div>
         )
       }}
     </Formik>
-  </div>
-)
+  )
+}
 
-export const SmallLabel = () => (
-  <div>
+export const Error = () => {
+  return (
     <Formik
       initialValues={{
-        name: undefined,
+        fruit: undefined,
       }}
       onSubmit={async (values, { resetForm }) => {
-        alert(`Form submitted with value: ${values.name}`)
+        alert(`Form submitted with value: ${values.fruit}`)
+        resetForm()
+      }}
+    >
+      {({ values }) => {
+        return (
+          <div className="flex flex-col gap-2">
+            <Form>
+              <FormikSelectField
+                name="fruit"
+                items={fruitsValues}
+                label="Fruits"
+                labelType="large"
+                error="Error message"
+                placeholder="Select a fruit"
+                className={{ root: 'mb-2' }}
+              />
+              <FormikSelectField
+                name="fruit"
+                items={fruitsValues}
+                label="Fruits"
+                error="Error message"
+                placeholder="Select a fruit"
+                className={{ root: 'mb-2' }}
+              />
+              <Button type="submit">Submit</Button>
+            </Form>
+            <div>Value: {values.fruit}</div>
+          </div>
+        )
+      }}
+    </Formik>
+  )
+}
+
+export const Tooltip = () => {
+  return (
+    <Formik
+      initialValues={{
+        fruit: fruitsValues[0].value,
+      }}
+      onSubmit={async (values, { resetForm }) => {
+        alert(`Form submitted with value: ${values.fruit}`)
         resetForm()
       }}
     >
       {({ values }) => {
         return (
           <div>
-            <Form>
+            <Form className="flex flex-col gap-3">
               <FormikSelectField
                 required
-                name="name"
-                items={[
-                  { value: 'hello', label: 'hello' },
-                  { value: 'world', label: 'world' },
-                ]}
-                label="Name"
-                labelType="small"
-                placeholder="Select a name"
-                tooltip="This is a tooltip"
+                name="fruit"
+                label="Label"
+                tooltip="Tooltip for this input"
+                items={fruitsValues}
               />
-              <Button type="submit">Submit</Button>
+              <FormikSelectField
+                required
+                name="fruit"
+                label="Label"
+                labelType="large"
+                tooltip="Tooltip for this input"
+                items={fruitsValues}
+              />
+              <FormikSelectField
+                required
+                name="fruit"
+                label="Label"
+                labelType="large"
+                tooltip="Tooltip for this input"
+                error="Error message"
+                items={fruitsValues}
+              />
+              <Button type="submit" className={{ root: 'w-max' }}>
+                Submit
+              </Button>
             </Form>
-            <div>Value: {values.name}</div>
+            <div>Value: {values.fruit}</div>
           </div>
         )
       }}
     </Formik>
-  </div>
-)
+  )
+}

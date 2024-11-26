@@ -62,7 +62,6 @@ interface StepProgressBaseProps {
   displayOffsetLeft?: number
   displayOffsetRight?: number
   className?: {
-    override?: string
     root?: string
   }
   formatter?: ({ element, ix }: { element: StepItem; ix: number }) => {
@@ -126,8 +125,7 @@ export function StepProgress({
           <button
             data-cy={data?.cy ? `${data?.cy}-left` : undefined}
             className={twMerge(
-              className?.override,
-              'rounded-l px-3 py-1 hover:bg-primary-20 hover:text-primary',
+              'rounded-l px-3 py-1 hover:bg-primary-20 hover:text-primary-100',
               !items && 'bg-primary-60 text-white'
             )}
             onClick={() =>
@@ -147,8 +145,7 @@ export function StepProgress({
             key={ix}
             data-cy={data?.cy ? `${data?.cy}-${ix}` : undefined}
             className={twMerge(
-              className?.override,
-              'flex flex-1 items-center justify-center border-r border-white p-1 last:border-r-0 hover:bg-primary-20 hover:text-primary',
+              'flex flex-1 items-center justify-center border-r border-white p-1 last:border-r-0 hover:bg-primary-20 hover:text-primary-100',
               ix === 0 && 'rounded-l',
               ix === length - 1 && 'rounded-r',
               (value || 0) > ix && !items && 'bg-primary-60 text-white',
@@ -173,8 +170,7 @@ export function StepProgress({
           <button
             data-cy={data?.cy ? `${data?.cy}-right` : undefined}
             className={twMerge(
-              className?.override,
-              'rounded-r px-3 py-1 hover:bg-primary-20 hover:text-primary'
+              'rounded-r px-3 py-1 hover:bg-primary-20 hover:text-primary-100'
             )}
             onClick={() =>
               onItemClick(
