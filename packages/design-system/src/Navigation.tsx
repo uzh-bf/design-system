@@ -296,7 +296,7 @@ interface ButtonItemProps {
     cy?: string
     test?: string
   }
-  label: string
+  label: string | React.ReactNode
   disabled?: boolean
   icon?: React.ReactNode
   className?: {
