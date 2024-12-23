@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.36](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.35...v3.0.0-alpha.36) (2024-12-23)
+
+
+### Bug Fixes
+
+* **Collapsible:** ensure that bottom margin is not set below chevron icon ([bd34379](https://github.com/uzh-bf/design-system/commit/bd343791b1b23951919b1f19cdf2d25ae2ae647a))
+
+
+### Enhancements
+
+* **Navigation:** allow react nodes as labels on navigation button items ([9458ba6](https://github.com/uzh-bf/design-system/commit/9458ba68f68558443d2864aeabd3820728a4d634))
+
 ## [3.0.0-alpha.35](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.34...v3.0.0-alpha.35) (2024-11-25)
 
 
