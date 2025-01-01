@@ -46,12 +46,12 @@ export interface SelectItem {
   }
   value: string
   disabled?: boolean
-  label: string
+  label: string | React.ReactNode
   shortLabel?: string
 }
 
 export interface SelectGroup {
-  label?: string
+  label?: string | React.ReactNode
   showSeparator?: boolean
   items: SelectItem[]
 }
