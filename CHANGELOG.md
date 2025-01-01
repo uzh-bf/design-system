@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.37](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.36...v3.0.0-alpha.37) (2025-01-01)
+
+
+### Enhancements
+
+* **Select:** allow passing react nodes as labels to select component items ([8765e9c](https://github.com/uzh-bf/design-system/commit/8765e9cb23555cf265304b05525a991a2c6cab48))
+
 ## [3.0.0-alpha.36](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.35...v3.0.0-alpha.36) (2024-12-23)
 
 
