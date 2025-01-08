@@ -13,7 +13,7 @@ interface SelectFieldProps {
     test?: string
   }
   name?: string
-  value: string
+  value?: string
   onChange: (newValue: string) => void
   onBlur?: () => void
   label?: string
