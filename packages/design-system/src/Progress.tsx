@@ -16,6 +16,7 @@ export interface ProgressProps {
   isMaxVisible?: boolean
   className?: {
     root?: string
+    background?: string
     indicator?: string
   }
   [x: string]: any
@@ -65,7 +66,12 @@ export function Progress({
       max={max}
       {...props}
     >
-      <div className="absolute flex h-full w-full flex-col justify-center rounded bg-gray-200 px-2 py-1 text-right">
+      <div
+        className={twMerge(
+          'absolute flex h-full w-full flex-col justify-center rounded bg-gray-200 px-2 py-1 text-right',
+          className?.background
+        )}
+      >
         {isMaxVisible && formatter(max)}
       </div>
 
