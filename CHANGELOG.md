@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.39](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.38...v3.0.0-alpha.39) (2025-01-08)
+
+
+### Bug Fixes
+
+* **Progress:** add missing className to background of progress component ([3b701bb](https://github.com/uzh-bf/design-system/commit/3b701bb00d8b7b1f1beaf8c94aeb2ffc50b30d96))
+
 ## [3.0.0-alpha.38](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.37...v3.0.0-alpha.38) (2025-01-08)
 
 
