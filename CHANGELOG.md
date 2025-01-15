@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.40](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.39...v3.0.0-alpha.40) (2025-01-15)
+
+
+### Bug Fixes
+
+* **Select:** ensure that trigger text is always aligned to the left ([9b5b0a1](https://github.com/uzh-bf/design-system/commit/9b5b0a1272ad7468ae20ffc7086f0175b9a0743b))
+
 ## [3.0.0-alpha.39](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.38...v3.0.0-alpha.39) (2025-01-08)
 
 
