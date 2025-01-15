@@ -130,7 +130,7 @@ export function Select({
           data-cy={data?.cy}
           data-test={data?.test}
           className={twMerge(
-            'w-[15rem] text-base',
+            'w-[15rem] text-base [&>span]:text-start',
             disabled && 'bg-uzh-grey-20 opacity-70',
             basic && '[all:_unset]',
             className?.trigger
@@ -143,9 +143,7 @@ export function Select({
               {shortLabel}
             </SelectValue>
           ) : (
-            <span className="text-start">
-              <SelectValue placeholder={placeholder}>{value}</SelectValue>
-            </span>
+            <SelectValue placeholder={placeholder}>{value}</SelectValue>
           )}
         </SelectTrigger>
         <SelectContent
