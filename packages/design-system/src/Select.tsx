@@ -143,7 +143,7 @@ export function Select({
               {shortLabel}
             </SelectValue>
           ) : (
-            <SelectValue placeholder={placeholder}>{value}</SelectValue>
+            <SelectValue placeholder={placeholder} />
           )}
         </SelectTrigger>
         <SelectContent
