@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.41](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.40...v3.0.0-alpha.41) (2025-01-15)
+
+
+### Refactors
+
+* **Select:** move fixing style to trigger level to allow overrides with custom styles ([854ce2d](https://github.com/uzh-bf/design-system/commit/854ce2d75d4790b75cf9abaccafdc26e29ac232e))
+
 ## [3.0.0-alpha.40](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.39...v3.0.0-alpha.40) (2025-01-15)
 
 
