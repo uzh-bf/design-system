@@ -143,7 +143,9 @@ export function Select({
               {shortLabel}
             </SelectValue>
           ) : (
-            <SelectValue placeholder={placeholder} key={shortLabel} />
+            <span className="text-start">
+              <SelectValue placeholder={placeholder}>{value}</SelectValue>
+            </span>
           )}
         </SelectTrigger>
         <SelectContent
