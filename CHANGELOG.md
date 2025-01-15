@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.42](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.41...v3.0.0-alpha.42) (2025-01-15)
+
+
+### Bug Fixes
+
+* **Select:** make sure label is shown on trigger instead of value after selection ([f10abe2](https://github.com/uzh-bf/design-system/commit/f10abe22afad63f7c8717c4c9a24311882de227d))
+
 ## [3.0.0-alpha.41](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.40...v3.0.0-alpha.41) (2025-01-15)
 
 
