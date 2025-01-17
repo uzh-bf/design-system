@@ -4,7 +4,8 @@ import * as React from 'react'
 
 import { cn } from '@/lib/utils'
 
-const MenubarMenu: React.ComponentType = MenubarPrimitive.Menu
+const MenubarMenu: React.FC<MenubarPrimitive.MenubarPortalProps> =
+  MenubarPrimitive.Menu
 
 const MenubarGroup = MenubarPrimitive.Group
 
