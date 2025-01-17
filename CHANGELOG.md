@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.45](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.44...v3.0.0-alpha.45) (2025-01-17)
+
+
+### Bug Fixes
+
+* update missing menubar type in shadcn ([014c1a4](https://github.com/uzh-bf/design-system/commit/014c1a47059093268482209b5aa51d3477ae33bc))
+
 ## [3.0.0-alpha.44](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.43...v3.0.0-alpha.44) (2025-01-17)
 
 
