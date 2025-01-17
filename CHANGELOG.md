@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.44](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.43...v3.0.0-alpha.44) (2025-01-17)
+
+
+### Bug Fixes
+
+* resolve build errors by adding component type to shadcn menubar ([4658f5a](https://github.com/uzh-bf/design-system/commit/4658f5ac4a430705c0df4a1060d93ec829069152))
+
 ## [3.0.0-alpha.43](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.42...v3.0.0-alpha.43) (2025-01-17)
 
 
