@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.47](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.46...v3.0.0-alpha.47) (2025-01-20)
+
+
+### Enhancements
+
+* **Navigation:** add optional style attributes to all navigation components ([93dfff3](https://github.com/uzh-bf/design-system/commit/93dfff34764dfae66091f0b4e8733c8e7693b0ac))
+
 ## [3.0.0-alpha.46](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.45...v3.0.0-alpha.46) (2025-01-20)
 
 
