@@ -27,6 +27,11 @@ export interface BaseNavigationButtonProps {
   disabled?: boolean
   data?: { cy?: string; test?: string }
   className?: { root?: string; label?: string; icon?: string }
+  style?: {
+    root?: React.CSSProperties
+    label?: React.CSSProperties
+    icon?: React.CSSProperties
+  }
 }
 
 export interface LabelOnlyButtonProps extends BaseNavigationButtonProps {
@@ -55,6 +60,7 @@ export type NavigationButtonProps = LabelOnlyButtonProps | IconOnlyButtonProps
  * @param active - Indicates whether the button is in an active state (only for label buttons).
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy).
  * @param className - The optional className object to override default styling for root, label, and icon.
+ * @param style - The optional style object to override default styling for root, label, and icon.
  * @return NavigationButton component
  */
 function NavigationButton({
@@ -65,6 +71,7 @@ function NavigationButton({
   active,
   data,
   className,
+  style,
 }: NavigationButtonProps) {
   const hasIconAndLabel =
     typeof label !== 'undefined' && typeof icon !== 'undefined'
@@ -77,6 +84,7 @@ function NavigationButton({
         disabled={disabled}
         data-cy={data?.cy}
         data-test={data?.test}
+        style={style?.root}
         className={twMerge(
           'text-base hover:cursor-pointer',
           !iconOnly && !disabled && dynamicUnderline,
@@ -89,13 +97,26 @@ function NavigationButton({
       >
         {hasIconAndLabel ? (
           <>
-            <FontAwesomeIcon icon={icon} className={className?.icon} />
-            <div className={className?.label}>{label}</div>
+            <FontAwesomeIcon
+              icon={icon}
+              style={style?.icon}
+              className={className?.icon}
+            />
+            <div style={style?.label} className={className?.label}>
+              {label}
+            </div>
           </>
         ) : label ? (
-          <div className={className?.label}>{label}</div>
+          <div style={style?.label} className={className?.label}>
+            {label}
+          </div>
         ) : (
-          <FontAwesomeIcon icon={icon!} size="lg" className={className?.icon} />
+          <FontAwesomeIcon
+            icon={icon!}
+            size="lg"
+            style={style?.icon}
+            className={className?.icon}
+          />
         )}
       </MenubarTrigger>
     </MenubarMenu>
@@ -113,6 +134,7 @@ export type NavigationMenuItemProps = {
   disabled?: boolean
   data?: { cy?: string; test?: string }
   className?: { label?: string }
+  style?: { label?: React.CSSProperties }
 }
 
 export type NavigationSeparatorProps = {
@@ -127,6 +149,7 @@ export type NavigationSubmenuProps = {
   options: NavigationMenuItemProps[]
   data?: { cy?: string; test?: string }
   className?: { label?: string }
+  style?: { label?: React.CSSProperties }
 }
 
 export interface BaseNavigationDropdownProps {
@@ -144,6 +167,13 @@ export interface BaseNavigationDropdownProps {
     icon?: string
     content?: string
     separator?: string
+  }
+  style?: {
+    trigger?: React.CSSProperties
+    label?: React.CSSProperties
+    icon?: React.CSSProperties
+    content?: React.CSSProperties
+    separator?: React.CSSProperties
   }
 }
 
@@ -176,6 +206,7 @@ function NavigationMenuItem({
           '!text-slate-400 hover:cursor-not-allowed hover:!text-slate-400',
         element.className?.label
       )}
+      style={element.style?.label}
       disabled={element.disabled}
       data-cy={element.data?.cy}
       data-test={element.data?.test}
@@ -207,6 +238,7 @@ function NavigationDropdown({
   elements,
   data,
   className,
+  style,
 }: NavigationDropdownProps) {
   const hasIconAndLabel =
     typeof label !== 'undefined' && typeof icon !== 'undefined'
@@ -218,6 +250,7 @@ function NavigationDropdown({
         disabled={disabled}
         data-cy={data?.cy}
         data-test={data?.test}
+        style={style?.trigger}
         className={twMerge(
           'text-base hover:cursor-pointer',
           hasIconAndLabel && 'flex flex-row items-center gap-2',
@@ -230,17 +263,28 @@ function NavigationDropdown({
       >
         {hasIconAndLabel ? (
           <>
-            <FontAwesomeIcon icon={icon} className={className?.icon} />
+            <FontAwesomeIcon
+              icon={icon}
+              style={style?.icon}
+              className={className?.icon}
+            />
             <div className={className?.label}>{label}</div>
           </>
         ) : label ? (
-          <div className={className?.label}>{label}</div>
+          <div style={style?.label} className={className?.label}>
+            {label}
+          </div>
         ) : (
-          <FontAwesomeIcon icon={icon!} size="lg" className={className?.icon} />
+          <FontAwesomeIcon
+            icon={icon!}
+            size="lg"
+            style={style?.icon}
+            className={className?.icon}
+          />
         )}
       </MenubarTrigger>
       {!disabled ? (
-        <MenubarContent className={className?.content}>
+        <MenubarContent style={style?.content} className={className?.content}>
           {elements.map((element) => {
             if (element.type === 'link') {
               return <NavigationMenuItem key={element.key} element={element} />
@@ -248,6 +292,7 @@ function NavigationDropdown({
               return (
                 <MenubarSeparator
                   key={element.key}
+                  style={style?.separator}
                   className={className?.separator}
                 />
               )
@@ -255,9 +300,10 @@ function NavigationDropdown({
               return (
                 <MenubarSub key={element.key}>
                   <MenubarSubTrigger
+                    style={element.style?.label}
                     className={twMerge(
                       'h-8 text-base hover:cursor-pointer',
-                      className?.label
+                      element.className?.label
                     )}
                   >
                     {element.label}
@@ -296,6 +342,13 @@ export type NavigationItemProps =
   | NavigationButtonItemProps
   | NavigationDropdownItemProps
 
+export interface NavigationProps {
+  items: NavigationItemProps[]
+  className?: { root?: string }
+  style?: { root?: React.CSSProperties }
+  [x: string]: unknown
+}
+
 /**
  * This function returns a pre-styled navigation component based on the ShadcnUI menubar component.
  * The navigation component can contain multiple items, including buttons and dropdowns, which are
@@ -308,15 +361,14 @@ export type NavigationItemProps =
 export function Navigation({
   items,
   className,
-}: {
-  items: NavigationItemProps[]
-  className?: {
-    root?: string
-  }
-}) {
+  style,
+  ...props
+}: NavigationProps) {
   return (
     <ShadcnMenubar
       className={twMerge('border-none bg-transparent', className?.root)}
+      style={style?.root}
+      {...props}
     >
       {items.map((item) => {
         if (item.type === 'button') {
