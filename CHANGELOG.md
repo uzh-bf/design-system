@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.46](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.45...v3.0.0-alpha.46) (2025-01-20)
+
+
+### Features
+
+* **Navigation:** replace navigation component through new and improved menubar-based implementation ([cfb3462](https://github.com/uzh-bf/design-system/commit/cfb3462bd96b3d8685785104231463029f84bd43))
+
 ## [3.0.0-alpha.45](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.44...v3.0.0-alpha.45) (2025-01-17)
 
 
