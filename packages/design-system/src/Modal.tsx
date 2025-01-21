@@ -52,10 +52,10 @@ export interface ModalProps {
   hideCloseButton?: boolean
   asPortal?: boolean
 
-  onClose: () => void
-  onNext?: () => void
-  onOpenChange?: () => void
-  onPrev?: () => void
+  onClose: (e?: React.MouseEvent<HTMLButtonElement>) => void
+  onNext?: (e?: React.MouseEvent<HTMLButtonElement>) => void
+  onOpenChange?: (e?: React.MouseEvent<HTMLButtonElement>) => void
+  onPrev?: (e?: React.MouseEvent<HTMLButtonElement>) => void
   onPrimaryAction?: React.ReactNode
   onSecondaryAction?: React.ReactNode
 }
@@ -154,9 +154,9 @@ export function Modal({
             : 'h-max max-h-full w-[27rem] max-w-7xl md:w-[40rem] lg:w-[55rem] xl:w-[70rem]',
           className?.content
         )}
-        onEscapeKeyDown={escapeDisabled ? undefined : onClose}
+        onEscapeKeyDown={escapeDisabled ? undefined : () => onClose()}
         onPointerDownOutside={
-          onPrev || onNext || escapeDisabled ? undefined : onClose
+          onPrev || onNext || escapeDisabled ? undefined : () => onClose()
         }
         data-cy={dataContent?.cy}
         data-test={dataContent?.test}
@@ -212,7 +212,7 @@ export function Modal({
   )
 
   return (
-    <RadixDialog.Root open={open} onOpenChange={onOpenChange}>
+    <RadixDialog.Root open={open} onOpenChange={() => onOpenChange?.()}>
       {trigger && (
         <RadixDialog.Trigger
           id={id}
