@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.48](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.47...v3.0.0-alpha.48) (2025-01-21)
+
+
+### Bug Fixes
+
+* **Modal:** pass optional event handlers to all onClick functions ([f7e1449](https://github.com/uzh-bf/design-system/commit/f7e1449eee11b62d260be90863f2307c69e4cb48))
+
 ## [3.0.0-alpha.47](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.46...v3.0.0-alpha.47) (2025-01-20)
 
 
