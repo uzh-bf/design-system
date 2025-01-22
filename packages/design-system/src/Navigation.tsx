@@ -38,12 +38,14 @@ export interface LabelOnlyButtonProps extends BaseNavigationButtonProps {
   label: string
   icon?: IconDefinition
   active: boolean
+  notification?: boolean
 }
 
 export interface IconOnlyButtonProps extends BaseNavigationButtonProps {
   icon: IconDefinition
   label?: undefined
   active?: undefined
+  notification?: undefined
 }
 
 // combined type
@@ -69,6 +71,7 @@ function NavigationButton({
   onClick,
   disabled = false,
   active,
+  notification,
   data,
   className,
   style,
@@ -102,13 +105,25 @@ function NavigationButton({
               style={style?.icon}
               className={className?.icon}
             />
-            <div style={style?.label} className={className?.label}>
+            <div
+              style={style?.label}
+              className={twMerge('relative', className?.label)}
+            >
               {label}
+              {notification && (
+                <div className="absolute -right-2 -top-0.5 h-2.5 w-2.5 rounded-full bg-red-600" />
+              )}
             </div>
           </>
         ) : label ? (
-          <div style={style?.label} className={className?.label}>
+          <div
+            style={style?.label}
+            className={twMerge('relative', className?.label)}
+          >
             {label}
+            {notification && (
+              <div className="absolute -right-2 -top-0.5 h-2.5 w-2.5 rounded-full bg-red-600" />
+            )}
           </div>
         ) : (
           <FontAwesomeIcon

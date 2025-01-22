@@ -174,6 +174,23 @@ export const CombinedTrigger = () => {
   )
 }
 
+export const NotificationTrigger = () => {
+  const items = [
+    { ...buttonItem, notification: true },
+    { ...combinedItem, notification: true },
+  ]
+
+  return (
+    <div>
+      <div className="mb-3">
+        Beyond icons and labels, triggers for navigation dropdowns and button
+        elements also support a combination of both.
+      </div>
+      <Navigation items={items} className={{ root: 'bg-slate-100' }} />
+    </div>
+  )
+}
+
 export const Dropdown = () => {
   const items = [dropdownItem]
 
