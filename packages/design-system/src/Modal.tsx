@@ -213,7 +213,7 @@ export function Modal({
 
   return (
     <RadixDialog.Root open={open} onOpenChange={() => onOpenChange?.()}>
-      {trigger && (
+      {typeof trigger !== 'undefined' && (
         <RadixDialog.Trigger
           id={id}
           data-cy={data?.cy}

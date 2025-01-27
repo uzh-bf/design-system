@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import Button from './Button'
 import Modal from './Modal'
 
@@ -36,6 +36,38 @@ export const Basic = () => {
     >
       content
     </Modal>
+  )
+}
+
+export const Trigger = () => {
+  const [isOpen, setIsOpen] = useState(false)
+  const StyledButton = React.forwardRef<
+    HTMLButtonElement,
+    React.ComponentProps<typeof Button>
+  >((props, forwardedRef) => (
+    <Button
+      {...props}
+      ref={forwardedRef}
+      onClick={() => setIsOpen(true)}
+      className={{ root: 'border-red-500 bg-blue-300' }}
+    >
+      Open Modal
+    </Button>
+  ))
+
+  return (
+    <div>
+      In order for styles, etc. to be correctly applied to the trigger, it must
+      be wrapped into a reference and prop passing component (since it is
+      rendered with the `asChild` option in Radix)
+      <Modal
+        open={isOpen}
+        trigger={<StyledButton />}
+        onClose={() => setIsOpen(false)}
+      >
+        content
+      </Modal>
+    </div>
   )
 }
 
