@@ -18,7 +18,6 @@ interface SliderProps {
   step: number
   disabled?: boolean
   compact?: boolean
-
   rangeColorMap?: Record<string, string>
   borderColorMap?: Record<string, string>
   className?: {
@@ -29,6 +28,10 @@ interface SliderProps {
     range?: string
     thumb?: string
     lock?: string
+  }
+  dataThumb?: {
+    cy?: string
+    test?: string
   }
 }
 export interface SliderWithLabelProps extends SliderProps {
@@ -162,6 +165,8 @@ export function Slider({
             : borderColorMap[String(value)],
           className?.thumb
         )}
+        data-cy={data?.cy}
+        data-test={data?.test}
       >
         {disabled && (
           <FontAwesomeIcon
