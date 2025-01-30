@@ -9,6 +9,7 @@ export interface NumberFieldClassName {
   field?: string
   label?: string
   input?: string
+  unit?: string
   error?: string
   tooltip?: string
 }
@@ -23,6 +24,7 @@ export interface NumberFieldProps {
   precision?: number
   min?: number
   max?: number
+  unit?: string
   tooltip?: string | React.ReactNode
   required?: boolean
   hideError?: boolean
@@ -50,6 +52,7 @@ export interface NumberFieldProps {
  * @param precision - The optional precision defines the number of decimal places that are allowed.
  * @param min - The optional min defines the minimum value that is allowed.
  * @param max - The optional max defines the maximum value that is allowed.
+ * @param unit - The optional unit is shown next to the input field.
  * @param tooltip - The optional tooltip is shown on hover over the tooltip next to the label.
  * @param required - Indicate whether the field is required or not.
  * @param hideError - Indicate whether the error message should be hidden or not.
@@ -70,6 +73,7 @@ export function NumberField({
   precision,
   min,
   max,
+  unit,
   tooltip,
   required = false,
   hideError,
@@ -108,40 +112,54 @@ export function NumberField({
       )}
 
       <div className="flex w-full flex-row items-center gap-2">
-        <input
-          id={id}
-          data-cy={data?.cy}
-          data-test={data?.test}
-          type="text"
-          value={value}
-          onChange={(e) => {
-            if (
-              e.target.value.match(validInput) !== null &&
-              (e.target.value === '' ||
-                typeof min === 'undefined' ||
-                parseFloat(e.target.value) >= min) &&
-              (e.target.value === '' ||
-                typeof max === 'undefined' ||
-                parseFloat(e.target.value) <= max)
-            ) {
-              onChange(e.target.value)
-            } else {
-              console.log(
-                `input ${e.target.value} does not match regex ${validInput}`
-              )
-            }
-          }}
-          onBlur={onBlur}
-          placeholder={placeholder}
-          disabled={disabled}
-          className={twMerge(
-            'focus:border-uzh-blue-50 h-9 w-full rounded border border-uzh-grey-60 pl-2 placeholder-slate-400',
-            disabled && 'cursor-not-allowed',
-            !!error && isTouched && 'border-red-400 bg-red-50',
-            className?.input
+        <div className="flex w-full flex-row items-center">
+          <input
+            id={id}
+            data-cy={data?.cy}
+            data-test={data?.test}
+            type="text"
+            value={value}
+            onChange={(e) => {
+              if (
+                e.target.value.match(validInput) !== null &&
+                (e.target.value === '' ||
+                  typeof min === 'undefined' ||
+                  parseFloat(e.target.value) >= min) &&
+                (e.target.value === '' ||
+                  typeof max === 'undefined' ||
+                  parseFloat(e.target.value) <= max)
+              ) {
+                onChange(e.target.value)
+              } else {
+                console.log(
+                  `input ${e.target.value} does not match regex ${validInput}`
+                )
+              }
+            }}
+            onBlur={onBlur}
+            placeholder={placeholder}
+            disabled={disabled}
+            className={twMerge(
+              'focus:border-uzh-blue-50 h-9 w-full rounded border border-uzh-grey-60 pl-2 placeholder-slate-400',
+              disabled && 'cursor-not-allowed',
+              !!error && isTouched && 'border-red-400 bg-red-50',
+              !!unit && 'rounded-r-none',
+              className?.input
+            )}
+            {...props}
+          />
+          {unit && (
+            <div
+              className={twMerge(
+                'flex h-9 min-w-max flex-col items-center justify-center rounded-r bg-slate-600 px-4 text-white',
+                className?.unit
+              )}
+              data-cy="input-numerical-unit"
+            >
+              {unit}
+            </div>
           )}
-          {...props}
-        />
+        </div>
         {error && !hideError && isTouched && (
           <Tooltip
             tooltip={error}

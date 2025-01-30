@@ -11,6 +11,7 @@ interface FormikNumberFieldProps {
   precision?: number
   min?: number
   max?: number
+  unit?: string
   tooltip?: string | React.ReactNode
   required?: boolean
   hideError?: boolean
@@ -51,6 +52,7 @@ export interface FormikNumberFieldOnChangeProps extends FormikNumberFieldProps {
  * @param precision - The optional precision defines the number of decimal places that are allowed.
  * @param min - The optional min defines the minimum value that is allowed.
  * @param max - The optional max defines the maximum value that is allowed.
+ * @param unit - The optional unit is shown next to the input field.
  * @param tooltip - The optional tooltip is shown on hover over the tooltip next to the label.
  * @param required - Indicate whether the field is required or not.
  * @param hideError - Indicate whether the error message should be hidden or not.
@@ -72,6 +74,7 @@ export function FormikNumberField({
   precision,
   min,
   max,
+  unit,
   tooltip,
   required,
   hideError,
@@ -98,6 +101,7 @@ export function FormikNumberField({
           precision={precision}
           min={min}
           max={max}
+          unit={unit}
           tooltip={tooltip}
           required={required}
           hideError={hideError}
@@ -128,6 +132,7 @@ export function FormikNumberField({
         precision={precision}
         min={min}
         max={max}
+        unit={unit}
         tooltip={tooltip}
         required={required}
         hideError={hideError}

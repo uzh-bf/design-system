@@ -37,6 +37,44 @@ export const Default = () => (
   </div>
 )
 
+export const Unit = () => (
+  <div>
+    <div>
+      The formik number field supports the same attributes as the standard
+      number field (including e.g. units)
+    </div>
+    <Formik
+      initialValues={{
+        name: '',
+      }}
+      isInitialValid={false}
+      onSubmit={async (values, { resetForm }) => {
+        alert(`Form submitted with value: ${values.name}`)
+        resetForm()
+      }}
+    >
+      {({ values }) => {
+        return (
+          <div>
+            <Form>
+              <FormikNumberField
+                name="name"
+                label="Label"
+                tooltip="Tooltip for this input"
+                unit="kg"
+                className={{ root: 'mb-1 w-80' }}
+                placeholder="Placeholder"
+              />
+              <Button type="submit">Submit</Button>
+            </Form>
+            <div>Value: {values.name}</div>
+          </div>
+        )
+      }}
+    </Formik>
+  </div>
+)
+
 export const MinMax = () => (
   <div>
     <div>

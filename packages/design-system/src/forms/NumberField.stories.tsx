@@ -35,6 +35,29 @@ export function Placeholder() {
   )
 }
 
+export function Unit() {
+  const [value, setValue] = useState('')
+  return (
+    <div className="flex flex-col gap-3">
+      <NumberField
+        value={value}
+        onChange={(newValue) => setValue(newValue)}
+        className={{ field: 'w-80' }}
+        unit="kg"
+      />
+      <NumberField
+        isTouched
+        value={value}
+        onChange={(newValue) => setValue(newValue)}
+        error="This is an error message"
+        className={{ field: 'w-80' }}
+        unit="kg"
+      />
+      <div>Value: {value}</div>
+    </div>
+  )
+}
+
 export function Precision() {
   const [value, setValue] = useState('')
   return (
