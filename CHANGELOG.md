@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.53](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.52...v3.0.0-alpha.53) (2025-01-30)
+
+
+### Other
+
+* **Slider:** add data testing attributes to slider thumb ([9399989](https://github.com/uzh-bf/design-system/commit/9399989b9e673b2363b9f21d5f68dedbc8f4d1b7))
+
 ## [3.0.0-alpha.52](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.51...v3.0.0-alpha.52) (2025-01-30)
 
 
