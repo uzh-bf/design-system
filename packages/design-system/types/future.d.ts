@@ -36,6 +36,7 @@ import * as HoverCardPrimitive from '@radix-ui/react-hover-card';
 import { HTMLAttributes } from 'react';
 import { JSX as JSX_2 } from 'react/jsx-runtime';
 import * as LabelPrimitive from '@radix-ui/react-label';
+import * as MenubarPrimitive from '@radix-ui/react-menubar';
 import { NameType } from 'recharts/types/component/DefaultTooltipContent';
 import * as NavigationMenuPrimitive from '@radix-ui/react-navigation-menu';
 import { Payload } from 'recharts/types/component/DefaultTooltipContent';
@@ -284,7 +285,7 @@ export declare const ChartTooltipContent: React_2.ForwardRefExoticComponent<Omit
 } & React_2.ClassAttributes<HTMLDivElement> & React_2.HTMLAttributes<HTMLDivElement> & {
     hideLabel?: boolean | undefined;
     hideIndicator?: boolean | undefined;
-    indicator?: "line" | "dashed" | "dot" | undefined;
+    indicator?: "line" | "dot" | "dashed" | undefined;
     nameKey?: string | undefined;
     labelKey?: string | undefined;
 }, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
@@ -493,6 +494,47 @@ export declare interface InputProps extends React_2.InputHTMLAttributes<HTMLInpu
 
 export declare const Label: React_2.ForwardRefExoticComponent<Omit<LabelPrimitive.LabelProps & React_2.RefAttributes<HTMLLabelElement>, "ref"> & VariantProps<(props?: ClassProp | undefined) => string> & React_2.RefAttributes<HTMLLabelElement>>;
 
+export declare const Menubar: React_2.ForwardRefExoticComponent<Omit<MenubarPrimitive.MenubarProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
+
+export declare const MenubarCheckboxItem: React_2.ForwardRefExoticComponent<Omit<MenubarPrimitive.MenubarCheckboxItemProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
+
+export declare const MenubarContent: React_2.ForwardRefExoticComponent<Omit<MenubarPrimitive.MenubarContentProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
+
+export declare const MenubarGroup: React_2.ForwardRefExoticComponent<MenubarPrimitive.MenubarGroupProps & React_2.RefAttributes<HTMLDivElement>>;
+
+export declare const MenubarItem: React_2.ForwardRefExoticComponent<Omit<MenubarPrimitive.MenubarItemProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & {
+    inset?: boolean | undefined;
+} & React_2.RefAttributes<HTMLDivElement>>;
+
+export declare const MenubarLabel: React_2.ForwardRefExoticComponent<Omit<MenubarPrimitive.MenubarLabelProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & {
+    inset?: boolean | undefined;
+} & React_2.RefAttributes<HTMLDivElement>>;
+
+export declare const MenubarMenu: React_2.FC<MenubarPrimitive.MenubarPortalProps>;
+
+export declare const MenubarPortal: React_2.FC<MenubarPrimitive.MenubarPortalProps>;
+
+export declare const MenubarRadioGroup: React_2.ForwardRefExoticComponent<MenubarPrimitive.MenubarRadioGroupProps & React_2.RefAttributes<HTMLDivElement>>;
+
+export declare const MenubarRadioItem: React_2.ForwardRefExoticComponent<Omit<MenubarPrimitive.MenubarRadioItemProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
+
+export declare const MenubarSeparator: React_2.ForwardRefExoticComponent<Omit<MenubarPrimitive.MenubarSeparatorProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
+
+export declare const MenubarShortcut: {
+    ({ className, ...props }: React_2.HTMLAttributes<HTMLSpanElement>): JSX_2.Element;
+    displayname: string;
+};
+
+export declare const MenubarSub: React_2.FC<MenubarPrimitive.MenubarSubProps>;
+
+export declare const MenubarSubContent: React_2.ForwardRefExoticComponent<Omit<MenubarPrimitive.MenubarSubContentProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
+
+export declare const MenubarSubTrigger: React_2.ForwardRefExoticComponent<Omit<MenubarPrimitive.MenubarSubTriggerProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & {
+    inset?: boolean | undefined;
+} & React_2.RefAttributes<HTMLDivElement>>;
+
+export declare const MenubarTrigger: React_2.ForwardRefExoticComponent<Omit<MenubarPrimitive.MenubarTriggerProps & React_2.RefAttributes<HTMLButtonElement>, "ref"> & React_2.RefAttributes<HTMLButtonElement>>;
+
 export declare const NavigationMenu: React_2.ForwardRefExoticComponent<Omit<NavigationMenuPrimitive.NavigationMenuProps & React_2.RefAttributes<HTMLElement>, "ref"> & React_2.RefAttributes<HTMLElement>>;
 
 export declare const NavigationMenuContent: React_2.ForwardRefExoticComponent<Omit<NavigationMenuPrimitive.NavigationMenuContentProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
@@ -615,7 +657,9 @@ export declare const SelectScrollUpButton: React_2.ForwardRefExoticComponent<Omi
 
 export declare const SelectSeparator: React_2.ForwardRefExoticComponent<Omit<SelectPrimitive.SelectSeparatorProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
-export declare const SelectTrigger: React_2.ForwardRefExoticComponent<Omit<SelectPrimitive.SelectTriggerProps & React_2.RefAttributes<HTMLButtonElement>, "ref"> & React_2.RefAttributes<HTMLButtonElement>>;
+export declare const SelectTrigger: React_2.ForwardRefExoticComponent<Omit<SelectPrimitive.SelectTriggerProps & React_2.RefAttributes<HTMLButtonElement>, "ref"> & {
+    hideIcon?: boolean | undefined;
+} & React_2.RefAttributes<HTMLButtonElement>>;
 
 export declare const SelectValue: React_2.ForwardRefExoticComponent<SelectPrimitive.SelectValueProps & React_2.RefAttributes<HTMLSpanElement>>;
 
@@ -793,13 +837,13 @@ export declare function useToast(): {
 export { }
 
 
+declare namespace Calendar {
+    var displayName: string;
+}
+
+
 declare namespace Tabs {
     var Tab: typeof import("@/Tabs").Tab;
     var TabList: typeof import("@/Tabs").TabList;
     var TabContent: typeof import("@/Tabs").TabContent;
-}
-
-
-declare namespace Calendar {
-    var displayName: string;
 }

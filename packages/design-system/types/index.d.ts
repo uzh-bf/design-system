@@ -11,6 +11,49 @@ import { PropsWithChildren } from 'react';
 import { default as React_2 } from 'react';
 import * as React_3 from 'react';
 
+export declare interface BaseNavigationButtonProps {
+    onClick: () => void;
+    disabled?: boolean;
+    data?: {
+        cy?: string;
+        test?: string;
+    };
+    className?: {
+        root?: string;
+        label?: string;
+        icon?: string;
+    };
+    style?: {
+        root?: React.CSSProperties;
+        label?: React.CSSProperties;
+        icon?: React.CSSProperties;
+    };
+}
+
+export declare interface BaseNavigationDropdownProps {
+    elements: (NavigationMenuItemProps | NavigationSeparatorProps | NavigationSubmenuProps)[];
+    disabled?: boolean;
+    active?: boolean;
+    data?: {
+        cy?: string;
+        test?: string;
+    };
+    className?: {
+        trigger?: string;
+        label?: string;
+        icon?: string;
+        content?: string;
+        separator?: string;
+    };
+    style?: {
+        trigger?: React.CSSProperties;
+        label?: React.CSSProperties;
+        icon?: React.CSSProperties;
+        content?: React.CSSProperties;
+        separator?: React.CSSProperties;
+    };
+}
+
 declare type BaseRowType = {
     className?: string;
 };
@@ -57,39 +100,6 @@ export declare interface ButtonIconGroupProps {
         children?: string;
     };
     children: default_2.ReactNode[];
-}
-
-declare interface ButtonItemProps {
-    id?: string;
-    data?: {
-        cy?: string;
-        test?: string;
-    };
-    label: string;
-    disabled?: boolean;
-    icon?: default_2.ReactNode;
-    className?: {
-        root?: string;
-        label?: string;
-        icon?: string;
-        disabled?: string;
-    };
-    style?: {
-        root?: default_2.CSSProperties;
-        label?: default_2.CSSProperties;
-        icon?: default_2.CSSProperties;
-        disabled?: default_2.CSSProperties;
-    };
-}
-
-export declare interface ButtonItemWithHrefProps extends ButtonItemProps {
-    href: string;
-    onClick?: never;
-}
-
-export declare interface ButtonItemWithOnClickProps extends ButtonItemProps {
-    href?: never;
-    onClick: default_2.MouseEventHandler;
 }
 
 export declare interface ButtonProps {
@@ -293,21 +303,6 @@ export declare interface CountdownProps {
     };
 }
 
-declare type CustomItemProps = {
-    id?: string;
-    data?: {
-        cy?: string;
-        test?: string;
-    };
-    children: default_2.ReactNode;
-    className?: {
-        root?: string;
-    };
-    style?: {
-        root?: default_2.CSSProperties;
-    };
-};
-
 /**
  * This function combines the CycleProgress and Countdown components to create a circular progress bar with a countdown in the middle
  *
@@ -463,39 +458,6 @@ export declare interface DateChangerProps {
  * @returns Dropdown component
  */
 export declare function Dropdown({ id, data, trigger, triggerIcon, items, activeItems, groups, className, disabled, }: DropdownWithItemsProps | DropdownWithGroupsProps): JSX_2.Element;
-
-declare interface DropdownItemProps {
-    id?: string;
-    data?: {
-        cy?: string;
-        test?: string;
-    };
-    title: string;
-    subtitle?: string;
-    icon?: default_2.ReactNode;
-    className?: {
-        root?: string;
-        title?: string;
-        icon?: string;
-        subtitle?: string;
-    };
-    style?: {
-        root?: default_2.CSSProperties;
-        title?: default_2.CSSProperties;
-        icon?: default_2.CSSProperties;
-        subtitle?: default_2.CSSProperties;
-    };
-}
-
-export declare interface DropdownItemWithHrefProps extends DropdownItemProps {
-    href: string;
-    onClick?: never;
-}
-
-export declare interface DropdownItemWithOnClickProps extends DropdownItemProps {
-    href?: never;
-    onClick: default_2.MouseEventHandler;
-}
 
 declare interface DropdownProps {
     id?: string;
@@ -669,6 +631,7 @@ export declare interface FormikDateFieldProps {
  * @param precision - The optional precision defines the number of decimal places that are allowed.
  * @param min - The optional min defines the minimum value that is allowed.
  * @param max - The optional max defines the maximum value that is allowed.
+ * @param unit - The optional unit is shown next to the input field.
  * @param tooltip - The optional tooltip is shown on hover over the tooltip next to the label.
  * @param required - Indicate whether the field is required or not.
  * @param hideError - Indicate whether the error message should be hidden or not.
@@ -679,7 +642,7 @@ export declare interface FormikDateFieldProps {
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param className - The optional className object allows you to override the default styling.
  */
-export declare function FormikNumberField({ id, name, value, onChange, label, labelType, placeholder, precision, min, max, tooltip, required, hideError, error, isTouched, disabled, onBlur, data, className, ...props }: FormikNumberFieldNameProps | FormikNumberFieldOnChangeProps): JSX_2.Element;
+export declare function FormikNumberField({ id, name, value, onChange, label, labelType, placeholder, precision, min, max, unit, tooltip, required, hideError, error, isTouched, disabled, onBlur, data, className, ...props }: FormikNumberFieldNameProps | FormikNumberFieldOnChangeProps): JSX_2.Element;
 
 export declare interface FormikNumberFieldNameProps extends FormikNumberFieldProps {
     name: string;
@@ -703,6 +666,7 @@ declare interface FormikNumberFieldProps {
     precision?: number;
     min?: number;
     max?: number;
+    unit?: string;
     tooltip?: string | default_2.ReactNode;
     required?: boolean;
     hideError?: boolean;
@@ -1037,32 +1001,16 @@ declare interface HeaderProps {
     children: default_2.ReactNode;
 }
 
-declare interface IconItemProps {
-    id?: string;
-    data?: {
-        cy?: string;
-        test?: string;
-    };
-    icon: default_2.ReactNode;
-    disabled?: boolean;
-    className?: {
-        root?: string;
-        disabled?: string;
-    };
-    style?: {
-        root?: default_2.CSSProperties;
-        disabled?: default_2.CSSProperties;
-    };
+export declare interface IconOnlyButtonProps extends BaseNavigationButtonProps {
+    icon: IconDefinition;
+    label?: undefined;
+    active?: undefined;
+    notification?: undefined;
 }
 
-export declare interface IconItemWithHrefProps extends IconItemProps {
-    href: string;
-    onClick?: never;
-}
-
-export declare interface IconItemWithOnClickProps extends IconItemProps {
-    href?: never;
-    onClick: default_2.MouseEventHandler;
+export declare interface IconOnlyDropdownProps extends BaseNavigationDropdownProps {
+    label?: undefined;
+    icon: IconDefinition;
 }
 
 declare interface Item {
@@ -1092,6 +1040,18 @@ declare interface Item {
  * @returns Label component with optional tooltip and required symbol.
  */
 export declare function Label({ id, data, forId, label, required, tooltip, showTooltipSymbol, tooltipSymbolSize, className, }: LabelProps): default_2.ReactElement;
+
+export declare interface LabelOnlyButtonProps extends BaseNavigationButtonProps {
+    label: string;
+    icon?: IconDefinition;
+    active: boolean;
+    notification?: boolean;
+}
+
+export declare interface LabelOnlyDropdownProps extends BaseNavigationDropdownProps {
+    label: string;
+    icon?: IconDefinition;
+}
 
 export declare interface LabelProps {
     id?: string;
@@ -1184,52 +1144,91 @@ export declare interface ModalProps {
     escapeDisabled?: boolean;
     hideCloseButton?: boolean;
     asPortal?: boolean;
-    onClose: () => void;
-    onNext?: () => void;
-    onOpenChange?: () => void;
-    onPrev?: () => void;
+    onClose: (e?: default_2.MouseEvent<HTMLButtonElement>) => void;
+    onNext?: (e?: default_2.MouseEvent<HTMLButtonElement>) => void;
+    onOpenChange?: (e?: default_2.MouseEvent<HTMLButtonElement>) => void;
+    onPrev?: (e?: default_2.MouseEvent<HTMLButtonElement>) => void;
     onPrimaryAction?: default_2.ReactNode;
     onSecondaryAction?: default_2.ReactNode;
 }
 
 /**
- * This function returns a pre-styled Navigation component based on the RadixUI navigation component and the custom theme.
+ * This function returns a pre-styled navigation component based on the ShadcnUI menubar component.
+ * The navigation component can contain multiple items, including buttons and dropdowns, which are
+ * defined through a corresponding data structure passed to the function.
  *
- * @param id - The id of the navigation.
- * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
- * @param children - The content of the navigation. Children should be subcomponents of the Navigation component like TriggerItem / ButtonItem / CustomItem for the correct functionality.
- * @param className - The optional className object allows you to override the default styling.
- * @param style - The optional style object allows you to override the default styling using CSS key-value styles.
- * @returns Navigation component
+ * @param items - The array of items to display in the navigation (required).
+ * @param className - The optional className object to override default styling for the root.
+ * @return Navigation component
  */
-export declare function Navigation({ id, data, children, className, style, }: NavigationProps): JSX_2.Element;
+export declare function Navigation({ items, className, style, ...props }: NavigationProps): JSX_2.Element;
 
-export declare namespace Navigation {
-    var TriggerItem: ({ id, data, label, icon, dropdownWidth, children, disabled, className, style, }: TriggerIconProps | TriggerLabelProps) => JSX_2.Element;
-    var DropdownItem: ({ id, data, title, href, onClick, subtitle, icon, className, style, }: DropdownItemWithHrefProps | DropdownItemWithOnClickProps) => JSX_2.Element;
-    var ButtonItem: ({ id, data, label, disabled, icon, href, onClick, className, style, }: ButtonItemWithHrefProps | ButtonItemWithOnClickProps) => JSX_2.Element;
-    var IconItem: ({ id, data, icon, disabled, href, onClick, className, style, }: IconItemWithHrefProps | IconItemWithOnClickProps) => JSX_2.Element;
-    var CustomItem: ({ id, data, children, className, style, }: CustomItemProps) => JSX_2.Element;
-}
+export declare type NavigationButtonItemProps = NavigationButtonProps & {
+    type: 'button';
+    key: string;
+};
 
-export declare interface NavigationProps {
-    id?: string;
+export declare type NavigationButtonProps = LabelOnlyButtonProps | IconOnlyButtonProps;
+
+export declare type NavigationDropdownItemProps = NavigationDropdownProps & {
+    type: 'dropdown';
+    key: string;
+};
+
+export declare type NavigationDropdownProps = LabelOnlyDropdownProps | IconOnlyDropdownProps;
+
+export declare type NavigationItemProps = NavigationButtonItemProps | NavigationDropdownItemProps;
+
+export declare type NavigationMenuItemProps = {
+    key: string;
+    type: 'link';
+    label: string;
+    onClick: () => void;
+    disabled?: boolean;
     data?: {
         cy?: string;
         test?: string;
     };
-    children: default_2.ReactNode;
     className?: {
-        root?: string;
-        indicator?: string;
-        viewport?: string;
+        label?: string;
     };
     style?: {
-        root?: default_2.CSSProperties;
-        indicator?: default_2.CSSProperties;
-        viewport?: default_2.CSSProperties;
+        label?: React.CSSProperties;
     };
+};
+
+export declare interface NavigationProps {
+    items: NavigationItemProps[];
+    className?: {
+        root?: string;
+    };
+    style?: {
+        root?: React.CSSProperties;
+    };
+    [x: string]: unknown;
 }
+
+export declare type NavigationSeparatorProps = {
+    key: string;
+    type: 'separator';
+};
+
+export declare type NavigationSubmenuProps = {
+    key: string;
+    type: 'submenu';
+    label: string;
+    options: NavigationMenuItemProps[];
+    data?: {
+        cy?: string;
+        test?: string;
+    };
+    className?: {
+        label?: string;
+    };
+    style?: {
+        label?: React.CSSProperties;
+    };
+};
 
 /**
  * This function returns a pre-styled wrapper for some custom component with navigation badge on it.
@@ -1273,6 +1272,7 @@ declare interface NotificationBadgeWrapperProps {
  * @param precision - The optional precision defines the number of decimal places that are allowed.
  * @param min - The optional min defines the minimum value that is allowed.
  * @param max - The optional max defines the maximum value that is allowed.
+ * @param unit - The optional unit is shown next to the input field.
  * @param tooltip - The optional tooltip is shown on hover over the tooltip next to the label.
  * @param required - Indicate whether the field is required or not.
  * @param hideError - Indicate whether the error message should be hidden or not.
@@ -1283,12 +1283,13 @@ declare interface NotificationBadgeWrapperProps {
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param className - The optional className object allows you to override the default styling.
  */
-export declare function NumberField({ id, value, onChange, label, labelType, placeholder, precision, min, max, tooltip, required, hideError, error, isTouched, disabled, onBlur, data, className, ...props }: NumberFieldProps): default_2.ReactElement;
+export declare function NumberField({ id, value, onChange, label, labelType, placeholder, precision, min, max, unit, tooltip, required, hideError, error, isTouched, disabled, onBlur, data, className, ...props }: NumberFieldProps): default_2.ReactElement;
 
 export declare interface NumberFieldClassName {
     field?: string;
     label?: string;
     input?: string;
+    unit?: string;
     error?: string;
     tooltip?: string;
 }
@@ -1303,6 +1304,7 @@ export declare interface NumberFieldProps {
     precision?: number;
     min?: number;
     max?: number;
+    unit?: string;
     tooltip?: string | default_2.ReactNode;
     required?: boolean;
     hideError?: boolean;
@@ -1346,6 +1348,7 @@ export declare interface ProgressProps {
     isMaxVisible?: boolean;
     className?: {
         root?: string;
+        background?: string;
         indicator?: string;
     };
     [x: string]: any;
@@ -1389,22 +1392,18 @@ export declare interface ProseProps {
  * @param defaultValue - The default value of the select component set initially.
  * @param placeholder - The placeholder text that is displayed when no value is selected.
  * @param disabled - Specifies whether the select component is disabled or not.
- * @param size - The size of the select component. Currently only medium and small are supported.
  * @param basic - Specifies whether the select component is basic or not. A basic select component does only have minimal styling of the trigger.
  * @param className - The optional className object allows you to override the default styling.
- * @param asPortal - If true, the select component is rendered as a portal.
  * @param contentPosition - The position of the content of the select component. Currently only 'item-aligned' and 'popper' are supported.
  * @return Select component
  */
-export declare function Select({ id, data, items, groups, onChange, onBlur, value, disabled, size, className, name, placeholder, defaultValue, basic, asPortal, contentPosition, }: SelectWithItemsProps | SelectWithGroupsProps): JSX_2.Element;
+export declare function Select({ id, data, items, groups, onChange, onBlur, value, disabled, className, name, placeholder, defaultValue, basic, contentPosition, }: SelectWithItemsProps | SelectWithGroupsProps): JSX_2.Element;
 
 export declare interface SelectClassName {
     root?: string;
     trigger?: string;
     content?: string;
     item?: string;
-    text?: string;
-    scrollButton?: string;
     groupLabel?: string;
     separator?: string;
 }
@@ -1452,7 +1451,7 @@ declare interface SelectFieldProps {
         test?: string;
     };
     name?: string;
-    value: string;
+    value?: string;
     onChange: (newValue: string) => void;
     onBlur?: () => void;
     label?: string;
@@ -1474,7 +1473,7 @@ declare interface SelectFieldProps {
 }
 
 export declare interface SelectGroup {
-    label?: string;
+    label?: string | React.ReactNode;
     showSeparator?: boolean;
     items: SelectItem[];
 }
@@ -1487,7 +1486,7 @@ export declare interface SelectItem {
     };
     value: string;
     disabled?: boolean;
-    label: string;
+    label: string | React.ReactNode;
     shortLabel?: string;
 }
 
@@ -1502,12 +1501,10 @@ declare interface SelectProps {
     onBlur?: () => void;
     value?: string;
     disabled?: boolean;
-    size?: 'md' | 'sm';
     className?: SelectClassName;
     placeholder?: string;
     defaultValue?: string;
     basic?: boolean;
-    asPortal?: boolean;
     contentPosition?: 'item-aligned' | 'popper';
 }
 
@@ -1527,6 +1524,7 @@ export declare interface SelectWithItemsProps extends SelectProps {
  * @param id - The id of the slider.
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param value - The value of the slider. The value should be between the min and max value and is maintained by the parent component.
+ * @param defaultValue - The default value of the slider, if the value is undefined
  * @param labels - The labels that are displayed on the slider. The labels and icons props should be mutually exclusive.
  * @param icons - The icons that are displayed on the slider. The labels and icons props should be mutually exclusive.
  * @param handleChange - The function that is called when the slider value is changed. The new value is passed as a parameter.
@@ -1534,12 +1532,13 @@ export declare interface SelectWithItemsProps extends SelectProps {
  * @param max - The maximum value of the slider.
  * @param step - The step size of the slider.
  * @param disabled - Indicator whether the slider is disabled or not.
+ * @param compact - Indicator whether the slider should be shown in a compact formm or not
  * @param rangeColorMap - A map that maps a range of values to colors. The color is used to color the range of the slider. The length of the map should be equal to the number of steps and the keys should correspond to the possible values of the slider.
  * @param borderColorMap - A map that maps a range of values to colors. The color is used to color the thumb of the slider. The length of the map should be equal to the number of steps and the keys should correspond to the possible values of the slider.
  * @param className - The optional className object allows you to override the default styling.
  * @returns Slider component.
  */
-export declare function Slider({ id, data, value, labels, handleChange, min, max, step, disabled, icons, rangeColorMap, borderColorMap, className, }: SliderWithLabelProps | SliderWithIconsProps): default_2.ReactElement;
+export declare function Slider({ id, data, value, labels, handleChange, defaultValue, min, max, step, disabled, compact, icons, rangeColorMap, borderColorMap, className, }: SliderWithLabelProps | SliderWithIconsProps): default_2.ReactElement;
 
 declare interface SliderProps {
     id?: string;
@@ -1547,20 +1546,24 @@ declare interface SliderProps {
         cy?: string;
         test?: string;
     };
-    value: number;
+    value?: number;
     handleChange: (newValue: number) => void;
+    defaultValue?: number;
     min: number;
     max: number;
     step: number;
     disabled?: boolean;
+    compact?: boolean;
     rangeColorMap?: Record<string, string>;
     borderColorMap?: Record<string, string>;
     className?: {
         root?: string;
         icons?: string;
         labels?: string;
+        track?: string;
         range?: string;
         thumb?: string;
+        lock?: string;
     };
 }
 
@@ -1574,10 +1577,10 @@ export declare interface SliderWithIconsProps extends SliderProps {
 }
 
 export declare interface SliderWithLabelProps extends SliderProps {
-    labels: {
-        min: string;
-        mid: string;
-        max: string;
+    labels?: {
+        min?: string;
+        mid?: string;
+        max?: string;
     };
     icons?: never;
 }
@@ -1589,6 +1592,7 @@ declare interface StepBaseProps {
     tooltipDisabled?: string;
     progress?: number;
     completed?: boolean;
+    error?: boolean;
     [x: string]: unknown;
 }
 
@@ -1646,13 +1650,15 @@ export declare interface StepProgressProps extends StepProgressBaseProps {
 }
 
 declare interface StepProgressProps_2 extends StepBaseProps {
-    progress: number;
+    progress?: number;
     completed?: boolean;
+    error?: boolean;
 }
 
 declare interface StepProps extends StepBaseProps {
     progress?: never;
     completed?: never;
+    error?: never;
 }
 
 /**
@@ -2211,7 +2217,7 @@ declare interface TextFieldProps {
     onIconClick?: () => void;
 }
 
-export declare function Toast({ title, description, duration, dismissible, triggerText, actionText, actionOnClick, position, openExternal, setOpenExternal, type, children, className, }: ToastPropsWithTitleTrigger | ToastPropsWithTitleNoTrigger | ToastPropsWithChildrenTrigger | ToastPropsWithChildrenNoTrigger): React_3.ReactElement;
+export declare function Toast({ title, description, duration, dismissible, triggerText, actionText, actionOnClick, position, openExternal, onCloseExternal, type, children, className, }: ToastPropsWithTitleTrigger | ToastPropsWithTitleNoTrigger | ToastPropsWithChildrenTrigger | ToastPropsWithChildrenNoTrigger): React_3.ReactElement;
 
 declare interface ToastProps {
     title?: string;
@@ -2223,7 +2229,7 @@ declare interface ToastProps {
     actionOnClick?: () => void;
     position?: string;
     openExternal?: boolean;
-    setOpenExternal?: (open: boolean) => void;
+    onCloseExternal?: () => void;
     type?: 'default' | 'success' | 'warning' | 'error';
     children?: React_3.ReactNode;
     className?: {
@@ -2246,13 +2252,13 @@ declare interface ToastPropsWithChildren extends ToastProps {
 export declare interface ToastPropsWithChildrenNoTrigger extends ToastPropsWithChildren {
     triggerText?: never;
     openExternal: boolean;
-    setOpenExternal: (open: boolean) => void;
+    onCloseExternal: () => void;
 }
 
 export declare interface ToastPropsWithChildrenTrigger extends ToastPropsWithChildren {
     triggerText: string;
     openExternal?: never;
-    setOpenExternal?: never;
+    onCloseExternal?: never;
 }
 
 declare interface ToastPropsWithTitle extends ToastProps {
@@ -2264,13 +2270,13 @@ declare interface ToastPropsWithTitle extends ToastProps {
 export declare interface ToastPropsWithTitleNoTrigger extends ToastPropsWithTitle {
     triggerText?: never;
     openExternal: boolean;
-    setOpenExternal: (open: boolean) => void;
+    onCloseExternal: () => void;
 }
 
 export declare interface ToastPropsWithTitleTrigger extends ToastPropsWithTitle {
     triggerText: string;
     openExternal?: never;
-    setOpenExternal?: never;
+    onCloseExternal?: never;
 }
 
 /**
@@ -2308,41 +2314,6 @@ export declare interface TooltipProps {
         tooltip?: string;
         trigger?: string;
         arrow?: string;
-    };
-}
-
-export declare interface TriggerIconProps extends TriggerProps {
-    icon: default_2.ReactNode;
-    label?: never;
-}
-
-export declare interface TriggerLabelProps extends TriggerProps {
-    label: string;
-    icon?: default_2.ReactNode;
-}
-
-declare interface TriggerProps {
-    id?: string;
-    data?: {
-        cy?: string;
-        test?: string;
-    };
-    dropdownWidth: string;
-    children: default_2.ReactNode;
-    disabled?: boolean;
-    className?: {
-        root?: string;
-        label?: string;
-        icon?: string;
-        dropdown?: string;
-        disabled?: string;
-    };
-    style?: {
-        root?: default_2.CSSProperties;
-        label?: default_2.CSSProperties;
-        icon?: default_2.CSSProperties;
-        dropdown?: default_2.CSSProperties;
-        disabled?: default_2.CSSProperties;
     };
 }
 
@@ -2459,7 +2430,7 @@ declare interface WorkflowItemProps {
 }
 
 export declare interface WorkflowProgressProps extends WorkflowBaseProps {
-    activeIx?: never;
+    activeIx?: number;
     items: StepProgressProps_2[];
     onClick: (item: StepProps | StepProgressProps_2, ix: number) => void;
 }
@@ -2473,13 +2444,13 @@ export declare interface WorkflowProps extends WorkflowBaseProps {
 export { }
 
 
+declare namespace Calendar {
+    var displayName: string;
+}
+
+
 declare namespace Tabs {
     var Tab: typeof import("@/Tabs").Tab;
     var TabList: typeof import("@/Tabs").TabList;
     var TabContent: typeof import("@/Tabs").TabContent;
-}
-
-
-declare namespace Calendar {
-    var displayName: string;
 }
