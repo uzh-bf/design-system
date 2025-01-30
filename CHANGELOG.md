@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.51](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.50...v3.0.0-alpha.51) (2025-01-30)
+
+
+### Enhancements
+
+* ***NumberField:** add optional unit attribute to all number field components ([da1946e](https://github.com/uzh-bf/design-system/commit/da1946e2382628389765a33ef9b2bc75f28d0f85))
+
 ## [3.0.0-alpha.50](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.49...v3.0.0-alpha.50) (2025-01-30)
 
 
