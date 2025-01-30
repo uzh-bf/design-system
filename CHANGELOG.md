@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.50](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.49...v3.0.0-alpha.50) (2025-01-30)
+
+
+### Other
+
+* **Modal:** update example cases with case of styled trigger component ([25a56bd](https://github.com/uzh-bf/design-system/commit/25a56bdedebe4837b4d57db4cfe93f4842f6f32e))
+
+
+### Enhancements
+
+* **Slider:** add compact version of slider with basic styling ([2a3c2cc](https://github.com/uzh-bf/design-system/commit/2a3c2cccea2e66585e10db0a32a31bb328f96463))
+
 ## [3.0.0-alpha.49](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.48...v3.0.0-alpha.49) (2025-01-22)
 
 
