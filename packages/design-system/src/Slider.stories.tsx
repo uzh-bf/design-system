@@ -38,6 +38,63 @@ export const Disabled = () => {
   )
 }
 
+export const Compact = () => {
+  const [value, setValue] = useState(0)
+
+  return (
+    <div className="w-full md:w-1/3">
+      <Slider
+        compact
+        value={value}
+        labels={{ min: '-5', max: '5' }}
+        handleChange={(newValue: number) => setValue(newValue)}
+        min={-5}
+        max={5}
+        step={0.3}
+      />
+      <div>Slider value: {value}</div>
+    </div>
+  )
+}
+
+export const CompactNoLabels = () => {
+  const [value, setValue] = useState<number | undefined>(undefined)
+
+  return (
+    <div className="w-full md:w-1/3">
+      <Slider
+        compact
+        value={value}
+        defaultValue={2}
+        handleChange={(newValue: number) => setValue(newValue)}
+        min={-5}
+        max={5}
+        step={0.3}
+      />
+      <div>Slider value: {String(value)}</div>
+    </div>
+  )
+}
+
+export const CompactDisabled = () => {
+  const [value, setValue] = useState<number | undefined>(0)
+
+  return (
+    <div className="w-full md:w-1/3">
+      <Slider
+        compact
+        disabled
+        value={value}
+        handleChange={(newValue: number) => setValue(newValue)}
+        min={-5}
+        max={5}
+        step={0.3}
+      />
+      <div>Slider value: {String(value)}</div>
+    </div>
+  )
+}
+
 export const Icons = () => {
   const [value, setValue] = useState(0)
 
