@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.52](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.51...v3.0.0-alpha.52) (2025-01-30)
+
+
+### Other
+
+* update auto-generated type files ([98530f9](https://github.com/uzh-bf/design-system/commit/98530f9c4193da37904d091258e17fea5208f1f5))
+
 ## [3.0.0-alpha.51](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.50...v3.0.0-alpha.51) (2025-01-30)
 
 
