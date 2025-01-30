@@ -6,10 +6,6 @@ import { twMerge } from 'tailwind-merge'
 
 interface SliderProps {
   id?: string
-  data?: {
-    cy?: string
-    test?: string
-  }
   value?: number
   handleChange: (newValue: number) => void
   defaultValue?: number
@@ -28,6 +24,10 @@ interface SliderProps {
     range?: string
     thumb?: string
     lock?: string
+  }
+  data?: {
+    cy?: string
+    test?: string
   }
   dataThumb?: {
     cy?: string
@@ -73,7 +73,6 @@ export interface SliderWithIconsProps extends SliderProps {
  */
 export function Slider({
   id,
-  data,
   value,
   labels,
   handleChange,
@@ -87,6 +86,8 @@ export function Slider({
   rangeColorMap,
   borderColorMap,
   className,
+  data,
+  dataThumb,
 }: SliderWithLabelProps | SliderWithIconsProps): React.ReactElement {
   const steps =
     min < 0 && max > 0
@@ -165,8 +166,8 @@ export function Slider({
             : borderColorMap[String(value)],
           className?.thumb
         )}
-        data-cy={data?.cy}
-        data-test={data?.test}
+        data-cy={dataThumb?.cy}
+        data-test={dataThumb?.test}
       >
         {disabled && (
           <FontAwesomeIcon

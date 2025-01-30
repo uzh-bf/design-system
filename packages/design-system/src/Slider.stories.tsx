@@ -51,6 +51,8 @@ export const Compact = () => {
         min={-5}
         max={5}
         step={0.3}
+        data={{ cy: 'slider-cy', test: 'slider-test' }}
+        dataThumb={{ cy: 'slider-thumb-cy', test: 'slider-thumb-test' }}
       />
       <div>Slider value: {value}</div>
     </div>
