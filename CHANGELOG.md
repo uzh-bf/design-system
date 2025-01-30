@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.54](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.53...v3.0.0-alpha.54) (2025-01-30)
+
+
+### Bug Fixes
+
+* **Slider:** pass correct data attribute to slider thumb component ([2575c1b](https://github.com/uzh-bf/design-system/commit/2575c1b8214780d06dc317cf295a08e728392ff6))
+
 ## [3.0.0-alpha.53](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.52...v3.0.0-alpha.53) (2025-01-30)
 
 
