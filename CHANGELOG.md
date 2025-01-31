@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.55](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.54...v3.0.0-alpha.55) (2025-01-31)
+
+
+### Enhancements
+
+* **Progress:** extend progress component to support stacked progress bars ([ae8e0aa](https://github.com/uzh-bf/design-system/commit/ae8e0aa9d9fb2258d47f18b1636990d4994a5354))
+
 ## [3.0.0-alpha.54](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.53...v3.0.0-alpha.54) (2025-01-30)
 
 
