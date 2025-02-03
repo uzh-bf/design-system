@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.56](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.55...v3.0.0-alpha.56) (2025-02-03)
+
+
+### Enhancements
+
+* **Checkbox:** add possibility to override default styling with custom styles attribute ([076427e](https://github.com/uzh-bf/design-system/commit/076427e3ee4253831145d49a40ec8e6e35585afb))
+
 ## [3.0.0-alpha.55](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.54...v3.0.0-alpha.55) (2025-01-31)
 
 
