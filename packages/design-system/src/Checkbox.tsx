@@ -17,6 +17,7 @@ export interface CheckboxProps {
   onCheck: () => void
   label?: string | React.ReactNode
   size?: 'sm' | 'md' | 'lg' | 'xl'
+  style?: { root?: React.CSSProperties; label?: React.CSSProperties }
   className?: {
     root?: string
     label?: string
@@ -36,6 +37,7 @@ export interface CheckboxProps {
  * @param disabled - Indicate whether the checkbox is disabled or not.
  * @param label - The label of the checkbox.
  * @param size - The size of the checkbox (can be small, medium, large or extra large).
+ * @param style - The optional style object allows you to override the default styling.
  * @param className - The optional className object allows you to override the default styling.
  * @returns Checkbox component
  */
@@ -49,6 +51,7 @@ export function Checkbox({
   label,
   onCheck,
   size = 'md',
+  style,
   className,
 }: CheckboxProps): React.ReactElement {
   const tickStyle = {
@@ -85,6 +88,7 @@ export function Checkbox({
           checkboxSize[size],
           className?.root
         )}
+        style={style?.root}
         disabled={disabled}
         onCheckedChange={() => onCheck()}
       >
@@ -99,6 +103,7 @@ export function Checkbox({
       </RadixCheckbox.Root>
       {label && (
         <div
+          style={style?.label}
           className={twMerge(
             'flex h-full flex-col justify-center',
             maxLabelWidth[size],
