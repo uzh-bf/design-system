@@ -8,7 +8,6 @@ interface TabProps {
     cy?: string
     test?: string
   }
-  key?: string
   value: string
   label?: string
   children?: React.ReactNode
@@ -36,7 +35,6 @@ interface TabPropsWithChildren extends TabProps {
  *
  * @param id - The id of the tab.
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
- * @param key - The key of the tab.
  * @param value - The value of the tab. This is required for the internal and external state.
  * @param label - The label of the tab.
  * @param children - A child component of the tab header, which can optionally replace the label
@@ -47,7 +45,6 @@ interface TabPropsWithChildren extends TabProps {
 export function Tab({
   id,
   data,
-  key,
   value,
   label,
   children,
@@ -59,7 +56,6 @@ export function Tab({
       id={id}
       data-cy={data?.cy}
       data-test={data?.test}
-      key={`tab-trigger-${key}`}
       value={value}
       className={twMerge(
         'group flex-1 border-b border-r border-gray-300 px-3 py-2.5 first:rounded-tl-lg last:rounded-tr-lg last:border-r-0',
@@ -128,7 +124,6 @@ interface TabContentProps {
     cy?: string
     test?: string
   }
-  key: string
   value: string
   className?: {
     root?: string
@@ -141,7 +136,6 @@ interface TabContentProps {
  *
  * @param id The id of the tab content.
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
- * @param key The key of the tab.
  * @param value The value of the tab. This is required for the internal and external state.
  * @param children The content of the tab should be passed as children to this component.
  * @param className The optional className object allows you to override the default styling.
@@ -150,7 +144,6 @@ interface TabContentProps {
 export function TabContent({
   id,
   data,
-  key,
   value,
   children,
   className,
@@ -160,7 +153,6 @@ export function TabContent({
       id={id}
       data-cy={data?.cy}
       data-test={data?.test}
-      key={`tab-content-${key}`}
       value={value}
       className={twMerge('rounded-t-lg bg-white py-4 md:px-6', className?.root)}
     >
