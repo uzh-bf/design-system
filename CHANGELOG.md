@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.57](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.56...v3.0.0-alpha.57) (2025-02-05)
+
+
+### Bug Fixes
+
+* **Tabs:** keys should not be passed to components as attributes ([fa72fe1](https://github.com/uzh-bf/design-system/commit/fa72fe16a8865784010d464b184dc8b3e2118a49))
+
+
+### Other
+
+* **Slider:** do not show lock icon on compact sliders ([068c0d1](https://github.com/uzh-bf/design-system/commit/068c0d1384c8e534e01058ca221be274b01747ed))
+
 ## [3.0.0-alpha.56](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.55...v3.0.0-alpha.56) (2025-02-03)
 
 
