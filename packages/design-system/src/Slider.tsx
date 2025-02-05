@@ -159,6 +159,7 @@ export function Slider({
           'flex h-12 w-12 flex-col items-center justify-center rounded-full border-[3px] border-solid bg-white shadow-lg focus:outline-none',
           compact && 'h-4 w-4 border-[1.5px]',
           disabled ? 'cursor-not-allowed' : 'cursor-move',
+          disabled && compact ? 'bg-gray-100' : 'bg-white',
           disabled ||
             !borderColorMap ||
             Object.keys(borderColorMap).length !== steps
@@ -169,7 +170,7 @@ export function Slider({
         data-cy={dataThumb?.cy}
         data-test={dataThumb?.test}
       >
-        {disabled && (
+        {disabled && !compact ? (
           <FontAwesomeIcon
             icon={faLock}
             className={twMerge(
@@ -178,7 +179,7 @@ export function Slider({
               className?.lock
             )}
           />
-        )}
+        ) : null}
       </RadixSlider.Thumb>
     </RadixSlider.Root>
   )
