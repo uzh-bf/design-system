@@ -182,6 +182,7 @@ export interface BaseNavigationDropdownProps {
   )[]
   disabled?: boolean
   active?: boolean
+  notification?: boolean
   data?: { cy?: string; test?: string }
   className?: {
     trigger?: string
@@ -256,6 +257,7 @@ function NavigationMenuItem({
  * @param elements - The array of elements to display in the dropdown (required).
  * @param disabled - Specifies whether the dropdown is disabled or not.
  * @param active - Indicates whether the dropdown is in an active state (only for label dropdowns).
+ * @param notification - Specifies whether the dropdown trigger has a notification badge or not.
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy).
  * @param className - The optional className object to override default styling for trigger, label, icon, content, and separator.
  * @return NavigationDropdown component
@@ -265,6 +267,7 @@ function NavigationDropdown({
   icon,
   disabled = false,
   active = false,
+  notification = false,
   elements,
   data,
   className,
@@ -298,11 +301,25 @@ function NavigationDropdown({
               style={style?.icon}
               className={className?.icon}
             />
-            <div className={className?.label}>{label}</div>
+            <div
+              style={style?.label}
+              className={twMerge('relative', className?.label)}
+            >
+              {label}
+              {notification && (
+                <div className="absolute -right-2 -top-0.5 h-2.5 w-2.5 rounded-full bg-red-600" />
+              )}
+            </div>
           </>
         ) : label ? (
-          <div style={style?.label} className={className?.label}>
+          <div
+            style={style?.label}
+            className={twMerge('relative', className?.label)}
+          >
             {label}
+            {notification && (
+              <div className="absolute -right-2 -top-0.5 h-2.5 w-2.5 rounded-full bg-red-600" />
+            )}
           </div>
         ) : (
           <FontAwesomeIcon

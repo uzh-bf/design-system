@@ -35,6 +35,7 @@ const dropdownItem: NavigationItemProps = {
   key: 'menubar-dropdown',
   label: 'Dropdown Menu',
   active: false,
+  notification: true,
   elements: [
     {
       key: 'dropdown-menubar-item1',
