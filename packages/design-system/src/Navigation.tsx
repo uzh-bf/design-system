@@ -1,6 +1,7 @@
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { twMerge } from 'tailwind-merge'
+import { Badge } from './ui/badge'
 import {
   MenubarContent,
   MenubarItem,
@@ -145,11 +146,17 @@ export type NavigationMenuItemProps = {
   key: string
   type: 'link'
   label: string
+  badge?: string | React.ReactNode
   onClick: () => void
   disabled?: boolean
+  notification?: boolean
   data?: { cy?: string; test?: string }
-  className?: { label?: string }
-  style?: { label?: React.CSSProperties }
+  className?: { label?: string; text?: string; badge?: string }
+  style?: {
+    label?: React.CSSProperties
+    text?: React.CSSProperties
+    badge?: React.CSSProperties
+  }
 }
 
 export type NavigationSeparatorProps = {
@@ -216,7 +223,7 @@ function NavigationMenuItem({
     <MenubarItem
       onClick={element.onClick}
       className={twMerge(
-        'h-7 text-base hover:cursor-pointer',
+        'h-7 justify-between text-base hover:cursor-pointer',
         element.disabled &&
           '!text-slate-400 hover:cursor-not-allowed hover:!text-slate-400',
         element.className?.label
@@ -226,7 +233,15 @@ function NavigationMenuItem({
       data-cy={element.data?.cy}
       data-test={element.data?.test}
     >
-      {element.label}
+      <div className="relative">
+        <span className={element.className?.text}>{element.label}</span>
+        {element.notification && (
+          <div className="absolute -right-2.5 -top-0 h-2.5 w-2.5 rounded-full bg-red-600" />
+        )}
+      </div>
+      {element.badge && (
+        <Badge className={element.className?.badge}>{element.badge}</Badge>
+      )}
     </MenubarItem>
   )
 }
