@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.59](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.58...v3.0.0-alpha.59) (2025-02-24)
+
+
+### Bug Fixes
+
+* **Navigation:** add missing notification badge on dropdown trigger ([2fb9d41](https://github.com/uzh-bf/design-system/commit/2fb9d411557698d36b610ff7edaa36ebf2fb174d))
+
 ## [3.0.0-alpha.58](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.57...v3.0.0-alpha.58) (2025-02-24)
 
 
