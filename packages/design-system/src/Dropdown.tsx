@@ -17,6 +17,7 @@ interface Item {
   selected?: boolean
   icon?: React.ReactNode
   tooltip?: string
+  disabled?: boolean
   className?: {
     item?: string
     tooltip?: string
@@ -147,6 +148,7 @@ export function Dropdown({
                 data={item.data}
                 icon={item.icon}
                 tooltip={item.tooltip}
+                disabled={item.disabled}
               />
             ))}
           </div>
@@ -172,6 +174,7 @@ export function Dropdown({
                     data={item.data}
                     icon={item.icon}
                     tooltip={item.tooltip}
+                    disabled={item.disabled}
                   />
                 ))}
               </RadixDropdown.Group>
@@ -193,6 +196,7 @@ const DropdownItem = ({
   className,
   icon,
   tooltip,
+  disabled = false,
 }: {
   id?: string
   data?: {
@@ -204,6 +208,7 @@ const DropdownItem = ({
   onClick: () => void
   shorting?: string
   selected?: boolean
+  disabled?: boolean
   className?: {
     root?: string
     active?: string
@@ -232,9 +237,18 @@ const DropdownItem = ({
           'flex w-full flex-row rounded px-2 py-0.5 hover:cursor-pointer hover:bg-primary-20 hover:text-primary-100',
           active && twMerge('font-bold', className?.active),
           selected && twMerge('font-bold', className?.active),
+          disabled &&
+            'text-gray-400 hover:cursor-not-allowed hover:bg-transparent hover:text-gray-400',
           className?.root
         )}
-        onClick={onClick}
+        onClick={(e: React.MouseEvent) => {
+          if (disabled) {
+            e.preventDefault()
+            return
+          }
+          onClick()
+        }}
+        disabled={disabled}
       >
         {tooltip ? (
           <Tooltip
@@ -259,8 +273,20 @@ const DropdownItem = ({
       id={id}
       data-cy={data?.cy}
       data-test={data?.test}
-      onClick={onClick}
-      className={twMerge('rounded-md', className?.root)}
+      onClick={(e: React.MouseEvent) => {
+        if (disabled) {
+          e.preventDefault()
+          return
+        }
+        onClick()
+      }}
+      className={twMerge(
+        'rounded-md',
+        disabled &&
+          'text-gray-400 hover:cursor-not-allowed hover:bg-transparent hover:text-gray-400',
+        className?.root
+      )}
+      disabled={disabled}
     >
       {label}
     </RadixDropdown.Item>

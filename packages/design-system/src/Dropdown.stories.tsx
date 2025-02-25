@@ -281,3 +281,46 @@ export const WithIconsAndTooltips = () => {
     </div>
   )
 }
+
+// Add a new story to demonstrate disabled items
+export const DisabledItems = () => {
+  return (
+    <div>
+      <div>
+        Individual dropdown items can be disabled with the disabled property.
+        Disabled items cannot be clicked and have greyed out text.
+      </div>
+      <Dropdown
+        trigger="Menu with Disabled Items"
+        items={[
+          {
+            label: 'Available Item',
+            onClick: () => alert('Available item clicked'),
+          },
+          {
+            label: 'Disabled Item',
+            onClick: () => alert('This should never show'),
+            disabled: true,
+          },
+          {
+            label: 'Item with Icon',
+            onClick: () => alert('Item with icon clicked'),
+            icon: <FontAwesomeIcon icon={faInfoCircle} />,
+          },
+          {
+            label: 'Disabled with Icon',
+            onClick: () => alert('This should never show'),
+            icon: <FontAwesomeIcon icon={faInfoCircle} />,
+            disabled: true,
+          },
+          {
+            label: 'Disabled with Tooltip',
+            onClick: () => alert('This should never show'),
+            tooltip: 'You cannot click this item',
+            disabled: true,
+          },
+        ]}
+      />
+    </div>
+  )
+}
