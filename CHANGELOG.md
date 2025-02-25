@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.61](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.60...v3.0.0-alpha.61) (2025-02-25)
+
+
+### Enhancements
+
+* **Dropdown:** add possibility to disable single elements in dropdown component ([4b3ab80](https://github.com/uzh-bf/design-system/commit/4b3ab805bd331f75bc94e3520c4a30d5bcaabcce))
+
 ## [3.0.0-alpha.60](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.59...v3.0.0-alpha.60) (2025-02-25)
 
 
