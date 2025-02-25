@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.60](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.59...v3.0.0-alpha.60) (2025-02-25)
+
+
+### Enhancements
+
+* add support for icons and tooltips on select and dropdown items ([35b6d16](https://github.com/uzh-bf/design-system/commit/35b6d1651a326d0fc8970536dd1ef0bd860bd4de))
+
 ## [3.0.0-alpha.59](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.58...v3.0.0-alpha.59) (2025-02-24)
 
 
