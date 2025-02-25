@@ -1,3 +1,5 @@
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from 'react'
 import Select from './Select'
 import { fruitsValues, groupValues } from './values'
@@ -188,6 +190,46 @@ export const CustomTriggerLabel = () => {
           console.log(newValue)
         }}
         value={value}
+      />
+    </div>
+  )
+}
+
+export const WithTooltips = () => {
+  const itemsWithTooltips = [
+    {
+      value: 'apple',
+      label: 'Apple',
+      tooltip: 'A delicious red fruit',
+    },
+    {
+      value: 'banana',
+      label: 'Banana',
+      icon: <FontAwesomeIcon icon={faInfoCircle} />,
+      className: { icon: 'text-uzh-blue-100' },
+      tooltip: 'Rich in potassium and great for athletes',
+    },
+    {
+      value: 'orange',
+      label: 'Orange',
+      icon: <FontAwesomeIcon icon={faInfoCircle} />,
+      className: { icon: 'text-uzh-red-100' },
+      tooltip: 'Full of Vitamin C',
+    },
+  ]
+
+  return (
+    <div className="flex flex-col gap-4">
+      <div>
+        This example shows tooltips on select items, both with and without
+        icons. Hover over the items to see the tooltips.
+      </div>
+      <Select
+        placeholder="Select a fruit"
+        items={itemsWithTooltips}
+        onChange={(newValue) => {
+          console.log(newValue)
+        }}
       />
     </div>
   )

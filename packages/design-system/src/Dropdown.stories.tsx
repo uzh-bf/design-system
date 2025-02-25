@@ -1,4 +1,8 @@
-import { faFilter, faList } from '@fortawesome/free-solid-svg-icons'
+import {
+  faFilter,
+  faInfoCircle,
+  faList,
+} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from 'react'
 import { twMerge } from 'tailwind-merge'
@@ -237,6 +241,41 @@ export const Active = () => {
             onClick: () => alert('Element 3 clicked'),
           },
           { label: 'Element 4', onClick: () => alert('Element 4 clicked') },
+        ]}
+      />
+    </div>
+  )
+}
+
+export const WithIconsAndTooltips = () => {
+  return (
+    <div>
+      <div>
+        This example shows dropdown items with icons and tooltips. Hover over
+        the items to see the tooltips.
+      </div>
+      <Dropdown
+        trigger="Items with Icons & Tooltips"
+        items={[
+          {
+            label: 'Basic Item',
+            onClick: () => console.log('Basic clicked'),
+            tooltip: 'A basic item without icon',
+          },
+          {
+            label: 'With Info',
+            onClick: () => console.log('Info clicked'),
+            icon: <FontAwesomeIcon icon={faInfoCircle} />,
+            className: { icon: 'text-uzh-blue-100' },
+            tooltip: 'An item with a blue info icon',
+          },
+          {
+            label: 'Warning Item',
+            onClick: () => console.log('Warning clicked'),
+            icon: <FontAwesomeIcon icon={faInfoCircle} />,
+            className: { icon: 'text-uzh-red-100' },
+            tooltip: 'An item with a red warning icon',
+          },
         ]}
       />
     </div>

@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as RadixDropdown from '@radix-ui/react-dropdown-menu'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
+import Tooltip from './Tooltip'
 
 interface Item {
   id?: string
@@ -14,6 +15,14 @@ interface Item {
   onClick: () => void
   shorting?: string
   selected?: boolean
+  icon?: React.ReactNode
+  tooltip?: string
+  className?: {
+    item?: string
+    tooltip?: string
+    label?: string
+    icon?: string
+  }
 }
 interface DropdownProps {
   id?: string
@@ -136,6 +145,8 @@ export function Dropdown({
                   active: className?.activeItem,
                 }}
                 data={item.data}
+                icon={item.icon}
+                tooltip={item.tooltip}
               />
             ))}
           </div>
@@ -159,6 +170,8 @@ export function Dropdown({
                       active: className?.activeItem,
                     }}
                     data={item.data}
+                    icon={item.icon}
+                    tooltip={item.tooltip}
                   />
                 ))}
               </RadixDropdown.Group>
@@ -178,6 +191,8 @@ const DropdownItem = ({
   shorting,
   selected,
   className,
+  icon,
+  tooltip,
 }: {
   id?: string
   data?: {
@@ -192,33 +207,51 @@ const DropdownItem = ({
   className?: {
     root?: string
     active?: string
+    icon?: string
+    label?: string
+    tooltip?: string
   }
+  icon?: React.ReactNode
+  tooltip?: string
 }) => {
   if (typeof label === 'string') {
-    return (
+    const ItemContent = () => (
+      <div className="flex flex-row items-center gap-2">
+        <span className={className?.label}>{label}</span>
+        {icon && <span className={className?.icon}>{icon}</span>}
+        {shorting && <div className="ml-6">{shorting}</div>}
+      </div>
+    )
+
+    const ItemContentTooltip = (
       <RadixDropdown.Item
         id={id}
         data-cy={data?.cy}
         data-test={data?.test}
         className={twMerge(
-          `flex flex-row rounded px-2 py-0.5 hover:cursor-pointer hover:bg-primary-20 hover:text-primary-100`,
+          'flex w-full flex-row rounded px-2 py-0.5 hover:cursor-pointer hover:bg-primary-20 hover:text-primary-100',
           active && twMerge('font-bold', className?.active),
+          selected && twMerge('font-bold', className?.active),
           className?.root
         )}
         onClick={onClick}
       >
-        <div
-          className={twMerge(
-            'flex-1',
-            selected && twMerge('font-bold', className?.active)
-          )}
-        >
-          {label}
-        </div>
-
-        {shorting && <div className="ml-6">{shorting}</div>}
+        {tooltip ? (
+          <Tooltip
+            tooltip={tooltip}
+            className={{
+              tooltip: className?.tooltip,
+            }}
+          >
+            <ItemContent />
+          </Tooltip>
+        ) : (
+          <ItemContent />
+        )}
       </RadixDropdown.Item>
     )
+
+    return ItemContentTooltip
   }
 
   return (

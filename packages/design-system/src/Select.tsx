@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
+import Tooltip from './Tooltip' // New import for tooltips
 import {
   SelectContent,
   SelectGroup,
@@ -48,6 +49,14 @@ export interface SelectItem {
   disabled?: boolean
   label: string | React.ReactNode
   shortLabel?: string
+  icon?: React.ReactNode
+  className?: {
+    item?: string
+    tooltip?: string
+    label?: string
+    icon?: string
+  }
+  tooltip?: string
 }
 
 export interface SelectGroup {
@@ -110,6 +119,18 @@ export function Select({
     setShortLabel(flatItems?.find((item) => item.value === value)?.shortLabel)
   }, [value, items, groups])
 
+  const ItemContent = ({ item }: { item: SelectItem }) => (
+    <div
+      className={twMerge(
+        'flex flex-row items-center gap-2',
+        item.className?.item
+      )}
+    >
+      <span className={item.className?.label}>{item.label}</span>
+      {item.icon && <span className={item.className?.icon}>{item.icon}</span>}
+    </div>
+  )
+
   return (
     <div className={twMerge('relative flex', className?.root)}>
       <ShadcnSelect
@@ -165,7 +186,13 @@ export function Select({
                     className?.item
                   )}
                 >
-                  {item.label}
+                  {item.tooltip ? (
+                    <Tooltip tooltip={item.tooltip}>
+                      <ItemContent item={item} />
+                    </Tooltip>
+                  ) : (
+                    <ItemContent item={item} />
+                  )}
                 </SelectItem>
               ))
             : groups.map((group, ix) => (
@@ -192,7 +219,13 @@ export function Select({
                         className?.item
                       )}
                     >
-                      {item.label}
+                      {item.tooltip ? (
+                        <Tooltip tooltip={item.tooltip}>
+                          {<ItemContent item={item} />}
+                        </Tooltip>
+                      ) : (
+                        <ItemContent item={item} />
+                      )}
                     </SelectItem>
                   ))}
                 </SelectGroup>
