@@ -1,6 +1,6 @@
 {
   "name": "@uzh-bf/design-system-react-header",
-  "version": "3.0.0-alpha.61",
+  "version": "3.0.0-alpha.62",
   "types": "dist/index.d.ts",
   "files": [
     "dist"

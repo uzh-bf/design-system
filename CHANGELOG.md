@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.62](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.61...v3.0.0-alpha.62) (2025-02-28)
+
+
+### Features
+
+* **Button:** replace button with shadcn version and updated styling ([#136](https://github.com/uzh-bf/design-system/issues/136)) ([689c0ef](https://github.com/uzh-bf/design-system/commit/689c0ef1e4d010ed95cad9923af6055e9f5e0012))
+
+
+### Other
+
+* update components dependent on button ([08ca40f](https://github.com/uzh-bf/design-system/commit/08ca40fa2c00e28fe555c41a74455bb2436367b0))
+* update linting configuration to exclude shadcn and generate files and fix remaining issues ([#137](https://github.com/uzh-bf/design-system/issues/137)) ([4dbdb65](https://github.com/uzh-bf/design-system/commit/4dbdb6582d642d2c19703ac0dfb45dcedd1ee5df))
+
 ## [3.0.0-alpha.61](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.60...v3.0.0-alpha.61) (2025-02-25)
 
 
