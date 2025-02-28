@@ -166,7 +166,7 @@ export function DateChanger({
               onClick={onEdit}
               className={{
                 root: twMerge(
-                  'rounded-r bg-uzh-grey-20 px-2 py-1 hover:bg-uzh-grey-40',
+                  'h-8 rounded-l-none rounded-r-sm bg-uzh-grey-20 px-2 py-1 hover:bg-uzh-grey-40',
                   className?.editButton,
                   disabled && twMerge('cursor-not-allowed', className?.disabled)
                 ),

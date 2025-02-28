@@ -207,9 +207,10 @@ export function ColorPicker({
                   />
                 </div>
                 <Button
+                  primary
                   className={{
                     root: twMerge(
-                      `float-right h-max w-full justify-center self-end bg-primary-80 text-white disabled:opacity-60`,
+                      `float-right h-max w-full justify-center self-end`,
                       className?.submit
                     ),
                   }}

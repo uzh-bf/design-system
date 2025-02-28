@@ -131,10 +131,11 @@ export function Collapsible({
           >
             {typeof primary === 'string' && onPrimaryClick ? (
               <Button
+                primary
                 onClick={onPrimaryClick}
                 className={{
                   root: twMerge(
-                    'float-right border-primary-80 bg-primary-80 font-bold text-white',
+                    'float-right font-bold',
                     className?.primaryButton
                   ),
                 }}

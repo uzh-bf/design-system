@@ -183,7 +183,7 @@ export function Toast({
             <div className={className?.children}>{children}</div>
 
             {actionText && actionOnClick && (
-              <RadixToast.Action asChild altText="Goto schedule to undo">
+              <RadixToast.Action asChild altText="Action">
                 <Button
                   onClick={actionOnClick}
                   className={{ root: className?.action }}

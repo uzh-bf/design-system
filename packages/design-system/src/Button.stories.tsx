@@ -55,10 +55,20 @@ export const Active = () => (
 )
 
 export const Disabled = () => (
-  <Button disabled>
-    <Button.Icon icon={faEnvelope} />
-    <Button.Label>Button</Button.Label>
-  </Button>
+  <div className="flex flex-col gap-4">
+    <Button disabled>
+      <Button.Icon icon={faEnvelope} />
+      <Button.Label>Button</Button.Label>
+    </Button>
+    <Button primary disabled>
+      <Button.Icon icon={faEnvelope} />
+      <Button.Label>Primary Button</Button.Label>
+    </Button>
+    <Button destructive disabled>
+      <Button.Icon icon={faEnvelope} />
+      <Button.Label>Destructive Button</Button.Label>
+    </Button>
+  </div>
 )
 
 export const Fluid = () => (
