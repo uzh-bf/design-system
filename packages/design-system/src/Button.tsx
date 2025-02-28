@@ -1,16 +1,21 @@
-import React, { Dispatch } from 'react'
+import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Dispatch } from 'react'
 import { twMerge } from 'tailwind-merge'
+import { Button as ShadcnButton } from './ui/button'
 
 export interface ButtonProps {
   id?: string
-  active?: boolean
   children?: React.ReactNode
+  onClick?: (e?: React.MouseEvent<HTMLButtonElement>) => void
   disabled?: boolean
+  primary?: boolean
+  destructive?: boolean
+  active?: boolean
   fluid?: boolean
   basic?: boolean
-  type?: 'button' | 'submit' | 'reset'
   loading?: boolean
-  onClick?: (e?: React.MouseEvent<HTMLButtonElement>) => void
+  type?: 'button' | 'submit' | 'reset'
   className?: {
     root?: string
     active?: string
@@ -26,16 +31,18 @@ export interface ButtonProps {
  * This function returns a pre-styled Button component based on the custom theme.
  *
  * @param id - The id of the button.
- * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param children - The content of the button.
- * @param active - Indicate whether the button is active or not. Conditional styling is applied, if this is true.
+ * @param onClick - Function that is applied when the button is clicked.
  * @param disabled - Indicate whether the button is disabled or not. Conditional styling is applied, if this is true.
+ * @param destructive - Indicate whether the button is destructive or not. Conditional styling is applied, if this is true.
+ * @param primary - Indicate whether the button is primary or not. Conditional styling is applied, if this is true.
+ * @param active - Indicate whether the button is active or not. Conditional styling is applied, if this is true.
  * @param fluid - Indicate whether the button should be fluid or not. Conditional styling is applied, if this is true.
  * @param basic - This attribute allows to directly remove significant pre-styling and only applies basic styles and functionally required attributes.
- * @param type - The html type of the button.
  * @param loading - Indicate whether the button is loading or not. Conditional styling / loading symbol is applied, if this is true.
- * @param onClick - Function that is applied when the button is clicked.
+ * @param type - The html type of the button.
  * @param className - The optional className object allows you to override the default styling.
+ * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @returns Button component
  */
 export function Button({
@@ -43,6 +50,8 @@ export function Button({
   children,
   onClick,
   disabled = false,
+  primary = false,
+  destructive = false,
   active = false,
   fluid = false,
   basic = false,
@@ -52,36 +61,39 @@ export function Button({
   data,
   ...props
 }: ButtonProps) {
-  const computedClassName = twMerge(
-    !basic && 'border rounded px-[0.75em] py-[0.25em] shadow bg-white',
-    'inline-flex flex-row items-center font-sans gap-2 cursor-pointer',
-    fluid && 'w-full justify-center',
-    disabled || loading
-      ? !basic
-        ? 'bg-uzh-grey-20 text-uzh-grey-80 cursor-default fill-uzh-grey-80'
-        : 'cursor-default'
-      : !basic &&
-          `hover:bg-primary-20 hover:border-primary-40 hover:text-primary-100 hover:fill-primary-100`,
-    !basic &&
-      active &&
-      twMerge('bg-primary-20 border-primary-40', className?.active),
-    className?.root
-  )
-
   return (
-    <button
-      {...props}
+    <ShadcnButton
       id={id}
+      variant={
+        basic
+          ? 'ghost'
+          : primary
+            ? 'default'
+            : destructive
+              ? 'destructive'
+              : 'outline'
+      }
+      disabled={disabled || loading}
+      type={type}
+      onClick={onClick}
+      className={twMerge(
+        'h-max px-3 py-1.5 text-base',
+        primary
+          ? 'bg-primary-100 text-primary-foreground hover:bg-primary-80'
+          : '',
+        destructive ? 'bg-red-600 text-white hover:bg-red-700' : '',
+        fluid ? 'w-full justify-center' : '',
+        className?.root,
+        active && 'border-primary-100 bg-primary-20 hover:bg-primary-40',
+        active ? className?.active : ''
+      )}
       data-cy={data?.cy}
       data-test={data?.test}
-      className={computedClassName}
-      disabled={disabled || loading}
-      onClick={onClick}
-      type={type}
+      {...props}
     >
       {loading && (
         <svg
-          className={`-ml-1 h-5 w-5 animate-spin text-primary`}
+          className={`-ml-1 mr-2 h-5 w-5 animate-spin text-primary`}
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
@@ -102,20 +114,27 @@ export function Button({
         </svg>
       )}
       {children}
-    </button>
+    </ShadcnButton>
   )
 }
 
 Button.Icon = function ButtonIcon({
+  icon,
+  withoutLabel,
   className,
-  children,
 }: {
+  icon: IconDefinition
+  withoutLabel?: boolean
   className?: {
     root?: string
   }
-  children: React.ReactNode
 }) {
-  return <div className={twMerge('w-3', className?.root)}>{children}</div>
+  return (
+    <FontAwesomeIcon
+      icon={icon}
+      className={twMerge('h-4 w-4', !withoutLabel && 'mr-2', className?.root)}
+    />
+  )
 }
 
 Button.Label = function ButtonLabel({
@@ -128,6 +147,18 @@ Button.Label = function ButtonLabel({
   children: React.ReactNode
 }) {
   return <div className={twMerge('', className?.root)}>{children}</div>
+}
+
+Button.Label = function ButtonLabel({
+  className,
+  children,
+}: {
+  className?: {
+    root?: string
+  }
+  children: React.ReactNode
+}) {
+  return <div className={className?.root}>{children}</div>
 }
 
 export interface ButtonIconGroupProps {
@@ -149,7 +180,7 @@ Button.IconGroup = function ButtonIconGroup({
   return (
     <div
       className={twMerge(
-        'flex w-max flex-row justify-between rounded border border-solid border-primary',
+        'flex w-max flex-row justify-between rounded border border-solid border-primary-100',
         className?.root
       )}
     >
@@ -159,15 +190,14 @@ Button.IconGroup = function ButtonIconGroup({
             key={index}
             className={{
               root: twMerge(
-                'p-1.5 first:rounded-l-sm last:rounded-r-sm hover:border-primary-100',
+                'rounded-none border-0 px-2 first:rounded-l-sm last:rounded-r-sm',
                 state === index
-                  ? `hover:bg-unset bg-primary-80 text-white`
-                  : 'bg-white',
+                  ? 'bg-primary-100 text-primary-foreground hover:bg-primary-80 hover:text-primary-foreground'
+                  : 'bg-white hover:bg-primary-20',
                 className?.children
               ),
             }}
             onClick={() => setState(index)}
-            basic
           >
             {child}
           </Button>
