@@ -37,7 +37,7 @@ export interface NumberFieldProps {
     test?: string
   }
   className?: NumberFieldClassName
-  [key: string]: any
+  [key: string]: unknown
 }
 
 /**

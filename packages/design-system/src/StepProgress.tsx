@@ -48,7 +48,7 @@ function defaultFormatter({ element, ix }: FormatterArgs) {
 }
 
 export interface StepItem {
-  [x: string]: any
+  [x: string]: unknown
 }
 
 interface StepProgressBaseProps {

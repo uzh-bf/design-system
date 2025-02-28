@@ -20,7 +20,7 @@ interface FormikTextFieldProps {
   required?: boolean
   hideError?: boolean
   disabled?: boolean
-  onPaste?: (e: any) => void
+  onPaste?: React.ClipboardEventHandler<HTMLInputElement>
   className?: TextFieldClassName & {
     root?: string
   }

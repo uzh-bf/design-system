@@ -41,7 +41,7 @@ export function FormikPinField({
       data={data}
       error={!!meta.error && meta.touched ? meta.error : undefined}
       placeholder="### ### ###"
-      onPaste={(e: any) => {
+      onPaste={(e) => {
         e.preventDefault()
         const paste = e.clipboardData?.getData('text')
         if (

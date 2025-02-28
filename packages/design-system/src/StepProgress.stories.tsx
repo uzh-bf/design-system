@@ -74,7 +74,7 @@ export const StatusOffset = () => {
   return (
     <StepProgress
       value={value}
-      onItemClick={(val, _) => {
+      onItemClick={(val) => {
         setValue(val)
       }}
       items={statusItems}
@@ -96,7 +96,7 @@ export const AsymmetricOffset = () => {
       </div>
       <StepProgress
         value={value}
-        onItemClick={(val, _) => {
+        onItemClick={(val) => {
           setValue(val)
         }}
         items={statusItems}
@@ -105,7 +105,7 @@ export const AsymmetricOffset = () => {
       />
       <StepProgress
         value={value2}
-        onItemClick={(val, _) => {
+        onItemClick={(val) => {
           setValue2(val)
         }}
         items={statusItems}

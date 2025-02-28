@@ -58,9 +58,10 @@ export interface ColorPickerProps {
   className?: ColorPickerClassName
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function useOutsideAlerter(elementRef: any, callback: () => void) {
   useEffect(() => {
-    function handleClickOutside(event: any) {
+    function handleClickOutside(event: MouseEvent) {
       if (elementRef.current && !elementRef.current.contains(event.target)) {
         callback()
       }

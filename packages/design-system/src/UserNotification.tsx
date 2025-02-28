@@ -3,6 +3,7 @@ import {
   faCircleInfo,
   faCircleXmark,
   faTriangleExclamation,
+  IconDefinition,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
@@ -53,7 +54,7 @@ export function UserNotification({
   children,
   className,
 }: UserNotificationMessageProps | UserNotificationChildrenProps) {
-  let notifIcon: any
+  let notifIcon: IconDefinition
   let computedClassName: string
 
   switch (type) {

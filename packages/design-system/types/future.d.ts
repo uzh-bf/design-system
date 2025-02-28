@@ -147,7 +147,7 @@ export declare interface BadgeProps extends React_2.HTMLAttributes<HTMLDivElemen
 }
 
 export declare const badgeVariants: (props?: ({
-    variant?: "secondary" | "default" | "destructive" | "outline" | null | undefined;
+    variant?: "default" | "destructive" | "outline" | "secondary" | null | undefined;
 } & ClassProp) | undefined) => string;
 
 export declare const Breadcrumb: React_2.ForwardRefExoticComponent<Omit<React_2.DetailedHTMLProps<React_2.HTMLAttributes<HTMLElement>, HTMLElement>, "ref"> & {
@@ -181,8 +181,8 @@ export declare interface ButtonProps extends React_2.ButtonHTMLAttributes<HTMLBu
 }
 
 export declare const buttonVariants: (props?: ({
-    variant?: "link" | "ghost" | "secondary" | "default" | "destructive" | "outline" | null | undefined;
-    size?: "sm" | "lg" | "icon" | "default" | null | undefined;
+    variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link" | null | undefined;
+    size?: "default" | "sm" | "lg" | "icon" | null | undefined;
 } & ClassProp) | undefined) => string;
 
 export declare function Calendar({ className, classNames, showOutsideDays, ...props }: CalendarProps): JSX_2.Element;
@@ -787,22 +787,22 @@ export declare const ToastViewport: React_2.ForwardRefExoticComponent<Omit<Toast
 
 export declare const Toggle: React_2.ForwardRefExoticComponent<Omit<TogglePrimitive.ToggleProps & React_2.RefAttributes<HTMLButtonElement>, "ref"> & VariantProps<(props?: ({
     variant?: "default" | "outline" | null | undefined;
-    size?: "sm" | "lg" | "default" | null | undefined;
+    size?: "default" | "sm" | "lg" | null | undefined;
 } & ClassProp) | undefined) => string> & React_2.RefAttributes<HTMLButtonElement>>;
 
 export declare const ToggleGroup: React_2.ForwardRefExoticComponent<((Omit<ToggleGroupPrimitive.ToggleGroupSingleProps & React_2.RefAttributes<HTMLDivElement>, "ref"> | Omit<ToggleGroupPrimitive.ToggleGroupMultipleProps & React_2.RefAttributes<HTMLDivElement>, "ref">) & VariantProps<(props?: ({
     variant?: "default" | "outline" | null | undefined;
-    size?: "sm" | "lg" | "default" | null | undefined;
+    size?: "default" | "sm" | "lg" | null | undefined;
 } & ClassProp) | undefined) => string>) & React_2.RefAttributes<HTMLDivElement>>;
 
 export declare const ToggleGroupItem: React_2.ForwardRefExoticComponent<Omit<ToggleGroupPrimitive.ToggleGroupItemProps & React_2.RefAttributes<HTMLButtonElement>, "ref"> & VariantProps<(props?: ({
     variant?: "default" | "outline" | null | undefined;
-    size?: "sm" | "lg" | "default" | null | undefined;
+    size?: "default" | "sm" | "lg" | null | undefined;
 } & ClassProp) | undefined) => string> & React_2.RefAttributes<HTMLButtonElement>>;
 
 export declare const toggleVariants: (props?: ({
     variant?: "default" | "outline" | null | undefined;
-    size?: "sm" | "lg" | "default" | null | undefined;
+    size?: "default" | "sm" | "lg" | null | undefined;
 } & ClassProp) | undefined) => string;
 
 export declare const Tooltip: React_2.FC<TooltipPrimitive.TooltipProps>;

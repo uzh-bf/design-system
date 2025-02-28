@@ -13,7 +13,7 @@ export interface CycleCountdownProps {
   isStatic?: boolean
   terminalColor?: string
   terminalPercentage?: number
-  formatter?: (value: any) => any
+  formatter?: (value: number) => string | number | React.ReactNode
   onExpire?: () => void
   onUpdate?: (timeRemaining: number) => void
   data?: {
