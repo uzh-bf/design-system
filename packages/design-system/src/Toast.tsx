@@ -130,17 +130,16 @@ export function Toast({
       >
         {dismissible && (
           <Button
-            className={{ root: 'fixed right-6 top-4 hidden group-hover:block' }}
-            basic
+            className={{
+              root: 'fixed right-5 top-4 hidden border-none !p-0 hover:bg-white group-hover:block',
+            }}
             onClick={() => onCloseExternal?.() ?? setOpen(false)}
           >
-            <Button.Icon>
-              <FontAwesomeIcon
-                icon={faXmark}
-                size="xl"
-                className="text-uzh-grey-100 hover:text-black"
-              />
-            </Button.Icon>
+            <FontAwesomeIcon
+              icon={faXmark}
+              size="xl"
+              className="text-uzh-grey-100 hover:text-black"
+            />
           </Button>
         )}
         <div className="mr-4 flex flex-row items-center gap-4">
