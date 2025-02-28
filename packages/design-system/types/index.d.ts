@@ -10,6 +10,7 @@ import { JSX as JSX_2 } from 'react/jsx-runtime';
 import { PropsWithChildren } from 'react';
 import { default as React_2 } from 'react';
 import * as React_3 from 'react';
+import { ReactNode } from 'react';
 
 export declare interface BaseNavigationButtonProps {
     onClick: () => void;
@@ -34,6 +35,7 @@ export declare interface BaseNavigationDropdownProps {
     elements: (NavigationMenuItemProps | NavigationSeparatorProps | NavigationSubmenuProps)[];
     disabled?: boolean;
     active?: boolean;
+    notification?: boolean;
     data?: {
         cy?: string;
         test?: string;
@@ -54,6 +56,20 @@ export declare interface BaseNavigationDropdownProps {
     };
 }
 
+declare interface BaseProgressProps {
+    id?: string;
+    data?: {
+        cy?: string;
+        test?: string;
+    };
+    offset?: number;
+    max: number;
+    formatter: (value: string | number) => string | default_2.ReactNode;
+    isMaxVisible?: boolean;
+    noMinWidth?: boolean;
+    [x: string]: unknown;
+}
+
 declare type BaseRowType = {
     className?: string;
 };
@@ -62,56 +78,61 @@ declare type BaseRowType = {
  * This function returns a pre-styled Button component based on the custom theme.
  *
  * @param id - The id of the button.
- * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param children - The content of the button.
- * @param active - Indicate whether the button is active or not. Conditional styling is applied, if this is true.
+ * @param onClick - Function that is applied when the button is clicked.
  * @param disabled - Indicate whether the button is disabled or not. Conditional styling is applied, if this is true.
+ * @param destructive - Indicate whether the button is destructive or not. Conditional styling is applied, if this is true.
+ * @param primary - Indicate whether the button is primary or not. Conditional styling is applied, if this is true.
+ * @param active - Indicate whether the button is active or not. Conditional styling is applied, if this is true.
  * @param fluid - Indicate whether the button should be fluid or not. Conditional styling is applied, if this is true.
  * @param basic - This attribute allows to directly remove significant pre-styling and only applies basic styles and functionally required attributes.
- * @param type - The html type of the button.
  * @param loading - Indicate whether the button is loading or not. Conditional styling / loading symbol is applied, if this is true.
- * @param onClick - Function that is applied when the button is clicked.
+ * @param type - The html type of the button.
  * @param className - The optional className object allows you to override the default styling.
+ * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @returns Button component
  */
-export declare function Button({ id, children, onClick, disabled, active, fluid, basic, loading, type, className, data, ...props }: ButtonProps): JSX_2.Element;
+export declare function Button({ id, children, onClick, disabled, primary, destructive, active, fluid, basic, loading, type, className, data, ...props }: ButtonProps): JSX_2.Element;
 
 export declare namespace Button {
-    var Icon: ({ className, children, }: {
+    var Icon: ({ icon, withoutLabel, className, }: {
+        icon: IconDefinition;
+        withoutLabel?: boolean | undefined;
         className?: {
             root?: string | undefined;
         } | undefined;
-        children: default_2.ReactNode;
     }) => JSX_2.Element;
     var Label: ({ className, children, }: {
         className?: {
             root?: string | undefined;
         } | undefined;
-        children: default_2.ReactNode;
+        children: ReactNode;
     }) => JSX_2.Element;
     var IconGroup: ({ state, setState, className, children, }: ButtonIconGroupProps) => JSX_2.Element;
 }
 
 export declare interface ButtonIconGroupProps {
     state: number | undefined;
-    setState: Dispatch<default_2.SetStateAction<number | undefined>>;
+    setState: Dispatch<React.SetStateAction<number | undefined>>;
     className?: {
         root?: string;
         children?: string;
     };
-    children: default_2.ReactNode[];
+    children: React.ReactNode[];
 }
 
 export declare interface ButtonProps {
     id?: string;
-    active?: boolean;
-    children?: default_2.ReactNode;
+    children?: React.ReactNode;
+    onClick?: (e?: React.MouseEvent<HTMLButtonElement>) => void;
     disabled?: boolean;
+    primary?: boolean;
+    destructive?: boolean;
+    active?: boolean;
     fluid?: boolean;
     basic?: boolean;
-    type?: 'button' | 'submit' | 'reset';
     loading?: boolean;
-    onClick?: (e?: default_2.MouseEvent<HTMLButtonElement>) => void;
+    type?: 'button' | 'submit' | 'reset';
     className?: {
         root?: string;
         active?: string;
@@ -136,10 +157,11 @@ export declare interface ButtonProps {
  * @param disabled - Indicate whether the checkbox is disabled or not.
  * @param label - The label of the checkbox.
  * @param size - The size of the checkbox (can be small, medium, large or extra large).
+ * @param style - The optional style object allows you to override the default styling.
  * @param className - The optional className object allows you to override the default styling.
  * @returns Checkbox component
  */
-export declare function Checkbox({ id, data, children, checked, partial, disabled, label, onCheck, size, className, }: CheckboxProps): default_2.ReactElement;
+export declare function Checkbox({ id, data, children, checked, partial, disabled, label, onCheck, size, style, className, }: CheckboxProps): default_2.ReactElement;
 
 export declare interface CheckboxProps {
     id?: string;
@@ -154,6 +176,10 @@ export declare interface CheckboxProps {
     onCheck: () => void;
     label?: string | default_2.ReactNode;
     size?: 'sm' | 'md' | 'lg' | 'xl';
+    style?: {
+        root?: default_2.CSSProperties;
+        label?: default_2.CSSProperties;
+    };
     className?: {
         root?: string;
         label?: string;
@@ -291,7 +317,7 @@ export declare function Countdown({ isStatic, expiresAt, formatter, onExpire, on
 export declare interface CountdownProps {
     isStatic?: boolean;
     expiresAt: Date;
-    formatter?: (value: any) => any;
+    formatter?: (value: number) => string | number | React.ReactNode;
     onExpire?: () => void;
     onUpdate?: (timeRemaining: number) => void;
     data?: {
@@ -334,7 +360,7 @@ export declare interface CycleCountdownProps {
     isStatic?: boolean;
     terminalColor?: string;
     terminalPercentage?: number;
-    formatter?: (value: any) => any;
+    formatter?: (value: number) => string | number | React.ReactNode;
     onExpire?: () => void;
     onUpdate?: (timeRemaining: number) => void;
     data?: {
@@ -907,7 +933,7 @@ declare interface FormikTextFieldProps {
     required?: boolean;
     hideError?: boolean;
     disabled?: boolean;
-    onPaste?: (e: any) => void;
+    onPaste?: default_2.ClipboardEventHandler<HTMLInputElement>;
     className?: TextFieldClassName & {
         root?: string;
     };
@@ -1023,6 +1049,15 @@ declare interface Item {
     onClick: () => void;
     shorting?: string;
     selected?: boolean;
+    icon?: default_2.ReactNode;
+    tooltip?: string;
+    disabled?: boolean;
+    className?: {
+        item?: string;
+        tooltip?: string;
+        label?: string;
+        icon?: string;
+    };
 }
 
 /**
@@ -1152,6 +1187,15 @@ export declare interface ModalProps {
     onSecondaryAction?: default_2.ReactNode;
 }
 
+declare interface MultiValueProgressProps extends BaseProgressProps {
+    value: number[];
+    className?: {
+        root?: string;
+        background?: string;
+        indicator?: string[];
+    };
+}
+
 /**
  * This function returns a pre-styled navigation component based on the ShadcnUI menubar component.
  * The navigation component can contain multiple items, including buttons and dropdowns, which are
@@ -1183,17 +1227,23 @@ export declare type NavigationMenuItemProps = {
     key: string;
     type: 'link';
     label: string;
+    badge?: string | React.ReactNode;
     onClick: () => void;
     disabled?: boolean;
+    notification?: boolean;
     data?: {
         cy?: string;
         test?: string;
     };
     className?: {
         label?: string;
+        text?: string;
+        badge?: string;
     };
     style?: {
         label?: React.CSSProperties;
+        text?: React.CSSProperties;
+        badge?: React.CSSProperties;
     };
 };
 
@@ -1317,7 +1367,7 @@ export declare interface NumberFieldProps {
         test?: string;
     };
     className?: NumberFieldClassName;
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
 /**
@@ -1325,34 +1375,18 @@ export declare interface NumberFieldProps {
  *
  * @param id - The id of the progress bar.
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
- * @param value - The value of the progress bar. The value should be between 0 and an optionally provided max value.
+ * @param value - The value of the progress bar. The value should be between 0 and an optionally provided max value. If multiple values are provided, the indicators are rendered on top of each other (allowing for stacked progress bars).
  * @param offset - The number that determines the offset of the progress bar. The offset is subtracted from the value.
  * @param max - The maximum value of the progress bar.
  * @param formatter - The function that formats the value of the progress bar.
  * @param isMaxVisible - The boolean that determines if the maximum value should be displayed.
+ * @param noMinWidth - The boolean that determines if the progress bar should have a minimum width.
  * @param className - The optional className object allows you to override the default styling.
  * @return Progress component
  */
-export declare function Progress({ id, data, formatter, value, offset, max, className, isMaxVisible, ...props }: ProgressProps): JSX_2.Element;
+export declare function Progress({ id, data, formatter, value, offset, max, className, isMaxVisible, noMinWidth, ...props }: ProgressProps): JSX_2.Element;
 
-export declare interface ProgressProps {
-    id?: string;
-    data?: {
-        cy?: string;
-        test?: string;
-    };
-    value: number;
-    offset?: number;
-    max: number;
-    formatter: (value: any) => any;
-    isMaxVisible?: boolean;
-    className?: {
-        root?: string;
-        background?: string;
-        indicator?: string;
-    };
-    [x: string]: any;
-}
+export declare type ProgressProps = SingleValueProgressProps | MultiValueProgressProps;
 
 /**
  * This function returns a pre-styled prose component based on TailwindCSS prose and the custom theme.
@@ -1488,6 +1522,14 @@ export declare interface SelectItem {
     disabled?: boolean;
     label: string | React.ReactNode;
     shortLabel?: string;
+    icon?: React.ReactNode;
+    className?: {
+        item?: string;
+        tooltip?: string;
+        label?: string;
+        icon?: string;
+    };
+    tooltip?: string;
 }
 
 declare interface SelectProps {
@@ -1518,6 +1560,15 @@ export declare interface SelectWithItemsProps extends SelectProps {
     groups?: never;
 }
 
+declare interface SingleValueProgressProps extends BaseProgressProps {
+    value: number;
+    className?: {
+        root?: string;
+        background?: string;
+        indicator?: string;
+    };
+}
+
 /**
  * This function returns a pre-styled Slider component based on the RadixUI slider component and the custom theme.
  *
@@ -1538,14 +1589,10 @@ export declare interface SelectWithItemsProps extends SelectProps {
  * @param className - The optional className object allows you to override the default styling.
  * @returns Slider component.
  */
-export declare function Slider({ id, data, value, labels, handleChange, defaultValue, min, max, step, disabled, compact, icons, rangeColorMap, borderColorMap, className, }: SliderWithLabelProps | SliderWithIconsProps): default_2.ReactElement;
+export declare function Slider({ id, value, labels, handleChange, defaultValue, min, max, step, disabled, compact, icons, rangeColorMap, borderColorMap, className, data, dataThumb, }: SliderWithLabelProps | SliderWithIconsProps): default_2.ReactElement;
 
 declare interface SliderProps {
     id?: string;
-    data?: {
-        cy?: string;
-        test?: string;
-    };
     value?: number;
     handleChange: (newValue: number) => void;
     defaultValue?: number;
@@ -1564,6 +1611,14 @@ declare interface SliderProps {
         range?: string;
         thumb?: string;
         lock?: string;
+    };
+    data?: {
+        cy?: string;
+        test?: string;
+    };
+    dataThumb?: {
+        cy?: string;
+        test?: string;
     };
 }
 
@@ -1597,7 +1652,7 @@ declare interface StepBaseProps {
 }
 
 export declare interface StepItem {
-    [x: string]: any;
+    [x: string]: string | number | undefined | null;
 }
 
 /**
@@ -1719,7 +1774,6 @@ export declare interface SwitchProps {
  *
  * @param id - The id of the tab.
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
- * @param key - The key of the tab.
  * @param value - The value of the tab. This is required for the internal and external state.
  * @param label - The label of the tab.
  * @param children - A child component of the tab header, which can optionally replace the label
@@ -1727,7 +1781,7 @@ export declare interface SwitchProps {
  * @param className - The optional className object allows you to override the default styling.
  * @returns Tab trigger component
  */
-export declare function Tab({ id, data, key, value, label, children, disabled, className, }: TabPropsWithLabel_2 | TabPropsWithChildren_2): JSX_2.Element;
+export declare function Tab({ id, data, value, label, children, disabled, className, }: TabPropsWithLabel_2 | TabPropsWithChildren_2): JSX_2.Element;
 
 /**
  * This function returns a pre-styled Tab trigger component to be used inside a Tabs.Tablist.
@@ -1735,7 +1789,6 @@ export declare function Tab({ id, data, key, value, label, children, disabled, c
  *
  * @param id - The id of the tab.
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
- * @param key - The key of the tab.
  * @param value - The value of the tab. This is required for the internal and external state.
  * @param label - The label of the tab.
  * @param children - A child component of the tab header, which can optionally replace the label
@@ -1746,7 +1799,6 @@ export declare function Tab({ id, data, key, value, label, children, disabled, c
 declare function Tab_2({
     id,
     data,
-    key,
     value,
     label,
     children,
@@ -1758,7 +1810,6 @@ declare function Tab_2({
     id={id}
     data-cy={data?.cy}
     data-test={data?.test}
-    key={`tab-trigger-${key}`}
     value={value}
     className={twMerge(
         'group flex-1 border-b border-r border-gray-300 px-3 py-2.5 first:rounded-tl-lg last:rounded-tr-lg last:border-r-0',
@@ -1786,13 +1837,12 @@ declare function Tab_2({
  *
  * @param id The id of the tab content.
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
- * @param key The key of the tab.
  * @param value The value of the tab. This is required for the internal and external state.
  * @param children The content of the tab should be passed as children to this component.
  * @param className The optional className object allows you to override the default styling.
  * @returns Tab Content component
  */
-export declare function TabContent({ id, data, key, value, children, className, }: PropsWithChildren<TabContentProps_2>): JSX_2.Element;
+export declare function TabContent({ id, data, value, children, className, }: PropsWithChildren<TabContentProps_2>): JSX_2.Element;
 
 /**
  * This function returns a pre-styled TabContent component to be used inside a Tabs component.
@@ -1800,7 +1850,6 @@ export declare function TabContent({ id, data, key, value, children, className, 
  *
  * @param id The id of the tab content.
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
- * @param key The key of the tab.
  * @param value The value of the tab. This is required for the internal and external state.
  * @param children The content of the tab should be passed as children to this component.
  * @param className The optional className object allows you to override the default styling.
@@ -1809,7 +1858,6 @@ export declare function TabContent({ id, data, key, value, children, className, 
 declare function TabContent_2({
     id,
     data,
-    key,
     value,
     children,
     className,
@@ -1819,7 +1867,6 @@ declare function TabContent_2({
     id={id}
     data-cy={data?.cy}
     data-test={data?.test}
-    key={`tab-content-${key}`}
     value={value}
     className={twMerge('rounded-t-lg bg-white py-4 md:px-6', className?.root)}
     >
@@ -1834,7 +1881,6 @@ declare interface TabContentProps {
         cy?: string
         test?: string
     }
-    key: string
     value: string
     className?: {
         root?: string
@@ -1847,7 +1893,6 @@ declare interface TabContentProps_2 {
         cy?: string;
         test?: string;
     };
-    key: string;
     value: string;
     className?: {
         root?: string;
@@ -1890,7 +1935,7 @@ export declare interface TableProps<RowType extends BaseRowType> {
         body?: string;
         row?: string;
     };
-    forwardedRef?: default_2.Ref<any>;
+    forwardedRef?: default_2.Ref<unknown>;
     emptyCellText?: string;
     defaultSortField?: string;
     defaultSortOrder?: 'asc' | 'desc';
@@ -1965,7 +2010,6 @@ declare interface TabProps {
         cy?: string
         test?: string
     }
-    key?: string
     value: string
     label?: string
     children?: React_2.ReactNode
@@ -1983,7 +2027,6 @@ declare interface TabProps_2 {
         cy?: string;
         test?: string;
     };
-    key?: string;
     value: string;
     label?: string;
     children?: default_2.ReactNode;
@@ -2101,10 +2144,10 @@ export declare function TextareaField({ id, data, name, field, value, onChange, 
 
 export declare interface TextareaFieldNameProps extends TextareaFieldProps {
     name: string;
-    field: FieldInputProps<any>;
+    field: FieldInputProps<string>;
     value?: never;
     onChange?: never;
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
 export declare interface TextareaFieldOnChangeProps extends TextareaFieldProps {
@@ -2112,7 +2155,7 @@ export declare interface TextareaFieldOnChangeProps extends TextareaFieldProps {
     field?: never;
     value: string;
     onChange: (newValue: string) => void;
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
 declare interface TextareaFieldProps {
@@ -2181,10 +2224,10 @@ export declare interface TextFieldClassName {
 
 export declare interface TextFieldNameProps extends TextFieldProps {
     name: string;
-    field: FieldInputProps<any>;
+    field: FieldInputProps<string>;
     value?: never;
     onChange?: never;
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
 export declare interface TextFieldOnChangeProps extends TextFieldProps {
@@ -2192,7 +2235,7 @@ export declare interface TextFieldOnChangeProps extends TextFieldProps {
     field?: never;
     value: string;
     onChange: (newValue: string) => void;
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
 declare interface TextFieldProps {
@@ -2210,7 +2253,7 @@ declare interface TextFieldProps {
     error?: string;
     isTouched?: boolean;
     disabled?: boolean;
-    onPaste?: (e: any) => void;
+    onPaste?: default_2.ClipboardEventHandler<HTMLInputElement>;
     className?: TextFieldClassName;
     icon?: IconProp;
     iconPosition?: 'left' | 'right';

@@ -36,10 +36,10 @@ interface TextareaFieldProps {
 
 export interface TextareaFieldNameProps extends TextareaFieldProps {
   name: string
-  field: FieldInputProps<any>
+  field: FieldInputProps<string>
   value?: never
   onChange?: never
-  [key: string]: any
+  [key: string]: unknown
 }
 
 export interface TextareaFieldOnChangeProps extends TextareaFieldProps {
@@ -47,7 +47,7 @@ export interface TextareaFieldOnChangeProps extends TextareaFieldProps {
   field?: never
   value: string
   onChange: (newValue: string) => void
-  [key: string]: any
+  [key: string]: unknown
 }
 
 /**

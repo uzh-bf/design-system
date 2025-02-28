@@ -31,7 +31,7 @@ interface TextFieldProps {
   error?: string
   isTouched?: boolean
   disabled?: boolean
-  onPaste?: (e: any) => void
+  onPaste?: React.ClipboardEventHandler<HTMLInputElement>
   className?: TextFieldClassName
   icon?: IconProp
   iconPosition?: 'left' | 'right'
@@ -40,10 +40,10 @@ interface TextFieldProps {
 
 export interface TextFieldNameProps extends TextFieldProps {
   name: string
-  field: FieldInputProps<any>
+  field: FieldInputProps<string>
   value?: never
   onChange?: never
-  [key: string]: any
+  [key: string]: unknown
 }
 
 export interface TextFieldOnChangeProps extends TextFieldProps {
@@ -51,7 +51,7 @@ export interface TextFieldOnChangeProps extends TextFieldProps {
   field?: never
   value: string
   onChange: (newValue: string) => void
-  [key: string]: any
+  [key: string]: unknown
 }
 
 /**

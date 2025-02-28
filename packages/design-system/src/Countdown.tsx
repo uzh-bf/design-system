@@ -3,7 +3,7 @@ import ReactCountdown from 'react-countdown'
 export interface CountdownProps {
   isStatic?: boolean
   expiresAt: Date
-  formatter?: (value: any) => any
+  formatter?: (value: number) => string | number | React.ReactNode
   onExpire?: () => void
   onUpdate?: (timeRemaining: number) => void
   data?: {

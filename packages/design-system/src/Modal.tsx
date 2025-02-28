@@ -113,7 +113,7 @@ export function Modal({
 }: ModalProps) {
   useEffect(() => {
     if (onPrev || onNext) {
-      const keyDownHandler = ({ key }: any) => {
+      const keyDownHandler = ({ key }: KeyboardEvent) => {
         if (key === 'ArrowRight' && onNext) {
           onNext()
         } else if (key === 'ArrowLeft' && onPrev) {
