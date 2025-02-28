@@ -153,7 +153,9 @@ export const CustomFormatter = () => {
                       {element.points}/{element.maxPoints} P
                     </div>
                   )}
-                <FontAwesomeIcon icon={ICON_MAP[element.status]} />
+                <FontAwesomeIcon
+                  icon={ICON_MAP[element.status ?? 'unanswered']}
+                />
               </div>
             ),
           }

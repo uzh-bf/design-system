@@ -317,7 +317,7 @@ export declare function Countdown({ isStatic, expiresAt, formatter, onExpire, on
 export declare interface CountdownProps {
     isStatic?: boolean;
     expiresAt: Date;
-    formatter?: (value: any) => any;
+    formatter?: (value: number) => string | number | React.ReactNode;
     onExpire?: () => void;
     onUpdate?: (timeRemaining: number) => void;
     data?: {
@@ -360,7 +360,7 @@ export declare interface CycleCountdownProps {
     isStatic?: boolean;
     terminalColor?: string;
     terminalPercentage?: number;
-    formatter?: (value: any) => any;
+    formatter?: (value: number) => string | number | React.ReactNode;
     onExpire?: () => void;
     onUpdate?: (timeRemaining: number) => void;
     data?: {
@@ -933,7 +933,7 @@ declare interface FormikTextFieldProps {
     required?: boolean;
     hideError?: boolean;
     disabled?: boolean;
-    onPaste?: (e: any) => void;
+    onPaste?: default_2.ClipboardEventHandler<HTMLInputElement>;
     className?: TextFieldClassName & {
         root?: string;
     };
@@ -1367,7 +1367,7 @@ export declare interface NumberFieldProps {
         test?: string;
     };
     className?: NumberFieldClassName;
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
 /**
@@ -1652,7 +1652,7 @@ declare interface StepBaseProps {
 }
 
 export declare interface StepItem {
-    [x: string]: any;
+    [x: string]: string | number | undefined | null;
 }
 
 /**
@@ -1935,7 +1935,7 @@ export declare interface TableProps<RowType extends BaseRowType> {
         body?: string;
         row?: string;
     };
-    forwardedRef?: default_2.Ref<any>;
+    forwardedRef?: default_2.Ref<unknown>;
     emptyCellText?: string;
     defaultSortField?: string;
     defaultSortOrder?: 'asc' | 'desc';
@@ -2144,10 +2144,10 @@ export declare function TextareaField({ id, data, name, field, value, onChange, 
 
 export declare interface TextareaFieldNameProps extends TextareaFieldProps {
     name: string;
-    field: FieldInputProps<any>;
+    field: FieldInputProps<string>;
     value?: never;
     onChange?: never;
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
 export declare interface TextareaFieldOnChangeProps extends TextareaFieldProps {
@@ -2155,7 +2155,7 @@ export declare interface TextareaFieldOnChangeProps extends TextareaFieldProps {
     field?: never;
     value: string;
     onChange: (newValue: string) => void;
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
 declare interface TextareaFieldProps {
@@ -2224,10 +2224,10 @@ export declare interface TextFieldClassName {
 
 export declare interface TextFieldNameProps extends TextFieldProps {
     name: string;
-    field: FieldInputProps<any>;
+    field: FieldInputProps<string>;
     value?: never;
     onChange?: never;
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
 export declare interface TextFieldOnChangeProps extends TextFieldProps {
@@ -2235,7 +2235,7 @@ export declare interface TextFieldOnChangeProps extends TextFieldProps {
     field?: never;
     value: string;
     onChange: (newValue: string) => void;
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
 declare interface TextFieldProps {
@@ -2253,7 +2253,7 @@ declare interface TextFieldProps {
     error?: string;
     isTouched?: boolean;
     disabled?: boolean;
-    onPaste?: (e: any) => void;
+    onPaste?: default_2.ClipboardEventHandler<HTMLInputElement>;
     className?: TextFieldClassName;
     icon?: IconProp;
     iconPosition?: 'left' | 'right';
