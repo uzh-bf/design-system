@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.63](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.62...v3.0.0-alpha.63) (2025-03-01)
+
+
+### Bug Fixes
+
+* undo changes related to formik field types ([2eb0a72](https://github.com/uzh-bf/design-system/commit/2eb0a7287399fc0ccdfd53cac6f0be14c3735c7f))
+
 ## [3.0.0-alpha.62](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.61...v3.0.0-alpha.62) (2025-02-28)
 
 
