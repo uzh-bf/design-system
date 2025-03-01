@@ -43,7 +43,7 @@ export interface TableProps<RowType extends BaseRowType> {
     body?: string
     row?: string
   }
-  forwardedRef?: React.Ref<unknown>
+  forwardedRef?: React.Ref<any>
   emptyCellText?: string
   defaultSortField?: string
   defaultSortOrder?: 'asc' | 'desc'

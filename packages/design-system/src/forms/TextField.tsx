@@ -40,7 +40,7 @@ interface TextFieldProps {
 
 export interface TextFieldNameProps extends TextFieldProps {
   name: string
-  field: FieldInputProps<string>
+  field: FieldInputProps<any>
   value?: never
   onChange?: never
   [key: string]: unknown
