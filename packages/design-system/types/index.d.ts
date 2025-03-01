@@ -1935,7 +1935,7 @@ export declare interface TableProps<RowType extends BaseRowType> {
         body?: string;
         row?: string;
     };
-    forwardedRef?: default_2.Ref<any>;
+    forwardedRef?: default_2.Ref<unknown>;
     emptyCellText?: string;
     defaultSortField?: string;
     defaultSortOrder?: 'asc' | 'desc';
@@ -2144,7 +2144,7 @@ export declare function TextareaField({ id, data, name, field, value, onChange, 
 
 export declare interface TextareaFieldNameProps extends TextareaFieldProps {
     name: string;
-    field: FieldInputProps<any>;
+    field: FieldInputProps<string>;
     value?: never;
     onChange?: never;
     [key: string]: unknown;
@@ -2224,7 +2224,7 @@ export declare interface TextFieldClassName {
 
 export declare interface TextFieldNameProps extends TextFieldProps {
     name: string;
-    field: FieldInputProps<any>;
+    field: FieldInputProps<string>;
     value?: never;
     onChange?: never;
     [key: string]: unknown;
