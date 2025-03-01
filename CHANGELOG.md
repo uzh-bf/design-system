@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.64](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.63...v3.0.0-alpha.64) (2025-03-01)
+
+
+### Bug Fixes
+
+* remove select and dropdown item components from the corresponding parent elements ([c49fafe](https://github.com/uzh-bf/design-system/commit/c49fafec14919caad3c2ff0469f8526f9da3c91d))
+
 ## [3.0.0-alpha.63](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.62...v3.0.0-alpha.63) (2025-03-01)
 
 
