@@ -75,6 +75,19 @@ export interface SelectWithGroupsProps extends SelectProps {
   items?: never
 }
 
+// helper component to render the content of the select item
+const ItemContent = ({ item }: { item: SelectItem }) => (
+  <div
+    className={twMerge(
+      'flex flex-row items-center gap-2',
+      item.className?.item
+    )}
+  >
+    <span className={item.className?.label}>{item.label}</span>
+    {item.icon && <span className={item.className?.icon}>{item.icon}</span>}
+  </div>
+)
+
 /**
  * This function returns a pre-styled Select component based on the RadixUI select component and the custom theme.
  * While the open state of the component is managed internally, the value of the component is managed externally and passed to the function.
@@ -118,18 +131,6 @@ export function Select({
     const flatItems = items || groups?.flatMap((group) => group.items) || []
     setShortLabel(flatItems?.find((item) => item.value === value)?.shortLabel)
   }, [value, items, groups])
-
-  const ItemContent = ({ item }: { item: SelectItem }) => (
-    <div
-      className={twMerge(
-        'flex flex-row items-center gap-2',
-        item.className?.item
-      )}
-    >
-      <span className={item.className?.label}>{item.label}</span>
-      {item.icon && <span className={item.className?.icon}>{item.icon}</span>}
-    </div>
-  )
 
   return (
     <div className={twMerge('relative flex', className?.root)}>

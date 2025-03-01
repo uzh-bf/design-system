@@ -185,6 +185,28 @@ export function Dropdown({
   )
 }
 
+// helper component to render the content of the dropdown item
+const ItemContent = ({
+  label,
+  icon,
+  shorting,
+  className,
+}: {
+  label: string
+  icon: React.ReactNode
+  shorting?: string
+  className?: {
+    label?: string
+    icon?: string
+  }
+}) => (
+  <div className="flex flex-row items-center gap-2">
+    <span className={className?.label}>{label}</span>
+    {icon && <span className={className?.icon}>{icon}</span>}
+    {shorting && <div className="ml-6">{shorting}</div>}
+  </div>
+)
+
 const DropdownItem = ({
   id,
   data,
@@ -220,14 +242,6 @@ const DropdownItem = ({
   tooltip?: string
 }) => {
   if (typeof label === 'string') {
-    const ItemContent = () => (
-      <div className="flex flex-row items-center gap-2">
-        <span className={className?.label}>{label}</span>
-        {icon && <span className={className?.icon}>{icon}</span>}
-        {shorting && <div className="ml-6">{shorting}</div>}
-      </div>
-    )
-
     const ItemContentTooltip = (
       <RadixDropdown.Item
         id={id}
@@ -257,10 +271,20 @@ const DropdownItem = ({
               tooltip: className?.tooltip,
             }}
           >
-            <ItemContent />
+            <ItemContent
+              label={label}
+              icon={icon}
+              shorting={shorting}
+              className={className}
+            />
           </Tooltip>
         ) : (
-          <ItemContent />
+          <ItemContent
+            label={label}
+            icon={icon}
+            shorting={shorting}
+            className={className}
+          />
         )}
       </RadixDropdown.Item>
     )
