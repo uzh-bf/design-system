@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.65](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.64...v3.0.0-alpha.65) (2025-03-03)
+
+
+### Bug Fixes
+
+* **Button:** ensure that button size is identical for borderless variants ([d248ed7](https://github.com/uzh-bf/design-system/commit/d248ed7a6785f95a9411fc862a18053bcaad21d1))
+
+
+### Other
+
+* updated types after component build ([c2d7e83](https://github.com/uzh-bf/design-system/commit/c2d7e838e71897d854d30573aabeaff98454b4c1))
+
 ## [3.0.0-alpha.64](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.63...v3.0.0-alpha.64) (2025-03-01)
 
 
