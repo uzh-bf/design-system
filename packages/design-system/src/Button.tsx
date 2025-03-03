@@ -78,6 +78,8 @@ export function Button({
       onClick={onClick}
       className={twMerge(
         'h-max px-3 py-1.5 text-base',
+        // slightly increased margins are required for variants without border to ensure same size
+        primary || destructive ? 'px-[0.8125rem] py-[0.4375rem]' : '',
         primary
           ? 'bg-primary-100 text-primary-foreground hover:bg-primary-80'
           : '',
