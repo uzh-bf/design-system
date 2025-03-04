@@ -13,7 +13,7 @@ import * as React_3 from 'react';
 import { ReactNode } from 'react';
 
 export declare interface BaseNavigationButtonProps {
-    onClick: () => void;
+    onClick: React.MouseEventHandler;
     disabled?: boolean;
     data?: {
         cy?: string;
@@ -1046,7 +1046,7 @@ declare interface Item {
         test?: string;
     };
     label: string | default_2.ReactNode;
-    onClick: () => void;
+    onClick: default_2.MouseEventHandler;
     shorting?: string;
     selected?: boolean;
     icon?: default_2.ReactNode;
@@ -1228,7 +1228,7 @@ export declare type NavigationMenuItemProps = {
     type: 'link';
     label: string;
     badge?: string | React.ReactNode;
-    onClick: () => void;
+    onClick: React.MouseEventHandler;
     disabled?: boolean;
     notification?: boolean;
     data?: {

@@ -24,7 +24,7 @@ const dynamicUnderline = twMerge(
 // ! Button
 // #region
 export interface BaseNavigationButtonProps {
-  onClick: () => void
+  onClick: React.MouseEventHandler
   disabled?: boolean
   data?: { cy?: string; test?: string }
   className?: { root?: string; label?: string; icon?: string }
@@ -147,7 +147,7 @@ export type NavigationMenuItemProps = {
   type: 'link'
   label: string
   badge?: string | React.ReactNode
-  onClick: () => void
+  onClick: React.MouseEventHandler
   disabled?: boolean
   notification?: boolean
   data?: { cy?: string; test?: string }

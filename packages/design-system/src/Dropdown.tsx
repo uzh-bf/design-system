@@ -12,7 +12,7 @@ interface Item {
     test?: string
   }
   label: string | React.ReactNode
-  onClick: () => void
+  onClick: React.MouseEventHandler
   shorting?: string
   selected?: boolean
   icon?: React.ReactNode
@@ -227,7 +227,7 @@ const DropdownItem = ({
   }
   label: string | React.ReactNode
   active?: boolean
-  onClick: () => void
+  onClick: React.MouseEventHandler
   shorting?: string
   selected?: boolean
   disabled?: boolean
@@ -260,7 +260,7 @@ const DropdownItem = ({
             e.preventDefault()
             return
           }
-          onClick()
+          onClick(e)
         }}
         disabled={disabled}
       >
@@ -302,7 +302,7 @@ const DropdownItem = ({
           e.preventDefault()
           return
         }
-        onClick()
+        onClick(e)
       }}
       className={twMerge(
         'rounded-md',
