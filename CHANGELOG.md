@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.66](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.65...v3.0.0-alpha.66) (2025-03-04)
+
+
+### Bug Fixes
+
+* replace event handler types in dropdown and navigation components with more generic react event handlers ([a2e02bc](https://github.com/uzh-bf/design-system/commit/a2e02bcd425cde37ad7d9331638745fa36ac0260))
+
 ## [3.0.0-alpha.65](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.64...v3.0.0-alpha.65) (2025-03-03)
 
 
