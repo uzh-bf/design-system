@@ -77,7 +77,7 @@ export function Button({
       type={type}
       onClick={onClick}
       className={twMerge(
-        'h-max px-3 py-1.5 text-base',
+        'h-max whitespace-normal px-3 py-1.5 text-base',
         // slightly increased margins are required for variants without border to ensure same size
         primary || destructive ? 'px-[0.8125rem] py-[0.4375rem]' : '',
         primary
