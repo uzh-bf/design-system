@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.67](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.66...v3.0.0-alpha.67) (2025-03-12)
+
+
+### Bug Fixes
+
+* **Button:** remove whitespace-nowrap default style from button component ([3e655ee](https://github.com/uzh-bf/design-system/commit/3e655ee9d77ecfb35082b1319cd5b80aed5eeedc))
+
 ## [3.0.0-alpha.66](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.65...v3.0.0-alpha.66) (2025-03-04)
 
 
