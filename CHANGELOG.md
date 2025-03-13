@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.68](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.67...v3.0.0-alpha.68) (2025-03-13)
+
+
+### Enhancements
+
+* **Button:** add optional loading attribute to button icon, hiding it when loading spinner is shown ([534a654](https://github.com/uzh-bf/design-system/commit/534a65407c1cb500f06e338520dffb59af18005d))
+
 ## [3.0.0-alpha.67](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.66...v3.0.0-alpha.67) (2025-03-12)
 
 
