@@ -123,14 +123,20 @@ export function Button({
 Button.Icon = function ButtonIcon({
   icon,
   withoutLabel,
+  loading, // optional boolean to hide icon when loading is set -> only show loading spinner
   className,
 }: {
   icon: IconDefinition
   withoutLabel?: boolean
+  loading?: boolean
   className?: {
     root?: string
   }
 }) {
+  if (loading) {
+    return null
+  }
+
   return (
     <FontAwesomeIcon
       icon={icon}

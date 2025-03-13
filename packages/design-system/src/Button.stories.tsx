@@ -6,8 +6,6 @@ import {
 import { useState } from 'react'
 import Button from './Button'
 
-export const Loading = () => <Button loading>Button</Button>
-
 export const Default = () => (
   <Button>
     <Button.Icon icon={faEnvelope} />
@@ -34,6 +32,61 @@ export const Destructive = () => (
     <Button.Label>Button</Button.Label>
   </Button>
 )
+
+export const Loading = () => {
+  const [loading, setLoading] = useState(false)
+
+  const handleClick = () => {
+    setLoading(true)
+    setTimeout(() => {
+      setLoading(false)
+    }, 3000)
+  }
+
+  return (
+    <div className="flex flex-col gap-4">
+      <Button loading className={{ root: 'w-max' }}>
+        Button
+      </Button>
+      <div className="flex flex-col gap-2">
+        <div>
+          For Buttons with an icon, the loading parameter can optionally also be
+          passed to the icon, causing it to be hidden when the loading spinner
+          is shown:
+        </div>
+        <Button
+          loading={loading}
+          onClick={handleClick}
+          disabled={loading}
+          className={{ root: 'w-max' }}
+        >
+          <Button.Icon icon={faEnvelope} loading={loading} />
+          <Button.Label>Button with Icon</Button.Label>
+        </Button>
+        <Button
+          primary
+          loading={loading}
+          onClick={handleClick}
+          disabled={loading}
+          className={{ root: 'w-max' }}
+        >
+          <Button.Icon icon={faEnvelope} loading={loading} />
+          <Button.Label>Button with Icon</Button.Label>
+        </Button>
+        <Button
+          destructive
+          loading={loading}
+          onClick={handleClick}
+          disabled={loading}
+          className={{ root: 'w-max' }}
+        >
+          <Button.Icon icon={faEnvelope} loading={loading} />
+          <Button.Label>Button with Icon</Button.Label>
+        </Button>
+      </div>
+    </div>
+  )
+}
 
 export const Active = () => (
   <div className="flex flex-col gap-4">
