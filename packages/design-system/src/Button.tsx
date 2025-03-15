@@ -86,7 +86,7 @@ export function Button({
         destructive ? 'bg-red-600 text-white hover:bg-red-700' : '',
         fluid ? 'w-full justify-center' : '',
         className?.root,
-        active && 'border-primary-100 bg-primary-20',
+        active && 'border-primary-100 bg-primary-20 hover:bg-primary-20',
         active ? className?.active : ''
       )}
       data-cy={data?.cy}
