@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.69](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.68...v3.0.0-alpha.69) (2025-03-15)
+
+
+### Other
+
+* **Button:** remove active hover style on button ([f05fbf8](https://github.com/uzh-bf/design-system/commit/f05fbf8391fc8c11be0bbed501190e7736c0bf81))
+
 ## [3.0.0-alpha.68](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.67...v3.0.0-alpha.68) (2025-03-13)
 
 
