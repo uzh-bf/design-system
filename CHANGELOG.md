@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.70](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.69...v3.0.0-alpha.70) (2025-03-15)
+
+
+### Bug Fixes
+
+* **Button:** override default background hover style on button when active ([5d82db4](https://github.com/uzh-bf/design-system/commit/5d82db45b59a5da31b0338374f66a1f67df5f4cc))
+
 ## [3.0.0-alpha.69](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.68...v3.0.0-alpha.69) (2025-03-15)
 
 
