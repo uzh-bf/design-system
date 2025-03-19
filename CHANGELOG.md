@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.71](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.70...v3.0.0-alpha.71) (2025-03-19)
+
+
+### Other
+
+* add default prevention and propagation stopping to onChange functions ([d3957f1](https://github.com/uzh-bf/design-system/commit/d3957f18a42725c34c0acb5119de7c6b49474ab7))
+* fix wrong svg attribute in button loading icon ([15f4a0a](https://github.com/uzh-bf/design-system/commit/15f4a0add712cde29c8c6c17611c118fae3ef2f8))
+
 ## [3.0.0-alpha.70](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.69...v3.0.0-alpha.70) (2025-03-15)
 
 
