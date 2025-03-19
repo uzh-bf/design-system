@@ -95,13 +95,14 @@ declare type BaseRowType = {
 export declare function Button({ id, children, onClick, disabled, primary, destructive, active, fluid, basic, loading, type, className, data, ...props }: ButtonProps): JSX_2.Element;
 
 export declare namespace Button {
-    var Icon: ({ icon, withoutLabel, className, }: {
+    var Icon: ({ icon, withoutLabel, loading, className, }: {
         icon: IconDefinition;
         withoutLabel?: boolean | undefined;
+        loading?: boolean | undefined;
         className?: {
             root?: string | undefined;
         } | undefined;
-    }) => JSX_2.Element;
+    }) => JSX_2.Element | null;
     var Label: ({ className, children, }: {
         className?: {
             root?: string | undefined;
