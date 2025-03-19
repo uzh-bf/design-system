@@ -140,7 +140,11 @@ export function DateChanger({
                 className?.input
               )}
               value={dateState}
-              onChange={(e) => setDateState(e.target.value)}
+              onChange={(e) => {
+                e?.stopPropagation()
+                e?.preventDefault()
+                setDateState(e.target.value)
+              }}
               onBlur={() => onSave(dateState)}
             />
           </div>

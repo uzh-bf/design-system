@@ -120,6 +120,9 @@ export function NumberField({
             type="text"
             value={value}
             onChange={(e) => {
+              e?.stopPropagation()
+              e?.preventDefault()
+
               if (
                 e.target.value.match(validInput) !== null &&
                 (e.target.value === '' ||

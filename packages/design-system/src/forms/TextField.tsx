@@ -151,7 +151,11 @@ export function TextField({
               data-cy={data?.cy}
               data-test={data?.test}
               value={value}
-              onChange={(e) => onChange!(e.target.value)}
+              onChange={(e) => {
+                e?.stopPropagation()
+                e?.preventDefault()
+                onChange!(e.target.value)
+              }}
               type="text"
               placeholder={placeholder}
               disabled={disabled}

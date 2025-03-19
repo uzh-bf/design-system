@@ -94,6 +94,9 @@ export function FormikDateField({
             type="datetime-local"
             value={field.value}
             onChange={(e) => {
+              e?.stopPropagation()
+              e?.preventDefault()
+
               if (e.target['validity'].valid) {
                 helpers.setValue(e.target['value'])
 

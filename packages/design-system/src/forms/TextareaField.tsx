@@ -141,7 +141,11 @@ export function TextareaField({
               data-cy={data?.cy}
               data-test={data?.test}
               value={value}
-              onChange={(e) => onChange!(e.target.value)}
+              onChange={(e) => {
+                e?.stopPropagation()
+                e?.preventDefault()
+                onChange!(e.target.value)
+              }}
               placeholder={placeholder}
               maxLength={maxLength}
               disabled={disabled}
