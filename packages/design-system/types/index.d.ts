@@ -1608,6 +1608,7 @@ declare interface SliderProps {
         root?: string;
         icons?: string;
         labels?: string;
+        label?: string;
         track?: string;
         range?: string;
         thumb?: string;
@@ -2488,13 +2489,13 @@ export declare interface WorkflowProps extends WorkflowBaseProps {
 export { }
 
 
-declare namespace Calendar {
-    var displayName: string;
-}
-
-
 declare namespace Tabs {
     var Tab: typeof import("@/Tabs").Tab;
     var TabList: typeof import("@/Tabs").TabList;
     var TabContent: typeof import("@/Tabs").TabContent;
+}
+
+
+declare namespace Calendar {
+    var displayName: string;
 }
