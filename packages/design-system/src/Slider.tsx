@@ -167,7 +167,7 @@ export function Slider({
           className?.labels
         )}
       >
-        <div className={twMerge('flex justify-start', className?.icons)}>
+        <div className={twMerge('flex text-start', className?.icons)}>
           {icons?.min ? (
             icons.min
           ) : (
@@ -185,7 +185,7 @@ export function Slider({
             </div>
           )}
         </div>
-        <div className={twMerge('flex justify-end', className?.icons)}>
+        <div className={twMerge('flex justify-end text-end', className?.icons)}>
           {icons?.max ? (
             icons.max
           ) : (
