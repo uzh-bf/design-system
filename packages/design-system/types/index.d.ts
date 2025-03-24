@@ -8,8 +8,7 @@ import { IconDefinition as IconDefinition_2 } from '@fortawesome/free-regular-sv
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { JSX as JSX_2 } from 'react/jsx-runtime';
 import { PropsWithChildren } from 'react';
-import { default as React_2 } from 'react';
-import * as React_3 from 'react';
+import * as React_2 from 'react';
 import { ReactNode } from 'react';
 
 export declare interface BaseNavigationButtonProps {
@@ -1608,6 +1607,7 @@ declare interface SliderProps {
         root?: string;
         icons?: string;
         labels?: string;
+        label?: string;
         track?: string;
         range?: string;
         thumb?: string;
@@ -1782,55 +1782,7 @@ export declare interface SwitchProps {
  * @param className - The optional className object allows you to override the default styling.
  * @returns Tab trigger component
  */
-export declare function Tab({ id, data, value, label, children, disabled, className, }: TabPropsWithLabel_2 | TabPropsWithChildren_2): JSX_2.Element;
-
-/**
- * This function returns a pre-styled Tab trigger component to be used inside a Tabs.Tablist.
- * The value of this tab is required for both the internally and externally controlled state.
- *
- * @param id - The id of the tab.
- * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
- * @param value - The value of the tab. This is required for the internal and external state.
- * @param label - The label of the tab.
- * @param children - A child component of the tab header, which can optionally replace the label
- * @param disabled - The optional disabled property allows you to disable the tab.
- * @param className - The optional className object allows you to override the default styling.
- * @returns Tab trigger component
- */
-declare function Tab_2({
-    id,
-    data,
-    value,
-    label,
-    children,
-    disabled,
-    className,
-}: TabPropsWithLabel | TabPropsWithChildren) {
-    return (
-    <TabsPrimitive.Trigger
-    id={id}
-    data-cy={data?.cy}
-    data-test={data?.test}
-    value={value}
-    className={twMerge(
-        'group flex-1 border-b border-r border-gray-300 px-3 py-2.5 first:rounded-tl-lg last:rounded-tr-lg last:border-r-0',
-        'rdx-state-active:border-b-slate-600 focus-visible:rdx-state-active:border-b-transparent rdx-state-inactive:bg-gray-50 hover:rdx-state-inactive:bg-gray-200',
-        'focus:rdx-state-active:border-b-red focus:z-10 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75',
-        className?.root
-        )}
-    disabled={disabled}
-    >
-    <span
-    className={twMerge(
-        'text-sm font-medium text-gray-700',
-        className?.label
-        )}
-    >
-        {label ?? children}
-    </span>
-    </TabsPrimitive.Trigger>
-    )
-}
+export declare function Tab({ id, data, value, label, children, disabled, className, }: TabPropsWithLabel | TabPropsWithChildren): JSX_2.Element;
 
 /**
  * This function returns a pre-styled TabContent component to be used inside a Tabs component.
@@ -1843,52 +1795,9 @@ declare function Tab_2({
  * @param className The optional className object allows you to override the default styling.
  * @returns Tab Content component
  */
-export declare function TabContent({ id, data, value, children, className, }: PropsWithChildren<TabContentProps_2>): JSX_2.Element;
-
-/**
- * This function returns a pre-styled TabContent component to be used inside a Tabs component.
- * The value of this tab is required for both the internally and externally controlled state.
- *
- * @param id The id of the tab content.
- * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
- * @param value The value of the tab. This is required for the internal and external state.
- * @param children The content of the tab should be passed as children to this component.
- * @param className The optional className object allows you to override the default styling.
- * @returns Tab Content component
- */
-declare function TabContent_2({
-    id,
-    data,
-    value,
-    children,
-    className,
-}: PropsWithChildren<TabContentProps>) {
-    return (
-    <TabsPrimitive.Content
-    id={id}
-    data-cy={data?.cy}
-    data-test={data?.test}
-    value={value}
-    className={twMerge('rounded-t-lg bg-white py-4 md:px-6', className?.root)}
-    >
-        {children}
-    </TabsPrimitive.Content>
-    )
-}
+export declare function TabContent({ id, data, value, children, className, }: PropsWithChildren<TabContentProps>): JSX_2.Element;
 
 declare interface TabContentProps {
-    id?: string
-    data?: {
-        cy?: string
-        test?: string
-    }
-    value: string
-    className?: {
-        root?: string
-    }
-}
-
-declare interface TabContentProps_2 {
     id?: string;
     data?: {
         cy?: string;
@@ -1951,50 +1860,9 @@ export declare interface TableProps<RowType extends BaseRowType> {
  * @param className The optional className object allows you to override the default styling.
  * @returns TabList component
  */
-export declare function TabList({ id, data, children, className, }: PropsWithChildren<TabListProps_2>): JSX_2.Element;
-
-/**
- * This function returns a pre-styled TabList component to be used inside a Tabs component.
- *
- * @param id The id of the tab list.
- * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
- * @param children The tab triggers should be passed as children to this component.
- * @param className The optional className object allows you to override the default styling.
- * @returns TabList component
- */
-declare function TabList_2({
-    id,
-    data,
-    children,
-    className,
-}: PropsWithChildren<TabListProps>) {
-    return (
-    <TabsPrimitive.List
-    id={id}
-    data-cy={data?.cy}
-    data-test={data?.test}
-    className={twMerge(
-        'flex w-full flex-col rounded-t-lg bg-white md:flex-row',
-        className?.root
-        )}
-    >
-        {children}
-    </TabsPrimitive.List>
-    )
-}
+export declare function TabList({ id, data, children, className, }: PropsWithChildren<TabListProps>): JSX_2.Element;
 
 declare interface TabListProps {
-    id?: string
-    data?: {
-        cy?: string
-        test?: string
-    }
-    className?: {
-        root?: string
-    }
-}
-
-declare interface TabListProps_2 {
     id?: string;
     data?: {
         cy?: string;
@@ -2006,23 +1874,6 @@ declare interface TabListProps_2 {
 }
 
 declare interface TabProps {
-    id?: string
-    data?: {
-        cy?: string
-        test?: string
-    }
-    value: string
-    label?: string
-    children?: React_2.ReactNode
-    disabled?: boolean
-    className?: {
-        root?: string
-        label?: string
-        disabled?: string
-    }
-}
-
-declare interface TabProps_2 {
     id?: string;
     data?: {
         cy?: string;
@@ -2040,21 +1891,11 @@ declare interface TabProps_2 {
 }
 
 declare interface TabPropsWithChildren extends TabProps {
-    label?: never
-    children: React_2.ReactNode
-}
-
-declare interface TabPropsWithChildren_2 extends TabProps_2 {
     label?: never;
     children: default_2.ReactNode;
 }
 
 declare interface TabPropsWithLabel extends TabProps {
-    label: string
-    children?: never
-}
-
-declare interface TabPropsWithLabel_2 extends TabProps_2 {
     label: string;
     children?: never;
 }
@@ -2075,9 +1916,9 @@ declare interface TabPropsWithLabel_2 extends TabProps_2 {
 export declare function Tabs({ id, data, defaultValue, value, children, onValueChange, className, }: PropsWithChildren<TabsProps>): JSX_2.Element;
 
 export declare namespace Tabs {
-    var Tab: Tab_2;
-    var TabList: TabList_2;
-    var TabContent: TabContent_2;
+    var Tab: Tab;
+    var TabList: TabList;
+    var TabContent: TabContent;
 }
 
 declare interface TabsProps {
@@ -2261,7 +2102,7 @@ declare interface TextFieldProps {
     onIconClick?: () => void;
 }
 
-export declare function Toast({ title, description, duration, dismissible, triggerText, actionText, actionOnClick, position, openExternal, onCloseExternal, type, children, className, }: ToastPropsWithTitleTrigger | ToastPropsWithTitleNoTrigger | ToastPropsWithChildrenTrigger | ToastPropsWithChildrenNoTrigger): React_3.ReactElement;
+export declare function Toast({ title, description, duration, dismissible, triggerText, actionText, actionOnClick, position, openExternal, onCloseExternal, type, children, className, }: ToastPropsWithTitleTrigger | ToastPropsWithTitleNoTrigger | ToastPropsWithChildrenTrigger | ToastPropsWithChildrenNoTrigger): React_2.ReactElement;
 
 declare interface ToastProps {
     title?: string;
@@ -2275,7 +2116,7 @@ declare interface ToastProps {
     openExternal?: boolean;
     onCloseExternal?: () => void;
     type?: 'default' | 'success' | 'warning' | 'error';
-    children?: React_3.ReactNode;
+    children?: React_2.ReactNode;
     className?: {
         root?: string;
         viewport?: string;
@@ -2290,7 +2131,7 @@ declare interface ToastProps {
 declare interface ToastPropsWithChildren extends ToastProps {
     title?: never;
     description?: never;
-    children: React_3.ReactNode;
+    children: React_2.ReactNode;
 }
 
 export declare interface ToastPropsWithChildrenNoTrigger extends ToastPropsWithChildren {
@@ -2494,7 +2335,7 @@ declare namespace Calendar {
 
 
 declare namespace Tabs {
-    var Tab: typeof import("@/Tabs").Tab;
-    var TabList: typeof import("@/Tabs").TabList;
-    var TabContent: typeof import("@/Tabs").TabContent;
+    var Tab: typeof import("./Tabs").Tab;
+    var TabList: typeof import("./Tabs").TabList;
+    var TabContent: typeof import("./Tabs").TabContent;
 }
