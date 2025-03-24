@@ -20,6 +20,7 @@ interface SliderProps {
     root?: string
     icons?: string
     labels?: string
+    label?: string
     track?: string
     range?: string
     thumb?: string
@@ -95,93 +96,106 @@ export function Slider({
       : ((max - min) / step) >> 0
 
   return (
-    <RadixSlider.Root
-      id={id}
-      data-cy={data?.cy}
-      data-test={data?.test}
-      className={twMerge(
-        'relative flex w-full select-none items-center',
-        compact ? 'h-14' : 'h-24',
-        className?.root
-      )}
-      defaultValue={[defaultValue]}
-      disabled={disabled}
-      max={max}
-      min={min}
-      step={step}
-      value={[value ?? defaultValue]}
-      onValueChange={([newValue]) => handleChange(newValue)}
-    >
-      <div className="absolute bottom-0 left-0 right-0 flex flex-row justify-between text-3xl">
-        {icons?.min ? (
-          <div className={className?.icons}>{icons.min}</div>
-        ) : (
-          <div className={twMerge('text-base italic', className?.labels)}>
-            {labels?.min}
-          </div>
-        )}
-        {icons?.mid ? (
-          <div className={className?.icons}>{icons.mid}</div>
-        ) : (
-          <div className={twMerge('text-base italic', className?.labels)}>
-            {labels?.mid}
-          </div>
-        )}
-        {icons?.max ? (
-          <div className={className?.icons}>{icons.max}</div>
-        ) : (
-          <div className={twMerge('text-base italic', className?.labels)}>
-            {labels?.max}
-          </div>
-        )}
-      </div>
-
-      <RadixSlider.Track
+    <div>
+      <RadixSlider.Root
+        id={id}
+        data-cy={data?.cy}
+        data-test={data?.test}
         className={twMerge(
-          'relative h-4 flex-1 rounded-xl bg-gray-200',
-          compact && 'h-1.5',
-          className?.track
+          'relative flex w-full select-none items-center',
+          compact ? 'h-4' : 'h-14',
+          className?.root
         )}
+        defaultValue={[defaultValue]}
+        disabled={disabled}
+        max={max}
+        min={min}
+        step={step}
+        value={[value ?? defaultValue]}
+        onValueChange={([newValue]) => handleChange(newValue)}
       >
-        <RadixSlider.Range
+        <RadixSlider.Track
           className={twMerge(
-            'absolute h-full rounded-full',
-            rangeColorMap && Object.keys(rangeColorMap).length === steps
-              ? rangeColorMap[String(value)]
-              : 'bg-gray-500',
-            className?.range
+            'relative h-4 flex-1 rounded-xl bg-gray-200',
+            compact && 'h-1.5',
+            className?.track
           )}
-        />
-      </RadixSlider.Track>
-
-      <RadixSlider.Thumb
-        className={twMerge(
-          'flex h-12 w-12 flex-col items-center justify-center rounded-full border-[3px] border-solid bg-white shadow-lg focus:outline-none',
-          compact && 'h-4 w-4 border-[1.5px]',
-          disabled ? 'cursor-not-allowed' : 'cursor-move',
-          disabled && compact ? 'bg-gray-100' : 'bg-white',
-          disabled ||
-            !borderColorMap ||
-            Object.keys(borderColorMap).length !== steps
-            ? 'border-gray-300'
-            : borderColorMap[String(value)],
-          className?.thumb
-        )}
-        data-cy={dataThumb?.cy}
-        data-test={dataThumb?.test}
-      >
-        {disabled && !compact ? (
-          <FontAwesomeIcon
-            icon={faLock}
+        >
+          <RadixSlider.Range
             className={twMerge(
-              'h-5 w-5 text-gray-500',
-              compact && 'h-2.5 w-2.5',
-              className?.lock
+              'absolute h-full rounded-full',
+              rangeColorMap && Object.keys(rangeColorMap).length === steps
+                ? rangeColorMap[String(value)]
+                : 'bg-gray-500',
+              className?.range
             )}
           />
-        ) : null}
-      </RadixSlider.Thumb>
-    </RadixSlider.Root>
+        </RadixSlider.Track>
+
+        <RadixSlider.Thumb
+          className={twMerge(
+            'flex h-12 w-12 flex-col items-center justify-center rounded-full border-[3px] border-solid bg-white shadow-lg focus:outline-none',
+            compact && 'h-4 w-4 border-[1.5px]',
+            disabled ? 'cursor-not-allowed' : 'cursor-move',
+            disabled && compact ? 'bg-gray-100' : 'bg-white',
+            disabled ||
+              !borderColorMap ||
+              Object.keys(borderColorMap).length !== steps
+              ? 'border-gray-300'
+              : borderColorMap[String(value)],
+            className?.thumb
+          )}
+          data-cy={dataThumb?.cy}
+          data-test={dataThumb?.test}
+        >
+          {disabled && !compact ? (
+            <FontAwesomeIcon
+              icon={faLock}
+              className={twMerge(
+                'h-5 w-5 text-gray-500',
+                compact && 'h-2.5 w-2.5',
+                className?.lock
+              )}
+            />
+          ) : null}
+        </RadixSlider.Thumb>
+      </RadixSlider.Root>
+      <div
+        className={twMerge(
+          'grid grid-cols-3 px-2.5 text-3xl',
+          compact && 'px-[0.2rem]',
+          className?.labels
+        )}
+      >
+        <div className={twMerge('flex justify-start', className?.icons)}>
+          {icons?.min ? (
+            icons.min
+          ) : (
+            <div className={twMerge('text-base', className?.label)}>
+              {labels?.min}
+            </div>
+          )}
+        </div>
+        <div className={twMerge('flex justify-center', className?.icons)}>
+          {icons?.mid ? (
+            icons.mid
+          ) : (
+            <div className={twMerge('text-base', className?.label)}>
+              {labels?.mid}
+            </div>
+          )}
+        </div>
+        <div className={twMerge('flex justify-end', className?.icons)}>
+          {icons?.max ? (
+            icons.max
+          ) : (
+            <div className={twMerge('text-base', className?.label)}>
+              {labels?.max}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
   )
 }
 

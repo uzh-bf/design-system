@@ -50,7 +50,32 @@ export const Compact = () => {
         handleChange={(newValue: number) => setValue(newValue)}
         min={-5}
         max={5}
-        step={0.3}
+        step={0.2}
+        data={{ cy: 'slider-cy', test: 'slider-test' }}
+        dataThumb={{ cy: 'slider-thumb-cy', test: 'slider-thumb-test' }}
+      />
+      <Slider
+        compact
+        value={value}
+        labels={{
+          min: '-5',
+          max: '5',
+          mid: '0',
+        }}
+        handleChange={(newValue: number) => setValue(newValue)}
+        min={-5}
+        max={5}
+        step={0.2}
+        data={{ cy: 'slider-cy', test: 'slider-test' }}
+        dataThumb={{ cy: 'slider-thumb-cy', test: 'slider-thumb-test' }}
+      />
+      <Slider
+        compact
+        value={value}
+        handleChange={(newValue: number) => setValue(newValue)}
+        min={-5}
+        max={5}
+        step={0.2}
         data={{ cy: 'slider-cy', test: 'slider-test' }}
         dataThumb={{ cy: 'slider-thumb-cy', test: 'slider-thumb-test' }}
       />
