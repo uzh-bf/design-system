@@ -1,3 +1,7 @@
+import tailwindAspectRatio from '@tailwindcss/aspect-ratio'
+import tailwindForms from '@tailwindcss/forms'
+import tailwindTypography from '@tailwindcss/typography'
+import tailwindAnimate from 'tailwindcss-animate'
 import tailwindRadix from 'tailwindcss-radix'
 import {
   TailwindAnimations,
@@ -50,10 +54,10 @@ export default {
     preflight: false,
   },
   plugins: [
-    import('tailwindcss-animate'),
-    import('@tailwindcss/typography'),
-    import('@tailwindcss/aspect-ratio'),
-    import('@tailwindcss/forms'),
+    tailwindAnimate,
+    tailwindTypography,
+    tailwindAspectRatio,
+    tailwindForms,
     tailwindRadix({
       variantPrefix: 'rdx',
     }),
