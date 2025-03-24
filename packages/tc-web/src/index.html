@@ -21,7 +21,6 @@
     <script nomodule src="./build/stencil-component-example.js"></script>
   </head>
   <body>
-
     <segment-container id="header" title="Testimonials">
       <tc-img-quote-card
         image-src="https://joinus.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fmanuel.fcfcf50d.jpg&w=1920&q=75"
@@ -29,7 +28,6 @@
         quotee="Manuel Keller, studierte Information Systems und leitet jetzt das IT Team der Weiterbildung"
         title="Flexibilität ist Trumpf"
         image-on-left="true"
-        background-color="rgb(0,250,0)"
       ></tc-img-quote-card>
 
       <tc-img-quote-card
@@ -38,14 +36,10 @@
         quotee="Pascal Zehnder, studierte Informatik"
         title="Abwechslung und Eigenverantwortung"
         image-on-left="false"
-        tags='["Node.js", "PostgreSQL", "APIs"]'
       ></tc-img-quote-card>
     </segment-container>
-    <segment-container
-      id="Mitbringen"
-      title="Was du mitbringen solltest"
-      background-color="#fff0ff"
-    >
+
+    <segment-container id="Mitbringen" title="Was du mitbringen solltest">
       <tc-grid-container columns="1" md-columns="2" lg-columns="2" gap="s">
         <tc-bulletpoint-list
           header="Required Items"
@@ -73,7 +67,6 @@
         detailed-description="Diese Position ist für Studierende, welche ca. im 3. Semester Informatik im Haupt- oder Nebenfach studieren und erste Programmiererfahrungen haben. Hier entwickelt man beispielsweise unsere CMS, Webseiten, und eAssessment-Tools weiter, erstellt neue eLearning-Kurse, und unterstützt bei allgemeinen IT-Projekten sowie der Erfassung von Inhalten.
 
         Es besteht viel Potenzial zur persönlichen Weiterentwicklung (z.B. in Richtung fortgeschrittener Web-Entwicklung und Datenanalyse) mit zunehmender Übernahme von eigener Projektverantwortung."
-        border-color="rgb(0,0,0)"
       ></tc-img-text-card>
 
       <tc-img-text-card
@@ -181,7 +174,7 @@
         >
         </tc-svg-icon-card>
         <tc-svg-icon-card
-          title="#Flexibalefffffffffffffffffffffffffffffffffffffffffffffffffffff"
+          title="#Flexible"
           text="Experience fast development cycles with our streamlined process. super duppoper fast as always lkjljljölkjlöjölkjlöjklöjöljklö
 klöjöljklöjlkjklöjklöjlökjlköjöl"
           icon-svg-path="M464 256A208 208 0 1 1 48 256a208 208 0 1 1 416 0zM0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM232 120V256c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2V120c0-13.3-10.7-24-24-24s-24 10.7-24 24z"
@@ -193,8 +186,15 @@ klöjöljklöjlkjklöjklöjlökjlköjöl"
     </segment-container>
 
     <segment-container title="Open Positions" background-color="#ffffff">
-      <tc-open-positions level="Junior IT"> </tc-open-positions>
+      <tc-job-listing
+        job-title="Junior IT"
+        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        tags="[hallo]"
+        image-src="https://joinus.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fmanuel.fcfcf50d.jpg&w=1920&q=75"
+      >
+      </tc-job-listing>
     </segment-container>
+
     <segment-container
       id="projects"
       title="Projects"
@@ -205,22 +205,7 @@ klöjöljklöjlkjklöjklöjlökjlköjöl"
         description="This project is about developing a system that can automatically correct Python exams. The system should be able to read the code of the students, execute it, and compare the output with the expected output. The system should also be able to give feedback to the students about their code."
         tags='["Node.js", "PostgreSQL", "APIs"]'
       >
-        <tc-img-text-card
-          image-src="https://joinus.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fmanuel.fcfcf50d.jpg&w=1920&q=75"
-          quote="Mir gefiel am besten, dass ich sehr flexible Arbeitszeiten hatte. Vor Prüfungen konnte ich problemlos reduzieren oder aussetzen während den Semesterferien wiederum mein Budget aufbessern."
-          name="Manuel Keller"
-          pro="Flexibilität ist Trumpf"
-          role="studierte Information Systems und leitet jetzt das IT Team der Weiterbildung"
-          image-on-left="true"
-        ></tc-img-text-card>
-        <tc-img-text-card
-          image-src="https://joinus.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fcode_example.62f57e4a.png&w=1920&q=75"
-          title="Junior IT"
-          short-description="IT-Fachkraft für technische Unterstützung und Umsetzung von neuen Inhalten"
-          detailed-description="Diese Position ist für Studierende, welche ca. im 3. Semester Informatik im Haupt- oder Nebenfach studieren und erste Programmiererfahrungen haben. Hier entwickelt man beispielsweise unsere CMS, Webseiten, und eAssessment-Tools weiter, erstellt neue eLearning-Kurse, und unterstützt bei allgemeinen IT-Projekten sowie der Erfassung von Inhalten.
-
-    Es besteht viel Potenzial zur persönlichen Weiterentwicklung (z.B. in Richtung fortgeschrittener Web-Entwicklung und Datenanalyse) mit zunehmender Übernahme von eigener Projektverantwortung."
-        ></tc-img-text-card>
+        lorem
       </tc-collapsible>
     </segment-container>
   </body>

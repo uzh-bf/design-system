@@ -1,4 +1,5 @@
 import { Component, Prop, h } from '@stencil/core'
+import { cn } from '../../util/util'
 
 @Component({
   tag: 'tc-grid-container',
@@ -11,20 +12,6 @@ export class TcGridContainer {
   @Prop() columns: 1 | 2 | 3 | 4 | 5 | 6 = 1
   @Prop() gap: 'sm' | 'md' | 'lg' | 'xl' = 'md'
   @Prop() backgroundColor: string = 'rgb(255, 255, 255)'
-
-  // Default to 2 columns
-
-  render() {
-    const gridClasses = `grid ${this.getMdColumns()} ${this.getColumns()} ${this.getGap()} ${this.getLgColumns()}`
-    return (
-      <div
-        class={gridClasses}
-        style={{ backgroundColor: this.backgroundColor }}
-      >
-        <slot></slot>
-      </div>
-    )
-  }
 
   private getMdColumns(): string {
     switch (this.mdColumns) {
@@ -86,9 +73,26 @@ export class TcGridContainer {
       case 'lg':
         return 'gap-8 md:gap-12 lg:gap-16'
       case 'xl':
-        return 'gap-12 md:gap-16 lg: gap-20'
+        return 'gap-12 md:gap-16 lg:gap-20'
       default:
         return `gap-4 md:gap-8 lg:gap-12`
     }
+  }
+
+  render() {
+    return (
+      <div
+        class={cn(
+          'grid',
+          this.getColumns(),
+          this.getMdColumns(),
+          this.getGap(),
+          this.getLgColumns()
+        )}
+        style={{ backgroundColor: this.backgroundColor }}
+      >
+        <slot></slot>
+      </div>
+    )
   }
 }

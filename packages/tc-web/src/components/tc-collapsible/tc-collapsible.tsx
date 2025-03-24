@@ -58,7 +58,11 @@ export class TcCollapsible {
             ))}
           </div>
         </div>
-        {this.showDetails && <slot></slot>}
+        {this.showDetails && (
+          <div class="pt-4">
+            <slot></slot>
+          </div>
+        )}
       </div>
     )
   }

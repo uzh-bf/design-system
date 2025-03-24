@@ -1,4 +1,5 @@
 import { Component, Prop, h } from '@stencil/core'
+import { cn } from '../../util/util'
 
 @Component({
   tag: 'tc-img-quote-card',
@@ -16,75 +17,43 @@ export class ImgQuoteCard {
   @Prop() borderColor: string = ''
 
   render() {
-    const imageSection = (
-      <div
-        class={{
-          'order-1': true, // Image always first on small screens
-          'md:order-1': this.imageOnLeft, // Order on medium screens
-          'md:order-2': !this.imageOnLeft, // Order on medium screens
-          'w-6/10 md:w-[330px]': true,
-          'px-4': true,
-        }}
-      >
-        <img
-          alt={this.altText}
-          src={this.imageSrc}
-          class="max-w-full object-cover"
-        />
-      </div>
-    )
-
-    const textSection = (
-      <div
-        class={{
-          'flex-1': true,
-          'order-2': true, // Text always second on small screens
-          'md:order-2': this.imageOnLeft, // Order on medium screens
-          'md:order-1': !this.imageOnLeft, // Order on medium screens
-          'px-4': true,
-          'font-sans': true,
-          'font-normal': true,
-        }}
-      >
-        <h3 class="text-2xl font-semibold">{this.pro}</h3>
-        <blockquote
-          class={{
-            'text-lg': true,
-            'm-0': true,
-            'mb-1': true,
-            'font-sans': true,
-            'font-normal': true,
-          }}
-        >
-          <span class="text-4xl text-gray-400">“</span>
-          <p class="inline leading-loose">{this.quote}</p>
-          <span class="text-4xl leading-none text-gray-400">”</span>
-        </blockquote>
-        <div class="text-justify italic">
-          <p>{this.quotee}</p>
-        </div>
-      </div>
-    )
-
     return (
       <div
-        class={{
-          flex: true,
-          'flex-col': true,
-          'items-center': true,
-          'w-full': true,
-          'gap-8': true,
-          'px-4': true,
-          'py-2': true,
-          'md:pb-6': true,
-          'md:flex-row': true,
-          'm-2': true,
-          'shadow-md': true,
-        }}
+        class={cn(
+          'm-2 flex w-full flex-col items-center gap-8 px-4 py-2 shadow-md md:flex-row md:pb-6'
+        )}
         style={{ background: this.backgroundColor }}
       >
-        {imageSection}
-        {textSection}
+        <div
+          class={cn(
+            'w-6/10 order-1 px-4 md:w-[330px]',
+            this.imageOnLeft ? 'md:order-1' : 'md:order-2'
+          )}
+        >
+          <img
+            alt={this.altText}
+            src={this.imageSrc}
+            class="max-w-full object-cover"
+          />
+        </div>
+        <div
+          class={cn(
+            'order-2 flex-1 px-4 font-sans font-normal',
+            this.imageOnLeft ? 'md:order-2' : 'md:order-1'
+          )}
+        >
+          <h3 class="text-2xl font-semibold">{this.pro}</h3>
+          <blockquote
+            class={cn('bg-uzh-grey-20 m-0 mb-1 font-sans text-lg font-normal')}
+          >
+            <span class="text-4xl text-gray-400">“</span>
+            <p class="inline leading-loose">{this.quote}</p>
+            <span class="text-4xl leading-none text-gray-400">”</span>
+          </blockquote>
+          <div class="text-justify italic">
+            <p>{this.quotee}</p>
+          </div>
+        </div>
       </div>
     )
   }
