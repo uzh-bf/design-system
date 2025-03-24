@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.73](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.72...v3.0.0-alpha.73) (2025-03-24)
+
+
+### Bug Fixes
+
+* **Slider:** resolve issues with text alignment of slider labels ([fdf78df](https://github.com/uzh-bf/design-system/commit/fdf78df9ba2cccc0e9fb76aa167da477f8d625e3))
+
+
+### Other
+
+* type maintenance ([0f267ee](https://github.com/uzh-bf/design-system/commit/0f267ee170d535838d50d9c13fc41202f5fd8213))
+* update auto-generated files ([46a2673](https://github.com/uzh-bf/design-system/commit/46a267351408838c8ec57826575cf012ab85ae3c))
+
 ## [3.0.0-alpha.72](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.71...v3.0.0-alpha.72) (2025-03-24)
 
 
