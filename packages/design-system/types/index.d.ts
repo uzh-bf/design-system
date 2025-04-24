@@ -1815,8 +1815,8 @@ declare function Tab_2({
     value={value}
     className={twMerge(
         'group flex-1 border-b border-r border-gray-300 px-3 py-2.5 first:rounded-tl-lg last:rounded-tr-lg last:border-r-0',
-        'rdx-state-active:border-b-slate-600 focus-visible:rdx-state-active:border-b-transparent rdx-state-inactive:bg-gray-50 hover:rdx-state-inactive:bg-gray-200',
-        'focus:rdx-state-active:border-b-red focus:z-10 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75',
+        'data-[state=active]:border-b-slate-600 data-[state=inactive]:bg-gray-50 hover:data-[state=inactive]:bg-gray-200 focus-visible:data-[state=active]:border-b-transparent',
+        'focus:data-[state=active]:border-b-red focus:z-10 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75',
         className?.root
         )}
     disabled={disabled}
@@ -2493,13 +2493,13 @@ export declare interface WorkflowProps extends WorkflowBaseProps {
 export { }
 
 
+declare namespace Calendar {
+    var displayName: string;
+}
+
+
 declare namespace Tabs {
     var Tab: typeof import("@/Tabs").Tab;
     var TabList: typeof import("@/Tabs").TabList;
     var TabContent: typeof import("@/Tabs").TabContent;
-}
-
-
-declare namespace Calendar {
-    var displayName: string;
 }
