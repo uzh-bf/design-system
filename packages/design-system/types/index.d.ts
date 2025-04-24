@@ -2262,7 +2262,7 @@ declare interface TextFieldProps {
     onIconClick?: () => void;
 }
 
-export declare function Toast({ title, description, duration, dismissible, triggerText, actionText, actionOnClick, position, openExternal, onCloseExternal, type, children, className, }: ToastPropsWithTitleTrigger | ToastPropsWithTitleNoTrigger | ToastPropsWithChildrenTrigger | ToastPropsWithChildrenNoTrigger): React_3.ReactElement;
+export declare function Toast({ title, description, duration, dismissible, triggerText, actionText, actionOnClick, position, openExternal, onCloseExternal, type, children, data, className, }: ToastPropsWithTitleTrigger | ToastPropsWithTitleNoTrigger | ToastPropsWithChildrenTrigger | ToastPropsWithChildrenNoTrigger): React_3.ReactElement;
 
 declare interface ToastProps {
     title?: string;
@@ -2277,6 +2277,10 @@ declare interface ToastProps {
     onCloseExternal?: () => void;
     type?: 'default' | 'success' | 'warning' | 'error';
     children?: React_3.ReactNode;
+    data?: {
+        cy?: string;
+        test?: string;
+    };
     className?: {
         root?: string;
         viewport?: string;

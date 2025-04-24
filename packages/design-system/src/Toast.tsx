@@ -24,6 +24,10 @@ interface ToastProps {
   onCloseExternal?: () => void
   type?: 'default' | 'success' | 'warning' | 'error'
   children?: React.ReactNode
+  data?: {
+    cy?: string
+    test?: string
+  }
   className?: {
     root?: string
     viewport?: string
@@ -82,6 +86,7 @@ export function Toast({
   onCloseExternal,
   type = 'default',
   children,
+  data,
   className,
 }:
   | ToastPropsWithTitleTrigger
@@ -127,6 +132,8 @@ export function Toast({
         open={openExternal || open}
         onOpenChange={onCloseExternal || setOpen}
         duration={duration || defaultDuration}
+        data-cy={data?.cy}
+        data-test={data?.test}
       >
         {dismissible && (
           <Button
