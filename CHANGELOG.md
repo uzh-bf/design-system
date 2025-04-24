@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.75](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.74...v3.0.0-alpha.75) (2025-04-24)
+
+
+### Bug Fixes
+
+* remove radix styles from tailwind to resolve CI build issues ([#139](https://github.com/uzh-bf/design-system/issues/139)) ([594a4a3](https://github.com/uzh-bf/design-system/commit/594a4a3ddb79acbf9218930f195d5d2b73c4019c))
+
 ## [3.0.0-alpha.74](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.73...v3.0.0-alpha.74) (2025-04-24)
 
 
