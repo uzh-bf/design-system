@@ -1,4 +1,3 @@
-import tailwindRadix from 'tailwindcss-radix'
 import {
   TailwindAnimations,
   TailwindColorsUZH,
@@ -54,8 +53,5 @@ export default {
     import('@tailwindcss/typography'),
     import('@tailwindcss/aspect-ratio'),
     import('@tailwindcss/forms'),
-    tailwindRadix({
-      variantPrefix: 'rdx',
-    }),
   ],
 }
