@@ -28,7 +28,11 @@ interface ToastProps {
     cy?: string
     test?: string
   }
-  dataDissmissible?: {
+  dataDismissible?: {
+    cy?: string
+    test?: string
+  }
+  dataAction?: {
     cy?: string
     test?: string
   }
@@ -91,7 +95,8 @@ export function Toast({
   type = 'default',
   children,
   data,
-  dataDissmissible,
+  dataDismissible,
+  dataAction,
   className,
 }:
   | ToastPropsWithTitleTrigger
@@ -146,7 +151,7 @@ export function Toast({
               root: 'fixed right-5 top-4 hidden border-none !p-0 hover:bg-white group-hover:block',
             }}
             onClick={() => onCloseExternal?.() ?? setOpen(false)}
-            data={dataDissmissible}
+            data={dataDismissible}
           >
             <FontAwesomeIcon
               icon={faXmark}
@@ -200,6 +205,7 @@ export function Toast({
                 <Button
                   onClick={actionOnClick}
                   className={{ root: className?.action }}
+                  data={dataAction}
                   basic
                 >
                   {actionText}
