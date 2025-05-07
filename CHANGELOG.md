@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.76](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.75...v3.0.0-alpha.76) (2025-05-07)
+
+
+### Bug Fixes
+
+* **Toast:** add data attribute to dismissible button on toast ([89a2c74](https://github.com/uzh-bf/design-system/commit/89a2c741e0907f2337de0508dbfdb0be4eb318fe))
+
 ## [3.0.0-alpha.75](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.74...v3.0.0-alpha.75) (2025-04-24)
 
 
