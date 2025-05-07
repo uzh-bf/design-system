@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.78](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.77...v3.0.0-alpha.78) (2025-05-07)
+
+
+### Other
+
+* **Toast:** update data testing attributes for toast component ([fba3fc5](https://github.com/uzh-bf/design-system/commit/fba3fc58ad6d81d87fd7862fadfa8dbba7bb8601))
+
 ## [3.0.0-alpha.77](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.76...v3.0.0-alpha.77) (2025-05-07)
 
 
