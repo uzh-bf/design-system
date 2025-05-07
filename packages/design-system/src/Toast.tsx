@@ -28,6 +28,10 @@ interface ToastProps {
     cy?: string
     test?: string
   }
+  dataDissmissible?: {
+    cy?: string
+    test?: string
+  }
   className?: {
     root?: string
     viewport?: string
@@ -87,6 +91,7 @@ export function Toast({
   type = 'default',
   children,
   data,
+  dataDissmissible,
   className,
 }:
   | ToastPropsWithTitleTrigger
@@ -141,6 +146,7 @@ export function Toast({
               root: 'fixed right-5 top-4 hidden border-none !p-0 hover:bg-white group-hover:block',
             }}
             onClick={() => onCloseExternal?.() ?? setOpen(false)}
+            data={dataDissmissible}
           >
             <FontAwesomeIcon
               icon={faXmark}
