@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.79](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.78...v3.0.0-alpha.79) (2025-05-16)
+
+
+### Other
+
+* add proper disabled states to text, textarea and number fields ([26a837f](https://github.com/uzh-bf/design-system/commit/26a837fc3635d05c30608ab93eee61cc8a52293f))
+
 ## [3.0.0-alpha.78](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.77...v3.0.0-alpha.78) (2025-05-07)
 
 
