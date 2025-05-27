@@ -1,0 +1,232 @@
+import {
+  faCheckCircle,
+  faCircleExclamation,
+  faTriangleExclamation,
+  faXmark,
+} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import * as RadixToast from '@radix-ui/react-toast'
+import * as React from 'react'
+import { useRef, useState } from 'react'
+import { twMerge } from 'tailwind-merge'
+import Button from './Button'
+
+interface ToastLegacyProps {
+  title?: string
+  description?: string
+  duration?: number
+  dismissible?: boolean
+  triggerText?: string
+  actionText?: string
+  actionOnClick?: () => void
+  position?: string
+  openExternal?: boolean
+  onCloseExternal?: () => void
+  type?: 'default' | 'success' | 'warning' | 'error'
+  children?: React.ReactNode
+  data?: {
+    cy?: string
+    test?: string
+  }
+  dataDismissible?: {
+    cy?: string
+    test?: string
+  }
+  dataAction?: {
+    cy?: string
+    test?: string
+  }
+  className?: {
+    root?: string
+    viewport?: string
+    trigger?: string
+    title?: string
+    description?: string
+    children?: string
+    action?: string
+  }
+}
+
+interface ToastLegacyPropsWithTitle extends ToastLegacyProps {
+  title: string
+  description?: string
+  children?: never
+}
+
+interface ToastLegacyPropsWithChildren extends ToastLegacyProps {
+  title?: never
+  description?: never
+  children: React.ReactNode
+}
+
+export interface ToastLegacyPropsWithTitleTrigger
+  extends ToastLegacyPropsWithTitle {
+  triggerText: string
+  openExternal?: never
+  onCloseExternal?: never
+}
+export interface ToastLegacyPropsWithTitleNoTrigger
+  extends ToastLegacyPropsWithTitle {
+  triggerText?: never
+  openExternal: boolean
+  onCloseExternal: () => void
+}
+export interface ToastLegacyPropsWithChildrenTrigger
+  extends ToastLegacyPropsWithChildren {
+  triggerText: string
+  openExternal?: never
+  onCloseExternal?: never
+}
+export interface ToastLegacyPropsWithChildrenNoTrigger
+  extends ToastLegacyPropsWithChildren {
+  triggerText?: never
+  openExternal: boolean
+  onCloseExternal: () => void
+}
+
+export function ToastLegacy({
+  title,
+  description,
+  duration,
+  dismissible,
+  triggerText,
+  actionText,
+  actionOnClick,
+  position = 'topRight',
+  openExternal,
+  onCloseExternal,
+  type = 'default',
+  children,
+  data,
+  dataDismissible,
+  dataAction,
+  className,
+}:
+  | ToastLegacyPropsWithTitleTrigger
+  | ToastLegacyPropsWithTitleNoTrigger
+  | ToastLegacyPropsWithChildrenTrigger
+  | ToastLegacyPropsWithChildrenNoTrigger): React.ReactElement {
+  const [open, setOpen] = useState(false)
+  const timerRef = useRef(0)
+  const defaultDuration = dismissible ? 60000 : 4000
+
+  const positionDict: Record<string, string> = {
+    topRight: 'top-0 right-0',
+    topLeft: 'top-0 left-0',
+    bottomRight: 'bottom-0 right-0',
+    bottomLeft: 'bottom-0 left-0',
+  }
+
+  return (
+    <RadixToast.Provider swipeDirection="right">
+      {!openExternal && !onCloseExternal ? (
+        <Button
+          onClick={() => {
+            setOpen(false)
+            window.clearTimeout(timerRef.current)
+            timerRef.current = window.setTimeout(() => {
+              setOpen(true)
+            }, 100)
+          }}
+          className={{ root: className?.trigger }}
+        >
+          {triggerText}
+        </Button>
+      ) : null}
+
+      <RadixToast.Root
+        className={twMerge(
+          'border-md group grid items-center gap-x-4 rounded-md bg-white p-3 shadow-md',
+          type === 'success' && 'border-2 border-solid border-green-500',
+          type === 'warning' && 'border-2 border-solid border-orange-500',
+          type === 'error' && 'border-2 border-solid border-red-500',
+          className?.root
+        )}
+        open={openExternal || open}
+        onOpenChange={onCloseExternal || setOpen}
+        duration={duration || defaultDuration}
+        data-cy={data?.cy}
+        data-test={data?.test}
+      >
+        {dismissible && (
+          <Button
+            className={{
+              root: 'fixed right-5 top-4 hidden border-none !p-0 hover:bg-white group-hover:block',
+            }}
+            onClick={() => onCloseExternal?.() ?? setOpen(false)}
+            data={dataDismissible}
+          >
+            <FontAwesomeIcon
+              icon={faXmark}
+              size="xl"
+              className="text-uzh-grey-100 hover:text-black"
+            />
+          </Button>
+        )}
+        <div className="mr-4 flex flex-row items-center gap-4">
+          {type === 'success' && (
+            <FontAwesomeIcon
+              icon={faCheckCircle}
+              size="lg"
+              className="text-green-500"
+            />
+          )}
+          {type === 'warning' && (
+            <FontAwesomeIcon
+              icon={faTriangleExclamation}
+              size="lg"
+              className="text-orange-500"
+            />
+          )}
+          {type === 'error' && (
+            <FontAwesomeIcon
+              icon={faCircleExclamation}
+              size="lg"
+              className="text-red-500"
+            />
+          )}
+          <div>
+            {!children && (
+              <>
+                <RadixToast.Title
+                  className={twMerge('mb-2 font-bold', className?.title)}
+                >
+                  {title}
+                </RadixToast.Title>
+                <RadixToast.Description
+                  asChild
+                  className={twMerge('m-0', className?.description)}
+                >
+                  {description}
+                </RadixToast.Description>
+              </>
+            )}
+            <div className={className?.children}>{children}</div>
+
+            {actionText && actionOnClick && (
+              <RadixToast.Action asChild altText="Action">
+                <Button
+                  onClick={actionOnClick}
+                  className={{ root: className?.action }}
+                  data={dataAction}
+                  basic
+                >
+                  {actionText}
+                </Button>
+              </RadixToast.Action>
+            )}
+          </div>
+        </div>
+      </RadixToast.Root>
+      <RadixToast.Viewport
+        className={twMerge(
+          'fixed right-0 top-0 z-[1000] m-0 flex min-w-[20rem] max-w-3xl list-none flex-col gap-2 p-3 outline-none',
+          positionDict[position || 'topRight'],
+          className?.viewport
+        )}
+      />
+    </RadixToast.Provider>
+  )
+}
+
+export default ToastLegacy

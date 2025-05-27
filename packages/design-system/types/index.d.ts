@@ -1,5 +1,6 @@
 /// <reference types="react" />
 
+import { ClassProp } from 'class-variance-authority/types';
 import { default as default_2 } from 'react';
 import { Dispatch } from 'react';
 import { FieldInputProps } from 'formik';
@@ -12,6 +13,8 @@ import { default as React_2 } from 'react';
 import * as React_3 from 'react';
 import { ReactNode } from 'react';
 import { SetStateAction } from 'react';
+import * as ToastPrimitives from '@radix-ui/react-toast';
+import { VariantProps } from 'class-variance-authority';
 
 declare type BaseItem = {
     id?: string;
@@ -2527,9 +2530,38 @@ declare interface TextFieldProps {
     onIconClick?: () => void;
 }
 
-export declare function Toast({ title, description, duration, dismissible, triggerText, actionText, actionOnClick, position, openExternal, onCloseExternal, type, children, data, dataDismissible, dataAction, className, }: ToastPropsWithTitleTrigger | ToastPropsWithTitleNoTrigger | ToastPropsWithChildrenTrigger | ToastPropsWithChildrenNoTrigger): React_3.ReactElement;
+export declare const Toast: React_3.ForwardRefExoticComponent<Omit<ToastPrimitives.ToastProps & React_3.RefAttributes<HTMLLIElement>, "ref"> & VariantProps<(props?: ({
+    variant?: "default" | "destructive" | null | undefined;
+} & ClassProp) | undefined) => string> & React_3.RefAttributes<HTMLLIElement>>;
 
-declare interface ToastProps {
+declare function toast({ ...props }: Toast_2): {
+    id: string;
+    dismiss: () => void;
+    update: (props: ToasterToast) => void;
+};
+
+declare type Toast_2 = Omit<ToasterToast, 'id'>;
+
+export declare const ToastAction: React_3.ForwardRefExoticComponent<Omit<ToastPrimitives.ToastActionProps & React_3.RefAttributes<HTMLButtonElement>, "ref"> & React_3.RefAttributes<HTMLButtonElement>>;
+
+export declare type ToastActionElement = React_3.ReactElement<typeof ToastAction>;
+
+export declare const ToastClose: React_3.ForwardRefExoticComponent<Omit<ToastPrimitives.ToastCloseProps & React_3.RefAttributes<HTMLButtonElement>, "ref"> & React_3.RefAttributes<HTMLButtonElement>>;
+
+export declare const ToastDescription: React_3.ForwardRefExoticComponent<Omit<ToastPrimitives.ToastDescriptionProps & React_3.RefAttributes<HTMLDivElement>, "ref"> & React_3.RefAttributes<HTMLDivElement>>;
+
+export declare function Toaster(): JSX_2.Element;
+
+declare type ToasterToast = ToastProps & {
+    id: string;
+    title?: React_3.ReactNode;
+    description?: React_3.ReactNode;
+    action?: ToastActionElement;
+};
+
+export declare function ToastLegacy({ title, description, duration, dismissible, triggerText, actionText, actionOnClick, position, openExternal, onCloseExternal, type, children, data, dataDismissible, dataAction, className, }: ToastLegacyPropsWithTitleTrigger | ToastLegacyPropsWithTitleNoTrigger | ToastLegacyPropsWithChildrenTrigger | ToastLegacyPropsWithChildrenNoTrigger): React_3.ReactElement;
+
+declare interface ToastLegacyProps {
     title?: string;
     description?: string;
     duration?: number;
@@ -2565,41 +2597,49 @@ declare interface ToastProps {
     };
 }
 
-declare interface ToastPropsWithChildren extends ToastProps {
+declare interface ToastLegacyPropsWithChildren extends ToastLegacyProps {
     title?: never;
     description?: never;
     children: React_3.ReactNode;
 }
 
-export declare interface ToastPropsWithChildrenNoTrigger extends ToastPropsWithChildren {
+export declare interface ToastLegacyPropsWithChildrenNoTrigger extends ToastLegacyPropsWithChildren {
     triggerText?: never;
     openExternal: boolean;
     onCloseExternal: () => void;
 }
 
-export declare interface ToastPropsWithChildrenTrigger extends ToastPropsWithChildren {
+export declare interface ToastLegacyPropsWithChildrenTrigger extends ToastLegacyPropsWithChildren {
     triggerText: string;
     openExternal?: never;
     onCloseExternal?: never;
 }
 
-declare interface ToastPropsWithTitle extends ToastProps {
+declare interface ToastLegacyPropsWithTitle extends ToastLegacyProps {
     title: string;
     description?: string;
     children?: never;
 }
 
-export declare interface ToastPropsWithTitleNoTrigger extends ToastPropsWithTitle {
+export declare interface ToastLegacyPropsWithTitleNoTrigger extends ToastLegacyPropsWithTitle {
     triggerText?: never;
     openExternal: boolean;
     onCloseExternal: () => void;
 }
 
-export declare interface ToastPropsWithTitleTrigger extends ToastPropsWithTitle {
+export declare interface ToastLegacyPropsWithTitleTrigger extends ToastLegacyPropsWithTitle {
     triggerText: string;
     openExternal?: never;
     onCloseExternal?: never;
 }
+
+export declare type ToastProps = React_3.ComponentPropsWithoutRef<typeof Toast>;
+
+export declare const ToastProvider: React_3.FC<ToastPrimitives.ToastProviderProps>;
+
+export declare const ToastTitle: React_3.ForwardRefExoticComponent<Omit<ToastPrimitives.ToastTitleProps & React_3.RefAttributes<HTMLDivElement>, "ref"> & React_3.RefAttributes<HTMLDivElement>>;
+
+export declare const ToastViewport: React_3.ForwardRefExoticComponent<Omit<ToastPrimitives.ToastViewportProps & React_3.RefAttributes<HTMLOListElement>, "ref"> & React_3.RefAttributes<HTMLOListElement>>;
 
 /**
  * This function returns a pre-styled Tooltip component based on the RadixUI tooltip component and the custom theme.
@@ -2687,6 +2727,30 @@ export declare interface UserNotificationProps {
         content?: string;
     };
 }
+
+export declare function useToast({ type, }?: {
+    type?: 'default' | 'error' | 'success' | 'warning';
+}): {
+    toast: toast;
+    dismiss: (toastId?: string | undefined) => void;
+    toasts: ToasterToast[];
+} | {
+    toast: ({ title, description, className, }: {
+        title?: string | undefined;
+        description?: string | undefined;
+        className?: {
+            root?: string | undefined;
+            title?: string | undefined;
+            description?: string | undefined;
+        } | undefined;
+    }) => {
+        id: string;
+        dismiss: () => void;
+        update: (props: ToasterToast) => void;
+    };
+    dismiss: (toastId?: string | undefined) => void;
+    toasts: ToasterToast[];
+};
 
 /**
  * This function returns a pre-styled Workflow component. Theme-based styling is not available for this component at the moment, use the twStyles or className objects instead to override default styling.

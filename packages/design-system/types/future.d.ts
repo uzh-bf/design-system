@@ -777,7 +777,7 @@ export declare function Toaster(): JSX_2.Element;
 
 declare type ToasterProps = React.ComponentProps<typeof Toaster_2>;
 
-declare type ToasterToast = ToastProps & {
+export declare type ToasterToast = ToastProps & {
     id: string;
     title?: React_2.ReactNode;
     description?: React_2.ReactNode;
