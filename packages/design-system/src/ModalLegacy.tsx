@@ -129,7 +129,7 @@ export function ModalLegacy({
   const overlayContent = (
     <RadixDialog.Overlay
       className={twMerge(
-        'bg-uzh-grey-100 fixed bottom-0 left-0 right-0 top-0 z-20 flex justify-center gap-4 bg-opacity-50 p-4 md:items-center',
+        'fixed bottom-0 left-0 right-0 top-0 z-20 flex justify-center gap-4 bg-uzh-grey-100 bg-opacity-50 p-4 md:items-center',
         className?.overlay
       )}
       data-cy={dataOverlay?.cy}

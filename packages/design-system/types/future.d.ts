@@ -341,7 +341,14 @@ export declare const Dialog: React_2.FC<DialogPrimitive.DialogProps>;
 
 export declare const DialogClose: React_2.ForwardRefExoticComponent<DialogPrimitive.DialogCloseProps & React_2.RefAttributes<HTMLButtonElement>>;
 
-export declare const DialogContent: React_2.ForwardRefExoticComponent<Omit<DialogPrimitive.DialogContentProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
+export declare const DialogContent: React_2.ForwardRefExoticComponent<Omit<DialogPrimitive.DialogContentProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & {
+    hideCloseButton?: boolean | undefined;
+    dataCloseButton?: {
+        cy?: string | undefined;
+        test?: string | undefined;
+    } | undefined;
+    overlayClassName?: string | undefined;
+} & React_2.RefAttributes<HTMLDivElement>>;
 
 export declare const DialogDescription: React_2.ForwardRefExoticComponent<Omit<DialogPrimitive.DialogDescriptionProps & React_2.RefAttributes<HTMLParagraphElement>, "ref"> & React_2.RefAttributes<HTMLParagraphElement>>;
 
@@ -837,13 +844,13 @@ export declare function useToast(): {
 export { }
 
 
+declare namespace Calendar {
+    var displayName: string;
+}
+
+
 declare namespace Tabs {
     var Tab: typeof import("@/Tabs").Tab;
     var TabList: typeof import("@/Tabs").TabList;
     var TabContent: typeof import("@/Tabs").TabContent;
-}
-
-
-declare namespace Calendar {
-    var displayName: string;
 }
