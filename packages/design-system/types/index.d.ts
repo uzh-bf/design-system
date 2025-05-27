@@ -2645,6 +2645,20 @@ export declare const ToastViewport: React_3.ForwardRefExoticComponent<Omit<Toast
  * This function returns a pre-styled Tooltip component based on the RadixUI tooltip component and the custom theme.
  *
  * @param id - The id of the tooltip.
+ * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
+ * @param dataContent - The object of data attributes that can be used for testing (e.g. data-test or data-cy) of the content
+ * @param tooltip - The content of the tooltip.
+ * @param delay - The delay in milliseconds before the tooltip is shown.
+ * @param children - The child component that triggers the tooltip.
+ * @param className - The optional className object allows you to override the default styling.
+ * @returns Tooltip component
+ */
+export declare function Tooltip({ id, data, dataContent, tooltip, delay, children, className, }: TooltipProps): default_2.ReactElement;
+
+/**
+ * This function returns a pre-styled Tooltip component based on the RadixUI tooltip component and the custom theme.
+ *
+ * @param id - The id of the tooltip.
  * @param contentId - The id of the tooltip content.
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param dataContent - The object of data attributes that can be used for testing (e.g. data-test or data-cy) of the content
@@ -2655,9 +2669,9 @@ export declare const ToastViewport: React_3.ForwardRefExoticComponent<Omit<Toast
  * @param className - The optional className object allows you to override the default styling.
  * @returns Tooltip component
  */
-export declare function Tooltip({ id, contentId, data, dataContent, tooltip, delay, withIndicator, children, className, }: TooltipProps): default_2.ReactElement;
+export declare function TooltipLegacy({ id, contentId, data, dataContent, tooltip, delay, withIndicator, children, className, }: TooltipLegacyProps): default_2.ReactElement;
 
-export declare interface TooltipProps {
+export declare interface TooltipLegacyProps {
     id?: string;
     contentId?: string;
     data?: {
@@ -2672,6 +2686,26 @@ export declare interface TooltipProps {
     delay?: number;
     withIndicator?: boolean;
     children: default_2.ReactNode;
+    className?: {
+        tooltip?: string;
+        trigger?: string;
+        arrow?: string;
+    };
+}
+
+export declare interface TooltipProps {
+    id?: string;
+    tooltip: default_2.ReactNode | string;
+    delay?: number;
+    children: default_2.ReactNode;
+    data?: {
+        cy?: string;
+        test?: string;
+    };
+    dataContent?: {
+        cy?: string;
+        test?: string;
+    };
     className?: {
         tooltip?: string;
         trigger?: string;
@@ -2830,13 +2864,13 @@ export declare interface WorkflowProps extends WorkflowBaseProps {
 export { }
 
 
-declare namespace Calendar {
-    var displayName: string;
-}
-
-
 declare namespace TabsLegacy {
     var Tab: typeof import("@/TabsLegacy").Tab;
     var TabList: typeof import("@/TabsLegacy").TabList;
     var TabContent: typeof TabLegacyContent;
+}
+
+
+declare namespace Calendar {
+    var displayName: string;
 }

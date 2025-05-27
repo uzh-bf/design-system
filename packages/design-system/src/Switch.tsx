@@ -120,8 +120,8 @@ export function Switch({
         data-test={data?.test}
         checked={checked}
         className={twMerge(
-          'bg-uzh-grey-80 relative rounded-full border-0',
-          disabled && 'bg-uzh-grey-40 cursor-not-allowed',
+          'relative rounded-full border-0 bg-uzh-grey-80',
+          disabled && 'cursor-not-allowed bg-uzh-grey-40',
           checked && 'bg-primary-60',
           checked && disabled && 'bg-primary-20',
           !!error && !hideError && 'outline outline-2 outline-red-600',

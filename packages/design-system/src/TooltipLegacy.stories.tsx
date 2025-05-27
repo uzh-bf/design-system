@@ -4,7 +4,7 @@ import TooltipLegacy from './TooltipLegacy'
 export const Default = () => {
   return (
     <TooltipLegacy tooltip="Content Tooltip">
-      <div className="border-uzh-grey-100 border border-solid p-2 shadow-md">
+      <div className="border border-solid border-uzh-grey-100 p-2 shadow-md">
         Hover Me!
       </div>
     </TooltipLegacy>
@@ -22,7 +22,7 @@ export const Styled = () => {
     >
       <Button
         className={{
-          root: 'border-uzh-grey-100 border border-solid p-2 shadow-md',
+          root: 'border border-solid border-uzh-grey-100 p-2 shadow-md',
         }}
       >
         Hover Me! and I can still be a Button
@@ -34,7 +34,7 @@ export const Styled = () => {
 export const Delay = () => {
   return (
     <TooltipLegacy tooltip="Content Tooltip" delay={3000}>
-      <div className="border-uzh-grey-100 border border-solid p-2 shadow-md">
+      <div className="border border-solid border-uzh-grey-100 p-2 shadow-md">
         Delayed Tooltip...
       </div>
     </TooltipLegacy>
