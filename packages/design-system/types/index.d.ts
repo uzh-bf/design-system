@@ -11,6 +11,22 @@ import { PropsWithChildren } from 'react';
 import { default as React_2 } from 'react';
 import * as React_3 from 'react';
 import { ReactNode } from 'react';
+import { SetStateAction } from 'react';
+
+declare type BaseItem = {
+    id?: string;
+    disabled?: boolean;
+    shortcut?: string;
+    tooltip?: string;
+    data?: {
+        cy?: string;
+        test?: string;
+    };
+    className?: {
+        item?: string;
+        tooltip?: string;
+    };
+};
 
 export declare interface BaseNavigationButtonProps {
     onClick: React.MouseEventHandler;
@@ -164,6 +180,14 @@ export declare interface ButtonProps {
  */
 export declare function Checkbox({ id, data, children, checked, partial, disabled, label, onCheck, size, style, className, }: CheckboxProps): default_2.ReactElement;
 
+declare interface CheckboxItem extends BaseItem {
+    type: 'checkbox';
+    value?: never;
+    label: string | React.ReactNode;
+    onClick: React.MouseEventHandler;
+    selected: boolean;
+}
+
 export declare interface CheckboxProps {
     id?: string;
     data?: {
@@ -184,6 +208,7 @@ export declare interface CheckboxProps {
     className?: {
         root?: string;
         label?: string;
+        indicator?: string;
     };
 }
 
@@ -471,6 +496,87 @@ export declare interface DateChangerProps {
 }
 
 /**
+ * This component provides a simple date changer with a label and a button to edit the date (not coupled to a formik context).
+ *
+ * @param id - The id of the date changer
+ * @param date - The date to be displayed (state)
+ * @param onDateChange - The function to be called when the date is changed (state management)
+ * @param label - The label of the date changer
+ * @param labelType - The type of the label (small or large)
+ * @param placeholder - The placeholder of the date changer (is only shown if no date is selected)
+ * @param tooltip - The tooltip of the date changer (is only shown if a label is given)
+ * @param required - Whether the date label should contain a required symbol
+ * @param disabled - Whether the date changer is disabled or not
+ * @param error - The error message to be displayed
+ * @param hideError - Whether the error message should be hidden
+ * @param isTouched - Whether the date changer has been touched
+ * @param format - The format of the date when the edit mode is not active (then the display is up to the browser implementation)
+ * @param className - The optional className object allows you to override the default styling.
+ * @param onDateChange - The function to be called when the date is changed (state management)
+ * @param dataTrigger - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the popover trigger
+ * @param dataCalendar - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the calendar
+ * @returns Date changer component with optional label, edit button and save button.
+ */
+export declare function DatePicker({ id, date, onDateChange, label, labelType, placeholder, tooltip, required, disabled, error, hideError, isTouched, className, dataTrigger, dataCalendar, }: DatePickerProps): JSX_2.Element;
+
+export declare interface DatePickerClassName {
+    trigger?: string;
+    label?: string;
+    input?: string;
+    tooltip?: string;
+}
+
+export declare interface DatePickerProps {
+    id?: string;
+    date: Date | undefined;
+    onDateChange: Dispatch<SetStateAction<Date | undefined>>;
+    label?: string;
+    labelType?: 'small' | 'large';
+    placeholder?: string;
+    required?: boolean;
+    tooltip?: string | default_2.ReactNode;
+    disabled?: boolean;
+    error?: string;
+    hideError?: boolean;
+    isTouched?: boolean;
+    className?: DatePickerClassName;
+    dataTrigger?: {
+        cy?: string;
+        test?: string;
+    };
+    dataCalendar?: {
+        cy?: string;
+        test?: string;
+    };
+}
+
+/**
+ * This function returns a pre-styled Dropdown component based on the RadixUI dropdown component and the custom theme.
+ *
+ * @param id - The id of the dropdown.
+ * @param trigger - The content of the trigger button or a custom trigger component to replace the default button.
+ * @param items - The items that are displayed in the dropdown menu. This attribute should not be set, if groups are used.
+ * @param radioGroups - The radio groups that are displayed in the dropdown menu. This attribute should not be set, if items are used.
+ * @param className - The optional className object allows you to override the default styling.
+ * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
+ * @param disabled - Indicate whether the dropdown is disabled or not. Conditional styling is applied, if this is true.
+ * @returns Dropdown component
+ */
+export declare function Dropdown({ id, disabled, trigger, items, radioGroups, data, className, }: DropdownWithItemsProps | DropdownWithGroupsProps): JSX_2.Element;
+
+export declare function DropdownItem({ item, className, }: {
+    item: Item;
+    className?: string;
+}): JSX_2.Element | null;
+
+export declare function DropdownLabelShortcut({ label, shortcut, tooltip, tooltipClassName, }: {
+    label: string | React.ReactNode;
+    shortcut?: string;
+    tooltip?: string;
+    tooltipClassName?: string;
+}): JSX_2.Element;
+
+/**
  * This function returns a pre-styled Dropdown component based on the RadixUI dropdown component and the custom theme.
  *
  * @param id - The id of the dropdown.
@@ -484,9 +590,40 @@ export declare interface DateChangerProps {
  * @param disabled - Indicate whether the dropdown is disabled or not. Conditional styling is applied, if this is true.
  * @returns Dropdown component
  */
-export declare function Dropdown({ id, data, trigger, triggerIcon, items, activeItems, groups, className, disabled, }: DropdownWithItemsProps | DropdownWithGroupsProps): JSX_2.Element;
+export declare function DropdownLegacy({ id, data, trigger, triggerIcon, items, activeItems, groups, className, disabled, }: DropdownLegacyWithItemsProps | DropdownLegacyWithGroupsProps): JSX_2.Element;
+
+export declare interface DropdownLegacyWithGroupsProps extends DropdownProps_2 {
+    items?: never;
+    groups: Item_2[][];
+}
+
+export declare interface DropdownLegacyWithItemsProps extends DropdownProps_2 {
+    items: Item_2[];
+    groups?: never;
+}
 
 declare interface DropdownProps {
+    id?: string;
+    disabled?: boolean;
+    trigger: string | React.ReactNode;
+    items?: Item[];
+    radioGroups?: {
+        value?: string;
+        items: Item[];
+    }[];
+    data?: {
+        cy?: string;
+        test?: string;
+    };
+    className?: {
+        trigger?: string;
+        viewport?: string;
+        item?: string;
+        group?: string;
+    };
+}
+
+declare interface DropdownProps_2 {
     id?: string;
     data?: {
         cy?: string;
@@ -494,9 +631,9 @@ declare interface DropdownProps {
     };
     trigger: string | default_2.ReactNode;
     triggerIcon?: IconDefinition;
-    items?: Item[];
+    items?: Item_2[];
     activeItems?: string[];
-    groups?: Item[][];
+    groups?: Item_2[][];
     className?: {
         trigger?: string;
         triggerDisabled?: string;
@@ -511,12 +648,15 @@ declare interface DropdownProps {
 
 export declare interface DropdownWithGroupsProps extends DropdownProps {
     items?: never;
-    groups: Item[][];
+    radioGroups: {
+        value?: string;
+        items: Item[];
+    }[];
 }
 
 export declare interface DropdownWithItemsProps extends DropdownProps {
     items: Item[];
-    groups?: never;
+    radioGroups?: never;
 }
 
 export declare interface FormatterArgs {
@@ -1040,7 +1180,9 @@ export declare interface IconOnlyDropdownProps extends BaseNavigationDropdownPro
     icon: IconDefinition;
 }
 
-declare interface Item {
+declare type Item = StandardItem | CheckboxItem | RadioItem | LabelItem | SeparatorItem;
+
+declare interface Item_2 {
     id?: string;
     data?: {
         cy?: string;
@@ -1076,6 +1218,14 @@ declare interface Item {
  * @returns Label component with optional tooltip and required symbol.
  */
 export declare function Label({ id, data, forId, label, required, tooltip, showTooltipSymbol, tooltipSymbolSize, className, }: LabelProps): default_2.ReactElement;
+
+declare interface LabelItem extends BaseItem {
+    type: 'label';
+    value?: never;
+    label: string | React.ReactNode;
+    onClick?: never;
+    selected?: never;
+}
 
 export declare interface LabelOnlyButtonProps extends BaseNavigationButtonProps {
     label: string;
@@ -1412,6 +1562,14 @@ export declare interface ProseProps {
     children: default_2.ReactNode;
 }
 
+declare interface RadioItem extends BaseItem {
+    type: 'radio';
+    value: string;
+    label: string | React.ReactNode;
+    onClick: React.MouseEventHandler;
+    selected?: never;
+}
+
 /**
  * This function returns a pre-styled Select component based on the RadixUI select component and the custom theme.
  * While the open state of the component is managed internally, the value of the component is managed externally and passed to the function.
@@ -1561,6 +1719,14 @@ export declare interface SelectWithItemsProps extends SelectProps {
     groups?: never;
 }
 
+declare interface SeparatorItem extends BaseItem {
+    type: 'separator';
+    value?: never;
+    label?: never;
+    onClick?: never;
+    selected?: never;
+}
+
 declare interface SingleValueProgressProps extends BaseProgressProps {
     value: number;
     className?: {
@@ -1640,6 +1806,14 @@ export declare interface SliderWithLabelProps extends SliderProps {
         max?: string;
     };
     icons?: never;
+}
+
+declare interface StandardItem extends BaseItem {
+    type?: 'standard';
+    value?: never;
+    label: string | React.ReactNode;
+    onClick: React.MouseEventHandler;
+    selected?: boolean;
 }
 
 declare interface StepBaseProps {
