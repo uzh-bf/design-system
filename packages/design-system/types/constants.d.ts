@@ -197,8 +197,8 @@ declare namespace Calendar {
 }
 
 
-declare namespace Tabs {
-    var Tab: typeof import("@/Tabs").Tab;
-    var TabList: typeof import("@/Tabs").TabList;
-    var TabContent: typeof import("@/Tabs").TabContent;
+declare namespace TabsLegacy {
+    var Tab: typeof import("@/TabsLegacy").Tab;
+    var TabList: typeof import("@/TabsLegacy").TabList;
+    var TabContent: typeof TabLegacyContent;
 }

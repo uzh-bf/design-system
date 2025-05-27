@@ -9,7 +9,7 @@ import React, { useEffect } from 'react'
 import { twMerge } from 'tailwind-merge'
 import Button from './Button'
 
-export interface ModalProps {
+export interface ModalLegacyProps {
   id?: string
   data?: {
     cy?: string
@@ -110,7 +110,7 @@ export function ModalLegacy({
   escapeDisabled = false,
   hideCloseButton = false,
   asPortal = false,
-}: ModalProps) {
+}: ModalLegacyProps) {
   useEffect(() => {
     if (onPrev || onNext) {
       const keyDownHandler = ({ key }: KeyboardEvent) => {

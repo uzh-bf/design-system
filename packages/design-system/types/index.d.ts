@@ -1285,6 +1285,85 @@ export declare interface LabelProps {
  */
 export declare function Modal({ id, data, dataContent, dataCloseButton, trigger, title, children, onClose, onPrev, onNext, open, fullScreen, className, onPrimaryAction, primaryLabel, onSecondaryAction, secondaryLabel, escapeDisabled, hideCloseButton, }: ModalProps): JSX_2.Element;
 
+/**
+ * This function returns a pre-styled modal component based on the RadixUI dialog component and the custom theme.
+ *
+ * @param id - The id of the modal.
+ * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
+ * @param dataOverlay - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the overlay
+ * @param dataContent - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the content
+ * @param dataCloseButton - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the close button
+ * @param dataNextButton - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the next button
+ * @param dataPrevButton - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the previous button
+ * @param trigger - The optional trigger that opens the modal, if the state is not managed by some parent component already.
+ * @param title - The optional title of the modal.
+ * @param children - The content of the modal.
+ * @param onClose - Function that is called when the modal is closed.
+ * @param onPrev - Function that is called when the optional previous button is clicked.
+ * @param onNext - Function that is called when the optional next button is clicked.
+ * @param open - Indicate whether the modal is open or not. This state is managed outside of the component.
+ * @param onOpenChange - Function that is called when the modal is opened or closed.
+ * @param fullScreen - Indicate whether the modal should be full screen or not.
+ * @param onPrimaryAction - The optional primary action button.
+ * @param onSecondaryAction - The optional secondary action button.
+ * @param escapeDisabled - Indicate whether the modal should be closed when the escape key is pressed.
+ * @param hideCloseButton - Indicate whether the close button should be hidden.
+ * @param className - The optional className object allows you to override the default styling.
+ * @param asPortal - Whether the contents are rendered in a portal.
+ * @returns Modal component
+ */
+export declare function ModalLegacy({ id, data, dataOverlay, dataContent, dataCloseButton, dataNextButton, dataPrevButton, trigger, title, children, onClose, onPrev, onNext, open, onOpenChange, fullScreen, className, onPrimaryAction, onSecondaryAction, escapeDisabled, hideCloseButton, asPortal, }: ModalLegacyProps): JSX_2.Element;
+
+export declare interface ModalLegacyProps {
+    id?: string;
+    data?: {
+        cy?: string;
+        test?: string;
+    };
+    dataOverlay?: {
+        cy?: string;
+        test?: string;
+    };
+    dataContent?: {
+        cy?: string;
+        test?: string;
+    };
+    dataCloseButton?: {
+        cy?: string;
+        test?: string;
+    };
+    dataNextButton?: {
+        cy?: string;
+        test?: string;
+    };
+    dataPrevButton?: {
+        cy?: string;
+        test?: string;
+    };
+    className?: {
+        overlay?: string;
+        content?: string;
+        title?: string;
+        children?: string;
+        onPrev?: string;
+        onNext?: string;
+    };
+    children: default_2.ReactNode;
+    fullScreen?: boolean;
+    open: boolean;
+    title?: string | default_2.ReactNode;
+    trigger?: default_2.ReactNode;
+    escapeDisabled?: boolean;
+    hideCloseButton?: boolean;
+    asPortal?: boolean;
+    onClose: (e?: default_2.MouseEvent<HTMLButtonElement>) => void;
+    onNext?: (e?: default_2.MouseEvent<HTMLButtonElement>) => void;
+    onOpenChange?: (e?: default_2.MouseEvent<HTMLButtonElement>) => void;
+    onPrev?: (e?: default_2.MouseEvent<HTMLButtonElement>) => void;
+    onPrimaryAction?: default_2.ReactNode;
+    onSecondaryAction?: default_2.ReactNode;
+}
+
 export declare interface ModalProps {
     id?: string;
     data?: {
@@ -1996,63 +2075,46 @@ declare function Tab_2({
     )
 }
 
-/**
- * This function returns a pre-styled TabContent component to be used inside a Tabs component.
- * The value of this tab is required for both the internally and externally controlled state.
- *
- * @param id The id of the tab content.
- * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
- * @param value The value of the tab. This is required for the internal and external state.
- * @param children The content of the tab should be passed as children to this component.
- * @param className The optional className object allows you to override the default styling.
- * @returns Tab Content component
- */
-export declare function TabContent({ id, data, value, children, className, }: PropsWithChildren<TabContentProps_2>): JSX_2.Element;
+export declare function TabContent({ id, value, children, data, className, }: {
+    id?: string;
+    value: string;
+    children: React.ReactNode;
+    data?: {
+        cy?: string;
+        test?: string;
+    };
+    className?: {
+        root?: string;
+    };
+}): JSX_2.Element;
 
-/**
- * This function returns a pre-styled TabContent component to be used inside a Tabs component.
- * The value of this tab is required for both the internally and externally controlled state.
- *
- * @param id The id of the tab content.
- * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
- * @param value The value of the tab. This is required for the internal and external state.
- * @param children The content of the tab should be passed as children to this component.
- * @param className The optional className object allows you to override the default styling.
- * @returns Tab Content component
- */
 declare function TabContent_2({
     id,
-    data,
     value,
     children,
+    data,
     className,
-}: PropsWithChildren<TabContentProps>) {
+}: {
+    id?: string
+    value: string
+    children: React.ReactNode
+    data?: { cy?: string; test?: string }
+    className?: { root?: string }
+}) {
     return (
-    <TabsPrimitive.Content
+    <ShadcnTabsContent
     id={id}
+    value={value}
     data-cy={data?.cy}
     data-test={data?.test}
-    value={value}
-    className={twMerge('rounded-t-lg bg-white py-4 md:px-6', className?.root)}
+    className={className?.root}
     >
         {children}
-    </TabsPrimitive.Content>
+    </ShadcnTabsContent>
     )
 }
 
 declare interface TabContentProps {
-    id?: string
-    data?: {
-        cy?: string
-        test?: string
-    }
-    value: string
-    className?: {
-        root?: string
-    }
-}
-
-declare interface TabContentProps_2 {
     id?: string;
     data?: {
         cy?: string;
@@ -2084,6 +2146,19 @@ declare interface TabContentProps_2 {
  * @returns Table component
  */
 export declare function Table<RowType extends Record<string, string | number | boolean>>({ id, dataAttributes, columns, data, caption, className, forwardedRef, emptyCellText, defaultSortField, defaultSortOrder, }: TableProps<RowType>): JSX_2.Element;
+
+/**
+ * This function returns a pre-styled TabContent component to be used inside a Tabs component.
+ * The value of this tab is required for both the internally and externally controlled state.
+ *
+ * @param id The id of the tab content.
+ * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
+ * @param value The value of the tab. This is required for the internal and external state.
+ * @param children The content of the tab should be passed as children to this component.
+ * @param className The optional className object allows you to override the default styling.
+ * @returns Tab Content component
+ */
+export declare function TabLegacyContent({ id, data, value, children, className, }: PropsWithChildren<TabContentProps>): JSX_2.Element;
 
 export declare interface TableProps<RowType extends BaseRowType> {
     id?: string;
@@ -2223,6 +2298,33 @@ declare interface TabPropsWithLabel_2 extends TabProps_2 {
     children?: never;
 }
 
+export declare function Tabs({ id, defaultValue, value, onValueChange, tabs, className, children, }: {
+    id?: string;
+    defaultValue: string;
+    value?: string;
+    onValueChange?: (newValue: string) => void;
+    tabs: {
+        id?: string;
+        label: string | React.ReactNode;
+        value: string;
+        data?: {
+            cy?: string;
+            test?: string;
+        };
+        className?: string;
+    }[];
+    className?: {
+        root?: string;
+        list?: string;
+        trigger?: string;
+    };
+    children: React.ReactNode;
+}): JSX_2.Element;
+
+export declare namespace Tabs {
+    var TabContent: TabContent_2;
+}
+
 /**
  * This function returns a pre-styled TabList component based on the RadixUI TabList component and the custom theme.
  * The active tab / component state can be either controlled internally or controlled through the parent component.
@@ -2236,12 +2338,12 @@ declare interface TabPropsWithLabel_2 extends TabProps_2 {
  * @param className The optional className object allows you to override the default styling.
  * @returns Tabs wrapper component
  */
-export declare function Tabs({ id, data, defaultValue, value, children, onValueChange, className, }: PropsWithChildren<TabsProps>): JSX_2.Element;
+export declare function TabsLegacy({ id, data, defaultValue, value, children, onValueChange, className, }: PropsWithChildren<TabsProps>): JSX_2.Element;
 
-export declare namespace Tabs {
+export declare namespace TabsLegacy {
     var Tab: Tab_2;
     var TabList: TabList_2;
-    var TabContent: TabContent_2;
+    var TabContent: typeof TabLegacyContent;
 }
 
 declare interface TabsProps {
@@ -2669,8 +2771,8 @@ declare namespace Calendar {
 }
 
 
-declare namespace Tabs {
-    var Tab: typeof import("@/Tabs").Tab;
-    var TabList: typeof import("@/Tabs").TabList;
-    var TabContent: typeof import("@/Tabs").TabContent;
+declare namespace TabsLegacy {
+    var Tab: typeof import("@/TabsLegacy").Tab;
+    var TabList: typeof import("@/TabsLegacy").TabList;
+    var TabContent: typeof TabLegacyContent;
 }
