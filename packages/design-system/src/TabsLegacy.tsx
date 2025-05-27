@@ -141,7 +141,7 @@ interface TabContentProps {
  * @param className The optional className object allows you to override the default styling.
  * @returns Tab Content component
  */
-export function TabContent({
+export function TabLegacyContent({
   id,
   data,
   value,
@@ -214,6 +214,6 @@ function TabsLegacy({
 
 TabsLegacy.Tab = Tab
 TabsLegacy.TabList = TabList
-TabsLegacy.TabContent = TabContent
+TabsLegacy.TabContent = TabLegacyContent
 
 export default TabsLegacy
