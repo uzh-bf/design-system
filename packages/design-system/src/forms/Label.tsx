@@ -58,7 +58,6 @@ export function Label({
           tooltip: className?.tooltip,
           arrow: className?.arrow,
         }}
-        withIndicator={true}
       >
         <div className="flex flex-row">
           <RadixLabel.Root
@@ -96,7 +95,6 @@ export function Label({
             arrow: className?.arrow,
             trigger: 'h-full',
           }}
-          withIndicator={true}
         >
           <FontAwesomeIcon
             icon={faQuestion}
@@ -104,7 +102,7 @@ export function Label({
               tooltipSymbolSize === 'xl' && '!mt-1 !h-5 !w-5 !p-2',
               tooltipSymbolSize === 'lg' && '!mt-1 !h-4 !w-4 !p-1.5',
               tooltipSymbolSize === 'sm' && '!mt-1 !h-2 !w-2 !p-1',
-              'mt-1 h-3 w-3 rounded-full border border-solid border-white bg-primary-60 p-1 text-white',
+              'bg-primary-60 mt-1 h-3 w-3 rounded-full border border-solid border-white p-1 text-white',
               className?.tooltipSymbol
             )}
           />

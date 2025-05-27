@@ -1,43 +1,24 @@
 import Button from './Button'
-import Tooltip from './Tooltip'
+import TooltipLegacy from './TooltipLegacy'
 
 export const Default = () => {
   return (
-    <Tooltip tooltip="Content Tooltip">
+    <TooltipLegacy tooltip="Content Tooltip">
       <div className="border-uzh-grey-100 border border-solid p-2 shadow-md">
         Hover Me!
       </div>
-    </Tooltip>
+    </TooltipLegacy>
   )
 }
 
 export const Styled = () => {
   return (
-    <Tooltip
-      className={{
-        tooltip: '"font-bold text-black" bg-red-400 italic',
-        arrow: 'fill-red-400',
-      }}
-      tooltip="Styled Tooltip"
-    >
-      <Button
-        className={{
-          root: 'border-uzh-grey-100 border border-solid p-2 shadow-md',
-        }}
-      >
-        Hover Me! and I can still be a Button
-      </Button>
-    </Tooltip>
-  )
-}
-
-export const Children = () => {
-  return (
-    <Tooltip
+    <TooltipLegacy
       className={{ tooltip: 'bg-red-400', arrow: 'fill-red-400' }}
       tooltip={
         <div className="font-bold italic text-black">Styled Tooltip</div>
       }
+      withIndicator={true}
     >
       <Button
         className={{
@@ -46,16 +27,16 @@ export const Children = () => {
       >
         Hover Me! and I can still be a Button
       </Button>
-    </Tooltip>
+    </TooltipLegacy>
   )
 }
 
 export const Delay = () => {
   return (
-    <Tooltip tooltip="Content Tooltip" delay={3000}>
+    <TooltipLegacy tooltip="Content Tooltip" delay={3000}>
       <div className="border-uzh-grey-100 border border-solid p-2 shadow-md">
         Delayed Tooltip...
       </div>
-    </Tooltip>
+    </TooltipLegacy>
   )
 }

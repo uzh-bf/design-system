@@ -212,12 +212,12 @@ export function WorkflowItem({
   return (
     <div
       className={twMerge(
-        'group relative flex items-center justify-center bg-uzh-grey-40 text-center',
+        'bg-uzh-grey-40 group relative flex items-center justify-center text-center',
         'mr-1 cursor-pointer select-none first:before:!border-none last:mr-0 after:last:!border-none',
         'after:z-10 after:border after:border-r-0 after:border-solid after:border-y-transparent',
         "before:absolute before:left-0 before:right-auto before:z-0 before:content-['']",
         'before:border before:border-r-0 before:border-solid before:border-y-transparent',
-        "before:border-l-white after:absolute after:border-l-uzh-grey-40 after:content-['']",
+        "after:border-l-uzh-grey-40 before:border-l-white after:absolute after:content-['']",
         twStyles.bgHover,
         hasDescription
           ? 'h-[50px] pl-[25px] before:border-y-[25px] before:border-l-[25px] after:right-[-25px] after:border-y-[25px] after:border-l-[25px] first:pl-0 last:pl-0'
@@ -243,9 +243,9 @@ export function WorkflowItem({
         !item.completed &&
           item.progress !== 1 &&
           item.progress &&
-          'hover:bg-none hover:after:!border-l-uzh-grey-40',
+          'hover:after:!border-l-uzh-grey-40 hover:bg-none',
         disabled &&
-          'cursor-not-allowed text-gray-500 hover:bg-uzh-grey-40 hover:after:!border-l-uzh-grey-40',
+          'hover:bg-uzh-grey-40 hover:after:!border-l-uzh-grey-40 cursor-not-allowed text-gray-500',
         className?.item
       )}
       onClick={() => (disabled ? null : onClick(item, ix))}

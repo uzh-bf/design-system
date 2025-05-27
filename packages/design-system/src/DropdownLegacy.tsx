@@ -91,9 +91,9 @@ export function DropdownLegacy({
           data-test={data?.test}
           className={twMerge(
             'inline-flex h-7 items-center justify-between gap-3 rounded-md border',
-            'bg-white py-1.5 pl-2 pr-2 shadow-sm hover:bg-primary-20 hover:text-primary-100',
+            'hover:bg-primary-20 hover:text-primary-100 bg-white py-1.5 pl-2 pr-2 shadow-sm',
             disabled &&
-              'hover:bg-none, hover:text-none cursor-not-allowed bg-uzh-grey-20 opacity-70 shadow-sm',
+              'hover:bg-none, hover:text-none bg-uzh-grey-20 cursor-not-allowed opacity-70 shadow-sm',
             className?.trigger
           )}
           disabled={disabled}
@@ -129,7 +129,7 @@ export function DropdownLegacy({
         />
 
         {items && (
-          <div className="border-b border-solid border-uzh-grey-100 pb-1 first:pt-0 last:border-b-0 last:pb-0">
+          <div className="border-uzh-grey-100 border-b border-solid pb-1 first:pt-0 last:border-b-0 last:pb-0">
             {items.map((item, index) => (
               <DropdownItem
                 key={index}
@@ -159,7 +159,7 @@ export function DropdownLegacy({
           groups.map((groupItems, groupIndex) => (
             <div
               key={groupIndex}
-              className="border-b border-solid border-uzh-grey-100 pb-1 pt-1 first:pt-0 last:border-b-0 last:pb-0"
+              className="border-uzh-grey-100 border-b border-solid pb-1 pt-1 first:pt-0 last:border-b-0 last:pb-0"
             >
               <RadixDropdown.Group className={className?.group}>
                 {groupItems.map((item) => (
@@ -248,7 +248,7 @@ const DropdownItem = ({
         data-cy={data?.cy}
         data-test={data?.test}
         className={twMerge(
-          'flex w-full flex-row rounded px-2 py-0.5 hover:cursor-pointer hover:bg-primary-20 hover:text-primary-100',
+          'hover:bg-primary-20 hover:text-primary-100 flex w-full flex-row rounded px-2 py-0.5 hover:cursor-pointer',
           active && twMerge('font-bold', className?.active),
           selected && twMerge('font-bold', className?.active),
           disabled &&
