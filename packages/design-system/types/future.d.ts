@@ -702,7 +702,7 @@ export declare const SheetTitle: React_2.ForwardRefExoticComponent<Omit<DialogPr
 export declare const SheetTrigger: React_2.ForwardRefExoticComponent<DialogPrimitive.DialogTriggerProps & React_2.RefAttributes<HTMLButtonElement>>;
 
 declare const sheetVariants: (props?: ({
-    side?: "left" | "right" | "bottom" | "top" | null | undefined;
+    side?: "left" | "right" | "top" | "bottom" | null | undefined;
 } & ClassProp) | undefined) => string;
 
 export declare function Skeleton({ className, ...props }: React.HTMLAttributes<HTMLDivElement>): JSX_2.Element;
@@ -844,13 +844,13 @@ export declare function useToast(): {
 export { }
 
 
-declare namespace Calendar {
-    var displayName: string;
-}
-
-
 declare namespace TabsLegacy {
     var Tab: typeof import("@/TabsLegacy").Tab;
     var TabList: typeof import("@/TabsLegacy").TabList;
     var TabContent: typeof TabLegacyContent;
+}
+
+
+declare namespace Calendar {
+    var displayName: string;
 }
