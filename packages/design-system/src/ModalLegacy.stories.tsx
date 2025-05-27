@@ -1,49 +1,45 @@
 import React, { useState } from 'react'
 import Button from './Button'
-import Modal from './Modal'
+import ModalLegacy from './ModalLegacy'
 
 export const Default = () => {
   const [isOpen, setIsOpen] = useState(false)
   return (
-    <Modal
+    <ModalLegacy
       open={isOpen}
-      title="Modal Title"
-      trigger={<Button onClick={() => setIsOpen(true)}>Open Modal</Button>}
+      title="ModalLegacy Title"
+      trigger={
+        <Button onClick={() => setIsOpen(true)}>Open ModalLegacy</Button>
+      }
       onPrev={() => {
         console.log('prev')
       }}
-      onPrimaryAction={() => setIsOpen(false)}
-      primaryLabel="Primary"
-      onSecondaryAction={() => setIsOpen(false)}
-      secondaryLabel="Secondary"
+      onSecondaryAction={
+        <Button onClick={() => setIsOpen(true)}>Secondary</Button>
+      }
+      onPrimaryAction={<Button onClick={() => setIsOpen(true)}>Primary</Button>}
       onNext={() => {
         console.log('next')
       }}
       onClose={() => setIsOpen(false)}
     >
-      Consectetur enim adipisicing do culpa. Laborum laboris labore velit
-      incididunt est do duis in cupidatat proident. Veniam quis ex dolore
-      pariatur eu. Quis adipisicing aliqua et Lorem minim. Nostrud anim duis
-      commodo nostrud deserunt adipisicing dolor officia amet non tempor tempor
-      laboris. Nisi esse voluptate non enim aute nisi nostrud eiusmod laboris.
-    </Modal>
+      content
+    </ModalLegacy>
   )
 }
 
 export const Basic = () => {
   const [isOpen, setIsOpen] = useState(false)
   return (
-    <Modal
+    <ModalLegacy
       open={isOpen}
-      trigger={<Button onClick={() => setIsOpen(true)}>Open Modal</Button>}
+      trigger={
+        <Button onClick={() => setIsOpen(true)}>Open ModalLegacy</Button>
+      }
       onClose={() => setIsOpen(false)}
     >
-      Consectetur enim adipisicing do culpa. Laborum laboris labore velit
-      incididunt est do duis in cupidatat proident. Veniam quis ex dolore
-      pariatur eu. Quis adipisicing aliqua et Lorem minim. Nostrud anim duis
-      commodo nostrud deserunt adipisicing dolor officia amet non tempor tempor
-      laboris. Nisi esse voluptate non enim aute nisi nostrud eiusmod laboris.
-    </Modal>
+      content
+    </ModalLegacy>
   )
 }
 
@@ -59,7 +55,7 @@ export const Trigger = () => {
       onClick={() => setIsOpen(true)}
       className={{ root: 'border-red-500 bg-blue-300' }}
     >
-      Open Modal
+      Open ModalLegacy
     </Button>
   ))
 
@@ -68,18 +64,13 @@ export const Trigger = () => {
       In order for styles, etc. to be correctly applied to the trigger, it must
       be wrapped into a reference and prop passing component (since it is
       rendered with the `asChild` option in Radix)
-      <Modal
+      <ModalLegacy
         open={isOpen}
         trigger={<StyledButton />}
         onClose={() => setIsOpen(false)}
       >
-        Consectetur enim adipisicing do culpa. Laborum laboris labore velit
-        incididunt est do duis in cupidatat proident. Veniam quis ex dolore
-        pariatur eu. Quis adipisicing aliqua et Lorem minim. Nostrud anim duis
-        commodo nostrud deserunt adipisicing dolor officia amet non tempor
-        tempor laboris. Nisi esse voluptate non enim aute nisi nostrud eiusmod
-        laboris.
-      </Modal>
+        content
+      </ModalLegacy>
     </div>
   )
 }
@@ -87,90 +78,92 @@ export const Trigger = () => {
 export const Primary = () => {
   const [isOpen, setIsOpen] = useState(false)
   return (
-    <Modal
+    <ModalLegacy
       open={isOpen}
-      trigger={<Button onClick={() => setIsOpen(true)}>Open Modal</Button>}
+      trigger={
+        <Button onClick={() => setIsOpen(true)}>Open ModalLegacy</Button>
+      }
       onClose={() => setIsOpen(false)}
-      onPrimaryAction={() => setIsOpen(false)}
-      primaryLabel="Primary"
+      onPrimaryAction={
+        <Button
+          className={{ root: 'border-uzh-blue-80 bg-uzh-blue-100 text-white' }}
+        >
+          Primary
+        </Button>
+      }
     >
-      Consectetur enim adipisicing do culpa. Laborum laboris labore velit
-      incididunt est do duis in cupidatat proident. Veniam quis ex dolore
-      pariatur eu. Quis adipisicing aliqua et Lorem minim. Nostrud anim duis
-      commodo nostrud deserunt adipisicing dolor officia amet non tempor tempor
-      laboris. Nisi esse voluptate non enim aute nisi nostrud eiusmod laboris.
-    </Modal>
+      content
+    </ModalLegacy>
   )
 }
 
 export const Secondary = () => {
   const [isOpen, setIsOpen] = useState(false)
   return (
-    <Modal
+    <ModalLegacy
       open={isOpen}
-      trigger={<Button onClick={() => setIsOpen(true)}>Open Modal</Button>}
+      trigger={
+        <Button onClick={() => setIsOpen(true)}>Open ModalLegacy</Button>
+      }
       onClose={() => setIsOpen(false)}
-      onSecondaryAction={() => setIsOpen(false)}
-      secondaryLabel="Secondary"
+      onSecondaryAction={
+        <Button
+          className={{ root: 'border-uzh-grey-80 bg-uzh-grey-100 text-white' }}
+        >
+          Primary
+        </Button>
+      }
     >
-      Consectetur enim adipisicing do culpa. Laborum laboris labore velit
-      incididunt est do duis in cupidatat proident. Veniam quis ex dolore
-      pariatur eu. Quis adipisicing aliqua et Lorem minim. Nostrud anim duis
-      commodo nostrud deserunt adipisicing dolor officia amet non tempor tempor
-      laboris. Nisi esse voluptate non enim aute nisi nostrud eiusmod laboris.
-    </Modal>
+      content
+    </ModalLegacy>
   )
 }
 
 export const Fullscreen = () => {
   const [isOpen, setIsOpen] = useState(false)
   return (
-    <Modal
+    <ModalLegacy
       fullScreen
       open={isOpen}
-      trigger={<Button onClick={() => setIsOpen(true)}>Open Modal</Button>}
+      trigger={
+        <Button onClick={() => setIsOpen(true)}>Open ModalLegacy</Button>
+      }
       onClose={() => setIsOpen(false)}
     >
-      Consectetur enim adipisicing do culpa. Laborum laboris labore velit
-      incididunt est do duis in cupidatat proident. Veniam quis ex dolore
-      pariatur eu. Quis adipisicing aliqua et Lorem minim. Nostrud anim duis
-      commodo nostrud deserunt adipisicing dolor officia amet non tempor tempor
-      laboris. Nisi esse voluptate non enim aute nisi nostrud eiusmod laboris.
-    </Modal>
+      content
+    </ModalLegacy>
   )
 }
 
 export const EscapeDisabled = () => {
   const [isOpen, setIsOpen] = useState(false)
   return (
-    <Modal
+    <ModalLegacy
       open={isOpen}
-      trigger={<Button onClick={() => setIsOpen(true)}>Open Modal</Button>}
+      trigger={
+        <Button onClick={() => setIsOpen(true)}>Open ModalLegacy</Button>
+      }
       onClose={() => setIsOpen(false)}
       escapeDisabled={true}
     >
-      Consectetur enim adipisicing do culpa. Laborum laboris labore velit
-      incididunt est do duis in cupidatat proident. Veniam quis ex dolore
-      pariatur eu. Quis adipisicing aliqua et Lorem minim. Nostrud anim duis
-      commodo nostrud deserunt adipisicing dolor officia amet non tempor tempor
-      laboris. Nisi esse voluptate non enim aute nisi nostrud eiusmod laboris.
-    </Modal>
+      content
+    </ModalLegacy>
   )
 }
 
 export const WithoutClose = () => {
   const [isOpen, setIsOpen] = useState(false)
   return (
-    <Modal
+    <ModalLegacy
       hideCloseButton
       escapeDisabled={true}
       open={isOpen}
-      trigger={<Button onClick={() => setIsOpen(true)}>Open Modal</Button>}
+      trigger={
+        <Button onClick={() => setIsOpen(true)}>Open ModalLegacy</Button>
+      }
       onClose={() => setIsOpen(false)}
-      secondaryLabel="Close"
-      onSecondaryAction={() => setIsOpen(false)}
       className={{ content: 'flex flex-col' }}
-      title="Modal Title"
+      title="ModalLegacy Title"
     >
       <div>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sed
@@ -258,6 +251,7 @@ export const WithoutClose = () => {
         habitasse platea dictumst. Nam finibus volutpat purus. Donec ut diam in
         risus tristique mattis. Donec laoreet augue in ullamcorper sagittis.
       </div>
-    </Modal>
+      <Button onClick={() => setIsOpen(false)}>Close</Button>
+    </ModalLegacy>
   )
 }
