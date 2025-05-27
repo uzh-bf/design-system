@@ -8,7 +8,6 @@ export const Default = () => {
         { id: 'leaderboard', value: 'leaderboard', label: 'Leaderboard' },
         { id: 'create', value: 'create', label: 'Gruppe erstellen/beitreten' },
       ]}
-      className={{ active: 'font-bold' }}
     >
       <Tabs.TabContent
         key="leaderboard"

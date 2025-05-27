@@ -30,7 +30,6 @@ export function Tabs({
     root?: string
     list?: string
     trigger?: string
-    active?: string
   }
   children: React.ReactNode // tabs content
 }) {
@@ -55,10 +54,9 @@ export function Tabs({
             data-cy={tab.data?.cy}
             data-test={tab.data?.test}
             className={twMerge(
+              'data-[state=active]:font-bold',
               className?.trigger,
-              tab.className,
-              'focus:font-bold',
-              tab.value === value ? className?.active : ''
+              tab.className
             )}
           >
             {tab.label}
