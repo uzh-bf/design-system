@@ -163,7 +163,7 @@ export const CustomLabel = () => {
         trigger={
           <div
             className={twMerge(
-              'border-uzh-grey-60 flex flex-row items-center gap-2 rounded-md border border-solid p-2 shadow-md hover:shadow-none',
+              'flex flex-row items-center gap-2 rounded-md border border-solid border-uzh-grey-60 p-2 shadow-md hover:shadow-none',
               `hover:bg-primary-20`
             )}
           >
