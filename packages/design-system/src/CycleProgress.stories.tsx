@@ -30,8 +30,8 @@ export function OverrideSize() {
       used, the className root will probably also have to be adapted accordingly
       <CycleProgress
         percentage={60}
-        overrideSize={35}
-        className={{ root: 'h-20 w-20 text-xl' }}
+        overrideSize={40}
+        className={{ root: 'h-20 w-20 text-xl font-bold' }}
       >
         60
       </CycleProgress>

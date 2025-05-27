@@ -21,6 +21,7 @@ export interface CheckboxProps {
   className?: {
     root?: string
     label?: string
+    indicator?: string
   }
 }
 
@@ -55,10 +56,10 @@ export function Checkbox({
   className,
 }: CheckboxProps): React.ReactElement {
   const tickStyle = {
-    sm: 'h-[0.8rem] mb-[0.4rem]',
-    md: 'h-4 mb-[0.19rem]',
-    lg: 'h-5 mt-[0.09rem]',
-    xl: 'h-6 mt-[0.09rem]',
+    sm: 'h-[0.8rem]',
+    md: 'h-4',
+    lg: 'h-5',
+    xl: 'h-6',
   }
   const checkboxSize = {
     sm: 'w-4 h-4',
@@ -82,7 +83,7 @@ export function Checkbox({
         defaultChecked
         checked={checked || partial}
         className={twMerge(
-          'border-grey-80 align-center my-auto flex justify-center rounded-md border border-solid bg-white p-0',
+          'peer h-4 w-4 shrink-0 rounded-md border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground',
           (checked || partial) && 'border-black',
           disabled && 'cursor-not-allowed',
           checkboxSize[size],
@@ -92,7 +93,12 @@ export function Checkbox({
         disabled={disabled}
         onCheckedChange={() => onCheck()}
       >
-        <RadixCheckbox.CheckboxIndicator>
+        <RadixCheckbox.CheckboxIndicator
+          className={twMerge(
+            'flex items-center justify-center text-current',
+            className?.indicator
+          )}
+        >
           {children || (
             <FontAwesomeIcon
               icon={checked ? faCheck : faMinus}
