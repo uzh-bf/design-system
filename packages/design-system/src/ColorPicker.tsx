@@ -77,6 +77,30 @@ function useOutsideAlerter(elementRef: any, callback: () => void) {
   }, [elementRef])
 }
 
+/**
+ * ColorPicker is a component that allows users to select a color from a palette or input a hex color code.
+ *
+ * @param color - The initial color value in hex format.
+ * @param label - The label for the color picker.
+ * @param labelType - The type of label, can be 'small' or 'large'.
+ * @param required - Indicates whether the field is required.
+ * @param onSubmit - Callback function to handle the submission of the selected color.
+ * @param disabled - Indicates whether the color picker is disabled.
+ * @param triggerIcon - An optional icon to display as a trigger for the color picker.
+ * @param presetColors - An array of preset colors to display in the color picker.
+ * @param position - The position of the color picker relative to the trigger icon.
+ * @param submitText - The text to display on the submit button of the color picker.
+ * @param colorLabel - The label for the color input field.
+ * @param colorTooltip - Optional tooltip for the color input field.
+ * @param tooltip - Optional tooltip text or component to display additional information.
+ * @param error - An error message to display if the color picker has an error.
+ * @param isTouched - Indicates whether the color picker has been touched (used for error display).
+ * @param dataTrigger - Optional data attributes for the trigger icon (for testing purposes).
+ * @param dataHexInput - Optional data attributes for the hex input field (for testing purposes).
+ * @param dataSubmit - Optional data attributes for the submit button (for testing purposes).
+ * @param className - Optional class names for styling the color picker and its components.
+ * @returns A ColorPicker component that allows users to select a color and submit it.
+ */
 export function ColorPicker({
   color,
   label,

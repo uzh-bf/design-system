@@ -29,6 +29,21 @@ export interface FormikPinFieldProps {
   }
 }
 
+/**
+ * This function returns a pin field component for use with Formik.
+ *
+ * @param id - The id of the input field.
+ * @param name - The name of the input field (used for Formik).
+ * @param length - The length of the pin (number of digits).
+ * @param required - Indicate whether the field is required or not.
+ * @param label - The text displayed as label.
+ * @param labelType - The optional labelType can be used to change the size and position of the label according to pre-defined standards.
+ * @param tooltip - The optional tooltip is shown on hover over the tooltip next to the label.
+ * @param hideError - Indicate whether the error message should be hidden or not.
+ * @param className - The class names for the different parts of the component.
+ * @param data - Optional data attributes for testing purposes.
+ * @returns A pin field component that integrates with Formik for form handling.
+ */
 export function FormikPinField({
   id,
   name,

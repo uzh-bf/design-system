@@ -32,6 +32,26 @@ export interface FormikColorPickerProps {
   className?: ColorPickerClassName
 }
 
+/**
+ * FormikColorPicker is a wrapper around the ColorPicker component that integrates with Formik for form handling.
+ *
+ * @param name - The name of the field (used for Formik).
+ * @param label - The label for the color picker.
+ * @param labelType - The type of label, can be 'small' or 'large'.
+ * @param validateForm - A function to validate the form when the color is changed.
+ * @param tooltip - Optional tooltip text or component to display additional information.
+ * @param required - Indicates whether the field is required.
+ * @param disabled - Indicates whether the color picker is disabled.
+ * @param triggerIcon - An optional icon to display as a trigger for the color picker.
+ * @param presetColors - An array of preset colors to display in the color picker.
+ * @param position - The position of the color picker relative to the trigger icon.
+ * @param submitText - The text to display on the submit button of the color picker.
+ * @param colorLabel - The label for the color input field.
+ * @param colorTooltip - Optional tooltip for the color input field.
+ * @param dataTrigger - Optional data attributes for the trigger icon (for testing purposes).
+ * @param dataHexInput - Optional data attributes for the hex input field (for testing purposes).
+ * @returns A ColorPicker component that integrates with Formik for form handling.
+ */
 export function FormikColorPicker({
   name,
   label,
