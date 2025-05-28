@@ -2,6 +2,45 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.80](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.79...v3.0.0-alpha.80) (2025-05-28)
+
+
+### Features
+
+* add formik date picker and datetime picker components ([#146](https://github.com/uzh-bf/design-system/issues/146)) ([07aeced](https://github.com/uzh-bf/design-system/commit/07aeced199a2d8b91a6f0181d47ba42d74b2bb57))
+* **DatePicker:** add new shadcn-based date picker component ([#140](https://github.com/uzh-bf/design-system/issues/140)) ([f26954d](https://github.com/uzh-bf/design-system/commit/f26954db2b6b18e11e4c99925d971427c937e342))
+* **Dropdown:** add new shadcn-based dropdown component ([#141](https://github.com/uzh-bf/design-system/issues/141)) ([33895b7](https://github.com/uzh-bf/design-system/commit/33895b7e8e4247c29b7e7e49ad362545e0ede699))
+* **FormikDatetimePicker:** add new formik datetime picker component ([#147](https://github.com/uzh-bf/design-system/issues/147)) ([dab7419](https://github.com/uzh-bf/design-system/commit/dab74191eeac3b786e6f2c5aa9010a40f67947e4))
+* introduce new formik pin field based on shadcn otp input component ([#148](https://github.com/uzh-bf/design-system/issues/148)) ([8982a8c](https://github.com/uzh-bf/design-system/commit/8982a8c82a80de199d7f15a68f6d87341db1b71d))
+* **Modal:** implement new modal component based on shadcn dialog ([#142](https://github.com/uzh-bf/design-system/issues/142)) ([41a4f4c](https://github.com/uzh-bf/design-system/commit/41a4f4cf1fe7aa36159cadd633d37ea44947cd67))
+* **Tabs:** add new shadcn-based tabs component ([#143](https://github.com/uzh-bf/design-system/issues/143)) ([c3bf4de](https://github.com/uzh-bf/design-system/commit/c3bf4dedc764430d52759bc31ab8e4c4b600fbfa))
+* **Toast:** introduce new shadcn-based toast components ([#144](https://github.com/uzh-bf/design-system/issues/144)) ([d860d2b](https://github.com/uzh-bf/design-system/commit/d860d2b6a5deeb49784827177cd9b1b2ed78823e))
+* **Tooltip:** add new shadcn-based tooltip component ([#145](https://github.com/uzh-bf/design-system/issues/145)) ([c598482](https://github.com/uzh-bf/design-system/commit/c5984822ff1056282af0a51aaf5c17c28d06b4e3))
+
+
+### Bug Fixes
+
+* resolve issues with validation of formik fields, fix escape disabled prop on new modal component, update date picker formatting ([93bbf8b](https://github.com/uzh-bf/design-system/commit/93bbf8b0e926f79a2aa0e039c2b74f0fdb0023d4))
+* **Toast:** ensure that title and description classnames are correctly accepted by typescript ([d754e38](https://github.com/uzh-bf/design-system/commit/d754e38183cf1736a272861361dc998d883ba384))
+
+
+### Enhancements
+
+* change basis of text and number fields to be shadcn input component ([b5a1613](https://github.com/uzh-bf/design-system/commit/b5a1613e32573df64aee8eab93485d28b181ca22))
+* **Textarea:** migrate textarea field to be based on shadcn textarea component ([7f87837](https://github.com/uzh-bf/design-system/commit/7f87837f3fd388f4917ce25bc14693723a576dc3))
+* **Toast:** replace toast component with sonner-based version ([#149](https://github.com/uzh-bf/design-system/issues/149)) ([beb4f3b](https://github.com/uzh-bf/design-system/commit/beb4f3bcfeb89bac86501dd91f5eb94236bf75df))
+
+
+### Refactors
+
+* **Tabs:** make sure that export structure of tabs is consistent with other components ([3952c1e](https://github.com/uzh-bf/design-system/commit/3952c1ee60b4e040997e7885b973d22c4786f597))
+
+
+### Other
+
+* add wrappers for unused shadcn components ([c67bfb0](https://github.com/uzh-bf/design-system/commit/c67bfb0ceb468aa1f8f6f83a92c3fb6149277c43))
+* re-export standard shadcn table components ([fae1950](https://github.com/uzh-bf/design-system/commit/fae1950117bfe6323fc07f027a465fffa2e148e9))
+
 ## [3.0.0-alpha.79](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.78...v3.0.0-alpha.79) (2025-05-16)
 
 
