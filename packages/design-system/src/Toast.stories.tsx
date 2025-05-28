@@ -1,41 +1,63 @@
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Button from './Button'
-import { ToastAction, Toaster, useToast } from './Toast'
+import { Toaster, toast } from './Toast'
 
 export const Default = () => {
-  const { toast } = useToast({})
-
   return (
-    <>
-      Default toasts can be triggered with a title and description.
+    <div>
       <Toaster />
+      <div>Default toasts can be triggered with a title and description.</div>
       <Button
         onClick={() =>
           toast({
-            title: 'Title',
-            description:
-              'Dolore incididunt reprehenderit officia et occaecat non laboris.',
+            message: 'Title',
+            options: {
+              description:
+                'Dolore incididunt reprehenderit officia et occaecat non laboris.',
+            },
           })
         }
       >
         Trigger
       </Button>
-    </>
+    </div>
+  )
+}
+
+export const Dismissible = () => {
+  return (
+    <div>
+      <Toaster closeButton />
+      <div>Default toasts can be triggered with a title and description.</div>
+      <Button
+        onClick={() =>
+          toast({
+            message: 'Title',
+            options: {
+              description:
+                'Dolore incididunt reprehenderit officia et occaecat non laboris.',
+            },
+          })
+        }
+      >
+        Trigger
+      </Button>
+    </div>
   )
 }
 
 export const Simple = () => {
-  const { toast } = useToast({})
-
   return (
     <>
-      Simple toasts can be triggered with a description as content only.
       <Toaster />
+      <div>
+        Simple toasts can be triggered with a description as content only.
+      </div>
       <Button
         onClick={() =>
           toast({
-            description:
+            message:
               'Dolore incididunt reprehenderit officia et occaecat non laboris.',
           })
         }
@@ -47,16 +69,17 @@ export const Simple = () => {
 }
 
 export const Children = () => {
-  const { toast } = useToast()
-
   return (
     <>
-      Simple toasts can be triggered with a description as content only.
       <Toaster />
+      <div>
+        The toast function can be simply called with a React function as an
+        argument for maximum flexibility
+      </div>
       <Button
         onClick={() =>
           toast({
-            children: (
+            message: (
               <div className="flex flex-row items-center gap-3">
                 <FontAwesomeIcon
                   className="text-green-600"
@@ -75,25 +98,26 @@ export const Children = () => {
 }
 
 export const Action = () => {
-  const { toast } = useToast()
-
   return (
     <>
-      Toasts can have an action button that can be triggered.
       <Toaster />
+      <div>Toasts can have an action button that can be triggered.</div>
       <Button
         onClick={() =>
           toast({
-            description:
-              'Dolore incididunt reprehenderit officia et occaecat non laboris.',
-            action: (
-              <ToastAction
-                altText="Action"
-                onClick={() => alert('Action clicked!')}
-              >
-                Action
-              </ToastAction>
-            ),
+            message: 'Title',
+            options: {
+              description:
+                'Dolore incididunt reprehenderit officia et occaecat non laboris.',
+              action: (
+                <Button
+                  altText="Action"
+                  onClick={() => alert('Action clicked!')}
+                >
+                  Action
+                </Button>
+              ),
+            },
           })
         }
       >
@@ -104,18 +128,18 @@ export const Action = () => {
 }
 
 export const Success = () => {
-  const { toast } = useToast({ type: 'success' })
-
   return (
     <>
-      Prestyled toasts can be triggered with a title and description.
-      <Toaster />
+      <Toaster closeButton />
+      <div>Prestyled toasts can be triggered with a title and description.</div>
       <Button
         onClick={() =>
           toast({
-            title: 'Title',
-            description:
-              'Dolore incididunt reprehenderit officia et occaecat non laboris.',
+            options: {
+              description:
+                'Dolore incididunt reprehenderit officia et occaecat non laboris.',
+            },
+            type: 'success',
           })
         }
       >
@@ -126,18 +150,18 @@ export const Success = () => {
 }
 
 export const Warning = () => {
-  const { toast } = useToast({ type: 'warning' })
-
   return (
     <>
-      Prestyled toasts can be triggered with a title and description.
       <Toaster />
+      <div>Prestyled toasts can be triggered with a title and description.</div>
       <Button
         onClick={() =>
           toast({
-            title: 'Title',
-            description:
-              'Dolore incididunt reprehenderit officia et occaecat non laboris.',
+            options: {
+              description:
+                'Dolore incididunt reprehenderit officia et occaecat non laboris.',
+            },
+            type: 'warning',
           })
         }
       >
@@ -148,20 +172,18 @@ export const Warning = () => {
 }
 
 export const Error = () => {
-  const { toast } = useToast({ type: 'error' })
-
   return (
     <>
-      Prestyled toasts can be triggered with a title and description.
       <Toaster />
+      <div>Prestyled toasts can be triggered with a title and description.</div>
       <Button
         onClick={() =>
           toast({
-            title: 'Title',
-            description:
-              'Dolore incididunt reprehenderit officia et occaecat non laboris.',
-            titleClassName: 'text-base',
-            descriptionClassName: 'text-base',
+            options: {
+              description:
+                'Dolore incididunt reprehenderit officia et occaecat non laboris.',
+            },
+            type: 'error',
           })
         }
       >

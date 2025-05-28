@@ -1,83 +1,66 @@
-import {
-  faCheckCircle,
-  faCircleExclamation,
-  faTriangleExclamation,
-} from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { ExternalToast, toast as toastOriginal } from 'sonner'
 import { twMerge } from 'tailwind-merge'
-import { ToastDescription, ToastTitle } from './ui/toast'
-import { useToast as useToastOriginal } from './ui/use-toast'
+
+export { Toaster } from './ui/sonner'
 
 // eslint-disable-next-line react-refresh/only-export-components
-export * from './ui/toast'
-export { Toaster } from './ui/toaster'
-
-// redefine useToast function with additional styling, etc.
-// eslint-disable-next-line react-refresh/only-export-components
-export function useToast({
+export function toast({
+  message,
+  options,
   type,
 }: {
-  type?: 'default' | 'error' | 'success' | 'warning'
-} = {}) {
-  const { toast, dismiss, toasts } = useToastOriginal()
-
-  if (typeof type === 'undefined' || type === 'default') {
-    return { toast, dismiss, toasts }
+  message?: React.ReactNode
+  options?: ExternalToast
+  type?: 'success' | 'warning' | 'error'
+}) {
+  if (type === 'success') {
+    return toastOriginal.success(message, {
+      ...options,
+      classNames: {
+        ...options?.classNames,
+        toast: twMerge(
+          'group-[.toaster]:border-2 group-[.toaster]:border-green-600 group-[.toaster]:py-3',
+          options?.classNames?.toast
+        ),
+        icon: twMerge('text-green-600 mr-3', options?.classNames?.icon),
+        description: twMerge('text-base', options?.classNames?.description),
+        closeButton: twMerge('bg-white', options?.classNames?.closeButton),
+      },
+    })
   }
 
-  // pre-styled toast components with slightly different arguments / more customizable styling
-  return {
-    toast: ({
-      title,
-      description,
-      className,
-      titleClassName,
-      descriptionClassName,
-    }: {
-      title?: string
-      description?: string
-      className?: string
-      titleClassName?: string
-      descriptionClassName?: string
-    }) =>
-      toast({
-        children: (
-          <div className="flex flex-row items-center gap-4">
-            <FontAwesomeIcon
-              icon={
-                type === 'success'
-                  ? faCheckCircle
-                  : type === 'warning'
-                    ? faTriangleExclamation
-                    : faCircleExclamation
-              }
-              className={twMerge(
-                'text-lg',
-                type === 'success' && 'text-green-500',
-                type === 'warning' && 'text-orange-500',
-                type === 'error' && 'text-red-500'
-              )}
-            />
-            <div>
-              {title && (
-                <ToastTitle className={titleClassName}>{title}</ToastTitle>
-              )}
-              {description && (
-                <ToastDescription className={descriptionClassName}>
-                  {description}
-                </ToastDescription>
-              )}
-            </div>
-          </div>
+  if (type === 'warning') {
+    return toastOriginal.warning(message, {
+      ...options,
+      classNames: {
+        ...options?.classNames,
+        toast: twMerge(
+          'group-[.toaster]:border-2 group-[.toaster]:border-orange-500 group-[.toaster]:py-3',
+          options?.classNames?.toast
         ),
-        className: twMerge(
-          type === 'success' && 'border-2 border-solid border-green-500',
-          type === 'warning' && 'border-2 border-solid border-orange-500',
-          type === 'error' && 'border-2 border-solid border-red-500',
-          className
-        ),
-      }),
-    dismiss,
-    toasts,
+        icon: twMerge('text-orange-500 mr-3', options?.classNames?.icon),
+        description: twMerge('text-base', options?.classNames?.description),
+        closeButton: twMerge('bg-white', options?.classNames?.closeButton),
+      },
+    })
   }
+
+  // TODO: fix export
+  if (type === 'error') {
+    return toastOriginal.error(message, {
+      ...options,
+      classNames: {
+        ...options?.classNames,
+        toast: twMerge(
+          'group-[.toaster]:border-2 group-[.toaster]:border-red-500 group-[.toaster]:py-3',
+          options?.classNames?.toast
+        ),
+        icon: twMerge('text-red-500 mr-3', options?.classNames?.icon),
+        description: twMerge('text-base', options?.classNames?.description),
+        closeButton: twMerge('bg-white', options?.classNames?.closeButton),
+      },
+    })
+  }
+
+  return toastOriginal(message, options)
 }
