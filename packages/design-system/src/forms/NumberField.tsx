@@ -4,6 +4,7 @@ import React from 'react'
 import { twMerge } from 'tailwind-merge'
 import FormLabel from '../FormLabel'
 import { Tooltip } from '../Tooltip'
+import { Input } from '../ui/input'
 
 export interface NumberFieldClassName {
   field?: string
@@ -113,7 +114,7 @@ export function NumberField({
 
       <div className="flex w-full flex-row items-center gap-2">
         <div className="flex w-full flex-row items-center">
-          <input
+          <Input
             id={id}
             data-cy={data?.cy}
             data-test={data?.test}
@@ -143,8 +144,8 @@ export function NumberField({
             placeholder={placeholder}
             disabled={disabled}
             className={twMerge(
-              'focus:border-uzh-blue-50 h-9 w-full rounded border border-uzh-grey-60 pl-2 placeholder-slate-400',
-              disabled && 'cursor-not-allowed bg-uzh-grey-20 opacity-70',
+              'q-w-full h-9 text-base',
+              disabled && 'bg-uzh-grey-20 cursor-not-allowed opacity-70',
               !!error && isTouched && 'border-red-400 bg-red-50',
               !!unit && 'rounded-r-none',
               className?.input

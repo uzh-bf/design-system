@@ -126,6 +126,26 @@ export const Disabled = () => {
   )
 }
 
+export const Error = () => {
+  const [value, setValue] = React.useState('')
+
+  return (
+    <>
+      <div>The TextField can be disabled</div>
+      <TextField
+        isTouched
+        label="Label"
+        tooltip="Tooltip for this input"
+        error="This is an error message"
+        className={{ field: 'mb-1' }}
+        placeholder="Placeholder"
+        value={value}
+        onChange={setValue}
+      />
+    </>
+  )
+}
+
 export const Required = () => {
   const [value, setValue] = React.useState('')
 

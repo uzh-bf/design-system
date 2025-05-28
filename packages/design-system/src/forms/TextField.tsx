@@ -6,6 +6,7 @@ import React from 'react'
 import { twMerge } from 'tailwind-merge'
 import FormLabel from '../FormLabel'
 import { Tooltip } from '../Tooltip'
+import { Input } from '../ui/input'
 
 export interface TextFieldClassName {
   field?: string
@@ -125,7 +126,7 @@ export function TextField({
       <div className="flex w-full flex-row items-center gap-2">
         <div className="relative flex w-full flex-row items-center">
           {name && field ? (
-            <input
+            <Input
               {...field}
               id={id}
               data-cy={data?.cy}
@@ -136,17 +137,17 @@ export function TextField({
               disabled={disabled}
               onPaste={onPaste}
               className={twMerge(
-                'focus:border-uzh-blue-50 h-9 w-full rounded border border-uzh-grey-60 pl-2 placeholder-slate-400',
+                'h-9 w-full text-base',
                 icon && iconPosition === 'left' && 'pl-8',
                 icon && iconPosition === 'right' && 'pr-10',
-                disabled && 'cursor-not-allowed bg-uzh-grey-20 opacity-70',
+                disabled && 'bg-uzh-grey-20 cursor-not-allowed opacity-70',
                 !!error && isTouched && 'border-red-400 bg-red-50',
                 className?.input
               )}
               {...props}
             />
           ) : (
-            <input
+            <Input
               id={id}
               data-cy={data?.cy}
               data-test={data?.test}
@@ -161,10 +162,10 @@ export function TextField({
               disabled={disabled}
               onPaste={onPaste}
               className={twMerge(
-                'focus:border-uzh-blue-50 h-9 w-full rounded border border-uzh-grey-60 pl-2 placeholder-slate-400',
+                'h-9 w-full text-base',
                 icon && iconPosition === 'left' && 'pl-8',
                 icon && iconPosition === 'right' && 'pr-10',
-                disabled && 'cursor-not-allowed bg-uzh-grey-20 opacity-70',
+                disabled && 'bg-uzh-grey-20 cursor-not-allowed opacity-70',
                 !!error && isTouched && 'border-red-400 bg-red-50',
                 className?.input
               )}
