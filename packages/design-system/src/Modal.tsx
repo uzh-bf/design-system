@@ -136,9 +136,13 @@ export function Modal({
       )}
       <DialogContent
         hideCloseButton={hideCloseButton}
-        onEscapeKeyDown={escapeDisabled ? undefined : () => onClose()}
+        onEscapeKeyDown={
+          escapeDisabled ? (e) => e.preventDefault() : () => onClose()
+        }
         onPointerDownOutside={
-          onPrev || onNext || escapeDisabled ? undefined : () => onClose()
+          onPrev || onNext || escapeDisabled
+            ? (e) => e.preventDefault()
+            : () => onClose()
         }
         data-cy={dataContent?.cy}
         data-test={dataContent?.test}

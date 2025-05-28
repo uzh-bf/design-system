@@ -59,8 +59,10 @@ export function FormikSwitchField({
       id={id}
       required={required}
       checked={field.value}
-      onCheckedChange={(newValue) => helpers.setValue(newValue)}
-      onBlur={() => helpers.setTouched(true)}
+      onCheckedChange={async (newValue) => {
+        await helpers.setValue(newValue)
+        await helpers.setTouched(true)
+      }}
       data={data}
       disabled={disabled}
       label={label}

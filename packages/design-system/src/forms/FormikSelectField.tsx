@@ -86,8 +86,10 @@ export function FormikSelectField({
         data={data}
         name={name}
         value={field.value}
-        onChange={(newValue: string) => helpers.setValue(newValue)}
-        onBlur={() => helpers.setTouched(true)}
+        onChange={async (newValue: string) => {
+          await helpers.setValue(newValue)
+          await helpers.setTouched(true)
+        }}
         label={label}
         labelType={labelType}
         placeholder={placeholder}
@@ -110,8 +112,10 @@ export function FormikSelectField({
       data={data}
       name={name}
       value={field.value}
-      onChange={(newValue: string) => helpers.setValue(newValue)}
-      onBlur={() => helpers.setTouched(true)}
+      onChange={async (newValue: string) => {
+        await helpers.setValue(newValue)
+        await helpers.setTouched(true)
+      }}
       label={label}
       labelType={labelType}
       placeholder={placeholder}

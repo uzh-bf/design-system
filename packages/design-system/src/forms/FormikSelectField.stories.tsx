@@ -1,4 +1,5 @@
 import { Form, Formik } from 'formik'
+import * as Yup from 'yup'
 import { Button } from '../Button'
 import {
   fruitsValues,
@@ -14,6 +15,43 @@ export const Default = () => {
       initialValues={{
         fruit: undefined,
       }}
+      onSubmit={async (values, { resetForm }) => {
+        alert(`Form submitted with value: ${values.fruit}`)
+        resetForm()
+      }}
+    >
+      {({ values }) => {
+        return (
+          <div className="flex flex-col gap-2">
+            <Form>
+              <FormikSelectField
+                name="fruit"
+                items={fruitsValues}
+                label="Fruits"
+                placeholder="Select a fruit"
+                className={{ root: 'mb-2' }}
+              />
+              <Button type="submit">Submit</Button>
+            </Form>
+            <div>Value: {values.fruit}</div>
+          </div>
+        )
+      }}
+    </Formik>
+  )
+}
+
+export const Validation = () => {
+  return (
+    <Formik
+      initialValues={{
+        fruit: undefined,
+      }}
+      validationSchema={Yup.object({
+        fruit: Yup.string()
+          .required('Fruit is required')
+          .oneOf(['apple'], 'You must select apple'),
+      })}
       onSubmit={async (values, { resetForm }) => {
         alert(`Form submitted with value: ${values.fruit}`)
         resetForm()

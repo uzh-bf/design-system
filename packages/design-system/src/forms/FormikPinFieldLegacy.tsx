@@ -41,7 +41,7 @@ export function FormikPinFieldLegacy({
       data={data}
       error={!!meta.error && meta.touched ? meta.error : undefined}
       placeholder="### ### ###"
-      onPaste={(e) => {
+      onPaste={async (e) => {
         e.preventDefault()
         const paste = e.clipboardData?.getData('text')
         if (
@@ -49,7 +49,7 @@ export function FormikPinFieldLegacy({
           paste.length === 9 &&
           paste.match(/^[0-9]{9}$/g)
         ) {
-          helpers.setValue(
+          await helpers.setValue(
             `${paste.slice(0, 3)} ${paste.slice(3, 6)} ${paste.slice(6, 9)}`
           )
         } else if (
@@ -57,10 +57,10 @@ export function FormikPinFieldLegacy({
           paste.length === 11 &&
           paste.match(/^[0-9]{3} [0-9]{3} [0-9]{3}$/g)
         ) {
-          helpers.setValue(paste)
+          await helpers.setValue(paste)
         }
       }}
-      onChange={(newValue: string) => {
+      onChange={async (newValue: string) => {
         // regex magic to only allow numerical pins in the format ### ### ###
         const regexToMatch =
           /([0-9]{3} [0-9]{3} [0-9]{0,3})|([0-9]{3} [0-9]{3}[ ]{0,1})|([0-9]{3} [0-9]{0,3})|([0-9]{3}[ ]{0,1})|([0-9]{0,3})/g
@@ -73,13 +73,13 @@ export function FormikPinFieldLegacy({
           (valueMatched.match(/^[0-9]{3} [0-9]{3}$/g) &&
             field.value.match(/^[0-9]{3} [0-9]{2}$/g))
         ) {
-          helpers.setValue(valueMatched + ' ')
+          await helpers.setValue(valueMatched + ' ')
         } else {
-          helpers.setValue(valueMatched)
+          await helpers.setValue(valueMatched)
         }
       }}
-      onBlur={() => {
-        helpers.setTouched(true)
+      onBlur={async () => {
+        await helpers.setTouched(true)
       }}
     />
   )

@@ -7,7 +7,6 @@ export interface FormikDatePickerProps
     'date' | 'onDateChange' | 'error' | 'isTouched'
   > {
   name: string
-  validateField?: () => void
 }
 
 /**
@@ -32,7 +31,6 @@ export interface FormikDatePickerProps
 export function FormikDatePicker({
   id,
   name,
-  validateField,
   label = '',
   labelType = 'small',
   placeholder,
@@ -50,10 +48,9 @@ export function FormikDatePicker({
     <DatePicker
       id={id}
       date={field.value}
-      onDateChange={(newValue) => {
-        helpers.setValue(newValue)
-        helpers.setTouched(true)
-        validateField?.()
+      onDateChange={async (newValue) => {
+        await helpers.setValue(newValue)
+        await helpers.setTouched(true)
       }}
       label={label}
       labelType={labelType}

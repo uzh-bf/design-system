@@ -7,14 +7,12 @@ export interface FormikDatetimePickerProps
     'date' | 'onDateChange' | 'error' | 'isTouched'
   > {
   name: string
-  validateField?: () => void
 }
 
 /**
  * This component provides a simple datetime picker with a label and a button to edit the date (not coupled to a formik context).
  *
  * @param name - The name of the field as used to keep track of the state in Formik.
- * @param validateField - The function to be called to validate the field.
  * @param label - The label of the datetime picker.
  * @param labelType - The type of the label (small or large).
  * @param placeholder - The placeholder of the datetime picker (is only shown if no date is selected).
@@ -33,7 +31,6 @@ export interface FormikDatetimePickerProps
  */
 export function FormikDatetimePicker({
   name,
-  validateField,
   label = '',
   labelType = 'small',
   placeholder,
@@ -56,10 +53,9 @@ export function FormikDatetimePicker({
   return (
     <DateTimePicker
       value={field.value}
-      onChange={(newValue) => {
-        helpers.setValue(newValue)
-        helpers.setTouched(true)
-        validateField?.()
+      onChange={async (newValue) => {
+        await helpers.setValue(newValue)
+        await helpers.setTouched(true)
       }}
       label={label}
       labelType={labelType}

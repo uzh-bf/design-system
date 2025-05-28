@@ -94,7 +94,9 @@ export function FormikNumberField({
         <NumberField
           id={id}
           value={field.value}
-          onChange={(newValue: string) => helpers.setValue(newValue)}
+          onChange={async (newValue: string) =>
+            await helpers.setValue(newValue)
+          }
           label={label}
           labelType={labelType}
           placeholder={placeholder}

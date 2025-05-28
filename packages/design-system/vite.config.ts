@@ -22,7 +22,6 @@ export default defineConfig({
     lib: {
       entry: [
         path.resolve(__dirname, 'src/index.ts'),
-        path.resolve(__dirname, 'src/ui/future.ts'),
         path.resolve(__dirname, 'src/constants.ts'),
       ],
       formats: ['es'],

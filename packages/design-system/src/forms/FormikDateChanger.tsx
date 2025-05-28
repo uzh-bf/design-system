@@ -78,9 +78,9 @@ export function FormikDateChanger({
       edit={edit}
       date={field.value}
       onEdit={() => setEdit(true)}
-      onSave={(newValue) => {
-        helpers.setValue(newValue)
-        helpers.setTouched(true)
+      onSave={async (newValue) => {
+        await helpers.setValue(newValue)
+        await helpers.setTouched(true)
         setEdit(false)
       }}
       editIcon={editIcon}

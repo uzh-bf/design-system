@@ -1,7 +1,7 @@
 import { faCalendar } from '@fortawesome/free-regular-svg-icons'
 import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { format } from 'date-fns'
+import dayjs from 'dayjs'
 import React, { Dispatch, SetStateAction } from 'react'
 import { twMerge } from 'tailwind-merge'
 import FormLabel from './FormLabel'
@@ -109,7 +109,7 @@ export function DatePicker({
               variant="outline"
               disabled={disabled}
               className={twMerge(
-                'w-52 justify-start text-left text-base font-normal',
+                'w-36 justify-start text-left text-base font-normal',
                 !date && 'text-muted-foreground',
                 !!error && isTouched && 'border-red-600',
                 className?.input
@@ -119,7 +119,7 @@ export function DatePicker({
             >
               <FontAwesomeIcon icon={faCalendar} className="mr-2.5 h-4 w-4" />
               {date ? (
-                format(date, 'PPP')
+                dayjs(date).format('DD.MM.YYYY')
               ) : (
                 <span>{placeholder ?? 'Pick a date'}</span>
               )}

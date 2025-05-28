@@ -36,6 +36,25 @@ export const Disabled = () => {
   )
 }
 
+export const DateFormat = () => {
+  const [date, setDate] = useState<Date | undefined>(undefined)
+
+  return (
+    <div className="mb-8">
+      <div>
+        The date format on the trigger component can be customized, by passing a
+        corresponding formatting string to the dayjs parsing logic
+      </div>
+      <DateTimePicker
+        value={date}
+        defaultPopupValue={date ?? DefaultDate}
+        onChange={setDate}
+        displayFormat="MM/DD/YYYY HH:mm"
+      />
+    </div>
+  )
+}
+
 export const MinutePrecision = () => {
   const [date, setDate] = useState<Date | undefined>(undefined)
 

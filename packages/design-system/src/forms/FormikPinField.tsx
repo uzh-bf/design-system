@@ -1,6 +1,6 @@
 import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useField, useFormikContext } from 'formik'
+import { useField } from 'formik'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
 import FormLabel from '../FormLabel'
@@ -57,7 +57,6 @@ export function FormikPinField({
   data,
 }: FormikPinFieldProps) {
   const [field, meta, helpers] = useField(name)
-  const { validateField } = useFormikContext()
 
   return (
     <div
@@ -82,14 +81,9 @@ export function FormikPinField({
         <InputOTP
           maxLength={length}
           value={field.value}
-          onChange={(newValue) => {
-            helpers.setValue(newValue)
-            helpers.setTouched(true)
-
-            // make sure that the value is updated before re-validating
-            setTimeout(() => {
-              validateField(name)
-            }, 0)
+          onChange={async (newValue) => {
+            await helpers.setValue(newValue)
+            await helpers.setTouched(true)
           }}
           className={className?.input}
         >

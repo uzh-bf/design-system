@@ -84,9 +84,9 @@ export function FormikColorPicker({
       label={label}
       labelType={labelType}
       required={required}
-      onSubmit={(newValue) => {
-        helpers.setValue(newValue)
-        helpers.setTouched(true)
+      onSubmit={async (newValue) => {
+        await helpers.setValue(newValue)
+        await helpers.setTouched(true)
       }}
       disabled={disabled}
       triggerIcon={triggerIcon}

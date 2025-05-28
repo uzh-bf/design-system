@@ -132,7 +132,7 @@ export const Validation = () => (
     </div>
     <Formik
       initialValues={{
-        date: new Date('2025-01-01'),
+        date: new Date('2020-01-01'),
       }}
       onSubmit={async (values, { resetForm }) => {
         alert(`Form submitted with date: ${values.date}`)
@@ -142,7 +142,7 @@ export const Validation = () => (
         date: Yup.date().min('2020-01-01', 'Date has to be after 2020'),
       })}
     >
-      {({ values, isValid, validateForm }) => {
+      {({ values, isValid }) => {
         return (
           <div>
             <Form>
@@ -153,7 +153,6 @@ export const Validation = () => (
                 className={{ trigger: 'mb-2' }}
                 label="Testlabel"
                 tooltip="Test Tooltip"
-                validateField={() => validateForm()}
               />
               <Button type="submit" disabled={!isValid}>
                 Submit
