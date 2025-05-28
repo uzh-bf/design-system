@@ -185,13 +185,22 @@ export declare const buttonVariants: (props?: ({
     size?: "default" | "sm" | "lg" | "icon" | null | undefined;
 } & ClassProp) | undefined) => string;
 
-export declare function Calendar({ className, classNames, showOutsideDays, ...props }: CalendarProps): JSX_2.Element;
+export declare function Calendar({ className, classNames, showOutsideDays, dataPreviousMonth, dataNextMonth, ...props }: CalendarProps): JSX_2.Element;
 
 export declare namespace Calendar {
     var displayName: string;
 }
 
-export declare type CalendarProps = React_2.ComponentProps<typeof DayPicker>;
+export declare type CalendarProps = React_2.ComponentProps<typeof DayPicker> & {
+    dataPreviousMonth?: {
+        cy?: string;
+        test?: string;
+    };
+    dataNextMonth?: {
+        cy?: string;
+        test?: string;
+    };
+};
 
 export declare const Card: React_2.ForwardRefExoticComponent<React_2.HTMLAttributes<HTMLDivElement> & React_2.RefAttributes<HTMLDivElement>>;
 
