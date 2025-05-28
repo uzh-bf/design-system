@@ -82,14 +82,10 @@ export function DatePicker({
 }: DatePickerProps) {
   return (
     <Popover>
-      <PopoverTrigger
-        disabled={disabled}
-        className={className?.trigger}
-        asChild
-      >
+      <PopoverTrigger disabled={disabled} asChild>
         <div
           className={twMerge(
-            'flex w-max flex-row',
+            'flex w-[280px] flex-row',
             labelType === 'small' && 'flex-col',
             className?.trigger
           )}
@@ -109,6 +105,7 @@ export function DatePicker({
           )}
           <div className="flex flex-row gap-2">
             <Button
+              type="button"
               variant="outline"
               disabled={disabled}
               className={twMerge(
@@ -148,7 +145,7 @@ export function DatePicker({
         <Calendar
           id={id}
           mode="single"
-          initialFocus
+          weekStartsOn={1}
           disabled={disabled}
           selected={date}
           defaultMonth={date}

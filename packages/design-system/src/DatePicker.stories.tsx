@@ -62,6 +62,7 @@ export function Error() {
         date={date2}
         onDateChange={setDate2}
         label="Testlabel"
+        labelType="large"
         tooltip="Tooltip for date changer with label"
         error="This is an error"
       />
