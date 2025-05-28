@@ -160,6 +160,8 @@ export const Error = () => {
             title: 'Title',
             description:
               'Dolore incididunt reprehenderit officia et occaecat non laboris.',
+            titleClassName: 'text-base',
+            descriptionClassName: 'text-base',
           })
         }
       >

@@ -267,6 +267,30 @@ export declare interface CollapsibleProps {
     children: default_2.ReactNode;
 }
 
+/**
+ * ColorPicker is a component that allows users to select a color from a palette or input a hex color code.
+ *
+ * @param color - The initial color value in hex format.
+ * @param label - The label for the color picker.
+ * @param labelType - The type of label, can be 'small' or 'large'.
+ * @param required - Indicates whether the field is required.
+ * @param onSubmit - Callback function to handle the submission of the selected color.
+ * @param disabled - Indicates whether the color picker is disabled.
+ * @param triggerIcon - An optional icon to display as a trigger for the color picker.
+ * @param presetColors - An array of preset colors to display in the color picker.
+ * @param position - The position of the color picker relative to the trigger icon.
+ * @param submitText - The text to display on the submit button of the color picker.
+ * @param colorLabel - The label for the color input field.
+ * @param colorTooltip - Optional tooltip for the color input field.
+ * @param tooltip - Optional tooltip text or component to display additional information.
+ * @param error - An error message to display if the color picker has an error.
+ * @param isTouched - Indicates whether the color picker has been touched (used for error display).
+ * @param dataTrigger - Optional data attributes for the trigger icon (for testing purposes).
+ * @param dataHexInput - Optional data attributes for the hex input field (for testing purposes).
+ * @param dataSubmit - Optional data attributes for the submit button (for testing purposes).
+ * @param className - Optional class names for styling the color picker and its components.
+ * @returns A ColorPicker component that allows users to select a color and submit it.
+ */
 export declare function ColorPicker({ color, label, labelType, required, onSubmit, disabled, triggerIcon, presetColors, position, submitText, colorLabel, tooltip, colorTooltip, error, isTouched, dataTrigger, dataHexInput, dataSubmit, className, }: ColorPickerProps): JSX_2.Element;
 
 export declare interface ColorPickerClassName {
@@ -824,6 +848,26 @@ export declare interface FormatterArgs {
     ix: number;
 }
 
+/**
+ * FormikColorPicker is a wrapper around the ColorPicker component that integrates with Formik for form handling.
+ *
+ * @param name - The name of the field (used for Formik).
+ * @param label - The label for the color picker.
+ * @param labelType - The type of label, can be 'small' or 'large'.
+ * @param validateForm - A function to validate the form when the color is changed.
+ * @param tooltip - Optional tooltip text or component to display additional information.
+ * @param required - Indicates whether the field is required.
+ * @param disabled - Indicates whether the color picker is disabled.
+ * @param triggerIcon - An optional icon to display as a trigger for the color picker.
+ * @param presetColors - An array of preset colors to display in the color picker.
+ * @param position - The position of the color picker relative to the trigger icon.
+ * @param submitText - The text to display on the submit button of the color picker.
+ * @param colorLabel - The label for the color input field.
+ * @param colorTooltip - Optional tooltip for the color input field.
+ * @param dataTrigger - Optional data attributes for the trigger icon (for testing purposes).
+ * @param dataHexInput - Optional data attributes for the hex input field (for testing purposes).
+ * @returns A ColorPicker component that integrates with Formik for form handling.
+ */
 export declare function FormikColorPicker({ name, label, labelType, validateForm, tooltip, required, disabled, triggerIcon, presetColors, position, submitText, colorLabel, colorTooltip, dataTrigger, dataHexInput, dataSubmit, className, }: FormikColorPickerProps): JSX_2.Element;
 
 export declare interface FormikColorPickerProps {
@@ -1052,6 +1096,21 @@ declare interface FormikNumberFieldProps {
     [key: string]: unknown;
 }
 
+/**
+ * This function returns a pin field component for use with Formik.
+ *
+ * @param id - The id of the input field.
+ * @param name - The name of the input field (used for Formik).
+ * @param length - The length of the pin (number of digits).
+ * @param required - Indicate whether the field is required or not.
+ * @param label - The text displayed as label.
+ * @param labelType - The optional labelType can be used to change the size and position of the label according to pre-defined standards.
+ * @param tooltip - The optional tooltip is shown on hover over the tooltip next to the label.
+ * @param hideError - Indicate whether the error message should be hidden or not.
+ * @param className - The class names for the different parts of the component.
+ * @param data - Optional data attributes for testing purposes.
+ * @returns A pin field component that integrates with Formik for form handling.
+ */
 export declare function FormikPinField({ id, name, length, required, label, labelType, tooltip, hideError, className, data, }: FormikPinFieldProps): JSX_2.Element;
 
 export declare function FormikPinFieldLegacy({ id, name, required, label, labelType, tooltip, className, data, }: FormikPinFieldLegacyProps): JSX_2.Element;
@@ -2528,6 +2587,19 @@ declare interface TabPropsWithLabel_2 extends TabProps_2 {
     children?: never;
 }
 
+/**
+ * This function returns a tabs component for use based on the Shadcn UI prestyled component
+ * with simplified / combined interfaces for easier re-use.
+ *
+ * @param id - The id of the tabs component.
+ * @param defaultValue - The default value of the active tab.
+ * @param value - The controlled value of the active tab.
+ * @param onValueChange - Callback function to handle value changes.
+ * @param tabs - An array of tab objects, each containing an id, label, value, and optional data attributes.
+ * @param className - Optional class names for styling the tabs and their components.
+ * @param children - The content of the tabs, which will be rendered in the corresponding tab content area.
+ * @returns A Tabs component that allows users to switch between different content sections.
+ */
 export declare function Tabs({ id, defaultValue, value, onValueChange, tabs, className, children, }: {
     id?: string;
     defaultValue: string;
@@ -3041,14 +3113,12 @@ export declare function useToast({ type, }?: {
     dismiss: (toastId?: string | undefined) => void;
     toasts: ToasterToast[];
 } | {
-    toast: ({ title, description, className, }: {
+    toast: ({ title, description, className, titleClassName, descriptionClassName, }: {
         title?: string | undefined;
         description?: string | undefined;
-        className?: {
-            root?: string | undefined;
-            title?: string | undefined;
-            description?: string | undefined;
-        } | undefined;
+        className?: string | undefined;
+        titleClassName?: string | undefined;
+        descriptionClassName?: string | undefined;
     }) => {
         id: string;
         dismiss: () => void;
@@ -3136,13 +3206,13 @@ export declare interface WorkflowProps extends WorkflowBaseProps {
 export { }
 
 
+declare namespace Calendar {
+    var displayName: string;
+}
+
+
 declare namespace TabsLegacy {
     var Tab: typeof import("@/TabsLegacy").Tab;
     var TabList: typeof import("@/TabsLegacy").TabList;
     var TabContent: typeof TabLegacyContent;
-}
-
-
-declare namespace Calendar {
-    var displayName: string;
 }

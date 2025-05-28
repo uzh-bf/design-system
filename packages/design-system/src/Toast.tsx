@@ -31,14 +31,14 @@ export function useToast({
       title,
       description,
       className,
+      titleClassName,
+      descriptionClassName,
     }: {
       title?: string
       description?: string
-      className?: {
-        root?: string
-        title?: string
-        description?: string
-      }
+      className?: string
+      titleClassName?: string
+      descriptionClassName?: string
     }) =>
       toast({
         children: (
@@ -60,10 +60,10 @@ export function useToast({
             />
             <div>
               {title && (
-                <ToastTitle className={className?.title}>{title}</ToastTitle>
+                <ToastTitle className={titleClassName}>{title}</ToastTitle>
               )}
               {description && (
-                <ToastDescription className={className?.description}>
+                <ToastDescription className={descriptionClassName}>
                   {description}
                 </ToastDescription>
               )}
@@ -74,7 +74,7 @@ export function useToast({
           type === 'success' && 'border-2 border-solid border-green-500',
           type === 'warning' && 'border-2 border-solid border-orange-500',
           type === 'error' && 'border-2 border-solid border-red-500',
-          className?.root
+          className
         ),
       }),
     dismiss,

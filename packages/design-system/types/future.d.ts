@@ -853,13 +853,13 @@ export declare function useToast(): {
 export { }
 
 
+declare namespace Calendar {
+    var displayName: string;
+}
+
+
 declare namespace TabsLegacy {
     var Tab: typeof import("@/TabsLegacy").Tab;
     var TabList: typeof import("@/TabsLegacy").TabList;
     var TabContent: typeof TabLegacyContent;
-}
-
-
-declare namespace Calendar {
-    var displayName: string;
 }
