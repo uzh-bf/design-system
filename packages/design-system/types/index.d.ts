@@ -2596,6 +2596,24 @@ export declare const ShadcnFormLabel: React_3.ForwardRefExoticComponent<Omit<Lab
 
 export declare const ShadcnLabel: React_3.ForwardRefExoticComponent<Omit<LabelPrimitive.LabelProps & React_3.RefAttributes<HTMLLabelElement>, "ref"> & VariantProps<(props?: ClassProp | undefined) => string> & React_3.RefAttributes<HTMLLabelElement>>;
 
+export declare const ShadcnTable: React_3.ForwardRefExoticComponent<React_3.HTMLAttributes<HTMLTableElement> & {
+    containerClassName?: string | undefined;
+} & React_3.RefAttributes<HTMLTableElement>>;
+
+export declare const ShadcnTableBody: React_3.ForwardRefExoticComponent<React_3.HTMLAttributes<HTMLTableSectionElement> & React_3.RefAttributes<HTMLTableSectionElement>>;
+
+export declare const ShadcnTableCaption: React_3.ForwardRefExoticComponent<React_3.HTMLAttributes<HTMLTableCaptionElement> & React_3.RefAttributes<HTMLTableCaptionElement>>;
+
+export declare const ShadcnTableCell: React_3.ForwardRefExoticComponent<React_3.TdHTMLAttributes<HTMLTableCellElement> & React_3.RefAttributes<HTMLTableCellElement>>;
+
+export declare const ShadcnTableFooter: React_3.ForwardRefExoticComponent<React_3.HTMLAttributes<HTMLTableSectionElement> & React_3.RefAttributes<HTMLTableSectionElement>>;
+
+export declare const ShadcnTableHead: React_3.ForwardRefExoticComponent<React_3.ThHTMLAttributes<HTMLTableCellElement> & React_3.RefAttributes<HTMLTableCellElement>>;
+
+export declare const ShadcnTableHeader: React_3.ForwardRefExoticComponent<React_3.HTMLAttributes<HTMLTableSectionElement> & React_3.RefAttributes<HTMLTableSectionElement>>;
+
+export declare const ShadcnTableRow: React_3.ForwardRefExoticComponent<React_3.HTMLAttributes<HTMLTableRowElement> & React_3.RefAttributes<HTMLTableRowElement>>;
+
 export declare const Sheet: React_3.FC<SheetPrimitive.DialogProps>;
 
 export declare const SheetClose: React_3.ForwardRefExoticComponent<SheetPrimitive.DialogCloseProps & React_3.RefAttributes<HTMLButtonElement>>;
