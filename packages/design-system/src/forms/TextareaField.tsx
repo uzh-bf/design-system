@@ -5,6 +5,7 @@ import React from 'react'
 import { twMerge } from 'tailwind-merge'
 import FormLabel from '../FormLabel'
 import { Tooltip } from '../Tooltip'
+import { Textarea } from '../ui/textarea'
 
 interface TextareaFieldProps {
   id?: string
@@ -118,7 +119,7 @@ export function TextareaField({
 
         <div className="flex w-full flex-row items-center gap-2">
           {name && field ? (
-            <textarea
+            <Textarea
               {...field}
               id={id}
               data-cy={data?.cy}
@@ -128,15 +129,14 @@ export function TextareaField({
               maxLength={maxLength}
               disabled={disabled}
               className={twMerge(
-                'focus:border-uzh-blue-50 w-full rounded border border-uzh-grey-60 pl-2 pt-1 placeholder-slate-400',
-                disabled && 'cursor-not-allowed bg-uzh-grey-20 opacity-70',
+                'w-full text-base',
                 !!error && isTouched && 'border-red-400 bg-red-50',
                 className?.input
               )}
               {...props}
             />
           ) : (
-            <textarea
+            <Textarea
               id={id}
               data-cy={data?.cy}
               data-test={data?.test}
@@ -150,8 +150,7 @@ export function TextareaField({
               maxLength={maxLength}
               disabled={disabled}
               className={twMerge(
-                'focus:border-uzh-blue-50 w-full rounded border border-uzh-grey-60 pl-2 pt-1 placeholder-slate-400',
-                disabled && 'cursor-not-allowed bg-uzh-grey-20 opacity-70',
+                'w-full text-base',
                 !!error && isTouched && 'border-red-400 bg-red-50',
                 className?.input
               )}
