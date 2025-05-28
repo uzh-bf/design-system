@@ -15,7 +15,6 @@ export const Default = () => {
         value={date}
         defaultPopupValue={date ?? DefaultDate}
         onChange={setDate}
-        className={{ trigger: 'w-[280px]' }}
       />
     </div>
   )
@@ -32,7 +31,6 @@ export const Disabled = () => {
         value={date}
         defaultPopupValue={date ?? DefaultDate}
         onChange={setDate}
-        className={{ trigger: 'w-[280px]' }}
       />
     </div>
   )
@@ -48,7 +46,6 @@ export const MinutePrecision = () => {
         value={date}
         defaultPopupValue={date}
         onChange={setDate}
-        className={{ trigger: 'w-[280px]' }}
         granularity="minute"
       />
     </div>
@@ -65,7 +62,6 @@ export const HourPrecision = () => {
         value={date}
         defaultPopupValue={date}
         onChange={setDate}
-        className={{ trigger: 'w-[280px]' }}
         granularity="hour"
       />
     </div>
@@ -116,7 +112,6 @@ export function Error() {
         value={date}
         defaultPopupValue={date}
         onChange={setDate}
-        className={{ trigger: 'w-[280px]' }}
         label="Testlabel"
         labelType="small"
         tooltip="Tooltip for date changer with label"
@@ -128,7 +123,6 @@ export function Error() {
         value={date}
         defaultPopupValue={date2}
         onChange={setDate2}
-        className={{ trigger: 'w-[280px]' }}
         label="Testlabel"
         labelType="large"
         tooltip="Tooltip for date changer with label"

@@ -15,17 +15,13 @@ export interface FormikDatePickerProps
  *
  * @param id - The id of the date changer
  * @param name - The name of the field as used to keep track of the state in Formik.
- * @param date - The date to be displayed (state)
- * @param onDateChange - The function to be called when the date is changed (state management)
  * @param label - The label of the date changer
  * @param labelType - The type of the label (small or large)
  * @param placeholder - The placeholder of the date changer (is only shown if no date is selected)
  * @param tooltip - The tooltip of the date changer (is only shown if a label is given)
  * @param required - Whether the date label should contain a required symbol
  * @param disabled - Whether the date changer is disabled or not
- * @param error - The error message to be displayed
  * @param hideError - Whether the error message should be hidden
- * @param isTouched - Whether the date changer has been touched
  * @param format - The format of the date when the edit mode is not active (then the display is up to the browser implementation)
  * @param className - The optional className object allows you to override the default styling.
  * @param onDateChange - The function to be called when the date is changed (state management)
