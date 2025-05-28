@@ -279,7 +279,7 @@ const TimePeriodSelect = React.forwardRef<
         >
           <SelectTrigger
             ref={ref}
-            className="w-[65px] focus:bg-accent focus:text-accent-foreground"
+            className="focus:bg-accent focus:text-accent-foreground w-[65px]"
             onKeyDown={handleKeyDown}
           >
             <SelectValue />
@@ -392,7 +392,7 @@ const TimePickerInput = React.forwardRef<
         id={id || picker}
         name={name || picker}
         className={cn(
-          'w-[48px] text-center font-mono text-base tabular-nums caret-transparent focus:bg-accent focus:text-accent-foreground [&::-webkit-inner-spin-button]:appearance-none',
+          'focus:bg-accent focus:text-accent-foreground w-[48px] text-center font-mono text-base tabular-nums caret-transparent [&::-webkit-inner-spin-button]:appearance-none',
           className
         )}
         value={value || calculatedValue}
@@ -583,6 +583,7 @@ type DateTimePickerProps = {
    **/
   defaultPopupValue?: Date
   dataTrigger?: { cy?: string; test?: string }
+  dataCalendar?: { cy?: string; test?: string }
   dataHours?: { cy?: string; test?: string }
   dataMinutes?: { cy?: string; test?: string }
   dataSeconds?: { cy?: string; test?: string }
@@ -721,7 +722,7 @@ const DateTimePicker = React.forwardRef<
         <PopoverTrigger asChild disabled={disabled}>
           <div
             className={twMerge(
-              'flex w-max flex-row',
+              'flex w-[280px] flex-row',
               labelType === 'small' && 'flex-col',
               className?.trigger
             )}
@@ -741,6 +742,7 @@ const DateTimePicker = React.forwardRef<
             <div className="flex flex-row gap-2">
               <Button
                 variant="outline"
+                type="button"
                 disabled={disabled}
                 className={cn(
                   'w-full justify-start text-left text-base font-normal',
@@ -804,10 +806,12 @@ const DateTimePicker = React.forwardRef<
             locale={locale}
             dataNextMonth={props.dataNextMonth}
             dataPreviousMonth={props.dataPreviousMonth}
+            data-cy={props.dataCalendar?.cy}
+            data-test={props.dataCalendar?.test}
             {...props}
           />
           {granularity !== 'day' && (
-            <div className="border-t border-border p-3">
+            <div className="border-border border-t p-3">
               <TimePicker
                 disabled={disabled}
                 onChange={(value) => {

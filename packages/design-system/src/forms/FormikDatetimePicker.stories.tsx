@@ -1,7 +1,7 @@
 import { Form, Formik } from 'formik'
 import * as Yup from 'yup'
 import Button from '../Button'
-import FormikDatePicker from './FormikDatePicker'
+import FormikDatetimePicker from './FormikDatetimePicker'
 
 export const Default = () => (
   <div>
@@ -18,7 +18,10 @@ export const Default = () => (
         return (
           <div>
             <Form>
-              <FormikDatePicker name="date" className={{ trigger: 'mb-2' }} />
+              <FormikDatetimePicker
+                name="date"
+                className={{ trigger: 'mb-2' }}
+              />
               <Button type="submit">Submit</Button>
             </Form>
             <div>Value: {values.date.toISOString()}</div>
@@ -44,7 +47,7 @@ export const Disabled = () => (
         return (
           <div>
             <Form>
-              <FormikDatePicker
+              <FormikDatetimePicker
                 name="date"
                 className={{ trigger: 'mb-2' }}
                 disabled
@@ -74,7 +77,7 @@ export const Labelled = () => (
         return (
           <div>
             <Form>
-              <FormikDatePicker
+              <FormikDatetimePicker
                 name="date"
                 className={{ trigger: 'mb-2' }}
                 label="Label"
@@ -104,7 +107,7 @@ export const Tooltip = () => (
         return (
           <div>
             <Form>
-              <FormikDatePicker
+              <FormikDatetimePicker
                 name="date"
                 className={{ trigger: 'mb-2' }}
                 label="Testlabel"
@@ -144,7 +147,7 @@ export const Validation = () => (
           <div>
             <Form>
               {String(isValid)}
-              <FormikDatePicker
+              <FormikDatetimePicker
                 required
                 name="date"
                 className={{ trigger: 'mb-2' }}
