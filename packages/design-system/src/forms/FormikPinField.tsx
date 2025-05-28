@@ -1,87 +1,129 @@
-import { useField } from 'formik'
+import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useField, useFormikContext } from 'formik'
 import React from 'react'
-import FormikTextField from './FormikTextField'
-import { TextFieldClassName } from './TextField'
+import { twMerge } from 'tailwind-merge'
+import FormLabel from '../FormLabel'
+import Tooltip from '../Tooltip'
+import { InputOTP, InputOTPGroup, InputOTPSlot } from '../ui/input-otp'
 
 export interface FormikPinFieldProps {
   id?: string
   name: string
+  length: number
   required?: boolean
   label?: string
   labelType?: 'small' | 'large'
   tooltip?: string | React.ReactNode
-  className?: TextFieldClassName & { root?: string }
+  hideError?: boolean
+  className?: {
+    field?: string
+    label?: string
+    tooltip?: string
+    input?: string
+    inputItem?: string
+  }
   data?: {
     cy?: string
     test?: string
   }
 }
 
+/**
+ * This function returns a pin field component for use with Formik.
+ *
+ * @param id - The id of the input field.
+ * @param name - The name of the input field (used for Formik).
+ * @param length - The length of the pin (number of digits).
+ * @param required - Indicate whether the field is required or not.
+ * @param label - The text displayed as label.
+ * @param labelType - The optional labelType can be used to change the size and position of the label according to pre-defined standards.
+ * @param tooltip - The optional tooltip is shown on hover over the tooltip next to the label.
+ * @param hideError - Indicate whether the error message should be hidden or not.
+ * @param className - The class names for the different parts of the component.
+ * @param data - Optional data attributes for testing purposes.
+ * @returns A pin field component that integrates with Formik for form handling.
+ */
 export function FormikPinField({
   id,
   name,
+  length,
   required = false,
   label,
   labelType = 'small',
   tooltip,
+  hideError = false,
   className,
   data,
 }: FormikPinFieldProps) {
   const [field, meta, helpers] = useField(name)
+  const { validateField } = useFormikContext()
 
   return (
-    <FormikTextField
-      id={id}
-      value={field.value}
-      required={required}
-      label={label}
-      labelType={labelType}
-      tooltip={tooltip}
-      className={className}
-      data={data}
-      error={!!meta.error && meta.touched ? meta.error : undefined}
-      placeholder="### ### ###"
-      onPaste={(e) => {
-        e.preventDefault()
-        const paste = e.clipboardData?.getData('text')
-        if (
-          typeof paste === 'string' &&
-          paste.length === 9 &&
-          paste.match(/^[0-9]{9}$/g)
-        ) {
-          helpers.setValue(
-            `${paste.slice(0, 3)} ${paste.slice(3, 6)} ${paste.slice(6, 9)}`
-          )
-        } else if (
-          typeof paste === 'string' &&
-          paste.length === 11 &&
-          paste.match(/^[0-9]{3} [0-9]{3} [0-9]{3}$/g)
-        ) {
-          helpers.setValue(paste)
-        }
-      }}
-      onChange={(newValue: string) => {
-        // regex magic to only allow numerical pins in the format ### ### ###
-        const regexToMatch =
-          /([0-9]{3} [0-9]{3} [0-9]{0,3})|([0-9]{3} [0-9]{3}[ ]{0,1})|([0-9]{3} [0-9]{0,3})|([0-9]{3}[ ]{0,1})|([0-9]{0,3})/g
-        const valueMatched = newValue.match(regexToMatch)?.[0] ?? ''
+    <div
+      className={twMerge(
+        'flex w-full flex-row',
+        labelType === 'small' && 'flex-col',
+        className?.field
+      )}
+    >
+      {label && (
+        <FormLabel
+          id={id}
+          required={required}
+          label={label}
+          labelType={labelType}
+          tooltip={tooltip}
+          className={{ label: className?.label, tooltip: className?.tooltip }}
+        />
+      )}
 
-        // only add a whitespace after a block of 3 numbers if the user is typing - otherwise deletions are not possible
-        if (
-          (valueMatched.match(/^[0-9]{3}$/g) &&
-            field.value.match(/^[0-9]{2}$/g)) ||
-          (valueMatched.match(/^[0-9]{3} [0-9]{3}$/g) &&
-            field.value.match(/^[0-9]{3} [0-9]{2}$/g))
-        ) {
-          helpers.setValue(valueMatched + ' ')
-        } else {
-          helpers.setValue(valueMatched)
-        }
-      }}
-      onBlur={() => {
-        helpers.setTouched(true)
-      }}
-    />
+      <div className="flex w-full flex-row items-center gap-2">
+        <InputOTP
+          maxLength={length}
+          value={field.value}
+          onChange={(newValue) => {
+            helpers.setValue(newValue)
+            helpers.setTouched(true)
+
+            // make sure that the value is updated before re-validating
+            setTimeout(() => {
+              validateField(name)
+            }, 0)
+          }}
+          className={className?.input}
+        >
+          <InputOTPGroup>
+            {...Array(length)
+              .fill('')
+              .map((_, index) => (
+                <InputOTPSlot
+                  index={index}
+                  data-cy={`${data?.cy}-${index + 1}`}
+                  data-test={`${data?.test}-${index + 1}`}
+                  className={twMerge(
+                    'h-9 text-base',
+                    !!meta.error && meta.touched && 'border-y border-red-600',
+                    className?.inputItem
+                  )}
+                />
+              ))}
+          </InputOTPGroup>
+        </InputOTP>
+        {meta.error && !hideError && meta.touched && (
+          <Tooltip
+            tooltip={!!meta.error && meta.touched ? meta.error : undefined}
+            delay={0}
+            className={{ tooltip: 'max-w-[30rem] text-sm' }}
+          >
+            <FontAwesomeIcon
+              icon={faCircleExclamation}
+              className="mr-1 text-red-600"
+            />
+          </Tooltip>
+        )}
+      </div>
+    </div>
   )
 }
 

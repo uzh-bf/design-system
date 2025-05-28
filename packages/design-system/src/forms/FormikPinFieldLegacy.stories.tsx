@@ -1,7 +1,7 @@
 import { Form, Formik } from 'formik'
 import * as yup from 'yup'
 import Button from '../Button'
-import FormikPinField from './FormikPinField'
+import FormikPinFieldLegacy from './FormikPinFieldLegacy'
 
 export const Default = () => (
   <div>
@@ -25,11 +25,7 @@ export const Default = () => (
         return (
           <div>
             <Form>
-              <FormikPinField
-                name="pin"
-                length={9}
-                className={{ field: 'my-2' }}
-              />
+              <FormikPinFieldLegacy name="pin" className={{ root: 'mb-1' }} />
               <Button type="submit">Submit</Button>
             </Form>
             <div>Value: {values.pin}</div>
@@ -65,12 +61,11 @@ export const Required = () => (
         return (
           <div>
             <Form>
-              <FormikPinField
+              <FormikPinFieldLegacy
                 required
                 label="PIN"
                 name="pin"
-                length={9}
-                className={{ field: 'my-2' }}
+                className={{ root: 'mb-1' }}
               />
               <Button type="submit">Submit</Button>
             </Form>
@@ -98,14 +93,13 @@ export const LargeLabel = () => (
         return (
           <div>
             <Form>
-              <FormikPinField
+              <FormikPinFieldLegacy
                 required
                 labelType="large"
                 tooltip="Tooltip for this input"
                 label="PIN"
                 name="pin"
-                length={9}
-                className={{ field: 'my-2' }}
+                className={{ root: 'mb-1' }}
               />
               <Button type="submit">Submit</Button>
             </Form>
@@ -137,13 +131,12 @@ export const Tooltip = () => (
         return (
           <div>
             <Form>
-              <FormikPinField
+              <FormikPinFieldLegacy
                 required
                 label="PIN"
                 tooltip="Tooltip for this input"
                 name="pin"
-                length={9}
-                className={{ field: 'my-2' }}
+                className={{ root: 'mb-1' }}
               />
               <Button type="submit">Submit</Button>
             </Form>
@@ -175,13 +168,12 @@ export const Styled = () => (
         return (
           <div>
             <Form>
-              <FormikPinField
+              <FormikPinFieldLegacy
                 required
                 label="PIN"
                 name="pin"
-                length={9}
                 className={{
-                  field: 'mb-1 w-1/2',
+                  root: 'mb-1 w-1/2',
                   input: 'bg-red-200',
                   label: 'text-blue-500',
                 }}
@@ -200,11 +192,13 @@ export const Styled = () => (
 export const Validation = () => (
   <div>
     <div>
-      This PIN field should have an exact length of 9 characters or will display
-      an error after being touched otherwise.
+      This PIN field should have an exact length of 11 characters or will
+      display an error after being touched otherwise.
     </div>
     <Formik
-      initialValues={{ pin: '' }}
+      initialValues={{
+        pin: '',
+      }}
       isInitialValid={false}
       onSubmit={async (values, { resetForm }) => {
         alert(`Form submitted with value: ${values.pin}`)
@@ -214,20 +208,19 @@ export const Validation = () => (
         pin: yup
           .string()
           .required('This field is required')
-          .min(9, 'Please ensure that the entire PIN is entered')
-          .max(9, 'Please ensure that the entire PIN is entered'),
+          .min(11, 'Please ensure that the entire PIN is entered')
+          .max(11, 'Please ensure that the entire PIN is entered'),
       })}
     >
       {({ values, isValid }) => {
         return (
           <div>
             <Form>
-              <FormikPinField
+              <FormikPinFieldLegacy
                 required
                 label="PIN"
                 name="pin"
-                length={9}
-                className={{ field: 'my-2' }}
+                className={{ root: 'mb-1' }}
               />
               <Button type="submit" disabled={!isValid}>
                 Submit

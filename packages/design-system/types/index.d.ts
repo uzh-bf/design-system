@@ -1052,9 +1052,11 @@ declare interface FormikNumberFieldProps {
     [key: string]: unknown;
 }
 
-export declare function FormikPinField({ id, name, required, label, labelType, tooltip, className, data, }: FormikPinFieldProps): JSX_2.Element;
+export declare function FormikPinField({ id, name, length, required, label, labelType, tooltip, hideError, className, data, }: FormikPinFieldProps): JSX_2.Element;
 
-export declare interface FormikPinFieldProps {
+export declare function FormikPinFieldLegacy({ id, name, required, label, labelType, tooltip, className, data, }: FormikPinFieldLegacyProps): JSX_2.Element;
+
+export declare interface FormikPinFieldLegacyProps {
     id?: string;
     name: string;
     required?: boolean;
@@ -1063,6 +1065,28 @@ export declare interface FormikPinFieldProps {
     tooltip?: string | default_2.ReactNode;
     className?: TextFieldClassName & {
         root?: string;
+    };
+    data?: {
+        cy?: string;
+        test?: string;
+    };
+}
+
+export declare interface FormikPinFieldProps {
+    id?: string;
+    name: string;
+    length: number;
+    required?: boolean;
+    label?: string;
+    labelType?: 'small' | 'large';
+    tooltip?: string | default_2.ReactNode;
+    hideError?: boolean;
+    className?: {
+        field?: string;
+        label?: string;
+        tooltip?: string;
+        input?: string;
+        inputItem?: string;
     };
     data?: {
         cy?: string;
@@ -3112,13 +3136,13 @@ export declare interface WorkflowProps extends WorkflowBaseProps {
 export { }
 
 
-declare namespace Calendar {
-    var displayName: string;
-}
-
-
 declare namespace TabsLegacy {
     var Tab: typeof import("@/TabsLegacy").Tab;
     var TabList: typeof import("@/TabsLegacy").TabList;
     var TabContent: typeof TabLegacyContent;
+}
+
+
+declare namespace Calendar {
+    var displayName: string;
 }

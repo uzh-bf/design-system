@@ -6,6 +6,19 @@ import {
   TabsTrigger,
 } from './ui/tabs'
 
+/**
+ * This function returns a tabs component for use based on the Shadcn UI prestyled component
+ * with simplified / combined interfaces for easier re-use.
+ *
+ * @param id - The id of the tabs component.
+ * @param defaultValue - The default value of the active tab.
+ * @param value - The controlled value of the active tab.
+ * @param onValueChange - Callback function to handle value changes.
+ * @param tabs - An array of tab objects, each containing an id, label, value, and optional data attributes.
+ * @param className - Optional class names for styling the tabs and their components.
+ * @param children - The content of the tabs, which will be rendered in the corresponding tab content area.
+ * @returns A Tabs component that allows users to switch between different content sections.
+ */
 export function Tabs({
   id,
   defaultValue,

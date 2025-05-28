@@ -140,7 +140,7 @@ export function TextField({
                 'h-9 w-full text-base',
                 icon && iconPosition === 'left' && 'pl-8',
                 icon && iconPosition === 'right' && 'pr-10',
-                disabled && 'bg-uzh-grey-20 cursor-not-allowed opacity-70',
+                disabled && 'cursor-not-allowed bg-uzh-grey-20 opacity-70',
                 !!error && isTouched && 'border-red-400 bg-red-50',
                 className?.input
               )}
@@ -165,7 +165,7 @@ export function TextField({
                 'h-9 w-full text-base',
                 icon && iconPosition === 'left' && 'pl-8',
                 icon && iconPosition === 'right' && 'pr-10',
-                disabled && 'bg-uzh-grey-20 cursor-not-allowed opacity-70',
+                disabled && 'cursor-not-allowed bg-uzh-grey-20 opacity-70',
                 !!error && isTouched && 'border-red-400 bg-red-50',
                 className?.input
               )}
