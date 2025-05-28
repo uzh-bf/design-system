@@ -2924,32 +2924,6 @@ export declare function TabContent({ id, value, children, data, className, }: {
     };
 }): JSX_2.Element;
 
-declare function TabContent_2({
-    id,
-    value,
-    children,
-    data,
-    className,
-}: {
-    id?: string
-    value: string
-    children: React.ReactNode
-    data?: { cy?: string; test?: string }
-    className?: { root?: string }
-}) {
-    return (
-    <ShadcnTabsContent
-    id={id}
-    value={value}
-    data-cy={data?.cy}
-    data-test={data?.test}
-    className={className?.root}
-    >
-        {children}
-    </ShadcnTabsContent>
-    )
-}
-
 declare interface TabContentProps {
     id?: string;
     data?: {
@@ -3169,10 +3143,6 @@ export declare function Tabs({ id, defaultValue, value, onValueChange, tabs, cla
     };
     children: React.ReactNode;
 }): JSX_2.Element;
-
-export declare namespace Tabs {
-    var TabContent: TabContent_2;
-}
 
 /**
  * This function returns a pre-styled TabList component based on the RadixUI TabList component and the custom theme.

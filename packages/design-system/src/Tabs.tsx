@@ -106,6 +106,3 @@ export function TabContent({
     </ShadcnTabsContent>
   )
 }
-
-Tabs.TabContent = TabContent
-export default Tabs

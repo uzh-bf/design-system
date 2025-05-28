@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import Tabs from './Tabs'
+import { TabContent, Tabs } from './Tabs'
 
 export const Default = () => {
   return (
@@ -10,20 +10,16 @@ export const Default = () => {
         { id: 'create', value: 'create', label: 'Gruppe erstellen/beitreten' },
       ]}
     >
-      <Tabs.TabContent
+      <TabContent
         key="leaderboard"
         value="leaderboard"
         className={{ root: 'md:px-4' }}
       >
         Course Tab
-      </Tabs.TabContent>
-      <Tabs.TabContent
-        key="create"
-        value="create"
-        className={{ root: 'md:px-4' }}
-      >
+      </TabContent>
+      <TabContent key="create" value="create" className={{ root: 'md:px-4' }}>
         Create Tab
-      </Tabs.TabContent>
+      </TabContent>
     </Tabs>
   )
 }
@@ -40,20 +36,16 @@ export const Controlled = () => {
         { id: 'create', value: 'create', label: 'Gruppe erstellen/beitreten' },
       ]}
     >
-      <Tabs.TabContent
+      <TabContent
         key="leaderboard"
         value="leaderboard"
         className={{ root: 'md:px-4' }}
       >
         Course Tab
-      </Tabs.TabContent>
-      <Tabs.TabContent
-        key="create"
-        value="create"
-        className={{ root: 'md:px-4' }}
-      >
+      </TabContent>
+      <TabContent key="create" value="create" className={{ root: 'md:px-4' }}>
         Create Tab
-      </Tabs.TabContent>
+      </TabContent>
     </Tabs>
   )
 }
