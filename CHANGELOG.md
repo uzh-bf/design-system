@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.82](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.81...v3.0.0-alpha.82) (2025-05-29)
+
+
+### Enhancements
+
+* fix positioning issues for sonner-based toast and enhance styling options for new modal components ([99140f9](https://github.com/uzh-bf/design-system/commit/99140f9d9ed2d6f03c5f819779bfa58dbc305308))
+
 ## [3.0.0-alpha.81](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.80...v3.0.0-alpha.81) (2025-05-29)
 
 
