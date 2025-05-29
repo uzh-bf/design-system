@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.81](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.80...v3.0.0-alpha.81) (2025-05-29)
+
+
+### Enhancements
+
+* extend modal action properties, make toast styling more flexible and fix dropdown trigger styling ([d48f84e](https://github.com/uzh-bf/design-system/commit/d48f84ee3fbbe7ff98efa5553e35fc48b58891e3))
+
 ## [3.0.0-alpha.80](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.79...v3.0.0-alpha.80) (2025-05-28)
 
 
