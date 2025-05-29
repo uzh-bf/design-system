@@ -68,6 +68,65 @@ export const Simple = () => {
   )
 }
 
+export const Positions = () => {
+  return (
+    <>
+      <div>
+        <Toaster position="top-right" />
+        <Button
+          onClick={() =>
+            toast({
+              message:
+                'Dolore incididunt reprehenderit officia et occaecat non laboris.',
+            })
+          }
+        >
+          TOP RIGHT
+        </Button>
+      </div>
+      <div>
+        <Toaster position="bottom-right" />
+        <Button
+          onClick={() =>
+            toast({
+              message:
+                'Dolore incididunt reprehenderit officia et occaecat non laboris.',
+            })
+          }
+        >
+          BOTTOM RIGHT
+        </Button>
+      </div>
+      <div>
+        <Toaster position="bottom-left" />
+        <Button
+          onClick={() =>
+            toast({
+              message:
+                'Dolore incididunt reprehenderit officia et occaecat non laboris.',
+            })
+          }
+        >
+          BOTTOM LEFT
+        </Button>
+      </div>
+      <div>
+        <Toaster position="top-left" />
+        <Button
+          onClick={() =>
+            toast({
+              message:
+                'Dolore incididunt reprehenderit officia et occaecat non laboris.',
+            })
+          }
+        >
+          TOP LEFT
+        </Button>
+      </div>
+    </>
+  )
+}
+
 export const Children = () => {
   return (
     <>
@@ -130,7 +189,7 @@ export const Action = () => {
 export const Success = () => {
   return (
     <>
-      <Toaster closeButton />
+      <Toaster closeButton position="top-right" />
       <div>Prestyled toasts can be triggered with a title and description.</div>
       <Button
         onClick={() =>

@@ -1184,6 +1184,7 @@ declare interface DropdownProps {
     };
     className?: {
         trigger?: string;
+        triggerWrapper?: string;
         viewport?: string;
         item?: string;
         group?: string;
@@ -1948,9 +1949,6 @@ export declare interface LabelProps {
  * This function returns a pre-styled modal component based on the RadixUI dialog component and the custom theme.
  *
  * @param id - The id of the modal.
- * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
- * @param dataContent - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the content
- * @param dataCloseButton - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the close button
  * @param trigger - The optional trigger that opens the modal, if the state is not managed by some parent component already.
  * @param title - The optional title of the modal.
  * @param children - The content of the modal.
@@ -1961,14 +1959,25 @@ export declare interface LabelProps {
  * @param fullScreen - Indicate whether the modal should be full screen or not.
  * @param onPrimaryAction - The optional primary action, which is executed when clicking on the conditionally rendered primary action button.
  * @param primaryLabel - The label for the primary action button.
+ * @param primaryType - The type of the primary action button, which can be 'button', 'submit' or 'reset'.
+ * @param primaryButtonStyle - The style of the primary action button, which can be 'default', 'primary' or 'destructive'.
+ * @param primaryDisabled - Indicate whether the primary action button should be disabled.
+ * @param primaryLoading - Indicate whether the primary action button should be in a loading state.
  * @param onSecondaryAction - The optional secondary action, which is executed when clicking on the conditionally rendered secondary action button.
  * @param secondaryLabel - The label for the secondary action button.
+ * @param secondaryType - The type of the secondary action button, which can be 'button', 'submit' or 'reset'.
+ * @param secondaryButtonStyle - The style of the secondary action button, which can be 'default', 'primary' or 'destructive'.
  * @param escapeDisabled - Indicate whether the modal should be closed when the escape key is pressed.
  * @param hideCloseButton - Indicate whether the close button should be hidden.
+ * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
+ * @param dataContent - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the content
+ * @param dataCloseButton - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the close button
+ * @param dataPrimaryAction - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the primary action button
+ * @param dataSecondaryAction - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the secondary action button
  * @param className - The optional className object allows you to override the default styling.
  * @returns Modal component
  */
-export declare function Modal({ id, data, dataContent, dataCloseButton, trigger, title, children, onClose, onPrev, onNext, open, fullScreen, className, onPrimaryAction, primaryLabel, onSecondaryAction, secondaryLabel, escapeDisabled, hideCloseButton, }: ModalProps): JSX_2.Element;
+export declare function Modal({ id, trigger, title, children, onClose, onPrev, onNext, open, fullScreen, onPrimaryAction, primaryLabel, primaryType, primaryButtonStyle, primaryDisabled, primaryLoading, onSecondaryAction, secondaryLabel, secondaryType, secondaryButtonStyle, escapeDisabled, hideCloseButton, data, dataContent, dataCloseButton, dataPrimaryAction, dataSecondaryAction, className, }: ModalProps): JSX_2.Element;
 
 /**
  * This function returns a pre-styled modal component based on the RadixUI dialog component and the custom theme.
@@ -2051,6 +2060,26 @@ export declare interface ModalLegacyProps {
 
 export declare interface ModalProps {
     id?: string;
+    children: default_3.ReactNode;
+    fullScreen?: boolean;
+    open: boolean;
+    onClose: (e?: default_3.MouseEvent<HTMLButtonElement>) => void;
+    title?: string | default_3.ReactNode;
+    trigger?: default_3.ReactNode;
+    escapeDisabled?: boolean;
+    hideCloseButton?: boolean;
+    onNext?: (e?: default_3.MouseEvent<HTMLButtonElement>) => void;
+    onPrev?: (e?: default_3.MouseEvent<HTMLButtonElement>) => void;
+    onPrimaryAction?: (e?: default_3.MouseEvent<HTMLButtonElement>) => void;
+    primaryLabel?: string | default_3.ReactNode;
+    primaryType?: 'button' | 'submit' | 'reset';
+    primaryButtonStyle?: 'default' | 'primary' | 'destructive';
+    primaryDisabled?: boolean;
+    primaryLoading?: boolean;
+    onSecondaryAction?: (e?: default_3.MouseEvent<HTMLButtonElement>) => void;
+    secondaryLabel?: string | default_3.ReactNode;
+    secondaryType?: 'button' | 'submit' | 'reset';
+    secondaryButtonStyle?: 'default' | 'primary' | 'destructive';
     data?: {
         cy?: string;
         test?: string;
@@ -2060,6 +2089,14 @@ export declare interface ModalProps {
         test?: string;
     };
     dataCloseButton?: {
+        cy?: string;
+        test?: string;
+    };
+    dataPrimaryAction?: {
+        cy?: string;
+        test?: string;
+    };
+    dataSecondaryAction?: {
         cy?: string;
         test?: string;
     };
@@ -2075,20 +2112,6 @@ export declare interface ModalProps {
         primary?: string;
         secondary?: string;
     };
-    children: default_3.ReactNode;
-    fullScreen?: boolean;
-    open: boolean;
-    onClose: (e?: default_3.MouseEvent<HTMLButtonElement>) => void;
-    title?: string | default_3.ReactNode;
-    trigger?: default_3.ReactNode;
-    escapeDisabled?: boolean;
-    hideCloseButton?: boolean;
-    onNext?: (e?: default_3.MouseEvent<HTMLButtonElement>) => void;
-    onPrev?: (e?: default_3.MouseEvent<HTMLButtonElement>) => void;
-    onPrimaryAction?: (e?: default_3.MouseEvent<HTMLButtonElement>) => void;
-    primaryLabel?: string | default_3.ReactNode;
-    onSecondaryAction?: (e?: default_3.MouseEvent<HTMLButtonElement>) => void;
-    secondaryLabel?: string | default_3.ReactNode;
 }
 
 declare interface MultiValueProgressProps extends BaseProgressProps {

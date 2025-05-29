@@ -27,11 +27,13 @@ export interface ModalProps {
   onPrimaryAction?: (e?: React.MouseEvent<HTMLButtonElement>) => void
   primaryLabel?: string | React.ReactNode
   primaryType?: 'button' | 'submit' | 'reset'
+  primaryButtonStyle?: 'default' | 'primary' | 'destructive'
   primaryDisabled?: boolean
   primaryLoading?: boolean
   onSecondaryAction?: (e?: React.MouseEvent<HTMLButtonElement>) => void
   secondaryLabel?: string | React.ReactNode
   secondaryType?: 'button' | 'submit' | 'reset'
+  secondaryButtonStyle?: 'default' | 'primary' | 'destructive'
 
   data?: {
     cy?: string
@@ -82,11 +84,13 @@ export interface ModalProps {
  * @param onPrimaryAction - The optional primary action, which is executed when clicking on the conditionally rendered primary action button.
  * @param primaryLabel - The label for the primary action button.
  * @param primaryType - The type of the primary action button, which can be 'button', 'submit' or 'reset'.
+ * @param primaryButtonStyle - The style of the primary action button, which can be 'default', 'primary' or 'destructive'.
  * @param primaryDisabled - Indicate whether the primary action button should be disabled.
  * @param primaryLoading - Indicate whether the primary action button should be in a loading state.
  * @param onSecondaryAction - The optional secondary action, which is executed when clicking on the conditionally rendered secondary action button.
  * @param secondaryLabel - The label for the secondary action button.
  * @param secondaryType - The type of the secondary action button, which can be 'button', 'submit' or 'reset'.
+ * @param secondaryButtonStyle - The style of the secondary action button, which can be 'default', 'primary' or 'destructive'.
  * @param escapeDisabled - Indicate whether the modal should be closed when the escape key is pressed.
  * @param hideCloseButton - Indicate whether the close button should be hidden.
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
@@ -111,11 +115,13 @@ export function Modal({
   onPrimaryAction,
   primaryLabel,
   primaryType = 'button',
+  primaryButtonStyle = 'primary',
   primaryDisabled = false,
   primaryLoading = false,
   onSecondaryAction,
   secondaryLabel,
   secondaryType = 'button',
+  secondaryButtonStyle = 'default',
   escapeDisabled = false,
   hideCloseButton = false,
   data,
@@ -174,7 +180,7 @@ export function Modal({
         className={twMerge(
           'max-h-[calc(100%-2rem)] overflow-y-auto',
           fullScreen
-            ? 'h-full w-full max-w-[calc(100%-2rem)]'
+            ? 'h-full max-h-[calc(100%-2rem)] w-full max-w-[calc(100%-2rem)]'
             : 'h-max w-[27rem] max-w-7xl md:w-[40rem] lg:w-[55rem] xl:w-[70rem]',
           className?.content
         )}
@@ -197,6 +203,8 @@ export function Modal({
           {typeof onSecondaryAction !== 'undefined' && secondaryLabel ? (
             <Button
               type={secondaryType}
+              primary={secondaryButtonStyle === 'primary'}
+              destructive={secondaryButtonStyle === 'destructive'}
               onClick={onSecondaryAction}
               className={{ root: className?.secondary }}
               data={dataSecondaryAction}
@@ -206,7 +214,8 @@ export function Modal({
           ) : null}
           {typeof onPrimaryAction !== 'undefined' && primaryLabel ? (
             <Button
-              primary
+              primary={primaryButtonStyle === 'primary'}
+              destructive={primaryButtonStyle === 'destructive'}
               primaryType={primaryType}
               className={{ root: className?.primary }}
               onClick={onPrimaryAction}
