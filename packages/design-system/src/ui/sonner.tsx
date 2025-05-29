@@ -1,5 +1,6 @@
 import { useTheme } from 'next-themes'
 import { Toaster as Sonner } from 'sonner'
+import { twMerge } from 'tailwind-merge'
 
 type ToasterProps = React.ComponentProps<typeof Sonner>
 
@@ -9,7 +10,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
   return (
     <Sonner
       theme={theme as ToasterProps['theme']}
-      className="toaster group"
+      className={twMerge('toaster group', props.className)}
       toastOptions={{
         classNames: {
           toast:

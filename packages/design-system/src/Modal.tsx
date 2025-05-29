@@ -12,6 +12,27 @@ import {
 
 export interface ModalProps {
   id?: string
+  children: React.ReactNode
+  fullScreen?: boolean
+  open: boolean
+  onClose: (e?: React.MouseEvent<HTMLButtonElement>) => void
+
+  title?: string | React.ReactNode
+  trigger?: React.ReactNode
+  escapeDisabled?: boolean
+  hideCloseButton?: boolean
+
+  onNext?: (e?: React.MouseEvent<HTMLButtonElement>) => void
+  onPrev?: (e?: React.MouseEvent<HTMLButtonElement>) => void
+  onPrimaryAction?: (e?: React.MouseEvent<HTMLButtonElement>) => void
+  primaryLabel?: string | React.ReactNode
+  primaryType?: 'button' | 'submit' | 'reset'
+  primaryDisabled?: boolean
+  primaryLoading?: boolean
+  onSecondaryAction?: (e?: React.MouseEvent<HTMLButtonElement>) => void
+  secondaryLabel?: string | React.ReactNode
+  secondaryType?: 'button' | 'submit' | 'reset'
+
   data?: {
     cy?: string
     test?: string
@@ -21,6 +42,14 @@ export interface ModalProps {
     test?: string
   }
   dataCloseButton?: {
+    cy?: string
+    test?: string
+  }
+  dataPrimaryAction?: {
+    cy?: string
+    test?: string
+  }
+  dataSecondaryAction?: {
     cy?: string
     test?: string
   }
@@ -36,31 +65,12 @@ export interface ModalProps {
     primary?: string
     secondary?: string
   }
-  children: React.ReactNode
-  fullScreen?: boolean
-  open: boolean
-  onClose: (e?: React.MouseEvent<HTMLButtonElement>) => void
-
-  title?: string | React.ReactNode
-  trigger?: React.ReactNode
-  escapeDisabled?: boolean
-  hideCloseButton?: boolean
-
-  onNext?: (e?: React.MouseEvent<HTMLButtonElement>) => void
-  onPrev?: (e?: React.MouseEvent<HTMLButtonElement>) => void
-  onPrimaryAction?: (e?: React.MouseEvent<HTMLButtonElement>) => void
-  primaryLabel?: string | React.ReactNode
-  onSecondaryAction?: (e?: React.MouseEvent<HTMLButtonElement>) => void
-  secondaryLabel?: string | React.ReactNode
 }
 
 /**
  * This function returns a pre-styled modal component based on the RadixUI dialog component and the custom theme.
  *
  * @param id - The id of the modal.
- * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
- * @param dataContent - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the content
- * @param dataCloseButton - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the close button
  * @param trigger - The optional trigger that opens the modal, if the state is not managed by some parent component already.
  * @param title - The optional title of the modal.
  * @param children - The content of the modal.
@@ -71,18 +81,25 @@ export interface ModalProps {
  * @param fullScreen - Indicate whether the modal should be full screen or not.
  * @param onPrimaryAction - The optional primary action, which is executed when clicking on the conditionally rendered primary action button.
  * @param primaryLabel - The label for the primary action button.
+ * @param primaryType - The type of the primary action button, which can be 'button', 'submit' or 'reset'.
+ * @param primaryDisabled - Indicate whether the primary action button should be disabled.
+ * @param primaryLoading - Indicate whether the primary action button should be in a loading state.
  * @param onSecondaryAction - The optional secondary action, which is executed when clicking on the conditionally rendered secondary action button.
  * @param secondaryLabel - The label for the secondary action button.
+ * @param secondaryType - The type of the secondary action button, which can be 'button', 'submit' or 'reset'.
  * @param escapeDisabled - Indicate whether the modal should be closed when the escape key is pressed.
  * @param hideCloseButton - Indicate whether the close button should be hidden.
+ * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
+ * @param dataContent - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the content
+ * @param dataCloseButton - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the close button
+ * @param dataPrimaryAction - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the primary action button
+ * @param dataSecondaryAction - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the secondary action button
  * @param className - The optional className object allows you to override the default styling.
  * @returns Modal component
  */
 export function Modal({
   id,
-  data,
-  dataContent,
-  dataCloseButton,
+
   trigger,
   title,
   children,
@@ -91,13 +108,22 @@ export function Modal({
   onNext,
   open,
   fullScreen = false,
-  className,
   onPrimaryAction,
   primaryLabel,
+  primaryType = 'button',
+  primaryDisabled = false,
+  primaryLoading = false,
   onSecondaryAction,
   secondaryLabel,
+  secondaryType = 'button',
   escapeDisabled = false,
   hideCloseButton = false,
+  data,
+  dataContent,
+  dataCloseButton,
+  dataPrimaryAction,
+  dataSecondaryAction,
+  className,
 }: ModalProps) {
   useEffect(() => {
     if (onPrev || onNext) {
@@ -140,9 +166,7 @@ export function Modal({
           escapeDisabled ? (e) => e.preventDefault() : () => onClose()
         }
         onPointerDownOutside={
-          onPrev || onNext || escapeDisabled
-            ? (e) => e.preventDefault()
-            : () => onClose()
+          escapeDisabled ? (e) => e.preventDefault() : () => onClose()
         }
         data-cy={dataContent?.cy}
         data-test={dataContent?.test}
@@ -172,8 +196,10 @@ export function Modal({
         >
           {typeof onSecondaryAction !== 'undefined' && secondaryLabel ? (
             <Button
-              className={{ root: twMerge(className?.secondary) }}
+              type={secondaryType}
               onClick={onSecondaryAction}
+              className={{ root: className?.secondary }}
+              data={dataSecondaryAction}
             >
               {secondaryLabel}
             </Button>
@@ -181,8 +207,12 @@ export function Modal({
           {typeof onPrimaryAction !== 'undefined' && primaryLabel ? (
             <Button
               primary
-              className={{ root: twMerge(className?.primary) }}
+              primaryType={primaryType}
+              className={{ root: className?.primary }}
               onClick={onPrimaryAction}
+              disabled={primaryDisabled}
+              loading={primaryLoading}
+              data={dataPrimaryAction}
             >
               {primaryLabel}
             </Button>

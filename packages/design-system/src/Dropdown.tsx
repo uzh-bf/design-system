@@ -83,6 +83,7 @@ interface DropdownProps {
   }
   className?: {
     trigger?: string
+    triggerWrapper?: string
     viewport?: string
     item?: string
     group?: string
@@ -124,12 +125,14 @@ export function Dropdown({
       <DropdownMenuTrigger
         id={id}
         disabled={disabled}
-        className={className?.trigger}
+        className={className?.triggerWrapper}
         data-cy={data?.cy}
         data-test={data?.test}
       >
         {typeof trigger === 'string' ? (
-          <Button disabled={disabled}>{trigger}</Button>
+          <Button disabled={disabled} className={{ root: className?.trigger }}>
+            {trigger}
+          </Button>
         ) : (
           trigger
         )}
