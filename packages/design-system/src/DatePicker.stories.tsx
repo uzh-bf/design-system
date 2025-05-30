@@ -3,7 +3,16 @@ import DatePicker from './DatePicker'
 
 export function Default() {
   const [date, setDate] = useState<Date | undefined>(new Date('2025-01-01'))
-  return <DatePicker date={date} onDateChange={(date) => setDate(date)} />
+  return (
+    <DatePicker
+      date={date}
+      onDateChange={(date) => setDate(date)}
+      dataTrigger={{ cy: 'trigger-cy' }}
+      dataCalendar={{ cy: 'calendar-cy' }}
+      dataNextMonth={{ cy: 'next-month-cy' }}
+      dataPreviousMonth={{ cy: 'previous-month-cy' }}
+    />
+  )
 }
 
 export function Disabled() {

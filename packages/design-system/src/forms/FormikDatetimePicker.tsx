@@ -22,6 +22,7 @@ export interface FormikDatetimePickerProps
  * @param hideError - Whether the error message should be hidden.
  * @param className - The optional className object allows you to override the default styling.
  * @param dataTrigger - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the popover trigger.
+ * @param dataCalendar - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the calendar icon.
  * @param dataHours - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the hours input.
  * @param dataMinutes - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the minutes input.
  * @param dataSeconds - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the seconds input.

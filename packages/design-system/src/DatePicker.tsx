@@ -39,6 +39,14 @@ export interface DatePickerProps {
     cy?: string
     test?: string
   }
+  dataNextMonth?: {
+    cy?: string
+    test?: string
+  }
+  dataPreviousMonth?: {
+    cy?: string
+    test?: string
+  }
 }
 
 /**
@@ -61,6 +69,8 @@ export interface DatePickerProps {
  * @param onDateChange - The function to be called when the date is changed (state management)
  * @param dataTrigger - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the popover trigger
  * @param dataCalendar - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the calendar
+ * @param dataNextMonth - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the next month button
+ * @param dataPreviousMonth - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the previous month button
  * @returns Date changer component with optional label, edit button and save button.
  */
 export function DatePicker({
@@ -79,6 +89,8 @@ export function DatePicker({
   className,
   dataTrigger,
   dataCalendar,
+  dataNextMonth,
+  dataPreviousMonth,
 }: DatePickerProps) {
   return (
     <Popover>
@@ -156,6 +168,8 @@ export function DatePicker({
           }}
           data-cy={dataCalendar?.cy}
           data-test={dataCalendar?.test}
+          dataNextMonth={dataNextMonth}
+          dataPreviousMonth={dataPreviousMonth}
         />
       </PopoverContent>
     </Popover>

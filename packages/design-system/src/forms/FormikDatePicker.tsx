@@ -26,6 +26,8 @@ export interface FormikDatePickerProps
  * @param onDateChange - The function to be called when the date is changed (state management)
  * @param dataTrigger - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the popover trigger
  * @param dataCalendar - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the calendar
+ * @param dataNextMonth - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the next month button
+ * @param dataPreviousMonth - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the previous month button
  * @returns Date changer component with optional label, edit button and save button.
  */
 export function FormikDatePicker({
@@ -41,6 +43,8 @@ export function FormikDatePicker({
   className,
   dataTrigger,
   dataCalendar,
+  dataNextMonth,
+  dataPreviousMonth,
 }: FormikDatePickerProps) {
   const [field, meta, helpers] = useField(name)
 
@@ -64,6 +68,8 @@ export function FormikDatePicker({
       className={className}
       dataTrigger={dataTrigger}
       dataCalendar={dataCalendar}
+      dataNextMonth={dataNextMonth}
+      dataPreviousMonth={dataPreviousMonth}
     />
   )
 }

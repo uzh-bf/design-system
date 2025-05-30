@@ -18,7 +18,14 @@ export const Default = () => (
         return (
           <div>
             <Form>
-              <FormikDatePicker name="date" className={{ trigger: 'mb-2' }} />
+              <FormikDatePicker
+                name="date"
+                className={{ trigger: 'mb-2' }}
+                dataTrigger={{ cy: 'trigger-cy' }}
+                dataCalendar={{ cy: 'calendar-cy' }}
+                dataNextMonth={{ cy: 'next-month-cy' }}
+                dataPreviousMonth={{ cy: 'previous-month-cy' }}
+              />
               <Button type="submit">Submit</Button>
             </Form>
             <div>Value: {values.date.toISOString()}</div>
