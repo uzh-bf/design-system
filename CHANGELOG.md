@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.83](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.82...v3.0.0-alpha.83) (2025-05-30)
+
+
+### Enhancements
+
+* **Tabs:** make sure tabs wrap around on small devices to flex-col layout ([d8cde06](https://github.com/uzh-bf/design-system/commit/d8cde06d2c9020d605935e892cf2db2228857592))
+
 ## [3.0.0-alpha.82](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.81...v3.0.0-alpha.82) (2025-05-29)
 
 
