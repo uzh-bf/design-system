@@ -1,6 +1,10 @@
+import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useState } from 'react'
 import Button from './Button'
+import { DatePicker } from './DatePicker'
 import Modal from './Modal'
+import { Tooltip } from './Tooltip'
 
 export const Default = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -258,6 +262,46 @@ export const WithoutClose = () => {
         habitasse platea dictumst. Nam finibus volutpat purus. Donec ut diam in
         risus tristique mattis. Donec laoreet augue in ullamcorper sagittis.
       </div>
+    </Modal>
+  )
+}
+
+export const Temporary = () => {
+  const [isOpen, setIsOpen] = useState(false)
+  return (
+    <Modal
+      open={isOpen}
+      title="Modal Title"
+      trigger={<Button onClick={() => setIsOpen(true)}>Open Modal</Button>}
+      onPrev={() => {
+        console.log('prev')
+      }}
+      onPrimaryAction={() => setIsOpen(false)}
+      primaryLabel="Primary"
+      onSecondaryAction={() => setIsOpen(false)}
+      secondaryLabel="Secondary"
+      onNext={() => {
+        console.log('next')
+      }}
+      onClose={() => setIsOpen(false)}
+    >
+      <Tooltip tooltip="Eiusmod irure proident magna magna voluptate reprehenderit sit ea ipsum occaecat consequat ea. Duis officia ea culpa officia. Voluptate labore enim duis ullamco veniam.">
+        <FontAwesomeIcon icon={faExclamationCircle} />
+      </Tooltip>
+      <div>
+        Consectetur enim adipisicing do culpa. Laborum laboris labore velit
+        incididunt est do duis in cupidatat proident. Veniam quis ex dolore
+        pariatur eu. Quis adipisicing aliqua et Lorem minim. Nostrud anim duis
+        commodo nostrud deserunt adipisicing dolor officia amet non tempor
+        tempor laboris. Nisi esse voluptate non enim aute nisi nostrud eiusmod
+        laboris.
+      </div>
+      <DatePicker
+        label="Date"
+        placeholder="Select a date"
+        date={new Date()}
+        onDateChange={(date) => console.log(date)}
+      />
     </Modal>
   )
 }
