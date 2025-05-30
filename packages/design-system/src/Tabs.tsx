@@ -55,7 +55,10 @@ export function Tabs({
       className={className?.root}
     >
       <TabsList
-        className={twMerge('grid w-full', className?.list)}
+        className={twMerge(
+          'flex h-max w-full flex-col md:grid md:h-10',
+          className?.list
+        )}
         style={{
           gridTemplateColumns: `repeat(${tabs.length}, minmax(0, 1fr))`,
         }}
@@ -67,7 +70,7 @@ export function Tabs({
             data-cy={tab.data?.cy}
             data-test={tab.data?.test}
             className={twMerge(
-              'data-[state=active]:font-bold',
+              'w-full data-[state=active]:font-bold',
               className?.trigger,
               tab.className
             )}
