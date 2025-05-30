@@ -45,7 +45,6 @@ export function toast({
     })
   }
 
-  // TODO: fix export
   if (type === 'error') {
     return toastOriginal.error(message, {
       ...options,
