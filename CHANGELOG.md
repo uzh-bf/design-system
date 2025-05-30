@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.84](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.83...v3.0.0-alpha.84) (2025-05-30)
+
+
+### Bug Fixes
+
+* **Modal:** resolve issues caused by nested portals and ensure that tooltips are shown despite content overflow ([#150](https://github.com/uzh-bf/design-system/issues/150)) ([89484f1](https://github.com/uzh-bf/design-system/commit/89484f118ad303b7434e4dcd5d1aa6aad950f425))
+
 ## [3.0.0-alpha.83](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.82...v3.0.0-alpha.83) (2025-05-30)
 
 
