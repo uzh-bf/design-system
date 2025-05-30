@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.85](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.84...v3.0.0-alpha.85) (2025-05-30)
+
+
+### Other
+
+* ***DatePicker:** add testing attributes for calendar for date picker and datetime picker ([33c9d54](https://github.com/uzh-bf/design-system/commit/33c9d54de1d538747aa2504b3ab7b511b0575f43))
+
 ## [3.0.0-alpha.84](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.83...v3.0.0-alpha.84) (2025-05-30)
 
 
