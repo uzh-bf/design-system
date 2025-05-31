@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.86](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.85...v3.0.0-alpha.86) (2025-05-31)
+
+
+### Other
+
+* **Modal:** update styling of primary and secondary action buttons on modal ([f1af1ab](https://github.com/uzh-bf/design-system/commit/f1af1abe88f2d697f51ea9cc06d744065aa98210))
+
 ## [3.0.0-alpha.85](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.84...v3.0.0-alpha.85) (2025-05-30)
 
 
