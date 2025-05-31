@@ -198,7 +198,14 @@ export function Modal({
         </DialogHeader>
         <div className="h-max">{children}</div>
         <DialogFooter
-          className={twMerge('mt-3 h-max justify-between', className?.footer)}
+          className={twMerge(
+            'mt-3 flex h-max gap-2 sm:flex-row sm:justify-between sm:gap-0',
+            typeof onSecondaryAction === 'undefined' &&
+              typeof onPrimaryAction !== 'undefined'
+              ? 'sm:justify-end'
+              : '',
+            className?.footer
+          )}
         >
           {typeof onSecondaryAction !== 'undefined' && secondaryLabel ? (
             <Button

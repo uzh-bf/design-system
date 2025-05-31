@@ -909,9 +909,11 @@ export declare interface DateChangerProps {
  * @param onDateChange - The function to be called when the date is changed (state management)
  * @param dataTrigger - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the popover trigger
  * @param dataCalendar - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the calendar
+ * @param dataNextMonth - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the next month button
+ * @param dataPreviousMonth - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the previous month button
  * @returns Date changer component with optional label, edit button and save button.
  */
-export declare function DatePicker({ id, date, onDateChange, label, labelType, placeholder, tooltip, required, disabled, error, hideError, isTouched, className, dataTrigger, dataCalendar, }: DatePickerProps): JSX_2.Element;
+export declare function DatePicker({ id, date, onDateChange, label, labelType, placeholder, tooltip, required, disabled, error, hideError, isTouched, className, dataTrigger, dataCalendar, dataNextMonth, dataPreviousMonth, }: DatePickerProps): JSX_2.Element;
 
 export declare interface DatePickerClassName {
     trigger?: string;
@@ -939,6 +941,14 @@ export declare interface DatePickerProps {
         test?: string;
     };
     dataCalendar?: {
+        cy?: string;
+        test?: string;
+    };
+    dataNextMonth?: {
+        cy?: string;
+        test?: string;
+    };
+    dataPreviousMonth?: {
         cy?: string;
         test?: string;
     };
@@ -1387,9 +1397,11 @@ export declare interface FormikDateFieldProps {
  * @param onDateChange - The function to be called when the date is changed (state management)
  * @param dataTrigger - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the popover trigger
  * @param dataCalendar - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the calendar
+ * @param dataNextMonth - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the next month button
+ * @param dataPreviousMonth - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the previous month button
  * @returns Date changer component with optional label, edit button and save button.
  */
-export declare function FormikDatePicker({ id, name, label, labelType, placeholder, tooltip, required, disabled, hideError, className, dataTrigger, dataCalendar, }: FormikDatePickerProps): JSX_2.Element;
+export declare function FormikDatePicker({ id, name, label, labelType, placeholder, tooltip, required, disabled, hideError, className, dataTrigger, dataCalendar, dataNextMonth, dataPreviousMonth, }: FormikDatePickerProps): JSX_2.Element;
 
 export declare interface FormikDatePickerProps extends Omit<DatePickerProps, 'date' | 'onDateChange' | 'error' | 'isTouched'> {
     name: string;
@@ -1408,6 +1420,7 @@ export declare interface FormikDatePickerProps extends Omit<DatePickerProps, 'da
  * @param hideError - Whether the error message should be hidden.
  * @param className - The optional className object allows you to override the default styling.
  * @param dataTrigger - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the popover trigger.
+ * @param dataCalendar - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the calendar icon.
  * @param dataHours - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the hours input.
  * @param dataMinutes - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the minutes input.
  * @param dataSeconds - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the seconds input.
