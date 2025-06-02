@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.87](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.86...v3.0.0-alpha.87) (2025-06-02)
+
+
+### Bug Fixes
+
+* **Modal:** disable autofocus on open ([8f37aba](https://github.com/uzh-bf/design-system/commit/8f37abaf51ee77e3f019ac15451bf7ca4a0400ec))
+
 ## [3.0.0-alpha.86](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.85...v3.0.0-alpha.86) (2025-05-31)
 
 
