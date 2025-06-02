@@ -45,10 +45,8 @@ import { NameType } from 'recharts/types/component/DefaultTooltipContent';
 import * as NavigationMenuPrimitive from '@radix-ui/react-navigation-menu';
 import { Payload } from 'recharts/types/component/DefaultTooltipContent';
 import * as PopoverPrimitive from '@radix-ui/react-popover';
-import { PropsWithChildren } from 'react';
 import * as RadioGroupPrimitive from '@radix-ui/react-radio-group';
-import { default as React_2 } from 'react';
-import * as React_3 from 'react';
+import * as React_2 from 'react';
 import { ReactNode } from 'react';
 import * as RechartsPrimitive from 'recharts';
 import { RefAttributes } from 'react';
@@ -64,61 +62,61 @@ import { UseEmblaCarouselType } from 'embla-carousel-react';
 import { ValueType } from 'recharts/types/component/DefaultTooltipContent';
 import { VariantProps } from 'class-variance-authority';
 
-export declare const Accordion: React_3.ForwardRefExoticComponent<(AccordionPrimitive.AccordionSingleProps | AccordionPrimitive.AccordionMultipleProps) & React_3.RefAttributes<HTMLDivElement>>;
+export declare const Accordion: React_2.ForwardRefExoticComponent<(AccordionPrimitive.AccordionSingleProps | AccordionPrimitive.AccordionMultipleProps) & React_2.RefAttributes<HTMLDivElement>>;
 
-export declare const AccordionContent: React_3.ForwardRefExoticComponent<Omit<AccordionPrimitive.AccordionContentProps & React_3.RefAttributes<HTMLDivElement>, "ref"> & React_3.RefAttributes<HTMLDivElement>>;
+export declare const AccordionContent: React_2.ForwardRefExoticComponent<Omit<AccordionPrimitive.AccordionContentProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
-export declare const AccordionItem: React_3.ForwardRefExoticComponent<Omit<AccordionPrimitive.AccordionItemProps & React_3.RefAttributes<HTMLDivElement>, "ref"> & React_3.RefAttributes<HTMLDivElement>>;
+export declare const AccordionItem: React_2.ForwardRefExoticComponent<Omit<AccordionPrimitive.AccordionItemProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
-export declare const AccordionTrigger: React_3.ForwardRefExoticComponent<Omit<AccordionPrimitive.AccordionTriggerProps & React_3.RefAttributes<HTMLButtonElement>, "ref"> & React_3.RefAttributes<HTMLButtonElement>>;
+export declare const AccordionTrigger: React_2.ForwardRefExoticComponent<Omit<AccordionPrimitive.AccordionTriggerProps & React_2.RefAttributes<HTMLButtonElement>, "ref"> & React_2.RefAttributes<HTMLButtonElement>>;
 
-export declare const Alert: React_3.ForwardRefExoticComponent<React_3.HTMLAttributes<HTMLDivElement> & VariantProps<(props?: ({
+export declare const Alert: React_2.ForwardRefExoticComponent<React_2.HTMLAttributes<HTMLDivElement> & VariantProps<(props?: ({
     variant?: "default" | "destructive" | null | undefined;
-} & ClassProp) | undefined) => string> & React_3.RefAttributes<HTMLDivElement>>;
+} & ClassProp) | undefined) => string> & React_2.RefAttributes<HTMLDivElement>>;
 
-export declare const AlertDescription: React_3.ForwardRefExoticComponent<React_3.HTMLAttributes<HTMLParagraphElement> & React_3.RefAttributes<HTMLParagraphElement>>;
+export declare const AlertDescription: React_2.ForwardRefExoticComponent<React_2.HTMLAttributes<HTMLParagraphElement> & React_2.RefAttributes<HTMLParagraphElement>>;
 
-export declare const AlertDialog: React_3.FC<AlertDialogPrimitive.AlertDialogProps>;
+export declare const AlertDialog: React_2.FC<AlertDialogPrimitive.AlertDialogProps>;
 
-export declare const AlertDialogAction: React_3.ForwardRefExoticComponent<Omit<AlertDialogPrimitive.AlertDialogActionProps & React_3.RefAttributes<HTMLButtonElement>, "ref"> & React_3.RefAttributes<HTMLButtonElement>>;
+export declare const AlertDialogAction: React_2.ForwardRefExoticComponent<Omit<AlertDialogPrimitive.AlertDialogActionProps & React_2.RefAttributes<HTMLButtonElement>, "ref"> & React_2.RefAttributes<HTMLButtonElement>>;
 
-export declare const AlertDialogCancel: React_3.ForwardRefExoticComponent<Omit<AlertDialogPrimitive.AlertDialogCancelProps & React_3.RefAttributes<HTMLButtonElement>, "ref"> & React_3.RefAttributes<HTMLButtonElement>>;
+export declare const AlertDialogCancel: React_2.ForwardRefExoticComponent<Omit<AlertDialogPrimitive.AlertDialogCancelProps & React_2.RefAttributes<HTMLButtonElement>, "ref"> & React_2.RefAttributes<HTMLButtonElement>>;
 
-export declare const AlertDialogContent: React_3.ForwardRefExoticComponent<Omit<AlertDialogPrimitive.AlertDialogContentProps & React_3.RefAttributes<HTMLDivElement>, "ref"> & React_3.RefAttributes<HTMLDivElement>>;
+export declare const AlertDialogContent: React_2.ForwardRefExoticComponent<Omit<AlertDialogPrimitive.AlertDialogContentProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
-export declare const AlertDialogDescription: React_3.ForwardRefExoticComponent<Omit<AlertDialogPrimitive.AlertDialogDescriptionProps & React_3.RefAttributes<HTMLParagraphElement>, "ref"> & React_3.RefAttributes<HTMLParagraphElement>>;
+export declare const AlertDialogDescription: React_2.ForwardRefExoticComponent<Omit<AlertDialogPrimitive.AlertDialogDescriptionProps & React_2.RefAttributes<HTMLParagraphElement>, "ref"> & React_2.RefAttributes<HTMLParagraphElement>>;
 
 export declare const AlertDialogFooter: {
-    ({ className, ...props }: React_3.HTMLAttributes<HTMLDivElement>): JSX_2.Element;
+    ({ className, ...props }: React_2.HTMLAttributes<HTMLDivElement>): JSX_2.Element;
     displayName: string;
 };
 
 export declare const AlertDialogHeader: {
-    ({ className, ...props }: React_3.HTMLAttributes<HTMLDivElement>): JSX_2.Element;
+    ({ className, ...props }: React_2.HTMLAttributes<HTMLDivElement>): JSX_2.Element;
     displayName: string;
 };
 
-export declare const AlertDialogOverlay: React_3.ForwardRefExoticComponent<Omit<AlertDialogPrimitive.AlertDialogOverlayProps & React_3.RefAttributes<HTMLDivElement>, "ref"> & React_3.RefAttributes<HTMLDivElement>>;
+export declare const AlertDialogOverlay: React_2.ForwardRefExoticComponent<Omit<AlertDialogPrimitive.AlertDialogOverlayProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
-export declare const AlertDialogPortal: React_3.FC<AlertDialogPrimitive.AlertDialogPortalProps>;
+export declare const AlertDialogPortal: React_2.FC<AlertDialogPrimitive.AlertDialogPortalProps>;
 
-export declare const AlertDialogTitle: React_3.ForwardRefExoticComponent<Omit<AlertDialogPrimitive.AlertDialogTitleProps & React_3.RefAttributes<HTMLHeadingElement>, "ref"> & React_3.RefAttributes<HTMLHeadingElement>>;
+export declare const AlertDialogTitle: React_2.ForwardRefExoticComponent<Omit<AlertDialogPrimitive.AlertDialogTitleProps & React_2.RefAttributes<HTMLHeadingElement>, "ref"> & React_2.RefAttributes<HTMLHeadingElement>>;
 
-export declare const AlertDialogTrigger: React_3.ForwardRefExoticComponent<AlertDialogPrimitive.AlertDialogTriggerProps & React_3.RefAttributes<HTMLButtonElement>>;
+export declare const AlertDialogTrigger: React_2.ForwardRefExoticComponent<AlertDialogPrimitive.AlertDialogTriggerProps & React_2.RefAttributes<HTMLButtonElement>>;
 
-export declare const AlertTitle: React_3.ForwardRefExoticComponent<React_3.HTMLAttributes<HTMLHeadingElement> & React_3.RefAttributes<HTMLParagraphElement>>;
+export declare const AlertTitle: React_2.ForwardRefExoticComponent<React_2.HTMLAttributes<HTMLHeadingElement> & React_2.RefAttributes<HTMLParagraphElement>>;
 
 export declare const AspectRatio: ForwardRefExoticComponent<AspectRatioPrimitive.AspectRatioProps & RefAttributes<HTMLDivElement>>;
 
-export declare const Avatar: React_3.ForwardRefExoticComponent<Omit<AvatarPrimitive.AvatarProps & React_3.RefAttributes<HTMLSpanElement>, "ref"> & React_3.RefAttributes<HTMLSpanElement>>;
+export declare const Avatar: React_2.ForwardRefExoticComponent<Omit<AvatarPrimitive.AvatarProps & React_2.RefAttributes<HTMLSpanElement>, "ref"> & React_2.RefAttributes<HTMLSpanElement>>;
 
-export declare const AvatarFallback: React_3.ForwardRefExoticComponent<Omit<AvatarPrimitive.AvatarFallbackProps & React_3.RefAttributes<HTMLSpanElement>, "ref"> & React_3.RefAttributes<HTMLSpanElement>>;
+export declare const AvatarFallback: React_2.ForwardRefExoticComponent<Omit<AvatarPrimitive.AvatarFallbackProps & React_2.RefAttributes<HTMLSpanElement>, "ref"> & React_2.RefAttributes<HTMLSpanElement>>;
 
-export declare const AvatarImage: React_3.ForwardRefExoticComponent<Omit<AvatarPrimitive.AvatarImageProps & React_3.RefAttributes<HTMLImageElement>, "ref"> & React_3.RefAttributes<HTMLImageElement>>;
+export declare const AvatarImage: React_2.ForwardRefExoticComponent<Omit<AvatarPrimitive.AvatarImageProps & React_2.RefAttributes<HTMLImageElement>, "ref"> & React_2.RefAttributes<HTMLImageElement>>;
 
 export declare function Badge({ className, variant, ...props }: BadgeProps): JSX_2.Element;
 
-declare interface BadgeProps extends React_3.HTMLAttributes<HTMLDivElement>, VariantProps<typeof badgeVariants> {
+declare interface BadgeProps extends React_2.HTMLAttributes<HTMLDivElement>, VariantProps<typeof badgeVariants> {
 }
 
 export declare const badgeVariants: (props?: ({
@@ -202,27 +200,27 @@ declare type BaseRowType = {
     className?: string;
 };
 
-export declare const Breadcrumb: React_3.ForwardRefExoticComponent<Omit<React_3.DetailedHTMLProps<React_3.HTMLAttributes<HTMLElement>, HTMLElement>, "ref"> & {
-    separator?: React_3.ReactNode;
-} & React_3.RefAttributes<HTMLElement>>;
+export declare const Breadcrumb: React_2.ForwardRefExoticComponent<Omit<React_2.DetailedHTMLProps<React_2.HTMLAttributes<HTMLElement>, HTMLElement>, "ref"> & {
+    separator?: React_2.ReactNode;
+} & React_2.RefAttributes<HTMLElement>>;
 
 export declare const BreadcrumbEllipsis: {
-    ({ className, ...props }: React_3.ComponentProps<'span'>): JSX_2.Element;
+    ({ className, ...props }: React_2.ComponentProps<'span'>): JSX_2.Element;
     displayName: string;
 };
 
-export declare const BreadcrumbItem: React_3.ForwardRefExoticComponent<Omit<React_3.DetailedHTMLProps<React_3.LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>, "ref"> & React_3.RefAttributes<HTMLLIElement>>;
+export declare const BreadcrumbItem: React_2.ForwardRefExoticComponent<Omit<React_2.DetailedHTMLProps<React_2.LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>, "ref"> & React_2.RefAttributes<HTMLLIElement>>;
 
-export declare const BreadcrumbLink: React_3.ForwardRefExoticComponent<Omit<React_3.DetailedHTMLProps<React_3.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>, "ref"> & {
+export declare const BreadcrumbLink: React_2.ForwardRefExoticComponent<Omit<React_2.DetailedHTMLProps<React_2.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>, "ref"> & {
     asChild?: boolean | undefined;
-} & React_3.RefAttributes<HTMLAnchorElement>>;
+} & React_2.RefAttributes<HTMLAnchorElement>>;
 
-export declare const BreadcrumbList: React_3.ForwardRefExoticComponent<Omit<React_3.DetailedHTMLProps<React_3.OlHTMLAttributes<HTMLOListElement>, HTMLOListElement>, "ref"> & React_3.RefAttributes<HTMLOListElement>>;
+export declare const BreadcrumbList: React_2.ForwardRefExoticComponent<Omit<React_2.DetailedHTMLProps<React_2.OlHTMLAttributes<HTMLOListElement>, HTMLOListElement>, "ref"> & React_2.RefAttributes<HTMLOListElement>>;
 
-export declare const BreadcrumbPage: React_3.ForwardRefExoticComponent<Omit<React_3.DetailedHTMLProps<React_3.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>, "ref"> & React_3.RefAttributes<HTMLSpanElement>>;
+export declare const BreadcrumbPage: React_2.ForwardRefExoticComponent<Omit<React_2.DetailedHTMLProps<React_2.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>, "ref"> & React_2.RefAttributes<HTMLSpanElement>>;
 
 export declare const BreadcrumbSeparator: {
-    ({ children, className, ...props }: React_3.ComponentProps<'li'>): JSX_2.Element;
+    ({ children, className, ...props }: React_2.ComponentProps<'li'>): JSX_2.Element;
     displayName: string;
 };
 
@@ -297,7 +295,7 @@ export declare interface ButtonProps {
     [x: string]: unknown;
 }
 
-declare interface ButtonProps_2 extends React_3.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
+declare interface ButtonProps_2 extends React_2.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
     asChild?: boolean;
 }
 
@@ -306,33 +304,33 @@ declare const buttonVariants: (props?: ({
     size?: "default" | "sm" | "lg" | "icon" | null | undefined;
 } & ClassProp) | undefined) => string;
 
-export declare const Card: React_3.ForwardRefExoticComponent<React_3.HTMLAttributes<HTMLDivElement> & React_3.RefAttributes<HTMLDivElement>>;
+export declare const Card: React_2.ForwardRefExoticComponent<React_2.HTMLAttributes<HTMLDivElement> & React_2.RefAttributes<HTMLDivElement>>;
 
-export declare const CardContent: React_3.ForwardRefExoticComponent<React_3.HTMLAttributes<HTMLDivElement> & React_3.RefAttributes<HTMLDivElement>>;
+export declare const CardContent: React_2.ForwardRefExoticComponent<React_2.HTMLAttributes<HTMLDivElement> & React_2.RefAttributes<HTMLDivElement>>;
 
-export declare const CardDescription: React_3.ForwardRefExoticComponent<React_3.HTMLAttributes<HTMLParagraphElement> & React_3.RefAttributes<HTMLParagraphElement>>;
+export declare const CardDescription: React_2.ForwardRefExoticComponent<React_2.HTMLAttributes<HTMLParagraphElement> & React_2.RefAttributes<HTMLParagraphElement>>;
 
-export declare const CardFooter: React_3.ForwardRefExoticComponent<React_3.HTMLAttributes<HTMLDivElement> & React_3.RefAttributes<HTMLDivElement>>;
+export declare const CardFooter: React_2.ForwardRefExoticComponent<React_2.HTMLAttributes<HTMLDivElement> & React_2.RefAttributes<HTMLDivElement>>;
 
-export declare const CardHeader: React_3.ForwardRefExoticComponent<React_3.HTMLAttributes<HTMLDivElement> & React_3.RefAttributes<HTMLDivElement>>;
+export declare const CardHeader: React_2.ForwardRefExoticComponent<React_2.HTMLAttributes<HTMLDivElement> & React_2.RefAttributes<HTMLDivElement>>;
 
-export declare const CardTitle: React_3.ForwardRefExoticComponent<React_3.HTMLAttributes<HTMLHeadingElement> & React_3.RefAttributes<HTMLParagraphElement>>;
+export declare const CardTitle: React_2.ForwardRefExoticComponent<React_2.HTMLAttributes<HTMLHeadingElement> & React_2.RefAttributes<HTMLParagraphElement>>;
 
-export declare const Carousel: React_3.ForwardRefExoticComponent<React_3.HTMLAttributes<HTMLDivElement> & CarouselProps & React_3.RefAttributes<HTMLDivElement>>;
+export declare const Carousel: React_2.ForwardRefExoticComponent<React_2.HTMLAttributes<HTMLDivElement> & CarouselProps & React_2.RefAttributes<HTMLDivElement>>;
 
 export declare type CarouselApi = UseEmblaCarouselType[1];
 
-export declare const CarouselContent: React_3.ForwardRefExoticComponent<React_3.HTMLAttributes<HTMLDivElement> & React_3.RefAttributes<HTMLDivElement>>;
+export declare const CarouselContent: React_2.ForwardRefExoticComponent<React_2.HTMLAttributes<HTMLDivElement> & React_2.RefAttributes<HTMLDivElement>>;
 
-export declare const CarouselItem: React_3.ForwardRefExoticComponent<React_3.HTMLAttributes<HTMLDivElement> & React_3.RefAttributes<HTMLDivElement>>;
+export declare const CarouselItem: React_2.ForwardRefExoticComponent<React_2.HTMLAttributes<HTMLDivElement> & React_2.RefAttributes<HTMLDivElement>>;
 
-export declare const CarouselNext: React_3.ForwardRefExoticComponent<Omit<ButtonProps_2 & React_3.RefAttributes<HTMLButtonElement>, "ref"> & React_3.RefAttributes<HTMLButtonElement>>;
+export declare const CarouselNext: React_2.ForwardRefExoticComponent<Omit<ButtonProps_2 & React_2.RefAttributes<HTMLButtonElement>, "ref"> & React_2.RefAttributes<HTMLButtonElement>>;
 
 declare type CarouselOptions = UseCarouselParameters[0];
 
 declare type CarouselPlugin = UseCarouselParameters[1];
 
-export declare const CarouselPrevious: React_3.ForwardRefExoticComponent<Omit<ButtonProps_2 & React_3.RefAttributes<HTMLButtonElement>, "ref"> & React_3.RefAttributes<HTMLButtonElement>>;
+export declare const CarouselPrevious: React_2.ForwardRefExoticComponent<Omit<ButtonProps_2 & React_2.RefAttributes<HTMLButtonElement>, "ref"> & React_2.RefAttributes<HTMLButtonElement>>;
 
 declare type CarouselProps = {
     opts?: CarouselOptions;
@@ -343,8 +341,8 @@ declare type CarouselProps = {
 
 declare type ChartConfig = {
     [k in string]: {
-        label?: React_3.ReactNode;
-        icon?: React_3.ComponentType;
+        label?: React_2.ReactNode;
+        icon?: React_2.ComponentType;
     } & ({
         color?: string;
         theme?: never;
@@ -354,17 +352,17 @@ declare type ChartConfig = {
     });
 };
 
-export declare const ChartContainer: React_3.ForwardRefExoticComponent<Omit<React_3.ClassAttributes<HTMLDivElement> & React_3.HTMLAttributes<HTMLDivElement> & {
+export declare const ChartContainer: React_2.ForwardRefExoticComponent<Omit<React_2.ClassAttributes<HTMLDivElement> & React_2.HTMLAttributes<HTMLDivElement> & {
     config: ChartConfig;
-    children: React_3.ComponentProps<typeof RechartsPrimitive.ResponsiveContainer>['children'];
-}, "ref"> & React_3.RefAttributes<HTMLDivElement>>;
+    children: React_2.ComponentProps<typeof RechartsPrimitive.ResponsiveContainer>['children'];
+}, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
 export declare const ChartLegend: typeof RechartsPrimitive.Legend;
 
-export declare const ChartLegendContent: React_3.ForwardRefExoticComponent<Omit<React_3.ClassAttributes<HTMLDivElement> & React_3.HTMLAttributes<HTMLDivElement> & Pick<RechartsPrimitive.LegendProps, "payload" | "verticalAlign"> & {
+export declare const ChartLegendContent: React_2.ForwardRefExoticComponent<Omit<React_2.ClassAttributes<HTMLDivElement> & React_2.HTMLAttributes<HTMLDivElement> & Pick<RechartsPrimitive.LegendProps, "payload" | "verticalAlign"> & {
     hideIcon?: boolean | undefined;
     nameKey?: string | undefined;
-}, "ref"> & React_3.RefAttributes<HTMLDivElement>>;
+}, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
 export declare const ChartStyle: ({ id, config }: {
     id: string;
@@ -373,7 +371,7 @@ export declare const ChartStyle: ({ id, config }: {
 
 export declare const ChartTooltip: typeof RechartsPrimitive.Tooltip;
 
-export declare const ChartTooltipContent: React_3.ForwardRefExoticComponent<Omit<RechartsPrimitive.DefaultTooltipContentProps<ValueType, NameType> & {
+export declare const ChartTooltipContent: React_2.ForwardRefExoticComponent<Omit<RechartsPrimitive.DefaultTooltipContentProps<ValueType, NameType> & {
     accessibilityLayer?: boolean | undefined;
     active?: boolean | undefined;
     includeHidden?: boolean | undefined;
@@ -382,7 +380,7 @@ export declare const ChartTooltipContent: React_3.ForwardRefExoticComponent<Omit
     animationEasing?: AnimationTiming | undefined;
     content?: ContentType<ValueType, NameType> | undefined;
     coordinate?: Partial<Coordinate> | undefined;
-    cursor?: boolean | React_3.SVGProps<SVGElement> | React_3.ReactElement<any, string | React_3.JSXElementConstructor<any>> | undefined;
+    cursor?: boolean | React_2.SVGProps<SVGElement> | React_2.ReactElement<any, string | React_2.JSXElementConstructor<any>> | undefined;
     filterNull?: boolean | undefined;
     defaultIndex?: number | undefined;
     isAnimationActive?: boolean | undefined;
@@ -394,14 +392,14 @@ export declare const ChartTooltipContent: React_3.ForwardRefExoticComponent<Omit
     trigger?: "hover" | "click" | undefined;
     useTranslate3d?: boolean | undefined;
     viewBox?: CartesianViewBox | undefined;
-    wrapperStyle?: React_3.CSSProperties | undefined;
-} & React_3.ClassAttributes<HTMLDivElement> & React_3.HTMLAttributes<HTMLDivElement> & {
+    wrapperStyle?: React_2.CSSProperties | undefined;
+} & React_2.ClassAttributes<HTMLDivElement> & React_2.HTMLAttributes<HTMLDivElement> & {
     hideLabel?: boolean | undefined;
     hideIndicator?: boolean | undefined;
     indicator?: "line" | "dot" | "dashed" | undefined;
     nameKey?: string | undefined;
     labelKey?: string | undefined;
-}, "ref"> & React_3.RefAttributes<HTMLDivElement>>;
+}, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
 /**
  * This function returns a pre-styled Checkbox component based on the RadixUI Checkbox component and the custom theme.
@@ -592,13 +590,13 @@ export declare type ColumnType<RowType> = {
     }) => string | number | default_3.ReactElement;
 };
 
-export declare const Command: React_3.ForwardRefExoticComponent<Omit<{
-    children?: React_3.ReactNode;
-} & Pick<Pick<React_3.DetailedHTMLProps<React_3.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "key" | keyof React_3.HTMLAttributes<HTMLDivElement>> & {
-    ref?: React_3.Ref<HTMLDivElement> | undefined;
+export declare const Command: React_2.ForwardRefExoticComponent<Omit<{
+    children?: React_2.ReactNode;
+} & Pick<Pick<React_2.DetailedHTMLProps<React_2.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "key" | keyof React_2.HTMLAttributes<HTMLDivElement>> & {
+    ref?: React_2.Ref<HTMLDivElement> | undefined;
 } & {
     asChild?: boolean | undefined;
-}, "key" | keyof React_3.HTMLAttributes<HTMLDivElement> | "asChild"> & {
+}, "key" | keyof React_2.HTMLAttributes<HTMLDivElement> | "asChild"> & {
     label?: string | undefined;
     shouldFilter?: boolean | undefined;
     filter?: ((value: string, search: string, keywords?: string[] | undefined) => number) | undefined;
@@ -608,117 +606,117 @@ export declare const Command: React_3.ForwardRefExoticComponent<Omit<{
     loop?: boolean | undefined;
     disablePointerSelection?: boolean | undefined;
     vimBindings?: boolean | undefined;
-} & React_3.RefAttributes<HTMLDivElement>, "ref"> & React_3.RefAttributes<HTMLDivElement>>;
+} & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
 export declare const CommandDialog: ({ children, ...props }: CommandDialogProps) => JSX_2.Element;
 
 declare interface CommandDialogProps extends DialogProps {
 }
 
-export declare const CommandEmpty: React_3.ForwardRefExoticComponent<Omit<{
-    children?: React_3.ReactNode;
-} & Pick<Pick<React_3.DetailedHTMLProps<React_3.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "key" | keyof React_3.HTMLAttributes<HTMLDivElement>> & {
-    ref?: React_3.Ref<HTMLDivElement> | undefined;
+export declare const CommandEmpty: React_2.ForwardRefExoticComponent<Omit<{
+    children?: React_2.ReactNode;
+} & Pick<Pick<React_2.DetailedHTMLProps<React_2.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "key" | keyof React_2.HTMLAttributes<HTMLDivElement>> & {
+    ref?: React_2.Ref<HTMLDivElement> | undefined;
 } & {
     asChild?: boolean | undefined;
-}, "key" | keyof React_3.HTMLAttributes<HTMLDivElement> | "asChild"> & React_3.RefAttributes<HTMLDivElement>, "ref"> & React_3.RefAttributes<HTMLDivElement>>;
+}, "key" | keyof React_2.HTMLAttributes<HTMLDivElement> | "asChild"> & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
-export declare const CommandGroup: React_3.ForwardRefExoticComponent<Omit<{
-    children?: React_3.ReactNode;
-} & Omit<Pick<Pick<React_3.DetailedHTMLProps<React_3.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "key" | keyof React_3.HTMLAttributes<HTMLDivElement>> & {
-    ref?: React_3.Ref<HTMLDivElement> | undefined;
+export declare const CommandGroup: React_2.ForwardRefExoticComponent<Omit<{
+    children?: React_2.ReactNode;
+} & Omit<Pick<Pick<React_2.DetailedHTMLProps<React_2.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "key" | keyof React_2.HTMLAttributes<HTMLDivElement>> & {
+    ref?: React_2.Ref<HTMLDivElement> | undefined;
 } & {
     asChild?: boolean | undefined;
-}, "key" | keyof React_3.HTMLAttributes<HTMLDivElement> | "asChild">, "value" | "heading"> & {
-    heading?: React_3.ReactNode;
+}, "key" | keyof React_2.HTMLAttributes<HTMLDivElement> | "asChild">, "value" | "heading"> & {
+    heading?: React_2.ReactNode;
     value?: string | undefined;
     forceMount?: boolean | undefined;
-} & React_3.RefAttributes<HTMLDivElement>, "ref"> & React_3.RefAttributes<HTMLDivElement>>;
+} & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
-export declare const CommandInput: React_3.ForwardRefExoticComponent<Omit<Omit<Pick<Pick<React_3.DetailedHTMLProps<React_3.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, "key" | keyof React_3.InputHTMLAttributes<HTMLInputElement>> & {
-    ref?: React_3.Ref<HTMLInputElement> | undefined;
+export declare const CommandInput: React_2.ForwardRefExoticComponent<Omit<Omit<Pick<Pick<React_2.DetailedHTMLProps<React_2.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, "key" | keyof React_2.InputHTMLAttributes<HTMLInputElement>> & {
+    ref?: React_2.Ref<HTMLInputElement> | undefined;
 } & {
     asChild?: boolean | undefined;
-}, "key" | "asChild" | keyof React_3.InputHTMLAttributes<HTMLInputElement>>, "onChange" | "value" | "type"> & {
+}, "key" | "asChild" | keyof React_2.InputHTMLAttributes<HTMLInputElement>>, "onChange" | "value" | "type"> & {
     value?: string | undefined;
     onValueChange?: ((search: string) => void) | undefined;
-} & React_3.RefAttributes<HTMLInputElement>, "ref"> & React_3.RefAttributes<HTMLInputElement>>;
+} & React_2.RefAttributes<HTMLInputElement>, "ref"> & React_2.RefAttributes<HTMLInputElement>>;
 
-export declare const CommandItem: React_3.ForwardRefExoticComponent<Omit<{
-    children?: React_3.ReactNode;
-} & Omit<Pick<Pick<React_3.DetailedHTMLProps<React_3.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "key" | keyof React_3.HTMLAttributes<HTMLDivElement>> & {
-    ref?: React_3.Ref<HTMLDivElement> | undefined;
+export declare const CommandItem: React_2.ForwardRefExoticComponent<Omit<{
+    children?: React_2.ReactNode;
+} & Omit<Pick<Pick<React_2.DetailedHTMLProps<React_2.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "key" | keyof React_2.HTMLAttributes<HTMLDivElement>> & {
+    ref?: React_2.Ref<HTMLDivElement> | undefined;
 } & {
     asChild?: boolean | undefined;
-}, "key" | keyof React_3.HTMLAttributes<HTMLDivElement> | "asChild">, "onSelect" | "disabled" | "value"> & {
+}, "key" | keyof React_2.HTMLAttributes<HTMLDivElement> | "asChild">, "onSelect" | "disabled" | "value"> & {
     disabled?: boolean | undefined;
     onSelect?: ((value: string) => void) | undefined;
     value?: string | undefined;
     keywords?: string[] | undefined;
     forceMount?: boolean | undefined;
-} & React_3.RefAttributes<HTMLDivElement>, "ref"> & React_3.RefAttributes<HTMLDivElement>>;
+} & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
-export declare const CommandList: React_3.ForwardRefExoticComponent<Omit<{
-    children?: React_3.ReactNode;
-} & Pick<Pick<React_3.DetailedHTMLProps<React_3.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "key" | keyof React_3.HTMLAttributes<HTMLDivElement>> & {
-    ref?: React_3.Ref<HTMLDivElement> | undefined;
+export declare const CommandList: React_2.ForwardRefExoticComponent<Omit<{
+    children?: React_2.ReactNode;
+} & Pick<Pick<React_2.DetailedHTMLProps<React_2.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "key" | keyof React_2.HTMLAttributes<HTMLDivElement>> & {
+    ref?: React_2.Ref<HTMLDivElement> | undefined;
 } & {
     asChild?: boolean | undefined;
-}, "key" | keyof React_3.HTMLAttributes<HTMLDivElement> | "asChild"> & {
+}, "key" | keyof React_2.HTMLAttributes<HTMLDivElement> | "asChild"> & {
     label?: string | undefined;
-} & React_3.RefAttributes<HTMLDivElement>, "ref"> & React_3.RefAttributes<HTMLDivElement>>;
+} & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
-export declare const CommandSeparator: React_3.ForwardRefExoticComponent<Omit<Pick<Pick<React_3.DetailedHTMLProps<React_3.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "key" | keyof React_3.HTMLAttributes<HTMLDivElement>> & {
-    ref?: React_3.Ref<HTMLDivElement> | undefined;
+export declare const CommandSeparator: React_2.ForwardRefExoticComponent<Omit<Pick<Pick<React_2.DetailedHTMLProps<React_2.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "key" | keyof React_2.HTMLAttributes<HTMLDivElement>> & {
+    ref?: React_2.Ref<HTMLDivElement> | undefined;
 } & {
     asChild?: boolean | undefined;
-}, "key" | keyof React_3.HTMLAttributes<HTMLDivElement> | "asChild"> & {
+}, "key" | keyof React_2.HTMLAttributes<HTMLDivElement> | "asChild"> & {
     alwaysRender?: boolean | undefined;
-} & React_3.RefAttributes<HTMLDivElement>, "ref"> & React_3.RefAttributes<HTMLDivElement>>;
+} & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
 export declare const CommandShortcut: {
-    ({ className, ...props }: React_3.HTMLAttributes<HTMLSpanElement>): JSX_2.Element;
+    ({ className, ...props }: React_2.HTMLAttributes<HTMLSpanElement>): JSX_2.Element;
     displayName: string;
 };
 
-export declare const ContextMenu: React_3.FC<ContextMenuPrimitive.ContextMenuProps>;
+export declare const ContextMenu: React_2.FC<ContextMenuPrimitive.ContextMenuProps>;
 
-export declare const ContextMenuCheckboxItem: React_3.ForwardRefExoticComponent<Omit<ContextMenuPrimitive.ContextMenuCheckboxItemProps & React_3.RefAttributes<HTMLDivElement>, "ref"> & React_3.RefAttributes<HTMLDivElement>>;
+export declare const ContextMenuCheckboxItem: React_2.ForwardRefExoticComponent<Omit<ContextMenuPrimitive.ContextMenuCheckboxItemProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
-export declare const ContextMenuContent: React_3.ForwardRefExoticComponent<Omit<ContextMenuPrimitive.ContextMenuContentProps & React_3.RefAttributes<HTMLDivElement>, "ref"> & React_3.RefAttributes<HTMLDivElement>>;
+export declare const ContextMenuContent: React_2.ForwardRefExoticComponent<Omit<ContextMenuPrimitive.ContextMenuContentProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
-export declare const ContextMenuGroup: React_3.ForwardRefExoticComponent<ContextMenuPrimitive.ContextMenuGroupProps & React_3.RefAttributes<HTMLDivElement>>;
+export declare const ContextMenuGroup: React_2.ForwardRefExoticComponent<ContextMenuPrimitive.ContextMenuGroupProps & React_2.RefAttributes<HTMLDivElement>>;
 
-export declare const ContextMenuItem: React_3.ForwardRefExoticComponent<Omit<ContextMenuPrimitive.ContextMenuItemProps & React_3.RefAttributes<HTMLDivElement>, "ref"> & {
+export declare const ContextMenuItem: React_2.ForwardRefExoticComponent<Omit<ContextMenuPrimitive.ContextMenuItemProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & {
     inset?: boolean | undefined;
-} & React_3.RefAttributes<HTMLDivElement>>;
+} & React_2.RefAttributes<HTMLDivElement>>;
 
-export declare const ContextMenuLabel: React_3.ForwardRefExoticComponent<Omit<ContextMenuPrimitive.ContextMenuLabelProps & React_3.RefAttributes<HTMLDivElement>, "ref"> & {
+export declare const ContextMenuLabel: React_2.ForwardRefExoticComponent<Omit<ContextMenuPrimitive.ContextMenuLabelProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & {
     inset?: boolean | undefined;
-} & React_3.RefAttributes<HTMLDivElement>>;
+} & React_2.RefAttributes<HTMLDivElement>>;
 
-export declare const ContextMenuPortal: React_3.FC<ContextMenuPrimitive.ContextMenuPortalProps>;
+export declare const ContextMenuPortal: React_2.FC<ContextMenuPrimitive.ContextMenuPortalProps>;
 
-export declare const ContextMenuRadioGroup: React_3.ForwardRefExoticComponent<ContextMenuPrimitive.ContextMenuRadioGroupProps & React_3.RefAttributes<HTMLDivElement>>;
+export declare const ContextMenuRadioGroup: React_2.ForwardRefExoticComponent<ContextMenuPrimitive.ContextMenuRadioGroupProps & React_2.RefAttributes<HTMLDivElement>>;
 
-export declare const ContextMenuRadioItem: React_3.ForwardRefExoticComponent<Omit<ContextMenuPrimitive.ContextMenuRadioItemProps & React_3.RefAttributes<HTMLDivElement>, "ref"> & React_3.RefAttributes<HTMLDivElement>>;
+export declare const ContextMenuRadioItem: React_2.ForwardRefExoticComponent<Omit<ContextMenuPrimitive.ContextMenuRadioItemProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
-export declare const ContextMenuSeparator: React_3.ForwardRefExoticComponent<Omit<ContextMenuPrimitive.ContextMenuSeparatorProps & React_3.RefAttributes<HTMLDivElement>, "ref"> & React_3.RefAttributes<HTMLDivElement>>;
+export declare const ContextMenuSeparator: React_2.ForwardRefExoticComponent<Omit<ContextMenuPrimitive.ContextMenuSeparatorProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
 export declare const ContextMenuShortcut: {
-    ({ className, ...props }: React_3.HTMLAttributes<HTMLSpanElement>): JSX_2.Element;
+    ({ className, ...props }: React_2.HTMLAttributes<HTMLSpanElement>): JSX_2.Element;
     displayName: string;
 };
 
-export declare const ContextMenuSub: React_3.FC<ContextMenuPrimitive.ContextMenuSubProps>;
+export declare const ContextMenuSub: React_2.FC<ContextMenuPrimitive.ContextMenuSubProps>;
 
-export declare const ContextMenuSubContent: React_3.ForwardRefExoticComponent<Omit<ContextMenuPrimitive.ContextMenuSubContentProps & React_3.RefAttributes<HTMLDivElement>, "ref"> & React_3.RefAttributes<HTMLDivElement>>;
+export declare const ContextMenuSubContent: React_2.ForwardRefExoticComponent<Omit<ContextMenuPrimitive.ContextMenuSubContentProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
-export declare const ContextMenuSubTrigger: React_3.ForwardRefExoticComponent<Omit<ContextMenuPrimitive.ContextMenuSubTriggerProps & React_3.RefAttributes<HTMLDivElement>, "ref"> & {
+export declare const ContextMenuSubTrigger: React_2.ForwardRefExoticComponent<Omit<ContextMenuPrimitive.ContextMenuSubTriggerProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & {
     inset?: boolean | undefined;
-} & React_3.RefAttributes<HTMLDivElement>>;
+} & React_2.RefAttributes<HTMLDivElement>>;
 
-export declare const ContextMenuTrigger: React_3.ForwardRefExoticComponent<ContextMenuPrimitive.ContextMenuTriggerProps & React_3.RefAttributes<HTMLSpanElement>>;
+export declare const ContextMenuTrigger: React_2.ForwardRefExoticComponent<ContextMenuPrimitive.ContextMenuTriggerProps & React_2.RefAttributes<HTMLSpanElement>>;
 
 /**
  * This function creates a simple text countdown component (without any additional features or styling)
@@ -830,69 +828,6 @@ export declare interface CycleProgressProps {
  * This component provides a simple date changer with a label and a button to edit the date (not coupled to a formik context).
  *
  * @param id - The id of the date changer
- * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
- * @param dataButton - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the button
- * @param label - The label of the date changer
- * @param labelType - The type of the label (small or large)
- * @param tooltip - The tooltip of the date changer (is only shown if a label is given)
- * @param required - Whether the date label should contain a required symbol
- * @param disabled - Whether the date changer is disabled or not
- * @param error - The error message to be displayed
- * @param hideError - Whether the error message should be hidden
- * @param isTouched - Whether the date changer has been touched
- * @param format - The format of the date when the edit mode is not active (then the display is up to the browser implementation)
- * @param edit - Whether the date changer is in edit mode or not
- * @param date - The date to be displayed
- * @param onEdit - The function to be called when the edit button is clicked (external state management)
- * @param onSave - The function to be called when the save button is clicked (external state management)
- * @param editIcon - The icon to be displayed on the edit button
- * @param className - The optional className object allows you to override the default styling.
- * @returns Date changer component with optional label, edit button and save button.
- */
-export declare function DateChanger({ id, data, dataButton, label, labelType, tooltip, required, disabled, error, hideError, isTouched, format, edit, date, onEdit, onSave, editIcon, className, }: DateChangerProps): JSX_2.Element;
-
-export declare interface DateChangerClassName {
-    root?: string;
-    label?: string;
-    field?: string;
-    input?: string;
-    disabled?: string;
-    editButton?: string;
-    saveButton?: string;
-    tooltip?: string;
-}
-
-export declare interface DateChangerProps {
-    id?: string;
-    data?: {
-        cy?: string;
-        test?: string;
-    };
-    dataButton?: {
-        cy?: string;
-        test?: string;
-    };
-    label?: string;
-    labelType?: 'small' | 'large';
-    required?: boolean;
-    tooltip?: string | default_3.ReactNode;
-    disabled?: boolean;
-    error?: string;
-    hideError?: boolean;
-    isTouched?: boolean;
-    format?: string;
-    edit: boolean;
-    date: string;
-    onEdit: () => void;
-    onSave: (date: string) => void;
-    editIcon?: IconDefinition;
-    className?: DateChangerClassName;
-}
-
-/**
- * This component provides a simple date changer with a label and a button to edit the date (not coupled to a formik context).
- *
- * @param id - The id of the date changer
  * @param date - The date to be displayed (state)
  * @param onDateChange - The function to be called when the date is changed (state management)
  * @param label - The label of the date changer
@@ -954,7 +889,7 @@ export declare interface DatePickerProps {
     };
 }
 
-export declare const DateTimePicker: React_3.ForwardRefExoticComponent<{
+export declare const DateTimePicker: React_2.ForwardRefExoticComponent<{
     value?: Date | undefined;
     onChange?: ((date: Date | undefined) => void) | undefined;
     onMonthChange?: ((date: Date | undefined) => void) | undefined;
@@ -1020,8 +955,8 @@ export declare const DateTimePicker: React_3.ForwardRefExoticComponent<{
     label?: string | undefined;
     labelType?: "small" | "large" | undefined;
     required?: boolean | undefined;
-    tooltip?: string | React_3.ReactNode;
-} & Pick<DayPickerProps, "locale" | "showOutsideDays" | "showWeekNumber" | "weekStartsOn"> & React_3.RefAttributes<Partial<DateTimePickerRef>>>;
+    tooltip?: string | React_2.ReactNode;
+} & Pick<DayPickerProps, "locale" | "showOutsideDays" | "showWeekNumber" | "weekStartsOn"> & React_2.RefAttributes<Partial<DateTimePickerRef>>>;
 
 export declare type DateTimePickerProps = {
     value?: Date;
@@ -1089,7 +1024,7 @@ export declare type DateTimePickerProps = {
     label?: string;
     labelType?: 'small' | 'large';
     required?: boolean;
-    tooltip?: string | React_3.ReactNode;
+    tooltip?: string | React_2.ReactNode;
 } & Pick<DayPickerProps, 'locale' | 'weekStartsOn' | 'showWeekNumber' | 'showOutsideDays'>;
 
 export declare type DateTimePickerRef = {
@@ -1097,35 +1032,35 @@ export declare type DateTimePickerRef = {
 } & Omit<HTMLButtonElement, 'value'>;
 
 export declare const Drawer: {
-    ({ shouldScaleBackground, ...props }: React_3.ComponentProps<typeof Drawer_2.Root>): JSX_2.Element;
+    ({ shouldScaleBackground, ...props }: React_2.ComponentProps<typeof Drawer_2.Root>): JSX_2.Element;
     displayName: string;
 };
 
-export declare const DrawerClose: React_3.ForwardRefExoticComponent<DialogCloseProps & React_3.RefAttributes<HTMLButtonElement>>;
+export declare const DrawerClose: React_2.ForwardRefExoticComponent<DialogCloseProps & React_2.RefAttributes<HTMLButtonElement>>;
 
-export declare const DrawerContent: React_3.ForwardRefExoticComponent<Omit<Omit<DialogContentProps & React_3.RefAttributes<HTMLDivElement>, "ref"> & {
+export declare const DrawerContent: React_2.ForwardRefExoticComponent<Omit<Omit<DialogContentProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & {
     onAnimationEnd?: ((open: boolean) => void) | undefined;
-} & React_3.RefAttributes<HTMLDivElement>, "ref"> & React_3.RefAttributes<HTMLDivElement>>;
+} & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
-export declare const DrawerDescription: React_3.ForwardRefExoticComponent<Omit<DialogDescriptionProps & React_3.RefAttributes<HTMLParagraphElement>, "ref"> & React_3.RefAttributes<HTMLParagraphElement>>;
+export declare const DrawerDescription: React_2.ForwardRefExoticComponent<Omit<DialogDescriptionProps & React_2.RefAttributes<HTMLParagraphElement>, "ref"> & React_2.RefAttributes<HTMLParagraphElement>>;
 
 export declare const DrawerFooter: {
-    ({ className, ...props }: React_3.HTMLAttributes<HTMLDivElement>): JSX_2.Element;
+    ({ className, ...props }: React_2.HTMLAttributes<HTMLDivElement>): JSX_2.Element;
     displayName: string;
 };
 
 export declare const DrawerHeader: {
-    ({ className, ...props }: React_3.HTMLAttributes<HTMLDivElement>): JSX_2.Element;
+    ({ className, ...props }: React_2.HTMLAttributes<HTMLDivElement>): JSX_2.Element;
     displayName: string;
 };
 
-export declare const DrawerOverlay: React_3.ForwardRefExoticComponent<Omit<Omit<DialogOverlayProps & React_3.RefAttributes<HTMLDivElement>, "ref"> & React_3.RefAttributes<HTMLDivElement>, "ref"> & React_3.RefAttributes<HTMLDivElement>>;
+export declare const DrawerOverlay: React_2.ForwardRefExoticComponent<Omit<Omit<DialogOverlayProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
-export declare const DrawerPortal: React_3.FC<DialogPortalProps>;
+export declare const DrawerPortal: React_2.FC<DialogPortalProps>;
 
-export declare const DrawerTitle: React_3.ForwardRefExoticComponent<Omit<DialogTitleProps & React_3.RefAttributes<HTMLHeadingElement>, "ref"> & React_3.RefAttributes<HTMLHeadingElement>>;
+export declare const DrawerTitle: React_2.ForwardRefExoticComponent<Omit<DialogTitleProps & React_2.RefAttributes<HTMLHeadingElement>, "ref"> & React_2.RefAttributes<HTMLHeadingElement>>;
 
-export declare const DrawerTrigger: React_3.ForwardRefExoticComponent<DialogTriggerProps & React_3.RefAttributes<HTMLButtonElement>>;
+export declare const DrawerTrigger: React_2.ForwardRefExoticComponent<DialogTriggerProps & React_2.RefAttributes<HTMLButtonElement>>;
 
 /**
  * This function returns a pre-styled Dropdown component based on the RadixUI dropdown component and the custom theme.
@@ -1153,32 +1088,6 @@ export declare function DropdownLabelShortcut({ label, shortcut, tooltip, toolti
     tooltipClassName?: string;
 }): JSX_2.Element;
 
-/**
- * This function returns a pre-styled Dropdown component based on the RadixUI dropdown component and the custom theme.
- *
- * @param id - The id of the dropdown.
- * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
- * @param trigger - The content of the trigger button or a custom trigger component to replace the default button.
- * @param triggerIcon - The icon that is displayed next to the trigger content.
- * @param items - The items that are displayed in the dropdown menu. This attribute should not be set, if groups are used.
- * @param activeItems - List of labels that should be considered active. This attribute has a similar function as the "select" attribute on the item props and should not be used at the same time.
- * @param groups - The groups of items that are displayed in the dropdown menu. This attribute should not be set, if items are used.
- * @param className - The optional className object allows you to override the default styling.
- * @param disabled - Indicate whether the dropdown is disabled or not. Conditional styling is applied, if this is true.
- * @returns Dropdown component
- */
-export declare function DropdownLegacy({ id, data, trigger, triggerIcon, items, activeItems, groups, className, disabled, }: DropdownLegacyWithItemsProps | DropdownLegacyWithGroupsProps): JSX_2.Element;
-
-export declare interface DropdownLegacyWithGroupsProps extends DropdownProps_2 {
-    items?: never;
-    groups: Item_2[][];
-}
-
-export declare interface DropdownLegacyWithItemsProps extends DropdownProps_2 {
-    items: Item_2[];
-    groups?: never;
-}
-
 declare interface DropdownProps {
     id?: string;
     disabled?: boolean;
@@ -1201,29 +1110,6 @@ declare interface DropdownProps {
     };
 }
 
-declare interface DropdownProps_2 {
-    id?: string;
-    data?: {
-        cy?: string;
-        test?: string;
-    };
-    trigger: string | default_3.ReactNode;
-    triggerIcon?: IconDefinition;
-    items?: Item_2[];
-    activeItems?: string[];
-    groups?: Item_2[][];
-    className?: {
-        trigger?: string;
-        triggerDisabled?: string;
-        viewport?: string;
-        item?: string;
-        activeItem?: string;
-        group?: string;
-        arrow?: string;
-    };
-    disabled?: boolean;
-}
-
 export declare interface DropdownWithGroupsProps extends DropdownProps {
     items?: never;
     radioGroups: {
@@ -1237,16 +1123,16 @@ export declare interface DropdownWithItemsProps extends DropdownProps {
     radioGroups?: never;
 }
 
-export declare const Form: <TFieldValues extends FieldValues, TContext = any, TTransformedValues extends FieldValues | undefined = undefined>(props: FormProviderProps<TFieldValues, TContext, TTransformedValues>) => React_3.JSX.Element;
+export declare const Form: <TFieldValues extends FieldValues, TContext = any, TTransformedValues extends FieldValues | undefined = undefined>(props: FormProviderProps<TFieldValues, TContext, TTransformedValues>) => React_2.JSX.Element;
 
 export declare interface FormatterArgs {
     element: StepItem;
     ix: number;
 }
 
-export declare const FormControl: React_3.ForwardRefExoticComponent<Omit<SlotProps & React_3.RefAttributes<HTMLElement>, "ref"> & React_3.RefAttributes<HTMLElement>>;
+export declare const FormControl: React_2.ForwardRefExoticComponent<Omit<SlotProps & React_2.RefAttributes<HTMLElement>, "ref"> & React_2.RefAttributes<HTMLElement>>;
 
-export declare const FormDescription: React_3.ForwardRefExoticComponent<React_3.HTMLAttributes<HTMLParagraphElement> & React_3.RefAttributes<HTMLParagraphElement>>;
+export declare const FormDescription: React_2.ForwardRefExoticComponent<React_2.HTMLAttributes<HTMLParagraphElement> & React_2.RefAttributes<HTMLParagraphElement>>;
 
 export declare const FormField: <TFieldValues extends FieldValues = FieldValues, TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>>({ ...props }: ControllerProps<TFieldValues, TName>) => JSX_2.Element;
 
@@ -1299,85 +1185,6 @@ export declare interface FormikColorPickerProps {
         test?: string;
     };
     className?: ColorPickerClassName;
-}
-
-/**
- * This component provides a simple date changer with a label and a button to edit the date (not coupled to a formik context).
- *
- * @param id - The id of the date changer
- * @param name - The name of the field as used to keep track of the state in Formik.
- * @param label - The label of the date changer
- * @param labelType - The type of the label (small or large)
- * @param tooltip - The tooltip of the date changer (is only shown if a label is given)
- * @param required - Whether the date label should contain a required symbol
- * @param disabled - Whether the date changer is disabled or not
- * @param hideError - Whether the error message should be hidden
- * @param format - The format of the date when the edit mode is not active (then the display is up to the browser implementation)
- * @param date - The date to be displayed
- * @param editIcon - The icon to be displayed on the edit button
- * @param validateField - Function to trigger validation of the field under consideration
- * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
- * @param dataButton - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the button
- * @param className - The optional className object allows you to override the default styling.
- * @returns Date changer component with optional label, edit button and save button.
- */
-export declare function FormikDateChanger({ id, name, label, labelType, tooltip, required, disabled, hideError, format, editIcon, validateField, data, dataButton, className, }: FormikDateChangerProps): JSX_2.Element;
-
-export declare interface FormikDateChangerProps extends Omit<DateChangerProps, 'date' | 'edit' | 'onEdit' | 'onSave' | 'error' | 'isTouched'> {
-    name: string;
-    validateField?: () => void;
-    date?: never;
-    edit?: never;
-    onEdit?: never;
-    onSave?: never;
-    error?: never;
-    isTouched?: never;
-}
-
-/**
- * This function returns a date field that works as to be expected in a Formik environment.
- * State is managed by Formik through the name attribute.
- *
- * @param id - The id of the field.
- * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
- * @param name - The name of the field as used to keep track of the state in Formik.
- * @param label - The optional label is shown next to the field in the form.
- * @param labelType - The optional labelType can be used to change the size and position of the label according to pre-defined standards.
- * @param placeholder - The optional placeholder is shown when the field is empty.
- * @param tooltip - The optional tooltip is shown on hover next to the label.
- * @param required - Indicate whether the field is required or not.
- * @param hideError - Hide the error message below this component as is might be more appropriate to show it somewhere else.
- * @param touchedOnChange - Indicate whether the field should be marked as touched on change.
- * @param disabled - Disable the field.
- * @param className - The optional className object allows you to override the default styling.
- * @returns Date field component with Formik state management.
- */
-export declare function FormikDateField({ id, data, name, label, labelType, placeholder, tooltip, required, hideError, touchedOnChange, disabled, className, ...props }: FormikDateFieldProps): JSX_2.Element;
-
-export declare interface FormikDateFieldProps {
-    id?: string;
-    name: string;
-    data?: {
-        cy?: string;
-        test?: string;
-    };
-    label?: string;
-    labelType?: 'small' | 'large';
-    placeholder?: string;
-    tooltip?: string | default_3.ReactNode;
-    required?: boolean;
-    hideError?: boolean;
-    touchedOnChange?: boolean;
-    disabled?: boolean;
-    className?: {
-        root?: string;
-        field?: string;
-        label?: string;
-        input?: string;
-        error?: string;
-        tooltip?: string;
-    };
-    [key: string]: unknown;
 }
 
 /**
@@ -1514,24 +1321,6 @@ declare interface FormikNumberFieldProps {
  * @returns A pin field component that integrates with Formik for form handling.
  */
 export declare function FormikPinField({ id, name, length, required, label, labelType, tooltip, hideError, className, data, }: FormikPinFieldProps): JSX_2.Element;
-
-export declare function FormikPinFieldLegacy({ id, name, required, label, labelType, tooltip, className, data, }: FormikPinFieldLegacyProps): JSX_2.Element;
-
-export declare interface FormikPinFieldLegacyProps {
-    id?: string;
-    name: string;
-    required?: boolean;
-    label?: string;
-    labelType?: 'small' | 'large';
-    tooltip?: string | default_3.ReactNode;
-    className?: TextFieldClassName & {
-        root?: string;
-    };
-    data?: {
-        cy?: string;
-        test?: string;
-    };
-}
 
 export declare interface FormikPinFieldProps {
     id?: string;
@@ -1785,7 +1574,7 @@ export declare interface FormikTextFieldWithOnChangeProps extends FormikTextFiel
     [key: string]: unknown;
 }
 
-export declare const FormItem: React_3.ForwardRefExoticComponent<React_3.HTMLAttributes<HTMLDivElement> & React_3.RefAttributes<HTMLDivElement>>;
+export declare const FormItem: React_2.ForwardRefExoticComponent<React_2.HTMLAttributes<HTMLDivElement> & React_2.RefAttributes<HTMLDivElement>>;
 
 export declare function FormLabel({ id, required, label, labelType, className, tooltip, }: FormLabelProps): JSX_2.Element;
 
@@ -1801,7 +1590,7 @@ export declare interface FormLabelProps {
     tooltip?: string | React.ReactNode;
 }
 
-export declare const FormMessage: React_3.ForwardRefExoticComponent<React_3.HTMLAttributes<HTMLParagraphElement> & React_3.RefAttributes<HTMLParagraphElement>>;
+export declare const FormMessage: React_2.ForwardRefExoticComponent<React_2.HTMLAttributes<HTMLParagraphElement> & React_2.RefAttributes<HTMLParagraphElement>>;
 
 declare type Granularity = 'day' | 'hour' | 'minute' | 'second';
 
@@ -1861,11 +1650,11 @@ declare interface HeaderProps {
     children: default_3.ReactNode;
 }
 
-export declare const HoverCard: React_3.FC<HoverCardPrimitive.HoverCardProps>;
+export declare const HoverCard: React_2.FC<HoverCardPrimitive.HoverCardProps>;
 
-export declare const HoverCardContent: React_3.ForwardRefExoticComponent<Omit<HoverCardPrimitive.HoverCardContentProps & React_3.RefAttributes<HTMLDivElement>, "ref"> & React_3.RefAttributes<HTMLDivElement>>;
+export declare const HoverCardContent: React_2.ForwardRefExoticComponent<Omit<HoverCardPrimitive.HoverCardContentProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
-export declare const HoverCardTrigger: React_3.ForwardRefExoticComponent<HoverCardPrimitive.HoverCardTriggerProps & React_3.RefAttributes<HTMLAnchorElement>>;
+export declare const HoverCardTrigger: React_2.ForwardRefExoticComponent<HoverCardPrimitive.HoverCardTriggerProps & React_2.RefAttributes<HTMLAnchorElement>>;
 
 export declare interface IconOnlyButtonProps extends BaseNavigationButtonProps {
     icon: IconDefinition;
@@ -1880,27 +1669,6 @@ export declare interface IconOnlyDropdownProps extends BaseNavigationDropdownPro
 }
 
 declare type Item = StandardItem | CheckboxItem | RadioItem | LabelItem | SeparatorItem;
-
-declare interface Item_2 {
-    id?: string;
-    data?: {
-        cy?: string;
-        test?: string;
-    };
-    label: string | default_3.ReactNode;
-    onClick: default_3.MouseEventHandler;
-    shorting?: string;
-    selected?: boolean;
-    icon?: default_3.ReactNode;
-    tooltip?: string;
-    disabled?: boolean;
-    className?: {
-        item?: string;
-        tooltip?: string;
-        label?: string;
-        icon?: string;
-    };
-}
 
 /**
  * This function returns a label component based on the RadixUI label.
@@ -1991,85 +1759,6 @@ export declare interface LabelProps {
  * @returns Modal component
  */
 export declare function Modal({ id, trigger, title, children, onClose, onPrev, onNext, open, fullScreen, onPrimaryAction, primaryLabel, primaryType, primaryButtonStyle, primaryDisabled, primaryLoading, onSecondaryAction, secondaryLabel, secondaryType, secondaryButtonStyle, escapeDisabled, hideCloseButton, data, dataContent, dataCloseButton, dataPrimaryAction, dataSecondaryAction, className, }: ModalProps): JSX_2.Element;
-
-/**
- * This function returns a pre-styled modal component based on the RadixUI dialog component and the custom theme.
- *
- * @param id - The id of the modal.
- * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
- * @param dataOverlay - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the overlay
- * @param dataContent - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the content
- * @param dataCloseButton - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the close button
- * @param dataNextButton - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the next button
- * @param dataPrevButton - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the previous button
- * @param trigger - The optional trigger that opens the modal, if the state is not managed by some parent component already.
- * @param title - The optional title of the modal.
- * @param children - The content of the modal.
- * @param onClose - Function that is called when the modal is closed.
- * @param onPrev - Function that is called when the optional previous button is clicked.
- * @param onNext - Function that is called when the optional next button is clicked.
- * @param open - Indicate whether the modal is open or not. This state is managed outside of the component.
- * @param onOpenChange - Function that is called when the modal is opened or closed.
- * @param fullScreen - Indicate whether the modal should be full screen or not.
- * @param onPrimaryAction - The optional primary action button.
- * @param onSecondaryAction - The optional secondary action button.
- * @param escapeDisabled - Indicate whether the modal should be closed when the escape key is pressed.
- * @param hideCloseButton - Indicate whether the close button should be hidden.
- * @param className - The optional className object allows you to override the default styling.
- * @param asPortal - Whether the contents are rendered in a portal.
- * @returns Modal component
- */
-export declare function ModalLegacy({ id, data, dataOverlay, dataContent, dataCloseButton, dataNextButton, dataPrevButton, trigger, title, children, onClose, onPrev, onNext, open, onOpenChange, fullScreen, className, onPrimaryAction, onSecondaryAction, escapeDisabled, hideCloseButton, asPortal, }: ModalLegacyProps): JSX_2.Element;
-
-export declare interface ModalLegacyProps {
-    id?: string;
-    data?: {
-        cy?: string;
-        test?: string;
-    };
-    dataOverlay?: {
-        cy?: string;
-        test?: string;
-    };
-    dataContent?: {
-        cy?: string;
-        test?: string;
-    };
-    dataCloseButton?: {
-        cy?: string;
-        test?: string;
-    };
-    dataNextButton?: {
-        cy?: string;
-        test?: string;
-    };
-    dataPrevButton?: {
-        cy?: string;
-        test?: string;
-    };
-    className?: {
-        overlay?: string;
-        content?: string;
-        title?: string;
-        children?: string;
-        onPrev?: string;
-        onNext?: string;
-    };
-    children: default_3.ReactNode;
-    fullScreen?: boolean;
-    open: boolean;
-    title?: string | default_3.ReactNode;
-    trigger?: default_3.ReactNode;
-    escapeDisabled?: boolean;
-    hideCloseButton?: boolean;
-    asPortal?: boolean;
-    onClose: (e?: default_3.MouseEvent<HTMLButtonElement>) => void;
-    onNext?: (e?: default_3.MouseEvent<HTMLButtonElement>) => void;
-    onOpenChange?: (e?: default_3.MouseEvent<HTMLButtonElement>) => void;
-    onPrev?: (e?: default_3.MouseEvent<HTMLButtonElement>) => void;
-    onPrimaryAction?: default_3.ReactNode;
-    onSecondaryAction?: default_3.ReactNode;
-}
 
 export declare interface ModalProps {
     id?: string;
@@ -2163,13 +1852,13 @@ export declare type NavigationDropdownProps = LabelOnlyDropdownProps | IconOnlyD
 
 export declare type NavigationItemProps = NavigationButtonItemProps | NavigationDropdownItemProps;
 
-export declare const NavigationMenu: React_3.ForwardRefExoticComponent<Omit<NavigationMenuPrimitive.NavigationMenuProps & React_3.RefAttributes<HTMLElement>, "ref"> & React_3.RefAttributes<HTMLElement>>;
+export declare const NavigationMenu: React_2.ForwardRefExoticComponent<Omit<NavigationMenuPrimitive.NavigationMenuProps & React_2.RefAttributes<HTMLElement>, "ref"> & React_2.RefAttributes<HTMLElement>>;
 
-export declare const NavigationMenuContent: React_3.ForwardRefExoticComponent<Omit<NavigationMenuPrimitive.NavigationMenuContentProps & React_3.RefAttributes<HTMLDivElement>, "ref"> & React_3.RefAttributes<HTMLDivElement>>;
+export declare const NavigationMenuContent: React_2.ForwardRefExoticComponent<Omit<NavigationMenuPrimitive.NavigationMenuContentProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
-export declare const NavigationMenuIndicator: React_3.ForwardRefExoticComponent<Omit<NavigationMenuPrimitive.NavigationMenuIndicatorProps & React_3.RefAttributes<HTMLDivElement>, "ref"> & React_3.RefAttributes<HTMLDivElement>>;
+export declare const NavigationMenuIndicator: React_2.ForwardRefExoticComponent<Omit<NavigationMenuPrimitive.NavigationMenuIndicatorProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
-export declare const NavigationMenuItem: React_3.ForwardRefExoticComponent<NavigationMenuPrimitive.NavigationMenuItemProps & React_3.RefAttributes<HTMLLIElement>>;
+export declare const NavigationMenuItem: React_2.ForwardRefExoticComponent<NavigationMenuPrimitive.NavigationMenuItemProps & React_2.RefAttributes<HTMLLIElement>>;
 
 export declare type NavigationMenuItemProps = {
     key: string;
@@ -2195,15 +1884,15 @@ export declare type NavigationMenuItemProps = {
     };
 };
 
-export declare const NavigationMenuLink: React_3.ForwardRefExoticComponent<NavigationMenuPrimitive.NavigationMenuLinkProps & React_3.RefAttributes<HTMLAnchorElement>>;
+export declare const NavigationMenuLink: React_2.ForwardRefExoticComponent<NavigationMenuPrimitive.NavigationMenuLinkProps & React_2.RefAttributes<HTMLAnchorElement>>;
 
-export declare const NavigationMenuList: React_3.ForwardRefExoticComponent<Omit<NavigationMenuPrimitive.NavigationMenuListProps & React_3.RefAttributes<HTMLUListElement>, "ref"> & React_3.RefAttributes<HTMLUListElement>>;
+export declare const NavigationMenuList: React_2.ForwardRefExoticComponent<Omit<NavigationMenuPrimitive.NavigationMenuListProps & React_2.RefAttributes<HTMLUListElement>, "ref"> & React_2.RefAttributes<HTMLUListElement>>;
 
-export declare const NavigationMenuTrigger: React_3.ForwardRefExoticComponent<Omit<NavigationMenuPrimitive.NavigationMenuTriggerProps & React_3.RefAttributes<HTMLButtonElement>, "ref"> & React_3.RefAttributes<HTMLButtonElement>>;
+export declare const NavigationMenuTrigger: React_2.ForwardRefExoticComponent<Omit<NavigationMenuPrimitive.NavigationMenuTriggerProps & React_2.RefAttributes<HTMLButtonElement>, "ref"> & React_2.RefAttributes<HTMLButtonElement>>;
 
 export declare const navigationMenuTriggerStyle: (props?: ClassProp | undefined) => string;
 
-export declare const NavigationMenuViewport: React_3.ForwardRefExoticComponent<Omit<NavigationMenuPrimitive.NavigationMenuViewportProps & React_3.RefAttributes<HTMLDivElement>, "ref"> & React_3.RefAttributes<HTMLDivElement>>;
+export declare const NavigationMenuViewport: React_2.ForwardRefExoticComponent<Omit<NavigationMenuPrimitive.NavigationMenuViewportProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
 export declare interface NavigationProps {
     items: NavigationItemProps[];
@@ -2329,18 +2018,18 @@ export declare interface NumberFieldProps {
 }
 
 export declare const Pagination: {
-    ({ className, ...props }: React_3.ComponentProps<'nav'>): JSX_2.Element;
+    ({ className, ...props }: React_2.ComponentProps<'nav'>): JSX_2.Element;
     displayName: string;
 };
 
-export declare const PaginationContent: React_3.ForwardRefExoticComponent<Omit<React_3.DetailedHTMLProps<React_3.HTMLAttributes<HTMLUListElement>, HTMLUListElement>, "ref"> & React_3.RefAttributes<HTMLUListElement>>;
+export declare const PaginationContent: React_2.ForwardRefExoticComponent<Omit<React_2.DetailedHTMLProps<React_2.HTMLAttributes<HTMLUListElement>, HTMLUListElement>, "ref"> & React_2.RefAttributes<HTMLUListElement>>;
 
 export declare const PaginationEllipsis: {
-    ({ className, ...props }: React_3.ComponentProps<'span'>): JSX_2.Element;
+    ({ className, ...props }: React_2.ComponentProps<'span'>): JSX_2.Element;
     displayName: string;
 };
 
-export declare const PaginationItem: React_3.ForwardRefExoticComponent<Omit<React_3.DetailedHTMLProps<React_3.LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>, "ref"> & React_3.RefAttributes<HTMLLIElement>>;
+export declare const PaginationItem: React_2.ForwardRefExoticComponent<Omit<React_2.DetailedHTMLProps<React_2.LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>, "ref"> & React_2.RefAttributes<HTMLLIElement>>;
 
 export declare const PaginationLink: {
     ({ className, isActive, size, ...props }: PaginationLinkProps): JSX_2.Element;
@@ -2349,25 +2038,25 @@ export declare const PaginationLink: {
 
 declare type PaginationLinkProps = {
     isActive?: boolean;
-} & Pick<ButtonProps_2, 'size'> & React_3.ComponentProps<'a'>;
+} & Pick<ButtonProps_2, 'size'> & React_2.ComponentProps<'a'>;
 
 export declare const PaginationNext: {
-    ({ className, ...props }: React_3.ComponentProps<typeof PaginationLink>): JSX_2.Element;
+    ({ className, ...props }: React_2.ComponentProps<typeof PaginationLink>): JSX_2.Element;
     displayName: string;
 };
 
 export declare const PaginationPrevious: {
-    ({ className, ...props }: React_3.ComponentProps<typeof PaginationLink>): JSX_2.Element;
+    ({ className, ...props }: React_2.ComponentProps<typeof PaginationLink>): JSX_2.Element;
     displayName: string;
 };
 
 declare type Period = 'AM' | 'PM';
 
-export declare const Popover: React_3.FC<PopoverPrimitive.PopoverProps>;
+export declare const Popover: React_2.FC<PopoverPrimitive.PopoverProps>;
 
-export declare const PopoverContent: React_3.ForwardRefExoticComponent<Omit<PopoverPrimitive.PopoverContentProps & React_3.RefAttributes<HTMLDivElement>, "ref"> & React_3.RefAttributes<HTMLDivElement>>;
+export declare const PopoverContent: React_2.ForwardRefExoticComponent<Omit<PopoverPrimitive.PopoverContentProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
-export declare const PopoverTrigger: React_3.ForwardRefExoticComponent<PopoverPrimitive.PopoverTriggerProps & React_3.RefAttributes<HTMLButtonElement>>;
+export declare const PopoverTrigger: React_2.ForwardRefExoticComponent<PopoverPrimitive.PopoverTriggerProps & React_2.RefAttributes<HTMLButtonElement>>;
 
 /**
  * This function returns a pre-styled Progress component based on the RadixUI progress component and the custom theme.
@@ -2410,9 +2099,9 @@ export declare interface ProseProps {
     children: default_3.ReactNode;
 }
 
-export declare const RadioGroup: React_3.ForwardRefExoticComponent<Omit<RadioGroupPrimitive.RadioGroupProps & React_3.RefAttributes<HTMLDivElement>, "ref"> & React_3.RefAttributes<HTMLDivElement>>;
+export declare const RadioGroup: React_2.ForwardRefExoticComponent<Omit<RadioGroupPrimitive.RadioGroupProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
-export declare const RadioGroupItem: React_3.ForwardRefExoticComponent<Omit<RadioGroupPrimitive.RadioGroupItemProps & React_3.RefAttributes<HTMLButtonElement>, "ref"> & React_3.RefAttributes<HTMLButtonElement>>;
+export declare const RadioGroupItem: React_2.ForwardRefExoticComponent<Omit<RadioGroupPrimitive.RadioGroupItemProps & React_2.RefAttributes<HTMLButtonElement>, "ref"> & React_2.RefAttributes<HTMLButtonElement>>;
 
 declare interface RadioItem extends BaseItem {
     type: 'radio';
@@ -2459,9 +2148,9 @@ children?: ReactNode;
 
 export declare const ResizablePanelGroup: ({ className, ...props }: React.ComponentProps<typeof ResizablePrimitive.PanelGroup>) => JSX_2.Element;
 
-export declare const ScrollArea: React_3.ForwardRefExoticComponent<Omit<ScrollAreaPrimitive.ScrollAreaProps & React_3.RefAttributes<HTMLDivElement>, "ref"> & React_3.RefAttributes<HTMLDivElement>>;
+export declare const ScrollArea: React_2.ForwardRefExoticComponent<Omit<ScrollAreaPrimitive.ScrollAreaProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
-export declare const ScrollBar: React_3.ForwardRefExoticComponent<Omit<ScrollAreaPrimitive.ScrollAreaScrollbarProps & React_3.RefAttributes<HTMLDivElement>, "ref"> & React_3.RefAttributes<HTMLDivElement>>;
+export declare const ScrollBar: React_2.ForwardRefExoticComponent<Omit<ScrollAreaPrimitive.ScrollAreaScrollbarProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
 /**
  * This function returns a pre-styled Select component based on the RadixUI select component and the custom theme.
@@ -2612,7 +2301,7 @@ export declare interface SelectWithItemsProps extends SelectProps {
     groups?: never;
 }
 
-export declare const Separator: React_3.ForwardRefExoticComponent<Omit<SeparatorPrimitive.SeparatorProps & React_3.RefAttributes<HTMLDivElement>, "ref"> & React_3.RefAttributes<HTMLDivElement>>;
+export declare const Separator: React_2.ForwardRefExoticComponent<Omit<SeparatorPrimitive.SeparatorProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
 declare interface SeparatorItem extends BaseItem {
     type: 'separator';
@@ -2628,56 +2317,56 @@ export declare const ShadcnCollapsibleContent: ForwardRefExoticComponent<Collaps
 
 export declare const ShadcnCollapsibleTrigger: ForwardRefExoticComponent<CollapsiblePrimitive.CollapsibleTriggerProps & RefAttributes<HTMLButtonElement>>;
 
-export declare const ShadcnFormLabel: React_3.ForwardRefExoticComponent<Omit<LabelPrimitive.LabelProps & React_3.RefAttributes<HTMLLabelElement>, "ref"> & React_3.RefAttributes<HTMLLabelElement>>;
+export declare const ShadcnFormLabel: React_2.ForwardRefExoticComponent<Omit<LabelPrimitive.LabelProps & React_2.RefAttributes<HTMLLabelElement>, "ref"> & React_2.RefAttributes<HTMLLabelElement>>;
 
-export declare const ShadcnLabel: React_3.ForwardRefExoticComponent<Omit<LabelPrimitive.LabelProps & React_3.RefAttributes<HTMLLabelElement>, "ref"> & VariantProps<(props?: ClassProp | undefined) => string> & React_3.RefAttributes<HTMLLabelElement>>;
+export declare const ShadcnLabel: React_2.ForwardRefExoticComponent<Omit<LabelPrimitive.LabelProps & React_2.RefAttributes<HTMLLabelElement>, "ref"> & VariantProps<(props?: ClassProp | undefined) => string> & React_2.RefAttributes<HTMLLabelElement>>;
 
-export declare const ShadcnTable: React_3.ForwardRefExoticComponent<React_3.HTMLAttributes<HTMLTableElement> & {
+export declare const ShadcnTable: React_2.ForwardRefExoticComponent<React_2.HTMLAttributes<HTMLTableElement> & {
     containerClassName?: string | undefined;
-} & React_3.RefAttributes<HTMLTableElement>>;
+} & React_2.RefAttributes<HTMLTableElement>>;
 
-export declare const ShadcnTableBody: React_3.ForwardRefExoticComponent<React_3.HTMLAttributes<HTMLTableSectionElement> & React_3.RefAttributes<HTMLTableSectionElement>>;
+export declare const ShadcnTableBody: React_2.ForwardRefExoticComponent<React_2.HTMLAttributes<HTMLTableSectionElement> & React_2.RefAttributes<HTMLTableSectionElement>>;
 
-export declare const ShadcnTableCaption: React_3.ForwardRefExoticComponent<React_3.HTMLAttributes<HTMLTableCaptionElement> & React_3.RefAttributes<HTMLTableCaptionElement>>;
+export declare const ShadcnTableCaption: React_2.ForwardRefExoticComponent<React_2.HTMLAttributes<HTMLTableCaptionElement> & React_2.RefAttributes<HTMLTableCaptionElement>>;
 
-export declare const ShadcnTableCell: React_3.ForwardRefExoticComponent<React_3.TdHTMLAttributes<HTMLTableCellElement> & React_3.RefAttributes<HTMLTableCellElement>>;
+export declare const ShadcnTableCell: React_2.ForwardRefExoticComponent<React_2.TdHTMLAttributes<HTMLTableCellElement> & React_2.RefAttributes<HTMLTableCellElement>>;
 
-export declare const ShadcnTableFooter: React_3.ForwardRefExoticComponent<React_3.HTMLAttributes<HTMLTableSectionElement> & React_3.RefAttributes<HTMLTableSectionElement>>;
+export declare const ShadcnTableFooter: React_2.ForwardRefExoticComponent<React_2.HTMLAttributes<HTMLTableSectionElement> & React_2.RefAttributes<HTMLTableSectionElement>>;
 
-export declare const ShadcnTableHead: React_3.ForwardRefExoticComponent<React_3.ThHTMLAttributes<HTMLTableCellElement> & React_3.RefAttributes<HTMLTableCellElement>>;
+export declare const ShadcnTableHead: React_2.ForwardRefExoticComponent<React_2.ThHTMLAttributes<HTMLTableCellElement> & React_2.RefAttributes<HTMLTableCellElement>>;
 
-export declare const ShadcnTableHeader: React_3.ForwardRefExoticComponent<React_3.HTMLAttributes<HTMLTableSectionElement> & React_3.RefAttributes<HTMLTableSectionElement>>;
+export declare const ShadcnTableHeader: React_2.ForwardRefExoticComponent<React_2.HTMLAttributes<HTMLTableSectionElement> & React_2.RefAttributes<HTMLTableSectionElement>>;
 
-export declare const ShadcnTableRow: React_3.ForwardRefExoticComponent<React_3.HTMLAttributes<HTMLTableRowElement> & React_3.RefAttributes<HTMLTableRowElement>>;
+export declare const ShadcnTableRow: React_2.ForwardRefExoticComponent<React_2.HTMLAttributes<HTMLTableRowElement> & React_2.RefAttributes<HTMLTableRowElement>>;
 
-export declare const Sheet: React_3.FC<SheetPrimitive.DialogProps>;
+export declare const Sheet: React_2.FC<SheetPrimitive.DialogProps>;
 
-export declare const SheetClose: React_3.ForwardRefExoticComponent<SheetPrimitive.DialogCloseProps & React_3.RefAttributes<HTMLButtonElement>>;
+export declare const SheetClose: React_2.ForwardRefExoticComponent<SheetPrimitive.DialogCloseProps & React_2.RefAttributes<HTMLButtonElement>>;
 
-export declare const SheetContent: React_3.ForwardRefExoticComponent<SheetContentProps & React_3.RefAttributes<HTMLDivElement>>;
+export declare const SheetContent: React_2.ForwardRefExoticComponent<SheetContentProps & React_2.RefAttributes<HTMLDivElement>>;
 
-declare interface SheetContentProps extends React_3.ComponentPropsWithoutRef<typeof SheetPrimitive.Content>, VariantProps<typeof sheetVariants> {
+declare interface SheetContentProps extends React_2.ComponentPropsWithoutRef<typeof SheetPrimitive.Content>, VariantProps<typeof sheetVariants> {
 }
 
-export declare const SheetDescription: React_3.ForwardRefExoticComponent<Omit<SheetPrimitive.DialogDescriptionProps & React_3.RefAttributes<HTMLParagraphElement>, "ref"> & React_3.RefAttributes<HTMLParagraphElement>>;
+export declare const SheetDescription: React_2.ForwardRefExoticComponent<Omit<SheetPrimitive.DialogDescriptionProps & React_2.RefAttributes<HTMLParagraphElement>, "ref"> & React_2.RefAttributes<HTMLParagraphElement>>;
 
 export declare const SheetFooter: {
-    ({ className, ...props }: React_3.HTMLAttributes<HTMLDivElement>): JSX_2.Element;
+    ({ className, ...props }: React_2.HTMLAttributes<HTMLDivElement>): JSX_2.Element;
     displayName: string;
 };
 
 export declare const SheetHeader: {
-    ({ className, ...props }: React_3.HTMLAttributes<HTMLDivElement>): JSX_2.Element;
+    ({ className, ...props }: React_2.HTMLAttributes<HTMLDivElement>): JSX_2.Element;
     displayName: string;
 };
 
-export declare const SheetOverlay: React_3.ForwardRefExoticComponent<Omit<SheetPrimitive.DialogOverlayProps & React_3.RefAttributes<HTMLDivElement>, "ref"> & React_3.RefAttributes<HTMLDivElement>>;
+export declare const SheetOverlay: React_2.ForwardRefExoticComponent<Omit<SheetPrimitive.DialogOverlayProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
-export declare const SheetPortal: React_3.FC<SheetPrimitive.DialogPortalProps>;
+export declare const SheetPortal: React_2.FC<SheetPrimitive.DialogPortalProps>;
 
-export declare const SheetTitle: React_3.ForwardRefExoticComponent<Omit<SheetPrimitive.DialogTitleProps & React_3.RefAttributes<HTMLHeadingElement>, "ref"> & React_3.RefAttributes<HTMLHeadingElement>>;
+export declare const SheetTitle: React_2.ForwardRefExoticComponent<Omit<SheetPrimitive.DialogTitleProps & React_2.RefAttributes<HTMLHeadingElement>, "ref"> & React_2.RefAttributes<HTMLHeadingElement>>;
 
-export declare const SheetTrigger: React_3.ForwardRefExoticComponent<SheetPrimitive.DialogTriggerProps & React_3.RefAttributes<HTMLButtonElement>>;
+export declare const SheetTrigger: React_2.ForwardRefExoticComponent<SheetPrimitive.DialogTriggerProps & React_2.RefAttributes<HTMLButtonElement>>;
 
 declare const sheetVariants: (props?: ({
     side?: "left" | "right" | "top" | "bottom" | null | undefined;
@@ -2902,69 +2591,6 @@ export declare interface SwitchProps {
     className?: SwitchClassName;
 }
 
-/**
- * This function returns a pre-styled Tab trigger component to be used inside a Tabs.Tablist.
- * The value of this tab is required for both the internally and externally controlled state.
- *
- * @param id - The id of the tab.
- * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
- * @param value - The value of the tab. This is required for the internal and external state.
- * @param label - The label of the tab.
- * @param children - A child component of the tab header, which can optionally replace the label
- * @param disabled - The optional disabled property allows you to disable the tab.
- * @param className - The optional className object allows you to override the default styling.
- * @returns Tab trigger component
- */
-export declare function Tab({ id, data, value, label, children, disabled, className, }: TabPropsWithLabel_2 | TabPropsWithChildren_2): JSX_2.Element;
-
-/**
- * This function returns a pre-styled Tab trigger component to be used inside a Tabs.Tablist.
- * The value of this tab is required for both the internally and externally controlled state.
- *
- * @param id - The id of the tab.
- * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
- * @param value - The value of the tab. This is required for the internal and external state.
- * @param label - The label of the tab.
- * @param children - A child component of the tab header, which can optionally replace the label
- * @param disabled - The optional disabled property allows you to disable the tab.
- * @param className - The optional className object allows you to override the default styling.
- * @returns Tab trigger component
- */
-declare function Tab_2({
-    id,
-    data,
-    value,
-    label,
-    children,
-    disabled,
-    className,
-}: TabPropsWithLabel | TabPropsWithChildren) {
-    return (
-    <TabsPrimitive.Trigger
-    id={id}
-    data-cy={data?.cy}
-    data-test={data?.test}
-    value={value}
-    className={twMerge(
-        'group flex-1 border-b border-r border-gray-300 px-3 py-2.5 first:rounded-tl-lg last:rounded-tr-lg last:border-r-0',
-        'data-[state=active]:border-b-slate-600 data-[state=inactive]:bg-gray-50 hover:data-[state=inactive]:bg-gray-200 focus-visible:data-[state=active]:border-b-transparent',
-        'focus:data-[state=active]:border-b-red focus:z-10 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75',
-        className?.root
-        )}
-    disabled={disabled}
-    >
-    <span
-    className={twMerge(
-        'text-sm font-medium text-gray-700',
-        className?.label
-        )}
-    >
-        {label ?? children}
-    </span>
-    </TabsPrimitive.Trigger>
-    )
-}
-
 export declare function TabContent({ id, value, children, data, className, }: {
     id?: string;
     value: string;
@@ -2977,18 +2603,6 @@ export declare function TabContent({ id, value, children, data, className, }: {
         root?: string;
     };
 }): JSX_2.Element;
-
-declare interface TabContentProps {
-    id?: string;
-    data?: {
-        cy?: string;
-        test?: string;
-    };
-    value: string;
-    className?: {
-        root?: string;
-    };
-}
 
 /**
  * This function returns a pre-styled Table component based on the RadixUI table component and the custom theme.
@@ -3011,19 +2625,6 @@ declare interface TabContentProps {
  */
 export declare function Table<RowType extends Record<string, string | number | boolean>>({ id, dataAttributes, columns, data, caption, className, forwardedRef, emptyCellText, defaultSortField, defaultSortOrder, }: TableProps<RowType>): JSX_2.Element;
 
-/**
- * This function returns a pre-styled TabContent component to be used inside a Tabs component.
- * The value of this tab is required for both the internally and externally controlled state.
- *
- * @param id The id of the tab content.
- * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
- * @param value The value of the tab. This is required for the internal and external state.
- * @param children The content of the tab should be passed as children to this component.
- * @param className The optional className object allows you to override the default styling.
- * @returns Tab Content component
- */
-export declare function TabLegacyContent({ id, data, value, children, className, }: PropsWithChildren<TabContentProps>): JSX_2.Element;
-
 export declare interface TableProps<RowType extends BaseRowType> {
     id?: string;
     dataAttributes?: {
@@ -3043,123 +2644,6 @@ export declare interface TableProps<RowType extends BaseRowType> {
     emptyCellText?: string;
     defaultSortField?: string;
     defaultSortOrder?: 'asc' | 'desc';
-}
-
-/**
- * This function returns a pre-styled TabList component to be used inside a Tabs component.
- *
- * @param id The id of the tab list.
- * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
- * @param children The tab triggers should be passed as children to this component.
- * @param className The optional className object allows you to override the default styling.
- * @returns TabList component
- */
-export declare function TabList({ id, data, children, className, }: PropsWithChildren<TabListProps_2>): JSX_2.Element;
-
-/**
- * This function returns a pre-styled TabList component to be used inside a Tabs component.
- *
- * @param id The id of the tab list.
- * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
- * @param children The tab triggers should be passed as children to this component.
- * @param className The optional className object allows you to override the default styling.
- * @returns TabList component
- */
-declare function TabList_2({
-    id,
-    data,
-    children,
-    className,
-}: PropsWithChildren<TabListProps>) {
-    return (
-    <TabsPrimitive.List
-    id={id}
-    data-cy={data?.cy}
-    data-test={data?.test}
-    className={twMerge(
-        'flex w-full flex-col rounded-t-lg bg-white md:flex-row',
-        className?.root
-        )}
-    >
-        {children}
-    </TabsPrimitive.List>
-    )
-}
-
-declare interface TabListProps {
-    id?: string
-    data?: {
-        cy?: string
-        test?: string
-    }
-    className?: {
-        root?: string
-    }
-}
-
-declare interface TabListProps_2 {
-    id?: string;
-    data?: {
-        cy?: string;
-        test?: string;
-    };
-    className?: {
-        root?: string;
-    };
-}
-
-declare interface TabProps {
-    id?: string
-    data?: {
-        cy?: string
-        test?: string
-    }
-    value: string
-    label?: string
-    children?: React_2.ReactNode
-    disabled?: boolean
-    className?: {
-        root?: string
-        label?: string
-        disabled?: string
-    }
-}
-
-declare interface TabProps_2 {
-    id?: string;
-    data?: {
-        cy?: string;
-        test?: string;
-    };
-    value: string;
-    label?: string;
-    children?: default_3.ReactNode;
-    disabled?: boolean;
-    className?: {
-        root?: string;
-        label?: string;
-        disabled?: string;
-    };
-}
-
-declare interface TabPropsWithChildren extends TabProps {
-    label?: never
-    children: React_2.ReactNode
-}
-
-declare interface TabPropsWithChildren_2 extends TabProps_2 {
-    label?: never;
-    children: default_3.ReactNode;
-}
-
-declare interface TabPropsWithLabel extends TabProps {
-    label: string
-    children?: never
-}
-
-declare interface TabPropsWithLabel_2 extends TabProps_2 {
-    label: string;
-    children?: never;
 }
 
 /**
@@ -3197,41 +2681,6 @@ export declare function Tabs({ id, defaultValue, value, onValueChange, tabs, cla
     };
     children: React.ReactNode;
 }): JSX_2.Element;
-
-/**
- * This function returns a pre-styled TabList component based on the RadixUI TabList component and the custom theme.
- * The active tab / component state can be either controlled internally or controlled through the parent component.
- *
- * @param id The id of the tab list.
- * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
- * @param defaultValue The default value of the tab that is active when the component is initially rendered.
- * @param value The value of the tab that is active. This value is required, if the state is controlled by the parent component.
- * @param onValueChange The function that is called when the active tab is changed. The new value is passed as a parameter. This function is required, if the state is controlled by the parent component.
- * @param children The tab list and content should be passed as children to this component.
- * @param className The optional className object allows you to override the default styling.
- * @returns Tabs wrapper component
- */
-export declare function TabsLegacy({ id, data, defaultValue, value, children, onValueChange, className, }: PropsWithChildren<TabsProps>): JSX_2.Element;
-
-export declare namespace TabsLegacy {
-    var Tab: Tab_2;
-    var TabList: TabList_2;
-    var TabContent: typeof TabLegacyContent;
-}
-
-declare interface TabsProps {
-    id?: string;
-    data?: {
-        cy?: string;
-        test?: string;
-    };
-    defaultValue: string;
-    value?: string;
-    onValueChange?: (newValue: string) => void;
-    className?: {
-        root?: string;
-    };
-}
 
 /**
  * This function returns a pre-styled tag component
@@ -3405,11 +2854,11 @@ declare const THEMES: {
     readonly dark: ".dark";
 };
 
-export declare const TimePicker: React_3.ForwardRefExoticComponent<TimePickerProps & React_3.RefAttributes<TimePickerRef>>;
+export declare const TimePicker: React_2.ForwardRefExoticComponent<TimePickerProps & React_2.RefAttributes<TimePickerRef>>;
 
-export declare const TimePickerInput: React_3.ForwardRefExoticComponent<TimePickerInputProps & React_3.RefAttributes<HTMLInputElement>>;
+export declare const TimePickerInput: React_2.ForwardRefExoticComponent<TimePickerInputProps & React_2.RefAttributes<HTMLInputElement>>;
 
-declare interface TimePickerInputProps extends React_3.InputHTMLAttributes<HTMLInputElement> {
+declare interface TimePickerInputProps extends React_2.InputHTMLAttributes<HTMLInputElement> {
     picker: TimePickerType;
     date?: Date | null;
     onDateChange?: (date: Date | undefined) => void;
@@ -3460,80 +2909,6 @@ export declare const Toaster: ({ ...props }: ToasterProps) => JSX_2.Element;
 
 declare type ToasterProps = React.ComponentProps<typeof Toaster_2>;
 
-export declare function ToastLegacy({ title, description, duration, dismissible, triggerText, actionText, actionOnClick, position, openExternal, onCloseExternal, type, children, data, dataDismissible, dataAction, className, }: ToastLegacyPropsWithTitleTrigger | ToastLegacyPropsWithTitleNoTrigger | ToastLegacyPropsWithChildrenTrigger | ToastLegacyPropsWithChildrenNoTrigger): React_3.ReactElement;
-
-declare interface ToastLegacyProps {
-    title?: string;
-    description?: string;
-    duration?: number;
-    dismissible?: boolean;
-    triggerText?: string;
-    actionText?: string;
-    actionOnClick?: () => void;
-    position?: string;
-    openExternal?: boolean;
-    onCloseExternal?: () => void;
-    type?: 'default' | 'success' | 'warning' | 'error';
-    children?: React_3.ReactNode;
-    data?: {
-        cy?: string;
-        test?: string;
-    };
-    dataDismissible?: {
-        cy?: string;
-        test?: string;
-    };
-    dataAction?: {
-        cy?: string;
-        test?: string;
-    };
-    className?: {
-        root?: string;
-        viewport?: string;
-        trigger?: string;
-        title?: string;
-        description?: string;
-        children?: string;
-        action?: string;
-    };
-}
-
-declare interface ToastLegacyPropsWithChildren extends ToastLegacyProps {
-    title?: never;
-    description?: never;
-    children: React_3.ReactNode;
-}
-
-export declare interface ToastLegacyPropsWithChildrenNoTrigger extends ToastLegacyPropsWithChildren {
-    triggerText?: never;
-    openExternal: boolean;
-    onCloseExternal: () => void;
-}
-
-export declare interface ToastLegacyPropsWithChildrenTrigger extends ToastLegacyPropsWithChildren {
-    triggerText: string;
-    openExternal?: never;
-    onCloseExternal?: never;
-}
-
-declare interface ToastLegacyPropsWithTitle extends ToastLegacyProps {
-    title: string;
-    description?: string;
-    children?: never;
-}
-
-export declare interface ToastLegacyPropsWithTitleNoTrigger extends ToastLegacyPropsWithTitle {
-    triggerText?: never;
-    openExternal: boolean;
-    onCloseExternal: () => void;
-}
-
-export declare interface ToastLegacyPropsWithTitleTrigger extends ToastLegacyPropsWithTitle {
-    triggerText: string;
-    openExternal?: never;
-    onCloseExternal?: never;
-}
-
 /**
  * This function returns a pre-styled Tooltip component based on the RadixUI tooltip component and the custom theme.
  *
@@ -3547,44 +2922,6 @@ export declare interface ToastLegacyPropsWithTitleTrigger extends ToastLegacyPro
  * @returns Tooltip component
  */
 export declare function Tooltip({ id, data, dataContent, tooltip, delay, children, className, }: TooltipProps): default_3.ReactElement;
-
-/**
- * This function returns a pre-styled Tooltip component based on the RadixUI tooltip component and the custom theme.
- *
- * @param id - The id of the tooltip.
- * @param contentId - The id of the tooltip content.
- * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
- * @param dataContent - The object of data attributes that can be used for testing (e.g. data-test or data-cy) of the content
- * @param tooltip - The content of the tooltip.
- * @param delay - The delay in milliseconds before the tooltip is shown.
- * @param withIndicator - Determines whether the tooltip should have a small indicator or not.
- * @param children - The child component that triggers the tooltip.
- * @param className - The optional className object allows you to override the default styling.
- * @returns Tooltip component
- */
-export declare function TooltipLegacy({ id, contentId, data, dataContent, tooltip, delay, withIndicator, children, className, }: TooltipLegacyProps): default_3.ReactElement;
-
-export declare interface TooltipLegacyProps {
-    id?: string;
-    contentId?: string;
-    data?: {
-        cy?: string;
-        test?: string;
-    };
-    dataContent?: {
-        cy?: string;
-        test?: string;
-    };
-    tooltip: default_3.ReactNode | string;
-    delay?: number;
-    withIndicator?: boolean;
-    children: default_3.ReactNode;
-    className?: {
-        tooltip?: string;
-        trigger?: string;
-        arrow?: string;
-    };
-}
 
 export declare interface TooltipProps {
     id?: string;
@@ -3746,13 +3083,6 @@ export declare interface WorkflowProps extends WorkflowBaseProps {
 }
 
 export { }
-
-
-declare namespace TabsLegacy {
-    var Tab: typeof import("@/TabsLegacy").Tab;
-    var TabList: typeof import("@/TabsLegacy").TabList;
-    var TabContent: typeof TabLegacyContent;
-}
 
 
 declare namespace Calendar {
