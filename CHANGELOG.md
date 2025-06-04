@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.2](https://github.com/uzh-bf/design-system/compare/v3.0.1...v3.0.2) (2025-06-04)
+
+
+### Bug Fixes
+
+* **ci:** explicitly specify branches and tag pushes that should trigger action builds ([1674815](https://github.com/uzh-bf/design-system/commit/16748153c6e384bc786a57237a0fd3c262fe459c))
+
 ## [3.0.1](https://github.com/uzh-bf/design-system/compare/v3.0.0...v3.0.1) (2025-06-04)
 
 
