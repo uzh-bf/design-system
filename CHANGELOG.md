@@ -2,6 +2,68 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0](https://github.com/uzh-bf/design-system/compare/v2.14.0...v3.0.0) (2025-06-04)
+
+
+### Features
+
+* add formik date picker and datetime picker components ([#146](https://github.com/uzh-bf/design-system/issues/146)) ([07aeced](https://github.com/uzh-bf/design-system/commit/07aeced199a2d8b91a6f0181d47ba42d74b2bb57))
+* **Button:** replace button with shadcn version and updated styling ([#136](https://github.com/uzh-bf/design-system/issues/136)) ([689c0ef](https://github.com/uzh-bf/design-system/commit/689c0ef1e4d010ed95cad9923af6055e9f5e0012))
+* **DatePicker:** add new shadcn-based date picker component ([#140](https://github.com/uzh-bf/design-system/issues/140)) ([f26954d](https://github.com/uzh-bf/design-system/commit/f26954db2b6b18e11e4c99925d971427c937e342))
+* **Dropdown:** add new shadcn-based dropdown component ([#141](https://github.com/uzh-bf/design-system/issues/141)) ([33895b7](https://github.com/uzh-bf/design-system/commit/33895b7e8e4247c29b7e7e49ad362545e0ede699))
+* **FormikDatetimePicker:** add new formik datetime picker component ([#147](https://github.com/uzh-bf/design-system/issues/147)) ([dab7419](https://github.com/uzh-bf/design-system/commit/dab74191eeac3b786e6f2c5aa9010a40f67947e4))
+* introduce new formik pin field based on shadcn otp input component ([#148](https://github.com/uzh-bf/design-system/issues/148)) ([8982a8c](https://github.com/uzh-bf/design-system/commit/8982a8c82a80de199d7f15a68f6d87341db1b71d))
+* introduce new select field based on shadcn implementation with custom interfaces ([#134](https://github.com/uzh-bf/design-system/issues/134)) ([808b052](https://github.com/uzh-bf/design-system/commit/808b052e1f0806c8aa9ca48416fb9e40f0ee22bd))
+* **Modal:** implement new modal component based on shadcn dialog ([#142](https://github.com/uzh-bf/design-system/issues/142)) ([41a4f4c](https://github.com/uzh-bf/design-system/commit/41a4f4cf1fe7aa36159cadd633d37ea44947cd67))
+* **Navigation:** replace navigation component through new and improved menubar-based implementation ([cfb3462](https://github.com/uzh-bf/design-system/commit/cfb3462bd96b3d8685785104231463029f84bd43))
+* **Tabs:** add new shadcn-based tabs component ([#143](https://github.com/uzh-bf/design-system/issues/143)) ([c3bf4de](https://github.com/uzh-bf/design-system/commit/c3bf4dedc764430d52759bc31ab8e4c4b600fbfa))
+* **Toast:** introduce new shadcn-based toast components ([#144](https://github.com/uzh-bf/design-system/issues/144)) ([d860d2b](https://github.com/uzh-bf/design-system/commit/d860d2b6a5deeb49784827177cd9b1b2ed78823e))
+* **Tooltip:** add new shadcn-based tooltip component ([#145](https://github.com/uzh-bf/design-system/issues/145)) ([c598482](https://github.com/uzh-bf/design-system/commit/c5984822ff1056282af0a51aaf5c17c28d06b4e3))
+
+
+### Bug Fixes
+
+* add containerClassName on table ([438c0e2](https://github.com/uzh-bf/design-system/commit/438c0e2f7dedcb8d78cac7b687f481b0ae70d8cd))
+* add menubar to shadcn component exports ([ef7ac49](https://github.com/uzh-bf/design-system/commit/ef7ac49d464246ade052ee850ca9605f916b57fa))
+* **Button:** ensure that button size is identical for borderless variants ([d248ed7](https://github.com/uzh-bf/design-system/commit/d248ed7a6785f95a9411fc862a18053bcaad21d1))
+* **Button:** override default background hover style on button when active ([5d82db4](https://github.com/uzh-bf/design-system/commit/5d82db45b59a5da31b0338374f66a1f67df5f4cc))
+* **Button:** remove whitespace-nowrap default style from button component ([3e655ee](https://github.com/uzh-bf/design-system/commit/3e655ee9d77ecfb35082b1319cd5b80aed5eeedc))
+* **Collapsible:** ensure that bottom margin is not set below chevron icon ([bd34379](https://github.com/uzh-bf/design-system/commit/bd343791b1b23951919b1f19cdf2d25ae2ae647a))
+* **design-system:** add primary and secondary colors and shadcn colors to constants file ([2234686](https://github.com/uzh-bf/design-system/commit/2234686a8db958c32bc358ec69d9f6005f9360c8))
+* do not include preflight in style.css, upgrade turbo and pin latest pnpm ([59fc18f](https://github.com/uzh-bf/design-system/commit/59fc18f32b5039adecd39becf7435f696b92788e))
+* **forms/FormikDateChanger:** add missing export for date changer component ([2409764](https://github.com/uzh-bf/design-system/commit/24097647837ef7662ba07f56e8a902dcfb38a3f9))
+* **forms/NewFormikSelectField:** ensure that cursor does not show pointer over disabled elements ([a7dd924](https://github.com/uzh-bf/design-system/commit/a7dd924258f411fb66c732ebc55e8cef4ad59331))
+* **forms/SelectField:** make value optional and show placeholder if not set ([b96850f](https://github.com/uzh-bf/design-system/commit/b96850fe624b2c80a737e540023421a65f022b9c))
+* **forms/TextareaField:** fix styling of input field ([15b6b30](https://github.com/uzh-bf/design-system/commit/15b6b30e67df73ce81e40a2b9768e07869154dc3))
+* **Modal:** disable autofocus on open ([8f37aba](https://github.com/uzh-bf/design-system/commit/8f37abaf51ee77e3f019ac15451bf7ca4a0400ec))
+* **Modal:** pass optional event handlers to all onClick functions ([f7e1449](https://github.com/uzh-bf/design-system/commit/f7e1449eee11b62d260be90863f2307c69e4cb48))
+* **Modal:** resolve issues caused by nested portals and ensure that tooltips are shown despite content overflow ([#150](https://github.com/uzh-bf/design-system/issues/150)) ([89484f1](https://github.com/uzh-bf/design-system/commit/89484f118ad303b7434e4dcd5d1aa6aad950f425))
+* **Navigation:** add missing notification badge on dropdown trigger ([2fb9d41](https://github.com/uzh-bf/design-system/commit/2fb9d411557698d36b610ff7edaa36ebf2fb174d))
+* **packages/design-system:** field can be undefined in TextareaField ([70db230](https://github.com/uzh-bf/design-system/commit/70db2304f1bd3ba7c8975142a053988552a0f692))
+* **Progress:** add missing className to background of progress component ([3b701bb](https://github.com/uzh-bf/design-system/commit/3b701bb00d8b7b1f1beaf8c94aeb2ffc50b30d96))
+* remove radix styles from tailwind to resolve CI build issues ([#139](https://github.com/uzh-bf/design-system/issues/139)) ([594a4a3](https://github.com/uzh-bf/design-system/commit/594a4a3ddb79acbf9218930f195d5d2b73c4019c))
+* remove select and dropdown item components from the corresponding parent elements ([c49fafe](https://github.com/uzh-bf/design-system/commit/c49fafec14919caad3c2ff0469f8526f9da3c91d))
+* replace event handler types in dropdown and navigation components with more generic react event handlers ([a2e02bc](https://github.com/uzh-bf/design-system/commit/a2e02bcd425cde37ad7d9331638745fa36ac0260))
+* resolve build errors by adding component type to shadcn menubar ([4658f5a](https://github.com/uzh-bf/design-system/commit/4658f5ac4a430705c0df4a1060d93ec829069152))
+* resolve issues with validation of formik fields, fix escape disabled prop on new modal component, update date picker formatting ([93bbf8b](https://github.com/uzh-bf/design-system/commit/93bbf8b0e926f79a2aa0e039c2b74f0fdb0023d4))
+* resolve typo in component name for formik number field ([9bba247](https://github.com/uzh-bf/design-system/commit/9bba247dace1ea97e3550069095f939db0771bac))
+* **Select:** ensure that trigger text is always aligned to the left ([9b5b0a1](https://github.com/uzh-bf/design-system/commit/9b5b0a1272ad7468ae20ffc7086f0175b9a0743b))
+* **Select:** make sure label is shown on trigger instead of value after selection ([f10abe2](https://github.com/uzh-bf/design-system/commit/f10abe22afad63f7c8717c4c9a24311882de227d))
+* **Slider:** pass correct data attribute to slider thumb component ([2575c1b](https://github.com/uzh-bf/design-system/commit/2575c1b8214780d06dc317cf295a08e728392ff6))
+* **Slider:** resolve issues with text alignment of slider labels ([fdf78df](https://github.com/uzh-bf/design-system/commit/fdf78df9ba2cccc0e9fb76aa167da477f8d625e3))
+* **Switch:** add tooltip styling for switch component ([8779313](https://github.com/uzh-bf/design-system/commit/8779313b0d84f2cb8018757969ca2f7d5c82bd27))
+* **Tabs:** keys should not be passed to components as attributes ([fa72fe1](https://github.com/uzh-bf/design-system/commit/fa72fe16a8865784010d464b184dc8b3e2118a49))
+* **Toast:** add data attribute to dismissible button on toast ([89a2c74](https://github.com/uzh-bf/design-system/commit/89a2c741e0907f2337de0508dbfdb0be4eb318fe))
+* **Toast:** ensure that title and description classnames are correctly accepted by typescript ([d754e38](https://github.com/uzh-bf/design-system/commit/d754e38183cf1736a272861361dc998d883ba384))
+* undo changes related to formik field types ([2eb0a72](https://github.com/uzh-bf/design-system/commit/2eb0a7287399fc0ccdfd53cac6f0be14c3735c7f))
+* update missing menubar type in shadcn ([014c1a4](https://github.com/uzh-bf/design-system/commit/014c1a47059093268482209b5aa51d3477ae33bc))
+* **Workflow:** ensure that resolved steps are rendered correctly in the presence of tooltip symbol ([0a6c520](https://github.com/uzh-bf/design-system/commit/0a6c5205a1552a8afc666dc9975d1e4cca742ab6))
+
+
+### Miscellaneous Chores
+
+* release 3.0.0 ([821d778](https://github.com/uzh-bf/design-system/commit/821d778d5495cc691c3b75b916d5565de0f95fbf))
+
 ## [3.0.0-alpha.87](https://github.com/uzh-bf/design-system/compare/v3.0.0-alpha.86...v3.0.0-alpha.87) (2025-06-02)
 
 
