@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.1](https://github.com/uzh-bf/design-system/compare/v3.0.0...v3.0.1) (2025-06-04)
+
+
+### Bug Fixes
+
+* **ui/breadcrumb:** add missing shadcn breadcrumb story ([46e46ba](https://github.com/uzh-bf/design-system/commit/46e46bac2e361704389900b79be4779da99b8b6f))
+
 ## [3.0.0](https://github.com/uzh-bf/design-system/compare/v2.14.0...v3.0.0) (2025-06-04)
 
 
