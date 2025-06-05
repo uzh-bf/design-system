@@ -26,7 +26,8 @@ jobs:
       - name: Build project
         run: |
           cd packages/design-system
-          pnpm run build:ladle
+          pnpm build:ladle --base="/${{ github.event.repository.name }}/"
+          echo "" > build/.nojekyll
 
       - name: Upload production-ready build files
         uses: actions/upload-artifact@v4
