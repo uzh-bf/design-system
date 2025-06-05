@@ -25,13 +25,15 @@ jobs:
         run: pnpm install
 
       - name: Build project
-        run: pnpm run build:ladle
+        run: |
+          cd packages/design-system
+          pnpm run build:ladle
 
       - name: Upload production-ready build files
         uses: actions/upload-artifact@v4
         with:
           name: production-files
-          path: ./packages/design-system/dist
+          path: ./dist
 
   deploy:
     name: Deploy
