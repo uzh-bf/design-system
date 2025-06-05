@@ -1,6 +1,7 @@
 name: Deploy
 
 on: push
+# TODO: re-introduce filter for main branch
 #   push:
 #     branches:
 #       - main
@@ -36,7 +37,7 @@ jobs:
     name: Deploy
     needs: build
     runs-on: ubuntu-latest
-    # if: github.ref == 'refs/heads/main'
+    # if: github.ref == 'refs/heads/main' # TODO: re-introduce filter for main branch
 
     steps:
       - name: Download artifact
