@@ -33,7 +33,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: production-files
-          path: ./build
+          path: ./packages/design-system/build
 
   deploy:
     name: Deploy
