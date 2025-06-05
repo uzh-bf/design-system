@@ -1,13 +1,9 @@
-name: Deploy
+name: "Build (& Deploy)"
 
-on:
-  push:
-    branches:
-      - main
-
+on: push
 jobs:
   build:
-    name: Build
+    name: build
     runs-on: ubuntu-latest
 
     steps:
@@ -36,7 +32,7 @@ jobs:
           path: ./packages/design-system/build
 
   deploy:
-    name: Deploy
+    name: deploy
     needs: build
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
