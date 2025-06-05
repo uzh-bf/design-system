@@ -98,14 +98,14 @@
   "scripts": {
     "build": "run-s build:tsc build:vite build:copy",
     "build:copy": "tsx src/copy.ts",
-    "build:ladle": "ladle build",
+    "build:ladle": "LADLE=true ladle build",
     "build:tsc": "tsc -b",
     "build:vite": "vite build",
     "dev": "ladle serve",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "ladle preview"
+    "preview": "LADLE=true ladle preview"
   },
   "engines": {
     "node": "=20"
