@@ -164,9 +164,17 @@ export function ColorPicker({
             onClick={() => setColorPickerOpen(true)}
             disabled={disabled}
             data={dataTrigger}
-            className={{ root: className?.trigger }}
+            className={{
+              root: twMerge(
+                'disabled:cursor-not-allowed disabled:opacity-100',
+                className?.trigger
+              ),
+            }}
           >
-            <FontAwesomeIcon icon={triggerIcon || faPalette} />
+            <FontAwesomeIcon
+              icon={triggerIcon || faPalette}
+              className={twMerge(disabled && 'opacity-50')}
+            />
           </Button>
           {colorPickerOpen && (
             <div
