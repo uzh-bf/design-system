@@ -1,0 +1,1 @@
+import{r as e,e as c,_ as n}from"./index-B54GXRha.js";import{a as s}from"./index-DroSnTyO.js";const f=e.forwardRef((r,t)=>{var o;const{container:a=globalThis==null||(o=globalThis.document)===null||o===void 0?void 0:o.body,...l}=r;return a?c.createPortal(e.createElement(s.div,n({},l,{ref:t})),a):null});export{f as $};
