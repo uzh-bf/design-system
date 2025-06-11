@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.0.5](https://github.com/uzh-bf/design-system/compare/v3.0.4...v3.0.5) (2025-06-11)
+
+
+### Bug Fixes
+
+* **ColorPicker:** ensure that disabled color picker button does not take on selected color ([242cc2d](https://github.com/uzh-bf/design-system/commit/242cc2dc6d6242d69c93e9d5ed68ecd3aac1e448))
+* **Tooltip:** ensure that trigger content is aligned left by default ([939dd96](https://github.com/uzh-bf/design-system/commit/939dd960c5d49c6b6646ca18099ed5913375567f))
+
+
+### Enhancements
+
+* add automatic deployment to github pages ([#158](https://github.com/uzh-bf/design-system/issues/158)) ([ecd9bf0](https://github.com/uzh-bf/design-system/commit/ecd9bf0c4cd6bcbaeafb2f420fc021322e7e2761))
+
 ### [3.0.4](https://github.com/uzh-bf/design-system/compare/v3.0.3...v3.0.4) (2025-06-04)
 
 
