@@ -56,7 +56,7 @@ export function Tooltip({
           id={id}
           data-cy={data?.cy}
           data-test={data?.test}
-          className={className?.trigger}
+          className={twMerge('text-start', className?.trigger)}
           onClick={(e) => e.preventDefault()}
         >
           {children}
