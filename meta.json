@@ -1660,8 +1660,8 @@
       "levels": [
         "Tooltip"
       ],
-      "locStart": 34,
-      "locEnd": 51,
+      "locStart": 70,
+      "locEnd": 87,
       "filePath": "src/Tooltip.stories.tsx",
       "namedExport": "Children",
       "meta": {}
@@ -1682,10 +1682,21 @@
       "levels": [
         "Tooltip"
       ],
-      "locStart": 53,
-      "locEnd": 61,
+      "locStart": 89,
+      "locEnd": 97,
       "filePath": "src/Tooltip.stories.tsx",
       "namedExport": "Delay",
+      "meta": {}
+    },
+    "tooltip--multi-line": {
+      "name": "Multi line",
+      "levels": [
+        "Tooltip"
+      ],
+      "locStart": 14,
+      "locEnd": 48,
+      "filePath": "src/Tooltip.stories.tsx",
+      "namedExport": "MultiLine",
       "meta": {}
     },
     "tooltip--styled": {
@@ -1693,8 +1704,8 @@
       "levels": [
         "Tooltip"
       ],
-      "locStart": 14,
-      "locEnd": 32,
+      "locStart": 50,
+      "locEnd": 68,
       "filePath": "src/Tooltip.stories.tsx",
       "namedExport": "Styled",
       "meta": {}
