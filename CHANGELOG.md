@@ -2,12 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-### [3.0.6](https://github.com/uzh-bf/design-system/compare/v3.0.5...v3.0.6) (2025-06-12)
+## [3.0.4](https://github.com/uzh-bf/design-system/compare/v3.0.3...v3.0.4) (2025-06-12)
 
 
-### Enhancements
+### Bug Fixes
 
-* **Dropdown:** add possibility to define submenus on dropdowns ([ab16c86](https://github.com/uzh-bf/design-system/commit/ab16c86ac3078fffd25e1b7d2b44d8d9017c6aa6))
+* **ci:** revert changes back to tag-based action triggers ([0105bce](https://github.com/uzh-bf/design-system/commit/0105bce9d990a06b6ba89c97b1ab0c6adeb07fa6))
+* **ColorPicker:** ensure that disabled color picker button does not take on selected color ([242cc2d](https://github.com/uzh-bf/design-system/commit/242cc2dc6d6242d69c93e9d5ed68ecd3aac1e448))
+* **Tooltip:** ensure that trigger content is aligned left by default ([939dd96](https://github.com/uzh-bf/design-system/commit/939dd960c5d49c6b6646ca18099ed5913375567f))
 
 ### [3.0.5](https://github.com/uzh-bf/design-system/compare/v3.0.4...v3.0.5) (2025-06-11)
 
