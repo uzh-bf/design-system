@@ -670,8 +670,8 @@
       "levels": [
         "Dropdown"
       ],
-      "locStart": 47,
-      "locEnd": 60,
+      "locStart": 82,
+      "locEnd": 95,
       "filePath": "src/Dropdown.stories.tsx",
       "namedExport": "CustomTrigger",
       "meta": {}
@@ -692,8 +692,8 @@
       "levels": [
         "Dropdown"
       ],
-      "locStart": 38,
-      "locEnd": 45,
+      "locStart": 73,
+      "locEnd": 80,
       "filePath": "src/Dropdown.stories.tsx",
       "namedExport": "Disabled",
       "meta": {}
@@ -703,8 +703,8 @@
       "levels": [
         "Dropdown"
       ],
-      "locStart": 180,
-      "locEnd": 218,
+      "locStart": 215,
+      "locEnd": 253,
       "filePath": "src/Dropdown.stories.tsx",
       "namedExport": "DisabledItems",
       "meta": {}
@@ -714,8 +714,8 @@
       "levels": [
         "Dropdown"
       ],
-      "locStart": 238,
-      "locEnd": 272,
+      "locStart": 273,
+      "locEnd": 307,
       "filePath": "src/Dropdown.stories.tsx",
       "namedExport": "ItemTooltips",
       "meta": {}
@@ -725,8 +725,8 @@
       "levels": [
         "Dropdown"
       ],
-      "locStart": 62,
-      "locEnd": 128,
+      "locStart": 97,
+      "locEnd": 163,
       "filePath": "src/Dropdown.stories.tsx",
       "namedExport": "RadioGroups",
       "meta": {}
@@ -736,8 +736,8 @@
       "levels": [
         "Dropdown"
       ],
-      "locStart": 130,
-      "locEnd": 178,
+      "locStart": 165,
+      "locEnd": 213,
       "filePath": "src/Dropdown.stories.tsx",
       "namedExport": "Selection",
       "meta": {}
@@ -747,10 +747,21 @@
       "levels": [
         "Dropdown"
       ],
-      "locStart": 220,
-      "locEnd": 236,
+      "locStart": 255,
+      "locEnd": 271,
       "filePath": "src/Dropdown.stories.tsx",
       "namedExport": "Shortcuts",
+      "meta": {}
+    },
+    "dropdown--submenu": {
+      "name": "Submenu",
+      "levels": [
+        "Dropdown"
+      ],
+      "locStart": 38,
+      "locEnd": 71,
+      "filePath": "src/Dropdown.stories.tsx",
+      "namedExport": "Submenu",
       "meta": {}
     },
     "header--default": {
