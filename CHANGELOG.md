@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.0.6](https://github.com/uzh-bf/design-system/compare/v3.0.5...v3.0.6) (2025-06-12)
+
+
+### Enhancements
+
+* **Dropdown:** add possibility to define submenus on dropdowns ([ab16c86](https://github.com/uzh-bf/design-system/commit/ab16c86ac3078fffd25e1b7d2b44d8d9017c6aa6))
+
 ### [3.0.5](https://github.com/uzh-bf/design-system/compare/v3.0.4...v3.0.5) (2025-06-11)
 
 
