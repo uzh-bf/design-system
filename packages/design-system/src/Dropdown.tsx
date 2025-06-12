@@ -11,6 +11,9 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from './ui/dropdown-menu'
 
@@ -33,6 +36,7 @@ interface StandardItem extends BaseItem {
   type?: 'standard'
   value?: never
   label: string | React.ReactNode
+  items?: never
   onClick: React.MouseEventHandler
   selected?: boolean
 }
@@ -41,6 +45,7 @@ interface CheckboxItem extends BaseItem {
   type: 'checkbox'
   value?: never
   label: string | React.ReactNode
+  items?: never
   onClick: React.MouseEventHandler
   selected: boolean
 }
@@ -49,6 +54,7 @@ interface RadioItem extends BaseItem {
   type: 'radio'
   value: string
   label: string | React.ReactNode
+  items?: never
   onClick: React.MouseEventHandler
   selected?: never
 }
@@ -57,6 +63,7 @@ interface LabelItem extends BaseItem {
   type: 'label'
   value?: never
   label: string | React.ReactNode
+  items?: never
   onClick?: never
   selected?: never
 }
@@ -65,11 +72,27 @@ interface SeparatorItem extends BaseItem {
   type: 'separator'
   value?: never
   label?: never
+  items?: never
   onClick?: never
   selected?: never
 }
 
-type Item = StandardItem | CheckboxItem | RadioItem | LabelItem | SeparatorItem
+interface SubmenuItem extends BaseItem {
+  type?: 'submenu'
+  value?: never
+  label: string | React.ReactNode
+  items: Item[]
+  onClick?: never
+  selected?: never
+}
+
+type Item =
+  | StandardItem
+  | CheckboxItem
+  | RadioItem
+  | LabelItem
+  | SeparatorItem
+  | SubmenuItem
 
 interface DropdownProps {
   id?: string
@@ -200,6 +223,40 @@ export function DropdownItem({
         >
           {item.label}
         </DropdownMenuLabel>
+      )
+    }
+
+    case 'submenu': {
+      return (
+        <DropdownMenuSub>
+          <DropdownMenuSubTrigger
+            id={item.id}
+            data-cy={item.data?.cy}
+            data-test={item.data?.test}
+            className={twMerge(
+              'text-base',
+              item.disabled && 'cursor-not-allowed',
+              className,
+              item.className?.item
+            )}
+          >
+            {item.label}
+          </DropdownMenuSubTrigger>
+          <DropdownMenuSubContent>
+            {item.items.map((subItem) => (
+              <DropdownItem
+                key={subItem.id}
+                item={subItem}
+                className={twMerge(
+                  'text-base',
+                  item.disabled && 'cursor-not-allowed',
+                  className,
+                  subItem.className?.item
+                )}
+              />
+            ))}
+          </DropdownMenuSubContent>
+        </DropdownMenuSub>
       )
     }
 

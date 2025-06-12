@@ -35,6 +35,41 @@ export const Default = () => {
   )
 }
 
+export const Submenu = () => {
+  return (
+    <div>
+      <div>
+        An item can be defined with a submenu, where the contained items are
+        defined with the same props again.
+      </div>
+      <Dropdown
+        trigger="Test Content"
+        items={[
+          {
+            label: 'Element 1 long',
+            onClick: () => alert('Element 1 clicked'),
+          },
+          {
+            label: 'Element 2',
+            type: 'submenu',
+            items: [
+              {
+                label: 'Sub Element 1',
+                onClick: () => alert('Sub Element 1 clicked'),
+              },
+              {
+                label: 'Sub Element 2',
+                onClick: () => alert('Sub Element 2 clicked'),
+              },
+            ],
+          },
+        ]}
+        className={{ item: 'text-sm' }}
+      />
+    </div>
+  )
+}
+
 export const Disabled = () => {
   return (
     <div>
