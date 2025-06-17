@@ -424,6 +424,7 @@ declare interface CheckboxItem extends BaseItem {
     type: 'checkbox';
     value?: never;
     label: string | React.ReactNode;
+    items?: never;
     onClick: React.MouseEventHandler;
     selected: boolean;
 }
@@ -848,7 +849,7 @@ export declare interface CycleProgressProps {
  * @param dataPreviousMonth - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the previous month button
  * @returns Date changer component with optional label, edit button and save button.
  */
-export declare function DatePicker({ id, date, onDateChange, label, labelType, placeholder, tooltip, required, disabled, error, hideError, isTouched, className, dataTrigger, dataCalendar, dataNextMonth, dataPreviousMonth, }: DatePickerProps): JSX_2.Element;
+export declare function DatePicker({ id, date, onDateChange, label, labelType, placeholder, tooltip, required, disabled, error, hideError, isTouched, className, dataTrigger, dataCalendar, dataNextMonth, dataPreviousMonth, ...props }: DatePickerProps): JSX_2.Element;
 
 export declare interface DatePickerClassName {
     trigger?: string;
@@ -1208,7 +1209,7 @@ export declare interface FormikColorPickerProps {
  * @param dataPreviousMonth - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the previous month button
  * @returns Date changer component with optional label, edit button and save button.
  */
-export declare function FormikDatePicker({ id, name, label, labelType, placeholder, tooltip, required, disabled, hideError, className, dataTrigger, dataCalendar, dataNextMonth, dataPreviousMonth, }: FormikDatePickerProps): JSX_2.Element;
+export declare function FormikDatePicker({ id, name, label, labelType, placeholder, tooltip, required, disabled, hideError, className, dataTrigger, dataCalendar, dataNextMonth, dataPreviousMonth, ...props }: FormikDatePickerProps): JSX_2.Element;
 
 export declare interface FormikDatePickerProps extends Omit<DatePickerProps, 'date' | 'onDateChange' | 'error' | 'isTouched'> {
     name: string;
@@ -1668,7 +1669,7 @@ export declare interface IconOnlyDropdownProps extends BaseNavigationDropdownPro
     icon: IconDefinition;
 }
 
-declare type Item = StandardItem | CheckboxItem | RadioItem | LabelItem | SeparatorItem;
+declare type Item = StandardItem | CheckboxItem | RadioItem | LabelItem | SeparatorItem | SubmenuItem;
 
 /**
  * This function returns a label component based on the RadixUI label.
@@ -1690,6 +1691,7 @@ declare interface LabelItem extends BaseItem {
     type: 'label';
     value?: never;
     label: string | React.ReactNode;
+    items?: never;
     onClick?: never;
     selected?: never;
 }
@@ -2107,6 +2109,7 @@ declare interface RadioItem extends BaseItem {
     type: 'radio';
     value: string;
     label: string | React.ReactNode;
+    items?: never;
     onClick: React.MouseEventHandler;
     selected?: never;
 }
@@ -2307,6 +2310,7 @@ declare interface SeparatorItem extends BaseItem {
     type: 'separator';
     value?: never;
     label?: never;
+    items?: never;
     onClick?: never;
     selected?: never;
 }
@@ -2459,6 +2463,7 @@ declare interface StandardItem extends BaseItem {
     type?: 'standard';
     value?: never;
     label: string | React.ReactNode;
+    items?: never;
     onClick: React.MouseEventHandler;
     selected?: boolean;
 }
@@ -2537,6 +2542,15 @@ declare interface StepProps extends StepBaseProps {
     progress?: never;
     completed?: never;
     error?: never;
+}
+
+declare interface SubmenuItem extends BaseItem {
+    type?: 'submenu';
+    value?: never;
+    label: string | React.ReactNode;
+    items: Item[];
+    onClick?: never;
+    selected?: never;
 }
 
 /**

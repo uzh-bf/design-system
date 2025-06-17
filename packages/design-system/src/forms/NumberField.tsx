@@ -144,9 +144,11 @@ export function NumberField({
             placeholder={placeholder}
             disabled={disabled}
             className={twMerge(
-              'q-w-full h-9 text-base',
+              'q-w-full h-9 text-base focus:border-input',
               disabled && 'cursor-not-allowed bg-uzh-grey-20 opacity-70',
-              !!error && isTouched && 'border-red-400 bg-red-50',
+              !!error &&
+                isTouched &&
+                'border-red-400 bg-red-50 focus:border-red-400',
               !!unit && 'rounded-r-none',
               className?.input
             )}
