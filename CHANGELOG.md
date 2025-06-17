@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.0.7](https://github.com/uzh-bf/design-system/compare/v3.0.6...v3.0.7) (2025-06-17)
+
+
+### Bug Fixes
+
+* ***Field:** ensure that border of text / number fields does not change on focus ([68515ad](https://github.com/uzh-bf/design-system/commit/68515ad3626758a74130111e675b199f5914f908))
+* **calendar:** ensure that selected styles override inactive other styles ([9a968f1](https://github.com/uzh-bf/design-system/commit/9a968f152a526d685725193daa093bfd6f90d45f))
+
 ### [3.0.6](https://github.com/uzh-bf/design-system/compare/v3.0.5...v3.0.6) (2025-06-12)
 
 
