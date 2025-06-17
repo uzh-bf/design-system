@@ -91,6 +91,7 @@ export function DatePicker({
   dataCalendar,
   dataNextMonth,
   dataPreviousMonth,
+  ...props
 }: DatePickerProps) {
   return (
     <Popover>
@@ -170,6 +171,7 @@ export function DatePicker({
           data-test={dataCalendar?.test}
           dataNextMonth={dataNextMonth}
           dataPreviousMonth={dataPreviousMonth}
+          {...props}
         />
       </PopoverContent>
     </Popover>

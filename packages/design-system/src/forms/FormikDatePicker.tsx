@@ -45,6 +45,7 @@ export function FormikDatePicker({
   dataCalendar,
   dataNextMonth,
   dataPreviousMonth,
+  ...props
 }: FormikDatePickerProps) {
   const [field, meta, helpers] = useField(name)
 
@@ -70,6 +71,7 @@ export function FormikDatePicker({
       dataCalendar={dataCalendar}
       dataNextMonth={dataNextMonth}
       dataPreviousMonth={dataPreviousMonth}
+      {...props}
     />
   )
 }
