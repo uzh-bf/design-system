@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.0.8](https://github.com/uzh-bf/design-system/compare/v3.0.7...v3.0.8) (2025-06-18)
+
+
+### Bug Fixes
+
+* **Textarea:** ensure that textarea fields do not show primary border on focus ([3504d37](https://github.com/uzh-bf/design-system/commit/3504d37e5641e26c37d9b8548a4f72cb3484c678))
+
 ### [3.0.7](https://github.com/uzh-bf/design-system/compare/v3.0.6...v3.0.7) (2025-06-17)
 
 

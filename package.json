@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@uzh-bf/design-system-monorepo",
-  "version": "3.0.7",
+  "version": "3.0.8",
   "repository": "uzh-bf/design-system.git",
   "license": "MIT",
   "maintainers": [
