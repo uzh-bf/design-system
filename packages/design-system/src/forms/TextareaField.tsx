@@ -129,8 +129,10 @@ export function TextareaField({
               maxLength={maxLength}
               disabled={disabled}
               className={twMerge(
-                'w-full text-base',
-                !!error && isTouched && 'border-red-400 bg-red-50',
+                'w-full text-base focus:border-input',
+                !!error &&
+                  isTouched &&
+                  'border-red-400 bg-red-50 focus:border-red-400',
                 className?.input
               )}
               {...props}
@@ -150,8 +152,10 @@ export function TextareaField({
               maxLength={maxLength}
               disabled={disabled}
               className={twMerge(
-                'w-full text-base',
-                !!error && isTouched && 'border-red-400 bg-red-50',
+                'w-full text-base focus:border-input',
+                !!error &&
+                  isTouched &&
+                  'border-red-400 bg-red-50 focus:border-red-400',
                 className?.input
               )}
               {...props}
