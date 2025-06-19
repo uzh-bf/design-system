@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.0.9](https://github.com/uzh-bf/design-system/compare/v3.0.8...v3.0.9) (2025-06-19)
+
+
+### Bug Fixes
+
+* **Dropdown:** update styling of dropdown trigger and resolve nested button issues ([1742bb7](https://github.com/uzh-bf/design-system/commit/1742bb7bf6c5cf5005388797d6a2c3cba4cb781b))
+
 ### [3.0.8](https://github.com/uzh-bf/design-system/compare/v3.0.7...v3.0.8) (2025-06-18)
 
 
