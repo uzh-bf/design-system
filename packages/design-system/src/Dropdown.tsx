@@ -1,5 +1,4 @@
 import { twMerge } from 'tailwind-merge'
-import Button from './Button'
 import Tooltip from './Tooltip'
 import {
   DropdownMenu,
@@ -106,7 +105,6 @@ interface DropdownProps {
   }
   className?: {
     trigger?: string
-    triggerWrapper?: string
     viewport?: string
     item?: string
     group?: string
@@ -148,17 +146,14 @@ export function Dropdown({
       <DropdownMenuTrigger
         id={id}
         disabled={disabled}
-        className={className?.triggerWrapper}
+        className={twMerge(
+          'inline-flex h-max items-center justify-center whitespace-normal rounded-md border border-input bg-background px-3 py-1.5 text-base font-medium ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
+          className?.trigger
+        )}
         data-cy={data?.cy}
         data-test={data?.test}
       >
-        {typeof trigger === 'string' ? (
-          <Button disabled={disabled} className={{ root: className?.trigger }}>
-            {trigger}
-          </Button>
-        ) : (
-          trigger
-        )}
+        {trigger}
       </DropdownMenuTrigger>
       <DropdownMenuContent className={className?.viewport}>
         {typeof items !== 'undefined'

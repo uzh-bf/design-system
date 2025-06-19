@@ -84,7 +84,7 @@ export const CustomTrigger = () => {
     <div>
       <Dropdown
         trigger={
-          <div className="flex flex-row items-center gap-2 rounded-md border p-2">
+          <div className="flex flex-row items-center gap-2">
             Trigger with Icon <FontAwesomeIcon icon={faInfoCircle} />
           </div>
         }
