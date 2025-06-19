@@ -2,12 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-### [3.0.9](https://github.com/uzh-bf/design-system/compare/v3.0.8...v3.0.9) (2025-06-19)
+## [3.0.4](https://github.com/uzh-bf/design-system/compare/v3.0.3...v3.0.4) (2025-06-19)
 
 
 ### Bug Fixes
 
+* ***Field:** ensure that border of text / number fields does not change on focus ([68515ad](https://github.com/uzh-bf/design-system/commit/68515ad3626758a74130111e675b199f5914f908))
+* **calendar:** ensure that selected styles override inactive other styles ([9a968f1](https://github.com/uzh-bf/design-system/commit/9a968f152a526d685725193daa093bfd6f90d45f))
+* **ci:** revert changes back to tag-based action triggers ([0105bce](https://github.com/uzh-bf/design-system/commit/0105bce9d990a06b6ba89c97b1ab0c6adeb07fa6))
+* **ColorPicker:** ensure that disabled color picker button does not take on selected color ([242cc2d](https://github.com/uzh-bf/design-system/commit/242cc2dc6d6242d69c93e9d5ed68ecd3aac1e448))
 * **Dropdown:** update styling of dropdown trigger and resolve nested button issues ([1742bb7](https://github.com/uzh-bf/design-system/commit/1742bb7bf6c5cf5005388797d6a2c3cba4cb781b))
+* **Textarea:** ensure that textarea fields do not show primary border on focus ([3504d37](https://github.com/uzh-bf/design-system/commit/3504d37e5641e26c37d9b8548a4f72cb3484c678))
+* **Tooltip:** ensure that trigger content is aligned left by default ([939dd96](https://github.com/uzh-bf/design-system/commit/939dd960c5d49c6b6646ca18099ed5913375567f))
 
 ### [3.0.8](https://github.com/uzh-bf/design-system/compare/v3.0.7...v3.0.8) (2025-06-18)
 
