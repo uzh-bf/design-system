@@ -1,6 +1,6 @@
 {
   "name": "@uzh-bf/design-system-custom-element-header",
-  "version": "3.0.9",
+  "version": "4.0.0-alpha.0",
   "files": [
     "dist"
   ],

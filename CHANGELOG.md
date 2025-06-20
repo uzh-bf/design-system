@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.0-alpha.0](https://github.com/uzh-bf/design-system/compare/v3.0.9...v4.0.0-alpha.0) (2025-06-20)
+
+
+### Enhancements
+
+* add use client to all components with client interaction ([#159](https://github.com/uzh-bf/design-system/issues/159)) ([d82f36d](https://github.com/uzh-bf/design-system/commit/d82f36d8975be03fe852dacdd7dc24e526dee9c3))
+
 ### [3.0.9](https://github.com/uzh-bf/design-system/compare/v3.0.8...v3.0.9) (2025-06-19)
 
 
