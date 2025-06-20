@@ -1,3 +1,5 @@
+'use client'
+
 import { twMerge } from 'tailwind-merge'
 import Tooltip from './Tooltip'
 import {

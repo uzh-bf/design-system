@@ -1,3 +1,5 @@
+'use client'
+
 import { faLock } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as RadixSlider from '@radix-ui/react-slider'

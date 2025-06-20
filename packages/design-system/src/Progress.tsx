@@ -1,7 +1,6 @@
+import * as RadixProgress from '@radix-ui/react-progress'
 import React, { useEffect, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
-
-import * as RadixProgress from '@radix-ui/react-progress'
 
 interface BaseProgressProps {
   id?: string

@@ -1,3 +1,5 @@
+'use client'
+
 import { faSort, faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useImperativeHandle, useMemo, useState } from 'react'
