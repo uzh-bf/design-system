@@ -1,3 +1,5 @@
+'use client'
+
 import dayjs from 'dayjs'
 import { useState } from 'react'
 import Countdown from './Countdown'

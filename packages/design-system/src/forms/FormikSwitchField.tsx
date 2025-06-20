@@ -1,3 +1,5 @@
+'use client'
+
 import { useField } from 'formik'
 import React from 'react'
 import Switch, { SwitchClassName } from '../Switch'

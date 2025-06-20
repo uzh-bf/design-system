@@ -1,6 +1,7 @@
+'use client'
+
 import { ExternalToast, toast as toastOriginal } from 'sonner'
 import { twMerge } from 'tailwind-merge'
-
 export { Toaster } from './ui/sonner'
 
 // eslint-disable-next-line react-refresh/only-export-components

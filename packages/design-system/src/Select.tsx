@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import Tooltip from './Tooltip' // New import for tooltips

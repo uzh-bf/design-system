@@ -1,3 +1,5 @@
+'use client'
+
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as RadixCollapsible from '@radix-ui/react-collapsible'

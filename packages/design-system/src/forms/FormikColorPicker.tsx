@@ -1,3 +1,5 @@
+'use client'
+
 import { IconDefinition } from '@fortawesome/free-regular-svg-icons'
 import { useField } from 'formik'
 import React, { useEffect } from 'react'

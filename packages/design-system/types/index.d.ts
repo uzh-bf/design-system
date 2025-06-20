@@ -39,7 +39,7 @@ import { HTMLAttributes } from 'react';
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { IconDefinition as IconDefinition_2 } from '@fortawesome/free-regular-svg-icons';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { JSX as JSX_2 } from 'react/jsx-runtime';
+import { JSX } from 'react/jsx-runtime';
 import * as LabelPrimitive from '@radix-ui/react-label';
 import { NameType } from 'recharts/types/component/DefaultTooltipContent';
 import * as NavigationMenuPrimitive from '@radix-ui/react-navigation-menu';
@@ -87,12 +87,12 @@ export declare const AlertDialogContent: React_2.ForwardRefExoticComponent<Omit<
 export declare const AlertDialogDescription: React_2.ForwardRefExoticComponent<Omit<AlertDialogPrimitive.AlertDialogDescriptionProps & React_2.RefAttributes<HTMLParagraphElement>, "ref"> & React_2.RefAttributes<HTMLParagraphElement>>;
 
 export declare const AlertDialogFooter: {
-    ({ className, ...props }: React_2.HTMLAttributes<HTMLDivElement>): JSX_2.Element;
+    ({ className, ...props }: React_2.HTMLAttributes<HTMLDivElement>): JSX.Element;
     displayName: string;
 };
 
 export declare const AlertDialogHeader: {
-    ({ className, ...props }: React_2.HTMLAttributes<HTMLDivElement>): JSX_2.Element;
+    ({ className, ...props }: React_2.HTMLAttributes<HTMLDivElement>): JSX.Element;
     displayName: string;
 };
 
@@ -114,7 +114,7 @@ export declare const AvatarFallback: React_2.ForwardRefExoticComponent<Omit<Avat
 
 export declare const AvatarImage: React_2.ForwardRefExoticComponent<Omit<AvatarPrimitive.AvatarImageProps & React_2.RefAttributes<HTMLImageElement>, "ref"> & React_2.RefAttributes<HTMLImageElement>>;
 
-export declare function Badge({ className, variant, ...props }: BadgeProps): JSX_2.Element;
+export declare function Badge({ className, variant, ...props }: BadgeProps): JSX.Element;
 
 declare interface BadgeProps extends React_2.HTMLAttributes<HTMLDivElement>, VariantProps<typeof badgeVariants> {
 }
@@ -205,7 +205,7 @@ export declare const Breadcrumb: React_2.ForwardRefExoticComponent<Omit<React_2.
 } & React_2.RefAttributes<HTMLElement>>;
 
 export declare const BreadcrumbEllipsis: {
-    ({ className, ...props }: React_2.ComponentProps<'span'>): JSX_2.Element;
+    ({ className, ...props }: React_2.ComponentProps<'span'>): JSX.Element;
     displayName: string;
 };
 
@@ -220,7 +220,7 @@ export declare const BreadcrumbList: React_2.ForwardRefExoticComponent<Omit<Reac
 export declare const BreadcrumbPage: React_2.ForwardRefExoticComponent<Omit<React_2.DetailedHTMLProps<React_2.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>, "ref"> & React_2.RefAttributes<HTMLSpanElement>>;
 
 export declare const BreadcrumbSeparator: {
-    ({ children, className, ...props }: React_2.ComponentProps<'li'>): JSX_2.Element;
+    ({ children, className, ...props }: React_2.ComponentProps<'li'>): JSX.Element;
     displayName: string;
 };
 
@@ -242,7 +242,7 @@ export declare const BreadcrumbSeparator: {
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @returns Button component
  */
-export declare function Button({ id, children, onClick, disabled, primary, destructive, active, fluid, basic, loading, type, className, data, ...props }: ButtonProps): JSX_2.Element;
+export declare function Button({ id, children, onClick, disabled, primary, destructive, active, fluid, basic, loading, type, className, data, ...props }: ButtonProps): JSX.Element;
 
 export declare namespace Button {
     var Icon: ({ icon, withoutLabel, loading, className, }: {
@@ -252,14 +252,14 @@ export declare namespace Button {
         className?: {
             root?: string | undefined;
         } | undefined;
-    }) => JSX_2.Element | null;
+    }) => JSX.Element | null;
     var Label: ({ className, children, }: {
         className?: {
             root?: string | undefined;
         } | undefined;
         children: ReactNode;
-    }) => JSX_2.Element;
-    var IconGroup: ({ state, setState, className, children, }: ButtonIconGroupProps) => JSX_2.Element;
+    }) => JSX.Element;
+    var IconGroup: ({ state, setState, className, children, }: ButtonIconGroupProps) => JSX.Element;
 }
 
 export declare interface ButtonIconGroupProps {
@@ -367,7 +367,7 @@ export declare const ChartLegendContent: React_2.ForwardRefExoticComponent<Omit<
 export declare const ChartStyle: ({ id, config }: {
     id: string;
     config: ChartConfig;
-}) => JSX_2.Element | null;
+}) => JSX.Element | null;
 
 export declare const ChartTooltip: typeof RechartsPrimitive.Tooltip;
 
@@ -380,7 +380,7 @@ export declare const ChartTooltipContent: React_2.ForwardRefExoticComponent<Omit
     animationEasing?: AnimationTiming | undefined;
     content?: ContentType<ValueType, NameType> | undefined;
     coordinate?: Partial<Coordinate> | undefined;
-    cursor?: boolean | React_2.SVGProps<SVGElement> | React_2.ReactElement<any, string | React_2.JSXElementConstructor<any>> | undefined;
+    cursor?: boolean | React_2.ReactElement<unknown, string | React_2.JSXElementConstructor<any>> | React_2.SVGProps<SVGElement> | undefined;
     filterNull?: boolean | undefined;
     defaultIndex?: number | undefined;
     isAnimationActive?: boolean | undefined;
@@ -472,7 +472,7 @@ export declare interface CheckboxProps {
  * @param children - The content of the collapsible that is shown when the collapsible is open.
  * @returns Collapsible component
  */
-export declare function Collapsible({ id, data, open, onChange, staticContent, closedContent, customTrigger, primary, onPrimaryClick, secondary, onSecondaryClick, className, children, }: CollapsibleProps): JSX_2.Element;
+export declare function Collapsible({ id, data, open, onChange, staticContent, closedContent, customTrigger, primary, onPrimaryClick, secondary, onSecondaryClick, className, children, }: CollapsibleProps): JSX.Element;
 
 export declare interface CollapsibleProps {
     id?: string;
@@ -528,7 +528,7 @@ export declare interface CollapsibleProps {
  * @param className - Optional class names for styling the color picker and its components.
  * @returns A ColorPicker component that allows users to select a color and submit it.
  */
-export declare function ColorPicker({ color, label, labelType, required, onSubmit, disabled, triggerIcon, presetColors, position, submitText, colorLabel, tooltip, colorTooltip, error, isTouched, dataTrigger, dataHexInput, dataSubmit, className, }: ColorPickerProps): JSX_2.Element;
+export declare function ColorPicker({ color, label, labelType, required, onSubmit, disabled, triggerIcon, presetColors, position, submitText, colorLabel, tooltip, colorTooltip, error, isTouched, dataTrigger, dataHexInput, dataSubmit, className, }: ColorPickerProps): JSX.Element;
 
 export declare interface ColorPickerClassName {
     root?: string;
@@ -609,7 +609,7 @@ export declare const Command: React_2.ForwardRefExoticComponent<Omit<{
     vimBindings?: boolean | undefined;
 } & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
-export declare const CommandDialog: ({ children, ...props }: CommandDialogProps) => JSX_2.Element;
+export declare const CommandDialog: ({ children, ...props }: CommandDialogProps) => JSX.Element;
 
 declare interface CommandDialogProps extends DialogProps {
 }
@@ -628,7 +628,7 @@ export declare const CommandGroup: React_2.ForwardRefExoticComponent<Omit<{
     ref?: React_2.Ref<HTMLDivElement> | undefined;
 } & {
     asChild?: boolean | undefined;
-}, "key" | keyof React_2.HTMLAttributes<HTMLDivElement> | "asChild">, "value" | "heading"> & {
+}, "key" | keyof React_2.HTMLAttributes<HTMLDivElement> | "asChild">, "heading" | "value"> & {
     heading?: React_2.ReactNode;
     value?: string | undefined;
     forceMount?: boolean | undefined;
@@ -676,7 +676,7 @@ export declare const CommandSeparator: React_2.ForwardRefExoticComponent<Omit<Pi
 } & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
 export declare const CommandShortcut: {
-    ({ className, ...props }: React_2.HTMLAttributes<HTMLSpanElement>): JSX_2.Element;
+    ({ className, ...props }: React_2.HTMLAttributes<HTMLSpanElement>): JSX.Element;
     displayName: string;
 };
 
@@ -705,7 +705,7 @@ export declare const ContextMenuRadioItem: React_2.ForwardRefExoticComponent<Omi
 export declare const ContextMenuSeparator: React_2.ForwardRefExoticComponent<Omit<ContextMenuPrimitive.ContextMenuSeparatorProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
 export declare const ContextMenuShortcut: {
-    ({ className, ...props }: React_2.HTMLAttributes<HTMLSpanElement>): JSX_2.Element;
+    ({ className, ...props }: React_2.HTMLAttributes<HTMLSpanElement>): JSX.Element;
     displayName: string;
 };
 
@@ -731,7 +731,7 @@ export declare const ContextMenuTrigger: React_2.ForwardRefExoticComponent<Conte
  * @param className - Optional className object allows you to override the default styling
  * @returns A simple text countdown component
  */
-export declare function Countdown({ isStatic, expiresAt, formatter, onExpire, onUpdate, data, className, }: CountdownProps): JSX_2.Element;
+export declare function Countdown({ isStatic, expiresAt, formatter, onExpire, onUpdate, data, className, }: CountdownProps): JSX.Element;
 
 export declare interface CountdownProps {
     isStatic?: boolean;
@@ -767,7 +767,7 @@ export declare interface CountdownProps {
  * @param className - Optional className object allows you to override the default styling
  * @returns A circular progress bar with a countdown in the middle
  */
-export declare function CycleCountdown({ expiresAt, totalDuration, size, overrideSize, color, strokeWidthRem, isStatic, terminalColor, terminalPercentage, formatter, onExpire, onUpdate, data, className, }: CycleCountdownProps): JSX_2.Element;
+export declare function CycleCountdown({ expiresAt, totalDuration, size, overrideSize, color, strokeWidthRem, isStatic, terminalColor, terminalPercentage, formatter, onExpire, onUpdate, data, className, }: CycleCountdownProps): JSX.Element;
 
 export declare interface CycleCountdownProps {
     expiresAt: Date;
@@ -806,7 +806,7 @@ export declare interface CycleCountdownProps {
  * @param className - Optional className object allows you to override the default styling
  * @returns A circular progress bar with children content in the middle
  */
-export declare function CycleProgress({ size, overrideSize, percentage, color, strokeWidthRem, children, data, className, }: CycleProgressProps): JSX_2.Element;
+export declare function CycleProgress({ size, overrideSize, percentage, color, strokeWidthRem, children, data, className, }: CycleProgressProps): JSX.Element;
 
 export declare interface CycleProgressProps {
     size?: 'sm' | 'md';
@@ -849,7 +849,7 @@ export declare interface CycleProgressProps {
  * @param dataPreviousMonth - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the previous month button
  * @returns Date changer component with optional label, edit button and save button.
  */
-export declare function DatePicker({ id, date, onDateChange, label, labelType, placeholder, tooltip, required, disabled, error, hideError, isTouched, className, dataTrigger, dataCalendar, dataNextMonth, dataPreviousMonth, ...props }: DatePickerProps): JSX_2.Element;
+export declare function DatePicker({ id, date, onDateChange, label, labelType, placeholder, tooltip, required, disabled, error, hideError, isTouched, className, dataTrigger, dataCalendar, dataNextMonth, dataPreviousMonth, ...props }: DatePickerProps): JSX.Element;
 
 export declare interface DatePickerClassName {
     trigger?: string;
@@ -1033,7 +1033,7 @@ export declare type DateTimePickerRef = {
 } & Omit<HTMLButtonElement, 'value'>;
 
 export declare const Drawer: {
-    ({ shouldScaleBackground, ...props }: React_2.ComponentProps<typeof Drawer_2.Root>): JSX_2.Element;
+    ({ shouldScaleBackground, ...props }: React_2.ComponentProps<typeof Drawer_2.Root>): JSX.Element;
     displayName: string;
 };
 
@@ -1046,12 +1046,12 @@ export declare const DrawerContent: React_2.ForwardRefExoticComponent<Omit<Omit<
 export declare const DrawerDescription: React_2.ForwardRefExoticComponent<Omit<DialogDescriptionProps & React_2.RefAttributes<HTMLParagraphElement>, "ref"> & React_2.RefAttributes<HTMLParagraphElement>>;
 
 export declare const DrawerFooter: {
-    ({ className, ...props }: React_2.HTMLAttributes<HTMLDivElement>): JSX_2.Element;
+    ({ className, ...props }: React_2.HTMLAttributes<HTMLDivElement>): JSX.Element;
     displayName: string;
 };
 
 export declare const DrawerHeader: {
-    ({ className, ...props }: React_2.HTMLAttributes<HTMLDivElement>): JSX_2.Element;
+    ({ className, ...props }: React_2.HTMLAttributes<HTMLDivElement>): JSX.Element;
     displayName: string;
 };
 
@@ -1075,19 +1075,19 @@ export declare const DrawerTrigger: React_2.ForwardRefExoticComponent<DialogTrig
  * @param disabled - Indicate whether the dropdown is disabled or not. Conditional styling is applied, if this is true.
  * @returns Dropdown component
  */
-export declare function Dropdown({ id, disabled, trigger, items, radioGroups, data, className, }: DropdownWithItemsProps | DropdownWithGroupsProps): JSX_2.Element;
+export declare function Dropdown({ id, disabled, trigger, items, radioGroups, data, className, }: DropdownWithItemsProps | DropdownWithGroupsProps): JSX.Element;
 
 export declare function DropdownItem({ item, className, }: {
     item: Item;
     className?: string;
-}): JSX_2.Element | null;
+}): JSX.Element | null;
 
 export declare function DropdownLabelShortcut({ label, shortcut, tooltip, tooltipClassName, }: {
     label: string | React.ReactNode;
     shortcut?: string;
     tooltip?: string;
     tooltipClassName?: string;
-}): JSX_2.Element;
+}): JSX.Element;
 
 declare interface DropdownProps {
     id?: string;
@@ -1104,7 +1104,6 @@ declare interface DropdownProps {
     };
     className?: {
         trigger?: string;
-        triggerWrapper?: string;
         viewport?: string;
         item?: string;
         group?: string;
@@ -1135,7 +1134,7 @@ export declare const FormControl: React_2.ForwardRefExoticComponent<Omit<SlotPro
 
 export declare const FormDescription: React_2.ForwardRefExoticComponent<React_2.HTMLAttributes<HTMLParagraphElement> & React_2.RefAttributes<HTMLParagraphElement>>;
 
-export declare const FormField: <TFieldValues extends FieldValues = FieldValues, TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>>({ ...props }: ControllerProps<TFieldValues, TName>) => JSX_2.Element;
+export declare const FormField: <TFieldValues extends FieldValues = FieldValues, TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>>({ ...props }: ControllerProps<TFieldValues, TName>) => JSX.Element;
 
 /**
  * FormikColorPicker is a wrapper around the ColorPicker component that integrates with Formik for form handling.
@@ -1157,7 +1156,7 @@ export declare const FormField: <TFieldValues extends FieldValues = FieldValues,
  * @param dataHexInput - Optional data attributes for the hex input field (for testing purposes).
  * @returns A ColorPicker component that integrates with Formik for form handling.
  */
-export declare function FormikColorPicker({ name, label, labelType, validateForm, tooltip, required, disabled, triggerIcon, presetColors, position, submitText, colorLabel, colorTooltip, dataTrigger, dataHexInput, dataSubmit, className, }: FormikColorPickerProps): JSX_2.Element;
+export declare function FormikColorPicker({ name, label, labelType, validateForm, tooltip, required, disabled, triggerIcon, presetColors, position, submitText, colorLabel, colorTooltip, dataTrigger, dataHexInput, dataSubmit, className, }: FormikColorPickerProps): JSX.Element;
 
 export declare interface FormikColorPickerProps {
     name: string;
@@ -1209,7 +1208,7 @@ export declare interface FormikColorPickerProps {
  * @param dataPreviousMonth - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the previous month button
  * @returns Date changer component with optional label, edit button and save button.
  */
-export declare function FormikDatePicker({ id, name, label, labelType, placeholder, tooltip, required, disabled, hideError, className, dataTrigger, dataCalendar, dataNextMonth, dataPreviousMonth, ...props }: FormikDatePickerProps): JSX_2.Element;
+export declare function FormikDatePicker({ id, name, label, labelType, placeholder, tooltip, required, disabled, hideError, className, dataTrigger, dataCalendar, dataNextMonth, dataPreviousMonth, ...props }: FormikDatePickerProps): JSX.Element;
 
 export declare interface FormikDatePickerProps extends Omit<DatePickerProps, 'date' | 'onDateChange' | 'error' | 'isTouched'> {
     name: string;
@@ -1236,7 +1235,7 @@ export declare interface FormikDatePickerProps extends Omit<DatePickerProps, 'da
  * @param dataNextMonth - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the next month button.
  * @returns Datetime picker component with optional label, edit button and save button.
  */
-export declare function FormikDatetimePicker({ name, label, labelType, placeholder, tooltip, required, disabled, hideError, className, dataTrigger, dataCalendar, dataHours, dataMinutes, dataSeconds, dataPreviousMonth, dataNextMonth, ...props }: FormikDatetimePickerProps): JSX_2.Element;
+export declare function FormikDatetimePicker({ name, label, labelType, placeholder, tooltip, required, disabled, hideError, className, dataTrigger, dataCalendar, dataHours, dataMinutes, dataSeconds, dataPreviousMonth, dataNextMonth, ...props }: FormikDatetimePickerProps): JSX.Element;
 
 export declare interface FormikDatetimePickerProps extends Omit<DateTimePickerProps, 'date' | 'onDateChange' | 'error' | 'isTouched'> {
     name: string;
@@ -1265,7 +1264,7 @@ export declare interface FormikDatetimePickerProps extends Omit<DateTimePickerPr
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param className - The optional className object allows you to override the default styling.
  */
-export declare function FormikNumberField({ id, name, value, onChange, label, labelType, placeholder, precision, min, max, unit, tooltip, required, hideError, error, isTouched, disabled, onBlur, data, className, ...props }: FormikNumberFieldNameProps | FormikNumberFieldOnChangeProps): JSX_2.Element;
+export declare function FormikNumberField({ id, name, value, onChange, label, labelType, placeholder, precision, min, max, unit, tooltip, required, hideError, error, isTouched, disabled, onBlur, data, className, ...props }: FormikNumberFieldNameProps | FormikNumberFieldOnChangeProps): JSX.Element;
 
 export declare interface FormikNumberFieldNameProps extends FormikNumberFieldProps {
     name: string;
@@ -1321,7 +1320,7 @@ declare interface FormikNumberFieldProps {
  * @param data - Optional data attributes for testing purposes.
  * @returns A pin field component that integrates with Formik for form handling.
  */
-export declare function FormikPinField({ id, name, length, required, label, labelType, tooltip, hideError, className, data, }: FormikPinFieldProps): JSX_2.Element;
+export declare function FormikPinField({ id, name, length, required, label, labelType, tooltip, hideError, className, data, }: FormikPinFieldProps): JSX.Element;
 
 export declare interface FormikPinFieldProps {
     id?: string;
@@ -1366,7 +1365,7 @@ export declare interface FormikPinFieldProps {
  * @param className - The optional className object allows you to override the default styling.
  * @returns Select component with formik state management.
  */
-export declare function FormikSelectField({ id, data, name, items, groups, label, labelType, placeholder, tooltip, required, disabled, error, hideError, contentPosition, className, ...props }: FormikSelectFieldItemsProps | FormikSelectFieldGroupsProps): JSX_2.Element;
+export declare function FormikSelectField({ id, data, name, items, groups, label, labelType, placeholder, tooltip, required, disabled, error, hideError, contentPosition, className, ...props }: FormikSelectFieldItemsProps | FormikSelectFieldGroupsProps): JSX.Element;
 
 export declare interface FormikSelectFieldGroupsProps extends FormikSelectFieldProps {
     groups: SelectGroup[];
@@ -1421,7 +1420,7 @@ declare interface FormikSelectFieldProps {
  * @param className - The optional className object allows you to override the default styling.
  * @returns Switch component with formik state management
  */
-export declare function FormikSwitchField({ id, name, data, disabled, error, hideError, label, labelLeft, size, required, tooltip, className, }: FormikSwitchFieldProps): JSX_2.Element;
+export declare function FormikSwitchField({ id, name, data, disabled, error, hideError, label, labelLeft, size, required, tooltip, className, }: FormikSwitchFieldProps): JSX.Element;
 
 export declare interface FormikSwitchFieldProps {
     id?: string;
@@ -1464,7 +1463,7 @@ export declare interface FormikSwitchFieldProps {
  * @param className - The optional className object allows you to override the default styling.
  * @returns Text field component with Formik state management.
  */
-export declare function FormikTextareaField({ id, data, name, value, onChange, error, label, labelType, icon, placeholder, tooltip, required, hideError, disabled, className, ...props }: FormikTextareaFieldWithNameProps | FormikTextareaFieldWithOnChangeProps): JSX_2.Element;
+export declare function FormikTextareaField({ id, data, name, value, onChange, error, label, labelType, icon, placeholder, tooltip, required, hideError, disabled, className, ...props }: FormikTextareaFieldWithNameProps | FormikTextareaFieldWithOnChangeProps): JSX.Element;
 
 declare interface FormikTextareaFieldProps {
     id?: string;
@@ -1533,7 +1532,7 @@ export declare interface FormikTextareaFieldWithOnChangeProps extends FormikText
  * @param className - The optional className object allows you to override the default styling.
  * @returns Text field component with Formik state management.
  */
-export declare function FormikTextField({ id, data, name, value, onChange, error, label, labelType, icon, iconPosition, onIconClick, placeholder, tooltip, required, hideError, isTouched, disabled, onPaste, className, ...props }: FormikTextFieldWithNameProps | FormikTextFieldWithOnChangeProps): JSX_2.Element;
+export declare function FormikTextField({ id, data, name, value, onChange, error, label, labelType, icon, iconPosition, onIconClick, placeholder, tooltip, required, hideError, isTouched, disabled, onPaste, className, ...props }: FormikTextFieldWithNameProps | FormikTextFieldWithOnChangeProps): JSX.Element;
 
 declare interface FormikTextFieldProps {
     id?: string;
@@ -1577,7 +1576,7 @@ export declare interface FormikTextFieldWithOnChangeProps extends FormikTextFiel
 
 export declare const FormItem: React_2.ForwardRefExoticComponent<React_2.HTMLAttributes<HTMLDivElement> & React_2.RefAttributes<HTMLDivElement>>;
 
-export declare function FormLabel({ id, required, label, labelType, className, tooltip, }: FormLabelProps): JSX_2.Element;
+export declare function FormLabel({ id, required, label, labelType, className, tooltip, }: FormLabelProps): JSX.Element;
 
 export declare interface FormLabelProps {
     id?: string;
@@ -1604,7 +1603,7 @@ declare type Granularity = 'day' | 'hour' | 'minute' | 'second';
  * @param children - The content of the header.
  * @returns Header H1 component
  */
-export declare function H1({ id, data, className, children }: HeaderProps): JSX_2.Element;
+export declare function H1({ id, data, className, children }: HeaderProps): JSX.Element;
 
 /**
  * This function returns a pre-styled header component with custom font similarly sized to the default h2 tag.
@@ -1615,7 +1614,7 @@ export declare function H1({ id, data, className, children }: HeaderProps): JSX_
  * @param children - The content of the header.
  * @returns Header H2 component
  */
-export declare function H2({ id, data, className, children }: HeaderProps): JSX_2.Element;
+export declare function H2({ id, data, className, children }: HeaderProps): JSX.Element;
 
 /**
  * This function returns a pre-styled header component with custom font similarly sized to the default h3 tag.
@@ -1626,7 +1625,7 @@ export declare function H2({ id, data, className, children }: HeaderProps): JSX_
  * @param children - The content of the header.
  * @returns Header H3 component
  */
-export declare function H3({ id, data, className, children }: HeaderProps): JSX_2.Element;
+export declare function H3({ id, data, className, children }: HeaderProps): JSX.Element;
 
 /**
  * This function returns a pre-styled header component with custom font similarly sized to the default h4 tag.
@@ -1637,7 +1636,7 @@ export declare function H3({ id, data, className, children }: HeaderProps): JSX_
  * @param children - The content of the header.
  * @returns Header H4 component
  */
-export declare function H4({ id, data, className, children }: HeaderProps): JSX_2.Element;
+export declare function H4({ id, data, className, children }: HeaderProps): JSX.Element;
 
 declare interface HeaderProps {
     id?: string;
@@ -1760,7 +1759,7 @@ export declare interface LabelProps {
  * @param className - The optional className object allows you to override the default styling.
  * @returns Modal component
  */
-export declare function Modal({ id, trigger, title, children, onClose, onPrev, onNext, open, fullScreen, onPrimaryAction, primaryLabel, primaryType, primaryButtonStyle, primaryDisabled, primaryLoading, onSecondaryAction, secondaryLabel, secondaryType, secondaryButtonStyle, escapeDisabled, hideCloseButton, data, dataContent, dataCloseButton, dataPrimaryAction, dataSecondaryAction, className, }: ModalProps): JSX_2.Element;
+export declare function Modal({ id, trigger, title, children, onClose, onPrev, onNext, open, fullScreen, onPrimaryAction, primaryLabel, primaryType, primaryButtonStyle, primaryDisabled, primaryLoading, onSecondaryAction, secondaryLabel, secondaryType, secondaryButtonStyle, escapeDisabled, hideCloseButton, data, dataContent, dataCloseButton, dataPrimaryAction, dataSecondaryAction, className, }: ModalProps): JSX.Element;
 
 export declare interface ModalProps {
     id?: string;
@@ -1836,7 +1835,7 @@ declare interface MultiValueProgressProps extends BaseProgressProps {
  * @param className - The optional className object to override default styling for the root.
  * @return Navigation component
  */
-export declare function Navigation({ items, className, style, ...props }: NavigationProps): JSX_2.Element;
+export declare function Navigation({ items, className, style, ...props }: NavigationProps): JSX.Element;
 
 export declare type NavigationButtonItemProps = NavigationButtonProps & {
     type: 'button';
@@ -2020,21 +2019,21 @@ export declare interface NumberFieldProps {
 }
 
 export declare const Pagination: {
-    ({ className, ...props }: React_2.ComponentProps<'nav'>): JSX_2.Element;
+    ({ className, ...props }: React_2.ComponentProps<'nav'>): JSX.Element;
     displayName: string;
 };
 
 export declare const PaginationContent: React_2.ForwardRefExoticComponent<Omit<React_2.DetailedHTMLProps<React_2.HTMLAttributes<HTMLUListElement>, HTMLUListElement>, "ref"> & React_2.RefAttributes<HTMLUListElement>>;
 
 export declare const PaginationEllipsis: {
-    ({ className, ...props }: React_2.ComponentProps<'span'>): JSX_2.Element;
+    ({ className, ...props }: React_2.ComponentProps<'span'>): JSX.Element;
     displayName: string;
 };
 
 export declare const PaginationItem: React_2.ForwardRefExoticComponent<Omit<React_2.DetailedHTMLProps<React_2.LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>, "ref"> & React_2.RefAttributes<HTMLLIElement>>;
 
 export declare const PaginationLink: {
-    ({ className, isActive, size, ...props }: PaginationLinkProps): JSX_2.Element;
+    ({ className, isActive, size, ...props }: PaginationLinkProps): JSX.Element;
     displayName: string;
 };
 
@@ -2043,12 +2042,12 @@ declare type PaginationLinkProps = {
 } & Pick<ButtonProps_2, 'size'> & React_2.ComponentProps<'a'>;
 
 export declare const PaginationNext: {
-    ({ className, ...props }: React_2.ComponentProps<typeof PaginationLink>): JSX_2.Element;
+    ({ className, ...props }: React_2.ComponentProps<typeof PaginationLink>): JSX.Element;
     displayName: string;
 };
 
 export declare const PaginationPrevious: {
-    ({ className, ...props }: React_2.ComponentProps<typeof PaginationLink>): JSX_2.Element;
+    ({ className, ...props }: React_2.ComponentProps<typeof PaginationLink>): JSX.Element;
     displayName: string;
 };
 
@@ -2074,7 +2073,7 @@ export declare const PopoverTrigger: React_2.ForwardRefExoticComponent<PopoverPr
  * @param className - The optional className object allows you to override the default styling.
  * @return Progress component
  */
-export declare function Progress({ id, data, formatter, value, offset, max, className, isMaxVisible, noMinWidth, ...props }: ProgressProps): JSX_2.Element;
+export declare function Progress({ id, data, formatter, value, offset, max, className, isMaxVisible, noMinWidth, ...props }: ProgressProps): JSX.Element;
 
 export declare type ProgressProps = SingleValueProgressProps | MultiValueProgressProps;
 
@@ -2087,7 +2086,7 @@ export declare type ProgressProps = SingleValueProgressProps | MultiValueProgres
  * @param className - The optional className object allows you to override the default styling.
  * @returns Children with the standard prose and some custom styling applied to them.
  */
-export declare function Prose({ id, data, className, children }: ProseProps): JSX_2.Element;
+export declare function Prose({ id, data, className, children }: ProseProps): JSX.Element;
 
 export declare interface ProseProps {
     id?: string;
@@ -2129,7 +2128,7 @@ export declare const ResizableHandle: ({ withHandle, className, ...props }: Omit
     children?: ReactNode;
 } & {
     withHandle?: boolean | undefined;
-}) => JSX_2.Element;
+}) => JSX.Element;
 
 export declare const ResizablePanel: ForwardRefExoticComponent<Omit<HTMLAttributes<keyof HTMLElementTagNameMap>, "id" | "onResize"> & {
 className?: string | undefined;
@@ -2149,7 +2148,7 @@ tagName?: keyof HTMLElementTagNameMap | undefined;
 children?: ReactNode;
 } & RefAttributes<ResizablePrimitive.ImperativePanelHandle>>;
 
-export declare const ResizablePanelGroup: ({ className, ...props }: React.ComponentProps<typeof ResizablePrimitive.PanelGroup>) => JSX_2.Element;
+export declare const ResizablePanelGroup: ({ className, ...props }: React.ComponentProps<typeof ResizablePrimitive.PanelGroup>) => JSX.Element;
 
 export declare const ScrollArea: React_2.ForwardRefExoticComponent<Omit<ScrollAreaPrimitive.ScrollAreaProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
@@ -2175,7 +2174,7 @@ export declare const ScrollBar: React_2.ForwardRefExoticComponent<Omit<ScrollAre
  * @param contentPosition - The position of the content of the select component. Currently only 'item-aligned' and 'popper' are supported.
  * @return Select component
  */
-export declare function Select({ id, data, items, groups, onChange, onBlur, value, disabled, className, name, placeholder, defaultValue, basic, contentPosition, }: SelectWithItemsProps | SelectWithGroupsProps): JSX_2.Element;
+export declare function Select({ id, data, items, groups, onChange, onBlur, value, disabled, className, name, placeholder, defaultValue, basic, contentPosition, }: SelectWithItemsProps | SelectWithGroupsProps): JSX.Element;
 
 export declare interface SelectClassName {
     root?: string;
@@ -2210,7 +2209,7 @@ export declare interface SelectClassName {
  * @param className - The optional className object allows you to override the default styling.
  * @returns Select component with formik state management.
  */
-export declare function SelectField({ id, data, name, items, groups, value, onChange, onBlur, label, labelType, placeholder, tooltip, required, disabled, error, hideError, contentPosition, className, ...props }: SelectFieldItemsProps | SelectFieldGroupsProps): JSX_2.Element;
+export declare function SelectField({ id, data, name, items, groups, value, onChange, onBlur, label, labelType, placeholder, tooltip, required, disabled, error, hideError, contentPosition, className, ...props }: SelectFieldItemsProps | SelectFieldGroupsProps): JSX.Element;
 
 export declare interface SelectFieldGroupsProps extends SelectFieldProps {
     groups: SelectGroup[];
@@ -2355,12 +2354,12 @@ declare interface SheetContentProps extends React_2.ComponentPropsWithoutRef<typ
 export declare const SheetDescription: React_2.ForwardRefExoticComponent<Omit<SheetPrimitive.DialogDescriptionProps & React_2.RefAttributes<HTMLParagraphElement>, "ref"> & React_2.RefAttributes<HTMLParagraphElement>>;
 
 export declare const SheetFooter: {
-    ({ className, ...props }: React_2.HTMLAttributes<HTMLDivElement>): JSX_2.Element;
+    ({ className, ...props }: React_2.HTMLAttributes<HTMLDivElement>): JSX.Element;
     displayName: string;
 };
 
 export declare const SheetHeader: {
-    ({ className, ...props }: React_2.HTMLAttributes<HTMLDivElement>): JSX_2.Element;
+    ({ className, ...props }: React_2.HTMLAttributes<HTMLDivElement>): JSX.Element;
     displayName: string;
 };
 
@@ -2385,7 +2384,7 @@ declare interface SingleValueProgressProps extends BaseProgressProps {
     };
 }
 
-export declare function Skeleton({ className, ...props }: React.HTMLAttributes<HTMLDivElement>): JSX_2.Element;
+export declare function Skeleton({ className, ...props }: React.HTMLAttributes<HTMLDivElement>): JSX.Element;
 
 /**
  * This function returns a pre-styled Slider component based on the RadixUI slider component and the custom theme.
@@ -2498,7 +2497,7 @@ export declare interface StepItem {
  * @param formatter - The optional formatter function allows you to override the rendering of each item.
  * @return Step progress component
  */
-export declare function StepProgress({ id, data, value, max, items, onItemClick, displayOffsetLeft, displayOffsetRight, className, formatter, }: StepProgressProps | StepProgressItemProps): JSX_2.Element;
+export declare function StepProgress({ id, data, value, max, items, onItemClick, displayOffsetLeft, displayOffsetRight, className, formatter, }: StepProgressProps | StepProgressItemProps): JSX.Element;
 
 declare interface StepProgressBaseProps {
     id?: string;
@@ -2574,7 +2573,7 @@ declare interface SubmenuItem extends BaseItem {
  * @param className - The optional className object allows you to override the default styling.
  * @returns Switch component
  */
-export declare function Switch({ id, data, disabled, label, tooltip, checked, onCheckedChange, onBlur, fluid, error, hideError, required, labelLeft, size, className, }: SwitchProps): JSX_2.Element;
+export declare function Switch({ id, data, disabled, label, tooltip, checked, onCheckedChange, onBlur, fluid, error, hideError, required, labelLeft, size, className, }: SwitchProps): JSX.Element;
 
 export declare interface SwitchClassName {
     root?: string;
@@ -2616,7 +2615,7 @@ export declare function TabContent({ id, value, children, data, className, }: {
     className?: {
         root?: string;
     };
-}): JSX_2.Element;
+}): JSX.Element;
 
 /**
  * This function returns a pre-styled Table component based on the RadixUI table component and the custom theme.
@@ -2637,7 +2636,7 @@ export declare function TabContent({ id, value, children, data, className, }: {
  * @param defaultSortOrder - The optional defaultSortOrder allows you to define the default sorting order.
  * @returns Table component
  */
-export declare function Table<RowType extends Record<string, string | number | boolean>>({ id, dataAttributes, columns, data, caption, className, forwardedRef, emptyCellText, defaultSortField, defaultSortOrder, }: TableProps<RowType>): JSX_2.Element;
+export declare function Table<RowType extends Record<string, string | number | boolean>>({ id, dataAttributes, columns, data, caption, className, forwardedRef, emptyCellText, defaultSortField, defaultSortOrder, }: TableProps<RowType>): JSX.Element;
 
 export declare interface TableProps<RowType extends BaseRowType> {
     id?: string;
@@ -2694,7 +2693,7 @@ export declare function Tabs({ id, defaultValue, value, onValueChange, tabs, cla
         trigger?: string;
     };
     children: React.ReactNode;
-}): JSX_2.Element;
+}): JSX.Element;
 
 /**
  * This function returns a pre-styled tag component
@@ -2705,7 +2704,7 @@ export declare function Tabs({ id, defaultValue, value, onValueChange, tabs, cla
  * @param className - The optional className object allows you to override the default styling.
  * @returns Tag component
  */
-export declare function Tag({ id, data, className, label }: TagProps): JSX_2.Element;
+export declare function Tag({ id, data, className, label }: TagProps): JSX.Element;
 
 export declare interface TagProps {
     id?: string;
@@ -2743,7 +2742,7 @@ export declare interface TagProps {
  * @param className - The optional className object allows you to override the default styling.
  * @returns Text field component with optional label, tooltip, error message and icon.
  */
-export declare function TextareaField({ id, data, name, field, value, onChange, label, labelType, placeholder, tooltip, maxLength, maxLengthUnit, hideMaxLength, required, isTouched, hideError, error, disabled, className, ...props }: TextareaFieldNameProps | TextareaFieldOnChangeProps): JSX_2.Element;
+export declare function TextareaField({ id, data, name, field, value, onChange, label, labelType, placeholder, tooltip, maxLength, maxLengthUnit, hideMaxLength, required, isTouched, hideError, error, disabled, className, ...props }: TextareaFieldNameProps | TextareaFieldOnChangeProps): JSX.Element;
 
 export declare interface TextareaFieldNameProps extends TextareaFieldProps {
     name: string;
@@ -2814,7 +2813,7 @@ declare interface TextareaFieldProps {
  * @param onIconClick - The optional onIconClick function is called when the icon is clicked.
  * @returns Text field component with optional label, tooltip, error message and icon.
  */
-export declare function TextField({ id, data, name, field, value, onChange, label, labelType, placeholder, tooltip, required, isTouched, hideError, error, disabled, onPaste, className, icon, iconPosition, onIconClick, ...props }: TextFieldNameProps | TextFieldOnChangeProps): JSX_2.Element;
+export declare function TextField({ id, data, name, field, value, onChange, label, labelType, placeholder, tooltip, required, isTouched, hideError, error, disabled, onPaste, className, icon, iconPosition, onIconClick, ...props }: TextFieldNameProps | TextFieldOnChangeProps): JSX.Element;
 
 export declare interface TextFieldClassName {
     field?: string;
@@ -2919,7 +2918,7 @@ export declare function toast({ message, options, type, }: {
     type?: 'success' | 'warning' | 'error';
 }): string | number;
 
-export declare const Toaster: ({ ...props }: ToasterProps) => JSX_2.Element;
+export declare const Toaster: ({ ...props }: ToasterProps) => JSX.Element;
 
 declare type ToasterProps = React.ComponentProps<typeof Toaster_2>;
 
@@ -2992,7 +2991,7 @@ export declare const useFormField: () => {
  * @param className - The optional className object allows you to override the default styling.
  * @returns UserNotification component
  */
-export declare function UserNotification({ id, data, message, type, children, className, }: UserNotificationMessageProps | UserNotificationChildrenProps): JSX_2.Element;
+export declare function UserNotification({ id, data, message, type, children, className, }: UserNotificationMessageProps | UserNotificationChildrenProps): JSX.Element;
 
 export declare interface UserNotificationChildrenProps extends UserNotificationProps {
     message?: never;
@@ -3034,7 +3033,7 @@ export declare interface UserNotificationProps {
  * @param className - The optional className object allows you to override the default styling.
  * @returns Workflow component
  */
-export declare function Workflow({ items, onClick, activeIx, twStyles, minimal, disabledFrom, showTooltipSymbols, className, }: WorkflowProps | WorkflowProgressProps): JSX_2.Element;
+export declare function Workflow({ items, onClick, activeIx, twStyles, minimal, disabledFrom, showTooltipSymbols, className, }: WorkflowProps | WorkflowProgressProps): JSX.Element;
 
 declare interface WorkflowBaseProps {
     activeIx?: number;
@@ -3056,7 +3055,7 @@ declare interface WorkflowBaseProps {
     };
 }
 
-export declare function WorkflowItem({ item, ix, hasDescription, minimal, activeIx, disabled, tooltip, showTooltipSymbols, onClick, numItems, twStyles, className, }: WorkflowItemProps): JSX_2.Element;
+export declare function WorkflowItem({ item, ix, hasDescription, minimal, activeIx, disabled, tooltip, showTooltipSymbols, onClick, numItems, twStyles, className, }: WorkflowItemProps): JSX.Element;
 
 declare interface WorkflowItemProps {
     item: StepProps | StepProgressProps_2;

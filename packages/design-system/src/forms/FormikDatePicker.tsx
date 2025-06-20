@@ -1,3 +1,5 @@
+'use client'
+
 import { useField } from 'formik'
 import DatePicker, { DatePickerProps } from '../DatePicker'
 
