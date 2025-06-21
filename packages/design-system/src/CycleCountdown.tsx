@@ -1,3 +1,5 @@
+'use client'
+
 import dayjs from 'dayjs'
 import { useState } from 'react'
 import Countdown from './Countdown'
@@ -93,9 +95,12 @@ export function CycleCountdown({
         }}
         onUpdate={(remainingSeconds) => {
           onUpdate?.(remainingSeconds)
-          totalDuration !== 0
-            ? setPercentage((remainingSeconds / totalDuration) * 100)
-            : setPercentage(0)
+
+          if (totalDuration !== 0) {
+            setPercentage((remainingSeconds / totalDuration) * 100)
+          } else {
+            setPercentage(0)
+          }
         }}
         className={{ root: className?.countdown }}
       />

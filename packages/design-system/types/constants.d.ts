@@ -190,8 +190,3 @@ export declare const TailwindProdPlugins: {
 };
 
 export { }
-
-
-declare namespace Calendar {
-    var displayName: string;
-}

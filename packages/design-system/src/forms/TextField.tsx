@@ -1,3 +1,5 @@
+'use client'
+
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

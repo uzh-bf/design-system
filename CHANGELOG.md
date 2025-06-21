@@ -2,6 +2,38 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.0-alpha.2](https://github.com/uzh-bf/design-system/compare/v4.0.0-alpha.1...v4.0.0-alpha.2) (2025-06-21)
+
+
+### Bug Fixes
+
+* **Progress:** change progress component to client-side rendering to ensure compatibility with used hooks ([13ca7db](https://github.com/uzh-bf/design-system/commit/13ca7dbe08c625258ae9523301f82d0e9c8e5e7e))
+
+
+### Other
+
+* remove size action to ensure passing actions for release-ready code ([bbfe213](https://github.com/uzh-bf/design-system/commit/bbfe21348952c12c6ed43bb9d7ec4e358aebb3f5))
+
+## [4.0.0-alpha.1](https://github.com/uzh-bf/design-system/compare/v4.0.0-alpha.0...v4.0.0-alpha.1) (2025-06-21)
+
+
+### Dependencies
+
+* upgrade dependencies of design-system to latest version where possible ([#162](https://github.com/uzh-bf/design-system/issues/162)) ([53e085c](https://github.com/uzh-bf/design-system/commit/53e085c37bcb975631aa5d39b4c63d92a1d50535))
+
+
+### Other
+
+* add clean copy of shadcn components into originals folder for reference ([#163](https://github.com/uzh-bf/design-system/issues/163)) ([ea69ab4](https://github.com/uzh-bf/design-system/commit/ea69ab4afe8850cc168b208abe2c641b72bbde10))
+* update all shadcn components to the newest version ([#161](https://github.com/uzh-bf/design-system/issues/161)) ([c0db420](https://github.com/uzh-bf/design-system/commit/c0db420206a143380f57a51646d8583c2aa74e5b))
+
+## [4.0.0-alpha.0](https://github.com/uzh-bf/design-system/compare/v3.0.9...v4.0.0-alpha.0) (2025-06-20)
+
+
+### Enhancements
+
+* add use client to all components with client interaction ([#159](https://github.com/uzh-bf/design-system/issues/159)) ([d82f36d](https://github.com/uzh-bf/design-system/commit/d82f36d8975be03fe852dacdd7dc24e526dee9c3))
+
 ### [3.0.9](https://github.com/uzh-bf/design-system/compare/v3.0.8...v3.0.9) (2025-06-19)
 
 

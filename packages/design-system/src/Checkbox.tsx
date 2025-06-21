@@ -1,3 +1,5 @@
+'use client'
+
 import { faCheck, faMinus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as RadixCheckbox from '@radix-ui/react-checkbox'

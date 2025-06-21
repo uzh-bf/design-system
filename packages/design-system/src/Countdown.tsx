@@ -1,3 +1,5 @@
+'use client'
+
 import ReactCountdown from 'react-countdown'
 
 export interface CountdownProps {

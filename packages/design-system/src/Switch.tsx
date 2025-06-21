@@ -1,3 +1,5 @@
+'use client'
+
 import { faCircleExclamation, faLock } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as RadixSwitch from '@radix-ui/react-switch'
