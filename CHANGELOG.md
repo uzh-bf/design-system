@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.0-alpha.1](https://github.com/uzh-bf/design-system/compare/v4.0.0-alpha.0...v4.0.0-alpha.1) (2025-06-21)
+
+
+### Dependencies
+
+* upgrade dependencies of design-system to latest version where possible ([#162](https://github.com/uzh-bf/design-system/issues/162)) ([53e085c](https://github.com/uzh-bf/design-system/commit/53e085c37bcb975631aa5d39b4c63d92a1d50535))
+
+
+### Other
+
+* add clean copy of shadcn components into originals folder for reference ([#163](https://github.com/uzh-bf/design-system/issues/163)) ([ea69ab4](https://github.com/uzh-bf/design-system/commit/ea69ab4afe8850cc168b208abe2c641b72bbde10))
+* update all shadcn components to the newest version ([#161](https://github.com/uzh-bf/design-system/issues/161)) ([c0db420](https://github.com/uzh-bf/design-system/commit/c0db420206a143380f57a51646d8583c2aa74e5b))
+
 ## [4.0.0-alpha.0](https://github.com/uzh-bf/design-system/compare/v3.0.9...v4.0.0-alpha.0) (2025-06-20)
 
 
