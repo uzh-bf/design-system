@@ -1,3 +1,5 @@
+'use client'
+
 import * as RadixProgress from '@radix-ui/react-progress'
 import React, { useEffect, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
