@@ -1,4 +1,3 @@
-import { StoryDefault } from '@ladle/react'
 import {
   Breadcrumb,
   BreadcrumbEllipsis,
@@ -7,19 +6,15 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from './breadcrumb'
+} from './Breadcrumb'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from './dropdown-menu'
+} from './ui/dropdown-menu'
 
-export default {
-  title: 'Shadcn/Breadcrumb',
-} satisfies StoryDefault
-
-export function Default() {
+export const Default = () => {
   return (
     <Breadcrumb>
       <BreadcrumbList>
