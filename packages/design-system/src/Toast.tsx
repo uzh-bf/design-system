@@ -25,7 +25,10 @@ export function toast({
         ),
         icon: twMerge('text-green-600 mr-3', options?.classNames?.icon),
         description: twMerge('text-base', options?.classNames?.description),
-        closeButton: twMerge('bg-white', options?.classNames?.closeButton),
+        closeButton: twMerge(
+          '!bg-white !text-black !border-gray-300',
+          options?.classNames?.closeButton
+        ),
       },
     })
   }
@@ -41,7 +44,10 @@ export function toast({
         ),
         icon: twMerge('text-orange-500 mr-3', options?.classNames?.icon),
         description: twMerge('text-base', options?.classNames?.description),
-        closeButton: twMerge('bg-white', options?.classNames?.closeButton),
+        closeButton: twMerge(
+          '!bg-white !text-black !border-gray-300',
+          options?.classNames?.closeButton
+        ),
       },
     })
   }
@@ -57,7 +63,10 @@ export function toast({
         ),
         icon: twMerge('text-red-500 mr-3', options?.classNames?.icon),
         description: twMerge('text-base', options?.classNames?.description),
-        closeButton: twMerge('bg-white', options?.classNames?.closeButton),
+        closeButton: twMerge(
+          '!bg-white !text-black !border-gray-300',
+          options?.classNames?.closeButton
+        ),
       },
     })
   }
