@@ -22,6 +22,7 @@ export default defineConfig([
     '**/ui',
     '**/types',
     '**/build',
+    '**/original',
   ]),
   {
     extends: fixupConfigRules(
