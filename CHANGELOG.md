@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.0-alpha.2](https://github.com/uzh-bf/design-system/compare/v4.0.0-alpha.1...v4.0.0-alpha.2) (2025-06-21)
+
+
+### Bug Fixes
+
+* **Progress:** change progress component to client-side rendering to ensure compatibility with used hooks ([13ca7db](https://github.com/uzh-bf/design-system/commit/13ca7dbe08c625258ae9523301f82d0e9c8e5e7e))
+
+
+### Other
+
+* remove size action to ensure passing actions for release-ready code ([bbfe213](https://github.com/uzh-bf/design-system/commit/bbfe21348952c12c6ed43bb9d7ec4e358aebb3f5))
+
 ## [4.0.0-alpha.1](https://github.com/uzh-bf/design-system/compare/v4.0.0-alpha.0...v4.0.0-alpha.1) (2025-06-21)
 
 
