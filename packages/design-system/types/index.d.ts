@@ -1,11 +1,11 @@
-/// <reference types="react" />
-
 import * as AccordionPrimitive from '@radix-ui/react-accordion';
 import * as AlertDialogPrimitive from '@radix-ui/react-alert-dialog';
 import { AllowInDimension } from 'recharts/types/util/types';
+import { AnimationDuration } from 'recharts/types/util/types';
 import { AnimationTiming } from 'recharts/types/util/types';
 import * as AspectRatioPrimitive from '@radix-ui/react-aspect-ratio';
 import * as AvatarPrimitive from '@radix-ui/react-avatar';
+import { ButtonProps as ButtonProps_3 } from './button';
 import { CartesianViewBox } from 'recharts/types/util/types';
 import { ClassProp } from 'class-variance-authority/types';
 import * as CollapsiblePrimitive from '@radix-ui/react-collapsible';
@@ -13,7 +13,6 @@ import { ContentType } from 'recharts/types/component/Tooltip';
 import * as ContextMenuPrimitive from '@radix-ui/react-context-menu';
 import { ControllerProps } from 'react-hook-form';
 import { Coordinate } from 'recharts/types/util/types';
-import { CSSProperties } from 'react';
 import { DayButton } from 'react-day-picker';
 import { DayPicker } from 'react-day-picker';
 import { DayPickerProps } from 'react-day-picker';
@@ -65,7 +64,7 @@ import { SlotProps } from '@radix-ui/react-slot';
 import { Toaster as Toaster_2 } from 'sonner';
 import * as ToggleGroupPrimitive from '@radix-ui/react-toggle-group';
 import * as TogglePrimitive from '@radix-ui/react-toggle';
-import { TooltipContentProps } from '@radix-ui/react-tooltip';
+import * as TooltipPrimitive from '@radix-ui/react-tooltip';
 import { UniqueOption } from 'recharts/types/util/payload/getUniqPayload';
 import { UseEmblaCarouselType } from 'embla-carousel-react';
 import { ValueType } from 'recharts/types/component/DefaultTooltipContent';
@@ -214,14 +213,14 @@ export declare const Breadcrumb: React_2.ForwardRefExoticComponent<Omit<React_2.
 } & React_2.RefAttributes<HTMLElement>>;
 
 export declare const BreadcrumbEllipsis: {
-    ({ className, ...props }: React_2.ComponentProps<'span'>): JSX.Element;
+    ({ className, ...props }: React_2.ComponentProps<"span">): JSX.Element;
     displayName: string;
 };
 
 export declare const BreadcrumbItem: React_2.ForwardRefExoticComponent<Omit<React_2.DetailedHTMLProps<React_2.LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>, "ref"> & React_2.RefAttributes<HTMLLIElement>>;
 
 export declare const BreadcrumbLink: React_2.ForwardRefExoticComponent<Omit<React_2.DetailedHTMLProps<React_2.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>, "ref"> & {
-    asChild?: boolean | undefined;
+    asChild?: boolean;
 } & React_2.RefAttributes<HTMLAnchorElement>>;
 
 export declare const BreadcrumbList: React_2.ForwardRefExoticComponent<Omit<React_2.DetailedHTMLProps<React_2.OlHTMLAttributes<HTMLOListElement>, HTMLOListElement>, "ref"> & React_2.RefAttributes<HTMLOListElement>>;
@@ -229,7 +228,7 @@ export declare const BreadcrumbList: React_2.ForwardRefExoticComponent<Omit<Reac
 export declare const BreadcrumbPage: React_2.ForwardRefExoticComponent<Omit<React_2.DetailedHTMLProps<React_2.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>, "ref"> & React_2.RefAttributes<HTMLSpanElement>>;
 
 export declare const BreadcrumbSeparator: {
-    ({ children, className, ...props }: React_2.ComponentProps<'li'>): JSX.Element;
+    ({ children, className, ...props }: React_2.ComponentProps<"li">): JSX.Element;
     displayName: string;
 };
 
@@ -256,17 +255,17 @@ export declare function Button({ id, children, onClick, disabled, primary, destr
 export declare namespace Button {
     var Icon: ({ icon, withoutLabel, loading, className, }: {
         icon: IconDefinition;
-        withoutLabel?: boolean | undefined;
-        loading?: boolean | undefined;
+        withoutLabel?: boolean;
+        loading?: boolean;
         className?: {
-            root?: string | undefined;
-        } | undefined;
+            root?: string;
+        };
     }) => JSX.Element | null;
     var Label: ({ className, children, }: {
         className?: {
-            root?: string | undefined;
-        } | undefined;
-        children: ReactNode;
+            root?: string;
+        };
+        children: React.ReactNode;
     }) => JSX.Element;
     var IconGroup: ({ state, setState, className, children, }: ButtonIconGroupProps) => JSX.Element;
 }
@@ -349,13 +348,13 @@ export declare const CarouselContent: React_2.ForwardRefExoticComponent<React_2.
 
 export declare const CarouselItem: React_2.ForwardRefExoticComponent<React_2.HTMLAttributes<HTMLDivElement> & React_2.RefAttributes<HTMLDivElement>>;
 
-export declare const CarouselNext: React_2.ForwardRefExoticComponent<Omit<ButtonProps_2 & React_2.RefAttributes<HTMLButtonElement>, "ref"> & React_2.RefAttributes<HTMLButtonElement>>;
+export declare const CarouselNext: React_2.ForwardRefExoticComponent<Omit<ButtonProps_3 & React_2.RefAttributes<HTMLButtonElement>, "ref"> & React_2.RefAttributes<HTMLButtonElement>>;
 
 declare type CarouselOptions = UseCarouselParameters[0];
 
 declare type CarouselPlugin = UseCarouselParameters[1];
 
-export declare const CarouselPrevious: React_2.ForwardRefExoticComponent<Omit<ButtonProps_2 & React_2.RefAttributes<HTMLButtonElement>, "ref"> & React_2.RefAttributes<HTMLButtonElement>>;
+export declare const CarouselPrevious: React_2.ForwardRefExoticComponent<Omit<ButtonProps_3 & React_2.RefAttributes<HTMLButtonElement>, "ref"> & React_2.RefAttributes<HTMLButtonElement>>;
 
 declare type CarouselProps = {
     opts?: CarouselOptions;
@@ -379,14 +378,14 @@ declare type ChartConfig = {
 
 export declare const ChartContainer: React_2.ForwardRefExoticComponent<Omit<React_2.ClassAttributes<HTMLDivElement> & React_2.HTMLAttributes<HTMLDivElement> & {
     config: ChartConfig;
-    children: React_2.ComponentProps<typeof RechartsPrimitive.ResponsiveContainer>['children'];
+    children: React_2.ComponentProps<typeof RechartsPrimitive.ResponsiveContainer>["children"];
 }, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
 export declare const ChartLegend: typeof RechartsPrimitive.Legend;
 
 export declare const ChartLegendContent: React_2.ForwardRefExoticComponent<Omit<React_2.ClassAttributes<HTMLDivElement> & React_2.HTMLAttributes<HTMLDivElement> & Pick<RechartsPrimitive.LegendProps, "payload" | "verticalAlign"> & {
-    hideIcon?: boolean | undefined;
-    nameKey?: string | undefined;
+    hideIcon?: boolean;
+    nameKey?: string;
 }, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
 export declare const ChartStyle: ({ id, config }: {
@@ -397,33 +396,33 @@ export declare const ChartStyle: ({ id, config }: {
 export declare const ChartTooltip: typeof RechartsPrimitive.Tooltip;
 
 export declare const ChartTooltipContent: React_2.ForwardRefExoticComponent<Omit<RechartsPrimitive.DefaultTooltipContentProps<ValueType, NameType> & {
-    accessibilityLayer?: boolean | undefined;
+    accessibilityLayer?: boolean;
     active?: boolean | undefined;
     includeHidden?: boolean | undefined;
-    allowEscapeViewBox?: AllowInDimension | undefined;
-    animationDuration?: number | undefined;
-    animationEasing?: AnimationTiming | undefined;
+    allowEscapeViewBox?: AllowInDimension;
+    animationDuration?: AnimationDuration;
+    animationEasing?: AnimationTiming;
     content?: ContentType<ValueType, NameType> | undefined;
-    coordinate?: Partial<Coordinate> | undefined;
-    cursor?: boolean | React_2.ReactElement<unknown, string | React_2.JSXElementConstructor<any>> | React_2.SVGProps<SVGElement> | undefined;
-    filterNull?: boolean | undefined;
-    defaultIndex?: number | undefined;
-    isAnimationActive?: boolean | undefined;
-    offset?: number | undefined;
+    coordinate?: Partial<Coordinate>;
+    cursor?: boolean | React_2.ReactElement | React_2.SVGProps<SVGElement>;
+    filterNull?: boolean;
+    defaultIndex?: number;
+    isAnimationActive?: boolean;
+    offset?: number;
     payloadUniqBy?: UniqueOption<Payload<ValueType, NameType>> | undefined;
-    position?: Partial<Coordinate> | undefined;
-    reverseDirection?: AllowInDimension | undefined;
-    shared?: boolean | undefined;
-    trigger?: "hover" | "click" | undefined;
-    useTranslate3d?: boolean | undefined;
-    viewBox?: CartesianViewBox | undefined;
-    wrapperStyle?: React_2.CSSProperties | undefined;
+    position?: Partial<Coordinate>;
+    reverseDirection?: AllowInDimension;
+    shared?: boolean;
+    trigger?: "hover" | "click";
+    useTranslate3d?: boolean;
+    viewBox?: CartesianViewBox;
+    wrapperStyle?: React_2.CSSProperties;
 } & React_2.ClassAttributes<HTMLDivElement> & React_2.HTMLAttributes<HTMLDivElement> & {
-    hideLabel?: boolean | undefined;
-    hideIndicator?: boolean | undefined;
-    indicator?: "line" | "dot" | "dashed" | undefined;
-    nameKey?: string | undefined;
-    labelKey?: string | undefined;
+    hideLabel?: boolean;
+    hideIndicator?: boolean;
+    indicator?: "line" | "dot" | "dashed";
+    nameKey?: string;
+    labelKey?: string;
 }, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
 /**
@@ -619,19 +618,19 @@ export declare type ColumnType<RowType> = {
 export declare const Command: React_2.ForwardRefExoticComponent<Omit<{
     children?: React_2.ReactNode;
 } & Pick<Pick<React_2.DetailedHTMLProps<React_2.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "key" | keyof React_2.HTMLAttributes<HTMLDivElement>> & {
-    ref?: React_2.Ref<HTMLDivElement> | undefined;
+    ref?: React_2.Ref<HTMLDivElement>;
 } & {
-    asChild?: boolean | undefined;
+    asChild?: boolean;
 }, "key" | keyof React_2.HTMLAttributes<HTMLDivElement> | "asChild"> & {
-    label?: string | undefined;
-    shouldFilter?: boolean | undefined;
-    filter?: ((value: string, search: string, keywords?: string[] | undefined) => number) | undefined;
-    defaultValue?: string | undefined;
-    value?: string | undefined;
-    onValueChange?: ((value: string) => void) | undefined;
-    loop?: boolean | undefined;
-    disablePointerSelection?: boolean | undefined;
-    vimBindings?: boolean | undefined;
+    label?: string;
+    shouldFilter?: boolean;
+    filter?: (value: string, search: string, keywords?: string[]) => number;
+    defaultValue?: string;
+    value?: string;
+    onValueChange?: (value: string) => void;
+    loop?: boolean;
+    disablePointerSelection?: boolean;
+    vimBindings?: boolean;
 } & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
 export declare const CommandDialog: ({ children, ...props }: DialogProps) => JSX.Element;
@@ -639,62 +638,62 @@ export declare const CommandDialog: ({ children, ...props }: DialogProps) => JSX
 export declare const CommandEmpty: React_2.ForwardRefExoticComponent<Omit<{
     children?: React_2.ReactNode;
 } & Pick<Pick<React_2.DetailedHTMLProps<React_2.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "key" | keyof React_2.HTMLAttributes<HTMLDivElement>> & {
-    ref?: React_2.Ref<HTMLDivElement> | undefined;
+    ref?: React_2.Ref<HTMLDivElement>;
 } & {
-    asChild?: boolean | undefined;
+    asChild?: boolean;
 }, "key" | keyof React_2.HTMLAttributes<HTMLDivElement> | "asChild"> & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
 export declare const CommandGroup: React_2.ForwardRefExoticComponent<Omit<{
     children?: React_2.ReactNode;
 } & Omit<Pick<Pick<React_2.DetailedHTMLProps<React_2.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "key" | keyof React_2.HTMLAttributes<HTMLDivElement>> & {
-    ref?: React_2.Ref<HTMLDivElement> | undefined;
+    ref?: React_2.Ref<HTMLDivElement>;
 } & {
-    asChild?: boolean | undefined;
+    asChild?: boolean;
 }, "key" | keyof React_2.HTMLAttributes<HTMLDivElement> | "asChild">, "heading" | "value"> & {
     heading?: React_2.ReactNode;
-    value?: string | undefined;
-    forceMount?: boolean | undefined;
+    value?: string;
+    forceMount?: boolean;
 } & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
 export declare const CommandInput: React_2.ForwardRefExoticComponent<Omit<Omit<Pick<Pick<React_2.DetailedHTMLProps<React_2.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, "key" | keyof React_2.InputHTMLAttributes<HTMLInputElement>> & {
-    ref?: React_2.Ref<HTMLInputElement> | undefined;
+    ref?: React_2.Ref<HTMLInputElement>;
 } & {
-    asChild?: boolean | undefined;
+    asChild?: boolean;
 }, "key" | "asChild" | keyof React_2.InputHTMLAttributes<HTMLInputElement>>, "onChange" | "value" | "type"> & {
-    value?: string | undefined;
-    onValueChange?: ((search: string) => void) | undefined;
+    value?: string;
+    onValueChange?: (search: string) => void;
 } & React_2.RefAttributes<HTMLInputElement>, "ref"> & React_2.RefAttributes<HTMLInputElement>>;
 
 export declare const CommandItem: React_2.ForwardRefExoticComponent<Omit<{
     children?: React_2.ReactNode;
 } & Omit<Pick<Pick<React_2.DetailedHTMLProps<React_2.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "key" | keyof React_2.HTMLAttributes<HTMLDivElement>> & {
-    ref?: React_2.Ref<HTMLDivElement> | undefined;
+    ref?: React_2.Ref<HTMLDivElement>;
 } & {
-    asChild?: boolean | undefined;
+    asChild?: boolean;
 }, "key" | keyof React_2.HTMLAttributes<HTMLDivElement> | "asChild">, "onSelect" | "disabled" | "value"> & {
-    disabled?: boolean | undefined;
-    onSelect?: ((value: string) => void) | undefined;
-    value?: string | undefined;
-    keywords?: string[] | undefined;
-    forceMount?: boolean | undefined;
+    disabled?: boolean;
+    onSelect?: (value: string) => void;
+    value?: string;
+    keywords?: string[];
+    forceMount?: boolean;
 } & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
 export declare const CommandList: React_2.ForwardRefExoticComponent<Omit<{
     children?: React_2.ReactNode;
 } & Pick<Pick<React_2.DetailedHTMLProps<React_2.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "key" | keyof React_2.HTMLAttributes<HTMLDivElement>> & {
-    ref?: React_2.Ref<HTMLDivElement> | undefined;
+    ref?: React_2.Ref<HTMLDivElement>;
 } & {
-    asChild?: boolean | undefined;
+    asChild?: boolean;
 }, "key" | keyof React_2.HTMLAttributes<HTMLDivElement> | "asChild"> & {
-    label?: string | undefined;
+    label?: string;
 } & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
 export declare const CommandSeparator: React_2.ForwardRefExoticComponent<Omit<Pick<Pick<React_2.DetailedHTMLProps<React_2.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "key" | keyof React_2.HTMLAttributes<HTMLDivElement>> & {
-    ref?: React_2.Ref<HTMLDivElement> | undefined;
+    ref?: React_2.Ref<HTMLDivElement>;
 } & {
-    asChild?: boolean | undefined;
+    asChild?: boolean;
 }, "key" | keyof React_2.HTMLAttributes<HTMLDivElement> | "asChild"> & {
-    alwaysRender?: boolean | undefined;
+    alwaysRender?: boolean;
 } & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
 export declare const CommandShortcut: {
@@ -711,11 +710,11 @@ export declare const ContextMenuContent: React_2.ForwardRefExoticComponent<Omit<
 export declare const ContextMenuGroup: React_2.ForwardRefExoticComponent<ContextMenuPrimitive.ContextMenuGroupProps & React_2.RefAttributes<HTMLDivElement>>;
 
 export declare const ContextMenuItem: React_2.ForwardRefExoticComponent<Omit<ContextMenuPrimitive.ContextMenuItemProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & {
-    inset?: boolean | undefined;
+    inset?: boolean;
 } & React_2.RefAttributes<HTMLDivElement>>;
 
 export declare const ContextMenuLabel: React_2.ForwardRefExoticComponent<Omit<ContextMenuPrimitive.ContextMenuLabelProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & {
-    inset?: boolean | undefined;
+    inset?: boolean;
 } & React_2.RefAttributes<HTMLDivElement>>;
 
 export declare const ContextMenuPortal: React_2.FC<ContextMenuPrimitive.ContextMenuPortalProps>;
@@ -736,7 +735,7 @@ export declare const ContextMenuSub: React_2.FC<ContextMenuPrimitive.ContextMenu
 export declare const ContextMenuSubContent: React_2.ForwardRefExoticComponent<Omit<ContextMenuPrimitive.ContextMenuSubContentProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
 export declare const ContextMenuSubTrigger: React_2.ForwardRefExoticComponent<Omit<ContextMenuPrimitive.ContextMenuSubTriggerProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & {
-    inset?: boolean | undefined;
+    inset?: boolean;
 } & React_2.RefAttributes<HTMLDivElement>>;
 
 export declare const ContextMenuTrigger: React_2.ForwardRefExoticComponent<ContextMenuPrimitive.ContextMenuTriggerProps & React_2.RefAttributes<HTMLSpanElement>>;
@@ -913,71 +912,71 @@ export declare interface DatePickerProps {
 }
 
 export declare const DateTimePicker: React_2.ForwardRefExoticComponent<{
-    value?: Date | undefined;
-    onChange?: ((date: Date | undefined) => void) | undefined;
-    onMonthChange?: ((date: Date | undefined) => void) | undefined;
-    disabled?: boolean | undefined;
+    value?: Date;
+    onChange?: (date: Date | undefined) => void;
+    onMonthChange?: (date: Date | undefined) => void;
+    disabled?: boolean;
     /** showing `AM/PM` or not. */
-    hourCycle?: 12 | 24 | undefined;
-    placeholder?: string | undefined;
+    hourCycle?: 12 | 24;
+    placeholder?: string;
     /**
      * The year range will be: `This year + yearRange` and `this year - yearRange`.
      * Default is 50.
      * For example:
      * This year is 2024, The year dropdown will be 1974 to 2024 which is generated by `2024 - 50 = 1974` and `2024 + 50 = 2074`.
      * */
-    yearRange?: number | undefined;
-    displayFormat?: string | undefined;
+    yearRange?: number;
+    displayFormat?: string;
     /**
      * The granularity prop allows you to control the smallest unit that is displayed by DateTimePicker.
      * By default, the value is `second` which shows all time inputs.
      **/
-    granularity?: Granularity | undefined;
+    granularity?: Granularity;
     className?: {
-        trigger?: string | undefined;
-        input?: string | undefined;
-        label?: string | undefined;
-        tooltip?: string | undefined;
-        error?: string | undefined;
-    } | undefined;
+        trigger?: string;
+        input?: string;
+        label?: string;
+        tooltip?: string;
+        error?: string;
+    };
     /**
      * Show the default month and time when popup the calendar. Default is the current Date().
      **/
-    defaultPopupValue?: Date | undefined;
+    defaultPopupValue?: Date;
     dataTrigger?: {
-        cy?: string | undefined;
-        test?: string | undefined;
-    } | undefined;
+        cy?: string;
+        test?: string;
+    };
     dataCalendar?: {
-        cy?: string | undefined;
-        test?: string | undefined;
-    } | undefined;
+        cy?: string;
+        test?: string;
+    };
     dataHours?: {
-        cy?: string | undefined;
-        test?: string | undefined;
-    } | undefined;
+        cy?: string;
+        test?: string;
+    };
     dataMinutes?: {
-        cy?: string | undefined;
-        test?: string | undefined;
-    } | undefined;
+        cy?: string;
+        test?: string;
+    };
     dataSeconds?: {
-        cy?: string | undefined;
-        test?: string | undefined;
-    } | undefined;
+        cy?: string;
+        test?: string;
+    };
     dataNextMonth?: {
-        cy?: string | undefined;
-        test?: string | undefined;
-    } | undefined;
+        cy?: string;
+        test?: string;
+    };
     dataPreviousMonth?: {
-        cy?: string | undefined;
-        test?: string | undefined;
-    } | undefined;
-    error?: string | undefined;
-    hideError?: boolean | undefined;
-    isTouched?: boolean | undefined;
-    label?: string | undefined;
-    labelType?: "small" | "large" | undefined;
-    required?: boolean | undefined;
+        cy?: string;
+        test?: string;
+    };
+    error?: string;
+    hideError?: boolean;
+    isTouched?: boolean;
+    label?: string;
+    labelType?: "small" | "large";
+    required?: boolean;
     tooltip?: string | React_2.ReactNode;
 } & Pick<DayPickerProps, "showOutsideDays" | "showWeekNumber" | "locale" | "weekStartsOn"> & React_2.RefAttributes<Partial<DateTimePickerRef>>>;
 
@@ -2039,14 +2038,14 @@ export declare interface NumberFieldProps {
 }
 
 export declare const Pagination: {
-    ({ className, ...props }: React_2.ComponentProps<'nav'>): JSX.Element;
+    ({ className, ...props }: React_2.ComponentProps<"nav">): JSX.Element;
     displayName: string;
 };
 
 export declare const PaginationContent: React_2.ForwardRefExoticComponent<Omit<React_2.DetailedHTMLProps<React_2.HTMLAttributes<HTMLUListElement>, HTMLUListElement>, "ref"> & React_2.RefAttributes<HTMLUListElement>>;
 
 export declare const PaginationEllipsis: {
-    ({ className, ...props }: React_2.ComponentProps<'span'>): JSX.Element;
+    ({ className, ...props }: React_2.ComponentProps<"span">): JSX.Element;
     displayName: string;
 };
 
@@ -2133,42 +2132,26 @@ declare interface RadioItem extends BaseItem {
     selected?: never;
 }
 
-export declare const ResizableHandle: ({ withHandle, className, ...props }: Omit<HTMLAttributes<keyof HTMLElementTagNameMap>, "id" | "onFocus" | "onBlur" | "onClick" | "onPointerDown" | "onPointerUp"> & {
-    className?: string | undefined;
-    disabled?: boolean | undefined;
-    hitAreaMargins?: ResizablePrimitive.PointerHitAreaMargins | undefined;
-    id?: string | null | undefined;
-    onBlur?: (() => void) | undefined;
-    onClick?: (() => void) | undefined;
-    onDragging?: ResizablePrimitive.PanelResizeHandleOnDragging | undefined;
-    onFocus?: (() => void) | undefined;
-    onPointerDown?: (() => void) | undefined;
-    onPointerUp?: (() => void) | undefined;
-    style?: CSSProperties | undefined;
-    tabIndex?: number | undefined;
-    tagName?: keyof HTMLElementTagNameMap | undefined;
-} & {
-    children?: ReactNode;
-} & {
-    withHandle?: boolean | undefined;
+export declare const ResizableHandle: ({ withHandle, className, ...props }: React.ComponentProps<typeof ResizablePrimitive.PanelResizeHandle> & {
+    withHandle?: boolean;
 }) => JSX.Element;
 
 export declare const ResizablePanel: ForwardRefExoticComponent<Omit<HTMLAttributes<HTMLDivElement | HTMLElement | HTMLObjectElement | HTMLMapElement | HTMLAnchorElement | HTMLButtonElement | HTMLFormElement | HTMLHeadingElement | HTMLImageElement | HTMLInputElement | HTMLLabelElement | HTMLLIElement | HTMLOListElement | HTMLParagraphElement | HTMLSelectElement | HTMLSpanElement | HTMLUListElement | HTMLAreaElement | HTMLAudioElement | HTMLBaseElement | HTMLQuoteElement | HTMLBodyElement | HTMLBRElement | HTMLCanvasElement | HTMLTableColElement | HTMLDataElement | HTMLDataListElement | HTMLModElement | HTMLDetailsElement | HTMLDialogElement | HTMLDListElement | HTMLEmbedElement | HTMLFieldSetElement | HTMLHeadElement | HTMLHRElement | HTMLHtmlElement | HTMLIFrameElement | HTMLLegendElement | HTMLLinkElement | HTMLMetaElement | HTMLMeterElement | HTMLOptGroupElement | HTMLOptionElement | HTMLOutputElement | HTMLPreElement | HTMLProgressElement | HTMLSlotElement | HTMLScriptElement | HTMLSourceElement | HTMLStyleElement | HTMLTableElement | HTMLTemplateElement | HTMLTableSectionElement | HTMLTableCellElement | HTMLTextAreaElement | HTMLTimeElement | HTMLTitleElement | HTMLTableRowElement | HTMLTrackElement | HTMLVideoElement | HTMLTableCaptionElement | HTMLMenuElement | HTMLPictureElement>, "id" | "onResize"> & {
-className?: string | undefined;
+className?: string;
 collapsedSize?: number | undefined;
 collapsible?: boolean | undefined;
 defaultSize?: number | undefined;
-id?: string | undefined;
+id?: string;
 maxSize?: number | undefined;
 minSize?: number | undefined;
-onCollapse?: ResizablePrimitive.PanelOnCollapse | undefined;
-onExpand?: ResizablePrimitive.PanelOnExpand | undefined;
-onResize?: ResizablePrimitive.PanelOnResize | undefined;
-order?: number | undefined;
-style?: object | undefined;
+onCollapse?: ResizablePrimitive.PanelOnCollapse;
+onExpand?: ResizablePrimitive.PanelOnExpand;
+onResize?: ResizablePrimitive.PanelOnResize;
+order?: number;
+style?: object;
 tagName?: keyof HTMLElementTagNameMap | undefined;
 } & {
-children?: ReactNode;
+children?: ReactNode | undefined;
 } & RefAttributes<ResizablePrimitive.ImperativePanelHandle>>;
 
 export declare const ResizablePanelGroup: ({ className, ...props }: React.ComponentProps<typeof ResizablePrimitive.PanelGroup>) => JSX.Element;
@@ -2352,11 +2335,11 @@ export declare const ShadcnDropdownMenuContent: React_2.ForwardRefExoticComponen
 export declare const ShadcnDropdownMenuGroup: React_2.ForwardRefExoticComponent<DropdownMenuPrimitive.DropdownMenuGroupProps & React_2.RefAttributes<HTMLDivElement>>;
 
 export declare const ShadcnDropdownMenuItem: React_2.ForwardRefExoticComponent<Omit<DropdownMenuPrimitive.DropdownMenuItemProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & {
-    inset?: boolean | undefined;
+    inset?: boolean;
 } & React_2.RefAttributes<HTMLDivElement>>;
 
 export declare const ShadcnDropdownMenuLabel: React_2.ForwardRefExoticComponent<Omit<DropdownMenuPrimitive.DropdownMenuLabelProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & {
-    inset?: boolean | undefined;
+    inset?: boolean;
 } & React_2.RefAttributes<HTMLDivElement>>;
 
 export declare const ShadcnDropdownMenuPortal: React_2.FC<DropdownMenuPrimitive.DropdownMenuPortalProps>;
@@ -2377,7 +2360,7 @@ export declare const ShadcnDropdownMenuSub: React_2.FC<DropdownMenuPrimitive.Dro
 export declare const ShadcnDropdownMenuSubContent: React_2.ForwardRefExoticComponent<Omit<DropdownMenuPrimitive.DropdownMenuSubContentProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
 export declare const ShadcnDropdownMenuSubTrigger: React_2.ForwardRefExoticComponent<Omit<DropdownMenuPrimitive.DropdownMenuSubTriggerProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & {
-    inset?: boolean | undefined;
+    inset?: boolean;
 } & React_2.RefAttributes<HTMLDivElement>>;
 
 export declare const ShadcnDropdownMenuTrigger: React_2.ForwardRefExoticComponent<DropdownMenuPrimitive.DropdownMenuTriggerProps & React_2.RefAttributes<HTMLButtonElement>>;
@@ -2395,11 +2378,11 @@ export declare const ShadcnMenubarContent: React_2.ForwardRefExoticComponent<Omi
 export declare function ShadcnMenubarGroup({ ...props }: React_2.ComponentProps<typeof MenubarPrimitive.Group>): JSX.Element;
 
 export declare const ShadcnMenubarItem: React_2.ForwardRefExoticComponent<Omit<MenubarPrimitive.MenubarItemProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & {
-    inset?: boolean | undefined;
+    inset?: boolean;
 } & React_2.RefAttributes<HTMLDivElement>>;
 
 export declare const ShadcnMenubarLabel: React_2.ForwardRefExoticComponent<Omit<MenubarPrimitive.MenubarLabelProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & {
-    inset?: boolean | undefined;
+    inset?: boolean;
 } & React_2.RefAttributes<HTMLDivElement>>;
 
 export declare function ShadcnMenubarMenu({ ...props }: React_2.ComponentProps<typeof MenubarPrimitive.Menu>): JSX.Element;
@@ -2422,7 +2405,7 @@ export declare function ShadcnMenubarSub({ ...props }: React_2.ComponentProps<ty
 export declare const ShadcnMenubarSubContent: React_2.ForwardRefExoticComponent<Omit<MenubarPrimitive.MenubarSubContentProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
 export declare const ShadcnMenubarSubTrigger: React_2.ForwardRefExoticComponent<Omit<MenubarPrimitive.MenubarSubTriggerProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & {
-    inset?: boolean | undefined;
+    inset?: boolean;
 } & React_2.RefAttributes<HTMLDivElement>>;
 
 export declare const ShadcnMenubarTrigger: React_2.ForwardRefExoticComponent<Omit<MenubarPrimitive.MenubarTriggerProps & React_2.RefAttributes<HTMLButtonElement>, "ref"> & React_2.RefAttributes<HTMLButtonElement>>;
@@ -2430,7 +2413,7 @@ export declare const ShadcnMenubarTrigger: React_2.ForwardRefExoticComponent<Omi
 export declare const ShadcnProgress: React_2.ForwardRefExoticComponent<Omit<ProgressPrimitive.ProgressProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
 export declare const ShadcnTable: React_2.ForwardRefExoticComponent<React_2.HTMLAttributes<HTMLTableElement> & {
-    containerClassName?: string | undefined;
+    containerClassName?: string;
 } & React_2.RefAttributes<HTMLTableElement>>;
 
 export declare const ShadcnTableBody: React_2.ForwardRefExoticComponent<React_2.HTMLAttributes<HTMLTableSectionElement> & React_2.RefAttributes<HTMLTableSectionElement>>;
@@ -2481,9 +2464,9 @@ declare const sheetVariants: (props?: ({
 } & ClassProp) | undefined) => string;
 
 export declare const Sidebar: React_2.ForwardRefExoticComponent<Omit<React_2.ClassAttributes<HTMLDivElement> & React_2.HTMLAttributes<HTMLDivElement> & {
-    side?: "left" | "right" | undefined;
-    variant?: "sidebar" | "inset" | "floating" | undefined;
-    collapsible?: "none" | "icon" | "offcanvas" | undefined;
+    side?: "left" | "right";
+    variant?: "sidebar" | "floating" | "inset";
+    collapsible?: "offcanvas" | "icon" | "none";
 }, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
 export declare const SidebarContent: React_2.ForwardRefExoticComponent<Omit<React_2.DetailedHTMLProps<React_2.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
@@ -2503,13 +2486,13 @@ export declare const SidebarFooter: React_2.ForwardRefExoticComponent<Omit<React
 export declare const SidebarGroup: React_2.ForwardRefExoticComponent<Omit<React_2.DetailedHTMLProps<React_2.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
 export declare const SidebarGroupAction: React_2.ForwardRefExoticComponent<Omit<React_2.ClassAttributes<HTMLButtonElement> & React_2.ButtonHTMLAttributes<HTMLButtonElement> & {
-    asChild?: boolean | undefined;
+    asChild?: boolean;
 }, "ref"> & React_2.RefAttributes<HTMLButtonElement>>;
 
 export declare const SidebarGroupContent: React_2.ForwardRefExoticComponent<Omit<React_2.DetailedHTMLProps<React_2.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
 export declare const SidebarGroupLabel: React_2.ForwardRefExoticComponent<Omit<React_2.ClassAttributes<HTMLDivElement> & React_2.HTMLAttributes<HTMLDivElement> & {
-    asChild?: boolean | undefined;
+    asChild?: boolean;
 }, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
 export declare const SidebarHeader: React_2.ForwardRefExoticComponent<Omit<React_2.DetailedHTMLProps<React_2.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
@@ -2521,16 +2504,16 @@ export declare const SidebarInset: React_2.ForwardRefExoticComponent<Omit<React_
 export declare const SidebarMenu: React_2.ForwardRefExoticComponent<Omit<React_2.DetailedHTMLProps<React_2.HTMLAttributes<HTMLUListElement>, HTMLUListElement>, "ref"> & React_2.RefAttributes<HTMLUListElement>>;
 
 export declare const SidebarMenuAction: React_2.ForwardRefExoticComponent<Omit<React_2.ClassAttributes<HTMLButtonElement> & React_2.ButtonHTMLAttributes<HTMLButtonElement> & {
-    asChild?: boolean | undefined;
-    showOnHover?: boolean | undefined;
+    asChild?: boolean;
+    showOnHover?: boolean;
 }, "ref"> & React_2.RefAttributes<HTMLButtonElement>>;
 
 export declare const SidebarMenuBadge: React_2.ForwardRefExoticComponent<Omit<React_2.DetailedHTMLProps<React_2.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
 export declare const SidebarMenuButton: React_2.ForwardRefExoticComponent<Omit<React_2.ClassAttributes<HTMLButtonElement> & React_2.ButtonHTMLAttributes<HTMLButtonElement> & {
-    asChild?: boolean | undefined;
-    isActive?: boolean | undefined;
-    tooltip?: string | (Omit<TooltipContentProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>) | undefined;
+    asChild?: boolean;
+    isActive?: boolean;
+    tooltip?: string | React_2.ComponentProps<typeof TooltipContent>;
 } & VariantProps<(props?: ({
     variant?: "default" | "outline" | null | undefined;
     size?: "default" | "sm" | "lg" | null | undefined;
@@ -2539,30 +2522,30 @@ export declare const SidebarMenuButton: React_2.ForwardRefExoticComponent<Omit<R
 export declare const SidebarMenuItem: React_2.ForwardRefExoticComponent<Omit<React_2.DetailedHTMLProps<React_2.LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>, "ref"> & React_2.RefAttributes<HTMLLIElement>>;
 
 export declare const SidebarMenuSkeleton: React_2.ForwardRefExoticComponent<Omit<React_2.ClassAttributes<HTMLDivElement> & React_2.HTMLAttributes<HTMLDivElement> & {
-    showIcon?: boolean | undefined;
+    showIcon?: boolean;
 }, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
 export declare const SidebarMenuSub: React_2.ForwardRefExoticComponent<Omit<React_2.DetailedHTMLProps<React_2.HTMLAttributes<HTMLUListElement>, HTMLUListElement>, "ref"> & React_2.RefAttributes<HTMLUListElement>>;
 
 export declare const SidebarMenuSubButton: React_2.ForwardRefExoticComponent<Omit<React_2.ClassAttributes<HTMLAnchorElement> & React_2.AnchorHTMLAttributes<HTMLAnchorElement> & {
-    asChild?: boolean | undefined;
-    size?: "sm" | "md" | undefined;
-    isActive?: boolean | undefined;
+    asChild?: boolean;
+    size?: "sm" | "md";
+    isActive?: boolean;
 }, "ref"> & React_2.RefAttributes<HTMLAnchorElement>>;
 
 export declare const SidebarMenuSubItem: React_2.ForwardRefExoticComponent<Omit<React_2.DetailedHTMLProps<React_2.LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>, "ref"> & React_2.RefAttributes<HTMLLIElement>>;
 
 export declare const SidebarProvider: React_2.ForwardRefExoticComponent<Omit<React_2.ClassAttributes<HTMLDivElement> & React_2.HTMLAttributes<HTMLDivElement> & {
-    defaultOpen?: boolean | undefined;
-    open?: boolean | undefined;
-    onOpenChange?: ((open: boolean) => void) | undefined;
+    defaultOpen?: boolean;
+    open?: boolean;
+    onOpenChange?: (open: boolean) => void;
 }, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
 export declare const SidebarRail: React_2.ForwardRefExoticComponent<Omit<React_2.DetailedHTMLProps<React_2.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, "ref"> & React_2.RefAttributes<HTMLButtonElement>>;
 
 export declare const SidebarSeparator: React_2.ForwardRefExoticComponent<Omit<Omit<SeparatorProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 
-export declare const SidebarTrigger: React_2.ForwardRefExoticComponent<Omit<ButtonProps_2 & React_2.RefAttributes<HTMLButtonElement>, "ref"> & React_2.RefAttributes<HTMLButtonElement>>;
+export declare const SidebarTrigger: React_2.ForwardRefExoticComponent<Omit<ButtonProps_3 & React_2.RefAttributes<HTMLButtonElement>, "ref"> & React_2.RefAttributes<HTMLButtonElement>>;
 
 declare interface SingleValueProgressProps extends BaseProgressProps {
     value: number;
@@ -3145,6 +3128,8 @@ export declare const toggleVariants: (props?: ({
  */
 export declare function Tooltip({ id, data, dataContent, tooltip, delay, children, className, }: TooltipProps): default_3.ReactElement;
 
+declare const TooltipContent: React_2.ForwardRefExoticComponent<Omit<TooltipPrimitive.TooltipContentProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
+
 export declare interface TooltipProps {
     id?: string;
     tooltip: default_3.ReactNode | string;
@@ -3181,7 +3166,7 @@ export declare const useFormField: () => {
     isDirty: boolean;
     isTouched: boolean;
     isValidating: boolean;
-    error?: FieldError | undefined;
+    error?: FieldError;
     id: string;
     name: string;
     formItemId: string;
