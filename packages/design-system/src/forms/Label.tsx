@@ -99,10 +99,10 @@ export function Label({
           <FontAwesomeIcon
             icon={faQuestion}
             className={twMerge(
+              'bg-primary-60 mt-1 h-3.5! w-3.5! rounded-full border border-solid border-white p-1! text-sm text-white',
               tooltipSymbolSize === 'xl' && 'mt-1! h-5! w-5! p-2!',
               tooltipSymbolSize === 'lg' && 'mt-1! h-4! w-4! p-1.5!',
               tooltipSymbolSize === 'sm' && 'mt-1! h-2! w-2! p-1!',
-              'bg-primary-60 mt-1 h-3 w-3 rounded-full border border-solid border-white p-1 text-white',
               className?.tooltipSymbol
             )}
           />

@@ -166,7 +166,7 @@ export const Combined = () => {
       accessor: 'answer',
       sortable: true,
       formatter: ({ row }: { row: RowType }) => (
-        <div className="bg-red-300">{row['answer'].toUpperCase()}</div>
+        <div>{row['answer'].toUpperCase()}</div>
       ),
     },
     { label: 'Username', accessor: 'username', sortable: false },

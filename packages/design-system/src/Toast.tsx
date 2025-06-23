@@ -20,10 +20,10 @@ export function toast({
       classNames: {
         ...options?.classNames,
         toast: twMerge(
-          'group-[.toaster]:border-2 group-[.toaster]:border-green-600 group-[.toaster]:py-3',
+          'group-[.toaster]:border-2! group-[.toaster]:border-green-600! group-[.toaster]:py-3!',
           options?.classNames?.toast
         ),
-        icon: twMerge('text-green-600 mr-3', options?.classNames?.icon),
+        icon: twMerge('text-green-600 mr-3!', options?.classNames?.icon),
         description: twMerge('text-base', options?.classNames?.description),
         closeButton: twMerge(
           'bg-white! text-black! border-gray-300!',
@@ -39,10 +39,10 @@ export function toast({
       classNames: {
         ...options?.classNames,
         toast: twMerge(
-          'group-[.toaster]:border-2 group-[.toaster]:border-orange-500 group-[.toaster]:py-3',
+          'group-[.toaster]:border-2! group-[.toaster]:border-orange-500! group-[.toaster]:py-3!',
           options?.classNames?.toast
         ),
-        icon: twMerge('text-orange-500 mr-3', options?.classNames?.icon),
+        icon: twMerge('text-orange-500 mr-3!', options?.classNames?.icon),
         description: twMerge('text-base', options?.classNames?.description),
         closeButton: twMerge(
           'bg-white! text-black! border-gray-300!',
@@ -58,10 +58,10 @@ export function toast({
       classNames: {
         ...options?.classNames,
         toast: twMerge(
-          'group-[.toaster]:border-2 group-[.toaster]:border-red-500 group-[.toaster]:py-3',
+          'group-[.toaster]:border-2! group-[.toaster]:border-red-500! group-[.toaster]:py-3!',
           options?.classNames?.toast
         ),
-        icon: twMerge('text-red-500 mr-3', options?.classNames?.icon),
+        icon: twMerge('text-red-500 mr-3!', options?.classNames?.icon),
         description: twMerge('text-base', options?.classNames?.description),
         closeButton: twMerge(
           'bg-white! text-black! border-gray-300!',
