@@ -35,6 +35,18 @@ export const Default = () => {
   )
 }
 
+export const AlignedEnd = () => {
+  return (
+    <div>
+      <div>
+        The alignment of the popover with respect to the trigger can be chosen
+        by setting the alignment prop accordingly.
+      </div>
+      <Dropdown trigger="Test Content" items={STANDARD_ITEMS} align="end" />
+    </div>
+  )
+}
+
 export const Submenu = () => {
   return (
     <div>

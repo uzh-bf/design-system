@@ -169,7 +169,7 @@ export function Modal({
         </DialogTrigger>
       )}
       <DialogContent
-        hideCloseButton={hideCloseButton}
+        showCloseButton={!hideCloseButton}
         onOpenAutoFocus={(e) => e.preventDefault()} // avoid that the automatically sets focus on first element
         onEscapeKeyDown={
           escapeDisabled ? (e) => e.preventDefault() : () => onClose()

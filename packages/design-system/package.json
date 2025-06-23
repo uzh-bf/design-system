@@ -94,6 +94,7 @@
     "tailwindcss": "^4.1.10",
     "tailwindcss-animate": "^1.0.7",
     "tailwindcss-radix": "^4.0.2",
+    "tw-animate-css": "^1.3.4",
     "yup": "^1.6.1"
   },
   "scripts": {

@@ -53,7 +53,7 @@ const components: { title: string; href: string; description: string }[] = [
 
 export const Default = () => {
   return (
-    <NavigationMenu>
+    <NavigationMenu viewport={false}>
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuTrigger>Home</NavigationMenuTrigger>
@@ -104,7 +104,7 @@ export const Default = () => {
         </NavigationMenuItem>
         <NavigationMenuItem>
           <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-            Docs
+            <div>Docs</div>
           </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
@@ -113,28 +113,28 @@ export const Default = () => {
             <ul className="grid w-[300px] gap-4">
               <li>
                 <NavigationMenuLink asChild>
-                  <>
+                  <div>
                     <div className="font-medium">Components</div>
                     <div className="text-muted-foreground">
                       Browse all components in the library.
                     </div>
-                  </>
+                  </div>
                 </NavigationMenuLink>
                 <NavigationMenuLink asChild>
-                  <>
+                  <div>
                     <div className="font-medium">Documentation</div>
                     <div className="text-muted-foreground">
                       Learn how to use the library.
                     </div>
-                  </>
+                  </div>
                 </NavigationMenuLink>
                 <NavigationMenuLink asChild>
-                  <>
+                  <div>
                     <div className="font-medium">Blog</div>
                     <div className="text-muted-foreground">
                       Read our latest blog posts.
                     </div>
-                  </>
+                  </div>
                 </NavigationMenuLink>
               </li>
             </ul>
@@ -146,13 +146,13 @@ export const Default = () => {
             <ul className="grid w-[200px] gap-4">
               <li>
                 <NavigationMenuLink asChild>
-                  <>Components</>
+                  <div>Components</div>
                 </NavigationMenuLink>
                 <NavigationMenuLink asChild>
-                  <>Documentation</>
+                  <div>Documentation</div>
                 </NavigationMenuLink>
                 <NavigationMenuLink asChild>
-                  <>Blocks</>
+                  <div>Blocks</div>
                 </NavigationMenuLink>
               </li>
             </ul>

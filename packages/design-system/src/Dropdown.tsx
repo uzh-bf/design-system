@@ -101,6 +101,7 @@ interface DropdownProps {
   trigger: string | React.ReactNode
   items?: Item[]
   radioGroups?: { value?: string; items: Item[] }[]
+  align?: 'start' | 'center' | 'end'
   data?: {
     cy?: string
     test?: string
@@ -129,6 +130,7 @@ export interface DropdownWithGroupsProps extends DropdownProps {
  * @param trigger - The content of the trigger button or a custom trigger component to replace the default button.
  * @param items - The items that are displayed in the dropdown menu. This attribute should not be set, if groups are used.
  * @param radioGroups - The radio groups that are displayed in the dropdown menu. This attribute should not be set, if items are used.
+ * @param align - The alignment of the dropdown menu. Default is 'start'.
  * @param className - The optional className object allows you to override the default styling.
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param disabled - Indicate whether the dropdown is disabled or not. Conditional styling is applied, if this is true.
@@ -140,6 +142,7 @@ export function Dropdown({
   trigger,
   items,
   radioGroups,
+  align,
   data,
   className,
 }: DropdownWithItemsProps | DropdownWithGroupsProps) {
@@ -157,7 +160,10 @@ export function Dropdown({
       >
         {trigger}
       </DropdownMenuTrigger>
-      <DropdownMenuContent className={className?.viewport}>
+      <DropdownMenuContent
+        className={className?.viewport}
+        align={align ?? 'start'}
+      >
         {typeof items !== 'undefined'
           ? items.map((item) => {
               return (
