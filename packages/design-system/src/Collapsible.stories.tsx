@@ -114,7 +114,7 @@ export const Styled = () => {
       staticContent="Static content"
       closedContent="Closed content"
       className={{
-        root: `border-1 bg-primary-20`,
+        root: `bg-primary-20 border-1`,
         trigger: 'text-red-500',
         content: 'text-blue-500',
         staticContent: 'text-green-500',

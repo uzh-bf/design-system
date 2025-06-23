@@ -139,7 +139,7 @@ function ProgressIndicator({
         width: `${(internalValue / Math.max(max - offset, 0)) * 100}%`,
       }}
       className={twMerge(
-        'absolute flex h-full flex-col justify-center rounded bg-primary-60 py-1 text-right text-white',
+        'bg-primary-60 absolute flex h-full flex-col justify-center rounded py-1 text-right text-white',
         !noMinWidth && 'min-w-[40px] px-2',
         className
       )}

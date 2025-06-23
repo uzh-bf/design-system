@@ -1,3 +1,4 @@
+import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react-swc'
 import path from 'path'
 import { defineConfig } from 'vite'
@@ -12,6 +13,7 @@ const isLadle =
 export default defineConfig({
   plugins: [
     react(),
+    tailwindcss(),
     // only apply the dts plugin when not in a ladle build
     ...(isLadle
       ? []

@@ -151,7 +151,7 @@ export const Styled = () => {
         className={{
           root: 'h-full rounded-none border-none',
           content: 'bg-green-200',
-          trigger: 'rounded-none border-none bg-uzh-blue-20 text-lg',
+          trigger: 'bg-uzh-blue-20 rounded-none border-none text-lg',
           item: 'text-red-700',
           groupLabel: 'text-red-700',
           separator: 'bg-green-700',

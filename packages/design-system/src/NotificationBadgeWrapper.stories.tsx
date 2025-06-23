@@ -8,7 +8,7 @@ export const Default = () => {
       Various positioning and styling options are available, while still hiding
       as much of the logic as possible.
       <NotificationBadgeWrapper count={4} className={{ root: 'w-32' }}>
-        <div className="flex h-10 w-32 flex-col justify-center rounded-md border border-solid border-uzh-grey-80">
+        <div className="border-uzh-grey-80 flex h-10 w-32 flex-col justify-center rounded-md border border-solid">
           Content DIV
         </div>
       </NotificationBadgeWrapper>
@@ -28,7 +28,7 @@ export const Sizes = () => {
         size="xl"
         className={{ root: 'w-32' }}
       >
-        <div className="flex h-20 w-32 flex-col justify-center rounded-md border border-solid border-uzh-grey-80">
+        <div className="border-uzh-grey-80 flex h-20 w-32 flex-col justify-center rounded-md border border-solid">
           Content DIV
         </div>
       </NotificationBadgeWrapper>
@@ -45,17 +45,17 @@ export const Positions = () => {
       as much of the logic as possible.
       <NotificationBadgeWrapper
         count={4}
-        className={{ root: 'w-32', badge: 'left-0 top-5' }}
+        className={{ root: 'w-32', badge: 'top-5 left-0' }}
       >
-        <div className="flex h-10 w-32 flex-col justify-center rounded-md border border-solid border-uzh-grey-80 pl-6">
+        <div className="border-uzh-grey-80 flex h-10 w-32 flex-col justify-center rounded-md border border-solid pl-6">
           Content DIV
         </div>
       </NotificationBadgeWrapper>
       <NotificationBadgeWrapper
         count={4}
-        className={{ root: 'w-32', badge: 'right-0 top-5' }}
+        className={{ root: 'w-32', badge: 'top-5 right-0' }}
       >
-        <div className="flex h-10 w-32 flex-col justify-center rounded-md border border-solid border-uzh-grey-80">
+        <div className="border-uzh-grey-80 flex h-10 w-32 flex-col justify-center rounded-md border border-solid">
           Content DIV
         </div>
       </NotificationBadgeWrapper>
@@ -77,7 +77,7 @@ export const Styled = () => {
           badge: 'bg-green-400 font-bold text-red-800',
         }}
       >
-        <div className="flex h-10 w-32 flex-col justify-center rounded-md border border-solid border-uzh-grey-80">
+        <div className="border-uzh-grey-80 flex h-10 w-32 flex-col justify-center rounded-md border border-solid">
           Content DIV
         </div>
       </NotificationBadgeWrapper>
@@ -93,7 +93,7 @@ export const NoCount = () => {
       Various positioning and styling options are available, while still hiding
       as much of the logic as possible.
       <NotificationBadgeWrapper className={{ root: 'w-32' }}>
-        <div className="flex h-10 w-28 flex-col justify-center rounded-md border border-solid border-uzh-grey-80">
+        <div className="border-uzh-grey-80 flex h-10 w-28 flex-col justify-center rounded-md border border-solid">
           Content DIV
         </div>
       </NotificationBadgeWrapper>
@@ -107,17 +107,17 @@ export const NoBatch = () => {
       No batch will be displayed, whenever the count is undefined and showBadge
       is not set to true.
       <NotificationBadgeWrapper className={{ root: 'w-32' }}>
-        <div className="flex h-10 w-28 flex-col justify-center rounded-md border border-solid border-uzh-grey-80">
+        <div className="border-uzh-grey-80 flex h-10 w-28 flex-col justify-center rounded-md border border-solid">
           Content DIV
         </div>
       </NotificationBadgeWrapper>
       <NotificationBadgeWrapper className={{ root: 'w-32' }} showBadge>
-        <div className="flex h-10 w-28 flex-col justify-center rounded-md border border-solid border-uzh-grey-80">
+        <div className="border-uzh-grey-80 flex h-10 w-28 flex-col justify-center rounded-md border border-solid">
           Content DIV
         </div>
       </NotificationBadgeWrapper>
       <NotificationBadgeWrapper className={{ root: 'w-32' }} count={3}>
-        <div className="flex h-10 w-28 flex-col justify-center rounded-md border border-solid border-uzh-grey-80">
+        <div className="border-uzh-grey-80 flex h-10 w-28 flex-col justify-center rounded-md border border-solid">
           Content DIV
         </div>
       </NotificationBadgeWrapper>

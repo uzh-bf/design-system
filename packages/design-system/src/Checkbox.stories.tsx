@@ -31,7 +31,7 @@ export const Labelled = () => {
       checked={isChecked}
       onCheck={() => setIsChecked(!isChecked)}
       label={
-        <div className="rounded-md border border-solid border-uzh-blue-80 bg-uzh-blue-20 p-3 font-bold">
+        <div className="border-uzh-blue-80 bg-uzh-blue-20 rounded-md border border-solid p-3 font-bold">
           Label Component - checkbox value: {String(isChecked)}
         </div>
       }

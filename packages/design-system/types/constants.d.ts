@@ -1,7 +1,3 @@
-export declare const ESLintConfig: {
-    extends: string[];
-};
-
 export declare const TailwindAnimations: {
     keyframes: {
         'enter-from-right': {
@@ -93,13 +89,6 @@ export declare const TailwindAnimations: {
     };
 };
 
-export declare const TailwindBasePlugins: {
-    'postcss-import': {};
-    'tailwindcss/nesting': {};
-    tailwindcss: {};
-    autoprefixer: {};
-};
-
 export declare const TailwindColorsUZH: {
     'uzh-blue-100': string;
     'uzh-blue-80': string;
@@ -183,10 +172,6 @@ export declare const TailwindColorsUZH: {
 
 export declare const TailwindFonts: {
     sans: string[];
-};
-
-export declare const TailwindProdPlugins: {
-    cssnano?: {} | undefined;
 };
 
 export { }

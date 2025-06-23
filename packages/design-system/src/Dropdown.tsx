@@ -149,7 +149,7 @@ export function Dropdown({
         id={id}
         disabled={disabled}
         className={twMerge(
-          'inline-flex h-max items-center justify-center whitespace-normal rounded-md border border-input bg-background px-3 py-1.5 text-base font-medium ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
+          'border-input bg-background ring-offset-background hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring inline-flex h-max items-center justify-center rounded-md border px-3 py-1.5 text-base font-medium whitespace-normal transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50',
           className?.trigger
         )}
         data-cy={data?.cy}

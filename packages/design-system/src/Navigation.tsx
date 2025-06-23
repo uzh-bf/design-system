@@ -97,7 +97,7 @@ function NavigationButton({
           hasIconAndLabel && 'flex flex-row items-center gap-2',
           active && 'text-black after:scale-x-100',
           disabled &&
-            '!text-slate-400 hover:cursor-not-allowed hover:!text-slate-400',
+            'text-slate-400! hover:cursor-not-allowed hover:text-slate-400!',
           className?.root
         )}
       >
@@ -114,7 +114,7 @@ function NavigationButton({
             >
               {label}
               {notification && (
-                <div className="absolute -right-2 -top-0.5 h-2.5 w-2.5 rounded-full bg-red-600" />
+                <div className="absolute -top-0.5 -right-2 h-2.5 w-2.5 rounded-full bg-red-600" />
               )}
             </div>
           </>
@@ -125,7 +125,7 @@ function NavigationButton({
           >
             {label}
             {notification && (
-              <div className="absolute -right-2 -top-0.5 h-2.5 w-2.5 rounded-full bg-red-600" />
+              <div className="absolute -top-0.5 -right-2 h-2.5 w-2.5 rounded-full bg-red-600" />
             )}
           </div>
         ) : (
@@ -228,7 +228,7 @@ function NavigationMenuItem({
       className={twMerge(
         'h-7 justify-between text-base hover:cursor-pointer',
         element.disabled &&
-          '!text-slate-400 hover:cursor-not-allowed hover:!text-slate-400',
+          'text-slate-400! hover:cursor-not-allowed hover:text-slate-400!',
         element.className?.label
       )}
       style={element.style?.label}
@@ -239,7 +239,7 @@ function NavigationMenuItem({
       <div className="relative">
         <span className={element.className?.text}>{element.label}</span>
         {element.notification && (
-          <div className="absolute -right-2.5 -top-0 h-2.5 w-2.5 rounded-full bg-red-600" />
+          <div className="absolute -top-0 -right-2.5 h-2.5 w-2.5 rounded-full bg-red-600" />
         )}
       </div>
       {element.badge && (
@@ -292,7 +292,7 @@ function NavigationDropdown({
           !iconOnly && !disabled && dynamicUnderline,
           active && 'text-black after:scale-x-100',
           disabled &&
-            '!text-slate-400 hover:cursor-not-allowed hover:!text-slate-400',
+            'text-slate-400! hover:cursor-not-allowed hover:text-slate-400!',
           className?.trigger
         )}
       >
@@ -309,7 +309,7 @@ function NavigationDropdown({
             >
               {label}
               {notification && (
-                <div className="absolute -right-2 -top-0.5 h-2.5 w-2.5 rounded-full bg-red-600" />
+                <div className="absolute -top-0.5 -right-2 h-2.5 w-2.5 rounded-full bg-red-600" />
               )}
             </div>
           </>
@@ -320,7 +320,7 @@ function NavigationDropdown({
           >
             {label}
             {notification && (
-              <div className="absolute -right-2 -top-0.5 h-2.5 w-2.5 rounded-full bg-red-600" />
+              <div className="absolute -top-0.5 -right-2 h-2.5 w-2.5 rounded-full bg-red-600" />
             )}
           </div>
         ) : (

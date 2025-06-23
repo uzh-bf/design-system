@@ -79,7 +79,7 @@ export function Button({
       type={type}
       onClick={onClick}
       className={twMerge(
-        'h-max whitespace-normal px-3 py-1.5 text-base',
+        'h-max cursor-pointer px-3 py-1.5 text-base whitespace-normal',
         // slightly increased margins are required for variants without border to ensure same size
         primary || destructive ? 'px-[0.8125rem] py-[0.4375rem]' : '',
         primary
@@ -97,7 +97,7 @@ export function Button({
     >
       {loading && (
         <svg
-          className={`-ml-1 mr-2 h-5 w-5 animate-spin text-primary`}
+          className={`text-primary mr-2 -ml-1 h-5 w-5 animate-spin`}
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
@@ -190,7 +190,7 @@ Button.IconGroup = function ButtonIconGroup({
   return (
     <div
       className={twMerge(
-        'flex w-max flex-row justify-between rounded border border-solid border-primary-100',
+        'border-primary-100 flex w-max flex-row justify-between rounded border border-solid',
         className?.root
       )}
     >
@@ -203,7 +203,7 @@ Button.IconGroup = function ButtonIconGroup({
                 'rounded-none border-0 px-2 first:rounded-l-sm last:rounded-r-sm',
                 state === index
                   ? 'bg-primary-100 text-primary-foreground hover:bg-primary-80 hover:text-primary-foreground'
-                  : 'bg-white hover:bg-primary-20',
+                  : 'hover:bg-primary-20 bg-white',
                 className?.children
               ),
             }}

@@ -1,4 +1,4 @@
-import { fontFamily } from 'tailwindcss/defaultTheme.js'
+import defaultTheme from 'tailwindcss/defaultTheme'
 
 export const TailwindAnimations = {
   keyframes: {
@@ -134,21 +134,6 @@ export const TailwindFonts = {
     'var(--source-sans-pro)',
     '"Source Sans 3"',
     '"Source Sans Pro"',
-    ...fontFamily.sans,
+    ...defaultTheme.fontFamily.sans,
   ],
-}
-
-export const TailwindBasePlugins = {
-  'postcss-import': {},
-  'tailwindcss/nesting': {},
-  tailwindcss: {},
-  autoprefixer: {},
-}
-
-export const TailwindProdPlugins = {
-  ...(process.env.NODE_ENV === 'production' ? { cssnano: {} } : {}),
-}
-
-export const ESLintConfig = {
-  extends: ['next', 'next/core-web-vitals'],
 }

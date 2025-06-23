@@ -218,7 +218,7 @@ export function Select({
                       data-test={item.data?.test}
                       className={twMerge(
                         'text-base',
-                        item.disabled && '!cursor-not-allowed',
+                        item.disabled && 'cursor-not-allowed!',
                         className?.item
                       )}
                     >

@@ -29,7 +29,7 @@ export function FormLabel({
       className={{
         root: twMerge(
           'my-auto mr-2 min-w-max font-bold',
-          labelType === 'small' && '-mb-0.5 mt-1 leading-6 text-gray-600',
+          labelType === 'small' && 'mt-1 -mb-0.5 leading-6 text-gray-600',
           className?.label
         ),
         tooltip: twMerge(
