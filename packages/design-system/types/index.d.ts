@@ -2510,13 +2510,10 @@ declare interface StepProgressBaseProps {
     className?: {
         root?: string;
     };
-    formatter?: ({ element, ix }: {
+    formatter?: ({ element, ix, }: {
         element: StepItem;
         ix: number;
-    }) => {
-        className?: string;
-        element: default_3.ReactNode;
-    };
+    }) => default_3.ReactNode;
 }
 
 export declare interface StepProgressItemProps extends StepProgressBaseProps {
