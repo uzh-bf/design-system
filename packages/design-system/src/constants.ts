@@ -137,18 +137,3 @@ export const TailwindFonts = {
     ...fontFamily.sans,
   ],
 }
-
-export const TailwindBasePlugins = {
-  'postcss-import': {},
-  'tailwindcss/nesting': {},
-  tailwindcss: {},
-  autoprefixer: {},
-}
-
-export const TailwindProdPlugins = {
-  ...(process.env.NODE_ENV === 'production' ? { cssnano: {} } : {}),
-}
-
-export const ESLintConfig = {
-  extends: ['next', 'next/core-web-vitals'],
-}

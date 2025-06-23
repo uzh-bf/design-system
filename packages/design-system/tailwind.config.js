@@ -69,9 +69,9 @@ export default {
     preflight: false,
   },
   plugins: [
-    import('tailwindcss-animate'),
-    import('@tailwindcss/typography'),
-    import('@tailwindcss/aspect-ratio'),
-    import('@tailwindcss/forms'),
+    // import('tailwindcss-animate'),
+    // import('@tailwindcss/typography'),
+    // import('@tailwindcss/aspect-ratio'),
+    // import('@tailwindcss/forms'),
   ],
 }

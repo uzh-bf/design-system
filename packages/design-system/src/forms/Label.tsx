@@ -69,7 +69,7 @@ export function Label({
           >
             {label}
           </RadixLabel.Root>
-          {required && <div className="mb-1 ml-0.5 mr-2 text-red-600">*</div>}
+          {required && <div className="mr-2 mb-1 ml-0.5 text-red-600">*</div>}
         </div>
       </Tooltip>
     )
@@ -87,7 +87,7 @@ export function Label({
         >
           {label}
         </RadixLabel.Root>
-        {required && <div className="mb-1 ml-0.5 mr-2 text-red-600">*</div>}
+        {required && <div className="mr-2 mb-1 ml-0.5 text-red-600">*</div>}
         <Tooltip
           tooltip={tooltip}
           className={{
@@ -99,10 +99,10 @@ export function Label({
           <FontAwesomeIcon
             icon={faQuestion}
             className={twMerge(
-              tooltipSymbolSize === 'xl' && '!mt-1 !h-5 !w-5 !p-2',
-              tooltipSymbolSize === 'lg' && '!mt-1 !h-4 !w-4 !p-1.5',
-              tooltipSymbolSize === 'sm' && '!mt-1 !h-2 !w-2 !p-1',
-              'mt-1 h-3 w-3 rounded-full border border-solid border-white bg-primary-60 p-1 text-white',
+              tooltipSymbolSize === 'xl' && 'mt-1! h-5! w-5! p-2!',
+              tooltipSymbolSize === 'lg' && 'mt-1! h-4! w-4! p-1.5!',
+              tooltipSymbolSize === 'sm' && 'mt-1! h-2! w-2! p-1!',
+              'bg-primary-60 mt-1 h-3 w-3 rounded-full border border-solid border-white p-1 text-white',
               className?.tooltipSymbol
             )}
           />
@@ -122,7 +122,7 @@ export function Label({
         )}
       >
         {label}
-        {required && <div className="mb-1 ml-0.5 mr-2 text-red-600">*</div>}
+        {required && <div className="mr-2 mb-1 ml-0.5 text-red-600">*</div>}
       </RadixLabel.Root>
     )
   }

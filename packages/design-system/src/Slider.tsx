@@ -104,7 +104,7 @@ export function Slider({
         data-cy={data?.cy}
         data-test={data?.test}
         className={twMerge(
-          'relative flex w-full select-none items-center',
+          'relative flex w-full items-center select-none',
           compact ? 'h-4' : 'h-14',
           className?.root
         )}
@@ -136,7 +136,7 @@ export function Slider({
 
         <RadixSlider.Thumb
           className={twMerge(
-            'flex h-12 w-12 flex-col items-center justify-center rounded-full border-[3px] border-solid bg-white shadow-lg focus:outline-none',
+            'flex h-12 w-12 flex-col items-center justify-center rounded-full border-[3px] border-solid bg-white shadow-lg focus:outline-hidden',
             compact && 'h-4 w-4 border-[1.5px]',
             disabled ? 'cursor-not-allowed' : 'cursor-move',
             disabled && compact ? 'bg-gray-100' : 'bg-white',

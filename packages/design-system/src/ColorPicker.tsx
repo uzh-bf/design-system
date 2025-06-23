@@ -181,11 +181,11 @@ export function ColorPicker({
           {colorPickerOpen && (
             <div
               className={twMerge(
-                'absolute flex h-[10rem] w-[23rem] flex-row rounded-md bg-white p-1 shadow-md outline outline-2 outline-uzh-grey-40',
-                position === 'bottom' && 'left-10 top-8',
+                'outline-uzh-grey-40 absolute flex h-[10rem] w-[23rem] flex-row rounded-md bg-white p-1 shadow-md outline outline-2',
+                position === 'bottom' && 'top-8 left-10',
                 position === 'top' && 'bottom-8 left-10',
-                position === 'bottom-left' && '-left-[18rem] top-8',
-                position === 'top-left' && '-left-[18rem] bottom-8',
+                position === 'bottom-left' && 'top-8 -left-[18rem]',
+                position === 'top-left' && 'bottom-8 -left-[18rem]',
                 className?.popover
               )}
               ref={overlayRef}
@@ -217,7 +217,7 @@ export function ColorPicker({
                     label={colorLabel}
                     className={{
                       root: twMerge(
-                        'my-auto -mb-0.5 min-w-max text-base font-bold leading-6 text-gray-600',
+                        'my-auto -mb-0.5 min-w-max text-base leading-6 font-bold text-gray-600',
                         className?.inputLabel
                       ),
                       tooltip: twMerge(
@@ -231,7 +231,7 @@ export function ColorPicker({
                   />
                   <HexColorInput
                     className={twMerge(
-                      'focus:border-uzh-blue-50 h-9 w-24 rounded border border-uzh-grey-60 pl-2 placeholder-slate-400',
+                      'focus:border-uzh-blue-50 border-uzh-grey-60 h-9 w-24 rounded border pl-2 placeholder-slate-400',
                       className?.input
                     )}
                     color={newColor}

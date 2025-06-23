@@ -66,7 +66,7 @@ export const Default = () => {
                 <div className="text-7xl font-bold tracking-tighter">
                   {goal}
                 </div>
-                <div className="text-[0.70rem] uppercase text-muted-foreground">
+                <div className="text-muted-foreground text-[0.70rem] uppercase">
                   Calories/day
                 </div>
               </div>

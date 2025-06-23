@@ -147,7 +147,7 @@ export function Table<
       <tr
         key={index}
         className={twMerge(
-          'first:border-t-0 odd:bg-uzh-grey-20',
+          'odd:bg-uzh-grey-20 first:border-t-0',
           className?.row,
           row.className as string
         )}
@@ -162,7 +162,7 @@ export function Table<
           return (
             <td
               className={twMerge(
-                'border-t-2 border-uzh-grey-60 p-4',
+                'border-uzh-grey-60 border-t-2 p-4',
                 col.className
               )}
               key={col.accessor}
@@ -198,7 +198,7 @@ export function Table<
                       : undefined
                   }
                   className={twMerge(
-                    'mr-20 whitespace-nowrap border-b-2 border-b-gray-800 py-2 pl-4 pr-10 text-start text-lg text-gray-800',
+                    'mr-20 border-b-2 border-b-gray-800 py-2 pr-10 pl-4 text-start text-lg whitespace-nowrap text-gray-800',
                     col.sortable && 'cursor-pointer pl-0',
                     className?.tableHeader,
                     col.className

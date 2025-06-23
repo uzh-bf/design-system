@@ -14,9 +14,9 @@ const Toaster = ({ ...props }: ToasterProps) => {
       theme={theme as ToasterProps['theme']}
       className={twMerge(
         'toaster group',
-        props.position === 'top-right' ? 'right-3 top-3' : '',
-        props.position === 'top-left' ? 'left-3 top-3' : '',
-        props.position === 'bottom-right' ? 'bottom-3 right-3' : '',
+        props.position === 'top-right' ? 'top-3 right-3' : '',
+        props.position === 'top-left' ? 'top-3 left-3' : '',
+        props.position === 'bottom-right' ? 'right-3 bottom-3' : '',
         props.position === 'bottom-left' ? 'bottom-3 left-3' : ''
       )}
       toastOptions={{
