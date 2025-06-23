@@ -16,37 +16,24 @@ export interface FormatterArgs {
   ix: number
 }
 
-function defaultFormatter({ element, ix }: FormatterArgs) {
+function contentFormatter({ element, ix }: FormatterArgs) {
   if (element.status === 'correct') {
-    return {
-      className: 'bg-green-600 bg-opacity-60 text-white',
-      element: <FontAwesomeIcon icon={faCheckDouble} />,
-    }
+    return <FontAwesomeIcon icon={faCheckDouble} />
   }
 
   if (element.status === 'incorrect') {
-    return {
-      className: 'bg-red-600 bg-opacity-60 text-white',
-      element: <FontAwesomeIcon icon={faX} />,
-    }
+    return <FontAwesomeIcon icon={faX} />
   }
 
   if (element.status === 'partial') {
-    return {
-      className: 'bg-uzh-red-100 bg-opacity-60 text-white',
-      element: <FontAwesomeIcon icon={faCheck} />,
-    }
+    return <FontAwesomeIcon icon={faCheck} />
   }
 
   if (!element.status || element.status === 'unanswered') {
-    return {
-      element: <div>{ix + 1}</div>,
-    }
+    return <div>{ix + 1}</div>
   }
 
-  return {
-    element: <div>{ix + 1}</div>,
-  }
+  return <div>{ix + 1}</div>
 }
 
 export interface StepItem {
@@ -66,10 +53,13 @@ interface StepProgressBaseProps {
   className?: {
     root?: string
   }
-  formatter?: ({ element, ix }: { element: StepItem; ix: number }) => {
-    className?: string
-    element: React.ReactNode
-  }
+  formatter?: ({
+    element,
+    ix,
+  }: {
+    element: StepItem
+    ix: number
+  }) => React.ReactNode
 }
 
 export interface StepProgressProps extends StepProgressBaseProps {
@@ -107,7 +97,7 @@ export function StepProgress({
   displayOffsetLeft,
   displayOffsetRight,
   className,
-  formatter = defaultFormatter,
+  formatter = contentFormatter,
 }: StepProgressProps | StepProgressItemProps) {
   const length = items ? items.length : max
   const elements = items || new Array(length).fill(0)
@@ -147,23 +137,29 @@ export function StepProgress({
             key={ix}
             data-cy={data?.cy ? `${data?.cy}-${ix}` : undefined}
             className={twMerge(
-              'hover:bg-primary-20 hover:text-primary-100 flex flex-1 items-center justify-center border-r border-white p-1 last:border-r-0',
+              'hover:bg-primary-20 hover:text-primary-100 flex flex-1 cursor-pointer items-center justify-center border-r border-white p-1 last:border-r-0 disabled:cursor-not-allowed',
               ix === 0 && 'rounded-l',
               ix === length - 1 && 'rounded-r',
               (value || 0) > ix && !items && 'bg-primary-60 text-white',
-              value === ix && 'bg-gray-400 font-bold text-white',
+              value === ix &&
+                'bg-gray-400! font-bold! text-white hover:text-white',
               typeof displayOffsetLeft !== 'undefined' &&
                 ix < (value || 0) - displayOffsetLeft &&
                 'hidden',
               typeof displayOffsetRight !== 'undefined' &&
                 ix > (value || 0) + displayOffsetRight &&
                 'hidden',
-              formattedElement.className,
+              element.status === 'correct' &&
+                'bg-opacity-60! bg-green-700/90! text-white hover:bg-green-700! hover:text-white',
+              element.status === 'incorrect' &&
+                'bg-opacity-60! bg-destructive/90! hover:destructive! text-white hover:text-white',
+              element.status === 'partial' &&
+                'bg-opacity-60! bg-uzh-red-100/90! hover:bg-uzh-red-100! text-white hover:text-white',
               value === ix && 'bg-opacity-100'
             )}
             onClick={() => onItemClick(ix, items && items[ix])}
           >
-            {formattedElement.element}
+            {formattedElement}
           </button>
         )
       })}

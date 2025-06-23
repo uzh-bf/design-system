@@ -111,7 +111,7 @@ export function Collapsible({
           </div>
           <RadixCollapsible.Trigger
             className={twMerge(
-              'col-span-1 flex w-full flex-col justify-end text-center',
+              'col-span-1 flex w-full cursor-pointer flex-col justify-end text-center disabled:cursor-not-allowed',
               className?.trigger
             )}
             id={id}

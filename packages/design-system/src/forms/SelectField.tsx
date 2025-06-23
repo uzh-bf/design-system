@@ -124,7 +124,8 @@ export function SelectField({
               className={{
                 ...className?.select,
                 trigger: twMerge(
-                  error && 'outline outline-1 outline-red-600',
+                  error &&
+                    'border-destructive bg-destructive-background! border',
                   className?.select?.trigger
                 ),
               }}
@@ -144,7 +145,8 @@ export function SelectField({
               className={{
                 ...className?.select,
                 trigger: twMerge(
-                  error && 'outline outline-1 outline-red-600',
+                  error &&
+                    'border-destructive bg-destructive-background! border',
                   className?.select?.trigger
                 ),
               }}
@@ -160,7 +162,7 @@ export function SelectField({
             >
               <FontAwesomeIcon
                 icon={faCircleExclamation}
-                className="mr-1 text-red-600"
+                className="text-destructive mr-1"
               />
             </Tooltip>
           )}

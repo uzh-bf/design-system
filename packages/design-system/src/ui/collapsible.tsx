@@ -1,6 +1,7 @@
 'use client'
 
 import * as CollapsiblePrimitive from '@radix-ui/react-collapsible'
+import { twMerge } from 'tailwind-merge'
 
 function Collapsible({
   ...props
@@ -14,6 +15,10 @@ function CollapsibleTrigger({
   return (
     <CollapsiblePrimitive.CollapsibleTrigger
       data-slot="collapsible-trigger"
+      className={twMerge(
+        'cursor-pointer disabled:pointer-events-none disabled:cursor-not-allowed',
+        props.className
+      )}
       {...props}
     />
   )

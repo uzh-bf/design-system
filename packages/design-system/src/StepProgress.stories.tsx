@@ -135,56 +135,43 @@ export const CustomFormatter = () => {
       }}
       items={statusItems}
       formatter={({ element, ix }) => {
-        function render({
-          className,
-          element,
-        }: {
-          className: string
-          element: StepItem
-        }) {
-          return {
-            className,
-            element: (
-              <div className="flex w-full flex-row items-center justify-between px-2">
-                <div>{ix + 1}</div>
-                {typeof element.points !== 'undefined' &&
-                  typeof element.maxPoints !== 'undefined' && (
-                    <div>
-                      {element.points}/{element.maxPoints} P
-                    </div>
-                  )}
-                <FontAwesomeIcon
-                  icon={ICON_MAP[element.status ?? 'unanswered']}
-                />
-              </div>
-            ),
-          }
+        function render({ element }: { element: StepItem }) {
+          return (
+            <div className="flex w-full flex-row items-center justify-between px-2">
+              <div>{ix + 1}</div>
+              {typeof element.points !== 'undefined' &&
+                typeof element.maxPoints !== 'undefined' && (
+                  <div>
+                    {element.points}/{element.maxPoints} P
+                  </div>
+                )}
+              <FontAwesomeIcon
+                icon={ICON_MAP[element.status ?? 'unanswered']}
+              />
+            </div>
+          )
         }
 
         if (element.status === 'correct') {
           return render({
             element,
-            className: 'bg-green-600 bg-opacity-60 text-white',
           })
         }
 
         if (element.status === 'incorrect') {
           return render({
             element,
-            className: 'bg-red-600 bg-opacity-60 text-white',
           })
         }
 
         if (element.status === 'partial') {
           return render({
             element,
-            className: 'bg-uzh-red-100 bg-opacity-60 text-white',
           })
         }
 
         return render({
           element,
-          className: '',
         })
       }}
     />

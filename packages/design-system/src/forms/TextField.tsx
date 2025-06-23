@@ -145,7 +145,7 @@ export function TextField({
                 disabled && 'bg-uzh-grey-20 cursor-not-allowed opacity-70',
                 !!error &&
                   isTouched &&
-                  'border-red-400 bg-red-50 focus:border-red-400',
+                  'border-destructive bg-destructive-background focus:border-destructive',
                 className?.input
               )}
               {...props}
@@ -172,7 +172,7 @@ export function TextField({
                 disabled && 'bg-uzh-grey-20 cursor-not-allowed opacity-70',
                 !!error &&
                   isTouched &&
-                  'border-red-400 bg-red-50 focus:border-red-400',
+                  'border-destructive bg-destructive-background focus:border-destructive',
                 className?.input
               )}
               {...props}
@@ -209,7 +209,7 @@ export function TextField({
           >
             <FontAwesomeIcon
               icon={faCircleExclamation}
-              className="mr-1 text-red-600"
+              className="text-destructive mr-1"
             />
           </Tooltip>
         )}

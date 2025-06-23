@@ -240,7 +240,7 @@ export function WorkflowItem({
             : 'bg-green-200 after:border-l-green-200 hover:bg-green-200 hover:after:border-l-green-200!'),
         item.error &&
           (ix === activeIx
-            ? 'bg-red-600 after:border-l-red-600 hover:bg-red-200 hover:after:border-l-red-200!'
+            ? 'bg-destructive after:border-l-destructive hover:bg-red-200 hover:after:border-l-red-200!'
             : 'bg-red-200 after:border-l-red-200 hover:bg-red-200 hover:after:border-l-red-200!'),
         !item.completed &&
           item.progress !== 1 &&
@@ -282,7 +282,7 @@ export function WorkflowItem({
               (item.error ? (
                 <FontAwesomeIcon
                   icon={faExclamationCircle}
-                  className="ml-2 text-red-600"
+                  className="text-destructive ml-2"
                 />
               ) : (
                 <div className="ml-2 w-3" />
@@ -302,9 +302,8 @@ export function WorkflowItem({
             {showTooltipSymbols && (
               <FontAwesomeIcon
                 icon={faQuestion}
-                size="lg"
                 className={twMerge(
-                  'my-auto mr-2 h-3 w-3 rounded-full border border-solid border-white px-0.5 py-0.5 group-hover:border-black',
+                  'my-auto mr-2 h-3! w-3! rounded-full border border-solid border-white px-0.5 py-0.5 group-hover:border-black',
                   ix !== activeIx && 'border-black',
                   (ix < (activeIx || -1) || disabled) &&
                     'border-gray-500 group-hover:border-gray-500'
@@ -323,7 +322,7 @@ export function WorkflowItem({
           {item.error && (
             <FontAwesomeIcon
               icon={faExclamationCircle}
-              className="ml-2 text-red-600"
+              className="text-destructive ml-2"
             />
           )}
           {!item.error && (item.completed || item.progress === 1) && (

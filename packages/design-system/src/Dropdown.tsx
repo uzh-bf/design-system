@@ -217,12 +217,7 @@ export function DropdownItem({
           id={item.id}
           data-cy={item.data?.cy}
           data-test={item.data?.test}
-          className={twMerge(
-            'text-base',
-            item.disabled && 'cursor-not-allowed',
-            className,
-            item.className?.item
-          )}
+          className={twMerge('text-base', className, item.className?.item)}
         >
           {item.label}
         </DropdownMenuLabel>
@@ -234,14 +229,10 @@ export function DropdownItem({
         <DropdownMenuSub>
           <DropdownMenuSubTrigger
             id={item.id}
+            disabled={item.disabled}
             data-cy={item.data?.cy}
             data-test={item.data?.test}
-            className={twMerge(
-              'text-base',
-              item.disabled && 'cursor-not-allowed',
-              className,
-              item.className?.item
-            )}
+            className={twMerge('text-base', className, item.className?.item)}
           >
             {item.label}
           </DropdownMenuSubTrigger>
@@ -252,7 +243,6 @@ export function DropdownItem({
                 item={subItem}
                 className={twMerge(
                   'text-base',
-                  item.disabled && 'cursor-not-allowed',
                   className,
                   subItem.className?.item
                 )}
@@ -272,12 +262,7 @@ export function DropdownItem({
           onClick={item.onClick}
           data-cy={item.data?.cy}
           data-test={item.data?.test}
-          className={twMerge(
-            'text-base',
-            item.disabled && 'cursor-not-allowed',
-            className,
-            item.className?.item
-          )}
+          className={twMerge('text-base', className, item.className?.item)}
         >
           <DropdownLabelShortcut
             label={item.label}
@@ -298,12 +283,7 @@ export function DropdownItem({
           onClick={item.onClick}
           data-cy={item.data?.cy}
           data-test={item.data?.test}
-          className={twMerge(
-            'text-base',
-            item.disabled && 'cursor-not-allowed',
-            className,
-            item.className?.item
-          )}
+          className={twMerge('text-base', className, item.className?.item)}
         >
           <DropdownLabelShortcut
             label={item.label}
@@ -324,12 +304,7 @@ export function DropdownItem({
           onClick={item.onClick}
           data-cy={item.data?.cy}
           data-test={item.data?.test}
-          className={twMerge(
-            'text-base',
-            item.disabled && 'cursor-not-allowed',
-            className,
-            item.className?.item
-          )}
+          className={twMerge('text-base', className, item.className?.item)}
         >
           <DropdownLabelShortcut
             label={item.label}

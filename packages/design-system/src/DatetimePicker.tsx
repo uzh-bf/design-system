@@ -1,6 +1,5 @@
 'use client'
 
-import { cn } from '@/lib/utils'
 import { faCalendar } from '@fortawesome/free-regular-svg-icons'
 import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -13,6 +12,7 @@ import { useImperativeHandle, useRef } from 'react'
 import { DayPickerProps } from 'react-day-picker'
 import { twMerge } from 'tailwind-merge'
 import FormLabel from './FormLabel'
+import { cn } from './lib/utils'
 import Tooltip from './Tooltip'
 import { Button } from './ui/button'
 import { Calendar } from './ui/calendar'
@@ -727,7 +727,9 @@ const DateTimePicker = React.forwardRef<
                 className={cn(
                   'w-44 justify-start text-left text-base font-normal',
                   !displayDate && 'text-muted-foreground',
-                  !!error && isTouched && 'border-red-600',
+                  !!error &&
+                    isTouched &&
+                    'border-destructive bg-destructive-background',
                   className?.input
                 )}
                 ref={buttonRef}
@@ -753,7 +755,7 @@ const DateTimePicker = React.forwardRef<
                 >
                   <FontAwesomeIcon
                     icon={faCircleExclamation}
-                    className="mr-1 text-red-600"
+                    className="text-destructive mr-1"
                   />
                 </Tooltip>
               )}

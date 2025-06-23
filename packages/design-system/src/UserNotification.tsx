@@ -63,7 +63,7 @@ export function UserNotification({
       notifIcon = faTriangleExclamation
       break
     case 'error':
-      computedClassName = 'text-red-600 bg-red-100'
+      computedClassName = 'text-destructive bg-red-100'
       notifIcon = faCircleXmark
       break
     case 'info':
