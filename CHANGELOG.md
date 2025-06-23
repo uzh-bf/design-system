@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.0-alpha.3](https://github.com/uzh-bf/design-system/compare/v4.0.0-alpha.2...v4.0.0-alpha.3) (2025-06-23)
+
+
+### Bug Fixes
+
+* ***ui/dialog:** make sure dialogs open from center of screen ([998bd7e](https://github.com/uzh-bf/design-system/commit/998bd7e77057f80c0dfca31311adc21ad28a8edc))
+
+
+### Enhancements
+
+* upgrade design-system package to tailwind v4 ([#164](https://github.com/uzh-bf/design-system/issues/164)) ([3495217](https://github.com/uzh-bf/design-system/commit/349521726e65c8ed6be20fe4f0bd598624681227))
+
 ## [4.0.0-alpha.2](https://github.com/uzh-bf/design-system/compare/v4.0.0-alpha.1...v4.0.0-alpha.2) (2025-06-21)
 
 
