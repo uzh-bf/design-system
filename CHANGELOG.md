@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.0-alpha.4](https://github.com/uzh-bf/design-system/compare/v4.0.0-alpha.3...v4.0.0-alpha.4) (2025-06-23)
+
+
+### Other
+
+* remove outdated original shadcn components for react 18 ([59f87b4](https://github.com/uzh-bf/design-system/commit/59f87b443a53720125aaeb30eb77725cc60174b0))
+
+
+### Enhancements
+
+* add appropriate and consistent hover styles to all interactive components ([#166](https://github.com/uzh-bf/design-system/issues/166)) ([02c1ab0](https://github.com/uzh-bf/design-system/commit/02c1ab0a7c32650d306e1c689429803ff54901ee))
+* exchange underlying shadcn components to react19-based versions ([#165](https://github.com/uzh-bf/design-system/issues/165)) ([f7fa262](https://github.com/uzh-bf/design-system/commit/f7fa2622a9fb42d72f990d1039c10b8b41c35c84))
+
 ## [4.0.0-alpha.3](https://github.com/uzh-bf/design-system/compare/v4.0.0-alpha.2...v4.0.0-alpha.3) (2025-06-23)
 
 
