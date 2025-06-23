@@ -114,7 +114,7 @@ function NavigationButton({
             >
               {label}
               {notification && (
-                <div className="absolute -top-0.5 -right-2 h-2.5 w-2.5 rounded-full bg-red-600" />
+                <div className="bg-notification absolute -top-0.5 -right-2 h-2.5 w-2.5 rounded-full" />
               )}
             </div>
           </>
@@ -125,7 +125,7 @@ function NavigationButton({
           >
             {label}
             {notification && (
-              <div className="absolute -top-0.5 -right-2 h-2.5 w-2.5 rounded-full bg-red-600" />
+              <div className="bg-notification absolute -top-0.5 -right-2 h-2.5 w-2.5 rounded-full" />
             )}
           </div>
         ) : (
@@ -239,7 +239,7 @@ function NavigationMenuItem({
       <div className="relative">
         <span className={element.className?.text}>{element.label}</span>
         {element.notification && (
-          <div className="absolute -top-0 -right-2.5 h-2.5 w-2.5 rounded-full bg-red-600" />
+          <div className="bg-notification absolute -top-0 -right-2.5 h-2.5 w-2.5 rounded-full" />
         )}
       </div>
       {element.badge && (
@@ -309,7 +309,7 @@ function NavigationDropdown({
             >
               {label}
               {notification && (
-                <div className="absolute -top-0.5 -right-2 h-2.5 w-2.5 rounded-full bg-red-600" />
+                <div className="bg-notification absolute -top-0.5 -right-2 h-2.5 w-2.5 rounded-full" />
               )}
             </div>
           </>
@@ -320,7 +320,7 @@ function NavigationDropdown({
           >
             {label}
             {notification && (
-              <div className="absolute -top-0.5 -right-2 h-2.5 w-2.5 rounded-full bg-red-600" />
+              <div className="bg-notification absolute -top-0.5 -right-2 h-2.5 w-2.5 rounded-full" />
             )}
           </div>
         ) : (

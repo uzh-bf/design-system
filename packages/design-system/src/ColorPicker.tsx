@@ -272,7 +272,7 @@ export function ColorPicker({
           >
             <FontAwesomeIcon
               icon={faCircleExclamation}
-              className="mr-1 text-red-600"
+              className="text-destructive mr-1"
             />
           </Tooltip>
         )}

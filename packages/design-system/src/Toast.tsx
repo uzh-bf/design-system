@@ -58,10 +58,10 @@ export function toast({
       classNames: {
         ...options?.classNames,
         toast: twMerge(
-          'group-[.toaster]:border-2! group-[.toaster]:border-red-500! group-[.toaster]:py-3!',
+          'group-[.toaster]:border-2! group-[.toaster]:border-destructive! group-[.toaster]:py-3!',
           options?.classNames?.toast
         ),
-        icon: twMerge('text-red-500 mr-3!', options?.classNames?.icon),
+        icon: twMerge('text-destructive mr-3!', options?.classNames?.icon),
         description: twMerge('text-base', options?.classNames?.description),
         closeButton: twMerge(
           'bg-white! text-black! border-gray-300!',

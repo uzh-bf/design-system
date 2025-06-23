@@ -150,7 +150,7 @@ export function NumberField({
               disabled && 'bg-uzh-grey-20 cursor-not-allowed opacity-70',
               !!error &&
                 isTouched &&
-                'border-red-400 bg-red-50 focus:border-red-400',
+                'border-destructive focus:border-destructive bg-destructive-background',
               !!unit && 'rounded-r-none',
               className?.input
             )}
@@ -176,7 +176,7 @@ export function NumberField({
           >
             <FontAwesomeIcon
               icon={faCircleExclamation}
-              className="mr-1 text-red-600"
+              className="text-destructive mr-1"
             />
           </Tooltip>
         )}

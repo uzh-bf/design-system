@@ -126,7 +126,7 @@ export function DatePicker({
               className={twMerge(
                 'w-36 justify-start text-left text-base font-normal',
                 !date && 'text-muted-foreground',
-                !!error && isTouched && 'border-red-600',
+                !!error && isTouched && 'border-destructive',
                 className?.input
               )}
               data-cy={dataTrigger?.cy}
@@ -149,7 +149,7 @@ export function DatePicker({
               >
                 <FontAwesomeIcon
                   icon={faCircleExclamation}
-                  className="mr-1 text-red-600"
+                  className="text-destructive mr-1"
                 />
               </Tooltip>
             )}

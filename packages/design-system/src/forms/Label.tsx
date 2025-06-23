@@ -69,7 +69,9 @@ export function Label({
           >
             {label}
           </RadixLabel.Root>
-          {required && <div className="mr-2 mb-1 ml-0.5 text-red-600">*</div>}
+          {required && (
+            <div className="text-notification mr-2 mb-1 ml-0.5">*</div>
+          )}
         </div>
       </Tooltip>
     )
@@ -87,7 +89,9 @@ export function Label({
         >
           {label}
         </RadixLabel.Root>
-        {required && <div className="mr-2 mb-1 ml-0.5 text-red-600">*</div>}
+        {required && (
+          <div className="text-notification mr-2 mb-1 ml-0.5">*</div>
+        )}
         <Tooltip
           tooltip={tooltip}
           className={{
@@ -122,7 +126,9 @@ export function Label({
         )}
       >
         {label}
-        {required && <div className="mr-2 mb-1 ml-0.5 text-red-600">*</div>}
+        {required && (
+          <div className="text-notification mr-2 mb-1 ml-0.5">*</div>
+        )}
       </RadixLabel.Root>
     )
   }

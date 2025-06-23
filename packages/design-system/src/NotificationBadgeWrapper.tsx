@@ -57,7 +57,7 @@ export function NotificationBadgeWrapper({
       <div className={twMerge('flex flex-1')}>{children}</div>
       <div
         className={twMerge(
-          'absolute top-1 right-1 z-10 rounded-full bg-red-600 text-center text-white',
+          'bg-notification absolute top-1 right-1 z-10 rounded-full text-center text-white',
           sizeStyles[size || 'md'],
           className?.badge
         )}

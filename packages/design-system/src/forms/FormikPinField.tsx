@@ -99,7 +99,9 @@ export function FormikPinField({
                   data-test={`${data?.test}-${index + 1}`}
                   className={twMerge(
                     'h-9 text-base',
-                    !!meta.error && meta.touched && 'border-y border-red-600',
+                    !!meta.error &&
+                      meta.touched &&
+                      'border-destructive border-y',
                     className?.inputItem
                   )}
                 />
@@ -114,7 +116,7 @@ export function FormikPinField({
           >
             <FontAwesomeIcon
               icon={faCircleExclamation}
-              className="mr-1 text-red-600"
+              className="text-destructive mr-1"
             />
           </Tooltip>
         )}

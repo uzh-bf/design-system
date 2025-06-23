@@ -122,11 +122,10 @@ export function Switch({
         data-test={data?.test}
         checked={checked}
         className={twMerge(
-          'bg-uzh-grey-80 relative rounded-full border-0',
-          disabled && 'bg-uzh-grey-40 cursor-not-allowed',
+          'bg-uzh-grey-80 disabled:bg-uzh-grey-40 relative cursor-pointer rounded-full border-0 disabled:cursor-not-allowed',
           checked && 'bg-primary-60',
-          checked && disabled && 'bg-primary-20',
-          !!error && !hideError && 'outline outline-2 outline-red-600',
+          checked && disabled && 'bg-primary-20!',
+          !!error && !hideError && 'outline-destructive outline-2',
           rootSize[size || 'md'],
           labelLeft && 'mr-2',
           className?.element
@@ -167,7 +166,7 @@ export function Switch({
         >
           <FontAwesomeIcon
             icon={faCircleExclamation}
-            className="-mx-2 text-red-600"
+            className="text-destructive -mx-2"
           />
         </Tooltip>
       )}

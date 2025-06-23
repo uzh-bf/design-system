@@ -134,7 +134,7 @@ export function TextareaField({
                 'focus:border-input w-full text-base',
                 !!error &&
                   isTouched &&
-                  'border-red-400 bg-red-50 focus:border-red-400',
+                  'border-destructive bg-destructive-background focus:border-destructive',
                 className?.input
               )}
               {...props}
@@ -157,7 +157,7 @@ export function TextareaField({
                 'focus:border-input w-full text-base',
                 !!error &&
                   isTouched &&
-                  'border-red-400 bg-red-50 focus:border-red-400',
+                  'border-destructive bg-destructive-background focus:border-destructive',
                 className?.input
               )}
               {...props}
@@ -171,7 +171,7 @@ export function TextareaField({
             >
               <FontAwesomeIcon
                 icon={faCircleExclamation}
-                className="mr-1 text-red-600"
+                className="text-destructive mr-1"
               />
             </Tooltip>
           )}
