@@ -126,7 +126,9 @@ export function DatePicker({
               className={twMerge(
                 'w-36 justify-start text-left text-base font-normal',
                 !date && 'text-muted-foreground',
-                !!error && isTouched && 'border-destructive',
+                !!error &&
+                  isTouched &&
+                  'border-destructive bg-destructive-background',
                 className?.input
               )}
               data-cy={dataTrigger?.cy}

@@ -727,7 +727,9 @@ const DateTimePicker = React.forwardRef<
                 className={cn(
                   'w-44 justify-start text-left text-base font-normal',
                   !displayDate && 'text-muted-foreground',
-                  !!error && isTouched && 'border-destructive',
+                  !!error &&
+                    isTouched &&
+                    'border-destructive bg-destructive-background',
                   className?.input
                 )}
                 ref={buttonRef}

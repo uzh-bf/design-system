@@ -101,7 +101,7 @@ export function FormikPinField({
                     'h-9 text-base',
                     !!meta.error &&
                       meta.touched &&
-                      'border-destructive border-y',
+                      'border-destructive bg-destructive-background border-y',
                     className?.inputItem
                   )}
                 />
