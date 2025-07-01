@@ -61,3 +61,196 @@ export const groupValuesDisabled = [
     label: 'Programming Languages',
   },
 ]
+
+export const sidebarData = {
+  versions: ['1.0.1', '1.1.0-alpha', '2.0.0-beta1'],
+  navMain: [
+    {
+      title: 'Getting Started',
+      url: '#',
+      items: [
+        {
+          title: 'Installation',
+          url: '#',
+        },
+        {
+          title: 'Project Structure',
+          url: '#',
+        },
+      ],
+    },
+    {
+      title: 'Building Your Application',
+      url: '#',
+      items: [
+        {
+          title: 'Routing',
+          url: '#',
+        },
+        {
+          title: 'Data Fetching',
+          url: '#',
+          isActive: true,
+        },
+        {
+          title: 'Rendering',
+          url: '#',
+        },
+        {
+          title: 'Caching',
+          url: '#',
+        },
+        {
+          title: 'Styling',
+          url: '#',
+        },
+        {
+          title: 'Optimizing',
+          url: '#',
+        },
+        {
+          title: 'Configuring',
+          url: '#',
+        },
+        {
+          title: 'Testing',
+          url: '#',
+        },
+        {
+          title: 'Authentication',
+          url: '#',
+        },
+        {
+          title: 'Deploying',
+          url: '#',
+        },
+        {
+          title: 'Upgrading',
+          url: '#',
+        },
+        {
+          title: 'Examples',
+          url: '#',
+        },
+      ],
+    },
+    {
+      title: 'API Reference',
+      url: '#',
+      items: [
+        {
+          title: 'Components',
+          url: '#',
+        },
+        {
+          title: 'File Conventions',
+          url: '#',
+        },
+        {
+          title: 'Functions',
+          url: '#',
+        },
+        {
+          title: 'next.config.js Options',
+          url: '#',
+        },
+        {
+          title: 'CLI',
+          url: '#',
+        },
+        {
+          title: 'Edge Runtime',
+          url: '#',
+        },
+      ],
+    },
+    {
+      title: 'Architecture',
+      url: '#',
+      items: [
+        {
+          title: 'Accessibility',
+          url: '#',
+        },
+        {
+          title: 'Fast Refresh',
+          url: '#',
+        },
+        {
+          title: 'Next.js Compiler',
+          url: '#',
+        },
+        {
+          title: 'Supported Browsers',
+          url: '#',
+        },
+        {
+          title: 'Turbopack',
+          url: '#',
+        },
+      ],
+    },
+  ],
+}
+
+export const stepProgressStatusItems = [
+  { type: 'question', status: 'correct', id: 'id_1', points: 3, maxPoints: 3 },
+  {
+    type: 'question',
+    status: 'incorrect',
+    id: 'id_2',
+    points: 0,
+    maxPoints: 2,
+  },
+  {
+    type: 'markdown',
+    status: 'unanswered',
+    id: 'id_3',
+  },
+  { type: 'question', status: 'partial', id: 'id_4', points: 1, maxPoints: 2 },
+  { type: 'question', status: 'correct', id: 'id_5', points: 2, maxPoints: 2 },
+  { type: 'question', status: 'correct', id: 'id_6', points: 2, maxPoints: 2 },
+  { type: 'markdown', status: 'unanswered', id: 'id_7' },
+  { type: 'markdown', status: 'unanswered', id: 'id_8' },
+  { type: 'question', status: 'unanswered', id: 'id_9' },
+]
+
+export const workflowItems = [
+  { title: 'Step 1' },
+  { title: 'Step 2' },
+  { title: 'Step 3' },
+]
+
+export const workflowItemsDescription = [
+  {
+    title: 'Step 1',
+    description: 'This is the first step',
+  },
+  {
+    title: 'Step 2',
+    description: 'This is the second step',
+  },
+  {
+    title: 'Step 3',
+    description: 'This is the third step',
+  },
+  {
+    title: 'Step 4',
+  },
+]
+
+export const workflowTooltipItems = [
+  {
+    title: 'Step 1',
+    tooltip: 'This is the first step',
+    tooltipDisabled: 'This step is disabled',
+  },
+  {
+    title: 'Step 2',
+    tooltip: 'This is the second step',
+  },
+  {
+    title: 'Step 3',
+    tooltipDisabled: 'This step is disabled',
+  },
+]

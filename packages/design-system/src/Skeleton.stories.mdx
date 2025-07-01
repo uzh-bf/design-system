@@ -1,0 +1,17 @@
+import { Skeleton } from './Skeleton'
+
+{/* START README */}
+The `Skeleton` component currently represents a simple re-export of the Shadcn UI Skeleton component. More information on the structure can be found on the [Shadcn UI Skeleton documentation](https://ui.shadcn.com/docs/components/skeleton).
+{/* END README */}
+
+export const Default = () => {
+  return (
+    <div className="flex items-center space-x-4">
+      <Skeleton className="h-12 w-12 rounded-full" />
+      <div className="space-y-2">
+        <Skeleton className="h-4 w-[250px]" />
+        <Skeleton className="h-4 w-[200px]" />
+      </div>
+    </div>
+  )
+}

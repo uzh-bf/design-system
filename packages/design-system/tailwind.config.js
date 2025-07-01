@@ -7,7 +7,7 @@ import {
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: ['class'],
-  content: ['./src/**/*.{ts,tsx}'],
+  content: ['./src/**/*.{ts,tsx}', './src/**/*.mdx'],
   prefix: '',
   future: { hoverOnlyWhenSupported: true },
   theme: {

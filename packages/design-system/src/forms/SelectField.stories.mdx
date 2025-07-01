@@ -1,0 +1,204 @@
+import { useState } from 'react'
+import { fruitsValues, groupValues } from '../values'
+import SelectField from './SelectField'
+
+{/* START README */}
+The SelectField component is an input field that only accepts numerical values. Optionally, it is possible to define labels, units, tooltips, a rounding precision and error messages.
+
+<br />
+
+The props for the SelectField component are as follows:
+
+- @param id - The id of the field.
+- @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
+- @param name - The name of the field.
+- @param items - The array of items that should be available on the select component.
+- @param groups - The optional groups array can be used to group items in the select component.
+- @param value - The value of the field (external state management).
+- @param onChange - The onChange function of the field (external state management).
+- @param onBlur - The onBlur function of the field (external state management).
+- @param label - The optional label is shown next to the field in the form.
+- @param labelType - The optional labelType can be used to change the size and position of the label according to pre-defined standards.
+- @param placeholder - The optional placeholder is shown when no value is selected / initialization with 'undefined' is chosen.
+- @param disabled - The optional disabled prop disables the select component.
+- @param error - The optional error message is shown next to the component.
+- @param hideError - Hide the error message below this component as is might be more appropriate to show it somewhere else.
+- @param contentPosition - The position of the content of the select component. Currently only 'item-aligned' and 'popper' are supported.
+- @param tooltip - The optional tooltip is shown on hover next to the label.
+- @param required - Indicate whether the field is required or not.
+- @param className - The optional className object allows you to override the default styling.
+
+{/* END README */}
+
+export const Default = () => {
+  const [value, setValue] = useState(fruitsValues[0].value)
+
+return (
+<SelectField
+items={fruitsValues}
+value={value}
+onChange={(newValue) => {
+alert(`Value changed to: ${newValue}`)
+setValue(newValue)
+}}
+/>
+)
+}
+
+export const Groups = () => {
+  const [value, setValue] = useState(groupValues[0].items[0].value)
+
+return (
+<SelectField
+groups={groupValues}
+value={value}
+onChange={(newValue) => {
+alert(`Value changed to: ${newValue}`)
+setValue(newValue)
+}}
+/>
+)
+}
+
+export const Required = () => {
+  const [value, setValue] = useState(fruitsValues[0].value)
+
+return (
+<SelectField
+required
+label="Label"
+items={fruitsValues}
+value={value}
+onChange={(newValue) => {
+alert(`Value changed to: ${newValue}`)
+setValue(newValue)
+}}
+/>
+)
+}
+
+export const Disabled = () => {
+  const [value, setValue] = useState(fruitsValues[0].value)
+
+return (
+<SelectField
+disabled
+items={fruitsValues}
+value={value}
+onChange={(newValue) => {
+alert(`Value changed to: ${newValue}`)
+setValue(newValue)
+}}
+/>
+)
+}
+
+export const Label = () => {
+  const [value, setValue] = useState(fruitsValues[0].value)
+
+return (
+<SelectField
+label="Label"
+items={fruitsValues}
+value={value}
+onChange={(newValue) => {
+alert(`Value changed to: ${newValue}`)
+setValue(newValue)
+}}
+/>
+)
+}
+
+export const LargeLabel = () => {
+  const [value, setValue] = useState(fruitsValues[0].value)
+
+return (
+<SelectField
+label="Label"
+labelType="large"
+items={fruitsValues}
+value={value}
+onChange={(newValue) => {
+alert(`Value changed to: ${newValue}`)
+setValue(newValue)
+}}
+/>
+)
+}
+
+export const Error = () => {
+  const [value, setValue] = useState(fruitsValues[0].value)
+
+return (
+<div className="flex flex-col gap-4">
+<SelectField
+required
+label="Label"
+error="Error message"
+items={fruitsValues}
+value={value}
+onChange={(newValue) => {
+alert(`Value changed to: ${newValue}`)
+setValue(newValue)
+}}
+/>
+<SelectField
+required
+label="Label"
+labelType="large"
+error="Error message"
+items={fruitsValues}
+value={value}
+onChange={(newValue) => {
+alert(`Value changed to: ${newValue}`)
+setValue(newValue)
+}}
+/>
+</div>
+)
+}
+
+export const Tooltip = () => {
+  const [value, setValue] = useState(fruitsValues[0].value)
+
+return (
+<div className="flex flex-col gap-4">
+<SelectField
+required
+label="Label"
+tooltip="Tooltip for this input"
+items={fruitsValues}
+value={value}
+onChange={(newValue) => {
+alert(`Value changed to: ${newValue}`)
+setValue(newValue)
+}}
+/>
+<SelectField
+required
+label="Label"
+labelType="large"
+tooltip="Tooltip for this input"
+items={fruitsValues}
+value={value}
+onChange={(newValue) => {
+alert(`Value changed to: ${newValue}`)
+setValue(newValue)
+}}
+/>
+<SelectField
+required
+label="Label"
+labelType="large"
+tooltip="Tooltip for this input"
+error="Error message"
+items={fruitsValues}
+value={value}
+onChange={(newValue) => {
+alert(`Value changed to: ${newValue}`)
+setValue(newValue)
+}}
+/>
+</div>
+)
+}

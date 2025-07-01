@@ -1,0 +1,108 @@
+import { useState } from 'react'
+import DatePicker from './DatePicker'
+
+{/* START README */}
+The DatePicker component is a date selection component that allows users to pick a date from a calendar interface. It supports various features such as disabled state, custom labels, error handling, and data attributes for testing.
+
+<br />
+
+The props for the DatePicker component are as follows:
+
+- @param id - The id of the date changer
+- @param date - The date to be displayed (state)
+- @param onDateChange - The function to be called when the date is changed (state management)
+- @param label - The label of the date changer
+- @param labelType - The type of the label (small or large)
+- @param placeholder - The placeholder of the date changer (is only shown if no date is selected)
+- @param tooltip - The tooltip of the date changer (is only shown if a label is given)
+- @param required - Whether the date label should contain a required symbol
+- @param disabled - Whether the date changer is disabled or not
+- @param error - The error message to be displayed
+- @param hideError - Whether the error message should be hidden
+- @param isTouched - Whether the date changer has been touched
+- @param className - The optional className object allows you to override the default styling.
+- @param onDateChange - The function to be called when the date is changed (state management)
+- @param dataTrigger - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the popover trigger
+- @param dataCalendar - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the calendar
+- @param dataNextMonth - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the next month button
+- @param dataPreviousMonth - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the previous month button
+
+{/* END README */}
+
+export function Default() {
+  const [date, setDate] = useState(new Date('2025-01-01'))
+  return (
+    <DatePicker
+      date={date}
+      onDateChange={(date) => setDate(date)}
+      dataTrigger={{ cy: 'trigger-cy' }}
+      dataCalendar={{ cy: 'calendar-cy' }}
+      dataNextMonth={{ cy: 'next-month-cy' }}
+      dataPreviousMonth={{ cy: 'previous-month-cy' }}
+    />
+  )
+}
+
+export function Disabled() {
+  const [date, setDate] = useState(new Date('2025-01-01'))
+  return (
+    <DatePicker disabled date={date} onDateChange={(date) => setDate(date)} />
+  )
+}
+
+export function Labelled() {
+  const [date, setDate] = useState(new Date('2025-01-01'))
+  return (
+    <DatePicker
+      required
+      label="Testlabel"
+      labelType="large"
+      date={date}
+      onDateChange={(date) => setDate(date)}
+    />
+  )
+}
+
+export function SmallLabel() {
+  const [date, setDate] = useState(new Date('2025-01-01'))
+  return (
+    <DatePicker
+      required
+      label="Testlabel"
+      labelType="small"
+      tooltip="Tooltip for date changer with label"
+      date={date}
+      onDateChange={(date) => setDate(date)}
+    />
+  )
+}
+
+export function Error() {
+  const [date, setDate] = useState(new Date('2025-01-01'))
+  const [date2, setDate2] = useState(new Date('2025-01-01'))
+
+return (
+
+<div className="flex flex-col gap-4">
+  <DatePicker
+    required
+    isTouched
+    date={date}
+    onDateChange={setDate}
+    label="Testlabel"
+    labelType="small"
+    tooltip="Tooltip for date changer with label"
+    error="This is an error"
+  />
+  <DatePicker
+    required
+    isTouched
+    date={date2}
+    onDateChange={setDate2}
+    label="Testlabel"
+    labelType="large"
+    tooltip="Tooltip for date changer with label"
+    error="This is an error"
+  />
+</div>
+) }

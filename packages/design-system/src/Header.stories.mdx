@@ -1,0 +1,28 @@
+import Header from './Header'
+
+{/* START README */}
+The Header components provide pre-styled semantic HTML header elements (h1, h2, h3, h4) that can be used to structure your content. They are designed to be accessible and easy to use, with the ability to add custom data attributes for testing purposes.
+
+<br />
+
+The props for all different components are as follows:
+
+- @param id - The id of the header.
+- @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
+- @param className - The optional className object allows you to override the default styling.
+- @param children - The content of the header.
+
+{/* END README */}
+
+export const Default = () => (
+  <div>
+    <Header.H1>asdasd</Header.H1>
+    <p>hello world</p>
+    <Header.H2>asdasd</Header.H2>
+    <p>hello world</p>
+    <Header.H3>asdasd</Header.H3>
+    <p>hello world</p>
+    <Header.H4>asdasd</Header.H4>
+    <p>hello world</p>
+  </div>
+)

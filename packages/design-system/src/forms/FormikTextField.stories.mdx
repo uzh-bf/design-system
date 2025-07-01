@@ -1,0 +1,422 @@
+import {
+  faEye,
+  faEyeSlash,
+  faMagnifyingGlass,
+} from '@fortawesome/free-solid-svg-icons'
+import { Form, Formik } from 'formik'
+import { useState } from 'react'
+import * as yup from 'yup'
+import Button from '../Button'
+import FormikTextField from './FormikTextField'
+
+{/* START README */}
+The `FormikTextField` component is a Formik wrapper around the `TextField` component. In addition to labels, tooltips, etc. it also offers direct interfaces for form validation, error messages, and form submission handling.
+
+<br />
+
+The FormikTextField accepts the following props:
+
+- @param id - The id of the field.
+- @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
+- @param name - The name of the field as used to keep track of the state in Formik. If no value and onChange function are provided, this field is required.
+- @param value - The value of the field. This is used to manage the state internally. If no name is provided, this field is required.
+- @param onChange - The onChange function is called when the value of the field changes. This is used to manage the state internally. If no name is provided, this field is required.
+- @param error - The error message that is shown below the field. If a name is provided, this prop will not be used.
+- @param label - The optional label is shown next to the field in the form.
+- @param labelType - The optional labelType can be used to change the size and position of the label according to pre-defined standards.
+- @param icon - An optional icon (FontAwesomeIcon IconDefinition) that is shown on the right side of the text input component
+- @param iconPosition - The optional iconPosition can be used to change the position of the icon according to pre-defined standards.
+- @param onIconClick - An optional function that is called when the icon (previous prop) is clicked
+- @param placeholder - The optional placeholder is shown when the field is empty.
+- @param tooltip - The optional tooltip is shown on hover next to the label.
+- @param required - Indicate whether the field is required or not.
+- @param hideError - Hide the error message below this component as is might be more appropriate to show it somewhere else.
+- @param disabled - Disable the field.
+- @param onPaste - An optional function that is called when the user pastes text into the field.
+- @param className - The optional className object allows you to override the default styling.
+
+{/* END README */}
+
+export const Default = () => (
+  <div>
+    <div>The default Formik field works with a "name" input</div>
+    <Formik
+      initialValues={{
+        name: '',
+      }}
+      isInitialValid={false}
+      onSubmit={async (values, { resetForm }) => {
+        alert(`Form submitted with value: ${values.name}`)
+        resetForm()
+      }}
+    >
+      {({ values }) => {
+        return (
+          <div>
+            <Form>
+              <FormikTextField
+                name="name"
+                label="Label"
+                tooltip="Tooltip for this input"
+                className={{ root: 'mb-1 w-80' }}
+                placeholder="Placeholder"
+              />
+              <Button type="submit">Submit</Button>
+            </Form>
+            <div>Value: {values.name}</div>
+          </div>
+        )
+      }}
+    </Formik>
+  </div>
+)
+
+export const Icon = () => (
+  <div>
+    <Formik
+      initialValues={{
+        name: '',
+      }}
+      isInitialValid={false}
+      onSubmit={async (values, { resetForm }) => {
+        alert(`Form submitted with value: ${values.name}`)
+        resetForm()
+      }}
+    >
+      {({ values }) => {
+        return (
+          <div>
+            <Form>
+              <FormikTextField
+                name="name"
+                label="Label"
+                tooltip="Tooltip for this input"
+                className={{ root: 'mb-1 w-80' }}
+                placeholder="Placeholder"
+                icon={faMagnifyingGlass}
+                onIconClick={() => alert('Icon clicked')}
+              />
+              <Button type="submit">Submit</Button>
+            </Form>
+            <div>Value: {values.name}</div>
+          </div>
+        )
+      }}
+    </Formik>
+  </div>
+)
+
+export const IconRight = () => {
+  const [textHidden, setTextHidden] = useState(true)
+
+return (
+<div>
+<div>
+The icon prop allows to pass a fontawesom icon to the component, which
+will then be displayed on the right side of the input field
+</div>
+<Formik
+initialValues={{
+          name: '',
+        }}
+isInitialValid={false}
+onSubmit={async (values, { resetForm }) => {
+alert(`Form submitted with value: ${values.name}`)
+resetForm()
+}} >
+{({ values }) => {
+return (
+<div>
+<Form>
+<FormikTextField
+name="name"
+label="Label"
+tooltip="Tooltip for this input"
+className={{ root: 'mb-1' }}
+placeholder="Placeholder"
+icon={textHidden ? faEye : faEyeSlash}
+iconPosition="right"
+onIconClick={() => setTextHidden(!textHidden)}
+type={textHidden ? 'password' : 'text'}
+/>
+<Button type="submit">Submit</Button>
+</Form>
+<div>Value: {values.name}</div>
+</div>
+)
+}}
+</Formik>
+</div>
+)
+}
+
+export const Disabled = () => (
+  <div>
+    <div>The default Formik field works with a "name" input</div>
+    <Formik
+      initialValues={{
+        name: '',
+      }}
+      isInitialValid={false}
+      onSubmit={async (values, { resetForm }) => {
+        alert(`Form submitted with value: ${values.name}`)
+        resetForm()
+      }}
+    >
+      {({ values }) => {
+        return (
+          <div>
+            <Form>
+              <FormikTextField
+                disabled
+                name="name"
+                label="Label"
+                tooltip="Tooltip for a disabled text field"
+                className={{ root: 'mb-1' }}
+                placeholder="Placeholder (disabled field)"
+              />
+              <Button type="submit">Submit</Button>
+            </Form>
+            <div>Value: {values.name}</div>
+          </div>
+        )
+      }}
+    </Formik>
+  </div>
+)
+
+export const Required = () => (
+  <div>
+    <div>
+      By adding a required attribute, the label of the field changes it
+      appearance
+    </div>
+    <Formik
+      initialValues={{
+        name: '',
+      }}
+      isInitialValid={false}
+      onSubmit={async (values, { resetForm }) => {
+        alert(`Form submitted with value: ${values.name}`)
+        resetForm()
+      }}
+    >
+      {({ values }) => {
+        return (
+          <div>
+            <Form>
+              <FormikTextField
+                required
+                name="name"
+                label="Label"
+                tooltip="Tooltip for this input"
+                className={{ root: 'mb-1' }}
+                placeholder="Placeholder"
+              />
+              <Button type="submit">Submit</Button>
+            </Form>
+            <div>Value: {values.name}</div>
+          </div>
+        )
+      }}
+    </Formik>
+  </div>
+)
+
+export const OnChangeFunction = () => (
+  <div>
+    <div>
+      An alternative version of the text field input allows to work with a
+      "value" and "onChange" attribute instead of the "name" attribute. This
+      field is modified in a way that whitespaces are removed from the input on
+      change.
+    </div>
+    <Formik
+      initialValues={{
+        name: '',
+      }}
+      isInitialValid={false}
+      onSubmit={async (values, { resetForm }) => {
+        alert(`Form submitted with value: ${values.name}`)
+        resetForm()
+      }}
+    >
+      {({ values, setFieldValue }) => {
+        return (
+          <div>
+            <Form>
+              <FormikTextField
+                value={values.name}
+                onChange={(newValue) => {
+                  setFieldValue('name', newValue.replace(/\s/g, ''))
+                }}
+                label="Label"
+                tooltip="Tooltip for this input"
+                className={{ root: 'mb-1' }}
+                placeholder="Placeholder"
+              />
+              <Button type="submit">Submit</Button>
+            </Form>
+            <div>Value: {values.name}</div>
+          </div>
+        )
+      }}
+    </Formik>
+  </div>
+)
+
+export const OnChangeError = () => (
+  <div>
+    <Formik
+      initialValues={{
+        name: '',
+      }}
+      isInitialValid={false}
+      onSubmit={async (values, { resetForm }) => {
+        alert(`Form submitted with value: ${values.name}`)
+        resetForm()
+      }}
+    >
+      {({ values, setFieldValue }) => {
+        return (
+          <div>
+            <Form>
+              <FormikTextField
+                isTouched
+                error="Error message"
+                value={values.name}
+                onChange={(newValue) => {
+                  setFieldValue('name', newValue)
+                }}
+                label="Label"
+                tooltip="Tooltip for this input"
+                className={{ root: 'mb-1' }}
+                placeholder="Placeholder"
+              />
+              <Button type="submit">Submit</Button>
+            </Form>
+            <div>Value: {values.name}</div>
+          </div>
+        )
+      }}
+    </Formik>
+  </div>
+)
+
+export const Styled = () => (
+  <div>
+    <div>The default Formik field works with a "name" input</div>
+    <Formik
+      initialValues={{
+        name: '',
+      }}
+      isInitialValid={false}
+      onSubmit={async (values, { resetForm }) => {
+        alert(`Form submitted with value: ${values.name}`)
+        resetForm()
+      }}
+    >
+      {({ values }) => {
+        return (
+          <div>
+            <Form>
+              <FormikTextField
+                name="name"
+                label="Label"
+                tooltip="Tooltip for this input"
+                className={{
+                  root: 'mb-1 w-1/2',
+                  label: 'text-red-500',
+                  input: 'bg-uzh-blue-20',
+                  error: 'text-red-700',
+                }}
+                placeholder="Placeholder"
+              />
+              <Button type="submit">Submit</Button>
+            </Form>
+            <div>Value: {values.name}</div>
+          </div>
+        )
+      }}
+    </Formik>
+  </div>
+)
+
+export const Validation = () => (
+  <div>
+    <div>
+      This text field should have a maximum length of 10 characters or will
+      display an error otherwise.
+    </div>
+    <Formik
+      initialValues={{
+        name: '',
+      }}
+      isInitialValid={false}
+      onSubmit={async (values, { resetForm }) => {
+        alert(`Form submitted with value: ${values.name}`)
+        resetForm()
+      }}
+      validationSchema={yup.object().shape({
+        name: yup
+          .string()
+          .required('This field is required')
+          .max(10, 'Max 10 characters'),
+      })}
+    >
+      {({ values }) => {
+        return (
+          <div>
+            <Form>
+              <FormikTextField
+                name="name"
+                label="Label"
+                tooltip="Tooltip for this input"
+                className={{ root: 'mb-1' }}
+                placeholder="Placeholder"
+              />
+              <Button type="submit">Submit</Button>
+            </Form>
+            <div>Value: {values.name}</div>
+          </div>
+        )
+      }}
+    </Formik>
+  </div>
+)
+
+export const LargeLabel = () => (
+  <div>
+    <div>Formik text area component with a large label</div>
+    <Formik
+      initialValues={{
+        name: '',
+      }}
+      isInitialValid={false}
+      onSubmit={async (values, { resetForm }) => {
+        alert(`Form submitted with value: ${values.name}`)
+        resetForm()
+      }}
+    >
+      {({ values }) => {
+        return (
+          <div>
+            <Form>
+              <FormikTextField
+                required
+                name="name"
+                label="Label"
+                labelType="large"
+                tooltip="Tooltip for this input"
+                className={{ root: 'mb-1' }}
+                placeholder="Placeholder"
+              />
+              <Button type="submit">Submit</Button>
+            </Form>
+            <div>Value: {values.name}</div>
+          </div>
+        )
+      }}
+    </Formik>
+  </div>
+)

@@ -1,0 +1,219 @@
+import { Form, Formik } from 'formik'
+import * as Yup from 'yup'
+import Button from '../Button'
+import FormikColorPicker from './FormikColorPicker'
+
+{/* START README */}
+The `FormikColorPicker` component is a Formik wrapper around the `ColorPicker` component. In addition to labels, tooltips, etc. it also offers direct interfaces for form validation, error messages, and form submission handling.
+
+<br />
+
+The FormikColorPicker accepts the following props:
+
+- @param name - The name of the field (used for Formik).
+- @param label - The label for the color picker.
+- @param labelType - The type of label, can be 'small' or 'large'.
+- @param validateForm - A function to validate the form when the color is changed.
+- @param tooltip - Optional tooltip text or component to display additional information.
+- @param required - Indicates whether the field is required.
+- @param disabled - Indicates whether the color picker is disabled.
+- @param triggerIcon - An optional icon to display as a trigger for the color picker.
+- @param presetColors - An array of preset colors to display in the color picker.
+- @param position - The position of the color picker relative to the trigger icon.
+- @param submitText - The text to display on the submit button of the color picker.
+- @param colorLabel - The label for the color input field.
+- @param colorTooltip - Optional tooltip for the color input field.
+- @param dataTrigger - Optional data attributes for the trigger icon (for testing purposes).
+- @param dataHexInput - Optional data attributes for the hex input field (for testing purposes).
+
+{/* END README */}
+
+export const Default = () => (
+  <div>
+    <Formik
+      initialValues={{
+        color: '#FF0000',
+      }}
+      onSubmit={async (values, { resetForm }) => {
+        alert(
+          `Form submitted with color: ${values.color}. The form will be reset.`
+        )
+        resetForm()
+      }}
+    >
+      {({ values }) => {
+        return (
+          <div>
+            <Form>
+              <FormikColorPicker
+                name="color"
+                submitText="Save"
+                colorLabel="Color"
+                className={{ root: 'mb-4' }}
+              />
+              <Button type="submit">Submit</Button>
+            </Form>
+            <div>Value: {values.color}</div>
+          </div>
+        )
+      }}
+    </Formik>
+  </div>
+)
+
+export const Label = () => (
+  <div>
+    <Formik
+      initialValues={{
+        color: '#FF0000',
+      }}
+      onSubmit={async (values, { resetForm }) => {
+        alert(
+          `Form submitted with color: ${values.color}. The form will be reset.`
+        )
+        resetForm()
+      }}
+    >
+      {({ values }) => {
+        return (
+          <div>
+            <Form>
+              <FormikColorPicker
+                required
+                submitText="Save"
+                colorLabel="Color"
+                label="Picker"
+                tooltip="This is a tooltip"
+                name="color"
+                className={{ root: 'mb-4' }}
+              />
+              <FormikColorPicker
+                required
+                submitText="Save"
+                colorLabel="Color"
+                label="Picker"
+                labelType="large"
+                tooltip="This is a tooltip"
+                name="color"
+                className={{ root: 'mb-4' }}
+              />
+              <Button type="submit">Submit</Button>
+            </Form>
+            <div>Value: {values.color}</div>
+          </div>
+        )
+      }}
+    </Formik>
+  </div>
+)
+
+export const Disabled = () => (
+  <div>
+    <Formik
+      initialValues={{
+        color: '#FF0000',
+      }}
+      onSubmit={async (values, { resetForm }) => {
+        alert(
+          `Form submitted with color: ${values.color}. The form will be reset.`
+        )
+        resetForm()
+      }}
+    >
+      {({ values }) => {
+        return (
+          <div>
+            <Form>
+              <FormikColorPicker
+                disabled
+                name="color"
+                className={{ root: 'mb-4' }}
+                submitText="Save"
+                colorLabel="Color"
+              />
+              <Button type="submit">Submit</Button>
+            </Form>
+            <div>Value: {values.color}</div>
+          </div>
+        )
+      }}
+    </Formik>
+  </div>
+)
+
+export const CustomPresets = () => (
+  <div>
+    <Formik
+      initialValues={{
+        color: '#FF0000',
+      }}
+      onSubmit={async (values, { resetForm }) => {
+        alert(
+          `Form submitted with color: ${values.color}. The form will be reset.`
+        )
+        resetForm()
+      }}
+    >
+      {({ values }) => {
+        return (
+          <div>
+            <Form>
+              <FormikColorPicker
+                name="color"
+                className={{ root: 'mb-4' }}
+                presetColors={['#FF0000', '#00FF00', '#0000FF']}
+                submitText="Save"
+                colorLabel="Color"
+              />
+              <Button type="submit">Submit</Button>
+            </Form>
+            <div>Value: {values.color}</div>
+          </div>
+        )
+      }}
+    </Formik>
+  </div>
+)
+
+export const Validation = () => (
+  <div>
+    <div>
+      The selected color has to be red (#FF0000), otherwise an error will be
+      displayed
+    </div>
+    <Formik
+      initialValues={{
+        color: '#FF0000',
+      }}
+      onSubmit={async (values, { resetForm }) => {
+        alert(
+          `Form submitted with color: ${values.color}. The form will be reset.`
+        )
+        resetForm()
+      }}
+      validationSchema={Yup.object().shape({
+        color: Yup.string()
+          .required()
+          .matches(/^#(?:[fF]{2}[0]{4})$/, 'The color has to be red'),
+      })}
+    >
+      {({ values, validateForm }) => {
+        return (
+          <div>
+            <Form>
+              <FormikColorPicker
+                name="color"
+                submitText="Save"
+                colorLabel="Color"
+                validateForm={validateForm}
+                className={{ root: 'mb-4' }}
+              />
+              <Button type="submit">Submit</Button>
+            </Form>
+            <div>Value: {values.color}</div>
+          </div>
+        )
+      }}
+    </Formik>
+  </div>
+)

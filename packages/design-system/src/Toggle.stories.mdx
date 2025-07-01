@@ -1,0 +1,14 @@
+import { Bold } from 'lucide-react'
+import { Toggle } from './Toggle'
+
+{/* START README */}
+The `Toggle` component currently represents a simple re-export of the Shadcn UI Toggle component. More information on the structure can be found on the [Shadcn UI Toggle documentation](https://ui.shadcn.com/docs/components/toggle).
+{/* END README */}
+
+export const Default = () => {
+  return (
+    <Toggle aria-label="Toggle italic">
+      <Bold className="h-4 w-4" />
+    </Toggle>
+  )
+}

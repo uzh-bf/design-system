@@ -1,0 +1,104 @@
+import UserNotification from './UserNotification'
+
+{/* START README */}
+
+The UserNotification component is a pre-styled custom component for displaying user notifications. Based on the provided type, custom styling is applied or general children can be passed to the component.
+
+<br />
+
+The UserNotification component accepts the following props:
+
+- @param id - The id of the notification.
+- @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
+- @param message - The message that is displayed in the notification.
+- @param type - The type of the notification. This can be either 'success', 'info' or 'error'. This determines the icon that is displayed and some conditional styling. If not type is provided, the information icon is displayed.
+- @param children - The optional children are displayed in the notification in addition to the provided message icon.
+- @param className - The optional className object allows you to override the default styling.
+
+{/* END README */}
+
+export const Default = () => {
+  return (
+    <UserNotification message="This is the default notif style when the provided type is not 'success', 'error', or 'info'" />
+  )
+}
+
+export const Success = () => {
+  return (
+    <UserNotification
+      type="success"
+      message="You have been registered successfully"
+    >
+      Content
+    </UserNotification>
+  )
+}
+
+export const Warning = () => {
+  return (
+    <UserNotification
+      type="warning"
+      message="You are about to create a new account with a different email address."
+    >
+      Content
+    </UserNotification>
+  )
+}
+
+export const Error = () => {
+  return (
+    <UserNotification
+      type="error"
+      message="An error occurred during registration"
+    >
+      Content
+    </UserNotification>
+  )
+}
+
+export const Info = () => {
+  return (
+    <UserNotification
+      type="info"
+      message="There are five more places available"
+    >
+      Content
+    </UserNotification>
+  )
+}
+
+export const CustomContent = () => {
+  return (
+    <div>
+      <div>
+        It is also possible to only provide children to the notification
+        component, if not message text is available or if the content has to be
+        passed as a React node.
+      </div>
+      <UserNotification type="info">
+        <div>
+          <strong>This content is passed as a separate node</strong>
+          <div>Contains multiple lines</div>
+        </div>
+      </UserNotification>
+    </div>
+  )
+}
+
+export const Styled = () => {
+  return (
+    <UserNotification
+      type="default"
+      message="This is a notification with default type but added custom styling"
+      className={{
+        root: 'gap-4 text-lg',
+        content: 'text-base text-red-400 italic',
+        icon: 'text-blue-500',
+        message: 'text-green-500',
+      }}
+    >
+      The content of the notification can be styled as well and used to display
+      more detailed information regarding the notification.
+    </UserNotification>
+  )
+}

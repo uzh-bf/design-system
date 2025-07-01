@@ -1,0 +1,33 @@
+import { useState } from 'react'
+import { Calendar } from './Calendar'
+
+{/* START README */}
+The `Calendar` component currently represents a simple re-export of the Shadcn UI Calendar component. More information on the structure can be found on the [Shadcn UI Calendar documentation](https://ui.shadcn.com/docs/components/calendar).
+{/* END README */}
+
+export const Default = () => {
+  const [date, setDate] = useState(new Date())
+
+return (
+
+<Calendar
+  mode="single"
+  selected={date}
+  onSelect={setDate}
+  className="rounded-md border shadow-sm"
+/>
+) }
+
+export const MonthYearDropdown = () => {
+  const [date, setDate] = useState(new Date())
+
+return (
+
+<Calendar
+  mode="single"
+  selected={date}
+  onSelect={setDate}
+  className="rounded-md border shadow-sm"
+  captionLayout="dropdown"
+/>
+) }

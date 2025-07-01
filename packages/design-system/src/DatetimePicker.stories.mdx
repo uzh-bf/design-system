@@ -1,0 +1,193 @@
+import { useState } from 'react'
+import { DateTimePicker } from './DatetimePicker'
+
+{/* START README */}
+The DatetimePicker component supports the selection of both a date and a time at the same moment. Pre-styled to be compatible with all other design-system components, it can be configured, date formatting can be chosen, etc.
+
+<br />
+
+The props for the DatetimePicker component are as follows:
+
+- @param value - The currently selected date value.
+- @param onChange - Callback function called when the date value changes.
+- @param onMonthChange - Callback function called when the displayed month changes.
+- @param disabled - Whether the picker is disabled.
+- @param hourCycle - Whether to use 12-hour or 24-hour time format.
+- @param placeholder - Placeholder text shown when no date is selected / the state is undefined.
+- @param yearRange - The range of years to display in the year dropdown, relative to the current year.
+- @param displayFormat - The dayjs format string to display the date in the input field.
+- @param granularity - The smallest unit displayed by the picker (e.g., 'second', 'minute', 'hour', 'day').
+- @param className - Optional object to override default styling for trigger, input, label, tooltip, and error.
+- @param defaultPopupValue - The default date and time shown when the calendar popup opens.
+- @param dataTrigger - Data attributes for testing the popover trigger.
+- @param dataCalendar - Data attributes for testing the calendar.
+- @param dataHours - Data attributes for testing the hours input.
+- @param dataMinutes - Data attributes for testing the minutes input.
+- @param dataSeconds - Data attributes for testing the seconds input.
+- @param dataNextMonth - Data attributes for testing the next month button.
+- @param dataPreviousMonth - Data attributes for testing the previous month button.
+- @param error - Error message to display.
+- @param hideError - Whether to hide the error message.
+- @param isTouched - Whether the picker has been interacted with.
+- @param label - The label for the picker.
+- @param labelType - The type of label to display ('small' or 'large').
+- @param required - Whether the label should indicate a required field.
+- @param tooltip - Tooltip content shown with the label.
+- @param locale - The locale for date formatting and calendar display.
+- @param weekStartsOn - The day the week starts on in the calendar.
+- @param showWeekNumber - Whether to show the week number in the calendar.
+- @param showOutsideDays - Whether to show days from adjacent months in the calendar.
+
+{/* END README */}
+
+export const Default = () => {
+  const DefaultDate = new Date()
+  DefaultDate.setHours(13, 14, 0, 0)
+  const [date, setDate] = useState(undefined)
+
+return (
+
+<div className="mb-8">
+  <div>Default Component</div>
+  <DateTimePicker
+    value={date}
+    defaultPopupValue={date ?? DefaultDate}
+    onChange={setDate}
+  />
+</div>
+) }
+
+export const Disabled = () => {
+  const DefaultDate = new Date()
+  DefaultDate.setHours(13, 14, 0, 0)
+  const [date, setDate] = useState(undefined)
+
+return (
+
+<div className="mb-8">
+  <div>Disabled Component</div>
+  <DateTimePicker
+    disabled
+    value={date}
+    defaultPopupValue={date ?? DefaultDate}
+    onChange={setDate}
+  />
+</div>
+) }
+
+export const DateFormat = () => {
+  const DefaultDate = new Date()
+  DefaultDate.setHours(13, 14, 0, 0)
+  const [date, setDate] = useState(undefined)
+
+return (
+
+<div className="mb-8">
+  <div>
+    The date format on the trigger component can be customized, by passing a
+    corresponding formatting string to the dayjs parsing logic
+  </div>
+  <DateTimePicker
+    value={date}
+    defaultPopupValue={date ?? DefaultDate}
+    onChange={setDate}
+    displayFormat="MM/DD/YYYY HH:mm"
+  />
+</div>
+) }
+
+export const MinutePrecision = () => {
+  const [date, setDate] = useState(undefined)
+
+return (
+
+<div className="mb-8">
+  <div>Minute Precision Component</div>
+  <DateTimePicker
+    value={date}
+    defaultPopupValue={date}
+    onChange={setDate}
+    granularity="minute"
+  />
+</div>
+) }
+
+export const HourPrecision = () => {
+  const [date, setDate] = useState(undefined)
+
+return (
+
+<div className="mb-8">
+  <div>Hour Precision Component</div>
+  <DateTimePicker
+    value={date}
+    defaultPopupValue={date}
+    onChange={setDate}
+    granularity="hour"
+  />
+</div>
+) }
+
+export function Labelled() {
+  const [date, setDate] = useState(new Date('2025-01-01'))
+  return (
+    <DateTimePicker
+      required
+      value={date}
+      defaultPopupValue={date}
+      onChange={setDate}
+      className={{ trigger: 'w-[280px]' }}
+      label="Testlabel"
+      labelType="large"
+      granularity="minute"
+    />
+  )
+}
+
+export function SmallLabel() {
+  const [date, setDate] = useState(new Date('2025-01-01'))
+  return (
+    <DateTimePicker
+      required
+      value={date}
+      defaultPopupValue={date}
+      onChange={setDate}
+      className={{ trigger: 'w-[280px]' }}
+      label="Testlabel"
+      labelType="small"
+      granularity="minute"
+    />
+  )
+}
+
+export function Error() {
+  const [date, setDate] = useState(new Date('2025-01-01'))
+  const [date2, setDate2] = useState(new Date('2025-01-01'))
+
+return (
+
+<div className="flex flex-col gap-4">
+  <DateTimePicker
+    required
+    isTouched
+    value={date}
+    defaultPopupValue={date}
+    onChange={setDate}
+    label="Testlabel"
+    labelType="small"
+    tooltip="Tooltip for date changer with label"
+    error="This is an error"
+  />
+  <DateTimePicker
+    required
+    isTouched
+    value={date}
+    defaultPopupValue={date2}
+    onChange={setDate2}
+    label="Testlabel"
+    labelType="large"
+    tooltip="Tooltip for date changer with label"
+    error="This is an error"
+  />
+</div>
+) }

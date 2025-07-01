@@ -1,0 +1,145 @@
+import { useMemo, useState } from 'react'
+import CycleCountdown from './CycleCountdown'
+
+{/* START README */}
+The CycleCountdown component extends the basic countdown component with a visual illustration of the remaining time. In addition to basic styling, if offers customization options for the size, color (gradients), formatting, as well as expiration and update listeners.
+
+<br />
+
+The props for the CycleCountdown component are as follows:
+
+- @param expiresAt - Date when the countdown should expire
+- @param totalDuration - Total duration of the countdown in seconds, which is needed to compute the progress in percent
+- @param size - Size of the progress bar, can be 'sm' or 'md'
+- @param overrideSize - Optional override for the size of the progress bar
+- @param color - Color of the progress bar (static for the moment)
+- @param strokeWidthRem - Width of the progress bar. For small size, a smaller value is recommended
+- @param isStatic - If true, the countdown will not be running, but instead show the initial value. However, as the end value is given by a date, reloading can modify the displayed countdown value
+- @param terminalColor - Color of the progress bar when the countdown is expired (total Duration 0 or expiration in the past)
+- @param terminalPercentage - Percentage of the progress bar when the countdown is expired (totalDuration 0 or expiration in the past)
+- @param formatter - Function to format the countdown value
+- @param onExpire - Function that is executed when the countdown expires
+- @param onUpdate - Function that is executed when the countdown is updated (not when it expires)
+- @param data - Optional data object that can be used for testing (e.g. data-test or data-cy)
+- @param className - Optional className object allows you to override the default styling
+
+{/* END README */}
+
+export const Default = () => {
+  const time = new Date()
+  time.setSeconds(time.getSeconds() + 10)
+
+return <CycleCountdown expiresAt={time} totalDuration={10} />
+}
+
+export const Static = () => {
+  const time = new Date()
+  time.setSeconds(time.getSeconds() + 10)
+
+return <CycleCountdown expiresAt={time} totalDuration={10} isStatic />
+}
+
+export const Small = () => {
+  const time = new Date()
+  time.setSeconds(time.getSeconds() + 10)
+
+return (
+<CycleCountdown
+      expiresAt={time}
+      totalDuration={10}
+      size="sm"
+      strokeWidthRem={0.2}
+    />
+)
+}
+
+export const Formatter = () => {
+  const time = new Date()
+  time.setSeconds(time.getSeconds() + 10)
+
+return (
+<CycleCountdown
+expiresAt={time}
+totalDuration={10}
+formatter={(value) => {
+return `${value} s`
+}}
+/>
+)
+}
+
+export const Expiration = () => {
+  const [expired, setExpired] = useState(false)
+  const time = new Date()
+  time.setSeconds(time.getSeconds() + 10)
+
+return (
+<div>
+<CycleCountdown
+expiresAt={time}
+totalDuration={10}
+onExpire={() => {
+setExpired(true)
+}}
+/>
+onExpire function executed: {expired ? 'yes' : 'no'}
+</div>
+)
+}
+
+export const Updating = () => {
+  const time = useMemo(() => {
+    const t = new Date()
+    t.setSeconds(t.getSeconds() + 10)
+    return t
+  }, [])
+
+const [number, setNumber] = useState(0)
+
+return (
+<div>
+This countdown uses the onUpdate function to update a state value. Note
+that we need to use a useMemo hook for the memoization of the time
+variable, otherwise the countdown will be re-rendered every second. Also,
+the time will not be updated on expiration and will therefore stay at 1 in
+the end.
+<CycleCountdown
+expiresAt={time}
+totalDuration={10}
+onUpdate={(value) => {
+setNumber(value)
+}}
+/>
+Updated value: {number}
+</div>
+)
+}
+
+export const Styled = () => {
+  const time = new Date()
+  time.setSeconds(time.getSeconds() + 10)
+
+return (
+<CycleCountdown
+expiresAt={time}
+totalDuration={10}
+color="#FF0000"
+strokeWidthRem={0.6}
+className={{ root: 'bg-blue-300', countdown: 'font-bold' }}
+/>
+)
+}
+
+export const TerminalSettings = () => {
+  const time = new Date()
+  time.setSeconds(time.getSeconds() + 10)
+
+return (
+<CycleCountdown
+      expiresAt={time}
+      totalDuration={10}
+      terminalColor="#FF0000"
+      terminalPercentage={100}
+    />
+)
+}
