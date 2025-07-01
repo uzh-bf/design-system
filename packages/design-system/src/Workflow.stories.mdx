@@ -125,37 +125,37 @@ export function TooltipSymbol() {
   const [activeIx2, setActiveIx2] = useState(1)
 
 return (
+
 <div className="w-full">
-<div>
-Optionally, in addition to the tooltips on hover, it is also possible to
-mark elements on the workflow bar with a tooltip symbol. This is done by
-passing the showTooltipSymbols prop to the Label component.
+  <div>
+    Optionally, in addition to the tooltips on hover, it is also possible to
+    mark elements on the workflow bar with a tooltip symbol. This is done by
+    passing the showTooltipSymbols prop to the Label component.
+  </div>
+  <Workflow
+    items={workflowTooltipItems}
+    onClick={(item, ix) => {
+      alert(`Item with title ${item.title} was clicked!`)
+      setActiveIx(ix)
+    }}
+    activeIx={activeIx}
+    disabledFrom={activeIx + 2}
+    showTooltipSymbols
+  />
+  <div className="mt-2">Similar example with minimal height:</div>
+  <Workflow
+    items={workflowTooltipItems}
+    onClick={(item, ix) => {
+      alert(`Item with title ${item.title} was clicked!`)
+      setActiveIx2(ix)
+    }}
+    activeIx={activeIx2}
+    disabledFrom={activeIx2 + 2}
+    minimal
+    showTooltipSymbols
+  />
 </div>
-<Workflow
-items={workflowTooltipItems}
-onClick={(item, ix) => {
-alert(`Item with title ${item.title} was clicked!`)
-setActiveIx(ix)
-}}
-activeIx={activeIx}
-disabledFrom={activeIx + 2}
-showTooltipSymbols
-/>
-<div className="mt-2">Similar example with minimal height:</div>
-<Workflow
-items={workflowTooltipItems}
-onClick={(item, ix) => {
-alert(`Item with title ${item.title} was clicked!`)
-setActiveIx2(ix)
-}}
-activeIx={activeIx2}
-disabledFrom={activeIx2 + 2}
-minimal
-showTooltipSymbols
-/>
-</div>
-)
-}
+) }
 
 export function Styled() {
   const [activeIx, setActiveIx] = useState(0)
@@ -235,65 +235,64 @@ error: false,
 ]
 
 return (
+
 <div className="flex w-full flex-col gap-3">
-<div>
-An enhanced version of the workflow component also allows to display the
-progress of a certain step on the corresponding button. If it is
-completed, the button is marked with a checkmark and corresponding
-coloring. Click on one of the element to increase the progress by 10%.
-State and logic are kept outside of the component as they depend heavily
-on the custom application.
+  <div>
+    An enhanced version of the workflow component also allows to display the
+    progress of a certain step on the corresponding button. If it is completed,
+    the button is marked with a checkmark and corresponding coloring. Click on
+    one of the element to increase the progress by 10%. State and logic are kept
+    outside of the component as they depend heavily on the custom application.
+  </div>
+  <Workflow
+    items={itemsProgress}
+    onClick={(item, ix) => {
+      if (item.progress !== 1) {
+        setItemsProgress((prev) => {
+          const newItems = [...prev]
+          newItems[ix].progress += 0.1
+          if (newItems[ix].progress >= 0.999) {
+            newItems[ix].progress = 1
+            newItems[ix].completed = true
+          }
+          return newItems
+        })
+      }
+    }}
+  />
+  <Workflow
+    showTooltipSymbols
+    items={itemsProgress}
+    onClick={(item, ix) => {
+      if (item.progress !== 1) {
+        setItemsProgress((prev) => {
+          const newItems = [...prev]
+          newItems[ix].progress += 0.1
+          if (newItems[ix].progress >= 0.999) {
+            newItems[ix].progress = 1
+            newItems[ix].completed = true
+          }
+          return newItems
+        })
+      }
+    }}
+  />
+  <Workflow
+    showTooltipSymbols
+    items={errorItems}
+    activeIx={activeIx}
+    onClick={(_, ix) => {
+      setActiveIx(ix)
+    }}
+  />
+  <Workflow
+    minimal
+    showTooltipSymbols
+    items={errorItems}
+    activeIx={activeIx}
+    onClick={(_, ix) => {
+      setActiveIx(ix)
+    }}
+  />
 </div>
-<Workflow
-items={itemsProgress}
-onClick={(item, ix) => {
-if (item.progress !== 1) {
-setItemsProgress((prev) => {
-const newItems = [...prev]
-newItems[ix].progress += 0.1
-if (newItems[ix].progress >= 0.999) {
-newItems[ix].progress = 1
-newItems[ix].completed = true
-}
-return newItems
-})
-}
-}}
-/>
-<Workflow
-showTooltipSymbols
-items={itemsProgress}
-onClick={(item, ix) => {
-if (item.progress !== 1) {
-setItemsProgress((prev) => {
-const newItems = [...prev]
-newItems[ix].progress += 0.1
-if (newItems[ix].progress >= 0.999) {
-newItems[ix].progress = 1
-newItems[ix].completed = true
-}
-return newItems
-})
-}
-}}
-/>
-<Workflow
-showTooltipSymbols
-items={errorItems}
-activeIx={activeIx}
-onClick={(_, ix) => {
-setActiveIx(ix)
-}}
-/>
-<Workflow
-minimal
-showTooltipSymbols
-items={errorItems}
-activeIx={activeIx}
-onClick={(_, ix) => {
-setActiveIx(ix)
-}}
-/>
-</div>
-)
-}
+) }
