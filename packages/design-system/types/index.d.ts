@@ -736,7 +736,6 @@ export declare interface CycleProgressProps {
  * @param error - The error message to be displayed
  * @param hideError - Whether the error message should be hidden
  * @param isTouched - Whether the date changer has been touched
- * @param format - The format of the date when the edit mode is not active (then the display is up to the browser implementation)
  * @param className - The optional className object allows you to override the default styling.
  * @param onDateChange - The function to be called when the date is changed (state management)
  * @param dataTrigger - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the popover trigger
@@ -786,6 +785,40 @@ export declare interface DatePickerProps {
     };
 }
 
+/**
+ * This component provides a date and time picker with optional label, error handling, and customizable display and granularity.
+ *
+ * @param value - The currently selected date value.
+ * @param onChange - Callback function called when the date value changes.
+ * @param onMonthChange - Callback function called when the displayed month changes.
+ * @param disabled - Whether the picker is disabled.
+ * @param hourCycle - Whether to use 12-hour or 24-hour time format.
+ * @param placeholder - Placeholder text shown when no date is selected / the state is undefined.
+ * @param yearRange - The range of years to display in the year dropdown, relative to the current year.
+ * @param displayFormat - The dayjs format string to display the date in the input field.
+ * @param granularity - The smallest unit displayed by the picker (e.g., 'second', 'minute', 'hour', 'day').
+ * @param className - Optional object to override default styling for trigger, input, label, tooltip, and error.
+ * @param defaultPopupValue - The default date and time shown when the calendar popup opens.
+ * @param dataTrigger - Data attributes for testing the popover trigger.
+ * @param dataCalendar - Data attributes for testing the calendar.
+ * @param dataHours - Data attributes for testing the hours input.
+ * @param dataMinutes - Data attributes for testing the minutes input.
+ * @param dataSeconds - Data attributes for testing the seconds input.
+ * @param dataNextMonth - Data attributes for testing the next month button.
+ * @param dataPreviousMonth - Data attributes for testing the previous month button.
+ * @param error - Error message to display.
+ * @param hideError - Whether to hide the error message.
+ * @param isTouched - Whether the picker has been interacted with.
+ * @param label - The label for the picker.
+ * @param labelType - The type of label to display ('small' or 'large').
+ * @param required - Whether the label should indicate a required field.
+ * @param tooltip - Tooltip content shown with the label.
+ * @param locale - The locale for date formatting and calendar display.
+ * @param weekStartsOn - The day the week starts on in the calendar.
+ * @param showWeekNumber - Whether to show the week number in the calendar.
+ * @param showOutsideDays - Whether to show days from adjacent months in the calendar.
+ * @returns Date and time picker component with optional label, error display, and customizable granularity and formatting.
+ */
 export declare const DateTimePicker: React_2.ForwardRefExoticComponent<{
     value?: Date;
     onChange?: (date: Date | undefined) => void;
@@ -2599,6 +2632,16 @@ export declare interface SwitchProps {
     className?: SwitchClassName;
 }
 
+/**
+ * This function returns a tab content component based on the Shadcn UI prestyled component
+ *
+ * @param id - The id of the tab content component.
+ * @param value - The value of the tab content, which should match the value of the corresponding tab trigger.
+ * @param children - The content to be displayed within the tab content area.
+ * @param data - Optional data attributes for testing purposes.
+ * @param className - Optional class names for styling the tab content.
+ * @returns A TabContent component that displays content when its corresponding tab is active.
+ */
 export declare function TabContent({ id, value, children, data, className, }: {
     id?: string;
     value: string;
@@ -2907,6 +2950,14 @@ declare interface TimePickerRef {
 
 export declare type TimePickerType = 'minutes' | 'seconds' | 'hours' | '12hours';
 
+/**
+ * The `toast` function is a wrapper around the `sonner` toast library, providing a consistent styling and behavior for success, warning, and error messages.
+ *
+ * @param message - The message to be displayed in the toast notification. It can be a string or a React node.
+ * @param options - Additional options for the toast notification, such as duration, position, and custom class names.
+ * @param type - The type of toast notification to display. It can be 'success', 'warning', or 'error'. If not provided, it defaults to a generic toast
+ * @returns - A toast notification with the specified message and options, styled according to the type of notification.
+ */
 export declare function toast({ message, options, type, }: {
     message?: React.ReactNode;
     options?: ExternalToast;
@@ -2962,6 +3013,14 @@ export declare interface TooltipProps {
     };
 }
 
+/**
+ * Custom hook to handle arrow key navigation.
+ *
+ * @param onArrowLeft - Callback for left arrow key press
+ * @param onArrowRight - Callback for right arrow key press
+ * @param onArrowUp - Callback for up arrow key press
+ * @param onArrowDown - Callback for down arrow key press
+ */
 export declare function useArrowNavigation({ onArrowLeft, onArrowRight, onArrowUp, onArrowDown, }: useArrowNavigationProps): void;
 
 export declare interface useArrowNavigationProps {

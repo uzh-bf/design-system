@@ -86,6 +86,16 @@ export function Tabs({
   )
 }
 
+/**
+ * This function returns a tab content component based on the Shadcn UI prestyled component
+ *
+ * @param id - The id of the tab content component.
+ * @param value - The value of the tab content, which should match the value of the corresponding tab trigger.
+ * @param children - The content to be displayed within the tab content area.
+ * @param data - Optional data attributes for testing purposes.
+ * @param className - Optional class names for styling the tab content.
+ * @returns A TabContent component that displays content when its corresponding tab is active.
+ */
 export function TabContent({
   id,
   value,

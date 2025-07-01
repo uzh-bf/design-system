@@ -1,0 +1,150 @@
+import { useState } from 'react'
+import Collapsible from './Collapsible'
+import { H2 } from './Header'
+
+{/* START README */}
+The custom Collapsible in the design-system is a versatile component with pre-defined custom styling. Additionally, custom actions, state listeners and custom styling can be directly integrated.
+
+<br />
+
+The props for the Collapsible component are as follows:
+
+- @param id - The id of the collapsible.
+- @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
+- @param open - Indicate whether the collapsible is open or not.
+- @param onChange - Function that is called when the collapsible is toggled.
+- @param staticContent - The static content that is always shown.
+- @param closedContent - The optional content that is only shown when the collapsible is closed.
+- @param customTrigger - The optional custom trigger that is shown instead of the default arrow trigger.
+- @param primary - An optional text that will be displayed on a button in the right bottom corner of the collapsible. Alternatively, it is also possible to pass a React node instead.
+- @param onPrimaryClick - Function that will be called once the primary button is clicked (no function for custom primary nodes)
+- @param secondary - An optional text that will be displayed on a button in the left bottom corner of the collapsible. Alternatively, it is also possible to pass a React node instead.
+- @param onSecondaryClick - Function that will be called once the secondary button is clicked (no function for custom secondary nodes)
+- @param className - The optional className object allows you to override the default styling.
+- @param children - The content of the collapsible that is shown when the collapsible is open.
+
+{/* END README */}
+
+export const Default = () => {
+  const [open, setOpen] = useState(false)
+  return (
+    <Collapsible
+      open={open}
+      onChange={() => {
+        setOpen(!open)
+      }}
+      staticContent="Static content"
+      closedContent="Closed content"
+    >
+      Dynamic content
+    </Collapsible>
+  )
+}
+
+export const Buttons = () => {
+  const [open, setOpen] = useState(false)
+  return (
+    <Collapsible
+      open={open}
+      onChange={() => {
+        setOpen(!open)
+      }}
+      staticContent="Static content"
+      closedContent="Closed content"
+      primary="Primary"
+      secondary="Secondary"
+      onPrimaryClick={() => alert('Primary button was pushed')}
+      onSecondaryClick={() => alert('Secondary button was clicked')}
+    >
+      Dynamic content
+    </Collapsible>
+  )
+}
+
+export const PrimarySecondary = () => {
+  const [open, setOpen] = useState(false)
+  return (
+    <Collapsible
+      open={open}
+      onChange={() => {
+        setOpen(!open)
+      }}
+      staticContent="Static content"
+      closedContent="Closed content"
+      primary={<div className="bg-red-300">Custom primary component</div>}
+      secondary={<div className="bg-green-300">Custom secondary component</div>}
+    >
+      Dynamic content
+    </Collapsible>
+  )
+}
+
+export const Complex = () => {
+  const [open, setOpen] = useState(false)
+  return (
+    <Collapsible
+      open={open}
+      onChange={() => {
+        setOpen(!open)
+      }}
+      staticContent={
+        <div className="flex flex-row items-center justify-between">
+          <H2>This is a title</H2>
+          <div className="text-sm">Meta-Info</div>
+        </div>
+      }
+      closedContent={
+        <div>
+          This content is only visible when{' '}
+          <span className="font-bold">closed</span>
+        </div>
+      }
+      customTrigger={<div>Custom Trigger</div>}
+    >
+      <div>
+        This node element us usually used to display{' '}
+        <span className="font-bold">long content</span> that does not fit into
+        the general layout otherwise
+      </div>
+    </Collapsible>
+  )
+}
+
+export const Simple = () => {
+  const [open, setOpen] = useState(false)
+  return (
+    <Collapsible
+      open={open}
+      onChange={() => {
+        setOpen(!open)
+      }}
+      staticContent="Simple version without any content when closed"
+    >
+      Dynamic content
+    </Collapsible>
+  )
+}
+
+export const Styled = () => {
+  const [open, setOpen] = useState(false)
+
+return (
+
+<Collapsible
+  open={open}
+  onChange={() => {
+    setOpen(!open)
+  }}
+  staticContent="Static content"
+  closedContent="Closed content"
+  className={{
+    root: `bg-primary-20 border-1`,
+    trigger: 'text-red-500',
+    content: 'text-blue-500',
+    staticContent: 'text-green-500',
+    closedContent: 'text-yellow-500',
+  }}
+>
+  Dynamic content
+</Collapsible>
+) }

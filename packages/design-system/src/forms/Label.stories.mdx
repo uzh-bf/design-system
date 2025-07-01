@@ -1,0 +1,122 @@
+import Label from './Label'
+
+{/* START README */}
+The custom Label component is a customizable text component with optional tooltip functionalities and conditional styling for required fields.
+
+<br />
+
+The props for the Label component are as follows:
+
+- @param id - The id of the label.
+- @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
+- @param forId - The id of the element that the label is for.
+- @param label - The text displayed as label.
+- @param required - Indicate whether the field is required or not.
+- @param tooltip - The optional tooltip is shown on hover over the label.
+- @param showTooltipSymbol - Indicate whether the tooltip symbol should be shown or not.
+- @param tooltipSymbolSize - The size of the tooltip symbol.
+- @param className - The optional className object allows you to override the default styling.
+
+* @param className - The optional className object allows you to override the default styling.
+
+{/* END README */}
+
+export const Default = () => {
+  return <Label label="Labels cannot be selected with double click" />
+}
+
+export const Required = () => {
+  return <Label label="Required label" required />
+}
+
+export const RequiredTooltip = () => {
+  return (
+    <Label
+      label="Required label"
+      tooltip="Tooltip of a required label with required symbol"
+      showTooltipSymbol
+      required
+    />
+  )
+}
+
+export const Styled = () => {
+  return (
+    <Label
+      label="Labels"
+      className={{
+        root: 'border-uzh-grey-100 bg-uzh-blue-20 rounded-md border border-solid p-2',
+      }}
+    />
+  )
+}
+
+export const Tooltip = () => {
+  return (
+    <Label
+      label="Hover this Label!"
+      tooltip="Tooltip Content"
+      className={{ root: 'bg-uzh-blue-20 rounded-md p-2' }}
+    />
+  )
+}
+
+export const TooltipStyled = () => {
+  return (
+    <Label
+      label="Label with styled Tooltip"
+      tooltip="Tooltip Content"
+      className={{
+        root: 'bg-uzh-blue-20 rounded-md p-2',
+        arrow: 'opacity-0',
+        tooltip: 'bg-uzh-red-100 font-bold text-black italic',
+      }}
+    />
+  )
+}
+
+export const TooltipSymbol = () => {
+  return (
+    <div className="flex flex-col gap-4">
+      <Label
+        label="Label with small styled Tooltip"
+        tooltip="Tooltip Content"
+        className={{
+          root: 'bg-uzh-blue-20 rounded-md p-2',
+          arrow: 'opacity-0',
+          tooltip: 'bg-uzh-red-100 font-bold text-black italic',
+        }}
+        showTooltipSymbol={true}
+        tooltipSymbolSize="sm"
+      />
+      <Label
+        label="Default Label with styled Tooltip"
+        tooltip="Tooltip Content"
+        className={{
+          root: 'bg-uzh-blue-20 rounded-md p-2',
+          arrow: 'opacity-0',
+          tooltip: 'bg-uzh-red-100 font-bold text-black italic',
+        }}
+        showTooltipSymbol={true}
+      />
+      <Label
+        label="Label with large styled Tooltip"
+        tooltip="Tooltip Content"
+        className={{
+          root: 'bg-uzh-blue-20 rounded-md p-2',
+          arrow: 'fill-uzh-blue-100',
+          tooltip: 'bg-uzh-blue-100 font-bold italic',
+        }}
+        showTooltipSymbol={true}
+        tooltipSymbolSize="lg"
+      />
+      <Label
+        label="Label with large Tooltip"
+        tooltip="Tooltip Content"
+        className={{ root: 'bg-uzh-blue-20 rounded-md p-2' }}
+        showTooltipSymbol={true}
+        tooltipSymbolSize="xl"
+      />
+    </div>
+  )
+}

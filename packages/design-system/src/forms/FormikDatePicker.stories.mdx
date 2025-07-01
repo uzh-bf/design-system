@@ -1,0 +1,197 @@
+import { Form, Formik } from 'formik'
+import * as Yup from 'yup'
+import Button from '../Button'
+import FormikDatePicker from './FormikDatePicker'
+
+{/* START README */}
+The `FormikDatePicker` component is a Formik wrapper around the `DatePicker` component. In addition to labels, tooltips, etc. it also offers direct interfaces for form validation, error messages, and form submission handling.
+
+<br />
+
+The FormikDatePicker accepts the following props:
+
+- @param id - The id of the date changer
+- @param name - The name of the field as used to keep track of the state in Formik.
+- @param label - The label of the date changer
+- @param labelType - The type of the label (small or large)
+- @param placeholder - The placeholder of the date changer (is only shown if no date is selected)
+- @param tooltip - The tooltip of the date changer (is only shown if a label is given)
+- @param required - Whether the date label should contain a required symbol
+- @param disabled - Whether the date changer is disabled or not
+- @param hideError - Whether the error message should be hidden
+- @param format - The format of the date when the edit mode is not active (then the display is up to the browser implementation)
+- @param className - The optional className object allows you to override the default styling.
+- @param onDateChange - The function to be called when the date is changed (state management)
+- @param dataTrigger - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the popover trigger
+- @param dataCalendar - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the calendar
+- @param dataNextMonth - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the next month button
+- @param dataPreviousMonth - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the previous month button
+
+{/* END README */}
+
+export const Default = () => (
+  <div>
+    <Formik
+      initialValues={{
+        date: new Date('2025-01-01'),
+      }}
+      onSubmit={async (values, { resetForm }) => {
+        alert(`Form submitted with date: ${values.date}`)
+        resetForm()
+      }}
+    >
+      {({ values }) => {
+        return (
+          <div>
+            <Form>
+              <FormikDatePicker
+                name="date"
+                className={{ trigger: 'mb-2' }}
+                dataTrigger={{ cy: 'trigger-cy' }}
+                dataCalendar={{ cy: 'calendar-cy' }}
+                dataNextMonth={{ cy: 'next-month-cy' }}
+                dataPreviousMonth={{ cy: 'previous-month-cy' }}
+              />
+              <Button type="submit">Submit</Button>
+            </Form>
+            <div>Value: {values.date.toISOString()}</div>
+          </div>
+        )
+      }}
+    </Formik>
+  </div>
+)
+
+export const Disabled = () => (
+  <div>
+    <Formik
+      initialValues={{
+        date: new Date('2025-01-01'),
+      }}
+      onSubmit={async (values, { resetForm }) => {
+        alert(`Form submitted with date: ${values.date}`)
+        resetForm()
+      }}
+    >
+      {({ values }) => {
+        return (
+          <div>
+            <Form>
+              <FormikDatePicker
+                name="date"
+                className={{ trigger: 'mb-2' }}
+                disabled
+              />
+              <Button type="submit">Submit</Button>
+            </Form>
+            <div>Value: {values.date.toISOString()}</div>
+          </div>
+        )
+      }}
+    </Formik>
+  </div>
+)
+
+export const Labelled = () => (
+  <div>
+    <Formik
+      initialValues={{
+        date: new Date('2025-01-01'),
+      }}
+      onSubmit={async (values, { resetForm }) => {
+        alert(`Form submitted with date: ${values.date}`)
+        resetForm()
+      }}
+    >
+      {({ values }) => {
+        return (
+          <div>
+            <Form>
+              <FormikDatePicker
+                name="date"
+                className={{ trigger: 'mb-2' }}
+                label="Label"
+              />
+              <Button type="submit">Submit</Button>
+            </Form>
+            <div>Value: {values.date.toISOString()}</div>
+          </div>
+        )
+      }}
+    </Formik>
+  </div>
+)
+
+export const Tooltip = () => (
+  <div>
+    <Formik
+      initialValues={{
+        date: new Date('2025-01-01'),
+      }}
+      onSubmit={async (values, { resetForm }) => {
+        alert(`Form submitted with date: ${values.date}`)
+        resetForm()
+      }}
+    >
+      {({ values }) => {
+        return (
+          <div>
+            <Form>
+              <FormikDatePicker
+                name="date"
+                className={{ trigger: 'mb-2' }}
+                label="Testlabel"
+                required
+                tooltip="Test Tooltip"
+              />
+              <Button type="submit">Submit</Button>
+            </Form>
+            <div>Value: {values.date.toISOString()}</div>
+          </div>
+        )
+      }}
+    </Formik>
+  </div>
+)
+
+export const Validation = () => (
+  <div>
+    <div>
+      The date has to be chosen to be after 2020 - otherwise the component
+      displays an error.
+    </div>
+    <Formik
+      initialValues={{
+        date: new Date('2020-01-01'),
+      }}
+      onSubmit={async (values, { resetForm }) => {
+        alert(`Form submitted with date: ${values.date}`)
+        resetForm()
+      }}
+      validationSchema={Yup.object().shape({
+        date: Yup.date().min('2020-01-01', 'Date has to be after 2020'),
+      })}
+    >
+      {({ values, isValid }) => {
+        return (
+          <div>
+            <Form>
+              {String(isValid)}
+              <FormikDatePicker
+                required
+                name="date"
+                className={{ trigger: 'mb-2' }}
+                label="Testlabel"
+                tooltip="Test Tooltip"
+              />
+              <Button type="submit" disabled={!isValid}>
+                Submit
+              </Button>
+            </Form>
+            <div>Value: {values.date.toISOString()}</div>
+          </div>
+        )
+      }}
+    </Formik>
+  </div>
+)

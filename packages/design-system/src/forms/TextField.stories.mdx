@@ -1,0 +1,225 @@
+import { faEyeSlash } from '@fortawesome/free-regular-svg-icons'
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import React from 'react'
+import TextField from './TextField'
+
+{/* START README */}
+The TextField component is an input field that only accepts numerical values. Optionally, it is possible to define labels, units, tooltips, a rounding precision and error messages.
+
+<br />
+
+The props for the TextField component are as follows:
+
+- @param id - The id of the input field.
+- @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
+- @param name - The name of the input field.
+- @param field - The field object from formik.
+- @param value - The value of the input field (external state management).
+- @param onChange - The onChange function of the input field (external state management).
+- @param label - The text displayed as label.
+- @param labelType - The optional labelType can be used to change the size and position of the label according to pre-defined standards.
+- @param placeholder - The placeholder text for the input field.
+- @param tooltip - The optional tooltip is shown on hover over the tooltip next to the label.
+- @param required - Indicate whether the field is required or not.
+- @param isTouched - Indicate whether the field has been touched or not (validation is not handled by this component).
+- @param hideError - Indicate whether the error message should be hidden or not.
+- @param error - The error message that is shown below the field.
+- @param disabled - Indicate whether the field is disabled or not.
+- @param onPaste - The optional onPaste function is called when the user pastes text into the input field.
+- @param className - The optional className object allows you to override the default styling.
+- @param icon - The optional icon is shown on the right side of the input field.
+- @param iconPosition - The optional iconPosition can be used to change the position of the icon to the left side of the input field.
+- @param onIconClick - The optional onIconClick function is called when the icon is clicked.
+
+{/* END README */}
+
+export const Default = () => {
+  const [value, setValue] = React.useState('')
+
+return (
+
+<>
+  <div>The default TextField</div>
+  <TextField
+    label="Label"
+    tooltip="Tooltip for this input"
+    className={{
+      field: 'mb-1 w-80',
+    }}
+    placeholder="Placeholder"
+    value={value}
+    onChange={setValue}
+  />
+</>
+) }
+
+export const Icon = () => {
+  const [value, setValue] = React.useState('')
+
+return (
+
+<>
+  <div>The default TextField</div>
+  <TextField
+    label="Label"
+    tooltip="Tooltip for this input"
+    className={{
+      field: 'mb-1 w-80',
+    }}
+    placeholder="Placeholder"
+    value={value}
+    onChange={setValue}
+    icon={faMagnifyingGlass}
+    onIconClick={() => alert('Icon clicked')}
+  />
+</>
+) }
+
+export const IconRight = () => {
+  const [value, setValue] = React.useState('')
+
+return (
+
+<>
+  <div>The default TextField</div>
+  <TextField
+    label="Label"
+    tooltip="Tooltip for this input"
+    className={{
+      field: 'mb-1 w-80',
+    }}
+    placeholder="Placeholder"
+    value={value}
+    onChange={setValue}
+    icon={faEyeSlash}
+    iconPosition="right"
+    onIconClick={() => alert('Icon clicked')}
+  />
+</>
+) }
+
+export const SmallLabel = () => {
+  const [value, setValue] = React.useState('')
+
+return (
+
+<>
+  <div>The TextField with a small label</div>
+  <TextField
+    label="Label"
+    labelType="small"
+    tooltip="Tooltip for this input"
+    className={{ field: 'mb-1' }}
+    placeholder="Placeholder"
+    value={value}
+    onChange={setValue}
+  />
+  <TextField
+    label="Search"
+    labelType="small"
+    tooltip="Tooltip for this input"
+    className={{ field: 'mb-1' }}
+    placeholder="Placeholder"
+    value={value}
+    onChange={setValue}
+    icon={faMagnifyingGlass}
+  />
+  <TextField
+    required
+    label="Label 3"
+    labelType="small"
+    tooltip="Tooltip for this input"
+    className={{ field: 'mb-1' }}
+    placeholder="Placeholder"
+    value={value}
+    onChange={setValue}
+  />
+</>
+) }
+
+export const Disabled = () => {
+  const [value, setValue] = React.useState('')
+
+return (
+
+<>
+  <div>The TextField can be disabled</div>
+  <TextField
+    disabled
+    label="Label"
+    tooltip="Tooltip for this input"
+    className={{ field: 'mb-1' }}
+    placeholder="Placeholder"
+    value={value}
+    onChange={setValue}
+  />
+</>
+) }
+
+export const Error = () => {
+  const [value, setValue] = React.useState('')
+
+return (
+
+<>
+  <div>The TextField can be disabled</div>
+  <TextField
+    isTouched
+    label="Label"
+    tooltip="Tooltip for this input"
+    error="This is an error message"
+    className={{ field: 'mb-1' }}
+    placeholder="Placeholder"
+    value={value}
+    onChange={setValue}
+  />
+</>
+) }
+
+export const Required = () => {
+  const [value, setValue] = React.useState('')
+
+return (
+
+<>
+  <div>
+    By adding a required attribute, the label of the field changes it appearance
+  </div>
+  <TextField
+    required
+    label="Label"
+    tooltip="Tooltip for this input"
+    className={{ field: 'mb-1' }}
+    placeholder="Placeholder"
+    value={value}
+    onChange={setValue}
+  />
+</>
+) }
+
+export const Styled = () => {
+  const [value, setValue] = React.useState('')
+
+return (
+
+<>
+  <div>
+    The default TextField can be customized and icons from FontAwesome can be
+    included at the beginning of the field
+  </div>
+  <TextField
+    label="Label"
+    tooltip="Tooltip for this input"
+    className={{
+      field: 'mb-1 w-1/2',
+      label: 'text-red-500',
+      input: 'bg-blue-100',
+      error: 'text-red-700',
+    }}
+    placeholder="Placeholder"
+    value={value}
+    onChange={setValue}
+    icon={faMagnifyingGlass}
+  />
+</>
+) }

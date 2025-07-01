@@ -1,0 +1,97 @@
+import { useMemo, useState } from 'react'
+import Countdown from './Countdown'
+
+{/* START README */}
+The custom Countdown in the design-system is a basic component that displays a countdown timer. By default, it only contains minimal styling, with the option to pass custom formatters, expiration listeners and update functions through the props.
+
+<br />
+
+The props for the Countdown component are as follows:
+
+- @param isStatic - If true, the countdown will not be running, but instead show the initial value. However, as the end value is given by a date, reloading can modify the displayed countdown value
+- @param expiresAt - Date when the countdown should expire
+- @param formatter - Function to format the countdown value
+- @param onExpire - Function that is executed when the countdown expires
+- @param onUpdate - Function that is executed when the countdown is updated (not when it expires)
+- @param data - Optional data object that can be used for testing (e.g. data-test or data-cy)
+- @param className - Optional className object allows you to override the default styling
+
+{/* END README */}
+
+export const Default = () => {
+  const time = new Date()
+  time.setSeconds(time.getSeconds() + 40)
+
+return <Countdown expiresAt={time} />
+}
+
+export const Static = () => {
+  const time = new Date()
+  time.setSeconds(time.getSeconds() + 40)
+
+return <Countdown expiresAt={time} isStatic />
+}
+
+export const Formatter = () => {
+  const time = new Date()
+  time.setSeconds(time.getSeconds() + 40)
+
+return (
+
+<Countdown
+  expiresAt={time}
+  formatter={(value) => {
+    return `${value} seconds`
+  }}
+/>
+) }
+
+export const onExpire = () => {
+  const time = new Date()
+  time.setSeconds(time.getSeconds() + 10)
+
+return (
+
+<Countdown
+  expiresAt={time}
+  onExpire={() => {
+    alert('expired')
+  }}
+/>
+) }
+
+export const UpdateFunction = () => {
+  const time = useMemo(() => {
+    const t = new Date()
+    t.setSeconds(t.getSeconds() + 40)
+    return t
+  }, [])
+
+const [number, setNumber] = useState(0)
+
+return (
+
+<div>
+  <Countdown
+    expiresAt={time}
+    onUpdate={(value) => {
+      setNumber(value)
+    }}
+  />
+  Number through onUpdate: {number}
+</div>
+) }
+
+export const Styled = () => {
+  const time = new Date()
+  time.setSeconds(time.getSeconds() + 40)
+
+return (
+
+<Countdown
+  expiresAt={time}
+  className={{
+    root: 'w-max bg-red-300 text-blue-500',
+  }}
+/>
+) }

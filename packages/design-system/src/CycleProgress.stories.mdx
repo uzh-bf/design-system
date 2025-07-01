@@ -1,0 +1,58 @@
+import CycleProgress from './CycleProgress'
+
+{/* START README */}
+The CycleProgress component is a circular progress visualization. Additionally, its size, color and children can be overriden and / or customized.
+
+<br />
+
+The props for the CycleProgress component are as follows:
+
+- @param size - Size of the progress bar, can be 'sm' or 'md'
+- @param overrideSize - If size adjustments of the relative placement are required due to font changes, this value can be used to override the circle size
+- @param percentage - Percentage of the progress bar (0-100)
+- @param color - Color of the progress bar (static for the moment)
+- @param strokeWidthRem - Width of the progress bar. For small size, a smaller value is recommended
+- @param children - Content of the progress bar, displayed in the center
+- @param data - Optional data object that can be used for testing (e.g. data-test or data-cy)
+- @param className - Optional className object allows you to override the default styling
+
+{/* END README */}
+
+export function Default() {
+  return <CycleProgress percentage={60}>60</CycleProgress>
+}
+
+export function Small() {
+  return (
+    <CycleProgress percentage={60} size="sm" strokeWidthRem={0.2}>
+      60
+    </CycleProgress>
+  )
+}
+
+export function Colored() {
+  return (
+    <CycleProgress percentage={60} color="#FF0000">
+      60
+    </CycleProgress>
+  )
+}
+
+export function OverrideSize() {
+  return (
+    <div>
+      Depending on the type of font that was chosen, it is possible that the
+      text does not appear centered. In this case, it might be necessary to
+      override the size, which is set manually. However, this is explicitely set
+      as an override to only be used when necessary. Whenever an override is
+      used, the className root will probably also have to be adapted accordingly
+      <CycleProgress
+        percentage={60}
+        overrideSize={40}
+        className={{ root: 'h-20 w-20 text-xl font-bold' }}
+      >
+        60
+      </CycleProgress>
+    </div>
+  )
+}

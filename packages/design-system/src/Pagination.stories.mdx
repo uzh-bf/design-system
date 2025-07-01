@@ -1,0 +1,42 @@
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from './Pagination'
+
+{/* START README */}
+The `Pagination` component currently represents a simple re-export of the Shadcn UI Pagination component. More information on the structure can be found on the [Shadcn UI Pagination documentation](https://ui.shadcn.com/docs/components/pagination).
+{/* END README */}
+
+export const Default = () => {
+  return (
+    <Pagination>
+      <PaginationContent>
+        <PaginationItem>
+          <PaginationPrevious href="#" />
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink href="#">1</PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink href="#" isActive>
+            2
+          </PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink href="#">3</PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationEllipsis />
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationNext href="#" />
+        </PaginationItem>
+      </PaginationContent>
+    </Pagination>
+  )
+}

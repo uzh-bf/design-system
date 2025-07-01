@@ -1,0 +1,27 @@
+import Prose from './Prose'
+
+{/* START README */}
+
+The Prose component is designed as a wrapper component that applies prose parsing to its children.
+
+<br />
+
+The Prose component accepts the following props:
+
+- @param id - The id of the prose component.
+- @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
+- @param children - The content of the prose component.
+- @param className - The optional className object allows you to override the default styling.
+
+{/* END README */}
+
+export const Default = () => {
+  return (
+    <Prose>
+      <h1>this is h1</h1>
+      <p>
+        Hello world, this is a <a href="/?story=prose--default">link</a>.
+      </p>
+    </Prose>
+  )
+}

@@ -117,6 +117,15 @@ export function Button({
   )
 }
 
+/**
+ * This function returns a pre-styled Icon component that can be used inside the Button component.
+ *
+ * @param icon - The icon definition from FontAwesome.
+ * @param withoutLabel - Conditionally, specific styling is not applied to the button that would be required for spacing between icon and label.
+ * @param loading - Conditionally, the icon can be hidden if a loading spinner is shown instead to keep the width of the button as consistent as possible.
+ * @param className - The optional className object allows you to override the default styling of the icon.
+ * @returns Icon component for use inside the Button component
+ */
 Button.Icon = function ButtonIcon({
   icon,
   withoutLabel,
@@ -142,18 +151,13 @@ Button.Icon = function ButtonIcon({
   )
 }
 
-Button.Label = function ButtonLabel({
-  className,
-  children,
-}: {
-  className?: {
-    root?: string
-  }
-  children: React.ReactNode
-}) {
-  return <div className={twMerge('', className?.root)}>{children}</div>
-}
-
+/**
+ * This function returns a pre-styled Label component that can be used inside the Button component.
+ *
+ * @param className - The optional className object allows you to override the default styling of the label.
+ * @param children - The content of the label.
+ * @returns Label component for use inside the Button component
+ */
 Button.Label = function ButtonLabel({
   className,
   children,
@@ -176,6 +180,15 @@ export interface ButtonIconGroupProps {
   children: React.ReactNode[]
 }
 
+/**
+ * This function returns a pre-styled Button Icon Group component that allows for multiple buttons with icons to be grouped together.
+ *
+ * @param state - The current state (number) of the button group, indicating which button is active (= index).
+ * @param setState - React state setter function to update the active button index.
+ * @param className - The optional className object allows you to override the default styling of the button group and its children.
+ * @param children - An array of React nodes that will be rendered as buttons within the group.
+ * @returns Button Icon Group component
+ */
 Button.IconGroup = function ButtonIconGroup({
   state,
   setState,

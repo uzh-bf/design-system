@@ -548,7 +548,6 @@ const TimePicker = React.forwardRef<TimePickerRef, TimePickerProps>(
 TimePicker.displayName = 'TimePicker'
 
 type Granularity = 'day' | 'hour' | 'minute' | 'second'
-
 type DateTimePickerProps = {
   value?: Date
   onChange?: (date: Date | undefined) => void
@@ -605,6 +604,40 @@ type DateTimePickerRef = {
   value?: Date
 } & Omit<HTMLButtonElement, 'value'>
 
+/**
+ * This component provides a date and time picker with optional label, error handling, and customizable display and granularity.
+ *
+ * @param value - The currently selected date value.
+ * @param onChange - Callback function called when the date value changes.
+ * @param onMonthChange - Callback function called when the displayed month changes.
+ * @param disabled - Whether the picker is disabled.
+ * @param hourCycle - Whether to use 12-hour or 24-hour time format.
+ * @param placeholder - Placeholder text shown when no date is selected / the state is undefined.
+ * @param yearRange - The range of years to display in the year dropdown, relative to the current year.
+ * @param displayFormat - The dayjs format string to display the date in the input field.
+ * @param granularity - The smallest unit displayed by the picker (e.g., 'second', 'minute', 'hour', 'day').
+ * @param className - Optional object to override default styling for trigger, input, label, tooltip, and error.
+ * @param defaultPopupValue - The default date and time shown when the calendar popup opens.
+ * @param dataTrigger - Data attributes for testing the popover trigger.
+ * @param dataCalendar - Data attributes for testing the calendar.
+ * @param dataHours - Data attributes for testing the hours input.
+ * @param dataMinutes - Data attributes for testing the minutes input.
+ * @param dataSeconds - Data attributes for testing the seconds input.
+ * @param dataNextMonth - Data attributes for testing the next month button.
+ * @param dataPreviousMonth - Data attributes for testing the previous month button.
+ * @param error - Error message to display.
+ * @param hideError - Whether to hide the error message.
+ * @param isTouched - Whether the picker has been interacted with.
+ * @param label - The label for the picker.
+ * @param labelType - The type of label to display ('small' or 'large').
+ * @param required - Whether the label should indicate a required field.
+ * @param tooltip - Tooltip content shown with the label.
+ * @param locale - The locale for date formatting and calendar display.
+ * @param weekStartsOn - The day the week starts on in the calendar.
+ * @param showWeekNumber - Whether to show the week number in the calendar.
+ * @param showOutsideDays - Whether to show days from adjacent months in the calendar.
+ * @returns Date and time picker component with optional label, error display, and customizable granularity and formatting.
+ */
 const DateTimePicker = React.forwardRef<
   Partial<DateTimePickerRef>,
   DateTimePickerProps
@@ -699,27 +732,27 @@ const DateTimePicker = React.forwardRef<
 
     return (
       <Popover>
-        <PopoverTrigger asChild disabled={disabled}>
-          <div
-            className={twMerge(
-              'flex w-[280px] flex-row',
-              labelType === 'small' && 'flex-col',
-              className?.trigger
-            )}
-          >
-            {label && (
-              <FormLabel
-                required={required}
-                label={label}
-                labelType={labelType}
-                tooltip={tooltip}
-                className={{
-                  label: className?.label,
-                  tooltip: className?.tooltip,
-                }}
-              />
-            )}
-            <div className="flex flex-row gap-2">
+        <div
+          className={twMerge(
+            'flex w-[280px] flex-row',
+            labelType === 'small' && 'flex-col',
+            className?.trigger
+          )}
+        >
+          {label && (
+            <FormLabel
+              required={required}
+              label={label}
+              labelType={labelType}
+              tooltip={tooltip}
+              className={{
+                label: className?.label,
+                tooltip: className?.tooltip,
+              }}
+            />
+          )}
+          <div className="flex flex-row gap-2">
+            <PopoverTrigger asChild disabled={disabled}>
               <Button
                 variant="outline"
                 type="button"
@@ -745,24 +778,24 @@ const DateTimePicker = React.forwardRef<
                   <span>{placeholder}</span>
                 )}
               </Button>
-              {error && !hideError && isTouched && (
-                <Tooltip
-                  tooltip={error}
-                  delay={0}
-                  className={{
-                    tooltip: twMerge('max-w-[30rem] text-sm', className?.error),
-                  }}
-                >
-                  <FontAwesomeIcon
-                    icon={faCircleExclamation}
-                    className="text-destructive mr-1"
-                  />
-                </Tooltip>
-              )}
-            </div>
+            </PopoverTrigger>
+            {error && !hideError && isTouched && (
+              <Tooltip
+                tooltip={error}
+                delay={0}
+                className={{
+                  tooltip: twMerge('max-w-[30rem] text-sm', className?.error),
+                }}
+              >
+                <FontAwesomeIcon
+                  icon={faCircleExclamation}
+                  className="text-destructive mr-1"
+                />
+              </Tooltip>
+            )}
           </div>
-        </PopoverTrigger>
-        <PopoverContent className="w-auto p-0">
+        </div>
+        <PopoverContent className="w-auto p-0" align="start">
           <Calendar
             mode="single"
             disabled={disabled}

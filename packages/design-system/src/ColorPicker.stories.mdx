@@ -1,0 +1,169 @@
+import { useState } from 'react'
+import ColorPicker from './ColorPicker'
+
+{/* START README */}
+The custom ColorPicker in the design-system is a versatile component that supports the selection of a single color from a color palette. Additionally, it supports the definition of pre-defined standard colors, hex color input, and custom styling.
+
+<br />
+
+The props for the ColorPicker component are as follows:
+
+- @param color - The initial color value in hex format.
+- @param label - The label for the color picker.
+- @param labelType - The type of label, can be 'small' or 'large'.
+- @param required - Indicates whether the field is required.
+- @param onSubmit - Callback function to handle the submission of the selected color.
+- @param disabled - Indicates whether the color picker is disabled.
+- @param triggerIcon - An optional icon to display as a trigger for the color picker.
+- @param presetColors - An array of preset colors to display in the color picker.
+- @param position - The position of the color picker relative to the trigger icon.
+- @param submitText - The text to display on the submit button of the color picker.
+- @param colorLabel - The label for the color input field.
+- @param colorTooltip - Optional tooltip for the color input field.
+- @param tooltip - Optional tooltip text or component to display additional information.
+- @param error - An error message to display if the color picker has an error.
+- @param isTouched - Indicates whether the color picker has been touched (used for error display).
+- @param dataTrigger - Optional data attributes for the trigger icon (for testing purposes).
+- @param dataHexInput - Optional data attributes for the hex input field (for testing purposes).
+- @param dataSubmit - Optional data attributes for the submit button (for testing purposes).
+- @param className - Optional class names for styling the color picker and its components.
+
+{/* END README */}
+
+export const Default = () => {
+  const [color, setColor] = useState('#0028A5')
+  return (
+    <ColorPicker
+      color={color}
+      onSubmit={(newColor) => {
+        setColor(newColor)
+        alert('Color set to ' + newColor)
+      }}
+      tooltip="This is a tooltip"
+      colorLabel="Color"
+      submitText="Save"
+    />
+  )
+}
+
+export const Label = () => {
+  const [color, setColor] = useState('#0028A5')
+  return (
+    <ColorPicker
+      color={color}
+      onSubmit={(newColor) => {
+        setColor(newColor)
+        alert('Color set to ' + newColor)
+      }}
+      label="Color Picker"
+      tooltip="This is a tooltip"
+      colorLabel="Color"
+      submitText="Save"
+      required
+    />
+  )
+}
+
+export const Disabled = () => {
+  const [color, setColor] = useState('#0028A5')
+  return (
+    <ColorPicker
+      disabled
+      color={color}
+      onSubmit={(newColor) => {
+        setColor(newColor)
+        alert('Color set to ' + newColor)
+      }}
+      submitText="Speichern"
+      colorLabel="Farbe"
+    />
+  )
+}
+
+export const Position = () => {
+  const [color, setColor] = useState('#0028A5')
+  return (
+    <div>
+      <div className="mb-60">
+        In some cases, for example when the component is close to a hard bottom
+        limit of the page, the absolute positioning above makes more sense. The
+        position prop allows to define different default positions. Others can
+        be added using the className override.
+      </div>
+      <div className="flex flex-col gap-4">
+        <ColorPicker
+          position="top"
+          color={color}
+          onSubmit={(newColor) => {
+            setColor(newColor)
+            alert('Color set to ' + newColor)
+          }}
+          submitText="Save"
+          colorLabel="Color"
+        />
+        <ColorPicker
+          position="top-left"
+          color={color}
+          onSubmit={(newColor) => {
+            setColor(newColor)
+            alert('Color set to ' + newColor)
+          }}
+          submitText="Save"
+          colorLabel="Color"
+        />
+        <ColorPicker
+          position="bottom-left"
+          color={color}
+          onSubmit={(newColor) => {
+            setColor(newColor)
+            alert('Color set to ' + newColor)
+          }}
+          submitText="Save"
+          colorLabel="Color"
+        />
+      </div>
+    </div>
+  )
+}
+
+export const Styled = () => {
+  const [color, setColor] = useState('#0028A5')
+  return (
+    <ColorPicker
+      position="bottom"
+      color={color}
+      onSubmit={(newColor) => {
+        setColor(newColor)
+        alert('Color set to ' + newColor)
+      }}
+      submitText="Save"
+      colorLabel="Color"
+      className={{
+        root: 'bg-gray-100',
+        trigger: 'bg-gray-200',
+        popover: 'bg-yellow-200',
+        presetButtons: 'bg-yellow-200',
+        inputLabel: 'bg-green-200',
+        input: 'bg-green-200',
+        abort: 'bg-blue-200',
+        submit: 'bg-blue-200',
+      }}
+    />
+  )
+}
+
+export const CustomText = () => {
+  const [color, setColor] = useState('#0028A5')
+  return (
+    <ColorPicker
+      position="bottom"
+      color={color}
+      onSubmit={(newColor) => {
+        setColor(newColor)
+        alert('Color set to ' + newColor)
+      }}
+      submitText="Custom Submit"
+      colorLabel="Custom Color Label"
+    />
+  )
+}

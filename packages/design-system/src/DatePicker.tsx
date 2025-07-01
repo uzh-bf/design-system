@@ -66,7 +66,6 @@ export interface DatePickerProps {
  * @param error - The error message to be displayed
  * @param hideError - Whether the error message should be hidden
  * @param isTouched - Whether the date changer has been touched
- * @param format - The format of the date when the edit mode is not active (then the display is up to the browser implementation)
  * @param className - The optional className object allows you to override the default styling.
  * @param onDateChange - The function to be called when the date is changed (state management)
  * @param dataTrigger - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the popover trigger
@@ -97,28 +96,28 @@ export function DatePicker({
 }: DatePickerProps) {
   return (
     <Popover>
-      <PopoverTrigger disabled={disabled} asChild>
-        <div
-          className={twMerge(
-            'flex w-[280px] flex-row',
-            labelType === 'small' && 'flex-col',
-            className?.trigger
-          )}
-        >
-          {label && (
-            <FormLabel
-              id={id}
-              required={required}
-              label={label}
-              labelType={labelType}
-              tooltip={tooltip}
-              className={{
-                label: className?.label,
-                tooltip: className?.tooltip,
-              }}
-            />
-          )}
-          <div className="flex flex-row gap-2">
+      <div
+        className={twMerge(
+          'flex w-[280px] flex-row',
+          labelType === 'small' && 'flex-col',
+          className?.trigger
+        )}
+      >
+        {label && (
+          <FormLabel
+            id={id}
+            required={required}
+            label={label}
+            labelType={labelType}
+            tooltip={tooltip}
+            className={{
+              label: className?.label,
+              tooltip: className?.tooltip,
+            }}
+          />
+        )}
+        <div className="flex flex-row gap-2">
+          <PopoverTrigger disabled={disabled} asChild>
             <Button
               type="button"
               variant="outline"
@@ -141,24 +140,24 @@ export function DatePicker({
                 <span>{placeholder ?? 'Pick a date'}</span>
               )}
             </Button>
-            {error && !hideError && isTouched && (
-              <Tooltip
-                tooltip={error}
-                delay={0}
-                className={{
-                  tooltip: twMerge('max-w-[30rem] text-sm', className?.tooltip),
-                }}
-              >
-                <FontAwesomeIcon
-                  icon={faCircleExclamation}
-                  className="text-destructive mr-1"
-                />
-              </Tooltip>
-            )}
-          </div>
+          </PopoverTrigger>
+          {error && !hideError && isTouched && (
+            <Tooltip
+              tooltip={error}
+              delay={0}
+              className={{
+                tooltip: twMerge('max-w-[30rem] text-sm', className?.tooltip),
+              }}
+            >
+              <FontAwesomeIcon
+                icon={faCircleExclamation}
+                className="text-destructive mr-1"
+              />
+            </Tooltip>
+          )}
         </div>
-      </PopoverTrigger>
-      <PopoverContent className="w-auto p-0">
+      </div>
+      <PopoverContent className="w-auto p-0" align="start">
         <Calendar
           id={id}
           mode="single"

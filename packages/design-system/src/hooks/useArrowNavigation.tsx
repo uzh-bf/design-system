@@ -9,6 +9,14 @@ export interface useArrowNavigationProps {
   onArrowDown?: () => void
 }
 
+/**
+ * Custom hook to handle arrow key navigation.
+ *
+ * @param onArrowLeft - Callback for left arrow key press
+ * @param onArrowRight - Callback for right arrow key press
+ * @param onArrowUp - Callback for up arrow key press
+ * @param onArrowDown - Callback for down arrow key press
+ */
 export function useArrowNavigation({
   onArrowLeft,
   onArrowRight,
