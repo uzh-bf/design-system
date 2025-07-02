@@ -3,8 +3,104 @@ import { Button } from './Button'
 import { HoverCard, HoverCardContent, HoverCardTrigger } from './HoverCard'
 
 {/* START README */}
-The `HoverCard` component currently represents a simple re-export of the Shadcn UI HoverCard component. More information on the structure can be found on the [Shadcn UI HoverCard documentation](https://ui.shadcn.com/docs/components/hover-card).
+The `HoverCard` component displays rich content when users hover over trigger elements. It provides contextual information like user profiles, previews, or additional details without requiring clicks or navigation.
+
+Use this component when you need to:
+- Show user profile previews on mention hover
+- Display rich tooltips with formatted content
+- Provide contextual information for links or references
+- Preview content without leaving the current context
+
+The hover card appears after a brief delay and includes proper timing controls to prevent accidental triggers. It supports rich content including images, formatted text, and interactive elements.
 {/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Shadcn UI re-export built on Radix UI's HoverCard primitive with hover timing and portal rendering
+Dependencies: @radix-ui/react-hover-card
+
+Available Stories:
+- Default: User profile hover card with avatar, name, description, and follow button
+
+Props (HoverCard component):
+- openDelay: number - Delay before opening on hover (default: 700ms)
+- closeDelay: number - Delay before closing when hover ends (default: 300ms)
+- open: boolean - Controlled open state
+- defaultOpen: boolean - Initial open state
+- onOpenChange: (open: boolean) => void - Open state change handler
+
+Component Structure:
+- HoverCard: Root container managing hover state (re-export from ui/hover-card)
+- HoverCardTrigger: Element that triggers the hover card
+- HoverCardContent: Floating content container with rich formatting
+
+Usage Examples:
+```tsx
+// User mention hover card
+<HoverCard>
+  <HoverCardTrigger asChild>
+    <Button variant="link">@username</Button>
+  </HoverCardTrigger>
+  <HoverCardContent className="w-80">
+    <div className="flex space-x-4">
+      <Avatar>
+        <AvatarImage src={user.avatar} />
+        <AvatarFallback>{user.initials}</AvatarFallback>
+      </Avatar>
+      <div className="space-y-1">
+        <h4 className="text-sm font-semibold">{user.name}</h4>
+        <p className="text-sm text-muted-foreground">{user.bio}</p>
+        <div className="flex items-center pt-2">
+          <span className="text-xs text-muted-foreground">
+            Joined {user.joinDate}
+          </span>
+        </div>
+      </div>
+    </div>
+  </HoverCardContent>
+</HoverCard>
+
+// Link preview hover card
+<HoverCard>
+  <HoverCardTrigger asChild>
+    <a href="/article" className="underline">
+      View Article
+    </a>
+  </HoverCardTrigger>
+  <HoverCardContent className="w-96">
+    <div className="space-y-2">
+      <img src="/article-preview.jpg" className="w-full rounded" />
+      <h3 className="font-medium">Article Title</h3>
+      <p className="text-sm text-muted-foreground">
+        Brief preview of the article content...
+      </p>
+    </div>
+  </HoverCardContent>
+</HoverCard>
+
+// Quick info hover card
+<HoverCard openDelay={500} closeDelay={100}>
+  <HoverCardTrigger asChild>
+    <Button variant="ghost" size="sm">
+      ℹ️ Info
+    </Button>
+  </HoverCardTrigger>
+  <HoverCardContent>
+    <div className="text-sm">
+      <strong>Pro Tip:</strong> You can use keyboard shortcuts to navigate faster.
+    </div>
+  </HoverCardContent>
+</HoverCard>
+```
+
+Related Components:
+- Tooltip: For simple text-only hover information
+- Popover: For click-triggered rich content
+- Card: For static rich content layout
+
+AI_DOCUMENTATION_END
+*/}
 
 export const Default = () => {
   return (

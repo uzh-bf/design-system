@@ -28,6 +28,251 @@ The FormikColorPicker accepts the following props:
 
 {/* END README */}
 
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Formik-integrated color picker component that wraps the core ColorPicker with comprehensive form validation, error handling, and state management for seamless form integration
+
+Dependencies:
+- Formik for form state management and validation
+- ColorPicker core component for color selection functionality
+- Yup for validation schema support
+- React state management for component interactions
+- Custom tooltip and label components
+
+Available Stories:
+- Default: Basic Formik color picker with form submission
+- Label: Color picker with various label configurations and tooltips
+- Disabled: Disabled state demonstration
+- CustomPresets: Color picker with custom preset color arrays
+- Validation: Form validation with Yup schema integration
+
+Props (FormikColorPicker component):
+- name: string - Formik field name for form state management
+- label?: string - Display label for the color picker field
+- labelType?: 'small' | 'large' - Label size and positioning variant
+- validateForm?: () => void - Formik validation trigger function
+- tooltip?: string | React.ReactNode - Optional tooltip for additional information
+- required?: boolean - Whether the field is required for form submission
+- disabled?: boolean - Whether the color picker is disabled
+- triggerIcon?: IconDefinition - Optional FontAwesome icon for the trigger button
+- presetColors?: string[] - Array of preset hex color values for quick selection
+- position?: string - Positioning of the color picker popover relative to trigger
+- submitText?: string - Text for the color picker's internal submit button
+- colorLabel?: string - Label for the hex color input field within picker
+- colorTooltip?: string | React.ReactNode - Tooltip for the color input field
+- dataTrigger?: Record<string, string> - Data attributes for trigger element testing
+- dataHexInput?: Record<string, string> - Data attributes for hex input testing
+- className?: Record<string, string> - Styling overrides for different parts
+
+Component Structure:
+- Formik Field wrapper for form integration
+- Color picker trigger with optional icon and label
+- Popover color selection interface with presets and custom input
+- Form validation and error display integration
+- Automatic form state synchronization
+
+Usage Examples:
+```tsx
+// Basic Formik color picker
+<Formik
+  initialValues={{ themeColor: '#3B82F6' }}
+  onSubmit={(values) => console.log(values)}
+>
+  <Form>
+    <FormikColorPicker
+      name="themeColor"
+      label="Theme Color"
+      submitText="Apply Color"
+      colorLabel="Custom Color"
+    />
+    <Button type="submit">Save Theme</Button>
+  </Form>
+</Formik>
+
+// Color picker with presets and validation
+<Formik
+  initialValues={{ brandColor: '#FF0000' }}
+  validationSchema={Yup.object({
+    brandColor: Yup.string()
+      .required('Brand color is required')
+      .matches(/^#[0-9A-F]{6}$/i, 'Invalid hex color format')
+  })}
+  onSubmit={handleSubmit}
+>
+  <Form>
+    <FormikColorPicker
+      name="brandColor"
+      label="Brand Color"
+      required
+      tooltip="Choose your primary brand color"
+      presetColors={[
+        '#FF0000', '#00FF00', '#0000FF',
+        '#FFFF00', '#FF00FF', '#00FFFF'
+      ]}
+      validateForm={validateForm}
+      submitText="Select Color"
+      colorLabel="Hex Value"
+    />
+  </Form>
+</Formik>
+
+// Advanced configuration with custom styling
+<FormikColorPicker
+  name="accentColor"
+  label="Accent Color"
+  labelType="large"
+  required
+  tooltip="Select an accent color for highlights and CTAs"
+  triggerIcon={faPalette}
+  position="bottom-start"
+  presetColors={designSystemColors}
+  submitText="Apply"
+  colorLabel="Color Value"
+  colorTooltip="Enter a valid hex color code"
+  dataTrigger={{ 'data-cy': 'color-picker-trigger' }}
+  dataHexInput={{ 'data-testid': 'hex-input' }}
+  className={{
+    root: 'space-y-2',
+    trigger: 'border-2 border-gray-300 hover:border-gray-400',
+    label: 'font-semibold text-gray-700'
+  }}
+/>
+
+// Form with multiple color fields
+<Formik
+  initialValues={{
+    primaryColor: '#1F2937',
+    secondaryColor: '#6B7280',
+    accentColor: '#3B82F6'
+  }}
+  validationSchema={colorValidationSchema}
+  onSubmit={handleColorSchemeSubmit}
+>
+  {({ validateForm }) => (
+    <Form className="space-y-6">
+      <FormikColorPicker
+        name="primaryColor"
+        label="Primary Color"
+        required
+        tooltip="Main color for headers and primary elements"
+        validateForm={validateForm}
+        presetColors={primaryColorPresets}
+        submitText="Set Primary"
+        colorLabel="Primary"
+      />
+      
+      <FormikColorPicker
+        name="secondaryColor"
+        label="Secondary Color"
+        required
+        tooltip="Supporting color for secondary elements"
+        validateForm={validateForm}
+        presetColors={secondaryColorPresets}
+        submitText="Set Secondary"
+        colorLabel="Secondary"
+      />
+      
+      <FormikColorPicker
+        name="accentColor"
+        label="Accent Color"
+        required
+        tooltip="Highlight color for buttons and links"
+        validateForm={validateForm}
+        presetColors={accentColorPresets}
+        submitText="Set Accent"
+        colorLabel="Accent"
+      />
+      
+      <Button type="submit">Save Color Scheme</Button>
+    </Form>
+  )}
+</Formik>
+
+// Conditional color picker based on theme selection
+<Formik
+  initialValues={{ theme: 'custom', customColor: '#000000' }}
+  onSubmit={handleThemeSubmit}
+>
+  {({ values, validateForm }) => (
+    <Form>
+      <FormikSelectField
+        name="theme"
+        label="Theme Type"
+        options={[
+          { value: 'light', label: 'Light Theme' },
+          { value: 'dark', label: 'Dark Theme' },
+          { value: 'custom', label: 'Custom Theme' }
+        ]}
+      />
+      
+      {values.theme === 'custom' && (
+        <FormikColorPicker
+          name="customColor"
+          label="Custom Theme Color"
+          required
+          tooltip="Define your custom theme's primary color"
+          validateForm={validateForm}
+          submitText="Apply Custom Color"
+          colorLabel="Theme Color"
+        />
+      )}
+      
+      <Button type="submit">Apply Theme</Button>
+    </Form>
+  )}
+</Formik>
+```
+
+Form Integration Features:
+- Automatic Formik field binding with name prop
+- Built-in validation trigger support
+- Error state display from Formik field meta
+- Form submission integration with current values
+- Touch/blur state management for UX
+
+Validation Patterns:
+- Hex color format validation with Yup
+- Required field validation
+- Custom color range restrictions
+- Brand color consistency checks
+- Accessibility contrast validation
+
+Preset Color Management:
+- Static preset arrays for common color schemes
+- Dynamic presets based on application context
+- Brand color palettes for consistency
+- User-defined custom preset collections
+
+Best Practices:
+- Use validateForm prop for real-time validation feedback
+- Provide meaningful labels and tooltips for color context
+- Include preset colors for common use cases
+- Implement proper error handling for invalid colors
+- Consider accessibility when choosing default colors
+
+Common Use Cases:
+- Theme customization interfaces
+- Brand color selection in settings
+- Design system color configuration
+- User preference color choices
+- Data visualization color mapping
+
+Testing Support:
+- dataTrigger for trigger button identification
+- dataHexInput for hex input field testing
+- Formik integration testing with form state
+- Color validation testing scenarios
+
+Related Components:
+- ColorPicker: Core color selection functionality
+- FormikTextField: For direct hex input alternatives
+- FormikSelectField: For predefined color options
+- Label: For consistent labeling patterns
+
+AI_DOCUMENTATION_END
+*/}
+
 export const Default = () => (
   <div>
     <Formik

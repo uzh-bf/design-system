@@ -18,8 +18,91 @@ import {
 } from './Command'
 
 {/* START README */}
-The `Command` component currently represents a simple re-export of the Shadcn UI Command component. More information on the structure can be found on the [Shadcn UI Command documentation](https://ui.shadcn.com/docs/components/command).
+The `Command` component provides a command palette interface for quick navigation and action execution. It enables users to search and execute commands through a keyboard-driven interface, similar to VS Code's command palette.
+
+Use this component when you need to:
+- Create application-wide command and navigation interfaces
+- Provide quick access to features and actions via search
+- Build keyboard-driven workflows for power users
+- Implement global search functionality with actions
+
+The command palette supports grouped commands, keyboard shortcuts, search filtering, and empty states. It includes proper ARIA labeling and keyboard navigation for accessibility.
 {/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Shadcn UI re-export built on cmdk library with fuzzy search and keyboard navigation
+Dependencies: cmdk (command palette library), lucide-react (for icons)
+
+Available Stories:
+- Default: Full-featured command palette with grouped commands, search input, and keyboard shortcuts
+
+Props (Command component):
+- className: string - Additional CSS classes
+- shouldFilter: boolean - Enable/disable built-in filtering (default: true)
+- filter: (value: string, search: string) => number - Custom filter function
+- defaultValue: string - Initially selected command
+- value: string - Controlled selected value
+- onValueChange: (value: string) => void - Selection change handler
+
+Component Structure:
+- Command: Root container with search and command logic (re-export from ui/command)
+- CommandInput: Search input with filtering capabilities
+- CommandList: Scrollable container for command groups and items
+- CommandEmpty: Empty state shown when no commands match search
+- CommandGroup: Grouped section with optional heading
+- CommandItem: Individual selectable command with icon and text
+- CommandSeparator: Visual separator between groups
+- CommandShortcut: Keyboard shortcut display
+
+Usage Examples:
+```tsx
+// Basic command palette
+<Command>
+  <CommandInput placeholder="Search commands..." />
+  <CommandList>
+    <CommandEmpty>No commands found.</CommandEmpty>
+    <CommandGroup heading="Actions">
+      <CommandItem onSelect={() => executeAction('save')}>
+        <Save className="mr-2 h-4 w-4" />
+        <span>Save File</span>
+        <CommandShortcut>⌘S</CommandShortcut>
+      </CommandItem>
+      <CommandItem onSelect={() => executeAction('open')}>
+        <FolderOpen className="mr-2 h-4 w-4" />
+        <span>Open File</span>
+        <CommandShortcut>⌘O</CommandShortcut>
+      </CommandItem>
+    </CommandGroup>
+  </CommandList>
+</Command>
+
+// Navigation command palette
+<Command>
+  <CommandInput placeholder="Go to..." />
+  <CommandList>
+    <CommandGroup heading="Pages">
+      <CommandItem onSelect={() => navigate('/dashboard')}>
+        <Home className="mr-2 h-4 w-4" />
+        <span>Dashboard</span>
+      </CommandItem>
+      <CommandItem onSelect={() => navigate('/settings')}>
+        <Settings className="mr-2 h-4 w-4" />
+        <span>Settings</span>
+      </CommandItem>
+    </CommandGroup>
+  </CommandList>
+</Command>
+```
+
+Related Components:
+- Popover: For positioning command palettes
+- Modal: For full-screen command interfaces
+- Search: For simple search without commands
+
+AI_DOCUMENTATION_END
+*/}
 
 export const Default = () => {
   return (

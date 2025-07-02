@@ -8,8 +8,139 @@ import {
 import { Button } from './ui/button'
 
 {/* START README */}
-The `Collapsible` component currently represents a simple re-export of the Shadcn UI Collapsible component. More information on the structure can be found on the [Shadcn UI Collapsible documentation](https://ui.shadcn.com/docs/components/collapsible).
+The `ShadcnCollapsible` component provides expandable and collapsible content sections with smooth animations. It allows users to show and hide content sections while maintaining a compact interface design.
+
+Use this component when you need to:
+- Create expandable content sections in sidebars or panels
+- Build FAQ sections with expandable answers
+- Organize complex forms with collapsible sections
+- Manage space-constrained interfaces with optional content
+
+The collapsible component includes smooth expand/collapse animations, supports both controlled and uncontrolled usage, and maintains proper accessibility with ARIA attributes for screen readers.
+
+**Note**: This is prefixed as "ShadcnCollapsible" to distinguish it from the custom Collapsible component in the design system.
 {/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Shadcn UI re-export built on Radix UI's Collapsible primitive with smooth animations and state management
+Dependencies: @radix-ui/react-collapsible
+
+Available Stories:
+- Default: Controlled collapsible showing starred repositories with trigger button and expandable content
+
+Props (ShadcnCollapsible component):
+- open: boolean - Controlled open state
+- defaultOpen: boolean - Initial open state
+- onOpenChange: (open: boolean) => void - Open state change handler
+- disabled: boolean - Whether collapsible is disabled
+- className: string - Additional CSS classes
+
+Props (ShadcnCollapsibleTrigger component):
+- asChild: boolean - Whether to render as child element
+- className: string - Additional CSS classes
+
+Props (ShadcnCollapsibleContent component):
+- forceMount: boolean - Force mount content even when closed
+- className: string - Additional CSS classes
+
+Component Structure:
+- ShadcnCollapsible: Root container managing collapse state (re-export from ui/collapsible)
+- ShadcnCollapsibleTrigger: Clickable element that toggles the collapsible
+- ShadcnCollapsibleContent: Content that expands and collapses with animation
+
+Usage Examples:
+```tsx
+// Basic FAQ item
+<ShadcnCollapsible>
+  <ShadcnCollapsibleTrigger className="flex items-center justify-between w-full p-4 text-left bg-muted/50 rounded-lg hover:bg-muted">
+    <span className="font-medium">What is this component used for?</span>
+    <ChevronDown className="h-4 w-4 transition-transform data-[state=open]:rotate-180" />
+  </ShadcnCollapsibleTrigger>
+  <ShadcnCollapsibleContent className="p-4 border-l-2 border-muted ml-4">
+    <p className="text-sm text-muted-foreground">
+      This component is used to create expandable content sections that help manage
+      space and organize information in a compact way.
+    </p>
+  </ShadcnCollapsibleContent>
+</ShadcnCollapsible>
+
+// Controlled collapsible with state
+const [isOpen, setIsOpen] = useState(false)
+
+<ShadcnCollapsible open={isOpen} onOpenChange={setIsOpen}>
+  <div className="flex items-center justify-between">
+    <h3 className="text-lg font-semibold">Advanced Settings</h3>
+    <ShadcnCollapsibleTrigger asChild>
+      <Button variant="ghost" size="sm">
+        {isOpen ? <ChevronUp /> : <ChevronDown />}
+        <span className="sr-only">Toggle settings</span>
+      </Button>
+    </ShadcnCollapsibleTrigger>
+  </div>
+  <ShadcnCollapsibleContent className="space-y-2 mt-2">
+    <div className="grid gap-2">
+      <Label htmlFor="api-key">API Key</Label>
+      <Input id="api-key" placeholder="Enter your API key" />
+    </div>
+    <div className="grid gap-2">
+      <Label htmlFor="webhook">Webhook URL</Label>
+      <Input id="webhook" placeholder="https://example.com/webhook" />
+    </div>
+  </ShadcnCollapsibleContent>
+</ShadcnCollapsible>
+
+// Navigation section
+<div className="space-y-1">
+  <ShadcnCollapsible defaultOpen>
+    <ShadcnCollapsibleTrigger className="flex items-center gap-2 w-full p-2 text-sm font-medium rounded-md hover:bg-muted">
+      <Folder className="h-4 w-4" />
+      <span>Components</span>
+      <ChevronRight className="h-4 w-4 ml-auto transition-transform data-[state=open]:rotate-90" />
+    </ShadcnCollapsibleTrigger>
+    <ShadcnCollapsibleContent className="ml-6 space-y-1">
+      <a href="/components/button" className="block p-2 text-sm rounded-md hover:bg-muted">
+        Button
+      </a>
+      <a href="/components/input" className="block p-2 text-sm rounded-md hover:bg-muted">
+        Input
+      </a>
+      <a href="/components/select" className="block p-2 text-sm rounded-md hover:bg-muted">
+        Select
+      </a>
+    </ShadcnCollapsibleContent>
+  </ShadcnCollapsible>
+</div>
+
+// Multiple collapsible sections
+<div className="space-y-2">
+  {[
+    { title: "Personal Information", content: "Name, email, phone number" },
+    { title: "Account Settings", content: "Password, notifications, privacy" },
+    { title: "Billing Details", content: "Payment method, billing address" }
+  ].map((section, index) => (
+    <ShadcnCollapsible key={index}>
+      <ShadcnCollapsibleTrigger className="flex items-center justify-between w-full p-3 text-left border rounded-lg hover:bg-muted/50">
+        <span className="font-medium">{section.title}</span>
+        <ChevronDown className="h-4 w-4" />
+      </ShadcnCollapsibleTrigger>
+      <ShadcnCollapsibleContent className="p-3 border-t">
+        <p className="text-sm text-muted-foreground">{section.content}</p>
+      </ShadcnCollapsibleContent>
+    </ShadcnCollapsible>
+  ))}
+</div>
+```
+
+Related Components:
+- Accordion: For multiple collapsible sections with single-open behavior
+- Tabs: For switching between different content panels
+- Drawer: For larger collapsible content areas
+- Card: For static content containers
+
+AI_DOCUMENTATION_END
+*/}
 
 export const Default = () => {
   const [isOpen, setIsOpen] = useState(false)

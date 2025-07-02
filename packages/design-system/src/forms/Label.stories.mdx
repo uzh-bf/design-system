@@ -21,6 +21,299 @@ The props for the Label component are as follows:
 
 {/* END README */}
 
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Customizable form label component with optional tooltip functionality, required field indicators, and conditional styling for comprehensive form labeling
+
+Dependencies:
+- Custom Tooltip component for hover information
+- FontAwesome icons for tooltip symbols and required indicators
+- React for component structure and state management
+- CSS styling system for visual appearance
+- Accessibility support for form associations
+
+Available Stories:
+- Default: Basic label without additional features
+- Required: Label with required field indicator
+- RequiredTooltip: Required label with tooltip and symbol
+- Styled: Custom styling demonstration
+- Tooltip: Label with hover tooltip
+- TooltipStyled: Custom styled tooltip
+- TooltipSymbol: Various tooltip symbol sizes and styles
+
+Props (Label component):
+- id?: string - HTML id attribute for the label element
+- data?: Record<string, string> - Data attributes for testing purposes
+- forId?: string - HTML for attribute linking label to form element
+- label: string - Text content displayed as the label
+- required?: boolean - Whether to show required field indicator
+- tooltip?: string | React.ReactNode - Optional tooltip content
+- showTooltipSymbol?: boolean - Whether to display tooltip symbol icon
+- tooltipSymbolSize?: 'sm' | 'md' | 'lg' | 'xl' - Size of the tooltip symbol
+- className?: Record<string, string> - Styling overrides for different parts
+
+Component Structure:
+- Main label element with form association
+- Required field indicator (asterisk) when required
+- Optional tooltip symbol with hover interaction
+- Tooltip content overlay on hover/focus
+- Accessible markup for screen readers
+
+Usage Examples:
+```tsx
+// Basic form label
+<Label 
+  label="Email Address" 
+  forId="email-input" 
+/>
+
+// Required field label
+<Label 
+  label="Password" 
+  forId="password-input" 
+  required 
+/>
+
+// Label with helpful tooltip
+<Label 
+  label="API Key" 
+  forId="api-key-input" 
+  tooltip="Your API key can be found in your account settings under Developer Tools"
+  showTooltipSymbol
+/>
+
+// Complex form with multiple label types
+<form className="space-y-4">
+  <div>
+    <Label 
+      label="Full Name" 
+      forId="fullname" 
+      required 
+      tooltip="Enter your legal name as it appears on official documents"
+    />
+    <input id="fullname" type="text" className="form-input" />
+  </div>
+  
+  <div>
+    <Label 
+      label="Company (Optional)" 
+      forId="company" 
+      tooltip="Your current company or organization"
+      showTooltipSymbol
+      tooltipSymbolSize="sm"
+    />
+    <input id="company" type="text" className="form-input" />
+  </div>
+  
+  <div>
+    <Label 
+      label="Phone Number" 
+      forId="phone" 
+      required 
+      tooltip="Include country code for international numbers"
+      showTooltipSymbol
+    />
+    <input id="phone" type="tel" className="form-input" />
+  </div>
+</form>
+
+// Custom styled labels for themed forms
+<Label 
+  label="Theme Preference" 
+  forId="theme-select" 
+  tooltip="Choose your preferred interface theme"
+  showTooltipSymbol
+  tooltipSymbolSize="lg"
+  className={{
+    root: 'bg-gray-50 rounded-lg p-3 border border-gray-200',
+    label: 'text-lg font-semibold text-gray-800',
+    tooltip: 'bg-blue-600 text-white shadow-lg',
+    arrow: 'fill-blue-600'
+  }}
+/>
+
+// Settings form with descriptive labels
+<div className="settings-form space-y-6">
+  <div>
+    <Label 
+      label="Email Notifications" 
+      forId="email-notifications" 
+      tooltip={
+        <div>
+          <strong>Email Notification Types:</strong>
+          <ul className="mt-1 text-sm">
+            <li>• System updates and maintenance</li>
+            <li>• Account security alerts</li>
+            <li>• Weekly progress summaries</li>
+          </ul>
+        </div>
+      }
+      showTooltipSymbol
+    />
+    <Switch id="email-notifications" />
+  </div>
+  
+  <div>
+    <Label 
+      label="Data Retention Period" 
+      forId="retention-period" 
+      required 
+      tooltip="How long to keep your data after account deletion"
+      showTooltipSymbol
+    />
+    <Select id="retention-period">
+      <option value="30">30 days</option>
+      <option value="90">90 days</option>
+      <option value="365">1 year</option>
+    </Select>
+  </div>
+</div>
+
+// Multi-step form with contextual labels
+<div className="form-step">
+  <h2>Personal Information</h2>
+  
+  <Label 
+    label="Date of Birth" 
+    forId="birthdate" 
+    required 
+    tooltip="Used for age verification and birthday reminders"
+    showTooltipSymbol
+    tooltipSymbolSize="sm"
+  />
+  <input id="birthdate" type="date" required />
+  
+  <Label 
+    label="Preferred Language" 
+    forId="language" 
+    tooltip="Interface language preference"
+    showTooltipSymbol
+  />
+  <select id="language">
+    <option value="en">English</option>
+    <option value="de">Deutsch</option>
+    <option value="fr">Français</option>
+  </select>
+</div>
+
+// Testing configuration
+<Label 
+  label="Test Field" 
+  forId="test-input" 
+  required 
+  tooltip="This is a test tooltip"
+  showTooltipSymbol
+  data={{ 'data-cy': 'test-label' }}
+  id="test-label-element"
+/>
+
+// Dynamic label content
+const getTooltipContent = (fieldType: string) => {
+  const tooltips = {
+    password: "Password must be at least 8 characters with uppercase, lowercase, and numbers",
+    email: "We'll use this email for account verification and important updates",
+    phone: "We'll only use your phone number for account security purposes"
+  }
+  return tooltips[fieldType] || "Additional information about this field"
+}
+
+<Label 
+  label="Security Information" 
+  forId={fieldId} 
+  required 
+  tooltip={getTooltipContent(fieldType)}
+  showTooltipSymbol
+/>
+
+// Accessible form labels with ARIA support
+<div role="group" aria-labelledby="address-group">
+  <Label 
+    id="address-group"
+    label="Mailing Address" 
+    tooltip="Where should we send physical correspondence?"
+    showTooltipSymbol
+  />
+  
+  <div className="address-fields grid grid-cols-2 gap-4">
+    <div>
+      <Label label="Street Address" forId="street" required />
+      <input id="street" type="text" required />
+    </div>
+    
+    <div>
+      <Label label="City" forId="city" required />
+      <input id="city" type="text" required />
+    </div>
+    
+    <div>
+      <Label label="State/Province" forId="state" required />
+      <input id="state" type="text" required />
+    </div>
+    
+    <div>
+      <Label label="Postal Code" forId="postal" required />
+      <input id="postal" type="text" required />
+    </div>
+  </div>
+</div>
+```
+
+Required Field Indicators:
+- Visual asterisk (*) next to label text
+- Red color styling to indicate importance
+- ARIA attributes for screen reader support
+- Consistent styling across form elements
+
+Tooltip Integration:
+- Hover and focus triggered tooltips
+- Optional tooltip symbol indicators
+- Custom tooltip content with React nodes
+- Flexible positioning and styling
+- Keyboard accessible tooltip interactions
+
+Symbol Sizing:
+- sm: Small tooltip symbols for compact forms
+- md: Default size for standard forms
+- lg: Larger symbols for prominent fields
+- xl: Extra large for accessibility needs
+
+Best Practices:
+- Always use forId to associate labels with form controls
+- Include required indicators for mandatory fields
+- Provide helpful tooltips for complex or unclear fields
+- Use consistent label styling throughout forms
+- Consider accessibility when choosing tooltip symbols
+
+Common Use Cases:
+- Form field labeling with semantic association
+- Required field indication for form validation
+- Help text and tooltip integration
+- Custom form styling and theming
+- Accessibility-compliant form markup
+
+Accessibility Features:
+- Proper HTML for attribute linking
+- ARIA attributes for screen readers
+- Keyboard navigation support for tooltips
+- High contrast color support
+- Screen reader compatible tooltip content
+
+Testing Support:
+- data prop for custom testing attributes
+- id prop for unique element identification
+- Consistent structure for automated testing
+- Tooltip interaction testing capabilities
+
+Related Components:
+- Tooltip: Core tooltip functionality
+- TextField: For input field with label integration
+- FormikTextField: For Formik form integration
+- Switch: For boolean preference labeling
+
+AI_DOCUMENTATION_END
+*/}
+
 export const Default = () => {
   return <Label label="Labels cannot be selected with double click" />
 }

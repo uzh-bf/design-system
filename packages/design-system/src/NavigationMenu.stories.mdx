@@ -10,8 +10,163 @@ import {
 } from './NavigationMenu'
 
 {/* START README */}
-The `NavigationMenu` component currently represents a simple re-export of the Shadcn UI NavigationMenu component. More information on the structure can be found on the [Shadcn UI NavigationMenu documentation](https://ui.shadcn.com/docs/components/navigation-menu).
+The `NavigationMenu` component provides sophisticated horizontal navigation with dropdown panels for complex site hierarchies. It combines main navigation items with rich content panels that can display detailed information, links, and organized sections.
+
+Use this component when you need to:
+- Create comprehensive site navigation with multiple levels
+- Display rich content previews or detailed information in dropdown panels
+- Organize complex navigation structures with categories and subcategories
+- Provide both simple links and interactive content areas in navigation
+
+The navigation menu supports keyboard navigation, automatic positioning, smooth animations, and flexible content layouts. It's ideal for header navigation in applications with extensive feature sets or content hierarchies.
 {/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Shadcn UI re-export built on Radix UI's NavigationMenu primitive with rich content panels and keyboard navigation
+Dependencies: @radix-ui/react-navigation-menu
+
+Available Stories:
+- Default: Multi-level navigation with rich content panels including home, components, docs, and various dropdown styles
+
+Props (NavigationMenu component):
+- orientation: "horizontal" | "vertical" - Menu orientation (default: horizontal)
+- dir: "ltr" | "rtl" - Text direction
+- value: string - Controlled active menu item
+- defaultValue: string - Initial active menu item
+- onValueChange: (value: string) => void - Active item change handler
+- skipDelayDuration: number - Delay before submenu opens
+- delayDuration: number - Delay before submenu closes
+- viewport: boolean - Whether to render viewport container (default: true)
+
+Component Structure:
+- NavigationMenu: Root container managing menu state (re-export from ui/navigation-menu)
+- NavigationMenuList: Container for menu items with proper ARIA roles
+- NavigationMenuItem: Individual menu item that can contain triggers or links
+- NavigationMenuTrigger: Clickable element that opens content panels
+- NavigationMenuContent: Rich content panel for complex dropdown content
+- NavigationMenuLink: Simple navigation link with consistent styling
+- navigationMenuTriggerStyle: Utility function for trigger styling
+
+Usage Examples:
+```tsx
+// Basic navigation with dropdowns
+<NavigationMenu>
+  <NavigationMenuList>
+    <NavigationMenuItem>
+      <NavigationMenuTrigger>Products</NavigationMenuTrigger>
+      <NavigationMenuContent>
+        <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px]">
+          <li className="row-span-3">
+            <NavigationMenuLink asChild>
+              <a href="/products" className="flex h-full w-full flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6">
+                <div className="mb-2 mt-4 text-lg font-medium">
+                  All Products
+                </div>
+                <p className="text-sm leading-tight text-muted-foreground">
+                  Browse our complete product catalog
+                </p>
+              </a>
+            </NavigationMenuLink>
+          </li>
+          <li>
+            <NavigationMenuLink asChild>
+              <a href="/products/web" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground">
+                <div className="text-sm font-medium leading-none">Web Apps</div>
+                <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                  Progressive web applications and tools
+                </p>
+              </a>
+            </NavigationMenuLink>
+          </li>
+        </ul>
+      </NavigationMenuContent>
+    </NavigationMenuItem>
+    
+    <NavigationMenuItem>
+      <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+        <a href="/about">About</a>
+      </NavigationMenuLink>
+    </NavigationMenuItem>
+  </NavigationMenuList>
+</NavigationMenu>
+
+// Grid-based content organization
+<NavigationMenu>
+  <NavigationMenuList>
+    <NavigationMenuItem>
+      <NavigationMenuTrigger>Components</NavigationMenuTrigger>
+      <NavigationMenuContent>
+        <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+          {components.map((component) => (
+            <li key={component.title}>
+              <NavigationMenuLink asChild>
+                <a href={component.href} className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground">
+                  <div className="text-sm font-medium leading-none">
+                    {component.title}
+                  </div>
+                  <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                    {component.description}
+                  </p>
+                </a>
+              </NavigationMenuLink>
+            </li>
+          ))}
+        </ul>
+      </NavigationMenuContent>
+    </NavigationMenuItem>
+  </NavigationMenuList>
+</NavigationMenu>
+
+// With icons and simple lists
+<NavigationMenu>
+  <NavigationMenuList>
+    <NavigationMenuItem>
+      <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
+      <NavigationMenuContent>
+        <ul className="grid w-[300px] gap-2 p-4">
+          <li>
+            <NavigationMenuLink asChild>
+              <a href="/docs" className="flex items-center gap-2 rounded-md p-2 hover:bg-accent">
+                <BookIcon className="h-4 w-4" />
+                <div>
+                  <div className="font-medium">Documentation</div>
+                  <div className="text-sm text-muted-foreground">
+                    Complete guides and API reference
+                  </div>
+                </div>
+              </a>
+            </NavigationMenuLink>
+          </li>
+          <li>
+            <NavigationMenuLink asChild>
+              <a href="/examples" className="flex items-center gap-2 rounded-md p-2 hover:bg-accent">
+                <CodeIcon className="h-4 w-4" />
+                <div>
+                  <div className="font-medium">Examples</div>
+                  <div className="text-sm text-muted-foreground">
+                    Ready-to-use code examples
+                  </div>
+                </div>
+              </a>
+            </NavigationMenuLink>
+          </li>
+        </ul>
+      </NavigationMenuContent>
+    </NavigationMenuItem>
+  </NavigationMenuList>
+</NavigationMenu>
+```
+
+Related Components:
+- ContextMenu: For right-click triggered navigation
+- Dropdown: For simpler dropdown menus
+- Breadcrumb: For hierarchical navigation trails
+- Tabs: For content switching within sections
+
+AI_DOCUMENTATION_END
+*/}
 
 export const Default = () => {
   return (

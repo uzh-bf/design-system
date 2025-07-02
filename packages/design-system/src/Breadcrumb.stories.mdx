@@ -15,8 +15,91 @@ import {
 } from './ui/dropdown-menu'
 
 {/* START README */}
-The `Breadcrumb` component currently represents a simple re-export of the Shadcn UI Breadcrumb component. More information on the structure can be found on the [Shadcn UI Breadcrumb documentation](https://ui.shadcn.com/docs/components/breadcrumb).
+The `Breadcrumb` component provides hierarchical navigation that shows users their current location within a website or application structure. It helps users understand where they are and provides an easy way to navigate back to parent pages.
+
+Use this component when you need to:
+- Show navigation hierarchy in multi-level applications
+- Help users understand their current location context
+- Provide quick navigation back to parent sections
+- Improve wayfinding in complex information architectures
+
+The breadcrumb supports collapsible sections with ellipsis for long paths, clickable links for navigation, and proper accessibility with ARIA labels and semantic markup.
 {/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Shadcn UI re-export built with semantic navigation markup and accessibility features
+Dependencies: lucide-react (for separators and ellipsis icons)
+
+Available Stories:
+- Default: Complete breadcrumb trail with home, collapsible middle section, and current page
+
+Props (Breadcrumb component):
+- className: string - Additional CSS classes for styling
+- separator: ReactNode - Custom separator element (default: slash)
+
+Component Structure:
+- Breadcrumb: Root nav element with aria-label (re-export from ui/breadcrumb)
+- BreadcrumbList: Ordered list container for breadcrumb items
+- BreadcrumbItem: Individual breadcrumb list item
+- BreadcrumbLink: Clickable link element for navigation
+- BreadcrumbPage: Current page indicator (non-clickable)
+- BreadcrumbSeparator: Visual separator between items
+- BreadcrumbEllipsis: Collapsible section indicator with dropdown
+
+Usage Examples:
+```tsx
+// Simple breadcrumb trail
+<Breadcrumb>
+  <BreadcrumbList>
+    <BreadcrumbItem>
+      <BreadcrumbLink href="/">Home</BreadcrumbLink>
+    </BreadcrumbItem>
+    <BreadcrumbSeparator />
+    <BreadcrumbItem>
+      <BreadcrumbLink href="/products">Products</BreadcrumbLink>
+    </BreadcrumbItem>
+    <BreadcrumbSeparator />
+    <BreadcrumbItem>
+      <BreadcrumbPage>Laptop</BreadcrumbPage>
+    </BreadcrumbItem>
+  </BreadcrumbList>
+</Breadcrumb>
+
+// With collapsible section
+<Breadcrumb>
+  <BreadcrumbList>
+    <BreadcrumbItem>
+      <BreadcrumbLink href="/">Home</BreadcrumbLink>
+    </BreadcrumbItem>
+    <BreadcrumbSeparator />
+    <BreadcrumbItem>
+      <DropdownMenu>
+        <DropdownMenuTrigger>
+          <BreadcrumbEllipsis />
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuItem>Category</DropdownMenuItem>
+          <DropdownMenuItem>Subcategory</DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </BreadcrumbItem>
+    <BreadcrumbSeparator />
+    <BreadcrumbItem>
+      <BreadcrumbPage>Current Page</BreadcrumbPage>
+    </BreadcrumbItem>
+  </BreadcrumbList>
+</Breadcrumb>
+```
+
+Related Components:
+- Navigation: For main site navigation
+- Tabs: For horizontal content navigation
+- Sidebar: For hierarchical section navigation
+
+AI_DOCUMENTATION_END
+*/}
 
 export const Default = () => {
   return (

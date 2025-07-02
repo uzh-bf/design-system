@@ -30,6 +30,406 @@ The FormikTextareaField accepts the following props:
 
 {/* END README */}
 
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Formik-integrated multi-line textarea component that wraps the core TextareaField with character limits, validation integration, and form state management for extended text input
+
+Dependencies:
+- Formik for form state management and validation
+- TextareaField core component for multi-line text functionality
+- Yup for text validation schema support
+- React state management for textarea interactions
+- Custom label and tooltip components
+
+Available Stories:
+- Default: Basic textarea field with label and tooltip
+- MaxLength: Textarea with character limit and counter display
+- Disabled: Textarea in disabled state
+- Required: Textarea with required field indicator
+- OnChangeFunction: Textarea with custom onChange logic (whitespace removal)
+- OnChangeError: Textarea with error state and custom onChange
+- Styled: Custom styling with colored theme
+- Validation: Textarea with Yup validation for length constraints
+- LargeLabel: Textarea with large label variant
+
+Props (FormikTextareaField component):
+- id?: string - HTML id attribute for the textarea element
+- data?: Record<string, string> - Data attributes for testing purposes
+- name?: string - Formik field name for form state management
+- value?: string - Controlled textarea value (external state management)
+- onChange?: (value: string) => void - Value change handler (external state)
+- error?: string - Error message to display below field
+- label?: string - Display label for the textarea field
+- labelType?: 'small' | 'large' - Label size and positioning variant
+- placeholder?: string - Placeholder text for empty textarea
+- tooltip?: string | React.ReactNode - Optional tooltip for additional information
+- maxLength?: number - Maximum number of characters allowed
+- maxLengthUnit?: string - Unit text for character counter (e.g., "characters")
+- hideMaxLength?: boolean - Whether to hide the character counter display
+- required?: boolean - Whether the field is required
+- hideError?: boolean - Whether to hide error message display
+- disabled?: boolean - Whether the textarea is disabled
+- className?: Record<string, string> - Styling overrides for different parts
+
+Component Structure:
+- Formik Field wrapper for form integration
+- Multi-line textarea input with resize capability
+- Character counter display when maxLength is set
+- Form validation and error display integration
+- Automatic form state synchronization
+
+Usage Examples:
+```tsx
+// Basic comment/feedback form
+<Formik
+  initialValues={{ comment: '' }}
+  onSubmit={(values) => console.log(values)}
+>
+  <Form>
+    <FormikTextareaField
+      name="comment"
+      label="Comments"
+      placeholder="Enter your comments here..."
+      tooltip="Share your thoughts and feedback"
+    />
+    <Button type="submit">Submit Feedback</Button>
+  </Form>
+</Formik>
+
+// Message form with character limit
+<Formik
+  initialValues={{ message: '' }}
+  validationSchema={Yup.object({
+    message: Yup.string()
+      .required('Message is required')
+      .min(10, 'Message must be at least 10 characters')
+      .max(500, 'Message cannot exceed 500 characters')
+  })}
+  onSubmit={handleMessageSubmit}
+>
+  <Form>
+    <FormikTextareaField
+      name="message"
+      label="Message"
+      required
+      placeholder="Type your message..."
+      maxLength={500}
+      maxLengthUnit="characters"
+      tooltip="Write a detailed message (10-500 characters)"
+    />
+  </Form>
+</Formik>
+
+// Article content editor
+<FormikTextareaField
+  name="content"
+  label="Article Content"
+  labelType="large"
+  required
+  placeholder="Write your article content here..."
+  maxLength={2000}
+  tooltip="Main content of your article"
+  className={{
+    root: 'mb-6',
+    input: 'min-h-[200px] font-mono',
+    label: 'text-lg font-semibold'
+  }}
+/>
+
+// Support ticket description
+<Formik
+  initialValues={{
+    subject: '',
+    description: '',
+    priority: 'medium'
+  }}
+  validationSchema={supportTicketSchema}
+  onSubmit={handleTicketSubmission}
+>
+  <Form className="space-y-4">
+    <FormikTextField
+      name="subject"
+      label="Subject"
+      required
+      placeholder="Brief description of the issue"
+    />
+    
+    <FormikTextareaField
+      name="description"
+      label="Detailed Description"
+      required
+      placeholder="Please provide a detailed description of the issue, including steps to reproduce..."
+      maxLength={1500}
+      tooltip="Include as much detail as possible to help us resolve your issue"
+      className={{ input: 'min-h-[150px]' }}
+    />
+    
+    <FormikSelectField
+      name="priority"
+      label="Priority"
+      items={priorityOptions}
+      required
+    />
+    
+    <Button type="submit">Submit Ticket</Button>
+  </Form>
+</Formik>
+
+// Profile bio editor
+<FormikTextareaField
+  name="bio"
+  label="Biography"
+  placeholder="Tell us about yourself..."
+  maxLength={300}
+  maxLengthUnit="characters"
+  tooltip="Write a brief biography for your profile"
+  className={{
+    root: 'max-w-lg',
+    input: 'resize-y min-h-[100px]'
+  }}
+/>
+
+// Product review form
+<Formik
+  initialValues={{
+    rating: 5,
+    title: '',
+    review: ''
+  }}
+  onSubmit={handleReviewSubmit}
+>
+  <Form>
+    <FormikSelectField
+      name="rating"
+      label="Rating"
+      items={ratingOptions}
+      required
+    />
+    
+    <FormikTextField
+      name="title"
+      label="Review Title"
+      required
+      placeholder="Summarize your experience"
+    />
+    
+    <FormikTextareaField
+      name="review"
+      label="Detailed Review"
+      required
+      placeholder="Share your detailed experience with this product..."
+      maxLength={1000}
+      tooltip="Help others by sharing your honest experience"
+      className={{ input: 'min-h-[120px]' }}
+    />
+  </Form>
+</Formik>
+
+// Code snippet submission
+<FormikTextareaField
+  name="code"
+  label="Code Snippet"
+  placeholder="Paste your code here..."
+  maxLength={5000}
+  hideMaxLength
+  tooltip="Share your code snippet for review"
+  className={{
+    input: 'font-mono text-sm bg-gray-50 min-h-[200px]',
+    root: 'w-full'
+  }}
+/>
+
+// Event description form
+<Formik
+  initialValues={{
+    title: '',
+    description: '',
+    location: ''
+  }}
+  onSubmit={handleEventCreation}
+>
+  <Form>
+    <FormikTextField
+      name="title"
+      label="Event Title"
+      required
+      placeholder="Enter event title"
+    />
+    
+    <FormikTextareaField
+      name="description"
+      label="Event Description"
+      labelType="large"
+      required
+      placeholder="Describe your event, including what attendees can expect..."
+      maxLength={800}
+      maxLengthUnit="characters"
+      tooltip="Provide a compelling description to attract attendees"
+    />
+    
+    <FormikTextField
+      name="location"
+      label="Location"
+      required
+      placeholder="Event location or virtual meeting link"
+    />
+  </Form>
+</Formik>
+
+// Custom onChange with formatting
+<Formik
+  initialValues={{ cleanText: '' }}
+  onSubmit={handleSubmit}
+>
+  {({ setFieldValue, values }) => (
+    <Form>
+      <FormikTextareaField
+        value={values.cleanText}
+        onChange={(newValue) => {
+          // Remove extra whitespace and convert to uppercase
+          const cleaned = newValue.replace(/\s+/g, ' ').toUpperCase()
+          setFieldValue('cleanText', cleaned)
+        }}
+        label="Formatted Text"
+        placeholder="Text will be automatically formatted..."
+        tooltip="Whitespace is cleaned and text is converted to uppercase"
+      />
+    </Form>
+  )}
+</Formik>
+
+// Multi-language content form
+<Formik
+  initialValues={{
+    titleEn: '',
+    titleDe: '',
+    descriptionEn: '',
+    descriptionDe: ''
+  }}
+  onSubmit={handleMultiLanguageSubmit}
+>
+  <Form>
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div>
+        <h3 className="text-lg font-semibold mb-3">English</h3>
+        <FormikTextField
+          name="titleEn"
+          label="Title (English)"
+          required
+          placeholder="Enter English title"
+        />
+        <FormikTextareaField
+          name="descriptionEn"
+          label="Description (English)"
+          required
+          placeholder="Enter English description..."
+          maxLength={500}
+          className={{ input: 'min-h-[120px]' }}
+        />
+      </div>
+      
+      <div>
+        <h3 className="text-lg font-semibold mb-3">German</h3>
+        <FormikTextField
+          name="titleDe"
+          label="Title (German)"
+          required
+          placeholder="Enter German title"
+        />
+        <FormikTextareaField
+          name="descriptionDe"
+          label="Description (German)"
+          required
+          placeholder="Enter German description..."
+          maxLength={500}
+          className={{ input: 'min-h-[120px]' }}
+        />
+      </div>
+    </div>
+  </Form>
+</Formik>
+
+// Testing configuration
+<FormikTextareaField
+  name="testTextarea"
+  label="Test Textarea"
+  placeholder="Enter test content"
+  data={{
+    'data-cy': 'textarea-field',
+    'data-testid': 'formik-textarea'
+  }}
+  id="test-textarea-field"
+/>
+```
+
+Form Integration Features:
+- Automatic Formik field binding with name prop
+- Built-in text validation support
+- Error state display from Formik field meta
+- Form submission integration with textarea values
+- Touch/blur state management for UX
+
+Character Limit Features:
+- Real-time character counting
+- Visual indicator of remaining characters
+- Customizable unit text (characters, words, etc.)
+- Option to hide counter display
+- Character limit enforcement
+
+Validation Patterns:
+- Length validation (min/max characters)
+- Required field validation
+- Custom text format validation
+- Word count validation
+- Content quality validation
+
+Custom Formatting:
+- Real-time text transformation
+- Whitespace normalization
+- Case conversion
+- Content sanitization
+- Custom validation rules
+
+Best Practices:
+- Set appropriate character limits for content type
+- Provide clear placeholder text for guidance
+- Use tooltips to explain content requirements
+- Implement proper validation for required fields
+- Consider resize behavior for user experience
+- Use appropriate label sizes for form hierarchy
+
+Common Use Cases:
+- Comments and feedback forms
+- Article and blog post content
+- Product reviews and descriptions
+- Support ticket descriptions
+- Profile information and biographies
+- Event and announcement descriptions
+
+Testing Support:
+- data prop for custom testing attributes
+- Textarea content testing capabilities
+- Character limit validation testing
+- Formik integration testing with text values
+- Custom onChange behavior testing
+
+Accessibility Features:
+- Proper label association with textarea elements
+- Character counter announcements for screen readers
+- Keyboard navigation support
+- High contrast color support
+- Resize handle accessibility
+
+Related Components:
+- TextareaField: Core textarea functionality
+- FormikTextField: For single-line text input
+- TextField: For standalone text input
+- Editor: For rich text editing needs
+
+AI_DOCUMENTATION_END
+*/}
+
 export const Default = () => (
   <div>
     <div>The default Formik field works with a "name" input</div>

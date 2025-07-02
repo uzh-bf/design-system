@@ -3,41 +3,225 @@ import Button from './Button'
 import Modal from './Modal'
 
 {/* START README */}
-The Modal component provides an abstracted way to display content in a modal dialog, pre-styled similar to the Shadcn UI dialog and in accordance with the design-system and theming approaches. It is extended to support various extensions, such as custom triggers, primary and secondary actions, conditional styling, key blocking, etc.
+The `Modal` component provides a comprehensive modal dialog solution with customizable triggers, actions, navigation, and styling. Built on Shadcn UI foundations, it offers advanced features for complex modal interactions and workflows.
 
-<br />
+Use this component when you need to:
+- Display content that requires user attention or interaction
+- Create confirmation dialogs with primary and secondary actions
+- Build multi-step workflows with navigation controls
+- Present forms or detailed content in an overlay
+- Implement full-screen modal experiences
 
-The props for the Modal component are as follows:
-
-- @param id - The id of the modal.
-- @param trigger - The optional trigger that opens the modal, if the state is not managed by some parent component already.
-- @param title - The optional title of the modal.
-- @param children - The content of the modal.
-- @param onClose - Function that is called when the modal is closed.
-- @param onPrev - Function that is called when the optional previous button is clicked.
-- @param onNext - Function that is called when the optional next button is clicked.
-- @param open - Indicate whether the modal is open or not. This state is managed outside of the component.
-- @param fullScreen - Indicate whether the modal should be full screen or not.
-- @param onPrimaryAction - The optional primary action, which is executed when clicking on the conditionally rendered primary action button.
-- @param primaryLabel - The label for the primary action button.
-- @param primaryType - The type of the primary action button, which can be 'button', 'submit' or 'reset'.
-- @param primaryButtonStyle - The style of the primary action button, which can be 'default', 'primary' or 'destructive'.
-- @param primaryDisabled - Indicate whether the primary action button should be disabled.
-- @param primaryLoading - Indicate whether the primary action button should be in a loading state.
-- @param onSecondaryAction - The optional secondary action, which is executed when clicking on the conditionally rendered secondary action button.
-- @param secondaryLabel - The label for the secondary action button.
-- @param secondaryType - The type of the secondary action button, which can be 'button', 'submit' or 'reset'.
-- @param secondaryButtonStyle - The style of the secondary action button, which can be 'default', 'primary' or 'destructive'.
-- @param escapeDisabled - Indicate whether the modal should be closed when the escape key is pressed.
-- @param hideCloseButton - Indicate whether the close button should be hidden.
-- @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
-- @param dataContent - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the content
-- @param dataCloseButton - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the close button
-- @param dataPrimaryAction - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the primary action button
-- @param dataSecondaryAction - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the secondary action button
-- @param className - The optional className object allows you to override the default styling.
-
+The component supports custom triggers, primary and secondary action buttons, navigation controls for multi-step flows, full-screen mode, keyboard interaction control, and comprehensive testing attributes for different modal parts.
 {/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Comprehensive modal dialog component with advanced action handling, navigation controls, and extensive customization options built on Shadcn UI Dialog
+
+Dependencies:
+- Shadcn UI Dialog component as foundation
+- React state management for open/close control
+- Button component for actions and triggers
+- Keyboard event handling for escape key
+- Testing attribute support
+
+Available Stories:
+- Default: Full-featured modal with title, primary/secondary actions, and navigation
+- Basic: Minimal modal with just content and close functionality
+- Trigger: Custom trigger component demonstration
+- FullScreen: Full-screen modal variant
+- Navigation: Multi-step modal with prev/next controls
+- Actions: Primary and secondary action button configurations
+
+Props (Modal component):
+- id?: string - HTML id attribute for the modal
+- trigger?: React.ReactNode - Custom trigger element to open modal
+- title?: string - Modal title displayed in header
+- children: React.ReactNode - Modal content
+- onClose: () => void - Callback when modal is closed
+- onPrev?: () => void - Callback for previous button (enables prev navigation)
+- onNext?: () => void - Callback for next button (enables next navigation)
+- open: boolean - Whether modal is open (controlled state)
+- fullScreen?: boolean - Whether modal should be full-screen
+- onPrimaryAction?: () => void - Primary action button callback
+- primaryLabel?: string - Primary action button text
+- primaryType?: 'button' | 'submit' | 'reset' - Primary button HTML type
+- primaryButtonStyle?: 'default' | 'primary' | 'destructive' - Primary button styling
+- primaryDisabled?: boolean - Whether primary button is disabled
+- primaryLoading?: boolean - Whether primary button shows loading state
+- onSecondaryAction?: () => void - Secondary action button callback
+- secondaryLabel?: string - Secondary action button text
+- secondaryType?: 'button' | 'submit' | 'reset' - Secondary button HTML type
+- secondaryButtonStyle?: 'default' | 'primary' | 'destructive' - Secondary button styling
+- escapeDisabled?: boolean - Whether ESC key closes modal
+- hideCloseButton?: boolean - Whether to hide the close (X) button
+- data?: Record<string, string> - Data attributes for modal container
+- dataContent?: Record<string, string> - Data attributes for content area
+- dataCloseButton?: Record<string, string> - Data attributes for close button
+- dataPrimaryAction?: Record<string, string> - Data attributes for primary action
+- dataSecondaryAction?: Record<string, string> - Data attributes for secondary action
+- className?: Record<string, string> - Styling overrides for modal parts
+
+Component Structure:
+- Modal overlay with backdrop
+- Modal container with positioning
+- Header with optional title and close button
+- Content area for children
+- Footer with action buttons and navigation
+- Keyboard event handling
+
+Usage Examples:
+```tsx
+// Basic confirmation modal
+const [isDeleteOpen, setIsDeleteOpen] = useState(false)
+
+<Modal
+  open={isDeleteOpen}
+  title="Confirm Deletion"
+  onClose={() => setIsDeleteOpen(false)}
+  onPrimaryAction={handleDelete}
+  primaryLabel="Delete"
+  primaryButtonStyle="destructive"
+  onSecondaryAction={() => setIsDeleteOpen(false)}
+  secondaryLabel="Cancel"
+>
+  <p>Are you sure you want to delete this item? This action cannot be undone.</p>
+</Modal>
+
+// Modal with custom trigger
+<Modal
+  open={isModalOpen}
+  onClose={() => setIsModalOpen(false)}
+  title="Settings"
+  trigger={
+    <Button 
+      onClick={() => setIsModalOpen(true)}
+      variant="outline"
+    >
+      Open Settings
+    </Button>
+  }
+>
+  <SettingsForm onSave={handleSave} />
+</Modal>
+
+// Multi-step workflow modal
+const [currentStep, setCurrentStep] = useState(0)
+const [isWizardOpen, setIsWizardOpen] = useState(false)
+
+<Modal
+  open={isWizardOpen}
+  title={`Step ${currentStep + 1} of 3`}
+  onClose={() => setIsWizardOpen(false)}
+  onPrev={currentStep > 0 ? () => setCurrentStep(currentStep - 1) : undefined}
+  onNext={currentStep < 2 ? () => setCurrentStep(currentStep + 1) : undefined}
+  onPrimaryAction={currentStep === 2 ? handleComplete : () => setCurrentStep(currentStep + 1)}
+  primaryLabel={currentStep === 2 ? "Complete" : "Next"}
+  onSecondaryAction={() => setIsWizardOpen(false)}
+  secondaryLabel="Cancel"
+>
+  {renderStepContent(currentStep)}
+</Modal>
+
+// Full-screen modal
+<Modal
+  open={isFullScreenOpen}
+  fullScreen
+  title="Document Editor"
+  onClose={() => setIsFullScreenOpen(false)}
+  onPrimaryAction={handleSave}
+  primaryLabel="Save"
+  primaryLoading={isSaving}
+  onSecondaryAction={handleSaveAndClose}
+  secondaryLabel="Save & Close"
+>
+  <DocumentEditor document={document} />
+</Modal>
+
+// Form modal with validation
+<Modal
+  open={isFormOpen}
+  title="Create New Item"
+  onClose={() => setIsFormOpen(false)}
+  onPrimaryAction={handleSubmit}
+  primaryLabel="Create"
+  primaryType="submit"
+  primaryDisabled={!isFormValid}
+  primaryLoading={isSubmitting}
+  onSecondaryAction={() => setIsFormOpen(false)}
+  secondaryLabel="Cancel"
+  escapeDisabled={hasUnsavedChanges}
+>
+  <form onSubmit={handleSubmit}>
+    <FormFields />
+  </form>
+</Modal>
+
+// Modal with custom styling and testing attributes
+<Modal
+  open={isCustomOpen}
+  title="Custom Modal"
+  onClose={() => setIsCustomOpen(false)}
+  className={{
+    overlay: 'bg-black/70',
+    container: 'max-w-4xl',
+    header: 'bg-blue-50 border-b border-blue-200',
+    content: 'p-6',
+    footer: 'bg-gray-50'
+  }}
+  data={{ test: 'custom-modal' }}
+  dataContent={{ cy: 'modal-content' }}
+  dataPrimaryAction={{ test: 'save-button' }}
+>
+  <CustomContent />
+</Modal>
+```
+
+Action Button Patterns:
+- Confirmation: Primary "Confirm", Secondary "Cancel"
+- Save/Edit: Primary "Save", Secondary "Cancel" 
+- Delete: Primary "Delete" (destructive), Secondary "Cancel"
+- Multi-step: Primary "Next/Finish", Secondary "Cancel"
+- Form: Primary "Submit" (type="submit"), Secondary "Cancel"
+
+Navigation Patterns:
+- Linear wizard: onPrev/onNext for step navigation
+- Branching flows: Custom navigation based on content
+- Progress indication: Show current step in title
+- Validation: Disable next until step is valid
+
+Accessibility Features:
+- Focus management and trapping
+- ESC key handling (can be disabled)
+- ARIA attributes for screen readers
+- Keyboard navigation support
+- Proper heading hierarchy
+
+Best Practices:
+- Keep content focused and scannable
+- Use clear, action-oriented button labels
+- Provide escape routes (close button, cancel action)
+- Consider mobile responsiveness
+- Test keyboard navigation thoroughly
+
+Common Use Cases:
+- Confirmation dialogs
+- Forms and data entry
+- Content preview/details
+- Multi-step workflows
+- Settings and preferences
+- Image/media viewers
+
+Related Components:
+- Dialog: Basic dialog functionality
+- AlertDialog: Simple confirmation dialogs
+- Drawer: Alternative slide-out interface
+- Popover: Smaller contextual overlays
+
+AI_DOCUMENTATION_END
+*/}
 
 export const Default = () => {
   const [isOpen, setIsOpen] = useState(false)

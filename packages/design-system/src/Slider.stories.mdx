@@ -2,30 +2,293 @@ import { useState } from 'react'
 import Slider from './Slider'
 
 {/* START README */}
+The `Slider` component provides an enhanced range input interface with support for custom labels, icons, color mapping, and compact layouts. It offers flexible value selection with visual feedback, customizable styling, and comprehensive accessibility features for user-friendly numeric input.
 
-The Slider component is a simple abstraction of a range input, allowing users to select a value from a specified range. It supports various features such as labels, icons, compact mode, and custom styling.
+Use this component when you need to:
+- Create numeric input controls with visual range representation
+- Implement rating or preference selection interfaces with custom icons or labels
+- Build compact form controls with space-efficient layouts
+- Provide value selection with dynamic color feedback based on ranges
+- Design accessible range inputs with keyboard navigation and visual indicators
 
-<br />
-
-The Slider component accepts the following props:
-
-- @param id - The id of the slider.
-- @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
-- @param value - The value of the slider. The value should be between the min and max value and is maintained by the parent component.
-- @param defaultValue - The default value of the slider, if the value is undefined
-- @param labels - The labels that are displayed on the slider. The labels and icons props should be mutually exclusive.
-- @param icons - The icons that are displayed on the slider. The labels and icons props should be mutually exclusive.
-- @param handleChange - The function that is called when the slider value is changed. The new value is passed as a parameter.
-- @param min - The minimum value of the slider.
-- @param max - The maximum value of the slider.
-- @param step - The step size of the slider.
-- @param disabled - Indicator whether the slider is disabled or not.
-- @param compact - Indicator whether the slider should be shown in a compact formm or not
-- @param rangeColorMap - A map that maps a range of values to colors. The color is used to color the range of the slider. The length of the map should be equal to the number of steps and the keys should correspond to the possible values of the slider.
-- @param borderColorMap - A map that maps a range of values to colors. The color is used to color the thumb of the slider. The length of the map should be equal to the number of steps and the keys should correspond to the possible values of the slider.
-- @param className - The optional className object allows you to override the default styling.
-
+The component supports custom labels and icons (mutually exclusive), compact and full-size layouts, dynamic color mapping for track and thumb elements, controlled and uncontrolled value management, disabled states, and comprehensive testing attribute support for all interactive elements.
 {/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Enhanced range input component with custom labels, icons, color mapping, compact layouts, and dynamic visual feedback for comprehensive numeric value selection
+
+Dependencies:
+- React state management for controlled/uncontrolled value handling
+- HTML range input element as foundation
+- CSS styling system for track and thumb customization
+- Color mapping system for dynamic visual feedback
+- Accessibility support for keyboard navigation
+
+Available Stories:
+- Default: Basic slider with text labels (min, mid, max)
+- Disabled: Disabled state demonstration
+- Compact: Space-efficient layout variations with testing attributes
+- CompactNoLabels: Minimal compact slider without labels
+- CompactDisabled: Disabled compact slider state
+- Icons: Custom icon labels (emoji) for visual feedback
+- Styled: Dynamic color mapping for track and thumb elements
+
+Props (Slider component):
+- id?: string - HTML id attribute for the slider
+- data?: Record<string, string> - Data attributes for testing purposes
+- value: number - Current slider value (controlled state)
+- defaultValue?: number - Initial value for uncontrolled mode
+- labels?: SliderLabels - Text labels for min, mid, max positions (mutually exclusive with icons)
+- icons?: SliderIcons - Icon/emoji labels for positions (mutually exclusive with labels)
+- handleChange: (value: number) => void - Callback when slider value changes
+- min: number - Minimum allowed value
+- max: number - Maximum allowed value
+- step: number - Step increment for value changes
+- disabled?: boolean - Whether the slider is disabled
+- compact?: boolean - Space-efficient layout variant
+- rangeColorMap?: Record<string, string> - Color mapping for track segments
+- borderColorMap?: Record<string, string> - Color mapping for thumb element
+- className?: Record<string, string> - Styling overrides for different parts
+- dataThumb?: Record<string, string> - Data attributes specifically for thumb element
+
+SliderLabels Structure:
+- min: string - Label for minimum value position
+- mid?: string - Optional label for middle position
+- max: string - Label for maximum value position
+
+SliderIcons Structure:
+- min: string | React.ReactNode - Icon for minimum value position
+- mid?: string | React.ReactNode - Optional icon for middle position
+- max: string | React.ReactNode - Icon for maximum value position
+
+Component Structure:
+- Track element with visual range representation
+- Thumb element for value selection
+- Label/icon positioning at key points
+- Dynamic color feedback based on current value
+- Keyboard navigation and accessibility support
+
+Usage Examples:
+```tsx
+// Basic slider with text labels
+const [rating, setRating] = useState(0)
+
+<Slider 
+  value={rating}
+  handleChange={setRating}
+  min={-5}
+  max={5}
+  step={1}
+  labels={{ min: 'Poor', mid: 'Average', max: 'Excellent' }}
+/>
+
+// Compact slider for form layouts
+<Slider 
+  compact
+  value={volume}
+  handleChange={setVolume}
+  min={0}
+  max={100}
+  step={5}
+  labels={{ min: '0%', max: '100%' }}
+/>
+
+// Icon-based slider for ratings
+<Slider 
+  value={satisfaction}
+  handleChange={setSatisfaction}
+  min={1}
+  max={5}
+  step={1}
+  icons={{ 
+    min: '😢', 
+    mid: '😐', 
+    max: '😊' 
+  }}
+/>
+
+// Color-coded slider with dynamic feedback
+const temperatureColors = {
+  '0': 'bg-blue-200',   // Cold
+  '1': 'bg-green-200',  // Cool
+  '2': 'bg-yellow-200', // Warm
+  '3': 'bg-orange-200', // Hot
+  '4': 'bg-red-200'     // Very Hot
+}
+
+const temperatureBorders = {
+  '0': 'border-blue-400',
+  '1': 'border-green-400',
+  '2': 'border-yellow-400',
+  '3': 'border-orange-400',
+  '4': 'border-red-400'
+}
+
+<Slider 
+  value={temperature}
+  handleChange={setTemperature}
+  min={0}
+  max={4}
+  step={1}
+  labels={{ min: 'Cold', max: 'Hot' }}
+  rangeColorMap={temperatureColors}
+  borderColorMap={temperatureBorders}
+/>
+
+// Uncontrolled slider with default value
+<Slider 
+  defaultValue={50}
+  handleChange={(value) => console.log('Changed to:', value)}
+  min={0}
+  max={100}
+  step={10}
+  labels={{ min: 'Min', mid: 'Mid', max: 'Max' }}
+/>
+
+// Disabled slider state
+<Slider 
+  value={lockedValue}
+  handleChange={() => {}} // No-op for disabled
+  disabled
+  min={0}
+  max={10}
+  step={1}
+  labels={{ min: 'Start', max: 'End' }}
+/>
+
+// Precise decimal slider
+<Slider 
+  value={precision}
+  handleChange={setPrecision}
+  min={0}
+  max={1}
+  step={0.01}
+  labels={{ min: '0.00', max: '1.00' }}
+  compact
+/>
+
+// Custom styled slider
+<Slider 
+  value={customValue}
+  handleChange={setCustomValue}
+  min={-10}
+  max={10}
+  step={2}
+  labels={{ min: '-10', mid: '0', max: '+10' }}
+  className={{
+    track: 'bg-gray-300 h-2',
+    thumb: 'w-6 h-6 bg-blue-500 border-2 border-white',
+    label: 'text-sm font-medium text-gray-700'
+  }}
+/>
+
+// Multi-step range with icons
+<Slider 
+  value={difficulty}
+  handleChange={setDifficulty}
+  min={1}
+  max={3}
+  step={1}
+  icons={{
+    min: '🟢',  // Easy
+    mid: '🟡',  // Medium  
+    max: '🔴'   // Hard
+  }}
+/>
+
+// Percentage slider with visual feedback
+const percentageColors = Object.fromEntries(
+  Array.from({length: 11}, (_, i) => [
+    (i * 10).toString(),
+    `bg-gradient-to-r from-red-${Math.max(900-i*100, 100)} to-green-${Math.min(i*100+100, 900)}`
+  ])
+)
+
+<Slider 
+  value={percentage}
+  handleChange={setPercentage}
+  min={0}
+  max={100}
+  step={10}
+  labels={{ min: '0%', mid: '50%', max: '100%' }}
+  rangeColorMap={percentageColors}
+  compact
+/>
+
+// Testing configuration
+<Slider 
+  value={testValue}
+  handleChange={setTestValue}
+  min={0}
+  max={5}
+  step={1}
+  data={{ 'data-cy': 'rating-slider' }}
+  dataThumb={{ 'data-testid': 'slider-thumb' }}
+  id="test-slider"
+/>
+```
+
+Layout Variants:
+- Default: Full-size layout with prominent labels/icons
+- Compact: Space-efficient layout for dense forms
+- Labels display: Min, optional mid, and max position indicators
+- Icon display: Visual icons/emojis instead of text labels
+
+Value Management:
+- Controlled: External state with value/handleChange
+- Uncontrolled: Internal state with defaultValue
+- Real-time updates: Immediate callback on value changes
+- Step constraints: Enforced value increments
+
+Visual Feedback:
+- rangeColorMap: Dynamic track coloring based on current value
+- borderColorMap: Dynamic thumb styling based on current value
+- Custom styling: Complete control over appearance
+- Accessibility: Visual and keyboard interaction support
+
+Color Mapping:
+- Value-based: Colors change based on current slider value
+- Track segments: Different colors for different value ranges
+- Thumb styling: Border colors that reflect current state
+- CSS class mapping: Flexible styling with utility classes
+
+Best Practices:
+- Use labels for descriptive text feedback
+- Use icons for visual/emotional feedback (ratings, moods)
+- Choose appropriate step sizes for the use case
+- Provide color feedback for important value ranges
+- Consider disabled states for read-only scenarios
+
+Common Use Cases:
+- Rating and feedback systems
+- Volume and brightness controls
+- Range and preference selection
+- Progress and completion indicators
+- Numerical parameter adjustment
+
+Accessibility Features:
+- Full keyboard navigation (arrow keys, home, end)
+- ARIA attributes for screen readers
+- Focus management and visual indicators
+- Value announcements on change
+- Disabled state support
+
+Testing Support:
+- data prop for general testing attributes
+- dataThumb prop for thumb-specific testing
+- id prop for unique element identification
+- Value tracking for state verification
+
+Related Components:
+- RangeSlider: For dual-handle range selection
+- NumberField: For precise numeric input
+- Rating: For star-based rating systems
+- Progress: For progress indication
+
+AI_DOCUMENTATION_END
+*/}
 
 export const Default = () => {
   const [value, setValue] = useState(0)

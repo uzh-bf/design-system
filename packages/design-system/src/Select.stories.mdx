@@ -5,29 +5,326 @@ import Select from './Select'
 import { fruitsValues, groupValues } from './values'
 
 {/* START README */}
+The `Select` component provides an enhanced dropdown selection interface with support for individual items, grouped options, custom triggers, tooltips, and advanced state management. It offers flexible positioning, styling customization, and accessibility features for comprehensive form integration.
 
-The Select component provides a higher level abstraction for a simple select input component. It supports both individual items and grouped items, custom triggers, external state management and various styling options.
+Use this component when you need to:
+- Create dropdown selection inputs with single or grouped options
+- Implement form controls with external state management and validation integration
+- Provide selection interfaces with tooltips, icons, and custom trigger labels
+- Build accessible select inputs with keyboard navigation and disabled states
+- Design custom styled select components with flexible positioning options
 
-<br />
-
-The Select component accepts the following props:
-
-- @param id - The id of the select component.
-- @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
-- @param items - The array of items that are displayed in the select component. This prop is mutually exclusive with the groups prop. If items are provided, the component does not look for groups anymore.
-- @param groups - The array of groups that are displayed in the select component. This prop is mutually exclusive with the items prop.
-- @param name - The name attribute of the select component needed for Formik integration --> see FormikSelectField
-- @param onChange - The function that is called when the value of the select component changes (changes externally managed value).
-- @param onBlur - The function that is called when the viewport of the select component is closed.
-- @param value - The current value of the select component (managed externally).
-- @param defaultValue - The default value of the select component set initially.
-- @param placeholder - The placeholder text that is displayed when no value is selected.
-- @param disabled - Specifies whether the select component is disabled or not.
-- @param basic - Specifies whether the select component is basic or not. A basic select component does only have minimal styling of the trigger.
-- @param className - The optional className object allows you to override the default styling.
-- @param contentPosition - The position of the content of the select component. Currently only 'item-aligned' and 'popper' are supported.
-
+The component supports individual items and grouped collections, custom trigger labels with shortLabel support, tooltip integration with optional icons, disabled states for both component and individual items, external state management, and comprehensive styling customization for all select elements.
 {/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Enhanced dropdown selection component with grouped options, custom triggers, tooltips, icons, and comprehensive state management for advanced form integration
+
+Dependencies:
+- Radix UI Select primitives for accessibility and behavior
+- React state management for controlled/uncontrolled modes
+- FontAwesome icons for item decoration
+- Tooltip system for item descriptions
+- External values/options configuration
+
+Available Stories:
+- Default: Basic select with individual items
+- Popper: Alternative positioning with popper strategy
+- Basic: Minimal styling variant with reduced visual elements
+- DefaultValue: Pre-selected value demonstration
+- Groups: Grouped options with shortLabel functionality
+- Disabled: Disabled component state
+- DisabledElements: Individual item disabled states
+- Styled: Custom styling and color variations
+- CustomTriggerLabel: shortLabel feature for compact trigger display
+- WithTooltips: Tooltip integration with optional icons
+
+Props (Select component):
+- id?: string - HTML id attribute for the select
+- data?: Record<string, string> - Data attributes for testing purposes
+- items?: SelectItem[] - Array of individual select items (mutually exclusive with groups)
+- groups?: SelectGroup[] - Array of grouped select options (mutually exclusive with items)
+- name?: string - Form field name for integration (Formik compatibility)
+- onChange?: (value: string) => void - Callback when selection changes
+- onBlur?: () => void - Callback when select dropdown closes
+- value?: string - Controlled selected value
+- defaultValue?: string - Initial selected value for uncontrolled mode
+- placeholder?: string - Placeholder text when no value selected
+- disabled?: boolean - Whether the select component is disabled
+- basic?: boolean - Minimal styling variant with reduced visual elements
+- className?: Record<string, string> - Styling overrides for different parts
+- contentPosition?: 'item-aligned' | 'popper' - Dropdown positioning strategy
+
+SelectItem Structure:
+- value: string - Unique identifier for the option
+- label: string - Display text for the option
+- shortLabel?: string - Compact label for trigger display
+- disabled?: boolean - Whether this specific item is disabled
+- tooltip?: string - Tooltip content displayed on hover
+- icon?: React.ReactNode - Icon element to display with the item
+- className?: Record<string, string> - Styling overrides for this item
+
+SelectGroup Structure:
+- label: string - Group heading label
+- items: SelectItem[] - Array of items within this group
+
+Component Structure:
+- Trigger button with selected value or placeholder
+- Dropdown content with items or grouped collections
+- Optional icons and tooltips for enhanced UX
+- Keyboard navigation and accessibility support
+- Custom positioning strategies
+
+Usage Examples:
+```tsx
+// Basic select with individual items
+const fruits = [
+  { value: 'apple', label: 'Apple' },
+  { value: 'banana', label: 'Banana' },
+  { value: 'orange', label: 'Orange' }
+]
+
+<Select 
+  placeholder="Choose a fruit"
+  items={fruits}
+  onChange={(value) => console.log('Selected:', value)}
+/>
+
+// Controlled select with external state
+const [selectedFruit, setSelectedFruit] = useState('')
+
+<Select 
+  placeholder="Choose a fruit"
+  items={fruits}
+  value={selectedFruit}
+  onChange={setSelectedFruit}
+/>
+
+// Grouped select options
+const foodGroups = [
+  {
+    label: 'Fruits',
+    items: [
+      { value: 'apple', label: 'Apple' },
+      { value: 'banana', label: 'Banana' }
+    ]
+  },
+  {
+    label: 'Vegetables',
+    items: [
+      { value: 'carrot', label: 'Carrot' },
+      { value: 'broccoli', label: 'Broccoli' }
+    ]
+  }
+]
+
+<Select 
+  placeholder="Choose food"
+  groups={foodGroups}
+  onChange={handleFoodSelection}
+/>
+
+// Select with tooltips and icons
+const toolOptions = [
+  {
+    value: 'edit',
+    label: 'Edit Document',
+    icon: <EditIcon />,
+    tooltip: 'Edit the current document'
+  },
+  {
+    value: 'share',
+    label: 'Share Document',
+    icon: <ShareIcon />,
+    tooltip: 'Share with other users'
+  }
+]
+
+<Select 
+  placeholder="Choose action"
+  items={toolOptions}
+  onChange={handleToolSelection}
+/>
+
+// Custom trigger labels with shortLabel
+const longNamedItems = [
+  {
+    value: 'js',
+    label: 'JavaScript Programming Language',
+    shortLabel: 'JavaScript'
+  },
+  {
+    value: 'ts',
+    label: 'TypeScript Programming Language', 
+    shortLabel: 'TypeScript'
+  }
+]
+
+const [language, setLanguage] = useState('')
+
+<Select 
+  placeholder="Choose language"
+  items={longNamedItems}
+  value={language}
+  onChange={setLanguage}
+/>
+
+// Disabled items and component
+const statusOptions = [
+  { value: 'active', label: 'Active' },
+  { value: 'pending', label: 'Pending', disabled: true },
+  { value: 'inactive', label: 'Inactive' }
+]
+
+<Select 
+  placeholder="Choose status"
+  items={statusOptions}
+  disabled={!canChangeStatus}
+  onChange={handleStatusChange}
+/>
+
+// Custom styled select
+<Select 
+  placeholder="Styled select"
+  items={options}
+  className={{
+    root: 'border-blue-500',
+    trigger: 'bg-blue-50 text-blue-700',
+    content: 'bg-blue-100',
+    item: 'hover:bg-blue-200',
+    groupLabel: 'text-blue-600 font-semibold'
+  }}
+  onChange={handleSelection}
+/>
+
+// Form integration
+<form onSubmit={handleSubmit}>
+  <Select 
+    name="category"
+    placeholder="Select category"
+    items={categories}
+    value={formData.category}
+    onChange={(value) => setFormData(prev => ({
+      ...prev,
+      category: value
+    }))}
+    onBlur={handleFieldBlur}
+  />
+</form>
+
+// Popper positioning for better placement
+<Select 
+  contentPosition="popper"
+  placeholder="Choose option"
+  items={options}
+  onChange={handleChange}
+/>
+
+// Basic minimal styling
+<Select 
+  basic
+  placeholder="Minimal select"
+  items={options}
+  onChange={handleChange}
+/>
+
+// Complex grouped select with all features
+const complexGroups = [
+  {
+    label: 'Development Tools',
+    items: [
+      {
+        value: 'vscode',
+        label: 'Visual Studio Code',
+        shortLabel: 'VS Code',
+        icon: <VsCodeIcon />,
+        tooltip: 'Microsoft\'s popular code editor'
+      },
+      {
+        value: 'webstorm',
+        label: 'WebStorm IDE',
+        shortLabel: 'WebStorm',
+        disabled: !hasLicense,
+        tooltip: 'JetBrains IDE for web development'
+      }
+    ]
+  }
+]
+
+<Select 
+  placeholder="Choose IDE"
+  groups={complexGroups}
+  value={selectedIde}
+  onChange={setSelectedIde}
+  data={{ 'data-cy': 'ide-selector' }}
+/>
+```
+
+Selection Modes:
+- Controlled: External state management with value/onChange
+- Uncontrolled: Internal state with defaultValue
+- Form integration: Name prop for form libraries like Formik
+
+Content Organization:
+- Individual items: Flat list of selectable options
+- Grouped items: Organized sections with group labels
+- Mutually exclusive: Use either items OR groups, not both
+
+Advanced Features:
+- shortLabel: Compact trigger display for long option names
+- Tooltips: Additional context on hover with optional icons
+- Custom icons: Visual enhancement for options
+- Disabled states: Component-level and individual item disabling
+
+Positioning Strategies:
+- item-aligned: Default positioning aligned with trigger
+- popper: Advanced positioning with better placement logic
+
+Styling Customization:
+- className.root: Overall container styling
+- className.trigger: Trigger button appearance
+- className.content: Dropdown content container
+- className.item: Individual option styling
+- className.groupLabel: Group heading appearance
+- className.separator: Group separator styling
+
+Best Practices:
+- Use meaningful placeholder text that indicates expected selection
+- Provide tooltips for complex or abbreviated option names
+- Group related options logically for better user experience
+- Consider disabled states for conditional availability
+- Use shortLabel for long option names to keep trigger compact
+
+Common Use Cases:
+- Form field selections (categories, statuses, types)
+- Filter and sort options in data tables
+- Tool and action selection in interfaces
+- Configuration and preference selection
+- Multi-step form navigation
+
+Accessibility Features:
+- Full keyboard navigation support
+- ARIA attributes for screen readers
+- Focus management and visual indicators
+- Disabled state announcements
+- Proper option group semantics
+
+Testing Support:
+- id prop for unique element identification
+- data prop for comprehensive testing attributes
+- name prop for form field identification
+- Support for E2E testing frameworks
+
+Related Components:
+- FormikSelectField: Formik integration wrapper
+- ShadcnSelect: Basic Shadcn UI select variant
+- Dropdown: For action menu implementations
+- Combobox: For searchable selection
+
+AI_DOCUMENTATION_END
+*/}
 
 export const Default = () => {
   return (

@@ -30,6 +30,366 @@ The props for the NumberField component are as follows:
 
 {/* END README */}
 
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Standalone numeric input field component with precision control, range validation, unit display, and comprehensive error handling for numeric data entry
+
+Dependencies:
+- React state management for input value handling
+- Custom Label component for consistent labeling
+- CSS styling system for appearance customization
+- Input validation logic for numeric constraints
+- Accessibility support for form interactions
+
+Available Stories:
+- Default: Basic number field allowing decimal numbers with arbitrary precision
+- Placeholder: Number field with placeholder text
+- Unit: Number field with unit display (kg) and error state
+- Precision: Number field limited to 2 decimal places
+- MinMax: Number field with value range constraints (0-100)
+- Integer: Number field restricted to integer values only (precision: 0)
+- NumberState: Number field with numeric state management (not recommended)
+- Labelled: Number field with label and tooltip
+- SmallLabel: Number field with small label variant
+- Error: Number field with error state on touch
+
+Props (NumberField component):
+- id?: string - HTML id attribute for the input element
+- value: string - Controlled input value (maintained as string for precision)
+- onChange: (value: string) => void - Value change handler
+- label?: string - Display label for the number field
+- labelType?: 'small' | 'large' - Label size and positioning variant
+- placeholder?: string - Placeholder text for empty input
+- precision?: number - Number of decimal places allowed (undefined = unlimited)
+- min?: number - Minimum allowed numeric value
+- max?: number - Maximum allowed numeric value
+- unit?: string - Unit text displayed next to input (kg, %, $, etc.)
+- tooltip?: string | React.ReactNode - Optional tooltip for additional information
+- required?: boolean - Whether the field is required
+- hideError?: boolean - Whether to hide error message display
+- error?: string - Error message to display below field
+- isTouched?: boolean - Whether the field has been interacted with
+- disabled?: boolean - Whether the input is disabled
+- onBlur?: () => void - Blur event handler for validation
+- data?: Record<string, string> - Data attributes for testing purposes
+- className?: Record<string, string> - Styling overrides for different parts
+
+Component Structure:
+- Label component integration with tooltip support
+- Numeric input with validation logic
+- Unit display next to input field
+- Error message display below field
+- Required field indicator integration
+
+Usage Examples:
+```tsx
+// Basic number field
+const [amount, setAmount] = useState('')
+
+<NumberField
+  label="Amount"
+  value={amount}
+  onChange={setAmount}
+  placeholder="Enter amount"
+  tooltip="Enter a numeric value"
+/>
+
+// Currency input with precision
+const [price, setPrice] = useState('')
+
+<NumberField
+  label="Price"
+  value={price}
+  onChange={setPrice}
+  unit="$"
+  precision={2}
+  min={0}
+  placeholder="0.00"
+  tooltip="Enter price in USD"
+/>
+
+// Weight measurement
+const [weight, setWeight] = useState('')
+
+<NumberField
+  label="Weight"
+  value={weight}
+  onChange={setWeight}
+  unit="kg"
+  precision={1}
+  min={0}
+  max={1000}
+  tooltip="Enter weight in kilograms"
+/>
+
+// Percentage field
+const [percentage, setPercentage] = useState('')
+
+<NumberField
+  label="Completion"
+  value={percentage}
+  onChange={setPercentage}
+  unit="%"
+  precision={1}
+  min={0}
+  max={100}
+  tooltip="Completion percentage (0-100%)"
+/>
+
+// Integer-only counter
+const [count, setCount] = useState('')
+
+<NumberField
+  label="Quantity"
+  value={count}
+  onChange={setCount}
+  precision={0}
+  min={1}
+  tooltip="Number of items"
+/>
+
+// Age input with validation
+const [age, setAge] = useState('')
+const [ageError, setAgeError] = useState('')
+const [ageTouched, setAgeTouched] = useState(false)
+
+const validateAge = (value: string) => {
+  const numValue = parseFloat(value)
+  if (isNaN(numValue)) return 'Please enter a valid age'
+  if (numValue < 0) return 'Age cannot be negative'
+  if (numValue > 150) return 'Please enter a realistic age'
+  return ''
+}
+
+<NumberField
+  label="Age"
+  value={age}
+  onChange={(value) => {
+    setAge(value)
+    if (ageTouched) {
+      setAgeError(validateAge(value))
+    }
+  }}
+  onBlur={() => {
+    setAgeTouched(true)
+    setAgeError(validateAge(age))
+  }}
+  error={ageError}
+  isTouched={ageTouched}
+  required
+  precision={0}
+  min={0}
+  max={150}
+  tooltip="Enter your age in years"
+/>
+
+// Scientific measurement with high precision
+const [measurement, setMeasurement] = useState('')
+
+<NumberField
+  label="Measurement"
+  value={measurement}
+  onChange={setMeasurement}
+  unit="mm"
+  precision={3}
+  tooltip="Precision measurement in millimeters"
+  placeholder="0.000"
+/>
+
+// Form with multiple number fields
+const [formData, setFormData] = useState({
+  length: '',
+  width: '',
+  height: ''
+})
+
+<div className="dimensions-form space-y-4">
+  <NumberField
+    label="Length"
+    value={formData.length}
+    onChange={(value) => setFormData(prev => ({ ...prev, length: value }))}
+    unit="cm"
+    precision={1}
+    min={0.1}
+    required
+    tooltip="Length in centimeters"
+  />
+  
+  <NumberField
+    label="Width"
+    value={formData.width}
+    onChange={(value) => setFormData(prev => ({ ...prev, width: value }))}
+    unit="cm"
+    precision={1}
+    min={0.1}
+    required
+    tooltip="Width in centimeters"
+  />
+  
+  <NumberField
+    label="Height"
+    value={formData.height}
+    onChange={(value) => setFormData(prev => ({ ...prev, height: value }))}
+    unit="cm"
+    precision={1}
+    min={0.1}
+    required
+    tooltip="Height in centimeters"
+  />
+</div>
+
+// Budget calculator
+const [income, setIncome] = useState('')
+const [expenses, setExpenses] = useState('')
+
+<div className="budget-form">
+  <NumberField
+    label="Monthly Income"
+    value={income}
+    onChange={setIncome}
+    unit="$"
+    precision={2}
+    min={0}
+    required
+    tooltip="Your total monthly income"
+    className={{ field: 'max-w-xs' }}
+  />
+  
+  <NumberField
+    label="Monthly Expenses"
+    value={expenses}
+    onChange={setExpenses}
+    unit="$"
+    precision={2}
+    min={0}
+    required
+    tooltip="Your total monthly expenses"
+    className={{ field: 'max-w-xs' }}
+  />
+  
+  <div className="savings-display">
+    Savings: ${(parseFloat(income || '0') - parseFloat(expenses || '0')).toFixed(2)}
+  </div>
+</div>
+
+// Settings form with various number types
+const [settings, setSettings] = useState({
+  timeout: '',
+  retries: '',
+  threshold: ''
+})
+
+<div className="settings-form space-y-4">
+  <NumberField
+    label="Timeout"
+    labelType="small"
+    value={settings.timeout}
+    onChange={(value) => updateSetting('timeout', value)}
+    unit="seconds"
+    precision={0}
+    min={1}
+    max={300}
+    tooltip="Request timeout in seconds"
+  />
+  
+  <NumberField
+    label="Max Retries"
+    labelType="small"
+    value={settings.retries}
+    onChange={(value) => updateSetting('retries', value)}
+    precision={0}
+    min={0}
+    max={10}
+    tooltip="Maximum number of retry attempts"
+  />
+  
+  <NumberField
+    label="Error Threshold"
+    labelType="small"
+    value={settings.threshold}
+    onChange={(value) => updateSetting('threshold', value)}
+    unit="%"
+    precision={1}
+    min={0}
+    max={100}
+    tooltip="Error rate threshold for alerts"
+  />
+</div>
+
+// Testing configuration
+<NumberField
+  label="Test Number"
+  value={testValue}
+  onChange={setTestValue}
+  data={{
+    'data-cy': 'number-input',
+    'data-testid': 'number-field'
+  }}
+  id="test-number-field"
+/>
+```
+
+Precision Control:
+- undefined: Unlimited decimal places
+- 0: Integer values only
+- 1-n: Fixed number of decimal places
+- Automatic formatting and validation
+
+Value Management:
+- String-based value storage for precision preservation
+- parseFloat conversion for calculations
+- Input sanitization and validation
+- Empty value handling
+
+Range Validation:
+- min prop for minimum value constraints
+- max prop for maximum value constraints
+- Real-time validation feedback
+- Error message display
+
+Unit Display:
+- Flexible unit text positioning
+- Currency symbols and measurement units
+- Custom unit styling support
+- Unit-aware validation
+
+Best Practices:
+- Always use string values for precision preservation
+- Set appropriate precision for data type
+- Implement proper min/max constraints
+- Provide clear labels and tooltips
+- Use parseFloat for calculations, not state storage
+
+Common Use Cases:
+- Financial calculations and currency input
+- Product specifications and measurements
+- Settings and configuration values
+- Scientific and engineering data
+- Quantity and inventory management
+
+Accessibility Features:
+- Proper label association with input fields
+- Error message integration with ARIA attributes
+- Keyboard navigation support
+- Screen reader compatible structure
+- Required field indicators
+
+Testing Support:
+- data prop for custom testing attributes
+- Numeric validation testing capabilities
+- Error state verification
+- Precision constraint testing
+
+Related Components:
+- FormikNumberField: For Formik form integration
+- TextField: For general text input needs
+- Label: For standalone labeling requirements
+- Tooltip: For additional help information
+
+AI_DOCUMENTATION_END
+*/}
+
 export function Default() {
   const [value, setValue] = useState('')
   return (

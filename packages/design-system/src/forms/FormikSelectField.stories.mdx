@@ -34,6 +34,394 @@ The FormikSelectField accepts the following props:
 
 {/* END README */}
 
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Formik-integrated select dropdown component that wraps the core SelectField with option grouping, validation integration, and form state management for dropdown selection
+
+Dependencies:
+- Formik for form state management and validation
+- SelectField core component for dropdown functionality
+- Yup for selection validation schema support
+- React state management for dropdown interactions
+- Custom label and tooltip components
+
+Available Stories:
+- Default: Basic select field with fruit options and placeholder
+- Validation: Select field with Yup validation requiring specific selection
+- Groups: Select field with grouped options organization
+- DisabledElement: Select field with some disabled options
+- DisabledElementGroups: Grouped select with disabled items
+- Required: Select field with required indicator
+- Disabled: Select field in disabled state
+- LargeLabel: Select field with large label variant
+- Error: Select field with error state display
+- Tooltip: Select field with tooltip and help information
+
+Props (FormikSelectField component):
+- id?: string - HTML id attribute for the select element
+- data?: Record<string, string> - Data attributes for testing purposes
+- name: string - Formik field name for form state management
+- items?: SelectItem[] - Array of selectable items
+- groups?: SelectGroup[] - Array of grouped items for organization
+- label?: string - Display label for the select field
+- labelType?: 'small' | 'large' - Label size and positioning variant
+- placeholder?: string - Placeholder text when no value is selected
+- disabled?: boolean - Whether the select is disabled
+- error?: string - Error message to display below field
+- hideError?: boolean - Whether to hide error message display
+- contentPosition?: 'item-aligned' | 'popper' - Dropdown positioning strategy
+- tooltip?: string | React.ReactNode - Optional tooltip for additional information
+- required?: boolean - Whether the field is required
+- className?: Record<string, string> - Styling overrides for different parts
+
+Component Structure:
+- Formik Field wrapper for form integration
+- Select dropdown with current value display
+- Dropdown content with items or groups
+- Form validation and error display integration
+- Automatic form state synchronization
+
+Usage Examples:
+```tsx
+// Basic form select
+<Formik
+  initialValues={{ category: '' }}
+  onSubmit={(values) => console.log(values)}
+>
+  <Form>
+    <FormikSelectField
+      name="category"
+      label="Category"
+      items={[
+        { value: 'tech', label: 'Technology' },
+        { value: 'health', label: 'Health' },
+        { value: 'finance', label: 'Finance' }
+      ]}
+      placeholder="Select a category"
+    />
+    <Button type="submit">Submit</Button>
+  </Form>
+</Formik>
+
+// Select with validation
+<Formik
+  initialValues={{ priority: '' }}
+  validationSchema={Yup.object({
+    priority: Yup.string()
+      .required('Priority is required')
+      .oneOf(['high', 'medium', 'low'], 'Invalid priority level')
+  })}
+  onSubmit={handleSubmit}
+>
+  <Form>
+    <FormikSelectField
+      name="priority"
+      label="Priority Level"
+      required
+      tooltip="Select the task priority level"
+      items={[
+        { value: 'low', label: 'Low Priority' },
+        { value: 'medium', label: 'Medium Priority' },
+        { value: 'high', label: 'High Priority' }
+      ]}
+      placeholder="Choose priority"
+    />
+  </Form>
+</Formik>
+
+// Grouped options select
+<FormikSelectField
+  name="product"
+  label="Product"
+  groups={[
+    {
+      label: 'Electronics',
+      items: [
+        { value: 'laptop', label: 'Laptop' },
+        { value: 'phone', label: 'Smartphone' },
+        { value: 'tablet', label: 'Tablet' }
+      ]
+    },
+    {
+      label: 'Accessories',
+      items: [
+        { value: 'case', label: 'Phone Case' },
+        { value: 'charger', label: 'Charger' },
+        { value: 'headphones', label: 'Headphones' }
+      ]
+    }
+  ]}
+  placeholder="Select a product"
+  tooltip="Choose from our product catalog"
+/>
+
+// User role assignment form
+<Formik
+  initialValues={{
+    role: '',
+    department: '',
+    permissions: ''
+  }}
+  validationSchema={userRoleSchema}
+  onSubmit={handleRoleAssignment}
+>
+  <Form className="space-y-4">
+    <FormikSelectField
+      name="role"
+      label="User Role"
+      required
+      tooltip="Assign a role to the user"
+      items={[
+        { value: 'admin', label: 'Administrator' },
+        { value: 'manager', label: 'Manager' },
+        { value: 'employee', label: 'Employee' },
+        { value: 'intern', label: 'Intern' }
+      ]}
+      placeholder="Select role"
+    />
+    
+    <FormikSelectField
+      name="department"
+      label="Department"
+      required
+      tooltip="Select the user's department"
+      groups={departmentGroups}
+      placeholder="Choose department"
+    />
+    
+    <FormikSelectField
+      name="permissions"
+      label="Permission Level"
+      tooltip="Set the permission level for this user"
+      items={[
+        { value: 'read', label: 'Read Only' },
+        { value: 'write', label: 'Read/Write' },
+        { value: 'admin', label: 'Full Admin', disabled: !canAssignAdmin }
+      ]}
+      placeholder="Select permissions"
+    />
+    
+    <Button type="submit">Assign Role</Button>
+  </Form>
+</Formik>
+
+// Settings form with various selects
+<Formik
+  initialValues={{
+    theme: 'light',
+    language: 'en',
+    timezone: ''
+  }}
+  onSubmit={handleSettingsUpdate}
+>
+  <Form>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <FormikSelectField
+        name="theme"
+        label="Theme"
+        labelType="small"
+        items={[
+          { value: 'light', label: 'Light Theme' },
+          { value: 'dark', label: 'Dark Theme' },
+          { value: 'auto', label: 'Auto (System)' }
+        ]}
+        tooltip="Choose your preferred theme"
+      />
+      
+      <FormikSelectField
+        name="language"
+        label="Language"
+        labelType="small"
+        items={languageOptions}
+        tooltip="Select your preferred language"
+      />
+      
+      <FormikSelectField
+        name="timezone"
+        label="Timezone"
+        labelType="small"
+        groups={timezoneGroups}
+        placeholder="Select timezone"
+        tooltip="Choose your local timezone"
+        contentPosition="popper"
+      />
+    </div>
+  </Form>
+</Formik>
+
+// Project assignment form
+<FormikSelectField
+  name="project"
+  label="Assign to Project"
+  labelType="large"
+  items={[
+    { value: 'proj1', label: 'Website Redesign' },
+    { value: 'proj2', label: 'Mobile App Development' },
+    { value: 'proj3', label: 'API Integration', disabled: !hasApiAccess },
+    { value: 'proj4', label: 'Database Migration' }
+  ]}
+  required
+  tooltip="Select the project for assignment"
+  placeholder="Choose project"
+/>
+
+// Conditional select based on previous selection
+<Formik
+  initialValues={{ category: '', subcategory: '' }}
+  onSubmit={handleCategorySubmit}
+>
+  {({ values }) => (
+    <Form>
+      <FormikSelectField
+        name="category"
+        label="Category"
+        items={categoryOptions}
+        placeholder="Select category"
+        tooltip="Choose the main category"
+      />
+      
+      {values.category && (
+        <FormikSelectField
+          name="subcategory"
+          label="Subcategory"
+          items={getSubcategoryOptions(values.category)}
+          placeholder="Select subcategory"
+          tooltip="Choose a subcategory"
+        />
+      )}
+    </Form>
+  )}
+</Formik>
+
+// Multi-step form with dependent selects
+<Formik
+  initialValues={{
+    country: '',
+    state: '',
+    city: ''
+  }}
+  onSubmit={handleLocationSubmit}
+>
+  {({ values, setFieldValue }) => (
+    <Form>
+      <FormikSelectField
+        name="country"
+        label="Country"
+        items={countryOptions}
+        placeholder="Select country"
+        tooltip="Choose your country"
+        onChange={(value) => {
+          setFieldValue('country', value)
+          setFieldValue('state', '') // Reset dependent fields
+          setFieldValue('city', '')
+        }}
+      />
+      
+      {values.country && (
+        <FormikSelectField
+          name="state"
+          label="State/Province"
+          items={getStateOptions(values.country)}
+          placeholder="Select state"
+          tooltip="Choose your state or province"
+          onChange={(value) => {
+            setFieldValue('state', value)
+            setFieldValue('city', '') // Reset city when state changes
+          }}
+        />
+      )}
+      
+      {values.state && (
+        <FormikSelectField
+          name="city"
+          label="City"
+          items={getCityOptions(values.country, values.state)}
+          placeholder="Select city"
+          tooltip="Choose your city"
+        />
+      )}
+    </Form>
+  )}
+</Formik>
+
+// Testing configuration
+<FormikSelectField
+  name="testSelect"
+  label="Test Select"
+  items={testOptions}
+  data={{
+    'data-cy': 'formik-select',
+    'data-testid': 'select-field'
+  }}
+  id="test-formik-select"
+/>
+```
+
+Form Integration Features:
+- Automatic Formik field binding with name prop
+- Built-in selection validation support
+- Error state display from Formik field meta
+- Form submission integration with selected values
+- Touch/blur state management for UX
+
+Grouping and Organization:
+- Hierarchical option organization with groups
+- Group headers for categorization
+- Disabled groups and individual items
+- Visual separation between grouped options
+
+Validation Patterns:
+- Required field validation
+- Specific value validation with oneOf
+- Custom validation rules
+- Conditional validation based on other fields
+- Cross-field dependency validation
+
+Conditional Options:
+- Dynamic option lists based on form state
+- Disabled options based on permissions
+- Dependent dropdown cascading
+- Option filtering and updates
+
+Best Practices:
+- Use clear, descriptive option labels
+- Group related options for better organization
+- Provide helpful tooltips for complex selections
+- Implement proper validation for required fields
+- Consider disabled options for unavailable choices
+- Use placeholders to guide user selection
+
+Common Use Cases:
+- User role and permission assignment
+- Category and classification selection
+- Location and geography selection
+- Settings and preference configuration
+- Project and resource assignment
+
+Testing Support:
+- data prop for custom testing attributes
+- Option selection testing capabilities
+- Dropdown interaction verification
+- Formik integration testing with selected values
+- Group and disabled option testing
+
+Accessibility Features:
+- Proper label association with select elements
+- Keyboard navigation (arrow keys, enter, escape)
+- Screen reader compatible structure
+- High contrast color support
+- Focus management for dropdown interactions
+
+Related Components:
+- SelectField: Core select functionality
+- Select: Basic select component variant
+- FormikTextField: For text input alternatives
+- Dropdown: For custom dropdown functionality
+
+AI_DOCUMENTATION_END
+*/}
+
 export const Default = () => {
   return (
     <Formik

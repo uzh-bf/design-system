@@ -1,24 +1,164 @@
 import Progress from './Progress'
 
 {/* START README */}
+The `Progress` component provides advanced progress visualization with support for single and multiple stacked indicators, custom formatting, offset values, and flexible styling. It's ideal for complex progress scenarios like multi-step processes or comparative data.
 
-The Progress component is designed to display a progress bar with standard theme-based default styling. It directly accepts custom formatters, offset values, limitations, and multiple other configuration possibilities.
+Use this component when you need to:
+- Display progress with custom value formatting (percentages, ratios, etc.)
+- Create stacked progress bars for multiple data sets
+- Show progress with offset or baseline values
+- Build progress indicators with custom styling and colors
+- Visualize complex progress scenarios beyond simple percentage completion
 
-<br />
+The component supports multiple value arrays for stacked indicators, custom formatters for value display, offset calculations for baseline adjustments, and comprehensive styling customization.
 
-The Progress component accepts the following props:
-
-- @param id - The id of the progress bar.
-- @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
-- @param value - The value of the progress bar. The value should be between 0 and an optionally provided max value. If multiple values are provided, the indicators are rendered on top of each other (allowing for stacked progress bars).
-- @param offset - The number that determines the offset of the progress bar. The offset is subtracted from the value.
-- @param max - The maximum value of the progress bar.
-- @param formatter - The function that formats the value of the progress bar.
-- @param isMaxVisible - The boolean that determines if the maximum value should be displayed.
-- @param noMinWidth - The boolean that determines if the progress bar should have a minimum width.
-- @param className - The optional className object allows you to override the default styling.
-
+**Note**: This is distinct from the ShadcnProgress component, which provides basic progress indication without advanced formatting and stacking features.
 {/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Advanced progress bar implementation with support for multiple stacked indicators, custom formatting, offset calculations, and comprehensive styling options
+
+Dependencies:
+- React for component rendering
+- Tailwind CSS for styling
+- Custom utility functions for progress calculations
+
+Available Stories:
+- Default: Basic progress bar with formatter
+- Zero: Progress bar at 0% completion
+- Full: Progress bar at 100% completion  
+- Formatted: Progress with percentage formatting
+- Styled: Custom styling with className overrides
+- Offset: Progress with offset value demonstration
+- Multiple: Stacked progress bars with multiple values and colors
+
+Props (Progress component):
+- id?: string - HTML id attribute for the progress bar
+- data?: Record<string, string> - Data attributes for testing purposes
+- value: number | number[] - Progress value(s). Single number or array for stacked bars
+- offset?: number - Offset value subtracted from the progress value
+- max?: number - Maximum value for progress calculation (default: 100)
+- formatter?: (value: number) => React.ReactNode - Function to format displayed value
+- isMaxVisible?: boolean - Whether to display the maximum value
+- noMinWidth?: boolean - Whether to disable minimum width for indicators
+- className?: {
+    root?: string,
+    background?: string,
+    indicator?: string | string[],
+    text?: string
+  } - Styling overrides for different parts
+
+Component Structure:
+- Root container with background progress track
+- Indicator(s) showing actual progress values
+- Text overlay displaying formatted value
+- Support for multiple stacked indicators with individual styling
+
+Usage Examples:
+```tsx
+// Basic progress with percentage formatting
+<Progress 
+  value={75} 
+  max={100} 
+  formatter={(val) => `${val}%`} 
+/>
+
+// Stacked progress for multiple metrics
+<Progress
+  value={[80, 60, 40]}
+  max={100}
+  formatter={() => null}
+  className={{
+    indicator: [
+      'bg-green-500',
+      'bg-yellow-500', 
+      'bg-red-500'
+    ]
+  }}
+/>
+
+// Progress with offset baseline
+<Progress
+  value={75}
+  offset={25}
+  max={100}
+  formatter={(val) => `${val - 25} above baseline`}
+/>
+
+// Custom styled progress
+<Progress
+  value={45}
+  max={100}
+  className={{
+    root: 'h-8 rounded-lg',
+    background: 'bg-gray-200',
+    indicator: 'bg-gradient-to-r from-blue-500 to-purple-600',
+    text: 'font-bold text-white'
+  }}
+  formatter={(val) => `${val}/100 tasks`}
+/>
+
+// Multi-layered progress (e.g., completion vs quality)
+<Progress
+  value={[90, 75]}
+  max={100}
+  className={{
+    indicator: [
+      'bg-blue-500 opacity-50',
+      'bg-green-600'
+    ]
+  }}
+  formatter={() => 'Quality: 75% | Completion: 90%'}
+/>
+
+// Progress without minimum width (allows 0-width indicators)
+<Progress
+  value={[95, 0]}
+  max={100}
+  noMinWidth
+  className={{
+    indicator: [
+      'bg-green-500',
+      'bg-red-500 min-w-0'
+    ]
+  }}
+  formatter={() => null}
+/>
+```
+
+Stacked Progress Patterns:
+- Pass array of values for multiple indicators
+- Each indicator renders on top of the previous one
+- Use different colors via className.indicator array
+- Control visibility with noMinWidth for zero values
+
+Formatting Options:
+- Return string for text display
+- Return JSX for rich formatting
+- Return null to hide value display
+- Use isMaxVisible to show/hide maximum value
+
+Performance Considerations:
+- Formatter function called on each render
+- Multiple indicators increase DOM complexity
+- Avoid complex calculations in formatter
+
+Common Use Cases:
+- File upload progress with speed indicator
+- Multi-step form completion
+- Performance metrics with thresholds
+- Resource usage (CPU, memory, disk)
+- Goal tracking with multiple targets
+
+Related Components:
+- ShadcnProgress: Basic progress indication
+- StepProgress: Multi-step progress visualization
+- Meter: Alternative progress representation
+
+AI_DOCUMENTATION_END
+*/}
 
 export const Default = () => {
   return <Progress value={10} max={100} formatter={(val) => val} />

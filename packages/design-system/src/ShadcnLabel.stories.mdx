@@ -2,8 +2,138 @@ import { ShadcnLabel } from './ShadcnLabel'
 import { Checkbox } from './ui/checkbox'
 
 {/* START README */}
-The `Label` component currently represents a simple re-export of the Shadcn UI Label component. More information on the structure can be found on the [Shadcn UI Label documentation](https://ui.shadcn.com/docs/components/label).
+The `ShadcnLabel` component provides accessible form labels with proper semantic associations to form controls. It ensures that form inputs are properly labeled for both visual users and screen readers.
+
+Use this component when you need to:
+- Label form inputs, checkboxes, and radio buttons
+- Create accessible forms with proper semantic associations
+- Provide clear, consistent labeling across form elements
+- Ensure proper focus management and screen reader support
+
+The label component automatically associates with form controls through the `htmlFor` attribute, provides consistent typography, and maintains proper accessibility standards throughout your forms.
+
+**Note**: This is prefixed as "ShadcnLabel" to distinguish it from the standalone Label component in the design system.
 {/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Shadcn UI re-export built on Radix UI's Label primitive with consistent typography and accessibility features
+Dependencies: @radix-ui/react-label
+
+Available Stories:
+- Default: Label associated with checkbox demonstrating proper form labeling
+
+Props (ShadcnLabel component):
+- htmlFor: string - ID of the associated form control (required for proper accessibility)
+- className: string - Additional CSS classes
+- asChild: boolean - Whether to render as child element
+
+Component Structure:
+- ShadcnLabel: Accessible form label with semantic association (re-export from ui/label)
+
+Usage Examples:
+```tsx
+// Basic form field labeling
+<div className="grid gap-2">
+  <ShadcnLabel htmlFor="email">Email Address</ShadcnLabel>
+  <Input id="email" type="email" placeholder="Enter your email" />
+</div>
+
+// Checkbox with label
+<div className="flex items-center space-x-2">
+  <Checkbox id="terms" />
+  <ShadcnLabel htmlFor="terms">
+    I agree to the terms and conditions
+  </ShadcnLabel>
+</div>
+
+// Required field indicator
+<ShadcnLabel htmlFor="username" className="flex items-center gap-1">
+  Username
+  <span className="text-red-500">*</span>
+</ShadcnLabel>
+<Input id="username" required />
+
+// Radio group labeling
+<div className="space-y-2">
+  <ShadcnLabel className="text-base font-medium">
+    Preferred Contact Method
+  </ShadcnLabel>
+  <div className="space-y-2">
+    <div className="flex items-center space-x-2">
+      <RadioGroupItem value="email" id="contact-email" />
+      <ShadcnLabel htmlFor="contact-email">Email</ShadcnLabel>
+    </div>
+    <div className="flex items-center space-x-2">
+      <RadioGroupItem value="phone" id="contact-phone" />
+      <ShadcnLabel htmlFor="contact-phone">Phone</ShadcnLabel>
+    </div>
+  </div>
+</div>
+
+// Form section with description
+<div className="space-y-2">
+  <ShadcnLabel htmlFor="bio" className="text-sm font-medium">
+    Biography
+  </ShadcnLabel>
+  <p className="text-sm text-muted-foreground">
+    Tell us a bit about yourself (optional)
+  </p>
+  <Textarea id="bio" placeholder="Enter your biography..." />
+</div>
+
+// Switch with label
+<div className="flex items-center justify-between">
+  <div className="space-y-0.5">
+    <ShadcnLabel htmlFor="notifications" className="text-base">
+      Email Notifications
+    </ShadcnLabel>
+    <p className="text-sm text-muted-foreground">
+      Receive notifications about your account activity
+    </p>
+  </div>
+  <Switch id="notifications" />
+</div>
+
+// File input labeling
+<div className="grid gap-2">
+  <ShadcnLabel htmlFor="file-upload">
+    Upload Document
+  </ShadcnLabel>
+  <div className="flex items-center gap-2">
+    <Input id="file-upload" type="file" accept=".pdf,.doc,.docx" />
+    <Button variant="outline" size="sm">
+      Choose File
+    </Button>
+  </div>
+</div>
+
+// Grouped form fields
+<fieldset className="space-y-4">
+  <legend className="text-lg font-semibold">Personal Information</legend>
+  <div className="grid grid-cols-2 gap-4">
+    <div className="space-y-2">
+      <ShadcnLabel htmlFor="first-name">First Name</ShadcnLabel>
+      <Input id="first-name" />
+    </div>
+    <div className="space-y-2">
+      <ShadcnLabel htmlFor="last-name">Last Name</ShadcnLabel>
+      <Input id="last-name" />
+    </div>
+  </div>
+</fieldset>
+```
+
+Related Components:
+- Input: Primary target for label associations
+- Checkbox: Often used with labels for selection
+- RadioGroup: Requires labels for accessibility
+- Switch: Benefits from proper labeling
+- Textarea: Needs clear labeling for context
+
+AI_DOCUMENTATION_END
+*/}
 
 export const Default = () => {
   return (

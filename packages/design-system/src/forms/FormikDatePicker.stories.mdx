@@ -29,6 +29,205 @@ The FormikDatePicker accepts the following props:
 
 {/* END README */}
 
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Formik-integrated date picker component that wraps the core DatePicker with comprehensive form validation, calendar navigation, and accessibility features for date selection in forms
+
+Dependencies:
+- Formik for form state management and validation
+- DatePicker core component for calendar functionality
+- Yup for date validation schema support
+- React state management for calendar interactions
+- Custom label and tooltip components
+
+Available Stories:
+- Default: Basic Formik date picker with form submission
+- Disabled: Disabled state demonstration
+- Labelled: Date picker with label configuration
+- Tooltip: Date picker with tooltip and required indicator
+- Validation: Form validation with Yup date schema
+
+Props (FormikDatePicker component):
+- id?: string - HTML id attribute for the date picker trigger
+- name: string - Formik field name for form state management
+- label?: string - Display label for the date picker field
+- labelType?: 'small' | 'large' - Label size and positioning variant
+- placeholder?: string - Placeholder text when no date is selected
+- tooltip?: string | React.ReactNode - Optional tooltip for additional information
+- required?: boolean - Whether the field is required for form submission
+- disabled?: boolean - Whether the date picker is disabled
+- hideError?: boolean - Whether to hide error message display
+- format?: string - Date format string for display (when not in edit mode)
+- className?: Record<string, string> - Styling overrides for different parts
+- onDateChange?: (date: Date) => void - Custom date change handler
+- dataTrigger?: Record<string, string> - Data attributes for trigger element testing
+- dataCalendar?: Record<string, string> - Data attributes for calendar testing
+- dataNextMonth?: Record<string, string> - Data attributes for next month button
+- dataPreviousMonth?: Record<string, string> - Data attributes for previous month button
+
+Component Structure:
+- Formik Field wrapper for form integration
+- Date picker trigger with formatted date display
+- Calendar popover with month/year navigation
+- Form validation and error display integration
+- Automatic form state synchronization
+
+Usage Examples:
+```tsx
+// Basic Formik date picker
+<Formik
+  initialValues={{ startDate: new Date() }}
+  onSubmit={(values) => console.log(values)}
+>
+  <Form>
+    <FormikDatePicker
+      name="startDate"
+      label="Start Date"
+      placeholder="Select start date"
+    />
+    <Button type="submit">Submit</Button>
+  </Form>
+</Formik>
+
+// Date picker with validation
+<Formik
+  initialValues={{ eventDate: null }}
+  validationSchema={Yup.object({
+    eventDate: Yup.date()
+      .required('Event date is required')
+      .min(new Date(), 'Event date must be in the future')
+  })}
+  onSubmit={handleSubmit}
+>
+  <Form>
+    <FormikDatePicker
+      name="eventDate"
+      label="Event Date"
+      required
+      tooltip="Choose the date for your event"
+      placeholder="Select date"
+    />
+  </Form>
+</Formik>
+
+// Advanced date range selection
+<Formik
+  initialValues={{
+    startDate: null,
+    endDate: null
+  }}
+  validationSchema={dateRangeSchema}
+  onSubmit={handleDateRangeSubmit}
+>
+  {({ values }) => (
+    <Form className="space-y-4">
+      <FormikDatePicker
+        name="startDate"
+        label="Start Date"
+        required
+        tooltip="Beginning of the date range"
+        className={{ trigger: 'max-w-xs' }}
+      />
+      
+      <FormikDatePicker
+        name="endDate"
+        label="End Date"
+        required
+        tooltip="End of the date range"
+        disabled={!values.startDate}
+        className={{ trigger: 'max-w-xs' }}
+      />
+      
+      <Button type="submit">Create Date Range</Button>
+    </Form>
+  )}
+</Formik>
+
+// Booking form with date restrictions
+<Formik
+  initialValues={{ bookingDate: null }}
+  validationSchema={Yup.object({
+    bookingDate: Yup.date()
+      .required('Booking date is required')
+      .min(addDays(new Date(), 1), 'Booking must be at least 24 hours in advance')
+      .max(addMonths(new Date(), 6), 'Booking cannot be more than 6 months ahead')
+  })}
+  onSubmit={handleBooking}
+>
+  <Form>
+    <FormikDatePicker
+      name="bookingDate"
+      label="Booking Date"
+      required
+      tooltip="Select your preferred booking date"
+      format="MMMM do, yyyy"
+      placeholder="Choose booking date"
+    />
+  </Form>
+</Formik>
+
+// Testing configuration
+<FormikDatePicker
+  name="testDate"
+  label="Test Date"
+  dataTrigger={{ 'data-cy': 'date-trigger' }}
+  dataCalendar={{ 'data-testid': 'calendar' }}
+  dataNextMonth={{ 'data-cy': 'next-month' }}
+  dataPreviousMonth={{ 'data-cy': 'prev-month' }}
+/>
+```
+
+Form Integration Features:
+- Automatic Formik field binding with name prop
+- Built-in date validation support
+- Error state display from Formik field meta
+- Form submission integration with Date objects
+- Touch/blur state management for UX
+
+Validation Patterns:
+- Date format validation
+- Future/past date restrictions
+- Date range validation
+- Business day validation
+- Custom date constraints
+
+Calendar Navigation:
+- Month/year navigation controls
+- Keyboard accessibility support
+- Date selection with click/enter
+- Today highlighting and quick selection
+- Disabled date styling
+
+Best Practices:
+- Use appropriate date validation for business logic
+- Provide clear labels and tooltips for date context
+- Consider timezone implications in applications
+- Implement proper error handling for invalid dates
+- Use format prop for consistent date display
+
+Common Use Cases:
+- Event scheduling and booking forms
+- Date range selection for filters
+- Birth date and age verification
+- Deadline and due date selection
+- Calendar event creation
+
+Testing Support:
+- Comprehensive data attributes for all interactive elements
+- Calendar navigation testing capabilities
+- Date selection verification
+- Formik integration testing with date values
+
+Related Components:
+- DatePicker: Core date selection functionality
+- FormikDatetimePicker: For date and time selection
+- Calendar: For calendar display components
+- FormikTextField: For manual date input alternatives
+
+AI_DOCUMENTATION_END
+*/}
+
 export const Default = () => (
   <div>
     <Formik

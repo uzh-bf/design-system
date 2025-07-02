@@ -14,8 +14,139 @@ import {
 } from './Drawer'
 
 {/* START README */}
-The `Drawer` component currently represents a simple re-export of the Shadcn UI Drawer component. More information on the structure can be found on the [Shadcn UI Drawer documentation](https://ui.shadcn.com/docs/components/drawer).
+The `Drawer` component provides bottom-sliding panels that emerge from the bottom of the screen, primarily designed for mobile interfaces and touch interactions. It offers an excellent alternative to modals for mobile-first experiences.
+
+Use this component when you need to:
+- Create mobile-friendly forms and input interfaces
+- Display settings or configuration panels on smaller screens
+- Provide contextual actions that don't require full modal behavior
+- Implement pull-to-reveal patterns for additional content
+
+The drawer includes smooth animations, gesture support for closing, and structured sections for headers, content, and footer actions. It automatically adapts to different screen sizes and provides excellent accessibility support.
 {/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Shadcn UI re-export built on Radix UI's Dialog primitive with bottom-slide animations optimized for mobile interaction
+Dependencies: @radix-ui/react-dialog, vaul (for mobile drawer behavior)
+
+Available Stories:
+- Default: Interactive goal-setting drawer with chart, increment/decrement controls, and footer actions
+
+Props (Drawer component):
+- open: boolean - Controlled open state
+- defaultOpen: boolean - Initial open state  
+- onOpenChange: (open: boolean) => void - Open state change handler
+- shouldScaleBackground: boolean - Whether background should scale when drawer opens
+- snapPoints: number[] - Array of snap points for drawer height
+- fadeFromIndex: number - Index from which drawer content starts to fade
+- modal: boolean - Whether drawer is modal (default: true)
+- direction: "top" | "bottom" | "left" | "right" - Slide direction (default: bottom)
+
+Component Structure:
+- Drawer: Root container managing drawer state (re-export from ui/drawer)
+- DrawerTrigger: Element that opens the drawer
+- DrawerContent: Main content container with gesture support
+- DrawerHeader: Header section with title and description
+- DrawerTitle: Primary heading with proper typography
+- DrawerDescription: Optional subtitle or description
+- DrawerFooter: Footer section for action buttons
+- DrawerClose: Close button or trigger
+
+Usage Examples:
+```tsx
+// Basic mobile settings drawer
+<Drawer>
+  <DrawerTrigger asChild>
+    <Button>Settings</Button>
+  </DrawerTrigger>
+  <DrawerContent>
+    <DrawerHeader>
+      <DrawerTitle>Settings</DrawerTitle>
+      <DrawerDescription>Adjust your preferences</DrawerDescription>
+    </DrawerHeader>
+    <div className="p-4 space-y-4">
+      <div className="flex items-center justify-between">
+        <span>Notifications</span>
+        <Switch />
+      </div>
+      <div className="flex items-center justify-between">
+        <span>Dark Mode</span>
+        <Switch />
+      </div>
+    </div>
+    <DrawerFooter>
+      <Button>Save</Button>
+      <DrawerClose asChild>
+        <Button variant="outline">Cancel</Button>
+      </DrawerClose>
+    </DrawerFooter>
+  </DrawerContent>
+</Drawer>
+
+// Interactive value selector
+<Drawer>
+  <DrawerTrigger asChild>
+    <Button variant="outline">Select Amount</Button>
+  </DrawerTrigger>
+  <DrawerContent>
+    <div className="mx-auto w-full max-w-sm">
+      <DrawerHeader>
+        <DrawerTitle>Choose Amount</DrawerTitle>
+      </DrawerHeader>
+      <div className="p-4">
+        <div className="flex items-center justify-center space-x-2">
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => setValue(Math.max(0, value - 10))}
+          >
+            -
+          </Button>
+          <span className="text-2xl font-bold">{value}</span>
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => setValue(value + 10)}
+          >
+            +
+          </Button>
+        </div>
+      </div>
+      <DrawerFooter>
+        <Button>Confirm</Button>
+      </DrawerFooter>
+    </div>
+  </DrawerContent>
+</Drawer>
+
+// With snap points
+<Drawer snapPoints={[0.2, 0.5, 0.8]}>
+  <DrawerTrigger asChild>
+    <Button>Open Expandable Drawer</Button>
+  </DrawerTrigger>
+  <DrawerContent>
+    <div className="p-4 h-96">
+      <DrawerHeader>
+        <DrawerTitle>Expandable Content</DrawerTitle>
+      </DrawerHeader>
+      <div className="space-y-4">
+        {/* Content that adapts to different snap heights */}
+      </div>
+    </div>
+  </DrawerContent>
+</Drawer>
+```
+
+Related Components:
+- Sheet: For desktop-oriented slide-out panels
+- Modal: For content requiring full attention
+- Popover: For smaller contextual content
+- BottomSheet: Alternative mobile drawer implementation
+
+AI_DOCUMENTATION_END
+*/}
 
 export const Default = () => {
   const [goal, setGoal] = useState(350)

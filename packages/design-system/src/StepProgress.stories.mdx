@@ -10,25 +10,201 @@ import StepProgress from './StepProgress'
 import { stepProgressStatusItems } from './values'
 
 {/* START README */}
+The `StepProgress` component provides an interactive multi-step progress indicator that allows users to navigate through workflows, see completion status, and track their position in complex processes. It supports custom item data, status indicators, and flexible display options.
 
-The StepProgress component is a custom-built progress component that contains a series of steps that can be clicked to navigate through a process. It is designed to visually represent the progress of a task or workflow, allowing users to see their current position, a status of a specific step, and navigate to other steps if needed.
+Use this component when you need to:
+- Guide users through multi-step processes (forms, onboarding, quizzes)
+- Display progress in workflows with navigable steps
+- Show completion status for individual steps
+- Create interactive progress indicators with custom formatting
+- Build step-by-step interfaces with overflow handling
 
-<br />
-
-The StepProgress component accepts the following props:
-
-- @param id - The id of the progress bar.
-- @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
-- @param value - The value of the progress bar. The value should be between 0 and an optionally provided max value.
-- @param max - The maximum value of the progress bar.
-- @param items - The array of items that are displayed in the step progress bar.
-- @param onItemClick - The function that is called when an item is clicked.
-- @param displayOffsetLeft - The number that determines the maximum number of elements that are shown to the left of the current value on the step progress bar.
-- @param displayOffsetRight - The number that determines the maximum number of elements that are shown to the right of the current value on the step progress bar.
-- @param className - The optional className object allows you to override the default styling.
-- @param formatter - The optional formatter function allows you to override the rendering of each item.
-
+The component features clickable navigation between steps, customizable step content and formatting, display windowing for large step counts, status-based styling, and comprehensive customization options.
 {/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Interactive step-based progress component with navigation, status tracking, custom formatting, and display windowing for large step counts
+
+Dependencies:
+- React useState hook for step management
+- FontAwesome icons for status indicators
+- Custom formatter function support
+- Click navigation handling
+- Responsive display windowing
+
+Available Stories:
+- Default: Basic step progress with numeric steps and navigation
+- WithOffset: Display windowing with left/right offset configuration
+- Status: Step progress with custom status items and status-based styling
+- StatusOffset: Status-based steps with display windowing
+- AsymmetricOffset: Asymmetric display windows (different left/right offsets)
+- CustomFormatter: Advanced custom formatting with status icons and points
+
+Props (StepProgress component):
+- id?: string - HTML id attribute for the progress component
+- data?: Record<string, string> - Data attributes for testing purposes
+- value: number - Current active step (0-based index)
+- max?: number - Maximum number of steps (when using numeric mode)
+- items?: StepItem[] - Array of custom step items with status and data
+- onItemClick?: (value: number, item?: StepItem) => void - Click handler for step navigation
+- displayOffsetLeft?: number - Max steps to show left of current step
+- displayOffsetRight?: number - Max steps to show right of current step
+- className?: Record<string, string> - Styling overrides for component parts
+- formatter?: ({ element: StepItem, ix: number }) => React.ReactNode - Custom step rendering function
+
+StepItem Structure:
+- id?: string | number - Unique identifier for the step
+- status?: 'correct' | 'incorrect' | 'partial' | 'unanswered' - Step completion status
+- points?: number - Points earned for this step
+- maxPoints?: number - Maximum possible points for this step
+- [key: string]: any - Additional custom properties
+
+Component Structure:
+- Horizontal step container with overflow handling
+- Individual step elements with click navigation
+- Status-based styling and icons
+- Display windowing for large step counts
+- Custom formatter support for step content
+
+Usage Examples:
+```tsx
+// Basic numeric step progress
+const [currentStep, setCurrentStep] = useState(0)
+
+<StepProgress 
+  value={currentStep}
+  max={10}
+  onItemClick={(step) => setCurrentStep(step)}
+/>
+
+// With custom status items
+const steps = [
+  { id: 1, status: 'correct', points: 10, maxPoints: 10 },
+  { id: 2, status: 'partial', points: 7, maxPoints: 10 },
+  { id: 3, status: 'incorrect', points: 0, maxPoints: 10 },
+  { id: 4, status: 'unanswered' }
+]
+
+<StepProgress
+  value={1}
+  items={steps}
+  onItemClick={(step, item) => {
+    console.log('Navigating to step:', step, 'Item:', item)
+    setCurrentStep(step)
+  }}
+/>
+
+// With display windowing
+<StepProgress
+  value={currentStep}
+  items={longStepList}
+  displayOffsetLeft={3}
+  displayOffsetRight={3}
+  onItemClick={handleStepClick}
+/>
+
+// Custom formatter for quiz results
+<StepProgress
+  value={currentStep}
+  items={quizSteps}
+  formatter={({ element, ix }) => (
+    <div className="flex flex-col items-center p-2">
+      <div className="font-bold">{ix + 1}</div>
+      {element.points !== undefined && (
+        <div className="text-sm">
+          {element.points}/{element.maxPoints}
+        </div>
+      )}
+      <FontAwesomeIcon 
+        icon={getStatusIcon(element.status)}
+        className={getStatusColor(element.status)}
+      />
+    </div>
+  )}
+  onItemClick={handleQuizNavigation}
+/>
+
+// Asymmetric display for different contexts
+<StepProgress
+  value={currentStep}
+  items={steps}
+  displayOffsetLeft={1}  // Show 1 step before current
+  displayOffsetRight={5} // Show 5 steps after current
+  onItemClick={handleStepChange}
+/>
+```
+
+Display Windowing:
+- Controls how many steps are visible around current step
+- displayOffsetLeft: Steps to show before current step
+- displayOffsetRight: Steps to show after current step
+- Automatically handles overflow for large step counts
+- Maintains navigation to all steps while optimizing display
+
+Status-Based Styling:
+- correct: Green styling with success icon
+- incorrect: Red styling with error icon  
+- partial: Yellow styling with partial icon
+- unanswered: Gray styling with default icon
+- Custom status values supported through formatter
+
+Custom Formatting:
+- Complete control over step appearance
+- Access to step data and index
+- Support for icons, points, custom content
+- Maintains click handling and navigation
+- Flexible layout and styling options
+
+Navigation Patterns:
+```tsx
+// Form wizard navigation
+const handleStepClick = (step, item) => {
+  if (step <= completedSteps) {
+    setCurrentStep(step)
+  } else {
+    // Prevent navigation to incomplete steps
+    showWarning('Please complete current step first')
+  }
+}
+
+// Quiz review navigation
+const handleQuizReview = (step, item) => {
+  setCurrentStep(step)
+  setReviewMode(true)
+  loadQuestionData(item.id)
+}
+
+// Linear process with status tracking
+const handleProcessStep = (step, item) => {
+  updateStepStatus(currentStep, 'completed')
+  setCurrentStep(step)
+  logStepNavigation(step, item)
+}
+```
+
+Performance Considerations:
+- Display windowing reduces DOM nodes for large step counts
+- Custom formatters should be memoized for complex rendering
+- Click handlers optimized for frequent navigation
+- Responsive design adapts to available space
+
+Common Use Cases:
+- Multi-step form wizards
+- Quiz and assessment interfaces
+- Onboarding flows
+- Process workflow tracking
+- Tutorial step navigation
+
+Related Components:
+- Progress: For simple progress indication
+- Stepper: Alternative step navigation implementation
+- Wizard: For form-based multi-step processes
+- Breadcrumb: For hierarchical navigation
+
+AI_DOCUMENTATION_END
+*/}
 
 export const Default = () => {
   const [value, setValue] = useState(5)

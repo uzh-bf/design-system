@@ -25,6 +25,354 @@ The FormikSwitchField accepts the following props:
 
 {/* END README */}
 
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Formik-integrated toggle switch component that wraps the core SwitchField with boolean state management, label positioning, and validation for on/off preferences
+
+Dependencies:
+- Formik for form state management and validation
+- SwitchField core component for toggle switch functionality
+- Yup for boolean validation schema support
+- React state management for switch interactions
+- Custom label and tooltip components
+
+Available Stories:
+- Default: Basic switch with dynamic label based on state
+- Required: Switch with required field indicator
+- Tooltip: Switch with tooltip and error state demonstration
+- LeftLabel: Switch with label positioned on the left side
+- Error: Switch with error state display
+- Undefined: Switch with undefined initial state
+- Disabled: Switch in disabled state
+- Sizes: Switch in different sizes (sm, md, lg)
+- Validation: Switch with boolean validation requiring true value
+
+Props (FormikSwitchField component):
+- id?: string - HTML id attribute for the switch element
+- name: string - Formik field name for form state management
+- data?: Record<string, string> - Data attributes for testing purposes
+- label?: string - Display label for the switch
+- labelLeft?: boolean - Whether to position label on the left side
+- disabled?: boolean - Whether the switch is disabled
+- error?: string - Error message to display below switch
+- hideError?: boolean - Whether to hide error message display
+- size?: 'sm' | 'md' | 'lg' - Size variant of the switch
+- tooltip?: string | React.ReactNode - Optional tooltip for additional information
+- required?: boolean - Whether the field is required (visual indicator only)
+- className?: Record<string, string> - Styling overrides for different parts
+
+Component Structure:
+- Formik Field wrapper for form integration
+- Toggle switch with visual state indication
+- Label with optional tooltip integration
+- Error message display below switch
+- Size variants for different UI contexts
+
+Usage Examples:
+```tsx
+// Basic preference toggle
+<Formik
+  initialValues={{ notifications: false }}
+  onSubmit={(values) => console.log(values)}
+>
+  <Form>
+    <FormikSwitchField
+      name="notifications"
+      label="Enable Notifications"
+      tooltip="Receive email and push notifications"
+    />
+    <Button type="submit">Save Preferences</Button>
+  </Form>
+</Formik>
+
+// Terms of service acceptance
+<Formik
+  initialValues={{ acceptTerms: false }}
+  validationSchema={Yup.object({
+    acceptTerms: Yup.boolean()
+      .required('You must accept the terms')
+      .oneOf([true], 'You must accept the terms to continue')
+  })}
+  onSubmit={handleRegistration}
+>
+  <Form>
+    <FormikSwitchField
+      name="acceptTerms"
+      label="I accept the Terms of Service"
+      required
+      tooltip="Please read and accept our terms to proceed"
+    />
+  </Form>
+</Formik>
+
+// Settings form with multiple switches
+<Formik
+  initialValues={{
+    emailNotifications: true,
+    pushNotifications: false,
+    marketingEmails: false,
+    securityAlerts: true
+  }}
+  onSubmit={handleSettingsUpdate}
+>
+  <Form className="space-y-4">
+    <div>
+      <h3 className="text-lg font-semibold mb-3">Notification Settings</h3>
+      
+      <FormikSwitchField
+        name="emailNotifications"
+        label="Email Notifications"
+        tooltip="Receive notifications via email"
+        size="md"
+      />
+      
+      <FormikSwitchField
+        name="pushNotifications"
+        label="Push Notifications"
+        tooltip="Receive push notifications on your device"
+        size="md"
+      />
+      
+      <FormikSwitchField
+        name="marketingEmails"
+        label="Marketing Emails"
+        tooltip="Receive promotional and marketing content"
+        size="md"
+      />
+      
+      <FormikSwitchField
+        name="securityAlerts"
+        label="Security Alerts"
+        required
+        tooltip="Important security notifications (required)"
+        size="md"
+      />
+    </div>
+    
+    <Button type="submit">Update Settings</Button>
+  </Form>
+</Formik>
+
+// Feature toggle with left-aligned label
+<FormikSwitchField
+  name="darkMode"
+  label="Dark Mode"
+  labelLeft
+  tooltip="Switch to dark theme"
+  size="lg"
+/>
+
+// Privacy settings with validation
+<Formik
+  initialValues={{
+    profilePublic: false,
+    showEmail: false,
+    allowMessages: true
+  }}
+  validationSchema={privacyValidationSchema}
+  onSubmit={handlePrivacyUpdate}
+>
+  {({ values }) => (
+    <Form>
+      <fieldset>
+        <legend className="text-lg font-semibold mb-4">Privacy Settings</legend>
+        
+        <FormikSwitchField
+          name="profilePublic"
+          label="Public Profile"
+          tooltip="Make your profile visible to other users"
+          labelLeft
+        />
+        
+        <FormikSwitchField
+          name="showEmail"
+          label="Show Email Address"
+          tooltip="Display your email on your public profile"
+          disabled={!values.profilePublic}
+          labelLeft
+        />
+        
+        <FormikSwitchField
+          name="allowMessages"
+          label="Allow Direct Messages"
+          tooltip="Let other users send you messages"
+          labelLeft
+        />
+      </fieldset>
+    </Form>
+  )}
+</Formik>
+
+// Compact switches for mobile interface
+<div className="mobile-settings space-y-2">
+  <FormikSwitchField
+    name="wifiOnly"
+    label="WiFi Only"
+    size="sm"
+    labelLeft
+    tooltip="Use WiFi only for data transfer"
+  />
+  
+  <FormikSwitchField
+    name="autoSync"
+    label="Auto Sync"
+    size="sm"
+    labelLeft
+    tooltip="Automatically sync your data"
+  />
+  
+  <FormikSwitchField
+    name="location"
+    label="Location Services"
+    size="sm"
+    labelLeft
+    tooltip="Allow location access for better experience"
+  />
+</div>
+
+// Account verification switch
+<Formik
+  initialValues={{ emailVerified: undefined }}
+  onSubmit={handleVerification}
+>
+  {({ values, setFieldValue }) => (
+    <Form>
+      <FormikSwitchField
+        name="emailVerified"
+        label={values.emailVerified ? 'Email Verified' : 'Verify Email'}
+        tooltip="Verify your email address for account security"
+        disabled={!canVerifyEmail}
+      />
+      
+      {values.emailVerified && (
+        <div className="text-green-600 text-sm mt-2">
+          ✓ Your email has been verified
+        </div>
+      )}
+    </Form>
+  )}
+</Formik>
+
+// Administrative controls
+<Formik
+  initialValues={{
+    userActive: true,
+    adminAccess: false,
+    maintenanceMode: false
+  }}
+  onSubmit={handleAdminUpdate}
+>
+  <Form>
+    <div className="admin-controls space-y-4">
+      <FormikSwitchField
+        name="userActive"
+        label="User Account Active"
+        tooltip="Enable or disable user account access"
+        size="lg"
+      />
+      
+      <FormikSwitchField
+        name="adminAccess"
+        label="Administrator Access"
+        tooltip="Grant administrative privileges"
+        size="lg"
+        className={{
+          root: 'border border-yellow-300 p-3 rounded-lg bg-yellow-50'
+        }}
+      />
+      
+      <FormikSwitchField
+        name="maintenanceMode"
+        label="Maintenance Mode"
+        tooltip="Enable maintenance mode (blocks user access)"
+        size="lg"
+        className={{
+          root: 'border border-red-300 p-3 rounded-lg bg-red-50'
+        }}
+      />
+    </div>
+  </Form>
+</Formik>
+
+// Testing configuration
+<FormikSwitchField
+  name="testSwitch"
+  label="Test Switch"
+  data={{
+    'data-cy': 'switch-field',
+    'data-testid': 'formik-switch'
+  }}
+  id="test-switch-field"
+/>
+```
+
+Form Integration Features:
+- Automatic Formik field binding with name prop
+- Built-in boolean validation support
+- Error state display from Formik field meta
+- Form submission integration with boolean values
+- Touch/blur state management for UX
+
+Switch States:
+- true: Switch is on/enabled
+- false: Switch is off/disabled  
+- undefined: Initial/unset state
+- Disabled: Non-interactive state
+
+Label Positioning:
+- Default: Label on the right side of switch
+- labelLeft: Label on the left side of switch
+- Flexible: Adapts to different layout needs
+- Tooltip integration with both positions
+
+Size Variants:
+- sm: Small switch for compact interfaces
+- md: Medium switch for standard use
+- lg: Large switch for emphasis or accessibility
+
+Validation Patterns:
+- Boolean validation (true/false)
+- Required validation with oneOf([true])
+- Custom validation rules
+- Conditional validation based on other fields
+
+Best Practices:
+- Use clear, descriptive labels for switch purpose
+- Provide tooltips for complex or unclear options
+- Use appropriate sizes for context
+- Consider label positioning for layout flow
+- Implement proper validation for required switches
+
+Common Use Cases:
+- User preference and settings toggles
+- Feature enable/disable controls
+- Privacy and security options
+- Notification and alert controls
+- Administrative and permission switches
+
+Accessibility Features:
+- Proper label association with switch elements
+- Keyboard navigation (space/enter to toggle)
+- Screen reader compatible structure
+- High contrast color support
+- Focus indicators for interaction
+
+Testing Support:
+- data prop for custom testing attributes
+- Switch state testing capabilities
+- Click/toggle interaction verification
+- Formik integration testing with boolean values
+
+Related Components:
+- SwitchField: Core switch functionality
+- Switch: Basic toggle switch component
+- Checkbox: For alternative boolean input
+- RadioGroup: For multiple choice options
+
+AI_DOCUMENTATION_END
+*/}
+
 export const Default = () => {
   return (
     <Formik

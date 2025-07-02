@@ -32,6 +32,339 @@ The FormikNumberField accepts the following props:
 
 {/* END README */}
 
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Formik-integrated number input field that wraps the core NumberField with comprehensive form validation, precision control, and range restrictions for numeric data entry
+
+Dependencies:
+- Formik for form state management and validation
+- NumberField core component for numeric input functionality
+- Yup for numeric validation schema support
+- React state management for input interactions
+- Custom label and tooltip components
+
+Available Stories:
+- Default: Basic Formik number field with form submission
+- Unit: Number field with unit display (kg, lbs, etc.)
+- MinMax: Number field with minimum and maximum value constraints
+- Disabled: Disabled state demonstration
+- Validation: Form validation with Yup numeric schema
+- Decimals: Number field with decimal precision control (2 decimal places)
+- Integer: Number field restricted to integer values only
+- Required: Required field with visual indicator
+- Styled: Custom styling with colored theme
+- LargeLabel: Number field with large label variant
+
+Props (FormikNumberField component):
+- id?: string - HTML id attribute for the input element
+- name: string - Formik field name for form state management
+- value?: string - Controlled input value (string format for precision)
+- onChange?: (value: string) => void - Value change handler
+- label?: string - Display label for the number field
+- labelType?: 'small' | 'large' - Label size and positioning variant
+- placeholder?: string - Placeholder text for empty input
+- precision?: number - Number of decimal places allowed (0 for integers)
+- min?: number - Minimum allowed value
+- max?: number - Maximum allowed value
+- unit?: string - Unit text displayed next to input (kg, %, $, etc.)
+- tooltip?: string | React.ReactNode - Optional tooltip for additional information
+- required?: boolean - Whether the field is required for form submission
+- hideError?: boolean - Whether to hide error message display
+- error?: string - Error message to display below field
+- isTouched?: boolean - Whether the field has been interacted with
+- disabled?: boolean - Whether the input is disabled
+- onBlur?: () => void - Blur event handler for validation
+- data?: Record<string, string> - Data attributes for testing purposes
+- className?: Record<string, string> - Styling overrides for different parts
+
+Component Structure:
+- Formik Field wrapper for form integration
+- Number input with precision and range validation
+- Unit display next to input field
+- Form validation and error display integration
+- Automatic form state synchronization
+
+Usage Examples:
+```tsx
+// Basic Formik number field
+<Formik
+  initialValues={{ quantity: '' }}
+  onSubmit={(values) => console.log(values)}
+>
+  <Form>
+    <FormikNumberField
+      name="quantity"
+      label="Quantity"
+      placeholder="Enter quantity"
+    />
+    <Button type="submit">Submit</Button>
+  </Form>
+</Formik>
+
+// Price field with validation
+<Formik
+  initialValues={{ price: '' }}
+  validationSchema={Yup.object({
+    price: Yup.number()
+      .required('Price is required')
+      .min(0, 'Price must be positive')
+      .max(10000, 'Price cannot exceed $10,000')
+  })}
+  onSubmit={handleSubmit}
+>
+  <Form>
+    <FormikNumberField
+      name="price"
+      label="Price"
+      required
+      unit="$"
+      precision={2}
+      min={0}
+      max={10000}
+      tooltip="Enter the item price in USD"
+      placeholder="0.00"
+    />
+  </Form>
+</Formik>
+
+// Weight measurement with units
+<FormikNumberField
+  name="weight"
+  label="Weight"
+  unit="kg"
+  precision={1}
+  min={0}
+  tooltip="Enter weight in kilograms"
+  placeholder="0.0"
+/>
+
+// Integer-only field for counts
+<FormikNumberField
+  name="stockCount"
+  label="Stock Count"
+  precision={0}
+  min={0}
+  tooltip="Number of items in stock"
+  placeholder="0"
+/>
+
+// Percentage field with constraints
+<FormikNumberField
+  name="discountPercent"
+  label="Discount"
+  unit="%"
+  precision={1}
+  min={0}
+  max={100}
+  tooltip="Discount percentage (0-100%)"
+  placeholder="0.0"
+/>
+
+// Scientific measurement with high precision
+<FormikNumberField
+  name="measurement"
+  label="Measurement"
+  unit="mm"
+  precision={3}
+  tooltip="Precision measurement in millimeters"
+  placeholder="0.000"
+/>
+
+// Budget form with multiple number fields
+<Formik
+  initialValues={{
+    income: '',
+    expenses: '',
+    savings: ''
+  }}
+  validationSchema={budgetSchema}
+  onSubmit={handleBudgetSubmit}
+>
+  <Form className="space-y-4">
+    <FormikNumberField
+      name="income"
+      label="Monthly Income"
+      required
+      unit="$"
+      precision={2}
+      min={0}
+      tooltip="Your total monthly income"
+    />
+    
+    <FormikNumberField
+      name="expenses"
+      label="Monthly Expenses"
+      required
+      unit="$"
+      precision={2}
+      min={0}
+      tooltip="Your total monthly expenses"
+    />
+    
+    <FormikNumberField
+      name="savings"
+      label="Savings Goal"
+      unit="$"
+      precision={2}
+      min={0}
+      tooltip="How much you want to save monthly"
+    />
+    
+    <Button type="submit">Calculate Budget</Button>
+  </Form>
+</Formik>
+
+// Recipe ingredient quantities
+<div className="ingredients-form">
+  <FormikNumberField
+    name="flour"
+    label="Flour"
+    unit="cups"
+    precision={2}
+    min={0}
+    labelType="small"
+  />
+  
+  <FormikNumberField
+    name="sugar"
+    label="Sugar"
+    unit="tbsp"
+    precision={1}
+    min={0}
+    labelType="small"
+  />
+  
+  <FormikNumberField
+    name="bakingTime"
+    label="Baking Time"
+    unit="minutes"
+    precision={0}
+    min={1}
+    max={180}
+    labelType="small"
+  />
+</div>
+
+// Product configuration with validation
+<Formik
+  initialValues={{
+    width: '',
+    height: '',
+    depth: ''
+  }}
+  validationSchema={dimensionsSchema}
+  onSubmit={handleDimensions}
+>
+  {({ values, errors, touched }) => (
+    <Form>
+      <fieldset>
+        <legend>Product Dimensions</legend>
+        
+        <FormikNumberField
+          name="width"
+          label="Width"
+          required
+          unit="cm"
+          precision={1}
+          min={0.1}
+          max={1000}
+          tooltip="Product width in centimeters"
+        />
+        
+        <FormikNumberField
+          name="height"
+          label="Height"
+          required
+          unit="cm"
+          precision={1}
+          min={0.1}
+          max={1000}
+          tooltip="Product height in centimeters"
+        />
+        
+        <FormikNumberField
+          name="depth"
+          label="Depth"
+          required
+          unit="cm"
+          precision={1}
+          min={0.1}
+          max={1000}
+          tooltip="Product depth in centimeters"
+        />
+      </fieldset>
+    </Form>
+  )}
+</Formik>
+
+// Testing configuration
+<FormikNumberField
+  name="testNumber"
+  label="Test Number"
+  data={{
+    'data-cy': 'number-input',
+    'data-testid': 'formik-number-field'
+  }}
+  id="test-number-field"
+/>
+```
+
+Form Integration Features:
+- Automatic Formik field binding with name prop
+- Built-in numeric validation support
+- Error state display from Formik field meta
+- Form submission integration with numeric values
+- Touch/blur state management for UX
+
+Precision Control:
+- Decimal places limitation (0-n decimal places)
+- Integer-only input (precision: 0)
+- Scientific precision for measurements
+- Automatic formatting on blur
+
+Validation Patterns:
+- Numeric format validation
+- Min/max range validation
+- Required field validation
+- Precision constraint validation
+- Custom business rule validation
+
+Unit Support:
+- Currency symbols ($, €, £)
+- Measurement units (kg, cm, %, etc.)
+- Custom unit text display
+- Unit positioning and styling
+
+Best Practices:
+- Use appropriate precision for data type (currency: 2, measurements: 1-3)
+- Set realistic min/max constraints for user experience
+- Provide clear labels and tooltips for numeric context
+- Use units to clarify expected input format
+- Implement proper validation for business logic
+
+Common Use Cases:
+- Financial forms (prices, budgets, expenses)
+- Product specifications (dimensions, weights)
+- Recipe and cooking measurements
+- Scientific and engineering data entry
+- Inventory and stock management
+
+Testing Support:
+- data prop for custom testing attributes
+- Numeric input validation testing
+- Precision and range constraint verification
+- Formik integration testing with numeric values
+
+Related Components:
+- NumberField: Core numeric input functionality
+- FormikTextField: For general text input needs
+- FormikPinField: For PIN/code numeric entry
+- TextField: For standalone text input
+
+AI_DOCUMENTATION_END
+*/}
+
 export const Default = () => (
   <div>
     <div>The default Formik field works with a "name" input</div>

@@ -6,25 +6,192 @@ import Button from './Button'
 import Checkbox from './Checkbox'
 
 {/* START README */}
-The custom Checkbox in the design-system is a versatile component whose appearance is based on the Shadcn UI Checkbox component. Additionally, pre-defined styling options for different sizes, partial checked states and an integration with labels.
+The `Checkbox` component provides an enhanced checkbox input with support for partial states, custom sizes, integrated labels, and flexible styling. Built on Shadcn UI foundations, it offers improved accessibility and visual consistency.
 
-<br />
+Use this component when you need to:
+- Create form inputs for boolean selections with enhanced styling
+- Display partial/indeterminate states for nested selection scenarios
+- Provide size variants for different interface contexts
+- Build accessible forms with integrated label support
+- Implement custom checkbox styling while maintaining usability
 
-The props for the Checkbox component are as follows:
+The component supports standard and partial checked states, multiple size options, integrated label functionality, custom content display, and comprehensive styling customization options.
 
-- @param id - The id of the checkbox.
-- @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
-- @param children - Optional content of the checkbox that is shown when the checked attribute is true. By default, this is just replaced by a tick symbol.
-- @param checked - Indicate whether the checkbox is checked or not.
-- @param partial - Indicate whether the checkbox is partially checked or not. If the checked attribute is true, it will alwawys override the partial condition simplified logic.
-- @param onCheck - The function that is called when the checkbox is checked or unchecked.
-- @param disabled - Indicate whether the checkbox is disabled or not.
-- @param label - The label of the checkbox.
-- @param size - The size of the checkbox (can be small, medium, large or extra large).
-- @param style - The optional style object allows you to override the default styling.
-- @param className - The optional className object allows you to override the default styling.
-
+**Note**: This is distinct from the basic ShadcnCheckbox, offering additional features like sizing, partial states, and enhanced label integration.
 {/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Enhanced checkbox component built on Shadcn UI foundation with additional features for partial states, sizing, labeling, and custom content support
+
+Dependencies:
+- Shadcn UI Checkbox component as base
+- React state management
+- FontAwesome icons for custom content
+- Tailwind CSS for styling and size variants
+
+Available Stories:
+- Default: Basic checkbox with checked state
+- Disabled: Disabled checkbox state demonstration
+- Labelled: Checkbox with integrated label
+- Sizes: Multiple size variants (small, medium, large, extra large)
+- Partial: Partial/indeterminate state demonstration
+- CustomContent: Custom content display when checked
+- Styled: Custom styling overrides
+
+Props (Checkbox component):
+- id?: string - HTML id attribute for the checkbox
+- data?: Record<string, string> - Data attributes for testing purposes
+- children?: React.ReactNode - Custom content shown when checked (overrides default tick)
+- checked?: boolean - Whether the checkbox is checked
+- partial?: boolean - Whether checkbox shows partial/indeterminate state (overridden by checked)
+- onCheck?: (checked: boolean) => void - Callback when checkbox state changes
+- disabled?: boolean - Whether the checkbox is disabled
+- label?: string - Text label displayed next to checkbox
+- size?: 'small' | 'medium' | 'large' | 'extraLarge' - Size variant
+- style?: React.CSSProperties - Inline styles for customization
+- className?: string - Additional CSS classes for styling
+
+Component Structure:
+- Root container with label integration
+- Checkbox input with enhanced styling
+- Optional label text with proper association
+- Custom content or default tick icon
+- Size-based styling variants
+
+Usage Examples:
+```tsx
+// Basic checkbox
+<Checkbox 
+  checked={isSelected}
+  onCheck={setIsSelected}
+/>
+
+// With label
+<Checkbox
+  checked={acceptTerms}
+  onCheck={setAcceptTerms}
+  label="I accept the terms and conditions"
+/>
+
+// Different sizes
+<div className="space-y-2">
+  <Checkbox size="small" label="Small checkbox" />
+  <Checkbox size="medium" label="Medium checkbox" />
+  <Checkbox size="large" label="Large checkbox" />
+  <Checkbox size="extraLarge" label="Extra large checkbox" />
+</div>
+
+// Partial state for "select all" functionality
+<Checkbox
+  checked={allSelected}
+  partial={someSelected && !allSelected}
+  onCheck={handleSelectAll}
+  label="Select all items"
+/>
+
+// Custom content when checked
+<Checkbox
+  checked={isApproved}
+  onCheck={setIsApproved}
+  label="Approved"
+>
+  <FontAwesomeIcon icon={faCheck} className="text-green-500" />
+</Checkbox>
+
+// Disabled state
+<Checkbox
+  checked={true}
+  disabled
+  label="This option is disabled"
+/>
+
+// Form integration
+<div className="space-y-3">
+  <Checkbox
+    id="newsletter"
+    checked={preferences.newsletter}
+    onCheck={(checked) => updatePreference('newsletter', checked)}
+    label="Subscribe to newsletter"
+  />
+  <Checkbox
+    id="notifications"
+    checked={preferences.notifications}
+    onCheck={(checked) => updatePreference('notifications', checked)}
+    label="Enable push notifications"
+    size="large"
+  />
+</div>
+
+// Custom styling
+<Checkbox
+  checked={isHighlighted}
+  onCheck={setIsHighlighted}
+  label="Important item"
+  className="border-blue-500 bg-blue-50"
+  style={{ borderRadius: '8px' }}
+/>
+```
+
+State Management Patterns:
+```tsx
+// Simple boolean state
+const [isChecked, setIsChecked] = useState(false)
+
+// Array-based multi-selection
+const [selectedItems, setSelectedItems] = useState([])
+const isItemSelected = (id) => selectedItems.includes(id)
+const toggleItem = (id) => {
+  setSelectedItems(prev => 
+    prev.includes(id) 
+      ? prev.filter(item => item !== id)
+      : [...prev, id]
+  )
+}
+
+// Select all with partial state
+const allSelected = selectedItems.length === totalItems.length
+const someSelected = selectedItems.length > 0 && selectedItems.length < totalItems.length
+
+<Checkbox
+  checked={allSelected}
+  partial={someSelected}
+  onCheck={(checked) => {
+    setSelectedItems(checked ? totalItems.map(item => item.id) : [])
+  }}
+  label="Select All"
+/>
+```
+
+Size Variants:
+- small: Compact checkbox for dense interfaces
+- medium: Standard size for general use
+- large: Prominent checkbox for important selections
+- extraLarge: Maximum size for accessibility or emphasis
+
+Accessibility Features:
+- Proper ARIA attributes and labels
+- Keyboard navigation support
+- Screen reader compatibility
+- Focus management and styling
+- Semantic HTML structure
+
+Common Use Cases:
+- Form field boolean selections
+- Multi-item selection interfaces
+- Settings and preferences toggles
+- Terms acceptance and confirmations
+- Nested selection with partial states
+
+Related Components:
+- Switch: For on/off toggle functionality
+- RadioGroup: For single selection from multiple options
+- FormikCheckbox: For Formik form integration
+- Toggle: For binary state switching
+
+AI_DOCUMENTATION_END
+*/}
 
 export const Default = () => {
   const [isChecked, setIsChecked] = useState(true)

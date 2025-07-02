@@ -9,8 +9,159 @@ import {
 } from './Pagination'
 
 {/* START README */}
-The `Pagination` component currently represents a simple re-export of the Shadcn UI Pagination component. More information on the structure can be found on the [Shadcn UI Pagination documentation](https://ui.shadcn.com/docs/components/pagination).
+The `Pagination` component provides navigation controls for multi-page content, allowing users to move between different pages of data or content. It includes previous/next buttons, page numbers, and ellipsis indicators for large page ranges.
+
+Use this component when you need to:
+- Navigate through large datasets split across multiple pages
+- Provide clear indicators of current page position and total pages
+- Enable users to jump to specific pages or navigate sequentially
+- Display page controls in tables, search results, or content listings
+
+The pagination component automatically handles active states, provides accessible navigation, and includes ellipsis indicators when there are many pages. It supports both controlled and uncontrolled usage patterns.
 {/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Shadcn UI re-export built with accessible navigation patterns and flexible page display options
+Dependencies: @radix-ui/react-slot (for asChild pattern), lucide-react (for navigation icons)
+
+Available Stories:
+- Default: Standard pagination with previous/next buttons, numbered pages, and ellipsis
+
+Props (Pagination component):
+- className: string - Additional CSS classes for styling
+
+Component Structure:
+- Pagination: Root container with proper navigation semantics (re-export from ui/pagination)
+- PaginationContent: Content wrapper with flex layout for pagination items
+- PaginationItem: Individual pagination element container
+- PaginationLink: Clickable page number or navigation link
+- PaginationPrevious: Previous page navigation button with arrow icon
+- PaginationNext: Next page navigation button with arrow icon
+- PaginationEllipsis: Ellipsis indicator for skipped page ranges
+
+Usage Examples:
+```tsx
+// Basic pagination
+<Pagination>
+  <PaginationContent>
+    <PaginationItem>
+      <PaginationPrevious href="/page/1" />
+    </PaginationItem>
+    <PaginationItem>
+      <PaginationLink href="/page/1">1</PaginationLink>
+    </PaginationItem>
+    <PaginationItem>
+      <PaginationLink href="/page/2" isActive>2</PaginationLink>
+    </PaginationItem>
+    <PaginationItem>
+      <PaginationLink href="/page/3">3</PaginationLink>
+    </PaginationItem>
+    <PaginationItem>
+      <PaginationNext href="/page/3" />
+    </PaginationItem>
+  </PaginationContent>
+</Pagination>
+
+// With ellipsis for large page ranges
+<Pagination>
+  <PaginationContent>
+    <PaginationItem>
+      <PaginationPrevious href="/page/4" />
+    </PaginationItem>
+    <PaginationItem>
+      <PaginationLink href="/page/1">1</PaginationLink>
+    </PaginationItem>
+    <PaginationItem>
+      <PaginationEllipsis />
+    </PaginationItem>
+    <PaginationItem>
+      <PaginationLink href="/page/4">4</PaginationLink>
+    </PaginationItem>
+    <PaginationItem>
+      <PaginationLink href="/page/5" isActive>5</PaginationLink>
+    </PaginationItem>
+    <PaginationItem>
+      <PaginationLink href="/page/6">6</PaginationLink>
+    </PaginationItem>
+    <PaginationItem>
+      <PaginationEllipsis />
+    </PaginationItem>
+    <PaginationItem>
+      <PaginationLink href="/page/10">10</PaginationLink>
+    </PaginationItem>
+    <PaginationItem>
+      <PaginationNext href="/page/6" />
+    </PaginationItem>
+  </PaginationContent>
+</Pagination>
+
+// Controlled pagination with click handlers
+const [currentPage, setCurrentPage] = useState(1)
+const totalPages = 10
+
+<Pagination>
+  <PaginationContent>
+    <PaginationItem>
+      <PaginationPrevious 
+        onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+        disabled={currentPage === 1}
+      />
+    </PaginationItem>
+    
+    {/* Generate page numbers dynamically */}
+    {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+      const pageNum = currentPage - 2 + i
+      if (pageNum < 1 || pageNum > totalPages) return null
+      
+      return (
+        <PaginationItem key={pageNum}>
+          <PaginationLink 
+            onClick={() => setCurrentPage(pageNum)}
+            isActive={pageNum === currentPage}
+          >
+            {pageNum}
+          </PaginationLink>
+        </PaginationItem>
+      )
+    })}
+    
+    <PaginationItem>
+      <PaginationNext 
+        onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+        disabled={currentPage === totalPages}
+      />
+    </PaginationItem>
+  </PaginationContent>
+</Pagination>
+
+// Minimal pagination (just prev/next)
+<Pagination>
+  <PaginationContent>
+    <PaginationItem>
+      <PaginationPrevious href="/page/1" />
+    </PaginationItem>
+    <PaginationItem>
+      <span className="text-sm text-muted-foreground">
+        Page 2 of 10
+      </span>
+    </PaginationItem>
+    <PaginationItem>
+      <PaginationNext href="/page/3" />
+    </PaginationItem>
+  </PaginationContent>
+</Pagination>
+```
+
+Related Components:
+- Table: Often includes pagination for large datasets
+- Button: Used within pagination for navigation actions
+- Badge: Can show page counts or ranges
+- Select: Alternative for page selection in compact layouts
+
+AI_DOCUMENTATION_END
+*/}
 
 export const Default = () => {
   return (

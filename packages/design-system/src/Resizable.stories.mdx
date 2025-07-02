@@ -5,8 +5,156 @@ import {
 } from './Resizable'
 
 {/* START README */}
-The `Resizable` component currently represents a simple re-export of the Shadcn UI Resizable component. More information on the structure can be found on the [Shadcn UI Resizable documentation](https://ui.shadcn.com/docs/components/resizable).
+The `Resizable` component provides user-controlled resizable panels with drag handles, enabling flexible layout customization. Users can adjust panel sizes by dragging resize handles to create personalized workspace arrangements.
+
+Use this component when you need to:
+- Create split-pane layouts that users can customize
+- Build resizable dashboard panels or content areas
+- Implement adjustable sidebars or content sections
+- Provide flexible workspace layouts that adapt to user preferences
+
+The resizable system supports both horizontal and vertical layouts, nested panel groups, minimum/maximum size constraints, and smooth resize animations. It maintains responsive behavior and provides accessible keyboard navigation for resize operations.
 {/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Shadcn UI re-export built on react-resizable-panels with drag handle controls and constraint management
+Dependencies: react-resizable-panels
+
+Available Stories:
+- Default: Nested horizontal and vertical resizable panels with drag handles
+
+Props (ResizablePanelGroup component):
+- direction: "horizontal" | "vertical" - Layout direction for panels
+- className: string - Additional CSS classes
+- autoSaveId: string - Unique ID for saving panel sizes to localStorage
+- onLayout: (sizes: number[]) => void - Callback when panel sizes change
+- storage: PanelGroupStorage - Custom storage implementation for panel sizes
+
+Props (ResizablePanel component):
+- defaultSize: number - Initial size percentage (0-100)
+- minSize: number - Minimum size percentage
+- maxSize: number - Maximum size percentage
+- collapsible: boolean - Whether panel can collapse completely
+- collapsedSize: number - Size when collapsed
+- onCollapse: () => void - Callback when panel collapses
+- onExpand: () => void - Callback when panel expands
+- onResize: (size: number) => void - Callback when panel resizes
+- className: string - Additional CSS classes
+
+Props (ResizableHandle component):
+- className: string - Additional CSS classes
+- withHandle: boolean - Whether to show visual handle indicator
+- disabled: boolean - Whether handle is disabled
+- onDragging: (isDragging: boolean) => void - Callback for drag state
+
+Component Structure:
+- ResizablePanelGroup: Root container managing panel layout (re-export from ui/resizable)
+- ResizablePanel: Individual resizable content panel
+- ResizableHandle: Drag handle for resizing between panels
+
+Usage Examples:
+```tsx
+// Basic horizontal split
+<ResizablePanelGroup direction="horizontal" className="min-h-[200px] rounded-lg border">
+  <ResizablePanel defaultSize={30}>
+    <div className="flex h-full items-center justify-center p-6">
+      <span className="font-semibold">Sidebar</span>
+    </div>
+  </ResizablePanel>
+  <ResizableHandle withHandle />
+  <ResizablePanel defaultSize={70}>
+    <div className="flex h-full items-center justify-center p-6">
+      <span className="font-semibold">Main Content</span>
+    </div>
+  </ResizablePanel>
+</ResizablePanelGroup>
+
+// Nested layouts
+<ResizablePanelGroup direction="horizontal" className="min-h-[400px] rounded-lg border">
+  <ResizablePanel defaultSize={25} minSize={15} maxSize={40}>
+    <div className="flex h-full items-center justify-center p-6">
+      <span className="font-semibold">Sidebar</span>
+    </div>
+  </ResizablePanel>
+  <ResizableHandle />
+  <ResizablePanel defaultSize={75}>
+    <ResizablePanelGroup direction="vertical">
+      <ResizablePanel defaultSize={60}>
+        <div className="flex h-full items-center justify-center p-6">
+          <span className="font-semibold">Editor</span>
+        </div>
+      </ResizablePanel>
+      <ResizableHandle />
+      <ResizablePanel defaultSize={40} minSize={20}>
+        <div className="flex h-full items-center justify-center p-6">
+          <span className="font-semibold">Terminal</span>
+        </div>
+      </ResizablePanel>
+    </ResizablePanelGroup>
+  </ResizablePanel>
+</ResizablePanelGroup>
+
+// With localStorage persistence
+<ResizablePanelGroup 
+  direction="horizontal" 
+  autoSaveId="my-layout"
+  className="min-h-[300px] rounded-lg border"
+>
+  <ResizablePanel defaultSize={30} collapsible>
+    <div className="flex h-full items-center justify-center p-6">
+      <span className="font-semibold">Collapsible Panel</span>
+    </div>
+  </ResizablePanel>
+  <ResizableHandle withHandle />
+  <ResizablePanel defaultSize={70}>
+    <div className="flex h-full items-center justify-center p-6">
+      <span className="font-semibold">Main Panel</span>
+    </div>
+  </ResizablePanel>
+</ResizablePanelGroup>
+
+// Dashboard layout
+<ResizablePanelGroup direction="vertical" className="min-h-[500px] rounded-lg border">
+  <ResizablePanel defaultSize={20} minSize={10}>
+    <div className="flex h-full items-center justify-center p-6 bg-muted/50">
+      <span className="font-semibold">Header</span>
+    </div>
+  </ResizablePanel>
+  <ResizableHandle />
+  <ResizablePanel defaultSize={80}>
+    <ResizablePanelGroup direction="horizontal">
+      <ResizablePanel defaultSize={20} minSize={15} collapsible>
+        <div className="flex h-full items-center justify-center p-6">
+          <span className="font-semibold">Nav</span>
+        </div>
+      </ResizablePanel>
+      <ResizableHandle />
+      <ResizablePanel defaultSize={60}>
+        <div className="flex h-full items-center justify-center p-6">
+          <span className="font-semibold">Content</span>
+        </div>
+      </ResizablePanel>
+      <ResizableHandle />
+      <ResizablePanel defaultSize={20} minSize={15}>
+        <div className="flex h-full items-center justify-center p-6">
+          <span className="font-semibold">Aside</span>
+        </div>
+      </ResizablePanel>
+    </ResizablePanelGroup>
+  </ResizablePanel>
+</ResizablePanelGroup>
+```
+
+Related Components:
+- Sidebar: For fixed navigation panels
+- Tabs: For switching between content sections
+- Card: For structured content within panels
+- Sheet: For overlay panels
+
+AI_DOCUMENTATION_END
+*/}
 
 export const Default = () => {
   return (

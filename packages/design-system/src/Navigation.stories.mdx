@@ -3,16 +3,354 @@ import { faPlay } from '@fortawesome/free-solid-svg-icons'
 import Navigation from './Navigation'
 
 {/* START README */}
-The Navigation component provides an abstracted way to display navigation menu. In addition to the option to display simple buttons (with icons, labels, or both), it also supports dropdowns and nested menus. The component is designed to be flexible and can be used in various contexts, such as in a menubar or as part of a larger navigation system.
+The `Navigation` component provides a comprehensive navigation system supporting buttons, dropdowns, nested submenus, and complex hierarchical menu structures. It offers flexible item types, notification indicators, badges, and extensive customization for building sophisticated application navigation interfaces.
 
-<br />
+Use this component when you need to:
+- Create application navigation bars with multiple interaction types (buttons, dropdowns, submenus)
+- Build complex menu systems with notification indicators and badge support
+- Implement hierarchical navigation with nested submenu structures
+- Provide accessible navigation with keyboard support and proper ARIA attributes
+- Design flexible navigation layouts with customizable styling and active states
 
-The props for the Navigation component are as follows:
-
-- @param items - The array of items to display in the navigation (required).
-- @param className - The optional className object to override default styling for the root.
-
+The component supports multiple item types (button, dropdown, submenu, separator), notification indicators, custom badges, active state management, disabled states, icon and label combinations, and comprehensive testing attribute support for all navigation elements.
 {/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Comprehensive navigation system with hierarchical menu support, multiple item types, notification indicators, badges, and extensive customization for complex application navigation
+
+Dependencies:
+- React for component structure and state management
+- Navigation item type system for flexible menu structures
+- FontAwesome icons for visual elements
+- Event handling for navigation actions
+- Accessibility support for keyboard navigation
+
+Available Stories:
+- Button: Basic button navigation item
+- Active: Active state button demonstration
+- IconTrigger: Icon-only navigation trigger
+- CombinedTrigger: Icon and label combination
+- NotificationTrigger: Notification indicator display
+- Dropdown: Basic dropdown menu with items and separators
+- NestedMenu: Submenu functionality with nested options
+- Complex: Complex navigation combining all item types
+- Disabled: Disabled states for navigation items
+
+Props (Navigation component):
+- items: NavigationItem[] - Array of navigation items (required)
+- className?: Record<string, string> - Styling overrides for different parts
+
+NavigationItem Structure (Button type):
+- type: 'button' - Item type for clickable buttons
+- key: string - Unique identifier for the navigation item
+- label?: string - Display text for the button
+- icon?: IconDefinition - FontAwesome icon for the button
+- onClick: () => void - Click handler function
+- active?: boolean - Whether the button is in active state
+- disabled?: boolean - Whether the button is disabled
+- notification?: boolean - Whether to show notification indicator
+- className?: Record<string, string> - Styling overrides for button parts
+- data?: Record<string, string> - Data attributes for testing
+
+NavigationItem Structure (Dropdown type):
+- type: 'dropdown' - Item type for dropdown menus
+- key: string - Unique identifier for the dropdown
+- label: string - Display text for the dropdown trigger
+- icon?: IconDefinition - FontAwesome icon for the trigger
+- active?: boolean - Whether the dropdown trigger is active
+- disabled?: boolean - Whether the dropdown is disabled
+- notification?: boolean - Whether to show notification indicator
+- elements: DropdownElement[] - Array of dropdown menu items
+- className?: Record<string, string> - Styling overrides
+- data?: Record<string, string> - Data attributes for testing
+
+DropdownElement Structure:
+- key: string - Unique identifier for the dropdown item
+- type: 'link' | 'separator' | 'submenu' - Type of dropdown element
+- label?: string - Display text (for link and submenu types)
+- onClick?: () => void - Click handler (for link type)
+- disabled?: boolean - Whether the item is disabled
+- notification?: boolean - Whether to show notification indicator
+- badge?: string - Badge text to display
+- className?: Record<string, string> - Styling overrides
+- options?: DropdownElement[] - Submenu items (for submenu type)
+
+Component Structure:
+- Navigation container with horizontal layout
+- Button items with icon/label combinations
+- Dropdown triggers with popup menus
+- Nested submenu support with hover activation
+- Notification indicators and badge overlays
+- Keyboard navigation and accessibility support
+
+Usage Examples:
+```tsx
+// Basic button navigation
+<Navigation 
+  items={[
+    {
+      type: 'button',
+      key: 'home',
+      label: 'Home',
+      onClick: () => navigate('/home'),
+      active: true
+    },
+    {
+      type: 'button',
+      key: 'about',
+      label: 'About',
+      onClick: () => navigate('/about')
+    }
+  ]}
+/>
+
+// Icon-only navigation
+<Navigation 
+  items={[
+    {
+      type: 'button',
+      key: 'settings',
+      icon: faGear,
+      onClick: () => openSettings(),
+      className: { icon: 'text-gray-600' }
+    },
+    {
+      type: 'button',
+      key: 'help',
+      icon: faQuestionCircle,
+      onClick: () => openHelp(),
+      notification: true
+    }
+  ]}
+/>
+
+// Combined icon and label navigation
+<Navigation 
+  items={[
+    {
+      type: 'button',
+      key: 'dashboard',
+      label: 'Dashboard',
+      icon: faChartBar,
+      onClick: () => navigate('/dashboard'),
+      active: currentRoute === '/dashboard'
+    },
+    {
+      type: 'button',
+      key: 'analytics',
+      label: 'Analytics',
+      icon: faAnalytics,
+      onClick: () => navigate('/analytics'),
+      notification: hasNewData
+    }
+  ]}
+/>
+
+// Dropdown navigation menu
+<Navigation 
+  items={[
+    {
+      type: 'dropdown',
+      key: 'file-menu',
+      label: 'File',
+      elements: [
+        {
+          key: 'new-file',
+          type: 'link',
+          label: 'New File',
+          onClick: () => createNewFile()
+        },
+        {
+          key: 'open-file',
+          type: 'link',
+          label: 'Open File',
+          onClick: () => openFile()
+        },
+        {
+          key: 'separator-1',
+          type: 'separator'
+        },
+        {
+          key: 'save-file',
+          type: 'link',
+          label: 'Save File',
+          onClick: () => saveFile(),
+          disabled: !hasUnsavedChanges
+        }
+      ]
+    }
+  ]}
+/>
+
+// Nested submenu navigation
+<Navigation 
+  items={[
+    {
+      type: 'dropdown',
+      key: 'tools-menu',
+      label: 'Tools',
+      elements: [
+        {
+          key: 'export-submenu',
+          type: 'submenu',
+          label: 'Export',
+          options: [
+            {
+              key: 'export-pdf',
+              type: 'link',
+              label: 'Export as PDF',
+              onClick: () => exportToPDF()
+            },
+            {
+              key: 'export-csv',
+              type: 'link',
+              label: 'Export as CSV',
+              onClick: () => exportToCSV()
+            },
+            {
+              key: 'export-json',
+              type: 'link',
+              label: 'Export as JSON',
+              onClick: () => exportToJSON(),
+              badge: 'New',
+              className: { 
+                badge: 'bg-green-600 hover:bg-green-700' 
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]}
+/>
+
+// Complex navigation with notifications and badges
+<Navigation 
+  items={[
+    {
+      type: 'button',
+      key: 'home',
+      label: 'Home',
+      icon: faHome,
+      onClick: () => navigate('/'),
+      active: currentRoute === '/'
+    },
+    {
+      type: 'dropdown',
+      key: 'notifications',
+      label: 'Notifications',
+      icon: faBell,
+      notification: hasUnreadNotifications,
+      elements: [
+        {
+          key: 'unread-messages',
+          type: 'link',
+          label: 'Unread Messages',
+          onClick: () => showMessages(),
+          badge: unreadCount.toString(),
+          className: { 
+            badge: 'bg-red-500 hover:bg-red-600' 
+          }
+        },
+        {
+          key: 'system-alerts',
+          type: 'link',
+          label: 'System Alerts',
+          onClick: () => showAlerts(),
+          notification: hasSystemAlerts
+        }
+      ]
+    },
+    {
+      type: 'button',
+      key: 'profile',
+      icon: faUser,
+      onClick: () => navigate('/profile'),
+      disabled: !isAuthenticated
+    }
+  ]}
+  className={{ 
+    root: 'bg-white border-b border-gray-200' 
+  }}
+/>
+
+// Testing navigation configuration
+<Navigation 
+  items={[
+    {
+      type: 'button',
+      key: 'test-button',
+      label: 'Test Button',
+      onClick: handleClick,
+      data: { 'data-cy': 'nav-button' }
+    },
+    {
+      type: 'dropdown',
+      key: 'test-dropdown',
+      label: 'Test Menu',
+      elements: testMenuItems,
+      data: { 'data-testid': 'nav-dropdown' }
+    }
+  ]}
+/>
+```
+
+Item Type Features:
+- button: Clickable navigation items with optional icons
+- dropdown: Menu containers with popup item lists
+- submenu: Nested menu support within dropdowns
+- separator: Visual dividers between menu sections
+
+Visual Indicators:
+- notification: Red dot indicator for attention-required items
+- badge: Custom text badges with configurable styling
+- active: Visual highlighting for current/selected items
+- disabled: Grayed-out state for unavailable items
+
+Navigation Structure:
+- Horizontal layout with consistent spacing
+- Icon/label combinations with flexible positioning
+- Dropdown activation on click with keyboard support
+- Submenu activation on hover with proper timing
+- Responsive design considerations
+
+Accessibility Features:
+- Full keyboard navigation support
+- ARIA attributes for screen readers
+- Focus management across menu levels
+- Disabled state announcements
+- Proper menu role semantics
+
+Best Practices:
+- Use meaningful labels for all navigation items
+- Provide icons for better visual recognition
+- Group related items in dropdowns logically
+- Use separators to organize menu sections
+- Consider notification indicators for important updates
+
+Common Use Cases:
+- Application menu bars and navigation
+- Dashboard navigation systems
+- File menu implementations
+- Tool and action menus
+- User account and settings navigation
+
+Testing Support:
+- Data attributes for all interactive elements
+- Unique key identification for each item
+- Support for automated testing frameworks
+- Comprehensive element targeting
+
+Related Components:
+- Dropdown: For standalone dropdown menus
+- Button: For individual navigation buttons
+- Menu: For alternative menu implementations
+- Tabs: For tab-based navigation
+
+AI_DOCUMENTATION_END
+*/}
 
 export const Button = () => {
   const items = [{

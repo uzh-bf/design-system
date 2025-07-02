@@ -2,8 +2,141 @@ import { Bold, Italic, Underline } from 'lucide-react'
 import { ToggleGroup, ToggleGroupItem } from './ToggleGroup'
 
 {/* START README */}
-The `ToggleGroup` component currently represents a simple re-export of the Shadcn UI ToggleGroup component. More information on the structure can be found on the [Shadcn UI ToggleGroup documentation](https://ui.shadcn.com/docs/components/toggle-group).
+The `ToggleGroup` component provides a group of toggle buttons that work together, allowing users to select one or multiple options from a set. It's perfect for formatting controls, view options, or any scenario where users need to toggle between related choices.
+
+Use this component when you need to:
+- Create formatting toolbars with options like bold, italic, underline
+- Provide view switching controls (list, grid, card views)
+- Enable multiple selection filters or options
+- Group related toggle controls with consistent behavior
+
+The toggle group supports both single and multiple selection modes, maintains proper keyboard navigation, and provides clear visual feedback for active states. It automatically manages the state relationships between toggle items.
 {/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Shadcn UI re-export built on Radix UI's ToggleGroup primitive with coordinated state management
+Dependencies: @radix-ui/react-toggle-group
+
+Available Stories:
+- Default: Multiple selection toggle group with formatting icons (bold, italic, underline)
+
+Props (ToggleGroup component):
+- type: "single" | "multiple" - Selection behavior (single allows one, multiple allows many)
+- value: string | string[] - Controlled value(s) - string for single, array for multiple
+- defaultValue: string | string[] - Initial value(s)
+- onValueChange: (value: string | string[]) => void - Value change handler
+- disabled: boolean - Whether entire group is disabled
+- rovingFocus: boolean - Whether to enable roving focus navigation (default: true)
+- orientation: "horizontal" | "vertical" - Layout orientation (default: horizontal)
+- dir: "ltr" | "rtl" - Text direction
+- loop: boolean - Whether focus wraps around (default: true)
+
+Props (ToggleGroupItem component):
+- value: string - Unique value for this toggle item (required)
+- disabled: boolean - Whether this specific item is disabled
+- pressed: boolean - Controlled pressed state
+- defaultPressed: boolean - Initial pressed state
+- onPressedChange: (pressed: boolean) => void - Pressed state change handler
+- variant: "default" | "outline" - Visual variant
+- size: "default" | "sm" | "lg" - Size variant
+
+Component Structure:
+- ToggleGroup: Root container managing group state (re-export from ui/toggle-group)
+- ToggleGroupItem: Individual toggle button within the group
+
+Usage Examples:
+```tsx
+// Text formatting toolbar
+<ToggleGroup type="multiple" variant="outline">
+  <ToggleGroupItem value="bold" aria-label="Bold">
+    <Bold className="h-4 w-4" />
+  </ToggleGroupItem>
+  <ToggleGroupItem value="italic" aria-label="Italic">
+    <Italic className="h-4 w-4" />
+  </ToggleGroupItem>
+  <ToggleGroupItem value="underline" aria-label="Underline">
+    <Underline className="h-4 w-4" />
+  </ToggleGroupItem>
+</ToggleGroup>
+
+// View mode selector (single selection)
+<ToggleGroup type="single" defaultValue="list">
+  <ToggleGroupItem value="list" aria-label="List view">
+    <List className="h-4 w-4" />
+  </ToggleGroupItem>
+  <ToggleGroupItem value="grid" aria-label="Grid view">
+    <Grid className="h-4 w-4" />
+  </ToggleGroupItem>
+  <ToggleGroupItem value="card" aria-label="Card view">
+    <Card className="h-4 w-4" />
+  </ToggleGroupItem>
+</ToggleGroup>
+
+// Filter options with text
+<ToggleGroup type="multiple" size="sm">
+  <ToggleGroupItem value="draft">Draft</ToggleGroupItem>
+  <ToggleGroupItem value="published">Published</ToggleGroupItem>
+  <ToggleGroupItem value="archived">Archived</ToggleGroupItem>
+</ToggleGroup>
+
+// Controlled toggle group
+const [selectedFormats, setSelectedFormats] = useState<string[]>([])
+
+<ToggleGroup 
+  type="multiple" 
+  value={selectedFormats}
+  onValueChange={setSelectedFormats}
+>
+  <ToggleGroupItem value="bold">
+    <Bold className="h-4 w-4" />
+    <span className="sr-only">Bold</span>
+  </ToggleGroupItem>
+  <ToggleGroupItem value="italic">
+    <Italic className="h-4 w-4" />
+    <span className="sr-only">Italic</span>
+  </ToggleGroupItem>
+</ToggleGroup>
+
+// Vertical orientation
+<ToggleGroup type="single" orientation="vertical" className="flex-col">
+  <ToggleGroupItem value="left">
+    <AlignLeft className="h-4 w-4" />
+  </ToggleGroupItem>
+  <ToggleGroupItem value="center">
+    <AlignCenter className="h-4 w-4" />
+  </ToggleGroupItem>
+  <ToggleGroupItem value="right">
+    <AlignRight className="h-4 w-4" />
+  </ToggleGroupItem>
+</ToggleGroup>
+
+// With mixed content
+<ToggleGroup type="multiple" variant="outline">
+  <ToggleGroupItem value="notifications">
+    <Bell className="h-4 w-4 mr-2" />
+    Notifications
+  </ToggleGroupItem>
+  <ToggleGroupItem value="dark-mode">
+    <Moon className="h-4 w-4 mr-2" />
+    Dark Mode
+  </ToggleGroupItem>
+  <ToggleGroupItem value="auto-save">
+    <Save className="h-4 w-4 mr-2" />
+    Auto Save
+  </ToggleGroupItem>
+</ToggleGroup>
+```
+
+Related Components:
+- Toggle: For individual toggle controls
+- RadioGroup: For single selection with radio behavior
+- Checkbox: For individual boolean selections
+- Tabs: For switching between different content panels
+
+AI_DOCUMENTATION_END
+*/}
 
 export const Default = () => {
   return (

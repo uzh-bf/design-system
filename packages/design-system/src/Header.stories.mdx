@@ -1,18 +1,183 @@
 import Header from './Header'
 
 {/* START README */}
-The Header components provide pre-styled semantic HTML header elements (h1, h2, h3, h4) that can be used to structure your content. They are designed to be accessible and easy to use, with the ability to add custom data attributes for testing purposes.
+The `Header` components provide a collection of semantic HTML heading elements (H1, H2, H3, H4) with consistent typography styling and proper accessibility support. They establish clear content hierarchy while maintaining design system consistency across all heading levels.
 
-<br />
+Use these components when you need to:
+- Create proper document structure with semantic heading hierarchy
+- Establish visual content organization with consistent typography
+- Build accessible interfaces with screen reader navigation support
+- Implement consistent heading styles across your application
+- Provide testing-friendly heading elements with data attributes
 
-The props for all different components are as follows:
-
-- @param id - The id of the header.
-- @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
-- @param className - The optional className object allows you to override the default styling.
-- @param children - The content of the header.
-
+The component collection supports all standard heading levels (H1-H4), semantic HTML structure, accessibility features, custom styling overrides, and comprehensive testing attribute support for automated testing scenarios.
 {/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Semantic HTML heading component collection with consistent typography, accessibility features, and design system integration for proper document structure
+
+Dependencies:
+- React for component structure
+- Design system typography styles
+- Semantic HTML heading elements (h1, h2, h3, h4)
+- CSS styling system with override capabilities
+
+Available Stories:
+- Default: All heading levels demonstrated with sample content
+
+Components:
+- Header.H1: Primary page/section heading (h1 element)
+- Header.H2: Section heading (h2 element)  
+- Header.H3: Subsection heading (h3 element)
+- Header.H4: Minor section heading (h4 element)
+
+Props (All Header components):
+- id?: string - HTML id attribute for the heading
+- data?: Record<string, string> - Data attributes for testing purposes
+- className?: string - Additional CSS classes for styling overrides
+- children: React.ReactNode - Heading content and text
+
+Component Structure:
+- Semantic HTML heading elements (h1, h2, h3, h4)
+- Design system typography integration
+- Accessibility attributes and proper semantics
+- Customizable styling with className override
+
+Usage Examples:
+```tsx
+// Page title
+<Header.H1>Welcome to Our Application</Header.H1>
+
+// Section heading
+<Header.H2>Getting Started</Header.H2>
+
+// Subsection
+<Header.H3>Installation Steps</Header.H3>
+
+// Minor section
+<Header.H4>Prerequisites</Header.H4>
+
+// With custom styling
+<Header.H1 className="text-center text-blue-600">
+  Custom Styled Heading
+</Header.H1>
+
+// With testing attributes
+<Header.H2 
+  id="main-section"
+  data={{ 'data-cy': 'section-heading', 'data-testid': 'main-section' }}
+>
+  Testable Section Heading
+</Header.H2>
+
+// Document structure example
+<article>
+  <Header.H1>Article Title</Header.H1>
+  <section>
+    <Header.H2>Introduction</Header.H2>
+    <p>Article introduction...</p>
+    
+    <Header.H3>Key Points</Header.H3>
+    <p>Important information...</p>
+    
+    <Header.H4>Details</Header.H4>
+    <p>Detailed explanation...</p>
+  </section>
+  
+  <section>
+    <Header.H2>Conclusion</Header.H2>
+    <p>Final thoughts...</p>
+  </section>
+</article>
+
+// Dynamic heading levels
+const HeadingComponent = ({ level, children }) => {
+  const HeadingTag = Header[`H${level}`]
+  return <HeadingTag>{children}</HeadingTag>
+}
+
+<HeadingComponent level={2}>Dynamic Heading</HeadingComponent>
+
+// With complex content
+<Header.H2>
+  <span className="text-gray-500">Section:</span>{" "}
+  <span className="font-bold">User Management</span>
+</Header.H2>
+
+// Form section headers
+<form>
+  <Header.H3>Personal Information</Header.H3>
+  <PersonalFields />
+  
+  <Header.H3>Contact Details</Header.H3>
+  <ContactFields />
+  
+  <Header.H4>Preferences</Header.H4>
+  <PreferenceFields />
+</form>
+
+// Navigation integration
+<nav>
+  <Header.H2 className="sr-only">Main Navigation</Header.H2>
+  <NavigationItems />
+</nav>
+```
+
+Semantic Hierarchy:
+- H1: Page title, main content heading (usually one per page)
+- H2: Major section headings
+- H3: Subsection headings within H2 sections
+- H4: Minor section headings within H3 sections
+
+Typography Features:
+- Consistent font families and weights
+- Proper size hierarchy (H1 largest, H4 smallest)
+- Optimized line heights and spacing
+- Design system color integration
+
+Accessibility Features:
+- Proper semantic HTML structure
+- Screen reader navigation support
+- Keyboard navigation compatibility
+- ARIA landmark integration when appropriate
+- Logical heading hierarchy for assistive technology
+
+Styling Customization:
+- className prop for additional styling
+- Integration with Tailwind CSS utilities
+- Design system theme compatibility
+- Responsive typography considerations
+
+Best Practices:
+- Use proper heading hierarchy (don't skip levels)
+- One H1 per page for primary content
+- Use headings for structure, not just styling
+- Provide meaningful, descriptive heading text
+- Consider screen reader users in heading organization
+
+Common Use Cases:
+- Page and section titles
+- Article and blog post structure
+- Form section organization
+- Dashboard widget headers
+- Navigation section headers
+
+Testing Support:
+- Data attributes for automated testing
+- Unique id assignment for E2E tests
+- Consistent element targeting
+- Accessibility testing compatibility
+
+Related Components:
+- Typography: For body text and other text elements
+- Title: For larger display headings
+- Label: For form field labels
+- Text: For general text content
+
+AI_DOCUMENTATION_END
+*/}
 
 export const Default = () => (
   <div>

@@ -15,8 +15,150 @@ import {
 } from './ShadcnMenubar'
 
 {/* START README */}
-The `MenuBar` component currently represents a simple re-export of the Shadcn UI MenuBar component. More information on the structure can be found on the [Shadcn UI MenuBar documentation](https://ui.shadcn.com/docs/components/menubar).
+The `ShadcnMenubar` component provides a horizontal menu bar with dropdown menus, similar to application menu bars found in desktop software. It supports nested menus, keyboard shortcuts, checkboxes, radio groups, and organized menu sections.
+
+Use this component when you need to:
+- Create application-style menu bars with multiple top-level menus
+- Implement complex menu structures with nested submenus
+- Provide keyboard shortcuts and accelerators for menu actions
+- Build desktop-like interfaces with traditional menu navigation
+
+The menubar supports full keyboard navigation, maintains focus management, includes checkbox and radio group functionality, and provides consistent styling for complex menu hierarchies.
+
+**Note**: This is prefixed as "ShadcnMenubar" to distinguish it from other navigation components in the design system.
 {/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Shadcn UI re-export built on Radix UI's Menubar primitive with full menu bar functionality and keyboard navigation
+Dependencies: @radix-ui/react-menubar
+
+Available Stories:
+- Default: Complete menubar with File, Edit, View, and Profiles menus including submenus, shortcuts, checkboxes, and radio groups
+
+Props (ShadcnMenubar component):
+- value: string - Controlled active menu value
+- defaultValue: string - Initial active menu value
+- onValueChange: (value: string) => void - Active menu change handler
+- orientation: "horizontal" | "vertical" - Menu orientation (default: horizontal)
+- dir: "ltr" | "rtl" - Text direction
+- loop: boolean - Whether focus wraps around (default: true)
+
+Component Structure:
+- ShadcnMenubar: Root menubar container (re-export from ui/menubar)
+- ShadcnMenubarMenu: Individual menu within the menubar
+- ShadcnMenubarTrigger: Button that opens a menu
+- ShadcnMenubarContent: Dropdown content for a menu
+- ShadcnMenubarItem: Individual menu item
+- ShadcnMenubarSeparator: Visual separator between menu sections
+- ShadcnMenubarSub: Nested submenu container
+- ShadcnMenubarSubTrigger: Trigger for opening submenu
+- ShadcnMenubarSubContent: Submenu content container
+- ShadcnMenubarCheckboxItem: Checkable menu item
+- ShadcnMenubarRadioGroup: Radio group container
+- ShadcnMenubarRadioItem: Radio option within group
+- ShadcnMenubarShortcut: Keyboard shortcut display
+
+Usage Examples:
+```tsx
+// Basic application menubar
+<ShadcnMenubar>
+  <ShadcnMenubarMenu>
+    <ShadcnMenubarTrigger>File</ShadcnMenubarTrigger>
+    <ShadcnMenubarContent>
+      <ShadcnMenubarItem>
+        New File
+        <ShadcnMenubarShortcut>⌘N</ShadcnMenubarShortcut>
+      </ShadcnMenubarItem>
+      <ShadcnMenubarItem>
+        Open
+        <ShadcnMenubarShortcut>⌘O</ShadcnMenubarShortcut>
+      </ShadcnMenubarItem>
+      <ShadcnMenubarSeparator />
+      <ShadcnMenubarItem>
+        Save
+        <ShadcnMenubarShortcut>⌘S</ShadcnMenubarShortcut>
+      </ShadcnMenubarItem>
+    </ShadcnMenubarContent>
+  </ShadcnMenubarMenu>
+  
+  <ShadcnMenubarMenu>
+    <ShadcnMenubarTrigger>Edit</ShadcnMenubarTrigger>
+    <ShadcnMenubarContent>
+      <ShadcnMenubarItem>
+        Undo
+        <ShadcnMenubarShortcut>⌘Z</ShadcnMenubarShortcut>
+      </ShadcnMenubarItem>
+      <ShadcnMenubarItem>
+        Redo
+        <ShadcnMenubarShortcut>⌘Y</ShadcnMenubarShortcut>
+      </ShadcnMenubarItem>
+    </ShadcnMenubarContent>
+  </ShadcnMenubarMenu>
+</ShadcnMenubar>
+
+// With nested submenus
+<ShadcnMenubar>
+  <ShadcnMenubarMenu>
+    <ShadcnMenubarTrigger>Format</ShadcnMenubarTrigger>
+    <ShadcnMenubarContent>
+      <ShadcnMenubarSub>
+        <ShadcnMenubarSubTrigger>Text</ShadcnMenubarSubTrigger>
+        <ShadcnMenubarSubContent>
+          <ShadcnMenubarItem>Bold</ShadcnMenubarItem>
+          <ShadcnMenubarItem>Italic</ShadcnMenubarItem>
+          <ShadcnMenubarItem>Underline</ShadcnMenubarItem>
+        </ShadcnMenubarSubContent>
+      </ShadcnMenubarSub>
+      <ShadcnMenubarSub>
+        <ShadcnMenubarSubTrigger>Align</ShadcnMenubarSubTrigger>
+        <ShadcnMenubarSubContent>
+          <ShadcnMenubarItem>Left</ShadcnMenubarItem>
+          <ShadcnMenubarItem>Center</ShadcnMenubarItem>
+          <ShadcnMenubarItem>Right</ShadcnMenubarItem>
+        </ShadcnMenubarSubContent>
+      </ShadcnMenubarSub>
+    </ShadcnMenubarContent>
+  </ShadcnMenubarMenu>
+</ShadcnMenubar>
+
+// With checkbox and radio items
+<ShadcnMenubar>
+  <ShadcnMenubarMenu>
+    <ShadcnMenubarTrigger>View</ShadcnMenubarTrigger>
+    <ShadcnMenubarContent>
+      <ShadcnMenubarCheckboxItem checked>
+        Show Toolbar
+      </ShadcnMenubarCheckboxItem>
+      <ShadcnMenubarCheckboxItem>
+        Show Sidebar
+      </ShadcnMenubarCheckboxItem>
+      <ShadcnMenubarSeparator />
+      <ShadcnMenubarRadioGroup value="comfortable">
+        <ShadcnMenubarRadioItem value="compact">
+          Compact
+        </ShadcnMenubarRadioItem>
+        <ShadcnMenubarRadioItem value="comfortable">
+          Comfortable
+        </ShadcnMenubarRadioItem>
+        <ShadcnMenubarRadioItem value="spacious">
+          Spacious
+        </ShadcnMenubarRadioItem>
+      </ShadcnMenubarRadioGroup>
+    </ShadcnMenubarContent>
+  </ShadcnMenubarMenu>
+</ShadcnMenubar>
+```
+
+Related Components:
+- NavigationMenu: For website navigation structures
+- DropdownMenu: For single dropdown menus
+- ContextMenu: For right-click triggered menus
+- Toolbar: For grouped action buttons
+
+AI_DOCUMENTATION_END
+*/}
 
 export const Default = () => {
   return (

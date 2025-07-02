@@ -2,8 +2,68 @@ import { Avatar, AvatarFallback, AvatarImage } from './Avatar'
 import './tailwind.css'
 
 {/* START README */}
-The `Avatar` component currently represents a simple re-export of the Shadcn UI Avatar component. More information on the structure can be found on the [Shadcn UI Avatar documentation](https://ui.shadcn.com/docs/components/avatar).
+The `Avatar` component displays user profile pictures with automatic fallback to initials when images fail to load. It provides a consistent way to represent users throughout the application with proper accessibility and loading states.
+
+Use this component when you need to:
+- Display user profile pictures in headers, comments, or lists
+- Show team member avatars in collaboration interfaces
+- Create user identification in chat or messaging systems
+- Represent entities with visual identity (users, organizations, etc.)
+
+The avatar automatically handles image loading failures by displaying fallback initials. It supports different shapes (circular, rounded) and can be grouped together for team displays.
 {/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Shadcn UI re-export built on Radix UI's Avatar primitive with image loading fallback and accessibility features
+Dependencies: @radix-ui/react-avatar
+
+Available Stories:
+- Default: Multiple avatar styles including circular, rounded corners, and grouped avatars with rings
+
+Props (Avatar component):
+- className: string - Additional CSS classes for styling
+- asChild: boolean - Render as child element instead of span
+
+Component Structure:
+- Avatar: Root container with default circular shape (re-export from ui/avatar)
+- AvatarImage: Image element with loading states and alt text
+- AvatarFallback: Fallback content (typically initials) shown when image fails
+
+Usage Examples:
+```tsx
+// Basic avatar with fallback
+<Avatar>
+  <AvatarImage src="/user-avatar.jpg" alt="John Doe" />
+  <AvatarFallback>JD</AvatarFallback>
+</Avatar>
+
+// Rounded square avatar
+<Avatar className="rounded-lg">
+  <AvatarImage src="/company-logo.jpg" alt="Company" />
+  <AvatarFallback>CO</AvatarFallback>
+</Avatar>
+
+// Avatar group with overlapping effect
+<div className="flex -space-x-2">
+  <Avatar className="ring-2 ring-background">
+    <AvatarImage src="/user1.jpg" alt="User 1" />
+    <AvatarFallback>U1</AvatarFallback>
+  </Avatar>
+  <Avatar className="ring-2 ring-background">
+    <AvatarImage src="/user2.jpg" alt="User 2" />
+    <AvatarFallback>U2</AvatarFallback>
+  </Avatar>
+</div>
+```
+
+Related Components:
+- Badge: For status indicators on avatars
+- Card: Often contains avatars in user profile cards
+
+AI_DOCUMENTATION_END
+*/}
 
 export const Default = () => {
   return (
