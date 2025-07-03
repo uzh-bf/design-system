@@ -9,3 +9,6 @@ dist/
 build/
 
 .github/copilot-instructions.md
+
+scratchpad.md
+.github/chatmodes/*
