@@ -17,6 +17,7 @@ import {
 The `Drawer` component provides bottom-sliding panels that emerge from the bottom of the screen, primarily designed for mobile interfaces and touch interactions. It offers an excellent alternative to modals for mobile-first experiences.
 
 Use this component when you need to:
+
 - Create mobile-friendly forms and input interfaces
 - Display settings or configuration panels on smaller screens
 - Provide contextual actions that don't require full modal behavior
@@ -25,18 +26,20 @@ Use this component when you need to:
 The drawer includes smooth animations, gesture support for closing, and structured sections for headers, content, and footer actions. It automatically adapts to different screen sizes and provides excellent accessibility support.
 {/* END README */}
 
-{/*
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Shadcn UI re-export built on Radix UI's Dialog primitive with bottom-slide animations optimized for mobile interaction
 Dependencies: @radix-ui/react-dialog, vaul (for mobile drawer behavior)
 
 Available Stories:
+
 - Default: Interactive goal-setting drawer with chart, increment/decrement controls, and footer actions
 
 Props (Drawer component):
+
 - open: boolean - Controlled open state
-- defaultOpen: boolean - Initial open state  
+- defaultOpen: boolean - Initial open state
 - onOpenChange: (open: boolean) => void - Open state change handler
 - shouldScaleBackground: boolean - Whether background should scale when drawer opens
 - snapPoints: number[] - Array of snap points for drawer height
@@ -45,6 +48,7 @@ Props (Drawer component):
 - direction: "top" | "bottom" | "left" | "right" - Slide direction (default: bottom)
 
 Component Structure:
+
 - Drawer: Root container managing drawer state (re-export from ui/drawer)
 - DrawerTrigger: Element that opens the drawer
 - DrawerContent: Main content container with gesture support
@@ -55,6 +59,7 @@ Component Structure:
 - DrawerClose: Close button or trigger
 
 Usage Examples:
+
 ```tsx
 // Basic mobile settings drawer
 <Drawer>
@@ -140,13 +145,14 @@ Usage Examples:
 ```
 
 Related Components:
+
 - Sheet: For desktop-oriented slide-out panels
 - Modal: For content requiring full attention
 - Popover: For smaller contextual content
 - BottomSheet: Alternative mobile drawer implementation
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => {
   const [goal, setGoal] = useState(350)

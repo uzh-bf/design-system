@@ -30,12 +30,13 @@ The FormikTextareaField accepts the following props:
 
 {/* END README */}
 
-{/*
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Formik-integrated multi-line textarea component that wraps the core TextareaField with character limits, validation integration, and form state management for extended text input
 
 Dependencies:
+
 - Formik for form state management and validation
 - TextareaField core component for multi-line text functionality
 - Yup for text validation schema support
@@ -43,6 +44,7 @@ Dependencies:
 - Custom label and tooltip components
 
 Available Stories:
+
 - Default: Basic textarea field with label and tooltip
 - MaxLength: Textarea with character limit and counter display
 - Disabled: Textarea in disabled state
@@ -54,6 +56,7 @@ Available Stories:
 - LargeLabel: Textarea with large label variant
 
 Props (FormikTextareaField component):
+
 - id?: string - HTML id attribute for the textarea element
 - data?: Record<string, string> - Data attributes for testing purposes
 - name?: string - Formik field name for form state management
@@ -73,6 +76,7 @@ Props (FormikTextareaField component):
 - className?: Record<string, string> - Styling overrides for different parts
 
 Component Structure:
+
 - Formik Field wrapper for form integration
 - Multi-line textarea input with resize capability
 - Character counter display when maxLength is set
@@ -80,6 +84,7 @@ Component Structure:
 - Automatic form state synchronization
 
 Usage Examples:
+
 ```tsx
 // Basic comment/feedback form
 <Formik
@@ -154,7 +159,7 @@ Usage Examples:
       required
       placeholder="Brief description of the issue"
     />
-    
+
     <FormikTextareaField
       name="description"
       label="Detailed Description"
@@ -164,14 +169,14 @@ Usage Examples:
       tooltip="Include as much detail as possible to help us resolve your issue"
       className={{ input: 'min-h-[150px]' }}
     />
-    
+
     <FormikSelectField
       name="priority"
       label="Priority"
       items={priorityOptions}
       required
     />
-    
+
     <Button type="submit">Submit Ticket</Button>
   </Form>
 </Formik>
@@ -206,14 +211,14 @@ Usage Examples:
       items={ratingOptions}
       required
     />
-    
+
     <FormikTextField
       name="title"
       label="Review Title"
       required
       placeholder="Summarize your experience"
     />
-    
+
     <FormikTextareaField
       name="review"
       label="Detailed Review"
@@ -256,7 +261,7 @@ Usage Examples:
       required
       placeholder="Enter event title"
     />
-    
+
     <FormikTextareaField
       name="description"
       label="Event Description"
@@ -267,7 +272,7 @@ Usage Examples:
       maxLengthUnit="characters"
       tooltip="Provide a compelling description to attract attendees"
     />
-    
+
     <FormikTextField
       name="location"
       label="Location"
@@ -328,7 +333,7 @@ Usage Examples:
           className={{ input: 'min-h-[120px]' }}
         />
       </div>
-      
+
       <div>
         <h3 className="text-lg font-semibold mb-3">German</h3>
         <FormikTextField
@@ -364,6 +369,7 @@ Usage Examples:
 ```
 
 Form Integration Features:
+
 - Automatic Formik field binding with name prop
 - Built-in text validation support
 - Error state display from Formik field meta
@@ -371,6 +377,7 @@ Form Integration Features:
 - Touch/blur state management for UX
 
 Character Limit Features:
+
 - Real-time character counting
 - Visual indicator of remaining characters
 - Customizable unit text (characters, words, etc.)
@@ -378,6 +385,7 @@ Character Limit Features:
 - Character limit enforcement
 
 Validation Patterns:
+
 - Length validation (min/max characters)
 - Required field validation
 - Custom text format validation
@@ -385,6 +393,7 @@ Validation Patterns:
 - Content quality validation
 
 Custom Formatting:
+
 - Real-time text transformation
 - Whitespace normalization
 - Case conversion
@@ -392,6 +401,7 @@ Custom Formatting:
 - Custom validation rules
 
 Best Practices:
+
 - Set appropriate character limits for content type
 - Provide clear placeholder text for guidance
 - Use tooltips to explain content requirements
@@ -400,6 +410,7 @@ Best Practices:
 - Use appropriate label sizes for form hierarchy
 
 Common Use Cases:
+
 - Comments and feedback forms
 - Article and blog post content
 - Product reviews and descriptions
@@ -408,6 +419,7 @@ Common Use Cases:
 - Event and announcement descriptions
 
 Testing Support:
+
 - data prop for custom testing attributes
 - Textarea content testing capabilities
 - Character limit validation testing
@@ -415,6 +427,7 @@ Testing Support:
 - Custom onChange behavior testing
 
 Accessibility Features:
+
 - Proper label association with textarea elements
 - Character counter announcements for screen readers
 - Keyboard navigation support
@@ -422,13 +435,14 @@ Accessibility Features:
 - Resize handle accessibility
 
 Related Components:
+
 - TextareaField: Core textarea functionality
 - FormikTextField: For single-line text input
 - TextField: For standalone text input
 - Editor: For rich text editing needs
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => (
   <div>

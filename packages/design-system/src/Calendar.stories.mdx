@@ -5,6 +5,7 @@ import { Calendar } from './Calendar'
 The `Calendar` component provides an interactive date picker interface with month/year navigation and date selection capabilities. It offers a familiar calendar grid layout for users to browse and select dates.
 
 Use this component when you need to:
+
 - Allow users to select single or multiple dates
 - Provide date browsing and navigation interfaces
 - Create date range selection functionality
@@ -13,16 +14,18 @@ Use this component when you need to:
 The calendar supports different selection modes (single, multiple, range), disabled dates, and custom styling. It includes keyboard navigation and accessibility features for screen readers.
 {/* END README */}
 
-{/*
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Shadcn UI re-export built on react-day-picker with Radix UI integration for accessibility
 Dependencies: react-day-picker, date-fns (for date utilities)
 
 Available Stories:
+
 - Default: Single date selection calendar with border and shadow styling
 
 Props (Calendar component):
+
 - mode: "single" | "multiple" | "range" - Selection behavior
 - selected: Date | Date[] | DateRange - Currently selected date(s)
 - onSelect: (date: Date | Date[] | DateRange) => void - Selection change handler
@@ -34,10 +37,12 @@ Props (Calendar component):
 - fixedWeeks: boolean - Always show 6 weeks
 
 Component Structure:
+
 - Calendar: Root calendar container (re-export from ui/calendar)
 - Internal components: Month grid, day cells, navigation buttons, headers
 
 Usage Examples:
+
 ```tsx
 // Single date selection
 const [date, setDate] = useState<Date | undefined>(new Date())
@@ -68,11 +73,12 @@ const [dates, setDates] = useState<Date[]>([])
 ```
 
 Related Components:
+
 - DatePicker: For input field with calendar popup
 - DatetimePicker: For date and time selection
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => {
   const [date, setDate] = useState(new Date())

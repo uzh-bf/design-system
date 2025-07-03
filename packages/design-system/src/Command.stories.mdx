@@ -21,6 +21,7 @@ import {
 The `Command` component provides a command palette interface for quick navigation and action execution. It enables users to search and execute commands through a keyboard-driven interface, similar to VS Code's command palette.
 
 Use this component when you need to:
+
 - Create application-wide command and navigation interfaces
 - Provide quick access to features and actions via search
 - Build keyboard-driven workflows for power users
@@ -29,16 +30,18 @@ Use this component when you need to:
 The command palette supports grouped commands, keyboard shortcuts, search filtering, and empty states. It includes proper ARIA labeling and keyboard navigation for accessibility.
 {/* END README */}
 
-{/*
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Shadcn UI re-export built on cmdk library with fuzzy search and keyboard navigation
 Dependencies: cmdk (command palette library), lucide-react (for icons)
 
 Available Stories:
+
 - Default: Full-featured command palette with grouped commands, search input, and keyboard shortcuts
 
 Props (Command component):
+
 - className: string - Additional CSS classes
 - shouldFilter: boolean - Enable/disable built-in filtering (default: true)
 - filter: (value: string, search: string) => number - Custom filter function
@@ -47,6 +50,7 @@ Props (Command component):
 - onValueChange: (value: string) => void - Selection change handler
 
 Component Structure:
+
 - Command: Root container with search and command logic (re-export from ui/command)
 - CommandInput: Search input with filtering capabilities
 - CommandList: Scrollable container for command groups and items
@@ -57,6 +61,7 @@ Component Structure:
 - CommandShortcut: Keyboard shortcut display
 
 Usage Examples:
+
 ```tsx
 // Basic command palette
 <Command>
@@ -97,12 +102,13 @@ Usage Examples:
 ```
 
 Related Components:
+
 - Popover: For positioning command palettes
 - Modal: For full-screen command interfaces
 - Search: For simple search without commands
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => {
   return (

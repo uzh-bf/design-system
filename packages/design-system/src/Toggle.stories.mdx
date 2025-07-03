@@ -5,6 +5,7 @@ import { Toggle } from './Toggle'
 The `Toggle` component provides a button-like control that can be pressed and unpressed, maintaining its state between interactions. It's ideal for binary options like formatting toggles, feature switches, or preference controls.
 
 Use this component when you need to:
+
 - Create formatting controls (bold, italic, underline)
 - Implement feature toggles or switches
 - Provide binary state controls (on/off, enabled/disabled)
@@ -13,16 +14,18 @@ Use this component when you need to:
 The toggle supports different sizes and variants, provides clear visual feedback for its state, and includes proper ARIA attributes for accessibility.
 {/* END README */}
 
-{/*
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Shadcn UI re-export built on Radix UI's Toggle primitive with button-like behavior and state management
 Dependencies: @radix-ui/react-toggle, class-variance-authority (for variants)
 
 Available Stories:
+
 - Default: Bold text formatting toggle with icon
 
 Props (Toggle component):
+
 - pressed: boolean - Controlled pressed state
 - defaultPressed: boolean - Initial pressed state
 - onPressedChange: (pressed: boolean) => void - State change handler
@@ -33,9 +36,11 @@ Props (Toggle component):
 - children: ReactNode - Toggle content (usually icon)
 
 Component Structure:
+
 - Toggle: Root button element with toggle behavior (re-export from ui/toggle)
 
 Usage Examples:
+
 ```tsx
 // Basic toggle with icon
 <Toggle aria-label="Toggle bold">
@@ -44,8 +49,8 @@ Usage Examples:
 
 // Controlled toggle
 const [isBold, setIsBold] = useState(false)
-<Toggle 
-  pressed={isBold} 
+<Toggle
+  pressed={isBold}
   onPressedChange={setIsBold}
   aria-label="Toggle bold formatting"
 >
@@ -77,13 +82,14 @@ const [isBold, setIsBold] = useState(false)
 ```
 
 Related Components:
+
 - Button: For actions that don't maintain state
 - Switch: For settings-style on/off controls
 - ToggleGroup: For mutually exclusive toggle options
 - Checkbox: For form-based boolean inputs
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => {
   return (

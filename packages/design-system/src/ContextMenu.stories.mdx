@@ -18,6 +18,7 @@ import {
 The `ContextMenu` component provides right-click context menus with rich interactive options including submenus, checkboxes, radio groups, and keyboard shortcuts. It enables contextual actions directly related to specific UI elements.
 
 Use this component when you need to:
+
 - Provide contextual actions for specific elements or regions
 - Create right-click menus for tables, images, or content areas
 - Offer quick access to relevant commands based on context
@@ -26,20 +27,23 @@ Use this component when you need to:
 The context menu supports nested submenus, different item types (actions, checkboxes, radio groups), keyboard shortcuts, and proper accessibility with ARIA attributes.
 {/* END README */}
 
-{/*
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Shadcn UI re-export built on Radix UI's ContextMenu primitive with portal rendering and focus management
 Dependencies: @radix-ui/react-context-menu
 
 Available Stories:
+
 - Default: Comprehensive context menu with various item types, submenus, and keyboard shortcuts
 
 Props (ContextMenu component):
+
 - modal: boolean - Whether menu is modal (default: true)
 - onOpenChange: (open: boolean) => void - Open state change handler
 
 Component Structure:
+
 - ContextMenu: Root container managing menu state (re-export from ui/context-menu)
 - ContextMenuTrigger: Element that triggers the context menu on right-click
 - ContextMenuContent: Menu content container with items
@@ -55,6 +59,7 @@ Component Structure:
 - ContextMenuShortcut: Keyboard shortcut display
 
 Usage Examples:
+
 ```tsx
 // Basic context menu
 <ContextMenu>
@@ -103,12 +108,13 @@ Usage Examples:
 ```
 
 Related Components:
+
 - Dropdown: For trigger-based menus instead of right-click
 - Popover: For general popup content
 - Command: For searchable command interfaces
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => {
   return (

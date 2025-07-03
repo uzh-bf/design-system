@@ -5,6 +5,7 @@ import Tooltip from './Tooltip'
 The `Tooltip` component provides an enhanced contextual information overlay built on Shadcn UI primitives with custom styling, delay control, and flexible content support. It offers accessible hover interactions, custom positioning, and comprehensive testing integration for providing additional context and help information.
 
 Use this component when you need to:
+
 - Provide contextual help and additional information on hover or focus
 - Display explanatory text for icons, buttons, or complex interface elements
 - Create accessible information overlays with proper ARIA support
@@ -12,14 +13,27 @@ Use this component when you need to:
 - Add testing-friendly tooltips with comprehensive data attribute support
 
 The component supports both string and React node content, customizable delay timing, flexible styling with tooltip and arrow customization, comprehensive testing attributes for trigger and content, and accessibility features for screen readers and keyboard navigation.
-{/* END README */}
 
-{/*
+<br />
+
+The Tooltip component accepts the following props:
+
+- @param id - The id of the tooltip.
+- @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
+- @param dataContent - The object of data attributes that can be used for testing (e.g. data-test or data-cy) of the content
+- @param tooltip - The content of the tooltip.
+- @param delay - The delay in milliseconds before the tooltip is shown.
+- @param children - The child component that triggers the tooltip.
+- @param className - The optional className object allows you to override the default styling.
+  {/* END README */}
+
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Enhanced contextual information overlay component built on Shadcn UI primitives with custom styling, delay control, flexible content support, and comprehensive accessibility features
 
 Dependencies:
+
 - Shadcn UI Tooltip primitives for behavior and accessibility
 - React node support for custom content rendering
 - CSS styling system for tooltip appearance and arrow
@@ -27,6 +41,7 @@ Dependencies:
 - Testing attribute support for trigger and content
 
 Available Stories:
+
 - Default: Basic tooltip with string content
 - MultiLine: Tooltip on text content with wrapping
 - Styled: Custom styling for tooltip and arrow colors
@@ -34,6 +49,7 @@ Available Stories:
 - Delay: Custom delay timing before tooltip appears
 
 Props (Tooltip component):
+
 - id?: string - HTML id attribute for the tooltip
 - data?: Record<string, string> - Data attributes for trigger testing
 - dataContent?: Record<string, string> - Data attributes for tooltip content testing
@@ -43,6 +59,7 @@ Props (Tooltip component):
 - className?: Record<string, string> - Styling overrides for tooltip and arrow
 
 Component Structure:
+
 - Trigger element (children) with hover/focus detection
 - Tooltip overlay positioned relative to trigger
 - Arrow pointing to trigger element
@@ -50,6 +67,7 @@ Component Structure:
 - Keyboard and mouse interaction support
 
 Usage Examples:
+
 ```tsx
 // Basic tooltip with string content
 <Tooltip tooltip="This is helpful information">
@@ -62,7 +80,7 @@ Usage Examples:
 </Tooltip>
 
 // Complex content with React nodes
-<Tooltip 
+<Tooltip
   tooltip={
     <div>
       <strong>Pro Tip:</strong>
@@ -74,7 +92,7 @@ Usage Examples:
 </Tooltip>
 
 // Custom delay for different UX needs
-<Tooltip 
+<Tooltip
   tooltip="This appears after 2 seconds"
   delay={2000}
 >
@@ -82,7 +100,7 @@ Usage Examples:
 </Tooltip>
 
 // Custom styled tooltip
-<Tooltip 
+<Tooltip
   tooltip="Success message"
   className={{
     tooltip: 'bg-green-600 text-white font-semibold',
@@ -96,23 +114,23 @@ Usage Examples:
 <div className="flex items-center gap-2">
   <label htmlFor="password">Password</label>
   <Tooltip tooltip="Password must be at least 8 characters with uppercase, lowercase, and numbers">
-    <FontAwesomeIcon 
-      icon={faInfoCircle} 
-      className="text-gray-400 cursor-help" 
+    <FontAwesomeIcon
+      icon={faInfoCircle}
+      className="text-gray-400 cursor-help"
     />
   </Tooltip>
 </div>
-<input 
-  id="password" 
-  type="password" 
-  placeholder="Enter password" 
+<input
+  id="password"
+  type="password"
+  placeholder="Enter password"
 />
 
 // Disabled button explanation
-<Tooltip 
+<Tooltip
   tooltip={
-    !hasPermission 
-      ? "You don't have permission to perform this action" 
+    !hasPermission
+      ? "You don't have permission to perform this action"
       : "Feature temporarily unavailable"
   }
 >
@@ -134,7 +152,7 @@ Usage Examples:
 </nav>
 
 // Data visualization tooltips
-<Tooltip 
+<Tooltip
   tooltip={
     <div>
       <div>Sales: ${data.sales.toLocaleString()}</div>
@@ -147,18 +165,18 @@ Usage Examples:
 </Tooltip>
 
 // Status indicators
-<Tooltip 
+<Tooltip
   tooltip={`Server status: ${serverStatus.toUpperCase()}`}
 >
   <div className={`w-3 h-3 rounded-full ${getStatusColor(serverStatus)}`} />
 </Tooltip>
 
 // Interactive elements with help
-<Tooltip 
+<Tooltip
   tooltip="Click to copy to clipboard"
   delay={500}
 >
-  <button 
+  <button
     onClick={handleCopy}
     className="font-mono text-sm bg-gray-100 px-2 py-1 rounded"
   >
@@ -178,7 +196,7 @@ Usage Examples:
           </Tooltip>
         </td>
         <td>
-          <Tooltip 
+          <Tooltip
             tooltip={
               <div>
                 <div>Role: {user.role}</div>
@@ -203,7 +221,7 @@ Usage Examples:
 </Tooltip>
 
 // Feature flags and experimental features
-<Tooltip 
+<Tooltip
   tooltip="This feature is in beta. Your feedback is appreciated!"
   className={{
     tooltip: 'bg-blue-600 text-white',
@@ -214,7 +232,7 @@ Usage Examples:
 </Tooltip>
 
 // Testing configuration
-<Tooltip 
+<Tooltip
   tooltip="Test tooltip content"
   data={{ 'data-cy': 'help-trigger' }}
   dataContent={{ 'data-testid': 'tooltip-content' }}
@@ -235,7 +253,7 @@ const shouldShowTooltip = !isMobile && hasHelpText
 )}
 
 // Keyboard shortcut display
-<Tooltip 
+<Tooltip
   tooltip={
     <div>
       <div>Save document</div>
@@ -250,23 +268,27 @@ const shouldShowTooltip = !isMobile && hasHelpText
 ```
 
 Content Types:
+
 - String: Simple text tooltips for basic information
 - React Node: Complex content with formatting, lists, or components
 - Conditional: Dynamic content based on application state
 - Rich formatting: HTML-like content with styling
 
 Styling Customization:
+
 - className.tooltip: Background, text color, typography, padding
 - className.arrow: Arrow color to match tooltip background
 - Custom positioning: Automatic but can be influenced by container
 - Responsive: Consider mobile touch interactions
 
 Delay Control:
+
 - Default: Standard delay for typical hover interactions
 - Custom: Shorter delays for frequently accessed help, longer for detailed information
 - Context-aware: Different delays based on user experience level
 
 Best Practices:
+
 - Keep tooltip content concise and actionable
 - Use for non-essential information that enhances understanding
 - Ensure tooltips don't interfere with primary interactions
@@ -274,6 +296,7 @@ Best Practices:
 - Provide alternative access methods for critical information
 
 Common Use Cases:
+
 - Form field help and validation information
 - Icon and button explanations
 - Feature descriptions and onboarding
@@ -282,6 +305,7 @@ Common Use Cases:
 - Truncated content expansion
 
 Accessibility Features:
+
 - ARIA attributes for screen readers
 - Keyboard focus support (focus/blur triggers)
 - High contrast color support
@@ -289,25 +313,28 @@ Accessibility Features:
 - Proper role and state management
 
 Performance Considerations:
+
 - Lazy content rendering for complex tooltips
 - Debounced hover events for smooth interaction
 - Memory cleanup for dynamic content
 - Efficient positioning calculations
 
 Testing Support:
+
 - data prop for trigger element testing
 - dataContent prop for tooltip content testing
 - id prop for unique identification
 - Content verification for dynamic tooltips
 
 Related Components:
+
 - Popover: For more complex interactive content
 - HoverCard: For rich content previews
 - Modal: For detailed information that requires focus
 - Alert: For persistent status information
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => {
   return (

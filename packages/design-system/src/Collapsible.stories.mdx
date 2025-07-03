@@ -6,6 +6,7 @@ import { H2 } from './Header'
 The `Collapsible` component provides an advanced collapsible interface with enhanced action buttons, conditional content, and extensive customization options. Unlike the basic ShadcnCollapsible, this component offers action buttons, state-dependent content display, and complex trigger customization.
 
 Use this component when you need to:
+
 - Create expandable content sections with action buttons for complex workflows
 - Display different content based on collapse state (closedContent vs children)
 - Implement custom triggers beyond simple arrows (custom branding, complex layouts)
@@ -15,20 +16,40 @@ Use this component when you need to:
 The component supports static content that's always visible, conditional content for closed state, custom trigger elements, primary and secondary action buttons with callbacks, and comprehensive styling customization for all parts.
 
 **Note**: This is distinct from ShadcnCollapsible, offering advanced action handling and state-dependent content display capabilities.
-{/* END README */}
 
-{/*
+<br />
+
+The props for the Collapsible component are as follows:
+
+- @param id - The id of the collapsible.
+- @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
+- @param open - Indicate whether the collapsible is open or not.
+- @param onChange - Function that is called when the collapsible is toggled.
+- @param staticContent - The static content that is always shown.
+- @param closedContent - The optional content that is only shown when the collapsible is closed.
+- @param customTrigger - The optional custom trigger that is shown instead of the default arrow trigger.
+- @param primary - An optional text that will be displayed on a button in the right bottom corner of the collapsible. Alternatively, it is also possible to pass a React node instead.
+- @param onPrimaryClick - Function that will be called once the primary button is clicked (no function for custom primary nodes)
+- @param secondary - An optional text that will be displayed on a button in the left bottom corner of the collapsible. Alternatively, it is also possible to pass a React node instead.
+- @param onSecondaryClick - Function that will be called once the secondary button is clicked (no function for custom secondary nodes)
+- @param className - The optional className object allows you to override the default styling.
+- @param children - The content of the collapsible that is shown when the collapsible is open.
+  {/* END README */}
+
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Advanced custom collapsible component with action buttons, conditional content display, custom triggers, and sophisticated state management beyond basic Shadcn functionality
 
 Dependencies:
+
 - React state management for open/close control
 - Custom styling system with className overrides
 - Event handling for toggle and action callbacks
 - Conditional rendering for state-dependent content
 
 Available Stories:
+
 - Default: Basic collapsible with static and closed content
 - Buttons: Primary and secondary action buttons with callbacks
 - PrimarySecondary: Custom React nodes for action buttons
@@ -37,6 +58,7 @@ Available Stories:
 - Styled: Custom styling overrides demonstration
 
 Props (Collapsible component):
+
 - id?: string - HTML id attribute for the collapsible
 - data?: Record<string, string> - Data attributes for testing purposes
 - open: boolean - Whether the collapsible is currently open (controlled state)
@@ -49,15 +71,16 @@ Props (Collapsible component):
 - secondary?: string | React.ReactNode - Secondary action button text or custom component
 - onSecondaryClick?: () => void - Secondary action callback (only for string secondary)
 - className?: {
-    root?: string,
-    trigger?: string,
-    content?: string,
-    staticContent?: string,
-    closedContent?: string
+  root?: string,
+  trigger?: string,
+  content?: string,
+  staticContent?: string,
+  closedContent?: string
   } - Styling overrides for different parts
 - children: React.ReactNode - Main content displayed when expanded
 
 Component Structure:
+
 - Root container with configurable styling
 - Trigger section (arrow or custom trigger)
 - Static content section (always visible)
@@ -66,6 +89,7 @@ Component Structure:
 - Action buttons section (primary/secondary when provided)
 
 Usage Examples:
+
 ```tsx
 // Basic collapsible with static and conditional content
 const [isOpen, setIsOpen] = useState(false)
@@ -146,18 +170,21 @@ const [isOpen, setIsOpen] = useState(false)
 ```
 
 Content Display Patterns:
+
 - staticContent: Always visible (title, summary, status)
 - closedContent: Preview/summary when collapsed
 - children: Full content when expanded
 - Action flow: Static → Closed (when collapsed) OR Static → Children (when expanded)
 
 Action Button Patterns:
+
 - String buttons: Automatic styling with callbacks
 - Custom React nodes: Full control, no automatic callbacks
 - Primary: Usually confirm/save actions (right side)
 - Secondary: Usually cancel/alternative actions (left side)
 
 Styling Customization:
+
 - root: Overall container styling
 - trigger: Arrow or custom trigger styling
 - content: Main content area styling
@@ -165,6 +192,7 @@ Styling Customization:
 - closedContent: Collapsed-state content styling
 
 Best Practices:
+
 - Use staticContent for titles or key information
 - Use closedContent for previews or status summaries
 - Keep triggers accessible and clearly labeled
@@ -172,6 +200,7 @@ Best Practices:
 - Consider mobile responsiveness in custom layouts
 
 Common Use Cases:
+
 - Accordion-style FAQ sections
 - Form sections with save/cancel actions
 - Content cards with expand/collapse functionality
@@ -179,13 +208,14 @@ Common Use Cases:
 - Document sections with editing actions
 
 Related Components:
+
 - ShadcnCollapsible: Basic collapsible without actions
 - Accordion: Multiple collapsible sections
 - Tabs: Alternative content organization
 - Modal: For content requiring full focus
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => {
   const [open, setOpen] = useState(false)

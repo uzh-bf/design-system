@@ -30,12 +30,13 @@ The props for the SelectField component are as follows:
 
 {/* END README */}
 
-{/*
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Standalone select dropdown component with item grouping, label integration, validation state management, and flexible positioning for option selection
 
 Dependencies:
+
 - React state management for selection handling
 - Custom Label component for consistent labeling
 - CSS styling system for dropdown appearance
@@ -43,6 +44,7 @@ Dependencies:
 - Accessibility support for dropdown interactions
 
 Available Stories:
+
 - Default: Basic select field with fruit options
 - Groups: Select field with grouped options organization
 - Required: Select field with required indicator and label
@@ -53,6 +55,7 @@ Available Stories:
 - Tooltip: Select field with tooltip and help information
 
 Props (SelectField component):
+
 - id?: string - HTML id attribute for the select element
 - data?: Record<string, string> - Data attributes for testing purposes
 - name?: string - HTML name attribute for form submission
@@ -73,17 +76,20 @@ Props (SelectField component):
 - className?: Record<string, string> - Styling overrides for different parts
 
 SelectItem Structure:
+
 - value: string - Unique identifier for the option
 - label: string - Display text for the option
 - disabled?: boolean - Whether this option is disabled
 - data?: Record<string, string> - Additional data attributes
 
 SelectGroup Structure:
+
 - label: string - Group heading text
 - items: SelectItem[] - Items within this group
 - disabled?: boolean - Whether entire group is disabled
 
 Component Structure:
+
 - Label component integration with tooltip support
 - Select trigger with current value display
 - Dropdown content with items or groups
@@ -91,6 +97,7 @@ Component Structure:
 - Required field indicator integration
 
 Usage Examples:
+
 ```tsx
 // Basic country selection
 const [country, setCountry] = useState('')
@@ -288,11 +295,11 @@ const getStatusOptions = () => {
     { value: 'review', label: 'Under Review' },
     { value: 'approved', label: 'Approved' }
   ]
-  
+
   if (hasPublishPermission) {
     baseStatuses.push({ value: 'published', label: 'Published' })
   }
-  
+
   return baseStatuses
 }
 
@@ -320,24 +327,28 @@ const getStatusOptions = () => {
 ```
 
 Grouping Features:
+
 - Hierarchical option organization
 - Group headers for categorization
 - Disabled groups and individual items
 - Visual separation between groups
 
 Positioning Options:
+
 - item-aligned: Dropdown aligns with selected item
 - popper: Flexible positioning based on available space
 - Responsive positioning for mobile devices
 - Collision detection and adjustment
 
 Validation Integration:
+
 - Error message display below field
 - Required field visual indicators
 - Custom validation with onChange/onBlur
 - Disabled state management
 
 Best Practices:
+
 - Use clear, descriptive option labels
 - Group related options for better organization
 - Provide helpful tooltips for complex selections
@@ -345,6 +356,7 @@ Best Practices:
 - Consider disabled options for unavailable choices
 
 Common Use Cases:
+
 - Country, state, and region selection
 - User role and permission assignment
 - Category and tag selection
@@ -352,6 +364,7 @@ Common Use Cases:
 - Language and locale preferences
 
 Accessibility Features:
+
 - Proper label association with select elements
 - Keyboard navigation (arrow keys, enter, escape)
 - Screen reader compatible structure
@@ -359,19 +372,21 @@ Accessibility Features:
 - Focus management for dropdown interactions
 
 Testing Support:
+
 - data prop for custom testing attributes
 - Option selection testing capabilities
 - Dropdown interaction verification
 - Validation state testing
 
 Related Components:
+
 - FormikSelectField: For Formik form integration
 - Select: Basic select component variant
 - Dropdown: For custom dropdown functionality
 - Combobox: For searchable select options
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => {
   const [value, setValue] = useState(fruitsValues[0].value)

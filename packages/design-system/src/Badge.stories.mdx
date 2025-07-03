@@ -5,6 +5,7 @@ import { Badge } from './Badge'
 The `Badge` component displays small status indicators, labels, or notification counts with consistent styling and visual hierarchy. It provides a compact way to highlight important information or categorize content.
 
 Use this component when you need to:
+
 - Show status indicators (verified, premium, new, etc.)
 - Display notification counts or numbers
 - Label categories, tags, or classifications
@@ -13,24 +14,28 @@ Use this component when you need to:
 The badge supports multiple variants (default, secondary, destructive, outline) and can include icons or be styled as circular counters. It's designed to be visually distinct while remaining unobtrusive.
 {/* END README */}
 
-{/*
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Shadcn UI re-export built with class-variance-authority for consistent variant styling
 Dependencies: class-variance-authority (for variant management), lucide-react (for icons)
 
 Available Stories:
+
 - Default: Multiple badge variants including text badges, icon badges, and circular counter badges
 
 Props (Badge component):
+
 - variant: "default" | "secondary" | "destructive" | "outline" - Visual style variant
 - className: string - Additional CSS classes for customization
 - children: ReactNode - Badge content (text, icons, numbers)
 
 Component Structure:
+
 - Badge: Root span element with variant-based styling (re-export from ui/badge)
 
 Usage Examples:
+
 ```tsx
 // Basic status badges
 <Badge>New</Badge>
@@ -56,12 +61,13 @@ Usage Examples:
 ```
 
 Related Components:
+
 - Avatar: Often combined with badges for status indicators
 - Button: Similar styling principles but different interaction patterns
 - NotificationBadgeWrapper: For positioning badges over other components
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => {
   return (

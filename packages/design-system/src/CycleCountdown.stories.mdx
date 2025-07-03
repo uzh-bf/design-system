@@ -5,6 +5,7 @@ import CycleCountdown from './CycleCountdown'
 The `CycleCountdown` component provides a visual circular countdown timer with animated progress indication and extensive customization options. It combines the functionality of a countdown timer with an intuitive circular progress visualization, offering precise visual feedback for time-sensitive interfaces.
 
 Use this component when you need to:
+
 - Create visually engaging countdown timers with circular progress indication
 - Display countdown progress with immediate visual feedback for users
 - Implement time-limited activities with clear visual time remaining indicators
@@ -12,14 +13,34 @@ Use this component when you need to:
 - Provide customizable sizing and styling for different interface contexts
 
 The component supports circular progress visualization, multiple size variants, customizable colors and stroke widths, terminal state styling for expiration, complete countdown functionality with callbacks, and comprehensive styling options for all visual elements.
-{/* END README */}
 
-{/*
+<br />
+
+The props for the CycleCountdown component are as follows:
+
+- @param expiresAt - Date when the countdown should expire
+- @param totalDuration - Total duration of the countdown in seconds, which is needed to compute the progress in percent
+- @param size - Size of the progress bar, can be 'sm' or 'md'
+- @param overrideSize - Optional override for the size of the progress bar
+- @param color - Color of the progress bar (static for the moment)
+- @param strokeWidthRem - Width of the progress bar. For small size, a smaller value is recommended
+- @param isStatic - If true, the countdown will not be running, but instead show the initial value. However, as the end value is given by a date, reloading can modify the displayed countdown value
+- @param terminalColor - Color of the progress bar when the countdown is expired (total Duration 0 or expiration in the past)
+- @param terminalPercentage - Percentage of the progress bar when the countdown is expired (totalDuration 0 or expiration in the past)
+- @param formatter - Function to format the countdown value
+- @param onExpire - Function that is executed when the countdown expires
+- @param onUpdate - Function that is executed when the countdown is updated (not when it expires)
+- @param data - Optional data object that can be used for testing (e.g. data-test or data-cy)
+- @param className - Optional className object allows you to override the default styling
+  {/* END README */}
+
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Enhanced countdown component with circular SVG progress visualization, advanced styling options, size variants, and terminal state management for expired countdowns
 
 Dependencies:
+
 - Basic Countdown component functionality
 - SVG circular progress visualization
 - React state management for visual updates
@@ -27,6 +48,7 @@ Dependencies:
 - Mathematical calculations for progress percentage
 
 Available Stories:
+
 - Default: Basic circular countdown with medium size
 - Static: Static display without automatic updates
 - Small: Compact size variant with adjusted stroke width
@@ -37,6 +59,7 @@ Available Stories:
 - TerminalSettings: Terminal state styling demonstration
 
 Props (CycleCountdown component):
+
 - expiresAt: Date - Target expiration date/time
 - totalDuration: number - Total countdown duration in seconds (required for progress calculation)
 - size?: 'sm' | 'md' - Predefined size variant (default: 'md')
@@ -53,6 +76,7 @@ Props (CycleCountdown component):
 - className?: { root?: string, countdown?: string } - Styling overrides for different parts
 
 Component Structure:
+
 - Root container with circular SVG progress indicator
 - Central countdown text display
 - Animated circular progress path
@@ -60,18 +84,19 @@ Component Structure:
 - Size-responsive layout system
 
 Usage Examples:
+
 ```tsx
 // Basic circular countdown
 const expirationTime = new Date()
 expirationTime.setSeconds(expirationTime.getSeconds() + 60)
 
-<CycleCountdown 
+<CycleCountdown
   expiresAt={expirationTime}
   totalDuration={60}
 />
 
 // Custom size and styling
-<CycleCountdown 
+<CycleCountdown
   expiresAt={expirationTime}
   totalDuration={30}
   size="sm"
@@ -80,7 +105,7 @@ expirationTime.setSeconds(expirationTime.getSeconds() + 60)
 />
 
 // Quiz timer with custom formatting
-<CycleCountdown 
+<CycleCountdown
   expiresAt={expirationTime}
   totalDuration={120}
   formatter={(seconds) => {
@@ -95,7 +120,7 @@ expirationTime.setSeconds(expirationTime.getSeconds() + 60)
 // Activity timer with progress tracking
 const [progress, setProgress] = useState(100)
 
-<CycleCountdown 
+<CycleCountdown
   expiresAt={expirationTime}
   totalDuration={180}
   onUpdate={(remaining) => {
@@ -108,7 +133,7 @@ const [progress, setProgress] = useState(100)
 />
 
 // Large custom countdown
-<CycleCountdown 
+<CycleCountdown
   expiresAt={expirationTime}
   totalDuration={300}
   overrideSize={200}
@@ -121,7 +146,7 @@ const [progress, setProgress] = useState(100)
 />
 
 // Session timeout warning
-<CycleCountdown 
+<CycleCountdown
   expiresAt={sessionExpiry}
   totalDuration={1800} // 30 minutes
   size="sm"
@@ -135,23 +160,27 @@ const [progress, setProgress] = useState(100)
 ```
 
 Size Variants:
+
 - sm: Compact size for toolbars, notifications, small widgets
 - md: Standard size for main content areas, forms
 - Custom: overrideSize prop for specific pixel dimensions
 
 Progress Calculation:
+
 - Based on remaining time vs totalDuration
 - Circular SVG path animation
 - Real-time updates with smooth transitions
 - Terminal state handling for 0% or custom percentage
 
 Color Customization:
+
 - Solid colors: Hex, RGB, named CSS colors
 - Gradient support: CSS gradient strings
 - Terminal colors: Different styling when expired
 - Dynamic color changes based on remaining time
 
 Visual Features:
+
 - Smooth circular progress animation
 - Central countdown text display
 - Responsive sizing system
@@ -159,12 +188,14 @@ Visual Features:
 - Custom stroke width control
 
 Performance Considerations:
+
 - SVG-based rendering for smooth animations
 - Efficient progress calculations
 - Minimal re-renders with controlled updates
 - Automatic cleanup and state management
 
 Best Practices:
+
 - Use appropriate size for context (sm for compact areas, md for main content)
 - Choose contrasting colors for visibility
 - Consider terminal state styling for user feedback
@@ -172,6 +203,7 @@ Best Practices:
 - Test with various duration ranges
 
 Common Use Cases:
+
 - Quiz and test timers
 - Session timeout warnings
 - Activity time limits
@@ -179,13 +211,14 @@ Common Use Cases:
 - Task time tracking interfaces
 
 Related Components:
+
 - Countdown: Basic countdown without visual progress
 - Progress: Linear progress indicators
 - Timer: Alternative timer implementations
 - CircularProgress: Static circular progress displays
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => {
   const time = new Date()

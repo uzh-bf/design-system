@@ -8,6 +8,7 @@ import { useRef } from 'React'
 The `Table` component provides an advanced data table with built-in sorting, custom formatting, and data transformation capabilities. It's designed for displaying complex tabular data with interactive features and comprehensive customization options.
 
 Use this component when you need to:
+
 - Display large datasets with sorting functionality
 - Apply custom formatting to data cells (percentages, currency, etc.)
 - Transform data before display or sorting
@@ -17,20 +18,38 @@ Use this component when you need to:
 The component supports column-based configuration, data transformers for preprocessing, formatters for display customization, programmatic table resets, and extensive styling options through className overrides.
 
 **Note**: This is distinct from the ShadcnTable component, which provides basic table structure without advanced data manipulation features.
-{/* END README */}
 
-{/*
+<br />
+
+The Table component accepts the following props:
+
+- @param id - The id of the table.
+- @param dataAttributes - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
+- @param columns - The columns of the table. The columns are defined by an array of objects where each object has a label, an accessor and optional transformer and formatters.
+- @param data - The data of the table. The data is defined by an array of objects where each object has a key-value pair for each column.
+- @param caption - The optional caption of the table.
+- @param ref - The optional ref object allows you to access the table methods.
+- @param className - The optional className object allows you to override the default styling.
+- @param forwardedRef - The optional forwardedRef object allows you to access table methods from the parent component.
+- @param emptyCellText - The optional emptyCellText allows you to define the text that should be displayed in empty cells.
+- @param defaultSortField - The optional defaultSortField allows you to define the default sorting field.
+- @param defaultSortOrder - The optional defaultSortOrder allows you to define the default sorting order.
+  {/* END README */}
+
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Advanced data table implementation with sorting, transformation, formatting, and styling capabilities. Built with TypeScript generics for type safety.
 
 Dependencies:
+
 - React useRef, useState hooks for state management
 - TypeScript generics for type-safe column and data handling
 - Custom sorting algorithms
 - Tailwind CSS for styling
 
 Available Stories:
+
 - Simple: Basic table with sortable columns
 - DefaultSorting: Table with initial sort configuration
 - Sorting: Sorting functionality demonstration
@@ -39,6 +58,7 @@ Available Stories:
 - Combined: Advanced example with transformers and formatters
 
 Props (Table component):
+
 - id?: string - HTML id attribute for the table
 - dataAttributes?: Record<string, string> - Data attributes for testing
 - columns: ColumnDefinition[] - Column configuration array
@@ -46,10 +66,10 @@ Props (Table component):
 - caption?: string - Accessible table caption
 - ref?: React.Ref - Reference to table for method access
 - className?: {
-    root?: string,
-    tableHeader?: string,
-    body?: string,
-    row?: string
+  root?: string,
+  tableHeader?: string,
+  body?: string,
+  row?: string
   } - Styling overrides for table parts
 - forwardedRef?: React.Ref - Alternative ref prop for parent access
 - emptyCellText?: string - Text to show in empty cells (default: '-')
@@ -57,6 +77,7 @@ Props (Table component):
 - defaultSortOrder?: 'asc' | 'desc' - Initial sort direction
 
 Column Definition Structure:
+
 - label: string - Display name for column header
 - accessor: string - Key to access data property
 - sortable?: boolean - Whether column can be sorted
@@ -65,13 +86,16 @@ Column Definition Structure:
 - className?: string - CSS classes for column cells
 
 Data Row Structure:
+
 - [key: string]: any - Data properties matching column accessors
 - className?: string - Optional CSS classes for the row
 
 Table Methods (via ref):
+
 - reset(): void - Resets table to initial state (clears sorting)
 
 Usage Examples:
+
 ```tsx
 // Basic sortable table
 <Table
@@ -162,24 +186,27 @@ interface UserData {
 ```
 
 Performance Considerations:
+
 - Transformers are applied before sorting for accurate data ordering
 - Formatters are applied only for display, preserving original data
 - Large datasets should consider pagination or virtualization
 - Avoid complex transformers on frequently sorted columns
 
 Common Patterns:
+
 - Use transformers for data normalization before sorting
 - Use formatters for display-only customization
 - Combine both for complex data processing workflows
 - Use className overrides for consistent visual styling
 
 Related Components:
+
 - ShadcnTable: Basic table structure without advanced features
 - DataTable: Alternative table implementation
 - List: For simpler data display without tabular structure
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Simple = () => {
   return (

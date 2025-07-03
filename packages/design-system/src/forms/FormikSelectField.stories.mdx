@@ -34,12 +34,13 @@ The FormikSelectField accepts the following props:
 
 {/* END README */}
 
-{/*
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Formik-integrated select dropdown component that wraps the core SelectField with option grouping, validation integration, and form state management for dropdown selection
 
 Dependencies:
+
 - Formik for form state management and validation
 - SelectField core component for dropdown functionality
 - Yup for selection validation schema support
@@ -47,6 +48,7 @@ Dependencies:
 - Custom label and tooltip components
 
 Available Stories:
+
 - Default: Basic select field with fruit options and placeholder
 - Validation: Select field with Yup validation requiring specific selection
 - Groups: Select field with grouped options organization
@@ -59,6 +61,7 @@ Available Stories:
 - Tooltip: Select field with tooltip and help information
 
 Props (FormikSelectField component):
+
 - id?: string - HTML id attribute for the select element
 - data?: Record<string, string> - Data attributes for testing purposes
 - name: string - Formik field name for form state management
@@ -76,6 +79,7 @@ Props (FormikSelectField component):
 - className?: Record<string, string> - Styling overrides for different parts
 
 Component Structure:
+
 - Formik Field wrapper for form integration
 - Select dropdown with current value display
 - Dropdown content with items or groups
@@ -83,6 +87,7 @@ Component Structure:
 - Automatic form state synchronization
 
 Usage Examples:
+
 ```tsx
 // Basic form select
 <Formik
@@ -180,7 +185,7 @@ Usage Examples:
       ]}
       placeholder="Select role"
     />
-    
+
     <FormikSelectField
       name="department"
       label="Department"
@@ -189,7 +194,7 @@ Usage Examples:
       groups={departmentGroups}
       placeholder="Choose department"
     />
-    
+
     <FormikSelectField
       name="permissions"
       label="Permission Level"
@@ -201,7 +206,7 @@ Usage Examples:
       ]}
       placeholder="Select permissions"
     />
-    
+
     <Button type="submit">Assign Role</Button>
   </Form>
 </Formik>
@@ -228,7 +233,7 @@ Usage Examples:
         ]}
         tooltip="Choose your preferred theme"
       />
-      
+
       <FormikSelectField
         name="language"
         label="Language"
@@ -236,7 +241,7 @@ Usage Examples:
         items={languageOptions}
         tooltip="Select your preferred language"
       />
-      
+
       <FormikSelectField
         name="timezone"
         label="Timezone"
@@ -280,7 +285,7 @@ Usage Examples:
         placeholder="Select category"
         tooltip="Choose the main category"
       />
-      
+
       {values.category && (
         <FormikSelectField
           name="subcategory"
@@ -317,7 +322,7 @@ Usage Examples:
           setFieldValue('city', '')
         }}
       />
-      
+
       {values.country && (
         <FormikSelectField
           name="state"
@@ -331,7 +336,7 @@ Usage Examples:
           }}
         />
       )}
-      
+
       {values.state && (
         <FormikSelectField
           name="city"
@@ -359,6 +364,7 @@ Usage Examples:
 ```
 
 Form Integration Features:
+
 - Automatic Formik field binding with name prop
 - Built-in selection validation support
 - Error state display from Formik field meta
@@ -366,12 +372,14 @@ Form Integration Features:
 - Touch/blur state management for UX
 
 Grouping and Organization:
+
 - Hierarchical option organization with groups
 - Group headers for categorization
 - Disabled groups and individual items
 - Visual separation between grouped options
 
 Validation Patterns:
+
 - Required field validation
 - Specific value validation with oneOf
 - Custom validation rules
@@ -379,12 +387,14 @@ Validation Patterns:
 - Cross-field dependency validation
 
 Conditional Options:
+
 - Dynamic option lists based on form state
 - Disabled options based on permissions
 - Dependent dropdown cascading
 - Option filtering and updates
 
 Best Practices:
+
 - Use clear, descriptive option labels
 - Group related options for better organization
 - Provide helpful tooltips for complex selections
@@ -393,6 +403,7 @@ Best Practices:
 - Use placeholders to guide user selection
 
 Common Use Cases:
+
 - User role and permission assignment
 - Category and classification selection
 - Location and geography selection
@@ -400,6 +411,7 @@ Common Use Cases:
 - Project and resource assignment
 
 Testing Support:
+
 - data prop for custom testing attributes
 - Option selection testing capabilities
 - Dropdown interaction verification
@@ -407,6 +419,7 @@ Testing Support:
 - Group and disabled option testing
 
 Accessibility Features:
+
 - Proper label association with select elements
 - Keyboard navigation (arrow keys, enter, escape)
 - Screen reader compatible structure
@@ -414,13 +427,14 @@ Accessibility Features:
 - Focus management for dropdown interactions
 
 Related Components:
+
 - SelectField: Core select functionality
 - Select: Basic select component variant
 - FormikTextField: For text input alternatives
 - Dropdown: For custom dropdown functionality
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => {
   return (

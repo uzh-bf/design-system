@@ -4,6 +4,7 @@ import { Skeleton } from './Skeleton'
 The `Skeleton` component provides placeholder loading states that mimic the shape and size of content while data is loading. It creates a better perceived performance by showing content structure before actual content loads.
 
 Use this component when you need to:
+
 - Show loading states for content that takes time to load
 - Improve perceived performance during data fetching
 - Maintain layout stability while content loads
@@ -12,23 +13,27 @@ Use this component when you need to:
 The skeleton automatically animates with a subtle shimmer effect and can be styled to match any content shape (text lines, circles, rectangles, etc.).
 {/* END README */}
 
-{/*
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Shadcn UI re-export providing animated placeholder loading states with CSS-based shimmer effect
 Dependencies: None (pure CSS animation)
 
 Available Stories:
+
 - Default: User profile skeleton with circular avatar and text lines
 
 Props (Skeleton component):
+
 - className: string - Additional CSS classes for size, shape, and positioning
 - children: ReactNode - Optional content (rarely used)
 
 Component Structure:
+
 - Skeleton: Root div with shimmer animation and background (re-export from ui/skeleton)
 
 Usage Examples:
+
 ```tsx
 // Text line skeletons
 <div className="space-y-2">
@@ -69,12 +74,13 @@ Usage Examples:
 ```
 
 Related Components:
+
 - Spinner: For simple loading indicators
 - Progress: For determinate loading progress
 - Card: Often needs skeleton states
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => {
   return (

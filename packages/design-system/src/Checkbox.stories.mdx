@@ -9,6 +9,7 @@ import Checkbox from './Checkbox'
 The `Checkbox` component provides an enhanced checkbox input with support for partial states, custom sizes, integrated labels, and flexible styling. Built on Shadcn UI foundations, it offers improved accessibility and visual consistency.
 
 Use this component when you need to:
+
 - Create form inputs for boolean selections with enhanced styling
 - Display partial/indeterminate states for nested selection scenarios
 - Provide size variants for different interface contexts
@@ -18,20 +19,38 @@ Use this component when you need to:
 The component supports standard and partial checked states, multiple size options, integrated label functionality, custom content display, and comprehensive styling customization options.
 
 **Note**: This is distinct from the basic ShadcnCheckbox, offering additional features like sizing, partial states, and enhanced label integration.
-{/* END README */}
 
-{/*
+<br />
+
+The props for the Checkbox component are as follows:
+
+- @param id - The id of the checkbox.
+- @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
+- @param children - Optional content of the checkbox that is shown when the checked attribute is true. By default, this is just replaced by a tick symbol.
+- @param checked - Indicate whether the checkbox is checked or not.
+- @param partial - Indicate whether the checkbox is partially checked or not. If the checked attribute is true, it will alwawys override the partial condition simplified logic.
+- @param onCheck - The function that is called when the checkbox is checked or unchecked.
+- @param disabled - Indicate whether the checkbox is disabled or not.
+- @param label - The label of the checkbox.
+- @param size - The size of the checkbox (can be small, medium, large or extra large).
+- @param style - The optional style object allows you to override the default styling.
+- @param className - The optional className object allows you to override the default styling.
+  {/* END README */}
+
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Enhanced checkbox component built on Shadcn UI foundation with additional features for partial states, sizing, labeling, and custom content support
 
 Dependencies:
+
 - Shadcn UI Checkbox component as base
 - React state management
 - FontAwesome icons for custom content
 - Tailwind CSS for styling and size variants
 
 Available Stories:
+
 - Default: Basic checkbox with checked state
 - Disabled: Disabled checkbox state demonstration
 - Labelled: Checkbox with integrated label
@@ -41,6 +60,7 @@ Available Stories:
 - Styled: Custom styling overrides
 
 Props (Checkbox component):
+
 - id?: string - HTML id attribute for the checkbox
 - data?: Record<string, string> - Data attributes for testing purposes
 - children?: React.ReactNode - Custom content shown when checked (overrides default tick)
@@ -54,6 +74,7 @@ Props (Checkbox component):
 - className?: string - Additional CSS classes for styling
 
 Component Structure:
+
 - Root container with label integration
 - Checkbox input with enhanced styling
 - Optional label text with proper association
@@ -61,9 +82,10 @@ Component Structure:
 - Size-based styling variants
 
 Usage Examples:
+
 ```tsx
 // Basic checkbox
-<Checkbox 
+<Checkbox
   checked={isSelected}
   onCheck={setIsSelected}
 />
@@ -135,6 +157,7 @@ Usage Examples:
 ```
 
 State Management Patterns:
+
 ```tsx
 // Simple boolean state
 const [isChecked, setIsChecked] = useState(false)
@@ -143,8 +166,8 @@ const [isChecked, setIsChecked] = useState(false)
 const [selectedItems, setSelectedItems] = useState([])
 const isItemSelected = (id) => selectedItems.includes(id)
 const toggleItem = (id) => {
-  setSelectedItems(prev => 
-    prev.includes(id) 
+  setSelectedItems(prev =>
+    prev.includes(id)
       ? prev.filter(item => item !== id)
       : [...prev, id]
   )
@@ -165,12 +188,14 @@ const someSelected = selectedItems.length > 0 && selectedItems.length < totalIte
 ```
 
 Size Variants:
+
 - small: Compact checkbox for dense interfaces
 - medium: Standard size for general use
 - large: Prominent checkbox for important selections
 - extraLarge: Maximum size for accessibility or emphasis
 
 Accessibility Features:
+
 - Proper ARIA attributes and labels
 - Keyboard navigation support
 - Screen reader compatibility
@@ -178,6 +203,7 @@ Accessibility Features:
 - Semantic HTML structure
 
 Common Use Cases:
+
 - Form field boolean selections
 - Multi-item selection interfaces
 - Settings and preferences toggles
@@ -185,13 +211,14 @@ Common Use Cases:
 - Nested selection with partial states
 
 Related Components:
+
 - Switch: For on/off toggle functionality
 - RadioGroup: For single selection from multiple options
 - FormikCheckbox: For Formik form integration
 - Toggle: For binary state switching
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => {
   const [isChecked, setIsChecked] = useState(true)

@@ -4,6 +4,7 @@ import Tag from './Tag'
 The `Tag` component provides a simple, consistent way to display labels, categories, or status indicators. It offers clean styling with customization options and maintains accessibility standards throughout your interface.
 
 Use this component when you need to:
+
 - Display categories, topics, or classification labels
 - Show status indicators or metadata
 - Create content tags for articles or posts
@@ -11,46 +12,60 @@ Use this component when you need to:
 - Build filter or selection interfaces
 
 The component provides consistent typography, proper spacing, customizable styling through className overrides, and standard testing attributes for reliable automation.
-{/* END README */}
 
-{/*
+<br />
+
+The Tag component accepts the following props:
+
+- @param id - The id of the tag.
+- @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
+- @param label - The label of the tag.
+- @param className - The optional className object allows you to override the default styling.
+  {/* END README */}
+
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Simple label component with consistent styling and customization options, designed for content labeling and categorization
 
 Dependencies:
+
 - React for component rendering
 - Tailwind CSS for default styling
 - Standard HTML semantic elements
 
 Available Stories:
+
 - Default: Basic tag with label text
 
 Props (Tag component):
+
 - id?: string - HTML id attribute for the tag element
 - data?: Record<string, string> - Data attributes for testing (e.g., data-test, data-cy)
 - label: string - Text content to display in the tag
 - className?: string - Additional CSS classes for styling customization
 
 Component Structure:
+
 - Single container element with label text
 - Semantic HTML with appropriate ARIA attributes
 - Default styling with override capabilities
 
 Usage Examples:
+
 ```tsx
 // Basic tag
 <Tag label="React" />
 
 // With custom styling
-<Tag 
-  label="Featured" 
-  className="bg-blue-100 text-blue-800 font-semibold" 
+<Tag
+  label="Featured"
+  className="bg-blue-100 text-blue-800 font-semibold"
 />
 
 // For testing
-<Tag 
-  label="Category" 
+<Tag
+  label="Category"
   id="main-category"
   data={{ "test": "category-tag", "cy": "category-element" }}
 />
@@ -71,7 +86,7 @@ Usage Examples:
 </div>
 
 // Interactive tag pattern (with external click handling)
-<button 
+<button
   onClick={handleTagClick}
   className="inline-block"
 >
@@ -80,17 +95,19 @@ Usage Examples:
 ```
 
 Styling Patterns:
+
 - Default: Neutral background with readable text
 - Status: Color-coded backgrounds for different states
 - Category: Distinctive styling for content classification
 - Interactive: Hover states when used within clickable elements
 
 Common Styling Examples:
+
 ```tsx
 // Success/positive status
 <Tag label="Approved" className="bg-green-100 text-green-700 border border-green-200" />
 
-// Warning status  
+// Warning status
 <Tag label="Pending" className="bg-yellow-100 text-yellow-700 border border-yellow-200" />
 
 // Error/negative status
@@ -104,19 +121,21 @@ Common Styling Examples:
 ```
 
 Accessibility Considerations:
+
 - Uses semantic HTML elements
 - Provides proper color contrast
 - Supports keyboard navigation when interactive
 - Compatible with screen readers
 
 Related Components:
+
 - Badge: For numerical indicators and counters
 - Button: For interactive tag-like elements
 - Chip: For removable tags with close functionality
 - Label: For form field labeling
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => {
   return <Tag label="Default Tag" />

@@ -10,6 +10,7 @@ import { Alert, AlertDescription, AlertTitle } from './Alert'
 The `Alert` component provides contextual feedback messages to users with clear visual hierarchy and accessibility support. It communicates important information, warnings, errors, or success states in a non-intrusive way.
 
 Use this component when you need to:
+
 - Display status messages after user actions (success, error, warning)
 - Show important system notifications or announcements
 - Provide contextual help or informational messages
@@ -18,28 +19,32 @@ Use this component when you need to:
 The alert supports different variants (default, destructive) and includes optional icons, titles, and descriptions. It uses semantic HTML and proper ARIA attributes for screen reader accessibility.
 {/* END README */}
 
-{/*
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Shadcn UI re-export built on Radix UI primitives with UZH design system styling and semantic HTML structure
 Dependencies: lucide-react (for icons), class-variance-authority (for variants)
 
 Available Stories:
+
 - Default: Basic alert with icon, title, and description showing CLI information
 - Success: Success alert demonstrating positive feedback message
 - Icon: Minimal alert with only icon and title, no description
 - Destructive: Error variant with structured content including lists
 
 Props (Alert component):
+
 - variant: "default" | "destructive" - Visual style variant for different message types
 - className: string - Additional CSS classes for customization
 
 Component Structure:
+
 - Alert: Root container with semantic role="alert" (re-export from ui/alert)
 - AlertTitle: Alert heading with appropriate typography
 - AlertDescription: Content area supporting rich HTML content
 
 Usage Examples:
+
 ```tsx
 // Basic informational alert
 <Alert>
@@ -63,11 +68,12 @@ Usage Examples:
 ```
 
 Related Components:
+
 - Toast: For temporary notifications that auto-dismiss
 - UserNotification: For more complex notification systems with actions
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => {
   return (

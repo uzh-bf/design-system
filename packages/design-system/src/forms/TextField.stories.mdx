@@ -33,12 +33,13 @@ The props for the TextField component are as follows:
 
 {/* END README */}
 
-{/*
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Comprehensive text input field component with label integration, icon support, validation state management, and extensive customization options for form building
 
 Dependencies:
+
 - FontAwesome icons for input field decoration and interaction
 - Custom Label component for consistent labeling
 - React state management for input handling
@@ -46,6 +47,7 @@ Dependencies:
 - Accessibility support for form interactions
 
 Available Stories:
+
 - Default: Basic text field with label and tooltip
 - Icon: Text field with left-positioned search icon
 - IconRight: Text field with right-positioned icon
@@ -56,6 +58,7 @@ Available Stories:
 - Styled: Custom styling with colored theme
 
 Props (TextField component):
+
 - id?: string - HTML id attribute for the input element
 - data?: Record<string, string> - Data attributes for testing purposes
 - name?: string - HTML name attribute for form submission
@@ -78,6 +81,7 @@ Props (TextField component):
 - onIconClick?: () => void - Click handler for interactive icons
 
 Component Structure:
+
 - Label component integration with tooltip support
 - Input field with optional icon positioning
 - Error message display below field
@@ -85,6 +89,7 @@ Component Structure:
 - Disabled state styling and behavior
 
 Usage Examples:
+
 ```tsx
 // Basic text field
 <TextField
@@ -139,7 +144,7 @@ const [touched, setTouched] = useState({})
     onBlur={() => setTouched(prev => ({ ...prev, name: true }))}
     tooltip="Enter your legal name as it appears on documents"
   />
-  
+
   <TextField
     label="Email Address"
     placeholder="Enter your email"
@@ -151,7 +156,7 @@ const [touched, setTouched] = useState({})
     onBlur={() => setTouched(prev => ({ ...prev, email: true }))}
     tooltip="We'll send verification to this address"
   />
-  
+
   <Button type="submit">Submit</Button>
 </form>
 
@@ -190,7 +195,7 @@ const [touched, setTouched] = useState({})
     onChange={setDisplayName}
     tooltip="This name appears in comments and shared content"
   />
-  
+
   <TextField
     label="Website URL"
     placeholder="https://your-website.com"
@@ -199,7 +204,7 @@ const [touched, setTouched] = useState({})
     icon={faGlobe}
     tooltip="Optional: Link to your personal or business website"
   />
-  
+
   <TextField
     label="Bio"
     placeholder="Tell us about yourself..."
@@ -223,7 +228,7 @@ const [touched, setTouched] = useState({})
     icon={faMagnifyingGlass}
     className={{ field: 'max-w-xs' }}
   />
-  
+
   <TextField
     label="Filter by Date"
     labelType="small"
@@ -254,7 +259,7 @@ const [touched, setTouched] = useState({})
 // Multi-field address form
 <fieldset className="address-form">
   <legend className="text-lg font-semibold mb-4">Billing Address</legend>
-  
+
   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
     <TextField
       label="Street Address"
@@ -263,14 +268,14 @@ const [touched, setTouched] = useState({})
       value={address.street}
       onChange={(value) => updateAddress('street', value)}
     />
-    
+
     <TextField
       label="Apartment/Unit"
       placeholder="Apt 4B (optional)"
       value={address.unit}
       onChange={(value) => updateAddress('unit', value)}
     />
-    
+
     <TextField
       label="City"
       placeholder="New York"
@@ -278,7 +283,7 @@ const [touched, setTouched] = useState({})
       value={address.city}
       onChange={(value) => updateAddress('city', value)}
     />
-    
+
     <TextField
       label="Postal Code"
       placeholder="10001"
@@ -321,23 +326,27 @@ const [touched, setTouched] = useState({})
 ```
 
 Icon Integration:
+
 - FontAwesome icon support for visual enhancement
 - Left or right positioning within input field
 - Interactive icons with click handlers
 - Icon styling integration with field states
 
 Validation Integration:
+
 - Error message display below input field
 - Touched state management for UX
 - Required field visual indicators
 - Custom error styling and positioning
 
 Label Types:
+
 - Default: Standard label above input
 - Small: Compact label for dense layouts
 - Custom: Configurable styling and positioning
 
 Best Practices:
+
 - Always provide meaningful labels and placeholders
 - Use tooltips for complex or unclear fields
 - Implement proper validation with error messages
@@ -345,6 +354,7 @@ Best Practices:
 - Use appropriate input types for data validation
 
 Common Use Cases:
+
 - User registration and login forms
 - Search and filter interfaces
 - Settings and configuration panels
@@ -352,6 +362,7 @@ Common Use Cases:
 - Contact and address collection
 
 Accessibility Features:
+
 - Proper label association with input fields
 - Error message integration with ARIA attributes
 - Keyboard navigation support
@@ -359,19 +370,21 @@ Accessibility Features:
 - High contrast color support
 
 Testing Support:
+
 - data prop for custom testing attributes
 - id prop for unique element identification
 - Consistent field structure for automation
 - Error and validation state testing
 
 Related Components:
+
 - Label: For standalone labeling needs
 - FormikTextField: For Formik form integration
 - NumberField: For numeric input requirements
 - TextareaField: For multi-line text input
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => {
   const [value, setValue] = React.useState('')

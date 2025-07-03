@@ -6,6 +6,7 @@ import { Separator } from './Separator'
 The `ScrollArea` component provides custom-styled scrollable regions with consistent scrollbar appearance across different operating systems and browsers. It replaces default browser scrollbars with more aesthetically pleasing and customizable alternatives.
 
 Use this component when you need to:
+
 - Create scrollable content areas with consistent styling
 - Control scrollbar appearance across different platforms
 - Implement smooth scrolling behavior
@@ -14,16 +15,18 @@ Use this component when you need to:
 The scroll area maintains native scrolling performance while providing visual consistency and supports both vertical and horizontal scrolling with customizable scrollbar appearance.
 {/* END README */}
 
-{/*
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Shadcn UI re-export built on Radix UI's ScrollArea primitive with custom scrollbar styling
 Dependencies: @radix-ui/react-scroll-area
 
 Available Stories:
+
 - Default: Vertical scroll area with tags list demonstrating styled scrollbars
 
 Props (ScrollArea component):
+
 - type: "auto" | "always" | "scroll" | "hover" - Scrollbar visibility behavior
 - scrollHideDelay: number - Delay before hiding scrollbars (default: 600ms)
 - dir: "ltr" | "rtl" - Text direction
@@ -31,6 +34,7 @@ Props (ScrollArea component):
 - orientation: "vertical" | "horizontal" | "both" - Scroll directions
 
 Component Structure:
+
 - ScrollArea: Root container managing scroll behavior (re-export from ui/scroll-area)
 - ScrollAreaViewport: Scrollable content viewport
 - ScrollAreaScrollbar: Custom scrollbar element
@@ -38,6 +42,7 @@ Component Structure:
 - ScrollAreaCorner: Corner element for bidirectional scrolling
 
 Usage Examples:
+
 ```tsx
 // Vertical scroll area
 <ScrollArea className="h-72 w-48 rounded-md border">
@@ -81,12 +86,13 @@ Usage Examples:
 ```
 
 Related Components:
+
 - Card: Often contains scroll areas for content
 - Sheet: May include scroll areas for long content
 - Table: Can use scroll areas for large datasets
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => {
   return (

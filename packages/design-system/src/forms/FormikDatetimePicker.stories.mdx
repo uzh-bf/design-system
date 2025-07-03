@@ -7,22 +7,45 @@ import FormikDatetimePicker from './FormikDatetimePicker'
 The `FormikDatetimePicker` component is a Formik wrapper around the `DatetimePicker` component that combines calendar date selection with time input for complete datetime management. It integrates seamlessly with Formik forms and provides comprehensive validation, error handling, and form submission capabilities.
 
 Use this component when you need:
+
 - Event scheduling with specific times
 - Appointment booking systems
-- Task deadline management with precise timing  
+- Task deadline management with precise timing
 - Form fields requiring both date and time selection
 - Datetime input with validation and error handling
 
 The component provides a popover-based interface with calendar navigation and separate time input controls for hours, minutes, and seconds. It includes extensive testing support with granular data attributes for each interactive element.
 
+<br />
+
+The FormikDatetimePicker accepts the following props:
+
+- @param name - The name of the field as used to keep track of the state in Formik.
+- @param label - The label of the datetime picker.
+- @param labelType - The type of the label (small or large).
+- @param placeholder - The placeholder of the datetime picker (is only shown if no date is selected).
+- @param tooltip - The tooltip of the datetime picker (is only shown if a label is given).
+- @param required - Whether the datetime label should contain a required symbol.
+- @param disabled - Whether the datetime picker is disabled or not.
+- @param hideError - Whether the error message should be hidden.
+- @param className - The optional className object allows you to override the default styling.
+- @param dataTrigger - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the popover trigger.
+- @param dataCalendar - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the calendar icon.
+- @param dataHours - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the hours input.
+- @param dataMinutes - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the minutes input.
+- @param dataSeconds - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the seconds input.
+- @param dataPreviousMonth - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the previous month button.
+- @param dataNextMonth - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the next month button.
+
 {/* END README */}
 
-{/*
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Formik-integrated datetime picker component that wraps the core DatetimePicker with calendar navigation, time selection, validation integration, and comprehensive form state management
 
 Dependencies:
+
 - Formik for form state management and validation
 - DatetimePicker core component for datetime functionality
 - Yup for datetime validation schema support
@@ -30,6 +53,7 @@ Dependencies:
 - Custom Label component for consistent labeling
 
 Available Stories:
+
 - Default: Basic datetime picker with Formik integration
 - Disabled: Datetime picker in disabled state
 - Labelled: Datetime picker with label display
@@ -37,6 +61,7 @@ Available Stories:
 - Validation: Datetime picker with Yup validation requiring dates after 2020
 
 Props (FormikDatetimePicker component):
+
 - name: string - Formik field name for form state management
 - label?: string - Display label for the datetime picker
 - labelType?: 'small' | 'large' - Label size and positioning variant
@@ -55,6 +80,7 @@ Props (FormikDatetimePicker component):
 - dataNextMonth?: Record<string, string> - Data attributes for next month button testing
 
 Component Structure:
+
 - Formik Field wrapper for form integration
 - DatetimePicker core component with calendar and time inputs
 - Popover-based interface for datetime selection
@@ -62,10 +88,11 @@ Component Structure:
 - Automatic form state synchronization
 
 Usage Examples:
+
 ```tsx
 // Event scheduling form
 <Formik
-  initialValues={{ 
+  initialValues={{
     eventStart: new Date(),
     eventEnd: new Date(Date.now() + 2 * 60 * 60 * 1000) // +2 hours
   }}
@@ -87,7 +114,7 @@ Usage Examples:
       tooltip="Select the event start date and time"
       placeholder="Choose start datetime"
     />
-    
+
     <FormikDatetimePicker
       name="eventEnd"
       label="Event End"
@@ -95,7 +122,7 @@ Usage Examples:
       tooltip="Select the event end date and time"
       placeholder="Choose end datetime"
     />
-    
+
     <Button type="submit">Create Event</Button>
   </Form>
 </Formik>
@@ -107,7 +134,7 @@ Usage Examples:
     appointmentTime: Yup.date()
       .required('Appointment time is required')
       .min(new Date(), 'Please select a future appointment time')
-      .test('business-hours', 'Please select a time during business hours (9 AM - 5 PM)', 
+      .test('business-hours', 'Please select a time during business hours (9 AM - 5 PM)',
         value => {
           if (!value) return false
           const hour = value.getHours()
@@ -130,7 +157,7 @@ Usage Examples:
         label: 'text-lg font-semibold'
       }}
     />
-    
+
     <Button type="submit">Book Appointment</Button>
   </Form>
 </Formik>
@@ -165,7 +192,7 @@ Usage Examples:
         items={timezoneOptions}
         tooltip="Select the timezone for this event"
       />
-      
+
       <FormikDatetimePicker
         name="localTime"
         label="Event Time"
@@ -173,10 +200,10 @@ Usage Examples:
         tooltip={`Time in ${values.timezone}`}
         placeholder="Select event time"
       />
-      
+
       <div className="text-sm text-gray-600 mt-2">
-        UTC Time: {values.localTime ? 
-          new Date(values.localTime).toISOString() : 
+        UTC Time: {values.localTime ?
+          new Date(values.localTime).toISOString() :
           'No time selected'
         }
       </div>
@@ -193,7 +220,7 @@ Usage Examples:
   validationSchema={Yup.object({
     meetingStart: Yup.date()
       .required('Meeting start time is required')
-      .test('weekday', 'Meetings can only be scheduled on weekdays', 
+      .test('weekday', 'Meetings can only be scheduled on weekdays',
         value => {
           if (!value) return false
           const day = value.getDay()
@@ -219,7 +246,7 @@ Usage Examples:
         tooltip="Select meeting start time (weekdays 8 AM - 6 PM only)"
         placeholder="Choose meeting time"
       />
-      
+
       <FormikSelectField
         name="duration"
         label="Duration (minutes)"
@@ -230,7 +257,7 @@ Usage Examples:
           { value: 120, label: '2 hours' }
         ]}
       />
-      
+
       {values.meetingStart && (
         <div className="mt-2 p-3 bg-blue-50 rounded">
           <p className="text-sm">
@@ -276,6 +303,7 @@ Usage Examples:
 ```
 
 Form Integration Features:
+
 - Automatic Formik field binding with name prop
 - Built-in datetime validation support
 - Error state display from Formik field meta
@@ -283,6 +311,7 @@ Form Integration Features:
 - Touch/blur state management for UX
 
 Validation Patterns:
+
 - Date range validation (min/max dates)
 - Business hours validation
 - Weekday/weekend restrictions
@@ -290,6 +319,7 @@ Validation Patterns:
 - Custom datetime validation rules
 
 Calendar Navigation:
+
 - Month-by-month navigation
 - Year selection interface
 - Today button for quick selection
@@ -297,6 +327,7 @@ Calendar Navigation:
 - Date range restrictions
 
 Time Input Features:
+
 - Hours, minutes, seconds selection
 - 12/24 hour format support
 - Time validation and constraints
@@ -304,6 +335,7 @@ Time Input Features:
 - Direct keyboard input
 
 Best Practices:
+
 - Use appropriate validation for datetime constraints
 - Provide clear labels and tooltips for guidance
 - Consider timezone implications for global applications
@@ -311,6 +343,7 @@ Best Practices:
 - Use appropriate label sizes for form hierarchy
 
 Common Use Cases:
+
 - Event and meeting scheduling
 - Appointment booking systems
 - Task and project deadline management
@@ -318,6 +351,7 @@ Common Use Cases:
 - Timestamp creation for records
 
 Testing Support:
+
 - Comprehensive data attributes for all interactive elements
 - Separate testing hooks for calendar and time components
 - Navigation button testing support
@@ -325,6 +359,7 @@ Testing Support:
 - Popover interaction testing
 
 Accessibility Features:
+
 - Proper label association with datetime elements
 - Keyboard navigation for calendar and time inputs
 - Screen reader compatible date/time announcements
@@ -332,13 +367,14 @@ Accessibility Features:
 - Focus management for popover interactions
 
 Related Components:
+
 - DatetimePicker: Core datetime functionality
 - FormikDatePicker: For date-only selection
 - DatePicker: For standalone date selection
 - Calendar: For calendar-only interfaces
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => (
   <div>

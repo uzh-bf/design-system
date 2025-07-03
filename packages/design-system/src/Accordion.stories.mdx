@@ -10,6 +10,7 @@ import './tailwind.css'
 The `Accordion` component provides collapsible content sections with accessible keyboard navigation and smooth animations. It allows users to toggle between hiding and showing large amounts of content, making interfaces cleaner and more organized.
 
 Use this component when you need to:
+
 - Present FAQ sections or Q&A content
 - Organize lengthy content into digestible sections
 - Save vertical space while keeping information accessible
@@ -18,16 +19,18 @@ Use this component when you need to:
 The accordion supports both single and multiple item expansion modes. Items consist of a trigger (AccordionTrigger) that users click to reveal the content (AccordionContent), with proper ARIA attributes for screen reader support.
 {/* END README */}
 
-{/*
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Shadcn UI re-export built on Radix UI's Accordion primitive with UZH design system styling
 Dependencies: @radix-ui/react-accordion, lucide-react (for chevron icon)
 
 Available Stories:
+
 - Default: Single-item accordion demonstrating product information sections
 
 Props (from Radix UI):
+
 - type: "single" | "multiple" - Controls expansion behavior
 - collapsible: boolean - When type="single", allows closing all items
 - defaultValue: string | string[] - Initially expanded item(s)
@@ -38,12 +41,14 @@ Props (from Radix UI):
 - orientation: "horizontal" | "vertical" - Layout direction
 
 Component Structure:
+
 - Accordion: Root container (re-export from ui/accordion)
 - AccordionItem: Individual collapsible section with value prop
 - AccordionTrigger: Clickable header with chevron indicator
 - AccordionContent: Collapsible content area with animation
 
 Usage Examples:
+
 ```tsx
 // Single expansion mode
 <Accordion type="single" collapsible>
@@ -61,13 +66,14 @@ Usage Examples:
 ```
 
 Related Components:
+
 - Collapsible: Custom implementation for single collapsible sections
 - ShadcnCollapsible: Direct Shadcn/Radix re-export for simpler use cases
 - Sheet: For larger collapsible panels and sidebars
 - Tabs: For switching between content sections without animation
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => {
   return (

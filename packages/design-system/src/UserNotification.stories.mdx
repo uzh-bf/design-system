@@ -4,6 +4,7 @@ import UserNotification from './UserNotification'
 The `UserNotification` component provides contextual feedback to users through styled notification messages with appropriate icons and color-coded styling. It supports different notification types for various user interaction scenarios.
 
 Use this component when you need to:
+
 - Display success, error, warning, or informational messages to users
 - Provide feedback after user actions (form submission, data changes, etc.)
 - Show system status updates or alerts
@@ -11,42 +12,57 @@ Use this component when you need to:
 - Create consistent notification experiences across your application
 
 The component automatically applies appropriate icons and styling based on the notification type, supports both message text and custom React content, and provides comprehensive styling customization options.
-{/* END README */}
 
-{/*
+<br />
+
+The UserNotification component accepts the following props:
+
+- @param id - The id of the notification.
+- @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
+- @param message - The message that is displayed in the notification.
+- @param type - The type of the notification. This can be either 'success', 'info' or 'error'. This determines the icon that is displayed and some conditional styling. If not type is provided, the information icon is displayed.
+- @param children - The optional children are displayed in the notification in addition to the provided message icon.
+- @param className - The optional className object allows you to override the default styling.
+  {/* END README */}
+
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Contextual notification component with type-based styling, icon selection, and flexible content support for user feedback scenarios
 
 Dependencies:
+
 - React for component rendering
 - FontAwesome icons (or similar icon library)
 - Tailwind CSS for styling and color variants
 - Type-based conditional styling system
 
 Available Stories:
+
 - Default: Basic notification without specific type
 - Success: Success state with checkmark icon and green styling
-- Warning: Warning state with warning icon and yellow styling  
+- Warning: Warning state with warning icon and yellow styling
 - Error: Error state with error icon and red styling
 - Info: Information state with info icon and blue styling
 - CustomContent: Rich content with React nodes instead of simple message
 - Styled: Custom styling overrides demonstration
 
 Props (UserNotification component):
+
 - id?: string - HTML id attribute for the notification
 - data?: Record<string, string> - Data attributes for testing purposes
 - message?: string - Primary message text to display
 - type?: 'success' | 'warning' | 'error' | 'info' | 'default' - Notification type determining icon and styling
 - children?: React.ReactNode - Additional content displayed below message
 - className?: {
-    root?: string,
-    icon?: string,
-    message?: string,
-    content?: string
+  root?: string,
+  icon?: string,
+  message?: string,
+  content?: string
   } - Styling overrides for different parts
 
 Component Structure:
+
 - Root container with type-based background and border styling
 - Icon section with contextual icon based on type
 - Message section for primary text
@@ -54,6 +70,7 @@ Component Structure:
 - Responsive layout with proper spacing
 
 Type-Based Styling:
+
 - success: Green color scheme with checkmark icon
 - warning: Yellow/orange color scheme with warning icon
 - error: Red color scheme with error icon
@@ -61,16 +78,17 @@ Type-Based Styling:
 - default: Neutral gray scheme with default icon
 
 Usage Examples:
+
 ```tsx
 // Success notification
-<UserNotification 
-  type="success" 
-  message="Your changes have been saved successfully!" 
+<UserNotification
+  type="success"
+  message="Your changes have been saved successfully!"
 />
 
 // Error with additional content
-<UserNotification 
-  type="error" 
+<UserNotification
+  type="error"
   message="Failed to save changes"
 >
   <div>
@@ -83,16 +101,16 @@ Usage Examples:
 </UserNotification>
 
 // Warning notification
-<UserNotification 
-  type="warning" 
+<UserNotification
+  type="warning"
   message="This action cannot be undone"
 >
   <p>Please confirm you want to proceed with deletion.</p>
 </UserNotification>
 
 // Info notification
-<UserNotification 
-  type="info" 
+<UserNotification
+  type="info"
   message="New features are available"
 >
   <a href="/changelog" className="text-blue-600 underline">
@@ -101,7 +119,7 @@ Usage Examples:
 </UserNotification>
 
 // Custom styled notification
-<UserNotification 
+<UserNotification
   type="success"
   message="Operation completed"
   className={{
@@ -129,6 +147,7 @@ Usage Examples:
 ```
 
 Accessibility Features:
+
 - Semantic HTML structure
 - Appropriate color contrast ratios
 - Screen reader compatible
@@ -136,6 +155,7 @@ Accessibility Features:
 - ARIA attributes for screen readers
 
 Best Practices:
+
 - Use appropriate notification types for context
 - Keep messages concise and actionable
 - Include additional details in children when needed
@@ -143,10 +163,11 @@ Best Practices:
 - Group related notifications to avoid notification fatigue
 
 Common Patterns:
+
 ```tsx
 // Form validation feedback
-<UserNotification 
-  type="error" 
+<UserNotification
+  type="error"
   message="Please fix the following errors:"
 >
   <ul>
@@ -155,8 +176,8 @@ Common Patterns:
 </UserNotification>
 
 // Action confirmation
-<UserNotification 
-  type="success" 
+<UserNotification
+  type="success"
   message="Account created successfully!"
 >
   <p>
@@ -165,8 +186,8 @@ Common Patterns:
 </UserNotification>
 
 // System status
-<UserNotification 
-  type="warning" 
+<UserNotification
+  type="warning"
   message="Limited functionality available"
 >
   <p>Some features may be temporarily unavailable during maintenance.</p>
@@ -174,13 +195,14 @@ Common Patterns:
 ```
 
 Related Components:
+
 - Toast: For temporary, auto-dismissing notifications
 - Alert: For static alert messages
 - Modal: For notifications requiring user interaction
 - Banner: For site-wide announcements
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => {
   return (

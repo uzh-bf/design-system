@@ -6,6 +6,7 @@ import Navigation from './Navigation'
 The `Navigation` component provides a comprehensive navigation system supporting buttons, dropdowns, nested submenus, and complex hierarchical menu structures. It offers flexible item types, notification indicators, badges, and extensive customization for building sophisticated application navigation interfaces.
 
 Use this component when you need to:
+
 - Create application navigation bars with multiple interaction types (buttons, dropdowns, submenus)
 - Build complex menu systems with notification indicators and badge support
 - Implement hierarchical navigation with nested submenu structures
@@ -13,14 +14,22 @@ Use this component when you need to:
 - Design flexible navigation layouts with customizable styling and active states
 
 The component supports multiple item types (button, dropdown, submenu, separator), notification indicators, custom badges, active state management, disabled states, icon and label combinations, and comprehensive testing attribute support for all navigation elements.
-{/* END README */}
 
-{/*
+<br />
+
+The props for the Navigation component are as follows:
+
+- @param items - The array of items to display in the navigation (required).
+- @param className - The optional className object to override default styling for the root.
+  {/* END README */}
+
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Comprehensive navigation system with hierarchical menu support, multiple item types, notification indicators, badges, and extensive customization for complex application navigation
 
 Dependencies:
+
 - React for component structure and state management
 - Navigation item type system for flexible menu structures
 - FontAwesome icons for visual elements
@@ -28,6 +37,7 @@ Dependencies:
 - Accessibility support for keyboard navigation
 
 Available Stories:
+
 - Button: Basic button navigation item
 - Active: Active state button demonstration
 - IconTrigger: Icon-only navigation trigger
@@ -39,10 +49,12 @@ Available Stories:
 - Disabled: Disabled states for navigation items
 
 Props (Navigation component):
+
 - items: NavigationItem[] - Array of navigation items (required)
 - className?: Record<string, string> - Styling overrides for different parts
 
 NavigationItem Structure (Button type):
+
 - type: 'button' - Item type for clickable buttons
 - key: string - Unique identifier for the navigation item
 - label?: string - Display text for the button
@@ -55,6 +67,7 @@ NavigationItem Structure (Button type):
 - data?: Record<string, string> - Data attributes for testing
 
 NavigationItem Structure (Dropdown type):
+
 - type: 'dropdown' - Item type for dropdown menus
 - key: string - Unique identifier for the dropdown
 - label: string - Display text for the dropdown trigger
@@ -67,6 +80,7 @@ NavigationItem Structure (Dropdown type):
 - data?: Record<string, string> - Data attributes for testing
 
 DropdownElement Structure:
+
 - key: string - Unique identifier for the dropdown item
 - type: 'link' | 'separator' | 'submenu' - Type of dropdown element
 - label?: string - Display text (for link and submenu types)
@@ -78,6 +92,7 @@ DropdownElement Structure:
 - options?: DropdownElement[] - Submenu items (for submenu type)
 
 Component Structure:
+
 - Navigation container with horizontal layout
 - Button items with icon/label combinations
 - Dropdown triggers with popup menus
@@ -86,9 +101,10 @@ Component Structure:
 - Keyboard navigation and accessibility support
 
 Usage Examples:
+
 ```tsx
 // Basic button navigation
-<Navigation 
+<Navigation
   items={[
     {
       type: 'button',
@@ -107,7 +123,7 @@ Usage Examples:
 />
 
 // Icon-only navigation
-<Navigation 
+<Navigation
   items={[
     {
       type: 'button',
@@ -127,7 +143,7 @@ Usage Examples:
 />
 
 // Combined icon and label navigation
-<Navigation 
+<Navigation
   items={[
     {
       type: 'button',
@@ -149,7 +165,7 @@ Usage Examples:
 />
 
 // Dropdown navigation menu
-<Navigation 
+<Navigation
   items={[
     {
       type: 'dropdown',
@@ -185,7 +201,7 @@ Usage Examples:
 />
 
 // Nested submenu navigation
-<Navigation 
+<Navigation
   items={[
     {
       type: 'dropdown',
@@ -215,8 +231,8 @@ Usage Examples:
               label: 'Export as JSON',
               onClick: () => exportToJSON(),
               badge: 'New',
-              className: { 
-                badge: 'bg-green-600 hover:bg-green-700' 
+              className: {
+                badge: 'bg-green-600 hover:bg-green-700'
               }
             }
           ]
@@ -227,7 +243,7 @@ Usage Examples:
 />
 
 // Complex navigation with notifications and badges
-<Navigation 
+<Navigation
   items={[
     {
       type: 'button',
@@ -250,8 +266,8 @@ Usage Examples:
           label: 'Unread Messages',
           onClick: () => showMessages(),
           badge: unreadCount.toString(),
-          className: { 
-            badge: 'bg-red-500 hover:bg-red-600' 
+          className: {
+            badge: 'bg-red-500 hover:bg-red-600'
           }
         },
         {
@@ -271,13 +287,13 @@ Usage Examples:
       disabled: !isAuthenticated
     }
   ]}
-  className={{ 
-    root: 'bg-white border-b border-gray-200' 
+  className={{
+    root: 'bg-white border-b border-gray-200'
   }}
 />
 
 // Testing navigation configuration
-<Navigation 
+<Navigation
   items={[
     {
       type: 'button',
@@ -298,18 +314,21 @@ Usage Examples:
 ```
 
 Item Type Features:
+
 - button: Clickable navigation items with optional icons
 - dropdown: Menu containers with popup item lists
 - submenu: Nested menu support within dropdowns
 - separator: Visual dividers between menu sections
 
 Visual Indicators:
+
 - notification: Red dot indicator for attention-required items
 - badge: Custom text badges with configurable styling
 - active: Visual highlighting for current/selected items
 - disabled: Grayed-out state for unavailable items
 
 Navigation Structure:
+
 - Horizontal layout with consistent spacing
 - Icon/label combinations with flexible positioning
 - Dropdown activation on click with keyboard support
@@ -317,6 +336,7 @@ Navigation Structure:
 - Responsive design considerations
 
 Accessibility Features:
+
 - Full keyboard navigation support
 - ARIA attributes for screen readers
 - Focus management across menu levels
@@ -324,6 +344,7 @@ Accessibility Features:
 - Proper menu role semantics
 
 Best Practices:
+
 - Use meaningful labels for all navigation items
 - Provide icons for better visual recognition
 - Group related items in dropdowns logically
@@ -331,6 +352,7 @@ Best Practices:
 - Consider notification indicators for important updates
 
 Common Use Cases:
+
 - Application menu bars and navigation
 - Dashboard navigation systems
 - File menu implementations
@@ -338,19 +360,21 @@ Common Use Cases:
 - User account and settings navigation
 
 Testing Support:
+
 - Data attributes for all interactive elements
 - Unique key identification for each item
 - Support for automated testing frameworks
 - Comprehensive element targeting
 
 Related Components:
+
 - Dropdown: For standalone dropdown menus
 - Button: For individual navigation buttons
 - Menu: For alternative menu implementations
 - Tabs: For tab-based navigation
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Button = () => {
   const items = [{

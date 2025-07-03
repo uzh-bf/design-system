@@ -18,6 +18,7 @@ import { Button } from './ui/button'
 The `ShadcnDropdownMenu` component provides comprehensive dropdown menus with nested submenus, keyboard shortcuts, and organized content sections. It creates feature-rich context menus and action panels triggered by buttons or other elements.
 
 Use this component when you need to:
+
 - Create user account menus with profile actions and settings
 - Build context menus with multiple action groups
 - Implement nested menu structures with submenus
@@ -28,16 +29,18 @@ The dropdown menu supports nested submenus, separator groupings, disabled states
 **Note**: This is prefixed as "ShadcnDropdownMenu" to distinguish it from the custom Dropdown component in the design system.
 {/* END README */}
 
-{/*
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Shadcn UI re-export built on Radix UI's DropdownMenu primitive with nested navigation and rich content support
 Dependencies: @radix-ui/react-dropdown-menu
 
 Available Stories:
+
 - Default: Comprehensive dropdown menu with account sections, nested submenus, keyboard shortcuts, and grouped actions
 
 Props (ShadcnDropdownMenu component):
+
 - open: boolean - Controlled open state
 - defaultOpen: boolean - Initial open state
 - onOpenChange: (open: boolean) => void - Open state change handler
@@ -45,6 +48,7 @@ Props (ShadcnDropdownMenu component):
 - dir: "ltr" | "rtl" - Text direction
 
 Props (ShadcnDropdownMenuContent component):
+
 - side: "top" | "right" | "bottom" | "left" - Preferred side for positioning
 - sideOffset: number - Distance from trigger element
 - align: "start" | "center" | "end" - Alignment relative to trigger
@@ -57,6 +61,7 @@ Props (ShadcnDropdownMenuContent component):
 - className: string - Additional CSS classes
 
 Component Structure:
+
 - ShadcnDropdownMenu: Root container managing dropdown state (re-export from ui/dropdown-menu)
 - ShadcnDropdownMenuTrigger: Element that triggers the dropdown
 - ShadcnDropdownMenuContent: Main dropdown content container
@@ -71,6 +76,7 @@ Component Structure:
 - ShadcnDropdownMenuPortal: Portal for rendering submenus
 
 Usage Examples:
+
 ```tsx
 // User account menu
 <ShadcnDropdownMenu>
@@ -226,13 +232,14 @@ Usage Examples:
 ```
 
 Related Components:
+
 - ContextMenu: For right-click triggered menus
 - Popover: For simpler floating content
 - NavigationMenu: For primary navigation structures
 - Select: For single selection dropdowns
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => {
   return (

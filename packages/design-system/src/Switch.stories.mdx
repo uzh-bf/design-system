@@ -5,6 +5,7 @@ import Switch from './Switch'
 The `Switch` component provides an enhanced toggle control for binary state management with support for labels, tooltips, error handling, and multiple sizes. It offers flexible positioning, validation integration, and accessibility features for comprehensive form and settings interfaces.
 
 Use this component when you need to:
+
 - Create toggle controls for settings and preferences with clear visual feedback
 - Implement form switches with validation, error messages, and required field indicators
 - Build accessible binary input controls with proper labeling and keyboard navigation
@@ -12,14 +13,35 @@ Use this component when you need to:
 - Design toggle interfaces with tooltips and contextual help information
 
 The component supports controlled state management, multiple size variants (small, medium, large), flexible label positioning (left/right), validation with error messages, tooltip integration, disabled states, and comprehensive testing attribute support for all toggle elements.
-{/* END README */}
 
-{/*
+<br />
+
+The Switch component accepts the following props:
+
+- @param id - The id of the switch.
+- @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
+- @param label - The label that is displayed next to the switch.
+- @param tooltip - The tooltip that is displayed when hovering over the label.
+- @param checked - Indicator whether the switch is checked or not (or indefinite if undefined value). State is managed by the parent component.
+- @param onCheckedChange - The function that is called when the switch is checked or unchecked. The new value is passed as a parameter.
+- @param onBlur - The function that is called when the switch loses focus.
+- @param disabled - Indicator whether the switch is disabled or not.
+- @param fluid - Indicator whether the switch should be fluid or not.
+- @param error - The error message that is shown next the switch.
+- @param hideError - Indicator whether the error message should be hidden or not.
+- @param required - Indicator whether the switch is required or not.
+- @param labelLeft - Indicator whether the label should be displayed on the left or right side of the switch.
+- @param size - The size of the switch. The size can be small, medium or large.
+- @param className - The optional className object allows you to override the default styling.
+  {/* END README */}
+
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Enhanced toggle switch component with label support, validation, tooltips, multiple sizes, and comprehensive form integration for binary state management
 
 Dependencies:
+
 - Radix UI Switch primitives for accessibility and behavior
 - React state management for controlled state handling
 - Tooltip system for contextual help information
@@ -27,6 +49,7 @@ Dependencies:
 - CSS styling system for size variants and positioning
 
 Available Stories:
+
 - Default: Basic toggle switch with dynamic label
 - Required: Required field indicator demonstration
 - Tooltip: Tooltip integration with and without errors
@@ -37,6 +60,7 @@ Available Stories:
 - Sizes: Size variants (small, medium, large) with disabled states
 
 Props (Switch component):
+
 - id?: string - HTML id attribute for the switch
 - data?: Record<string, string> - Data attributes for testing purposes
 - label?: string - Text label displayed next to the switch
@@ -54,6 +78,7 @@ Props (Switch component):
 - className?: Record<string, string> - Styling overrides for different parts
 
 Component Structure:
+
 - Switch toggle element with thumb animation
 - Label with optional required indicator and tooltip
 - Error message display with conditional visibility
@@ -61,11 +86,12 @@ Component Structure:
 - Keyboard and mouse interaction support
 
 Usage Examples:
+
 ```tsx
 // Basic toggle switch
 const [isEnabled, setIsEnabled] = useState(false)
 
-<Switch 
+<Switch
   checked={isEnabled}
   label="Enable notifications"
   onCheckedChange={setIsEnabled}
@@ -75,7 +101,7 @@ const [isEnabled, setIsEnabled] = useState(false)
 const [acceptTerms, setAcceptTerms] = useState(false)
 const error = !acceptTerms ? "You must accept the terms" : ""
 
-<Switch 
+<Switch
   checked={acceptTerms}
   label="I accept the terms and conditions"
   required
@@ -84,7 +110,7 @@ const error = !acceptTerms ? "You must accept the terms" : ""
 />
 
 // Settings switch with tooltip
-<Switch 
+<Switch
   checked={isDarkMode}
   label="Dark Mode"
   tooltip="Toggle between light and dark themes"
@@ -93,21 +119,21 @@ const error = !acceptTerms ? "You must accept the terms" : ""
 
 // Size variants
 <div className="space-y-4">
-  <Switch 
+  <Switch
     size="sm"
     checked={setting1}
     label="Small switch"
     onCheckedChange={setSetting1}
   />
-  
-  <Switch 
+
+  <Switch
     size="md"
     checked={setting2}
     label="Medium switch (default)"
     onCheckedChange={setSetting2}
   />
-  
-  <Switch 
+
+  <Switch
     size="lg"
     checked={setting3}
     label="Large switch"
@@ -116,7 +142,7 @@ const error = !acceptTerms ? "You must accept the terms" : ""
 </div>
 
 // Left-positioned label
-<Switch 
+<Switch
   labelLeft
   checked={isPublic}
   label="Make profile public"
@@ -124,14 +150,14 @@ const error = !acceptTerms ? "You must accept the terms" : ""
 />
 
 // Disabled states
-<Switch 
+<Switch
   disabled
   checked={true}
   label="Feature enabled (locked)"
   onCheckedChange={() => {}} // No-op for disabled
 />
 
-<Switch 
+<Switch
   disabled
   checked={false}
   label="Feature disabled (locked)"
@@ -139,7 +165,7 @@ const error = !acceptTerms ? "You must accept the terms" : ""
 />
 
 // Indeterminate state
-<Switch 
+<Switch
   checked={undefined}
   label="Loading state..."
   onCheckedChange={handleStateChange}
@@ -156,7 +182,7 @@ const [errors, setErrors] = useState({})
 const [touched, setTouched] = useState({})
 
 <form onSubmit={handleSubmit}>
-  <Switch 
+  <Switch
     checked={formData.emailNotifications}
     label="Email Notifications"
     required
@@ -167,19 +193,19 @@ const [touched, setTouched] = useState({})
     }}
     onBlur={() => validateField('emailNotifications')}
   />
-  
-  <Switch 
+
+  <Switch
     checked={formData.smsNotifications}
     label="SMS Notifications"
     tooltip="Receive important updates via text message"
-    onCheckedChange={(checked) => 
+    onCheckedChange={(checked) =>
       setFormData(prev => ({...prev, smsNotifications: checked}))
     }
   />
 </form>
 
 // Custom styled switch
-<Switch 
+<Switch
   checked={isActive}
   label="Custom Switch"
   className={{
@@ -201,38 +227,38 @@ const [settings, setSettings] = useState({
 
 <div className="space-y-6">
   <h3>Preferences</h3>
-  
-  <Switch 
+
+  <Switch
     checked={settings.autoSave}
     label="Auto-save documents"
     tooltip="Automatically save changes as you work"
-    onCheckedChange={(checked) => 
+    onCheckedChange={(checked) =>
       setSettings(prev => ({...prev, autoSave: checked}))
     }
   />
-  
-  <Switch 
+
+  <Switch
     checked={settings.showTips}
     label="Show helpful tips"
     size="sm"
-    onCheckedChange={(checked) => 
+    onCheckedChange={(checked) =>
       setSettings(prev => ({...prev, showTips: checked}))
     }
   />
-  
-  <Switch 
+
+  <Switch
     checked={settings.compactMode}
     label="Compact interface"
     labelLeft
     size="sm"
-    onCheckedChange={(checked) => 
+    onCheckedChange={(checked) =>
       setSettings(prev => ({...prev, compactMode: checked}))
     }
   />
 </div>
 
 // Testing configuration
-<Switch 
+<Switch
   checked={testValue}
   label="Test Switch"
   onCheckedChange={setTestValue}
@@ -242,28 +268,33 @@ const [settings, setSettings] = useState({
 ```
 
 State Management:
+
 - Controlled: External state with checked/onCheckedChange
 - Indeterminate: undefined value for loading/unknown states
 - Validation: Integration with form validation systems
 - Touch handling: onBlur for validation triggering
 
 Size Variants:
+
 - sm: Small switch for compact interfaces
 - md: Medium switch for standard use (default)
 - lg: Large switch for prominent settings
 
 Label Positioning:
+
 - Default: Label positioned to the right of switch
 - labelLeft: Label positioned to the left of switch
 - Flexible: Works with both required indicators and tooltips
 
 Validation Integration:
+
 - error: Error message display with conditional visibility
 - hideError: Control error message display
 - required: Visual indicator for required fields
 - Touch state: Integration with form validation systems
 
 Best Practices:
+
 - Use clear, descriptive labels that indicate the action
 - Provide tooltips for complex or technical settings
 - Implement proper validation for required switches
@@ -271,6 +302,7 @@ Best Practices:
 - Group related switches logically in settings panels
 
 Common Use Cases:
+
 - Application settings and preferences
 - Feature toggles and flags
 - Form consent and agreement checkboxes
@@ -278,6 +310,7 @@ Common Use Cases:
 - Accessibility and display options
 
 Accessibility Features:
+
 - Full keyboard navigation (space to toggle, tab to navigate)
 - ARIA attributes for screen readers
 - Focus management and visual indicators
@@ -285,19 +318,21 @@ Accessibility Features:
 - Proper label association
 
 Testing Support:
+
 - data prop for comprehensive testing attributes
 - id prop for unique element identification
 - State tracking for validation testing
 - Support for E2E testing frameworks
 
 Related Components:
+
 - Checkbox: For multi-select scenarios
 - RadioGroup: For single-select from multiple options
 - Toggle: Alternative toggle implementations
 - FormikSwitchField: Formik integration wrapper
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => {
   const [isChecked, setIsChecked] = useState(false)

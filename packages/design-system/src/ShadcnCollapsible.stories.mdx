@@ -11,6 +11,7 @@ import { Button } from './ui/button'
 The `ShadcnCollapsible` component provides expandable and collapsible content sections with smooth animations. It allows users to show and hide content sections while maintaining a compact interface design.
 
 Use this component when you need to:
+
 - Create expandable content sections in sidebars or panels
 - Build FAQ sections with expandable answers
 - Organize complex forms with collapsible sections
@@ -21,16 +22,18 @@ The collapsible component includes smooth expand/collapse animations, supports b
 **Note**: This is prefixed as "ShadcnCollapsible" to distinguish it from the custom Collapsible component in the design system.
 {/* END README */}
 
-{/*
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Shadcn UI re-export built on Radix UI's Collapsible primitive with smooth animations and state management
 Dependencies: @radix-ui/react-collapsible
 
 Available Stories:
+
 - Default: Controlled collapsible showing starred repositories with trigger button and expandable content
 
 Props (ShadcnCollapsible component):
+
 - open: boolean - Controlled open state
 - defaultOpen: boolean - Initial open state
 - onOpenChange: (open: boolean) => void - Open state change handler
@@ -38,19 +41,23 @@ Props (ShadcnCollapsible component):
 - className: string - Additional CSS classes
 
 Props (ShadcnCollapsibleTrigger component):
+
 - asChild: boolean - Whether to render as child element
 - className: string - Additional CSS classes
 
 Props (ShadcnCollapsibleContent component):
+
 - forceMount: boolean - Force mount content even when closed
 - className: string - Additional CSS classes
 
 Component Structure:
+
 - ShadcnCollapsible: Root container managing collapse state (re-export from ui/collapsible)
 - ShadcnCollapsibleTrigger: Clickable element that toggles the collapsible
 - ShadcnCollapsibleContent: Content that expands and collapses with animation
 
 Usage Examples:
+
 ```tsx
 // Basic FAQ item
 <ShadcnCollapsible>
@@ -134,13 +141,14 @@ const [isOpen, setIsOpen] = useState(false)
 ```
 
 Related Components:
+
 - Accordion: For multiple collapsible sections with single-open behavior
 - Tabs: For switching between different content panels
 - Drawer: For larger collapsible content areas
 - Card: For static content containers
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => {
   const [isOpen, setIsOpen] = useState(false)

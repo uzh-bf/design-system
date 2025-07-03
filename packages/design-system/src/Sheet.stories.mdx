@@ -16,6 +16,7 @@ import { Input } from './ui/input'
 The `Sheet` component provides slide-out panels that appear from screen edges for secondary content, forms, or navigation. It offers an alternative to modals when you need to maintain context with the main content.
 
 Use this component when you need to:
+
 - Create mobile-friendly navigation menus
 - Display detailed forms or settings panels
 - Show additional information without full page navigation
@@ -24,22 +25,25 @@ Use this component when you need to:
 The sheet slides in from configurable directions (right, left, top, bottom), includes proper focus management, and provides structured sections for headers, content, and footers.
 {/* END README */}
 
-{/*
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Shadcn UI re-export built on Radix UI's Dialog primitive with slide-in animations and portal rendering
 Dependencies: @radix-ui/react-dialog, framer-motion or CSS transitions
 
 Available Stories:
+
 - Default: Right-side sheet with profile editing form including name, username, and save/cancel actions
 
 Props (Sheet component):
+
 - open: boolean - Controlled open state
 - defaultOpen: boolean - Initial open state
 - onOpenChange: (open: boolean) => void - Open state change handler
 - modal: boolean - Whether sheet is modal (default: true)
 
 Component Structure:
+
 - Sheet: Root container managing sheet state (re-export from ui/sheet)
 - SheetTrigger: Element that opens the sheet
 - SheetContent: Slide-in content container with direction prop
@@ -50,6 +54,7 @@ Component Structure:
 - SheetClose: Close button or trigger
 
 Usage Examples:
+
 ```tsx
 // Right-side settings sheet
 <Sheet>
@@ -122,13 +127,14 @@ Usage Examples:
 ```
 
 Related Components:
+
 - Modal: For content requiring full attention
 - Drawer: Alternative sliding panel implementation
 - Sidebar: For persistent navigation panels
 - Popover: For smaller contextual content
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => {
   return (

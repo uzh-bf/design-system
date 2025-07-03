@@ -5,6 +5,7 @@ import { Checkbox } from './ui/checkbox'
 The `ShadcnLabel` component provides accessible form labels with proper semantic associations to form controls. It ensures that form inputs are properly labeled for both visual users and screen readers.
 
 Use this component when you need to:
+
 - Label form inputs, checkboxes, and radio buttons
 - Create accessible forms with proper semantic associations
 - Provide clear, consistent labeling across form elements
@@ -15,24 +16,28 @@ The label component automatically associates with form controls through the `htm
 **Note**: This is prefixed as "ShadcnLabel" to distinguish it from the standalone Label component in the design system.
 {/* END README */}
 
-{/*
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Shadcn UI re-export built on Radix UI's Label primitive with consistent typography and accessibility features
 Dependencies: @radix-ui/react-label
 
 Available Stories:
+
 - Default: Label associated with checkbox demonstrating proper form labeling
 
 Props (ShadcnLabel component):
+
 - htmlFor: string - ID of the associated form control (required for proper accessibility)
 - className: string - Additional CSS classes
 - asChild: boolean - Whether to render as child element
 
 Component Structure:
+
 - ShadcnLabel: Accessible form label with semantic association (re-export from ui/label)
 
 Usage Examples:
+
 ```tsx
 // Basic form field labeling
 <div className="grid gap-2">
@@ -126,6 +131,7 @@ Usage Examples:
 ```
 
 Related Components:
+
 - Input: Primary target for label associations
 - Checkbox: Often used with labels for selection
 - RadioGroup: Requires labels for accessibility
@@ -133,7 +139,7 @@ Related Components:
 - Textarea: Needs clear labeling for context
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => {
   return (

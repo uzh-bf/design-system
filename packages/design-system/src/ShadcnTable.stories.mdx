@@ -13,6 +13,7 @@ import {
 The `ShadcnTable` component provides structured data display with rows, columns, headers, and footers. It creates accessible tables with consistent styling for presenting tabular information in a clear, organized format.
 
 Use this component when you need to:
+
 - Display structured data in rows and columns
 - Create data tables with headers and optional footers
 - Present information in a scannable, organized format
@@ -23,19 +24,22 @@ The table component maintains proper semantic HTML structure, provides consisten
 **Note**: This is prefixed as "ShadcnTable" to distinguish it from the custom Table component in the design system that includes advanced features like sorting and formatting.
 {/* END README */}
 
-{/*
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Shadcn UI re-export providing semantic table structure with consistent styling and accessibility
 Dependencies: None (pure HTML table elements with styling)
 
 Available Stories:
+
 - Default: Invoice table with header, body, footer, and sample data demonstrating complete table structure
 
 Props (All table components):
+
 - className: string - Additional CSS classes for styling
 
 Component Structure:
+
 - ShadcnTable: Root table element with base styling (re-export from ui/table)
 - ShadcnTableHeader: Table header section containing header rows
 - ShadcnTableBody: Table body containing data rows
@@ -46,6 +50,7 @@ Component Structure:
 - ShadcnTableCaption: Accessible table description
 
 Usage Examples:
+
 ```tsx
 // Basic data table
 <ShadcnTable>
@@ -196,13 +201,14 @@ Usage Examples:
 ```
 
 Related Components:
+
 - Table: Advanced table with sorting and formatting features
 - Card: For displaying individual records
 - DataTable: For complex data manipulation
 - List: For simpler item displays
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => {
   return (

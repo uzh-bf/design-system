@@ -23,12 +23,13 @@ The FormikPinField accepts the following props:
 
 {/* END README */}
 
-{/*
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Formik-integrated PIN input field that wraps the core PinField with segmented numeric input, paste functionality, and validation for secure PIN/code entry
 
 Dependencies:
+
 - Formik for form state management and validation
 - PinField core component for segmented PIN input functionality
 - Yup for PIN validation schema support
@@ -36,6 +37,7 @@ Dependencies:
 - Custom label and tooltip components
 
 Available Stories:
+
 - Default: Basic 9-digit PIN field with paste functionality
 - Required: PIN field with required indicator and label
 - LargeLabel: PIN field with large label variant
@@ -44,6 +46,7 @@ Available Stories:
 - Validation: Form validation with exact length requirements
 
 Props (FormikPinField component):
+
 - id?: string - HTML id attribute for the PIN field container
 - name: string - Formik field name for form state management
 - length: number - Number of PIN digits (e.g., 4, 6, 9)
@@ -56,6 +59,7 @@ Props (FormikPinField component):
 - data?: Record<string, string> - Data attributes for testing purposes
 
 Component Structure:
+
 - Formik Field wrapper for form integration
 - Segmented PIN input boxes (one per digit)
 - Automatic focus management between segments
@@ -63,6 +67,7 @@ Component Structure:
 - Form validation and error display integration
 
 Usage Examples:
+
 ```tsx
 // Basic PIN entry form
 <Formik
@@ -143,7 +148,7 @@ Usage Examples:
       <h2 className="text-xl font-semibold">Account Recovery</h2>
       <p className="text-gray-600">Enter your recovery PIN</p>
     </div>
-    
+
     <FormikPinField
       name="recoveryPin"
       length={6}
@@ -152,7 +157,7 @@ Usage Examples:
       tooltip="The 6-digit PIN provided during account setup"
       className={{ field: 'text-center' }}
     />
-    
+
     <Button type="submit" className={{ root: 'w-full' }}>
       Recover Account
     </Button>
@@ -181,8 +186,8 @@ const [step, setStep] = useState(1)
             required
             tooltip="Enter your personal 4-digit PIN"
           />
-          <Button 
-            type="button" 
+          <Button
+            type="button"
             onClick={() => setStep(2)}
             disabled={!values.userPin || values.userPin.length < 4}
           >
@@ -190,7 +195,7 @@ const [step, setStep] = useState(1)
           </Button>
         </div>
       )}
-      
+
       {step === 2 && (
         <div>
           <FormikPinField
@@ -235,6 +240,7 @@ const [step, setStep] = useState(1)
 ```
 
 Form Integration Features:
+
 - Automatic Formik field binding with name prop
 - Built-in PIN validation support
 - Error state display from Formik field meta
@@ -242,6 +248,7 @@ Form Integration Features:
 - Touch/blur state management for UX
 
 PIN Input Features:
+
 - Segmented input boxes for each digit
 - Automatic focus advancement on digit entry
 - Backspace navigation between segments
@@ -249,6 +256,7 @@ PIN Input Features:
 - Numeric-only input validation
 
 Validation Patterns:
+
 - Exact length validation
 - Numeric format validation
 - Required field validation
@@ -256,12 +264,14 @@ Validation Patterns:
 - Security-focused validation
 
 Paste Functionality:
+
 - Supports formatted PINs with spaces ("123 456 789")
 - Supports unformatted PINs ("123456789")
 - Automatic distribution across input segments
 - Validation after paste operation
 
 Best Practices:
+
 - Use appropriate length for security level (4-8 digits typical)
 - Provide clear labels and instructions
 - Implement proper validation for PIN requirements
@@ -269,6 +279,7 @@ Best Practices:
 - Use secure transmission for PIN data
 
 Common Use Cases:
+
 - Authentication and login systems
 - Two-factor authentication codes
 - ATM and payment PIN entry
@@ -276,6 +287,7 @@ Common Use Cases:
 - Game and access code entry
 
 Security Considerations:
+
 - PIN values are stored as strings in form state
 - Consider masking PIN display for security
 - Implement rate limiting for PIN attempts
@@ -283,12 +295,14 @@ Security Considerations:
 - Clear PIN data after successful submission
 
 Testing Support:
+
 - data prop for custom testing attributes
 - PIN input sequence testing
 - Paste functionality verification
 - Formik integration testing with PIN values
 
 Accessibility Features:
+
 - Proper label association with PIN inputs
 - Keyboard navigation between segments
 - Screen reader compatible structure
@@ -296,13 +310,14 @@ Accessibility Features:
 - Focus management for better UX
 
 Related Components:
+
 - PinField: Core PIN input functionality
 - FormikTextField: For general text input needs
 - FormikNumberField: For numeric field alternatives
 - TextField: For standalone text input
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => (
   <div>

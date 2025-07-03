@@ -5,6 +5,7 @@ import './tailwind.css'
 The `Avatar` component displays user profile pictures with automatic fallback to initials when images fail to load. It provides a consistent way to represent users throughout the application with proper accessibility and loading states.
 
 Use this component when you need to:
+
 - Display user profile pictures in headers, comments, or lists
 - Show team member avatars in collaboration interfaces
 - Create user identification in chat or messaging systems
@@ -13,25 +14,29 @@ Use this component when you need to:
 The avatar automatically handles image loading failures by displaying fallback initials. It supports different shapes (circular, rounded) and can be grouped together for team displays.
 {/* END README */}
 
-{/*
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Shadcn UI re-export built on Radix UI's Avatar primitive with image loading fallback and accessibility features
 Dependencies: @radix-ui/react-avatar
 
 Available Stories:
+
 - Default: Multiple avatar styles including circular, rounded corners, and grouped avatars with rings
 
 Props (Avatar component):
+
 - className: string - Additional CSS classes for styling
 - asChild: boolean - Render as child element instead of span
 
 Component Structure:
+
 - Avatar: Root container with default circular shape (re-export from ui/avatar)
 - AvatarImage: Image element with loading states and alt text
 - AvatarFallback: Fallback content (typically initials) shown when image fails
 
 Usage Examples:
+
 ```tsx
 // Basic avatar with fallback
 <Avatar>
@@ -59,11 +64,12 @@ Usage Examples:
 ```
 
 Related Components:
+
 - Badge: For status indicators on avatars
 - Card: Often contains avatars in user profile cards
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => {
   return (

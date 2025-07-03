@@ -18,6 +18,7 @@ import {
 The `ShadcnMenubar` component provides a horizontal menu bar with dropdown menus, similar to application menu bars found in desktop software. It supports nested menus, keyboard shortcuts, checkboxes, radio groups, and organized menu sections.
 
 Use this component when you need to:
+
 - Create application-style menu bars with multiple top-level menus
 - Implement complex menu structures with nested submenus
 - Provide keyboard shortcuts and accelerators for menu actions
@@ -28,16 +29,18 @@ The menubar supports full keyboard navigation, maintains focus management, inclu
 **Note**: This is prefixed as "ShadcnMenubar" to distinguish it from other navigation components in the design system.
 {/* END README */}
 
-{/*
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Shadcn UI re-export built on Radix UI's Menubar primitive with full menu bar functionality and keyboard navigation
 Dependencies: @radix-ui/react-menubar
 
 Available Stories:
+
 - Default: Complete menubar with File, Edit, View, and Profiles menus including submenus, shortcuts, checkboxes, and radio groups
 
 Props (ShadcnMenubar component):
+
 - value: string - Controlled active menu value
 - defaultValue: string - Initial active menu value
 - onValueChange: (value: string) => void - Active menu change handler
@@ -46,6 +49,7 @@ Props (ShadcnMenubar component):
 - loop: boolean - Whether focus wraps around (default: true)
 
 Component Structure:
+
 - ShadcnMenubar: Root menubar container (re-export from ui/menubar)
 - ShadcnMenubarMenu: Individual menu within the menubar
 - ShadcnMenubarTrigger: Button that opens a menu
@@ -61,6 +65,7 @@ Component Structure:
 - ShadcnMenubarShortcut: Keyboard shortcut display
 
 Usage Examples:
+
 ```tsx
 // Basic application menubar
 <ShadcnMenubar>
@@ -82,7 +87,7 @@ Usage Examples:
       </ShadcnMenubarItem>
     </ShadcnMenubarContent>
   </ShadcnMenubarMenu>
-  
+
   <ShadcnMenubarMenu>
     <ShadcnMenubarTrigger>Edit</ShadcnMenubarTrigger>
     <ShadcnMenubarContent>
@@ -152,13 +157,14 @@ Usage Examples:
 ```
 
 Related Components:
+
 - NavigationMenu: For website navigation structures
 - DropdownMenu: For single dropdown menus
 - ContextMenu: For right-click triggered menus
 - Toolbar: For grouped action buttons
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => {
   return (

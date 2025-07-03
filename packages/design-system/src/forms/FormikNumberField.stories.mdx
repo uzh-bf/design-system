@@ -32,12 +32,13 @@ The FormikNumberField accepts the following props:
 
 {/* END README */}
 
-{/*
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Formik-integrated number input field that wraps the core NumberField with comprehensive form validation, precision control, and range restrictions for numeric data entry
 
 Dependencies:
+
 - Formik for form state management and validation
 - NumberField core component for numeric input functionality
 - Yup for numeric validation schema support
@@ -45,6 +46,7 @@ Dependencies:
 - Custom label and tooltip components
 
 Available Stories:
+
 - Default: Basic Formik number field with form submission
 - Unit: Number field with unit display (kg, lbs, etc.)
 - MinMax: Number field with minimum and maximum value constraints
@@ -57,6 +59,7 @@ Available Stories:
 - LargeLabel: Number field with large label variant
 
 Props (FormikNumberField component):
+
 - id?: string - HTML id attribute for the input element
 - name: string - Formik field name for form state management
 - value?: string - Controlled input value (string format for precision)
@@ -79,6 +82,7 @@ Props (FormikNumberField component):
 - className?: Record<string, string> - Styling overrides for different parts
 
 Component Structure:
+
 - Formik Field wrapper for form integration
 - Number input with precision and range validation
 - Unit display next to input field
@@ -86,6 +90,7 @@ Component Structure:
 - Automatic form state synchronization
 
 Usage Examples:
+
 ```tsx
 // Basic Formik number field
 <Formik
@@ -191,7 +196,7 @@ Usage Examples:
       min={0}
       tooltip="Your total monthly income"
     />
-    
+
     <FormikNumberField
       name="expenses"
       label="Monthly Expenses"
@@ -201,7 +206,7 @@ Usage Examples:
       min={0}
       tooltip="Your total monthly expenses"
     />
-    
+
     <FormikNumberField
       name="savings"
       label="Savings Goal"
@@ -210,7 +215,7 @@ Usage Examples:
       min={0}
       tooltip="How much you want to save monthly"
     />
-    
+
     <Button type="submit">Calculate Budget</Button>
   </Form>
 </Formik>
@@ -225,7 +230,7 @@ Usage Examples:
     min={0}
     labelType="small"
   />
-  
+
   <FormikNumberField
     name="sugar"
     label="Sugar"
@@ -234,7 +239,7 @@ Usage Examples:
     min={0}
     labelType="small"
   />
-  
+
   <FormikNumberField
     name="bakingTime"
     label="Baking Time"
@@ -260,7 +265,7 @@ Usage Examples:
     <Form>
       <fieldset>
         <legend>Product Dimensions</legend>
-        
+
         <FormikNumberField
           name="width"
           label="Width"
@@ -271,7 +276,7 @@ Usage Examples:
           max={1000}
           tooltip="Product width in centimeters"
         />
-        
+
         <FormikNumberField
           name="height"
           label="Height"
@@ -282,7 +287,7 @@ Usage Examples:
           max={1000}
           tooltip="Product height in centimeters"
         />
-        
+
         <FormikNumberField
           name="depth"
           label="Depth"
@@ -311,6 +316,7 @@ Usage Examples:
 ```
 
 Form Integration Features:
+
 - Automatic Formik field binding with name prop
 - Built-in numeric validation support
 - Error state display from Formik field meta
@@ -318,12 +324,14 @@ Form Integration Features:
 - Touch/blur state management for UX
 
 Precision Control:
+
 - Decimal places limitation (0-n decimal places)
 - Integer-only input (precision: 0)
 - Scientific precision for measurements
 - Automatic formatting on blur
 
 Validation Patterns:
+
 - Numeric format validation
 - Min/max range validation
 - Required field validation
@@ -331,12 +339,14 @@ Validation Patterns:
 - Custom business rule validation
 
 Unit Support:
+
 - Currency symbols ($, €, £)
 - Measurement units (kg, cm, %, etc.)
 - Custom unit text display
 - Unit positioning and styling
 
 Best Practices:
+
 - Use appropriate precision for data type (currency: 2, measurements: 1-3)
 - Set realistic min/max constraints for user experience
 - Provide clear labels and tooltips for numeric context
@@ -344,6 +354,7 @@ Best Practices:
 - Implement proper validation for business logic
 
 Common Use Cases:
+
 - Financial forms (prices, budgets, expenses)
 - Product specifications (dimensions, weights)
 - Recipe and cooking measurements
@@ -351,19 +362,21 @@ Common Use Cases:
 - Inventory and stock management
 
 Testing Support:
+
 - data prop for custom testing attributes
 - Numeric input validation testing
 - Precision and range constraint verification
 - Formik integration testing with numeric values
 
 Related Components:
+
 - NumberField: Core numeric input functionality
 - FormikTextField: For general text input needs
 - FormikPinField: For PIN/code numeric entry
 - TextField: For standalone text input
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => (
   <div>

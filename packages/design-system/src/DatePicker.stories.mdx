@@ -5,6 +5,7 @@ import DatePicker from './DatePicker'
 The `DatePicker` component provides an intuitive date selection interface with a calendar popup, form integration, and comprehensive validation support. It offers a user-friendly way to select dates with proper labeling, error handling, and accessibility features.
 
 Use this component when you need to:
+
 - Collect date inputs in forms with integrated validation and error display
 - Provide calendar-based date selection with month/year navigation
 - Create accessible date inputs with proper labeling and required field indicators
@@ -12,14 +13,38 @@ Use this component when you need to:
 - Build form interfaces with consistent date input styling and behavior
 
 The component supports calendar popup interface, form labels with size variants, error message display with touch state handling, disabled states, comprehensive testing data attributes, and extensive styling customization options.
-{/* END README */}
 
-{/*
+<br />
+
+The props for the DatePicker component are as follows:
+
+- @param id - The id of the date changer
+- @param date - The date to be displayed (state)
+- @param onDateChange - The function to be called when the date is changed (state management)
+- @param label - The label of the date changer
+- @param labelType - The type of the label (small or large)
+- @param placeholder - The placeholder of the date changer (is only shown if no date is selected)
+- @param tooltip - The tooltip of the date changer (is only shown if a label is given)
+- @param required - Whether the date label should contain a required symbol
+- @param disabled - Whether the date changer is disabled or not
+- @param error - The error message to be displayed
+- @param hideError - Whether the error message should be hidden
+- @param isTouched - Whether the date changer has been touched
+- @param className - The optional className object allows you to override the default styling.
+- @param onDateChange - The function to be called when the date is changed (state management)
+- @param dataTrigger - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the popover trigger
+- @param dataCalendar - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the calendar
+- @param dataNextMonth - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the next month button
+- @param dataPreviousMonth - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the previous month button
+  {/* END README */}
+
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Complete date selection component with calendar popup, form integration, validation support, accessibility features, and comprehensive testing attributes
 
 Dependencies:
+
 - Calendar component for date selection interface
 - Popover component for dropdown functionality
 - Form label and error handling system
@@ -27,6 +52,7 @@ Dependencies:
 - Date formatting and validation utilities
 
 Available Stories:
+
 - Default: Basic date picker with testing attributes
 - Disabled: Disabled state demonstration
 - Labelled: Large label with required indicator
@@ -34,6 +60,7 @@ Available Stories:
 - Error: Error state handling with validation
 
 Props (DatePicker component):
+
 - id?: string - HTML id attribute for the date picker
 - date: Date | undefined - Currently selected date (controlled state)
 - onDateChange: (date: Date | undefined) => void - Callback when date is selected
@@ -53,6 +80,7 @@ Props (DatePicker component):
 - dataPreviousMonth?: Record<string, string> - Data attributes for previous month button
 
 Component Structure:
+
 - Form label with optional tooltip and required indicator
 - Popover trigger with formatted date display or placeholder
 - Calendar popup with month/year navigation
@@ -60,11 +88,12 @@ Component Structure:
 - Comprehensive testing attribute support
 
 Usage Examples:
+
 ```tsx
 // Basic date picker
 const [selectedDate, setSelectedDate] = useState(undefined)
 
-<DatePicker 
+<DatePicker
   date={selectedDate}
   onDateChange={setSelectedDate}
   placeholder="Select a date"
@@ -75,7 +104,7 @@ const [birthDate, setBirthDate] = useState(undefined)
 const [touched, setTouched] = useState(false)
 const error = !birthDate && touched ? "Birth date is required" : ""
 
-<DatePicker 
+<DatePicker
   date={birthDate}
   onDateChange={(date) => {
     setBirthDate(date)
@@ -89,7 +118,7 @@ const error = !birthDate && touched ? "Birth date is required" : ""
 />
 
 // With tooltip and small label
-<DatePicker 
+<DatePicker
   date={appointmentDate}
   onDateChange={setAppointmentDate}
   label="Appointment Date"
@@ -99,7 +128,7 @@ const error = !birthDate && touched ? "Birth date is required" : ""
 />
 
 // Disabled state
-<DatePicker 
+<DatePicker
   date={fixedDate}
   onDateChange={() => {}} // No-op for disabled
   disabled
@@ -108,7 +137,7 @@ const error = !birthDate && touched ? "Birth date is required" : ""
 />
 
 // With testing attributes
-<DatePicker 
+<DatePicker
   date={testDate}
   onDateChange={setTestDate}
   dataTrigger={{ 'data-cy': 'date-trigger' }}
@@ -118,7 +147,7 @@ const error = !birthDate && touched ? "Birth date is required" : ""
 />
 
 // Custom styling
-<DatePicker 
+<DatePicker
   date={styledDate}
   onDateChange={setStyledDate}
   label="Custom Date"
@@ -136,7 +165,7 @@ const validateDate = (date) => {
   return ""
 }
 
-<DatePicker 
+<DatePicker
   date={eventDate}
   onDateChange={setEventDate}
   label="Event Date"
@@ -148,29 +177,34 @@ const validateDate = (date) => {
 ```
 
 Form Integration Patterns:
+
 - Controlled component with external state management
 - Validation integration with touch state handling
 - Error display with conditional visibility
 - Required field indicators with proper labeling
 
 Label Variants:
+
 - large: Standard form label size for primary inputs
 - small: Compact label for dense form layouts
 - Tooltip support for additional context and help text
 
 Error Handling:
+
 - Conditional error display based on touch state
 - Custom error messages with validation integration
 - Hide/show error functionality for UX control
 - Styling integration with form validation states
 
 Testing Support:
+
 - Comprehensive data attributes for all interactive elements
 - Separate attributes for trigger, calendar, navigation
 - Support for both data-cy and data-testid patterns
 - Complete E2E testing capability
 
 Accessibility Features:
+
 - Proper ARIA labels and descriptions
 - Keyboard navigation support
 - Screen reader compatibility
@@ -178,6 +212,7 @@ Accessibility Features:
 - Required field indicators
 
 Best Practices:
+
 - Always provide meaningful labels for form context
 - Use placeholder text that indicates expected format
 - Implement proper validation with clear error messages
@@ -185,6 +220,7 @@ Best Practices:
 - Provide tooltips for complex date selection requirements
 
 Common Use Cases:
+
 - Form date inputs (birth dates, event dates, deadlines)
 - Booking and scheduling interfaces
 - Date range start/end point selection
@@ -192,13 +228,14 @@ Common Use Cases:
 - Calendar event creation
 
 Related Components:
+
 - DatetimePicker: For combined date and time selection
 - Calendar: For standalone calendar displays
 - FormikDatePicker: For Formik form integration
 - DateRangePicker: For date range selection
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export function Default() {
   const [date, setDate] = useState(new Date('2025-01-01'))

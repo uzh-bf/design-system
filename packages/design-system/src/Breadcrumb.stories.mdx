@@ -18,6 +18,7 @@ import {
 The `Breadcrumb` component provides hierarchical navigation that shows users their current location within a website or application structure. It helps users understand where they are and provides an easy way to navigate back to parent pages.
 
 Use this component when you need to:
+
 - Show navigation hierarchy in multi-level applications
 - Help users understand their current location context
 - Provide quick navigation back to parent sections
@@ -26,20 +27,23 @@ Use this component when you need to:
 The breadcrumb supports collapsible sections with ellipsis for long paths, clickable links for navigation, and proper accessibility with ARIA labels and semantic markup.
 {/* END README */}
 
-{/*
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Shadcn UI re-export built with semantic navigation markup and accessibility features
 Dependencies: lucide-react (for separators and ellipsis icons)
 
 Available Stories:
+
 - Default: Complete breadcrumb trail with home, collapsible middle section, and current page
 
 Props (Breadcrumb component):
+
 - className: string - Additional CSS classes for styling
 - separator: ReactNode - Custom separator element (default: slash)
 
 Component Structure:
+
 - Breadcrumb: Root nav element with aria-label (re-export from ui/breadcrumb)
 - BreadcrumbList: Ordered list container for breadcrumb items
 - BreadcrumbItem: Individual breadcrumb list item
@@ -49,6 +53,7 @@ Component Structure:
 - BreadcrumbEllipsis: Collapsible section indicator with dropdown
 
 Usage Examples:
+
 ```tsx
 // Simple breadcrumb trail
 <Breadcrumb>
@@ -94,12 +99,13 @@ Usage Examples:
 ```
 
 Related Components:
+
 - Navigation: For main site navigation
 - Tabs: For horizontal content navigation
 - Sidebar: For hierarchical section navigation
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => {
   return (

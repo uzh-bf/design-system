@@ -12,6 +12,7 @@ import {
 The `Pagination` component provides navigation controls for multi-page content, allowing users to move between different pages of data or content. It includes previous/next buttons, page numbers, and ellipsis indicators for large page ranges.
 
 Use this component when you need to:
+
 - Navigate through large datasets split across multiple pages
 - Provide clear indicators of current page position and total pages
 - Enable users to jump to specific pages or navigate sequentially
@@ -20,19 +21,22 @@ Use this component when you need to:
 The pagination component automatically handles active states, provides accessible navigation, and includes ellipsis indicators when there are many pages. It supports both controlled and uncontrolled usage patterns.
 {/* END README */}
 
-{/*
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Shadcn UI re-export built with accessible navigation patterns and flexible page display options
 Dependencies: @radix-ui/react-slot (for asChild pattern), lucide-react (for navigation icons)
 
 Available Stories:
+
 - Default: Standard pagination with previous/next buttons, numbered pages, and ellipsis
 
 Props (Pagination component):
+
 - className: string - Additional CSS classes for styling
 
 Component Structure:
+
 - Pagination: Root container with proper navigation semantics (re-export from ui/pagination)
 - PaginationContent: Content wrapper with flex layout for pagination items
 - PaginationItem: Individual pagination element container
@@ -42,6 +46,7 @@ Component Structure:
 - PaginationEllipsis: Ellipsis indicator for skipped page ranges
 
 Usage Examples:
+
 ```tsx
 // Basic pagination
 <Pagination>
@@ -104,20 +109,20 @@ const totalPages = 10
 <Pagination>
   <PaginationContent>
     <PaginationItem>
-      <PaginationPrevious 
+      <PaginationPrevious
         onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
         disabled={currentPage === 1}
       />
     </PaginationItem>
-    
+
     {/* Generate page numbers dynamically */}
     {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
       const pageNum = currentPage - 2 + i
       if (pageNum < 1 || pageNum > totalPages) return null
-      
+
       return (
         <PaginationItem key={pageNum}>
-          <PaginationLink 
+          <PaginationLink
             onClick={() => setCurrentPage(pageNum)}
             isActive={pageNum === currentPage}
           >
@@ -126,9 +131,9 @@ const totalPages = 10
         </PaginationItem>
       )
     })}
-    
+
     <PaginationItem>
-      <PaginationNext 
+      <PaginationNext
         onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
         disabled={currentPage === totalPages}
       />
@@ -155,13 +160,14 @@ const totalPages = 10
 ```
 
 Related Components:
+
 - Table: Often includes pagination for large datasets
 - Button: Used within pagination for navigation actions
 - Badge: Can show page counts or ranges
 - Select: Alternative for page selection in compact layouts
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => {
   return (

@@ -30,12 +30,13 @@ The props for the NumberField component are as follows:
 
 {/* END README */}
 
-{/*
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Standalone numeric input field component with precision control, range validation, unit display, and comprehensive error handling for numeric data entry
 
 Dependencies:
+
 - React state management for input value handling
 - Custom Label component for consistent labeling
 - CSS styling system for appearance customization
@@ -43,6 +44,7 @@ Dependencies:
 - Accessibility support for form interactions
 
 Available Stories:
+
 - Default: Basic number field allowing decimal numbers with arbitrary precision
 - Placeholder: Number field with placeholder text
 - Unit: Number field with unit display (kg) and error state
@@ -55,6 +57,7 @@ Available Stories:
 - Error: Number field with error state on touch
 
 Props (NumberField component):
+
 - id?: string - HTML id attribute for the input element
 - value: string - Controlled input value (maintained as string for precision)
 - onChange: (value: string) => void - Value change handler
@@ -76,6 +79,7 @@ Props (NumberField component):
 - className?: Record<string, string> - Styling overrides for different parts
 
 Component Structure:
+
 - Label component integration with tooltip support
 - Numeric input with validation logic
 - Unit display next to input field
@@ -83,6 +87,7 @@ Component Structure:
 - Required field indicator integration
 
 Usage Examples:
+
 ```tsx
 // Basic number field
 const [amount, setAmount] = useState('')
@@ -215,7 +220,7 @@ const [formData, setFormData] = useState({
     required
     tooltip="Length in centimeters"
   />
-  
+
   <NumberField
     label="Width"
     value={formData.width}
@@ -226,7 +231,7 @@ const [formData, setFormData] = useState({
     required
     tooltip="Width in centimeters"
   />
-  
+
   <NumberField
     label="Height"
     value={formData.height}
@@ -255,7 +260,7 @@ const [expenses, setExpenses] = useState('')
     tooltip="Your total monthly income"
     className={{ field: 'max-w-xs' }}
   />
-  
+
   <NumberField
     label="Monthly Expenses"
     value={expenses}
@@ -267,7 +272,7 @@ const [expenses, setExpenses] = useState('')
     tooltip="Your total monthly expenses"
     className={{ field: 'max-w-xs' }}
   />
-  
+
   <div className="savings-display">
     Savings: ${(parseFloat(income || '0') - parseFloat(expenses || '0')).toFixed(2)}
   </div>
@@ -292,7 +297,7 @@ const [settings, setSettings] = useState({
     max={300}
     tooltip="Request timeout in seconds"
   />
-  
+
   <NumberField
     label="Max Retries"
     labelType="small"
@@ -303,7 +308,7 @@ const [settings, setSettings] = useState({
     max={10}
     tooltip="Maximum number of retry attempts"
   />
-  
+
   <NumberField
     label="Error Threshold"
     labelType="small"
@@ -331,30 +336,35 @@ const [settings, setSettings] = useState({
 ```
 
 Precision Control:
+
 - undefined: Unlimited decimal places
 - 0: Integer values only
 - 1-n: Fixed number of decimal places
 - Automatic formatting and validation
 
 Value Management:
+
 - String-based value storage for precision preservation
 - parseFloat conversion for calculations
 - Input sanitization and validation
 - Empty value handling
 
 Range Validation:
+
 - min prop for minimum value constraints
 - max prop for maximum value constraints
 - Real-time validation feedback
 - Error message display
 
 Unit Display:
+
 - Flexible unit text positioning
 - Currency symbols and measurement units
 - Custom unit styling support
 - Unit-aware validation
 
 Best Practices:
+
 - Always use string values for precision preservation
 - Set appropriate precision for data type
 - Implement proper min/max constraints
@@ -362,6 +372,7 @@ Best Practices:
 - Use parseFloat for calculations, not state storage
 
 Common Use Cases:
+
 - Financial calculations and currency input
 - Product specifications and measurements
 - Settings and configuration values
@@ -369,6 +380,7 @@ Common Use Cases:
 - Quantity and inventory management
 
 Accessibility Features:
+
 - Proper label association with input fields
 - Error message integration with ARIA attributes
 - Keyboard navigation support
@@ -376,19 +388,21 @@ Accessibility Features:
 - Required field indicators
 
 Testing Support:
+
 - data prop for custom testing attributes
 - Numeric validation testing capabilities
 - Error state verification
 - Precision constraint testing
 
 Related Components:
+
 - FormikNumberField: For Formik form integration
 - TextField: For general text input needs
 - Label: For standalone labeling requirements
 - Tooltip: For additional help information
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export function Default() {
   const [value, setValue] = useState('')

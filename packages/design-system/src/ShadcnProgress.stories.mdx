@@ -5,6 +5,7 @@ import { ShadcnProgress } from './ShadcnProgress'
 The `ShadcnProgress` component provides visual progress indicators to show completion status of tasks, uploads, or multi-step processes. It displays progress as a filled bar with smooth animations and accessibility support.
 
 Use this component when you need to:
+
 - Show upload or download progress
 - Indicate completion status of multi-step forms or wizards
 - Display loading states for data processing
@@ -15,25 +16,29 @@ The progress component supports controlled values, smooth animations, proper ARI
 **Note**: This is prefixed as "ShadcnProgress" to distinguish it from the custom Progress component in the design system.
 {/* END README */}
 
-{/*
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Shadcn UI re-export built on Radix UI's Progress primitive with smooth animations and accessibility
 Dependencies: @radix-ui/react-progress
 
 Available Stories:
+
 - Default: Animated progress bar that updates from 13% to 66% demonstrating smooth transitions
 
 Props (ShadcnProgress component):
+
 - value: number - Progress value (0-100)
 - max: number - Maximum value (default: 100)
 - getValueLabel: (value: number, max: number) => string - Function to generate accessible label
 - className: string - Additional CSS classes
 
 Component Structure:
+
 - ShadcnProgress: Progress bar with animated fill (re-export from ui/progress)
 
 Usage Examples:
+
 ```tsx
 // Basic progress bar
 <ShadcnProgress value={75} className="w-full" />
@@ -65,8 +70,8 @@ const progressValue = (currentStep / totalSteps) * 100
 // Loading indicator with custom max value
 <div className="space-y-2">
   <p className="text-sm font-medium">Processing items...</p>
-  <ShadcnProgress 
-    value={processedItems} 
+  <ShadcnProgress
+    value={processedItems}
     max={totalItems}
     className="w-full"
     getValueLabel={(value, max) => `${value} of ${max} items processed`}
@@ -89,7 +94,7 @@ useEffect(() => {
       return prev + 1
     })
   }, 50)
-  
+
   return () => clearInterval(timer)
 }, [])
 
@@ -111,8 +116,8 @@ useEffect(() => {
 
 // Success state indication
 <div className="space-y-2">
-  <ShadcnProgress 
-    value={isComplete ? 100 : currentProgress} 
+  <ShadcnProgress
+    value={isComplete ? 100 : currentProgress}
     className={cn(
       "w-full",
       isComplete && "[&>div]:bg-green-500"
@@ -125,13 +130,14 @@ useEffect(() => {
 ```
 
 Related Components:
+
 - Spinner: For indeterminate loading states
 - Skeleton: For content loading placeholders
 - Badge: For status indicators
 - StepProgress: For multi-step progress visualization
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => {
   const [progress, setProgress] = useState(13)

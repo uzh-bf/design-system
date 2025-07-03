@@ -6,6 +6,7 @@ import Modal from './Modal'
 The `Modal` component provides a comprehensive modal dialog solution with customizable triggers, actions, navigation, and styling. Built on Shadcn UI foundations, it offers advanced features for complex modal interactions and workflows.
 
 Use this component when you need to:
+
 - Display content that requires user attention or interaction
 - Create confirmation dialogs with primary and secondary actions
 - Build multi-step workflows with navigation controls
@@ -13,14 +14,47 @@ Use this component when you need to:
 - Implement full-screen modal experiences
 
 The component supports custom triggers, primary and secondary action buttons, navigation controls for multi-step flows, full-screen mode, keyboard interaction control, and comprehensive testing attributes for different modal parts.
-{/* END README */}
 
-{/*
+<br />
+
+The props for the Modal component are as follows:
+
+- @param id - The id of the modal.
+- @param trigger - The optional trigger that opens the modal, if the state is not managed by some parent component already.
+- @param title - The optional title of the modal.
+- @param children - The content of the modal.
+- @param onClose - Function that is called when the modal is closed.
+- @param onPrev - Function that is called when the optional previous button is clicked.
+- @param onNext - Function that is called when the optional next button is clicked.
+- @param open - Indicate whether the modal is open or not. This state is managed outside of the component.
+- @param fullScreen - Indicate whether the modal should be full screen or not.
+- @param onPrimaryAction - The optional primary action, which is executed when clicking on the conditionally rendered primary action button.
+- @param primaryLabel - The label for the primary action button.
+- @param primaryType - The type of the primary action button, which can be 'button', 'submit' or 'reset'.
+- @param primaryButtonStyle - The style of the primary action button, which can be 'default', 'primary' or 'destructive'.
+- @param primaryDisabled - Indicate whether the primary action button should be disabled.
+- @param primaryLoading - Indicate whether the primary action button should be in a loading state.
+- @param onSecondaryAction - The optional secondary action, which is executed when clicking on the conditionally rendered secondary action button.
+- @param secondaryLabel - The label for the secondary action button.
+- @param secondaryType - The type of the secondary action button, which can be 'button', 'submit' or 'reset'.
+- @param secondaryButtonStyle - The style of the secondary action button, which can be 'default', 'primary' or 'destructive'.
+- @param escapeDisabled - Indicate whether the modal should be closed when the escape key is pressed.
+- @param hideCloseButton - Indicate whether the close button should be hidden.
+- @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
+- @param dataContent - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the content
+- @param dataCloseButton - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the close button
+- @param dataPrimaryAction - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the primary action button
+- @param dataSecondaryAction - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the secondary action button
+- @param className - The optional className object allows you to override the default styling.
+  {/* END README */}
+
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Comprehensive modal dialog component with advanced action handling, navigation controls, and extensive customization options built on Shadcn UI Dialog
 
 Dependencies:
+
 - Shadcn UI Dialog component as foundation
 - React state management for open/close control
 - Button component for actions and triggers
@@ -28,6 +62,7 @@ Dependencies:
 - Testing attribute support
 
 Available Stories:
+
 - Default: Full-featured modal with title, primary/secondary actions, and navigation
 - Basic: Minimal modal with just content and close functionality
 - Trigger: Custom trigger component demonstration
@@ -36,6 +71,7 @@ Available Stories:
 - Actions: Primary and secondary action button configurations
 
 Props (Modal component):
+
 - id?: string - HTML id attribute for the modal
 - trigger?: React.ReactNode - Custom trigger element to open modal
 - title?: string - Modal title displayed in header
@@ -65,6 +101,7 @@ Props (Modal component):
 - className?: Record<string, string> - Styling overrides for modal parts
 
 Component Structure:
+
 - Modal overlay with backdrop
 - Modal container with positioning
 - Header with optional title and close button
@@ -73,6 +110,7 @@ Component Structure:
 - Keyboard event handling
 
 Usage Examples:
+
 ```tsx
 // Basic confirmation modal
 const [isDeleteOpen, setIsDeleteOpen] = useState(false)
@@ -96,7 +134,7 @@ const [isDeleteOpen, setIsDeleteOpen] = useState(false)
   onClose={() => setIsModalOpen(false)}
   title="Settings"
   trigger={
-    <Button 
+    <Button
       onClick={() => setIsModalOpen(true)}
       variant="outline"
     >
@@ -180,19 +218,22 @@ const [isWizardOpen, setIsWizardOpen] = useState(false)
 ```
 
 Action Button Patterns:
+
 - Confirmation: Primary "Confirm", Secondary "Cancel"
-- Save/Edit: Primary "Save", Secondary "Cancel" 
+- Save/Edit: Primary "Save", Secondary "Cancel"
 - Delete: Primary "Delete" (destructive), Secondary "Cancel"
 - Multi-step: Primary "Next/Finish", Secondary "Cancel"
 - Form: Primary "Submit" (type="submit"), Secondary "Cancel"
 
 Navigation Patterns:
+
 - Linear wizard: onPrev/onNext for step navigation
 - Branching flows: Custom navigation based on content
 - Progress indication: Show current step in title
 - Validation: Disable next until step is valid
 
 Accessibility Features:
+
 - Focus management and trapping
 - ESC key handling (can be disabled)
 - ARIA attributes for screen readers
@@ -200,6 +241,7 @@ Accessibility Features:
 - Proper heading hierarchy
 
 Best Practices:
+
 - Keep content focused and scannable
 - Use clear, action-oriented button labels
 - Provide escape routes (close button, cancel action)
@@ -207,6 +249,7 @@ Best Practices:
 - Test keyboard navigation thoroughly
 
 Common Use Cases:
+
 - Confirmation dialogs
 - Forms and data entry
 - Content preview/details
@@ -215,13 +258,14 @@ Common Use Cases:
 - Image/media viewers
 
 Related Components:
+
 - Dialog: Basic dialog functionality
 - AlertDialog: Simple confirmation dialogs
 - Drawer: Alternative slide-out interface
 - Popover: Smaller contextual overlays
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => {
   const [isOpen, setIsOpen] = useState(false)

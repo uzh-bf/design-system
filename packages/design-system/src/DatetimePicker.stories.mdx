@@ -5,6 +5,7 @@ import { DateTimePicker } from './DatetimePicker'
 The `DatetimePicker` component provides comprehensive date and time selection in a single interface with extensive customization options. It combines calendar-based date selection with time input controls, offering flexible granularity, formatting, and localization support for complex datetime requirements.
 
 Use this component when you need to:
+
 - Collect both date and time inputs in forms with precise control over granularity
 - Create event scheduling interfaces with flexible time precision requirements
 - Implement appointment booking with customizable display formats and hour cycles
@@ -12,14 +13,49 @@ Use this component when you need to:
 - Provide comprehensive datetime selection with validation and error handling
 
 The component supports combined date and time selection, multiple granularity levels (day, hour, minute, second), 12/24-hour time format options, custom display formatting, locale and internationalization support, and extensive testing attributes for all interactive elements.
-{/* END README */}
 
-{/*
+<br />
+
+The props for the DatetimePicker component are as follows:
+
+- @param value - The currently selected date value.
+- @param onChange - Callback function called when the date value changes.
+- @param onMonthChange - Callback function called when the displayed month changes.
+- @param disabled - Whether the picker is disabled.
+- @param hourCycle - Whether to use 12-hour or 24-hour time format.
+- @param placeholder - Placeholder text shown when no date is selected / the state is undefined.
+- @param yearRange - The range of years to display in the year dropdown, relative to the current year.
+- @param displayFormat - The dayjs format string to display the date in the input field.
+- @param granularity - The smallest unit displayed by the picker (e.g., 'second', 'minute', 'hour', 'day').
+- @param className - Optional object to override default styling for trigger, input, label, tooltip, and error.
+- @param defaultPopupValue - The default date and time shown when the calendar popup opens.
+- @param dataTrigger - Data attributes for testing the popover trigger.
+- @param dataCalendar - Data attributes for testing the calendar.
+- @param dataHours - Data attributes for testing the hours input.
+- @param dataMinutes - Data attributes for testing the minutes input.
+- @param dataSeconds - Data attributes for testing the seconds input.
+- @param dataNextMonth - Data attributes for testing the next month button.
+- @param dataPreviousMonth - Data attributes for testing the previous month button.
+- @param error - Error message to display.
+- @param hideError - Whether to hide the error message.
+- @param isTouched - Whether the picker has been interacted with.
+- @param label - The label for the picker.
+- @param labelType - The type of label to display ('small' or 'large').
+- @param required - Whether the label should indicate a required field.
+- @param tooltip - Tooltip content shown with the label.
+- @param locale - The locale for date formatting and calendar display.
+- @param weekStartsOn - The day the week starts on in the calendar.
+- @param showWeekNumber - Whether to show the week number in the calendar.
+- @param showOutsideDays - Whether to show days from adjacent months in the calendar.
+  {/* END README */}
+
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Comprehensive datetime selection component combining calendar and time inputs with advanced formatting, localization, granularity control, and extensive customization options
 
 Dependencies:
+
 - Calendar component for date selection
 - Time input controls for hour/minute/second selection
 - Day.js for date formatting and locale support
@@ -27,6 +63,7 @@ Dependencies:
 - Form integration system with validation support
 
 Available Stories:
+
 - Default: Basic datetime picker with default settings
 - Disabled: Disabled state demonstration
 - DateFormat: Custom display formatting with MM/DD/YYYY HH:mm
@@ -37,6 +74,7 @@ Available Stories:
 - Error: Error state handling with validation
 
 Props (DatetimePicker component):
+
 - value: Date | undefined - Currently selected datetime (controlled state)
 - onChange: (date: Date | undefined) => void - Callback when datetime changes
 - onMonthChange?: (date: Date) => void - Callback when calendar month changes
@@ -53,6 +91,7 @@ Props (DatetimePicker component):
 - showOutsideDays?: boolean - Whether to show adjacent month days
 
 Form Integration Props:
+
 - label?: string - Text label for the datetime picker
 - labelType?: 'small' | 'large' - Label size variant
 - required?: boolean - Whether to show required indicator
@@ -63,6 +102,7 @@ Form Integration Props:
 - className?: Record<string, string> - Styling overrides
 
 Testing Props:
+
 - dataTrigger?: Record<string, string> - Data attributes for trigger
 - dataCalendar?: Record<string, string> - Data attributes for calendar
 - dataHours?: Record<string, string> - Data attributes for hours input
@@ -72,6 +112,7 @@ Testing Props:
 - dataPreviousMonth?: Record<string, string> - Data attributes for previous month
 
 Component Structure:
+
 - Form label with tooltip and required indicator
 - Trigger input with formatted datetime display
 - Popup containing calendar and time selection
@@ -79,11 +120,12 @@ Component Structure:
 - Error display with conditional visibility
 
 Usage Examples:
+
 ```tsx
 // Basic datetime picker
 const [datetime, setDatetime] = useState(undefined)
 
-<DatetimePicker 
+<DatetimePicker
   value={datetime}
   onChange={setDatetime}
   placeholder="Select date and time"
@@ -94,7 +136,7 @@ const [eventTime, setEventTime] = useState(undefined)
 const defaultTime = new Date()
 defaultTime.setHours(14, 0, 0, 0) // 2:00 PM
 
-<DatetimePicker 
+<DatetimePicker
   value={eventTime}
   onChange={setEventTime}
   defaultPopupValue={defaultTime}
@@ -104,7 +146,7 @@ defaultTime.setHours(14, 0, 0, 0) // 2:00 PM
 />
 
 // Custom formatting and hour cycle
-<DatetimePicker 
+<DatetimePicker
   value={appointmentTime}
   onChange={setAppointmentTime}
   displayFormat="MM/DD/YYYY hh:mm A"
@@ -115,7 +157,7 @@ defaultTime.setHours(14, 0, 0, 0) // 2:00 PM
 />
 
 // International configuration
-<DatetimePicker 
+<DatetimePicker
   value={meetingTime}
   onChange={setMeetingTime}
   locale="de-DE"
@@ -130,7 +172,7 @@ const [deadline, setDeadline] = useState(undefined)
 const [touched, setTouched] = useState(false)
 const error = !deadline && touched ? "Deadline is required" : ""
 
-<DatetimePicker 
+<DatetimePicker
   value={deadline}
   onChange={(date) => {
     setDeadline(date)
@@ -144,7 +186,7 @@ const error = !deadline && touched ? "Deadline is required" : ""
 />
 
 // High precision timing
-<DatetimePicker 
+<DatetimePicker
   value={preciseTime}
   onChange={setPreciseTime}
   granularity="second"
@@ -154,7 +196,7 @@ const error = !deadline && touched ? "Deadline is required" : ""
 />
 
 // Disabled with preset value
-<DatetimePicker 
+<DatetimePicker
   value={fixedDatetime}
   onChange={() => {}} // No-op
   disabled
@@ -163,7 +205,7 @@ const error = !deadline && touched ? "Deadline is required" : ""
 />
 
 // Testing configuration
-<DatetimePicker 
+<DatetimePicker
   value={testDatetime}
   onChange={setTestDatetime}
   dataTrigger={{ 'data-cy': 'datetime-trigger' }}
@@ -174,35 +216,41 @@ const error = !deadline && touched ? "Deadline is required" : ""
 ```
 
 Granularity Options:
+
 - day: Date selection only, no time components
 - hour: Date and hour selection
 - minute: Date, hour, and minute selection
 - second: Complete datetime with second precision
 
 Display Formatting:
+
 - Uses Day.js format strings for flexible display
 - Supports localized formatting patterns
 - Common formats: "DD/MM/YYYY HH:mm", "MM/DD/YYYY hh:mm A"
 - Custom formats for specific requirements
 
 Hour Cycle Options:
+
 - 12: 12-hour format with AM/PM indicators
 - 24: 24-hour format (default)
 - Automatic integration with locale settings
 
 Internationalization:
+
 - Full locale support for date/time formatting
 - Configurable week start day
 - Optional week number display
 - Localized month and day names
 
 Calendar Configuration:
+
 - Year range selection relative to current year
 - Week start day customization (Sunday = 0)
 - Outside days display control
 - Month navigation with callbacks
 
 Best Practices:
+
 - Choose appropriate granularity for use case requirements
 - Use meaningful default values for better UX
 - Implement proper validation with clear error messages
@@ -210,6 +258,7 @@ Best Practices:
 - Test with various locales and formats
 
 Common Use Cases:
+
 - Event and meeting scheduling
 - Appointment booking systems
 - Task deadline management
@@ -217,13 +266,14 @@ Common Use Cases:
 - Historical date and time recording
 
 Related Components:
+
 - DatePicker: For date-only selection
 - TimePicker: For time-only selection
 - FormikDatetimePicker: For Formik integration
 - Calendar: For standalone calendar displays
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => {
   const DefaultDate = new Date()

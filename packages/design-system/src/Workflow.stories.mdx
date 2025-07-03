@@ -10,25 +10,41 @@ import {
 The `Workflow` component provides an interactive step-by-step process visualization with support for progress tracking, tooltips, and dynamic state management. It displays a horizontal sequence of steps that can be clicked to navigate through a multi-stage process.
 
 Use this component when you need to:
+
 - Guide users through multi-step processes or wizards
 - Show progress through sequential tasks or stages
 - Provide visual feedback about completed, active, and upcoming steps
 - Display validation states with error indicators
 
 Key features include progress indicators, disabled states for future steps, customizable tooltips, and support for both fixed-width and minimal layouts.
-{/* END README */}
 
-{/*
+<br />
+
+The workflow component accepts the following props:
+
+- @param items - The array of steps that should be displayed in the workflow.
+- @param onClick - The function that is called when a step is clicked. The step object is passed as an argument.
+- @param activeIx - The index of the active step. State management is not handled by this component.
+- @param twStyles - The optional twStyles object allows you to override the default styling.
+- @param minimal - The optional minimal boolean allows you to render the workflow with minimal space requirements.
+- @param disabledFrom - The optional disabledFrom number allows you to disable steps from a certain index onwards.
+- @param showTooltipSymbols - The optional showTooltipSymbols boolean allows you to show the tooltip symbols.
+- @param className - The optional className object allows you to override the default styling.
+  {/* END README */}
+
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Custom implementation of a workflow/stepper component with advanced state management and progress tracking capabilities. Does not rely on external UI libraries.
 
-Dependencies: 
+Dependencies:
+
 - @fortawesome/react-fontawesome for icons (check, pencil, question, exclamation)
 - tailwind-merge for className composition
 - Custom Tooltip component for hover information
 
 Available Stories:
+
 - Default: Basic workflow with clickable steps and active state
 - Description: Workflow items with descriptive text below titles
 - Minimal: Compact version that uses minimum required space
@@ -39,6 +55,7 @@ Available Stories:
 - Progress: Advanced progress tracking with partial completion states
 
 Props:
+
 - items: Array of step objects (StepProps or StepProgressProps)
   - StepProps: { title, description?, tooltip?, tooltipDisabled?, ...customData }
   - StepProgressProps: { title, description?, tooltip?, tooltipDisabled?, progress?, completed?, error?, ...customData }
@@ -51,12 +68,14 @@ Props:
 - className?: Object with root, item, active, past, title, description overrides
 
 Code Structure:
+
 - Main Workflow component handles layout and step iteration
 - WorkflowItem component renders individual steps with all visual states
 - Supports two modes: basic (with activeIx) and progress-based (with progress/completed/error states)
 - Uses CSS pseudo-elements for arrow-shaped step connectors
 
 Usage Examples:
+
 ```tsx
 // Basic workflow
 <Workflow
@@ -77,12 +96,13 @@ Usage Examples:
 ```
 
 Related Components:
+
 - StepProgress: For vertical step indicators
 - Progress: For simple progress bars
 - Navigation: For non-sequential navigation patterns
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export function Default() {
   const [activeIx, setActiveIx] = useState(0)

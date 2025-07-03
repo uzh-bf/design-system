@@ -13,6 +13,7 @@ import {
 The `NavigationMenu` component provides sophisticated horizontal navigation with dropdown panels for complex site hierarchies. It combines main navigation items with rich content panels that can display detailed information, links, and organized sections.
 
 Use this component when you need to:
+
 - Create comprehensive site navigation with multiple levels
 - Display rich content previews or detailed information in dropdown panels
 - Organize complex navigation structures with categories and subcategories
@@ -21,16 +22,18 @@ Use this component when you need to:
 The navigation menu supports keyboard navigation, automatic positioning, smooth animations, and flexible content layouts. It's ideal for header navigation in applications with extensive feature sets or content hierarchies.
 {/* END README */}
 
-{/*
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Shadcn UI re-export built on Radix UI's NavigationMenu primitive with rich content panels and keyboard navigation
 Dependencies: @radix-ui/react-navigation-menu
 
 Available Stories:
+
 - Default: Multi-level navigation with rich content panels including home, components, docs, and various dropdown styles
 
 Props (NavigationMenu component):
+
 - orientation: "horizontal" | "vertical" - Menu orientation (default: horizontal)
 - dir: "ltr" | "rtl" - Text direction
 - value: string - Controlled active menu item
@@ -41,6 +44,7 @@ Props (NavigationMenu component):
 - viewport: boolean - Whether to render viewport container (default: true)
 
 Component Structure:
+
 - NavigationMenu: Root container managing menu state (re-export from ui/navigation-menu)
 - NavigationMenuList: Container for menu items with proper ARIA roles
 - NavigationMenuItem: Individual menu item that can contain triggers or links
@@ -50,6 +54,7 @@ Component Structure:
 - navigationMenuTriggerStyle: Utility function for trigger styling
 
 Usage Examples:
+
 ```tsx
 // Basic navigation with dropdowns
 <NavigationMenu>
@@ -83,7 +88,7 @@ Usage Examples:
         </ul>
       </NavigationMenuContent>
     </NavigationMenuItem>
-    
+
     <NavigationMenuItem>
       <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
         <a href="/about">About</a>
@@ -160,13 +165,14 @@ Usage Examples:
 ```
 
 Related Components:
+
 - ContextMenu: For right-click triggered navigation
 - Dropdown: For simpler dropdown menus
 - Breadcrumb: For hierarchical navigation trails
 - Tabs: For content switching within sections
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => {
   return (

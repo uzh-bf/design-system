@@ -25,12 +25,13 @@ The FormikSwitchField accepts the following props:
 
 {/* END README */}
 
-{/*
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Formik-integrated toggle switch component that wraps the core SwitchField with boolean state management, label positioning, and validation for on/off preferences
 
 Dependencies:
+
 - Formik for form state management and validation
 - SwitchField core component for toggle switch functionality
 - Yup for boolean validation schema support
@@ -38,6 +39,7 @@ Dependencies:
 - Custom label and tooltip components
 
 Available Stories:
+
 - Default: Basic switch with dynamic label based on state
 - Required: Switch with required field indicator
 - Tooltip: Switch with tooltip and error state demonstration
@@ -49,6 +51,7 @@ Available Stories:
 - Validation: Switch with boolean validation requiring true value
 
 Props (FormikSwitchField component):
+
 - id?: string - HTML id attribute for the switch element
 - name: string - Formik field name for form state management
 - data?: Record<string, string> - Data attributes for testing purposes
@@ -63,6 +66,7 @@ Props (FormikSwitchField component):
 - className?: Record<string, string> - Styling overrides for different parts
 
 Component Structure:
+
 - Formik Field wrapper for form integration
 - Toggle switch with visual state indication
 - Label with optional tooltip integration
@@ -70,6 +74,7 @@ Component Structure:
 - Size variants for different UI contexts
 
 Usage Examples:
+
 ```tsx
 // Basic preference toggle
 <Formik
@@ -119,28 +124,28 @@ Usage Examples:
   <Form className="space-y-4">
     <div>
       <h3 className="text-lg font-semibold mb-3">Notification Settings</h3>
-      
+
       <FormikSwitchField
         name="emailNotifications"
         label="Email Notifications"
         tooltip="Receive notifications via email"
         size="md"
       />
-      
+
       <FormikSwitchField
         name="pushNotifications"
         label="Push Notifications"
         tooltip="Receive push notifications on your device"
         size="md"
       />
-      
+
       <FormikSwitchField
         name="marketingEmails"
         label="Marketing Emails"
         tooltip="Receive promotional and marketing content"
         size="md"
       />
-      
+
       <FormikSwitchField
         name="securityAlerts"
         label="Security Alerts"
@@ -149,7 +154,7 @@ Usage Examples:
         size="md"
       />
     </div>
-    
+
     <Button type="submit">Update Settings</Button>
   </Form>
 </Formik>
@@ -177,14 +182,14 @@ Usage Examples:
     <Form>
       <fieldset>
         <legend className="text-lg font-semibold mb-4">Privacy Settings</legend>
-        
+
         <FormikSwitchField
           name="profilePublic"
           label="Public Profile"
           tooltip="Make your profile visible to other users"
           labelLeft
         />
-        
+
         <FormikSwitchField
           name="showEmail"
           label="Show Email Address"
@@ -192,7 +197,7 @@ Usage Examples:
           disabled={!values.profilePublic}
           labelLeft
         />
-        
+
         <FormikSwitchField
           name="allowMessages"
           label="Allow Direct Messages"
@@ -213,7 +218,7 @@ Usage Examples:
     labelLeft
     tooltip="Use WiFi only for data transfer"
   />
-  
+
   <FormikSwitchField
     name="autoSync"
     label="Auto Sync"
@@ -221,7 +226,7 @@ Usage Examples:
     labelLeft
     tooltip="Automatically sync your data"
   />
-  
+
   <FormikSwitchField
     name="location"
     label="Location Services"
@@ -244,7 +249,7 @@ Usage Examples:
         tooltip="Verify your email address for account security"
         disabled={!canVerifyEmail}
       />
-      
+
       {values.emailVerified && (
         <div className="text-green-600 text-sm mt-2">
           ✓ Your email has been verified
@@ -271,7 +276,7 @@ Usage Examples:
         tooltip="Enable or disable user account access"
         size="lg"
       />
-      
+
       <FormikSwitchField
         name="adminAccess"
         label="Administrator Access"
@@ -281,7 +286,7 @@ Usage Examples:
           root: 'border border-yellow-300 p-3 rounded-lg bg-yellow-50'
         }}
       />
-      
+
       <FormikSwitchField
         name="maintenanceMode"
         label="Maintenance Mode"
@@ -308,6 +313,7 @@ Usage Examples:
 ```
 
 Form Integration Features:
+
 - Automatic Formik field binding with name prop
 - Built-in boolean validation support
 - Error state display from Formik field meta
@@ -315,29 +321,34 @@ Form Integration Features:
 - Touch/blur state management for UX
 
 Switch States:
+
 - true: Switch is on/enabled
-- false: Switch is off/disabled  
+- false: Switch is off/disabled
 - undefined: Initial/unset state
 - Disabled: Non-interactive state
 
 Label Positioning:
+
 - Default: Label on the right side of switch
 - labelLeft: Label on the left side of switch
 - Flexible: Adapts to different layout needs
 - Tooltip integration with both positions
 
 Size Variants:
+
 - sm: Small switch for compact interfaces
 - md: Medium switch for standard use
 - lg: Large switch for emphasis or accessibility
 
 Validation Patterns:
+
 - Boolean validation (true/false)
 - Required validation with oneOf([true])
 - Custom validation rules
 - Conditional validation based on other fields
 
 Best Practices:
+
 - Use clear, descriptive labels for switch purpose
 - Provide tooltips for complex or unclear options
 - Use appropriate sizes for context
@@ -345,6 +356,7 @@ Best Practices:
 - Implement proper validation for required switches
 
 Common Use Cases:
+
 - User preference and settings toggles
 - Feature enable/disable controls
 - Privacy and security options
@@ -352,6 +364,7 @@ Common Use Cases:
 - Administrative and permission switches
 
 Accessibility Features:
+
 - Proper label association with switch elements
 - Keyboard navigation (space/enter to toggle)
 - Screen reader compatible structure
@@ -359,19 +372,21 @@ Accessibility Features:
 - Focus indicators for interaction
 
 Testing Support:
+
 - data prop for custom testing attributes
 - Switch state testing capabilities
 - Click/toggle interaction verification
 - Formik integration testing with boolean values
 
 Related Components:
+
 - SwitchField: Core switch functionality
 - Switch: Basic toggle switch component
 - Checkbox: For alternative boolean input
 - RadioGroup: For multiple choice options
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => {
   return (

@@ -29,12 +29,13 @@ The FormikDatePicker accepts the following props:
 
 {/* END README */}
 
-{/*
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Formik-integrated date picker component that wraps the core DatePicker with comprehensive form validation, calendar navigation, and accessibility features for date selection in forms
 
 Dependencies:
+
 - Formik for form state management and validation
 - DatePicker core component for calendar functionality
 - Yup for date validation schema support
@@ -42,6 +43,7 @@ Dependencies:
 - Custom label and tooltip components
 
 Available Stories:
+
 - Default: Basic Formik date picker with form submission
 - Disabled: Disabled state demonstration
 - Labelled: Date picker with label configuration
@@ -49,6 +51,7 @@ Available Stories:
 - Validation: Form validation with Yup date schema
 
 Props (FormikDatePicker component):
+
 - id?: string - HTML id attribute for the date picker trigger
 - name: string - Formik field name for form state management
 - label?: string - Display label for the date picker field
@@ -67,6 +70,7 @@ Props (FormikDatePicker component):
 - dataPreviousMonth?: Record<string, string> - Data attributes for previous month button
 
 Component Structure:
+
 - Formik Field wrapper for form integration
 - Date picker trigger with formatted date display
 - Calendar popover with month/year navigation
@@ -74,6 +78,7 @@ Component Structure:
 - Automatic form state synchronization
 
 Usage Examples:
+
 ```tsx
 // Basic Formik date picker
 <Formik
@@ -129,7 +134,7 @@ Usage Examples:
         tooltip="Beginning of the date range"
         className={{ trigger: 'max-w-xs' }}
       />
-      
+
       <FormikDatePicker
         name="endDate"
         label="End Date"
@@ -138,7 +143,7 @@ Usage Examples:
         disabled={!values.startDate}
         className={{ trigger: 'max-w-xs' }}
       />
-      
+
       <Button type="submit">Create Date Range</Button>
     </Form>
   )}
@@ -179,6 +184,7 @@ Usage Examples:
 ```
 
 Form Integration Features:
+
 - Automatic Formik field binding with name prop
 - Built-in date validation support
 - Error state display from Formik field meta
@@ -186,6 +192,7 @@ Form Integration Features:
 - Touch/blur state management for UX
 
 Validation Patterns:
+
 - Date format validation
 - Future/past date restrictions
 - Date range validation
@@ -193,6 +200,7 @@ Validation Patterns:
 - Custom date constraints
 
 Calendar Navigation:
+
 - Month/year navigation controls
 - Keyboard accessibility support
 - Date selection with click/enter
@@ -200,6 +208,7 @@ Calendar Navigation:
 - Disabled date styling
 
 Best Practices:
+
 - Use appropriate date validation for business logic
 - Provide clear labels and tooltips for date context
 - Consider timezone implications in applications
@@ -207,6 +216,7 @@ Best Practices:
 - Use format prop for consistent date display
 
 Common Use Cases:
+
 - Event scheduling and booking forms
 - Date range selection for filters
 - Birth date and age verification
@@ -214,19 +224,21 @@ Common Use Cases:
 - Calendar event creation
 
 Testing Support:
+
 - Comprehensive data attributes for all interactive elements
 - Calendar navigation testing capabilities
 - Date selection verification
 - Formik integration testing with date values
 
 Related Components:
+
 - DatePicker: Core date selection functionality
 - FormikDatetimePicker: For date and time selection
 - Calendar: For calendar display components
 - FormikTextField: For manual date input alternatives
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => (
   <div>

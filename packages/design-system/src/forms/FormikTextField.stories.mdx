@@ -13,6 +13,7 @@ import FormikTextField from './FormikTextField'
 The `FormikTextField` component seamlessly integrates text input fields with Formik form management, providing automatic validation, error handling, and state synchronization. It extends the standalone TextField with Formik-specific features while maintaining all base functionality.
 
 Use this component when you need:
+
 - Text inputs within Formik-managed forms
 - Automatic validation with error display
 - Form state synchronization without manual handling
@@ -21,20 +22,45 @@ Use this component when you need:
 - Fields that respond to paste events
 
 The component supports two usage patterns: controlled (with name prop for Formik integration) or uncontrolled (with value/onChange for custom state management). It includes built-in error display, required field indicators, and comprehensive accessibility features.
-{/* END README */}
 
-{/*
+<br />
+
+The FormikTextField accepts the following props:
+
+- @param id - The id of the field.
+- @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
+- @param name - The name of the field as used to keep track of the state in Formik. If no value and onChange function are provided, this field is required.
+- @param value - The value of the field. This is used to manage the state internally. If no name is provided, this field is required.
+- @param onChange - The onChange function is called when the value of the field changes. This is used to manage the state internally. If no name is provided, this field is required.
+- @param error - The error message that is shown below the field. If a name is provided, this prop will not be used.
+- @param label - The optional label is shown next to the field in the form.
+- @param labelType - The optional labelType can be used to change the size and position of the label according to pre-defined standards.
+- @param icon - An optional icon (FontAwesomeIcon IconDefinition) that is shown on the right side of the text input component
+- @param iconPosition - The optional iconPosition can be used to change the position of the icon according to pre-defined standards.
+- @param onIconClick - An optional function that is called when the icon (previous prop) is clicked
+- @param placeholder - The optional placeholder is shown when the field is empty.
+- @param tooltip - The optional tooltip is shown on hover next to the label.
+- @param required - Indicate whether the field is required or not.
+- @param hideError - Hide the error message below this component as is might be more appropriate to show it somewhere else.
+- @param disabled - Disable the field.
+- @param onPaste - An optional function that is called when the user pastes text into the field.
+- @param className - The optional className object allows you to override the default styling.
+  {/* END README */}
+
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Formik-integrated wrapper around TextField component, providing automatic form state management and validation integration
 
 Dependencies:
+
 - formik (peer dependency) - Form state management
 - @fortawesome/react-fontawesome & icons - For input icons
 - yup (commonly used with) - Schema validation
 - Custom TextField component - Base input implementation
 
 Available Stories:
+
 - Default: Basic Formik field with name binding
 - Icon: Text field with clickable icon (e.g., search)
 - IconRight: Password field with show/hide toggle
@@ -47,6 +73,7 @@ Available Stories:
 - LargeLabel: Large label variant
 
 Props:
+
 - id?: string - HTML id attribute
 - data?: { test?: string, cy?: string } - Testing attributes
 - name?: string - Formik field name (required unless using value/onChange)
@@ -69,6 +96,7 @@ Props:
 - isTouched?: boolean - Manual touched state for error display
 
 Code Structure:
+
 - Wraps TextField component with Formik integration
 - Uses Formik's Field component for automatic state binding
 - Handles both Formik-managed and custom state patterns
@@ -76,6 +104,7 @@ Code Structure:
 - Preserves all TextField functionality (icons, tooltips, etc.)
 
 Usage Examples:
+
 ```tsx
 // Basic Formik integration
 <Formik initialValues={{ email: '' }} onSubmit={handleSubmit}>
@@ -110,6 +139,7 @@ Usage Examples:
 ```
 
 Related Components:
+
 - TextField: Standalone version without Formik
 - FormikTextareaField: Multi-line text input
 - FormikNumberField: Numeric input variant
@@ -117,7 +147,7 @@ Related Components:
 - FormikPinField: PIN/OTP input
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => (
   <div>

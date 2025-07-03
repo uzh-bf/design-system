@@ -5,6 +5,7 @@ import { ToggleGroup, ToggleGroupItem } from './ToggleGroup'
 The `ToggleGroup` component provides a group of toggle buttons that work together, allowing users to select one or multiple options from a set. It's perfect for formatting controls, view options, or any scenario where users need to toggle between related choices.
 
 Use this component when you need to:
+
 - Create formatting toolbars with options like bold, italic, underline
 - Provide view switching controls (list, grid, card views)
 - Enable multiple selection filters or options
@@ -13,16 +14,18 @@ Use this component when you need to:
 The toggle group supports both single and multiple selection modes, maintains proper keyboard navigation, and provides clear visual feedback for active states. It automatically manages the state relationships between toggle items.
 {/* END README */}
 
-{/*
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Shadcn UI re-export built on Radix UI's ToggleGroup primitive with coordinated state management
 Dependencies: @radix-ui/react-toggle-group
 
 Available Stories:
+
 - Default: Multiple selection toggle group with formatting icons (bold, italic, underline)
 
 Props (ToggleGroup component):
+
 - type: "single" | "multiple" - Selection behavior (single allows one, multiple allows many)
 - value: string | string[] - Controlled value(s) - string for single, array for multiple
 - defaultValue: string | string[] - Initial value(s)
@@ -34,6 +37,7 @@ Props (ToggleGroup component):
 - loop: boolean - Whether focus wraps around (default: true)
 
 Props (ToggleGroupItem component):
+
 - value: string - Unique value for this toggle item (required)
 - disabled: boolean - Whether this specific item is disabled
 - pressed: boolean - Controlled pressed state
@@ -43,10 +47,12 @@ Props (ToggleGroupItem component):
 - size: "default" | "sm" | "lg" - Size variant
 
 Component Structure:
+
 - ToggleGroup: Root container managing group state (re-export from ui/toggle-group)
 - ToggleGroupItem: Individual toggle button within the group
 
 Usage Examples:
+
 ```tsx
 // Text formatting toolbar
 <ToggleGroup type="multiple" variant="outline">
@@ -84,8 +90,8 @@ Usage Examples:
 // Controlled toggle group
 const [selectedFormats, setSelectedFormats] = useState<string[]>([])
 
-<ToggleGroup 
-  type="multiple" 
+<ToggleGroup
+  type="multiple"
   value={selectedFormats}
   onValueChange={setSelectedFormats}
 >
@@ -130,13 +136,14 @@ const [selectedFormats, setSelectedFormats] = useState<string[]>([])
 ```
 
 Related Components:
+
 - Toggle: For individual toggle controls
 - RadioGroup: For single selection with radio behavior
 - Checkbox: For individual boolean selections
 - Tabs: For switching between different content panels
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => {
   return (

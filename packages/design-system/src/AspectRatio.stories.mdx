@@ -4,6 +4,7 @@ import { AspectRatio } from './AspectRatio'
 The `AspectRatio` component maintains consistent width-to-height ratios for media content and containers. It ensures responsive design by automatically scaling content while preserving the specified aspect ratio across different screen sizes.
 
 Use this component when you need to:
+
 - Display images or videos with consistent proportions
 - Create responsive media containers that scale properly
 - Maintain layout consistency for cards or thumbnails
@@ -12,24 +13,28 @@ Use this component when you need to:
 The component accepts a ratio prop (e.g., 16/9, 4/3, 1/1) and wraps any content to maintain that proportion. It's particularly useful for images, videos, and placeholder content.
 {/* END README */}
 
-{/*
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Shadcn UI re-export built on Radix UI's AspectRatio primitive using CSS aspect-ratio or padding-top fallback
 Dependencies: @radix-ui/react-aspect-ratio
 
 Available Stories:
+
 - Default: 16:9 aspect ratio container with responsive image and rounded corners
 
 Props (AspectRatio component):
+
 - ratio: number - The desired aspect ratio (width/height, e.g., 16/9 = 1.777...)
 - className: string - Additional CSS classes for styling
 - asChild: boolean - Render as child element instead of div
 
 Component Structure:
+
 - AspectRatio: Root container that maintains aspect ratio (re-export from ui/aspect-ratio)
 
 Usage Examples:
+
 ```tsx
 // Video aspect ratio (16:9)
 <AspectRatio ratio={16 / 9}>
@@ -50,11 +55,12 @@ Usage Examples:
 ```
 
 Related Components:
+
 - Card: Often used together for consistent card layouts
 - Carousel: For maintaining consistent slide proportions
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => {
   return (

@@ -7,6 +7,7 @@ import { Input } from './ui/input'
 The `Popover` component provides floating content containers that appear near trigger elements without disrupting the main interface flow. It's perfect for displaying contextual information, forms, or actions that don't require full modal behavior.
 
 Use this component when you need to:
+
 - Display additional information or controls near specific elements
 - Create floating forms or input panels
 - Show contextual help or tooltips with rich content
@@ -15,28 +16,32 @@ Use this component when you need to:
 The popover automatically positions itself to stay within viewport bounds, supports controlled and uncontrolled modes, and includes proper focus management and keyboard interactions.
 {/* END README */}
 
-{/*
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Shadcn UI re-export built on Radix UI's Popover primitive with portal rendering and positioning
 Dependencies: @radix-ui/react-popover
 
 Available Stories:
+
 - Default: Dimensions form popover with input fields and grid layout
 
 Props (Popover component):
+
 - open: boolean - Controlled open state
 - defaultOpen: boolean - Initial open state
 - onOpenChange: (open: boolean) => void - Open state change handler
 - modal: boolean - Whether popover is modal (default: false)
 
 Component Structure:
+
 - Popover: Root container managing popover state (re-export from ui/popover)
 - PopoverTrigger: Element that triggers the popover (usually a button)
 - PopoverContent: Floating content container with positioning logic
 - PopoverAnchor: Optional anchor element for positioning (rare)
 
 Usage Examples:
+
 ```tsx
 // Basic info popover
 <Popover>
@@ -89,13 +94,14 @@ const [open, setOpen] = useState(false)
 ```
 
 Related Components:
+
 - Tooltip: For simple text-only hover content
 - Modal: For content that requires full attention
 - ContextMenu: For right-click triggered content
 - HoverCard: For hover-triggered rich content
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => {
   return (

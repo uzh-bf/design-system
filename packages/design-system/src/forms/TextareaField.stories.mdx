@@ -31,12 +31,13 @@ The props for the TextareaField component are as follows:
 
 {/* END README */}
 
-{/*
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Standalone multi-line textarea component with character limits, label integration, validation state management, and extensive customization for extended text input
 
 Dependencies:
+
 - React state management for textarea value handling
 - Custom Label component for consistent labeling
 - FontAwesome icons for visual enhancement
@@ -44,6 +45,7 @@ Dependencies:
 - Accessibility support for textarea interactions
 
 Available Stories:
+
 - Default: Basic textarea field with label and tooltip
 - MaxLength: Textarea with character limits and various counter configurations
 - SmallLabel: Textarea with small label variant and icon support
@@ -52,6 +54,7 @@ Available Stories:
 - Styled: Custom styling with colored theme and FontAwesome icon
 
 Props (TextareaField component):
+
 - id?: string - HTML id attribute for the textarea element
 - data?: Record<string, string> - Data attributes for testing purposes
 - name?: string - HTML name attribute for form submission
@@ -74,6 +77,7 @@ Props (TextareaField component):
 - icon?: IconDefinition - FontAwesome icon for visual enhancement
 
 Component Structure:
+
 - Label component integration with tooltip support
 - Multi-line textarea input with resize capability
 - Character counter display when maxLength is set
@@ -81,6 +85,7 @@ Component Structure:
 - Optional icon integration
 
 Usage Examples:
+
 ```tsx
 // Basic comment textarea
 const [comment, setComment] = useState('')
@@ -207,7 +212,7 @@ const [ticketData, setTicketData] = useState({
     required
     placeholder="Brief description of the issue"
   />
-  
+
   <TextareaField
     label="Detailed Description"
     value={ticketData.description}
@@ -240,7 +245,7 @@ const [content, setContent] = useState({
       className={{ input: 'min-h-[120px]' }}
     />
   </div>
-  
+
   <div>
     <h3 className="text-lg font-semibold mb-3">German Version</h3>
     <TextareaField
@@ -354,6 +359,7 @@ useEffect(() => {
 ```
 
 Character Limit Features:
+
 - Real-time character counting and display
 - Customizable counter units (characters, words, etc.)
 - Optional counter hiding based on conditions
@@ -361,12 +367,14 @@ Character Limit Features:
 - Automatic enforcement of character limits
 
 Icon Integration:
+
 - FontAwesome icon support for visual context
 - Icon positioning within textarea field
 - Semantic icon usage for different content types
 - Custom icon styling integration
 
 Validation Integration:
+
 - Error message display below textarea
 - Touched state management for UX
 - Required field visual indicators
@@ -374,12 +382,14 @@ Validation Integration:
 - Real-time validation feedback
 
 Label Types:
+
 - Default: Standard label above textarea
 - Small: Compact label for dense layouts
 - Custom: Configurable styling and positioning
 - Tooltip integration with all label types
 
 Best Practices:
+
 - Set appropriate character limits for content type
 - Provide clear placeholder text and instructions
 - Use tooltips to explain content requirements
@@ -388,6 +398,7 @@ Best Practices:
 - Use appropriate icons for content context
 
 Common Use Cases:
+
 - Comments and feedback collection
 - Article and blog content editing
 - Product descriptions and reviews
@@ -396,6 +407,7 @@ Common Use Cases:
 - Code snippet sharing
 
 Accessibility Features:
+
 - Proper label association with textarea elements
 - Character counter announcements for screen readers
 - Keyboard navigation support
@@ -404,6 +416,7 @@ Accessibility Features:
 - Focus management for better UX
 
 Testing Support:
+
 - data prop for custom testing attributes
 - Textarea content verification
 - Character limit testing capabilities
@@ -411,13 +424,14 @@ Testing Support:
 - Icon and styling testing
 
 Related Components:
+
 - FormikTextareaField: For Formik form integration
 - TextField: For single-line text input
 - Label: For standalone labeling needs
 - Editor: For rich text editing capabilities
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => {
   const [value, setValue] = React.useState('')

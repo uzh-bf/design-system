@@ -7,6 +7,7 @@ import { Toaster, toast } from './Toast'
 The `Toast` system provides a comprehensive notification interface with Sonner-based toast notifications, pre-styled variants, and flexible customization options. It offers programmatic toast triggering, multiple positioning options, and action button support for user feedback and system notifications.
 
 Use this component when you need to:
+
 - Display temporary notifications for user actions and system events
 - Provide feedback for form submissions, API responses, and user interactions
 - Show success, warning, and error messages with consistent styling
@@ -14,14 +15,23 @@ Use this component when you need to:
 - Create toast notifications with flexible positioning and timing control
 
 The component supports programmatic toast triggering, pre-styled variants (success, warning, error), custom React node content, action button integration, multiple positioning options, dismissible notifications with close buttons, and comprehensive customization for duration and appearance.
-{/* END README */}
 
-{/*
+<br />
+
+The toast trigger function accepts the following props:
+
+- @param message - The message to be displayed in the toast notification. It can be a string or a React node.
+- @param options - Additional options for the toast notification, such as duration, position, and custom class names.
+- @param type - The type of toast notification to display. It can be 'success', 'warning', or 'error'. If not provided, it defaults to a generic toast
+  {/* END README */}
+
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Comprehensive toast notification system built on Sonner with pre-styled variants, custom content support, action buttons, and flexible positioning for user feedback and system notifications
 
 Dependencies:
+
 - Sonner library for toast notification functionality
 - Shadcn UI Toast primitives for styling foundation
 - React node support for custom content rendering
@@ -29,6 +39,7 @@ Dependencies:
 - CSS positioning system for toast placement
 
 Available Stories:
+
 - Default: Basic toast with title and description
 - Dismissible: Toast with close button enabled
 - Simple: Minimal toast with message only
@@ -40,15 +51,18 @@ Available Stories:
 - Error: Pre-styled error toast variant
 
 Components:
+
 - Toaster: Container component for toast notifications
 - toast: Function for programmatically triggering toasts
 
 Props (toast function):
+
 - message: string | React.ReactNode - Content to display in toast
 - options?: ToastOptions - Additional configuration options
 - type?: 'success' | 'warning' | 'error' - Pre-styled toast variant
 
 Props (Toaster component):
+
 - position?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' - Toast positioning
 - closeButton?: boolean - Whether to show close button on toasts
 - duration?: number - Default duration for toast visibility
@@ -57,6 +71,7 @@ Props (Toaster component):
 - className?: string - Custom styling for toaster container
 
 ToastOptions Structure:
+
 - description?: string - Additional descriptive text
 - action?: React.ReactNode - Action button or component
 - duration?: number - Custom duration for this toast
@@ -65,6 +80,7 @@ ToastOptions Structure:
 - className?: string - Custom styling for individual toast
 
 Component Structure:
+
 - Toaster container positioned on screen
 - Individual toast notifications with content
 - Optional close buttons and action elements
@@ -72,6 +88,7 @@ Component Structure:
 - Animation support for show/hide transitions
 
 Usage Examples:
+
 ```tsx
 // Basic setup - add Toaster to your app root
 function App() {
@@ -86,71 +103,71 @@ function App() {
 // Basic toast notification
 const handleSave = () => {
   toast({
-    message: "Document saved successfully",
+    message: 'Document saved successfully',
     options: {
-      description: "Your changes have been saved to the server"
-    }
+      description: 'Your changes have been saved to the server',
+    },
   })
 }
 
 // Simple toast with message only
 const handleQuickAction = () => {
   toast({
-    message: "Action completed"
+    message: 'Action completed',
   })
 }
 
 // Success toast variant
 const handleSuccessfulSubmission = () => {
   toast({
-    message: "Form submitted successfully",
+    message: 'Form submitted successfully',
     type: 'success',
     options: {
-      description: "You will receive a confirmation email shortly"
-    }
+      description: 'You will receive a confirmation email shortly',
+    },
   })
 }
 
 // Warning toast variant
 const handleWarning = () => {
   toast({
-    message: "Storage space running low",
+    message: 'Storage space running low',
     type: 'warning',
     options: {
-      description: "Please clean up old files to free up space"
-    }
+      description: 'Please clean up old files to free up space',
+    },
   })
 }
 
 // Error toast variant
 const handleError = () => {
   toast({
-    message: "Failed to save document",
+    message: 'Failed to save document',
     type: 'error',
     options: {
-      description: "Please check your internet connection and try again"
-    }
+      description: 'Please check your internet connection and try again',
+    },
   })
 }
 
 // Toast with action button
 const handleActionToast = () => {
   toast({
-    message: "New update available",
+    message: 'New update available',
     options: {
-      description: "Version 2.1.0 is ready to install",
+      description: 'Version 2.1.0 is ready to install',
       action: (
         <Button
           size="sm"
           onClick={() => {
             updateApplication()
-            toast({ message: "Update started", type: 'success' })
+            toast({ message: 'Update started', type: 'success' })
           }}
         >
           Update Now
         </Button>
-      )
-    }
+      ),
+    },
   })
 }
 
@@ -164,8 +181,8 @@ const handleCustomToast = () => {
       </div>
     ),
     options: {
-      duration: 5000
-    }
+      duration: 5000,
+    },
   })
 }
 
@@ -174,25 +191,21 @@ const handleApiCall = async () => {
   try {
     const response = await api.saveData(formData)
     toast({
-      message: "Data saved successfully",
-      type: 'success'
+      message: 'Data saved successfully',
+      type: 'success',
     })
   } catch (error) {
     toast({
-      message: "Failed to save data",
+      message: 'Failed to save data',
       type: 'error',
       options: {
         description: error.message,
         action: (
-          <Button
-            size="sm"
-            variant="outline"
-            onClick={() => handleApiCall()}
-          >
+          <Button size="sm" variant="outline" onClick={() => handleApiCall()}>
             Retry
           </Button>
-        )
-      }
+        ),
+      },
     })
   }
 }
@@ -200,30 +213,30 @@ const handleApiCall = async () => {
 // Form validation feedback
 const handleFormSubmit = (data) => {
   const validation = validateForm(data)
-  
+
   if (validation.errors.length > 0) {
     toast({
-      message: "Please fix the following errors:",
+      message: 'Please fix the following errors:',
       type: 'warning',
       options: {
         description: validation.errors.join(', '),
-        duration: 8000
-      }
+        duration: 8000,
+      },
     })
     return
   }
-  
+
   submitForm(data)
   toast({
-    message: "Form submitted successfully",
-    type: 'success'
+    message: 'Form submitted successfully',
+    type: 'success',
   })
 }
 
 // Undo action toast
 const handleDelete = (item) => {
   const deletedItem = deleteItem(item.id)
-  
+
   toast({
     message: `${item.name} deleted`,
     options: {
@@ -233,29 +246,24 @@ const handleDelete = (item) => {
           variant="outline"
           onClick={() => {
             restoreItem(deletedItem)
-            toast({ message: "Item restored", type: 'success' })
+            toast({ message: 'Item restored', type: 'success' })
           }}
         >
           Undo
         </Button>
       ),
-      duration: 10000 // Longer duration for undo actions
-    }
+      duration: 10000, // Longer duration for undo actions
+    },
   })
 }
 
 // Multiple toaster configurations
-<div>
+;<div>
   {/* Main app toaster */}
-  <Toaster 
-    position="top-right" 
-    closeButton 
-    richColors 
-    expand 
-  />
-  
+  <Toaster position="top-right" closeButton richColors expand />
+
   {/* Critical alerts toaster */}
-  <Toaster 
+  <Toaster
     position="top-center"
     closeButton={false}
     duration={Infinity} // Persistent until dismissed
@@ -267,71 +275,75 @@ const handleDelete = (item) => {
 const handleFileUpload = (file) => {
   // Start upload
   const uploadToast = toast({
-    message: "Uploading file...",
+    message: 'Uploading file...',
     options: {
       description: `${file.name} (0%)`,
-      duration: Infinity
-    }
+      duration: Infinity,
+    },
   })
-  
+
   // Progress updates
   uploadFile(file, (progress) => {
     toast({
-      message: "Uploading file...",
+      message: 'Uploading file...',
       options: {
         description: `${file.name} (${progress}%)`,
         id: uploadToast,
-        duration: Infinity
-      }
+        duration: Infinity,
+      },
     })
   })
-  .then(() => {
-    toast({
-      message: "Upload completed",
-      type: 'success',
-      options: {
-        description: `${file.name} uploaded successfully`,
-        id: uploadToast
-      }
+    .then(() => {
+      toast({
+        message: 'Upload completed',
+        type: 'success',
+        options: {
+          description: `${file.name} uploaded successfully`,
+          id: uploadToast,
+        },
+      })
     })
-  })
-  .catch((error) => {
-    toast({
-      message: "Upload failed",
-      type: 'error',
-      options: {
-        description: error.message,
-        id: uploadToast,
-        action: (
-          <Button size="sm" onClick={() => handleFileUpload(file)}>
-            Retry
-          </Button>
-        )
-      }
+    .catch((error) => {
+      toast({
+        message: 'Upload failed',
+        type: 'error',
+        options: {
+          description: error.message,
+          id: uploadToast,
+          action: (
+            <Button size="sm" onClick={() => handleFileUpload(file)}>
+              Retry
+            </Button>
+          ),
+        },
+      })
     })
-  })
 }
 ```
 
 Toast Variants:
+
 - Default: Standard toast with neutral styling
 - Success: Green styling with success semantics
 - Warning: Yellow/orange styling for warnings
 - Error: Red styling for error messages
 
 Positioning Options:
+
 - top-left: Upper left corner
 - top-right: Upper right corner (common choice)
 - bottom-left: Lower left corner
 - bottom-right: Lower right corner
 
 Content Types:
+
 - String: Simple text message
 - React Node: Custom components with icons, styling
 - Title + Description: Structured content with hierarchy
 - Action Buttons: Interactive elements within toast
 
 Best Practices:
+
 - Use success toasts for confirmed actions
 - Use warning toasts for non-critical issues
 - Use error toasts for failures and problems
@@ -339,6 +351,7 @@ Best Practices:
 - Keep messages concise and actionable
 
 Common Use Cases:
+
 - Form submission feedback
 - API response notifications
 - File upload/download status
@@ -346,6 +359,7 @@ Common Use Cases:
 - System status updates
 
 Accessibility Features:
+
 - Screen reader announcements
 - Focus management for action buttons
 - Keyboard navigation support
@@ -353,19 +367,21 @@ Accessibility Features:
 - Proper ARIA attributes
 
 Testing Support:
+
 - id option for unique toast identification
 - Programmatic toast triggering for test scenarios
 - Action button testing capabilities
 - Toast queue management for testing
 
 Related Components:
+
 - Alert: For persistent notifications
 - Banner: For page-level announcements
 - Modal: For critical confirmations
 - Notification: For system-wide alerts
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => {
   return (

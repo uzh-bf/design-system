@@ -8,6 +8,7 @@ import {
 The `Resizable` component provides user-controlled resizable panels with drag handles, enabling flexible layout customization. Users can adjust panel sizes by dragging resize handles to create personalized workspace arrangements.
 
 Use this component when you need to:
+
 - Create split-pane layouts that users can customize
 - Build resizable dashboard panels or content areas
 - Implement adjustable sidebars or content sections
@@ -16,16 +17,18 @@ Use this component when you need to:
 The resizable system supports both horizontal and vertical layouts, nested panel groups, minimum/maximum size constraints, and smooth resize animations. It maintains responsive behavior and provides accessible keyboard navigation for resize operations.
 {/* END README */}
 
-{/*
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Shadcn UI re-export built on react-resizable-panels with drag handle controls and constraint management
 Dependencies: react-resizable-panels
 
 Available Stories:
+
 - Default: Nested horizontal and vertical resizable panels with drag handles
 
 Props (ResizablePanelGroup component):
+
 - direction: "horizontal" | "vertical" - Layout direction for panels
 - className: string - Additional CSS classes
 - autoSaveId: string - Unique ID for saving panel sizes to localStorage
@@ -33,6 +36,7 @@ Props (ResizablePanelGroup component):
 - storage: PanelGroupStorage - Custom storage implementation for panel sizes
 
 Props (ResizablePanel component):
+
 - defaultSize: number - Initial size percentage (0-100)
 - minSize: number - Minimum size percentage
 - maxSize: number - Maximum size percentage
@@ -44,17 +48,20 @@ Props (ResizablePanel component):
 - className: string - Additional CSS classes
 
 Props (ResizableHandle component):
+
 - className: string - Additional CSS classes
 - withHandle: boolean - Whether to show visual handle indicator
 - disabled: boolean - Whether handle is disabled
 - onDragging: (isDragging: boolean) => void - Callback for drag state
 
 Component Structure:
+
 - ResizablePanelGroup: Root container managing panel layout (re-export from ui/resizable)
 - ResizablePanel: Individual resizable content panel
 - ResizableHandle: Drag handle for resizing between panels
 
 Usage Examples:
+
 ```tsx
 // Basic horizontal split
 <ResizablePanelGroup direction="horizontal" className="min-h-[200px] rounded-lg border">
@@ -97,8 +104,8 @@ Usage Examples:
 </ResizablePanelGroup>
 
 // With localStorage persistence
-<ResizablePanelGroup 
-  direction="horizontal" 
+<ResizablePanelGroup
+  direction="horizontal"
   autoSaveId="my-layout"
   className="min-h-[300px] rounded-lg border"
 >
@@ -148,13 +155,14 @@ Usage Examples:
 ```
 
 Related Components:
+
 - Sidebar: For fixed navigation panels
 - Tabs: For switching between content sections
 - Card: For structured content within panels
 - Sheet: For overlay panels
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => {
   return (

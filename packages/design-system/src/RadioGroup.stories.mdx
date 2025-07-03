@@ -5,6 +5,7 @@ import { ShadcnLabel } from './ShadcnLabel'
 The `RadioGroup` component provides mutually exclusive selection options where users can choose only one option from a set. It ensures proper form behavior and accessibility for single-choice scenarios.
 
 Use this component when you need to:
+
 - Present mutually exclusive options (settings, preferences, choices)
 - Create single-selection forms or configuration interfaces
 - Provide clear visual indication of current selection
@@ -13,16 +14,18 @@ Use this component when you need to:
 The radio group manages selection state automatically and provides proper ARIA labeling and keyboard navigation. Each radio item should be paired with a descriptive label.
 {/* END README */}
 
-{/*
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Shadcn UI re-export built on Radix UI's RadioGroup primitive with form integration and accessibility
 Dependencies: @radix-ui/react-radio-group
 
 Available Stories:
+
 - Default: Radio group with three options (default, comfortable, compact) and proper labeling
 
 Props (RadioGroup component):
+
 - value: string - Controlled selected value
 - defaultValue: string - Initial selected value
 - onValueChange: (value: string) => void - Selection change handler
@@ -33,10 +36,12 @@ Props (RadioGroup component):
 - className: string - Additional CSS classes
 
 Component Structure:
+
 - RadioGroup: Root container managing selection state (re-export from ui/radio-group)
 - RadioGroupItem: Individual radio button with value prop
 
 Usage Examples:
+
 ```tsx
 // Basic radio group
 const [size, setSize] = useState("medium")
@@ -83,12 +88,13 @@ const [size, setSize] = useState("medium")
 ```
 
 Related Components:
+
 - Checkbox: For multiple selection scenarios
 - ToggleGroup: For toggle-style selection
 - Select: For dropdown-style single selection
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => {
   return (

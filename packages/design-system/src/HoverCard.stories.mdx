@@ -6,6 +6,7 @@ import { HoverCard, HoverCardContent, HoverCardTrigger } from './HoverCard'
 The `HoverCard` component displays rich content when users hover over trigger elements. It provides contextual information like user profiles, previews, or additional details without requiring clicks or navigation.
 
 Use this component when you need to:
+
 - Show user profile previews on mention hover
 - Display rich tooltips with formatted content
 - Provide contextual information for links or references
@@ -14,16 +15,18 @@ Use this component when you need to:
 The hover card appears after a brief delay and includes proper timing controls to prevent accidental triggers. It supports rich content including images, formatted text, and interactive elements.
 {/* END README */}
 
-{/*
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Shadcn UI re-export built on Radix UI's HoverCard primitive with hover timing and portal rendering
 Dependencies: @radix-ui/react-hover-card
 
 Available Stories:
+
 - Default: User profile hover card with avatar, name, description, and follow button
 
 Props (HoverCard component):
+
 - openDelay: number - Delay before opening on hover (default: 700ms)
 - closeDelay: number - Delay before closing when hover ends (default: 300ms)
 - open: boolean - Controlled open state
@@ -31,11 +34,13 @@ Props (HoverCard component):
 - onOpenChange: (open: boolean) => void - Open state change handler
 
 Component Structure:
+
 - HoverCard: Root container managing hover state (re-export from ui/hover-card)
 - HoverCardTrigger: Element that triggers the hover card
 - HoverCardContent: Floating content container with rich formatting
 
 Usage Examples:
+
 ```tsx
 // User mention hover card
 <HoverCard>
@@ -95,12 +100,13 @@ Usage Examples:
 ```
 
 Related Components:
+
 - Tooltip: For simple text-only hover information
 - Popover: For click-triggered rich content
 - Card: For static rich content layout
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => {
   return (

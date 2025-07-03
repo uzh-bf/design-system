@@ -28,12 +28,13 @@ The FormikColorPicker accepts the following props:
 
 {/* END README */}
 
-{/*
+{/\*
 AI_DOCUMENTATION_START
 
 Technical Overview: Formik-integrated color picker component that wraps the core ColorPicker with comprehensive form validation, error handling, and state management for seamless form integration
 
 Dependencies:
+
 - Formik for form state management and validation
 - ColorPicker core component for color selection functionality
 - Yup for validation schema support
@@ -41,6 +42,7 @@ Dependencies:
 - Custom tooltip and label components
 
 Available Stories:
+
 - Default: Basic Formik color picker with form submission
 - Label: Color picker with various label configurations and tooltips
 - Disabled: Disabled state demonstration
@@ -48,6 +50,7 @@ Available Stories:
 - Validation: Form validation with Yup schema integration
 
 Props (FormikColorPicker component):
+
 - name: string - Formik field name for form state management
 - label?: string - Display label for the color picker field
 - labelType?: 'small' | 'large' - Label size and positioning variant
@@ -66,6 +69,7 @@ Props (FormikColorPicker component):
 - className?: Record<string, string> - Styling overrides for different parts
 
 Component Structure:
+
 - Formik Field wrapper for form integration
 - Color picker trigger with optional icon and label
 - Popover color selection interface with presets and custom input
@@ -73,6 +77,7 @@ Component Structure:
 - Automatic form state synchronization
 
 Usage Examples:
+
 ```tsx
 // Basic Formik color picker
 <Formik
@@ -161,7 +166,7 @@ Usage Examples:
         submitText="Set Primary"
         colorLabel="Primary"
       />
-      
+
       <FormikColorPicker
         name="secondaryColor"
         label="Secondary Color"
@@ -172,7 +177,7 @@ Usage Examples:
         submitText="Set Secondary"
         colorLabel="Secondary"
       />
-      
+
       <FormikColorPicker
         name="accentColor"
         label="Accent Color"
@@ -183,7 +188,7 @@ Usage Examples:
         submitText="Set Accent"
         colorLabel="Accent"
       />
-      
+
       <Button type="submit">Save Color Scheme</Button>
     </Form>
   )}
@@ -205,7 +210,7 @@ Usage Examples:
           { value: 'custom', label: 'Custom Theme' }
         ]}
       />
-      
+
       {values.theme === 'custom' && (
         <FormikColorPicker
           name="customColor"
@@ -217,7 +222,7 @@ Usage Examples:
           colorLabel="Theme Color"
         />
       )}
-      
+
       <Button type="submit">Apply Theme</Button>
     </Form>
   )}
@@ -225,6 +230,7 @@ Usage Examples:
 ```
 
 Form Integration Features:
+
 - Automatic Formik field binding with name prop
 - Built-in validation trigger support
 - Error state display from Formik field meta
@@ -232,6 +238,7 @@ Form Integration Features:
 - Touch/blur state management for UX
 
 Validation Patterns:
+
 - Hex color format validation with Yup
 - Required field validation
 - Custom color range restrictions
@@ -239,12 +246,14 @@ Validation Patterns:
 - Accessibility contrast validation
 
 Preset Color Management:
+
 - Static preset arrays for common color schemes
 - Dynamic presets based on application context
 - Brand color palettes for consistency
 - User-defined custom preset collections
 
 Best Practices:
+
 - Use validateForm prop for real-time validation feedback
 - Provide meaningful labels and tooltips for color context
 - Include preset colors for common use cases
@@ -252,6 +261,7 @@ Best Practices:
 - Consider accessibility when choosing default colors
 
 Common Use Cases:
+
 - Theme customization interfaces
 - Brand color selection in settings
 - Design system color configuration
@@ -259,19 +269,21 @@ Common Use Cases:
 - Data visualization color mapping
 
 Testing Support:
+
 - dataTrigger for trigger button identification
 - dataHexInput for hex input field testing
 - Formik integration testing with form state
 - Color validation testing scenarios
 
 Related Components:
+
 - ColorPicker: Core color selection functionality
 - FormikTextField: For direct hex input alternatives
 - FormikSelectField: For predefined color options
 - Label: For consistent labeling patterns
 
 AI_DOCUMENTATION_END
-*/}
+\*/}
 
 export const Default = () => (
   <div>
