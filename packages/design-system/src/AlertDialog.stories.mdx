@@ -12,8 +12,76 @@ import {
 import { Button } from './Button'
 
 {/* START README */}
-The `AlertDialog` component currently represents a simple re-export of the Shadcn UI AlertDialog component. More information on the structure can be found on the [Shadcn UI AlertDialog documentation](https://ui.shadcn.com/docs/components/alert-dialog).
+The `AlertDialog` component provides modal confirmation dialogs for critical user actions that require explicit confirmation. It ensures users are aware of potentially destructive or irreversible actions before proceeding.
+
+Use this component when you need to:
+
+- Confirm destructive actions (delete, remove, clear data)
+- Get explicit user consent for irreversible operations
+- Display critical warnings that require user acknowledgment
+- Interrupt user flow for important decision points
+
+The dialog includes structured sections for title, description, and action buttons (cancel/confirm). It provides keyboard navigation, focus management, and proper accessibility with ARIA attributes for screen readers.
 {/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Shadcn UI re-export built on Radix UI's AlertDialog primitive with modal behavior and focus management
+Dependencies: @radix-ui/react-alert-dialog, focus-trap, aria-hidden management
+
+Available Stories:
+
+- Default: Standard confirmation dialog for account deletion with cancel/continue actions
+
+Props (AlertDialog component):
+
+- open: boolean - Controlled open state
+- onOpenChange: (open: boolean) => void - Open state change handler
+- modal: boolean - Whether dialog is modal (default: true)
+
+Component Structure:
+
+- AlertDialog: Root container managing dialog state (re-export from ui/alert-dialog)
+- AlertDialogTrigger: Element that opens the dialog (usually a button)
+- AlertDialogContent: Modal content container with backdrop
+- AlertDialogHeader: Header section containing title and description
+- AlertDialogTitle: Primary heading of the dialog
+- AlertDialogDescription: Explanatory text about the action
+- AlertDialogFooter: Footer containing action buttons
+- AlertDialogCancel: Cancel/dismiss button (typically secondary)
+- AlertDialogAction: Confirm/proceed button (typically primary/destructive)
+
+Usage Examples:
+
+```tsx
+// Destructive action confirmation
+<AlertDialog>
+  <AlertDialogTrigger asChild>
+    <Button variant="destructive">Delete Account</Button>
+  </AlertDialogTrigger>
+  <AlertDialogContent>
+    <AlertDialogHeader>
+      <AlertDialogTitle>Delete Account</AlertDialogTitle>
+      <AlertDialogDescription>
+        This action cannot be undone. All your data will be permanently removed.
+      </AlertDialogDescription>
+    </AlertDialogHeader>
+    <AlertDialogFooter>
+      <AlertDialogCancel>Cancel</AlertDialogCancel>
+      <AlertDialogAction>Delete</AlertDialogAction>
+    </AlertDialogFooter>
+  </AlertDialogContent>
+</AlertDialog>
+```
+
+Related Components:
+
+- Modal: For general modal dialogs that don't require confirmation
+- Alert: For inline status messages that don't interrupt flow
+
+AI_DOCUMENTATION_END
+*/}
 
 export const Default = () => {
   return (

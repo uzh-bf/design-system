@@ -2,7 +2,16 @@ import { useState } from 'react'
 import ColorPicker from './ColorPicker'
 
 {/* START README */}
-The custom ColorPicker in the design-system is a versatile component that supports the selection of a single color from a color palette. Additionally, it supports the definition of pre-defined standard colors, hex color input, and custom styling.
+The `ColorPicker` component provides an intuitive color selection interface with preset colors, hex input, and customizable positioning. It offers a clean, accessible way to choose colors with validation and error handling support.
+
+Use this component when you need to:
+
+- Allow users to select colors for theming or customization
+- Provide preset color palettes alongside custom color input
+- Build forms that require color selection with validation
+- Create design tools or configuration interfaces
+
+The component features preset color buttons for quick selection, hex color input with validation, flexible positioning options, and comprehensive styling customization through className overrides.
 
 <br />
 
@@ -27,8 +36,132 @@ The props for the ColorPicker component are as follows:
 - @param dataHexInput - Optional data attributes for the hex input field (for testing purposes).
 - @param dataSubmit - Optional data attributes for the submit button (for testing purposes).
 - @param className - Optional class names for styling the color picker and its components.
+  {/* END README */}
 
-{/* END README */}
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Custom color picker implementation with popover interface, preset color palette, hex input validation, and flexible positioning system
+
+Dependencies:
+
+- React useState hook for color state management
+- Custom Popover component for positioning
+- Form validation utilities
+- Custom styling system with className overrides
+
+Available Stories:
+
+- Default: Basic color picker with tooltip and submit functionality
+- Label: Color picker with label and required field indicator
+- Disabled: Disabled state demonstration
+- Position: Multiple positioning options (top, top-left, bottom-left)
+- Styled: Custom styling with className overrides
+- CustomText: Custom submit button and color label text
+
+Props (ColorPicker component):
+
+- color: string - Initial color value in hex format (e.g., '#0028A5')
+- label?: string - Label text for the color picker field
+- labelType?: 'small' | 'large' - Size variant for the label
+- required?: boolean - Whether the field is required (shows asterisk)
+- onSubmit: (color: string) => void - Callback when color is submitted
+- disabled?: boolean - Whether the color picker is disabled
+- triggerIcon?: React.ReactNode - Custom icon for the trigger button
+- presetColors?: string[] - Array of preset colors to display
+- position?: 'top' | 'top-left' | 'bottom' | 'bottom-left' - Popover positioning
+- submitText?: string - Text for the submit button
+- colorLabel?: string - Label for the hex input field
+- colorTooltip?: string | React.ReactNode - Tooltip for the color input
+- tooltip?: string | React.ReactNode - Tooltip for the main component
+- error?: string - Error message to display
+- isTouched?: boolean - Whether the field has been touched (for error display)
+- dataTrigger?: Record<string, string> - Data attributes for trigger (testing)
+- dataHexInput?: Record<string, string> - Data attributes for hex input (testing)
+- dataSubmit?: Record<string, string> - Data attributes for submit button (testing)
+- className?: {
+  root?: string,
+  trigger?: string,
+  popover?: string,
+  presetButtons?: string,
+  inputLabel?: string,
+  input?: string,
+  abort?: string,
+  submit?: string
+  } - Styling overrides for different parts
+
+Component Structure:
+
+- Root container with trigger button showing current color
+- Popover containing preset colors and hex input
+- Preset color palette with clickable color swatches
+- Hex input field with validation
+- Submit/cancel actions
+- Error state handling
+
+Usage Examples:
+
+```tsx
+// Basic color picker
+<ColorPicker
+  color="#0028A5"
+  onSubmit={(newColor) => setSelectedColor(newColor)}
+  submitText="Apply Color"
+  colorLabel="Choose Color"
+/>
+
+// With preset colors and label
+<ColorPicker
+  color="#FF6B6B"
+  label="Theme Color"
+  required
+  presetColors={['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FECA57']}
+  onSubmit={handleColorChange}
+  tooltip="Select a color for your theme"
+/>
+
+// Custom positioning
+<ColorPicker
+  color="#9B59B6"
+  position="top-left"
+  onSubmit={handleColorChange}
+  submitText="Save"
+  colorLabel="Background Color"
+/>
+
+// With validation and error handling
+<ColorPicker
+  color={formData.color}
+  onSubmit={handleColorSubmit}
+  error={errors.color}
+  isTouched={touched.color}
+  required
+  label="Brand Color"
+/>
+
+// Custom styling
+<ColorPicker
+  color="#E74C3C"
+  onSubmit={handleColorChange}
+  className={{
+    root: 'bg-gray-50 border border-gray-200',
+    trigger: 'rounded-lg shadow-sm',
+    popover: 'bg-white shadow-lg border',
+    presetButtons: 'grid-cols-6',
+    submit: 'bg-blue-600 hover:bg-blue-700'
+  }}
+/>
+```
+
+Related Components:
+
+- FormikColorPicker: Formik integration wrapper
+- Popover: Used for positioning the color picker interface
+- Button: Used for trigger and action buttons
+- Input: Used for hex color input field
+
+AI_DOCUMENTATION_END
+*/}
 
 export const Default = () => {
   const [color, setColor] = useState('#0028A5')

@@ -2,8 +2,83 @@ import { useState } from 'react'
 import { Calendar } from './Calendar'
 
 {/* START README */}
-The `Calendar` component currently represents a simple re-export of the Shadcn UI Calendar component. More information on the structure can be found on the [Shadcn UI Calendar documentation](https://ui.shadcn.com/docs/components/calendar).
+The `Calendar` component provides an interactive date picker interface with month/year navigation and date selection capabilities. It offers a familiar calendar grid layout for users to browse and select dates.
+
+Use this component when you need to:
+
+- Allow users to select single or multiple dates
+- Provide date browsing and navigation interfaces
+- Create date range selection functionality
+- Display date-related information in calendar format
+
+The calendar supports different selection modes (single, multiple, range), disabled dates, and custom styling. It includes keyboard navigation and accessibility features for screen readers.
 {/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Shadcn UI re-export built on react-day-picker with Radix UI integration for accessibility
+Dependencies: react-day-picker, date-fns (for date utilities)
+
+Available Stories:
+
+- Default: Single date selection calendar with border and shadow styling
+
+Props (Calendar component):
+
+- mode: "single" | "multiple" | "range" - Selection behavior
+- selected: Date | Date[] | DateRange - Currently selected date(s)
+- onSelect: (date: Date | Date[] | DateRange) => void - Selection change handler
+- disabled: Date[] | (date: Date) => boolean - Disabled dates
+- fromDate: Date - Earliest selectable date
+- toDate: Date - Latest selectable date
+- className: string - Additional CSS classes
+- showOutsideDays: boolean - Show dates from adjacent months
+- fixedWeeks: boolean - Always show 6 weeks
+
+Component Structure:
+
+- Calendar: Root calendar container (re-export from ui/calendar)
+- Internal components: Month grid, day cells, navigation buttons, headers
+
+Usage Examples:
+
+```tsx
+// Single date selection
+const [date, setDate] = useState<Date | undefined>(new Date())
+<Calendar
+  mode="single"
+  selected={date}
+  onSelect={setDate}
+  className="rounded-md border"
+/>
+
+// Date range selection
+const [dateRange, setDateRange] = useState<DateRange | undefined>()
+<Calendar
+  mode="range"
+  selected={dateRange}
+  onSelect={setDateRange}
+  numberOfMonths={2}
+/>
+
+// Multiple date selection
+const [dates, setDates] = useState<Date[]>([])
+<Calendar
+  mode="multiple"
+  selected={dates}
+  onSelect={setDates}
+  disabled={(date) => date < new Date()}
+/>
+```
+
+Related Components:
+
+- DatePicker: For input field with calendar popup
+- DatetimePicker: For date and time selection
+
+AI_DOCUMENTATION_END
+*/}
 
 export const Default = () => {
   const [date, setDate] = useState(new Date())

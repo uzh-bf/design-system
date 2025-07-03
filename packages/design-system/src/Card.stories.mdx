@@ -11,8 +11,90 @@ import { Input } from './ui/input'
 import { Label } from './ui/label'
 
 {/* START README */}
-The `Card` component currently represents a simple re-export of the Shadcn UI Card component. More information on the structure can be found on the [Shadcn UI Card documentation](https://ui.shadcn.com/docs/components/card).
+The `Card` component provides a flexible container for grouping related content with consistent spacing, borders, and visual hierarchy. It serves as a foundational layout component for organizing information into digestible sections.
+
+Use this component when you need to:
+
+- Group related content into visually distinct sections
+- Create product cards, profile cards, or information panels
+- Organize dashboard widgets or feature highlights
+- Structure form sections or settings panels
+
+The card includes structured sections for headers, content, and footers with proper spacing and typography. It provides a clean, bordered container that works well in grids or lists.
 {/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Shadcn UI re-export providing semantic content structure with consistent spacing and styling
+Dependencies: None (pure CSS-based component)
+
+Available Stories:
+
+- Default: Login form card with header, content, and structured form elements
+
+Props (Card component):
+
+- className: string - Additional CSS classes for customization
+- children: ReactNode - Card content
+
+Component Structure:
+
+- Card: Root container with border and background (re-export from ui/card)
+- CardHeader: Top section for titles and descriptions
+- CardTitle: Primary heading with appropriate typography
+- CardDescription: Secondary text with muted styling
+- CardContent: Main content area with consistent padding
+- CardFooter: Bottom section for actions or additional info
+
+Usage Examples:
+
+```tsx
+// Basic content card
+<Card>
+  <CardHeader>
+    <CardTitle>Card Title</CardTitle>
+    <CardDescription>Card description or subtitle</CardDescription>
+  </CardHeader>
+  <CardContent>
+    <p>Main content goes here...</p>
+  </CardContent>
+  <CardFooter>
+    <Button>Action</Button>
+  </CardFooter>
+</Card>
+
+// Simple card without header/footer
+<Card>
+  <CardContent>
+    <h3>Simple Content</h3>
+    <p>Just content with consistent padding.</p>
+  </CardContent>
+</Card>
+
+// Product card example
+<Card className="max-w-sm">
+  <CardHeader>
+    <CardTitle>Product Name</CardTitle>
+    <CardDescription>$99.99</CardDescription>
+  </CardHeader>
+  <CardContent>
+    <img src="product.jpg" alt="Product" className="w-full" />
+  </CardContent>
+  <CardFooter>
+    <Button className="w-full">Add to Cart</Button>
+  </CardFooter>
+</Card>
+```
+
+Related Components:
+
+- Modal: For overlaid card-like content
+- Sheet: For slide-out card containers
+- AspectRatio: Often used within cards for media
+
+AI_DOCUMENTATION_END
+*/}
 
 export const Default = () => {
   return (

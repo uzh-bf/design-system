@@ -1,7 +1,17 @@
 import CycleProgress from './CycleProgress'
 
 {/* START README */}
-The CycleProgress component is a circular progress visualization. Additionally, its size, color and children can be overriden and / or customized.
+The `CycleProgress` component provides a circular progress visualization with customizable styling and central content display. It offers a clean, visual way to represent completion percentages, loading states, or progress indicators with flexible sizing and styling options.
+
+Use this component when you need to:
+
+- Display completion percentages in a visually appealing circular format
+- Show progress states for tasks, downloads, or loading operations
+- Create dashboard widgets with progress indicators and central content
+- Implement compact progress displays for limited space interfaces
+- Build status indicators with custom colors and sizes
+
+The component supports multiple size variants, custom colors and stroke widths, central content display, precise percentage control, and comprehensive styling customization for different interface contexts.
 
 <br />
 
@@ -15,8 +25,179 @@ The props for the CycleProgress component are as follows:
 - @param children - Content of the progress bar, displayed in the center
 - @param data - Optional data object that can be used for testing (e.g. data-test or data-cy)
 - @param className - Optional className object allows you to override the default styling
+  {/* END README */}
 
-{/* END README */}
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Circular SVG progress component with central content display, customizable sizing, styling options, and precise percentage-based progress indication
+
+Dependencies:
+
+- SVG for circular progress rendering
+- React for content display and prop management
+- CSS styling system with className overrides
+- Mathematical calculations for circular progress path
+
+Available Stories:
+
+- Default: Basic circular progress with 60% completion
+- Small: Compact size variant with adjusted stroke width
+- Colored: Custom color demonstration with red progress
+- OverrideSize: Manual size override for font alignment issues
+
+Props (CycleProgress component):
+
+- percentage: number - Progress percentage from 0 to 100
+- size?: 'sm' | 'md' - Predefined size variant (default: 'md')
+- overrideSize?: number - Custom size override in pixels for precise control
+- color?: string - Progress bar color (hex, rgb, css color name)
+- strokeWidthRem?: number - Progress stroke width in rem units
+- children?: React.ReactNode - Content displayed in the center of the circle
+- data?: Record<string, string> - Data attributes for testing purposes
+- className?: { root?: string } - Styling overrides for the component container
+
+Component Structure:
+
+- Root container with positioning for centered content
+- SVG circular progress ring with animated path
+- Central content area for children display
+- Responsive sizing system based on size variants
+- Mathematical progress calculation for arc rendering
+
+Usage Examples:
+
+```tsx
+// Basic progress indicator
+<CycleProgress percentage={75}>
+  75%
+</CycleProgress>
+
+// Small size variant
+<CycleProgress percentage={45} size="sm" strokeWidthRem={0.2}>
+  45%
+</CycleProgress>
+
+// Custom color and styling
+<CycleProgress
+  percentage={90}
+  color="#4CAF50"
+  strokeWidthRem={0.4}
+>
+  <div className="text-sm font-bold text-green-600">
+    Complete
+  </div>
+</CycleProgress>
+
+// Dashboard widget with icon
+<CycleProgress percentage={60} color="#2196F3">
+  <div className="flex flex-col items-center">
+    <DownloadIcon className="w-4 h-4" />
+    <span className="text-xs">60%</span>
+  </div>
+</CycleProgress>
+
+// Custom size override for specific layouts
+<CycleProgress
+  percentage={80}
+  overrideSize={120}
+  className={{ root: 'h-32 w-32 text-xl font-bold' }}
+  color="linear-gradient(45deg, #FF6B35, #F7931E)"
+>
+  <div>
+    <div className="text-2xl">80</div>
+    <div className="text-xs">Tasks</div>
+  </div>
+</CycleProgress>
+
+// Loading state indicator
+const [progress, setProgress] = useState(0)
+
+<CycleProgress percentage={progress} color="#9C27B0">
+  {progress < 100 ? (
+    <div className="animate-spin">⟳</div>
+  ) : (
+    <div className="text-green-500">✓</div>
+  )}
+</CycleProgress>
+
+// Score display
+<CycleProgress
+  percentage={85}
+  color={85 >= 80 ? "#4CAF50" : 85 >= 60 ? "#FF9800" : "#F44336"}
+>
+  <div className="text-center">
+    <div className="font-bold">{85}</div>
+    <div className="text-xs">Score</div>
+  </div>
+</CycleProgress>
+```
+
+Size Variants:
+
+- sm: Compact size for dense interfaces, toolbars, small widgets
+- md: Standard size for main content areas, cards, forms
+- Custom: overrideSize prop for pixel-perfect alignment with specific fonts
+
+Progress Calculation:
+
+- SVG circle with computed circumference
+- strokeDasharray and strokeDashoffset for progress indication
+- Smooth transitions for percentage changes
+- 0-100% range with visual feedback
+
+Color Customization:
+
+- Solid colors: Hex, RGB, named CSS colors
+- Gradient support: CSS gradient strings
+- Dynamic colors based on progress values
+- Theme integration with design system colors
+
+Central Content Features:
+
+- Full React component support
+- Flexible layout options (text, icons, complex content)
+- Responsive sizing based on circle dimensions
+- Automatic centering and alignment
+
+Performance Considerations:
+
+- SVG-based rendering for scalability
+- Minimal re-renders with controlled updates
+- Efficient progress calculations
+- Lightweight component with small footprint
+
+Override Size Usage:
+
+- Use only when default sizing doesn't align content properly
+- Adjust className.root dimensions accordingly
+- Test with different font families and sizes
+- Consider responsive design implications
+
+Best Practices:
+
+- Use consistent colors within your design system
+- Provide meaningful content that fits the circle size
+- Consider accessibility with sufficient color contrast
+- Test with various percentage values for visual consistency
+
+Common Use Cases:
+
+- Task completion indicators
+- Download/upload progress
+- Score and rating displays
+- Loading state visualizations
+- Dashboard KPI widgets
+
+Related Components:
+
+- CycleCountdown: Time-based circular progress
+- Progress: Linear progress indicators
+- CircularProgress: Alternative circular progress implementations
+- Chart: For more complex data visualization
+
+AI_DOCUMENTATION_END
+*/}
 
 export function Default() {
   return <CycleProgress percentage={60}>60</CycleProgress>

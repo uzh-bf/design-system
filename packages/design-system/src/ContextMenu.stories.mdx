@@ -15,8 +15,106 @@ import {
 } from './ContextMenu'
 
 {/* START README */}
-The `ContextMenu` component currently represents a simple re-export of the Shadcn UI ContextMenu component. More information on the structure can be found on the [Shadcn UI ContextMenu documentation](https://ui.shadcn.com/docs/components/context-menu).
+The `ContextMenu` component provides right-click context menus with rich interactive options including submenus, checkboxes, radio groups, and keyboard shortcuts. It enables contextual actions directly related to specific UI elements.
+
+Use this component when you need to:
+
+- Provide contextual actions for specific elements or regions
+- Create right-click menus for tables, images, or content areas
+- Offer quick access to relevant commands based on context
+- Implement desktop-like interaction patterns in web applications
+
+The context menu supports nested submenus, different item types (actions, checkboxes, radio groups), keyboard shortcuts, and proper accessibility with ARIA attributes.
 {/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Shadcn UI re-export built on Radix UI's ContextMenu primitive with portal rendering and focus management
+Dependencies: @radix-ui/react-context-menu
+
+Available Stories:
+
+- Default: Comprehensive context menu with various item types, submenus, and keyboard shortcuts
+
+Props (ContextMenu component):
+
+- modal: boolean - Whether menu is modal (default: true)
+- onOpenChange: (open: boolean) => void - Open state change handler
+
+Component Structure:
+
+- ContextMenu: Root container managing menu state (re-export from ui/context-menu)
+- ContextMenuTrigger: Element that triggers the context menu on right-click
+- ContextMenuContent: Menu content container with items
+- ContextMenuItem: Basic clickable menu item
+- ContextMenuCheckboxItem: Checkbox menu item with checked state
+- ContextMenuRadioGroup: Container for radio button group
+- ContextMenuRadioItem: Radio button menu item
+- ContextMenuLabel: Non-interactive label for grouping
+- ContextMenuSeparator: Visual separator between menu sections
+- ContextMenuSub: Submenu container
+- ContextMenuSubTrigger: Submenu trigger item
+- ContextMenuSubContent: Submenu content container
+- ContextMenuShortcut: Keyboard shortcut display
+
+Usage Examples:
+
+```tsx
+// Basic context menu
+<ContextMenu>
+  <ContextMenuTrigger>
+    <div className="w-64 h-32 border rounded flex items-center justify-center">
+      Right click me
+    </div>
+  </ContextMenuTrigger>
+  <ContextMenuContent>
+    <ContextMenuItem onSelect={() => handleAction('copy')}>
+      Copy
+      <ContextMenuShortcut>⌘C</ContextMenuShortcut>
+    </ContextMenuItem>
+    <ContextMenuItem onSelect={() => handleAction('paste')}>
+      Paste
+      <ContextMenuShortcut>⌘V</ContextMenuShortcut>
+    </ContextMenuItem>
+    <ContextMenuSeparator />
+    <ContextMenuItem onSelect={() => handleAction('delete')}>
+      Delete
+    </ContextMenuItem>
+  </ContextMenuContent>
+</ContextMenu>
+
+// Context menu with submenu and checkboxes
+<ContextMenu>
+  <ContextMenuTrigger>
+    <img src="image.jpg" alt="Context menu example" />
+  </ContextMenuTrigger>
+  <ContextMenuContent>
+    <ContextMenuItem>Open in new tab</ContextMenuItem>
+    <ContextMenuSub>
+      <ContextMenuSubTrigger>Share</ContextMenuSubTrigger>
+      <ContextMenuSubContent>
+        <ContextMenuItem>Email</ContextMenuItem>
+        <ContextMenuItem>Copy link</ContextMenuItem>
+        <ContextMenuItem>Social media</ContextMenuItem>
+      </ContextMenuSubContent>
+    </ContextMenuSub>
+    <ContextMenuSeparator />
+    <ContextMenuCheckboxItem checked={showCaptions}>
+      Show captions
+    </ContextMenuCheckboxItem>
+  </ContextMenuContent>
+</ContextMenu>
+```
+
+Related Components:
+
+- Dropdown: For trigger-based menus instead of right-click
+- Popover: For general popup content
+- Command: For searchable command interfaces
+
+AI_DOCUMENTATION_END
+*/}
 
 export const Default = () => {
   return (
