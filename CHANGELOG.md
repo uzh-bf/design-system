@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.0-alpha.5](https://github.com/uzh-bf/design-system/compare/v4.0.0-alpha.4...v4.0.0-alpha.5) (2025-07-03)
+
+
+### Refactors
+
+* migrate ladle stories from tsx format to markdown ([#167](https://github.com/uzh-bf/design-system/issues/167)) ([0e750a8](https://github.com/uzh-bf/design-system/commit/0e750a88e6a88c2beefc67588f8b564841895861))
+
+
+### Other
+
+* ladle and tailwind configuration alongside overrided stylings ([f4714c8](https://github.com/uzh-bf/design-system/commit/f4714c860d9ffac321085ef4ce6af8be828dbd9c))
+* remove preflight from tailwind design-system build ([efdef40](https://github.com/uzh-bf/design-system/commit/efdef409c60c095b3c53a5a71b89109aeb8c9329))
+* remove shadow styles again from buttons and input components ([0ddb957](https://github.com/uzh-bf/design-system/commit/0ddb9575bcc4718092458366bad94dfa580f25e3))
+
 ## [4.0.0-alpha.4](https://github.com/uzh-bf/design-system/compare/v4.0.0-alpha.3...v4.0.0-alpha.4) (2025-06-23)
 
 
