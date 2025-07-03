@@ -2,8 +2,17 @@ import { useState } from 'react'
 import { TabContent, Tabs } from './Tabs'
 
 {/* START README */}
+The `Tabs` component provides a comprehensive tabbed interface system built on Shadcn UI primitives with support for controlled and uncontrolled state management. It offers flexible tab configuration, custom content areas, and extensive styling customization for building organized content navigation.
 
-The Tabs components is an abstraction of the Shadcn UI Tabs component, providing a simple way to create tabbed interfaces with customizable content.
+Use this component when you need to:
+
+- Create organized content sections with tab-based navigation
+- Implement settings panels or configuration interfaces with multiple sections
+- Build data visualization dashboards with different view modes
+- Design form wizards or multi-step interfaces with clear section separation
+- Provide content organization with accessible keyboard navigation and proper ARIA support
+
+The component supports both controlled and uncontrolled state management, flexible tab configuration with custom labels and values, companion TabContent components for content organization, comprehensive styling customization, and testing attribute support for all tab elements.
 
 <br />
 
@@ -26,8 +35,359 @@ The TabsContent component is used to define the content for each tab. It accepts
 - @param children - The content to be displayed within the tab content area.
 - @param data - Optional data attributes for testing purposes.
 - @param className - Optional class names for styling the tab content.
+  {/* END README */}
 
-{/* END README */}
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Comprehensive tabbed interface system with controlled/uncontrolled state management, flexible tab configuration, and content organization built on Shadcn UI primitives
+
+Dependencies:
+
+- Shadcn UI Tabs primitives for accessibility and behavior
+- React state management for controlled/uncontrolled modes
+- TabContent companion component for content organization
+- CSS styling system for tab appearance and content areas
+- Accessibility support for keyboard navigation
+
+Available Stories:
+
+- Default: Basic tabs with two tab sections
+- Multiple: Extended tabs with four sections (Leaderboard, Create, Settings, Help)
+- Controlled: External state management with value/onValueChange
+
+Components:
+
+- Tabs: Main container component for tabbed interface
+- TabContent: Content area component for individual tab panels
+
+Props (Tabs component):
+
+- id?: string - HTML id attribute for the tabs container
+- defaultValue?: string - Initial active tab for uncontrolled mode
+- value?: string - Current active tab for controlled mode
+- onValueChange?: (value: string) => void - Callback when active tab changes
+- tabs: TabItem[] - Array of tab configuration objects
+- className?: Record<string, string> - Styling overrides for different parts
+- children: React.ReactNode - TabContent components for tab panels
+
+Props (TabContent component):
+
+- id?: string - HTML id attribute for the content panel
+- value: string - Tab value that this content corresponds to
+- children: React.ReactNode - Content to display in the tab panel
+- data?: Record<string, string> - Data attributes for testing purposes
+- className?: Record<string, string> - Styling overrides for content area
+
+TabItem Structure:
+
+- id: string - Unique identifier for the tab
+- value: string - Value used for state management and content matching
+- label: string - Display text for the tab trigger
+- data?: Record<string, string> - Data attributes for testing
+
+Component Structure:
+
+- Tabs container with tab triggers list
+- Individual tab triggers with labels and state management
+- Content area that displays active tab panel
+- Keyboard navigation and accessibility support
+- Responsive design considerations
+
+Usage Examples:
+
+```tsx
+// Basic tabbed interface
+<Tabs
+  defaultValue="overview"
+  tabs={[
+    { id: 'overview', value: 'overview', label: 'Overview' },
+    { id: 'details', value: 'details', label: 'Details' },
+    { id: 'settings', value: 'settings', label: 'Settings' }
+  ]}
+>
+  <TabContent value="overview">
+    <h2>Overview Content</h2>
+    <p>Summary information goes here.</p>
+  </TabContent>
+
+  <TabContent value="details">
+    <h2>Detailed Information</h2>
+    <p>More specific details about the topic.</p>
+  </TabContent>
+
+  <TabContent value="settings">
+    <h2>Configuration</h2>
+    <SettingsForm />
+  </TabContent>
+</Tabs>
+
+// Controlled tabs with external state
+const [activeTab, setActiveTab] = useState('profile')
+
+<Tabs
+  value={activeTab}
+  onValueChange={setActiveTab}
+  tabs={[
+    { id: 'profile', value: 'profile', label: 'Profile' },
+    { id: 'account', value: 'account', label: 'Account' },
+    { id: 'notifications', value: 'notifications', label: 'Notifications' }
+  ]}
+>
+  <TabContent value="profile">
+    <ProfileSettings user={currentUser} />
+  </TabContent>
+
+  <TabContent value="account">
+    <AccountSettings onSave={handleAccountSave} />
+  </TabContent>
+
+  <TabContent value="notifications">
+    <NotificationPreferences preferences={userPreferences} />
+  </TabContent>
+</Tabs>
+
+// Dashboard with data visualization tabs
+<Tabs
+  defaultValue="analytics"
+  tabs={[
+    { id: 'analytics', value: 'analytics', label: 'Analytics' },
+    { id: 'reports', value: 'reports', label: 'Reports' },
+    { id: 'users', value: 'users', label: 'Users' },
+    { id: 'performance', value: 'performance', label: 'Performance' }
+  ]}
+  className={{
+    root: 'w-full',
+    list: 'border-b border-gray-200',
+    trigger: 'data-[state=active]:border-blue-500'
+  }}
+>
+  <TabContent value="analytics" className={{ root: 'p-6' }}>
+    <AnalyticsDashboard data={analyticsData} />
+  </TabContent>
+
+  <TabContent value="reports" className={{ root: 'p-6' }}>
+    <ReportsView reports={reports} />
+  </TabContent>
+
+  <TabContent value="users" className={{ root: 'p-6' }}>
+    <UserManagement users={users} />
+  </TabContent>
+
+  <TabContent value="performance" className={{ root: 'p-6' }}>
+    <PerformanceMetrics metrics={performanceData} />
+  </TabContent>
+</Tabs>
+
+// Form wizard with validation
+const [currentStep, setCurrentStep] = useState('personal')
+const [formData, setFormData] = useState({})
+const [validationErrors, setValidationErrors] = useState({})
+
+<Tabs
+  value={currentStep}
+  onValueChange={setCurrentStep}
+  tabs={[
+    { id: 'personal', value: 'personal', label: 'Personal Info' },
+    { id: 'contact', value: 'contact', label: 'Contact Details' },
+    { id: 'preferences', value: 'preferences', label: 'Preferences' },
+    { id: 'review', value: 'review', label: 'Review & Submit' }
+  ]}
+>
+  <TabContent value="personal">
+    <PersonalInfoForm
+      data={formData.personal}
+      errors={validationErrors.personal}
+      onChange={(data) => updateFormData('personal', data)}
+    />
+  </TabContent>
+
+  <TabContent value="contact">
+    <ContactForm
+      data={formData.contact}
+      errors={validationErrors.contact}
+      onChange={(data) => updateFormData('contact', data)}
+    />
+  </TabContent>
+
+  <TabContent value="preferences">
+    <PreferencesForm
+      data={formData.preferences}
+      onChange={(data) => updateFormData('preferences', data)}
+    />
+  </TabContent>
+
+  <TabContent value="review">
+    <ReviewStep
+      formData={formData}
+      onSubmit={handleFormSubmit}
+      onEdit={setCurrentStep}
+    />
+  </TabContent>
+</Tabs>
+
+// Custom styled tabs
+<Tabs
+  defaultValue="home"
+  tabs={[
+    { id: 'home', value: 'home', label: 'Home' },
+    { id: 'products', value: 'products', label: 'Products' },
+    { id: 'services', value: 'services', label: 'Services' },
+    { id: 'contact', value: 'contact', label: 'Contact' }
+  ]}
+  className={{
+    root: 'bg-white rounded-lg shadow-lg',
+    list: 'flex bg-gray-50 rounded-t-lg',
+    trigger: 'px-6 py-3 font-medium text-gray-600 hover:text-gray-900 data-[state=active]:bg-white data-[state=active]:text-blue-600',
+    content: 'p-6 rounded-b-lg'
+  }}
+>
+  <TabContent value="home">
+    <HomePage />
+  </TabContent>
+
+  <TabContent value="products">
+    <ProductCatalog />
+  </TabContent>
+
+  <TabContent value="services">
+    <ServicesList />
+  </TabContent>
+
+  <TabContent value="contact">
+    <ContactForm />
+  </TabContent>
+</Tabs>
+
+// Testing configuration
+<Tabs
+  defaultValue="test-tab1"
+  tabs={[
+    {
+      id: 'test-tab1',
+      value: 'test-tab1',
+      label: 'Tab 1',
+      data: { 'data-cy': 'tab-1-trigger' }
+    },
+    {
+      id: 'test-tab2',
+      value: 'test-tab2',
+      label: 'Tab 2',
+      data: { 'data-cy': 'tab-2-trigger' }
+    }
+  ]}
+  id="test-tabs"
+>
+  <TabContent
+    value="test-tab1"
+    data={{ 'data-testid': 'tab-1-content' }}
+  >
+    Tab 1 Content
+  </TabContent>
+
+  <TabContent
+    value="test-tab2"
+    data={{ 'data-testid': 'tab-2-content' }}
+  >
+    Tab 2 Content
+  </TabContent>
+</Tabs>
+
+// Responsive tabs with mobile consideration
+<Tabs
+  defaultValue="summary"
+  tabs={[
+    { id: 'summary', value: 'summary', label: 'Summary' },
+    { id: 'transactions', value: 'transactions', label: 'Transactions' },
+    { id: 'analytics', value: 'analytics', label: 'Analytics' },
+    { id: 'settings', value: 'settings', label: 'Settings' }
+  ]}
+  className={{
+    root: 'w-full',
+    list: 'flex flex-wrap lg:flex-nowrap border-b',
+    trigger: 'flex-1 min-w-0 px-4 py-2 text-sm lg:text-base',
+    content: 'min-h-[400px] p-4 lg:p-6'
+  }}
+>
+  <TabContent value="summary">
+    <AccountSummary />
+  </TabContent>
+
+  <TabContent value="transactions">
+    <TransactionHistory />
+  </TabContent>
+
+  <TabContent value="analytics">
+    <SpendingAnalytics />
+  </TabContent>
+
+  <TabContent value="settings">
+    <AccountSettings />
+  </TabContent>
+</Tabs>
+```
+
+State Management:
+
+- Uncontrolled: Internal state with defaultValue
+- Controlled: External state with value/onValueChange
+- Validation: Integration with form validation systems
+- Persistence: Can be integrated with localStorage or URL routing
+
+Tab Configuration:
+
+- Flexible: Each tab has id, value, label, and optional data attributes
+- Dynamic: Tabs array can be generated programmatically
+- Testable: Data attributes for comprehensive testing
+- Accessible: Proper ARIA labels and keyboard navigation
+
+Content Organization:
+
+- TabContent: Dedicated component for tab panel content
+- Value matching: Content displays based on active tab value
+- Lazy loading: Content can be conditionally rendered
+- Custom styling: Individual content area customization
+
+Best Practices:
+
+- Use meaningful labels that clearly indicate content
+- Organize related content logically across tabs
+- Consider responsive design for mobile layouts
+- Implement proper validation for form-based tabs
+- Use controlled state for complex tab interactions
+
+Common Use Cases:
+
+- Settings and preference panels
+- Dashboard views and data visualization
+- Form wizards and multi-step processes
+- Content organization and navigation
+- Product information and feature displays
+
+Accessibility Features:
+
+- Full keyboard navigation (arrow keys, tab, space, enter)
+- ARIA attributes for screen readers
+- Focus management and visual indicators
+- Proper tab role semantics
+- Active state announcements
+
+Testing Support:
+
+- id prop for unique element identification
+- data attributes on tabs and content
+- Value-based content selection for verification
+- State tracking for interaction testing
+
+Related Components:
+
+- Accordion: For collapsible content sections
+- Drawer: For slide-out content panels
+- Modal: For overlay content displays
+- Navigation: For primary navigation systems
+
+AI_DOCUMENTATION_END
+*/}
 
 export const Default = () => {
   return (

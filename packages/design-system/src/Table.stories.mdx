@@ -5,8 +5,19 @@ import { data } from './tableData'
 import { useRef } from 'react'
 
 {/* START README */}
+The `Table` component provides an advanced data table with built-in sorting, custom formatting, and data transformation capabilities. It's designed for displaying complex tabular data with interactive features and comprehensive customization options.
 
-The table component is a custom components for the visualization of tabular data, directly supporting functionalities like sorting, formatting, and custom transformers.
+Use this component when you need to:
+
+- Display large datasets with sorting functionality
+- Apply custom formatting to data cells (percentages, currency, etc.)
+- Transform data before display or sorting
+- Create interactive data tables with advanced styling
+- Build data-heavy interfaces like dashboards or admin panels
+
+The component supports column-based configuration, data transformers for preprocessing, formatters for display customization, programmatic table resets, and extensive styling options through className overrides.
+
+**Note**: This is distinct from the ShadcnTable component, which provides basic table structure without advanced data manipulation features.
 
 <br />
 
@@ -23,8 +34,179 @@ The Table component accepts the following props:
 - @param emptyCellText - The optional emptyCellText allows you to define the text that should be displayed in empty cells.
 - @param defaultSortField - The optional defaultSortField allows you to define the default sorting field.
 - @param defaultSortOrder - The optional defaultSortOrder allows you to define the default sorting order.
+  {/* END README */}
 
-{/* END README */}
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Advanced data table implementation with sorting, transformation, formatting, and styling capabilities. Built with TypeScript generics for type safety.
+
+Dependencies:
+
+- React useRef, useState hooks for state management
+- TypeScript generics for type-safe column and data handling
+- Custom sorting algorithms
+- Tailwind CSS for styling
+
+Available Stories:
+
+- Simple: Basic table with sortable columns
+- DefaultSorting: Table with initial sort configuration
+- Sorting: Sorting functionality demonstration
+- ResetTable: Programmatic table reset with ref
+- Formatted: Custom cell formatting and styling
+- Combined: Advanced example with transformers and formatters
+
+Props (Table component):
+
+- id?: string - HTML id attribute for the table
+- dataAttributes?: Record<string, string> - Data attributes for testing
+- columns: ColumnDefinition[] - Column configuration array
+- data: DataRow[] - Array of data objects to display
+- caption?: string - Accessible table caption
+- ref?: React.Ref - Reference to table for method access
+- className?: {
+  root?: string,
+  tableHeader?: string,
+  body?: string,
+  row?: string
+  } - Styling overrides for table parts
+- forwardedRef?: React.Ref - Alternative ref prop for parent access
+- emptyCellText?: string - Text to show in empty cells (default: '-')
+- defaultSortField?: string - Initial column to sort by
+- defaultSortOrder?: 'asc' | 'desc' - Initial sort direction
+
+Column Definition Structure:
+
+- label: string - Display name for column header
+- accessor: string - Key to access data property
+- sortable?: boolean - Whether column can be sorted
+- transformer?: ({ row, accessor }) => any - Function to transform data before sorting
+- formatter?: ({ row, accessor }) => React.ReactNode - Function to format display
+- className?: string - CSS classes for column cells
+
+Data Row Structure:
+
+- [key: string]: any - Data properties matching column accessors
+- className?: string - Optional CSS classes for the row
+
+Table Methods (via ref):
+
+- reset(): void - Resets table to initial state (clears sorting)
+
+Usage Examples:
+
+```tsx
+// Basic sortable table
+<Table
+  columns={[
+    { label: 'Name', accessor: 'name', sortable: true },
+    { label: 'Age', accessor: 'age', sortable: true },
+    { label: 'Email', accessor: 'email', sortable: false }
+  ]}
+  data={[
+    { name: 'John Doe', age: 30, email: 'john@example.com' },
+    { name: 'Jane Smith', age: 25, email: 'jane@example.com' }
+  ]}
+  caption="User Directory"
+/>
+
+// With formatting and transformers
+<Table
+  columns={[
+    {
+      label: 'Revenue',
+      accessor: 'revenue',
+      sortable: true,
+      transformer: ({ row }) => row.revenue * 1.1, // Add 10% for sorting
+      formatter: ({ row }) => `$${row.revenue.toLocaleString()}`
+    },
+    {
+      label: 'Status',
+      accessor: 'status',
+      formatter: ({ row }) => (
+        <Badge variant={row.status === 'active' ? 'success' : 'secondary'}>
+          {row.status}
+        </Badge>
+      )
+    }
+  ]}
+  data={salesData}
+  defaultSortField="revenue"
+  defaultSortOrder="desc"
+/>
+
+// With custom styling
+<Table
+  columns={columns}
+  data={data}
+  className={{
+    root: 'rounded-lg shadow-sm border',
+    tableHeader: 'bg-gray-50 border-b',
+    body: 'divide-y divide-gray-200',
+    row: 'hover:bg-gray-50 transition-colors'
+  }}
+  emptyCellText="N/A"
+/>
+
+// With ref for programmatic control
+const tableRef = useRef(null)
+
+<>
+  <Button onClick={() => tableRef.current?.reset()}>
+    Clear Sorting
+  </Button>
+  <Table
+    ref={tableRef}
+    columns={columns}
+    data={data}
+  />
+</>
+
+// TypeScript usage with generics
+interface UserData {
+  id: number
+  name: string
+  email: string
+  lastLogin: Date
+}
+
+<Table<UserData>
+  columns={[
+    { label: 'ID', accessor: 'id', sortable: true },
+    { label: 'Name', accessor: 'name', sortable: true },
+    {
+      label: 'Last Login',
+      accessor: 'lastLogin',
+      formatter: ({ row }) => formatDistanceToNow(row.lastLogin)
+    }
+  ]}
+  data={userData}
+/>
+```
+
+Performance Considerations:
+
+- Transformers are applied before sorting for accurate data ordering
+- Formatters are applied only for display, preserving original data
+- Large datasets should consider pagination or virtualization
+- Avoid complex transformers on frequently sorted columns
+
+Common Patterns:
+
+- Use transformers for data normalization before sorting
+- Use formatters for display-only customization
+- Combine both for complex data processing workflows
+- Use className overrides for consistent visual styling
+
+Related Components:
+
+- ShadcnTable: Basic table structure without advanced features
+- DataTable: Alternative table implementation
+- List: For simpler data display without tabular structure
+
+AI_DOCUMENTATION_END
+*/}
 
 export const Simple = () => {
   return (

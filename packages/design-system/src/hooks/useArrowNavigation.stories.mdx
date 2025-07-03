@@ -4,7 +4,17 @@ import TextField from '../forms/TextField'
 import useArrowNavigation from './useArrowNavigation'
 
 {/* START README */}
-The useArrowNavigation custom hook automatically adds event listeners to all arrow keys for which functions are provided through the hook parameters.
+The `useArrowNavigation` hook provides keyboard arrow key navigation functionality for any component. It automatically sets up and cleans up event listeners for arrow key presses, making it easy to add keyboard navigation to grids, lists, games, or any interface that benefits from directional controls.
+
+Use this hook when you need:
+
+- Keyboard navigation in custom components
+- Grid or table cell navigation
+- Game controls or directional movement
+- Accessible navigation alternatives
+- Focus management with arrow keys
+
+The hook accepts optional callbacks for each arrow direction and only adds listeners for the provided callbacks, optimizing performance.
 
 <br />
 
@@ -14,8 +24,124 @@ The props for the useArrowNavigation hook are as follows:
 - @param onArrowRight - Callback for right arrow key press
 - @param onArrowUp - Callback for up arrow key press
 - @param onArrowDown - Callback for down arrow key press
+  {/* END README */}
 
-{/* END README */}
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Custom React hook that manages arrow key event listeners with automatic cleanup and conditional registration
+
+Dependencies:
+
+- React (useEffect)
+- No external dependencies
+
+Available Stories:
+
+- Default: Visual demonstration with state display and active key highlighting
+- Navigation: Practical grid navigation example showing focus management
+
+Hook Parameters:
+
+- onArrowLeft?: () => void - Left arrow key handler
+- onArrowRight?: () => void - Right arrow key handler
+- onArrowUp?: () => void - Up arrow key handler
+- onArrowDown?: () => void - Down arrow key handler
+
+Code Structure:
+
+- Uses useEffect for lifecycle management
+- Conditionally adds event listeners based on provided callbacks
+- Proper cleanup on unmount or dependency changes
+- Handles keydown events at document level
+
+Implementation Details:
+
+```typescript
+const useArrowNavigation = ({
+  onArrowLeft,
+  onArrowRight,
+  onArrowUp,
+  onArrowDown,
+}: UseArrowNavigationProps) => {
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      switch (event.key) {
+        case 'ArrowLeft':
+          onArrowLeft?.()
+          break
+        case 'ArrowRight':
+          onArrowRight?.()
+          break
+        case 'ArrowUp':
+          onArrowUp?.()
+          break
+        case 'ArrowDown':
+          onArrowDown?.()
+          break
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [onArrowLeft, onArrowRight, onArrowUp, onArrowDown])
+}
+```
+
+Usage Examples:
+
+```tsx
+// Basic navigation
+useArrowNavigation({
+  onArrowLeft: () => moveFocus('left'),
+  onArrowRight: () => moveFocus('right'),
+  onArrowUp: () => moveFocus('up'),
+  onArrowDown: () => moveFocus('down'),
+})
+
+// Partial navigation (only horizontal)
+useArrowNavigation({
+  onArrowLeft: () => previousItem(),
+  onArrowRight: () => nextItem(),
+})
+
+// Grid navigation with bounds checking
+const [row, setRow] = useState(0)
+const [col, setCol] = useState(0)
+
+useArrowNavigation({
+  onArrowLeft: () => setCol((c) => Math.max(0, c - 1)),
+  onArrowRight: () => setCol((c) => Math.min(maxCol, c + 1)),
+  onArrowUp: () => setRow((r) => Math.max(0, r - 1)),
+  onArrowDown: () => setRow((r) => Math.min(maxRow, r + 1)),
+})
+```
+
+Performance Considerations:
+
+- Only adds listeners for provided callbacks
+- Single event listener at document level
+- Proper cleanup prevents memory leaks
+- Dependencies array ensures fresh callback references
+
+Common Use Cases:
+
+- Data table cell navigation
+- Image gallery browsing
+- Menu navigation
+- Form field traversal
+- Game controls
+- Accessible slider controls
+
+Related Components/Hooks:
+
+- Table: Could benefit from arrow navigation
+- Select: Dropdown navigation
+- Tabs: Tab switching via arrows
+- DatePicker: Calendar navigation
+
+AI_DOCUMENTATION_END
+*/}
 
 export const Default = () => {
   const [arrowPressed, setArrowPressed] = useState(

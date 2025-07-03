@@ -10,7 +10,18 @@ import Button from '../Button'
 import FormikTextField from './FormikTextField'
 
 {/* START README */}
-The `FormikTextField` component is a Formik wrapper around the `TextField` component. In addition to labels, tooltips, etc. it also offers direct interfaces for form validation, error messages, and form submission handling.
+The `FormikTextField` component seamlessly integrates text input fields with Formik form management, providing automatic validation, error handling, and state synchronization. It extends the standalone TextField with Formik-specific features while maintaining all base functionality.
+
+Use this component when you need:
+
+- Text inputs within Formik-managed forms
+- Automatic validation with error display
+- Form state synchronization without manual handling
+- Password fields with show/hide toggles
+- Search inputs with icons
+- Fields that respond to paste events
+
+The component supports two usage patterns: controlled (with name prop for Formik integration) or uncontrolled (with value/onChange for custom state management). It includes built-in error display, required field indicators, and comprehensive accessibility features.
 
 <br />
 
@@ -34,8 +45,109 @@ The FormikTextField accepts the following props:
 - @param disabled - Disable the field.
 - @param onPaste - An optional function that is called when the user pastes text into the field.
 - @param className - The optional className object allows you to override the default styling.
+  {/* END README */}
 
-{/* END README */}
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Formik-integrated wrapper around TextField component, providing automatic form state management and validation integration
+
+Dependencies:
+
+- formik (peer dependency) - Form state management
+- @fortawesome/react-fontawesome & icons - For input icons
+- yup (commonly used with) - Schema validation
+- Custom TextField component - Base input implementation
+
+Available Stories:
+
+- Default: Basic Formik field with name binding
+- Icon: Text field with clickable icon (e.g., search)
+- IconRight: Password field with show/hide toggle
+- Disabled: Disabled field state
+- Required: Required field with visual indicator
+- OnChangeFunction: Custom onChange with value transformation (removing spaces)
+- OnChangeError: Manual error state example
+- Styled: Custom styling with className overrides
+- Validation: Yup schema validation example (max 10 characters)
+- LargeLabel: Large label variant
+
+Props:
+
+- id?: string - HTML id attribute
+- data?: { test?: string, cy?: string } - Testing attributes
+- name?: string - Formik field name (required unless using value/onChange)
+- value?: string - Controlled value (required if no name)
+- onChange?: (value: string) => void - Change handler (required if no name)
+- error?: string - Manual error message (ignored if name provided)
+- label?: string - Field label text
+- labelType?: 'small' | 'large' - Label size variant
+- icon?: IconDefinition - FontAwesome icon
+- iconPosition?: 'left' | 'right' - Icon placement
+- onIconClick?: () => void - Icon click handler
+- placeholder?: string - Placeholder text
+- tooltip?: string | React.ReactNode - Label tooltip
+- required?: boolean - Required field indicator
+- hideError?: boolean - Hide error message display
+- disabled?: boolean - Disabled state
+- onPaste?: (e: React.ClipboardEvent) => void - Paste event handler
+- className?: object - Style overrides for root, label, input, error
+- type?: string - HTML input type (text, password, email, etc.)
+- isTouched?: boolean - Manual touched state for error display
+
+Code Structure:
+
+- Wraps TextField component with Formik integration
+- Uses Formik's Field component for automatic state binding
+- Handles both Formik-managed and custom state patterns
+- Automatically extracts validation errors from Formik
+- Preserves all TextField functionality (icons, tooltips, etc.)
+
+Usage Examples:
+
+```tsx
+// Basic Formik integration
+<Formik initialValues={{ email: '' }} onSubmit={handleSubmit}>
+  <Form>
+    <FormikTextField
+      name="email"
+      label="Email Address"
+      placeholder="Enter your email"
+      required
+    />
+  </Form>
+</Formik>
+
+// With validation
+<Formik
+  initialValues={{ username: '' }}
+  validationSchema={yup.object({
+    username: yup.string().required('Required').max(20)
+  })}
+>
+  <Form>
+    <FormikTextField name="username" label="Username" />
+  </Form>
+</Formik>
+
+// Custom onChange handling
+<FormikTextField
+  value={customValue}
+  onChange={(val) => setCustomValue(val.toUpperCase())}
+  label="Uppercase Only"
+/>
+```
+
+Related Components:
+
+- TextField: Standalone version without Formik
+- FormikTextareaField: Multi-line text input
+- FormikNumberField: Numeric input variant
+- FormikSelectField: Dropdown selection
+- FormikPinField: PIN/OTP input
+
+AI_DOCUMENTATION_END
+*/}
 
 export const Default = () => (
   <div>

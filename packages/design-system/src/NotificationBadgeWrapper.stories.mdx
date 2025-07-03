@@ -1,7 +1,17 @@
 import NotificationBadgeWrapper from './NotificationBadgeWrapper'
 
 {/* START README */}
-The NotificationBadgeWrapper component uses absolute and relative styling to add a notification badge to its child component. It allows for various positioning and styling options while abstracting away much of the logic involved in displaying the badge.
+The `NotificationBadgeWrapper` component provides a flexible wrapper that adds notification badges to any child component. It supports both count badges (showing numbers) and simple notification dots, with extensive positioning, sizing, and styling customization options.
+
+Use this component when you need to:
+
+- Add notification indicators to buttons, icons, or other UI elements
+- Display unread message counts or alert indicators on navigation items
+- Create attention-grabbing visual cues for user interactions
+- Implement flexible badge positioning with custom styling options
+- Provide accessible notification feedback with proper visual hierarchy
+
+The component supports numeric count badges, simple notification dots, multiple badge sizes (small, medium, large, extra large), flexible positioning control, comprehensive styling customization, and testing attribute support for all badge elements.
 
 <br />
 
@@ -14,8 +24,242 @@ The props for the NotificationBadgeWrapper component are as follows:
 - @param size - The size of the badge (can be small, medium, large or extra large).
 - @param className - The optional className object allows you to override the default styling.
 - @param children - The component the notification badge should be placed on.
+  {/* END README */}
 
-{/* END README */}
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Flexible notification badge wrapper component with count display, positioning control, size variants, and comprehensive styling customization for child components
+
+Dependencies:
+
+- React for component structure and children wrapping
+- Absolute/relative positioning system for badge overlay
+- CSS styling system for badge appearance
+- Conditional rendering for badge visibility
+- Testing attribute support
+
+Available Stories:
+
+- Default: Basic notification badge with count display
+- Sizes: Size variants (small, medium, large, extra large)
+- Positions: Custom badge positioning examples
+- Styled: Custom styling and color variations
+- NoCount: Simple notification dot without count
+- NoBatch: Badge visibility control with showBadge prop
+
+Props (NotificationBadgeWrapper component):
+
+- id?: string - HTML id attribute for the wrapper
+- data?: Record<string, string> - Data attributes for testing purposes
+- count?: number - Number to display in the badge (shows dot if undefined)
+- showBadge?: boolean - Force display badge dot even without count
+- size?: 'sm' | 'md' | 'lg' | 'xl' - Badge size variant (default: 'md')
+- className?: Record<string, string> - Styling overrides for wrapper and badge
+- children: React.ReactNode - Child component to wrap with badge
+
+Component Structure:
+
+- Relative positioned wrapper container
+- Absolute positioned badge overlay
+- Conditional badge rendering based on count or showBadge
+- Size-responsive badge styling
+- Child component pass-through rendering
+
+Usage Examples:
+
+```tsx
+// Basic notification badge with count
+<NotificationBadgeWrapper count={5}>
+  <Button>Messages</Button>
+</NotificationBadgeWrapper>
+
+// Simple notification dot
+<NotificationBadgeWrapper showBadge>
+  <IconButton icon={faBell} />
+</NotificationBadgeWrapper>
+
+// Large badge with custom styling
+<NotificationBadgeWrapper
+  count={99}
+  size="lg"
+  className={{
+    badge: 'bg-red-600 text-white font-bold',
+    root: 'inline-block'
+  }}
+>
+  <Avatar src={userAvatar} />
+</NotificationBadgeWrapper>
+
+// Custom positioned badge
+<NotificationBadgeWrapper
+  count={3}
+  className={{
+    badge: 'top-1 left-1 bg-green-500',
+    root: 'relative'
+  }}
+>
+  <Card>
+    <CardContent>New Updates</CardContent>
+  </Card>
+</NotificationBadgeWrapper>
+
+// Conditional badge display
+const hasNotifications = unreadCount > 0
+
+<NotificationBadgeWrapper
+  count={hasNotifications ? unreadCount : undefined}
+  showBadge={hasNotifications}
+>
+  <NavItem>Inbox</NavItem>
+</NotificationBadgeWrapper>
+
+// Different size variants
+<div className="flex gap-4">
+  <NotificationBadgeWrapper count={1} size="sm">
+    <Button size="sm">Small</Button>
+  </NotificationBadgeWrapper>
+
+  <NotificationBadgeWrapper count={12} size="md">
+    <Button size="md">Medium</Button>
+  </NotificationBadgeWrapper>
+
+  <NotificationBadgeWrapper count={99} size="lg">
+    <Button size="lg">Large</Button>
+  </NotificationBadgeWrapper>
+
+  <NotificationBadgeWrapper count={999} size="xl">
+    <Button size="xl">Extra Large</Button>
+  </NotificationBadgeWrapper>
+</div>
+
+// Icon notifications
+<NotificationBadgeWrapper count={notifications.length}>
+  <FontAwesomeIcon
+    icon={faBell}
+    className="text-2xl text-gray-600"
+  />
+</NotificationBadgeWrapper>
+
+// Shopping cart badge
+<NotificationBadgeWrapper
+  count={cartItems.length}
+  className={{
+    badge: 'bg-blue-600 border-2 border-white',
+    root: 'cursor-pointer hover:scale-105 transition-transform'
+  }}
+>
+  <FontAwesomeIcon
+    icon={faShoppingCart}
+    className="text-xl"
+  />
+</NotificationBadgeWrapper>
+
+// Tab notifications
+<Tabs>
+  <TabsList>
+    <NotificationBadgeWrapper count={newMessages}>
+      <TabsTrigger value="messages">Messages</TabsTrigger>
+    </NotificationBadgeWrapper>
+
+    <NotificationBadgeWrapper count={pendingTasks}>
+      <TabsTrigger value="tasks">Tasks</TabsTrigger>
+    </NotificationBadgeWrapper>
+  </TabsList>
+</Tabs>
+
+// Profile badge with status
+<NotificationBadgeWrapper
+  showBadge={isOnline}
+  className={{
+    badge: 'bg-green-400 border-2 border-white w-4 h-4 bottom-0 right-0',
+    root: 'inline-block'
+  }}
+>
+  <Avatar>
+    <AvatarImage src="/avatar.jpg" />
+    <AvatarFallback>JD</AvatarFallback>
+  </Avatar>
+</NotificationBadgeWrapper>
+
+// Testing configuration
+<NotificationBadgeWrapper
+  count={testCount}
+  data={{ 'data-cy': 'notification-badge' }}
+  id="test-notification"
+>
+  <TestComponent />
+</NotificationBadgeWrapper>
+```
+
+Badge Display Logic:
+
+- Shows count number when count is provided and > 0
+- Shows simple dot when showBadge is true and count is undefined
+- Hides badge when count is 0/undefined and showBadge is false
+- Handles large numbers with appropriate formatting
+
+Size Variants:
+
+- sm: Small badge for compact UI elements
+- md: Medium badge for standard components (default)
+- lg: Large badge for prominent notifications
+- xl: Extra large badge for high-importance alerts
+
+Positioning Control:
+
+- Default: Top-right corner positioning
+- Custom: Fully customizable with className.badge
+- Common positions: top-left, top-right, bottom-left, bottom-right
+- Offset control with top/bottom/left/right CSS properties
+
+Styling Customization:
+
+- className.root: Wrapper container styling
+- className.badge: Badge overlay styling
+- Color customization: Background, text, border colors
+- Size customization: Width, height, padding, font size
+- Shape customization: Border radius, circular vs. rectangular
+
+Best Practices:
+
+- Use meaningful count numbers that reflect actual notifications
+- Choose appropriate badge sizes for the context
+- Ensure sufficient color contrast for accessibility
+- Consider badge placement to avoid obscuring important content
+- Test badge visibility across different screen sizes
+
+Common Use Cases:
+
+- Unread message indicators
+- Shopping cart item counts
+- Notification center badges
+- Social media activity indicators
+- Task or alert counters
+
+Accessibility Considerations:
+
+- Provides visual indication of notification status
+- Consider adding ARIA labels for screen readers
+- Ensure color contrast meets accessibility standards
+- Test with keyboard navigation and focus states
+
+Testing Support:
+
+- id prop for unique element identification
+- data prop for comprehensive testing attributes
+- Support for both data-cy and data-testid patterns
+- Consistent element targeting for E2E tests
+
+Related Components:
+
+- Badge: For standalone badge displays
+- Button: Common badge target component
+- Avatar: For status indicator badges
+- Icon: For notification icon badges
+
+AI_DOCUMENTATION_END
+*/}
 
 export const Default = () => {
   return (

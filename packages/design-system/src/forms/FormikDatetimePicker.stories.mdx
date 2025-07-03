@@ -4,7 +4,17 @@ import Button from '../Button'
 import FormikDatetimePicker from './FormikDatetimePicker'
 
 {/* START README */}
-The `FormikDatetimePicker` component is a Formik wrapper around the `DatetimePicker` component. In addition to labels, tooltips, etc. it also offers direct interfaces for form validation, error messages, and form submission handling.
+The `FormikDatetimePicker` component is a Formik wrapper around the `DatetimePicker` component that combines calendar date selection with time input for complete datetime management. It integrates seamlessly with Formik forms and provides comprehensive validation, error handling, and form submission capabilities.
+
+Use this component when you need:
+
+- Event scheduling with specific times
+- Appointment booking systems
+- Task deadline management with precise timing
+- Form fields requiring both date and time selection
+- Datetime input with validation and error handling
+
+The component provides a popover-based interface with calendar navigation and separate time input controls for hours, minutes, and seconds. It includes extensive testing support with granular data attributes for each interactive element.
 
 <br />
 
@@ -28,6 +38,343 @@ The FormikDatetimePicker accepts the following props:
 - @param dataNextMonth - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the next month button.
 
 {/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Formik-integrated datetime picker component that wraps the core DatetimePicker with calendar navigation, time selection, validation integration, and comprehensive form state management
+
+Dependencies:
+
+- Formik for form state management and validation
+- DatetimePicker core component for datetime functionality
+- Yup for datetime validation schema support
+- React state management for datetime interactions
+- Custom Label component for consistent labeling
+
+Available Stories:
+
+- Default: Basic datetime picker with Formik integration
+- Disabled: Datetime picker in disabled state
+- Labelled: Datetime picker with label display
+- Tooltip: Datetime picker with tooltip and required indicator
+- Validation: Datetime picker with Yup validation requiring dates after 2020
+
+Props (FormikDatetimePicker component):
+
+- name: string - Formik field name for form state management
+- label?: string - Display label for the datetime picker
+- labelType?: 'small' | 'large' - Label size and positioning variant
+- placeholder?: string - Placeholder text shown when no date is selected
+- tooltip?: string | React.ReactNode - Optional tooltip for additional information
+- required?: boolean - Whether the field is required
+- disabled?: boolean - Whether the datetime picker is disabled
+- hideError?: boolean - Whether to hide error message display
+- className?: Record<string, string> - Styling overrides for different parts
+- dataTrigger?: Record<string, string> - Data attributes for popover trigger testing
+- dataCalendar?: Record<string, string> - Data attributes for calendar icon testing
+- dataHours?: Record<string, string> - Data attributes for hours input testing
+- dataMinutes?: Record<string, string> - Data attributes for minutes input testing
+- dataSeconds?: Record<string, string> - Data attributes for seconds input testing
+- dataPreviousMonth?: Record<string, string> - Data attributes for previous month button testing
+- dataNextMonth?: Record<string, string> - Data attributes for next month button testing
+
+Component Structure:
+
+- Formik Field wrapper for form integration
+- DatetimePicker core component with calendar and time inputs
+- Popover-based interface for datetime selection
+- Form validation and error display integration
+- Automatic form state synchronization
+
+Usage Examples:
+
+```tsx
+// Event scheduling form
+<Formik
+  initialValues={{
+    eventStart: new Date(),
+    eventEnd: new Date(Date.now() + 2 * 60 * 60 * 1000) // +2 hours
+  }}
+  validationSchema={Yup.object({
+    eventStart: Yup.date()
+      .required('Start time is required')
+      .min(new Date(), 'Start time must be in the future'),
+    eventEnd: Yup.date()
+      .required('End time is required')
+      .min(Yup.ref('eventStart'), 'End time must be after start time')
+  })}
+  onSubmit={handleEventCreation}
+>
+  <Form>
+    <FormikDatetimePicker
+      name="eventStart"
+      label="Event Start"
+      required
+      tooltip="Select the event start date and time"
+      placeholder="Choose start datetime"
+    />
+
+    <FormikDatetimePicker
+      name="eventEnd"
+      label="Event End"
+      required
+      tooltip="Select the event end date and time"
+      placeholder="Choose end datetime"
+    />
+
+    <Button type="submit">Create Event</Button>
+  </Form>
+</Formik>
+
+// Appointment booking system
+<Formik
+  initialValues={{ appointmentTime: null }}
+  validationSchema={Yup.object({
+    appointmentTime: Yup.date()
+      .required('Appointment time is required')
+      .min(new Date(), 'Please select a future appointment time')
+      .test('business-hours', 'Please select a time during business hours (9 AM - 5 PM)',
+        value => {
+          if (!value) return false
+          const hour = value.getHours()
+          return hour >= 9 && hour < 17
+        }
+      )
+  })}
+  onSubmit={handleAppointmentBooking}
+>
+  <Form>
+    <FormikDatetimePicker
+      name="appointmentTime"
+      label="Appointment Time"
+      labelType="large"
+      required
+      tooltip="Select your preferred appointment date and time"
+      placeholder="Choose appointment datetime"
+      className={{
+        trigger: 'w-full',
+        label: 'text-lg font-semibold'
+      }}
+    />
+
+    <Button type="submit">Book Appointment</Button>
+  </Form>
+</Formik>
+
+// Task deadline management
+<FormikDatetimePicker
+  name="deadline"
+  label="Task Deadline"
+  required
+  tooltip="Set the deadline for this task"
+  placeholder="Select deadline"
+  className={{
+    trigger: 'border-orange-300 focus:border-orange-500'
+  }}
+  dataTrigger={{ 'data-cy': 'task-deadline-trigger' }}
+  dataCalendar={{ 'data-cy': 'deadline-calendar' }}
+/>
+
+// Multi-timezone event form
+<Formik
+  initialValues={{
+    localTime: new Date(),
+    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
+  }}
+  onSubmit={handleTimezoneEvent}
+>
+  {({ values }) => (
+    <Form>
+      <FormikSelectField
+        name="timezone"
+        label="Timezone"
+        items={timezoneOptions}
+        tooltip="Select the timezone for this event"
+      />
+
+      <FormikDatetimePicker
+        name="localTime"
+        label="Event Time"
+        required
+        tooltip={`Time in ${values.timezone}`}
+        placeholder="Select event time"
+      />
+
+      <div className="text-sm text-gray-600 mt-2">
+        UTC Time: {values.localTime ?
+          new Date(values.localTime).toISOString() :
+          'No time selected'
+        }
+      </div>
+    </Form>
+  )}
+</Formik>
+
+// Meeting scheduling with validation
+<Formik
+  initialValues={{
+    meetingStart: null,
+    duration: 60 // minutes
+  }}
+  validationSchema={Yup.object({
+    meetingStart: Yup.date()
+      .required('Meeting start time is required')
+      .test('weekday', 'Meetings can only be scheduled on weekdays',
+        value => {
+          if (!value) return false
+          const day = value.getDay()
+          return day >= 1 && day <= 5 // Monday to Friday
+        }
+      )
+      .test('working-hours', 'Meetings must be scheduled during working hours (8 AM - 6 PM)',
+        value => {
+          if (!value) return false
+          const hour = value.getHours()
+          return hour >= 8 && hour < 18
+        }
+      )
+  })}
+  onSubmit={handleMeetingScheduling}
+>
+  {({ values }) => (
+    <Form>
+      <FormikDatetimePicker
+        name="meetingStart"
+        label="Meeting Start Time"
+        required
+        tooltip="Select meeting start time (weekdays 8 AM - 6 PM only)"
+        placeholder="Choose meeting time"
+      />
+
+      <FormikSelectField
+        name="duration"
+        label="Duration (minutes)"
+        items={[
+          { value: 30, label: '30 minutes' },
+          { value: 60, label: '1 hour' },
+          { value: 90, label: '1.5 hours' },
+          { value: 120, label: '2 hours' }
+        ]}
+      />
+
+      {values.meetingStart && (
+        <div className="mt-2 p-3 bg-blue-50 rounded">
+          <p className="text-sm">
+            Meeting: {values.meetingStart.toLocaleString()} - {
+              new Date(values.meetingStart.getTime() + values.duration * 60000).toLocaleString()
+            }
+          </p>
+        </div>
+      )}
+    </Form>
+  )}
+</Formik>
+
+// Deadline reminder form
+<FormikDatetimePicker
+  name="reminderTime"
+  label="Reminder Time"
+  labelType="small"
+  tooltip="When should we remind you about this task?"
+  placeholder="Set reminder time"
+  className={{
+    trigger: 'max-w-sm',
+    input: 'text-purple-700'
+  }}
+  dataCalendar={{ 'data-testid': 'reminder-calendar' }}
+  dataHours={{ 'data-testid': 'reminder-hours' }}
+  dataMinutes={{ 'data-testid': 'reminder-minutes' }}
+/>
+
+// Testing configuration
+<FormikDatetimePicker
+  name="testDatetime"
+  label="Test Datetime"
+  placeholder="Select datetime for testing"
+  dataTrigger={{ 'data-cy': 'datetime-trigger' }}
+  dataCalendar={{ 'data-cy': 'datetime-calendar' }}
+  dataHours={{ 'data-cy': 'datetime-hours' }}
+  dataMinutes={{ 'data-cy': 'datetime-minutes' }}
+  dataSeconds={{ 'data-cy': 'datetime-seconds' }}
+  dataPreviousMonth={{ 'data-cy': 'prev-month' }}
+  dataNextMonth={{ 'data-cy': 'next-month' }}
+/>
+```
+
+Form Integration Features:
+
+- Automatic Formik field binding with name prop
+- Built-in datetime validation support
+- Error state display from Formik field meta
+- Form submission integration with Date objects
+- Touch/blur state management for UX
+
+Validation Patterns:
+
+- Date range validation (min/max dates)
+- Business hours validation
+- Weekday/weekend restrictions
+- Future date requirements
+- Custom datetime validation rules
+
+Calendar Navigation:
+
+- Month-by-month navigation
+- Year selection interface
+- Today button for quick selection
+- Keyboard navigation support
+- Date range restrictions
+
+Time Input Features:
+
+- Hours, minutes, seconds selection
+- 12/24 hour format support
+- Time validation and constraints
+- Increment/decrement controls
+- Direct keyboard input
+
+Best Practices:
+
+- Use appropriate validation for datetime constraints
+- Provide clear labels and tooltips for guidance
+- Consider timezone implications for global applications
+- Implement proper error handling for invalid dates
+- Use appropriate label sizes for form hierarchy
+
+Common Use Cases:
+
+- Event and meeting scheduling
+- Appointment booking systems
+- Task and project deadline management
+- Reminder and notification timing
+- Timestamp creation for records
+
+Testing Support:
+
+- Comprehensive data attributes for all interactive elements
+- Separate testing hooks for calendar and time components
+- Navigation button testing support
+- Input field testing capabilities
+- Popover interaction testing
+
+Accessibility Features:
+
+- Proper label association with datetime elements
+- Keyboard navigation for calendar and time inputs
+- Screen reader compatible date/time announcements
+- High contrast color support
+- Focus management for popover interactions
+
+Related Components:
+
+- DatetimePicker: Core datetime functionality
+- FormikDatePicker: For date-only selection
+- DatePicker: For standalone date selection
+- Calendar: For calendar-only interfaces
+
+AI_DOCUMENTATION_END
+*/}
 
 export const Default = () => (
   <div>

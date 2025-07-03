@@ -31,6 +31,408 @@ The props for the TextareaField component are as follows:
 
 {/* END README */}
 
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Standalone multi-line textarea component with character limits, label integration, validation state management, and extensive customization for extended text input
+
+Dependencies:
+
+- React state management for textarea value handling
+- Custom Label component for consistent labeling
+- FontAwesome icons for visual enhancement
+- CSS styling system for appearance customization
+- Accessibility support for textarea interactions
+
+Available Stories:
+
+- Default: Basic textarea field with label and tooltip
+- MaxLength: Textarea with character limits and various counter configurations
+- SmallLabel: Textarea with small label variant and icon support
+- Disabled: Textarea in disabled state
+- Required: Textarea with required field indicator
+- Styled: Custom styling with colored theme and FontAwesome icon
+
+Props (TextareaField component):
+
+- id?: string - HTML id attribute for the textarea element
+- data?: Record<string, string> - Data attributes for testing purposes
+- name?: string - HTML name attribute for form submission
+- field?: any - Formik field object for integration
+- value: string - Controlled textarea value
+- onChange: (value: string) => void - Value change handler
+- label?: string - Display label for the textarea field
+- labelType?: 'small' | 'large' - Label size and positioning variant
+- placeholder?: string - Placeholder text for empty textarea
+- tooltip?: string | React.ReactNode - Optional tooltip for additional information
+- maxLength?: number - Maximum number of characters allowed
+- maxLengthUnit?: string - Unit text for character counter display
+- hideMaxLength?: boolean - Whether to hide the character counter
+- required?: boolean - Whether the field is required
+- isTouched?: boolean - Whether the field has been interacted with
+- hideError?: boolean - Whether to hide error message display
+- error?: string - Error message to display below field
+- disabled?: boolean - Whether the textarea is disabled
+- className?: Record<string, string> - Styling overrides for different parts
+- icon?: IconDefinition - FontAwesome icon for visual enhancement
+
+Component Structure:
+
+- Label component integration with tooltip support
+- Multi-line textarea input with resize capability
+- Character counter display when maxLength is set
+- Error message display below field
+- Optional icon integration
+
+Usage Examples:
+
+```tsx
+// Basic comment textarea
+const [comment, setComment] = useState('')
+
+<TextareaField
+  label="Comments"
+  value={comment}
+  onChange={setComment}
+  placeholder="Enter your comments here..."
+  tooltip="Share your thoughts and feedback"
+/>
+
+// Article content with character limit
+const [content, setContent] = useState('')
+
+<TextareaField
+  label="Article Content"
+  value={content}
+  onChange={setContent}
+  placeholder="Write your article content..."
+  maxLength={2000}
+  maxLengthUnit="characters"
+  tooltip="Main content of your article"
+  className={{
+    root: 'w-full',
+    input: 'min-h-[200px] font-serif'
+  }}
+/>
+
+// Product description with validation
+const [description, setDescription] = useState('')
+const [descError, setDescError] = useState('')
+const [descTouched, setDescTouched] = useState(false)
+
+const validateDescription = (value: string) => {
+  if (!value.trim()) return 'Description is required'
+  if (value.length < 20) return 'Description must be at least 20 characters'
+  if (value.length > 500) return 'Description cannot exceed 500 characters'
+  return ''
+}
+
+<TextareaField
+  label="Product Description"
+  value={description}
+  onChange={(value) => {
+    setDescription(value)
+    if (descTouched) {
+      setDescError(validateDescription(value))
+    }
+  }}
+  onBlur={() => {
+    setDescTouched(true)
+    setDescError(validateDescription(description))
+  }}
+  error={descError}
+  isTouched={descTouched}
+  required
+  placeholder="Describe your product in detail..."
+  maxLength={500}
+  tooltip="Provide a detailed product description"
+/>
+
+// Bio editor with formatting
+const [bio, setBio] = useState('')
+
+<TextareaField
+  label="Biography"
+  labelType="small"
+  value={bio}
+  onChange={setBio}
+  placeholder="Tell us about yourself..."
+  maxLength={300}
+  tooltip="Write a brief biography for your profile"
+  className={{
+    input: 'italic bg-blue-50 border-blue-200',
+    root: 'max-w-md'
+  }}
+/>
+
+// Code snippet input
+const [code, setCode] = useState('')
+
+<TextareaField
+  label="Code Snippet"
+  value={code}
+  onChange={setCode}
+  placeholder="Paste your code here..."
+  maxLength={5000}
+  hideMaxLength
+  tooltip="Share your code snippet for review"
+  icon={faCode}
+  className={{
+    input: 'font-mono text-sm bg-gray-900 text-green-400 border-gray-700',
+    label: 'text-gray-300',
+    root: 'w-full'
+  }}
+/>
+
+// Message composition with search icon
+const [message, setMessage] = useState('')
+
+<TextareaField
+  label="Search Query"
+  labelType="small"
+  value={message}
+  onChange={setMessage}
+  placeholder="Describe what you're looking for..."
+  icon={faMagnifyingGlass}
+  tooltip="Describe your search in detail"
+  className={{ input: 'min-h-[80px]' }}
+/>
+
+// Support ticket form
+const [ticketData, setTicketData] = useState({
+  subject: '',
+  description: ''
+})
+
+<div className="space-y-4">
+  <TextField
+    label="Subject"
+    value={ticketData.subject}
+    onChange={(value) => setTicketData(prev => ({ ...prev, subject: value }))}
+    required
+    placeholder="Brief description of the issue"
+  />
+
+  <TextareaField
+    label="Detailed Description"
+    value={ticketData.description}
+    onChange={(value) => setTicketData(prev => ({ ...prev, description: value }))}
+    required
+    placeholder="Please provide step-by-step details of the issue..."
+    maxLength={1500}
+    maxLengthUnit="characters"
+    tooltip="Include as much detail as possible"
+    className={{ input: 'min-h-[150px]' }}
+  />
+</div>
+
+// Multi-language content editor
+const [content, setContent] = useState({
+  english: '',
+  german: ''
+})
+
+<div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+  <div>
+    <h3 className="text-lg font-semibold mb-3">English Version</h3>
+    <TextareaField
+      label="Content (English)"
+      value={content.english}
+      onChange={(value) => setContent(prev => ({ ...prev, english: value }))}
+      placeholder="Enter English content..."
+      maxLength={800}
+      required
+      className={{ input: 'min-h-[120px]' }}
+    />
+  </div>
+
+  <div>
+    <h3 className="text-lg font-semibold mb-3">German Version</h3>
+    <TextareaField
+      label="Content (German)"
+      value={content.german}
+      onChange={(value) => setContent(prev => ({ ...prev, german: value }))}
+      placeholder="Enter German content..."
+      maxLength={800}
+      required
+      className={{ input: 'min-h-[120px]' }}
+    />
+  </div>
+</div>
+
+// Event description form
+const [eventDesc, setEventDesc] = useState('')
+
+<TextareaField
+  label="Event Description"
+  labelType="large"
+  value={eventDesc}
+  onChange={setEventDesc}
+  required
+  placeholder="Describe your event, including what attendees can expect..."
+  maxLength={800}
+  tooltip="Provide a compelling description to attract attendees"
+  className={{
+    input: 'resize-y min-h-[120px]',
+    root: 'w-full max-w-2xl'
+  }}
+/>
+
+// Review form with character guidance
+const [review, setReview] = useState('')
+
+<TextareaField
+  label="Product Review"
+  value={review}
+  onChange={setReview}
+  placeholder="Share your experience with this product..."
+  maxLength={1000}
+  maxLengthUnit="characters"
+  required
+  tooltip="Help others with an honest and detailed review"
+  className={{
+    input: 'min-h-[100px] leading-relaxed',
+    counter: 'text-sm text-gray-500'
+  }}
+/>
+
+// Feedback form with custom styling
+const [feedback, setFeedback] = useState('')
+
+<TextareaField
+  label="Feedback"
+  value={feedback}
+  onChange={setFeedback}
+  placeholder="We value your feedback..."
+  maxLength={500}
+  hideMaxLength={feedback.length < 400} // Show counter when approaching limit
+  tooltip="Your feedback helps us improve"
+  className={{
+    input: 'border-2 border-blue-300 focus:border-blue-500 rounded-lg',
+    label: 'font-semibold text-blue-700',
+    root: 'feedback-section'
+  }}
+/>
+
+// Note-taking with auto-save simulation
+const [notes, setNotes] = useState('')
+const [lastSaved, setLastSaved] = useState(null)
+
+useEffect(() => {
+  const timer = setTimeout(() => {
+    if (notes) {
+      // Simulate auto-save
+      setLastSaved(new Date())
+    }
+  }, 2000)
+  return () => clearTimeout(timer)
+}, [notes])
+
+<div>
+  <TextareaField
+    label="Notes"
+    value={notes}
+    onChange={setNotes}
+    placeholder="Start typing your notes..."
+    tooltip="Notes are automatically saved as you type"
+    className={{ input: 'min-h-[200px] font-mono text-sm' }}
+  />
+  {lastSaved && (
+    <div className="text-xs text-gray-500 mt-1">
+      Last saved: {lastSaved.toLocaleTimeString()}
+    </div>
+  )}
+</div>
+
+// Testing configuration
+<TextareaField
+  label="Test Textarea"
+  value={testValue}
+  onChange={setTestValue}
+  placeholder="Enter test content"
+  data={{
+    'data-cy': 'textarea-input',
+    'data-testid': 'textarea-field'
+  }}
+  id="test-textarea"
+/>
+```
+
+Character Limit Features:
+
+- Real-time character counting and display
+- Customizable counter units (characters, words, etc.)
+- Optional counter hiding based on conditions
+- Visual feedback when approaching limits
+- Automatic enforcement of character limits
+
+Icon Integration:
+
+- FontAwesome icon support for visual context
+- Icon positioning within textarea field
+- Semantic icon usage for different content types
+- Custom icon styling integration
+
+Validation Integration:
+
+- Error message display below textarea
+- Touched state management for UX
+- Required field visual indicators
+- Custom validation with onChange/onBlur
+- Real-time validation feedback
+
+Label Types:
+
+- Default: Standard label above textarea
+- Small: Compact label for dense layouts
+- Custom: Configurable styling and positioning
+- Tooltip integration with all label types
+
+Best Practices:
+
+- Set appropriate character limits for content type
+- Provide clear placeholder text and instructions
+- Use tooltips to explain content requirements
+- Implement proper validation for user guidance
+- Consider resize behavior and minimum heights
+- Use appropriate icons for content context
+
+Common Use Cases:
+
+- Comments and feedback collection
+- Article and blog content editing
+- Product descriptions and reviews
+- Support ticket descriptions
+- Profile information and biographies
+- Code snippet sharing
+
+Accessibility Features:
+
+- Proper label association with textarea elements
+- Character counter announcements for screen readers
+- Keyboard navigation support
+- High contrast color support
+- Resize handle accessibility
+- Focus management for better UX
+
+Testing Support:
+
+- data prop for custom testing attributes
+- Textarea content verification
+- Character limit testing capabilities
+- Validation state testing
+- Icon and styling testing
+
+Related Components:
+
+- FormikTextareaField: For Formik form integration
+- TextField: For single-line text input
+- Label: For standalone labeling needs
+- Editor: For rich text editing capabilities
+
+AI_DOCUMENTATION_END
+*/}
+
 export const Default = () => {
   const [value, setValue] = React.useState('')
 

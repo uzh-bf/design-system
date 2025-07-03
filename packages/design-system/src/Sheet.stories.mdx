@@ -13,8 +13,143 @@ import {
 import { Input } from './ui/input'
 
 {/* START README */}
-The `Sheet` component currently represents a simple re-export of the Shadcn UI Sheet component. More information on the structure can be found on the [Shadcn UI Sheet documentation](https://ui.shadcn.com/docs/components/sheet).
+The `Sidebar` component provides a comprehensive navigation sidebar system with collapsible sections, search functionality, and flexible content organization. It creates structured navigation for complex applications with multiple sections and features.
+
+Use this component when you need to:
+
+- Create primary navigation for applications with multiple sections
+- Organize complex feature sets into navigable categories
+- Provide persistent navigation that can collapse on smaller screens
+- Include search functionality within the navigation structure
+
+The sidebar includes header sections, grouped menu items, search capabilities, and responsive behavior. It supports nested navigation structures, active state management, and integrates with breadcrumb navigation for complete wayfinding solutions.
 {/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Shadcn UI re-export providing comprehensive sidebar navigation with collapsible state management and search integration
+Dependencies: lucide-react (for icons), context for state management
+
+Available Stories:
+
+- Default: Full sidebar implementation with header, search, grouped navigation, version selector, and main content area
+
+Props (SidebarProvider component):
+
+- defaultOpen: boolean - Initial sidebar open state
+- open: boolean - Controlled open state
+- onOpenChange: (open: boolean) => void - Open state change handler
+
+Props (Sidebar component):
+
+- side: "left" | "right" - Sidebar position (default: left)
+- variant: "sidebar" | "floating" | "inset" - Sidebar display variant
+- collapsible: "offcanvas" | "icon" | "none" - Collapse behavior
+- className: string - Additional CSS classes
+
+Component Structure:
+
+- SidebarProvider: Context provider managing sidebar state (re-export from ui/sidebar)
+- Sidebar: Main sidebar container with navigation content
+- SidebarHeader: Header section for branding and primary controls
+- SidebarContent: Main navigation content area
+- SidebarGroup: Grouped navigation section with label
+- SidebarGroupLabel: Label for navigation groups
+- SidebarGroupContent: Content container for group items
+- SidebarMenu: Navigation menu container
+- SidebarMenuItem: Individual navigation item
+- SidebarMenuButton: Clickable navigation button
+- SidebarInput: Search input within sidebar
+- SidebarTrigger: Button to toggle sidebar visibility
+- SidebarInset: Main content area when using sidebar
+- SidebarRail: Visual rail for resize interaction
+
+Usage Examples:
+
+```tsx
+// Basic sidebar with navigation
+<SidebarProvider>
+  <Sidebar>
+    <SidebarHeader>
+      <h2 className="text-lg font-semibold">My App</h2>
+    </SidebarHeader>
+    <SidebarContent>
+      <SidebarGroup>
+        <SidebarGroupLabel>Navigation</SidebarGroupLabel>
+        <SidebarGroupContent>
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild>
+                <a href="/dashboard">Dashboard</a>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild isActive>
+                <a href="/projects">Projects</a>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarGroupContent>
+      </SidebarGroup>
+    </SidebarContent>
+  </Sidebar>
+  <SidebarInset>
+    <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
+      <SidebarTrigger />
+      <h1>Main Content</h1>
+    </header>
+    <main className="flex flex-1 flex-col gap-4 p-4">
+    </main>
+  </SidebarInset>
+</SidebarProvider>
+
+<SidebarProvider>
+  <Sidebar>
+    <SidebarHeader>
+      <div className="space-y-2">
+        <h2 className="text-lg font-semibold">Documentation</h2>
+        <SidebarGroup className="py-0">
+          <SidebarGroupContent className="relative">
+            <SidebarInput
+              placeholder="Search docs..."
+              className="pl-8"
+            />
+            <Search className="absolute left-2 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </div>
+    </SidebarHeader>
+    <SidebarContent>
+      <SidebarGroup>
+        <SidebarGroupLabel>Getting Started</SidebarGroupLabel>
+        <SidebarGroupContent>
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild>
+                <a href="/installation">Installation</a>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarGroupContent>
+      </SidebarGroup>
+    </SidebarContent>
+  </Sidebar>
+  <SidebarInset>
+  </SidebarInset>
+</SidebarProvider>
+
+```
+
+Related Components:
+
+- NavigationMenu: For horizontal navigation
+- Breadcrumb: For hierarchical navigation within sidebar
+- Sheet: For temporary overlay navigation
+- Resizable: For adjustable sidebar widths
+
+AI_DOCUMENTATION_END
+*/}
 
 export const Default = () => {
   return (

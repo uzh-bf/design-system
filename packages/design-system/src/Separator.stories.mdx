@@ -1,8 +1,128 @@
 import { Separator } from './Separator'
 
 {/* START README */}
-The `Separator` component currently represents a simple re-export of the Shadcn UI Separator component. More information on the structure can be found on the [Shadcn UI Separator documentation](https://ui.shadcn.com/docs/components/separator).
+The `Separator` component provides visual dividers to separate content sections both horizontally and vertically. It creates clear visual boundaries between different areas of content while maintaining proper semantic structure.
+
+Use this component when you need to:
+
+- Visually separate different sections of content
+- Create dividers in navigation menus or toolbars
+- Add structure to lists or grouped information
+- Provide visual breaks between content areas
+
+The separator supports both horizontal and vertical orientations, integrates seamlessly with screen readers for accessibility, and maintains consistent styling across different contexts. It's subtle enough to organize content without being visually distracting.
 {/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Shadcn UI re-export built on Radix UI's Separator primitive with consistent visual styling
+Dependencies: @radix-ui/react-separator
+
+Available Stories:
+
+- Default: Horizontal and vertical separators in content layout demonstrating both orientations
+
+Props (Separator component):
+
+- orientation: "horizontal" | "vertical" - Separator direction (default: horizontal)
+- decorative: boolean - Whether separator is purely decorative (default: true)
+- className: string - Additional CSS classes for styling
+
+Component Structure:
+
+- Separator: Visual divider with semantic meaning (re-export from ui/separator)
+
+Usage Examples:
+
+```tsx
+// Horizontal content separator
+<div className="space-y-4">
+  <div>
+    <h3 className="text-lg font-semibold">Section One</h3>
+    <p className="text-muted-foreground">Content for the first section</p>
+  </div>
+  <Separator />
+  <div>
+    <h3 className="text-lg font-semibold">Section Two</h3>
+    <p className="text-muted-foreground">Content for the second section</p>
+  </div>
+</div>
+
+// Vertical navigation separator
+<nav className="flex items-center space-x-4">
+  <a href="/home" className="text-sm font-medium">Home</a>
+  <Separator orientation="vertical" className="h-4" />
+  <a href="/about" className="text-sm font-medium">About</a>
+  <Separator orientation="vertical" className="h-4" />
+  <a href="/contact" className="text-sm font-medium">Contact</a>
+</nav>
+
+// In lists with consistent spacing
+<div className="space-y-2">
+  {items.map((item, index) => (
+    <div key={item.id}>
+      <div className="p-3 rounded-md hover:bg-muted">
+        <h4 className="font-medium">{item.title}</h4>
+        <p className="text-sm text-muted-foreground">{item.description}</p>
+      </div>
+      {index < items.length - 1 && <Separator className="my-2" />}
+    </div>
+  ))}
+</div>
+
+// Card content sections
+<Card>
+  <CardHeader>
+    <CardTitle>User Profile</CardTitle>
+  </CardHeader>
+  <CardContent>
+    <div className="space-y-4">
+      <div>
+        <label className="text-sm font-medium">Name</label>
+        <p className="text-sm text-muted-foreground">John Doe</p>
+      </div>
+      <Separator />
+      <div>
+        <label className="text-sm font-medium">Email</label>
+        <p className="text-sm text-muted-foreground">john@example.com</p>
+      </div>
+      <Separator />
+      <div>
+        <label className="text-sm font-medium">Department</label>
+        <p className="text-sm text-muted-foreground">Engineering</p>
+      </div>
+    </div>
+  </CardContent>
+</Card>
+
+// Toolbar separators
+<div className="flex items-center space-x-2 p-2 border rounded-md">
+  <Button variant="outline" size="sm">
+    <Bold className="h-4 w-4" />
+  </Button>
+  <Button variant="outline" size="sm">
+    <Italic className="h-4 w-4" />
+  </Button>
+  <Separator orientation="vertical" className="h-6" />
+  <Button variant="outline" size="sm">
+    <AlignLeft className="h-4 w-4" />
+  </Button>
+  <Button variant="outline" size="sm">
+    <AlignCenter className="h-4 w-4" />
+  </Button>
+</div>
+```
+
+Related Components:
+
+- Card: Often contains separators for content sections
+- NavigationMenu: Uses separators in menu structures
+- Breadcrumb: Includes separators between navigation items
+- Dropdown: May use separators to group menu items
+
+AI_DOCUMENTATION_END
+*/}
 
 export const Default = () => {
   return (
