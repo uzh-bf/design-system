@@ -2,8 +2,142 @@ import { useState, useEffect } from 'react'
 import { ShadcnProgress } from './ShadcnProgress'
 
 {/* START README */}
-The `Progress` component currently represents a simple re-export of the Shadcn UI Progress component. More information on the structure can be found on the [Shadcn UI Progress documentation](https://ui.shadcn.com/docs/components/progress).
+The `ShadcnProgress` component provides visual progress indicators to show completion status of tasks, uploads, or multi-step processes. It displays progress as a filled bar with smooth animations and accessibility support.
+
+Use this component when you need to:
+
+- Show upload or download progress
+- Indicate completion status of multi-step forms or wizards
+- Display loading states for data processing
+- Provide visual feedback for long-running operations
+
+The progress component supports controlled values, smooth animations, proper ARIA attributes for accessibility, and consistent styling that integrates with your design system.
+
+**Note**: This is prefixed as "ShadcnProgress" to distinguish it from the custom Progress component in the design system.
 {/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Shadcn UI re-export built on Radix UI's Progress primitive with smooth animations and accessibility
+Dependencies: @radix-ui/react-progress
+
+Available Stories:
+
+- Default: Animated progress bar that updates from 13% to 66% demonstrating smooth transitions
+
+Props (ShadcnProgress component):
+
+- value: number - Progress value (0-100)
+- max: number - Maximum value (default: 100)
+- getValueLabel: (value: number, max: number) => string - Function to generate accessible label
+- className: string - Additional CSS classes
+
+Component Structure:
+
+- ShadcnProgress: Progress bar with animated fill (re-export from ui/progress)
+
+Usage Examples:
+
+```tsx
+// Basic progress bar
+<ShadcnProgress value={75} className="w-full" />
+
+// File upload progress
+const [uploadProgress, setUploadProgress] = useState(0)
+
+<div className="space-y-2">
+  <div className="flex justify-between text-sm">
+    <span>Uploading file...</span>
+    <span>{uploadProgress}%</span>
+  </div>
+  <ShadcnProgress value={uploadProgress} className="w-full" />
+</div>
+
+// Multi-step form progress
+const currentStep = 2
+const totalSteps = 4
+const progressValue = (currentStep / totalSteps) * 100
+
+<div className="space-y-2">
+  <div className="flex justify-between text-sm font-medium">
+    <span>Step {currentStep} of {totalSteps}</span>
+    <span>{Math.round(progressValue)}%</span>
+  </div>
+  <ShadcnProgress value={progressValue} className="w-full" />
+</div>
+
+// Loading indicator with custom max value
+<div className="space-y-2">
+  <p className="text-sm font-medium">Processing items...</p>
+  <ShadcnProgress
+    value={processedItems}
+    max={totalItems}
+    className="w-full"
+    getValueLabel={(value, max) => `${value} of ${max} items processed`}
+  />
+  <p className="text-xs text-muted-foreground">
+    {processedItems} of {totalItems} completed
+  </p>
+</div>
+
+// Animated progress simulation
+const [progress, setProgress] = useState(0)
+
+useEffect(() => {
+  const timer = setInterval(() => {
+    setProgress(prev => {
+      if (prev >= 100) {
+        clearInterval(timer)
+        return 100
+      }
+      return prev + 1
+    })
+  }, 50)
+
+  return () => clearInterval(timer)
+}, [])
+
+<div className="space-y-2">
+  <ShadcnProgress value={progress} className="w-[300px]" />
+  <p className="text-sm text-center">
+    {progress}% Complete
+  </p>
+</div>
+
+// Compact progress indicator
+<div className="flex items-center gap-3">
+  <span className="text-sm font-medium">Syncing</span>
+  <ShadcnProgress value={syncProgress} className="flex-1" />
+  <span className="text-sm text-muted-foreground">
+    {syncProgress}%
+  </span>
+</div>
+
+// Success state indication
+<div className="space-y-2">
+  <ShadcnProgress
+    value={isComplete ? 100 : currentProgress}
+    className={cn(
+      "w-full",
+      isComplete && "[&>div]:bg-green-500"
+    )}
+  />
+  <p className="text-sm">
+    {isComplete ? "✓ Upload complete!" : "Uploading..."}
+  </p>
+</div>
+```
+
+Related Components:
+
+- Spinner: For indeterminate loading states
+- Skeleton: For content loading placeholders
+- Badge: For status indicators
+- StepProgress: For multi-step progress visualization
+
+AI_DOCUMENTATION_END
+*/}
 
 export const Default = () => {
   const [progress, setProgress] = useState(13)

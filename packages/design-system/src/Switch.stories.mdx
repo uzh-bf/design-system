@@ -2,10 +2,17 @@ import { useState } from 'react'
 import Switch from './Switch'
 
 {/* START README */}
+The `Switch` component provides an enhanced toggle control for binary state management with support for labels, tooltips, error handling, and multiple sizes. It offers flexible positioning, validation integration, and accessibility features for comprehensive form and settings interfaces.
 
-The Switch component is a toggle switch that allows users to change a setting between two states with externally manage state. The component is designed to support labels, tooltips, error messages, and various sizes for maximum flexibility.
+Use this component when you need to:
 
-<br />
+- Create toggle controls for settings and preferences with clear visual feedback
+- Implement form switches with validation, error messages, and required field indicators
+- Build accessible binary input controls with proper labeling and keyboard navigation
+- Provide size variants for different UI contexts and density requirements
+- Design toggle interfaces with tooltips and contextual help information
+
+The component supports controlled state management, multiple size variants (small, medium, large), flexible label positioning (left/right), validation with error messages, tooltip integration, disabled states, and comprehensive testing attribute support for all toggle elements.
 
 The Switch component accepts the following props:
 
@@ -24,8 +31,306 @@ The Switch component accepts the following props:
 - @param labelLeft - Indicator whether the label should be displayed on the left or right side of the switch.
 - @param size - The size of the switch. The size can be small, medium or large.
 - @param className - The optional className object allows you to override the default styling.
+  {/* END README */}
 
-{/* END README */}
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Enhanced toggle switch component with label support, validation, tooltips, multiple sizes, and comprehensive form integration for binary state management
+
+Dependencies:
+
+- Radix UI Switch primitives for accessibility and behavior
+- React state management for controlled state handling
+- Tooltip system for contextual help information
+- Form validation integration with error display
+- CSS styling system for size variants and positioning
+
+Available Stories:
+
+- Default: Basic toggle switch with dynamic label
+- Required: Required field indicator demonstration
+- Tooltip: Tooltip integration with and without errors
+- Error: Validation error handling with conditional messages
+- Undefined: Indeterminate state support
+- Disabled: Disabled switch state
+- DisabledActive: Disabled switch in active/checked state
+- Sizes: Size variants (small, medium, large) with disabled states
+
+Props (Switch component):
+
+- id?: string - HTML id attribute for the switch
+- data?: Record<string, string> - Data attributes for testing purposes
+- label?: string - Text label displayed next to the switch
+- tooltip?: string - Tooltip content shown on label hover
+- checked: boolean | undefined - Current switch state (controlled)
+- onCheckedChange: (checked: boolean | undefined) => void - Callback when state changes
+- onBlur?: () => void - Callback when switch loses focus
+- disabled?: boolean - Whether the switch is disabled
+- fluid?: boolean - Whether switch should expand to fill container
+- error?: string - Error message to display
+- hideError?: boolean - Whether to hide error message display
+- required?: boolean - Whether to show required field indicator
+- labelLeft?: boolean - Whether to position label on left side
+- size?: 'sm' | 'md' | 'lg' - Switch size variant (default: 'md')
+- className?: Record<string, string> - Styling overrides for different parts
+
+Component Structure:
+
+- Switch toggle element with thumb animation
+- Label with optional required indicator and tooltip
+- Error message display with conditional visibility
+- Flexible positioning for label and switch alignment
+- Keyboard and mouse interaction support
+
+Usage Examples:
+
+```tsx
+// Basic toggle switch
+const [isEnabled, setIsEnabled] = useState(false)
+
+<Switch
+  checked={isEnabled}
+  label="Enable notifications"
+  onCheckedChange={setIsEnabled}
+/>
+
+// Form validation switch
+const [acceptTerms, setAcceptTerms] = useState(false)
+const error = !acceptTerms ? "You must accept the terms" : ""
+
+<Switch
+  checked={acceptTerms}
+  label="I accept the terms and conditions"
+  required
+  error={error}
+  onCheckedChange={setAcceptTerms}
+/>
+
+// Settings switch with tooltip
+<Switch
+  checked={isDarkMode}
+  label="Dark Mode"
+  tooltip="Toggle between light and dark themes"
+  onCheckedChange={setIsDarkMode}
+/>
+
+// Size variants
+<div className="space-y-4">
+  <Switch
+    size="sm"
+    checked={setting1}
+    label="Small switch"
+    onCheckedChange={setSetting1}
+  />
+
+  <Switch
+    size="md"
+    checked={setting2}
+    label="Medium switch (default)"
+    onCheckedChange={setSetting2}
+  />
+
+  <Switch
+    size="lg"
+    checked={setting3}
+    label="Large switch"
+    onCheckedChange={setSetting3}
+  />
+</div>
+
+// Left-positioned label
+<Switch
+  labelLeft
+  checked={isPublic}
+  label="Make profile public"
+  onCheckedChange={setIsPublic}
+/>
+
+// Disabled states
+<Switch
+  disabled
+  checked={true}
+  label="Feature enabled (locked)"
+  onCheckedChange={() => {}} // No-op for disabled
+/>
+
+<Switch
+  disabled
+  checked={false}
+  label="Feature disabled (locked)"
+  onCheckedChange={() => {}} // No-op for disabled
+/>
+
+// Indeterminate state
+<Switch
+  checked={undefined}
+  label="Loading state..."
+  onCheckedChange={handleStateChange}
+/>
+
+// Form integration with validation
+const [formData, setFormData] = useState({
+  emailNotifications: false,
+  smsNotifications: false,
+  newsletter: false
+})
+
+const [errors, setErrors] = useState({})
+const [touched, setTouched] = useState({})
+
+<form onSubmit={handleSubmit}>
+  <Switch
+    checked={formData.emailNotifications}
+    label="Email Notifications"
+    required
+    error={touched.emailNotifications ? errors.emailNotifications : ""}
+    onCheckedChange={(checked) => {
+      setFormData(prev => ({...prev, emailNotifications: checked}))
+      setTouched(prev => ({...prev, emailNotifications: true}))
+    }}
+    onBlur={() => validateField('emailNotifications')}
+  />
+
+  <Switch
+    checked={formData.smsNotifications}
+    label="SMS Notifications"
+    tooltip="Receive important updates via text message"
+    onCheckedChange={(checked) =>
+      setFormData(prev => ({...prev, smsNotifications: checked}))
+    }
+  />
+</form>
+
+// Custom styled switch
+<Switch
+  checked={isActive}
+  label="Custom Switch"
+  className={{
+    root: 'flex items-center space-x-3',
+    switch: 'data-[state=checked]:bg-green-500',
+    thumb: 'data-[state=checked]:bg-white',
+    label: 'text-lg font-medium text-gray-700'
+  }}
+  onCheckedChange={setIsActive}
+/>
+
+// Settings panel with multiple switches
+const [settings, setSettings] = useState({
+  autoSave: true,
+  showTips: false,
+  compactMode: false,
+  highContrast: false
+})
+
+<div className="space-y-6">
+  <h3>Preferences</h3>
+
+  <Switch
+    checked={settings.autoSave}
+    label="Auto-save documents"
+    tooltip="Automatically save changes as you work"
+    onCheckedChange={(checked) =>
+      setSettings(prev => ({...prev, autoSave: checked}))
+    }
+  />
+
+  <Switch
+    checked={settings.showTips}
+    label="Show helpful tips"
+    size="sm"
+    onCheckedChange={(checked) =>
+      setSettings(prev => ({...prev, showTips: checked}))
+    }
+  />
+
+  <Switch
+    checked={settings.compactMode}
+    label="Compact interface"
+    labelLeft
+    size="sm"
+    onCheckedChange={(checked) =>
+      setSettings(prev => ({...prev, compactMode: checked}))
+    }
+  />
+</div>
+
+// Testing configuration
+<Switch
+  checked={testValue}
+  label="Test Switch"
+  onCheckedChange={setTestValue}
+  data={{ 'data-cy': 'test-switch' }}
+  id="test-switch"
+/>
+```
+
+State Management:
+
+- Controlled: External state with checked/onCheckedChange
+- Indeterminate: undefined value for loading/unknown states
+- Validation: Integration with form validation systems
+- Touch handling: onBlur for validation triggering
+
+Size Variants:
+
+- sm: Small switch for compact interfaces
+- md: Medium switch for standard use (default)
+- lg: Large switch for prominent settings
+
+Label Positioning:
+
+- Default: Label positioned to the right of switch
+- labelLeft: Label positioned to the left of switch
+- Flexible: Works with both required indicators and tooltips
+
+Validation Integration:
+
+- error: Error message display with conditional visibility
+- hideError: Control error message display
+- required: Visual indicator for required fields
+- Touch state: Integration with form validation systems
+
+Best Practices:
+
+- Use clear, descriptive labels that indicate the action
+- Provide tooltips for complex or technical settings
+- Implement proper validation for required switches
+- Consider disabled states for read-only or locked settings
+- Group related switches logically in settings panels
+
+Common Use Cases:
+
+- Application settings and preferences
+- Feature toggles and flags
+- Form consent and agreement checkboxes
+- Privacy and notification controls
+- Accessibility and display options
+
+Accessibility Features:
+
+- Full keyboard navigation (space to toggle, tab to navigate)
+- ARIA attributes for screen readers
+- Focus management and visual indicators
+- State announcements on change
+- Proper label association
+
+Testing Support:
+
+- data prop for comprehensive testing attributes
+- id prop for unique element identification
+- State tracking for validation testing
+- Support for E2E testing frameworks
+
+Related Components:
+
+- Checkbox: For multi-select scenarios
+- RadioGroup: For single-select from multiple options
+- Toggle: Alternative toggle implementations
+- FormikSwitchField: Formik integration wrapper
+
+AI_DOCUMENTATION_END
+*/}
 
 export const Default = () => {
   const [isChecked, setIsChecked] = useState(false)

@@ -7,9 +7,24 @@ import React, { useState } from 'react'
 import Button from './Button'
 
 {/* START README */}
-The custom Button in the design-system is a versatile component whose appearance is defined similar to the Shadcn UI Button component. Additionally, it contains pre-styled subcomponents and conditional styling options for various use cases.
+The `Button` component is a versatile, feature-rich button implementation that supports multiple visual states, loading indicators, icons, and grouped button functionality. It provides a comprehensive set of options for creating interactive elements across your application.
 
-<br />
+Use this component when you need:
+
+- Primary actions (submit forms, save changes)
+- Secondary actions (cancel, reset)
+- Destructive actions (delete, remove)
+- Icon-only buttons for compact interfaces
+- Button groups for related actions
+- Loading states during async operations
+
+The component includes three subcomponents:
+
+- `Button.Icon`: For adding FontAwesome icons with proper spacing
+- `Button.Label`: For button text content with consistent styling
+- `Button.IconGroup`: For creating segmented button groups with active states
+
+Key features include automatic loading spinners, fluid width options, active state styling, and comprehensive disabled state handling.
 
 The props for the Button component are as follows:
 
@@ -27,8 +42,6 @@ The props for the Button component are as follows:
 - @param className - The optional className object allows you to override the default styling.
 - @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
 
-  <br />
-
 The props for the integrated Icon subcomponent (Button.Icon) are as follows:
 
 - @param icon - The icon definition from FontAwesome.
@@ -37,14 +50,10 @@ The props for the integrated Icon subcomponent (Button.Icon) are as follows:
 - @param className - The optional className object allows you to override the default styling of the icon.
 - @returns Icon component for use inside the Button component
 
-<br />
-
 The props for the integrated Label subcomponent (Button.Label) are as follows:
 
 - @param className - The optional className object allows you to override the default styling of the label.
 - @param children - The content of the label.
-
-<br />
 
 The props for the integrated Button Icon Group subcomponent (Button.IconGroup) are as follows:
 
@@ -52,8 +61,108 @@ The props for the integrated Button Icon Group subcomponent (Button.IconGroup) a
 - @param setState - React state setter function to update the active button index.
 - @param className - The optional className object allows you to override the default styling of the button group and its children.
 - @param children - An array of React nodes that will be rendered as buttons within the group.
+  {/* END README */}
 
-{/* END README */}
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Custom button implementation with extensive styling variants and subcomponent architecture. Built with React and styled using Tailwind CSS with class variance authority patterns.
+
+Dependencies:
+
+- @fortawesome/react-fontawesome & @fortawesome/free-solid-svg-icons for icons
+- tailwind-merge for className composition
+- Custom Loader component for loading states
+
+Available Stories:
+
+- Default: Basic button with icon and label
+- Icon: Icon-only button without label
+- Primary: Primary action styling
+- Destructive: Destructive/danger action styling
+- Loading: Loading state with spinner (includes icon hiding behavior)
+- Active: Active state styling with custom override example
+- Disabled: Disabled states for all variants
+- Fluid: Full-width button
+- BasicButton: Minimal styling variant
+- ColorButton: Custom color example (circular)
+- ButtonIconGroup: Segmented button group with state management
+
+Props:
+Button component:
+
+- id?: string - HTML id attribute
+- children: React.ReactNode - Button content
+- onClick?: (e: React.MouseEvent) => void - Click handler
+- disabled?: boolean - Disabled state
+- destructive?: boolean - Destructive variant styling
+- primary?: boolean - Primary variant styling
+- active?: boolean - Active state styling
+- fluid?: boolean - Full width button
+- basic?: boolean - Minimal styling
+- loading?: boolean - Show loading spinner
+- type?: 'button' | 'submit' | 'reset' - HTML button type
+- className?: { root?: string, active?: string } - Style overrides
+- data?: { test?: string, cy?: string } - Testing attributes
+
+Button.Icon props:
+
+- icon: IconDefinition - FontAwesome icon definition
+- withoutLabel?: boolean - Adjust spacing for icon-only buttons
+- loading?: boolean - Hide icon when parent button is loading
+- className?: string - Icon style overrides
+
+Button.Label props:
+
+- className?: string - Label style overrides
+- children: React.ReactNode - Label text
+
+Button.IconGroup props:
+
+- state?: number - Currently active button index
+- setState: (index: number) => void - State update function
+- className?: string - Group and child style overrides
+- children: React.ReactNode[] - Array of button elements
+
+Code Structure:
+
+- Main Button component handles all variants and states
+- Subcomponents use compound component pattern
+- Uses forwardRef for proper ref forwarding
+- Extensive use of conditional className composition
+- Loading state automatically disables interactions
+
+Usage Examples:
+
+```tsx
+// Basic button
+<Button onClick={handleClick}>
+  <Button.Icon icon={faEnvelope} />
+  <Button.Label>Send Email</Button.Label>
+</Button>
+
+// Primary loading button
+<Button primary loading={isLoading} onClick={handleSubmit}>
+  <Button.Icon icon={faSave} loading={isLoading} />
+  <Button.Label>Save Changes</Button.Label>
+</Button>
+
+// Icon group
+<Button.IconGroup state={activeIndex} setState={setActiveIndex}>
+  <Button.Icon icon={faList} withoutLabel />
+  <Button.Icon icon={faGrid} withoutLabel />
+</Button.IconGroup>
+```
+
+Related Components:
+
+- Link: For navigation that looks like buttons
+- IconButton: Simpler icon-only button variant
+- Toggle/ToggleGroup: For on/off states
+- Dropdown: For buttons that open menus
+
+AI_DOCUMENTATION_END
+*/}
 
 export const Default = () => (
   <Button>

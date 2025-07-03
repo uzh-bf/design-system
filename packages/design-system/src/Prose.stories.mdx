@@ -1,10 +1,17 @@
 import Prose from './Prose'
 
 {/* START README */}
+The `Prose` component provides automatic typography styling for content-heavy areas like articles, documentation, or rich text. It applies consistent formatting to HTML elements without requiring manual styling of each element.
 
-The Prose component is designed as a wrapper component that applies prose parsing to its children.
+Use this component when you need to:
 
-<br />
+- Style content from markdown or CMS systems
+- Display articles, blog posts, or documentation
+- Format user-generated content consistently
+- Create readable typography without element-by-element styling
+- Ensure consistent spacing and hierarchy in text content
+
+The component automatically applies appropriate typography styles to headings, paragraphs, links, lists, and other common content elements, maintaining design system consistency throughout your text content.
 
 The Prose component accepts the following props:
 
@@ -12,8 +19,152 @@ The Prose component accepts the following props:
 - @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
 - @param children - The content of the prose component.
 - @param className - The optional className object allows you to override the default styling.
+  {/* END README */}
 
-{/* END README */}
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Typography wrapper component that applies systematic styling to child HTML elements, similar to Tailwind's prose class but with design system customizations
+
+Dependencies:
+
+- React for component rendering
+- Tailwind CSS prose utilities (or custom equivalent)
+- Design system typography tokens
+
+Available Stories:
+
+- Default: Basic prose wrapper with heading and paragraph content including links
+
+Props (Prose component):
+
+- id?: string - HTML id attribute for the prose container
+- data?: Record<string, string> - Data attributes for testing purposes
+- children: React.ReactNode - Content to be styled with prose formatting
+- className?: string - Additional CSS classes for customization
+
+Component Structure:
+
+- Wrapper container with prose styling applied
+- Automatic styling for common HTML elements within
+- Preserves semantic HTML structure
+- Maintains accessibility features
+
+Styled Elements (automatic):
+
+- h1, h2, h3, h4, h5, h6: Hierarchical heading styles
+- p: Paragraph spacing and line height
+- a: Link styling with hover states
+- ul, ol, li: List formatting and spacing
+- blockquote: Quote styling and indentation
+- code, pre: Code formatting and syntax highlighting
+- img: Image spacing and responsive behavior
+- table, thead, tbody, tr, td, th: Table formatting
+- hr: Divider styling
+- strong, em: Text emphasis styling
+
+Usage Examples:
+
+```tsx
+// Basic article content
+<Prose>
+  <h1>Article Title</h1>
+  <p>
+    This is a paragraph with <a href="/link">a link</a> and <strong>bold text</strong>.
+  </p>
+  <h2>Section Header</h2>
+  <ul>
+    <li>First item</li>
+    <li>Second item</li>
+  </ul>
+</Prose>
+
+// Documentation content
+<Prose>
+  <h1>API Documentation</h1>
+  <p>Welcome to our API documentation.</p>
+
+  <h2>Authentication</h2>
+  <p>All requests require authentication:</p>
+  <pre><code>Authorization: Bearer your-token</code></pre>
+
+  <h3>Example Request</h3>
+  <p>Here's how to make a request:</p>
+  <blockquote>
+    <p>Remember to include proper headers</p>
+  </blockquote>
+</Prose>
+
+// Blog post content
+<Prose>
+  <h1>Understanding React Hooks</h1>
+  <p>
+    React Hooks were introduced in React 16.8 as a way to use state and
+    lifecycle features in functional components.
+  </p>
+
+  <h2>Benefits</h2>
+  <ol>
+    <li>Easier to test</li>
+    <li>Better code reuse</li>
+    <li>Cleaner component logic</li>
+  </ol>
+
+  <p>
+    Learn more in the <a href="/docs">official documentation</a>.
+  </p>
+</Prose>
+
+// With custom styling
+<Prose className="max-w-4xl mx-auto text-lg">
+  <h1>Custom Styled Content</h1>
+  <p>This prose container has custom width and text size.</p>
+</Prose>
+
+// CMS/Markdown content
+<Prose>
+  <div dangerouslySetInnerHTML={{ __html: cmsContent }} />
+</Prose>
+```
+
+Content Guidelines:
+
+- Use semantic HTML elements for proper styling
+- Maintain heading hierarchy (h1 → h2 → h3)
+- Include alt text for images
+- Use proper list structures
+- Ensure links have descriptive text
+
+Customization Options:
+
+- Override specific element styles with className
+- Adjust container width and alignment
+- Modify typography scale through CSS variables
+- Control spacing and color schemes
+
+Performance Considerations:
+
+- Prose styling is applied via CSS selectors
+- No JavaScript processing of content
+- Minimal runtime overhead
+- Optimized for content-heavy pages
+
+Common Use Cases:
+
+- Blog post content areas
+- Documentation pages
+- User-generated content display
+- Markdown-rendered content
+- CMS article formatting
+
+Related Components:
+
+- Typography: For individual text elements
+- Markdown: For markdown parsing and rendering
+- RichTextEditor: For content creation interfaces
+
+AI_DOCUMENTATION_END
+*/}
 
 export const Default = () => {
   return (

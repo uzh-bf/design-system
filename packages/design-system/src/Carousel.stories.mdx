@@ -8,8 +8,98 @@ import {
 import { Card, CardContent } from './ui/card'
 
 {/* START README */}
-The `Carousel` component currently represents a simple re-export of the Shadcn UI Carousel component. More information on the structure can be found on the [Shadcn UI Carousel documentation](https://ui.shadcn.com/docs/components/carousel).
+The `Carousel` component provides a touch-friendly, responsive slideshow interface for displaying multiple items in a horizontal scrolling layout. It enables users to browse through content collections with smooth navigation controls.
+
+Use this component when you need to:
+
+- Display product galleries or image collections
+- Show featured content or testimonials in rotation
+- Create space-efficient browsing for multiple items
+- Present step-by-step tutorials or onboarding flows
+
+The carousel supports touch/swipe gestures, keyboard navigation, and includes previous/next buttons. It automatically handles responsive behavior and can display multiple items simultaneously.
 {/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Shadcn UI re-export built on Embla Carousel with touch support and accessibility features
+Dependencies: embla-carousel-react, embla-carousel-autoplay (optional)
+
+Available Stories:
+
+- Default: Basic carousel with 5 numbered cards and navigation controls
+
+Props (Carousel component):
+
+- className: string - Additional CSS classes
+- orientation: "horizontal" | "vertical" - Scroll direction (default: horizontal)
+- opts: EmblaOptionsType - Embla carousel configuration options
+- plugins: EmblaPluginType[] - Embla plugins (autoplay, etc.)
+- setApi: (api: CarouselApi) => void - Access to carousel API
+
+Component Structure:
+
+- Carousel: Root container managing carousel state (re-export from ui/carousel)
+- CarouselContent: Scrollable container for carousel items
+- CarouselItem: Individual slide wrapper
+- CarouselPrevious: Previous navigation button
+- CarouselNext: Next navigation button
+
+Usage Examples:
+
+```tsx
+// Basic image carousel
+<Carousel className="w-full max-w-xs">
+  <CarouselContent>
+    {images.map((image, index) => (
+      <CarouselItem key={index}>
+        <img src={image.src} alt={image.alt} className="w-full" />
+      </CarouselItem>
+    ))}
+  </CarouselContent>
+  <CarouselPrevious />
+  <CarouselNext />
+</Carousel>
+
+// Multi-item carousel
+<Carousel
+  opts={{
+    align: "start",
+    loop: true,
+  }}
+  className="w-full"
+>
+  <CarouselContent className="-ml-1">
+    {products.map((product, index) => (
+      <CarouselItem key={index} className="pl-1 md:basis-1/2 lg:basis-1/3">
+        <ProductCard product={product} />
+      </CarouselItem>
+    ))}
+  </CarouselContent>
+</Carousel>
+
+// Autoplay carousel
+<Carousel
+  plugins={[Autoplay({ delay: 2000 })]}
+  className="w-full max-w-xs"
+>
+  <CarouselContent>
+    {slides.map((slide, index) => (
+      <CarouselItem key={index}>{slide.content}</CarouselItem>
+    ))}
+  </CarouselContent>
+</Carousel>
+```
+
+Related Components:
+
+- Card: Often used as carousel item containers
+- AspectRatio: For consistent slide proportions
+- Tabs: Alternative for content switching without scrolling
+
+AI_DOCUMENTATION_END
+*/}
 
 export const Default = () => {
   return (

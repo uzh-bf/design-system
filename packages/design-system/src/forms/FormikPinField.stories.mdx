@@ -6,8 +6,6 @@ import FormikPinField from './FormikPinField'
 {/* START README */}
 The `FormikPinField` component is a Formik wrapper around the `PinField` component. In addition to labels, tooltips, etc. it also offers direct interfaces for form validation, error messages, and form submission handling.
 
-<br />
-
 The FormikPinField accepts the following props:
 
 - @param id - The id of the input field.
@@ -22,6 +20,302 @@ The FormikPinField accepts the following props:
 - @param data - Optional data attributes for testing purposes.
 
 {/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Formik-integrated PIN input field that wraps the core PinField with segmented numeric input, paste functionality, and validation for secure PIN/code entry
+
+Dependencies:
+
+- Formik for form state management and validation
+- PinField core component for segmented PIN input functionality
+- Yup for PIN validation schema support
+- React state management for PIN input interactions
+- Custom label and tooltip components
+
+Available Stories:
+
+- Default: Basic 9-digit PIN field with paste functionality
+- Required: PIN field with required indicator and label
+- LargeLabel: PIN field with large label variant
+- Tooltip: PIN field with tooltip and help information
+- Styled: Custom styling with colored theme and testing attributes
+- Validation: Form validation with exact length requirements
+
+Props (FormikPinField component):
+
+- id?: string - HTML id attribute for the PIN field container
+- name: string - Formik field name for form state management
+- length: number - Number of PIN digits (e.g., 4, 6, 9)
+- required?: boolean - Whether the field is required for form submission
+- label?: string - Display label for the PIN field
+- labelType?: 'small' | 'large' - Label size and positioning variant
+- tooltip?: string | React.ReactNode - Optional tooltip for additional information
+- hideError?: boolean - Whether to hide error message display
+- className?: Record<string, string> - Styling overrides for different parts
+- data?: Record<string, string> - Data attributes for testing purposes
+
+Component Structure:
+
+- Formik Field wrapper for form integration
+- Segmented PIN input boxes (one per digit)
+- Automatic focus management between segments
+- Paste functionality for complete PIN entry
+- Form validation and error display integration
+
+Usage Examples:
+
+```tsx
+// Basic PIN entry form
+<Formik
+  initialValues={{ pin: '' }}
+  onSubmit={(values) => console.log(values)}
+>
+  <Form>
+    <FormikPinField
+      name="pin"
+      length={6}
+      label="Security PIN"
+      required
+    />
+    <Button type="submit">Verify PIN</Button>
+  </Form>
+</Formik>
+
+// Two-factor authentication PIN
+<Formik
+  initialValues={{ verificationCode: '' }}
+  validationSchema={Yup.object({
+    verificationCode: Yup.string()
+      .required('Verification code is required')
+      .length(6, 'Code must be exactly 6 digits')
+      .matches(/^\d+$/, 'Code must contain only numbers')
+  })}
+  onSubmit={handleVerification}
+>
+  <Form>
+    <FormikPinField
+      name="verificationCode"
+      length={6}
+      label="Verification Code"
+      required
+      tooltip="Enter the 6-digit code sent to your phone"
+    />
+  </Form>
+</Formik>
+
+// ATM-style PIN entry
+<Formik
+  initialValues={{ atmPin: '' }}
+  validationSchema={pinValidationSchema}
+  onSubmit={handleATMAccess}
+>
+  <Form>
+    <FormikPinField
+      name="atmPin"
+      length={4}
+      label="ATM PIN"
+      required
+      tooltip="Enter your 4-digit ATM PIN"
+      className={{
+        field: 'max-w-xs mx-auto',
+        input: 'text-center font-mono text-lg'
+      }}
+    />
+  </Form>
+</Formik>
+
+// Security code with custom length
+<FormikPinField
+  name="securityCode"
+  length={8}
+  label="Security Code"
+  labelType="large"
+  required
+  tooltip="Enter the 8-digit security code from your device"
+/>
+
+// Account recovery PIN
+<Formik
+  initialValues={{ recoveryPin: '' }}
+  onSubmit={handleRecovery}
+>
+  <Form className="space-y-4">
+    <div className="text-center">
+      <h2 className="text-xl font-semibold">Account Recovery</h2>
+      <p className="text-gray-600">Enter your recovery PIN</p>
+    </div>
+
+    <FormikPinField
+      name="recoveryPin"
+      length={6}
+      label="Recovery PIN"
+      required
+      tooltip="The 6-digit PIN provided during account setup"
+      className={{ field: 'text-center' }}
+    />
+
+    <Button type="submit" className={{ root: 'w-full' }}>
+      Recover Account
+    </Button>
+  </Form>
+</Formik>
+
+// Multi-step authentication
+const [step, setStep] = useState(1)
+
+<Formik
+  initialValues={{
+    userPin: '',
+    deviceCode: ''
+  }}
+  validationSchema={authValidationSchema}
+  onSubmit={handleMultiStepAuth}
+>
+  {({ values, isValid }) => (
+    <Form>
+      {step === 1 && (
+        <div>
+          <FormikPinField
+            name="userPin"
+            length={4}
+            label="Your PIN"
+            required
+            tooltip="Enter your personal 4-digit PIN"
+          />
+          <Button
+            type="button"
+            onClick={() => setStep(2)}
+            disabled={!values.userPin || values.userPin.length < 4}
+          >
+            Next
+          </Button>
+        </div>
+      )}
+
+      {step === 2 && (
+        <div>
+          <FormikPinField
+            name="deviceCode"
+            length={6}
+            label="Device Code"
+            required
+            tooltip="Enter the code displayed on your device"
+          />
+          <Button type="submit" disabled={!isValid}>
+            Authenticate
+          </Button>
+        </div>
+      )}
+    </Form>
+  )}
+</Formik>
+
+// Game access code
+<FormikPinField
+  name="gameCode"
+  length={5}
+  label="Game Access Code"
+  tooltip="Enter the 5-digit code to join the game"
+  className={{
+    field: 'gaming-style',
+    input: 'bg-gray-900 text-green-400 font-mono border-green-500'
+  }}
+/>
+
+// Testing configuration
+<FormikPinField
+  name="testPin"
+  length={6}
+  label="Test PIN"
+  data={{
+    'data-cy': 'pin-field',
+    'data-testid': 'formik-pin-input'
+  }}
+  id="test-pin-field"
+/>
+```
+
+Form Integration Features:
+
+- Automatic Formik field binding with name prop
+- Built-in PIN validation support
+- Error state display from Formik field meta
+- Form submission integration with PIN strings
+- Touch/blur state management for UX
+
+PIN Input Features:
+
+- Segmented input boxes for each digit
+- Automatic focus advancement on digit entry
+- Backspace navigation between segments
+- Paste functionality (with or without spaces)
+- Numeric-only input validation
+
+Validation Patterns:
+
+- Exact length validation
+- Numeric format validation
+- Required field validation
+- Custom PIN complexity rules
+- Security-focused validation
+
+Paste Functionality:
+
+- Supports formatted PINs with spaces ("123 456 789")
+- Supports unformatted PINs ("123456789")
+- Automatic distribution across input segments
+- Validation after paste operation
+
+Best Practices:
+
+- Use appropriate length for security level (4-8 digits typical)
+- Provide clear labels and instructions
+- Implement proper validation for PIN requirements
+- Consider accessibility for screen readers
+- Use secure transmission for PIN data
+
+Common Use Cases:
+
+- Authentication and login systems
+- Two-factor authentication codes
+- ATM and payment PIN entry
+- Security verification codes
+- Game and access code entry
+
+Security Considerations:
+
+- PIN values are stored as strings in form state
+- Consider masking PIN display for security
+- Implement rate limiting for PIN attempts
+- Use HTTPS for PIN transmission
+- Clear PIN data after successful submission
+
+Testing Support:
+
+- data prop for custom testing attributes
+- PIN input sequence testing
+- Paste functionality verification
+- Formik integration testing with PIN values
+
+Accessibility Features:
+
+- Proper label association with PIN inputs
+- Keyboard navigation between segments
+- Screen reader compatible structure
+- High contrast color support
+- Focus management for better UX
+
+Related Components:
+
+- PinField: Core PIN input functionality
+- FormikTextField: For general text input needs
+- FormikNumberField: For numeric field alternatives
+- TextField: For standalone text input
+
+AI_DOCUMENTATION_END
+*/}
 
 export const Default = () => (
   <div>

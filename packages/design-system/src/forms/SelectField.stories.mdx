@@ -5,8 +5,6 @@ import SelectField from './SelectField'
 {/* START README */}
 The SelectField component is an input field that only accepts numerical values. Optionally, it is possible to define labels, units, tooltips, a rounding precision and error messages.
 
-<br />
-
 The props for the SelectField component are as follows:
 
 - @param id - The id of the field.
@@ -29,6 +27,364 @@ The props for the SelectField component are as follows:
 - @param className - The optional className object allows you to override the default styling.
 
 {/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Standalone select dropdown component with item grouping, label integration, validation state management, and flexible positioning for option selection
+
+Dependencies:
+
+- React state management for selection handling
+- Custom Label component for consistent labeling
+- CSS styling system for dropdown appearance
+- Positioning system for dropdown content
+- Accessibility support for dropdown interactions
+
+Available Stories:
+
+- Default: Basic select field with fruit options
+- Groups: Select field with grouped options organization
+- Required: Select field with required indicator and label
+- Disabled: Select field in disabled state
+- Label: Select field with standard label
+- LargeLabel: Select field with large label variant
+- Error: Select field with error state display
+- Tooltip: Select field with tooltip and help information
+
+Props (SelectField component):
+
+- id?: string - HTML id attribute for the select element
+- data?: Record<string, string> - Data attributes for testing purposes
+- name?: string - HTML name attribute for form submission
+- items?: SelectItem[] - Array of selectable items
+- groups?: SelectGroup[] - Array of grouped items for organization
+- value: string - Currently selected value
+- onChange: (value: string) => void - Selection change handler
+- onBlur?: () => void - Blur event handler for validation
+- label?: string - Display label for the select field
+- labelType?: 'small' | 'large' - Label size and positioning variant
+- placeholder?: string - Placeholder text when no value is selected
+- disabled?: boolean - Whether the select is disabled
+- error?: string - Error message to display below field
+- hideError?: boolean - Whether to hide error message display
+- contentPosition?: 'item-aligned' | 'popper' - Dropdown positioning strategy
+- tooltip?: string | React.ReactNode - Optional tooltip for additional information
+- required?: boolean - Whether the field is required
+- className?: Record<string, string> - Styling overrides for different parts
+
+SelectItem Structure:
+
+- value: string - Unique identifier for the option
+- label: string - Display text for the option
+- disabled?: boolean - Whether this option is disabled
+- data?: Record<string, string> - Additional data attributes
+
+SelectGroup Structure:
+
+- label: string - Group heading text
+- items: SelectItem[] - Items within this group
+- disabled?: boolean - Whether entire group is disabled
+
+Component Structure:
+
+- Label component integration with tooltip support
+- Select trigger with current value display
+- Dropdown content with items or groups
+- Error message display below field
+- Required field indicator integration
+
+Usage Examples:
+
+```tsx
+// Basic country selection
+const [country, setCountry] = useState('')
+
+const countries = [
+  { value: 'us', label: 'United States' },
+  { value: 'ca', label: 'Canada' },
+  { value: 'mx', label: 'Mexico' }
+]
+
+<SelectField
+  label="Country"
+  items={countries}
+  value={country}
+  onChange={setCountry}
+  placeholder="Select a country"
+  tooltip="Choose your country of residence"
+/>
+
+// Product category with groups
+const [category, setCategory] = useState('')
+
+const categoryGroups = [
+  {
+    label: 'Electronics',
+    items: [
+      { value: 'laptop', label: 'Laptops' },
+      { value: 'phone', label: 'Smartphones' },
+      { value: 'tablet', label: 'Tablets' }
+    ]
+  },
+  {
+    label: 'Clothing',
+    items: [
+      { value: 'shirt', label: 'Shirts' },
+      { value: 'pants', label: 'Pants' },
+      { value: 'shoes', label: 'Shoes' }
+    ]
+  }
+]
+
+<SelectField
+  label="Product Category"
+  groups={categoryGroups}
+  value={category}
+  onChange={setCategory}
+  required
+  tooltip="Select the product category"
+/>
+
+// User role selection with validation
+const [role, setRole] = useState('')
+const [roleError, setRoleError] = useState('')
+const [roleTouched, setRoleTouched] = useState(false)
+
+const roles = [
+  { value: 'admin', label: 'Administrator' },
+  { value: 'manager', label: 'Manager' },
+  { value: 'user', label: 'User' },
+  { value: 'guest', label: 'Guest', disabled: true }
+]
+
+const validateRole = (value: string) => {
+  if (!value) return 'Role selection is required'
+  if (value === 'admin' && !hasAdminPermission) return 'Admin role not available'
+  return ''
+}
+
+<SelectField
+  label="User Role"
+  items={roles}
+  value={role}
+  onChange={(value) => {
+    setRole(value)
+    if (roleTouched) {
+      setRoleError(validateRole(value))
+    }
+  }}
+  onBlur={() => {
+    setRoleTouched(true)
+    setRoleError(validateRole(role))
+  }}
+  error={roleError}
+  required
+  placeholder="Choose a role"
+  tooltip="Select the appropriate user role"
+/>
+
+// Language preference selection
+const [language, setLanguage] = useState('en')
+
+const languages = [
+  { value: 'en', label: 'English' },
+  { value: 'es', label: 'Español' },
+  { value: 'fr', label: 'Français' },
+  { value: 'de', label: 'Deutsch' },
+  { value: 'it', label: 'Italiano' }
+]
+
+<SelectField
+  label="Language"
+  labelType="small"
+  items={languages}
+  value={language}
+  onChange={setLanguage}
+  tooltip="Choose your preferred language"
+  className={{ field: 'max-w-xs' }}
+/>
+
+// Priority level with conditional styling
+const [priority, setPriority] = useState('')
+
+const priorityLevels = [
+  { value: 'low', label: 'Low Priority' },
+  { value: 'medium', label: 'Medium Priority' },
+  { value: 'high', label: 'High Priority' },
+  { value: 'urgent', label: 'Urgent' }
+]
+
+<SelectField
+  label="Priority Level"
+  items={priorityLevels}
+  value={priority}
+  onChange={setPriority}
+  required
+  tooltip="Set the priority level for this task"
+  className={{
+    trigger: priority === 'urgent' ? 'border-red-500 bg-red-50' : '',
+    content: 'min-w-[200px]'
+  }}
+/>
+
+// Time zone selection with search
+const [timezone, setTimezone] = useState('')
+
+const timezoneGroups = [
+  {
+    label: 'North America',
+    items: [
+      { value: 'est', label: 'Eastern Time (EST)' },
+      { value: 'cst', label: 'Central Time (CST)' },
+      { value: 'mst', label: 'Mountain Time (MST)' },
+      { value: 'pst', label: 'Pacific Time (PST)' }
+    ]
+  },
+  {
+    label: 'Europe',
+    items: [
+      { value: 'gmt', label: 'Greenwich Mean Time (GMT)' },
+      { value: 'cet', label: 'Central European Time (CET)' },
+      { value: 'eet', label: 'Eastern European Time (EET)' }
+    ]
+  }
+]
+
+<SelectField
+  label="Time Zone"
+  groups={timezoneGroups}
+  value={timezone}
+  onChange={setTimezone}
+  placeholder="Select your time zone"
+  tooltip="Choose your local time zone for scheduling"
+  contentPosition="popper"
+/>
+
+// Department selection for HR form
+const [department, setDepartment] = useState('')
+
+const departments = [
+  { value: 'engineering', label: 'Engineering' },
+  { value: 'design', label: 'Design' },
+  { value: 'marketing', label: 'Marketing' },
+  { value: 'sales', label: 'Sales' },
+  { value: 'hr', label: 'Human Resources' },
+  { value: 'finance', label: 'Finance' }
+]
+
+<SelectField
+  label="Department"
+  labelType="large"
+  items={departments}
+  value={department}
+  onChange={setDepartment}
+  required
+  placeholder="Select department"
+  tooltip="Choose the department you work in"
+/>
+
+// Status selection with conditional options
+const [status, setStatus] = useState('')
+
+const getStatusOptions = () => {
+  const baseStatuses = [
+    { value: 'draft', label: 'Draft' },
+    { value: 'review', label: 'Under Review' },
+    { value: 'approved', label: 'Approved' }
+  ]
+
+  if (hasPublishPermission) {
+    baseStatuses.push({ value: 'published', label: 'Published' })
+  }
+
+  return baseStatuses
+}
+
+<SelectField
+  label="Document Status"
+  items={getStatusOptions()}
+  value={status}
+  onChange={setStatus}
+  disabled={isReadOnly}
+  tooltip="Change the document status"
+/>
+
+// Testing configuration
+<SelectField
+  label="Test Select"
+  items={testOptions}
+  value={testValue}
+  onChange={setTestValue}
+  data={{
+    'data-cy': 'select-field',
+    'data-testid': 'select-dropdown'
+  }}
+  id="test-select-field"
+/>
+```
+
+Grouping Features:
+
+- Hierarchical option organization
+- Group headers for categorization
+- Disabled groups and individual items
+- Visual separation between groups
+
+Positioning Options:
+
+- item-aligned: Dropdown aligns with selected item
+- popper: Flexible positioning based on available space
+- Responsive positioning for mobile devices
+- Collision detection and adjustment
+
+Validation Integration:
+
+- Error message display below field
+- Required field visual indicators
+- Custom validation with onChange/onBlur
+- Disabled state management
+
+Best Practices:
+
+- Use clear, descriptive option labels
+- Group related options for better organization
+- Provide helpful tooltips for complex selections
+- Implement proper validation for required fields
+- Consider disabled options for unavailable choices
+
+Common Use Cases:
+
+- Country, state, and region selection
+- User role and permission assignment
+- Category and tag selection
+- Status and priority level setting
+- Language and locale preferences
+
+Accessibility Features:
+
+- Proper label association with select elements
+- Keyboard navigation (arrow keys, enter, escape)
+- Screen reader compatible structure
+- High contrast color support
+- Focus management for dropdown interactions
+
+Testing Support:
+
+- data prop for custom testing attributes
+- Option selection testing capabilities
+- Dropdown interaction verification
+- Validation state testing
+
+Related Components:
+
+- FormikSelectField: For Formik form integration
+- Select: Basic select component variant
+- Dropdown: For custom dropdown functionality
+- Combobox: For searchable select options
+
+AI_DOCUMENTATION_END
+*/}
 
 export const Default = () => {
   const [value, setValue] = useState(fruitsValues[0].value)

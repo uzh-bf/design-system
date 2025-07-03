@@ -6,8 +6,6 @@ import TextField from './TextField'
 {/* START README */}
 The TextField component is an input field that only accepts numerical values. Optionally, it is possible to define labels, units, tooltips, a rounding precision and error messages.
 
-<br />
-
 The props for the TextField component are as follows:
 
 - @param id - The id of the input field.
@@ -32,6 +30,359 @@ The props for the TextField component are as follows:
 - @param onIconClick - The optional onIconClick function is called when the icon is clicked.
 
 {/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Comprehensive text input field component with label integration, icon support, validation state management, and extensive customization options for form building
+
+Dependencies:
+
+- FontAwesome icons for input field decoration and interaction
+- Custom Label component for consistent labeling
+- React state management for input handling
+- CSS styling system for appearance customization
+- Accessibility support for form interactions
+
+Available Stories:
+
+- Default: Basic text field with label and tooltip
+- Icon: Text field with left-positioned search icon
+- IconRight: Text field with right-positioned icon
+- SmallLabel: Compact label variant for dense forms
+- Disabled: Disabled state demonstration
+- Error: Error state with validation message
+- Required: Required field with visual indicator
+- Styled: Custom styling with colored theme
+
+Props (TextField component):
+
+- id?: string - HTML id attribute for the input element
+- data?: Record<string, string> - Data attributes for testing purposes
+- name?: string - HTML name attribute for form submission
+- field?: any - Formik field object for integration
+- value?: string - Controlled input value
+- onChange?: (value: string) => void - Value change handler
+- label?: string - Display label for the input field
+- labelType?: 'small' | 'large' - Label size and positioning variant
+- placeholder?: string - Placeholder text for empty input
+- tooltip?: string | React.ReactNode - Optional tooltip for additional information
+- required?: boolean - Whether the field is required
+- isTouched?: boolean - Whether the field has been interacted with
+- hideError?: boolean - Whether to hide error message display
+- error?: string - Error message to display below field
+- disabled?: boolean - Whether the input is disabled
+- onPaste?: (event: ClipboardEvent) => void - Paste event handler
+- className?: Record<string, string> - Styling overrides for different parts
+- icon?: IconDefinition - FontAwesome icon for field decoration
+- iconPosition?: 'left' | 'right' - Position of the icon within field
+- onIconClick?: () => void - Click handler for interactive icons
+
+Component Structure:
+
+- Label component integration with tooltip support
+- Input field with optional icon positioning
+- Error message display below field
+- Required field indicator integration
+- Disabled state styling and behavior
+
+Usage Examples:
+
+```tsx
+// Basic text field
+<TextField
+  label="Email Address"
+  placeholder="Enter your email"
+  value={email}
+  onChange={setEmail}
+  tooltip="We'll use this for account verification"
+/>
+
+// Search field with icon
+<TextField
+  label="Search Products"
+  placeholder="Search for products..."
+  value={searchQuery}
+  onChange={setSearchQuery}
+  icon={faMagnifyingGlass}
+  onIconClick={handleSearch}
+  tooltip="Search through our entire product catalog"
+/>
+
+// Password field with toggle visibility
+const [showPassword, setShowPassword] = useState(false)
+
+<TextField
+  label="Password"
+  placeholder="Enter password"
+  type={showPassword ? 'text' : 'password'}
+  value={password}
+  onChange={setPassword}
+  required
+  icon={showPassword ? faEye : faEyeSlash}
+  iconPosition="right"
+  onIconClick={() => setShowPassword(!showPassword)}
+  tooltip="Password must be at least 8 characters"
+/>
+
+// Form with validation
+const [formData, setFormData] = useState({ name: '', email: '' })
+const [errors, setErrors] = useState({})
+const [touched, setTouched] = useState({})
+
+<form className="space-y-4">
+  <TextField
+    label="Full Name"
+    placeholder="Enter your full name"
+    required
+    value={formData.name}
+    onChange={(value) => setFormData(prev => ({ ...prev, name: value }))}
+    error={errors.name}
+    isTouched={touched.name}
+    onBlur={() => setTouched(prev => ({ ...prev, name: true }))}
+    tooltip="Enter your legal name as it appears on documents"
+  />
+
+  <TextField
+    label="Email Address"
+    placeholder="Enter your email"
+    required
+    value={formData.email}
+    onChange={(value) => setFormData(prev => ({ ...prev, email: value }))}
+    error={errors.email}
+    isTouched={touched.email}
+    onBlur={() => setTouched(prev => ({ ...prev, email: true }))}
+    tooltip="We'll send verification to this address"
+  />
+
+  <Button type="submit">Submit</Button>
+</form>
+
+// Advanced search with multiple actions
+<TextField
+  label="Advanced Search"
+  labelType="small"
+  placeholder="Search with filters..."
+  value={searchTerm}
+  onChange={setSearchTerm}
+  icon={faMagnifyingGlass}
+  onIconClick={handleAdvancedSearch}
+  tooltip={
+    <div>
+      <strong>Search Tips:</strong>
+      <ul className="text-sm mt-1">
+        <li>• Use quotes for exact phrases</li>
+        <li>• Use + for required words</li>
+        <li>• Use - to exclude words</li>
+      </ul>
+    </div>
+  }
+  className={{
+    field: 'relative',
+    input: 'pr-20', // Space for multiple icons
+    label: 'font-medium text-gray-700'
+  }}
+/>
+
+// Settings form with various field types
+<div className="settings-form space-y-6">
+  <TextField
+    label="Display Name"
+    placeholder="How others see your name"
+    value={displayName}
+    onChange={setDisplayName}
+    tooltip="This name appears in comments and shared content"
+  />
+
+  <TextField
+    label="Website URL"
+    placeholder="https://your-website.com"
+    value={website}
+    onChange={setWebsite}
+    icon={faGlobe}
+    tooltip="Optional: Link to your personal or business website"
+  />
+
+  <TextField
+    label="Bio"
+    placeholder="Tell us about yourself..."
+    value={bio}
+    onChange={setBio}
+    tooltip="Brief description shown on your profile"
+    className={{
+      input: 'min-h-[100px] resize-y'
+    }}
+  />
+</div>
+
+// Compact form with small labels
+<div className="compact-form space-y-2">
+  <TextField
+    label="Quick Search"
+    labelType="small"
+    placeholder="Search..."
+    value={quickSearch}
+    onChange={setQuickSearch}
+    icon={faMagnifyingGlass}
+    className={{ field: 'max-w-xs' }}
+  />
+
+  <TextField
+    label="Filter by Date"
+    labelType="small"
+    type="date"
+    value={dateFilter}
+    onChange={setDateFilter}
+    className={{ field: 'max-w-xs' }}
+  />
+</div>
+
+// Error handling with custom styling
+<TextField
+  label="Account Number"
+  placeholder="Enter 10-digit account number"
+  value={accountNumber}
+  onChange={setAccountNumber}
+  required
+  error={accountError}
+  isTouched={accountTouched}
+  tooltip="Find this on your account statement"
+  className={{
+    field: 'max-w-md',
+    input: error ? 'border-red-500 focus:border-red-600' : 'border-gray-300',
+    error: 'text-red-600 font-medium'
+  }}
+/>
+
+// Multi-field address form
+<fieldset className="address-form">
+  <legend className="text-lg font-semibold mb-4">Billing Address</legend>
+
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <TextField
+      label="Street Address"
+      placeholder="123 Main Street"
+      required
+      value={address.street}
+      onChange={(value) => updateAddress('street', value)}
+    />
+
+    <TextField
+      label="Apartment/Unit"
+      placeholder="Apt 4B (optional)"
+      value={address.unit}
+      onChange={(value) => updateAddress('unit', value)}
+    />
+
+    <TextField
+      label="City"
+      placeholder="New York"
+      required
+      value={address.city}
+      onChange={(value) => updateAddress('city', value)}
+    />
+
+    <TextField
+      label="Postal Code"
+      placeholder="10001"
+      required
+      value={address.postal}
+      onChange={(value) => updateAddress('postal', value)}
+    />
+  </div>
+</fieldset>
+
+// Dynamic form field with conditional validation
+<TextField
+  label={`${fieldType.charAt(0).toUpperCase() + fieldType.slice(1)} Address`}
+  placeholder={getPlaceholder(fieldType)}
+  required={isRequired(fieldType)}
+  value={dynamicValue}
+  onChange={setDynamicValue}
+  error={getDynamicError(fieldType, dynamicValue)}
+  isTouched={touchedFields[fieldType]}
+  tooltip={getFieldTooltip(fieldType)}
+  icon={getFieldIcon(fieldType)}
+  className={{
+    input: getFieldStyling(fieldType),
+    label: isRequired(fieldType) ? 'after:content-["*"] after:text-red-500' : ''
+  }}
+/>
+
+// Testing configuration
+<TextField
+  label="Test Input"
+  placeholder="Enter test value"
+  value={testValue}
+  onChange={setTestValue}
+  data={{
+    'data-cy': 'test-input',
+    'data-testid': 'text-field-input'
+  }}
+  id="test-text-field"
+/>
+```
+
+Icon Integration:
+
+- FontAwesome icon support for visual enhancement
+- Left or right positioning within input field
+- Interactive icons with click handlers
+- Icon styling integration with field states
+
+Validation Integration:
+
+- Error message display below input field
+- Touched state management for UX
+- Required field visual indicators
+- Custom error styling and positioning
+
+Label Types:
+
+- Default: Standard label above input
+- Small: Compact label for dense layouts
+- Custom: Configurable styling and positioning
+
+Best Practices:
+
+- Always provide meaningful labels and placeholders
+- Use tooltips for complex or unclear fields
+- Implement proper validation with error messages
+- Consider icon placement for optimal UX
+- Use appropriate input types for data validation
+
+Common Use Cases:
+
+- User registration and login forms
+- Search and filter interfaces
+- Settings and configuration panels
+- Data entry and editing forms
+- Contact and address collection
+
+Accessibility Features:
+
+- Proper label association with input fields
+- Error message integration with ARIA attributes
+- Keyboard navigation support
+- Screen reader compatible structure
+- High contrast color support
+
+Testing Support:
+
+- data prop for custom testing attributes
+- id prop for unique element identification
+- Consistent field structure for automation
+- Error and validation state testing
+
+Related Components:
+
+- Label: For standalone labeling needs
+- FormikTextField: For Formik form integration
+- NumberField: For numeric input requirements
+- TextareaField: For multi-line text input
+
+AI_DOCUMENTATION_END
+*/}
 
 export const Default = () => {
   const [value, setValue] = React.useState('')

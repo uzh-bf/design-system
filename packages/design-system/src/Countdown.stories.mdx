@@ -2,9 +2,17 @@ import { useMemo, useState } from 'react'
 import Countdown from './Countdown'
 
 {/* START README */}
-The custom Countdown in the design-system is a basic component that displays a countdown timer. By default, it only contains minimal styling, with the option to pass custom formatters, expiration listeners and update functions through the props.
+The `Countdown` component provides a lightweight, customizable countdown timer with flexible formatting and lifecycle callbacks. It offers precise time tracking with automatic updates, custom display formatting, and event handling for expiration and update events.
 
-<br />
+Use this component when you need to:
+
+- Display real-time countdown timers for events, deadlines, or time-sensitive actions
+- Create static time displays showing remaining duration without automatic updates
+- Implement custom time formatting for different display requirements (seconds, minutes, formatted strings)
+- Track countdown updates and trigger actions on expiration events
+- Build time-based user interfaces with minimal overhead and maximum flexibility
+
+The component supports automatic interval updates, custom formatting functions, expiration callbacks, update event listeners, and static display modes for testing or specific use cases.
 
 The props for the Countdown component are as follows:
 
@@ -15,8 +23,160 @@ The props for the Countdown component are as follows:
 - @param onUpdate - Function that is executed when the countdown is updated (not when it expires)
 - @param data - Optional data object that can be used for testing (e.g. data-test or data-cy)
 - @param className - Optional className object allows you to override the default styling
+  {/* END README */}
 
-{/* END README */}
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Lightweight countdown timer component with automatic interval management, custom formatting, lifecycle callbacks, and static/dynamic display modes
+
+Dependencies:
+
+- React useEffect and useState for timer management
+- JavaScript Date objects for time calculations
+- setInterval/clearInterval for automatic updates
+- Custom formatting function support
+
+Available Stories:
+
+- Default: Basic countdown with automatic updates
+- Static: Static display without interval updates
+- Formatter: Custom time formatting demonstration
+- onExpire: Expiration callback handling
+- UpdateFunction: Real-time update tracking
+- Styled: Custom styling overrides
+
+Props (Countdown component):
+
+- expiresAt: Date - Target expiration date/time
+- isStatic?: boolean - If true, disables automatic updates (default: false)
+- formatter?: (value: number) => string - Custom formatting function for display
+- onExpire?: () => void - Callback executed when countdown reaches expiration
+- onUpdate?: (value: number) => void - Callback executed on each countdown update
+- data?: Record<string, string> - Data attributes for testing purposes
+- className?: { root?: string } - Styling overrides for the countdown container
+
+Component Structure:
+
+- Root span element with countdown display
+- Internal timer management with useEffect
+- Automatic cleanup on unmount
+- Time calculation based on current time vs expiresAt
+- Conditional formatting and callback execution
+
+Usage Examples:
+
+```tsx
+// Basic countdown timer
+const expirationTime = new Date()
+expirationTime.setMinutes(expirationTime.getMinutes() + 30)
+
+<Countdown expiresAt={expirationTime} />
+
+// Custom formatting
+<Countdown
+  expiresAt={expirationTime}
+  formatter={(seconds) => {
+    const minutes = Math.floor(seconds / 60)
+    const remainingSeconds = seconds % 60
+    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`
+  }}
+/>
+
+// With expiration handling
+<Countdown
+  expiresAt={expirationTime}
+  onExpire={() => {
+    alert('Time expired!')
+    handleTimeout()
+  }}
+/>
+
+// Real-time updates tracking
+const [timeRemaining, setTimeRemaining] = useState(0)
+
+<Countdown
+  expiresAt={expirationTime}
+  onUpdate={(seconds) => {
+    setTimeRemaining(seconds)
+    updateProgressBar(seconds)
+  }}
+/>
+
+// Static display for testing
+<Countdown
+  expiresAt={expirationTime}
+  isStatic
+  formatter={(seconds) => `${seconds} seconds remaining`}
+/>
+
+// Event countdown with custom styling
+<Countdown
+  expiresAt={eventStartTime}
+  formatter={(seconds) => {
+    const hours = Math.floor(seconds / 3600)
+    const minutes = Math.floor((seconds % 3600) / 60)
+    const secs = seconds % 60
+    return `${hours}h ${minutes}m ${secs}s`
+  }}
+  onExpire={startEvent}
+  className={{ root: 'text-2xl font-bold text-red-500' }}
+/>
+```
+
+Timer Management:
+
+- Automatic start on mount
+- 1-second interval updates (when not static)
+- Automatic cleanup on unmount
+- Pause/resume not directly supported (use isStatic prop changes)
+- Precision: Second-level accuracy
+
+Formatting Options:
+
+- Default: Display seconds as number
+- Custom formatter: Full control over display format
+- Common patterns: MM:SS, HH:MM:SS, descriptive text
+- Supports any string output format
+
+Callback Patterns:
+
+- onExpire: Triggered once when countdown reaches 0
+- onUpdate: Triggered every second with current remaining time
+- Use onUpdate for progress tracking, UI updates
+- Use onExpire for completion actions, navigation
+
+Performance Considerations:
+
+- Minimal re-renders with controlled updates
+- Automatic timer cleanup prevents memory leaks
+- Static mode for non-interactive displays
+- Custom formatters should be memoized if complex
+
+Edge Cases:
+
+- Expiration in the past: Shows 0 and triggers onExpire immediately
+- Invalid dates: Graceful handling with fallback display
+- Component unmount: Automatic timer cleanup
+- Browser tab inactive: Continues running but may throttle
+
+Common Use Cases:
+
+- Session timeout warnings
+- Event countdown displays
+- Quiz or test timers
+- Sale/offer expiration timers
+- Authentication token countdowns
+
+Related Components:
+
+- CycleCountdown: Visual countdown with progress indication
+- Progress: For progress bar displays
+- Timer: Alternative timer implementations
+- Clock: For current time display
+
+AI_DOCUMENTATION_END
+*/}
 
 export const Default = () => {
   const time = new Date()

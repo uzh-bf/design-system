@@ -2,8 +2,72 @@ import { BadgeCheckIcon } from 'lucide-react'
 import { Badge } from './Badge'
 
 {/* START README */}
-The `Badge` component currently represents a simple re-export of the Shadcn UI Badge component. More information on the structure can be found on the [Shadcn UI Badge documentation](https://ui.shadcn.com/docs/components/badge).
+The `Badge` component displays small status indicators, labels, or notification counts with consistent styling and visual hierarchy. It provides a compact way to highlight important information or categorize content.
+
+Use this component when you need to:
+
+- Show status indicators (verified, premium, new, etc.)
+- Display notification counts or numbers
+- Label categories, tags, or classifications
+- Highlight important attributes or properties
+
+The badge supports multiple variants (default, secondary, destructive, outline) and can include icons or be styled as circular counters. It's designed to be visually distinct while remaining unobtrusive.
 {/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Shadcn UI re-export built with class-variance-authority for consistent variant styling
+Dependencies: class-variance-authority (for variant management), lucide-react (for icons)
+
+Available Stories:
+
+- Default: Multiple badge variants including text badges, icon badges, and circular counter badges
+
+Props (Badge component):
+
+- variant: "default" | "secondary" | "destructive" | "outline" - Visual style variant
+- className: string - Additional CSS classes for customization
+- children: ReactNode - Badge content (text, icons, numbers)
+
+Component Structure:
+
+- Badge: Root span element with variant-based styling (re-export from ui/badge)
+
+Usage Examples:
+
+```tsx
+// Basic status badges
+<Badge>New</Badge>
+<Badge variant="secondary">Beta</Badge>
+<Badge variant="destructive">Error</Badge>
+<Badge variant="outline">Draft</Badge>
+
+// Icon badge
+<Badge variant="secondary">
+  <BadgeCheckIcon className="w-3 h-3 mr-1" />
+  Verified
+</Badge>
+
+// Circular counter badge
+<Badge className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums">
+  99+
+</Badge>
+
+// Custom colored badge
+<Badge className="bg-blue-500 text-white">
+  Custom
+</Badge>
+```
+
+Related Components:
+
+- Avatar: Often combined with badges for status indicators
+- Button: Similar styling principles but different interaction patterns
+- NotificationBadgeWrapper: For positioning badges over other components
+
+AI_DOCUMENTATION_END
+*/}
 
 export const Default = () => {
   return (

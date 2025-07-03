@@ -2,8 +2,99 @@ import { RadioGroup, RadioGroupItem } from './RadioGroup'
 import { ShadcnLabel } from './ShadcnLabel'
 
 {/* START README */}
-The `RadioGroup` component currently represents a simple re-export of the Shadcn UI RadioGroup component. More information on the structure can be found on the [Shadcn UI RadioGroup documentation](https://ui.shadcn.com/docs/components/radio-group).
+The `RadioGroup` component provides mutually exclusive selection options where users can choose only one option from a set. It ensures proper form behavior and accessibility for single-choice scenarios.
+
+Use this component when you need to:
+
+- Present mutually exclusive options (settings, preferences, choices)
+- Create single-selection forms or configuration interfaces
+- Provide clear visual indication of current selection
+- Ensure only one option can be selected at a time
+
+The radio group manages selection state automatically and provides proper ARIA labeling and keyboard navigation. Each radio item should be paired with a descriptive label.
 {/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Shadcn UI re-export built on Radix UI's RadioGroup primitive with form integration and accessibility
+Dependencies: @radix-ui/react-radio-group
+
+Available Stories:
+
+- Default: Radio group with three options (default, comfortable, compact) and proper labeling
+
+Props (RadioGroup component):
+
+- value: string - Controlled selected value
+- defaultValue: string - Initial selected value
+- onValueChange: (value: string) => void - Selection change handler
+- name: string - Form field name
+- disabled: boolean - Disable entire group
+- required: boolean - Mark as required for forms
+- orientation: "horizontal" | "vertical" - Layout direction
+- className: string - Additional CSS classes
+
+Component Structure:
+
+- RadioGroup: Root container managing selection state (re-export from ui/radio-group)
+- RadioGroupItem: Individual radio button with value prop
+
+Usage Examples:
+
+```tsx
+// Basic radio group
+const [size, setSize] = useState("medium")
+<RadioGroup value={size} onValueChange={setSize}>
+  <div className="flex items-center space-x-2">
+    <RadioGroupItem value="small" id="small" />
+    <Label htmlFor="small">Small</Label>
+  </div>
+  <div className="flex items-center space-x-2">
+    <RadioGroupItem value="medium" id="medium" />
+    <Label htmlFor="medium">Medium</Label>
+  </div>
+  <div className="flex items-center space-x-2">
+    <RadioGroupItem value="large" id="large" />
+    <Label htmlFor="large">Large</Label>
+  </div>
+</RadioGroup>
+
+// Horizontal radio group
+<RadioGroup defaultValue="option1" className="flex space-x-4">
+  <div className="flex items-center space-x-2">
+    <RadioGroupItem value="option1" id="opt1" />
+    <Label htmlFor="opt1">Option 1</Label>
+  </div>
+  <div className="flex items-center space-x-2">
+    <RadioGroupItem value="option2" id="opt2" />
+    <Label htmlFor="opt2">Option 2</Label>
+  </div>
+</RadioGroup>
+
+// Form integration
+<form>
+  <RadioGroup name="theme" defaultValue="light">
+    <div className="flex items-center space-x-2">
+      <RadioGroupItem value="light" id="light" />
+      <Label htmlFor="light">Light theme</Label>
+    </div>
+    <div className="flex items-center space-x-2">
+      <RadioGroupItem value="dark" id="dark" />
+      <Label htmlFor="dark">Dark theme</Label>
+    </div>
+  </RadioGroup>
+</form>
+```
+
+Related Components:
+
+- Checkbox: For multiple selection scenarios
+- ToggleGroup: For toggle-style selection
+- Select: For dropdown-style single selection
+
+AI_DOCUMENTATION_END
+*/}
 
 export const Default = () => {
   return (

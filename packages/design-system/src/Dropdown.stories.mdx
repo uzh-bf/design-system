@@ -4,9 +4,19 @@ import { useState } from 'react'
 import Dropdown from './Dropdown'
 
 {/* START README */}
-The Dropdown component provides an abstracted component interface for a dropdown menu that is styled similar to other Shadcn components to fit into the design-system. It supports both simple items, radio groups, checkboxes, and submenus, while the trigger can be customized.
+The `Dropdown` component provides a sophisticated dropdown menu interface with support for complex item types, custom triggers, and advanced interaction patterns. Unlike the basic ShadcnDropdownMenu, this component offers radio groups, checkboxes, submenus, keyboard shortcuts, and extensive customization options for complex menu scenarios.
 
-<br />
+Use this component when you need to:
+
+- Create context menus with multiple interaction types (buttons, radio groups, checkboxes)
+- Build application menus with submenus and hierarchical navigation
+- Implement selection interfaces with radio group and checkbox functionality
+- Provide action menus with keyboard shortcuts and tooltips
+- Design custom dropdown interfaces with flexible trigger components
+
+The component supports multiple item types (standard, radio, checkbox, submenu, separator), custom trigger components, keyboard shortcuts, item tooltips, disabled states, radio group management, and comprehensive styling customization for all menu elements.
+
+**Note**: This is distinct from ShadcnDropdownMenu, offering advanced menu types and complex interaction patterns beyond basic dropdown functionality.
 
 The props for the Dropdown component are as follows:
 
@@ -18,8 +28,272 @@ The props for the Dropdown component are as follows:
 - @param className - The optional className object allows you to override the default styling.
 - @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
 - @param disabled - Indicate whether the dropdown is disabled or not. Conditional styling is applied, if this is true.
+  {/* END README */}
 
-{/* END README */}
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Advanced dropdown menu component with complex item types, radio groups, checkboxes, submenus, keyboard shortcuts, and extensive customization beyond basic Shadcn functionality
+
+Dependencies:
+
+- Shadcn UI dropdown primitives as foundation
+- React state management for radio groups and selections
+- Custom item type system for varied menu content
+- Event handling for complex interactions
+- Accessibility support for menu navigation
+
+Available Stories:
+
+- Default: Basic dropdown with clickable items
+- AlignedEnd: Menu alignment configuration
+- Submenu: Nested submenu functionality
+- Disabled: Disabled dropdown state
+- CustomTrigger: Custom trigger component with icons
+- RadioGroups: Radio group selection within dropdown
+- Selection: Checkbox selection and custom styling
+- DisabledItems: Individual item disabled states
+- Shortcuts: Keyboard shortcuts display
+- ItemTooltips: Item tooltips and icons
+
+Props (Dropdown component):
+
+- id?: string - HTML id attribute for the dropdown
+- trigger: string | React.ReactNode - Trigger button content or custom component
+- items?: DropdownItem[] - Menu items (mutually exclusive with radioGroups)
+- radioGroups?: RadioGroup[] - Radio group collections (mutually exclusive with items)
+- align?: 'start' | 'center' | 'end' - Menu alignment relative to trigger
+- disabled?: boolean - Whether the entire dropdown is disabled
+- className?: Record<string, string> - Styling overrides for different parts
+- data?: Record<string, string> - Data attributes for testing purposes
+
+DropdownItem Structure:
+
+- label: string | React.ReactNode - Item display content
+- onClick?: () => void - Click handler for the item
+- type?: 'default' | 'checkbox' | 'radio' | 'submenu' | 'separator' - Item type
+- selected?: boolean - Whether checkbox item is selected
+- disabled?: boolean - Whether individual item is disabled
+- shortcut?: string - Keyboard shortcut display text
+- tooltip?: string - Tooltip content for the item
+- items?: DropdownItem[] - Submenu items (for type='submenu')
+- className?: Record<string, string> - Individual item styling
+
+RadioGroup Structure:
+
+- value?: string - Currently selected value in the group
+- items: RadioItem[] - Items in the radio group
+
+Component Structure:
+
+- Trigger button or custom trigger component
+- Dropdown menu popup with positioning
+- Item rendering based on type (default, checkbox, radio, separator)
+- Submenu support with nested dropdown behavior
+- Keyboard navigation and shortcut display
+
+Usage Examples:
+
+```tsx
+// Basic action menu
+<Dropdown
+  trigger="Actions"
+  items={[
+    { label: "Edit", onClick: handleEdit },
+    { label: "Delete", onClick: handleDelete },
+    { type: 'separator' },
+    { label: "Settings", onClick: handleSettings }
+  ]}
+/>
+
+// Custom trigger with icon
+<Dropdown
+  trigger={
+    <div className="flex items-center gap-2">
+      <SettingsIcon />
+      <span>Options</span>
+    </div>
+  }
+  items={menuItems}
+/>
+
+// Checkbox selection menu
+<Dropdown
+  trigger="Select Items"
+  items={[
+    {
+      type: 'checkbox',
+      label: "Item 1",
+      selected: selections.item1,
+      onClick: () => toggleSelection('item1')
+    },
+    {
+      type: 'checkbox',
+      label: "Item 2",
+      selected: selections.item2,
+      onClick: () => toggleSelection('item2')
+    }
+  ]}
+/>
+
+// Radio group menu
+const [sortBy, setSortBy] = useState('name')
+
+<Dropdown
+  trigger="Sort By"
+  radioGroups={[
+    {
+      value: sortBy,
+      items: [
+        {
+          type: 'radio',
+          value: 'name',
+          label: "Name",
+          onClick: () => setSortBy('name')
+        },
+        {
+          type: 'radio',
+          value: 'date',
+          label: "Date",
+          onClick: () => setSortBy('date')
+        }
+      ]
+    }
+  ]}
+/>
+
+// Menu with submenus
+<Dropdown
+  trigger="File"
+  items={[
+    { label: "New", onClick: handleNew },
+    {
+      label: "Export",
+      type: 'submenu',
+      items: [
+        { label: "PDF", onClick: () => exportAs('pdf') },
+        { label: "CSV", onClick: () => exportAs('csv') },
+        { label: "JSON", onClick: () => exportAs('json') }
+      ]
+    },
+    { type: 'separator' },
+    { label: "Exit", onClick: handleExit }
+  ]}
+/>
+
+// Menu with shortcuts and tooltips
+<Dropdown
+  trigger="Edit"
+  items={[
+    {
+      label: "Cut",
+      onClick: handleCut,
+      shortcut: "⌘X",
+      tooltip: "Cut selected content"
+    },
+    {
+      label: "Copy",
+      onClick: handleCopy,
+      shortcut: "⌘C",
+      tooltip: "Copy selected content"
+    },
+    {
+      label: "Paste",
+      onClick: handlePaste,
+      shortcut: "⌘V",
+      disabled: !hasClipboardContent,
+      tooltip: "Paste from clipboard"
+    }
+  ]}
+/>
+
+// Complex menu with mixed types
+<Dropdown
+  trigger="View Options"
+  items={[
+    {
+      type: 'checkbox',
+      label: "Show Sidebar",
+      selected: viewState.sidebar,
+      onClick: toggleSidebar
+    },
+    {
+      type: 'checkbox',
+      label: "Show Toolbar",
+      selected: viewState.toolbar,
+      onClick: toggleToolbar
+    },
+    { type: 'separator' },
+    {
+      label: "Zoom",
+      type: 'submenu',
+      items: [
+        { label: "50%", onClick: () => setZoom(0.5) },
+        { label: "100%", onClick: () => setZoom(1.0) },
+        { label: "150%", onClick: () => setZoom(1.5) }
+      ]
+    }
+  ]}
+  align="end"
+/>
+```
+
+Item Type Features:
+
+- default: Standard clickable menu items
+- checkbox: Toggleable selection items with visual state
+- radio: Single-selection items within radio groups
+- submenu: Nested menu containers with hover activation
+- separator: Visual dividers between menu sections
+
+Advanced Features:
+
+- Keyboard shortcuts: Display shortcut text on the right
+- Tooltips: Additional context on hover
+- Disabled items: Individual item disable states
+- Custom styling: Per-item and global styling overrides
+- Alignment: Menu positioning relative to trigger
+
+Radio Group Management:
+
+- Multiple independent radio groups per menu
+- Current value tracking for each group
+- Automatic selection state management
+- Group separation with visual dividers
+
+Accessibility Features:
+
+- Full keyboard navigation support
+- ARIA attributes for screen readers
+- Focus management and trapping
+- Disabled state announcements
+- Proper menu role semantics
+
+Best Practices:
+
+- Use separators to group related items logically
+- Provide tooltips for complex or ambiguous actions
+- Keep submenu depth reasonable (1-2 levels max)
+- Use consistent shortcut notation
+- Consider disabled states for context-dependent actions
+
+Common Use Cases:
+
+- Application menu bars
+- Context menus for content
+- Selection and filtering interfaces
+- Action menus with complex options
+- Settings and preferences menus
+
+Related Components:
+
+- ShadcnDropdownMenu: Basic dropdown functionality
+- ContextMenu: Right-click context menus
+- Select: Form selection dropdowns
+- Menu: Alternative menu implementations
+
+AI_DOCUMENTATION_END
+*/}
 
 export const Default = () => {
 

@@ -7,8 +7,71 @@ import {
 import './tailwind.css'
 
 {/* START README */}
-The `Accordion` component currently represents a simple re-export of the Shadcn UI Accordion component. More information on the structure can be found on the [Shadcn UI Accordion documentation](https://ui.shadcn.com/docs/components/accordion).
+The `Accordion` component provides collapsible content sections with accessible keyboard navigation and smooth animations. It allows users to toggle between hiding and showing large amounts of content, making interfaces cleaner and more organized.
+
+Use this component when you need to:
+
+- Present FAQ sections or Q&A content
+- Organize lengthy content into digestible sections
+- Save vertical space while keeping information accessible
+- Create expandable product details or feature lists
+
+The accordion supports both single and multiple item expansion modes. Items consist of a trigger (AccordionTrigger) that users click to reveal the content (AccordionContent), with proper ARIA attributes for screen reader support.
 {/* END README */}
+
+{/* AI_DOCUMENTATION_START
+
+Technical Overview: Shadcn UI re-export built on Radix UI's Accordion primitive with UZH design system styling
+Dependencies: @radix-ui/react-accordion, lucide-react (for chevron icon)
+
+Available Stories:
+
+- Default: Single-item accordion demonstrating product information sections
+
+Props (from Radix UI):
+
+- type: "single" | "multiple" - Controls expansion behavior
+- collapsible: boolean - When type="single", allows closing all items
+- defaultValue: string | string[] - Initially expanded item(s)
+- value: string | string[] - Controlled expanded state
+- onValueChange: (value: string | string[]) => void - Expansion change handler
+- disabled: boolean - Disable all items
+- className: string - Root element styling
+- orientation: "horizontal" | "vertical" - Layout direction
+
+Component Structure:
+
+- Accordion: Root container (re-export from ui/accordion)
+- AccordionItem: Individual collapsible section with value prop
+- AccordionTrigger: Clickable header with chevron indicator
+- AccordionContent: Collapsible content area with animation
+
+Usage Examples:
+
+```tsx
+// Single expansion mode
+<Accordion type="single" collapsible>
+  <AccordionItem value="item-1">
+    <AccordionTrigger>Section Title</AccordionTrigger>
+    <AccordionContent>Content goes here</AccordionContent>
+  </AccordionItem>
+</Accordion>
+
+// Multiple expansion mode
+<Accordion type="multiple" defaultValue={["item-1", "item-2"]}>
+  <AccordionItem value="item-1">...</AccordionItem>
+  <AccordionItem value="item-2">...</AccordionItem>
+</Accordion>
+```
+
+Related Components:
+
+- Collapsible: Custom implementation for single collapsible sections
+- ShadcnCollapsible: Direct Shadcn/Radix re-export for simpler use cases
+- Sheet: For larger collapsible panels and sidebars
+- Tabs: For switching between content sections without animation
+
+AI_DOCUMENTATION_END */}
 
 export const Default = () => {
   return (

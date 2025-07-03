@@ -15,8 +15,231 @@ import {
 import { Button } from './ui/button'
 
 {/* START README */}
-The `Dropdown` component currently represents a simple re-export of the Shadcn UI Dropdown component. More information on the structure can be found on the [Shadcn UI Dropdown documentation](https://ui.shadcn.com/docs/components/dropdown-menu).
+The `ShadcnDropdownMenu` component provides comprehensive dropdown menus with nested submenus, keyboard shortcuts, and organized content sections. It creates feature-rich context menus and action panels triggered by buttons or other elements.
+
+Use this component when you need to:
+
+- Create user account menus with profile actions and settings
+- Build context menus with multiple action groups
+- Implement nested menu structures with submenus
+- Provide organized action lists with keyboard shortcuts
+
+The dropdown menu supports nested submenus, separator groupings, disabled states, keyboard navigation, and customizable positioning. It automatically handles focus management and provides proper accessibility support.
+
+**Note**: This is prefixed as "ShadcnDropdownMenu" to distinguish it from the custom Dropdown component in the design system.
 {/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Shadcn UI re-export built on Radix UI's DropdownMenu primitive with nested navigation and rich content support
+Dependencies: @radix-ui/react-dropdown-menu
+
+Available Stories:
+
+- Default: Comprehensive dropdown menu with account sections, nested submenus, keyboard shortcuts, and grouped actions
+
+Props (ShadcnDropdownMenu component):
+
+- open: boolean - Controlled open state
+- defaultOpen: boolean - Initial open state
+- onOpenChange: (open: boolean) => void - Open state change handler
+- modal: boolean - Whether dropdown is modal (default: true)
+- dir: "ltr" | "rtl" - Text direction
+
+Props (ShadcnDropdownMenuContent component):
+
+- side: "top" | "right" | "bottom" | "left" - Preferred side for positioning
+- sideOffset: number - Distance from trigger element
+- align: "start" | "center" | "end" - Alignment relative to trigger
+- alignOffset: number - Alignment offset in pixels
+- avoidCollisions: boolean - Whether to avoid viewport collisions
+- collisionBoundary: Element | Element[] - Collision boundary elements
+- collisionPadding: number | Partial<Record<Side, number>> - Padding for collision detection
+- sticky: "partial" | "always" - Sticky positioning behavior
+- hideWhenDetached: boolean - Hide when trigger is hidden
+- className: string - Additional CSS classes
+
+Component Structure:
+
+- ShadcnDropdownMenu: Root container managing dropdown state (re-export from ui/dropdown-menu)
+- ShadcnDropdownMenuTrigger: Element that triggers the dropdown
+- ShadcnDropdownMenuContent: Main dropdown content container
+- ShadcnDropdownMenuItem: Individual clickable menu item
+- ShadcnDropdownMenuLabel: Section label for grouping items
+- ShadcnDropdownMenuSeparator: Visual separator between sections
+- ShadcnDropdownMenuGroup: Logical grouping of related items
+- ShadcnDropdownMenuSub: Nested submenu container
+- ShadcnDropdownMenuSubTrigger: Trigger for opening submenu
+- ShadcnDropdownMenuSubContent: Submenu content container
+- ShadcnDropdownMenuShortcut: Keyboard shortcut display
+- ShadcnDropdownMenuPortal: Portal for rendering submenus
+
+Usage Examples:
+
+```tsx
+// User account menu
+<ShadcnDropdownMenu>
+  <ShadcnDropdownMenuTrigger asChild>
+    <Button variant="outline">
+      <User className="h-4 w-4 mr-2" />
+      Account
+    </Button>
+  </ShadcnDropdownMenuTrigger>
+  <ShadcnDropdownMenuContent className="w-56">
+    <ShadcnDropdownMenuLabel>My Account</ShadcnDropdownMenuLabel>
+    <ShadcnDropdownMenuSeparator />
+    <ShadcnDropdownMenuItem>
+      <UserCircle className="h-4 w-4 mr-2" />
+      Profile
+      <ShadcnDropdownMenuShortcut>⇧⌘P</ShadcnDropdownMenuShortcut>
+    </ShadcnDropdownMenuItem>
+    <ShadcnDropdownMenuItem>
+      <CreditCard className="h-4 w-4 mr-2" />
+      Billing
+      <ShadcnDropdownMenuShortcut>⌘B</ShadcnDropdownMenuShortcut>
+    </ShadcnDropdownMenuItem>
+    <ShadcnDropdownMenuItem>
+      <Settings className="h-4 w-4 mr-2" />
+      Settings
+      <ShadcnDropdownMenuShortcut>⌘S</ShadcnDropdownMenuShortcut>
+    </ShadcnDropdownMenuItem>
+    <ShadcnDropdownMenuSeparator />
+    <ShadcnDropdownMenuItem>
+      <LogOut className="h-4 w-4 mr-2" />
+      Log out
+      <ShadcnDropdownMenuShortcut>⇧⌘Q</ShadcnDropdownMenuShortcut>
+    </ShadcnDropdownMenuItem>
+  </ShadcnDropdownMenuContent>
+</ShadcnDropdownMenu>
+
+// Context menu with nested options
+<ShadcnDropdownMenu>
+  <ShadcnDropdownMenuTrigger asChild>
+    <Button variant="ghost" size="sm">
+      <MoreHorizontal className="h-4 w-4" />
+    </Button>
+  </ShadcnDropdownMenuTrigger>
+  <ShadcnDropdownMenuContent>
+    <ShadcnDropdownMenuItem>
+      <Edit className="h-4 w-4 mr-2" />
+      Edit
+    </ShadcnDropdownMenuItem>
+    <ShadcnDropdownMenuItem>
+      <Copy className="h-4 w-4 mr-2" />
+      Duplicate
+    </ShadcnDropdownMenuItem>
+    <ShadcnDropdownMenuSeparator />
+    <ShadcnDropdownMenuSub>
+      <ShadcnDropdownMenuSubTrigger>
+        <Share className="h-4 w-4 mr-2" />
+        Share
+      </ShadcnDropdownMenuSubTrigger>
+      <ShadcnDropdownMenuPortal>
+        <ShadcnDropdownMenuSubContent>
+          <ShadcnDropdownMenuItem>
+            <Mail className="h-4 w-4 mr-2" />
+            Email
+          </ShadcnDropdownMenuItem>
+          <ShadcnDropdownMenuItem>
+            <MessageSquare className="h-4 w-4 mr-2" />
+            Message
+          </ShadcnDropdownMenuItem>
+          <ShadcnDropdownMenuSeparator />
+          <ShadcnDropdownMenuItem>
+            <Link className="h-4 w-4 mr-2" />
+            Copy Link
+          </ShadcnDropdownMenuItem>
+        </ShadcnDropdownMenuSubContent>
+      </ShadcnDropdownMenuPortal>
+    </ShadcnDropdownMenuSub>
+    <ShadcnDropdownMenuSeparator />
+    <ShadcnDropdownMenuItem className="text-red-600">
+      <Trash className="h-4 w-4 mr-2" />
+      Delete
+    </ShadcnDropdownMenuItem>
+  </ShadcnDropdownMenuContent>
+</ShadcnDropdownMenu>
+
+// Simple action menu
+<ShadcnDropdownMenu>
+  <ShadcnDropdownMenuTrigger asChild>
+    <Button>Actions</Button>
+  </ShadcnDropdownMenuTrigger>
+  <ShadcnDropdownMenuContent>
+    <ShadcnDropdownMenuGroup>
+      <ShadcnDropdownMenuItem>
+        <Download className="h-4 w-4 mr-2" />
+        Download
+      </ShadcnDropdownMenuItem>
+      <ShadcnDropdownMenuItem>
+        <Upload className="h-4 w-4 mr-2" />
+        Upload
+      </ShadcnDropdownMenuItem>
+    </ShadcnDropdownMenuGroup>
+    <ShadcnDropdownMenuSeparator />
+    <ShadcnDropdownMenuGroup>
+      <ShadcnDropdownMenuItem>
+        <Archive className="h-4 w-4 mr-2" />
+        Archive
+      </ShadcnDropdownMenuItem>
+      <ShadcnDropdownMenuItem disabled>
+        <Trash className="h-4 w-4 mr-2" />
+        Delete
+      </ShadcnDropdownMenuItem>
+    </ShadcnDropdownMenuGroup>
+  </ShadcnDropdownMenuContent>
+</ShadcnDropdownMenu>
+
+// Team management menu
+<ShadcnDropdownMenu>
+  <ShadcnDropdownMenuTrigger asChild>
+    <Button variant="outline">Team</Button>
+  </ShadcnDropdownMenuTrigger>
+  <ShadcnDropdownMenuContent className="w-56">
+    <ShadcnDropdownMenuLabel>Team Management</ShadcnDropdownMenuLabel>
+    <ShadcnDropdownMenuSeparator />
+    <ShadcnDropdownMenuGroup>
+      <ShadcnDropdownMenuItem>
+        <Users className="h-4 w-4 mr-2" />
+        View Members
+      </ShadcnDropdownMenuItem>
+      <ShadcnDropdownMenuSub>
+        <ShadcnDropdownMenuSubTrigger>
+          <UserPlus className="h-4 w-4 mr-2" />
+          Invite Members
+        </ShadcnDropdownMenuSubTrigger>
+        <ShadcnDropdownMenuPortal>
+          <ShadcnDropdownMenuSubContent>
+            <ShadcnDropdownMenuItem>
+              <Mail className="h-4 w-4 mr-2" />
+              By Email
+            </ShadcnDropdownMenuItem>
+            <ShadcnDropdownMenuItem>
+              <Link className="h-4 w-4 mr-2" />
+              Share Link
+            </ShadcnDropdownMenuItem>
+            <ShadcnDropdownMenuItem>
+              <UserCheck className="h-4 w-4 mr-2" />
+              Bulk Import
+            </ShadcnDropdownMenuItem>
+          </ShadcnDropdownMenuSubContent>
+        </ShadcnDropdownMenuPortal>
+      </ShadcnDropdownMenuSub>
+    </ShadcnDropdownMenuGroup>
+  </ShadcnDropdownMenuContent>
+</ShadcnDropdownMenu>
+```
+
+Related Components:
+
+- ContextMenu: For right-click triggered menus
+- Popover: For simpler floating content
+- NavigationMenu: For primary navigation structures
+- Select: For single selection dropdowns
+
+AI_DOCUMENTATION_END
+*/}
 
 export const Default = () => {
   return (
