@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.0-alpha.6](https://github.com/uzh-bf/design-system/compare/v4.0.0-alpha.5...v4.0.0-alpha.6) (2025-07-04)
+
+
+### Bug Fixes
+
+* ensure that preflight is correctly loaded for components in ladle ([134357d](https://github.com/uzh-bf/design-system/commit/134357db716b1a66dd7ab89918182ae2cc7f0c67))
+
+
+### Dependencies
+
+* minor updates to dependencies ([0369edb](https://github.com/uzh-bf/design-system/commit/0369edbf2921a7e21d1eccd078e84e0777b932c7))
+
+
+### Refactors
+
+* fully replace tailwind configuration with new CSS-based approach ([#170](https://github.com/uzh-bf/design-system/issues/170)) ([e04e2cb](https://github.com/uzh-bf/design-system/commit/e04e2cbfc32f71cb659ce805147643ec01163962))
+
+
+### Other
+
+* add AI generated readme and docstring content to all stories ([#169](https://github.com/uzh-bf/design-system/issues/169)) ([87410e6](https://github.com/uzh-bf/design-system/commit/87410e6a70f0499d6a35990740a9dd1ad94312bd))
+* add context7 mcp meta information file ([1b85622](https://github.com/uzh-bf/design-system/commit/1b85622086f0b47f2803646e96ec1aea27796574))
+* update styles to tailwind v4 standard styles and fix layout issues with new shadcn components ([362d9e4](https://github.com/uzh-bf/design-system/commit/362d9e44a021a2d80c310c490e188b802d123a83))
+
 ## [4.0.0-alpha.5](https://github.com/uzh-bf/design-system/compare/v4.0.0-alpha.4...v4.0.0-alpha.5) (2025-07-03)
 
 
