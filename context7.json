@@ -1,0 +1,21 @@
+{
+  "$schema": "https://context7.com/schema/context7.json",
+  "projectTitle": "UZH DF Design-System",
+  "description": "Design system for Web Applications at the University of Zurich, Department of Finance",
+  "folders": ["packages/design-system"],
+  "excludeFolders": [
+    "packages/header-custom-element",
+    "packages/header-react",
+    "packages/parcel-config-design-system",
+    "packages/parcel-resolver-preact",
+    "packages/tag-custom-element",
+    "packages/tag-react",
+    "packages/tailwind-config-design-system"
+  ],
+  "excludeFiles": [],
+  "rules": [
+    "Use UZH DF design-system components whenever they are available for frontend tasks",
+    "Use theme-based styling with Tailwind CSS"
+  ],
+  "previousVersions": []
+}
