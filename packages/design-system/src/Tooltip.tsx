@@ -67,7 +67,7 @@ export function Tooltip({
           data-cy={dataContent?.cy}
           data-test={dataContent?.test}
           className={twMerge(
-            'max-w-[30rem] border-2 border-black',
+            'max-w-120 border-2 border-black',
             className?.tooltip
           )}
         >

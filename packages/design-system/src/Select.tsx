@@ -154,9 +154,9 @@ export function Select({
           data-cy={data?.cy}
           data-test={data?.test}
           className={twMerge(
-            'w-[15rem] text-base [&>span]:text-start',
+            'w-60 text-base [&>span]:text-start',
             disabled && 'bg-uzh-grey-20 opacity-70',
-            basic && '[all:_unset]',
+            basic && '[all:unset]',
             className?.trigger
           )}
           hideIcon={basic}
@@ -203,7 +203,10 @@ export function Select({
                   {group.showSeparator && <SelectSeparator />}
                   {group.label && (
                     <SelectLabel
-                      className={twMerge('text-base', className?.groupLabel)}
+                      className={twMerge(
+                        'text-sm font-bold text-black',
+                        className?.groupLabel
+                      )}
                     >
                       {group.label}
                     </SelectLabel>

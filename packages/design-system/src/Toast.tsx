@@ -79,5 +79,13 @@ export function toast({
     })
   }
 
-  return toastOriginal(message, options)
+  return toastOriginal(message, {
+    ...options,
+    classNames: {
+      closeButton: twMerge(
+        'bg-white! text-black! border-gray-300!',
+        options?.classNames?.closeButton
+      ),
+    },
+  })
 }

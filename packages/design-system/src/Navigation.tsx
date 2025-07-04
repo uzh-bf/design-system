@@ -16,9 +16,9 @@ import {
   Menubar as ShadcnMenubar,
 } from './ui/menubar'
 
-// ! Syles
+// ! Styles
 const dynamicUnderline = twMerge(
-  'relative  after:absolute after:bottom-[0.3rem] after:left-[7.5px] after:h-[2px] after:w-[calc(100%-15px)] ',
+  'relative after:absolute after:bottom-[0.15rem] after:left-[7.5px] after:h-[2px] after:w-[calc(100%-15px)] px-3',
   'after:origin-left after:scale-x-0 after:bg-slate-700 after:transition-transform after:duration-500',
   'after:ease-out hover:after:scale-x-100'
 )

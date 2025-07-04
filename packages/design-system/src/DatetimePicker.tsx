@@ -593,6 +593,7 @@ type DateTimePickerProps = {
   isTouched?: boolean
   label?: string
   labelType?: 'small' | 'large'
+  align?: 'start' | 'center' | 'end'
   required?: boolean
   tooltip?: string | React.ReactNode
 } & Pick<
@@ -630,6 +631,7 @@ type DateTimePickerRef = {
  * @param isTouched - Whether the picker has been interacted with.
  * @param label - The label for the picker.
  * @param labelType - The type of label to display ('small' or 'large').
+ * @param align - The alignment of the label ('start', 'center', or 'end').
  * @param required - Whether the label should indicate a required field.
  * @param tooltip - Tooltip content shown with the label.
  * @param locale - The locale for date formatting and calendar display.
@@ -660,6 +662,7 @@ const DateTimePicker = React.forwardRef<
       className,
       label,
       labelType = 'small',
+      align = 'start',
       required = false,
       tooltip,
       ...props
@@ -784,7 +787,7 @@ const DateTimePicker = React.forwardRef<
                 tooltip={error}
                 delay={0}
                 className={{
-                  tooltip: twMerge('max-w-[30rem] text-sm', className?.error),
+                  tooltip: twMerge('max-w-120 text-sm', className?.error),
                 }}
               >
                 <FontAwesomeIcon
@@ -795,7 +798,7 @@ const DateTimePicker = React.forwardRef<
             )}
           </div>
         </div>
-        <PopoverContent className="w-auto p-0" align="start">
+        <PopoverContent className="w-auto p-0" align={align}>
           <Calendar
             mode="single"
             disabled={disabled}

@@ -181,11 +181,11 @@ export function ColorPicker({
           {colorPickerOpen && (
             <div
               className={twMerge(
-                'outline-uzh-grey-40 absolute flex h-[10rem] w-[23rem] flex-row rounded-md bg-white p-1 shadow-md outline outline-2',
+                'outline-uzh-grey-40 absolute flex h-40 w-92 flex-row rounded-md bg-white p-1 shadow-md outline outline-2',
                 position === 'bottom' && 'top-8 left-10',
                 position === 'top' && 'bottom-8 left-10',
-                position === 'bottom-left' && 'top-8 -left-[18rem]',
-                position === 'top-left' && 'bottom-8 -left-[18rem]',
+                position === 'bottom-left' && 'top-8 -left-72',
+                position === 'top-left' && 'bottom-8 -left-72',
                 className?.popover
               )}
               ref={overlayRef}
@@ -268,7 +268,7 @@ export function ColorPicker({
           <Tooltip
             tooltip={error}
             delay={0}
-            className={{ tooltip: 'max-w-[30rem] text-sm' }}
+            className={{ tooltip: 'max-w-120 text-sm' }}
           >
             <FontAwesomeIcon
               icon={faCircleExclamation}

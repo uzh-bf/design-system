@@ -87,13 +87,13 @@ export function Switch({
   }
   const transitionSize = {
     sm: 'translate-x-[1.1rem]',
-    md: 'translate-x-[1.25rem]',
-    lg: 'translate-x-[2rem]',
+    md: 'translate-x-5',
+    lg: 'translate-x-8',
   }
   const transitionSizeUndefined = {
     sm: 'translate-x-[0.55rem]',
-    md: 'translate-x-[0.625rem]',
-    lg: 'translate-x-[1rem]',
+    md: 'translate-x-2.5',
+    lg: 'translate-x-4',
   }
 
   return (
@@ -162,7 +162,7 @@ export function Switch({
         <Tooltip
           tooltip={error}
           delay={0}
-          className={{ tooltip: 'max-w-[30rem] text-sm' }}
+          className={{ tooltip: 'max-w-120 text-sm' }}
         >
           <FontAwesomeIcon
             icon={faCircleExclamation}

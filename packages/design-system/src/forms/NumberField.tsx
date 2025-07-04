@@ -172,7 +172,7 @@ export function NumberField({
           <Tooltip
             tooltip={error}
             delay={0}
-            className={{ tooltip: 'max-w-[30rem] text-sm' }}
+            className={{ tooltip: 'max-w-120 text-sm' }}
           >
             <FontAwesomeIcon
               icon={faCircleExclamation}

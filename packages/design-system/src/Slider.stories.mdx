@@ -228,7 +228,7 @@ const temperatureBorders = {
 const percentageColors = Object.fromEntries(
   Array.from({length: 11}, (_, i) => [
     (i * 10).toString(),
-    `bg-gradient-to-r from-red-${Math.max(900-i*100, 100)} to-green-${Math.min(i*100+100, 900)}`
+    `bg-linear-to-r from-red-${Math.max(900-i*100, 100)} to-green-${Math.min(i*100+100, 900)}`
   ])
 )
 

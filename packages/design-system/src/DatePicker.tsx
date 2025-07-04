@@ -25,6 +25,7 @@ export interface DatePickerProps {
   onDateChange: Dispatch<SetStateAction<Date | undefined>>
   label?: string
   labelType?: 'small' | 'large'
+  align?: 'start' | 'center' | 'end'
   placeholder?: string
   required?: boolean
   tooltip?: string | React.ReactNode
@@ -59,6 +60,7 @@ export interface DatePickerProps {
  * @param onDateChange - The function to be called when the date is changed (state management)
  * @param label - The label of the date changer
  * @param labelType - The type of the label (small or large)
+ * @param align - The alignment of the label (start, center or end)
  * @param placeholder - The placeholder of the date changer (is only shown if no date is selected)
  * @param tooltip - The tooltip of the date changer (is only shown if a label is given)
  * @param required - Whether the date label should contain a required symbol
@@ -80,6 +82,7 @@ export function DatePicker({
   onDateChange,
   label = '',
   labelType = 'small',
+  align = 'start',
   placeholder,
   tooltip,
   required = false,
@@ -146,7 +149,7 @@ export function DatePicker({
               tooltip={error}
               delay={0}
               className={{
-                tooltip: twMerge('max-w-[30rem] text-sm', className?.tooltip),
+                tooltip: twMerge('max-w-120 text-sm', className?.tooltip),
               }}
             >
               <FontAwesomeIcon
@@ -157,7 +160,7 @@ export function DatePicker({
           )}
         </div>
       </div>
-      <PopoverContent className="w-auto p-0" align="start">
+      <PopoverContent className="w-auto p-0" align={align}>
         <Calendar
           id={id}
           mode="single"

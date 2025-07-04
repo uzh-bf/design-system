@@ -222,10 +222,10 @@ export function WorkflowItem({
         "after:border-l-uzh-grey-40 before:border-l-white after:absolute after:content-['']",
         twStyles.bgHover,
         hasDescription
-          ? 'h-[50px] pl-[25px] before:border-y-[25px] before:border-l-[25px] after:right-[-25px] after:border-y-[25px] after:border-l-[25px] first:pl-0 last:pl-0'
+          ? 'h-[50px] pl-[25px] before:border-y-25 before:border-l-25 after:right-[-25px] after:border-y-25 after:border-l-25 first:pl-0 last:pl-0'
           : minimal
-            ? 'h-[26px] pl-[13px] before:border-y-[13px] before:border-l-[13px] after:right-[-13px] after:border-y-[13px] after:border-l-[13px] first:pl-0 last:pl-0'
-            : 'h-[34px] pl-[17px] before:border-y-[17px] before:border-l-[17px] after:right-[-17px] after:border-y-[17px] after:border-l-[17px] first:pl-0 last:pl-0',
+            ? 'h-[26px] pl-[13px] before:border-y-13 before:border-l-13 after:right-[-13px] after:border-y-13 after:border-l-13 first:pl-0 last:pl-0'
+            : 'h-[34px] pl-[17px] before:border-y-17 before:border-l-17 after:right-[-17px] after:border-y-17 after:border-l-17 first:pl-0 last:pl-0',
         ix < (activeIx || -1) &&
           twMerge(twStyles.bgPast, 'text-gray-500', className?.past),
         ix === activeIx &&
@@ -268,7 +268,7 @@ export function WorkflowItem({
           tooltip={tooltip}
           delay={1500}
           className={{
-            tooltip: 'z-20 max-w-[30rem]',
+            tooltip: 'z-20 max-w-120',
             trigger: 'w-full!',
           }}
         >

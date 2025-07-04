@@ -184,7 +184,7 @@ export function Modal({
           'max-h-[calc(100%-2rem)] overflow-y-auto',
           fullScreen
             ? 'h-full max-h-[calc(100%-2rem)] w-full max-w-[calc(100%-2rem)]'
-            : 'h-max w-[27rem] max-w-7xl md:w-[40rem] lg:w-[55rem] xl:w-[70rem]',
+            : 'h-max w-108 max-w-7xl md:w-160 lg:w-220 xl:w-280',
           className?.content
         )}
       >

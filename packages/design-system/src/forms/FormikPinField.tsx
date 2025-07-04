@@ -112,7 +112,7 @@ export function FormikPinField({
           <Tooltip
             tooltip={!!meta.error && meta.touched ? meta.error : undefined}
             delay={0}
-            className={{ tooltip: 'max-w-[30rem] text-sm' }}
+            className={{ tooltip: 'max-w-120 text-sm' }}
           >
             <FontAwesomeIcon
               icon={faCircleExclamation}

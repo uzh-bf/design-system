@@ -80,7 +80,7 @@ export function Button({
       onClick={onClick}
       className={twMerge(
         // slightly increased margins are required for variants without border to ensure same size
-        primary || destructive ? 'px-[0.8125rem] py-[0.4375rem]' : '',
+        primary || destructive ? 'px-3.25 py-1.75' : '',
         fluid ? 'w-full justify-center' : '',
         className?.root,
         active && 'border-primary-100 bg-primary-20 hover:bg-primary-20',
