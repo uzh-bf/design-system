@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.0-alpha.7](https://github.com/uzh-bf/design-system/compare/v4.0.0-alpha.6...v4.0.0-alpha.7) (2025-07-04)
+
+
+### Bug Fixes
+
+* ensure that svgs on triggers are not styled through parent components ([c443b95](https://github.com/uzh-bf/design-system/commit/c443b9540a638f89e1b2decf7a839061491735ec))
+
 ## [4.0.0-alpha.6](https://github.com/uzh-bf/design-system/compare/v4.0.0-alpha.5...v4.0.0-alpha.6) (2025-07-04)
 
 
