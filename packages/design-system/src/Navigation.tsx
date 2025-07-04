@@ -415,7 +415,10 @@ export function Navigation({
 }: NavigationProps) {
   return (
     <ShadcnMenubar
-      className={twMerge('border-none bg-transparent', className?.root)}
+      className={twMerge(
+        'border-none bg-transparent shadow-none',
+        className?.root
+      )}
       style={style?.root}
       {...props}
     >

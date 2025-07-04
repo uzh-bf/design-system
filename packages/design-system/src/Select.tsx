@@ -154,7 +154,7 @@ export function Select({
           data-cy={data?.cy}
           data-test={data?.test}
           className={twMerge(
-            'w-60 text-base [&>span]:text-start',
+            'h-9 w-60 text-base [&>span]:text-start',
             disabled && 'bg-uzh-grey-20 opacity-70',
             basic && '[all:unset]',
             className?.trigger
