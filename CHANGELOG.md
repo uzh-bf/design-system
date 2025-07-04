@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.0-alpha.8](https://github.com/uzh-bf/design-system/compare/v4.0.0-alpha.7...v4.0.0-alpha.8) (2025-07-04)
+
+
+### Bug Fixes
+
+* remove default padding of icons on buttons and other components ([694c148](https://github.com/uzh-bf/design-system/commit/694c148f7aed25090da54ac25fa3253bf1a0e058))
+
 ## [4.0.0-alpha.7](https://github.com/uzh-bf/design-system/compare/v4.0.0-alpha.6...v4.0.0-alpha.7) (2025-07-04)
 
 
