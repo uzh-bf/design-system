@@ -35,10 +35,7 @@ export default defineConfig({
     : {
         build: {
           lib: {
-            entry: [
-              path.resolve(__dirname, 'src/index.ts'),
-              path.resolve(__dirname, 'src/constants.ts'),
-            ],
+            entry: [path.resolve(__dirname, 'src/index.ts')],
             formats: ['es'],
           },
           rollupOptions: {
