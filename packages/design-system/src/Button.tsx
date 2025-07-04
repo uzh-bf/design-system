@@ -208,7 +208,7 @@ Button.IconGroup = function ButtonIconGroup({
             key={index}
             className={{
               root: twMerge(
-                'rounded-none border-0 px-2 first:rounded-l-sm last:rounded-r-sm',
+                'rounded-none border-0 px-2 first:rounded-l-md last:rounded-r-md',
                 state === index
                   ? 'bg-primary-100 text-primary-foreground hover:bg-primary-80 hover:text-primary-foreground'
                   : 'hover:bg-primary-20 bg-white',
