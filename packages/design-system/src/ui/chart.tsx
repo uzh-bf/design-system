@@ -188,7 +188,7 @@ function ChartTooltipContent({
             <div
               key={item.dataKey}
               className={cn(
-                '[&>svg]:text-muted-foreground flex w-full flex-wrap items-stretch gap-2 [&>svg]:h-2.5 [&>svg]:w-2.5',
+                'flex w-full flex-wrap items-stretch gap-2',
                 indicator === 'dot' && 'items-center'
               )}
             >
@@ -280,12 +280,7 @@ function ChartLegendContent({
         const itemConfig = getPayloadConfigFromPayload(config, item, key)
 
         return (
-          <div
-            key={item.value}
-            className={cn(
-              '[&>svg]:text-muted-foreground flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3'
-            )}
-          >
+          <div key={item.value} className={cn('flex items-center gap-1.5')}>
             {itemConfig?.icon && !hideIcon ? (
               <itemConfig.icon />
             ) : (
