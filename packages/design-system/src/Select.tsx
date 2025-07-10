@@ -63,7 +63,7 @@ export interface SelectItem {
 
 export interface SelectGroup {
   label?: string | React.ReactNode
-  showSeparator?: boolean
+  hideSeparator?: boolean
   items: SelectItem[]
 }
 
@@ -198,44 +198,48 @@ export function Select({
                   )}
                 </SelectItem>
               ))
-            : groups.map((group, ix) => (
-                <SelectGroup key={`group-${group.label}-${ix}`}>
-                  {group.showSeparator && <SelectSeparator />}
-                  {group.label && (
-                    <SelectLabel
-                      className={twMerge(
-                        'text-sm font-bold text-black',
-                        className?.groupLabel
-                      )}
-                    >
-                      {group.label}
-                    </SelectLabel>
-                  )}
-                  {group.items.map((item, item_ix) => (
-                    <SelectItem
-                      id={id}
-                      key={`${item.value}-${item_ix}`}
-                      value={item.value}
-                      disabled={item.disabled}
-                      data-cy={item.data?.cy}
-                      data-test={item.data?.test}
-                      className={twMerge(
-                        'text-base',
-                        item.disabled && 'cursor-not-allowed!',
-                        className?.item
-                      )}
-                    >
-                      {item.tooltip ? (
-                        <Tooltip tooltip={item.tooltip}>
-                          {<ItemContent item={item} />}
-                        </Tooltip>
-                      ) : (
-                        <ItemContent item={item} />
-                      )}
-                    </SelectItem>
-                  ))}
-                </SelectGroup>
-              ))}
+            : groups
+                .filter((group) => group.items.length > 0)
+                .map((group, ix) => (
+                  <SelectGroup key={`group-${group.label}-${ix}`}>
+                    {!group.hideSeparator && ix !== 0 ? (
+                      <SelectSeparator />
+                    ) : null}
+                    {group.label && (
+                      <SelectLabel
+                        className={twMerge(
+                          'text-sm font-bold text-black',
+                          className?.groupLabel
+                        )}
+                      >
+                        {group.label}
+                      </SelectLabel>
+                    )}
+                    {group.items.map((item, item_ix) => (
+                      <SelectItem
+                        id={id}
+                        key={`${item.value}-${item_ix}`}
+                        value={item.value}
+                        disabled={item.disabled}
+                        data-cy={item.data?.cy}
+                        data-test={item.data?.test}
+                        className={twMerge(
+                          'text-base',
+                          item.disabled && 'cursor-not-allowed!',
+                          className?.item
+                        )}
+                      >
+                        {item.tooltip ? (
+                          <Tooltip tooltip={item.tooltip}>
+                            {<ItemContent item={item} />}
+                          </Tooltip>
+                        ) : (
+                          <ItemContent item={item} />
+                        )}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                ))}
         </SelectContent>
       </ShadcnSelect>
     </div>

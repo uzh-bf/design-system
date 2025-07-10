@@ -105,7 +105,6 @@ export interface ModalProps {
  */
 export function Modal({
   id,
-
   trigger,
   title,
   children,

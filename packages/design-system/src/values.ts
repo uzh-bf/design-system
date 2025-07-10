@@ -42,22 +42,22 @@ export const programmingValuesDisabled = [
 
 export const groupValues = [
   { items: fruitsValues },
-  { items: vegetablesValues, showSeparator: true },
-  { items: transportValues, showSeparator: true, label: 'Transport' },
+  { items: vegetablesValues },
+  { items: transportValues, label: 'Transport' },
   {
     items: programmingValues,
-    showSeparator: true,
+
     label: 'Programming Languages',
   },
 ]
 
 export const groupValuesDisabled = [
   { items: fruitsValues },
-  { items: vegetablesValues, showSeparator: true },
-  { items: transportValues, showSeparator: true, label: 'Transport' },
+  { items: vegetablesValues },
+  { items: transportValues, label: 'Transport' },
   {
     items: programmingValuesDisabled,
-    showSeparator: true,
+
     label: 'Programming Languages',
   },
 ]
