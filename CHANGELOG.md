@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.0-alpha.9](https://github.com/uzh-bf/design-system/compare/v4.0.0-alpha.8...v4.0.0-alpha.9) (2025-07-10)
+
+
+### Bug Fixes
+
+* **Select:** make sure that separators between select groups are automatically inserted correctly ([ec1a960](https://github.com/uzh-bf/design-system/commit/ec1a9603bbe82f1a79fdabcd698d15ca97397cf5))
+
 ## [4.0.0-alpha.8](https://github.com/uzh-bf/design-system/compare/v4.0.0-alpha.7...v4.0.0-alpha.8) (2025-07-04)
 
 
