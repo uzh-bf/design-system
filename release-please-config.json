@@ -28,18 +28,7 @@
   "packages": {
     ".": {
       "release-type": "node",
-      "component": "monorepo",
-      "extra-files": [
-        "package.json",
-        "packages/design-system/package.json",
-        "packages/header-custom-element/package.json",
-        "packages/header-react/package.json",
-        "packages/parcel-config-design-system/package.json",
-        "packages/parcel-resolver-preact/package.json",
-        "packages/tag-custom-element/package.json",
-        "packages/tag-react/package.json",
-        "packages/tailwind-config-design-system/package.json"
-      ]
+      "component": "monorepo"
     },
     "packages/design-system": {
       "release-type": "node",
