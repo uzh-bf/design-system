@@ -5,6 +5,8 @@
   "release-search-depth": 400,
   "commit-search-depth": 500,
   "sequential-calls": false,
+  "include-component-in-tag": false,
+  "pull-request-title-pattern": "chore(${branch}): release ${version}",
   "changelog-sections": [
     { "type": "feat", "section": "Features", "hidden": false },
     { "type": "fix", "section": "Bug Fixes", "hidden": false },
