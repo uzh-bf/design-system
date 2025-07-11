@@ -1264,8 +1264,8 @@
       "levels": [
         "Modal"
       ],
-      "locStart": 241,
-      "locEnd": 250,
+      "locStart": 242,
+      "locEnd": 251,
       "filePath": "src/Modal.stories.mdx",
       "namedExport": "Basic",
       "meta": {}
@@ -1275,8 +1275,8 @@
       "levels": [
         "Modal"
       ],
-      "locStart": 227,
-      "locEnd": 240,
+      "locStart": 228,
+      "locEnd": 241,
       "filePath": "src/Modal.stories.mdx",
       "namedExport": "Default",
       "meta": {}
@@ -1286,8 +1286,8 @@
       "levels": [
         "Modal"
       ],
-      "locStart": 329,
-      "locEnd": 338,
+      "locStart": 330,
+      "locEnd": 339,
       "filePath": "src/Modal.stories.mdx",
       "namedExport": "EscapeDisabled",
       "meta": {}
@@ -1297,8 +1297,8 @@
       "levels": [
         "Modal"
       ],
-      "locStart": 319,
-      "locEnd": 328,
+      "locStart": 320,
+      "locEnd": 329,
       "filePath": "src/Modal.stories.mdx",
       "namedExport": "Fullscreen",
       "meta": {}
@@ -1308,8 +1308,8 @@
       "levels": [
         "Modal"
       ],
-      "locStart": 251,
-      "locEnd": 256,
+      "locStart": 252,
+      "locEnd": 257,
       "filePath": "src/Modal.stories.mdx",
       "namedExport": "Loading",
       "meta": {}
@@ -1319,8 +1319,8 @@
       "levels": [
         "Modal"
       ],
-      "locStart": 299,
-      "locEnd": 308,
+      "locStart": 300,
+      "locEnd": 309,
       "filePath": "src/Modal.stories.mdx",
       "namedExport": "Primary",
       "meta": {}
@@ -1330,8 +1330,8 @@
       "levels": [
         "Modal"
       ],
-      "locStart": 443,
-      "locEnd": 451,
+      "locStart": 444,
+      "locEnd": 452,
       "filePath": "src/Modal.stories.mdx",
       "namedExport": "MDXContent",
       "meta": {}
@@ -1341,8 +1341,8 @@
       "levels": [
         "Modal"
       ],
-      "locStart": 309,
-      "locEnd": 318,
+      "locStart": 310,
+      "locEnd": 319,
       "filePath": "src/Modal.stories.mdx",
       "namedExport": "Secondary",
       "meta": {}
@@ -1352,8 +1352,8 @@
       "levels": [
         "Modal"
       ],
-      "locStart": 257,
-      "locEnd": 278,
+      "locStart": 258,
+      "locEnd": 279,
       "filePath": "src/Modal.stories.mdx",
       "namedExport": "ThreeSecondLoading",
       "meta": {}
@@ -1363,8 +1363,8 @@
       "levels": [
         "Modal"
       ],
-      "locStart": 279,
-      "locEnd": 298,
+      "locStart": 280,
+      "locEnd": 299,
       "filePath": "src/Modal.stories.mdx",
       "namedExport": "Trigger",
       "meta": {}
@@ -1374,8 +1374,8 @@
       "levels": [
         "Modal"
       ],
-      "locStart": 339,
-      "locEnd": 431,
+      "locStart": 340,
+      "locEnd": 432,
       "filePath": "src/Modal.stories.mdx",
       "namedExport": "WithoutClose",
       "meta": {}
