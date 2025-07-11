@@ -1,6 +1,6 @@
 {
-  ".": "4.0.0-alpha.9",
-  "packages/design-system": "4.0.0-alpha.9",
+  ".": "4.0.0",
+  "packages/design-system": "4.0.0",
   "packages/header-custom-element": "4.0.0-alpha.9",
   "packages/header-react": "4.0.0-alpha.9",
   "packages/parcel-config-design-system": "4.0.0-alpha.9",

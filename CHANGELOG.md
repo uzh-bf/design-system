@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.0](https://github.com/uzh-bf/design-system/compare/v4.0.0-alpha.9...v4.0.0) (2025-07-11)
+
+
+### Bug Fixes
+
+* ensure correct commit message is used ([322affc](https://github.com/uzh-bf/design-system/commit/322affcae1f0239214edb489a7bb929bf0e22a89))
+* extend supported commit messages ([70982b2](https://github.com/uzh-bf/design-system/commit/70982b2056e778cda99d0bf314aa2e526b11effd))
+* remove extra files from release please config ([4d4c39f](https://github.com/uzh-bf/design-system/commit/4d4c39f98d141752139943f99fc5a2377491a42b))
+* update manifest and config files for release-please ([b120dfb](https://github.com/uzh-bf/design-system/commit/b120dfb8f364fcc26976480c3dc712f65cc56d5c))
+* update release please config ([3d3dbdd](https://github.com/uzh-bf/design-system/commit/3d3dbddced0e90fedfb556a3dbdee97459d94f91))
+* update release please configuration to correctly update package versions ([c5fb9d9](https://github.com/uzh-bf/design-system/commit/c5fb9d934bc27d343d50d305f1055ac1334118ed))
+
+
+### Other
+
+* add more packages to configuration ([f0d882d](https://github.com/uzh-bf/design-system/commit/f0d882de7c5870cfa3c2b1e3b1a7196f58a11664))
+* add release-please configuration ([0932ef2](https://github.com/uzh-bf/design-system/commit/0932ef28ac088d6fac19e335d941490b641ae77c))
+* update release workflow with access token ([43cac13](https://github.com/uzh-bf/design-system/commit/43cac1335346be686893ef8e25d64d3603996814))
+* update release-please target branch ([d942e1a](https://github.com/uzh-bf/design-system/commit/d942e1a6940e97b556510db0d2a9486b39668bbf))
+
+
+### Enhancements
+
+* **Modal:** handle loading states on modal more gracefully ([57a5bc2](https://github.com/uzh-bf/design-system/commit/57a5bc29f81d181a48c706d2ff258518deefc33d))
+
 ## [4.0.0-alpha.9](https://github.com/uzh-bf/design-system/compare/v4.0.0-alpha.8...v4.0.0-alpha.9) (2025-07-10)
 
 
