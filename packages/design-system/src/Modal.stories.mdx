@@ -1,4 +1,4 @@
-import { useState, forwardRef, ComponentProps } from 'react'
+import { useState, useEffect, forwardRef, ComponentProps } from 'react'
 import Button from './Button'
 import Modal from './Modal'
 
@@ -26,6 +26,7 @@ The props for the Modal component are as follows:
 - @param onPrev - Function that is called when the optional previous button is clicked.
 - @param onNext - Function that is called when the optional next button is clicked.
 - @param open - Indicate whether the modal is open or not. This state is managed outside of the component.
+- @param loading - Indicate whether the modal is in a loading state.
 - @param fullScreen - Indicate whether the modal should be full screen or not.
 - @param onPrimaryAction - The optional primary action, which is executed when clicking on the conditionally rendered primary action button.
 - @param primaryLabel - The label for the primary action button.
@@ -312,6 +313,58 @@ export const Basic = () => {
   )
 }
 
+export const Loading = () => {
+  const [isOpen, setIsOpen] = useState(false)
+  return (
+    <Modal 
+      loading
+      open={isOpen}
+      trigger={<Button onClick={() => setIsOpen(true)}>Open Modal</Button>}
+      onClose={() => setIsOpen(false)}
+    >
+      CONTENT
+    </Modal>
+  )
+}
+
+export const ThreeSecondLoading = () => {
+  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen2, setIsOpen2] = useState(false)
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    if (isOpen || isOpen2) {
+      setLoading(true)
+      const timer = setTimeout(() => {
+        setLoading(false)
+      }, 3000)
+      return () => clearTimeout(timer)
+    }
+  }, [isOpen, isOpen2])
+
+  return (
+    <div className="flex flex-col gap-4">
+      <Modal
+        loading={loading}
+        open={isOpen}
+        trigger={<Button onClick={() => setIsOpen(true)}>Open Modal (with escape)</Button>}
+        onClose={() => setIsOpen(false)}
+      >
+        Content of standard modal
+      </Modal>
+      <Modal
+        escapeDisabled
+        loading={loading}
+        open={isOpen2}
+        trigger={<Button onClick={() => setIsOpen2(true)}>Open Modal (escape disabled)</Button>}
+        onClose={() => setIsOpen2(false)}
+      >
+        Content of modal with escape disabled
+      </Modal>
+    </div>
+  )
+}
+
 export const Trigger = () => {
   const [isOpen, setIsOpen] = useState(false)
   const StyledButton = forwardRef((props, forwardedRef) => (
@@ -405,10 +458,10 @@ export const EscapeDisabled = () => {
   const [isOpen, setIsOpen] = useState(false)
   return (
     <Modal
+      escapeDisabled
       open={isOpen}
       trigger={<Button onClick={() => setIsOpen(true)}>Open Modal</Button>}
       onClose={() => setIsOpen(false)}
-      escapeDisabled={true}
     >
       Consectetur enim adipisicing do culpa. Laborum laboris labore velit
       incididunt est do duis in cupidatat proident. Veniam quis ex dolore
@@ -424,7 +477,7 @@ export const WithoutClose = () => {
   return (
     <Modal
       hideCloseButton
-      escapeDisabled={true}
+      escapeDisabled
       open={isOpen}
       trigger={<Button onClick={() => setIsOpen(true)}>Open Modal</Button>}
       onClose={() => setIsOpen(false)}

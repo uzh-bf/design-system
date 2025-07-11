@@ -1,5 +1,7 @@
 'use client'
 
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect } from 'react'
 import { twMerge } from 'tailwind-merge'
 import Button from './Button'
@@ -8,6 +10,7 @@ import {
   DialogContent,
   DialogFooter,
   DialogHeader,
+  DialogOverlay,
   DialogTitle,
   DialogTrigger,
 } from './ui/dialog'
@@ -17,6 +20,7 @@ export interface ModalProps {
   children: React.ReactNode
   fullScreen?: boolean
   open: boolean
+  loading?: boolean
   onClose: (e?: React.MouseEvent<HTMLButtonElement>) => void
 
   title?: string | React.ReactNode
@@ -82,6 +86,7 @@ export interface ModalProps {
  * @param onPrev - Function that is called when the optional previous button is clicked.
  * @param onNext - Function that is called when the optional next button is clicked.
  * @param open - Indicate whether the modal is open or not. This state is managed outside of the component.
+ * @param loading - Indicate whether the modal is in a loading state.
  * @param fullScreen - Indicate whether the modal should be full screen or not.
  * @param onPrimaryAction - The optional primary action, which is executed when clicking on the conditionally rendered primary action button.
  * @param primaryLabel - The label for the primary action button.
@@ -112,6 +117,7 @@ export function Modal({
   onPrev,
   onNext,
   open,
+  loading = false,
   fullScreen = false,
   onPrimaryAction,
   primaryLabel,
@@ -167,76 +173,95 @@ export function Modal({
           {trigger}
         </DialogTrigger>
       )}
-      <DialogContent
-        showCloseButton={!hideCloseButton}
-        onOpenAutoFocus={(e) => e.preventDefault()} // avoid that the automatically sets focus on first element
-        onEscapeKeyDown={
-          escapeDisabled ? (e) => e.preventDefault() : () => onClose()
-        }
-        onPointerDownOutside={
-          escapeDisabled ? (e) => e.preventDefault() : () => onClose()
-        }
-        data-cy={dataContent?.cy}
-        data-test={dataContent?.test}
-        dataCloseButton={dataCloseButton}
+      <DialogOverlay
         className={twMerge(
-          'max-h-[calc(100%-2rem)] overflow-y-auto',
-          fullScreen
-            ? 'h-full max-h-[calc(100%-2rem)] w-full max-w-[calc(100%-2rem)]'
-            : 'h-max w-108 max-w-7xl md:w-160 lg:w-220 xl:w-280',
-          className?.content
+          'fixed top-0 right-0 bottom-0 left-0 flex items-center justify-center',
+          className?.overlay
         )}
+        onClick={() => {
+          if (loading) {
+            onClose()
+          }
+        }}
       >
-        <DialogHeader
-          className={twMerge(
-            'h-max',
-            !hideCloseButton && 'mb-3',
-            className?.header
-          )}
-        >
-          {typeof title !== 'undefined' && (
-            <DialogTitle className={className?.title}>{title}</DialogTitle>
-          )}
-        </DialogHeader>
-        <div className="h-max">{children}</div>
-        <DialogFooter
-          className={twMerge(
-            'mt-3 flex h-max gap-2 sm:flex-row sm:justify-between sm:gap-0',
-            typeof onSecondaryAction === 'undefined' &&
-              typeof onPrimaryAction !== 'undefined'
-              ? 'sm:justify-end'
-              : '',
-            className?.footer
-          )}
-        >
-          {typeof onSecondaryAction !== 'undefined' && secondaryLabel ? (
-            <Button
-              type={secondaryType}
-              primary={secondaryButtonStyle === 'primary'}
-              destructive={secondaryButtonStyle === 'destructive'}
-              onClick={onSecondaryAction}
-              className={{ root: className?.secondary }}
-              data={dataSecondaryAction}
+        {loading ? (
+          <FontAwesomeIcon
+            icon={faSpinner}
+            className="animate-spin text-4xl text-white"
+          />
+        ) : (
+          <DialogContent
+            showCloseButton={!hideCloseButton}
+            onOpenAutoFocus={(e) => e.preventDefault()} // avoid that the automatically sets focus on first element
+            onEscapeKeyDown={
+              escapeDisabled ? (e) => e.preventDefault() : () => onClose()
+            }
+            onPointerDownOutside={
+              escapeDisabled ? (e) => e.preventDefault() : () => onClose()
+            }
+            data-cy={dataContent?.cy}
+            data-test={dataContent?.test}
+            dataCloseButton={dataCloseButton}
+            className={twMerge(
+              'max-h-[calc(100%-2rem)] overflow-y-auto',
+              fullScreen
+                ? 'h-full max-h-[calc(100%-2rem)] w-full max-w-[calc(100%-2rem)]'
+                : 'h-max w-108 max-w-7xl md:w-160 lg:w-220 xl:w-280',
+              className?.content
+            )}
+          >
+            <DialogHeader
+              className={twMerge(
+                'h-max',
+                !hideCloseButton && 'mb-3',
+                className?.header
+              )}
             >
-              {secondaryLabel}
-            </Button>
-          ) : null}
-          {typeof onPrimaryAction !== 'undefined' && primaryLabel ? (
-            <Button
-              primary={primaryButtonStyle === 'primary'}
-              destructive={primaryButtonStyle === 'destructive'}
-              primaryType={primaryType}
-              className={{ root: className?.primary }}
-              onClick={onPrimaryAction}
-              disabled={primaryDisabled}
-              loading={primaryLoading}
-              data={dataPrimaryAction}
+              {typeof title !== 'undefined' && (
+                <DialogTitle className={className?.title}>{title}</DialogTitle>
+              )}
+            </DialogHeader>
+            <div className="h-max">{children}</div>
+            <DialogFooter
+              className={twMerge(
+                'mt-3 flex h-max gap-2 sm:flex-row sm:justify-between sm:gap-0',
+                typeof onSecondaryAction === 'undefined' &&
+                  typeof onPrimaryAction !== 'undefined'
+                  ? 'sm:justify-end'
+                  : '',
+                className?.footer
+              )}
             >
-              {primaryLabel}
-            </Button>
-          ) : null}
-        </DialogFooter>
-      </DialogContent>
+              {typeof onSecondaryAction !== 'undefined' && secondaryLabel ? (
+                <Button
+                  type={secondaryType}
+                  primary={secondaryButtonStyle === 'primary'}
+                  destructive={secondaryButtonStyle === 'destructive'}
+                  onClick={onSecondaryAction}
+                  className={{ root: className?.secondary }}
+                  data={dataSecondaryAction}
+                >
+                  {secondaryLabel}
+                </Button>
+              ) : null}
+              {typeof onPrimaryAction !== 'undefined' && primaryLabel ? (
+                <Button
+                  primary={primaryButtonStyle === 'primary'}
+                  destructive={primaryButtonStyle === 'destructive'}
+                  primaryType={primaryType}
+                  className={{ root: className?.primary }}
+                  onClick={onPrimaryAction}
+                  disabled={primaryDisabled}
+                  loading={primaryLoading}
+                  data={dataPrimaryAction}
+                >
+                  {primaryLabel}
+                </Button>
+              ) : null}
+            </DialogFooter>
+          </DialogContent>
+        )}
+      </DialogOverlay>
     </Dialog>
   )
 }
