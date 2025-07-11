@@ -1,6 +1,6 @@
 {
   "name": "@uzh-bf/parcel-config-design-system",
-  "version": "4.0.0-alpha.9",
+  "version": "4.0.0",
   "main": "index.json",
   "dependencies": {
     "@parcel/config-default": "2.12.0"

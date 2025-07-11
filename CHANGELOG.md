@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.0](https://github.com/uzh-bf/design-system/compare/v4.0.0-alpha.9...v4.0.0) (2025-07-11)
+
+
+### Enhancements
+
+* **Modal:** handle loading states on modal more gracefully ([57a5bc2](https://github.com/uzh-bf/design-system/commit/57a5bc29f81d181a48c706d2ff258518deefc33d))
+
+
+### Other
+
+* remove release-please ([882919a](https://github.com/uzh-bf/design-system/commit/882919a6ebba7862a7c8b7c1140008a496aa00d2))
+* update release workflow with access token ([43cac13](https://github.com/uzh-bf/design-system/commit/43cac1335346be686893ef8e25d64d3603996814))
+* update release-please target branch ([d942e1a](https://github.com/uzh-bf/design-system/commit/d942e1a6940e97b556510db0d2a9486b39668bbf))
+
 ## [4.0.0-alpha.9](https://github.com/uzh-bf/design-system/compare/v4.0.0-alpha.8...v4.0.0-alpha.9) (2025-07-10)
 
 
