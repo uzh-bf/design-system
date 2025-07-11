@@ -30,35 +30,35 @@
     },
     "packages/design-system": {
       "release-type": "node",
-      "component": "design-system"
+      "path": "packages/design-system"
     },
     "packages/header-custom-element": {
       "release-type": "node",
-      "component": "header-custom-element"
+      "path": "packages/header-custom-element"
     },
     "packages/header-react": {
       "release-type": "node",
-      "component": "header-react"
+      "path": "packages/header-react"
     },
     "packages/parcel-config-design-system": {
       "release-type": "node",
-      "component": "parcel-config-design-system"
+      "path": "packages/parcel-config-design-system"
     },
     "packages/parcel-resolver-preact": {
       "release-type": "node",
-      "component": "parcel-resolver-preact"
+      "path": "packages/parcel-resolver-preact"
     },
     "packages/tag-custom-element": {
       "release-type": "node",
-      "component": "tag-custom-element"
+      "path": "packages/tag-custom-element"
     },
     "packages/tag-react": {
       "release-type": "node",
-      "component": "tag-react"
+      "path": "packages/tag-react"
     },
     "packages/tailwind-config-design-system": {
       "release-type": "node",
-      "component": "tailwind-config-design-system"
+      "path": "packages/tailwind-config-design-system"
     }
   }
 }
