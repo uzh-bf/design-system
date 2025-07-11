@@ -1,0 +1,11 @@
+{
+  ".": "4.0.0-alpha.9",
+  "packages/design-system": "4.0.0-alpha.9",
+  "packages/header-custom-element": "4.0.0-alpha.9",
+  "packages/header-react": "4.0.0-alpha.9",
+  "packages/parcel-config-design-system": "4.0.0-alpha.9",
+  "packages/parcel-resolver-preact": "4.0.0-alpha.9",
+  "packages/tag-custom-element": "4.0.0-alpha.9",
+  "packages/tag-react": "4.0.0-alpha.9",
+  "packages/tailwind-config-design-system": "4.0.0-alpha.9"
+}

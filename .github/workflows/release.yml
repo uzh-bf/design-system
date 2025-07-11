@@ -3,6 +3,7 @@ on:
     branches:
       - main
       - dev
+      - release-please-configuration
 
 permissions:
   contents: write
