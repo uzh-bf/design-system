@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.0](https://github.com/uzh-bf/design-system/compare/v3.0.3...v4.0.0) (2025-07-11)
+
+
+### Bug Fixes
+
+* ***Field:** ensure that border of text / number fields does not change on focus ([68515ad](https://github.com/uzh-bf/design-system/commit/68515ad3626758a74130111e675b199f5914f908))
+* ***ui/dialog:** make sure dialogs open from center of screen ([998bd7e](https://github.com/uzh-bf/design-system/commit/998bd7e77057f80c0dfca31311adc21ad28a8edc))
+* **calendar:** ensure that selected styles override inactive other styles ([9a968f1](https://github.com/uzh-bf/design-system/commit/9a968f152a526d685725193daa093bfd6f90d45f))
+* **ci:** revert changes back to tag-based action triggers ([0105bce](https://github.com/uzh-bf/design-system/commit/0105bce9d990a06b6ba89c97b1ab0c6adeb07fa6))
+* **ColorPicker:** ensure that disabled color picker button does not take on selected color ([242cc2d](https://github.com/uzh-bf/design-system/commit/242cc2dc6d6242d69c93e9d5ed68ecd3aac1e448))
+* **Dropdown:** update styling of dropdown trigger and resolve nested button issues ([1742bb7](https://github.com/uzh-bf/design-system/commit/1742bb7bf6c5cf5005388797d6a2c3cba4cb781b))
+* ensure that preflight is correctly loaded for components in ladle ([134357d](https://github.com/uzh-bf/design-system/commit/134357db716b1a66dd7ab89918182ae2cc7f0c67))
+* ensure that svgs on triggers are not styled through parent components ([c443b95](https://github.com/uzh-bf/design-system/commit/c443b9540a638f89e1b2decf7a839061491735ec))
+* **Progress:** change progress component to client-side rendering to ensure compatibility with used hooks ([13ca7db](https://github.com/uzh-bf/design-system/commit/13ca7dbe08c625258ae9523301f82d0e9c8e5e7e))
+* remove default padding of icons on buttons and other components ([694c148](https://github.com/uzh-bf/design-system/commit/694c148f7aed25090da54ac25fa3253bf1a0e058))
+* **Select:** make sure that separators between select groups are automatically inserted correctly ([ec1a960](https://github.com/uzh-bf/design-system/commit/ec1a9603bbe82f1a79fdabcd698d15ca97397cf5))
+* **Textarea:** ensure that textarea fields do not show primary border on focus ([3504d37](https://github.com/uzh-bf/design-system/commit/3504d37e5641e26c37d9b8548a4f72cb3484c678))
+* **Tooltip:** ensure that trigger content is aligned left by default ([939dd96](https://github.com/uzh-bf/design-system/commit/939dd960c5d49c6b6646ca18099ed5913375567f))
+
+
+### Miscellaneous Chores
+
+* update release-please target branch ([d942e1a](https://github.com/uzh-bf/design-system/commit/d942e1a6940e97b556510db0d2a9486b39668bbf))
+
 ## [4.0.0-alpha.9](https://github.com/uzh-bf/design-system/compare/v4.0.0-alpha.8...v4.0.0-alpha.9) (2025-07-10)
 
 
