@@ -1667,6 +1667,7 @@ export declare interface LabelProps {
  * @param onPrev - Function that is called when the optional previous button is clicked.
  * @param onNext - Function that is called when the optional next button is clicked.
  * @param open - Indicate whether the modal is open or not. This state is managed outside of the component.
+ * @param loading - Indicate whether the modal is in a loading state.
  * @param fullScreen - Indicate whether the modal should be full screen or not.
  * @param onPrimaryAction - The optional primary action, which is executed when clicking on the conditionally rendered primary action button.
  * @param primaryLabel - The label for the primary action button.
@@ -1688,13 +1689,14 @@ export declare interface LabelProps {
  * @param className - The optional className object allows you to override the default styling.
  * @returns Modal component
  */
-export declare function Modal({ id, trigger, title, children, onClose, onPrev, onNext, open, fullScreen, onPrimaryAction, primaryLabel, primaryType, primaryButtonStyle, primaryDisabled, primaryLoading, onSecondaryAction, secondaryLabel, secondaryType, secondaryButtonStyle, escapeDisabled, hideCloseButton, data, dataContent, dataCloseButton, dataPrimaryAction, dataSecondaryAction, className, }: ModalProps): JSX.Element;
+export declare function Modal({ id, trigger, title, children, onClose, onPrev, onNext, open, loading, fullScreen, onPrimaryAction, primaryLabel, primaryType, primaryButtonStyle, primaryDisabled, primaryLoading, onSecondaryAction, secondaryLabel, secondaryType, secondaryButtonStyle, escapeDisabled, hideCloseButton, data, dataContent, dataCloseButton, dataPrimaryAction, dataSecondaryAction, className, }: ModalProps): JSX.Element;
 
 export declare interface ModalProps {
     id?: string;
     children: default_3.ReactNode;
     fullScreen?: boolean;
     open: boolean;
+    loading?: boolean;
     onClose: (e?: default_3.MouseEvent<HTMLButtonElement>) => void;
     title?: string | default_3.ReactNode;
     trigger?: default_3.ReactNode;
