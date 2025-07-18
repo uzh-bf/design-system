@@ -2726,6 +2726,7 @@ export declare function Tabs({ id, defaultValue, value, onValueChange, tabs, cla
         id?: string;
         label: string | React.ReactNode;
         value: string;
+        disabled?: boolean;
         data?: {
             cy?: string;
             test?: string;

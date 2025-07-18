@@ -21,7 +21,7 @@ The Tabs component accepts the following props:
 - @param defaultValue - The default value of the active tab.
 - @param value - The controlled value of the active tab.
 - @param onValueChange - Callback function to handle value changes.
-- @param tabs - An array of tab objects, each containing an id, label, value, and optional data attributes.
+- @param tabs - An array of tab objects, each containing an id, label, value, disabled property, and optional data attributes.
 - @param className - Optional class names for styling the tabs and their components.
 - @param children - The content of the tabs, which will be rendered in the corresponding tab content area.
 
@@ -81,6 +81,7 @@ TabItem Structure:
 
 - id: string - Unique identifier for the tab
 - value: string - Value used for state management and content matching
+- disabled?: boolean - Optional flag to disable the tab
 - label: string - Display text for the tab trigger
 - data?: Record<string, string> - Data attributes for testing
 
@@ -440,6 +441,34 @@ export const Multiple = () => {
       </TabContent>
       <TabContent key="help" value="help" className={{ root: 'md:px-4' }}>
         Help Tab
+      </TabContent>
+    </Tabs>
+  )
+}
+
+export const DisabledTabs = () => {
+  return (
+    <Tabs
+      defaultValue="leaderboard"
+      tabs={[
+        { id: 'leaderboard', value: 'leaderboard', label: 'Leaderboard' },
+        {
+          id: 'create',
+          value: 'create',
+          label: 'Gruppe erstellen/beitreten',
+          disabled: true,
+        },
+      ]}
+    >
+      <TabContent
+        key="leaderboard"
+        value="leaderboard"
+        className={{ root: 'md:px-4' }}
+      >
+        Course Tab
+      </TabContent>
+      <TabContent key="create" value="create" className={{ root: 'md:px-4' }}>
+        Create Tab
       </TabContent>
     </Tabs>
   )

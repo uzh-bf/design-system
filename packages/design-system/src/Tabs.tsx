@@ -38,6 +38,7 @@ export function Tabs({
     id?: string
     label: string | React.ReactNode
     value: string
+    disabled?: boolean
     data?: { cy?: string; test?: string }
     className?: string
   }[]
@@ -69,6 +70,7 @@ export function Tabs({
           <TabsTrigger
             key={tab.id}
             value={tab.value}
+            disabled={tab.disabled}
             data-cy={tab.data?.cy}
             data-test={tab.data?.test}
             className={twMerge(
