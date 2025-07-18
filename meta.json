@@ -2496,8 +2496,8 @@
       "levels": [
         "Tabs"
       ],
-      "locStart": 421,
-      "locEnd": 443,
+      "locStart": 445,
+      "locEnd": 467,
       "filePath": "src/Tabs.stories.mdx",
       "namedExport": "Controlled",
       "meta": {}
@@ -2507,10 +2507,21 @@
       "levels": [
         "Tabs"
       ],
-      "locStart": 359,
-      "locEnd": 380,
+      "locStart": 360,
+      "locEnd": 381,
       "filePath": "src/Tabs.stories.mdx",
       "namedExport": "Default",
+      "meta": {}
+    },
+    "tabs--disabled-tabs": {
+      "name": "Disabled tabs",
+      "levels": [
+        "Tabs"
+      ],
+      "locStart": 422,
+      "locEnd": 444,
+      "filePath": "src/Tabs.stories.mdx",
+      "namedExport": "DisabledTabs",
       "meta": {}
     },
     "tabs--multiple": {
@@ -2518,8 +2529,8 @@
       "levels": [
         "Tabs"
       ],
-      "locStart": 381,
-      "locEnd": 420,
+      "locStart": 382,
+      "locEnd": 421,
       "filePath": "src/Tabs.stories.mdx",
       "namedExport": "Multiple",
       "meta": {}
@@ -2529,8 +2540,8 @@
       "levels": [
         "Tabs"
       ],
-      "locStart": 455,
-      "locEnd": 463,
+      "locStart": 479,
+      "locEnd": 487,
       "filePath": "src/Tabs.stories.mdx",
       "namedExport": "MDXContent",
       "meta": {}

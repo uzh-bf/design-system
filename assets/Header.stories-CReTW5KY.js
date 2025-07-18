@@ -1,0 +1,15 @@
+import{j as e,u as t}from"./index-Cuz_4k70.js";import"./dialog-DE6tOQdl.js";import{a as n}from"./Header-99gGkpaG.js";import"./bundle-mjs-yGZq-iow.js";const m=()=>e.jsxs("div",{children:[e.jsx(n.H1,{children:"asdasd"}),e.jsx("p",{children:"hello world"}),e.jsx(n.H2,{children:"asdasd"}),e.jsx("p",{children:"hello world"}),e.jsx(n.H3,{children:"asdasd"}),e.jsx("p",{children:"hello world"}),e.jsx(n.H4,{children:"asdasd"}),e.jsx("p",{children:"hello world"})]});function l(s){const a={code:"code",li:"li",p:"p",ul:"ul",...t(),...s.components};return e.jsxs(e.Fragment,{children:[`
+`,e.jsxs("div",{className:"prose prose-sm max-w-none",children:[e.jsxs(a.p,{className:"ladle-markdown",children:["The ",e.jsx(a.code,{className:"ladle-markdown",children:"Header"})," components provide a collection of semantic HTML heading elements (H1, H2, H3, H4) with consistent typography styling and proper accessibility support. They establish clear content hierarchy while maintaining design system consistency across all heading levels."]}),e.jsx(a.p,{className:"ladle-markdown",children:"Use these components when you need to:"}),e.jsxs(a.ul,{className:"ladle-markdown",children:[`
+`,e.jsx(a.li,{className:"ladle-markdown",children:"Create proper document structure with semantic heading hierarchy"}),`
+`,e.jsx(a.li,{className:"ladle-markdown",children:"Establish visual content organization with consistent typography"}),`
+`,e.jsx(a.li,{className:"ladle-markdown",children:"Build accessible interfaces with screen reader navigation support"}),`
+`,e.jsx(a.li,{className:"ladle-markdown",children:"Implement consistent heading styles across your application"}),`
+`,e.jsx(a.li,{className:"ladle-markdown",children:"Provide testing-friendly heading elements with data attributes"}),`
+`]}),e.jsx(a.p,{className:"ladle-markdown",children:"The component collection supports all standard heading levels (H1-H4), semantic HTML structure, accessibility features, custom styling overrides, and comprehensive testing attribute support for automated testing scenarios."}),e.jsx(a.p,{className:"ladle-markdown",children:"The props for all different components are as follows:"}),e.jsxs(a.ul,{className:"ladle-markdown",children:[`
+`,e.jsx(a.li,{className:"ladle-markdown",children:"@param id - The id of the header."}),`
+`,e.jsx(a.li,{className:"ladle-markdown",children:"@param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)"}),`
+`,e.jsx(a.li,{className:"ladle-markdown",children:"@param className - The optional className object allows you to override the default styling."}),`
+`,e.jsx(a.li,{className:"ladle-markdown",children:"@param children - The content of the header."}),`
+`]})]}),`
+`,`
+`]})}function d(s={}){const{wrapper:a}={...t(),...s.components};return a?e.jsx(a,{...s,children:e.jsx(l,{...s})}):l(s)}d.storyName="Readme";typeof window<"u"&&window.document&&window.document.createElement&&document.documentElement.setAttribute("data-storyloaded","");export{m as Default,d as MDXContent};
