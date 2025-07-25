@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.2](https://github.com/uzh-bf/design-system/compare/v4.0.1...v4.0.2) (2025-07-25)
+
+
+### Bug Fixes
+
+* **Tooltip:** change text style on tooltip from balanced to standard left-aligned ([dada918](https://github.com/uzh-bf/design-system/commit/dada918df2daf353514c57294b6f4edfec6fd454))
+
+
+### Other
+
+* **Dropdown:** add keys for all dropdown items to resolve corresponding warnings ([d07c921](https://github.com/uzh-bf/design-system/commit/d07c9216a01c39a2b61d3cf112d93541c081eb19))
+
 ### [4.0.1](https://github.com/uzh-bf/design-system/compare/v4.0.0...v4.0.1) (2025-07-18)
 
 
