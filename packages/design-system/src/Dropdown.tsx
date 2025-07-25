@@ -168,18 +168,21 @@ export function Dropdown({
           ? items.map((item) => {
               return (
                 <DropdownItem
-                  key={item.id}
+                  key={item.id ?? `dropdown-item-${item.label}`}
                   item={item}
                   className={className?.item}
                 />
               )
             })
           : radioGroups.map((group, index) => (
-              <DropdownMenuRadioGroup key={index} value={group.value}>
+              <DropdownMenuRadioGroup
+                key={`dropdown-group-${index}-${group.value}`}
+                value={group.value}
+              >
                 {group.items.map((item) => {
                   return (
                     <DropdownItem
-                      key={item.id}
+                      key={item.id ?? `dropdown-item-${item.label}`}
                       item={item}
                       className={className?.item}
                     />
@@ -239,7 +242,7 @@ export function DropdownItem({
           <DropdownMenuSubContent>
             {item.items.map((subItem) => (
               <DropdownItem
-                key={subItem.id}
+                key={subItem.id ?? `dropdown-item-${subItem.label}`}
                 item={subItem}
                 className={twMerge(
                   'text-base',
