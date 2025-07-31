@@ -242,7 +242,7 @@ export function DropdownItem({
           <DropdownMenuSubContent>
             {item.items.map((subItem) => (
               <DropdownItem
-                key={subItem.id ?? `dropdown-item-${subItem.label}`}
+                key={`dropdown-item-${subItem.id}`}
                 item={subItem}
                 className={twMerge(
                   'text-base',

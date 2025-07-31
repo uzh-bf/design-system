@@ -104,7 +104,7 @@ export declare const badgeVariants: (props?: ({
 } & ClassProp) | undefined) => string;
 
 declare type BaseItem = {
-    id?: string;
+    id: string;
     disabled?: boolean;
     shortcut?: string;
     tooltip?: string;
