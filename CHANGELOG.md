@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.3](https://github.com/uzh-bf/design-system/compare/v4.0.2...v4.0.3) (2025-07-31)
+
+
+### Bug Fixes
+
+* **Dropdown:** require id for dropdown items to set key attribute correctly ([6b83d13](https://github.com/uzh-bf/design-system/commit/6b83d13f7e8ed384147c5e1c98199c12d36593d3))
+
 ### [4.0.2](https://github.com/uzh-bf/design-system/compare/v4.0.1...v4.0.2) (2025-07-25)
 
 
