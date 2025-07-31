@@ -19,7 +19,7 @@ import {
 } from './ui/dropdown-menu'
 
 type BaseItem = {
-  id?: string
+  id: string
   disabled?: boolean
   shortcut?: string
   tooltip?: string
@@ -168,7 +168,7 @@ export function Dropdown({
           ? items.map((item) => {
               return (
                 <DropdownItem
-                  key={item.id ?? `dropdown-item-${item.label}`}
+                  key={`dropdown-item-${item.id}`}
                   item={item}
                   className={className?.item}
                 />
@@ -182,7 +182,7 @@ export function Dropdown({
                 {group.items.map((item) => {
                   return (
                     <DropdownItem
-                      key={item.id ?? `dropdown-item-${item.label}`}
+                      key={`dropdown-item-${item.id}`}
                       item={item}
                       className={className?.item}
                     />
