@@ -2727,11 +2727,16 @@ export declare function Tabs({ id, defaultValue, value, onValueChange, tabs, cla
         label: string | React.ReactNode;
         value: string;
         disabled?: boolean;
+        tooltip?: string;
+        tooltipDelay?: number;
         data?: {
             cy?: string;
             test?: string;
         };
-        className?: string;
+        className?: {
+            trigger?: string;
+            tooltip?: string;
+        };
     }[];
     className?: {
         root?: string;

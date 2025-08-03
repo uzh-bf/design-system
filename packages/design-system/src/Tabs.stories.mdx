@@ -474,6 +474,30 @@ export const DisabledTabs = () => {
   )
 }
 
+export const Tooltips = () => {
+  return (
+    <Tabs
+      defaultValue="standard"
+      tabs={[
+        { id: 'standard', value: 'standard', label: 'Standard' },
+        { id: 'tooltip', value: 'tooltip', label: 'Tab with Tooltip', tooltip: "Tooltip content for enabled tab with tooltip" },
+        { id: 'disabled', value: 'disabled', label: 'Disabled Tab', disabled: true, tooltip: "Tooltip content for disabled tab", tooltipDuration: 0 },
+      ]}
+    >
+      <TabContent
+        key="leaderboard"
+        value="leaderboard"
+        className={{ root: 'md:px-4' }}
+      >
+        Course Tab
+      </TabContent>
+      <TabContent key="create" value="create" className={{ root: 'md:px-4' }}>
+        Create Tab
+      </TabContent>
+    </Tabs>
+  )
+}
+
 export const Controlled = () => {
   const [selectedTab, setSelectedTab] = useState('leaderboard')
   return (

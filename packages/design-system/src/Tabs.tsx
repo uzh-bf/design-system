@@ -1,6 +1,7 @@
 'use client'
 
 import { twMerge } from 'tailwind-merge'
+import Tooltip from './Tooltip'
 import {
   Tabs as ShadcnTabs,
   TabsContent as ShadcnTabsContent,
@@ -39,8 +40,13 @@ export function Tabs({
     label: string | React.ReactNode
     value: string
     disabled?: boolean
+    tooltip?: string
+    tooltipDelay?: number
     data?: { cy?: string; test?: string }
-    className?: string
+    className?: {
+      trigger?: string
+      tooltip?: string
+    }
   }[]
   className?: {
     root?: string
@@ -66,22 +72,36 @@ export function Tabs({
           gridTemplateColumns: `repeat(${tabs.length}, minmax(0, 1fr))`,
         }}
       >
-        {tabs.map((tab) => (
-          <TabsTrigger
-            key={tab.id}
-            value={tab.value}
-            disabled={tab.disabled}
-            data-cy={tab.data?.cy}
-            data-test={tab.data?.test}
-            className={twMerge(
-              'w-full data-[state=active]:font-bold',
-              className?.trigger,
-              tab.className
-            )}
-          >
-            {tab.label}
-          </TabsTrigger>
-        ))}
+        {tabs.map((tab) => {
+          const trigger = (
+            <TabsTrigger
+              key={tab.id}
+              value={tab.value}
+              disabled={tab.disabled}
+              data-cy={tab.data?.cy}
+              data-test={tab.data?.test}
+              className={twMerge(
+                'w-full data-[state=active]:font-bold',
+                className?.trigger,
+                tab.className?.trigger
+              )}
+            >
+              {tab.label}
+            </TabsTrigger>
+          )
+
+          return tab.tooltip ? (
+            <Tooltip
+              tooltip={tab.tooltip}
+              delay={tab.tooltipDelay}
+              className={{ tooltip: tab.className?.tooltip }}
+            >
+              {trigger}
+            </Tooltip>
+          ) : (
+            trigger
+          )
+        })}
       </TabsList>
       {children}
     </ShadcnTabs>
