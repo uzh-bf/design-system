@@ -473,7 +473,6 @@ export const DisabledTabs = () => {
     </Tabs>
   )
 }
-
 export const Tooltips = () => {
   return (
     <Tabs
@@ -485,14 +484,17 @@ export const Tooltips = () => {
       ]}
     >
       <TabContent
-        key="leaderboard"
-        value="leaderboard"
+        key="standard"
+        value="standard"
         className={{ root: 'md:px-4' }}
       >
-        Course Tab
+        Standard Tab Content
       </TabContent>
-      <TabContent key="create" value="create" className={{ root: 'md:px-4' }}>
-        Create Tab
+      <TabContent key="tooltip" value="tooltip" className={{ root: 'md:px-4' }}>
+        Tab with Tooltip Content
+      </TabContent>
+      <TabContent key="disabled" value="disabled" className={{ root: 'md:px-4' }}>
+        Disabled Tab Content
       </TabContent>
     </Tabs>
   )
