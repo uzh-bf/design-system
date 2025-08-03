@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.4](https://github.com/uzh-bf/design-system/compare/v4.0.3...v4.0.4) (2025-08-03)
+
+
+### Bug Fixes
+
+* **Dropdown:** update outdated key definition on dropdown items ([a0d97d5](https://github.com/uzh-bf/design-system/commit/a0d97d5bfc8e68c116e295ca3e34f8f176fa6caf))
+
+
+### Enhancements
+
+* **Tabs:** add possibility to define tooltips on tab triggers ([b86313b](https://github.com/uzh-bf/design-system/commit/b86313bfd71aed05a713b5dfd642579ec8ffe2b1))
+
+
+### Other
+
+* **Tabs:** update tooltips story for tabs to showcase full functionality ([30573c2](https://github.com/uzh-bf/design-system/commit/30573c2298bd08f3c95a16234b1d16e5e295af51))
+
 ### [4.0.3](https://github.com/uzh-bf/design-system/compare/v4.0.2...v4.0.3) (2025-07-31)
 
 
