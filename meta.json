@@ -2496,8 +2496,8 @@
       "levels": [
         "Tabs"
       ],
-      "locStart": 475,
-      "locEnd": 497,
+      "locStart": 480,
+      "locEnd": 502,
       "filePath": "src/Tabs.stories.mdx",
       "namedExport": "Controlled",
       "meta": {}
@@ -2540,8 +2540,8 @@
       "levels": [
         "Tabs"
       ],
-      "locStart": 509,
-      "locEnd": 517,
+      "locStart": 514,
+      "locEnd": 522,
       "filePath": "src/Tabs.stories.mdx",
       "namedExport": "MDXContent",
       "meta": {}
@@ -2552,7 +2552,7 @@
         "Tabs"
       ],
       "locStart": 445,
-      "locEnd": 474,
+      "locEnd": 479,
       "filePath": "src/Tabs.stories.mdx",
       "namedExport": "Tooltips",
       "meta": {}
