@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.5](https://github.com/uzh-bf/design-system/compare/v4.0.4...v4.0.5) (2025-08-04)
+
+
+### Enhancements
+
+* **TextField:** add key listener on enter click for submission ([18ba16e](https://github.com/uzh-bf/design-system/commit/18ba16e190e3f7b3ece786f9c1165ac1a69ff732))
+
 ### [4.0.4](https://github.com/uzh-bf/design-system/compare/v4.0.3...v4.0.4) (2025-08-03)
 
 
