@@ -18,6 +18,7 @@ interface FormikTextFieldProps {
   iconPosition?: 'left' | 'right'
   onIconClick?: () => void
   onEnter?: (event: React.KeyboardEvent<HTMLInputElement>) => void
+  onReset?: () => void
   placeholder?: string
   tooltip?: string | React.ReactNode
   required?: boolean
@@ -63,6 +64,7 @@ export interface FormikTextFieldWithOnChangeProps extends FormikTextFieldProps {
  * @param iconPosition - The optional iconPosition can be used to change the position of the icon according to pre-defined standards.
  * @param onIconClick - An optional function that is called when the icon (previous prop) is clicked
  * @param onEnter - An optional function that is called when the user presses the Enter key in the input field.
+ * @param onReset - The optional onReset function adds a cancellation icon to the text field (right side; replacing icons positioned there)
  * @param placeholder - The optional placeholder is shown when the field is empty.
  * @param tooltip - The optional tooltip is shown on hover next to the label.
  * @param required - Indicate whether the field is required or not.
@@ -79,6 +81,7 @@ export function FormikTextField({
   value,
   onChange,
   onEnter,
+  onReset,
   error,
   label,
   labelType = 'small',
@@ -120,6 +123,7 @@ export function FormikTextField({
           iconPosition={iconPosition}
           onIconClick={onIconClick}
           onEnter={onEnter}
+          onReset={onReset}
           {...props}
         />
       </div>
@@ -147,6 +151,7 @@ export function FormikTextField({
           iconPosition={iconPosition}
           onIconClick={onIconClick}
           onEnter={onEnter}
+          onReset={onReset}
           {...props}
         />
       </div>

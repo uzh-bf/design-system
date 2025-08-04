@@ -1450,6 +1450,8 @@ export declare interface FormikTextareaFieldWithOnChangeProps extends FormikText
  * @param icon - An optional icon (FontAwesomeIcon IconDefinition) that is shown on the right side of the text input component
  * @param iconPosition - The optional iconPosition can be used to change the position of the icon according to pre-defined standards.
  * @param onIconClick - An optional function that is called when the icon (previous prop) is clicked
+ * @param onEnter - An optional function that is called when the user presses the Enter key in the input field.
+ * @param onReset - The optional onReset function adds a cancellation icon to the text field (right side; replacing icons positioned there)
  * @param placeholder - The optional placeholder is shown when the field is empty.
  * @param tooltip - The optional tooltip is shown on hover next to the label.
  * @param required - Indicate whether the field is required or not.
@@ -1459,7 +1461,7 @@ export declare interface FormikTextareaFieldWithOnChangeProps extends FormikText
  * @param className - The optional className object allows you to override the default styling.
  * @returns Text field component with Formik state management.
  */
-export declare function FormikTextField({ id, data, name, value, onChange, error, label, labelType, icon, iconPosition, onIconClick, placeholder, tooltip, required, hideError, isTouched, disabled, onPaste, className, ...props }: FormikTextFieldWithNameProps | FormikTextFieldWithOnChangeProps): JSX.Element;
+export declare function FormikTextField({ id, data, name, value, onChange, onEnter, onReset, error, label, labelType, icon, iconPosition, onIconClick, placeholder, tooltip, required, hideError, isTouched, disabled, onPaste, className, ...props }: FormikTextFieldWithNameProps | FormikTextFieldWithOnChangeProps): JSX.Element;
 
 declare interface FormikTextFieldProps {
     id?: string;
@@ -1472,6 +1474,8 @@ declare interface FormikTextFieldProps {
     icon?: IconDefinition;
     iconPosition?: 'left' | 'right';
     onIconClick?: () => void;
+    onEnter?: (event: default_3.KeyboardEvent<HTMLInputElement>) => void;
+    onReset?: () => void;
     placeholder?: string;
     tooltip?: string | default_3.ReactNode;
     required?: boolean;
@@ -2862,9 +2866,11 @@ declare interface TextareaFieldProps {
  * @param icon - The optional icon is shown on the right side of the input field.
  * @param iconPosition - The optional iconPosition can be used to change the position of the icon to the left side of the input field.
  * @param onIconClick - The optional onIconClick function is called when the icon is clicked.
+ * @param onEnter - The optional onEnter function is called when the user presses the Enter key in the input field.
+ * @param onReset - The optional onReset function adds a cancellation icon to the text field (right side; replacing icons positioned there)
  * @returns Text field component with optional label, tooltip, error message and icon.
  */
-export declare function TextField({ id, data, name, field, value, onChange, label, labelType, placeholder, tooltip, required, isTouched, hideError, error, disabled, onPaste, className, icon, iconPosition, onIconClick, ...props }: TextFieldNameProps | TextFieldOnChangeProps): JSX.Element;
+export declare function TextField({ id, data, name, field, value, onChange, label, labelType, placeholder, tooltip, required, isTouched, hideError, error, disabled, onPaste, className, icon, iconPosition, onIconClick, onEnter, onReset, ...props }: TextFieldNameProps | TextFieldOnChangeProps): JSX.Element;
 
 export declare interface TextFieldClassName {
     field?: string;
@@ -2911,6 +2917,8 @@ declare interface TextFieldProps {
     icon?: IconProp;
     iconPosition?: 'left' | 'right';
     onIconClick?: () => void;
+    onEnter?: (event: default_3.KeyboardEvent<HTMLInputElement>) => void;
+    onReset?: () => void;
 }
 
 declare const THEMES: {

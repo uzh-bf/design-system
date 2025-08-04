@@ -601,3 +601,57 @@ return (
   />
 </>
 ) }
+
+export const ResetFieldButton = () => {
+  const [value, setValue] = React.useState('')
+  const [value2, setValue2] = React.useState('')
+
+return (
+
+<>
+  <div>
+    The default TextField can be customized and icons from FontAwesome can be
+    included at the beginning of the field
+  </div>
+  <TextField
+    label="Label"
+    tooltip="Tooltip for this input"
+    placeholder="Placeholder"
+    value={value}
+    onChange={setValue}
+    icon={faMagnifyingGlass}
+    onReset={() => setValue('')}
+  />
+  <TextField
+    label="Label"
+    tooltip="Tooltip for this input"
+    placeholder="Placeholder"
+    value={value2}
+    onChange={setValue2}
+    icon={faMagnifyingGlass}
+    iconPosition="right"
+    onReset={() => setValue2('')}
+  />
+  <TextField
+    label="Label"
+    tooltip="Tooltip for this input"
+    placeholder="Placeholder"
+    value={value}
+    onChange={setValue}
+    icon={faMagnifyingGlass}
+    onReset={() => setValue('')}
+    className={{ field: "w-60" }}
+  />
+  <TextField
+    label="Label"
+    tooltip="Tooltip for this input"
+    placeholder="Placeholder"
+    value={value2}
+    onChange={setValue2}
+    icon={faMagnifyingGlass}
+    iconPosition="right"
+    onReset={() => setValue2('')}
+    className={{ field: "w-60" }}
+  />
+</>
+) }

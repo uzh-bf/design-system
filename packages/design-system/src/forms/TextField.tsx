@@ -1,7 +1,7 @@
 'use client'
 
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
-import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons'
+import { faCircleExclamation, faX } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { FieldInputProps } from 'formik'
 import React from 'react'
@@ -40,6 +40,7 @@ interface TextFieldProps {
   iconPosition?: 'left' | 'right'
   onIconClick?: () => void
   onEnter?: (event: React.KeyboardEvent<HTMLInputElement>) => void
+  onReset?: () => void
 }
 
 export interface TextFieldNameProps extends TextFieldProps {
@@ -82,6 +83,7 @@ export interface TextFieldOnChangeProps extends TextFieldProps {
  * @param iconPosition - The optional iconPosition can be used to change the position of the icon to the left side of the input field.
  * @param onIconClick - The optional onIconClick function is called when the icon is clicked.
  * @param onEnter - The optional onEnter function is called when the user presses the Enter key in the input field.
+ * @param onReset - The optional onReset function adds a cancellation icon to the text field (right side; replacing icons positioned there)
  * @returns Text field component with optional label, tooltip, error message and icon.
  */
 
@@ -107,6 +109,7 @@ export function TextField({
   iconPosition = 'left',
   onIconClick,
   onEnter,
+  onReset,
   ...props
 }: TextFieldNameProps | TextFieldOnChangeProps) {
   return (
@@ -144,7 +147,9 @@ export function TextField({
               className={twMerge(
                 'focus:border-input h-9 w-full text-base',
                 icon && iconPosition === 'left' && 'pl-8',
-                icon && iconPosition === 'right' && 'pr-10',
+                ((icon && iconPosition === 'right') ||
+                  (!!value && typeof onReset !== 'undefined')) &&
+                  'pr-10',
                 disabled && 'bg-uzh-grey-20 cursor-not-allowed opacity-70',
                 !!error &&
                   isTouched &&
@@ -178,7 +183,9 @@ export function TextField({
               className={twMerge(
                 'focus:border-input h-9 w-full text-base',
                 icon && iconPosition === 'left' && 'pl-8',
-                icon && iconPosition === 'right' && 'pr-10',
+                ((icon && iconPosition === 'right') ||
+                  (!!value && typeof onReset !== 'undefined')) &&
+                  'pr-10',
                 disabled && 'bg-uzh-grey-20 cursor-not-allowed opacity-70',
                 !!error &&
                   isTouched &&
@@ -207,16 +214,28 @@ export function TextField({
               size="lg"
             />
           )}
-          {icon && iconPosition === 'right' && (
+          {icon &&
+            iconPosition === 'right' &&
+            !(!!value && typeof onReset !== 'undefined') && (
+              <FontAwesomeIcon
+                icon={icon}
+                onClick={onIconClick}
+                className={twMerge(
+                  'absolute right-0 z-10 p-2 pr-3 hover:cursor-pointer',
+                  className?.icon
+                )}
+              />
+            )}
+          {!!value && typeof onReset !== 'undefined' ? (
             <FontAwesomeIcon
-              icon={icon}
-              onClick={onIconClick}
+              icon={faX}
+              onClick={onReset}
               className={twMerge(
                 'absolute right-0 z-10 p-2 pr-3 hover:cursor-pointer',
                 className?.icon
               )}
             />
-          )}
+          ) : null}
         </div>
         {error && !hideError && isTouched && (
           <Tooltip
