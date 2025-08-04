@@ -4223,8 +4223,8 @@
       "levels": [
         "Text field"
       ],
-      "locStart": 472,
-      "locEnd": 480,
+      "locStart": 490,
+      "locEnd": 498,
       "filePath": "src/forms/TextField.stories.mdx",
       "namedExport": "MDXContent",
       "meta": {}
@@ -4238,6 +4238,17 @@
       "locEnd": 432,
       "filePath": "src/forms/TextField.stories.mdx",
       "namedExport": "Required",
+      "meta": {}
+    },
+    "text-field--reset-field-button": {
+      "name": "Reset field button",
+      "levels": [
+        "Text field"
+      ],
+      "locStart": 462,
+      "locEnd": 479,
+      "filePath": "src/forms/TextField.stories.mdx",
+      "namedExport": "ResetFieldButton",
       "meta": {}
     },
     "text-field--small-label": {
