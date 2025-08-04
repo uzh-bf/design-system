@@ -4174,6 +4174,17 @@
       "namedExport": "Disabled",
       "meta": {}
     },
+    "text-field--enter-key-confirmation": {
+      "name": "Enter key confirmation",
+      "levels": [
+        "Text field"
+      ],
+      "locStart": 448,
+      "locEnd": 461,
+      "filePath": "src/forms/TextField.stories.mdx",
+      "namedExport": "EnterKeyConfirmation",
+      "meta": {}
+    },
     "text-field--error": {
       "name": "Error",
       "levels": [
@@ -4212,8 +4223,8 @@
       "levels": [
         "Text field"
       ],
-      "locStart": 458,
-      "locEnd": 466,
+      "locStart": 472,
+      "locEnd": 480,
       "filePath": "src/forms/TextField.stories.mdx",
       "namedExport": "MDXContent",
       "meta": {}
