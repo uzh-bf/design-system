@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.6](https://github.com/uzh-bf/design-system/compare/v4.0.5...v4.0.6) (2025-08-04)
+
+
+### Enhancements
+
+* **TextField:** add reset function for text inputs with cancellation icon ([dd220d9](https://github.com/uzh-bf/design-system/commit/dd220d9a159e9e6a79d849cd5b2dd678ee1daee3))
+
 ### [4.0.5](https://github.com/uzh-bf/design-system/compare/v4.0.4...v4.0.5) (2025-08-04)
 
 
