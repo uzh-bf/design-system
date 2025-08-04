@@ -39,6 +39,7 @@ interface TextFieldProps {
   icon?: IconProp
   iconPosition?: 'left' | 'right'
   onIconClick?: () => void
+  onEnter?: (event: React.KeyboardEvent<HTMLInputElement>) => void
 }
 
 export interface TextFieldNameProps extends TextFieldProps {
@@ -80,6 +81,7 @@ export interface TextFieldOnChangeProps extends TextFieldProps {
  * @param icon - The optional icon is shown on the right side of the input field.
  * @param iconPosition - The optional iconPosition can be used to change the position of the icon to the left side of the input field.
  * @param onIconClick - The optional onIconClick function is called when the icon is clicked.
+ * @param onEnter - The optional onEnter function is called when the user presses the Enter key in the input field.
  * @returns Text field component with optional label, tooltip, error message and icon.
  */
 
@@ -104,6 +106,7 @@ export function TextField({
   icon,
   iconPosition = 'left',
   onIconClick,
+  onEnter,
   ...props
 }: TextFieldNameProps | TextFieldOnChangeProps) {
   return (
@@ -148,6 +151,13 @@ export function TextField({
                   'border-destructive bg-destructive-background focus:border-destructive',
                 className?.input
               )}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && onEnter) {
+                  e.stopPropagation()
+                  e.preventDefault()
+                  onEnter(e)
+                }
+              }}
               {...props}
             />
           ) : (
@@ -175,6 +185,13 @@ export function TextField({
                   'border-destructive bg-destructive-background focus:border-destructive',
                 className?.input
               )}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && onEnter) {
+                  e.stopPropagation()
+                  e.preventDefault()
+                  onEnter(e)
+                }
+              }}
               {...props}
             />
           )}

@@ -575,3 +575,29 @@ return (
   />
 </>
 ) }
+
+export const EnterKeyConfirmation = () => {
+  const [value, setValue] = React.useState('')
+
+return (
+
+<>
+  <div>
+    The default TextField can be customized and icons from FontAwesome can be
+    included at the beginning of the field
+  </div>
+  <TextField
+    label="Label"
+    tooltip="Tooltip for this input"
+    placeholder="Placeholder"
+    value={value}
+    onChange={setValue}
+    icon={faMagnifyingGlass}
+    onEnter={(e) => {
+      e.stopPropagation()
+      e.preventDefault()
+      alert(`Enter pressed with value: ${value}`)
+    }}
+  />
+</>
+) }
