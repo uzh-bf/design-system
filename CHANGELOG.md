@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.7](https://github.com/uzh-bf/design-system/compare/v4.0.6...v4.0.7) (2025-08-05)
+
+
+### Bug Fixes
+
+* **ui/pagination:** add possibility to define custom text for previous and next buttons on pagination ([faf3dcb](https://github.com/uzh-bf/design-system/commit/faf3dcbee7938c7060afb227c718348f05eff33a))
+
 ### [4.0.6](https://github.com/uzh-bf/design-system/compare/v4.0.5...v4.0.6) (2025-08-04)
 
 
