@@ -1969,9 +1969,13 @@ declare type PaginationLinkProps = {
     isActive?: boolean;
 } & Pick<React_2.ComponentProps<typeof Button_2>, 'size'> & React_2.ComponentProps<'a'>;
 
-export declare function PaginationNext({ className, ...props }: React_2.ComponentProps<typeof PaginationLink>): JSX.Element;
+export declare function PaginationNext({ label, className, ...props }: React_2.ComponentProps<typeof PaginationLink> & {
+    label?: string;
+}): JSX.Element;
 
-export declare function PaginationPrevious({ className, ...props }: React_2.ComponentProps<typeof PaginationLink>): JSX.Element;
+export declare function PaginationPrevious({ label, className, ...props }: React_2.ComponentProps<typeof PaginationLink> & {
+    label?: string;
+}): JSX.Element;
 
 declare type Period = 'AM' | 'PM';
 
