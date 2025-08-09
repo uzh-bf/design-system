@@ -93,14 +93,12 @@ export function UserNotification({
       <span>
         <FontAwesomeIcon icon={notifIcon!} className={className?.icon} />
       </span>
-      <div>
-        {message && <span className={className?.message}>{message}</span>}
-        {children && (
-          <div className={twMerge(message && 'mt-2', className?.content)}>
-            {children}
-          </div>
-        )}
-      </div>
+      {message && <span className={className?.message}>{message}</span>}
+      {children && (
+        <div className={twMerge(message && 'mt-2', className?.content)}>
+          {children}
+        </div>
+      )}
     </div>
   )
 }
