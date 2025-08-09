@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.8](https://github.com/uzh-bf/design-system/compare/v4.0.7...v4.0.8) (2025-08-09)
+
+
+### Bug Fixes
+
+* **UserNotification:** make sure that content styles are applied to entire content ([0f6f8f6](https://github.com/uzh-bf/design-system/commit/0f6f8f6a8982e5343370ccf2f7a70aef8b039d2a))
+
 ### [4.0.7](https://github.com/uzh-bf/design-system/compare/v4.0.6...v4.0.7) (2025-08-05)
 
 
