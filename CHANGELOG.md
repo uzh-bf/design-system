@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.9](https://github.com/uzh-bf/design-system/compare/v4.0.8...v4.0.9) (2025-08-19)
+
+
+### Bug Fixes
+
+* **Checkbox:** make sure checkbox labels are centered with respect to checkbox ([2e0355a](https://github.com/uzh-bf/design-system/commit/2e0355a21c78a4e321a40534348ccdae8d8daacb))
+
+
+### Other
+
+* **Checkbox:** update styling of checkbox when disabled ([0e7cdf0](https://github.com/uzh-bf/design-system/commit/0e7cdf0d334a7a8638d0b6c8b224d664c89971f1))
+
 ### [4.0.8](https://github.com/uzh-bf/design-system/compare/v4.0.7...v4.0.8) (2025-08-09)
 
 
