@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.10](https://github.com/uzh-bf/design-system/compare/v4.0.9...v4.0.10) (2025-08-24)
+
+
+### Bug Fixes
+
+* **Switch:** fix lock icon size on disabled switch after fontawesome upgrade ([8e6b6da](https://github.com/uzh-bf/design-system/commit/8e6b6da6c3fab5958f07914072147cc457b0dc05))
+
 ### [4.0.9](https://github.com/uzh-bf/design-system/compare/v4.0.8...v4.0.9) (2025-08-19)
 
 
