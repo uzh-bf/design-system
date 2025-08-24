@@ -95,6 +95,11 @@ export function Switch({
     md: 'translate-x-2.5',
     lg: 'translate-x-4',
   }
+  const iconSize = {
+    sm: 'text-xs',
+    md: 'text-sm',
+    lg: 'text-base',
+  }
 
   return (
     <div
@@ -145,7 +150,10 @@ export function Switch({
           )}
         >
           {disabled && (
-            <FontAwesomeIcon icon={faLock} className="h-3 w-3 text-gray-400" />
+            <FontAwesomeIcon
+              icon={faLock}
+              className={twMerge('text-gray-400', iconSize[size || 'md'])}
+            />
           )}
         </RadixSwitch.Thumb>
       </RadixSwitch.Root>
