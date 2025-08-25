@@ -8,7 +8,7 @@ import CycleProgress from './CycleProgress'
 export interface CycleCountdownProps {
   expiresAt: Date
   totalDuration: number
-  size?: 'sm' | 'md'
+  size?: 'sm' | 'md' | 'lg'
   overrideSize?: number
   color?: string
   strokeWidthRem?: number
@@ -78,7 +78,9 @@ export function CycleCountdown({
         terminalPercentage && percentage === 0 ? terminalPercentage : percentage
       }
       color={terminalPercentage && percentage === 0 ? terminalColor : color}
-      strokeWidthRem={strokeWidthRem}
+      strokeWidthRem={
+        size === 'sm' ? 0.2 : size === 'lg' ? 0.5 : strokeWidthRem
+      }
       data={data}
       className={{
         root: className?.root,

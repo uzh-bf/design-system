@@ -668,7 +668,7 @@ export declare function CycleCountdown({ expiresAt, totalDuration, size, overrid
 export declare interface CycleCountdownProps {
     expiresAt: Date;
     totalDuration: number;
-    size?: 'sm' | 'md';
+    size?: 'sm' | 'md' | 'lg';
     overrideSize?: number;
     color?: string;
     strokeWidthRem?: number;
@@ -705,7 +705,7 @@ export declare interface CycleCountdownProps {
 export declare function CycleProgress({ size, overrideSize, percentage, color, strokeWidthRem, children, data, className, }: CycleProgressProps): JSX.Element;
 
 export declare interface CycleProgressProps {
-    size?: 'sm' | 'md';
+    size?: 'sm' | 'md' | 'lg';
     overrideSize?: number;
     percentage: number;
     color?: string;

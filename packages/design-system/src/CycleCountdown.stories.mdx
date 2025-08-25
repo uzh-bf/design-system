@@ -51,7 +51,7 @@ Available Stories:
 
 - Default: Basic circular countdown with medium size
 - Static: Static display without automatic updates
-- Small: Compact size variant with adjusted stroke width
+- Sizes: Small and large variant with adjusted stroke width
 - Formatter: Custom time formatting with visual progress
 - Expiration: Expiration handling with state tracking
 - Updating: Real-time update tracking with progress
@@ -163,6 +163,7 @@ Size Variants:
 
 - sm: Compact size for toolbars, notifications, small widgets
 - md: Standard size for main content areas, forms
+- lg: Large size for headers, banners, and prominent displays
 - Custom: overrideSize prop for specific pixel dimensions
 
 Progress Calculation:
@@ -235,18 +236,30 @@ export const Static = () => {
 return <CycleCountdown expiresAt={time} totalDuration={10} isStatic />
 }
 
-export const Small = () => {
+export const Sizes = () => {
   const time = new Date()
   time.setSeconds(time.getSeconds() + 10)
 
 return (
-
-<CycleCountdown
-  expiresAt={time}
-  totalDuration={10}
-  size="sm"
-  strokeWidthRem={0.2}
-/>
+<>
+  <CycleCountdown
+    expiresAt={time}
+    totalDuration={10}
+    size="sm"
+    strokeWidthRem={0.2}
+  />
+  <CycleCountdown
+    expiresAt={time}
+    totalDuration={10}
+    strokeWidthRem={0.2}
+  />
+  <CycleCountdown
+    expiresAt={time}
+    totalDuration={10}
+    size="lg"
+    strokeWidthRem={0.2}
+  />
+</>
 ) }
 
 export const Formatter = () => {

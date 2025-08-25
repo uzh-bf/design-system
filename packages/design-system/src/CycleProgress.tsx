@@ -2,7 +2,7 @@ import React from 'react'
 import { twMerge } from 'tailwind-merge'
 
 export interface CycleProgressProps {
-  size?: 'sm' | 'md'
+  size?: 'sm' | 'md' | 'lg'
   overrideSize?: number
   percentage: number
   color?: string
@@ -41,7 +41,8 @@ export function CycleProgress({
   data,
   className,
 }: CycleProgressProps) {
-  const sizeNumber = overrideSize || (size === 'sm' ? 14 : 24)
+  const sizeNumber =
+    overrideSize || (size === 'sm' ? 14 : size === 'lg' ? 40 : 24)
   const r = Math.round(0.8 * sizeNumber)
   const circ = 2 * Math.PI * r
   const strokePct = ((100 - percentage) * circ) / 100
@@ -51,6 +52,7 @@ export function CycleProgress({
       className={twMerge(
         'relative h-12 w-12',
         size === 'sm' && 'h-7 w-7',
+        size === 'lg' && 'h-20 w-20',
         className?.root
       )}
       data-cy={data?.cy}
@@ -84,6 +86,7 @@ export function CycleProgress({
         className={twMerge(
           'absolute flex h-full w-full items-center justify-center bg-transparent text-sm',
           size === 'sm' && 'text-xs',
+          size === 'lg' && 'text-lg',
           className?.children
         )}
       >
