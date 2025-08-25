@@ -758,8 +758,8 @@
       "levels": [
         "Cycle countdown"
       ],
-      "locStart": 193,
-      "locEnd": 197,
+      "locStart": 194,
+      "locEnd": 198,
       "filePath": "src/CycleCountdown.stories.mdx",
       "namedExport": "Default",
       "meta": {}
@@ -769,8 +769,8 @@
       "levels": [
         "Cycle countdown"
       ],
-      "locStart": 215,
-      "locEnd": 225,
+      "locStart": 220,
+      "locEnd": 230,
       "filePath": "src/CycleCountdown.stories.mdx",
       "namedExport": "Expiration",
       "meta": {}
@@ -780,8 +780,8 @@
       "levels": [
         "Cycle countdown"
       ],
-      "locStart": 208,
-      "locEnd": 214,
+      "locStart": 213,
+      "locEnd": 219,
       "filePath": "src/CycleCountdown.stories.mdx",
       "namedExport": "Formatter",
       "meta": {}
@@ -791,21 +791,21 @@
       "levels": [
         "Cycle countdown"
       ],
-      "locStart": 268,
-      "locEnd": 276,
+      "locStart": 273,
+      "locEnd": 281,
       "filePath": "src/CycleCountdown.stories.mdx",
       "namedExport": "MDXContent",
       "meta": {}
     },
-    "cycle-countdown--small": {
-      "name": "Small",
+    "cycle-countdown--sizes": {
+      "name": "Sizes",
       "levels": [
         "Cycle countdown"
       ],
-      "locStart": 203,
-      "locEnd": 207,
+      "locStart": 204,
+      "locEnd": 212,
       "filePath": "src/CycleCountdown.stories.mdx",
-      "namedExport": "Small",
+      "namedExport": "Sizes",
       "meta": {}
     },
     "cycle-countdown--static": {
@@ -813,8 +813,8 @@
       "levels": [
         "Cycle countdown"
       ],
-      "locStart": 198,
-      "locEnd": 202,
+      "locStart": 199,
+      "locEnd": 203,
       "filePath": "src/CycleCountdown.stories.mdx",
       "namedExport": "Static",
       "meta": {}
@@ -824,8 +824,8 @@
       "levels": [
         "Cycle countdown"
       ],
-      "locStart": 244,
-      "locEnd": 251,
+      "locStart": 249,
+      "locEnd": 256,
       "filePath": "src/CycleCountdown.stories.mdx",
       "namedExport": "Styled",
       "meta": {}
@@ -835,8 +835,8 @@
       "levels": [
         "Cycle countdown"
       ],
-      "locStart": 252,
-      "locEnd": 256,
+      "locStart": 257,
+      "locEnd": 261,
       "filePath": "src/CycleCountdown.stories.mdx",
       "namedExport": "TerminalSettings",
       "meta": {}
@@ -846,8 +846,8 @@
       "levels": [
         "Cycle countdown"
       ],
-      "locStart": 226,
-      "locEnd": 243,
+      "locStart": 231,
+      "locEnd": 248,
       "filePath": "src/CycleCountdown.stories.mdx",
       "namedExport": "Updating",
       "meta": {}
