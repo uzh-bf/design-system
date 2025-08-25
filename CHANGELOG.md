@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.11](https://github.com/uzh-bf/design-system/compare/v4.0.10...v4.0.11) (2025-08-25)
+
+
+### Enhancements
+
+* **CycleCountdown:** add large size option for cycle countdown component ([a055a0b](https://github.com/uzh-bf/design-system/commit/a055a0bfc2f7994467013d87fec6e240783487b2))
+
 ### [4.0.10](https://github.com/uzh-bf/design-system/compare/v4.0.9...v4.0.10) (2025-08-24)
 
 
