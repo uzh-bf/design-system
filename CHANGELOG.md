@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.12](https://github.com/uzh-bf/design-system/compare/v4.0.11...v4.0.12) (2025-08-27)
+
+
+### Bug Fixes
+
+* **ui/select:** fix issue with large margin next to chevron icon on select component ([6f5f976](https://github.com/uzh-bf/design-system/commit/6f5f976d933614614eec4ada24c761f59356396d))
+
 ### [4.0.11](https://github.com/uzh-bf/design-system/compare/v4.0.10...v4.0.11) (2025-08-25)
 
 
