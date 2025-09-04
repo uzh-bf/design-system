@@ -2986,6 +2986,160 @@
       "namedExport": "TooltipSymbol",
       "meta": {}
     },
+    "alpha-numeric-pin-field--default": {
+      "name": "Default",
+      "levels": [
+        "Alpha numeric pin field"
+      ],
+      "locStart": 59,
+      "locEnd": 65,
+      "filePath": "src/forms/AlphaNumericPinField.stories.mdx",
+      "namedExport": "Default",
+      "meta": {}
+    },
+    "alpha-numeric-pin-field--error": {
+      "name": "Error",
+      "levels": [
+        "Alpha numeric pin field"
+      ],
+      "locStart": 73,
+      "locEnd": 78,
+      "filePath": "src/forms/AlphaNumericPinField.stories.mdx",
+      "namedExport": "Error",
+      "meta": {}
+    },
+    "alpha-numeric-pin-field--readme": {
+      "name": "Readme",
+      "levels": [
+        "Alpha numeric pin field"
+      ],
+      "locStart": 108,
+      "locEnd": 116,
+      "filePath": "src/forms/AlphaNumericPinField.stories.mdx",
+      "namedExport": "MDXContent",
+      "meta": {}
+    },
+    "alpha-numeric-pin-field--styled": {
+      "name": "Styled",
+      "levels": [
+        "Alpha numeric pin field"
+      ],
+      "locStart": 85,
+      "locEnd": 96,
+      "filePath": "src/forms/AlphaNumericPinField.stories.mdx",
+      "namedExport": "Styled",
+      "meta": {}
+    },
+    "alpha-numeric-pin-field--tooltip": {
+      "name": "Tooltip",
+      "levels": [
+        "Alpha numeric pin field"
+      ],
+      "locStart": 79,
+      "locEnd": 84,
+      "filePath": "src/forms/AlphaNumericPinField.stories.mdx",
+      "namedExport": "Tooltip",
+      "meta": {}
+    },
+    "alpha-numeric-pin-field--uppercase-only": {
+      "name": "Uppercase only",
+      "levels": [
+        "Alpha numeric pin field"
+      ],
+      "locStart": 66,
+      "locEnd": 72,
+      "filePath": "src/forms/AlphaNumericPinField.stories.mdx",
+      "namedExport": "UppercaseOnly",
+      "meta": {}
+    },
+    "formik-alpha-numeric-pin-field--default": {
+      "name": "Default",
+      "levels": [
+        "Formik alpha numeric pin field"
+      ],
+      "locStart": 94,
+      "locEnd": 113,
+      "filePath": "src/forms/FormikAlphaNumericPinField.stories.mdx",
+      "namedExport": "Default",
+      "meta": {}
+    },
+    "formik-alpha-numeric-pin-field--large-label": {
+      "name": "Large label",
+      "levels": [
+        "Formik alpha numeric pin field"
+      ],
+      "locStart": 137,
+      "locEnd": 145,
+      "filePath": "src/forms/FormikAlphaNumericPinField.stories.mdx",
+      "namedExport": "LargeLabel",
+      "meta": {}
+    },
+    "formik-alpha-numeric-pin-field--readme": {
+      "name": "Readme",
+      "levels": [
+        "Formik alpha numeric pin field"
+      ],
+      "locStart": 205,
+      "locEnd": 213,
+      "filePath": "src/forms/FormikAlphaNumericPinField.stories.mdx",
+      "namedExport": "MDXContent",
+      "meta": {}
+    },
+    "formik-alpha-numeric-pin-field--required": {
+      "name": "Required",
+      "levels": [
+        "Formik alpha numeric pin field"
+      ],
+      "locStart": 128,
+      "locEnd": 136,
+      "filePath": "src/forms/FormikAlphaNumericPinField.stories.mdx",
+      "namedExport": "Required",
+      "meta": {}
+    },
+    "formik-alpha-numeric-pin-field--styled": {
+      "name": "Styled",
+      "levels": [
+        "Formik alpha numeric pin field"
+      ],
+      "locStart": 155,
+      "locEnd": 174,
+      "filePath": "src/forms/FormikAlphaNumericPinField.stories.mdx",
+      "namedExport": "Styled",
+      "meta": {}
+    },
+    "formik-alpha-numeric-pin-field--tooltip": {
+      "name": "Tooltip",
+      "levels": [
+        "Formik alpha numeric pin field"
+      ],
+      "locStart": 146,
+      "locEnd": 154,
+      "filePath": "src/forms/FormikAlphaNumericPinField.stories.mdx",
+      "namedExport": "Tooltip",
+      "meta": {}
+    },
+    "formik-alpha-numeric-pin-field--uppercase-only": {
+      "name": "Uppercase only",
+      "levels": [
+        "Formik alpha numeric pin field"
+      ],
+      "locStart": 114,
+      "locEnd": 127,
+      "filePath": "src/forms/FormikAlphaNumericPinField.stories.mdx",
+      "namedExport": "UppercaseOnly",
+      "meta": {}
+    },
+    "formik-alpha-numeric-pin-field--validation": {
+      "name": "Validation",
+      "levels": [
+        "Formik alpha numeric pin field"
+      ],
+      "locStart": 175,
+      "locEnd": 193,
+      "filePath": "src/forms/FormikAlphaNumericPinField.stories.mdx",
+      "namedExport": "Validation",
+      "meta": {}
+    },
     "formik-color-picker--custom-presets": {
       "name": "Custom presets",
       "levels": [
