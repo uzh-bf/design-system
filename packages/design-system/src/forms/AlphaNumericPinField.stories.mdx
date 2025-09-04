@@ -1,0 +1,153 @@
+import React, { useState } from 'react'
+import AlphaNumericPinField from './AlphaNumericPinField'
+
+{/* START README */}
+<div className="prose prose-sm max-w-none">
+The `AlphaNumericPinField` component provides segmented input for alphanumeric codes (A–Z, 0–9) with optional auto-uppercase, label, tooltip, and error display.
+
+The AlphaNumericPinField accepts the following props:
+
+- @param id - The id of the input field.
+- @param value - The current value of the segmented alphanumeric input.
+- @param onChange - The change handler called with the updated value when input changes.
+- @param length - The length of the pin (number of characters).
+- @param required - Indicate whether the field is required or not.
+- @param label - The text displayed as label.
+- @param labelType - The optional labelType can be used to change the size and position of the label according to pre-defined standards.
+- @param tooltip - The optional tooltip is shown on hover over the tooltip next to the label.
+- @param hideError - Indicate whether the error message should be hidden or not.
+- @param error - The error message to display when touched.
+- @param isTouched - Indicate whether the field has been touched or not.
+- @param uppercaseOnly - If true, lowercase characters are automatically converted to uppercase.
+- @param className - The class names for the different parts of the component.
+- @param data - Optional data attributes for testing purposes.
+</div>
+{/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Standalone segmented alphanumeric input built on input-otp. Supports letters A–Z and digits 0–9, optional auto-uppercase, paste, labels and error tooltips.
+
+Dependencies:
+
+- input-otp for segmented input behavior
+- Custom label and tooltip components for consistent UI
+- React for local state handling in examples
+
+Available Stories:
+
+- Default: Basic 6-char input with label
+- UppercaseOnly: Auto-uppercase conversion
+- Error: Error state with touched flag
+- Tooltip: Label with helpful tooltip
+- Styled: Custom class overrides and testing attributes
+
+Props (AlphaNumericPinField component):
+
+- id?: string - HTML id attribute
+- value: string - Controlled value of the segmented input
+- onChange: (value: string) => void - Change handler
+- length: number - Number of characters to capture
+- required?: boolean - Required flag for label
+- label?: string - Display label for the field
+- labelType?: 'small' | 'large' - Label size/placement
+- tooltip?: string | React.ReactNode - Tooltip content next to label
+- hideError?: boolean - Hide error tooltip/icon
+- error?: string - Error message when touched
+- isTouched?: boolean - Touched flag for error display
+- uppercaseOnly?: boolean - Convert lowercase to uppercase
+- className?: Record<string, string> - Styling overrides
+- data?: Record<string, string> - Data attributes for testing
+
+Usage Examples:
+
+```tsx
+const [value, setValue] = useState('')
+<AlphaNumericPinField
+  label="Invite Code"
+  value={value}
+  onChange={setValue}
+  length={6}
+  uppercaseOnly
+/> 
+```
+
+AI_DOCUMENTATION_END
+*/}
+
+export const Default = () => {
+  const [value, setValue] = useState('')
+  return (
+    <div>
+      <AlphaNumericPinField label="Code" value={value} onChange={setValue} length={6} />
+      <div>Value: {value}</div>
+    </div>
+  )
+}
+
+export const UppercaseOnly = () => {
+  const [value, setValue] = useState('')
+  return (
+    <div>
+      <AlphaNumericPinField
+        label="Invite"
+        value={value}
+        onChange={setValue}
+        length={6}
+        uppercaseOnly
+        tooltip="Lowercase letters are converted to uppercase"
+      />
+      <div>Value: {value}</div>
+    </div>
+  )
+}
+
+export const Error = () => {
+  const [value, setValue] = useState('')
+  return (
+    <div>
+      <AlphaNumericPinField
+        label="Verification Code"
+        value={value}
+        onChange={setValue}
+        length={6}
+        error="Please enter 6 characters"
+        isTouched
+        required
+      />
+    </div>
+  )
+}
+
+export const Tooltip = () => {
+  const [value, setValue] = useState('')
+  return (
+    <div>
+      <AlphaNumericPinField
+        label="Access Code"
+        value={value}
+        onChange={setValue}
+        length={6}
+        tooltip="Alphanumeric only; paste is supported"
+      />
+    </div>
+  )
+}
+
+export const Styled = () => {
+  const [value, setValue] = useState('')
+  return (
+    <div>
+      <AlphaNumericPinField
+        label="Styled Code"
+        value={value}
+        onChange={setValue}
+        length={9}
+        className={{ field: 'max-w-md', input: 'bg-purple-50', label: 'text-purple-700' }}
+        data={{ cy: 'alpha-code' }}
+      />
+    </div>
+  )
+}
+

@@ -87,6 +87,56 @@ declare const alertVariants: (props?: ({
     variant?: "default" | "destructive" | null | undefined;
 } & ClassProp) | undefined) => string;
 
+/**
+ * This function returns an alphanumeric pin field component for use without Formik.
+ * It mirrors the styling and behavior of the numeric FormikPinField, but allows A–Z and 0–9 input.
+ *
+ * @param id - The id of the input field.
+ * @param value - The current value of the segmented alphanumeric input (string of length 0..length).
+ * @param onChange - The change handler called with the updated value when input changes.
+ * @param length - The length of the pin (number of characters).
+ * @param required - Indicate whether the field is required or not.
+ * @param label - The text displayed as label.
+ * @param labelType - The optional labelType can be used to change the size and position of the label according to pre-defined standards.
+ * @param tooltip - The optional tooltip is shown on hover over the tooltip next to the label.
+ * @param hideError - Indicate whether the error message should be hidden or not.
+ * @param error - The error message to display as a tooltip on the right side when the field has been touched.
+ * @param isTouched - Indicate whether the field has been touched or not (validation is not handled by this component).
+ * @param uppercaseOnly - If true, lowercase characters are automatically converted to uppercase.
+ * @param className - The class names for the different parts of the component.
+ * @param data - Optional data attributes for testing purposes.
+ * @returns An alphanumeric pin field component with segmented input.
+ */
+export declare function AlphaNumericPinField({ id, value, onChange, length, required, label, labelType, tooltip, hideError, error, isTouched, uppercaseOnly, className, data, }: AlphaNumericPinFieldProps): JSX.Element;
+
+export declare interface AlphaNumericPinFieldClassName {
+    field?: string;
+    label?: string;
+    tooltip?: string;
+    input?: string;
+    inputItem?: string;
+}
+
+export declare interface AlphaNumericPinFieldProps {
+    id?: string;
+    value: string;
+    onChange: (newValue: string) => void;
+    length: number;
+    required?: boolean;
+    label?: string;
+    labelType?: 'small' | 'large';
+    tooltip?: string | default_3.ReactNode;
+    hideError?: boolean;
+    error?: string;
+    isTouched?: boolean;
+    uppercaseOnly?: boolean;
+    className?: AlphaNumericPinFieldClassName;
+    data?: {
+        cy?: string;
+        test?: string;
+    };
+}
+
 export declare function AspectRatio({ ...props }: React.ComponentProps<typeof AspectRatioPrimitive.Root>): JSX.Element;
 
 export declare function Avatar({ className, ...props }: React_2.ComponentProps<typeof AvatarPrimitive.Root>): JSX.Element;
@@ -1062,6 +1112,49 @@ export declare function FormControl({ ...props }: React_2.ComponentProps<typeof 
 export declare function FormDescription({ className, ...props }: React_2.ComponentProps<'p'>): JSX.Element;
 
 export declare const FormField: <TFieldValues extends FieldValues = FieldValues, TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>>({ ...props }: ControllerProps<TFieldValues, TName>) => JSX.Element;
+
+/**
+ * This function returns an alphanumeric pin field that works as to be expected in a Formik environment.
+ * State can be managed either through Formik or internally by passing a value and onChange function.
+ *
+ * @param id - The id of the field.
+ * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
+ * @param name - The name of the field as used to keep track of the state in Formik. If no value and onChange function are provided, this field is required.
+ * @param value - The value of the field. This is used to manage the state internally. If no name is provided, this field is required.
+ * @param onChange - The onChange function is called when the value of the field changes. This is used to manage the state internally. If no name is provided, this field is required.
+ * @param length - The length of the pin (number of characters).
+ * @param error - The error message that is shown below the field. If a name is provided, this prop will not be used.
+ * @param label - The optional label is shown next to the field in the form.
+ * @param labelType - The optional labelType can be used to change the size and position of the label according to pre-defined standards.
+ * @param tooltip - The optional tooltip is shown on hover next to the label.
+ * @param required - Indicate whether the field is required or not.
+ * @param hideError - Hide the error message below this component as is might be more appropriate to show it somewhere else.
+ * @param isTouched - Indicate whether the field has been touched or not (when using external state management).
+ * @param uppercaseOnly - If true, lowercase characters are automatically converted to uppercase.
+ * @param className - The optional className object allows you to override the default styling.
+ * @returns Alphanumeric pin field component with Formik state management.
+ */
+export declare function FormikAlphaNumericPinField({ id, data, name, length, label, labelType, tooltip, required, hideError, uppercaseOnly, className, ...props }: FormikAlphaNumericPinFieldProps): JSX.Element;
+
+declare interface FormikAlphaNumericPinFieldProps {
+    id?: string;
+    name: string;
+    data?: {
+        cy?: string;
+        test?: string;
+    };
+    length: number;
+    label?: string;
+    labelType?: 'small' | 'large';
+    tooltip?: string | default_3.ReactNode;
+    required?: boolean;
+    hideError?: boolean;
+    uppercaseOnly?: boolean;
+    className?: AlphaNumericPinFieldClassName & {
+        root?: string;
+    };
+    [key: string]: unknown;
+}
 
 /**
  * FormikColorPicker is a wrapper around the ColorPicker component that integrates with Formik for form handling.

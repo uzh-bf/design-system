@@ -1,0 +1,261 @@
+import { Form, Formik } from 'formik'
+import * as yup from 'yup'
+import Button from '../Button'
+import FormikAlphaNumericPinField from './FormikAlphaNumericPinField'
+
+{/* START README */}
+<div className="prose prose-sm max-w-none">
+The `FormikAlphaNumericPinField` component is a Formik wrapper around the `AlphaNumericPinField` component. It supports segmented input for alphanumeric codes (A–Z, 0–9), with optional automatic uppercasing, and integrates labels, tooltips, and error handling.
+
+The FormikAlphaNumericPinField accepts the following props:
+
+- @param id - The id of the input field.
+- @param data - Optional data attributes for testing purposes.
+- @param name - The name of the input field (used for Formik). Required when not using external state.
+- @param value - The value of the field for external state management (mutually exclusive with name).
+- @param onChange - The change handler for external state management (mutually exclusive with name).
+- @param length - The length of the pin (number of characters).
+- @param required - Indicate whether the field is required or not.
+- @param label - The text displayed as label.
+- @param labelType - The optional labelType can be used to change the size and position of the label according to pre-defined standards.
+- @param tooltip - The optional tooltip is shown on hover over the tooltip next to the label.
+- @param hideError - Indicate whether the error message should be hidden or not.
+- @param isTouched - External touched state when using external value/onChange.
+- @param error - External error message when using external value/onChange.
+- @param uppercaseOnly - If true, lowercase characters are automatically converted to uppercase.
+- @param className - The class names for the different parts of the component.
+</div>
+{/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Formik-integrated alphanumeric PIN input built on segmented OTP inputs. Supports letters A–Z and digits 0–9, optional auto-uppercase, paste handling, and unified label/error UX.
+
+Dependencies:
+
+- Formik for form state and validation integration
+- AlphaNumericPinField core component for segmented alphanumeric input
+- Yup for schema validation examples
+- Custom label and tooltip components shared across form fields
+
+Available Stories:
+
+- Default: Basic 6-char alphanumeric code
+- UppercaseOnly: Auto-uppercase conversion enabled
+- Required: Required field with visual indicator
+- LargeLabel: Large label variant
+- Tooltip: Label with tooltip
+- Styled: Custom styles and testing attributes
+- Validation: Exact length and alphanumeric validation with Yup
+
+Props (FormikAlphaNumericPinField component):
+
+- id?: string - HTML id attribute for the input container
+- data?: Record<string, string> - Data attributes for testing purposes
+- name?: string - Formik field name (use when not passing value/onChange)
+- value?: string - Controlled value for external state management
+- onChange?: (value: string) => void - External change handler
+- length: number - Number of characters in the code
+- required?: boolean - Whether field is required
+- label?: string - Display label for the input
+- labelType?: 'small' | 'large' - Label size and placement
+- tooltip?: string | React.ReactNode - Optional tooltip content
+- hideError?: boolean - Hide error icon/tooltip next to field
+- isTouched?: boolean - External touched state for error display
+- error?: string - External error message
+- uppercaseOnly?: boolean - Convert lowercase to uppercase automatically
+- className?: Record<string, string> - Styling overrides for parts
+
+Component Structure:
+
+- Formik field binding when `name` is provided
+- Segmented alphanumeric input slots using input-otp
+- Error icon with tooltip on validation errors
+- Optional tooltip on label
+
+Usage Examples:
+
+```tsx
+// Basic alphanumeric code with Formik
+<Formik initialValues={{ code: '' }} onSubmit={console.log}>
+  <Form>
+    <FormikAlphaNumericPinField name="code" length={6} label="Access Code" />
+    <Button type="submit">Submit</Button>
+  </Form>
+</Formik>
+
+// With validation and uppercase enforcement
+<Formik
+  initialValues={{ invite: '' }}
+  validationSchema={yup.object({
+    invite: yup
+      .string()
+      .required('Code is required')
+      .matches(/^[A-Za-z0-9]{6}$/g, 'Must be 6 alphanumeric characters')
+  })}
+  onSubmit={console.log}
+>
+  <Form>
+    <FormikAlphaNumericPinField
+      name="invite"
+      length={6}
+      label="Invite Code"
+      uppercaseOnly
+      required
+    />
+    <Button type="submit">Join</Button>
+  </Form>
+</Formik>
+```
+
+AI_DOCUMENTATION_END
+*/}
+
+export const Default = () => (
+  <div>
+    <Formik
+      initialValues={{ code: '' }}
+      onSubmit={async (values, { resetForm }) => {
+        alert(`Form submitted with value: ${values.code}`)
+        resetForm()
+      }}
+    >
+      {({ values }) => (
+        <div>
+          <Form>
+            <FormikAlphaNumericPinField label="Code" name="code" length={6} />
+            <Button type="submit">Submit</Button>
+          </Form>
+          <div>Value: {values.code}</div>
+        </div>
+      )}
+    </Formik>
+  </div>
+)
+
+export const UppercaseOnly = () => (
+  <div>
+    <Formik initialValues={{ code: '' }} onSubmit={() => {}}>
+      {({ values }) => (
+        <div>
+          <Form>
+            <FormikAlphaNumericPinField
+              label="Invite"
+              name="code"
+              length={6}
+              uppercaseOnly
+              tooltip="Lowercase letters are converted to uppercase"
+            />
+          </Form>
+          <div>Value: {values.code}</div>
+        </div>
+      )}
+    </Formik>
+  </div>
+)
+
+export const Required = () => (
+  <div>
+    <Formik initialValues={{ code: '' }} onSubmit={() => {}}>
+      <Form>
+        <FormikAlphaNumericPinField
+          required
+          label="Required Code"
+          name="code"
+          length={6}
+        />
+      </Form>
+    </Formik>
+  </div>
+)
+
+export const LargeLabel = () => (
+  <div>
+    <Formik initialValues={{ code: '' }} onSubmit={() => {}}>
+      <Form>
+        <FormikAlphaNumericPinField
+          label="Code"
+          name="code"
+          labelType="large"
+          length={6}
+          required
+          tooltip="Use the code provided by your administrator"
+        />
+      </Form>
+    </Formik>
+  </div>
+)
+
+export const Tooltip = () => (
+  <div>
+    <Formik initialValues={{ code: '' }} onSubmit={() => {}}>
+      <Form>
+        <FormikAlphaNumericPinField
+          label="Code"
+          name="code"
+          length={6}
+          tooltip="Alphanumeric only; paste is supported"
+        />
+      </Form>
+    </Formik>
+  </div>
+)
+
+export const Styled = () => (
+  <div>
+    <Formik initialValues={{ code: '' }} onSubmit={() => {}}>
+      {({ values }) => (
+        <div>
+          <Form>
+            <FormikAlphaNumericPinField
+              label="Code"
+              name="code"
+              length={6}
+              className={{
+                field: 'mb-1 w-1/2',
+                input: 'bg-blue-50',
+                label: 'text-emerald-700',
+              }}
+              data={{ cy: 'alpha' }}
+            />
+          </Form>
+          <div>Value: {values.code}</div>
+        </div>
+      )}
+    </Formik>
+  </div>
+)
+
+export const Validation = () => (
+  <div>
+    <div>
+      This field must have an exact length of 6 characters and be alphanumeric.
+    </div>
+    <Formik
+      initialValues={{ code: '' }}
+      onSubmit={() => {}}
+      validationSchema={yup.object().shape({
+        code: yup
+          .string()
+          .required('This field is required')
+          .matches(/^[A-Za-z0-9]{6}$/g, 'Must be exactly 6 alphanumeric characters'),
+      })}
+    >
+      {({ isValid }) => (
+        <Form>
+          <FormikAlphaNumericPinField
+            required
+            label="Alphanumeric Code"
+            name="code"
+            length={6}
+          />
+          <Button type="submit" disabled={!isValid}>
+            Submit
+          </Button>
+        </Form>
+      )}
+    </Formik>
+  </div>
+)
+
