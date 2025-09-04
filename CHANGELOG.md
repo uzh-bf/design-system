@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.1.0](https://github.com/uzh-bf/design-system/compare/v4.0.12...v4.1.0) (2025-09-04)
+
+
+### Features
+
+* **AlphaNumericPinField:** introduce new alphanumeric pin field component ([#177](https://github.com/uzh-bf/design-system/issues/177)) ([44c7e0c](https://github.com/uzh-bf/design-system/commit/44c7e0c56d66133c093013e128c044d3ebbe5a3e))
+
 ### [4.0.12](https://github.com/uzh-bf/design-system/compare/v4.0.11...v4.0.12) (2025-08-27)
 
 
