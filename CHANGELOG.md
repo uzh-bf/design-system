@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.1.1](https://github.com/uzh-bf/design-system/compare/v4.1.0...v4.1.1) (2025-09-08)
+
+
+### Enhancements
+
+* **StepProgress:** add possibility to disable elements and broaden accepted value types for step items ([26aae13](https://github.com/uzh-bf/design-system/commit/26aae13f42a29216937656e8cd11101b90a39505))
+
 ## [4.1.0](https://github.com/uzh-bf/design-system/compare/v4.0.12...v4.1.0) (2025-09-04)
 
 
