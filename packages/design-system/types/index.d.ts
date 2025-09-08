@@ -2618,7 +2618,7 @@ declare interface StepBaseProps {
 }
 
 export declare interface StepItem {
-    [x: string]: string | number | undefined | null;
+    [x: string]: string | number | boolean | default_3.ReactElement | undefined | null;
 }
 
 /**

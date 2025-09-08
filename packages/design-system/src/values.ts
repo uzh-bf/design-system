@@ -211,7 +211,7 @@ export const stepProgressStatusItems = [
   { type: 'question', status: 'correct', id: 'id_5', points: 2, maxPoints: 2 },
   { type: 'question', status: 'correct', id: 'id_6', points: 2, maxPoints: 2 },
   { type: 'markdown', status: 'unanswered', id: 'id_7' },
-  { type: 'markdown', status: 'unanswered', id: 'id_8' },
+  { type: 'markdown', status: 'unanswered', id: 'id_8', disabled: true },
   { type: 'question', status: 'unanswered', id: 'id_9' },
 ]
 

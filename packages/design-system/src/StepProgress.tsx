@@ -37,22 +37,17 @@ function contentFormatter({ element, ix }: FormatterArgs) {
 }
 
 export interface StepItem {
-  [x: string]: string | number | undefined | null
+  [x: string]: string | number | boolean | React.ReactElement | undefined | null
 }
 
 interface StepProgressBaseProps {
   id?: string
-  data?: {
-    cy?: string
-    test?: string
-  }
+  data?: { cy?: string; test?: string }
   value?: number
   onItemClick: (ix: number, item?: StepItem) => void
   displayOffsetLeft?: number
   displayOffsetRight?: number
-  className?: {
-    root?: string
-  }
+  className?: { root?: string }
   formatter?: ({
     element,
     ix,
@@ -136,8 +131,9 @@ export function StepProgress({
           <button
             key={ix}
             data-cy={data?.cy ? `${data?.cy}-${ix}` : undefined}
+            disabled={element.disabled ?? false}
             className={twMerge(
-              'hover:bg-primary-20 hover:text-primary-100 flex flex-1 cursor-pointer items-center justify-center border-r border-white p-1 last:border-r-0 disabled:cursor-not-allowed',
+              'hover:bg-primary-20 hover:text-primary-100 flex flex-1 cursor-pointer items-center justify-center border-r border-white p-1 last:border-r-0 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-gray-200! disabled:hover:text-black',
               ix === 0 && 'rounded-l',
               ix === length - 1 && 'rounded-r',
               (value || 0) > ix && !items && 'bg-primary-60 text-white',
