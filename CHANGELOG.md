@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.1.2](https://github.com/uzh-bf/design-system/compare/v4.1.1...v4.1.2) (2025-09-08)
+
+
+### Enhancements
+
+* **StepProgress:** add possibility to define custom styling for step propgress item ([23518e8](https://github.com/uzh-bf/design-system/commit/23518e8b969923d5808a3654c97521618646a496))
+
 ### [4.1.1](https://github.com/uzh-bf/design-system/compare/v4.1.0...v4.1.1) (2025-09-08)
 
 
