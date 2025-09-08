@@ -37,6 +37,9 @@ function contentFormatter({ element, ix }: FormatterArgs) {
 }
 
 export interface StepItem {
+  disabled?: boolean
+  status?: 'correct' | 'incorrect' | 'partial' | 'unanswered'
+  className?: string
   [x: string]: string | number | boolean | React.ReactElement | undefined | null
 }
 
@@ -151,7 +154,8 @@ export function StepProgress({
                 'bg-opacity-60! bg-destructive/90! hover:destructive! text-white hover:text-white',
               element.status === 'partial' &&
                 'bg-opacity-60! bg-uzh-red-100/90! hover:bg-uzh-red-100! text-white hover:text-white',
-              value === ix && 'bg-opacity-100'
+              value === ix && 'bg-opacity-100',
+              element.className
             )}
             onClick={() => onItemClick(ix, items && items[ix])}
           >

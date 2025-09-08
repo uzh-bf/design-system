@@ -2618,6 +2618,9 @@ declare interface StepBaseProps {
 }
 
 export declare interface StepItem {
+    disabled?: boolean;
+    status?: 'correct' | 'incorrect' | 'partial' | 'unanswered';
+    className?: string;
     [x: string]: string | number | boolean | default_3.ReactElement | undefined | null;
 }
 
