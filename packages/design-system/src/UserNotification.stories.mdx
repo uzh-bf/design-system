@@ -1,4 +1,5 @@
 import UserNotification from './UserNotification'
+import { useState } from 'react'
 
 {/* START README */}
 <div className="prose prose-sm max-w-none">
@@ -22,6 +23,9 @@ The UserNotification component accepts the following props:
 - @param type - The type of the notification. This can be either 'success', 'info' or 'error'. This determines the icon that is displayed and some conditional styling. If not type is provided, the information icon is displayed.
 - @param children - The optional children are displayed in the notification in addition to the provided message icon.
 - @param className - The optional className object allows you to override the default styling.
+- @param dismissible - If true, shows an X button in the top-right.
+- @param hidden - If true, hides the notification (useful with dismissible).
+- @param onDismiss - Callback when the X button is clicked.
 </div>
 {/* END README */}
 
@@ -207,6 +211,26 @@ AI_DOCUMENTATION_END
 export const Default = () => {
   return (
     <UserNotification message="This is the default notif style when the provided type is not 'success', 'error', or 'info'" />
+  )
+}
+
+export const Dismissible = () => {
+  const [hidden, setHidden] = useState(false)
+
+  return (
+    <div>
+      <UserNotification 
+        dismissible
+        hidden={hidden}
+        onDismiss={() => setHidden(true)}
+        message="This is the default notif style when the provided type is not 'success', 'error', or 'info'" 
+      />
+      {hidden && (
+        <button onClick={() => setHidden(false)}>
+          Show notification again
+        </button>
+      )}
+    </div>
   )
 }
 

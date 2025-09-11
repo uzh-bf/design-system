@@ -3173,11 +3173,14 @@ export declare const useFormField: () => {
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param message - The message that is displayed in the notification.
  * @param type - The type of the notification. This can be either 'success', 'info' or 'error'. This determines the icon that is displayed and some conditional styling. If not type is provided, the information icon is displayed.
+ * @param dismissible - If true, a close button is displayed in the top right corner of the notification. When clicked, the onDismiss function is called.
+ * @param hidden - If true, the notification is hidden. This can be used in combination with the dismissible prop to hide the notification when the close button is clicked.
+ * @param onDismiss - The function that is called when the close button is clicked. This prop is required if the dismissible prop is set to true.
  * @param children - The optional children are displayed in the notification in addition to the provided message icon.
  * @param className - The optional className object allows you to override the default styling.
  * @returns UserNotification component
  */
-export declare function UserNotification({ id, data, message, type, children, className, }: UserNotificationMessageProps | UserNotificationChildrenProps): JSX.Element;
+export declare function UserNotification({ id, data, message, type, dismissible, hidden, onDismiss, children, className, }: UserNotificationMessageProps | UserNotificationChildrenProps): JSX.Element | null;
 
 export declare interface UserNotificationChildrenProps extends UserNotificationProps {
     message?: never;
@@ -3197,10 +3200,14 @@ export declare interface UserNotificationProps {
     };
     message?: string;
     type?: 'default' | 'info' | 'success' | 'warning' | 'error';
+    dismissible?: boolean;
+    hidden?: boolean;
+    onDismiss?: () => void;
     children?: default_3.ReactNode;
     className?: {
         root?: string;
         icon?: string;
+        closeIcon?: string;
         message?: string;
         content?: string;
     };
