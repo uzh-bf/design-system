@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.1.3](https://github.com/uzh-bf/design-system/compare/v4.1.2...v4.1.3) (2025-09-11)
+
+
+### Enhancements
+
+* **UserNotification:** add possibility to make user notification dismissible ([11a5e9a](https://github.com/uzh-bf/design-system/commit/11a5e9a6f0029ac84209dfe6a240611b82c03134))
+
 ### [4.1.2](https://github.com/uzh-bf/design-system/compare/v4.1.1...v4.1.2) (2025-09-08)
 
 
