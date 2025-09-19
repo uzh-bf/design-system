@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.1.4-alpha.0](https://github.com/uzh-bf/design-system/compare/v4.1.3...v4.1.4-alpha.0) (2025-09-19)
+
+
+### Other
+
+* add separate ui and forms entrypoints ([8ec4032](https://github.com/uzh-bf/design-system/commit/8ec40320dd552d2ae339d8e5faaf33a21b29142e))
+
 ### [4.1.3](https://github.com/uzh-bf/design-system/compare/v4.1.2...v4.1.3) (2025-09-11)
 
 
