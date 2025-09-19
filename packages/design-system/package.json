@@ -2,6 +2,20 @@
   "name": "@uzh-bf/design-system",
   "version": "4.1.3",
   "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./types/index.d.ts"
+    },
+    "./ui": {
+      "import": "./dist/ui.js",
+      "types": "./types/ui.d.ts"
+    },
+    "./forms": {
+      "import": "./dist/forms.js",
+      "types": "./types/forms.d.ts"
+    }
+  },
   "files": [
     "dist",
     "src"
@@ -116,5 +130,18 @@
   "volta": {
     "extends": "../../package.json"
   },
-  "type": "module"
+  "type": "module",
+  "typesVersions": {
+    "*": {
+      "ui": [
+        "types/ui.d.ts"
+      ],
+      "forms": [
+        "types/forms.d.ts"
+      ],
+      "*": [
+        "types/index.d.ts"
+      ]
+    }
+  }
 }
