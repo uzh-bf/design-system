@@ -19,7 +19,7 @@ export interface AlphaNumericPinFieldClassName {
 export interface AlphaNumericPinFieldProps {
   id?: string
   value: string
-  onChange: (newValue: string) => void
+  onChange: (newValue: string) => Promise<void>
   length: number
   required?: boolean
   label?: string
@@ -94,10 +94,24 @@ export function AlphaNumericPinField({
           inputMode="text" // accept alphanumeric input
           pattern="[A-Za-z0-9]*" // restrict to alphanumeric at the input level
           value={value}
-          onChange={(newValue) => {
+          onChange={async (newValue) => {
             const next = uppercaseOnly ? newValue.toUpperCase() : newValue
-            const sanitized = next.replace(/[^A-Za-z0-9]/g, '') // verify alphanumeric only
-            onChange(sanitized)
+            const sanitized = next.replace(/[^A-Za-z0-9]/g, '').slice(0, length) // enforce max length
+            await onChange(sanitized)
+          }}
+          onPaste={async (event) => {
+            const pastedValue = event.clipboardData?.getData('text')
+
+            if (pastedValue) {
+              event.preventDefault()
+              const next = uppercaseOnly
+                ? pastedValue.toUpperCase()
+                : pastedValue
+              const sanitized = next
+                .replace(/[^A-Za-z0-9]/g, '')
+                .slice(0, length)
+              await onChange(sanitized)
+            }
           }}
           className={className?.input}
         >

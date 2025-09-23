@@ -42,7 +42,7 @@ export declare interface AlphaNumericPinFieldClassName {
 export declare interface AlphaNumericPinFieldProps {
     id?: string;
     value: string;
-    onChange: (newValue: string) => void;
+    onChange: (newValue: string) => Promise<void>;
     length: number;
     required?: boolean;
     label?: string;

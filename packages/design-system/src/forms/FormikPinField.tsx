@@ -84,8 +84,25 @@ export function FormikPinField({
           maxLength={length}
           value={field.value}
           onChange={async (newValue) => {
-            await helpers.setValue(newValue)
+            const sanitizedValue = newValue
+              .replace(/\s+/g, '')
+              .replace(/[^0-9]/g, '')
+              .slice(0, length)
+            await helpers.setValue(sanitizedValue)
             await helpers.setTouched(true)
+          }}
+          onPaste={async (event) => {
+            const pastedValue = event.clipboardData?.getData('text')
+
+            if (pastedValue) {
+              event.preventDefault()
+              const sanitizedValue = pastedValue
+                .replace(/\s+/g, '')
+                .replace(/[^0-9]/g, '')
+                .slice(0, length)
+              await helpers.setValue(sanitizedValue)
+              await helpers.setTouched(true)
+            }
           }}
           className={className?.input}
         >
