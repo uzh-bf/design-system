@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.1.4](https://github.com/uzh-bf/design-system/compare/v4.1.4-alpha.0...v4.1.4) (2025-09-23)
+
+
+### Enhancements
+
+* ***PinField:** remove all whitespaces when pasting values into standard and alphanumeric pin fields ([7eaabe1](https://github.com/uzh-bf/design-system/commit/7eaabe1390aa3a935569ab9348fcf50601326641))
+
 ### [4.1.4-alpha.0](https://github.com/uzh-bf/design-system/compare/v4.1.3...v4.1.4-alpha.0) (2025-09-19)
 
 
