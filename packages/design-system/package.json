@@ -4,14 +4,17 @@
   "main": "dist/index.js",
   "exports": {
     ".": {
+      "development": "./src/index.ts",
       "import": "./dist/index.js",
       "types": "./types/index.d.ts"
     },
     "./ui": {
+      "development": "./src/ui.ts",
       "import": "./dist/ui.js",
       "types": "./types/ui.d.ts"
     },
     "./forms": {
+      "development": "./src/forms.ts",
       "import": "./dist/forms.js",
       "types": "./types/forms.d.ts"
     }
