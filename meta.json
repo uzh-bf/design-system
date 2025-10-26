@@ -923,8 +923,8 @@
       "levels": [
         "Date picker"
       ],
-      "locStart": 218,
-      "locEnd": 221,
+      "locStart": 230,
+      "locEnd": 233,
       "filePath": "src/DatePicker.stories.mdx",
       "namedExport": "Disabled",
       "meta": {}
@@ -934,8 +934,8 @@
       "levels": [
         "Date picker"
       ],
-      "locStart": 230,
-      "locEnd": 237,
+      "locStart": 242,
+      "locEnd": 249,
       "filePath": "src/DatePicker.stories.mdx",
       "namedExport": "Error",
       "meta": {}
@@ -945,10 +945,21 @@
       "levels": [
         "Date picker"
       ],
-      "locStart": 222,
-      "locEnd": 225,
+      "locStart": 234,
+      "locEnd": 237,
       "filePath": "src/DatePicker.stories.mdx",
       "namedExport": "Labelled",
+      "meta": {}
+    },
+    "date-picker--no-year-month-dropdown": {
+      "name": "No year month dropdown",
+      "levels": [
+        "Date picker"
+      ],
+      "locStart": 218,
+      "locEnd": 229,
+      "filePath": "src/DatePicker.stories.mdx",
+      "namedExport": "NoYearMonthDropdown",
       "meta": {}
     },
     "date-picker--readme": {
@@ -956,8 +967,8 @@
       "levels": [
         "Date picker"
       ],
-      "locStart": 249,
-      "locEnd": 257,
+      "locStart": 261,
+      "locEnd": 269,
       "filePath": "src/DatePicker.stories.mdx",
       "namedExport": "MDXContent",
       "meta": {}
@@ -967,8 +978,8 @@
       "levels": [
         "Date picker"
       ],
-      "locStart": 226,
-      "locEnd": 229,
+      "locStart": 238,
+      "locEnd": 241,
       "filePath": "src/DatePicker.stories.mdx",
       "namedExport": "SmallLabel",
       "meta": {}
@@ -978,8 +989,8 @@
       "levels": [
         "Datetime picker"
       ],
-      "locStart": 251,
-      "locEnd": 262,
+      "locStart": 260,
+      "locEnd": 271,
       "filePath": "src/DatetimePicker.stories.mdx",
       "namedExport": "DateFormat",
       "meta": {}
@@ -1000,8 +1011,8 @@
       "levels": [
         "Datetime picker"
       ],
-      "locStart": 242,
-      "locEnd": 250,
+      "locStart": 251,
+      "locEnd": 259,
       "filePath": "src/DatetimePicker.stories.mdx",
       "namedExport": "Disabled",
       "meta": {}
@@ -1011,8 +1022,8 @@
       "levels": [
         "Datetime picker"
       ],
-      "locStart": 289,
-      "locEnd": 296,
+      "locStart": 298,
+      "locEnd": 305,
       "filePath": "src/DatetimePicker.stories.mdx",
       "namedExport": "Error",
       "meta": {}
@@ -1022,8 +1033,8 @@
       "levels": [
         "Datetime picker"
       ],
-      "locStart": 270,
-      "locEnd": 276,
+      "locStart": 279,
+      "locEnd": 285,
       "filePath": "src/DatetimePicker.stories.mdx",
       "namedExport": "HourPrecision",
       "meta": {}
@@ -1033,8 +1044,8 @@
       "levels": [
         "Datetime picker"
       ],
-      "locStart": 277,
-      "locEnd": 282,
+      "locStart": 286,
+      "locEnd": 291,
       "filePath": "src/DatetimePicker.stories.mdx",
       "namedExport": "Labelled",
       "meta": {}
@@ -1044,10 +1055,21 @@
       "levels": [
         "Datetime picker"
       ],
-      "locStart": 263,
-      "locEnd": 269,
+      "locStart": 272,
+      "locEnd": 278,
       "filePath": "src/DatetimePicker.stories.mdx",
       "namedExport": "MinutePrecision",
+      "meta": {}
+    },
+    "datetime-picker--no-year-month-dropdown": {
+      "name": "No year month dropdown",
+      "levels": [
+        "Datetime picker"
+      ],
+      "locStart": 242,
+      "locEnd": 250,
+      "filePath": "src/DatetimePicker.stories.mdx",
+      "namedExport": "NoYearMonthDropdown",
       "meta": {}
     },
     "datetime-picker--readme": {
@@ -1055,8 +1077,8 @@
       "levels": [
         "Datetime picker"
       ],
-      "locStart": 308,
-      "locEnd": 316,
+      "locStart": 317,
+      "locEnd": 325,
       "filePath": "src/DatetimePicker.stories.mdx",
       "namedExport": "MDXContent",
       "meta": {}
@@ -1066,8 +1088,8 @@
       "levels": [
         "Datetime picker"
       ],
-      "locStart": 283,
-      "locEnd": 288,
+      "locStart": 292,
+      "locEnd": 297,
       "filePath": "src/DatetimePicker.stories.mdx",
       "namedExport": "SmallLabel",
       "meta": {}
