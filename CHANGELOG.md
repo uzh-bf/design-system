@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.1.6](https://github.com/uzh-bf/design-system/compare/v4.1.5...v4.1.6) (2025-10-26)
+
+
+### Other
+
+* clean up exports for hooks ([e767a1b](https://github.com/uzh-bf/design-system/commit/e767a1bec71a6629f9322eea8f2b2b0dff75a7cd))
+
 ### [4.1.5](https://github.com/uzh-bf/design-system/compare/v4.1.4...v4.1.5) (2025-10-26)
 
 
