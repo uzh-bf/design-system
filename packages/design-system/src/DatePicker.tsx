@@ -5,6 +5,7 @@ import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import dayjs from 'dayjs'
 import React, { Dispatch, SetStateAction } from 'react'
+import { DayPicker } from 'react-day-picker'
 import { twMerge } from 'tailwind-merge'
 import FormLabel from './FormLabel'
 import Tooltip from './Tooltip'
@@ -26,6 +27,10 @@ export interface DatePickerProps {
   label?: string
   labelType?: 'small' | 'large'
   align?: 'start' | 'center' | 'end'
+  captionLayout?: Pick<
+    React.ComponentProps<typeof DayPicker>,
+    'captionLayout'
+  >['captionLayout']
   placeholder?: string
   required?: boolean
   tooltip?: string | React.ReactNode
@@ -61,6 +66,7 @@ export interface DatePickerProps {
  * @param label - The label of the date changer
  * @param labelType - The type of the label (small or large)
  * @param align - The alignment of the label (start, center or end)
+ * @param captionLayout - The layout of the calendar caption (dropdown or label)
  * @param placeholder - The placeholder of the date changer (is only shown if no date is selected)
  * @param tooltip - The tooltip of the date changer (is only shown if a label is given)
  * @param required - Whether the date label should contain a required symbol
@@ -83,6 +89,7 @@ export function DatePicker({
   label = '',
   labelType = 'small',
   align = 'start',
+  captionLayout = 'dropdown',
   placeholder,
   tooltip,
   required = false,
@@ -164,6 +171,7 @@ export function DatePicker({
         <Calendar
           id={id}
           mode="single"
+          captionLayout={captionLayout}
           weekStartsOn={1}
           disabled={disabled}
           selected={date}

@@ -44,6 +44,8 @@ function Calendar({
           date.toLocaleString('default', { month: 'short' }),
         ...formatters,
       }}
+      startMonth={new Date(new Date().getFullYear(), 0)}
+      endMonth={new Date(new Date().getFullYear() + 100, 0)}
       classNames={{
         root: cn('w-fit', defaultClassNames.root),
         months: cn(

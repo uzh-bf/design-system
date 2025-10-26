@@ -252,6 +252,21 @@ export function Default() {
   )
 }
 
+export function NoYearMonthDropdown() {
+  const [date, setDate] = useState(new Date('2025-01-01'))
+  return (
+    <DatePicker
+      date={date}
+      onDateChange={(date) => setDate(date)}
+      captionLayout="label"
+      dataTrigger={{ cy: 'trigger-cy' }}
+      dataCalendar={{ cy: 'calendar-cy' }}
+      dataNextMonth={{ cy: 'next-month-cy' }}
+      dataPreviousMonth={{ cy: 'previous-month-cy' }}
+    />
+  )
+}
+
 export function Disabled() {
   const [date, setDate] = useState(new Date('2025-01-01'))
   return (

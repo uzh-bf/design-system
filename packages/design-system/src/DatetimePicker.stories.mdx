@@ -291,7 +291,25 @@ return (
     onChange={setDate}
   />
 </div>
-) }
+)}
+
+export const NoYearMonthDropdown = () => {
+  const DefaultDate = new Date()
+  DefaultDate.setHours(13, 14, 0, 0)
+  const [date, setDate] = useState(undefined)
+
+return (
+
+<div className="mb-8">
+  <div>Component without Dropdown on Calendar</div>
+  <DateTimePicker
+    value={date}
+    captionLayout="label"
+    defaultPopupValue={date ?? DefaultDate}
+    onChange={setDate}
+  />
+</div>
+)}
 
 export const Disabled = () => {
   const DefaultDate = new Date()
