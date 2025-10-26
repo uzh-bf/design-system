@@ -780,6 +780,7 @@ export declare interface CycleProgressProps {
  * @param label - The label of the date changer
  * @param labelType - The type of the label (small or large)
  * @param align - The alignment of the label (start, center or end)
+ * @param captionLayout - The layout of the calendar caption (dropdown or label)
  * @param placeholder - The placeholder of the date changer (is only shown if no date is selected)
  * @param tooltip - The tooltip of the date changer (is only shown if a label is given)
  * @param required - Whether the date label should contain a required symbol
@@ -795,7 +796,7 @@ export declare interface CycleProgressProps {
  * @param dataPreviousMonth - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the previous month button
  * @returns Date changer component with optional label, edit button and save button.
  */
-export declare function DatePicker({ id, date, onDateChange, label, labelType, align, placeholder, tooltip, required, disabled, error, hideError, isTouched, className, dataTrigger, dataCalendar, dataNextMonth, dataPreviousMonth, ...props }: DatePickerProps): JSX.Element;
+export declare function DatePicker({ id, date, onDateChange, label, labelType, align, captionLayout, placeholder, tooltip, required, disabled, error, hideError, isTouched, className, dataTrigger, dataCalendar, dataNextMonth, dataPreviousMonth, ...props }: DatePickerProps): JSX.Element;
 
 export declare interface DatePickerClassName {
     trigger?: string;
@@ -811,6 +812,7 @@ export declare interface DatePickerProps {
     label?: string;
     labelType?: 'small' | 'large';
     align?: 'start' | 'center' | 'end';
+    captionLayout?: Pick<default_3.ComponentProps<typeof DayPicker>, 'captionLayout'>['captionLayout'];
     placeholder?: string;
     required?: boolean;
     tooltip?: string | default_3.ReactNode;
@@ -864,6 +866,7 @@ export declare interface DatePickerProps {
  * @param label - The label for the picker.
  * @param labelType - The type of label to display ('small' or 'large').
  * @param align - The alignment of the label ('start', 'center', or 'end').
+ * @param captionLayout - The layout of the calendar caption (dropdown or label).
  * @param required - Whether the label should indicate a required field.
  * @param tooltip - Tooltip content shown with the label.
  * @param locale - The locale for date formatting and calendar display.
@@ -938,6 +941,7 @@ export declare const DateTimePicker: React_2.ForwardRefExoticComponent<{
     label?: string;
     labelType?: "small" | "large";
     align?: "start" | "center" | "end";
+    captionLayout?: Pick<React_2.ComponentProps<typeof DayPicker>, "captionLayout">["captionLayout"];
     required?: boolean;
     tooltip?: string | React_2.ReactNode;
 } & Pick<DayPickerProps, "showOutsideDays" | "showWeekNumber" | "locale" | "weekStartsOn"> & React_2.RefAttributes<Partial<DateTimePickerRef>>>;
@@ -1008,6 +1012,7 @@ export declare type DateTimePickerProps = {
     label?: string;
     labelType?: 'small' | 'large';
     align?: 'start' | 'center' | 'end';
+    captionLayout?: Pick<React_2.ComponentProps<typeof DayPicker>, 'captionLayout'>['captionLayout'];
     required?: boolean;
     tooltip?: string | React_2.ReactNode;
 } & Pick<DayPickerProps, 'locale' | 'weekStartsOn' | 'showWeekNumber' | 'showOutsideDays'>;

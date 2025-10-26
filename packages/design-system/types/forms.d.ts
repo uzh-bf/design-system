@@ -1,3 +1,4 @@
+import { DayPicker } from 'react-day-picker';
 import { DayPickerProps } from 'react-day-picker';
 import { default as default_2 } from 'react';
 import { Dispatch } from 'react';
@@ -88,6 +89,7 @@ declare interface DatePickerProps {
     label?: string;
     labelType?: 'small' | 'large';
     align?: 'start' | 'center' | 'end';
+    captionLayout?: Pick<default_2.ComponentProps<typeof DayPicker>, 'captionLayout'>['captionLayout'];
     placeholder?: string;
     required?: boolean;
     tooltip?: string | default_2.ReactNode;
@@ -180,6 +182,7 @@ declare type DateTimePickerProps = {
     label?: string;
     labelType?: 'small' | 'large';
     align?: 'start' | 'center' | 'end';
+    captionLayout?: Pick<React_2.ComponentProps<typeof DayPicker>, 'captionLayout'>['captionLayout'];
     required?: boolean;
     tooltip?: string | React_2.ReactNode;
 } & Pick<DayPickerProps, 'locale' | 'weekStartsOn' | 'showWeekNumber' | 'showOutsideDays'>;
