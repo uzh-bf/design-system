@@ -9,7 +9,7 @@ import dayjs from 'dayjs'
 import { Clock } from 'lucide-react'
 import * as React from 'react'
 import { useImperativeHandle, useRef } from 'react'
-import { DayPickerProps } from 'react-day-picker'
+import { DayPicker, DayPickerProps } from 'react-day-picker'
 import { twMerge } from 'tailwind-merge'
 import FormLabel from './FormLabel'
 import { cn } from './lib/utils'
@@ -594,6 +594,10 @@ type DateTimePickerProps = {
   label?: string
   labelType?: 'small' | 'large'
   align?: 'start' | 'center' | 'end'
+  captionLayout?: Pick<
+    React.ComponentProps<typeof DayPicker>,
+    'captionLayout'
+  >['captionLayout']
   required?: boolean
   tooltip?: string | React.ReactNode
 } & Pick<
@@ -632,6 +636,7 @@ type DateTimePickerRef = {
  * @param label - The label for the picker.
  * @param labelType - The type of label to display ('small' or 'large').
  * @param align - The alignment of the label ('start', 'center', or 'end').
+ * @param captionLayout - The layout of the calendar caption (dropdown or label).
  * @param required - Whether the label should indicate a required field.
  * @param tooltip - Tooltip content shown with the label.
  * @param locale - The locale for date formatting and calendar display.
@@ -663,6 +668,7 @@ const DateTimePicker = React.forwardRef<
       label,
       labelType = 'small',
       align = 'start',
+      captionLayout = 'dropdown',
       required = false,
       tooltip,
       ...props
@@ -801,6 +807,7 @@ const DateTimePicker = React.forwardRef<
         <PopoverContent className="w-auto p-0" align={align}>
           <Calendar
             mode="single"
+            captionLayout={captionLayout}
             disabled={disabled}
             selected={displayDate}
             month={month}
