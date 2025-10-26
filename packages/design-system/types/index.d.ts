@@ -3171,6 +3171,8 @@ export declare const useFormField: () => {
     formMessageId: string;
 };
 
+export declare function useIsMobile(): boolean;
+
 /**
  * This function returns a pre-styled UserNotification component based on the custom theme.
  *
