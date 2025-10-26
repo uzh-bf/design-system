@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.1.5](https://github.com/uzh-bf/design-system/compare/v4.1.4...v4.1.5) (2025-10-26)
+
+
+### Enhancements
+
+* **Calendar:** enable dropdowns for month and year selection on calendar ([#178](https://github.com/uzh-bf/design-system/issues/178)) ([88d195a](https://github.com/uzh-bf/design-system/commit/88d195a07fd47886b93426da25208911fcf79bfa))
+
+
+### Other
+
+* add exports for development ([47380c3](https://github.com/uzh-bf/design-system/commit/47380c3749aa3040a5b5329db32bfd96b35d7603))
+* update README ([5a2540f](https://github.com/uzh-bf/design-system/commit/5a2540fb61327d6e20e000ed93eaee05b931464b))
+* update type definitions for datepicker components ([9a35e74](https://github.com/uzh-bf/design-system/commit/9a35e74d7faba00d2ddca3a944a064ce019bbce4))
+
 ### [4.1.4](https://github.com/uzh-bf/design-system/compare/v4.1.4-alpha.0...v4.1.4) (2025-09-23)
 
 
