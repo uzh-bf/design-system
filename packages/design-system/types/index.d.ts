@@ -21,7 +21,7 @@ import { FieldError } from 'react-hook-form';
 import { FieldInputProps } from 'formik';
 import { FieldPath } from 'react-hook-form';
 import { FieldValues } from 'react-hook-form';
-import { FormProviderProps } from 'react-hook-form';
+import { FormProvider } from 'react-hook-form';
 import * as HoverCardPrimitive from '@radix-ui/react-hover-card';
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { IconDefinition as IconDefinition_2 } from '@fortawesome/free-regular-svg-icons';
@@ -1105,7 +1105,7 @@ export declare interface DropdownWithItemsProps extends DropdownProps {
     radioGroups?: never;
 }
 
-export declare const Form: <TFieldValues extends FieldValues, TContext = any, TTransformedValues = TFieldValues>(props: FormProviderProps<TFieldValues, TContext, TTransformedValues>) => React_2.JSX.Element;
+export declare const Form: typeof FormProvider;
 
 export declare interface FormatterArgs {
     element: StepItem;
