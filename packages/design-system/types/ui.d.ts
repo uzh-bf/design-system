@@ -211,7 +211,7 @@ export declare function BreadcrumbSeparator({ children, className, ...props }: R
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @returns Button component
  */
-export declare function Button({ id, children, onClick, disabled, primary, destructive, active, fluid, basic, loading, type, className, data, ...props }: ButtonProps): JSX.Element;
+export declare function Button({ id, children, onClick, disabled, asChild, primary, destructive, active, fluid, basic, loading, type, className, data, ...props }: ButtonProps): JSX.Element;
 
 export declare namespace Button {
     var Icon: ({ icon, withoutLabel, loading, className, }: {
@@ -250,6 +250,7 @@ export declare interface ButtonProps {
     children?: React.ReactNode;
     onClick?: (e?: React.MouseEvent<HTMLButtonElement>) => void;
     disabled?: boolean;
+    asChild?: boolean;
     primary?: boolean;
     destructive?: boolean;
     active?: boolean;
