@@ -5,11 +5,11 @@ This design system is created and maintained by the IT dev-ops team at the Teach
 ## Prerequisites
 
 - Node.js version 22 (as specified in the project configuration)
-- pnpm 10.12.1+ (recommended) or npm
+- pnpm 10.30.0+ (recommended) or npm
 
 ## Local Development
 
-This project uses a monorepo structure with Turbo for build orchestration and Ladle for component development. 
+This project uses a monorepo structure with Turbo for build orchestration and Ladle for component development.
 
 To see how the components look, corresponding `.stories.mdx` files are added for each component and their content can be observed through the Ladle platform, accessible locally on `localhost:61000/design-system` when running:
 
@@ -44,7 +44,7 @@ pnpm run format:check   # or npm run format:check
 
 ## Deployment
 
-Once you want to re-deploy the package with updates, make sure that all linting errors are fixed and all parts of the new or modified component are exported properly. 
+Once you want to re-deploy the package with updates, make sure that all linting errors are fixed and all parts of the new or modified component are exported properly.
 
 **Important:** Before pushing or merging content to the main branch, run the build command to ensure that the generated type files are consistent with the component implementations:
 
