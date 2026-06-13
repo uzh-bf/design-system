@@ -101,3 +101,33 @@
   --sidebar-primary-foreground: #ffffff;
   --sidebar-ring: var(--color-uzh-blue-100);
 }
+
+/* ── Dark-mode status surfaces ─────────────────────────────────────────────
+ * The `.dark` axis only re-maps core shadcn tokens, so without these the status
+ * `-background` tints keep their light values while `text-foreground` flips to
+ * light — light text on a light tint, unreadable. Re-map the status backgrounds
+ * to dark, low-chroma tints so the (now light) foreground text/border/icon read
+ * cleanly. Main colours and `-foreground` are left untouched, so solid status
+ * surfaces (badges) are unaffected.
+ *
+ * Selectors cover both supported placements: `.dark` co-located with the theme
+ * (Ladle; `<html class="dark" data-theme="…">`) and a `.dark` ancestor of the
+ * themed subtree. The compound/descendant selectors out-specify the base theme
+ * blocks, so they win regardless of source order. */
+/* `:root.dark:not([data-theme])` (not bare `:root.dark`) so a co-located
+ * `<html class="dark" data-theme="uzh">` is driven only by the uzh block below,
+ * not by a source-order tie between two equal-specificity selectors. */
+:root.dark:not([data-theme]),
+[data-theme='neutral'].dark,
+.dark [data-theme='neutral'] {
+  --theme-success-background: oklch(0.24 0.04 150);
+  --theme-warning-background: oklch(0.26 0.04 80);
+  --theme-info-background: oklch(0.24 0.04 245);
+}
+
+[data-theme='uzh'].dark,
+.dark [data-theme='uzh'] {
+  --theme-success-background: oklch(0.25 0.04 165);
+  --theme-warning-background: oklch(0.27 0.05 95);
+  --theme-info-background: oklch(0.25 0.04 200);
+}

@@ -17,9 +17,10 @@ const alertVariants = cva(
         success:
           'bg-success-background text-foreground border-l-4 border-l-success [&>svg]:text-success *:data-[slot=alert-description]:text-foreground/80',
         // warning icon uses the dark -foreground (not the light amber main) so it
-        // stays visible on the light warning tint.
+        // stays visible on the light warning tint; in dark mode the tint is dark,
+        // so the icon flips to the bright amber main instead.
         warning:
-          'bg-warning-background text-foreground border-l-4 border-l-warning [&>svg]:text-warning-foreground *:data-[slot=alert-description]:text-foreground/80',
+          'bg-warning-background text-foreground border-l-4 border-l-warning [&>svg]:text-warning-foreground dark:[&>svg]:text-warning *:data-[slot=alert-description]:text-foreground/80',
         error:
           'bg-destructive-background text-destructive border-l-4 border-l-destructive *:data-[slot=alert-description]:text-destructive/90',
         destructive:
