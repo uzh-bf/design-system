@@ -143,6 +143,7 @@ export function TextField({
               type="text"
               placeholder={placeholder}
               disabled={disabled}
+              invalid={!!error && isTouched}
               onPaste={onPaste}
               className={twMerge(
                 'focus:border-input h-9 w-full text-base',
@@ -179,6 +180,7 @@ export function TextField({
               type="text"
               placeholder={placeholder}
               disabled={disabled}
+              invalid={!!error && isTouched}
               onPaste={onPaste}
               className={twMerge(
                 'focus:border-input h-9 w-full text-base',

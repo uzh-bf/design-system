@@ -130,6 +130,7 @@ export function TextareaField({
               placeholder={placeholder}
               maxLength={maxLength}
               disabled={disabled}
+              invalid={!!error && isTouched}
               className={twMerge(
                 'focus:border-input w-full text-base',
                 !!error &&
@@ -153,6 +154,7 @@ export function TextareaField({
               placeholder={placeholder}
               maxLength={maxLength}
               disabled={disabled}
+              invalid={!!error && isTouched}
               className={twMerge(
                 'focus:border-input w-full text-base',
                 !!error &&
@@ -163,7 +165,7 @@ export function TextareaField({
               {...props}
             />
           )}
-          {error && !hideError && (
+          {error && isTouched && !hideError && (
             <Tooltip
               tooltip={error}
               delay={0}
