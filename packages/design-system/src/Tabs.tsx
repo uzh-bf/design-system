@@ -81,7 +81,7 @@ export function Tabs({
               data-cy={tab.data?.cy}
               data-test={tab.data?.test}
               className={twMerge(
-                'w-full data-[state=active]:font-bold',
+                'w-full',
                 className?.trigger,
                 tab.className?.trigger
               )}

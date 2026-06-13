@@ -139,6 +139,10 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 
+  /* extra type step — h4 (17px at the 16px root); Tailwind has no built-in text-md */
+  --text-md: 1.0625rem;
+  --text-md--line-height: 1.35;
+
   /* custom color variants */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
