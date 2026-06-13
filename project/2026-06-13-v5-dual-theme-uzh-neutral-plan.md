@@ -83,37 +83,44 @@ In `tailwind.css` `@theme inline` + `:root` (neutral defaults) and `themes.css` 
 Dep graph: `S0 → S1 → {S2, S3, S4} → S5 → S6`. S2/S3/S4 parallelizable after S1.
 
 ### Slice 0 — Token foundation + data-theme switch + Ladle toggle + Button pilot
+
 - Do: add `themes.css`; restructure `tailwind.css` (neutral default on `:root`, uzh block, status+shadow tokens, font `@import`, font-sans simplification). Ladle `.ladle/components.tsx`: import `themes.css` + add neutral/uzh toggle on story wrapper. Verify Button renders both themes (no `uzh-*` in Button — confirm it routes through `bg-primary-100`/`text-primary-foreground`).
 - Check: Ladle Button story toggles neutral↔uzh, colors switch; `tsc` clean; no regression in other stories. Screenshot both.
 - Commit: `feat(theme)!: add data-theme token layer with neutral default + uzh theme`
 - Files: `src/tailwind.css`, `src/themes.css` (new), `.ladle/components.tsx`.
 
-### Slice 1 — Purge hardcoded uzh-* so all components theme-switch
+### Slice 1 — Purge hardcoded uzh-\* so all components theme-switch
+
 - Do: route the 7 blocker components through semantic tokens. `UserNotification.tsx` switch map → status tokens (A5). `Workflow.tsx` default `twStyles` → `primary-*`. `Switch.tsx` disabled, `StepProgress.tsx` error, `ColorPicker.tsx` border, `Checkbox.tsx`, `Select.tsx` → `primary-*`/`destructive`/status. Grep-confirm zero remaining `uzh-blue-*` (and other `uzh-*` that should theme) in component TSX.
 - Check: Ladle stories for all 7 in both themes; spot-check disabled Switch, error StepProgress, each UserNotification type; neutral shows NO UZH blue leak. `tsc` clean.
 - Commit: `refactor(theme): route hardcoded uzh-* through semantic tokens`
 
 ### Slice 2 — Alert + Badge variant expansion
+
 - Do: `ui/alert.tsx` cva +`neutral|info|success|warning|error`, left-4px border, default per-variant lucide icon (A1, overridable). `ui/badge.tsx` +`success|warning|info|error`. Wrappers `Alert.tsx`/`Badge.tsx` pass-through + types. Stories.
 - Check: Ladle Alert 5 variants, Badge 8 variants, both themes. `tsc`.
 - Commit: `feat(alert,badge): add semantic status variants aligned to UZH spec`
 
 ### Slice 3 — Input + Textarea invalid prop + focus ring
+
 - Do: `ui/input.tsx`+`ui/textarea.tsx` add `invalid?: boolean`; focus ring `ring-[var(--color-primary-100)]/20`, invalid ring `ring-[var(--destructive)]`. Wrappers pass `invalid`. Wire `FormikTextField`/`FormikTextareaField` validation→`invalid`.
 - Check: Ladle controlled invalid toggle both themes; Formik wrapper shows error ring on Yup fail. `tsc`.
 - Commit: `feat(input,textarea): add invalid prop and themed focus rings`
 
 ### Slice 4 — Visual refinement batch (low-effort components)
+
 - Do: Avatar sizes 28/40/56 + fallback bg/text via tokens; Checkbox checked = `bg-primary-100`; Progress track 8px/fill `primary-100`/radius 4; Select focus ring; Separator `border`; Skeleton shimmer align; Switch thumb/disabled; Table `hoverable` row prop + header uppercase 12px `tracking-[0.06em]` `bg-muted`; Label 13px/600.
 - Check: Ladle stories each, both themes; Table hoverable rows. `tsc`.
 - Commit: `feat(components): align avatar/table/progress/etc visuals to UZH spec`
 
 ### Slice 5 — Tabs underline + Card border/shadow + heading scale
+
 - Do: `ui/tabs.tsx` underline pattern (active trigger `border-b-2 border-[var(--color-primary-100)]`, drop filled list bg). `ui/card.tsx` `border` + `shadow-[var(--shadow-sm)]`, padding header 20/24/8, content 12/24/20, footer 14/24, footer `bg-muted`. `src/Header.tsx` H1–H4 → 24/20/18/17px all 700 (h4 17px via `--text-md` or arbitrary).
 - Check: Ladle Tabs/Card/H1–H4 both themes; devtools verify padding/sizes. `tsc`.
 - Commit: `feat(tabs,card,header): underline tabs, card border+shadow, compact heading scale`
 
 ### Slice 6 — ThemeProvider + Ladle-wide toggle + docs + dev-lint + security
+
 - Do: `src/ThemeProvider.tsx` (`<div data-theme>` + `useTheme`), export from `index.ts`. Ladle: all stories run under ThemeProvider + global toggle. `README`/`MIGRATION.md`: data-theme opt-in; **UZH apps add `data-theme="uzh"`** (D1). Add `_adherence` oxlint config as internal dev script (A2). Final security review subagent (`$security-review`).
 - Check: full Ladle suite toggles on every component; ThemeProvider sample page switches cleanly; `tsc`; lint passes; security review clean. Screenshots for MR (before/after, both themes).
 - Commit: `feat(theme): add ThemeProvider, migration docs, adherence dev-lint`
@@ -137,7 +144,7 @@ Reference this plan path. Work one slice at a time. Update `Progress` each slice
 - [x] Setup: zip extracted to `uzh-design-reference/`; zip + extract gitignored (verified). Branch `v5` created off `main`@`0a78b2c`. Exploration workflow done. 4 forks resolved with user.
 - [x] Plan committed; user approved full slice-by-slice execution + MR + demo deploy.
 - [x] S0 Token foundation + Button pilot. Added `src/themes.css` (`:root,[data-theme=neutral]` neutral defaults + `[data-theme=uzh]` UZH overrides), routed fonts/primary/secondary/status through `--theme-*` indirection in `tailwind.css`, Google Fonts @import, Ladle neutral/uzh+dark switcher. Verified: tsc clean; `ladle build` ok; compiled CSS asserts `.bg-primary-100{background:var(--theme-color-primary)}`, neutral=`oklch(20.5% 0 0)`, uzh=`var(--color-uzh-blue-100)`; neutral font=system, uzh=Source Sans 3. Review+simplify: added font `var(...,fallback)` for robustness, pinned Ladle toolbar text colour. Deferred to S6 migration docs: `--theme-font-primary`/`--source-sans-pro` injection points removed (v5 break); shadcn `--secondary` stays neutral in uzh (matches v4; UZH red via `bg-secondary-100`).
-- [x] S1 uzh-* purge. Routed all hardcoded `uzh-*` in 11 component files to semantic tokens (brand blue/red → primary/secondary/destructive/status; greys → muted/input/border/muted-foreground). Files: UserNotification, StepProgress, Workflow, Switch, Table, Checkbox, Collapsible, Select, ColorPicker, forms/NumberField, forms/TextField. Fixed 2 pre-existing bugs: StepProgress `hover:destructive!`→`hover:bg-destructive!`; ColorPicker dead `focus:border-uzh-blue-50`→`focus:border-primary-100`. Review caught contrast: darkened neutral `--theme-success/-info` mains (oklch 0.5) for readable colored-text-on-tint; aligned Workflow progress-gradient unfilled track to `var(--color-muted)`. Verified: grep zero `uzh-*` leaks; tsc; build; CSS asserts ring/border/bg `primary-100`+`secondary-100` resolve to theme vars, status mains darkened.
+- [x] S1 uzh-_ purge. Routed all hardcoded `uzh-_`in 11 component files to semantic tokens (brand blue/red → primary/secondary/destructive/status; greys → muted/input/border/muted-foreground). Files: UserNotification, StepProgress, Workflow, Switch, Table, Checkbox, Collapsible, Select, ColorPicker, forms/NumberField, forms/TextField. Fixed 2 pre-existing bugs: StepProgress`hover:destructive!`→`hover:bg-destructive!`; ColorPicker dead `focus:border-uzh-blue-50`→`focus:border-primary-100`. Review caught contrast: darkened neutral `--theme-success/-info`mains (oklch 0.5) for readable colored-text-on-tint; aligned Workflow progress-gradient unfilled track to`var(--color-muted)`. Verified: grep zero `uzh-\*`leaks; tsc; build; CSS asserts ring/border/bg`primary-100`+`secondary-100` resolve to theme vars, status mains darkened.
 - [x] S2 Alert + Badge. Alert: added neutral/info/success/warning/error (tinted bg + 4px coloured left border + variant-coloured consumer icon); kept default/destructive as legacy surfaces. Badge: added success/warning/info/error solid variants; `error` dedup'd to shared `destructiveBadge` const. Updated Alert + Badge stories (Variants showcase, Status row) + docs. Review fixes: kept warning icon `text-warning-foreground` for visibility on light tint (commented), removed redundant `[&>svg]:text-destructive`. Verified tsc/build/format; CSS has bg-/border-l-/-background status utils.
 - [x] S3 Input + Textarea invalid. Added `invalid?: boolean` to base Input + Textarea → native `aria-invalid` (`invalid ?? ariaInvalid`, no `{...props}` clobber). Existing shadcn classes already give destructive border/ring on aria-invalid + UZH-blue `focus-visible:ring-ring` — no class churn. Wired `invalid={!!error && isTouched}` from forms/TextField (2 branches) + forms/TextareaField (2 branches). Review fix: added missing `isTouched` guard to TextareaField error tooltip (consistency w/ TextField + aria gating). Existing Error stories demo it. Verified tsc/build/format.
 - [x] S4 Refinement batch (scoped to additive/low-regression). Avatar: `size` prop sm/md/lg (28/40/56px, no default → legacy 32px kept); fallback `bg-primary-20 text-primary-100` (theme-tinted, ~7:1 contrast both themes). Table (shadcn): `hoverable?: boolean` opt-out. Avatar story Sizes example. Verified tsc/build/format; CSS has size-7/10/14. DELIBERATELY NOT forced (regression-averse, components already theme-switch + close to spec): uppercase shadcn table headers, 13px/600 labels, shimmer skeleton (kept animate-pulse), Progress (already h-2 + themed primary). MIGRATION note: AvatarFallback bg changed muted→primary-20 (override via className if undesired).
@@ -149,6 +156,7 @@ Reference this plan path. Work one slice at a time. Update `Progress` each slice
 - Next action: final security review subagent (whole branch), then `$df-mr-description-writer` MR vs `main` + both-theme screenshots; confirm gh-pages demo deploy carries theme toggle.
 
 ### Verification approach note
+
 Per-slice: `tsc` + `ladle build` + targeted compiled-CSS/grep assertions. Live visual both-theme screenshots consolidated at finish for MR evidence (browser set up once across all components) rather than per slice.
 
 ## Next Steps (running)
@@ -156,3 +164,5 @@ Per-slice: `tsc` + `ladle build` + targeted compiled-CSS/grep assertions. Live v
 - Dark-mode for status tokens: `.dark` overrides only core shadcn vars, not the new `--theme-*`/status tokens, so status alerts/badges keep light tints on a dark page. Dark is an orthogonal axis; out of v5 scope. Follow-up: add `.dark` overrides (or `[data-theme=uzh].dark`) for status + theme tokens.
 - Confirm neutral palette choice (zinc vs slate ramp) at S0 start — low-stakes, pick zinc to match shadcn default.
 - After v5 publish: open follow-up for v5.x composites (filter rail, proposal card, app shells) and Preact package theming if still needed.
+- Security review (whole branch) DONE_WITH_CONCERNS, 0 Critical/Important. Follow-up: self-host Source Sans 3 + JetBrains Mono and drop the Google Fonts `@import` for GDPR/CSP-sensitive UZH deployments (privacy: runtime fetch to fonts.googleapis.com leaks user IP). Documented as CSP/privacy note in MIGRATION.md for now. Ladle `as Theme` cast is dev-tool-only (not shipped) — no action.
+- Deferred dev-lint (A2): author a Tailwind-aware token-regression guard if wanted; the reference `_adherence.oxlintrc.json` does not fit a Tailwind+cva codebase (≈83 false positives, 0 catches).
