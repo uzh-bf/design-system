@@ -83,9 +83,9 @@ export function Workflow({
   onClick,
   activeIx,
   twStyles = {
-    bgHover: 'hover:bg-uzh-blue-20 hover:after:border-l-uzh-blue-20!',
-    bgActive: 'bg-uzh-blue-80 after:border-l-uzh-blue-80',
-    bgPast: 'bg-uzh-blue-20 after:border-l-uzh-blue-20',
+    bgHover: 'hover:bg-primary-20 hover:after:border-l-primary-20!',
+    bgActive: 'bg-primary-80 after:border-l-primary-80',
+    bgPast: 'bg-primary-20 after:border-l-primary-20',
   },
   minimal = false,
   disabledFrom,
@@ -214,12 +214,12 @@ export function WorkflowItem({
   return (
     <div
       className={twMerge(
-        'group bg-uzh-grey-40 relative flex items-center justify-center text-center',
+        'group bg-muted relative flex items-center justify-center text-center',
         'mr-1 cursor-pointer select-none first:before:border-none! last:mr-0 last:after:border-none!',
         'after:z-10 after:border after:border-r-0 after:border-solid after:border-y-transparent',
         "before:absolute before:right-auto before:left-0 before:z-0 before:content-['']",
         'before:border before:border-r-0 before:border-solid before:border-y-transparent',
-        "after:border-l-uzh-grey-40 before:border-l-white after:absolute after:content-['']",
+        "after:border-l-muted before:border-l-white after:absolute after:content-['']",
         twStyles.bgHover,
         hasDescription
           ? 'h-[50px] pl-[25px] before:border-y-25 before:border-l-25 after:right-[-25px] after:border-y-25 after:border-l-25 first:pl-0 last:pl-0'
@@ -245,9 +245,9 @@ export function WorkflowItem({
         !item.completed &&
           item.progress !== 1 &&
           item.progress &&
-          'hover:after:border-l-uzh-grey-40! hover:bg-none',
+          'hover:after:border-l-muted! hover:bg-none',
         disabled &&
-          'hover:bg-uzh-grey-40 hover:after:border-l-uzh-grey-40! cursor-not-allowed text-gray-500',
+          'hover:bg-muted hover:after:border-l-muted! cursor-not-allowed text-gray-500',
         className?.item
       )}
       onClick={() => (disabled ? null : onClick(item, ix))}
@@ -257,9 +257,9 @@ export function WorkflowItem({
           !item.error && !item.completed && item.progress !== 1 && item.progress
             ? `linear-gradient(to right, rgb(74 222 128) 0%, rgb(74 222 128) ${
                 item.progress * 100
-              }%, rgb(218 222 226) ${
+              }%, var(--color-muted) ${
                 item.progress * 100
-              }%, rgb(218 222 226) 100%)`
+              }%, var(--color-muted) 100%)`
             : '',
       }}
     >

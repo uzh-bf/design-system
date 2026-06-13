@@ -147,7 +147,7 @@ export function Table<
       <tr
         key={index}
         className={twMerge(
-          'odd:bg-uzh-grey-20 first:border-t-0',
+          'odd:bg-muted first:border-t-0',
           className?.row,
           row.className as string
         )}
@@ -161,10 +161,7 @@ export function Table<
 
           return (
             <td
-              className={twMerge(
-                'border-uzh-grey-60 border-t-2 p-4',
-                col.className
-              )}
+              className={twMerge('border-border border-t-2 p-4', col.className)}
               key={col.accessor}
             >
               {typeof col.formatter === 'function'
@@ -208,7 +205,7 @@ export function Table<
                     <FontAwesomeIcon
                       className={twMerge(
                         'mr-2',
-                        !(sortField === col.accessor) && 'text-uzh-grey-100'
+                        !(sortField === col.accessor) && 'text-muted-foreground'
                       )}
                       icon={
                         sortField === col.accessor

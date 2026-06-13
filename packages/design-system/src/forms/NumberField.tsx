@@ -147,7 +147,7 @@ export function NumberField({
             disabled={disabled}
             className={twMerge(
               'focus:border-input h-9 w-full text-base',
-              disabled && 'bg-uzh-grey-20 cursor-not-allowed opacity-70',
+              disabled && 'bg-muted cursor-not-allowed opacity-70',
               !!error &&
                 isTouched &&
                 'border-destructive focus:border-destructive bg-destructive-background',

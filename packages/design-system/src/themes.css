@@ -43,14 +43,16 @@
   --theme-color-secondary-40: oklch(0.8 0 0);
   --theme-color-secondary-20: oklch(0.92 0 0);
 
-  /* status — generic green / amber / blue */
-  --theme-success: oklch(0.62 0.15 150);
+  /* status — generic green / amber / blue.
+     Main tokens are dark enough to read as text on their light -background tint
+     (soft notification/alert style); -foreground is for text on the solid fill. */
+  --theme-success: oklch(0.5 0.13 150);
   --theme-success-foreground: oklch(0.985 0 0);
   --theme-success-background: oklch(0.96 0.03 150);
   --theme-warning: oklch(0.8 0.16 80);
   --theme-warning-foreground: oklch(0.27 0.02 80);
   --theme-warning-background: oklch(0.96 0.05 90);
-  --theme-info: oklch(0.62 0.14 240);
+  --theme-info: oklch(0.5 0.14 245);
   --theme-info-foreground: oklch(0.985 0 0);
   --theme-info-background: oklch(0.96 0.03 240);
 }

@@ -150,7 +150,7 @@ export function TextField({
                 ((icon && iconPosition === 'right') ||
                   (!!value && typeof onReset !== 'undefined')) &&
                   'pr-10',
-                disabled && 'bg-uzh-grey-20 cursor-not-allowed opacity-70',
+                disabled && 'bg-muted cursor-not-allowed opacity-70',
                 !!error &&
                   isTouched &&
                   'border-destructive bg-destructive-background focus:border-destructive',
@@ -186,7 +186,7 @@ export function TextField({
                 ((icon && iconPosition === 'right') ||
                   (!!value && typeof onReset !== 'undefined')) &&
                   'pr-10',
-                disabled && 'bg-uzh-grey-20 cursor-not-allowed opacity-70',
+                disabled && 'bg-muted cursor-not-allowed opacity-70',
                 !!error &&
                   isTouched &&
                   'border-destructive bg-destructive-background focus:border-destructive',

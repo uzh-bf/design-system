@@ -137,14 +137,14 @@ Reference this plan path. Work one slice at a time. Update `Progress` each slice
 - [x] Setup: zip extracted to `uzh-design-reference/`; zip + extract gitignored (verified). Branch `v5` created off `main`@`0a78b2c`. Exploration workflow done. 4 forks resolved with user.
 - [x] Plan committed; user approved full slice-by-slice execution + MR + demo deploy.
 - [x] S0 Token foundation + Button pilot. Added `src/themes.css` (`:root,[data-theme=neutral]` neutral defaults + `[data-theme=uzh]` UZH overrides), routed fonts/primary/secondary/status through `--theme-*` indirection in `tailwind.css`, Google Fonts @import, Ladle neutral/uzh+dark switcher. Verified: tsc clean; `ladle build` ok; compiled CSS asserts `.bg-primary-100{background:var(--theme-color-primary)}`, neutral=`oklch(20.5% 0 0)`, uzh=`var(--color-uzh-blue-100)`; neutral font=system, uzh=Source Sans 3. Review+simplify: added font `var(...,fallback)` for robustness, pinned Ladle toolbar text colour. Deferred to S6 migration docs: `--theme-font-primary`/`--source-sans-pro` injection points removed (v5 break); shadcn `--secondary` stays neutral in uzh (matches v4; UZH red via `bg-secondary-100`).
-- [ ] S1 uzh-* purge
+- [x] S1 uzh-* purge. Routed all hardcoded `uzh-*` in 11 component files to semantic tokens (brand blue/red → primary/secondary/destructive/status; greys → muted/input/border/muted-foreground). Files: UserNotification, StepProgress, Workflow, Switch, Table, Checkbox, Collapsible, Select, ColorPicker, forms/NumberField, forms/TextField. Fixed 2 pre-existing bugs: StepProgress `hover:destructive!`→`hover:bg-destructive!`; ColorPicker dead `focus:border-uzh-blue-50`→`focus:border-primary-100`. Review caught contrast: darkened neutral `--theme-success/-info` mains (oklch 0.5) for readable colored-text-on-tint; aligned Workflow progress-gradient unfilled track to `var(--color-muted)`. Verified: grep zero `uzh-*` leaks; tsc; build; CSS asserts ring/border/bg `primary-100`+`secondary-100` resolve to theme vars, status mains darkened.
 - [ ] S2 Alert + Badge
 - [ ] S3 Input + Textarea invalid
 - [ ] S4 Refinement batch
 - [ ] S5 Tabs + Card + headings
 - [ ] S6 ThemeProvider + docs + dev-lint + security
-- Current slice: S1 next.
-- Next action: purge hardcoded uzh-* in the 7 components, route through semantic/status tokens.
+- Current slice: S2 next.
+- Next action: expand Alert (neutral/info/success/warning/error + left border + lucide icon) + Badge (success/warning/info/error) variants consuming status tokens.
 
 ### Verification approach note
 Per-slice: `tsc` + `ladle build` + targeted compiled-CSS/grep assertions. Live visual both-theme screenshots consolidated at finish for MR evidence (browser set up once across all components) rather than per slice.

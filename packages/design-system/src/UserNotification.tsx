@@ -74,23 +74,23 @@ export function UserNotification({
 
   switch (type) {
     case 'warning':
-      computedClassName = 'text-uzh-red-100 bg-uzh-red-20'
+      computedClassName = 'text-warning-foreground bg-warning-background'
       notifIcon = faTriangleExclamation
       break
     case 'error':
-      computedClassName = 'text-destructive bg-red-100'
+      computedClassName = 'text-destructive bg-destructive-background'
       notifIcon = faCircleXmark
       break
     case 'info':
-      computedClassName = 'text-uzh-blue-100 bg-uzh-blue-20'
+      computedClassName = 'text-info bg-info-background'
       notifIcon = faCircleInfo
       break
     case 'success':
-      computedClassName = 'text-uzh-darkgreen-100 bg-uzh-lightgreen-20'
+      computedClassName = 'text-success bg-success-background'
       notifIcon = faCircleCheck
       break
     default:
-      computedClassName = 'text-slate-800 bg-uzh-grey-20'
+      computedClassName = 'text-foreground bg-muted'
       notifIcon = faCircleInfo
   }
 
@@ -113,7 +113,7 @@ export function UserNotification({
           title="Dismiss"
           onClick={onDismiss}
           className={twMerge(
-            'focus:ring-uzh-blue-100 absolute top-2 right-2 inline-flex h-5 w-5 items-center justify-center rounded text-base hover:opacity-80 focus:ring-2 focus:ring-offset-2 focus:outline-none',
+            'focus:ring-primary-100 absolute top-2 right-2 inline-flex h-5 w-5 items-center justify-center rounded text-base hover:opacity-80 focus:ring-2 focus:ring-offset-2 focus:outline-none',
             className?.closeIcon
           )}
         >

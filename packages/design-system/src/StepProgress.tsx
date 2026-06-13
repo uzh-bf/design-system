@@ -151,9 +151,9 @@ export function StepProgress({
               element.status === 'correct' &&
                 'bg-opacity-60! bg-green-700/90! text-white hover:bg-green-700! hover:text-white',
               element.status === 'incorrect' &&
-                'bg-opacity-60! bg-destructive/90! hover:destructive! text-white hover:text-white',
+                'bg-opacity-60! bg-destructive/90! hover:bg-destructive! text-white hover:text-white',
               element.status === 'partial' &&
-                'bg-opacity-60! bg-uzh-red-100/90! hover:bg-uzh-red-100! text-white hover:text-white',
+                'bg-opacity-60! bg-secondary-100/90! hover:bg-secondary-100! text-white hover:text-white',
               value === ix && 'bg-opacity-100',
               element.className
             )}

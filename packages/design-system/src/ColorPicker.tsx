@@ -181,7 +181,7 @@ export function ColorPicker({
           {colorPickerOpen && (
             <div
               className={twMerge(
-                'outline-uzh-grey-40 absolute flex h-40 w-92 flex-row rounded-md bg-white p-1 shadow-md outline outline-2',
+                'outline-border absolute flex h-40 w-92 flex-row rounded-md bg-white p-1 shadow-md outline outline-2',
                 position === 'bottom' && 'top-8 left-10',
                 position === 'top' && 'bottom-8 left-10',
                 position === 'bottom-left' && 'top-8 -left-72',
@@ -231,7 +231,7 @@ export function ColorPicker({
                   />
                   <HexColorInput
                     className={twMerge(
-                      'focus:border-uzh-blue-50 border-uzh-grey-60 h-9 w-24 rounded border pl-2 placeholder-slate-400',
+                      'focus:border-primary-100 border-border h-9 w-24 rounded border pl-2 placeholder-slate-400',
                       className?.input
                     )}
                     color={newColor}
