@@ -8,7 +8,20 @@ const alertVariants = cva(
   {
     variants: {
       variant: {
+        // `default` and `destructive` are the legacy shadcn surfaces (plain card bg).
+        // The semantic family (neutral/info/success/warning/error) shares the UZH
+        // treatment: tinted bg + 4px coloured left border + variant-coloured icon.
         default: 'bg-card text-card-foreground',
+        neutral: 'bg-muted text-foreground border-l-4 border-l-border',
+        info: 'bg-info-background text-foreground border-l-4 border-l-info [&>svg]:text-info *:data-[slot=alert-description]:text-foreground/80',
+        success:
+          'bg-success-background text-foreground border-l-4 border-l-success [&>svg]:text-success *:data-[slot=alert-description]:text-foreground/80',
+        // warning icon uses the dark -foreground (not the light amber main) so it
+        // stays visible on the light warning tint.
+        warning:
+          'bg-warning-background text-foreground border-l-4 border-l-warning [&>svg]:text-warning-foreground *:data-[slot=alert-description]:text-foreground/80',
+        error:
+          'bg-destructive-background text-destructive border-l-4 border-l-destructive *:data-[slot=alert-description]:text-destructive/90',
         destructive:
           'text-destructive bg-card [&>svg]:text-current *:data-[slot=alert-description]:text-destructive/90',
       },

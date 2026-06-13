@@ -3,6 +3,8 @@ import {
   AlertCircleIcon,
   CheckCircle2Icon,
   PopcornIcon,
+  InfoIcon,
+  TriangleAlertIcon,
 } from 'lucide-react'
 import { Alert, AlertDescription, AlertTitle } from './Alert'
 
@@ -17,7 +19,7 @@ Use this component when you need to:
 - Provide contextual help or informational messages
 - Alert users to critical issues that require attention
 
-The alert supports different variants (default, destructive) and includes optional icons, titles, and descriptions. It uses semantic HTML and proper ARIA attributes for screen reader accessibility.
+The alert supports semantic variants (default, neutral, info, success, warning, error, destructive) with a coloured left border and includes optional icons, titles, and descriptions. It uses semantic HTML and proper ARIA attributes for screen reader accessibility. Icons are passed as the first child and are coloured automatically by the variant.
 </div>
 {/* END README */}
 
@@ -36,7 +38,7 @@ Available Stories:
 
 Props (Alert component):
 
-- variant: "default" | "destructive" - Visual style variant for different message types
+- variant: "default" | "neutral" | "info" | "success" | "warning" | "error" | "destructive" - Visual style variant for different message types (semantic variants add a coloured left border and tinted background)
 - className: string - Additional CSS classes for customization
 
 Component Structure:
@@ -91,7 +93,7 @@ export const Default = () => {
 
 export const Success = () => {
   return (
-    <Alert>
+    <Alert variant="success">
       <CheckCircle2Icon />
       <AlertTitle>Success! Your changes have been saved</AlertTitle>
       <AlertDescription>
@@ -126,5 +128,37 @@ export const Destructive = () => {
         </ul>
       </AlertDescription>
     </Alert>
+  )
+}
+
+export const Variants = () => {
+  return (
+    <div className="flex flex-col gap-3">
+      <Alert variant="neutral">
+        <Terminal />
+        <AlertTitle>Neutral</AlertTitle>
+        <AlertDescription>A subdued, non-semantic message.</AlertDescription>
+      </Alert>
+      <Alert variant="info">
+        <InfoIcon />
+        <AlertTitle>Information</AlertTitle>
+        <AlertDescription>Something you might want to know.</AlertDescription>
+      </Alert>
+      <Alert variant="success">
+        <CheckCircle2Icon />
+        <AlertTitle>Success</AlertTitle>
+        <AlertDescription>Your changes have been saved.</AlertDescription>
+      </Alert>
+      <Alert variant="warning">
+        <TriangleAlertIcon />
+        <AlertTitle>Warning</AlertTitle>
+        <AlertDescription>Double-check before you continue.</AlertDescription>
+      </Alert>
+      <Alert variant="error">
+        <AlertCircleIcon />
+        <AlertTitle>Error</AlertTitle>
+        <AlertDescription>Something went wrong.</AlertDescription>
+      </Alert>
+    </div>
   )
 }

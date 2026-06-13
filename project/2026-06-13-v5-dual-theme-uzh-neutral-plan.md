@@ -138,18 +138,19 @@ Reference this plan path. Work one slice at a time. Update `Progress` each slice
 - [x] Plan committed; user approved full slice-by-slice execution + MR + demo deploy.
 - [x] S0 Token foundation + Button pilot. Added `src/themes.css` (`:root,[data-theme=neutral]` neutral defaults + `[data-theme=uzh]` UZH overrides), routed fonts/primary/secondary/status through `--theme-*` indirection in `tailwind.css`, Google Fonts @import, Ladle neutral/uzh+dark switcher. Verified: tsc clean; `ladle build` ok; compiled CSS asserts `.bg-primary-100{background:var(--theme-color-primary)}`, neutral=`oklch(20.5% 0 0)`, uzh=`var(--color-uzh-blue-100)`; neutral font=system, uzh=Source Sans 3. Review+simplify: added font `var(...,fallback)` for robustness, pinned Ladle toolbar text colour. Deferred to S6 migration docs: `--theme-font-primary`/`--source-sans-pro` injection points removed (v5 break); shadcn `--secondary` stays neutral in uzh (matches v4; UZH red via `bg-secondary-100`).
 - [x] S1 uzh-* purge. Routed all hardcoded `uzh-*` in 11 component files to semantic tokens (brand blue/red → primary/secondary/destructive/status; greys → muted/input/border/muted-foreground). Files: UserNotification, StepProgress, Workflow, Switch, Table, Checkbox, Collapsible, Select, ColorPicker, forms/NumberField, forms/TextField. Fixed 2 pre-existing bugs: StepProgress `hover:destructive!`→`hover:bg-destructive!`; ColorPicker dead `focus:border-uzh-blue-50`→`focus:border-primary-100`. Review caught contrast: darkened neutral `--theme-success/-info` mains (oklch 0.5) for readable colored-text-on-tint; aligned Workflow progress-gradient unfilled track to `var(--color-muted)`. Verified: grep zero `uzh-*` leaks; tsc; build; CSS asserts ring/border/bg `primary-100`+`secondary-100` resolve to theme vars, status mains darkened.
-- [ ] S2 Alert + Badge
+- [x] S2 Alert + Badge. Alert: added neutral/info/success/warning/error (tinted bg + 4px coloured left border + variant-coloured consumer icon); kept default/destructive as legacy surfaces. Badge: added success/warning/info/error solid variants; `error` dedup'd to shared `destructiveBadge` const. Updated Alert + Badge stories (Variants showcase, Status row) + docs. Review fixes: kept warning icon `text-warning-foreground` for visibility on light tint (commented), removed redundant `[&>svg]:text-destructive`. Verified tsc/build/format; CSS has bg-/border-l-/-background status utils.
 - [ ] S3 Input + Textarea invalid
 - [ ] S4 Refinement batch
 - [ ] S5 Tabs + Card + headings
 - [ ] S6 ThemeProvider + docs + dev-lint + security
-- Current slice: S2 next.
-- Next action: expand Alert (neutral/info/success/warning/error + left border + lucide icon) + Badge (success/warning/info/error) variants consuming status tokens.
+- Current slice: S3 next.
+- Next action: Input + Textarea `invalid` prop + themed focus/invalid rings; wire Formik wrappers.
 
 ### Verification approach note
 Per-slice: `tsc` + `ladle build` + targeted compiled-CSS/grep assertions. Live visual both-theme screenshots consolidated at finish for MR evidence (browser set up once across all components) rather than per slice.
 
 ## Next Steps (running)
 
+- Dark-mode for status tokens: `.dark` overrides only core shadcn vars, not the new `--theme-*`/status tokens, so status alerts/badges keep light tints on a dark page. Dark is an orthogonal axis; out of v5 scope. Follow-up: add `.dark` overrides (or `[data-theme=uzh].dark`) for status + theme tokens.
 - Confirm neutral palette choice (zinc vs slate ramp) at S0 start — low-stakes, pick zinc to match shadcn default.
 - After v5 publish: open follow-up for v5.x composites (filter rail, proposal card, app shells) and Preact package theming if still needed.

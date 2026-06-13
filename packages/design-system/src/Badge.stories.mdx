@@ -12,7 +12,7 @@ Use this component when you need to:
 - Label categories, tags, or classifications
 - Highlight important attributes or properties
 
-The badge supports multiple variants (default, secondary, destructive, outline) and can include icons or be styled as circular counters. It's designed to be visually distinct while remaining unobtrusive.
+The badge supports multiple variants (default, secondary, destructive, outline, success, warning, info, error) and can include icons or be styled as circular counters. It's designed to be visually distinct while remaining unobtrusive.
 </div>
 {/* END README */}
 
@@ -28,7 +28,7 @@ Available Stories:
 
 Props (Badge component):
 
-- variant: "default" | "secondary" | "destructive" | "outline" - Visual style variant
+- variant: "default" | "secondary" | "destructive" | "outline" | "success" | "warning" | "info" | "error" - Visual style variant
 - className: string - Additional CSS classes for customization
 - children: ReactNode - Badge content (text, icons, numbers)
 
@@ -79,6 +79,12 @@ export const Default = () => {
         <Badge variant="secondary">Secondary</Badge>
         <Badge variant="destructive">Destructive</Badge>
         <Badge variant="outline">Outline</Badge>
+      </div>
+      <div className="flex w-full flex-wrap gap-2">
+        <Badge variant="success">Success</Badge>
+        <Badge variant="warning">Warning</Badge>
+        <Badge variant="info">Info</Badge>
+        <Badge variant="error">Error</Badge>
       </div>
       <div className="flex w-full flex-wrap gap-2">
         <Badge
