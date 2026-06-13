@@ -1,0 +1,89 @@
+import { Button } from './Button'
+import {
+  ButtonGroup,
+  ButtonGroupSeparator,
+  ButtonGroupText,
+} from './ButtonGroup'
+
+{/* START README */}
+<div className="prose prose-sm max-w-none">
+The `ButtonGroup` component joins related buttons (and inputs) into a single
+segmented control. Adjacent children share borders and have their inner corners
+squared off so they read as one connected unit.
+
+Use this component when you need to:
+
+- Offer a small set of mutually related actions (e.g. Prev / Next, view toggles)
+- Build a segmented control or split button
+- Attach a label or static text to an input via `ButtonGroupText`
+
+`ButtonGroup` supports `orientation` (`horizontal`, `vertical`). Use
+`ButtonGroupSeparator` to insert a divider and `ButtonGroupText` for inline
+non-interactive labels.
+</div>
+{/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Segmented container that joins adjacent buttons or inputs by collapsing shared borders and inner corner radii.
+Dependencies: class-variance-authority, @radix-ui/react-slot
+
+Available Stories:
+
+- Default: A horizontal group of joined buttons
+- WithText: A group combining a static text label with buttons
+
+Props (ButtonGroup component):
+
+- orientation: "horizontal" | "vertical" - Layout direction
+- className: string - Additional CSS classes
+
+Props (ButtonGroupText component):
+
+- asChild: boolean - Render as the child element (e.g. a label) instead of a div
+- className: string - Additional CSS classes
+
+Component Structure:
+
+- ButtonGroup: The container (role="group", data-slot="button-group")
+- ButtonGroupSeparator: Divider between grouped items
+- ButtonGroupText: Inline non-interactive text/label segment
+
+Usage Examples:
+
+```tsx
+<ButtonGroup>
+  <Button>Prev</Button>
+  <Button>Next</Button>
+</ButtonGroup>
+```
+
+Related Components:
+
+- Button: The primary children of a ButtonGroup
+- ToggleGroup: For exclusive/multiple selection state, not just joined actions
+- InputGroup: For joining inputs with addons rather than buttons
+
+AI_DOCUMENTATION_END
+*/}
+
+export const Default = () => {
+  return (
+    <ButtonGroup>
+      <Button>Prev</Button>
+      <Button>Next</Button>
+    </ButtonGroup>
+  )
+}
+
+export const WithText = () => {
+  return (
+    <ButtonGroup>
+      <ButtonGroupText>Sort</ButtonGroupText>
+      <ButtonGroupSeparator />
+      <Button>Newest</Button>
+      <Button>Oldest</Button>
+    </ButtonGroup>
+  )
+}
