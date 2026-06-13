@@ -4,10 +4,10 @@ caveman basic form. Full technical substance kept.
 
 ## Plan Identity
 
-- Plan path: `project/2026-06-13-v5-dual-theme-uzh-neutral-plan.md`
+- Plan path: `project/2026-06-13-pr-179-v5-dual-theme-uzh-neutral.md`
 - Branch: `v5` (long-lived major branch; precedent: remote `v2`)
 - Target branch: `main`
-- MR/PR: none yet
+- MR/PR: PR #179 (https://github.com/uzh-bf/design-system/pull/179), draft
 - Base SHA at branch: `0a78b2c`
 - Older related plan: none
 - Package: `@uzh-bf/design-system` (currently `4.1.6`) at `packages/design-system`
@@ -151,9 +151,8 @@ Reference this plan path. Work one slice at a time. Update `Progress` each slice
 - [x] S5 Tabs underline + Card + headings. ui/tabs.tsx: TabsList → bottom-border baseline (`border-b border-border gap-4`); TabsTrigger → underline active (`-mb-px border-b-2 border-b-transparent data-[state=active]:border-b-primary-100 data-[state=active]:text-foreground`, hover text, `ring-[3px]` focus). src/Tabs.tsx wrapper: dropped `data-[state=active]:font-bold` (stale pill style), kept full-width grid layout. Card: NO change (already `rounded-xl border shadow-sm`). Headings H1/H2/H3 already correct; added `--text-md` (17px) + `--text-md--line-height: 1.35` token for H4. Review fixes: removed dead `focus-visible:outline-ring` (color w/o width = invisible; `ring-[3px]` is real indicator); added text-md line-height. Verified: tsc clean; ladle build ok; prettier clean.
 - [x] S6 ThemeProvider + docs. Added `src/ThemeProvider.tsx` (`ThemeProvider`, `useTheme`, `Theme` type) — renders `<div data-theme className='contents'>` (layout-transparent; custom-prop inheritance + `.dark` descendant matching both survive `display:contents`), controlled OR uncontrolled (`setTheme` honest no-op when controlled, no stale-state desync). Exported from `index.ts`. Dogfooded: Ladle global provider now wraps stories in `<ThemeProvider>` (dropped local `Theme` type). Docs: root README `## Theming (v5)` section + new `packages/design-system/MIGRATION.md` (v4→v5: neutral default, UZH opt-in `data-theme="uzh"`, new exports/props/variants table, AvatarFallback + Tabs visual notes). Review+simplify (2 subagents): made controlled-mode `setTheme` a real no-op, dropped pointless `useMemo`, documented `contents` className caveat, clarified Table→ShadcnTableRow in migration. Verified: tsc clean; ladle build ok; prettier clean.
   - **DEV-LINT DEFERRED (A2, evidence-backed)**: reference `_adherence.oxlintrc.json` was generated for the reference's inline-style/synthesized-API code, not our Tailwind+cva library. Against our `src/`: raw-hex rule = 8 hits ALL legit (ColorPicker swatch palette, Cycle default color props, recharts `#ccc`/`#fff` internal selectors); raw-px rule = 75 hits ALL legit Tailwind arbitrary values (`w-[280px]`, `border-[3px]`); JSX prop rules describe a different component API (e.g. Button variants primary|outline|destructive|ghost ≠ ours). Wiring it in = ~83 false positives + new dep, 0 real catches. Mismatched tool; A2 was optional. Deferred to a follow-up (author a Tailwind-aware token-regression guard if wanted). Per-slice grep already verifies zero `uzh-*` leaks.
-- [ ] Finish: final security review (whole branch) + MR + demo deploy.
-- Current slice: S6 done; Finish next.
-- Next action: final security review subagent (whole branch), then `$df-mr-description-writer` MR vs `main` + both-theme screenshots; confirm gh-pages demo deploy carries theme toggle.
+- [x] Finish. Whole-branch security review DONE_WITH_CONCERNS (0 critical/important; Google Fonts CSP/privacy doc note added). Draft PR #179 opened vs `main` (https://github.com/uzh-bf/design-system/pull/179). Live both-theme verification in Ladle: Alert (5 variants) + Tabs (underline, uzh active border computes `rgb(0,40,165)` UZH blue) switch cleanly neutral↔uzh. gh-pages demo auto-deploys on merge to `main` and carries the theme/dark toggle + new states. Branch pushed (over HTTPS; SSH agent refused to sign locally).
+- All slices + finish complete. Awaiting: user decision on merge strategy (squash to `main` vs keep `v5` parallel), per-app `data-theme="uzh"` adoption, Google Fonts keep-vs-self-host.
 
 ### Verification approach note
 
