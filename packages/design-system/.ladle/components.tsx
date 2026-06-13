@@ -1,22 +1,22 @@
 // organize-imports-ignore
 import type { GlobalProvider } from '@ladle/react'
 import React from 'react'
+import { ThemeProvider, type Theme } from 'src/ThemeProvider'
 import 'src/tailwind.css'
-
-type Theme = 'neutral' | 'uzh'
 
 /**
  * Ladle global provider with a design-system theme switcher.
  *
- * Wraps every story in a `data-theme` (neutral | uzh) container and an optional
- * `.dark` class, so the v5 dual-theme system can be previewed live in the demo.
+ * Wraps every story in the design-system `ThemeProvider` (neutral | uzh) and an
+ * optional `.dark` class, so the v5 dual-theme system can be previewed live in
+ * the demo.
  */
 export const Provider: GlobalProvider = ({ children }) => {
   const [theme, setTheme] = React.useState<Theme>('neutral')
   const [dark, setDark] = React.useState(false)
 
   return (
-    <div data-theme={theme} className={dark ? 'dark' : undefined}>
+    <ThemeProvider theme={theme} className={dark ? 'dark' : undefined}>
       <div
         style={{
           position: 'fixed',
@@ -56,6 +56,6 @@ export const Provider: GlobalProvider = ({ children }) => {
         </label>
       </div>
       {children}
-    </div>
+    </ThemeProvider>
   )
 }

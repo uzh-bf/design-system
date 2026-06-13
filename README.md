@@ -2,6 +2,25 @@
 
 This design system is created and maintained by the IT dev-ops team at the Teaching Center of the Department of Finance at the University of Zurich. It simplifies the shared use of commonly used components in our web-development projects with corporate colors already included.
 
+## Theming (v5)
+
+As of v5 the components support two themes, selected via a `data-theme` attribute:
+
+- **`neutral`** (default) — de-branded, shadcn-like. Active on `:root` with no setup.
+- **`uzh`** — the UZH corporate-design theme (UZH blue/red, Source Sans 3).
+
+Switching is a pure CSS-variable cascade (no JS engine). UZH apps opt in with
+`<html data-theme="uzh">` or by wrapping a subtree in `ThemeProvider`:
+
+```tsx
+import { ThemeProvider } from "@uzh-bf/design-system";
+<ThemeProvider theme="uzh">{children}</ThemeProvider>;
+```
+
+**v4 → v5 is a breaking change for UZH apps** (the default is now `neutral`, not
+UZH-branded). See [`packages/design-system/MIGRATION.md`](packages/design-system/MIGRATION.md)
+for the full upgrade guide, including new exports, props, and variants.
+
 ## Prerequisites
 
 - Node.js version 22 (as specified in the project configuration)
