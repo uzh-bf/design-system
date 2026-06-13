@@ -1,0 +1,101 @@
+/*
+ * Theme layer for @uzh-bf/design-system v5.
+ *
+ * Two selectable themes, driven by a `data-theme` attribute on any ancestor
+ * element (default = neutral on :root):
+ *   - neutral: de-branded, shadcn-like. Default for white-label / non-UZH apps.
+ *   - uzh:     UZH corporate design (UZH blue primary, UZH red secondary,
+ *              Source Sans 3). Opt in with `data-theme="uzh"`.
+ *
+ * Mechanism: every theme-varying token is an intermediate `--theme-*` custom
+ * property consumed (by reference) from `@theme inline` in tailwind.css. A
+ * `data-theme` ancestor re-declares these vars; the var() chain resolves to the
+ * nearest ancestor at runtime, so themes switch with zero JS and can be nested
+ * either way (uzh inside neutral, neutral inside uzh).
+ *
+ * The fixed `--color-uzh-*` corporate palette lives in tailwind.css and is
+ * available in BOTH themes for explicit / chart use.
+ */
+
+/* ── Neutral (default) ─────────────────────────────────────────────────── */
+:root,
+[data-theme='neutral'] {
+  /* fonts */
+  --theme-font-sans:
+    ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol', 'Noto Color Emoji';
+  --theme-font-mono:
+    ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco, Consolas,
+    'Liberation Mono', 'Courier New', monospace;
+
+  /* primary ramp — neutral greyscale (shadcn-like dark primary) */
+  --theme-color-primary: oklch(0.205 0 0);
+  --theme-color-primary-80: oklch(0.37 0 0);
+  --theme-color-primary-60: oklch(0.55 0 0);
+  --theme-color-primary-40: oklch(0.72 0 0);
+  --theme-color-primary-20: oklch(0.92 0 0);
+
+  /* secondary ramp — neutral mid greys */
+  --theme-color-secondary: oklch(0.45 0 0);
+  --theme-color-secondary-80: oklch(0.55 0 0);
+  --theme-color-secondary-60: oklch(0.65 0 0);
+  --theme-color-secondary-40: oklch(0.8 0 0);
+  --theme-color-secondary-20: oklch(0.92 0 0);
+
+  /* status — generic green / amber / blue */
+  --theme-success: oklch(0.62 0.15 150);
+  --theme-success-foreground: oklch(0.985 0 0);
+  --theme-success-background: oklch(0.96 0.03 150);
+  --theme-warning: oklch(0.8 0.16 80);
+  --theme-warning-foreground: oklch(0.27 0.02 80);
+  --theme-warning-background: oklch(0.96 0.05 90);
+  --theme-info: oklch(0.62 0.14 240);
+  --theme-info-foreground: oklch(0.985 0 0);
+  --theme-info-background: oklch(0.96 0.03 240);
+}
+
+/* ── UZH corporate design ──────────────────────────────────────────────── */
+[data-theme='uzh'] {
+  /* fonts — Source Sans 3 (UI) + JetBrains Mono (code), loaded in tailwind.css */
+  --theme-font-sans:
+    'Source Sans 3', 'Source Sans Pro', ui-sans-serif, system-ui, -apple-system,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --theme-font-mono:
+    'JetBrains Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco,
+    Consolas, 'Liberation Mono', 'Courier New', monospace;
+
+  /* primary ramp — UZH blue */
+  --theme-color-primary: var(--color-uzh-blue-100);
+  --theme-color-primary-80: var(--color-uzh-blue-80);
+  --theme-color-primary-60: var(--color-uzh-blue-60);
+  --theme-color-primary-40: var(--color-uzh-blue-40);
+  --theme-color-primary-20: var(--color-uzh-blue-20);
+
+  /* secondary ramp — UZH red */
+  --theme-color-secondary: var(--color-uzh-red-100);
+  --theme-color-secondary-80: var(--color-uzh-red-80);
+  --theme-color-secondary-60: var(--color-uzh-red-60);
+  --theme-color-secondary-40: var(--color-uzh-red-40);
+  --theme-color-secondary-20: var(--color-uzh-red-20);
+
+  /* status — UZH accent hues */
+  --theme-success: var(--color-uzh-darkgreen-100);
+  --theme-success-foreground: #ffffff;
+  --theme-success-background: var(--color-uzh-lightgreen-20);
+  --theme-warning: var(--color-uzh-yellow-100);
+  --theme-warning-foreground: oklch(0.205 0 0);
+  --theme-warning-background: var(--color-uzh-yellow-20);
+  --theme-info: var(--color-uzh-turqoise-100);
+  --theme-info-foreground: #ffffff;
+  --theme-info-background: var(--color-uzh-turqoise-20);
+
+  /* bridge shadcn semantic primary + focus ring to UZH blue */
+  --primary: var(--color-uzh-blue-100);
+  --primary-foreground: #ffffff;
+  --ring: var(--color-uzh-blue-100);
+  --sidebar-primary: var(--color-uzh-blue-100);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-ring: var(--color-uzh-blue-100);
+}

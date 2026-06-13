@@ -1,9 +1,11 @@
 @layer theme, base, components, utilities;
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@400;500;700&display=swap');
 @import 'tailwindcss/preflight.css' layer(base);
 @import 'tailwindcss/theme.css' layer(theme);
 @import 'tailwindcss/utilities.css' layer(utilities);
 
 @import 'tw-animate-css';
+@import './themes.css';
 @plugin 'tailwindcss-animate';
 @plugin '@tailwindcss/typography';
 @plugin '@tailwindcss/aspect-ratio';
@@ -14,14 +16,31 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  /* UZH fonts */
-  --font-sans:
-    var(--theme-font-primary), var(--source-sans-pro), 'Source Sans 3',
-    'Source Sans Pro', ui-sans-serif, system-ui, sans-serif,
-    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  --font-mono:
-    var(--mono-space-font), ui-monospace, SFMono-Regular, 'SF Mono', Menlo,
-    Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  /* fonts — resolved per theme via --theme-font-* (see themes.css); the
+     fallback stack keeps text visible even if themes.css is not imported */
+  --font-sans: var(
+    --theme-font-sans,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    'Helvetica Neue',
+    Arial,
+    sans-serif
+  );
+  --font-mono: var(
+    --theme-font-mono,
+    ui-monospace,
+    SFMono-Regular,
+    'SF Mono',
+    Menlo,
+    Monaco,
+    Consolas,
+    'Liberation Mono',
+    'Courier New',
+    monospace
+  );
 
   /* UZH colors */
   --color-uzh-blue: #0028a5;
@@ -67,17 +86,7 @@
   --color-uzh-turqoise-40: #9ed0d9;
   --color-uzh-turqoise-20: #cfe8ec;
 
-  /* theme colors */
-  --theme-color-primary: #0028a5;
-  --theme-color-primary-80: #3353b7;
-  --theme-color-primary-60: #667ec9;
-  --theme-color-primary-40: #99a9db;
-  --theme-color-primary-20: #ccd4ed;
-  --theme-color-secondary: #dc6027;
-  --theme-color-secondary-80: #e38052;
-  --theme-color-secondary-60: #eaa07d;
-  --theme-color-secondary-40: #f1bfa9;
-  --theme-color-secondary-20: #f8dfd4;
+  /* semantic colour ramps — resolved per theme via --theme-color-* (see themes.css) */
   --color-primary-100: var(--theme-color-primary);
   --color-primary-80: var(--theme-color-primary-80);
   --color-primary-60: var(--theme-color-primary-60);
@@ -148,6 +157,17 @@
   --color-destructive: var(--destructive);
   --color-destructive-background: var(--destructive-background);
   --color-notification: var(--notification);
+
+  /* status colours — resolved per theme via --theme-* (see themes.css) */
+  --color-success: var(--theme-success);
+  --color-success-foreground: var(--theme-success-foreground);
+  --color-success-background: var(--theme-success-background);
+  --color-warning: var(--theme-warning);
+  --color-warning-foreground: var(--theme-warning-foreground);
+  --color-warning-background: var(--theme-warning-background);
+  --color-info: var(--theme-info);
+  --color-info-foreground: var(--theme-info-foreground);
+  --color-info-background: var(--theme-info-background);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);

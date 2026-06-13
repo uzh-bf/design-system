@@ -135,16 +135,19 @@ Reference this plan path. Work one slice at a time. Update `Progress` each slice
 ## Progress
 
 - [x] Setup: zip extracted to `uzh-design-reference/`; zip + extract gitignored (verified). Branch `v5` created off `main`@`0a78b2c`. Exploration workflow done. 4 forks resolved with user.
-- [ ] Plan committed (this file, separate commit) — PENDING USER APPROVAL TO START SLICES.
-- [ ] S0 Token foundation + Button pilot
+- [x] Plan committed; user approved full slice-by-slice execution + MR + demo deploy.
+- [x] S0 Token foundation + Button pilot. Added `src/themes.css` (`:root,[data-theme=neutral]` neutral defaults + `[data-theme=uzh]` UZH overrides), routed fonts/primary/secondary/status through `--theme-*` indirection in `tailwind.css`, Google Fonts @import, Ladle neutral/uzh+dark switcher. Verified: tsc clean; `ladle build` ok; compiled CSS asserts `.bg-primary-100{background:var(--theme-color-primary)}`, neutral=`oklch(20.5% 0 0)`, uzh=`var(--color-uzh-blue-100)`; neutral font=system, uzh=Source Sans 3. Review+simplify: added font `var(...,fallback)` for robustness, pinned Ladle toolbar text colour. Deferred to S6 migration docs: `--theme-font-primary`/`--source-sans-pro` injection points removed (v5 break); shadcn `--secondary` stays neutral in uzh (matches v4; UZH red via `bg-secondary-100`).
 - [ ] S1 uzh-* purge
 - [ ] S2 Alert + Badge
 - [ ] S3 Input + Textarea invalid
 - [ ] S4 Refinement batch
 - [ ] S5 Tabs + Card + headings
 - [ ] S6 ThemeProvider + docs + dev-lint + security
-- Current slice: none (awaiting go).
-- Next action: on approval, commit this plan alone, then start S0.
+- Current slice: S1 next.
+- Next action: purge hardcoded uzh-* in the 7 components, route through semantic/status tokens.
+
+### Verification approach note
+Per-slice: `tsc` + `ladle build` + targeted compiled-CSS/grep assertions. Live visual both-theme screenshots consolidated at finish for MR evidence (browser set up once across all components) rather than per slice.
 
 ## Next Steps (running)
 
