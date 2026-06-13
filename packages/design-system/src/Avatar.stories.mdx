@@ -27,6 +27,7 @@ Available Stories:
 
 Props (Avatar component):
 
+- size: "sm" | "md" | "lg" - Preset avatar size (28 / 40 / 56px). Omit for the default 32px.
 - className: string - Additional CSS classes for styling
 - asChild: boolean - Render as child element instead of span
 
@@ -103,6 +104,22 @@ export const Default = () => {
           <AvatarFallback>ER</AvatarFallback>
         </Avatar>
       </div>
+    </div>
+  )
+}
+
+export const Sizes = () => {
+  return (
+    <div className="flex flex-row items-center gap-4">
+      <Avatar size="sm">
+        <AvatarFallback>SM</AvatarFallback>
+      </Avatar>
+      <Avatar size="md">
+        <AvatarFallback>MD</AvatarFallback>
+      </Avatar>
+      <Avatar size="lg">
+        <AvatarFallback>LG</AvatarFallback>
+      </Avatar>
     </div>
   )
 }
