@@ -1,0 +1,91 @@
+import { Kbd, KbdGroup } from './Kbd'
+
+{/* START README */}
+<div className="prose prose-sm max-w-none">
+The `Kbd` component renders a keyboard key or shortcut in a compact, muted
+"key cap" style. `KbdGroup` lays out several keys (and separators) inline for
+multi-key shortcuts.
+
+Use this component when you need to:
+
+- Document a keyboard shortcut (e.g. ⌘ K) in help text, menus, or tooltips
+- Show available hotkeys next to an action
+- Render a single key reference inline with body text
+
+`Kbd` adapts inside tooltips automatically, switching to a contrast-appropriate
+style when nested in a tooltip surface.
+</div>
+{/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Inline keyboard-key display built on the native kbd element with muted key-cap styling and a tooltip-aware variant.
+Dependencies: none
+
+Available Stories:
+
+- Default: Single keys rendered as key caps
+- Group: A multi-key shortcut composed with KbdGroup
+
+Props (Kbd component):
+
+- className: string - Additional CSS classes
+- All standard kbd element props are forwarded
+
+Props (KbdGroup component):
+
+- className: string - Additional CSS classes
+- All standard kbd element props are forwarded
+
+Component Structure:
+
+- Kbd: A single key cap (native kbd element, data-slot="kbd")
+- KbdGroup: Inline container for several Kbd keys (data-slot="kbd-group")
+
+Usage Examples:
+
+```tsx
+// A single key
+<Kbd>Esc</Kbd>
+
+// A multi-key shortcut
+<KbdGroup>
+  <Kbd>⌘</Kbd>
+  <Kbd>K</Kbd>
+</KbdGroup>
+```
+
+Related Components:
+
+- Tooltip: Kbd has a built-in style for rendering inside tooltip content
+- Command: Often paired with Kbd to show command shortcuts
+
+AI_DOCUMENTATION_END
+*/}
+
+export const Default = () => {
+  return (
+    <div className="flex flex-row items-center gap-2">
+      <Kbd>Esc</Kbd>
+      <Kbd>Tab</Kbd>
+      <Kbd>⏎</Kbd>
+    </div>
+  )
+}
+
+export const Group = () => {
+  return (
+    <div className="flex flex-row items-center gap-4">
+      <KbdGroup>
+        <Kbd>⌘</Kbd>
+        <Kbd>K</Kbd>
+      </KbdGroup>
+      <KbdGroup>
+        <Kbd>Ctrl</Kbd>
+        <span className="text-muted-foreground text-xs">+</span>
+        <Kbd>C</Kbd>
+      </KbdGroup>
+    </div>
+  )
+}
