@@ -37,6 +37,7 @@ export const Provider: GlobalProvider = ({ children }) => {
   return (
     <ThemeProvider theme={theme} className={dark ? 'dark' : undefined}>
       <div
+        id="ladle-theme-controls"
         style={{
           position: 'fixed',
           top: 8,
