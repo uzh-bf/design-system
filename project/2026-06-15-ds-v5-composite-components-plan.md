@@ -145,3 +145,14 @@ shipped component is visualized; the three missing composed patterns exist.
   extracted `toLabel`, dropped explicit `aria-haspopup` (verified Radix `PopoverTrigger` injects
   `aria-haspopup="dialog"`+`aria-expanded` via asChild), story month-index comment. Declined: redundant
   `disabled` on PopoverTrigger+Button (matches DatePicker), verbose captionLayout type (DS convention).
+- 2026-06-15 **C3 DONE** — `MultiSelect` (searchable multi-value) composing `ui/popover` + `ui/command`,
+  sibling to Combobox. Removable chips render BELOW the trigger (outside the button) so chip remove
+  buttons are not `nested-interactive`; each has `aria-label="Remove {label}"`. Popover stays open on
+  toggle. Exported index+ui; stories Default/Preselected/Disabled. Gate GREEN: tsc, eslint, prettier,
+  build, smoke + axe (neutral+uzh) incl. Preselected (chips visible → axe clean, no nested-interactive/
+  button-name), manual browser (chips + checkmarks; UZH-blue chips in uzh). Review+simplify: simplifiers
+  found nothing actionable ("already minimal"); added JSDoc notes (chip order = items order; ReactNode
+  search caveat). **Verified cmdk 1.1.1 `useValue`**: an explicit `value` prop wins over children, so
+  ReactNode labels are matched only against `value` (not rendered text) → corrected the Combobox README
+  too. Declined: root width slot (parity w/ Combobox), `useState<string[]>` in stories (demo, not
+  tsc-checked), `primary-40` token (confirmed exists in themes.css).
