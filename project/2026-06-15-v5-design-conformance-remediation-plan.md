@@ -115,7 +115,10 @@ Do: security review subagent (token/markup changes, new components — low risk,
 - 2026-06-15 R2 DONE: active/selected/on states → UZH primary. Workflow active primary-80→100 + past text gray→primary-100 + drop active hover:text-black; Switch on primary-60→100; Progress fill primary-60→100; Toggle on accent→primary-20/primary-100/semibold; Command selected same; Pagination active outline→default(primary fill); Tabs active text foreground→primary-100; Breadcrumb link hover→primary-100; themes.css uzh --sidebar-accent→blue-20/blue-100. Verified Ladle uzh: Workflow active=full #0028A5 (was #3353b7), past text=blue. `pnpm build` green 5.16s.
 - 2026-06-15 R2 committed `6a1b184`.
 - 2026-06-15 R3 DONE: control sizing/radius/font (structural — applies BOTH themes, noted). input/textarea/select/datepicker/datetimepicker height 36→40 (h-9→h-10) + font 16→14 (text-base→text-sm); textarea min-h 64→80; TextField inner inputs same; Card rounded-xl→rounded-md(6px); Alert rounded-lg→rounded-md; Popover/HoverCard rounded-md→rounded-lg(8px); FormLabel small text-muted-foreground→text-foreground + text-[13px] + font-semibold. Verified Ladle: Card corners tighter, inputs taller. `pnpm build` green 5.32s. (Edits via subagent, diff reviewed.)
-- Next: commit R3, then R4 (form fidelity).
+- 2026-06-15 R3 committed `f7ad8b7`.
+- 2026-06-15 R4 PARTIAL: safe visual fixes done — Checkbox unchecked border primary→input (grey) + radius rounded-md→rounded-[4px]; PinField (ui/input-otp) fused pill → individual boxes (group gap-2, slot rounded-md border + font-mono + filled→border-primary). Verified Ladle uzh: pin boxes separated. `pnpm build` green 5.81s.
+  - **DEFERRED (consumer-risk behavior/UX forks — need product decision):** (a) inline error text vs current tooltip-icon in TextField/Textarea/Select; (b) ColorPicker full swatch-grid redesign (changes interaction model); (c) NumberField stepper −/+ (changes rendering); (d) Checkbox single-source reconcile (two impls) + 18px size. These alter behavior/API of components used in real apps (klicker) — listed in final report for sign-off.
+- Next: commit R4, then R5 (overlays+feedback, all visual/additive).
 
 ## Open / risk
 - Chromatic full ladder (Blue 2/3/5) deferred — R1 only fixes the consumed tint (Blue 1) + hover. Revisit if more steps needed.
