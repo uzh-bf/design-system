@@ -89,4 +89,16 @@ Run each in `neutral` + `uzh` (seed localStorage). Skip `*--readme` MDX pages fo
 - **New devDeps** (security) -> pin, lockfile in same commit, security review at end.
 
 ## Progress
-- 2026-06-15 PLAN written + ADR written. Awaiting go to execute T1+.
+- 2026-06-15 PLAN written + ADR written.
+- 2026-06-15 Worktree `../design-system--ladle-testing`, branch `test/ladle-a11y-playwright` off `v5`.
+- 2026-06-15 Pre-slice fix on **v5** (commit `6ebc9b3`): R3-R7 left 15 src files unformatted +
+  2 react-refresh lint warnings (ThemeProvider/ButtonGroup) -> v5 lint + check-format CI were RED.
+  Fixed at source (prettier --write + targeted disables). Worktree fast-forwarded onto it.
+- 2026-06-15 **T1 DONE** (commit `aede745`). @playwright/test 1.61.0 + @axe-core/playwright 4.11.3 (pinned),
+  playwright.config.ts (build:ladle -> ladle preview :61011, `PWTEST_SKIP_BUILD=1` skips rebuild,
+  reuseExistingServer off in CI), `tests/a11y/smoke.spec.ts` tracer on button--primary (render +
+  no console error + axe no serious/critical, toolbar `#ladle-theme-controls` excluded). Scripts
+  `test`/`test:install`. Gate GREEN: lint, format:check, tsc check, 1 test pass.
+  Review subagent: 2 Important (build-per-run, reuse staleness) + 4 Minor; applied SKIP_BUILD env +
+  10s selector timeout + comments; deferred axe-scope-to-root refinement to T3.
+- NEXT: T2 — dynamic story sweep (smoke-render all 437 from meta.json).
