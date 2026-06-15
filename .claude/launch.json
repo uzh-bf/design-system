@@ -6,18 +6,6 @@
       "runtimeExecutable": "pnpm",
       "runtimeArgs": ["--filter", "@uzh-bf/design-system", "dev"],
       "port": 61000
-    },
-    {
-      "name": "ds-v5-mock",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["--prefix", "/tmp/ds-v5-mock", "run", "dev"],
-      "port": 5199
-    },
-    {
-      "name": "uzh-reference",
-      "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "5180", "--directory", "/Users/rschlae/Git/df/design-system/uzh-design-reference"],
-      "port": 5180
     }
   ]
 }
