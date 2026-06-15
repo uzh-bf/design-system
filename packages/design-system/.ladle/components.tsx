@@ -11,9 +11,28 @@ import 'src/tailwind.css'
  * optional `.dark` class, so the v5 dual-theme system can be previewed live in
  * the demo.
  */
+// Persist the preview controls so the selected theme survives Ladle's full-page
+// reload on every story navigation (otherwise it silently reverts to neutral).
+const read = <T,>(key: string, fallback: T): T => {
+  if (typeof window === 'undefined') return fallback
+  const v = window.localStorage.getItem(key)
+  return v === null ? fallback : (JSON.parse(v) as T)
+}
+
 export const Provider: GlobalProvider = ({ children }) => {
-  const [theme, setTheme] = React.useState<Theme>('neutral')
-  const [dark, setDark] = React.useState(false)
+  const [theme, setTheme] = React.useState<Theme>(() =>
+    read<Theme>('ladle-theme', 'neutral')
+  )
+  const [dark, setDark] = React.useState<boolean>(() =>
+    read<boolean>('ladle-dark', false)
+  )
+
+  React.useEffect(() => {
+    window.localStorage.setItem('ladle-theme', JSON.stringify(theme))
+  }, [theme])
+  React.useEffect(() => {
+    window.localStorage.setItem('ladle-dark', JSON.stringify(dark))
+  }, [dark])
 
   return (
     <ThemeProvider theme={theme} className={dark ? 'dark' : undefined}>
