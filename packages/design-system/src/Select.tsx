@@ -208,7 +208,7 @@ export function Select({
                     {group.label && (
                       <SelectLabel
                         className={twMerge(
-                          'text-sm font-bold text-black',
+                          'text-sm font-bold text-foreground',
                           className?.groupLabel
                         )}
                       >

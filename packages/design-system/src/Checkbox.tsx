@@ -86,7 +86,7 @@ export function Checkbox({
         checked={checked || partial}
         className={twMerge(
           'peer border-primary ring-offset-background focus-visible:ring-ring data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground disabled:bg-muted disabled:border-border h-4 w-4 shrink-0 cursor-pointer rounded-md border focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden disabled:cursor-not-allowed',
-          (checked || partial) && 'border-black',
+          (checked || partial) && 'border-primary',
           disabled && 'cursor-not-allowed',
           checkboxSize[size],
           className?.root
