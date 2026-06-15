@@ -75,7 +75,19 @@ jobs:
           version: 10.30.0
           run_install: true
 
-      - run: pnpm run test -- --ci --coverage --maxWorkers=2
+      - name: Install Playwright browser
+        run: pnpm --filter @uzh-bf/design-system test:install
+
+      - name: Run Playwright tests (smoke + a11y)
+        run: pnpm --filter @uzh-bf/design-system test
+
+      - name: Upload Playwright report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: packages/design-system/playwright-report/
+          retention-days: 14
 
   build:
     name: Build and Publish
