@@ -122,4 +122,18 @@ shipped component is visualized; the three missing composed patterns exist.
 
 ## Progress
 - 2026-06-15 PLAN written. Scope approved: Combobox + DateRangePicker + MultiSelect + 4 doc-gap
-  stories; on v5/PR #179; Data Table deferred. Awaiting execution go.
+  stories; on v5/PR #179; Data Table deferred. C0 committed (`429b02a`).
+- 2026-06-15 **C1 DONE** — `Combobox` (searchable single-select) composing `ui/button`+`ui/popover`+
+  `ui/command`. Exported in `index.ts`+`ui.ts`; `Combobox.stories.mdx` (Default/Preselected/Disabled).
+  cmdk search via `value`+`keywords` (string labels) / rendered text (ReactNode). Gate GREEN: tsc,
+  eslint, prettier, `build:ladle`, Playwright smoke + axe (neutral+uzh) on all 4 entries, manual
+  browser check (open/filter/select; UZH-blue primary highlight + checkmark).
+  - **a11y design (review-driven):** trigger is a disclosure `Button` with `aria-haspopup="listbox"`
+    + `aria-expanded` (NOT `role="combobox"` — cmdk's `CommandInput` is the real combobox; two
+    role=combobox elements is wrong). Plain button → accessible name from visible content
+    (selected label / placeholder); `ariaLabel` optional override. axe caught the original missing
+    name (`aria-input-field-name`) before this fix landed.
+  - Review (cavecrew) + simplification subagents: applied the a11y restructure + dropped redundant
+    `disabled:opacity-70` (Button owns `disabled:opacity-50`) + README accuracy. **Deferred:** native
+    form `name`/hidden-input (YAGNI; tracked in Next Steps as FormikCombobox). Declined: `React.ReactNode`
+    import (matches `Select.tsx`), CommandInput aria-label removal (real a11y safeguard).

@@ -1,0 +1,118 @@
+import { useState } from 'react'
+import { Combobox } from './Combobox'
+
+{/* START README */}
+<div className="prose prose-sm max-w-none">
+The `Combobox` is a searchable single-select. It composes the `Popover` and
+`Command` primitives into one component: click the trigger to open a filterable
+list, type to narrow it, and pick an item. The open state is internal; the
+selected `value` is controlled externally via `value` / `onChange`.
+
+Use this component when a plain `Select` is unwieldy — long option lists, or when
+users benefit from type-ahead filtering.
+
+Each item needs a unique string `value` and a `label`. String labels are passed
+to cmdk as explicit search keywords; non-string (ReactNode) labels are still
+filterable via their rendered text.
+</div>
+{/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Searchable single-select composing Popover (open state) and Command/cmdk (filtered list). Selected value is controlled; open state is internal.
+Dependencies: cmdk, @radix-ui/react-popover, lucide-react
+
+Available Stories:
+
+- Default: A searchable framework picker
+- Preselected: Opens with a value already selected
+- Disabled: A disabled combobox
+
+Props (Combobox component):
+
+- items: ComboboxItem[] - Selectable items ({ value: string, label: ReactNode, disabled?: boolean })
+- value: string - The currently selected value (controlled)
+- onChange: (newValue: string) => void - Called with the new value on selection
+- placeholder: string - Trigger text when nothing is selected (default "Select…")
+- searchPlaceholder: string - Placeholder in the search input (default "Search…")
+- emptyText: string - Shown when the search yields no results
+- disabled: boolean - Disables the trigger
+- ariaLabel: string - Accessible name override for the trigger
+- className: { trigger?, content?, item? } - Style overrides
+
+Component Structure:
+
+- Combobox: Popover + Button trigger (role="combobox") + Command list
+
+Usage Examples:
+
+```tsx
+const [value, setValue] = useState('')
+
+<Combobox
+  items={[
+    { value: 'next', label: 'Next.js' },
+    { value: 'vite', label: 'Vite' },
+  ]}
+  value={value}
+  onChange={setValue}
+  placeholder="Select framework…"
+/>
+```
+
+Related Components:
+
+- Select: Plain (non-searchable) single-select
+- MultiSelect: Searchable multi-value selection with chips
+- Command: The underlying filterable list primitive
+
+AI_DOCUMENTATION_END
+*/}
+
+{/* Ladle turns every top-level `export const` into a story, and MDX only allows
+    import/export as top-level JS — so the item list is defined inside each story. */}
+
+export const Default = () => {
+  const [value, setValue] = useState('')
+  const frameworks = [
+    { value: 'next', label: 'Next.js' },
+    { value: 'sveltekit', label: 'SvelteKit' },
+    { value: 'nuxt', label: 'Nuxt.js' },
+    { value: 'remix', label: 'Remix' },
+    { value: 'astro', label: 'Astro' },
+    { value: 'vite', label: 'Vite' },
+  ]
+  return (
+    <Combobox
+      items={frameworks}
+      value={value}
+      onChange={setValue}
+      placeholder="Select framework…"
+      searchPlaceholder="Search framework…"
+    />
+  )
+}
+
+export const Preselected = () => {
+  const [value, setValue] = useState('vite')
+  const frameworks = [
+    { value: 'next', label: 'Next.js' },
+    { value: 'remix', label: 'Remix' },
+    { value: 'vite', label: 'Vite' },
+  ]
+  return <Combobox items={frameworks} value={value} onChange={setValue} />
+}
+
+export const Disabled = () => {
+  const [value, setValue] = useState('')
+  return (
+    <Combobox
+      items={[{ value: 'vite', label: 'Vite' }]}
+      value={value}
+      onChange={setValue}
+      disabled
+      placeholder="Disabled"
+    />
+  )
+}
