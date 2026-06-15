@@ -128,6 +128,8 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "LADLE=true ladle preview",
     "test": "pnpm build:ladle && PWTEST_SKIP_BUILD=1 playwright test",
+    "test:smoke": "pnpm build:ladle && PWTEST_SKIP_BUILD=1 playwright test tests/smoke",
+    "test:a11y": "pnpm build:ladle && PWTEST_SKIP_BUILD=1 playwright test tests/a11y",
     "test:fast": "PWTEST_SKIP_BUILD=1 playwright test",
     "test:install": "playwright install --with-deps chromium",
     "check": "tsc --noEmit"

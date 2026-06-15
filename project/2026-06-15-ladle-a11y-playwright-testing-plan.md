@@ -118,10 +118,30 @@ Run each in `neutral` + `uzh` (seed localStorage). Skip `*--readme` MDX pages fo
   canonical; no workflow injection (static commands, no `github.event.*`); artifact has no secrets; test code
   no injection/traversal. Note (follow-up, pre-existing, non-blocking): GH Actions use floating major tags
   (`@v3`/`@v4`), not SHA-pinned.
-- STATUS: T1-T4 complete on `test/ladle-a11y-playwright` (off v5). NOT pushed. Includes v5 fix `6ebc9b3`.
+- 2026-06-15 Merged into `v5` (ff) + pushed -> PR #179 (`e348956..6f552f9`, 18 commits). lint/format/check GREEN.
+- 2026-06-15 **CI REALITY CHECK** (run 27566364698): the a11y gate FAILED in CI — **296 a11y failures**, 16.6 min.
+  Smoke PASSED (437/437). Root causes: (1) `document.fonts.ready` settle stalls on Google Fonts on the CI
+  runner -> 16min runtime; (2) the "0 violations, stable" local result did NOT generalize — on the slower
+  runner axe reports button-name / label / nested-interactive / color-contrast across many stories. My local
+  machine (fast CPU + cached fonts) masked them. **Lesson: a local-only "stable" claim is not CI-stable.**
+- 2026-06-15 **COURSE CORRECTION** (this commit): a11y gate was over-eager. Now:
+  - `gotoStory` drops `document.fonts.ready` (kept content-node wait + 2 rAF).
+  - Scripts split: `test:smoke`, `test:a11y` (both build first); `test` still runs all locally.
+  - CI `test` job runs **`test:smoke` only** (fast, reliable, blocking). a11y is OUT of the CI gate.
+  - Verified locally: lint/format/check GREEN; `test:smoke` 437 pass in ~17s.
+
+## a11y triage backlog (must do before re-adding a11y to CI)
+The 296 CI a11y findings need real-vs-environment triage (per-rule, with the report artifact):
+- `button-name` (icon/color/select/pin-field buttons) — likely REAL (icon-only buttons need aria-label).
+- `label` (formik field stories) — likely REAL (inputs missing associated label).
+- `color-contrast` — verify against the rendered (web-font) page, not CI fallback fonts.
+- `nested-interactive` — likely REAL (interactive nested in interactive).
+- For confirmed-real: fix the component OR allowlist with reason. For timing artifacts: stronger settle
+  (e.g. `expect.poll`/`toPass` wrapping axe, or self-hosted fonts so render is deterministic).
+- Only then re-add a11y to CI (report-only first, then ratchet to blocking).
 
 ## Next Steps
-- Push branch + open PR (stacked on #179 / v5) via `$df-mr-description-writer`.
-- Push `v5` so #179 CI greens (it currently carries the lint/format fix `6ebc9b3` only locally).
-- Optional CI hardening: cache Playwright browsers; SHA-pin GH Actions (whole-workflow hygiene pass).
-- Deferred from plan: visual-regression (screenshot diff), ratchet thresholds if real debt appears later.
+- Triage the a11y backlog above; decide fix vs allowlist; then wire a11y into CI (report-only -> blocking).
+- CI hardening: cache Playwright browsers; SHA-pin GH Actions (whole-workflow hygiene pass).
+- Update PR #179 description (whole branch incl. R1-R7 conformance + ADR + testing) via `$df-mr-description-writer`.
+- Deferred from plan: visual-regression (screenshot diff).

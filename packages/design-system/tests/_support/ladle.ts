@@ -46,14 +46,13 @@ export async function gotoStory(
     .locator('body > :not(#ladle-root)')
     .first()
     .waitFor({ state: 'attached', timeout: 10_000 })
-  // Let the component settle before asserting: fonts loaded (contrast depends on
-  // the final glyphs) and two frames so mount effects that set accessible
-  // names/label associations have committed. Without this, axe races the render
-  // under parallel load and reports false positives (button-name, label).
-  await page.evaluate(async () => {
-    await document.fonts.ready
-    await new Promise((resolve) =>
-      requestAnimationFrame(() => requestAnimationFrame(() => resolve(null)))
-    )
-  })
+  // Two frames so mount effects (accessible names, label associations) commit
+  // before assertions. NB: do NOT await document.fonts.ready here — Google Fonts
+  // can stall on CI runners, hanging every test (16min+ runs).
+  await page.evaluate(
+    () =>
+      new Promise((resolve) =>
+        requestAnimationFrame(() => requestAnimationFrame(() => resolve(null)))
+      )
+  )
 }
