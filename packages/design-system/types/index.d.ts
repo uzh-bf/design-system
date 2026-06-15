@@ -17,7 +17,7 @@ import { Dispatch } from 'react';
 import { Drawer as Drawer_2 } from 'vaul';
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
 import { ExternalToast } from 'sonner';
-import { FieldError } from 'react-hook-form';
+import { FieldError as FieldError_2 } from 'react-hook-form';
 import { FieldInputProps } from 'formik';
 import { FieldPath } from 'react-hook-form';
 import { FieldValues } from 'react-hook-form';
@@ -47,7 +47,7 @@ import * as TooltipPrimitive from '@radix-ui/react-tooltip';
 import { UseEmblaCarouselType } from 'embla-carousel-react';
 import { VariantProps } from 'class-variance-authority';
 
-export declare function Accordion({ ...props }: React_2.ComponentProps<typeof AccordionPrimitive.Root>): JSX.Element;
+export declare function Accordion({ className, ...props }: React_2.ComponentProps<typeof AccordionPrimitive.Root>): JSX.Element;
 
 export declare function AccordionContent({ className, children, ...props }: React_2.ComponentProps<typeof AccordionPrimitive.Content>): JSX.Element;
 
@@ -84,7 +84,7 @@ export declare function AlertDialogTrigger({ ...props }: React_2.ComponentProps<
 export declare function AlertTitle({ className, ...props }: React_2.ComponentProps<'div'>): JSX.Element;
 
 declare const alertVariants: (props?: ({
-    variant?: "default" | "destructive" | null | undefined;
+    variant?: "default" | "neutral" | "info" | "success" | "warning" | "error" | "destructive" | null | undefined;
 } & ClassProp) | undefined) => string;
 
 /**
@@ -139,18 +139,22 @@ export declare interface AlphaNumericPinFieldProps {
 
 export declare function AspectRatio({ ...props }: React.ComponentProps<typeof AspectRatioPrimitive.Root>): JSX.Element;
 
-export declare function Avatar({ className, ...props }: React_2.ComponentProps<typeof AvatarPrimitive.Root>): JSX.Element;
+export declare function Avatar({ className, size, ...props }: React_2.ComponentProps<typeof AvatarPrimitive.Root> & VariantProps<typeof avatarVariants>): JSX.Element;
 
 export declare function AvatarFallback({ className, ...props }: React_2.ComponentProps<typeof AvatarPrimitive.Fallback>): JSX.Element;
 
 export declare function AvatarImage({ className, ...props }: React_2.ComponentProps<typeof AvatarPrimitive.Image>): JSX.Element;
+
+declare const avatarVariants: (props?: ({
+    size?: "sm" | "lg" | "md" | null | undefined;
+} & ClassProp) | undefined) => string;
 
 export declare function Badge({ className, variant, asChild, ...props }: React_2.ComponentProps<'span'> & VariantProps<typeof badgeVariants> & {
     asChild?: boolean;
 }): JSX.Element;
 
 export declare const badgeVariants: (props?: ({
-    variant?: "default" | "destructive" | "outline" | "secondary" | null | undefined;
+    variant?: "default" | "info" | "success" | "warning" | "error" | "destructive" | "outline" | "secondary" | null | undefined;
 } & ClassProp) | undefined) => string;
 
 declare type BaseItem = {
@@ -287,6 +291,18 @@ export declare namespace Button {
 declare function Button_2({ className, variant, size, asChild, ...props }: React_2.ComponentProps<'button'> & VariantProps<typeof buttonVariants> & {
     asChild?: boolean;
 }): JSX.Element;
+
+export declare function ButtonGroup({ className, orientation, ...props }: React_2.ComponentProps<'div'> & VariantProps<typeof buttonGroupVariants>): JSX.Element;
+
+export declare function ButtonGroupSeparator({ className, orientation, ...props }: React_2.ComponentProps<typeof Separator>): JSX.Element;
+
+export declare function ButtonGroupText({ className, asChild, ...props }: React_2.ComponentProps<'div'> & {
+    asChild?: boolean;
+}): JSX.Element;
+
+export declare const buttonGroupVariants: (props?: ({
+    orientation?: "horizontal" | "vertical" | null | undefined;
+} & ClassProp) | undefined) => string;
 
 export declare interface ButtonIconGroupProps {
     state: number | undefined;
@@ -1060,7 +1076,7 @@ export declare function DrawerTrigger({ ...props }: React_2.ComponentProps<typeo
 export declare function Dropdown({ id, disabled, trigger, items, radioGroups, align, data, className, }: DropdownWithItemsProps | DropdownWithGroupsProps): JSX.Element;
 
 export declare function DropdownItem({ item, className, }: {
-    item: Item;
+    item: Item_2;
     className?: string;
 }): JSX.Element | null;
 
@@ -1075,10 +1091,10 @@ declare interface DropdownProps {
     id?: string;
     disabled?: boolean;
     trigger: string | React.ReactNode;
-    items?: Item[];
+    items?: Item_2[];
     radioGroups?: {
         value?: string;
-        items: Item[];
+        items: Item_2[];
     }[];
     align?: 'start' | 'center' | 'end';
     data?: {
@@ -1097,14 +1113,62 @@ export declare interface DropdownWithGroupsProps extends DropdownProps {
     items?: never;
     radioGroups: {
         value?: string;
-        items: Item[];
+        items: Item_2[];
     }[];
 }
 
 export declare interface DropdownWithItemsProps extends DropdownProps {
-    items: Item[];
+    items: Item_2[];
     radioGroups?: never;
 }
+
+export declare function Empty({ className, ...props }: React_2.ComponentProps<'div'>): JSX.Element;
+
+export declare function EmptyContent({ className, ...props }: React_2.ComponentProps<'div'>): JSX.Element;
+
+export declare function EmptyDescription({ className, ...props }: React_2.ComponentProps<'div'>): JSX.Element;
+
+export declare function EmptyHeader({ className, ...props }: React_2.ComponentProps<'div'>): JSX.Element;
+
+export declare function EmptyMedia({ className, variant, ...props }: React_2.ComponentProps<'div'> & VariantProps<typeof emptyMediaVariants>): JSX.Element;
+
+declare const emptyMediaVariants: (props?: ({
+    variant?: "default" | "icon" | null | undefined;
+} & ClassProp) | undefined) => string;
+
+export declare function EmptyTitle({ className, ...props }: React_2.ComponentProps<'div'>): JSX.Element;
+
+export declare function Field({ className, orientation, ...props }: React_2.ComponentProps<'div'> & VariantProps<typeof fieldVariants>): JSX.Element;
+
+export declare function FieldContent({ className, ...props }: React_2.ComponentProps<'div'>): JSX.Element;
+
+export declare function FieldDescription({ className, ...props }: React_2.ComponentProps<'p'>): JSX.Element;
+
+export declare function FieldError({ className, children, errors, ...props }: React_2.ComponentProps<'div'> & {
+    errors?: Array<{
+        message?: string;
+    } | undefined>;
+}): JSX.Element | null;
+
+export declare function FieldGroup({ className, ...props }: React_2.ComponentProps<'div'>): JSX.Element;
+
+export declare function FieldLabel({ className, ...props }: React_2.ComponentProps<typeof ShadcnLabel>): JSX.Element;
+
+export declare function FieldLegend({ className, variant, ...props }: React_2.ComponentProps<'legend'> & {
+    variant?: 'legend' | 'label';
+}): JSX.Element;
+
+export declare function FieldSeparator({ children, className, ...props }: React_2.ComponentProps<'div'> & {
+    children?: React_2.ReactNode;
+}): JSX.Element;
+
+export declare function FieldSet({ className, ...props }: React_2.ComponentProps<'fieldset'>): JSX.Element;
+
+export declare function FieldTitle({ className, ...props }: React_2.ComponentProps<'div'>): JSX.Element;
+
+declare const fieldVariants: (props?: ({
+    orientation?: "horizontal" | "vertical" | "responsive" | null | undefined;
+} & ClassProp) | undefined) => string;
 
 export declare const Form: typeof FormProvider;
 
@@ -1698,9 +1762,66 @@ export declare interface IconOnlyDropdownProps extends BaseNavigationDropdownPro
     icon: IconDefinition;
 }
 
-declare function Input({ className, type, ...props }: React_2.ComponentProps<'input'>): JSX.Element;
+declare function Input({ className, type, invalid, 'aria-invalid': ariaInvalid, ...props }: React_2.ComponentProps<'input'> & {
+    invalid?: boolean;
+}): JSX.Element;
 
-declare type Item = StandardItem | CheckboxItem | RadioItem | LabelItem | SeparatorItem | SubmenuItem;
+export declare function InputGroup({ className, ...props }: React_2.ComponentProps<'div'>): JSX.Element;
+
+export declare function InputGroupAddon({ className, align, ...props }: React_2.ComponentProps<'div'> & VariantProps<typeof inputGroupAddonVariants>): JSX.Element;
+
+declare const inputGroupAddonVariants: (props?: ({
+    align?: "inline-start" | "inline-end" | "block-start" | "block-end" | null | undefined;
+} & ClassProp) | undefined) => string;
+
+export declare function InputGroupButton({ className, type, variant, size, ...props }: Omit<React_2.ComponentProps<typeof Button_2>, 'size'> & VariantProps<typeof inputGroupButtonVariants>): JSX.Element;
+
+declare const inputGroupButtonVariants: (props?: ({
+    size?: "sm" | "xs" | "icon-xs" | "icon-sm" | null | undefined;
+} & ClassProp) | undefined) => string;
+
+export declare function InputGroupInput({ className, ...props }: React_2.ComponentProps<'input'>): JSX.Element;
+
+export declare function InputGroupText({ className, ...props }: React_2.ComponentProps<'span'>): JSX.Element;
+
+export declare function InputGroupTextarea({ className, ...props }: React_2.ComponentProps<'textarea'>): JSX.Element;
+
+export declare function Item({ className, variant, size, asChild, ...props }: React_2.ComponentProps<'div'> & VariantProps<typeof itemVariants> & {
+    asChild?: boolean;
+}): JSX.Element;
+
+declare type Item_2 = StandardItem | CheckboxItem | RadioItem | LabelItem | SeparatorItem | SubmenuItem;
+
+export declare function ItemActions({ className, ...props }: React_2.ComponentProps<'div'>): JSX.Element;
+
+export declare function ItemContent({ className, ...props }: React_2.ComponentProps<'div'>): JSX.Element;
+
+export declare function ItemDescription({ className, ...props }: React_2.ComponentProps<'p'>): JSX.Element;
+
+export declare function ItemFooter({ className, ...props }: React_2.ComponentProps<'div'>): JSX.Element;
+
+export declare function ItemGroup({ className, ...props }: React_2.ComponentProps<'div'>): JSX.Element;
+
+export declare function ItemHeader({ className, ...props }: React_2.ComponentProps<'div'>): JSX.Element;
+
+export declare function ItemMedia({ className, variant, ...props }: React_2.ComponentProps<'div'> & VariantProps<typeof itemMediaVariants>): JSX.Element;
+
+declare const itemMediaVariants: (props?: ({
+    variant?: "image" | "default" | "icon" | null | undefined;
+} & ClassProp) | undefined) => string;
+
+export declare function ItemSeparator({ className, ...props }: React_2.ComponentProps<typeof Separator>): JSX.Element;
+
+export declare function ItemTitle({ className, ...props }: React_2.ComponentProps<'div'>): JSX.Element;
+
+declare const itemVariants: (props?: ({
+    variant?: "default" | "outline" | "muted" | null | undefined;
+    size?: "default" | "sm" | null | undefined;
+} & ClassProp) | undefined) => string;
+
+export declare function Kbd({ className, ...props }: React_2.ComponentProps<'kbd'>): JSX.Element;
+
+export declare function KbdGroup({ className, ...props }: React_2.ComponentProps<'kbd'>): JSX.Element;
 
 /**
  * This function returns a label component based on the RadixUI label.
@@ -2414,7 +2535,9 @@ export declare function ShadcnTableHead({ className, ...props }: React_2.Compone
 
 export declare function ShadcnTableHeader({ className, ...props }: React_2.ComponentProps<'thead'>): JSX.Element;
 
-export declare function ShadcnTableRow({ className, ...props }: React_2.ComponentProps<'tr'>): JSX.Element;
+export declare function ShadcnTableRow({ className, hoverable, ...props }: React_2.ComponentProps<'tr'> & {
+    hoverable?: boolean;
+}): JSX.Element;
 
 export declare function Sheet({ ...props }: React_2.ComponentProps<typeof DialogPrimitive.Root>): JSX.Element;
 
@@ -2603,6 +2726,8 @@ export declare interface SliderWithLabelProps extends SliderProps {
     icons?: never;
 }
 
+export declare function Spinner({ className, ...props }: React_2.ComponentProps<'span'>): JSX.Element;
+
 declare interface StandardItem extends BaseItem {
     type?: 'standard';
     value?: never;
@@ -2692,7 +2817,7 @@ declare interface SubmenuItem extends BaseItem {
     type?: 'submenu';
     value?: never;
     label: string | React.ReactNode;
-    items: Item[];
+    items: Item_2[];
     onClick?: never;
     selected?: never;
 }
@@ -3027,6 +3152,36 @@ declare interface TextFieldProps {
     onReset?: () => void;
 }
 
+export declare type Theme = 'neutral' | 'uzh';
+
+declare interface ThemeContextValue {
+    theme: Theme;
+    setTheme: (theme: Theme) => void;
+}
+
+/**
+ * Wraps an application (or subtree) in a design-system theme.
+ *
+ * Renders a `data-theme` container so all design-system components below it
+ * resolve their tokens against the chosen theme. The default theme is
+ * `neutral` (de-branded shadcn); UZH apps pass `theme="uzh"`.
+ *
+ * Works controlled (`theme` prop) or uncontrolled (`defaultTheme` + `useTheme`).
+ *
+ * @param theme - Controlled theme. When set, the provider is fully controlled.
+ * @param defaultTheme - Initial theme for uncontrolled usage (default `neutral`).
+ * @param className - Optional classes for the wrapping container. The container
+ *   uses `display: contents`, so only inherited classes (e.g. `dark`) take
+ *   effect; box-model classes (padding, sizing, background) are a no-op.
+ * @param children - The subtree that should consume the theme.
+ */
+export declare function ThemeProvider({ theme: controlledTheme, defaultTheme, className, children, }: {
+    theme?: Theme;
+    defaultTheme?: Theme;
+    className?: string;
+    children: React_2.ReactNode;
+}): JSX.Element;
+
 declare const THEMES: {
     readonly light: "";
     readonly dark: ".dark";
@@ -3088,7 +3243,7 @@ export declare type TimePickerType = 'minutes' | 'seconds' | 'hours' | '12hours'
 export declare function toast({ message, options, type, }: {
     message?: React.ReactNode;
     options?: ExternalToast;
-    type?: 'success' | 'warning' | 'error';
+    type?: 'success' | 'warning' | 'error' | 'info';
 }): string | number;
 
 export declare const Toaster: ({ ...props }: ToasterProps) => JSX.Element;
@@ -3164,7 +3319,7 @@ export declare const useFormField: () => {
     isDirty: boolean;
     isTouched: boolean;
     isValidating: boolean;
-    error?: FieldError;
+    error?: FieldError_2;
     id: string;
     name: string;
     formItemId: string;
@@ -3222,6 +3377,15 @@ export declare interface UserNotificationProps {
 }
 
 export declare function useSidebar(): SidebarContextProps;
+
+/**
+ * Reads the current design-system theme from the nearest `ThemeProvider`.
+ *
+ * @returns The active `theme` and a `setTheme` setter (no-op target when the
+ *   provider is controlled via its `theme` prop).
+ * @throws If used outside a `ThemeProvider`.
+ */
+export declare function useTheme(): ThemeContextValue;
 
 /**
  * This function returns a pre-styled Workflow component. Theme-based styling is not available for this component at the moment, use the twStyles or className objects instead to override default styling.

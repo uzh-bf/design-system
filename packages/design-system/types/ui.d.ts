@@ -44,7 +44,7 @@ import * as TooltipPrimitive from '@radix-ui/react-tooltip';
 import { UseEmblaCarouselType } from 'embla-carousel-react';
 import { VariantProps } from 'class-variance-authority';
 
-export declare function Accordion({ ...props }: React_2.ComponentProps<typeof AccordionPrimitive.Root>): JSX.Element;
+export declare function Accordion({ className, ...props }: React_2.ComponentProps<typeof AccordionPrimitive.Root>): JSX.Element;
 
 export declare function AccordionContent({ className, children, ...props }: React_2.ComponentProps<typeof AccordionPrimitive.Content>): JSX.Element;
 
@@ -81,23 +81,27 @@ export declare function AlertDialogTrigger({ ...props }: React_2.ComponentProps<
 export declare function AlertTitle({ className, ...props }: React_2.ComponentProps<'div'>): JSX.Element;
 
 declare const alertVariants: (props?: ({
-    variant?: "default" | "destructive" | null | undefined;
+    variant?: "default" | "neutral" | "info" | "success" | "warning" | "error" | "destructive" | null | undefined;
 } & ClassProp) | undefined) => string;
 
 export declare function AspectRatio({ ...props }: React.ComponentProps<typeof AspectRatioPrimitive.Root>): JSX.Element;
 
-export declare function Avatar({ className, ...props }: React_2.ComponentProps<typeof AvatarPrimitive.Root>): JSX.Element;
+export declare function Avatar({ className, size, ...props }: React_2.ComponentProps<typeof AvatarPrimitive.Root> & VariantProps<typeof avatarVariants>): JSX.Element;
 
 export declare function AvatarFallback({ className, ...props }: React_2.ComponentProps<typeof AvatarPrimitive.Fallback>): JSX.Element;
 
 export declare function AvatarImage({ className, ...props }: React_2.ComponentProps<typeof AvatarPrimitive.Image>): JSX.Element;
+
+declare const avatarVariants: (props?: ({
+    size?: "sm" | "lg" | "md" | null | undefined;
+} & ClassProp) | undefined) => string;
 
 export declare function Badge({ className, variant, asChild, ...props }: React_2.ComponentProps<'span'> & VariantProps<typeof badgeVariants> & {
     asChild?: boolean;
 }): JSX.Element;
 
 export declare const badgeVariants: (props?: ({
-    variant?: "default" | "destructive" | "outline" | "secondary" | null | undefined;
+    variant?: "default" | "info" | "success" | "warning" | "error" | "destructive" | "outline" | "secondary" | null | undefined;
 } & ClassProp) | undefined) => string;
 
 declare type BaseItem = {
@@ -1160,7 +1164,9 @@ export declare interface IconOnlyDropdownProps extends BaseNavigationDropdownPro
     icon: IconDefinition;
 }
 
-declare function Input({ className, type, ...props }: React_2.ComponentProps<'input'>): JSX.Element;
+declare function Input({ className, type, invalid, 'aria-invalid': ariaInvalid, ...props }: React_2.ComponentProps<'input'> & {
+    invalid?: boolean;
+}): JSX.Element;
 
 declare type Item = StandardItem | CheckboxItem | RadioItem | LabelItem | SeparatorItem | SubmenuItem;
 
@@ -1716,7 +1722,9 @@ export declare function ShadcnTableHead({ className, ...props }: React_2.Compone
 
 export declare function ShadcnTableHeader({ className, ...props }: React_2.ComponentProps<'thead'>): JSX.Element;
 
-export declare function ShadcnTableRow({ className, ...props }: React_2.ComponentProps<'tr'>): JSX.Element;
+export declare function ShadcnTableRow({ className, hoverable, ...props }: React_2.ComponentProps<'tr'> & {
+    hoverable?: boolean;
+}): JSX.Element;
 
 export declare function Sheet({ ...props }: React_2.ComponentProps<typeof DialogPrimitive.Root>): JSX.Element;
 
@@ -2242,7 +2250,7 @@ export declare type TimePickerType = 'minutes' | 'seconds' | 'hours' | '12hours'
 export declare function toast({ message, options, type, }: {
     message?: React.ReactNode;
     options?: ExternalToast;
-    type?: 'success' | 'warning' | 'error';
+    type?: 'success' | 'warning' | 'error' | 'info';
 }): string | number;
 
 export declare const Toaster: ({ ...props }: ToasterProps) => JSX.Element;
