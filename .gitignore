@@ -13,6 +13,10 @@ build/
 scratchpad.md
 .github/chatmodes/*
 
+# Claude Code: track shared launch config, ignore machine-local settings
+.claude/*
+!.claude/launch.json
+
 # UZH v5 theme design reference (zip drop + extract, not tracked)
 UZH DF Design System.zip
 uzh-design-reference/

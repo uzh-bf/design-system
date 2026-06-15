@@ -27,6 +27,9 @@ dist-ssr
 build/
 .vercel/
 
+# Built package tarballs (npm pack / publish output)
+*.tgz
+
 # Playwright
 test-results/
 playwright-report/
