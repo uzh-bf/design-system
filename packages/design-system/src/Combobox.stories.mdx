@@ -12,8 +12,8 @@ Use this component when a plain `Select` is unwieldy — long option lists, or w
 users benefit from type-ahead filtering.
 
 Each item needs a unique string `value` and a `label`. String labels are passed
-to cmdk as explicit search keywords; non-string (ReactNode) labels are still
-filterable via their rendered text.
+to cmdk as search keywords; a non-string (ReactNode) label is matched only
+against its `value`, so prefer string labels when type-ahead matters.
 </div>
 {/* END README */}
 
