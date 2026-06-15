@@ -109,6 +109,9 @@
   --sidebar-primary: var(--color-uzh-blue-100);
   --sidebar-primary-foreground: #ffffff;
   --sidebar-ring: var(--color-uzh-blue-100);
+  /* active nav item — UZH blue tint bg + blue text (reference side-nav) */
+  --sidebar-accent: var(--color-uzh-blue-20);
+  --sidebar-accent-foreground: var(--color-uzh-blue-100);
 }
 
 /* ── Dark-mode status surfaces ─────────────────────────────────────────────

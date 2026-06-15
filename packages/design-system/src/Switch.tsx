@@ -128,7 +128,7 @@ export function Switch({
         checked={checked}
         className={twMerge(
           'bg-input disabled:bg-muted relative cursor-pointer rounded-full border-0 disabled:cursor-not-allowed',
-          checked && 'bg-primary-60',
+          checked && 'bg-primary-100',
           checked && disabled && 'bg-primary-20!',
           !!error && !hideError && 'outline-destructive outline-2',
           rootSize[size || 'md'],

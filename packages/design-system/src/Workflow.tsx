@@ -84,7 +84,7 @@ export function Workflow({
   activeIx,
   twStyles = {
     bgHover: 'hover:bg-primary-20 hover:after:border-l-primary-20!',
-    bgActive: 'bg-primary-80 after:border-l-primary-80',
+    bgActive: 'bg-primary-100 after:border-l-primary-100',
     bgPast: 'bg-primary-20 after:border-l-primary-20',
   },
   minimal = false,
@@ -227,11 +227,11 @@ export function WorkflowItem({
             ? 'h-[26px] pl-[13px] before:border-y-13 before:border-l-13 after:right-[-13px] after:border-y-13 after:border-l-13 first:pl-0 last:pl-0'
             : 'h-[34px] pl-[17px] before:border-y-17 before:border-l-17 after:right-[-17px] after:border-y-17 after:border-l-17 first:pl-0 last:pl-0',
         ix < (activeIx || -1) &&
-          twMerge(twStyles.bgPast, 'text-gray-500', className?.past),
+          twMerge(twStyles.bgPast, 'text-primary-100', className?.past),
         ix === activeIx &&
           twMerge(
             twStyles.bgActive,
-            'text-white hover:text-black',
+            'text-white',
             className?.active
           ),
         (item.completed || item.progress === 1) &&
