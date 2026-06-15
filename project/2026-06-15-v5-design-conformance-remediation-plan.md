@@ -108,7 +108,10 @@ Do: security review subagent (token/markup changes, new components — low risk,
 ---
 
 ## Progress
-- 2026-06-15: plan drafted. Audit complete (9-agent). Brand decision = reference wins. NOT started. Next: user approval of slice list, then R0 (branch + plan commit).
+- 2026-06-15: plan drafted. Audit complete (9-agent). Brand decision = reference wins. Composites dropped (R8=Footer only). Stack on v5.
+- 2026-06-15 R0 DONE: audit + plan committed `6ed2415`.
+- 2026-06-15 R1 DONE: token foundation. `themes.css` uzh block — secondary→Berry, status→Apple/Gold/Cyan (+bg/fg per reference), added destructive→#FC4C02 / notification→Berry / destructive-bg→#FFDBCC. `tailwind.css` — added `--color-uzh-berry-*` palette, `--color-uzh-blue-20` #ccd4ed→#bdc9e8 (Blue 1). Verified Ladle uzh alert--variants: error=orange, success=apple, info=cyan, warning=gold. Neutral regression-checked: error stays red (uzh-scoped, no leak). `pnpm build` green 5.73s. Review/simplify: self-reviewed (value-only CSS remap, no logic). NOT committed yet → next.
+- Next: commit R1, then R2 (active/selected state pass).
 
 ## Open / risk
 - Chromatic full ladder (Blue 2/3/5) deferred — R1 only fixes the consumed tint (Blue 1) + hover. Revisit if more steps needed.

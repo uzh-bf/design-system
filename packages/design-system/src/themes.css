@@ -75,23 +75,32 @@
   --theme-color-primary-40: var(--color-uzh-blue-40);
   --theme-color-primary-20: var(--color-uzh-blue-20);
 
-  /* secondary ramp — UZH red */
-  --theme-color-secondary: var(--color-uzh-red-100);
-  --theme-color-secondary-80: var(--color-uzh-red-80);
-  --theme-color-secondary-60: var(--color-uzh-red-60);
-  --theme-color-secondary-40: var(--color-uzh-red-40);
-  --theme-color-secondary-20: var(--color-uzh-red-20);
+  /* secondary ramp — UZH Berry (reference colors-secondary.html) */
+  --theme-color-secondary: var(--color-uzh-berry-100);
+  --theme-color-secondary-80: var(--color-uzh-berry-80);
+  --theme-color-secondary-60: var(--color-uzh-berry-60);
+  --theme-color-secondary-40: var(--color-uzh-berry-40);
+  --theme-color-secondary-20: var(--color-uzh-berry-20);
 
-  /* status — UZH accent hues */
-  --theme-success: var(--color-uzh-darkgreen-100);
+  /* status — UZH accent hues (reference colors-semantic.html):
+     success Apple4, warning Gold, info Cyan4. Main token = border/icon/text
+     on the light -background tint; -foreground = text on the solid fill. */
+  --theme-success: #7ca023;
   --theme-success-foreground: #ffffff;
-  --theme-success-background: var(--color-uzh-lightgreen-20);
-  --theme-warning: var(--color-uzh-yellow-100);
-  --theme-warning-foreground: oklch(0.205 0 0);
-  --theme-warning-background: var(--color-uzh-yellow-20);
-  --theme-info: var(--color-uzh-turqoise-100);
+  --theme-success-background: #ecf6d6;
+  --theme-warning: #ffc845;
+  --theme-warning-foreground: #a27200;
+  --theme-warning-background: #fff4da;
+  --theme-info: #1ea7c4;
   --theme-info-foreground: #ffffff;
-  --theme-info-background: var(--color-uzh-turqoise-20);
+  --theme-info-background: #dbf4f9;
+
+  /* destructive + notification — UZH Orange / Berry (reference).
+     Scoped here (not theme-agnostic) so neutral keeps the shadcn red. */
+  --destructive: #fc4c02;
+  --destructive-foreground: #ffffff;
+  --destructive-background: #ffdbcc;
+  --notification: var(--color-uzh-berry-100);
 
   /* bridge shadcn semantic primary + focus ring to UZH blue */
   --primary: var(--color-uzh-blue-100);
