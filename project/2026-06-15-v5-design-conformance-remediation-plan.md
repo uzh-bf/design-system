@@ -120,7 +120,10 @@ Do: security review subagent (token/markup changes, new components — low risk,
   - **DEFERRED (consumer-risk behavior/UX forks — need product decision):** (a) inline error text vs current tooltip-icon in TextField/Textarea/Select; (b) ColorPicker full swatch-grid redesign (changes interaction model); (c) NumberField stepper −/+ (changes rendering); (d) Checkbox single-source reconcile (two impls) + 18px size. These alter behavior/API of components used in real apps (klicker) — listed in final report for sign-off.
 - 2026-06-15 R4 committed `5e6aa06`.
 - 2026-06-15 R5 DONE: overlay+feedback fidelity. Tooltip dark #252525 + white + arrow + drop black border; Spinner lucide icon→CSS ring (grey track + primary-100 arc); Toast uniform border→thin+4px left-accent + new info(cyan) tone; Dialog scrim 70%→35% + title bold + footer border-t/bg-muted; Modal footer justify-end; Drawer/Sheet scrim 50%→25% + title bold; Dropdown items text-base→text-sm; Command group-heading→bold/uppercase/tracking. Verified Ladle uzh: Spinner = blue-arc rings. `pnpm build` green 5.59s. (subagent edits, diff reviewed.)
-- Next: commit R5, then R6 (content/identity/time + Card variants).
+- 2026-06-15 R5 committed `ecba1af`.
+- 2026-06-15 R6 PARTIAL (visual subset): Avatar fallback font-bold; Calendar today grey-fill→blue-outline + weekdays uppercase/bold/small + selected day font-bold; CardTitle +text-[17px]; themes.css uzh --chart-1..5 → UZH palette (blue/turquoise/lightgreen/yellow/berry); CycleProgress default ring #00A321→#7ca023 + track #D3D3D3→#EFEFEF; Tag slate→semantic (border/bg-muted/foreground) + text-xs. Verified Ladle uzh: calendar uppercase weekdays + blue bold selected. `pnpm build` green 5.06s.
+  - **DEFERRED (additive features — need design sign-off, listed in final report):** Card announcement + stat variants; Tag active/removable/dashed; Separator labeled variant; Carousel arrows-inside + dots indicator; Countdown urgent-threshold prop + default mono styling; Table bordered container + uppercase header + status-pill helper + footer pagination.
+- Next: commit R6, then R7 (disclosure+nav visual).
 
 ## Open / risk
 - Chromatic full ladder (Blue 2/3/5) deferred — R1 only fixes the consumed tint (Blue 1) + hover. Revisit if more steps needed.

@@ -112,6 +112,13 @@
   /* active nav item — UZH blue tint bg + blue text (reference side-nav) */
   --sidebar-accent: var(--color-uzh-blue-20);
   --sidebar-accent-foreground: var(--color-uzh-blue-100);
+
+  /* UZH chart palette */
+  --chart-1: var(--color-uzh-blue-100);
+  --chart-2: var(--color-uzh-turqoise-100);
+  --chart-3: var(--color-uzh-lightgreen-100);
+  --chart-4: var(--color-uzh-yellow-100);
+  --chart-5: var(--color-uzh-berry-100);
 }
 
 /* ── Dark-mode status surfaces ─────────────────────────────────────────────

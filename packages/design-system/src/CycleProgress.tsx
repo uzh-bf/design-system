@@ -35,7 +35,7 @@ export function CycleProgress({
   size = 'md',
   overrideSize,
   percentage,
-  color = '#00A321',
+  color = '#7ca023',
   strokeWidthRem = 0.35,
   children,
   data,
@@ -64,7 +64,7 @@ export function CycleProgress({
           cx={sizeNumber}
           cy={sizeNumber}
           fill="transparent"
-          stroke={'#D3D3D3'}
+          stroke={'#EFEFEF'}
           strokeWidth={`${strokeWidthRem}rem`}
           strokeDasharray={circ}
           strokeLinecap="round"
