@@ -20,7 +20,7 @@ export function toast({
 }: {
   message?: React.ReactNode
   options?: ExternalToast
-  type?: 'success' | 'warning' | 'error'
+  type?: 'success' | 'warning' | 'error' | 'info'
 }) {
   if (type === 'success') {
     return toastOriginal.success(message, {
@@ -28,10 +28,10 @@ export function toast({
       classNames: {
         ...options?.classNames,
         toast: twMerge(
-          'group-[.toaster]:border-2! group-[.toaster]:border-green-600! group-[.toaster]:py-3!',
+          'group-[.toaster]:border! group-[.toaster]:border-l-4! group-[.toaster]:border-l-[#7ca023]! group-[.toaster]:py-3!',
           options?.classNames?.toast
         ),
-        icon: twMerge('text-green-600 mr-3!', options?.classNames?.icon),
+        icon: twMerge('text-[#7ca023] mr-3!', options?.classNames?.icon),
         description: twMerge('text-base', options?.classNames?.description),
         closeButton: twMerge(
           'bg-white! text-black! border-gray-300!',
@@ -47,10 +47,10 @@ export function toast({
       classNames: {
         ...options?.classNames,
         toast: twMerge(
-          'group-[.toaster]:border-2! group-[.toaster]:border-orange-500! group-[.toaster]:py-3!',
+          'group-[.toaster]:border! group-[.toaster]:border-l-4! group-[.toaster]:border-l-[#ffc845]! group-[.toaster]:py-3!',
           options?.classNames?.toast
         ),
-        icon: twMerge('text-orange-500 mr-3!', options?.classNames?.icon),
+        icon: twMerge('text-[#ffc845] mr-3!', options?.classNames?.icon),
         description: twMerge('text-base', options?.classNames?.description),
         closeButton: twMerge(
           'bg-white! text-black! border-gray-300!',
@@ -66,10 +66,29 @@ export function toast({
       classNames: {
         ...options?.classNames,
         toast: twMerge(
-          'group-[.toaster]:border-2! group-[.toaster]:border-destructive! group-[.toaster]:py-3!',
+          'group-[.toaster]:border! group-[.toaster]:border-l-4! group-[.toaster]:border-l-destructive! group-[.toaster]:py-3!',
           options?.classNames?.toast
         ),
         icon: twMerge('text-destructive mr-3!', options?.classNames?.icon),
+        description: twMerge('text-base', options?.classNames?.description),
+        closeButton: twMerge(
+          'bg-white! text-black! border-gray-300!',
+          options?.classNames?.closeButton
+        ),
+      },
+    })
+  }
+
+  if (type === 'info') {
+    return toastOriginal(message, {
+      ...options,
+      classNames: {
+        ...options?.classNames,
+        toast: twMerge(
+          'group-[.toaster]:border! group-[.toaster]:border-l-4! group-[.toaster]:border-l-[#1ea7c4]! group-[.toaster]:py-3!',
+          options?.classNames?.toast
+        ),
+        icon: twMerge('text-[#1ea7c4] mr-3!', options?.classNames?.icon),
         description: twMerge('text-base', options?.classNames?.description),
         closeButton: twMerge(
           'bg-white! text-black! border-gray-300!',

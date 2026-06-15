@@ -118,7 +118,9 @@ Do: security review subagent (token/markup changes, new components — low risk,
 - 2026-06-15 R3 committed `f7ad8b7`.
 - 2026-06-15 R4 PARTIAL: safe visual fixes done — Checkbox unchecked border primary→input (grey) + radius rounded-md→rounded-[4px]; PinField (ui/input-otp) fused pill → individual boxes (group gap-2, slot rounded-md border + font-mono + filled→border-primary). Verified Ladle uzh: pin boxes separated. `pnpm build` green 5.81s.
   - **DEFERRED (consumer-risk behavior/UX forks — need product decision):** (a) inline error text vs current tooltip-icon in TextField/Textarea/Select; (b) ColorPicker full swatch-grid redesign (changes interaction model); (c) NumberField stepper −/+ (changes rendering); (d) Checkbox single-source reconcile (two impls) + 18px size. These alter behavior/API of components used in real apps (klicker) — listed in final report for sign-off.
-- Next: commit R4, then R5 (overlays+feedback, all visual/additive).
+- 2026-06-15 R4 committed `5e6aa06`.
+- 2026-06-15 R5 DONE: overlay+feedback fidelity. Tooltip dark #252525 + white + arrow + drop black border; Spinner lucide icon→CSS ring (grey track + primary-100 arc); Toast uniform border→thin+4px left-accent + new info(cyan) tone; Dialog scrim 70%→35% + title bold + footer border-t/bg-muted; Modal footer justify-end; Drawer/Sheet scrim 50%→25% + title bold; Dropdown items text-base→text-sm; Command group-heading→bold/uppercase/tracking. Verified Ladle uzh: Spinner = blue-arc rings. `pnpm build` green 5.59s. (subagent edits, diff reviewed.)
+- Next: commit R5, then R6 (content/identity/time + Card variants).
 
 ## Open / risk
 - Chromatic full ladder (Blue 2/3/5) deferred — R1 only fixes the consumed tint (Blue 1) + hover. Revisit if more steps needed.

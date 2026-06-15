@@ -224,7 +224,7 @@ export function Modal({
             <div className="h-max">{children}</div>
             <DialogFooter
               className={twMerge(
-                'mt-3 flex h-max gap-2 sm:flex-row sm:justify-between sm:gap-0',
+                'mt-3 flex h-max gap-2 sm:flex-row sm:justify-end sm:gap-0',
                 typeof onSecondaryAction === 'undefined' &&
                   typeof onPrimaryAction !== 'undefined'
                   ? 'sm:justify-end'
