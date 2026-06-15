@@ -95,12 +95,16 @@ Files: `ui/accordion.tsx`, `ui/toggle-group.tsx`, `Collapsible.tsx`, `Tabs.tsx`,
 Check: vs `components-disclosure/nav.html`.
 Commit: `feat(ui): disclosure+nav design fidelity`.
 
-### R8 — Footer only (composites otherwise dropped)
-App-level composites dropped per user decision (AppShell/Masthead/PrimaryNav/Hero/PageHeader/FilterBar/MetadataPanel = app-level, not DS). Card announcement/stat variants already covered in R6.
-Do: review the live Footer at https://theses.df.uzh.ch; if it generalizes, add a standardized `Footer` component + story + export. If too app-specific, drop and note.
-Files: new `src/Footer.tsx` + story + `index.ts` (conditional on review).
-Check: vs theses.df.uzh.ch footer + `ui_kits/careers` footer.
-Commit: `feat(ui): add standardized Footer` (only if built).
+### R8 — Footer (REVIEWED, deferred for sign-off)
+Reviewed live footer at https://theses.df.uzh.ch (2026-06-15). It generalizes — a standard responsive 3-col footer:
+- root `<footer class="border-t border-[#E9E9E9] bg-white">`, container `max-w-[1440px] px-4 md:px-10 py-12`, grid `md:grid-cols-[1.5fr_1fr_1fr] gap-10`
+- col 1 = brand: UZH logo (h-12) + tagline `text-base leading-7 text-[#4C4C4C]`
+- col 2/3 = sections: `<h2 class="text-sm font-semibold uppercase tracking-[0.04em] text-[#121212]">` + links/address; link hover `text-[#0028A5]`; email link `text-[#365DD5] hover:text-[#0028A5] font-semibold`
+- bottom bar: `border-t` + flex justify-between, `text-sm`: © year + legal nav (Impressum)
+- color map → DS tokens: #E9E9E9→border, #4C4C4C→muted-foreground, #121212→foreground, #0028A5→primary-100, #365DD5→primary-ish link.
+Proposed API (additive): `Footer` + `Footer.Brand` (logo+tagline) + `Footer.Section` (heading + children) + `Footer.Bottom` (copyright + legal links). Slot-based, theme-token-driven.
+**Deferred** for design sign-off (net-new component API), same as other additive items.
+Files (when built): new `src/Footer.tsx` + story + `index.ts`.
 
 ### R-final — security review + MR
 Do: security review subagent (token/markup changes, new components — low risk, confirm no injection via className/children, no secret leak). Then `$df-mr-description-writer` whole-branch. Rename plan to include PR id (metadata commit).
@@ -126,7 +130,34 @@ Do: security review subagent (token/markup changes, new components — low risk,
 - 2026-06-15 R6 committed `ee4bd95`.
 - 2026-06-15 R7 PARTIAL: Accordion fidelity — outer rounded border box + inner dividers; trigger font-medium→font-semibold + text-base→text-sm + py-4→py-3 + px-4 + hover:underline→hover:bg-muted; content px-4. Verified Ladle uzh: bordered box + semibold triggers. `pnpm build` green 5.25s.
   - **DEFERRED (behavior changes / additive — final report):** Tabs.tsx drop responsive-grid layout (affects all consumers); Navigation blue-surface variant (additive); Collapsible trigger reposition top-right; Sidebar dot-badge + 220px width; Breadcrumb default separator chevron→slash; Pagination minimal prev/next; ToggleGroup outer container border.
-- Next: commit R7, then R8 (review theses.df.uzh.ch footer), then final report.
+- 2026-06-15 R7 committed `6aeea40`.
+- 2026-06-15 R8 DONE (review only): theses.df.uzh.ch footer reviewed + structure/API documented above. Footer build deferred (additive component, needs sign-off).
+- 2026-06-15 EXECUTION PAUSED at clean boundary. Committed R1–R7 (7 slices, commits 6ed2415..6aeea40) — systemic token/state/sizing fixes + safe per-component visual fidelity. All builds green; verified in Ladle uzh. NOT pushed.
+
+## Deferred — needs decision before building (consolidated)
+Two buckets. None implemented (consumer-risk or net-new API).
+
+**A. Behavior/UX changes (could affect consumer apps — klicker/thesis):**
+- Inline error text below field vs current tooltip-icon (TextField/Textarea/Select).
+- ColorPicker: full HSL picker → brand swatch-grid model.
+- NumberField: add −/+ stepper.
+- Tabs.tsx: drop forced responsive-grid → horizontal strip default.
+- Breadcrumb: default separator chevron → `/`.
+- Pagination: minimal icon-only `‹ ›` prev/next (drop text labels).
+- Collapsible: trigger reposition bottom-center → top-right.
+- Checkbox: reconcile two impls (Checkbox.tsx vs ui/checkbox.tsx) to single source.
+
+**B. Net-new additive variants/components (design pass):**
+- Card: `announcement` (left accent + eyebrow) + `stat` (big number + delta) variants. (user: in scope, tentative)
+- Tag: `active` / `removable (×)` / `dashed-add` variants.
+- Separator: labeled variant ("or" with flanking lines).
+- Carousel: arrows-inside-frame + dots indicator.
+- Countdown: `urgent` threshold prop + default mono styling.
+- Table: bordered container + uppercase header + status-pill helper + footer pagination.
+- Navigation: blue-surface (on-primary) variant.
+- Sidebar: tiny dot-badge + 220px width token.
+- ToggleGroup: outer container border (default variant).
+- Footer: standardized component (reviewed — see R8).
 
 ## Open / risk
 - Chromatic full ladder (Blue 2/3/5) deferred — R1 only fixes the consumed tint (Blue 1) + hover. Revisit if more steps needed.
