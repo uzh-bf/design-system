@@ -146,7 +146,7 @@ export function TextField({
               invalid={!!error && isTouched}
               onPaste={onPaste}
               className={twMerge(
-                'focus:border-input h-9 w-full text-base',
+                'focus:border-input h-10 w-full text-sm',
                 icon && iconPosition === 'left' && 'pl-8',
                 ((icon && iconPosition === 'right') ||
                   (!!value && typeof onReset !== 'undefined')) &&
@@ -183,7 +183,7 @@ export function TextField({
               invalid={!!error && isTouched}
               onPaste={onPaste}
               className={twMerge(
-                'focus:border-input h-9 w-full text-base',
+                'focus:border-input h-10 w-full text-sm',
                 icon && iconPosition === 'left' && 'pl-8',
                 ((icon && iconPosition === 'right') ||
                   (!!value && typeof onReset !== 'undefined')) &&

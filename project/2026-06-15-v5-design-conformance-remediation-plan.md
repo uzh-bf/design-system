@@ -113,7 +113,9 @@ Do: security review subagent (token/markup changes, new components — low risk,
 - 2026-06-15 R1 DONE: token foundation. `themes.css` uzh block — secondary→Berry, status→Apple/Gold/Cyan (+bg/fg per reference), added destructive→#FC4C02 / notification→Berry / destructive-bg→#FFDBCC. `tailwind.css` — added `--color-uzh-berry-*` palette, `--color-uzh-blue-20` #ccd4ed→#bdc9e8 (Blue 1). Verified Ladle uzh alert--variants: error=orange, success=apple, info=cyan, warning=gold. Neutral regression-checked: error stays red (uzh-scoped, no leak). `pnpm build` green 5.73s. Review/simplify: self-reviewed (value-only CSS remap, no logic). NOT committed yet → next.
 - 2026-06-15 R1 committed `beeab6f`.
 - 2026-06-15 R2 DONE: active/selected/on states → UZH primary. Workflow active primary-80→100 + past text gray→primary-100 + drop active hover:text-black; Switch on primary-60→100; Progress fill primary-60→100; Toggle on accent→primary-20/primary-100/semibold; Command selected same; Pagination active outline→default(primary fill); Tabs active text foreground→primary-100; Breadcrumb link hover→primary-100; themes.css uzh --sidebar-accent→blue-20/blue-100. Verified Ladle uzh: Workflow active=full #0028A5 (was #3353b7), past text=blue. `pnpm build` green 5.16s.
-- Next: commit R2, then R3 (control sizing/radius/font) — broader per-component batch.
+- 2026-06-15 R2 committed `6a1b184`.
+- 2026-06-15 R3 DONE: control sizing/radius/font (structural — applies BOTH themes, noted). input/textarea/select/datepicker/datetimepicker height 36→40 (h-9→h-10) + font 16→14 (text-base→text-sm); textarea min-h 64→80; TextField inner inputs same; Card rounded-xl→rounded-md(6px); Alert rounded-lg→rounded-md; Popover/HoverCard rounded-md→rounded-lg(8px); FormLabel small text-muted-foreground→text-foreground + text-[13px] + font-semibold. Verified Ladle: Card corners tighter, inputs taller. `pnpm build` green 5.32s. (Edits via subagent, diff reviewed.)
+- Next: commit R3, then R4 (form fidelity).
 
 ## Open / risk
 - Chromatic full ladder (Blue 2/3/5) deferred — R1 only fixes the consumed tint (Blue 1) + hover. Revisit if more steps needed.
