@@ -123,7 +123,10 @@ Do: security review subagent (token/markup changes, new components — low risk,
 - 2026-06-15 R5 committed `ecba1af`.
 - 2026-06-15 R6 PARTIAL (visual subset): Avatar fallback font-bold; Calendar today grey-fill→blue-outline + weekdays uppercase/bold/small + selected day font-bold; CardTitle +text-[17px]; themes.css uzh --chart-1..5 → UZH palette (blue/turquoise/lightgreen/yellow/berry); CycleProgress default ring #00A321→#7ca023 + track #D3D3D3→#EFEFEF; Tag slate→semantic (border/bg-muted/foreground) + text-xs. Verified Ladle uzh: calendar uppercase weekdays + blue bold selected. `pnpm build` green 5.06s.
   - **DEFERRED (additive features — need design sign-off, listed in final report):** Card announcement + stat variants; Tag active/removable/dashed; Separator labeled variant; Carousel arrows-inside + dots indicator; Countdown urgent-threshold prop + default mono styling; Table bordered container + uppercase header + status-pill helper + footer pagination.
-- Next: commit R6, then R7 (disclosure+nav visual).
+- 2026-06-15 R6 committed `ee4bd95`.
+- 2026-06-15 R7 PARTIAL: Accordion fidelity — outer rounded border box + inner dividers; trigger font-medium→font-semibold + text-base→text-sm + py-4→py-3 + px-4 + hover:underline→hover:bg-muted; content px-4. Verified Ladle uzh: bordered box + semibold triggers. `pnpm build` green 5.25s.
+  - **DEFERRED (behavior changes / additive — final report):** Tabs.tsx drop responsive-grid layout (affects all consumers); Navigation blue-surface variant (additive); Collapsible trigger reposition top-right; Sidebar dot-badge + 220px width; Breadcrumb default separator chevron→slash; Pagination minimal prev/next; ToggleGroup outer container border.
+- Next: commit R7, then R8 (review theses.df.uzh.ch footer), then final report.
 
 ## Open / risk
 - Chromatic full ladder (Blue 2/3/5) deferred — R1 only fixes the consumed tint (Blue 1) + hover. Revisit if more steps needed.
