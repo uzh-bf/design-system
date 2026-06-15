@@ -127,7 +127,8 @@
     "format:check": "prettier --check .",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "LADLE=true ladle preview",
-    "test": "playwright test",
+    "test": "pnpm build:ladle && PWTEST_SKIP_BUILD=1 playwright test",
+    "test:fast": "PWTEST_SKIP_BUILD=1 playwright test",
     "test:install": "playwright install --with-deps chromium",
     "check": "tsc --noEmit"
   },
