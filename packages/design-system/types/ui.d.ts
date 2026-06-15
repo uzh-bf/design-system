@@ -7,6 +7,7 @@ import * as CollapsiblePrimitive from '@radix-ui/react-collapsible';
 import { Command as Command_2 } from 'cmdk';
 import * as ContextMenuPrimitive from '@radix-ui/react-context-menu';
 import { ControllerProps } from 'react-hook-form';
+import { DateRange } from 'react-day-picker';
 import { DayButton } from 'react-day-picker';
 import { DayPicker } from 'react-day-picker';
 import { DayPickerProps } from 'react-day-picker';
@@ -557,6 +558,59 @@ export declare type ColumnType<RowType> = {
     }) => string | number | default_3.ReactElement;
 };
 
+/**
+ * This function returns a pre-styled Combobox: a searchable single-select built by
+ * composing the Popover and Command (cmdk) primitives. The open state is managed
+ * internally, while the selected value is managed externally and passed in.
+ *
+ * @param id - The id of the combobox trigger.
+ * @param items - The array of selectable items. Each item needs a unique string `value` and a `label`.
+ * @param value - The currently selected value (managed externally).
+ * @param onChange - Function called with the new value when an item is selected.
+ * @param placeholder - Text shown on the trigger when no value is selected.
+ * @param searchPlaceholder - Placeholder text shown in the search input.
+ * @param emptyText - Text shown when the search yields no results.
+ * @param disabled - Specifies whether the combobox is disabled or not.
+ * @param ariaLabel - Optional accessible name for the trigger (use when the visible label is ambiguous).
+ * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy).
+ * @param className - The optional className object allows you to override the default styling.
+ * @returns Combobox component
+ */
+export declare function Combobox({ id, items, value, onChange, placeholder, searchPlaceholder, emptyText, disabled, ariaLabel, data, className, }: ComboboxProps): JSX.Element;
+
+export declare interface ComboboxClassName {
+    trigger?: string;
+    content?: string;
+    item?: string;
+}
+
+export declare interface ComboboxItem {
+    value: string;
+    label: string | React.ReactNode;
+    disabled?: boolean;
+    data?: {
+        cy?: string;
+        test?: string;
+    };
+}
+
+export declare interface ComboboxProps {
+    id?: string;
+    items: ComboboxItem[];
+    value?: string;
+    onChange: (newValue: string) => void;
+    placeholder?: string;
+    searchPlaceholder?: string;
+    emptyText?: string;
+    disabled?: boolean;
+    ariaLabel?: string;
+    data?: {
+        cy?: string;
+        test?: string;
+    };
+    className?: ComboboxClassName;
+}
+
 export declare function Command({ className, ...props }: React_2.ComponentProps<typeof Command_2>): JSX.Element;
 
 export declare function CommandDialog({ title, description, children, className, showCloseButton, ...props }: React_2.ComponentProps<typeof Dialog> & {
@@ -773,6 +827,70 @@ export declare interface DatePickerProps {
     hideError?: boolean;
     isTouched?: boolean;
     className?: DatePickerClassName;
+    dataTrigger?: {
+        cy?: string;
+        test?: string;
+    };
+    dataCalendar?: {
+        cy?: string;
+        test?: string;
+    };
+    dataNextMonth?: {
+        cy?: string;
+        test?: string;
+    };
+    dataPreviousMonth?: {
+        cy?: string;
+        test?: string;
+    };
+}
+
+/**
+ * This component provides a date range picker (from–to) built on the Calendar
+ * primitive in range mode. The open state is internal; the selected range is
+ * managed externally via `range` / `onRangeChange`. Not coupled to a formik context.
+ *
+ * @param id - The id of the range picker.
+ * @param range - The selected range ({ from?, to? }), managed externally.
+ * @param onRangeChange - Called with the new range when the selection changes.
+ * @param label - Optional label shown above/next to the trigger.
+ * @param labelType - The type of the label (small or large).
+ * @param align - The alignment of the popover content (start, center or end).
+ * @param captionLayout - The layout of the calendar caption (dropdown or label).
+ * @param numberOfMonths - Number of months shown side by side (default 2).
+ * @param placeholder - Trigger text shown when no range is selected.
+ * @param required - Whether the label should contain a required symbol.
+ * @param tooltip - Tooltip shown next to the label (only when a label is given).
+ * @param disabled - Whether the range picker is disabled.
+ * @param className - The optional className object allows you to override the default styling.
+ * @param dataTrigger - Data attributes for the popover trigger (e.g. data-test, data-cy).
+ * @param dataCalendar - Data attributes for the calendar.
+ * @param dataNextMonth - Data attributes for the next-month button.
+ * @param dataPreviousMonth - Data attributes for the previous-month button.
+ * @returns Date range picker component.
+ */
+export declare function DateRangePicker({ id, range, onRangeChange, label, labelType, align, captionLayout, numberOfMonths, placeholder, required, tooltip, disabled, className, dataTrigger, dataCalendar, dataNextMonth, dataPreviousMonth, }: DateRangePickerProps): JSX.Element;
+
+export declare interface DateRangePickerClassName {
+    root?: string;
+    label?: string;
+    trigger?: string;
+}
+
+export declare interface DateRangePickerProps {
+    id?: string;
+    range: DateRange | undefined;
+    onRangeChange: (range: DateRange | undefined) => void;
+    label?: string;
+    labelType?: 'small' | 'large';
+    align?: 'start' | 'center' | 'end';
+    captionLayout?: Pick<default_3.ComponentProps<typeof DayPicker>, 'captionLayout'>['captionLayout'];
+    numberOfMonths?: number;
+    placeholder?: string;
+    required?: boolean;
+    tooltip?: string | default_3.ReactNode;
+    disabled?: boolean;
+    className?: DateRangePickerClassName;
     dataTrigger?: {
         cy?: string;
         test?: string;
@@ -1281,6 +1399,62 @@ export declare interface ModalProps {
         primary?: string;
         secondary?: string;
     };
+}
+
+/**
+ * This function returns a pre-styled MultiSelect: a searchable multi-value select
+ * built by composing the Popover and Command (cmdk) primitives. Selected values are
+ * shown as removable chips below the trigger (kept OUTSIDE the trigger button so the
+ * remove buttons are not nested inside another button). The popover stays open while
+ * toggling. The selected values are managed externally via `value` / `onChange`.
+ *
+ * @param id - The id of the trigger.
+ * @param items - The array of selectable items. Each item needs a unique string `value` and a `label`. String labels are searchable (passed to cmdk as keywords); a non-string label is matched only against its `value`.
+ * @param value - The currently selected values (managed externally). Chips render in `items` order, not selection order.
+ * @param onChange - Function called with the next array of values when an item is toggled or removed.
+ * @param placeholder - Text shown on the trigger when nothing is selected.
+ * @param searchPlaceholder - Placeholder text shown in the search input.
+ * @param emptyText - Text shown when the search yields no results.
+ * @param disabled - Specifies whether the multi-select is disabled or not.
+ * @param ariaLabel - Optional accessible name for the trigger (use when the visible label is ambiguous).
+ * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy).
+ * @param className - The optional className object allows you to override the default styling.
+ * @returns MultiSelect component
+ */
+export declare function MultiSelect({ id, items, value, onChange, placeholder, searchPlaceholder, emptyText, disabled, ariaLabel, data, className, }: MultiSelectProps): JSX.Element;
+
+export declare interface MultiSelectClassName {
+    trigger?: string;
+    content?: string;
+    item?: string;
+    chip?: string;
+}
+
+export declare interface MultiSelectItem {
+    value: string;
+    label: string | React.ReactNode;
+    disabled?: boolean;
+    data?: {
+        cy?: string;
+        test?: string;
+    };
+}
+
+export declare interface MultiSelectProps {
+    id?: string;
+    items: MultiSelectItem[];
+    value: string[];
+    onChange: (newValue: string[]) => void;
+    placeholder?: string;
+    searchPlaceholder?: string;
+    emptyText?: string;
+    disabled?: boolean;
+    ariaLabel?: string;
+    data?: {
+        cy?: string;
+        test?: string;
+    };
+    className?: MultiSelectClassName;
 }
 
 declare interface MultiValueProgressProps extends BaseProgressProps {
