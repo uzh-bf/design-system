@@ -137,3 +137,11 @@ shipped component is visualized; the three missing composed patterns exist.
     `disabled:opacity-70` (Button owns `disabled:opacity-50`) + README accuracy. **Deferred:** native
     form `name`/hidden-input (YAGNI; tracked in Next Steps as FormikCombobox). Declined: `React.ReactNode`
     import (matches `Select.tsx`), CommandInput aria-label removal (real a11y safeguard).
+- 2026-06-15 **C2 DONE** — `DateRangePicker` (from–to) composing `ui/popover` + `ui/calendar`
+  (`mode="range"`, 2 months), modeled on `DatePicker`. Exported index+ui; stories Default/Preselected/
+  Disabled. dayjs `DD.MM.YYYY` trigger label. Gate GREEN: tsc, eslint, prettier, build, smoke + axe
+  (neutral+uzh), manual browser (two-month range, UZH-blue endpoints in uzh). Review+simplify applied:
+  removed duplicate `id` on Calendar (DOM uniqueness), `defaultMonth={from ?? to}` (to-only seed),
+  extracted `toLabel`, dropped explicit `aria-haspopup` (verified Radix `PopoverTrigger` injects
+  `aria-haspopup="dialog"`+`aria-expanded` via asChild), story month-index comment. Declined: redundant
+  `disabled` on PopoverTrigger+Button (matches DatePicker), verbose captionLayout type (DS convention).
