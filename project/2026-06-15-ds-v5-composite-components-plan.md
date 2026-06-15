@@ -156,3 +156,25 @@ shipped component is visualized; the three missing composed patterns exist.
   ReactNode labels are matched only against `value` (not rendered text) → corrected the Combobox README
   too. Declined: root width slot (parity w/ Combobox), `useState<string[]>` in stories (demo, not
   tsc-checked), `primary-40` token (confirmed exists in themes.css).
+- 2026-06-15 **C4 DONE** — doc-gap stories for the 4 exported-but-undocumented components, closing gap-A → 0:
+  `ThemeProvider.stories.mdx` (Default = neutral vs uzh side-by-side controlled; Uncontrolled = `useTheme()`
+  toggle via an inner component — MDX forbids top-level non-export consts so the inner comp is defined inside
+  the story fn), `FormLabel.stories.mdx` (Small/Large/Required/WithTooltip), `Form.stories.mdx` (RHF
+  `useForm` + `Form`/`FormField`/`FormItem`/`ShadcnFormLabel`/`FormControl`/`FormDescription`/`FormMessage`
+  + styled native input + submit; also documents `FormLabel` consumer path), `Chart.stories.mdx` (recharts
+  two-series `BarChart` via `ChartContainer`/`ChartTooltip`/`ChartLegend`). Exports already present (no
+  index/ui edits). Gate GREEN: prettier, `build:ladle` (meta.json regenerated, 3.78 MiB), Playwright smoke +
+  axe (neutral+uzh) on all new entries (28 passed), manual browser (ThemeProvider neutral=black/uzh=blue
+  independent subtrees; Chart renders grouped bars w/ token colors; Form field renders + labelled).
+  - **Chart debug (3 fixes):** `w-full`→`w-[600px] h-[300px]` (recharts collapses to 0 in Ladle's
+    shrink-to-fit preview root); config color `var(--primary-100)`→`var(--color-primary-100)` (Tailwind v4
+    token var name; old form was undefined → invisible fill) + `--color-primary-40` for the 2nd series;
+    `isAnimationActive={false}` on both `Bar`s (mount animation kept bars at height 0 at screenshot time).
+  - Review (cavecrew) applied: added `setTheme` no-op-in-controlled-mode caveat to the ThemeProvider story's
+    AI_DOCUMENTATION (matches source JSDoc, ThemeProvider.tsx:54). Declined as not-bugs: FormLabel `id` not
+    demoed (isolated-label stories by design; axe-clean standalone label; prop doc accurate), Chart
+    `primary-40` "undefined" (verified in themes.css + gray Mobile bars render), `Inner` remount (Uncontrolled
+    renders once, no own state → no remount; MDX forces inner def), Form "accessible by default" (message
+    linked via `aria-describedby` — claim scoped to id/aria wiring is accurate).
+  - **Deviation noted:** skipped the dedicated simplification subagent for this slice — stories are doc-only,
+    already minimal, and the reviewer surfaced only doc-accuracy nits (nothing to simplify).

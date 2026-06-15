@@ -1,0 +1,91 @@
+import { ThemeProvider, useTheme } from './ThemeProvider'
+import { Button } from './Button'
+
+{/* START README */}
+<div className="prose prose-sm max-w-none">
+`ThemeProvider` wraps an app (or any subtree) and exposes a design-system theme
+to everything below it. It renders a `data-theme` container (using
+`display: contents`, so it adds no box of its own) — every DS component inside
+then resolves its tokens against the active theme.
+
+There are two themes: `neutral` (the default, de-branded shadcn look) and `uzh`
+(University of Zürich brand — primary blue, Source Sans 3). Use it **controlled**
+(pass `theme`) or **uncontrolled** (pass `defaultTheme`, then read/update via the
+`useTheme()` hook).
+</div>
+{/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Context provider that renders a `data-theme` (display:contents) container so DS components resolve tokens against the chosen theme. Controlled via `theme`, or uncontrolled via `defaultTheme` + `useTheme()`.
+Dependencies: react
+
+Available Stories:
+
+- Default: neutral vs uzh side by side (controlled)
+- Uncontrolled: a self-managed provider toggled via useTheme
+
+Props (ThemeProvider component):
+
+- theme: "neutral" | "uzh" - Controlled theme. When set, the provider is fully controlled.
+- defaultTheme: "neutral" | "uzh" - Initial theme for uncontrolled usage (default "neutral")
+- className: string - Classes for the container (only inherited classes like `dark` apply; it is display:contents)
+- children: ReactNode - The subtree that consumes the theme
+
+Hook:
+
+- useTheme(): { theme, setTheme } - Reads the active theme; throws if used outside a ThemeProvider. `setTheme` is a no-op when the provider is controlled (the `theme` prop is set) — the parent owns the theme in that case.
+
+Usage Examples:
+
+```tsx
+<ThemeProvider theme="uzh">
+  <App />
+</ThemeProvider>
+```
+
+Related Components:
+
+- All DS components consume the theme set here.
+
+AI_DOCUMENTATION_END
+*/}
+
+export const Default = () => {
+  return (
+    <div className="flex gap-8">
+      <ThemeProvider theme="neutral">
+        <div className="flex flex-col items-start gap-2">
+          <span className="text-sm font-bold">neutral</span>
+          <Button primary>Primary</Button>
+        </div>
+      </ThemeProvider>
+      <ThemeProvider theme="uzh">
+        <div className="flex flex-col items-start gap-2">
+          <span className="text-sm font-bold">uzh</span>
+          <Button primary>Primary</Button>
+        </div>
+      </ThemeProvider>
+    </div>
+  )
+}
+
+export const Uncontrolled = () => {
+  const Inner = () => {
+    const { theme, setTheme } = useTheme()
+    return (
+      <Button
+        primary
+        onClick={() => setTheme(theme === 'uzh' ? 'neutral' : 'uzh')}
+      >
+        Toggle theme (current: {theme})
+      </Button>
+    )
+  }
+  return (
+    <ThemeProvider defaultTheme="neutral">
+      <Inner />
+    </ThemeProvider>
+  )
+}

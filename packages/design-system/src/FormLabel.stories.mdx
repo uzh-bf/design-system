@@ -1,0 +1,66 @@
+import { FormLabel } from './FormLabel'
+
+{/* START README */}
+<div className="prose prose-sm max-w-none">
+`FormLabel` is the standard label used by the design-system's field components
+(`DatePicker`, `DateRangePicker`, the Formik fields, …). It renders a bold,
+token-themed label with an optional required marker and an optional tooltip.
+
+Pass `labelType` (`small` or `large`) to switch between the inline field-label
+size and a larger standalone heading size. Set `required` to show the required
+symbol, and `tooltip` to attach an info tooltip next to the label.
+</div>
+{/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Pre-styled form label wrapping the internal Label primitive, with required marker and optional tooltip. Used by the DS field components.
+Dependencies: tailwind-merge
+
+Available Stories:
+
+- Small: The compact inline field label
+- Large: The larger standalone label
+- Required: A required field label
+- WithTooltip: A label with an info tooltip
+
+Props (FormLabel component):
+
+- label: string - The label text
+- labelType: "small" | "large" - Size variant
+- required: boolean - Whether to show the required marker
+- tooltip: string | ReactNode - Optional info tooltip shown next to the label
+- id: string - htmlFor target linking the label to its control
+- className: { label?, tooltip? } - Style overrides
+
+Related Components:
+
+- DatePicker / DateRangePicker / Formik fields: consumers of FormLabel
+- Field: shadcn-style field layout primitive
+
+AI_DOCUMENTATION_END
+*/}
+
+export const Small = () => {
+  return <FormLabel label="Email address" labelType="small" required={false} />
+}
+
+export const Large = () => {
+  return <FormLabel label="Email address" labelType="large" required={false} />
+}
+
+export const Required = () => {
+  return <FormLabel label="Email address" labelType="small" required={true} />
+}
+
+export const WithTooltip = () => {
+  return (
+    <FormLabel
+      label="Email address"
+      labelType="small"
+      required={true}
+      tooltip="We never share your email."
+    />
+  )
+}
