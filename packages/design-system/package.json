@@ -1,27 +1,27 @@
 {
   "name": "@uzh-bf/design-system",
-  "version": "4.1.6",
+  "version": "5.0.0-alpha.0",
   "main": "dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "development": "./src/index.ts",
-      "import": "./dist/index.js",
-      "types": "./types/index.d.ts"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
     },
     "./ui": {
-      "development": "./src/ui.ts",
-      "import": "./dist/ui.js",
-      "types": "./types/ui.d.ts"
+      "types": "./dist/ui.d.ts",
+      "import": "./dist/ui.js"
     },
     "./forms": {
-      "development": "./src/forms.ts",
-      "import": "./dist/forms.js",
-      "types": "./types/forms.d.ts"
-    }
+      "types": "./dist/forms.d.ts",
+      "import": "./dist/forms.js"
+    },
+    "./css": "./dist/design-system.css",
+    "./preflight.css": "./dist/preflight.css",
+    "./package.json": "./package.json"
   },
   "files": [
-    "dist",
-    "src"
+    "dist"
   ],
   "dependencies": {
     "@hookform/resolvers": "5.1.1",
@@ -128,7 +128,7 @@
     "check": "tsc --noEmit"
   },
   "engines": {
-    "node": "=22"
+    "node": ">=22"
   },
   "volta": {
     "extends": "../../package.json"
@@ -137,13 +137,13 @@
   "typesVersions": {
     "*": {
       "ui": [
-        "types/ui.d.ts"
+        "dist/ui.d.ts"
       ],
       "forms": [
-        "types/forms.d.ts"
+        "dist/forms.d.ts"
       ],
       "*": [
-        "types/index.d.ts"
+        "dist/index.d.ts"
       ]
     }
   }
