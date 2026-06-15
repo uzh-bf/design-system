@@ -229,11 +229,7 @@ export function WorkflowItem({
         ix < (activeIx || -1) &&
           twMerge(twStyles.bgPast, 'text-primary-100', className?.past),
         ix === activeIx &&
-          twMerge(
-            twStyles.bgActive,
-            'text-white',
-            className?.active
-          ),
+          twMerge(twStyles.bgActive, 'text-white', className?.active),
         (item.completed || item.progress === 1) &&
           (ix === activeIx
             ? 'bg-green-600 after:border-l-green-600 hover:bg-green-200 hover:after:border-l-green-200!'

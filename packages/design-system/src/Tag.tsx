@@ -28,7 +28,7 @@ export function Tag({ id, data, className, label = '' }: TagProps) {
       data-cy={data?.cy}
       data-test={data?.test}
       className={twMerge(
-        'w-max rounded border border-border bg-muted px-2 py-1 text-xs text-foreground',
+        'border-border bg-muted text-foreground w-max rounded border px-2 py-1 text-xs',
         className?.root
       )}
     >

@@ -767,7 +767,7 @@ const DateTimePicker = React.forwardRef<
                 type="button"
                 disabled={disabled}
                 className={cn(
-                  'w-44 h-10 justify-start text-left text-sm font-normal',
+                  'h-10 w-44 justify-start text-left text-sm font-normal',
                   !displayDate && 'text-muted-foreground',
                   !!error &&
                     isTouched &&

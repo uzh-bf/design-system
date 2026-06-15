@@ -133,7 +133,7 @@ export function DatePicker({
               variant="outline"
               disabled={disabled}
               className={twMerge(
-                'w-36 h-10 justify-start text-left text-sm font-normal',
+                'h-10 w-36 justify-start text-left text-sm font-normal',
                 !date && 'text-muted-foreground',
                 !!error &&
                   isTouched &&

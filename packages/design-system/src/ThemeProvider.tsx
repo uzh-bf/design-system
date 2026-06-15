@@ -70,6 +70,7 @@ export function ThemeProvider({
  *   provider is controlled via its `theme` prop).
  * @throws If used outside a `ThemeProvider`.
  */
+// eslint-disable-next-line react-refresh/only-export-components -- hook co-located with its provider
 export function useTheme(): ThemeContextValue {
   const context = React.useContext(ThemeContext)
   if (!context) {

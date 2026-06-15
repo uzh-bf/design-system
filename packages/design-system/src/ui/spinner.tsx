@@ -8,7 +8,7 @@ function Spinner({ className, ...props }: React.ComponentProps<'span'>) {
       data-slot="spinner"
       role="status"
       className={cn(
-        'inline-block size-7 animate-spin rounded-full border-[3px] border-[#E0E0E0] border-t-primary-100',
+        'border-t-primary-100 inline-block size-7 animate-spin rounded-full border-[3px] border-[#E0E0E0]',
         className
       )}
       {...props}

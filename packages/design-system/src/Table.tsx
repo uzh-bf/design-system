@@ -195,7 +195,7 @@ export function Table<
                       : undefined
                   }
                   className={twMerge(
-                    'mr-20 border-b-2 border-b-foreground py-2 pr-10 pl-4 text-start text-lg whitespace-nowrap text-foreground',
+                    'border-b-foreground text-foreground mr-20 border-b-2 py-2 pr-10 pl-4 text-start text-lg whitespace-nowrap',
                     col.sortable && 'cursor-pointer pl-0',
                     className?.tableHeader,
                     col.className
