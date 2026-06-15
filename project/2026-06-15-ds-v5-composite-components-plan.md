@@ -178,3 +178,38 @@ shipped component is visualized; the three missing composed patterns exist.
     linked via `aria-describedby` — claim scoped to id/aria wiring is accurate).
   - **Deviation noted:** skipped the dedicated simplification subagent for this slice — stories are doc-only,
     already minimal, and the reviewer surfaced only doc-accuracy nits (nothing to simplify).
+- 2026-06-15 **FINAL (local) DONE** — gate green; remote PR update + push deferred to user (pushes are
+  user-controlled):
+  - `pnpm build` regenerated `types/` — pure additions for the 3 new composites (Combobox/DateRangePicker/
+    MultiSelect): `+174` `types/index.d.ts`, `+174` `types/ui.d.ts`, 0 deletions, no line-ending churn.
+    Committed `4b1ec73 chore(ds): regenerate type declarations for new composite components`.
+  - **Full Playwright gate GREEN: 1203 passed, 0 failed (58.5s).** smoke = every story; a11y = component
+    stories × {neutral, uzh}, fail-on serious+critical. New stories all covered and clean both themes:
+    combobox/date-range-picker/multi-select (default/preselected/disabled), chart, form (RHF), form-label
+    (small/large/required/with-tooltip), theme-provider (default/uncontrolled). NEW stories added 0 serious/
+    critical findings → a11y backlog unchanged.
+  - **Security review subagent (sonnet, general-purpose): SECURE — no findings** across 5 threat categories
+    (XSS/HTML injection, aria/id/data-* injection, eval/Function/ReDoS, new-dep surface, story secrets).
+    Confirmed NO new runtime dependency (all reuse existing primitives + dayjs/cmdk/react-day-picker;
+    lucide-react/tailwind-merge/@fortawesome already in DS). No `dangerouslySetInnerHTML`, no raw HTML from
+    props, no regex.
+  - **Branch deviation flagged:** user message said "on a new worktree"; work was done directly in the main
+    checkout on branch `v5` (the AskUserQuestion-confirmed landing target / PR #179). The committed result is
+    identical to what a v5 worktree would have produced — surfaced to user for confirmation.
+  - **Deferred to user:** push the accumulated v5 commits, then update PR #179 via `$df-mr-description-writer`
+    (whole-branch). Not done unilaterally — pushes are user-controlled and the remote PR diff must reflect
+    pushed commits before its body is rewritten.
+
+## Next Steps
+- **Push + PR #179 body.** On user go: push v5, then run `$df-mr-description-writer` to update PR #179 for the
+  whole branch (R1–R7 conformance + Ladle-vs-Storybook ADR + a11y/Playwright harness + the 3 composites +
+  4 doc-gap stories). Add desktop screenshots of the new composites (neutral + uzh) to the PR.
+- **Data Table (TanStack) decision.** Still deferred — needs `@tanstack/react-table` (heavy new dep). Decide
+  scope/owner before committing; out of this round by design.
+- **Formik variants of the new composites.** If UZH apps need form-bound versions, add `FormikCombobox` /
+  `FormikMultiSelect` / `FormikDateRangePicker` (native `name`/hidden-input + Formik field wiring) — tracked
+  here, not built (YAGNI until a consumer needs it).
+- **a11y CI gate triage (separate track).** CI stays smoke-only; the pre-existing button-name/label backlog
+  is untouched by this round (new comps are axe-clean). Triage + re-enable the a11y gate as its own effort.
+- **VRT (visual regression).** Per the VRT plan, the new composites are good first candidates once the
+  Docker-determinism baseline lands.
