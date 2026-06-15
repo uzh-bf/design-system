@@ -101,4 +101,27 @@ Run each in `neutral` + `uzh` (seed localStorage). Skip `*--readme` MDX pages fo
   `test`/`test:install`. Gate GREEN: lint, format:check, tsc check, 1 test pass.
   Review subagent: 2 Important (build-per-run, reuse staleness) + 4 Minor; applied SKIP_BUILD env +
   10s selector timeout + comments; deferred axe-scope-to-root refinement to T3.
-- NEXT: T2 — dynamic story sweep (smoke-render all 437 from meta.json).
+- 2026-06-15 **T2 DONE** (commit `900557a`). Smoke-render sweep: every story from build/meta.json
+  asserts no uncaught/console errors. `test` builds Ladle then runs (PWTEST_SKIP_BUILD=1); `test:fast` reuses.
+- 2026-06-15 **T3 DONE** (commit `8ea860c`). Axe sweep over all component stories x {neutral,uzh}.
+  **Caught + fixed a false-green**: in preview mode the story renders OUTSIDE `#ladle-root` (which holds only
+  the toolbar), so `.include('#ladle-root')` scanned nothing (axe passes=0). Fixed -> full page minus
+  `#ladle-theme-controls` (proven: axe catches an injected no-alt img). **De-flaked**: violations
+  (button-name/label/contrast) appeared only under parallel load = harness race (axe scanning pre-mount).
+  Fixed via shared `tests/_support/ladle.ts` `gotoStory` (waits content node + fonts.ready + 2 rAF) +
+  config `reducedMotion: 'reduce'`. Stable: repeat-each=2 -> 1416 pass, 0 violations. ALLOWLIST empty
+  (no real serious/critical debt). Smoke refactored onto helper; redundant tracer removed.
+- 2026-06-15 **T4 DONE** (commit `7600d07`). CI `test` job: install chromium + run DS test + upload report
+  artifact; turbo `test` cache:false. Replaced stale Jest-style `pnpm test --ci --coverage` (would now hit
+  Playwright and fail). Gating ON from day 1 (no debt). Full `pnpm test` GREEN: 1145 tests (437 smoke + 708 a11y).
+- 2026-06-15 **Final security review** (subagent): **SECURE_WITH_NOTES**, no blockers. New devDeps pinned +
+  canonical; no workflow injection (static commands, no `github.event.*`); artifact has no secrets; test code
+  no injection/traversal. Note (follow-up, pre-existing, non-blocking): GH Actions use floating major tags
+  (`@v3`/`@v4`), not SHA-pinned.
+- STATUS: T1-T4 complete on `test/ladle-a11y-playwright` (off v5). NOT pushed. Includes v5 fix `6ebc9b3`.
+
+## Next Steps
+- Push branch + open PR (stacked on #179 / v5) via `$df-mr-description-writer`.
+- Push `v5` so #179 CI greens (it currently carries the lint/format fix `6ebc9b3` only locally).
+- Optional CI hardening: cache Playwright browsers; SHA-pin GH Actions (whole-workflow hygiene pass).
+- Deferred from plan: visual-regression (screenshot diff), ratchet thresholds if real debt appears later.
