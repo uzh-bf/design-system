@@ -18,6 +18,7 @@ export interface ButtonProps {
   fluid?: boolean
   basic?: boolean
   loading?: boolean
+  size?: 'sm' | 'md' | 'lg'
   type?: 'button' | 'submit' | 'reset'
   className?: {
     root?: string
@@ -43,6 +44,7 @@ export interface ButtonProps {
  * @param fluid - Indicate whether the button should be fluid or not. Conditional styling is applied, if this is true.
  * @param basic - This attribute allows to directly remove significant pre-styling and only applies basic styles and functionally required attributes.
  * @param loading - Indicate whether the button is loading or not. Conditional styling / loading symbol is applied, if this is true.
+ * @param size - The size of the button (sm/md/lg = 32/40/48px fixed height). Defaults to md. Ignored when `fluid` is set (fluid buttons grow with their content).
  * @param type - The html type of the button.
  * @param className - The optional className object allows you to override the default styling.
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
@@ -60,6 +62,7 @@ export function Button({
   fluid = false,
   basic = false,
   loading = false,
+  size = 'md',
   type = 'button',
   className,
   data,
@@ -77,14 +80,14 @@ export function Button({
               ? 'destructive'
               : 'outline'
       }
+      size={size === 'sm' ? 'sm' : size === 'lg' ? 'lg' : 'default'}
       disabled={disabled || loading}
       asChild={asChild}
       type={type}
       onClick={onClick}
       className={twMerge(
-        // slightly increased margins are required for variants without border to ensure same size
-        primary || destructive ? 'px-3.25 py-1.75' : '',
-        fluid ? 'w-full justify-center' : '',
+        // fluid buttons grow with their content (auto height + wrap), floored at the md height
+        fluid ? 'h-max min-h-10 w-full justify-center py-2 whitespace-normal' : '',
         className?.root,
         active && 'border-primary-100 bg-primary-20 hover:bg-primary-20',
         active ? className?.active : ''
