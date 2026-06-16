@@ -211,12 +211,13 @@ export declare function BreadcrumbSeparator({ children, className, ...props }: R
  * @param fluid - Indicate whether the button should be fluid or not. Conditional styling is applied, if this is true.
  * @param basic - This attribute allows to directly remove significant pre-styling and only applies basic styles and functionally required attributes.
  * @param loading - Indicate whether the button is loading or not. Conditional styling / loading symbol is applied, if this is true.
+ * @param size - The size of the button (sm/md/lg = 32/40/48px fixed height). Defaults to md. Ignored when `fluid` is set (fluid buttons grow with their content).
  * @param type - The html type of the button.
  * @param className - The optional className object allows you to override the default styling.
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @returns Button component
  */
-export declare function Button({ id, children, onClick, disabled, asChild, primary, destructive, active, fluid, basic, loading, type, className, data, ...props }: ButtonProps): JSX.Element;
+export declare function Button({ id, children, onClick, disabled, asChild, primary, destructive, active, fluid, basic, loading, size, type, className, data, ...props }: ButtonProps): JSX.Element;
 
 export declare namespace Button {
     var Icon: ({ icon, withoutLabel, loading, className, }: {
@@ -262,6 +263,7 @@ export declare interface ButtonProps {
     fluid?: boolean;
     basic?: boolean;
     loading?: boolean;
+    size?: 'sm' | 'md' | 'lg';
     type?: 'button' | 'submit' | 'reset';
     className?: {
         root?: string;
