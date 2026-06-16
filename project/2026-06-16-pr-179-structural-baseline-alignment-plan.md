@@ -89,4 +89,7 @@ Needs design-owner answers vs official UZH CD: destructive hue, secondary hue, s
 
 ## Progress
 
-- Plan written, awaiting D0 commit. Decisions (D1 fluid, D3 preserve-APIs) confirmed by user. Next: commit plan, execute D0.
+- Plan committed `d9b7221`. Decisions (D1 fluid, D3 preserve-APIs) confirmed by user.
+- **D0 done** `a0c63d0`: Prose h1/h2/h3 line-heights 1.2/1.25/1.3 (h4 already 1.35 via text-md); `--shadow-card` token (0.06 alpha) + Card uses it. Verified Ladle: card box-shadow exact reference, h1 ratio 1.200.
+- **D1 done** `c4980e7`: ui/button.tsx fixed-height ladder (sm/md/lg 32/40/48, font 14/15/16, px 12/16/20, nowrap, icon 40); Button.tsx size prop + dropped padding hack + fluid keeps wrap/auto-height (min-h-10). Verified Ladle: md 40/15/500/16/r6, filled==outline, fluid wraps, Select trigger 40px, icon spacing single 8px. tsc -b clean. Reviewer findings handled (dropped sm gap-1.5 to avoid double-spacing; icon 40 intentional, verify pagination/calendar in D5/D7).
+- **Next: D2** form density.
