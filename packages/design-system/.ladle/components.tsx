@@ -27,18 +27,11 @@ export const Provider: GlobalProvider = ({ children }) => {
     read<boolean>('ladle-dark', false)
   )
 
-  // Mirror the selection onto <body> as well. Ladle injects this Provider inside
-  // <main>, so the wrapping ThemeProvider below themes only the story; setting
-  // `data-theme` / `.dark` on <body> extends the DS theme context to the whole
-  // Ladle app (the component menu + toolbar chrome), so `var(--primary)` resolves
-  // per-theme globally and head.html can drive Ladle's own accent from it.
   React.useEffect(() => {
     window.localStorage.setItem('ladle-theme', JSON.stringify(theme))
-    document.body.setAttribute('data-theme', theme)
   }, [theme])
   React.useEffect(() => {
     window.localStorage.setItem('ladle-dark', JSON.stringify(dark))
-    document.body.classList.toggle('dark', dark)
   }, [dark])
 
   return (

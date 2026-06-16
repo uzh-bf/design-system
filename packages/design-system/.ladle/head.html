@@ -23,18 +23,4 @@
   * {
     font-family: var(--theme-font-primary);
   }
-
-  /* Drive Ladle's own chrome accent (active menu item, focus, links) from the
-     selected DS theme, so the theme switch is visible on the global view (the
-     component menu), not just inside a story. `data-theme` is mirrored onto
-     <body> by the Ladle Provider; `--primary` resolves per-theme there
-     (UZH blue under uzh, near-black under neutral). */
-  body[data-theme] {
-    --ladle-color-accent: var(--primary);
-  }
-  /* Also tint the active component in the menu (Ladle bolds it via
-     `.ladle-active a`) so the selected theme is obvious right in the list. */
-  .ladle-aside .ladle-active a {
-    color: var(--primary);
-  }
 </style>
