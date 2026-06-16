@@ -48,11 +48,11 @@ Re-audited vs reference; most 06-15 gaps already closed (Input/Textarea/DatePick
 - Verify: form stories + axe (both themes).
 - Commit: `fix(ds): tighten form density to reference (gaps + label/error sizes)`
 
-### D3 — Duplicate-impl consolidation (preserve APIs)
-- Checkbox (20px vs ui 16px → 18px), Slider (legacy 48px thumb/16px track → 18/6 via ui/slider), Table (src/Table.tsx vs ui/table.tsx), Tabs (drop responsive-grid forcing → horizontal strip).
-- Keep richer DF APIs; unify only structural tokens.
-- Verify: each both themes; regression-check DF APIs.
-- Commit: `refactor(ds): unify duplicate component structure to reference (APIs preserved)`
+### D3 — Duplicate-impl consolidation (preserve APIs) — RE-SLICED
+- **Done:** Checkbox (DF Checkbox.tsx bypasses ui/checkbox → two impls; aligned BOTH to reference 18px / r4 / border-1.5 / check-12px; DF size ladder API kept).
+- **Slider → DEFERRED:** no reference Slider component exists (`uzh-design-reference/components/Slider.jsx` absent), so there is no authoritative px target. Not inventing one. DF Slider (48px thumb) left as-is; revisit only if a reference spec appears or design-owner specifies.
+- **Table → moved to D4:** its dedup (src/Table.tsx vs ui/table.tsx) is the same work as the D4 Table structural match — done once, holistically, in D4.
+- **Tabs → moved to D6:** dropping the DF grid-forcing is a layout-policy/styling change (DF Tabs renders through ui/tabs — single impl, not a dedup), batched with the other shape changes in D6; ui/tabs strip also needs reference tuning (gap 16→28, trigger pad 12/0, active 600).
 
 ### D4 — Surfaces & data
 - Alert: icon 16→20, title 500→600, optional dismiss, py 12→14.
@@ -92,4 +92,6 @@ Needs design-owner answers vs official UZH CD: destructive hue, secondary hue, s
 - Plan committed `d9b7221`. Decisions (D1 fluid, D3 preserve-APIs) confirmed by user.
 - **D0 done** `a0c63d0`: Prose h1/h2/h3 line-heights 1.2/1.25/1.3 (h4 already 1.35 via text-md); `--shadow-card` token (0.06 alpha) + Card uses it. Verified Ladle: card box-shadow exact reference, h1 ratio 1.200.
 - **D1 done** `c4980e7`: ui/button.tsx fixed-height ladder (sm/md/lg 32/40/48, font 14/15/16, px 12/16/20, nowrap, icon 40); Button.tsx size prop + dropped padding hack + fluid keeps wrap/auto-height (min-h-10). Verified Ladle: md 40/15/500/16/r6, filled==outline, fluid wraps, Select trigger 40px, icon spacing single 8px. tsc -b clean. Reviewer findings handled (dropped sm gap-1.5 to avoid double-spacing; icon 40 intentional, verify pagination/calendar in D5/D7).
-- **Next: D2** form density.
+- **D2 done** `3a91f68`: ui/label 13/600, Field gap 6, FieldGroup gap 16, FieldDescription 12, FieldError 12/500, FormItem gap 6, RadioGroup gap 8. Verified Ladle exact. tsc clean. (Choice-label 14/400 nuance deferred.)
+- **D3 done** `61ca4ce` (RE-SLICED, see above): Checkbox 18px both impls. Slider deferred (no ref). Table→D4, Tabs→D6. Verified Ladle 18/18/r4/1.5. tsc clean.
+- **Next: D4** surfaces & data (Alert, Card variants, Table consolidation+structural).
