@@ -210,6 +210,7 @@
   --animate-scale-out-content: scale-out-content 0.2s ease;
   --animate-fade-in: fade-in 0.2s ease;
   --animate-fade-out: fade-out 0.2s ease;
+  --animate-shimmer: shimmer 1.6s ease infinite;
 }
 
 :root {
@@ -316,6 +317,16 @@
 
 @layer utilities {
   /* custom keyframes for animations */
+  @keyframes shimmer {
+    0%,
+    100% {
+      opacity: 0.55;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
   @keyframes enter-from-right {
     0% {
       transform: translateX(200px);
