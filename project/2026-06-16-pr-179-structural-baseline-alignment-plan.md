@@ -101,4 +101,16 @@ Needs design-owner answers vs official UZH CD: destructive hue, secondary hue, s
 - **D7 RE-SCOPED:** only Avatar/Badge/Calendar have a reference. Sidebar/Breadcrumb/Pagination/Dropdown/Navigation/Tooltip/AlertDialog/Popover/HoverCard/Modal/Accordion/menu-radius have NO reference component → deferred as audit-polish needing design-owner confirmation (not invented).
 - **D7 done** `53b988d`: Avatar fonts sm11/lg18 (ladder already 28/40/56, 32px default kept); Badge r4/px10/600/lh1.4 (hues gated). Calendar deferred (compact mockup vs interactive day-picker). Verified Ladle exact. tsc clean.
 - **Deferred D7 (no reference):** Sidebar, Breadcrumb, Pagination, Dropdown/Navigation font, Tooltip padding, AlertDialog, Popover/HoverCard/Modal, Accordion, menu-radius — audit-polish needing design-owner confirmation.
-- **Next: Final gate** (Playwright both themes, security review, types regen, PR #179).
+- **FINAL GATE — all green:**
+  - Playwright `pnpm test` (build:ladle + smoke ALL stories + a11y component × {neutral,uzh}): **1203 passed, 0 failed** (59.5s).
+  - Security review subagent (diff c056256..HEAD): **SECURE — no findings** (presentation-only; no deps/lockfile/network/eval/secrets; noted Tabs dynamic-`style` removal as minor hardening).
+  - `pnpm build` (tsc+vite+copy): exit 0; types regenerated → only Button `size` prop added to index.d.ts + ui.d.ts (committed `6d6ba19`). dist gitignored, not committed.
+  - `tsc -b` clean after every slice.
+- **PR #179 update: PENDING PUSH** — 16 new local commits on `v5` not yet pushed (user controls pushes). Updating the PR body before the push would describe commits absent from the remote diff (claim-to-diff gate). Awaiting user decision to push + then update PR body via `$df-mr-description-writer`.
+
+## Next Steps
+
+1. **Push `v5`** (user-gated) → then update PR #179 body via `$df-mr-description-writer` to cover the structural-alignment work (D0–D7) alongside the existing dual-theme content. Flag the **visually-breaking** changes (Button fixed heights, Card/Table/Alert padding+structure, Tabs strip, form density) as expected for `5.0.0-alpha.x`.
+2. **GATED color phase (follow-up, needs design-owner answers vs official UZH CD):** destructive hue (orange #FC4C02 vs red), secondary (berry #BF0D3E vs red), status hues (success/warning/info), primary mid-ladder (chromatic vs mechanical), badge default hue.
+3. **Deferred structural items needing a reference spec / design-owner confirmation** (not invented): Slider px; Tag/Kbd/Carousel/Countdown/CycleProgress shapes; Calendar compact-grid restyle; Sidebar/Breadcrumb/Pagination/Dropdown/Navigation/Tooltip/AlertDialog/Popover/HoverCard/Modal/Accordion/menu-radius polish; NumberField stepper variant (new feature); Workflow contrast (no repro in current code); Chart aspect-video default (theming already fixed `873419a`).
+4. **Composite/template layer (OUT of this plan):** app shell, masthead, primary nav, hero, page header, filter rail, footer, stat/announcement card templates.
