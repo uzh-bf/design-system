@@ -146,7 +146,7 @@ export function NumberField({
             placeholder={placeholder}
             disabled={disabled}
             className={twMerge(
-              'focus:border-input h-9 w-full text-base',
+              'focus:border-input h-10 w-full text-base',
               disabled && 'bg-muted cursor-not-allowed opacity-70',
               !!error &&
                 isTouched &&
@@ -159,7 +159,7 @@ export function NumberField({
           {unit && (
             <div
               className={twMerge(
-                'flex h-9 min-w-max flex-col items-center justify-center rounded-r bg-slate-600 px-4 text-white',
+                'flex h-10 min-w-max flex-col items-center justify-center rounded-r bg-slate-600 px-4 text-white',
                 className?.unit
               )}
               data-cy="input-numerical-unit"

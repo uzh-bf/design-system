@@ -111,11 +111,11 @@ export function FormikPinField({
               .fill('')
               .map((_, index) => (
                 <InputOTPSlot
+                  key={index}
                   index={index}
                   data-cy={`${data?.cy}-${index + 1}`}
                   data-test={`${data?.test}-${index + 1}`}
                   className={twMerge(
-                    'h-9 text-base',
                     !!meta.error &&
                       meta.touched &&
                       'border-destructive bg-destructive-background border-y',
