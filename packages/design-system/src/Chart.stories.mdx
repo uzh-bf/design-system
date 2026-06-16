@@ -17,8 +17,11 @@ token-themed canvas; `ChartTooltip` / `ChartTooltipContent` and `ChartLegend` /
 You drive the colors through a `config` object keyed by data series. Each key
 maps to a `label` and a `color`; the container emits CSS variables
 (`--color-<key>`) you reference from the Recharts marks (e.g.
-`fill="var(--color-desktop)"`). Point a series `color` at a DS token (such as
-`var(--color-primary-100)`) and the chart recolors with the active theme.
+`fill="var(--color-desktop)"`). Point a series `color` at a **theme-reactive**
+DS token — the `--theme-color-*` intermediates (e.g. `var(--theme-color-primary)`,
+`var(--theme-color-primary-40)`) — and the chart recolors with the active theme.
+Avoid the static `--color-primary-*` ramp here: those resolve once at `:root`
+(neutral) and do **not** follow `data-theme` when read as a raw `var()`.
 </div>
 {/* END README */}
 
@@ -43,7 +46,7 @@ Usage Examples:
 
 ```tsx
 const config = {
-  desktop: { label: 'Desktop', color: 'var(--color-primary-100)' },
+  desktop: { label: 'Desktop', color: 'var(--theme-color-primary)' },
 }
 
 <ChartContainer config={config}>
@@ -70,8 +73,8 @@ export const Default = () => {
     { month: 'June', desktop: 214, mobile: 140 },
   ]
   const chartConfig = {
-    desktop: { label: 'Desktop', color: 'var(--color-primary-100)' },
-    mobile: { label: 'Mobile', color: 'var(--color-primary-40)' },
+    desktop: { label: 'Desktop', color: 'var(--theme-color-primary)' },
+    mobile: { label: 'Mobile', color: 'var(--theme-color-primary-40)' },
   }
   return (
     <ChartContainer config={chartConfig} className="h-[300px] w-[600px]">
