@@ -147,7 +147,7 @@ export function Table<
       <tr
         key={index}
         className={twMerge(
-          'odd:bg-muted first:border-t-0',
+          'transition-colors hover:bg-muted',
           className?.row,
           row.className as string
         )}
@@ -161,7 +161,10 @@ export function Table<
 
           return (
             <td
-              className={twMerge('border-border border-t-2 p-4', col.className)}
+              className={twMerge(
+                'border-border border-b px-4 py-[13px] align-middle',
+                col.className
+              )}
               key={col.accessor}
             >
               {typeof col.formatter === 'function'
@@ -176,13 +179,20 @@ export function Table<
 
   return (
     <div
-      className={twMerge('table w-full', className?.root)}
+      className={twMerge(
+        'bg-card overflow-hidden rounded-md border',
+        className?.root
+      )}
       id={id}
       data-cy={dataAttributes?.cy}
       data-test={dataAttributes?.test}
     >
-      <table className="w-full table-auto">
-        <caption className="text-sm italic">{caption}</caption>
+      <table className="w-full table-auto border-collapse text-sm">
+        {caption && (
+          <caption className="text-muted-foreground py-2 text-sm italic">
+            {caption}
+          </caption>
+        )}
         <thead>
           <tr>
             {columns.map((col) => {
@@ -195,8 +205,8 @@ export function Table<
                       : undefined
                   }
                   className={twMerge(
-                    'border-b-foreground text-foreground mr-20 border-b-2 py-2 pr-10 pl-4 text-start text-lg whitespace-nowrap',
-                    col.sortable && 'cursor-pointer pl-0',
+                    'border-border bg-muted text-muted-foreground border-b px-4 py-3 text-start text-xs font-semibold tracking-[0.06em] uppercase whitespace-nowrap',
+                    col.sortable && 'cursor-pointer',
                     className?.tableHeader,
                     col.className
                   )}
