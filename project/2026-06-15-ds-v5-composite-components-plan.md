@@ -199,6 +199,19 @@ shipped component is visualized; the three missing composed patterns exist.
   - **Deferred to user:** push the accumulated v5 commits, then update PR #179 via `$df-mr-description-writer`
     (whole-branch). Not done unilaterally — pushes are user-controlled and the remote PR diff must reflect
     pushed commits before its body is rewritten.
+- 2026-06-16 **Chart theming bug fixed; Ladle-chrome experiment reverted.**
+  - Root cause: `@theme inline` (tailwind.css:95) maps `--color-primary-100: var(--theme-color-primary)`, but the
+    `:root`-level `--color-primary-*` ramp resolves ONCE at root (neutral) — a raw `var(--color-primary-100)`
+    read in JS does NOT follow `data-theme`. (Tailwind UTILITIES like `bg-primary-100` inline `var(--theme-color-*)`
+    and DO theme — only raw-`var` reads are pinned.) The C4 Chart story fed `var(--color-primary-100/-40)` into the
+    recharts `config`, so bars stayed neutral-black/grey in uzh = "component not styled."
+  - Fix (`873419a`): Chart config now uses the theme-reactive intermediates `var(--theme-color-primary)` /
+    `var(--theme-color-primary-40)`; README/AI-doc updated to steer recharts colors at `--theme-color-*` (not the
+    static `--color-primary-*` ramp). Verified: uzh bars `#0028a5` + `#99a9db`, neutral `oklch(0.205)` + `oklch(0.72)`;
+    chart smoke + a11y (neutral+uzh) green.
+  - Reverted (`1d00e74`) the earlier Ladle global-chrome theming (`027566f`): user only wants the DS COMPONENTS
+    themed, not Ladle's own menu/toolbar chrome. Chrome experiment also had a dark-axis bug (our `dark` darkened
+    tokens while Ladle chrome stayed light → near-white active item on white). Both `.ladle/` files back to original.
 
 ## Next Steps
 - **Push + PR #179 body.** On user go: push v5, then run `$df-mr-description-writer` to update PR #179 for the
