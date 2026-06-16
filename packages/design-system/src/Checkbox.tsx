@@ -59,13 +59,13 @@ export function Checkbox({
 }: CheckboxProps): React.ReactElement {
   const tickStyle = {
     sm: 'h-[0.8rem]',
-    md: 'h-4',
+    md: 'h-3',
     lg: 'h-5',
     xl: 'h-6',
   }
   const checkboxSize = {
     sm: 'w-4 h-4',
-    md: 'w-5 h-5',
+    md: 'w-[18px] h-[18px]',
     lg: 'w-6 h-6',
     xl: 'w-7 h-7',
   }
@@ -85,7 +85,7 @@ export function Checkbox({
         defaultChecked
         checked={checked || partial}
         className={twMerge(
-          'peer border-input ring-offset-background focus-visible:ring-ring data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground disabled:bg-muted disabled:border-border h-4 w-4 shrink-0 cursor-pointer rounded-[4px] border focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden disabled:cursor-not-allowed',
+          'peer border-input ring-offset-background focus-visible:ring-ring data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground disabled:bg-muted disabled:border-border shrink-0 cursor-pointer rounded-[4px] border-[1.5px] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden disabled:cursor-not-allowed',
           (checked || partial) && 'border-primary',
           disabled && 'cursor-not-allowed',
           checkboxSize[size],
