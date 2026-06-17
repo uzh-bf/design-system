@@ -13,6 +13,8 @@ interface FormikNumberFieldProps {
   precision?: number
   min?: number
   max?: number
+  step?: number
+  stepper?: boolean
   unit?: string
   tooltip?: string | React.ReactNode
   required?: boolean
@@ -76,6 +78,8 @@ export function FormikNumberField({
   precision,
   min,
   max,
+  step,
+  stepper,
   unit,
   tooltip,
   required,
@@ -105,6 +109,8 @@ export function FormikNumberField({
           precision={precision}
           min={min}
           max={max}
+          step={step}
+          stepper={stepper}
           unit={unit}
           tooltip={tooltip}
           required={required}
@@ -136,6 +142,8 @@ export function FormikNumberField({
         precision={precision}
         min={min}
         max={max}
+        step={step}
+        stepper={stepper}
         unit={unit}
         tooltip={tooltip}
         required={required}

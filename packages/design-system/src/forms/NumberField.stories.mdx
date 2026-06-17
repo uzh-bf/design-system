@@ -16,6 +16,8 @@ The props for the NumberField component are as follows:
 - @param precision - The optional precision defines the number of decimal places that are allowed.
 - @param min - The optional min defines the minimum value that is allowed.
 - @param max - The optional max defines the maximum value that is allowed.
+- @param step - The optional step defines the increment used by stepper buttons.
+- @param stepper - The optional stepper flag renders compact increment/decrement controls around the input.
 - @param unit - The optional unit is shown next to the input field.
 - @param tooltip - The optional tooltip is shown on hover over the tooltip next to the label.
 - @param required - Indicate whether the field is required or not.
@@ -49,6 +51,7 @@ Available Stories:
 - Unit: Number field with unit display (kg) and error state
 - Precision: Number field limited to 2 decimal places
 - MinMax: Number field with value range constraints (0-100)
+- Stepper: Compact number field with increment/decrement controls
 - Integer: Number field restricted to integer values only (precision: 0)
 - NumberState: Number field with numeric state management (not recommended)
 - Labelled: Number field with label and tooltip
@@ -66,6 +69,8 @@ Props (NumberField component):
 - precision?: number - Number of decimal places allowed (undefined = unlimited)
 - min?: number - Minimum allowed numeric value
 - max?: number - Maximum allowed numeric value
+- step?: number - Increment/decrement amount for stepper controls
+- stepper?: boolean - Render compact controls around the numeric input
 - unit?: string - Unit text displayed next to input (kg, %, $, etc.)
 - tooltip?: string | React.ReactNode - Optional tooltip for additional information
 - required?: boolean - Whether the field is required
@@ -492,6 +497,24 @@ export function MinMax() {
         onChange={(newValue) => setValue(newValue)}
         min={0}
         max={100}
+      />
+      <div>Value: {value}</div>
+    </div>
+  )
+}
+
+export function Stepper() {
+  const [value, setValue] = useState('12')
+  return (
+    <div className="flex flex-col gap-3">
+      <NumberField
+        value={value}
+        onChange={(newValue) => setValue(newValue)}
+        min={0}
+        max={24}
+        step={1}
+        stepper
+        unit="h"
       />
       <div>Value: {value}</div>
     </div>

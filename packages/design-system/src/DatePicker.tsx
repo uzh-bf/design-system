@@ -133,8 +133,8 @@ export function DatePicker({
               variant="outline"
               disabled={disabled}
               className={twMerge(
-                'h-10 w-36 justify-start text-left text-sm font-normal',
-                !date && 'text-muted-foreground',
+                'h-10 min-w-[200px] justify-start rounded-md border-[#E0E0E0] px-3 text-left text-sm font-normal text-[#111111] hover:bg-[#FAFAFA]',
+                !date && 'text-[#666666]',
                 !!error &&
                   isTouched &&
                   'border-destructive bg-destructive-background',
@@ -143,7 +143,10 @@ export function DatePicker({
               data-cy={dataTrigger?.cy}
               data-test={dataTrigger?.test}
             >
-              <FontAwesomeIcon icon={faCalendar} className="mr-2.5 h-4 w-4" />
+              <FontAwesomeIcon
+                icon={faCalendar}
+                className="mr-2.5 h-4 w-4 text-[#666666]"
+              />
               {date ? (
                 dayjs(date).format('DD.MM.YYYY')
               ) : (
@@ -154,6 +157,7 @@ export function DatePicker({
           {error && !hideError && isTouched && (
             <Tooltip
               tooltip={error}
+              ariaLabel={error}
               delay={0}
               className={{
                 tooltip: twMerge('max-w-120 text-sm', className?.tooltip),
@@ -167,7 +171,10 @@ export function DatePicker({
           )}
         </div>
       </div>
-      <PopoverContent className="w-auto p-0" align={align}>
+      <PopoverContent
+        className="w-auto border-none bg-transparent p-0 shadow-none"
+        align={align}
+      >
         <Calendar
           id={id}
           mode="single"

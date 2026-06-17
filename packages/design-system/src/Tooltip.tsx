@@ -13,6 +13,7 @@ import {
 export interface TooltipProps {
   id?: string
   tooltip: React.ReactNode | string
+  ariaLabel?: string
   delay?: number
   children: React.ReactNode
   data?: {
@@ -47,6 +48,7 @@ export function Tooltip({
   data,
   dataContent,
   tooltip,
+  ariaLabel,
   delay = 350,
   children,
   className,
@@ -56,6 +58,7 @@ export function Tooltip({
       <ShadcnTooltip delayDuration={delay ?? 1000}>
         <TooltipTrigger
           id={id}
+          aria-label={ariaLabel}
           data-cy={data?.cy}
           data-test={data?.test}
           className={twMerge('text-start', className?.trigger)}

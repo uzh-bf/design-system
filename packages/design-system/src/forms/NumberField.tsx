@@ -2,6 +2,7 @@
 
 import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { MinusIcon, PlusIcon } from 'lucide-react'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
 import FormLabel from '../FormLabel'
@@ -27,6 +28,8 @@ export interface NumberFieldProps {
   precision?: number
   min?: number
   max?: number
+  step?: number
+  stepper?: boolean
   unit?: string
   tooltip?: string | React.ReactNode
   required?: boolean
@@ -55,6 +58,8 @@ export interface NumberFieldProps {
  * @param precision - The optional precision defines the number of decimal places that are allowed.
  * @param min - The optional min defines the minimum value that is allowed.
  * @param max - The optional max defines the maximum value that is allowed.
+ * @param step - The optional step defines the increment used by stepper buttons.
+ * @param stepper - The optional stepper flag renders compact increment/decrement controls around the input.
  * @param unit - The optional unit is shown next to the input field.
  * @param tooltip - The optional tooltip is shown on hover over the tooltip next to the label.
  * @param required - Indicate whether the field is required or not.
@@ -76,6 +81,8 @@ export function NumberField({
   precision,
   min,
   max,
+  step = 1,
+  stepper = false,
   unit,
   tooltip,
   required = false,
@@ -94,6 +101,53 @@ export function NumberField({
         ? /^[-]?\d*$/
         : new RegExp(`^[-]?\\d*\\.?\\d{0,${precision}}$`)
       : /^[-]?\d*\.?\d*$/
+
+  const numericValue =
+    typeof value === 'number' ? value : parseFloat(String(value))
+  const hasNumericValue = Number.isFinite(numericValue)
+  const isAtMin =
+    typeof min === 'number' && hasNumericValue && numericValue <= min
+  const isAtMax =
+    typeof max === 'number' && hasNumericValue && numericValue >= max
+  const stepSize = Math.abs(step) || 1
+
+  const countDecimalPlaces = (numberLike: string | number | undefined) => {
+    if (typeof numberLike === 'undefined' || numberLike === '') return 0
+
+    const valueString = String(numberLike)
+    const exponentMatch = valueString.match(/e-(\d+)$/i)
+    if (exponentMatch) return Number(exponentMatch[1])
+
+    return valueString.split('.')[1]?.length ?? 0
+  }
+
+  const formatSteppedValue = (newValue: number) => {
+    if (typeof precision === 'number' && !isNaN(precision)) {
+      return newValue.toFixed(Math.max(0, precision))
+    }
+
+    const decimalPlaces = Math.max(
+      countDecimalPlaces(value),
+      countDecimalPlaces(stepSize),
+      countDecimalPlaces(min),
+      countDecimalPlaces(max)
+    )
+    const roundedValue = Number(newValue.toFixed(decimalPlaces))
+
+    return String(roundedValue)
+  }
+
+  const handleStep = (direction: -1 | 1) => {
+    const fallbackValue = typeof min === 'number' ? min : 0
+    const currentValue = hasNumericValue ? numericValue : fallbackValue
+    const nextValue = currentValue + stepSize * direction
+    const boundedValue = Math.min(
+      max ?? nextValue,
+      Math.max(min ?? nextValue, nextValue)
+    )
+
+    onChange(formatSteppedValue(boundedValue))
+  }
 
   return (
     <div
@@ -115,7 +169,28 @@ export function NumberField({
       )}
 
       <div className="flex w-full flex-row items-center gap-2">
-        <div className="flex w-full flex-row items-center">
+        <div
+          className={twMerge(
+            'flex w-full flex-row items-center',
+            stepper &&
+              'focus-within:border-primary-100 focus-within:ring-primary-100/20 w-fit overflow-hidden rounded-md border border-[#E0E0E0] bg-white focus-within:ring-[3px]',
+            disabled && stepper && 'bg-muted opacity-70'
+          )}
+        >
+          {stepper && (
+            <>
+              <button
+                type="button"
+                aria-label="Decrease value"
+                disabled={disabled || isAtMin}
+                onClick={() => handleStep(-1)}
+                className="inline-flex h-10 w-10 shrink-0 items-center justify-center bg-white text-[#666666] hover:bg-[#FAFAFA] disabled:cursor-not-allowed disabled:text-[#A3A3A3] disabled:hover:bg-white"
+              >
+                <MinusIcon className="h-3.5 w-3.5" aria-hidden="true" />
+              </button>
+              <span aria-hidden="true" className="h-10 w-px bg-[#E0E0E0]" />
+            </>
+          )}
           <Input
             id={id}
             data-cy={data?.cy}
@@ -151,7 +226,9 @@ export function NumberField({
               !!error &&
                 isTouched &&
                 'border-destructive focus:border-destructive bg-destructive-background',
-              !!unit && 'rounded-r-none',
+              !!unit && !stepper && 'rounded-r-none',
+              stepper &&
+                'h-10 w-16 rounded-none border-0 bg-transparent px-2 text-center font-mono text-sm text-[#111111] tabular-nums shadow-none focus-visible:ring-0 disabled:bg-transparent disabled:opacity-100',
               className?.input
             )}
             {...props}
@@ -159,7 +236,10 @@ export function NumberField({
           {unit && (
             <div
               className={twMerge(
-                'flex h-10 min-w-max flex-col items-center justify-center rounded-r bg-slate-600 px-4 text-white',
+                !stepper &&
+                  'flex h-10 min-w-max flex-col items-center justify-center rounded-r bg-slate-600 px-4 text-white',
+                stepper &&
+                  'flex h-10 min-w-max flex-col items-center justify-center rounded-none border-0 bg-transparent px-2 pr-3 font-mono text-xs font-normal text-[#666666]',
                 className?.unit
               )}
               data-cy="input-numerical-unit"
@@ -167,10 +247,25 @@ export function NumberField({
               {unit}
             </div>
           )}
+          {stepper && (
+            <>
+              <span aria-hidden="true" className="h-10 w-px bg-[#E0E0E0]" />
+              <button
+                type="button"
+                aria-label="Increase value"
+                disabled={disabled || isAtMax}
+                onClick={() => handleStep(1)}
+                className="inline-flex h-10 w-10 shrink-0 items-center justify-center bg-white text-[#666666] hover:bg-[#FAFAFA] disabled:cursor-not-allowed disabled:text-[#A3A3A3] disabled:hover:bg-white"
+              >
+                <PlusIcon className="h-3.5 w-3.5" aria-hidden="true" />
+              </button>
+            </>
+          )}
         </div>
         {error && !hideError && isTouched && (
           <Tooltip
             tooltip={error}
+            ariaLabel={error}
             delay={0}
             className={{ tooltip: 'max-w-120 text-sm' }}
           >

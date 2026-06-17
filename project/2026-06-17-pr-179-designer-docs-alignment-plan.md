@@ -285,7 +285,19 @@ Commit:
   - `pnpm --dir packages/design-system build:ladle`: exit 0.
   - `PWTEST_SKIP_BUILD=1 ./node_modules/.bin/playwright test tests/smoke/stories.spec.ts --grep "popover--|hover-card--|modal--|alert-dialog--|accordion--|tooltip--"`: 25 passed, 0 failed.
   - Same grep against `tests/a11y/stories.spec.ts`: 38 passed, 0 failed across neutral + uzh themes.
-- Next: Commit S4, then S5 advanced inputs.
+- 2026-06-17: S4 committed `84b5b85`.
+- 2026-06-17: S5 done locally. Context7 `react-day-picker` lookup blocked by monthly quota; official DayPicker styling docs checked instead. Aligned Calendar panel metrics, DatePicker/DateRange/Datetime trigger surfaces, Datetime split date/time trigger and combined popup panel, and additive NumberField `stepper`/`step` mode. Kept existing text+unit path behavior after simplification review; used accessible `#666666` placeholder text instead of designer `#A3A3A3` where text is live button content. Added tooltip trigger `aria-label` support for icon-only help/error triggers.
+- S5 review/simplification:
+  - Review found NumberField decimal step rounding risk; fixed by preserving max decimals from current value, step, min, and max.
+  - Simplification accepted: non-stepper unit styling restored; extra stepper className API removed; Datetime trigger labels derived before render. Calendar owning panel chrome kept because latest designer Calendar spec defines surface/border/shadow as the component panel.
+- S5 verification:
+  - `./node_modules/.bin/prettier --write src/Tooltip.tsx src/forms/Label.tsx src/ui/calendar.tsx src/DatePicker.tsx src/DateRangePicker.tsx src/DatetimePicker.tsx src/forms/NumberField.tsx src/forms/FormikNumberField.tsx src/forms/NumberField.stories.mdx`: exit 0 for TS files; MDX ignored by current Prettier config when included earlier.
+  - `pnpm --dir packages/design-system build:tsc`: exit 0.
+  - `pnpm --dir packages/design-system build:ladle`: exit 0.
+  - `PWTEST_SKIP_BUILD=1 ./node_modules/.bin/playwright test tests/smoke/stories.spec.ts --grep "calendar--|date-picker--|date-range-picker--|datetime-picker--|number-field--|formik-date-picker--|formik-datetime-picker--|formik-number-field--|tooltip--|label--"`: 80 passed, 0 failed.
+  - Same grep against `tests/a11y/stories.spec.ts`: 136 passed, 0 failed across neutral + uzh themes.
+  - One-off Playwright interaction probe: NumberField stepper `1.25 + 1 -> 2.25`, max `24` disables plus, Datetime selected popup wrapper has shared border/shadow, DateRange two-month calendar width 523px.
+- Next: Commit S5, then final gate.
 
 ## Next Steps
 

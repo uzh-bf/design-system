@@ -395,7 +395,7 @@ const TimePickerInput = React.forwardRef<
         id={id || picker}
         name={name || picker}
         className={cn(
-          'focus:bg-accent focus:text-accent-foreground w-[48px] text-center font-mono text-base tabular-nums caret-transparent [&::-webkit-inner-spin-button]:appearance-none',
+          'focus-visible:border-primary-100 focus-visible:ring-primary-100/20 w-12 rounded-md border-[#E0E0E0] text-center font-mono text-sm tabular-nums caret-transparent [&::-webkit-inner-spin-button]:appearance-none',
           className
         )}
         value={value || calculatedValue}
@@ -680,6 +680,17 @@ const DateTimePicker = React.forwardRef<
     const [displayDate, setDisplayDate] = React.useState<Date | undefined>(
       value ?? undefined
     )
+    const useSplitTrigger = Boolean(
+      displayDate && !displayFormat && granularity !== 'day'
+    )
+    const triggerDateLabel = displayDate
+      ? dayjs(displayDate).format(
+          useSplitTrigger ? 'DD.MM.YYYY' : (displayFormat ?? 'DD.MM.YYYY')
+        )
+      : placeholder
+    const triggerTimeLabel = displayDate
+      ? dayjs(displayDate).format('HH:mm')
+      : ''
 
     /**
      * Makes sure display date updates when value change on
@@ -767,8 +778,8 @@ const DateTimePicker = React.forwardRef<
                 type="button"
                 disabled={disabled}
                 className={cn(
-                  'h-10 w-44 justify-start text-left text-sm font-normal',
-                  !displayDate && 'text-muted-foreground',
+                  'h-10 min-w-[220px] justify-start overflow-hidden rounded-md border-[#E0E0E0] px-0 text-left text-sm font-normal text-[#111111] hover:bg-[#FAFAFA]',
+                  !displayDate && 'px-3 text-[#666666]',
                   !!error &&
                     isTouched &&
                     'border-destructive bg-destructive-background',
@@ -778,19 +789,38 @@ const DateTimePicker = React.forwardRef<
                 data-cy={props.dataTrigger?.cy}
                 data-test={props.dataTrigger?.test}
               >
-                <FontAwesomeIcon icon={faCalendar} className="mr-2.5 h-4 w-4" />
+                <FontAwesomeIcon
+                  icon={faCalendar}
+                  className={cn(
+                    'h-4 w-4 text-[#666666]',
+                    displayDate ? 'mr-2.5 ml-3' : 'mr-2.5'
+                  )}
+                />
                 {displayDate ? (
-                  dayjs(displayDate).format(
-                    displayFormat ?? 'DD.MM.YYYY, HH:mm'
-                  )
+                  <>
+                    <span>{triggerDateLabel}</span>
+                    {useSplitTrigger && (
+                      <>
+                        <span
+                          aria-hidden="true"
+                          className="mx-3 h-10 w-px bg-[#E0E0E0]"
+                        />
+                        <Clock className="mr-2 h-4 w-4 text-[#666666]" />
+                        <span className="pr-3 font-mono text-sm tabular-nums">
+                          {triggerTimeLabel}
+                        </span>
+                      </>
+                    )}
+                  </>
                 ) : (
-                  <span>{placeholder}</span>
+                  <span>{triggerDateLabel}</span>
                 )}
               </Button>
             </PopoverTrigger>
             {error && !hideError && isTouched && (
               <Tooltip
                 tooltip={error}
+                ariaLabel={error}
                 delay={0}
                 className={{
                   tooltip: twMerge('max-w-120 text-sm', className?.error),
@@ -804,51 +834,67 @@ const DateTimePicker = React.forwardRef<
             )}
           </div>
         </div>
-        <PopoverContent className="w-auto p-0" align={align}>
-          <Calendar
-            mode="single"
-            captionLayout={captionLayout}
-            disabled={disabled}
-            selected={displayDate}
-            month={month}
-            onSelect={(newDate) => {
-              if (newDate) {
-                newDate.setHours(
-                  month?.getHours() ?? 0,
-                  month?.getMinutes() ?? 0,
-                  month?.getSeconds() ?? 0
-                )
-                onSelect(newDate)
+        <PopoverContent
+          className="w-auto border-none bg-transparent p-0 shadow-none"
+          align={align}
+        >
+          <div
+            className={cn(
+              'w-fit',
+              granularity !== 'day' &&
+                'overflow-hidden rounded-lg border border-[#E0E0E0] bg-white shadow-lg'
+            )}
+          >
+            <Calendar
+              mode="single"
+              captionLayout={captionLayout}
+              disabled={disabled}
+              selected={displayDate}
+              month={month}
+              onSelect={(newDate) => {
+                if (newDate) {
+                  newDate.setHours(
+                    month?.getHours() ?? 0,
+                    month?.getMinutes() ?? 0,
+                    month?.getSeconds() ?? 0
+                  )
+                  onSelect(newDate)
+                }
+              }}
+              onMonthChange={handleMonthChange}
+              locale={locale}
+              dataNextMonth={props.dataNextMonth}
+              dataPreviousMonth={props.dataPreviousMonth}
+              data-cy={props.dataCalendar?.cy}
+              data-test={props.dataCalendar?.test}
+              className={
+                granularity !== 'day'
+                  ? 'rounded-none border-0 shadow-none'
+                  : undefined
               }
-            }}
-            onMonthChange={handleMonthChange}
-            locale={locale}
-            dataNextMonth={props.dataNextMonth}
-            dataPreviousMonth={props.dataPreviousMonth}
-            data-cy={props.dataCalendar?.cy}
-            data-test={props.dataCalendar?.test}
-            {...props}
-          />
-          {granularity !== 'day' && (
-            <div className="border-border border-t p-3">
-              <TimePicker
-                disabled={disabled}
-                onChange={(value) => {
-                  onChange?.(value)
-                  setDisplayDate(value)
-                  if (value) {
-                    setMonth(value)
-                  }
-                }}
-                date={month}
-                hourCycle={hourCycle}
-                granularity={granularity}
-                dataHours={props.dataHours}
-                dataMinutes={props.dataMinutes}
-                dataSeconds={props.dataSeconds}
-              />
-            </div>
-          )}
+              {...props}
+            />
+            {granularity !== 'day' && (
+              <div className="border-t border-[#E0E0E0] bg-white p-3">
+                <TimePicker
+                  disabled={disabled}
+                  onChange={(value) => {
+                    onChange?.(value)
+                    setDisplayDate(value)
+                    if (value) {
+                      setMonth(value)
+                    }
+                  }}
+                  date={month}
+                  hourCycle={hourCycle}
+                  granularity={granularity}
+                  dataHours={props.dataHours}
+                  dataMinutes={props.dataMinutes}
+                  dataSeconds={props.dataSeconds}
+                />
+              </div>
+            )}
+          </div>
         </PopoverContent>
       </Popover>
     )

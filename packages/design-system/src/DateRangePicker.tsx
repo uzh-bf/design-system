@@ -129,19 +129,25 @@ export function DateRangePicker({
             variant="outline"
             disabled={disabled}
             className={twMerge(
-              'h-10 w-64 justify-start text-left text-sm font-normal',
-              !range?.from && 'text-muted-foreground',
+              'h-10 min-w-64 justify-start rounded-md border-[#E0E0E0] px-3 text-left text-sm font-normal text-[#111111] hover:bg-[#FAFAFA]',
+              !range?.from && 'text-[#666666]',
               className?.trigger
             )}
             data-cy={dataTrigger?.cy}
             data-test={dataTrigger?.test}
           >
-            <FontAwesomeIcon icon={faCalendar} className="mr-2.5 h-4 w-4" />
+            <FontAwesomeIcon
+              icon={faCalendar}
+              className="mr-2.5 h-4 w-4 text-[#666666]"
+            />
             {triggerLabel}
           </Button>
         </PopoverTrigger>
       </div>
-      <PopoverContent className="w-auto p-0" align={align}>
+      <PopoverContent
+        className="w-auto border-none bg-transparent p-0 shadow-none"
+        align={align}
+      >
         <Calendar
           mode="range"
           captionLayout={captionLayout}
