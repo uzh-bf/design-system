@@ -3,10 +3,5 @@
   "framework": null,
   "installCommand": "pnpm install --frozen-lockfile",
   "buildCommand": "LADLE=true pnpm --dir packages/design-system exec ladle build --base=/",
-  "outputDirectory": "packages/design-system/build",
-  "git": {
-    "deploymentEnabled": {
-      "v5": true
-    }
-  }
+  "outputDirectory": "packages/design-system/build"
 }
