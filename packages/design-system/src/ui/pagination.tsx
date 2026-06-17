@@ -58,6 +58,7 @@ function PaginationLink({
           variant: isActive ? 'default' : 'ghost',
           size,
         }),
+        'data-[active=true]:border-primary-100 data-[active=true]:bg-primary-100 h-9 min-w-9 rounded-md border border-[#E0E0E0] bg-white px-2 text-[13px] font-normal text-[#111111] shadow-none hover:bg-[#FAFAFA] hover:text-[#111111] data-[active=true]:font-semibold data-[active=true]:text-white',
         className
       )}
       {...props}
@@ -109,7 +110,10 @@ function PaginationEllipsis({
     <span
       aria-hidden
       data-slot="pagination-ellipsis"
-      className={cn('flex size-9 items-center justify-center', className)}
+      className={cn(
+        'flex size-9 items-center justify-center text-[#A3A3A3]',
+        className
+      )}
       {...props}
     >
       <MoreHorizontalIcon className="size-4" />

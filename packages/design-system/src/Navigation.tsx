@@ -92,7 +92,7 @@ function NavigationButton({
         data-test={data?.test}
         style={style?.root}
         className={twMerge(
-          'text-base hover:cursor-pointer',
+          'text-sm hover:cursor-pointer',
           !iconOnly && !disabled && dynamicUnderline,
           hasIconAndLabel && 'flex flex-row items-center gap-2',
           active && 'text-black after:scale-x-100',
@@ -226,7 +226,7 @@ function NavigationMenuItem({
     <MenubarItem
       onClick={element.onClick}
       className={twMerge(
-        'h-7 justify-between text-base hover:cursor-pointer',
+        'h-9 justify-between text-sm hover:cursor-pointer',
         element.disabled &&
           'text-slate-400! hover:cursor-not-allowed hover:text-slate-400!',
         element.className?.label
@@ -287,7 +287,7 @@ function NavigationDropdown({
         data-test={data?.test}
         style={style?.trigger}
         className={twMerge(
-          'text-base hover:cursor-pointer',
+          'text-sm hover:cursor-pointer',
           hasIconAndLabel && 'flex flex-row items-center gap-2',
           !iconOnly && !disabled && dynamicUnderline,
           active && 'text-black after:scale-x-100',
@@ -351,7 +351,7 @@ function NavigationDropdown({
                   <MenubarSubTrigger
                     style={element.style?.label}
                     className={twMerge(
-                      'h-8 text-base hover:cursor-pointer',
+                      'h-9 text-sm hover:cursor-pointer',
                       element.className?.label
                     )}
                   >

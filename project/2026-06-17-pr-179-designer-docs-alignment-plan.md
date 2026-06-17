@@ -269,7 +269,15 @@ Commit:
   - `pnpm --dir packages/design-system build:ladle`: exit 0.
   - `PWTEST_SKIP_BUILD=1 ./node_modules/.bin/playwright test tests/smoke/stories.spec.ts --grep "cycle-progress--|cycle-countdown--|carousel--"`: 17 passed, 0 failed.
   - One-off Playwright interaction probe: Carousel default story rendered 5 dots; clicking dot 3 and pressing `ArrowLeft` moved active state to slide 2.
-- Next: Commit S2, then S3 navigation/menu polish.
+- 2026-06-17: S2 committed `2213ad7`.
+- 2026-06-17: S3 done locally. Aligned Sidebar width/menu metrics, Breadcrumb slash/current styling, Pagination 36px controls, shared Dropdown/Context/Menubar surface and item metrics, NavigationMenu trigger/flyout metrics, and Navigation wrapper text sizing. Used accessible `#666666` for live sidebar/menu metadata text instead of designer `#A3A3A3`, which failed WCAG contrast on `#FAFAFA`.
+- S3 verification:
+  - `./node_modules/.bin/prettier --write src/Navigation.tsx src/Dropdown.tsx src/ui/breadcrumb.tsx src/ui/context-menu.tsx src/ui/dropdown-menu.tsx src/ui/menubar.tsx src/ui/navigation-menu.tsx src/ui/pagination.tsx src/ui/sidebar.tsx`: exit 0.
+  - `pnpm --dir packages/design-system build:tsc`: exit 0.
+  - `pnpm --dir packages/design-system build:ladle`: exit 0.
+  - `PWTEST_SKIP_BUILD=1 ./node_modules/.bin/playwright test tests/smoke/stories.spec.ts --grep "sidebar--|breadcrumb--|pagination--|dropdown--|shadcn-dropdown--|context-menu--|shadcn-menubar--|navigation-menu--|navigation--(active|button|combined-trigger|complex|disabled|dropdown|icon-trigger|nested-menu|notification-trigger)"`: 34 passed, 0 failed.
+  - Same grep against `tests/a11y/stories.spec.ts`: 52 passed, 0 failed across neutral + uzh themes.
+- Next: Commit S3, then S4 overlays/dialog/disclosure.
 
 ## Next Steps
 
