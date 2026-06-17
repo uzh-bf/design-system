@@ -302,7 +302,7 @@ Commit:
 - Final gate verification:
   - `pnpm --dir packages/design-system build`: exit 0 after rerun with escalation because sandboxed `tsx src/copy.ts` could not create its local IPC pipe.
   - `PWTEST_SKIP_BUILD=1 ./node_modules/.bin/playwright test`: 1218 passed, 0 failed.
-  - Playwright visual capture: 18 representative Ladle screenshots across S1-S5 desktop states plus mobile DatePicker/NumberField states saved under `/tmp/ds-v5-designer-alignment-screenshots-final2`. Capture used screenshot-only CSS to hide Ladle chrome and keep the story root in a normal painted stacking context. Spot-checked root, portal, input, and date-picker captures.
+  - Playwright visual capture: 18 representative Ladle screenshots across S1-S5 desktop states plus mobile DatePicker/NumberField states saved under `/tmp/ds-v5-designer-alignment-screenshots-final2` and committed under `project/pr-179-designer-docs-screenshots/` for PR review. Capture used screenshot-only CSS to hide Ladle chrome and keep the story root in a normal painted stacking context. Spot-checked root, portal, input, and date-picker captures.
   - Final security review of `origin/v5...HEAD`: no high-confidence exploitable vulnerabilities found in the designer-docs alignment commits. Residual risk: static review only; no dedicated dynamic XSS harness.
 - 2026-06-17: Regenerated declarations + final-gate plan record committed `32feb2d`.
 - Next: Push/update PR #179 when ready.
