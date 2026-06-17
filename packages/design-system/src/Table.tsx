@@ -147,7 +147,7 @@ export function Table<
       <tr
         key={index}
         className={twMerge(
-          'transition-colors hover:bg-muted',
+          'hover:bg-muted transition-colors',
           className?.row,
           row.className as string
         )}
@@ -205,7 +205,7 @@ export function Table<
                       : undefined
                   }
                   className={twMerge(
-                    'border-border bg-muted text-muted-foreground border-b px-4 py-3 text-start text-xs font-semibold tracking-[0.06em] uppercase whitespace-nowrap',
+                    'border-border bg-muted text-muted-foreground border-b px-4 py-3 text-start text-xs font-semibold tracking-[0.06em] whitespace-nowrap uppercase',
                     col.sortable && 'cursor-pointer',
                     className?.tableHeader,
                     col.className

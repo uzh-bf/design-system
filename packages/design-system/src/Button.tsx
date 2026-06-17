@@ -87,7 +87,9 @@ export function Button({
       onClick={onClick}
       className={twMerge(
         // fluid buttons grow with their content (auto height + wrap), floored at the md height
-        fluid ? 'h-max min-h-10 w-full justify-center py-2 whitespace-normal' : '',
+        fluid
+          ? 'h-max min-h-10 w-full justify-center py-2 whitespace-normal'
+          : '',
         className?.root,
         active && 'border-primary-100 bg-primary-20 hover:bg-primary-20',
         active ? className?.active : ''
