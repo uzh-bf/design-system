@@ -253,8 +253,9 @@ Commit:
 
 ## Progress
 
-- 2026-06-17: Plan drafted. Current state: `v5...origin/v5`, only untracked `UZH DF Design System/`.
-- Next: commit plan alone, then S0 reference hygiene.
+- 2026-06-17: Plan committed `450fccb`.
+- 2026-06-17: S0 active. Adding `.gitignore` protection for local designer drop path `UZH DF Design System/`; no designer files staged.
+- Next: verify S0 status, commit `.gitignore` + progress update, then S1 primitives.
 
 ## Next Steps
 
