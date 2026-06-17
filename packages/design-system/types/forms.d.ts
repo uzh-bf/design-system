@@ -358,7 +358,7 @@ export declare interface FormikDatetimePickerProps extends Omit<DateTimePickerPr
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param className - The optional className object allows you to override the default styling.
  */
-export declare function FormikNumberField({ id, name, value, onChange, label, labelType, placeholder, precision, min, max, unit, tooltip, required, hideError, error, isTouched, disabled, onBlur, data, className, ...props }: FormikNumberFieldNameProps | FormikNumberFieldOnChangeProps): JSX.Element;
+export declare function FormikNumberField({ id, name, value, onChange, label, labelType, placeholder, precision, min, max, step, stepper, unit, tooltip, required, hideError, error, isTouched, disabled, onBlur, data, className, ...props }: FormikNumberFieldNameProps | FormikNumberFieldOnChangeProps): JSX.Element;
 
 export declare interface FormikNumberFieldNameProps extends FormikNumberFieldProps {
     name: string;
@@ -382,6 +382,8 @@ declare interface FormikNumberFieldProps {
     precision?: number;
     min?: number;
     max?: number;
+    step?: number;
+    stepper?: boolean;
     unit?: string;
     tooltip?: string | default_2.ReactNode;
     required?: boolean;
@@ -722,6 +724,8 @@ export declare interface LabelProps {
  * @param precision - The optional precision defines the number of decimal places that are allowed.
  * @param min - The optional min defines the minimum value that is allowed.
  * @param max - The optional max defines the maximum value that is allowed.
+ * @param step - The optional step defines the increment used by stepper buttons.
+ * @param stepper - The optional stepper flag renders compact increment/decrement controls around the input.
  * @param unit - The optional unit is shown next to the input field.
  * @param tooltip - The optional tooltip is shown on hover over the tooltip next to the label.
  * @param required - Indicate whether the field is required or not.
@@ -733,7 +737,7 @@ export declare interface LabelProps {
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param className - The optional className object allows you to override the default styling.
  */
-export declare function NumberField({ id, value, onChange, label, labelType, placeholder, precision, min, max, unit, tooltip, required, hideError, error, isTouched, disabled, onBlur, data, className, ...props }: NumberFieldProps): default_2.ReactElement;
+export declare function NumberField({ id, value, onChange, label, labelType, placeholder, precision, min, max, step, stepper, unit, tooltip, required, hideError, error, isTouched, disabled, onBlur, data, className, ...props }: NumberFieldProps): default_2.ReactElement;
 
 export declare interface NumberFieldClassName {
     field?: string;
@@ -754,6 +758,8 @@ export declare interface NumberFieldProps {
     precision?: number;
     min?: number;
     max?: number;
+    step?: number;
+    stepper?: boolean;
     unit?: string;
     tooltip?: string | default_2.ReactNode;
     required?: boolean;

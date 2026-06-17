@@ -378,6 +378,8 @@ export declare type CarouselApi = UseEmblaCarouselType[1];
 
 export declare function CarouselContent({ className, ...props }: React_2.ComponentProps<'div'>): JSX.Element;
 
+export declare function CarouselDots({ className, ...props }: React_2.ComponentProps<'div'>): JSX.Element | null;
+
 export declare function CarouselItem({ className, ...props }: React_2.ComponentProps<'div'>): JSX.Element;
 
 export declare function CarouselNext({ className, variant, size, ...props }: React_2.ComponentProps<typeof Button_2>): JSX.Element;
@@ -739,23 +741,27 @@ export declare function ContextMenuSubTrigger({ className, inset, children, ...p
 export declare function ContextMenuTrigger({ ...props }: React_2.ComponentProps<typeof ContextMenuPrimitive.Trigger>): JSX.Element;
 
 /**
- * This function creates a simple text countdown component (without any additional features or styling)
+ * This function creates a styled countdown component with a formatter escape hatch.
  *
  * @param isStatic - If true, the countdown will not be running, but instead show the initial value. However, as the end value is given by a date, reloading can modify the displayed countdown value
  * @param expiresAt - Date when the countdown should expire
  * @param formatter - Function to format the countdown value
+ * @param warning - Force the countdown into its warning style.
+ * @param warningThresholdSeconds - Remaining seconds threshold for automatic warning style.
  * @param onExpire - Function that is executed when the countdown expires
  * @param onUpdate - Function that is executed when the countdown is updated (not when it expires)
  * @param data - Optional data object that can be used for testing (e.g. data-test or data-cy)
  * @param className - Optional className object allows you to override the default styling
  * @returns A simple text countdown component
  */
-export declare function Countdown({ isStatic, expiresAt, formatter, onExpire, onUpdate, data, className, }: CountdownProps): JSX.Element;
+export declare function Countdown({ isStatic, expiresAt, formatter, warning, warningThresholdSeconds, onExpire, onUpdate, data, className, }: CountdownProps): JSX.Element;
 
 export declare interface CountdownProps {
     isStatic?: boolean;
     expiresAt: Date;
     formatter?: (value: number) => string | number | React.ReactNode;
+    warning?: boolean;
+    warningThresholdSeconds?: number;
     onExpire?: () => void;
     onUpdate?: (timeRemaining: number) => void;
     data?: {
@@ -1474,7 +1480,7 @@ export declare interface FormikDatetimePickerProps extends Omit<DateTimePickerPr
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param className - The optional className object allows you to override the default styling.
  */
-export declare function FormikNumberField({ id, name, value, onChange, label, labelType, placeholder, precision, min, max, unit, tooltip, required, hideError, error, isTouched, disabled, onBlur, data, className, ...props }: FormikNumberFieldNameProps | FormikNumberFieldOnChangeProps): JSX.Element;
+export declare function FormikNumberField({ id, name, value, onChange, label, labelType, placeholder, precision, min, max, step, stepper, unit, tooltip, required, hideError, error, isTouched, disabled, onBlur, data, className, ...props }: FormikNumberFieldNameProps | FormikNumberFieldOnChangeProps): JSX.Element;
 
 export declare interface FormikNumberFieldNameProps extends FormikNumberFieldProps {
     name: string;
@@ -1498,6 +1504,8 @@ declare interface FormikNumberFieldProps {
     precision?: number;
     min?: number;
     max?: number;
+    step?: number;
+    stepper?: boolean;
     unit?: string;
     tooltip?: string | default_3.ReactNode;
     required?: boolean;
@@ -2303,6 +2311,8 @@ declare interface NotificationBadgeWrapperProps {
  * @param precision - The optional precision defines the number of decimal places that are allowed.
  * @param min - The optional min defines the minimum value that is allowed.
  * @param max - The optional max defines the maximum value that is allowed.
+ * @param step - The optional step defines the increment used by stepper buttons.
+ * @param stepper - The optional stepper flag renders compact increment/decrement controls around the input.
  * @param unit - The optional unit is shown next to the input field.
  * @param tooltip - The optional tooltip is shown on hover over the tooltip next to the label.
  * @param required - Indicate whether the field is required or not.
@@ -2314,7 +2324,7 @@ declare interface NotificationBadgeWrapperProps {
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param className - The optional className object allows you to override the default styling.
  */
-export declare function NumberField({ id, value, onChange, label, labelType, placeholder, precision, min, max, unit, tooltip, required, hideError, error, isTouched, disabled, onBlur, data, className, ...props }: NumberFieldProps): default_3.ReactElement;
+export declare function NumberField({ id, value, onChange, label, labelType, placeholder, precision, min, max, step, stepper, unit, tooltip, required, hideError, error, isTouched, disabled, onBlur, data, className, ...props }: NumberFieldProps): default_3.ReactElement;
 
 export declare interface NumberFieldClassName {
     field?: string;
@@ -2335,6 +2345,8 @@ export declare interface NumberFieldProps {
     precision?: number;
     min?: number;
     max?: number;
+    step?: number;
+    stepper?: boolean;
     unit?: string;
     tooltip?: string | default_3.ReactNode;
     required?: boolean;
@@ -3163,10 +3175,13 @@ export declare function Tabs({ id, defaultValue, value, onValueChange, tabs, cla
  * @param id - The id of the tag.
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param label - The label of the tag.
+ * @param active - Indicate whether the tag is selected.
+ * @param dashed - Indicate whether the tag should use a dashed border.
+ * @param removable - Indicate whether the tag should show a remove button.
  * @param className - The optional className object allows you to override the default styling.
  * @returns Tag component
  */
-export declare function Tag({ id, data, className, label }: TagProps): JSX.Element;
+export declare function Tag({ id, data, className, label, active, dashed, removable, removeLabel, onRemove, }: TagProps): JSX.Element;
 
 export declare interface TagProps {
     id?: string;
@@ -3176,8 +3191,14 @@ export declare interface TagProps {
     };
     className?: {
         root?: string;
+        remove?: string;
     };
     label: string;
+    active?: boolean;
+    dashed?: boolean;
+    removable?: boolean;
+    removeLabel?: string;
+    onRemove?: default_3.MouseEventHandler<HTMLButtonElement>;
 }
 
 /**
@@ -3447,13 +3468,14 @@ export declare const toggleVariants: (props?: ({
  * @param className - The optional className object allows you to override the default styling.
  * @returns Tooltip component
  */
-export declare function Tooltip({ id, data, dataContent, tooltip, delay, children, className, }: TooltipProps): default_3.ReactElement;
+export declare function Tooltip({ id, data, dataContent, tooltip, ariaLabel, delay, children, className, }: TooltipProps): default_3.ReactElement;
 
 declare function TooltipContent({ className, sideOffset, children, ...props }: React_2.ComponentProps<typeof TooltipPrimitive.Content>): JSX.Element;
 
 export declare interface TooltipProps {
     id?: string;
     tooltip: default_3.ReactNode | string;
+    ariaLabel?: string;
     delay?: number;
     children: default_3.ReactNode;
     data?: {

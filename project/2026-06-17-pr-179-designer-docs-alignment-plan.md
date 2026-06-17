@@ -238,7 +238,7 @@ Do:
 - Browser/Ladle visual screenshots for changed stories.
 - Final security review.
 - Update plan `Progress`.
-- Update PR #179 via `df-mr-description-writer`.
+- Update PR #179 via `df-mr-description-writer` after push/PR handoff.
 
 Check:
 - `pnpm -C packages/design-system exec prettier --write <touched files>`
@@ -297,11 +297,18 @@ Commit:
   - `PWTEST_SKIP_BUILD=1 ./node_modules/.bin/playwright test tests/smoke/stories.spec.ts --grep "calendar--|date-picker--|date-range-picker--|datetime-picker--|number-field--|formik-date-picker--|formik-datetime-picker--|formik-number-field--|tooltip--|label--"`: 80 passed, 0 failed.
   - Same grep against `tests/a11y/stories.spec.ts`: 136 passed, 0 failed across neutral + uzh themes.
   - One-off Playwright interaction probe: NumberField stepper `1.25 + 1 -> 2.25`, max `24` disables plus, Datetime selected popup wrapper has shared border/shadow, DateRange two-month calendar width 523px.
-- Next: Commit S5, then final gate.
+- 2026-06-17: S5 committed `deb8a7d`.
+- 2026-06-17: Final gate done locally. Full package build regenerated tracked public type declarations for the new S1/S2/S5 API surface (`Tag`, `Countdown`, `CarouselDots`, `NumberField`, `FormikNumberField`, `Tooltip`).
+- Final gate verification:
+  - `pnpm --dir packages/design-system build`: exit 0 after rerun with escalation because sandboxed `tsx src/copy.ts` could not create its local IPC pipe.
+  - `PWTEST_SKIP_BUILD=1 ./node_modules/.bin/playwright test`: 1218 passed, 0 failed.
+  - Final security review of `origin/v5...HEAD`: no high-confidence exploitable vulnerabilities found in the designer-docs alignment commits. Residual risk: static review only; no dedicated dynamic XSS harness.
+- Next: Commit regenerated declarations + this final-gate record, then push/update PR #179 when ready.
 
 ## Next Steps
 
-1. Commit plan alone.
-2. Protect untracked designer drop.
-3. Work S1-S5 one slice at a time.
-4. Final gate + PR #179 update.
+1. Done: Commit plan alone.
+2. Done: Protect untracked designer drop.
+3. Done: Work S1-S5 one slice at a time.
+4. Done locally: Final gate.
+5. Remaining after push: update PR #179 via `df-mr-description-writer`.
