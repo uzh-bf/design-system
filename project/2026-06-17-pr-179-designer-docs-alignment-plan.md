@@ -261,7 +261,15 @@ Commit:
   - `pnpm --dir packages/design-system build:tsc`: exit 0.
   - `pnpm --dir packages/design-system build:ladle`: exit 0.
   - `PWTEST_SKIP_BUILD=1 ./node_modules/.bin/playwright test tests/smoke/stories.spec.ts --grep "tag--|kbd--|slider--|countdown--"`: 32 passed, 0 failed. Ran escalated against local Ladle preview because sandbox cannot bind/reach local server and Playwright config's `pnpm exec ladle preview` hits pnpm registry-signature/network check.
-- Next: Commit S1, then S2 progress/carousel.
+- 2026-06-17: S1 committed `9665640`.
+- 2026-06-17: S2 done locally. Aligned CycleProgress default ring to 96px/stroke 8 with reference center fallback; aligned CycleCountdown default ring/countdown center while preserving formatter escape hatch; added CarouselDots and 36px carousel controls. Context7 docs checked for Embla Carousel (`/davidjerleke/embla-carousel`). StepProgress/Workflow reference snippets describe alternate display models, so no default rewrite in this slice.
+- S2 verification:
+  - `./node_modules/.bin/prettier --write src/CycleProgress.tsx src/CycleCountdown.tsx src/ui/carousel.tsx src/Carousel.tsx src/Carousel.stories.mdx src/CycleProgress.stories.mdx`: exit 0 for TS files; MDX files ignored by current Prettier config.
+  - `pnpm --dir packages/design-system build:tsc`: exit 0.
+  - `pnpm --dir packages/design-system build:ladle`: exit 0.
+  - `PWTEST_SKIP_BUILD=1 ./node_modules/.bin/playwright test tests/smoke/stories.spec.ts --grep "cycle-progress--|cycle-countdown--|carousel--"`: 17 passed, 0 failed.
+  - One-off Playwright interaction probe: Carousel default story rendered 5 dots; clicking dot 3 and pressing `ArrowLeft` moved active state to slide 2.
+- Next: Commit S2, then S3 navigation/menu polish.
 
 ## Next Steps
 

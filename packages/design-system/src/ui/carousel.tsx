@@ -26,8 +26,11 @@ type CarouselContextProps = {
   api: ReturnType<typeof useEmblaCarousel>[1]
   scrollPrev: () => void
   scrollNext: () => void
+  scrollTo: (index: number) => void
   canScrollPrev: boolean
   canScrollNext: boolean
+  selectedIndex: number
+  scrollSnaps: number[]
 } & CarouselProps
 
 const CarouselContext = React.createContext<CarouselContextProps | null>(null)
@@ -60,12 +63,24 @@ function Carousel({
   )
   const [canScrollPrev, setCanScrollPrev] = React.useState(false)
   const [canScrollNext, setCanScrollNext] = React.useState(false)
+  const [selectedIndex, setSelectedIndex] = React.useState(0)
+  const [scrollSnaps, setScrollSnaps] = React.useState<number[]>([])
 
   const onSelect = React.useCallback((api: CarouselApi) => {
     if (!api) return
     setCanScrollPrev(api.canScrollPrev())
     setCanScrollNext(api.canScrollNext())
+    setSelectedIndex(api.selectedScrollSnap())
   }, [])
+
+  const onInit = React.useCallback(
+    (api: CarouselApi) => {
+      if (!api) return
+      setScrollSnaps(api.scrollSnapList())
+      onSelect(api)
+    },
+    [onSelect]
+  )
 
   const scrollPrev = React.useCallback(() => {
     api?.scrollPrev()
@@ -74,6 +89,13 @@ function Carousel({
   const scrollNext = React.useCallback(() => {
     api?.scrollNext()
   }, [api])
+
+  const scrollTo = React.useCallback(
+    (index: number) => {
+      api?.scrollTo(index)
+    },
+    [api]
+  )
 
   const handleKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -95,14 +117,15 @@ function Carousel({
 
   React.useEffect(() => {
     if (!api) return
-    onSelect(api)
-    api.on('reInit', onSelect)
+    onInit(api)
+    api.on('reInit', onInit)
     api.on('select', onSelect)
 
     return () => {
+      api?.off('reInit', onInit)
       api?.off('select', onSelect)
     }
-  }, [api, onSelect])
+  }, [api, onInit, onSelect])
 
   return (
     <CarouselContext.Provider
@@ -114,8 +137,11 @@ function Carousel({
           orientation || (opts?.axis === 'y' ? 'vertical' : 'horizontal'),
         scrollPrev,
         scrollNext,
+        scrollTo,
         canScrollPrev,
         canScrollNext,
+        selectedIndex,
+        scrollSnaps,
       }}
     >
       <div
@@ -185,7 +211,7 @@ function CarouselPrevious({
       variant={variant}
       size={size}
       className={cn(
-        'absolute size-8 rounded-full',
+        'absolute size-9 rounded-full border-[#E0E0E0] bg-white text-[#666666] shadow-sm hover:bg-[#FAFAFA] hover:text-[#333333]',
         orientation === 'horizontal'
           ? 'top-1/2 -left-12 -translate-y-1/2'
           : '-top-12 left-1/2 -translate-x-1/2 rotate-90',
@@ -195,7 +221,7 @@ function CarouselPrevious({
       onClick={scrollPrev}
       {...props}
     >
-      <ArrowLeft />
+      <ArrowLeft className="size-4" />
       <span className="sr-only">Previous slide</span>
     </Button>
   )
@@ -215,7 +241,7 @@ function CarouselNext({
       variant={variant}
       size={size}
       className={cn(
-        'absolute size-8 rounded-full',
+        'absolute size-9 rounded-full border-[#E0E0E0] bg-white text-[#666666] shadow-sm hover:bg-[#FAFAFA] hover:text-[#333333]',
         orientation === 'horizontal'
           ? 'top-1/2 -right-12 -translate-y-1/2'
           : '-bottom-12 left-1/2 -translate-x-1/2 rotate-90',
@@ -225,15 +251,48 @@ function CarouselNext({
       onClick={scrollNext}
       {...props}
     >
-      <ArrowRight />
+      <ArrowRight className="size-4" />
       <span className="sr-only">Next slide</span>
     </Button>
+  )
+}
+
+function CarouselDots({ className, ...props }: React.ComponentProps<'div'>) {
+  const { scrollSnaps, selectedIndex, scrollTo } = useCarousel()
+
+  if (scrollSnaps.length <= 1) {
+    return null
+  }
+
+  return (
+    <div
+      data-slot="carousel-dots"
+      className={cn('mt-3 flex justify-center gap-1.5', className)}
+      {...props}
+    >
+      {scrollSnaps.map((_, index) => (
+        <button
+          key={index}
+          type="button"
+          className={cn(
+            'h-1.5 rounded-full transition-all',
+            index === selectedIndex
+              ? 'bg-primary-100 w-4'
+              : 'w-1.5 bg-[#E0E0E0] hover:bg-[#A3A3A3]'
+          )}
+          aria-label={`Go to slide ${index + 1}`}
+          aria-current={index === selectedIndex ? 'true' : undefined}
+          onClick={() => scrollTo(index)}
+        />
+      ))}
+    </div>
   )
 }
 
 export {
   Carousel,
   CarouselContent,
+  CarouselDots,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,

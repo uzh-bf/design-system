@@ -2,6 +2,7 @@
 
 import dayjs from 'dayjs'
 import { useState } from 'react'
+import { twMerge } from 'tailwind-merge'
 import Countdown from './Countdown'
 import CycleProgress from './CycleProgress'
 
@@ -53,10 +54,10 @@ export function CycleCountdown({
   totalDuration,
   size = 'md',
   overrideSize,
-  color = '#00A321',
-  strokeWidthRem = 0.35,
+  color = 'var(--color-primary-100, #0028A5)',
+  strokeWidthRem,
   isStatic,
-  terminalColor = '#8B0000',
+  terminalColor = 'var(--color-destructive, #BD3902)',
   terminalPercentage,
   formatter,
   onExpire,
@@ -69,18 +70,42 @@ export function CycleCountdown({
       ? (dayjs(expiresAt).diff(dayjs(), 'second') / totalDuration) * 100
       : 0
   )
+  const displayPercentage =
+    typeof terminalPercentage === 'number' && percentage <= 0
+      ? terminalPercentage
+      : percentage
+  const isExpired = percentage <= 0
+  const isWarning =
+    !isExpired && displayPercentage > 0 && displayPercentage <= 20
+  const displayColor = isExpired
+    ? terminalColor
+    : isWarning
+      ? 'var(--color-destructive, #BD3902)'
+      : color
+  const countdownFormatter =
+    formatter ??
+    ((value: number) => (
+      <div
+        className={twMerge(
+          'flex flex-col items-center justify-center font-mono leading-none tabular-nums',
+          isExpired || isWarning ? 'text-destructive' : 'text-[#111111]',
+          className?.countdown
+        )}
+      >
+        <span className="text-[22px] font-bold">{Math.max(0, value)}</span>
+        <span className="mt-1 font-sans text-[11px] leading-none font-normal text-[#A3A3A3]">
+          sec
+        </span>
+      </div>
+    ))
 
   return (
     <CycleProgress
       size={size}
       overrideSize={overrideSize}
-      percentage={
-        terminalPercentage && percentage === 0 ? terminalPercentage : percentage
-      }
-      color={terminalPercentage && percentage === 0 ? terminalColor : color}
-      strokeWidthRem={
-        size === 'sm' ? 0.2 : size === 'lg' ? 0.5 : strokeWidthRem
-      }
+      percentage={displayPercentage}
+      color={displayColor}
+      strokeWidthRem={strokeWidthRem}
       data={data}
       className={{
         root: className?.root,
@@ -90,7 +115,7 @@ export function CycleCountdown({
       <Countdown
         isStatic={isStatic}
         expiresAt={expiresAt}
-        formatter={formatter}
+        formatter={countdownFormatter}
         onExpire={() => {
           onExpire?.()
           setPercentage(0)
@@ -104,7 +129,7 @@ export function CycleCountdown({
             setPercentage(0)
           }
         }}
-        className={{ root: className?.countdown }}
+        className={{ root: formatter ? className?.countdown : undefined }}
       />
     </CycleProgress>
   )

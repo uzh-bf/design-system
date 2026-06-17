@@ -1,6 +1,7 @@
 import {
   Carousel,
   CarouselContent,
+  CarouselDots,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
@@ -47,6 +48,7 @@ Component Structure:
 - CarouselItem: Individual slide wrapper
 - CarouselPrevious: Previous navigation button
 - CarouselNext: Next navigation button
+- CarouselDots: Optional dot navigation
 
 Usage Examples:
 
@@ -121,6 +123,7 @@ export const Default = () => {
       </CarouselContent>
       <CarouselPrevious />
       <CarouselNext />
+      <CarouselDots />
     </Carousel>
   )
 }
