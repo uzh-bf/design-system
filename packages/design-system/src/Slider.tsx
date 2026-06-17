@@ -1,7 +1,5 @@
 'use client'
 
-import { faLock } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as RadixSlider from '@radix-ui/react-slider'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
@@ -92,10 +90,12 @@ export function Slider({
   data,
   dataThumb,
 }: SliderWithLabelProps | SliderWithIconsProps): React.ReactElement {
-  const steps =
-    min < 0 && max > 0
-      ? ((max - min + 1) / step) >> 0
-      : ((max - min) / step) >> 0
+  const currentValue = value ?? defaultValue
+  const steps = Math.floor((max - min) / step) + 1
+  const hasRangeColorMap =
+    rangeColorMap && Object.keys(rangeColorMap).length === steps
+  const hasBorderColorMap =
+    borderColorMap && Object.keys(borderColorMap).length === steps
 
   return (
     <div>
@@ -105,7 +105,7 @@ export function Slider({
         data-test={data?.test}
         className={twMerge(
           'relative flex w-full items-center select-none',
-          compact ? 'h-4' : 'h-14',
+          compact ? 'h-4' : 'h-[18px]',
           className?.root
         )}
         defaultValue={[defaultValue]}
@@ -118,7 +118,7 @@ export function Slider({
       >
         <RadixSlider.Track
           className={twMerge(
-            'relative h-4 flex-1 rounded-xl bg-gray-200',
+            'relative h-1.5 flex-1 rounded-full bg-[#EFEFEF]',
             compact && 'h-1.5',
             className?.track
           )}
@@ -126,9 +126,11 @@ export function Slider({
           <RadixSlider.Range
             className={twMerge(
               'absolute h-full rounded-full',
-              rangeColorMap && Object.keys(rangeColorMap).length === steps
-                ? rangeColorMap[String(value)]
-                : 'bg-gray-500',
+              disabled
+                ? 'bg-muted-foreground'
+                : hasRangeColorMap
+                  ? rangeColorMap[String(currentValue)]
+                  : 'bg-primary-100',
               className?.range
             )}
           />
@@ -136,35 +138,24 @@ export function Slider({
 
         <RadixSlider.Thumb
           className={twMerge(
-            'flex h-12 w-12 flex-col items-center justify-center rounded-full border-[3px] border-solid bg-white shadow-lg focus:outline-hidden',
-            compact && 'h-4 w-4 border-[1.5px]',
+            'focus:ring-ring/50 flex size-[18px] flex-col items-center justify-center rounded-full border-2 border-solid bg-white shadow-sm transition-[color,box-shadow] focus:ring-[3px] focus:outline-hidden',
+            compact && 'size-4 border-[1.5px]',
             disabled ? 'cursor-not-allowed' : 'cursor-move',
             disabled && compact ? 'bg-gray-100' : 'bg-white',
-            disabled ||
-              !borderColorMap ||
-              Object.keys(borderColorMap).length !== steps
+            disabled
               ? 'border-gray-300'
-              : borderColorMap[String(value)],
+              : hasBorderColorMap
+                ? borderColorMap[String(currentValue)]
+                : 'border-primary-100',
             className?.thumb
           )}
           data-cy={dataThumb?.cy}
           data-test={dataThumb?.test}
-        >
-          {disabled && !compact ? (
-            <FontAwesomeIcon
-              icon={faLock}
-              className={twMerge(
-                'h-5 w-5 text-gray-500',
-                compact && 'h-2.5 w-2.5',
-                className?.lock
-              )}
-            />
-          ) : null}
-        </RadixSlider.Thumb>
+        />
       </RadixSlider.Root>
       <div
         className={twMerge(
-          'grid grid-cols-3 px-2.5 text-3xl',
+          'mt-2 grid grid-cols-3 px-2.5 text-3xl',
           compact && 'px-[0.2rem]',
           className?.labels
         )}

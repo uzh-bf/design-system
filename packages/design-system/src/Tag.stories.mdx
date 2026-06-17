@@ -140,3 +140,17 @@ AI_DOCUMENTATION_END
 export const Default = () => {
   return <Tag label="Default Tag" />
 }
+
+export const Removable = () => {
+  return <Tag label="Banking" removable />
+}
+
+export const Active = () => {
+  return (
+    <div className="flex flex-wrap gap-2">
+      <Tag label="Selected" active />
+      <Tag label="Draft" dashed />
+      <Tag label="Removable" removable />
+    </div>
+  )
+}

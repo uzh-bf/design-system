@@ -254,8 +254,14 @@ Commit:
 ## Progress
 
 - 2026-06-17: Plan committed `450fccb`.
-- 2026-06-17: S0 active. Adding `.gitignore` protection for local designer drop path `UZH DF Design System/`; no designer files staged.
-- Next: verify S0 status, commit `.gitignore` + progress update, then S1 primitives.
+- 2026-06-17: S0 done `d2ca8d1`. `.gitignore` now protects `UZH DF Design System/`; designer drop not staged.
+- 2026-06-17: S1 done locally. Implemented Tag/Kbd/Slider/Countdown structural alignment. Context7 docs checked for Radix Slider (`/websites/radix-ui_primitives`) and `react-countdown` (`/ndresx/react-countdown`). Self-review simplified Countdown minute math and kept Slider API-compatible.
+- S1 verification:
+  - `./node_modules/.bin/prettier --write src/Tag.tsx src/Tag.stories.mdx src/ui/kbd.tsx src/Slider.tsx src/Countdown.tsx src/Countdown.stories.mdx`: exit 0 for TS files; MDX files ignored by current Prettier config.
+  - `pnpm --dir packages/design-system build:tsc`: exit 0.
+  - `pnpm --dir packages/design-system build:ladle`: exit 0.
+  - `PWTEST_SKIP_BUILD=1 ./node_modules/.bin/playwright test tests/smoke/stories.spec.ts --grep "tag--|kbd--|slider--|countdown--"`: 32 passed, 0 failed. Ran escalated against local Ladle preview because sandbox cannot bind/reach local server and Playwright config's `pnpm exec ladle preview` hits pnpm registry-signature/network check.
+- Next: Commit S1, then S2 progress/carousel.
 
 ## Next Steps
 
