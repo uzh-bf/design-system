@@ -277,7 +277,15 @@ Commit:
   - `pnpm --dir packages/design-system build:ladle`: exit 0.
   - `PWTEST_SKIP_BUILD=1 ./node_modules/.bin/playwright test tests/smoke/stories.spec.ts --grep "sidebar--|breadcrumb--|pagination--|dropdown--|shadcn-dropdown--|context-menu--|shadcn-menubar--|navigation-menu--|navigation--(active|button|combined-trigger|complex|disabled|dropdown|icon-trigger|nested-menu|notification-trigger)"`: 34 passed, 0 failed.
   - Same grep against `tests/a11y/stories.spec.ts`: 52 passed, 0 failed across neutral + uzh themes.
-- Next: Commit S3, then S4 overlays/dialog/disclosure.
+- 2026-06-17: S3 committed `a8c7bc1`.
+- 2026-06-17: S4 done locally. Aligned Popover/HoverCard surfaces, Dialog/Modal/AlertDialog panel metrics, close target, title/description typography, and Accordion divider-row structure. Tooltip verified only; current dark 12px surface already matches. Context7 quota was exhausted during S4, so no Radix composition changes were made; edits were className-only around existing wrappers.
+- S4 verification:
+  - `./node_modules/.bin/prettier --write src/Modal.tsx src/ui/popover.tsx src/ui/hover-card.tsx src/ui/dialog.tsx src/ui/alert-dialog.tsx src/ui/accordion.tsx`: exit 0.
+  - `pnpm --dir packages/design-system build:tsc`: exit 0.
+  - `pnpm --dir packages/design-system build:ladle`: exit 0.
+  - `PWTEST_SKIP_BUILD=1 ./node_modules/.bin/playwright test tests/smoke/stories.spec.ts --grep "popover--|hover-card--|modal--|alert-dialog--|accordion--|tooltip--"`: 25 passed, 0 failed.
+  - Same grep against `tests/a11y/stories.spec.ts`: 38 passed, 0 failed across neutral + uzh themes.
+- Next: Commit S4, then S5 advanced inputs.
 
 ## Next Steps
 

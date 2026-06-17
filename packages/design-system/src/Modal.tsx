@@ -206,7 +206,7 @@ export function Modal({
               'max-h-[calc(100%-2rem)] overflow-y-auto',
               fullScreen
                 ? 'h-full max-h-[calc(100%-2rem)] w-full max-w-[calc(100%-2rem)]'
-                : 'h-max w-108 max-w-7xl md:w-160 lg:w-220 xl:w-280',
+                : 'h-max w-[calc(100%-2rem)] max-w-[520px]',
               className?.content
             )}
           >
@@ -224,7 +224,7 @@ export function Modal({
             <div className="h-max">{children}</div>
             <DialogFooter
               className={twMerge(
-                'mt-3 flex h-max gap-2 sm:flex-row sm:justify-end sm:gap-0',
+                'mt-3 flex h-max gap-2 sm:flex-row sm:justify-end',
                 typeof onSecondaryAction === 'undefined' &&
                   typeof onPrimaryAction !== 'undefined'
                   ? 'sm:justify-end'
