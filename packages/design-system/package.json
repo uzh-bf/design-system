@@ -1,6 +1,13 @@
 {
   "name": "@uzh-bf/design-system",
   "version": "5.0.0-alpha.1",
+  "description": "React component library for University of Zurich web applications: shadcn/Radix-based primitives with UZH-aligned composites and a neutral/uzh dual theme.",
+  "homepage": "https://github.com/uzh-bf/design-system#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uzh-bf/design-system.git",
+    "directory": "packages/design-system"
+  },
   "main": "dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
@@ -21,7 +28,8 @@
     "./package.json": "./package.json"
   },
   "files": [
-    "dist"
+    "dist",
+    "MIGRATION.md"
   ],
   "dependencies": {
     "@hookform/resolvers": "5.1.1",

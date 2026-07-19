@@ -1,30 +1,101 @@
-# React + TypeScript + Vite
+# @uzh-bf/design-system
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React component library for University of Zurich web applications, maintained by
+the IT dev-ops team at the Teaching Center of the Department of Finance (UZH). It
+pairs shadcn/Radix-based primitives with UZH-aligned composite components and a
+dual-theme system: a de-branded `neutral` default plus the UZH corporate-design
+`uzh` theme.
 
-Currently, two official plugins are available:
+> **v5 is a prerelease** (`5.0.0-alpha.x`, published on the npm `alpha` dist-tag);
+> the stable line stays on `4.x`. Upgrading from v4? Read
+> [`MIGRATION.md`](./MIGRATION.md) first — v5 has breaking changes, including how
+> styles are delivered.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Install
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json', './tsconfig.app.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```bash
+pnpm add @uzh-bf/design-system@alpha
+# or: npm install @uzh-bf/design-system@alpha
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Runtime libraries are declared as **peer dependencies**, so your app provides
+them (`react`, `react-dom`, `formik`, `dayjs`, `lucide-react`,
+`class-variance-authority`, `clsx`, `tailwind-merge`, the `@fortawesome/*`
+packages, and the Tailwind toolchain). Your package manager reports any that are
+missing.
+
+## Prerequisites
+
+- **React 19** (`react`/`react-dom` `^19.1.0`).
+- **Tailwind CSS 4** in the consuming app.
+
+## Required: import the styles
+
+Components ship their styling as one precompiled stylesheet. Import it once — in
+your app entry or root stylesheet — or components render unstyled:
+
+```ts
+import '@uzh-bf/design-system/css'
+```
+
+```css
+/* …or from your root stylesheet */
+@import '@uzh-bf/design-system/css';
+```
+
+This stylesheet already contains the design system's utility classes, theme
+tokens, and component styles, so you do **not** need to point Tailwind's
+`@source` at the package. `@uzh-bf/design-system/preflight.css` is exported
+separately if you need the base/reset layer on its own.
+
+> **Upgrading from v4?** If you previously generated the styles by scanning the
+> package source with `@source ".../node_modules/@uzh-bf/design-system/src"`,
+> that path is no longer shipped — replace it with the `/css` import above. See
+> [CSS delivery](./MIGRATION.md#breaking-change-css-delivery) in the migration
+> guide.
+
+## Theming
+
+Components support two themes, selected by a `data-theme` attribute:
+
+- **`neutral`** (default) — de-branded, active on `:root` with no setup.
+- **`uzh`** — the UZH corporate-design theme (UZH blue/red, Source Sans 3).
+
+Switching is a pure CSS-variable cascade (no JS engine). Set the theme on the
+document root:
+
+```html
+<html data-theme="uzh"></html>
+```
+
+…or wrap a subtree with the provider — use it when you want an in-app toggle via
+`useTheme`:
+
+```tsx
+import { ThemeProvider } from '@uzh-bf/design-system'
+;<ThemeProvider theme="uzh">{children}</ThemeProvider>
+```
+
+Document-root theming is the supported and verified mode in v5. See
+[`MIGRATION.md`](./MIGRATION.md) for the theming model and its current
+limitations.
+
+## Usage
+
+```tsx
+import { Button } from '@uzh-bf/design-system'
+import { FormikTextField } from '@uzh-bf/design-system/forms'
+```
+
+| Entry                                 | Contents                                                      |
+| ------------------------------------- | ------------------------------------------------------------- |
+| `@uzh-bf/design-system`               | Components plus the `ThemeProvider` / `useTheme` theming API. |
+| `@uzh-bf/design-system/forms`         | Formik-integrated field wrappers.                             |
+| `@uzh-bf/design-system/css`           | Precompiled stylesheet (import once — see above).             |
+| `@uzh-bf/design-system/preflight.css` | Base/reset layer on its own.                                  |
+
+## Documentation
+
+Component stories, props, and examples live in the
+[repository](https://github.com/uzh-bf/design-system) (Ladle) and are indexed for
+Context7 at <https://context7.com/uzh-bf/design-system>.
