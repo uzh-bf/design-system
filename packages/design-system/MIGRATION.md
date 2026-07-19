@@ -109,15 +109,18 @@ Use the provider when you want an in-app theme toggle via `useTheme`.
 
 ## Fonts
 
-The design system now `@import`s its webfonts (Source Sans 3 for `uzh`, JetBrains
-Mono for monospace) from Google Fonts inside `tailwind.css`. No per-app font setup
-is required. `neutral` uses the system font stack for its sans face.
+The design system **self-hosts** its webfonts (Source Sans 3 for `uzh`, JetBrains
+Mono for monospace). They ship inside the package as `.woff2` files that the
+precompiled stylesheet references (`@uzh-bf/design-system/dist/fonts/*.woff2`), so
+importing `@uzh-bf/design-system/css` is all the font setup an app needs — there
+is **no runtime request to Google Fonts**. `neutral` uses the system font stack
+for its sans face, so an app on the default theme downloads no webfonts at all.
 
-> **CSP / privacy note.** The import fetches from `fonts.googleapis.com` /
-> `fonts.gstatic.com` at runtime. Apps with a strict Content-Security-Policy must
-> allow `style-src`/`font-src` for those hosts, or the fonts silently fall back.
-> For GDPR-sensitive deployments that cannot send user IPs to Google, self-host
-> the two families and drop the `@import` (tracked as a follow-up).
+> **CSP / privacy.** Because the fonts are served from your own origin (bundled
+> with the package) there is nothing to allow-list for `fonts.googleapis.com` /
+> `fonts.gstatic.com`, and no user IP is sent to Google. Your bundler resolves the
+> `.woff2` files from the imported stylesheet like any other asset; the browser
+> fetches only the weight/subset a page actually renders (`unicode-range`).
 
 ## New component props & variants
 
