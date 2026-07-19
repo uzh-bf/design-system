@@ -1,0 +1,264 @@
+# v5 API Consolidation — Three-Layer Exports + Forms Strategy
+
+Caveman-form plan. Converge the duplicate public API surface while breaking is
+still free (v5 pre-GA), and set the forms direction — **without building RHF
+yet** (klicker still on Formik).
+
+## Plan identity
+
+- Plan: `project/2026-07-19-v5-api-consolidation-plan.md`
+- Branch: `v5-api-consolidation` (off `v5`) — created 2026-07-19.
+- Target: `v5`
+- Related: roadmap `project/2026-07-18-v5-production-readiness-roadmap.md`;
+  PR [#180](https://github.com/uzh-bf/design-system/pull/180) on
+  `v5-p0-release-safety` → **merge into `v5` first (recommended), then fork this
+  branch off the updated `v5`** so no rebase/stack.
+- Resolves/extends roadmap items: D3 (COMP-5), COMP-6, COMP-8, ARCH-4, TEST-10,
+  Forms 2.0 future item.
+
+## Goal
+
+Promote ONE public API per widget family and one coherent export shape, decided
+by real consumer evidence, before v5 GA locks the surface. Set the forms
+direction (RHF-first, Formik managed-deprecation) in docs; defer all RHF build.
+
+## Non-goals (Phase 1 / this plan)
+
+- Building the RHF turnkey field family — **deferred to Phase 2, post-GA v5.x**
+  (user: "first we don't focus on RHF … klicker is still formik for now").
+- Removing Formik — that is **v6**. v5 keeps Formik, frozen + `@deprecated`.
+- Fixing Formik bugs — frozen (FE2).
+- Migrating any consumer off Formik (apps upgrade on their own schedule — FE7).
+- Back-compat shims / deprecation-aliases to soften the break — **explicitly
+  not wanted** (FE7). Clean rename + removal; the break is documented, not padded.
+- `file-upload` (net-new component, later).
+- Non-exports/-forms roadmap items (D1/D2/D4/D5, A11Y batch, ARCH-3 bundle
+  surgery, etc.).
+
+## Decisions (locked 2026-07-19 grill; FE = forms/exports)
+
+| ID | Decision | Ruling |
+| --- | --- | --- |
+| FE1 | Forms strategy | RHF first-class (Phase 2); Formik frozen + `@deprecated` in v5, **removed in v6** — RHF the only default then. |
+| FE2 | Formik scope | Freeze hard — no bug fixes, no new wrappers. Live dual-mode/`setTouched` defects stay; documented in the migration doc, not fixed. |
+| FE3 | RHF API shape | Turnkey `Rhf*Field` config-prop wrappers (props mirror Formik; `control` via `useFormContext`); shadcn `Form`/`FormField` seam = compositional escape hatch. |
+| FE4 | RHF packaging | `react-hook-form` → optional `peerDependency` (single deduped instance; no bundle for non-forms consumers). Done in Phase 1 — it is breaking, so pre-GA. |
+| FE5 | Exports shape | **Two doors, clean:** root `.` = the custom composites (natural names, **all kept** — FE8); new `./primitives` = raw shadcn under natural names (+ 7 unexported, fixes COMP-8). **Remove** the `Shadcn*` prefix (raw moves to `./primitives`) and **remove** `./ui` + `./forms` subpaths. No aliases. |
+| FE6 | Timing vs GA | All breaking parts land in v5 GA (`Shadcn*` removal → `./primitives`, `./ui`+`./forms` removal, dep→peer, Formik `@deprecated`, `sideEffects:['*.css']`); additive RHF field family fast-follows post-GA. |
+| FE7 | **Break policy** | v5 is a hard breaking release. **No backward-compat shims, no deprecation-aliases held to soften the break.** Consumers that lack migration time simply don't upgrade. The one hard requirement: **every breaking change is documented cleanly in a dedicated migration/breaking-changes doc** (S7). |
+| FE8 | **Keep custom composites** | Do **not** drop any custom composite in v5 (incl. `Table`, `Menubar`, `Field*`), even at 0 consumers — they carry deliberate design. Pure reorg: no component removed, only the `Shadcn*` prefix and the `./ui`/`./forms` subpaths go. Revisit dropping in v6. |
+
+## Research grounding (facts behind the decisions)
+
+- **Consumer audit (6 repos, 2026-07-19).** Subpath split earns nothing: root
+  `.` used everywhere, `./forms` = 0 imports, `./ui` = 2 (vet-platform only,
+  both names in root). `Shadcn*` is NOT v5-only (verified in 4.1.6 dist).
+  Per-family: **Table** 100% raw `ShadcnTable*` (klicker 10 + gbl 10; custom
+  `Table` never imported); **Progress** (11) / **Dropdown** (9) 100% custom;
+  **Collapsible** split 2 custom / 3 raw; **Menubar** 0. **Label**: `FormLabel`
+  dominant (klicker 22), `Field*` = 0. **Forms**: Formik dominant (klicker 88,
+  thesis 19), RHF emerging (careers, demo-game — vendored their own glue).
+- **Exports probe.** 116 `'use client'` directives (commit `d82f36d`, branch
+  `client-component-support`) = the real App Router support, correctly targeted
+  → **keep untouched**. Subpath split undocumented (`8ec4032`) + not RSC (client
+  boundary is per-file, not per-barrel). `sideEffects` field missing (ARCH-4)
+  but each entry imports `tailwind.css` (load-bearing) → carve-out mandatory.
+- **Formik probe.** 10 wrappers, modern `useField` (no legacy APIs). Live bugs
+  (frozen per FE2): Text/Number/Textarea dual-mode "works without Formik" still
+  calls `useField(name||'')` → throws without a `<Formik>` ancestor;
+  `FormikNumberField` writes `setTouched(true)` for field `''`; `FormikPinField`
+  has no raw counterpart; error render copy-pasted per field with drift. Gaps:
+  `Checkbox`/`RadioGroup`/`Slider`/`Combobox`/`MultiSelect`/`DateRangePicker`
+  have no Formik wrapper; `file-upload` absent entirely.
+- **RHF probe.** RHF already a hard `dependency`; shadcn `Form`/`FormField`/
+  `FormControl` binding already shipped + exported (`src/ui/form.tsx` →
+  `src/Form.tsx`) + documented in Storybook as "the DS's react-hook-form
+  binding". Raw field primitives already controlled/agnostic → `Rhf*Field` is a
+  mechanical port (`useField`→`useController`), no primitive changes.
+
+## Skill routing
+
+- `$rs-sliced-development-workflow` (this). Per-slice: review subagent
+  (`droid glm-5.2` first for independent review, native pr-review-toolkit
+  fallback) + separate simplify subagent + `$verification-before-completion`.
+- Finish gates: `$security-review` (low surface — packaging/exports/docs),
+  `$thermo-nuclear-code-quality-review`, PR via `$rs-mr-description-writer`.
+- ADR candidates (pass the 3-part test → create on plan commit under
+  `docs/adr/`): two-door canonical exports (+ `Shadcn*`/`./ui`/`./forms`
+  removal); RHF-first forms strategy with v6 Formik removal. Plan references the
+  ADR IDs; rationale lives in the ADRs.
+
+## Phase 1 — Exports + packaging convergence (breaking; v5 GA) — THIS plan
+
+Tracer-bullet slices; each a thin, independently reviewable, verifiable path.
+Every slice that removes/renames a public name feeds the S7 breaking-changes doc.
+
+### S1 — `./primitives` door (COMP-8, FE5)
+
+- Do: new `src/primitives.ts` barrel re-exporting the raw `src/ui/*` shadcn
+  primitives under natural names — the full set, including the 7 currently
+  unexported (`button-group`, `empty`, `field`, `input-group`, `item`, `kbd`,
+  `spinner`) and the 6 families currently reached via `Shadcn*` (`table`,
+  `dropdown-menu`, `progress`, `collapsible`, `label`, `menubar`). Add
+  `./primitives` to `package.json` `exports`, `vite.config.ts` `build.entry`,
+  and `typesVersions`.
+- Check: `pnpm build` emits `dist/primitives.js`; **no TS2308 duplicate-export
+  collision** inside the barrel (enumerate + de-collide if any); a scratch
+  consumer resolves `import { Table } from '@uzh-bf/design-system/primitives'`
+  to the raw shadcn Table; the 7 previously-unexported primitives now resolve.
+- Commit: `build(exports): add ./primitives entrypoint for raw shadcn primitives`.
+
+### S2 — Remove the `Shadcn*` prefix; keep every custom composite (FE5, FE7, FE8, D3)
+
+- Do: delete the `src/Shadcn*.tsx` re-export shims so the `Shadcn*` prefix is
+  gone from root. Raw shadcn now lives in `./primitives` (S1). **Every custom
+  composite stays at root under its natural name — nothing custom is dropped**
+  (FE8: design investment). The only removals are the prefix aliases.
+- Per-family (root `.` keeps the custom composite; raw is in `./primitives`):
+
+  | Family | Root `.` | `./primitives` |
+  | --- | --- | --- |
+  | Table | custom `Table` (kept) | raw `Table*` |
+  | Progress | custom `Progress` | raw `Progress` |
+  | DropdownMenu | custom | raw |
+  | Collapsible | custom (D-COLLAPSE → custom) | raw |
+  | Label | custom `FormLabel` + `Field*` (kept) | raw `Label` |
+  | Menubar | custom (kept) | raw |
+
+- Consumer impact (verified 2026-07-19): klicker + gbl reach tables **only via
+  the raw `ShadcnTable*`** (klicker `DataTable` + ~6 components; `ShadcnTableCell`
+  30× in one file; **0** custom-`Table` imports). They migrate the raw table
+  import to `./primitives` (S7 documents it). The custom `Table` at root is
+  untouched but is not what they use today.
+- Check: `pnpm check` (tsc) clean, **no TS2308** at root; grep confirms zero
+  `Shadcn` identifiers remain in `src/index.ts`; custom composites still resolve
+  at root, raw at `./primitives`.
+- Commit: `refactor(exports)!: remove Shadcn* prefix, raw shadcn moves to ./primitives`.
+
+### S3 — Remove `./ui` and `./forms` subpaths (FE5, FE7)
+
+- Do: delete both subpaths from `package.json` `exports`, `vite.config.ts`
+  `build.entry`, `typesVersions`; delete `src/ui.ts` and `src/forms.ts` barrels.
+  Root `.` + `./primitives` (+ existing `./css`) are the only doors. Forms
+  components stay exported from root. (`./forms` = 0 imports; `./ui` = 2
+  vet-platform sites that break by design → S7 documents the swap to root.)
+- Check: `./ui` and `./forms` specifiers no longer resolve; root still exports
+  every forms component + `Button`/`Badge`; `npm pack --dry-run` clean.
+- Commit: `build(exports)!: remove ./ui and ./forms subpaths`.
+
+### S4 — `sideEffects: ["*.css"]` (ARCH-4)
+
+- Do: add `"sideEffects": ["*.css"]` to `package.json` so JS tree-shakes while
+  the load-bearing `tailwind.css` side-effect import is never dropped.
+- Check: build clean; a scratch consumer importing a single component does not
+  pull the whole barrel (spot-check chunk), and the CSS import survives (guard
+  against the CONS-6 class of failure).
+- Commit: `build(deps): add sideEffects css carve-out for tree-shaking`.
+
+### S5 — `react-hook-form` → optional peer (FE4)
+
+- Do: move `react-hook-form` (and `@hookform/resolvers` if consumer-facing) from
+  `dependencies` to `peerDependencies` + `peerDependenciesMeta.optional: true`.
+  Devinstall RHF so the repo build/Ladle still resolve it.
+- Check: build + `build:ladle` clean; `Form`/`FormField` binding still compiles;
+  `npm pack --dry-run` no longer bundles RHF; break recorded in S7 doc.
+- Commit: `build(deps)!: react-hook-form → optional peerDependency`.
+
+### S6 — Formik freeze markers (FE1, FE2)
+
+- Do: add `@deprecated` JSDoc to each of the 10 `Formik*Field` wrappers — text
+  states Formik support is frozen and **removed in v6**, points at the S7
+  migration doc and the RHF path (`Form`/`FormField` today; turnkey `Rhf*Field`
+  in v5.x). No behavior change; bugs stay frozen.
+- Check: tsc clean; deprecation strikethrough shows in editor; every
+  `Formik*Field` still resolves and renders unchanged.
+- Commit: `refactor(forms): mark Formik fields @deprecated toward v6 removal`.
+
+### S7 — Breaking-changes doc + integration (FE7 — the hard requirement)
+
+- Do: author a dedicated, exhaustive v5 breaking-changes / migration doc (extend
+  `packages/design-system/MIGRATION.md` with a complete `## v5` section, or a
+  `BREAKING_CHANGES.md` if cleaner). It must list **every** break from S1–S6 with
+  before→after: `Shadcn*` name removals → the `./primitives` raw name (per-family
+  map, incl. the `ShadcnTable*` → `./primitives` migration klicker/gbl need),
+  `./ui` and `./forms` removal (+ the root/`./primitives` replacement for each),
+  RHF dep→peer (install note), Formik deprecation + v6 removal timeline, and the
+  new `./primitives` door. Nothing custom is dropped (FE8). Update README
+  pointers. Regenerate `dist` types; final `npm pack --dry-run` +
+  exports-resolution check for `.`/`./primitives`/`./css`.
+- Check: every removed/renamed public identifier from S1–S6 appears in the doc
+  with a migration line (cross-check against the S2/S3 diffs); doc renders;
+  pack ships expected files; scratch consumer resolves all live subpaths.
+- Commit: `docs(design-system): document all v5 breaking changes and migration`.
+
+## Phase 2 — RHF field family (additive; post-GA v5.x) — DEFERRED (own plan later)
+
+Outline only; not built in Phase 1 per user sequencing.
+
+- B1 — shared field chrome: extract `FieldError` + label/tooltip core (COMP-14),
+  fixing the per-field copy-paste drift and giving gap primitives real chrome.
+- B2 — tracer `RhfTextField`/`RhfNumberField`/`RhfSelectField` (matches careers'
+  live need); prove the turnkey pattern + migration story.
+- B3 — RHF parity with the remaining Formik-equivalent types.
+- B4 — RHF gap fields: `Checkbox`/`RadioGroup`/`Slider`/`Combobox`/`MultiSelect`/
+  `DateRange` (built as agnostic-primitive + `Rhf*Field`, not new Formik).
+- B5 — Formik `@deprecated` markers + migration guide (`FormikXField`→`RhfXField`
+  near-1:1 prop map) — only once B2–B4 give a real target.
+- Consumer-side (separate): klicker Formik→RHF migration.
+
+## Resolved by rulings
+
+| ID | Question | Resolution |
+| --- | --- | --- |
+| F-a | `./ui` fate | **Removed** (S3). vet-platform's 2 sites break by design → S7 documents the swap to root. |
+| F-b | `dep→peer` timing | **Phase 1** (S5) — breaking, so lands in the GA break. |
+| F-c | Formik `@deprecated` timing | **Phase 1** (S6) — v6 removal locked; points at S7 doc + RHF path. |
+| D-COLLAPSE | Collapsible root canonical | **Custom** at root, raw in `./primitives` (FE8). |
+| D-TABLE-DROP | Drop custom `Table`? | **No — keep it** (FE8). NB: audit shows klicker/gbl use raw `ShadcnTable*`, **0** custom-`Table` imports — so custom `Table` is kept on principle but is currently unused; the raw table is what they migrate to `./primitives`. |
+
+## Risks
+
+- Breaking exports are clean removals now → the ONLY safety net is the S7 doc.
+  If a removed/renamed identifier is missing from it, a consumer breaks silently
+  on upgrade with no migration line. S7 completeness is cross-checked vs the
+  S2/S3 diffs — treat that gate as blocking.
+- `dep→peer`: the DS `Form` binding then needs a consumer RHF install; ~0 known
+  consumers use it (gbl vendored, careers hand-rolls), but document in S7.
+- `sideEffects` without the `["*.css"]` carve-out drops CSS (CONS-6 class) — the
+  carve-out is mandatory, not optional.
+- `./primitives` barrel could collide on duplicate export names across `ui/*`
+  files → S1 must enumerate + de-collide.
+
+## Verification
+
+- Per slice: `pnpm check` (tsc), `format:check`, `build`, `build:ladle`,
+  `npm pack --dry-run` + a scratch-consumer exports-resolution probe.
+- Finish gate: full build + pack; resolve `.`/`./primitives`/`./css` from a
+  throwaway consumer; **S7 breaking-changes-doc completeness cross-check** vs the
+  removed/renamed identifiers; `$security-review`;
+  `$thermo-nuclear-code-quality-review`; PR via `$rs-mr-description-writer`
+  (whole-branch, draft by default).
+
+## Progress
+
+- 2026-07-19: plan written from the decision-mapping grill, then revised for the
+  user's no-back-compat ruling (FE7): clean rename/removal instead of
+  deprecation-aliases, `Shadcn*`/`./ui`/`./forms` removed outright, Formik
+  `@deprecated` + `dep→peer` pulled into Phase 1, Formik removal set to v6, and a
+  mandatory S7 breaking-changes doc added as the one hard requirement.
+- 2026-07-19 (later): FE8 added — keep ALL custom composites (user ruling:
+  design investment; don't drop in v5). S2 reframed to `Shadcn*` prefix removal
+  only (nothing custom dropped); D-COLLAPSE + D-TABLE-DROP resolved (keep).
+  Verified klicker uses raw `ShadcnTable*` (klicker `DataTable` + ~6 components,
+  **0** custom-`Table` imports) — custom `Table` kept on principle, but the real
+  klicker break is the raw table moving to `./primitives`.
+- 2026-07-19 PR #180: finish-gate review found + fixed a dist-tag guard hole
+  (prerelease id `latest` could clobber stable); fix pushed, PR marked ready,
+  CI watched → merge into `v5` on green. Then fork `v5-api-consolidation` off
+  updated `v5`, commit this plan first, then S1 (pending final go).
+- 2026-07-19 (exec start): #180 merged into `v5` (merge commit `4305c86`, guard
+  fix `e546fa2` inside). Forked `v5-api-consolidation` off `origin/v5`; the
+  roadmap D3 edit + this plan traveled clean. Committing this plan first, then
+  the roadmap edit separately, then S1 in the reviewed-slice loop. Standing
+  rulings: S6 npm release HELD; no fonts in the public repo; agy delegation OFF
+  (main-agent impl, native subagents review).
