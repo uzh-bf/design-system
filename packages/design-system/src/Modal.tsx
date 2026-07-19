@@ -248,7 +248,7 @@ export function Modal({
                 <Button
                   primary={primaryButtonStyle === 'primary'}
                   destructive={primaryButtonStyle === 'destructive'}
-                  primaryType={primaryType}
+                  type={primaryType}
                   className={{ root: className?.primary }}
                   onClick={onPrimaryAction}
                   disabled={primaryDisabled}
