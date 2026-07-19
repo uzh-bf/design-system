@@ -15,14 +15,6 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./ui": {
-      "types": "./dist/ui.d.ts",
-      "import": "./dist/ui.js"
-    },
-    "./forms": {
-      "types": "./dist/forms.d.ts",
-      "import": "./dist/forms.js"
-    },
     "./primitives": {
       "types": "./dist/primitives.d.ts",
       "import": "./dist/primitives.js"
@@ -155,12 +147,6 @@
   "type": "module",
   "typesVersions": {
     "*": {
-      "ui": [
-        "dist/ui.d.ts"
-      ],
-      "forms": [
-        "dist/forms.d.ts"
-      ],
       "primitives": [
         "dist/primitives.d.ts"
       ],
