@@ -24,7 +24,7 @@ export interface CycleProgressProps {
  * @param size - Size of the progress bar, can be 'sm' or 'md'
  * @param overrideSize - If size adjustments of the relative placement are required due to font changes, this value can be used to override the circle size
  * @param percentage - Percentage of the progress bar (0-100)
- * @param color - Color of the progress bar (static for the moment)
+ * @param color - Color of the progress arc; defaults to the theme primary token (`var(--primary)`), so it follows the active theme and dark mode
  * @param strokeWidthRem - Width of the progress bar. For small size, a smaller value is recommended
  * @param children - Content of the progress bar, displayed in the center
  * @param data - Optional data object that can be used for testing (e.g. data-test or data-cy)
@@ -35,7 +35,7 @@ export function CycleProgress({
   size = 'md',
   overrideSize,
   percentage,
-  color = 'var(--color-primary-100, #0028A5)',
+  color = 'var(--primary)',
   strokeWidthRem,
   children,
   data,
@@ -79,7 +79,7 @@ export function CycleProgress({
           cx={diameter / 2}
           cy={diameter / 2}
           fill="transparent"
-          stroke="#EFEFEF"
+          stroke="var(--border)"
           strokeWidth={strokeWidth}
         />
         <circle
@@ -97,7 +97,7 @@ export function CycleProgress({
       </svg>
       <div
         className={twMerge(
-          'absolute inset-0 flex flex-col items-center justify-center bg-transparent text-center font-mono text-xl leading-none font-bold text-[#111111]',
+          'text-foreground absolute inset-0 flex flex-col items-center justify-center bg-transparent text-center font-mono text-xl leading-none font-bold',
           size === 'sm' && 'text-base',
           size === 'lg' && 'text-2xl',
           className?.children
@@ -106,7 +106,7 @@ export function CycleProgress({
         {children ?? (
           <>
             <span>{Math.round(clampedPercentage)}%</span>
-            <span className="mt-1 font-sans text-[11px] leading-none font-normal text-[#A3A3A3]">
+            <span className="text-muted-foreground mt-1 font-sans text-[11px] leading-none font-normal">
               complete
             </span>
           </>
