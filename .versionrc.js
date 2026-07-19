@@ -57,26 +57,24 @@ module.exports = {
       section: 'Other',
     },
   ],
+  // ARCH-2: `@uzh-bf/design-system` is the only actively released package and
+  // owns the version source of truth. standard-version READS the current
+  // version from (`packageFiles`) and WRITES the bump to (`bumpFiles`) the
+  // design-system package alone. The private monorepo root (frozen at 4.x) and
+  // the 7 frozen legacy packages are intentionally excluded so a release can
+  // never downgrade design-system to the root version or force-bump the legacy
+  // packages. The default tag-prefix `v` keeps the `v<version>` tag convention,
+  // which the CI publish guard asserts against the design-system version.
   packageFiles: [
     {
-      filename: `package.json`,
+      filename: `packages/design-system/package.json`,
       type: 'json',
     },
   ],
   bumpFiles: [
-    '',
-    'packages/design-system/',
-    'packages/header-custom-element/',
-    'packages/header-react/',
-    'packages/tag-custom-element/',
-    'packages/tag-react/',
-    'packages/parcel-config-design-system/',
-    'packages/parcel-resolver-preact/',
-    'packages/tailwind-config-design-system/',
-  ].reduce((acc, path) => {
-    return acc.concat({
-      filename: `${path}package.json`,
+    {
+      filename: `packages/design-system/package.json`,
       type: 'json',
-    })
-  }, []),
+    },
+  ],
 }
