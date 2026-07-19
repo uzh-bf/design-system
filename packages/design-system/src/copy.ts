@@ -84,4 +84,6 @@ if (extracted !== expected) {
       `ship design-system.css with megabytes of base64-inlined fonts.`
   )
 }
-console.log(`[copy] extracted ${extracted}/${expected} inlined fonts + licences`)
+console.log(
+  `[copy] extracted ${extracted}/${expected} inlined fonts + licences`
+)
