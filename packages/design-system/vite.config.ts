@@ -53,6 +53,7 @@ export default defineConfig({
               path.resolve(__dirname, 'src/index.ts'),
               path.resolve(__dirname, 'src/forms.ts'),
               path.resolve(__dirname, 'src/ui.ts'),
+              path.resolve(__dirname, 'src/primitives.ts'),
             ],
             formats: ['es'],
           },

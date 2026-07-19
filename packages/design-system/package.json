@@ -23,6 +23,10 @@
       "types": "./dist/forms.d.ts",
       "import": "./dist/forms.js"
     },
+    "./primitives": {
+      "types": "./dist/primitives.d.ts",
+      "import": "./dist/primitives.js"
+    },
     "./css": "./dist/design-system.css",
     "./preflight.css": "./dist/preflight.css",
     "./package.json": "./package.json"
@@ -156,6 +160,9 @@
       ],
       "forms": [
         "dist/forms.d.ts"
+      ],
+      "primitives": [
+        "dist/primitives.d.ts"
       ],
       "*": [
         "dist/index.d.ts"
