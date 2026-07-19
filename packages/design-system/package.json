@@ -72,7 +72,7 @@
     "recharts": "2.15.3",
     "sonner": "1.7.3",
     "vaul": "1.1.2",
-    "zod": "3.25.72"
+    "zod": "^3.25.72"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.11.3",
@@ -101,7 +101,8 @@
     "tsx": "4.20.3",
     "typescript": "5.8.3",
     "vite": "6.3.5",
-    "vite-plugin-dts": "4.5.4"
+    "vite-plugin-dts": "4.5.4",
+    "yup": "^1.6.1"
   },
   "peerDependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
@@ -119,10 +120,7 @@
     "react-dom": "^19.1.0",
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "^4.1.11",
-    "tailwindcss-animate": "^1.0.7",
-    "tailwindcss-radix": "^4.0.2",
-    "tw-animate-css": "^1.3.4",
-    "yup": "^1.6.1"
+    "tw-animate-css": "^1.3.4"
   },
   "scripts": {
     "build": "run-s build:tsc build:vite build:copy",
