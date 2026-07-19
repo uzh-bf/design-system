@@ -262,3 +262,27 @@ Outline only; not built in Phase 1 per user sequencing.
   the roadmap edit separately, then S1 in the reviewed-slice loop. Standing
   rulings: S6 npm release HELD; no fonts in the public repo; agy delegation OFF
   (main-agent impl, native subagents review).
+- 2026-07-19 S1 DONE (commit `175da43`): added `src/primitives.ts` re-exporting
+  every raw `src/ui/*` primitive under natural names; `./primitives` wired into
+  `package.json` `exports` + `typesVersions` and vite `build.entry`. Take-over
+  review: barrel complete + exact (53 disk files ↔ 53 re-exports, no gap, no
+  dangling), `tsc` clean.
+- 2026-07-19 S2 committed by a resumed session (commit `96b59b4`): removed the 6
+  `src/Shadcn*.tsx` shims + their stories; every custom composite kept at root.
+  Take-over review found TWO defects the commit missed (both pass `tsc`/`pnpm
+  build`, so uncaught): (1) **public-API leak** — `src/Form.tsx` still re-exported
+  `FormLabel as ShadcnFormLabel`, so the root barrel still shipped a `Shadcn*`
+  name (violates FE5); (2) **5 story files** (Popover/RadioGroup/Sheet/Sidebar/
+  Form) still imported the deleted `./ShadcnLabel` / `./ShadcnDropdown` → would
+  break `build:ladle` + the Playwright suite. Fixes applied on disk: dropped the
+  `ShadcnFormLabel` re-export (raw form label now only via `./primitives`);
+  repointed stories to raw `Label` / `DropdownMenu*` from `./ui/*` and `FormLabel`
+  from `./ui/form`. Both are new v5 breaks for the S7 doc (ShadcnFormLabel
+  removal; raw-name story imports). Verification DONE: grep shows no `./Shadcn*`
+  broken imports (only internal `<Shadcn*>` `./ui/*` aliases remain, expected);
+  `pnpm build` ✓ (types/ regenerated — `types/index.d.ts` −2 / `types/ui.d.ts`
+  −3 drop `ShadcnFormLabel`); `build:ladle` ✓ (all stories resolve). Fixes
+  folded into S2 via `git commit --amend` → S2 is now `57a0776` (was `96b59b4`).
+- S7 follow-up (doc slice): several `*.stories.mdx` still carry stale PROSE
+  referencing removed `Shadcn*` names ("distinct from the ShadcnTable component",
+  "ShadcnProgress: Basic …"). Not build-breaking; clean up in the migration doc.
