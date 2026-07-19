@@ -113,11 +113,14 @@
   --sidebar-accent: var(--color-uzh-blue-20);
   --sidebar-accent-foreground: var(--color-uzh-blue-100);
 
-  /* UZH chart palette */
+  /* UZH chart palette — CD accent hues (blue, cyan, apple, gold, berry).
+     chart-2/3/4 reuse the status accent tokens (Cyan/Apple/Gold) so the
+     categorical series stays on the official palette instead of the legacy
+     turqoise/lightgreen/yellow families. */
   --chart-1: var(--color-uzh-blue-100);
-  --chart-2: var(--color-uzh-turqoise-100);
-  --chart-3: var(--color-uzh-lightgreen-100);
-  --chart-4: var(--color-uzh-yellow-100);
+  --chart-2: var(--theme-info);
+  --chart-3: var(--theme-success);
+  --chart-4: var(--theme-warning);
   --chart-5: var(--color-uzh-berry-100);
 }
 

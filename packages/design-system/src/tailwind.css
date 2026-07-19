@@ -1,12 +1,11 @@
 @layer theme, base, components, utilities;
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import './fonts.css';
 @import 'tailwindcss/preflight.css' layer(base);
 @import 'tailwindcss/theme.css' layer(theme);
 @import 'tailwindcss/utilities.css' layer(utilities);
 
 @import 'tw-animate-css';
 @import './themes.css';
-@plugin 'tailwindcss-animate';
 @plugin '@tailwindcss/typography';
 @plugin '@tailwindcss/forms';
 

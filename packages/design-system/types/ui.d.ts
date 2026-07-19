@@ -759,7 +759,7 @@ export declare interface CycleCountdownProps {
  * @param size - Size of the progress bar, can be 'sm' or 'md'
  * @param overrideSize - If size adjustments of the relative placement are required due to font changes, this value can be used to override the circle size
  * @param percentage - Percentage of the progress bar (0-100)
- * @param color - Color of the progress bar (static for the moment)
+ * @param color - Color of the progress arc; defaults to the theme primary token (`var(--primary)`), so it follows the active theme and dark mode
  * @param strokeWidthRem - Width of the progress bar. For small size, a smaller value is recommended
  * @param children - Content of the progress bar, displayed in the center
  * @param data - Optional data object that can be used for testing (e.g. data-test or data-cy)

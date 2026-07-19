@@ -1,10 +1,9 @@
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
-<link
-  href="https://fonts.googleapis.com/css2?family=Source+Sans+3&display=swap"
-  rel="stylesheet"
-/>
-
+<!-- Fonts are self-hosted by the design system itself (src/fonts.css, loaded via
+     tailwind.css), so the Ladle preview no longer fetches them from Google —
+     keeping the story/VRT environment deterministic and offline-capable.
+     NOTE (follow-up): the block below is legacy v4 scaffolding — the orange
+     --theme-color-primary tokens and the removed --theme-font-primary override
+     predate the v5 dual-theme system and should be revisited separately. -->
 <style>
   :root {
     --theme-color-primary: #dc6027;

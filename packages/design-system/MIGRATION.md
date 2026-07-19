@@ -10,6 +10,49 @@ themes, selected by a `data-theme` attribute:
 Both themes share one set of components; only the CSS custom properties differ.
 There is no JS theme engine — switching is a pure CSS-variable cascade.
 
+## Breaking change: CSS delivery
+
+v5 delivers component styles as a single **precompiled stylesheet** that you must
+import. Earlier setups relied on the consuming app's Tailwind build scanning the
+package source; v5 no longer ships that source, and the theme layer no longer
+exposes the old font-injection variables. Existing apps render **unstyled** after
+upgrading until they make the following three changes.
+
+1. **Import the compiled stylesheet** once, in your app entry or root CSS:
+
+   ```ts
+   import '@uzh-bf/design-system/css'
+   ```
+
+   ```css
+   /* …or from your root stylesheet */
+   @import '@uzh-bf/design-system/css';
+   ```
+
+2. **Remove any `@source` scan of the package source.** v5 ships `dist` only, so
+   a rule such as
+
+   ```css
+   @source "../node_modules/@uzh-bf/design-system/src";
+   ```
+
+   now points at a path that no longer exists — delete it. The stylesheet from
+   step 1 already contains the design system's utility classes and tokens.
+
+3. **Remove references to the removed font variables.** v5 dropped the
+   `--theme-font-primary` / `--source-sans-pro` injection points. If your app
+   referenced them, e.g.
+
+   ```css
+   @theme {
+     --font-sans: var(--theme-font-primary);
+   }
+   ```
+
+   remove those references. v5 supplies its own fonts through the theme layer
+   (`uzh` uses Source Sans 3, `neutral` uses the system font stack) — see
+   [Fonts](#fonts).
+
 ## Breaking change: UZH apps must opt in
 
 In v4 the design system was UZH-branded by default. In v5 the default is
@@ -33,8 +76,25 @@ export function App({ children }) {
 ```
 
 Anything inside a `data-theme="uzh"` container (set directly or via
-`ThemeProvider`) resolves its tokens against the UZH theme. Nesting is allowed:
-a `uzh` subtree inside a `neutral` page works, and vice versa.
+`ThemeProvider`) resolves its tokens against the UZH theme.
+
+> **Supported scope in v5: document-root theming.** Setting one theme on the
+> document root (`<html data-theme="…">`) is the supported, verified mode. Mixed
+> or nested theming has known limitations: a `neutral` subtree inside a `uzh`
+> page does not fully reset, and Radix overlays that portal to `document.body`
+> (dialogs, dropdown/context menus, hover cards, tooltips) render outside a
+> `ThemeProvider` wrapper and resolve the document-root theme. Keep a single root
+> theme unless you have verified a specific nested case.
+
+## Peer dependencies
+
+v5 no longer bundles its runtime libraries — every one is declared as a **peer
+dependency** and must be installed by your app (`react`, `react-dom`, `formik`,
+`dayjs`, `lucide-react`, `class-variance-authority`, `clsx`, `tailwind-merge`,
+the `@fortawesome/*` packages, and the Tailwind toolchain). v4 inlined some of
+these, so an app that never installed them explicitly may now surface unmet-peer
+warnings — install the missing ones. As a side effect this removes the duplicate
+`react-dom` copy that v4 shipped inside its chunks.
 
 ## New exports
 
@@ -49,15 +109,18 @@ Use the provider when you want an in-app theme toggle via `useTheme`.
 
 ## Fonts
 
-The design system now `@import`s its webfonts (Source Sans 3 for `uzh`, JetBrains
-Mono for monospace) from Google Fonts inside `tailwind.css`. No per-app font setup
-is required. `neutral` uses the system font stack for its sans face.
+The design system **self-hosts** its webfonts (Source Sans 3 for `uzh`, JetBrains
+Mono for monospace). They ship inside the package as `.woff2` files that the
+precompiled stylesheet references (`@uzh-bf/design-system/dist/fonts/*.woff2`), so
+importing `@uzh-bf/design-system/css` is all the font setup an app needs — there
+is **no runtime request to Google Fonts**. `neutral` uses the system font stack
+for its sans face, so an app on the default theme downloads no webfonts at all.
 
-> **CSP / privacy note.** The import fetches from `fonts.googleapis.com` /
-> `fonts.gstatic.com` at runtime. Apps with a strict Content-Security-Policy must
-> allow `style-src`/`font-src` for those hosts, or the fonts silently fall back.
-> For GDPR-sensitive deployments that cannot send user IPs to Google, self-host
-> the two families and drop the `@import` (tracked as a follow-up).
+> **CSP / privacy.** Because the fonts are served from your own origin (bundled
+> with the package) there is nothing to allow-list for `fonts.googleapis.com` /
+> `fonts.gstatic.com`, and no user IP is sent to Google. Your bundler resolves the
+> `.woff2` files from the imported stylesheet like any other asset; the browser
+> fetches only the weight/subset a page actually renders (`unicode-range`).
 
 ## New component props & variants
 

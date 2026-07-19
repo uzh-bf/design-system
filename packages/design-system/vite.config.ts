@@ -1,5 +1,6 @@
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react-swc'
+import { readFileSync } from 'node:fs'
 import path from 'path'
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
@@ -8,6 +9,19 @@ import dts from 'vite-plugin-dts'
 const isLadle =
   process.env.LADLE === 'true' ||
   process.argv.some((arg) => arg.includes('ladle'))
+
+// Externalize every declared peer dependency and its subpaths (ARCH-9).
+// Plain-string externals like ['react', 'formik'] did NOT cover subpaths, so
+// react-dom AND react/jsx-runtime were bundled into the library chunks — a
+// second react-dom copy per consumer (version-skew hazard) plus dead weight
+// from every other peer. Deriving the list from package.json keeps it in sync:
+// peers are provided by the consumer and must never be inlined.
+const pkg = JSON.parse(
+  readFileSync(path.resolve(__dirname, 'package.json'), 'utf-8')
+)
+const peerDependencies = Object.keys(pkg.peerDependencies ?? {})
+const isExternal = (id: string) =>
+  peerDependencies.some((dep) => id === dep || id.startsWith(`${dep}/`))
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -43,7 +57,7 @@ export default defineConfig({
             formats: ['es'],
           },
           rollupOptions: {
-            external: ['react', 'formik'],
+            external: isExternal,
             output: {
               sourcemapExcludeSources: true,
             },
