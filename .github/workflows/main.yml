@@ -114,17 +114,47 @@ jobs:
         working-directory: packages/design-system
         run: pnpm run build
 
+      # Release guard (ARCH-1): only version tags (v<semver>) publish, the git
+      # tag must match the design-system package version, and the npm dist-tag
+      # is derived from the prerelease id so a prerelease (e.g. v5.0.0-alpha.2)
+      # can never overwrite the `latest` tag. Without this, a tag push defaulted
+      # to publishing onto `latest`, clobbering the stable release.
+      - name: Resolve npm dist-tag and verify tag matches package version
+        id: release_meta
+        if: startsWith(github.ref, 'refs/tags/v')
+        working-directory: packages/design-system
+        run: |
+          PKG_VERSION="$(node -p "require('./package.json').version")"
+          GIT_TAG="${GITHUB_REF_NAME#v}"
+          if [ "$PKG_VERSION" != "$GIT_TAG" ]; then
+            echo "::error::Git tag '${GITHUB_REF_NAME}' does not match packages/design-system version '${PKG_VERSION}'. Refusing to publish."
+            exit 1
+          fi
+          # Strip build metadata (everything after '+') before inspecting the
+          # prerelease, so a '+build' suffix can never be misread as a dist-tag.
+          VERSION_CORE="${PKG_VERSION%%+*}"
+          if [[ "$VERSION_CORE" == *-* ]]; then
+            PRERELEASE="${VERSION_CORE#*-}"   # e.g. alpha.2
+            DIST_TAG="${PRERELEASE%%.*}"      # e.g. alpha
+          else
+            DIST_TAG="latest"
+          fi
+          echo "dist_tag=${DIST_TAG}" >> "$GITHUB_OUTPUT"
+          echo "Publishing ${PKG_VERSION} to npm dist-tag '${DIST_TAG}'"
+
       - uses: JS-DevTools/npm-publish@v3
+        if: startsWith(github.ref, 'refs/tags/v')
         with:
           token: ${{ secrets.NPM_TOKEN }}
           access: public
+          tag: ${{ steps.release_meta.outputs.dist_tag }}
           package: packages/design-system/package.json
-        if: startsWith(github.ref, 'refs/tags/')
 
       - uses: JS-DevTools/npm-publish@v3
+        if: startsWith(github.ref, 'refs/tags/v')
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           registry: https://npm.pkg.github.com
           access: public
+          tag: ${{ steps.release_meta.outputs.dist_tag }}
           package: packages/design-system/package.json
-        if: startsWith(github.ref, 'refs/tags/')
