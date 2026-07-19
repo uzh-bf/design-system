@@ -136,6 +136,13 @@ jobs:
           if [[ "$VERSION_CORE" == *-* ]]; then
             PRERELEASE="${VERSION_CORE#*-}"   # e.g. alpha.2
             DIST_TAG="${PRERELEASE%%.*}"      # e.g. alpha
+            # A prerelease whose id is literally 'latest' (e.g. 5.0.0-latest.1)
+            # would otherwise resolve DIST_TAG=latest and clobber the stable tag
+            # this guard exists to protect. Reject the reserved value outright.
+            if [ "$DIST_TAG" = "latest" ]; then
+              echo "::error::Prerelease id resolves to the reserved dist-tag 'latest'. Refusing to publish."
+              exit 1
+            fi
           else
             DIST_TAG="latest"
           fi
