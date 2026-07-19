@@ -1,0 +1,231 @@
+# DS v5 Production Readiness — Review Findings + Roadmap
+
+Date: 2026-07-18. Branch: `v5`. Published: `@uzh-bf/design-system@5.0.0-alpha.1` (npm `alpha` dist-tag; `latest` = 4.1.6).
+
+Source: 6 parallel Opus review agents (architecture/packaging, components/API, theming/UZH-CD, testing/docs, consumer readiness, accessibility), reconciled by the main agent. Load-bearing claims spot-verified in code (Modal bug, README states, npm dist-tags via `npm view` + `npm pack --dry-run`, contrast ratios computed from actual token values).
+
+Additional inputs (2026-07-18, same day):
+- **External engineer review** (Standards 4 + Spec 4 findings + 3 recommended decisions) — every substantive claim re-verified in code before integration; all confirmed. Integrated as ARCH-9, CONS-6/7, THEME-11/12, COMP-8 upgrade, CONS-3 extension, decisions D8–D10.
+- **Official CD portal** (https://www.cd.uzh.ch/de/elements.html): confirms palette = corporate UZH-Blau + 5 accent colors, each in 6 shades ("fünf Akzentfarben und fünfundzwanzig Abstufungen"; grey reserved for backgrounds, black/white for logo/type) → THEME-1/THEME-3 legacy-family findings are authoritative, not reconstruction-based. Corporate font named "Source Sans Pro" (Source Sans 3 = its renamed successor — fine, note in docs). The heading-weight 600 rule (THEME-2/D2) comes from frontend.uzh.ch Styleguide, not cd.uzh.ch; the portal itself carries no web type-scale, so D2 remains a frontend-styleguide conformance question. Also relevant: "UZH-Organisationseinheiten und UZH-Projekte führen keine eigenen Logos" — feeds D8 (Klicker branding is app-local color, not a logo, but CD-compliance of a non-UZH primary should be part of the D8 ruling).
+
+## Overall verdict
+
+**Alpha is healthy. GA is not close yet.** The architecture is right: shadcn/radix primitives in `ui/`, own composite framework on top, dual theme (`neutral`/`uzh`) via pure CSS-variable cascade, additive-only v4→v5 export surface (klicker-uzh's real usage compiles unchanged). What blocks GA is not the design — it is release-engineering landmines, a silent functional bug, an incomplete UZH-CD conformance pass, absent quality gates (VRT, a11y in CI), Level-A accessibility failures in core widgets, and the fact that **no consumer has completed a real v5 migration**.
+
+Per-axis verdicts:
+
+| Axis | Verdict |
+| --- | --- |
+| Architecture / packaging / release | NOT GA-ready. 2 critical release landmines; 84% tarball bloat from mis-chunked barrels. |
+| Components / API / TS | NOT GA-ready. 1 real silent bug (Modal); systemic typing loophole; no ref forwarding; 3 testid conventions; duplicate APIs. |
+| Theming / UZH CD | Neutral theme ready; UZH theme NOT (chart palette off-CD, heading weight 700 vs CD 600, legacy swatches public). Architecture itself is the strongest part of v5. |
+| Testing / docs / DX | NOT a hard gate yet. Smoke gate real+blocking; VRT = plan only (zero code); a11y suite built but pulled from CI (296 findings untriaged); npm package README = Vite boilerplate. |
+| Consumer readiness | Better than feared: export surface 100% additive, F1–F4 confirmed fixed. Blockers: unverified tree-shaking, stale satellite packages, no completed migration. |
+| Accessibility | NOT ready for public-sector WCAG 2.1/2.2 AA (eCH-0059). Level-A failures in Table, Checkbox, forms error pattern, Navigation; uzh badge contrast fails AA (measured). |
+
+## Findings register
+
+Severity: C = Critical, H = High, M = Medium, L = Low. Evidence spot-checked where marked ✓.
+
+### Release engineering + architecture (ARCH)
+
+| ID | Sev | Finding | Evidence | Action |
+| --- | --- | --- | --- | --- |
+| ARCH-1 | C | CI publish fires on ANY tag push with no `tag:` input on `JS-DevTools/npm-publish@v3` → next tag push publishes current package state onto npm `latest`, clobbering 4.1.6. Never fired only because both alphas were published manually. | `.github/workflows/main.yml:117-130` | Add explicit `tag:` input derived from ref/prerelease id; restrict trigger to version-tag pattern; assert tag ↔ package version match. Do BEFORE any next tag. |
+| ARCH-2 | C | `standard-version` flow reads current version from root `package.json` (4.1.6) and would overwrite `packages/design-system` `5.0.0-alpha.1` down to a 4.x number, plus force-bump 7 frozen legacy packages. | `.versionrc.js:60,66-77`; root `package.json:4` | Bring root version into lockstep or give design-system its own bump path; drop legacy packages from `bumpFiles`. |
+| ARCH-3 | H | Two mis-chunked mega-bundles ≈84% of tarball: `dist/Switch-*.js` 886 kB + `dist/Workflow-*.js` 993 kB (+1.58 MB maps). Cause: monolithic barrels (`index.ts` 92 `export *`, `ui.ts` 68) force recharts/react-day-picker/embla/cmdk into shared chunks; zero dynamic imports. | `src/index.ts`, `src/ui.ts`, `vite.config.ts`, verified `npm pack --dry-run` | Restructure chunking (`preserveModules` or `manualChunks`), keep heavy deps (Chart, date pickers) out of the main graph; decide `.map` shipping. |
+| ARCH-4 | H | No `"sideEffects"` field → webpack-class bundlers assume side effects, defeating tree-shaking of the barrel architecture. | `packages/design-system/package.json` | Add accurate `sideEffects` (CSS files true, JS false). |
+| ARCH-5 | M | Tracked `types/` dir = committed build output, manually regenerated per release for designer-docs; unreferenced by package.json. | `packages/design-system/types/`, commits `32feb2d` etc. | Untrack + gitignore; point designer-docs at published `dist/*.d.ts`. |
+| ARCH-6 | M | 7 legacy packages (header/tag react+custom-element, parcel-*, tailwind-config) frozen at 4.1.6, React 18/Tailwind 3, no lint/check/test scripts → turbo/CI silently no-op green on them. No usage in klicker/gbl (grep-verified); only possible consumer = tc/elearning git submodule. | `packages/*/package.json` | Decide: deprecate/archive (recommended) or migrate. Remove from `.versionrc` either way. |
+| ARCH-7 | M | `zod` exact-pinned 3.25.72 as hard dependency (latest 4.4.3) → dual-major risk in consumer trees. | `packages/design-system/package.json:67` | Upgrade to v4 or move to peer with wide range. |
+| ARCH-8 | L | Inert tooling: syncpack config points at non-existent paths + never in CI; size-limit installed with no config/script (exactly the tool that would catch ARCH-3); dead `@tailwindcss/aspect-ratio` devDep; redundant root `workspaces` field. | `syncpack.config.js`, root `package.json:22,24,49` | Wire syncpack + size-limit into CI; drop dead dep + field. |
+| ARCH-9 | C | ✓ (ext. review) Build externalizes ONLY `['react', 'formik']` — `react-dom` AND `react/jsx-runtime` (subpath not covered by plain-string external) are bundled into the published chunks. Verified: react-dom markers + jsxs implementations present in `dist/Switch-*.js`/`dist/Workflow-*.js`. Ships a second react-dom copy to every consumer (version-skew hazard, dead weight); partial root cause of ARCH-3 chunk sizes. | `vite.config.ts:46`; grep of `dist/*.js` | Externalize all peers incl. subpaths (regex or function external: react, react-dom, react/jsx-runtime, react-dom/*, formik, tailwindcss…); rebuild + re-verify chunk contents. Ship in next alpha. |
+
+### Components / API / TypeScript (COMP)
+
+| ID | Sev | Finding | Evidence | Action |
+| --- | --- | --- | --- | --- |
+| COMP-1 | C | ✓ Modal primary button ignores `type` prop: passes `primaryType={primaryType}` to Button (correct: `type=`; secondary at :237 is right). `primaryType="submit"` silently never submits. Compiles because ButtonProps has `[x: string]: unknown`. | `src/Modal.tsx:251` vs `:237` | Fix to `type={primaryType}`; ship in next alpha. |
+| COMP-2 | H | `[x: string]: unknown` index signatures in 10 files / 15 occurrences (Button, Workflow, Progress, Navigation, 6 forms files) — the loophole that hid COMP-1. | e.g. `src/Button.tsx:31` | Replace with `React.ComponentProps<'...'>` extension; remove catch-alls. |
+| COMP-3 | H | Ref forwarding essentially absent from composite layer (1 of ~37 substantive composites); Table invents bespoke `forwardedRef` prop. Blocks imperative focus + ref-based form libs. | `src/Table.tsx:48,82,92`; composites generally | React 19 `ref`-as-prop on Button, fields, Select/Combobox triggers; drop Table's custom prop. |
+| COMP-4 | H | 3+ incompatible testid conventions (`data`, `dataAttributes`, per-element `dataX`); ~40 composites incl. Workflow expose none — undercuts a stated framework value-add. | `src/Table.tsx:35`, Modal, ColorPicker et al. | Standardize `data?: {cy?, test?}` per interactive element; retrofit Table + Workflow first. |
+| COMP-5 | H | Duplicate public APIs per widget family with no decision rule: `Dropdown`/`ShadcnDropdown`, `Progress`/`ShadcnProgress`, `Table`/`ShadcnTable`, 3 parallel label systems (`FormLabel`, `ShadcnLabel`, new `Field*`); `Shadcn` implementation detail leaks into public names. | `src/Dropdown.tsx`, `src/ShadcnDropdown.tsx`, … | Pick one API per family or document the rule; rename/alias `Shadcn*` before GA (breaking later). |
+| COMP-6 | M | New `Field*` family exported but unused — forms still on bespoke `FormLabel`; missed consolidation. | `src/Field.tsx`, `src/forms/*` | Decide direction (see D3); either migrate forms onto `Field*` or unexport. |
+| COMP-7 | M | `TableProps<RowType>` generic constraint lies: declared `extends {className?}`, implementation requires `Record<string, string\|number\|boolean>`. | `src/Table.tsx:8,33,74` | Align exported constraint with real one. |
+| COMP-8 | H | ✓ (upgraded per ext. review) `./ui` subpath does NOT export `src/ui/` primitives: `ui.ts` re-exports DF composites (`Button`, `Accordion`, …) plus `Shadcn*` aliases, and omits all 7 new ui components (`button-group`, `empty`, `field`, `input-group`, `item`, `kbd`, `spinner` — grep-verified 0 matches each). Contradicts the dual-barrel convention; imports unpredictable. | `src/ui.ts:3` vs `src/index.ts:11` | Adopt three-layer exports (D3): root = DF wrappers/composites, `./primitives` = shadcn-derived primitives, `./forms` = integrations. |
+| COMP-9 | M | Workflow hardcodes `bg-green-600`/`bg-red-200` etc. — bypasses semantic tokens, breaks dual theme for one component. | `src/Workflow.tsx:~233-240` | Route through success/destructive tokens. |
+| COMP-10 | M | ColorPicker reinvents popover: manual outside-click (`any` type), no portal, no Escape, no focus trap. | `src/ColorPicker.tsx:64-80` | Rebuild on `ui/popover` (also closes A11Y-8). |
+| COMP-11 | M | Button = 6-boolean prop soup over ui/button's clean cva variant union; contrast with good discriminated unions in Select/TextField/Dropdown. | `src/Button.tsx:9-32,74-82` | Consider variant-prop API for GA (breaking; bundle with COMP-5 decision). |
+| COMP-12 | L | `original/` (46 files) = unshipped pristine shadcn snapshot for upstream diffing, undocumented + stale (7 newer ui/ components missing). NOT v4 legacy. | `src/original/`, `eslint.config.mjs:25` | Document purpose + refresh policy, or delete. |
+| COMP-13 | L | `yup` peer dep never imported; `dayjs` (peer) + `date-fns` (dep) both used in same component family. | package.json; `src/DatetimePicker.tsx` | Drop yup peer; converge on one date lib long-term. |
+| COMP-14 | L | Combobox/MultiSelect near-duplicate implementations. | `src/Combobox.tsx`, `src/MultiSelect.tsx` | Extract shared core when convenient. |
+
+### Theming / UZH CD (THEME)
+
+| ID | Sev | Finding | Evidence | Action |
+| --- | --- | --- | --- | --- |
+| THEME-1 | H | uzh chart palette: `--chart-2/3/4` still legacy pre-2025 hues (`uzh-turqoise/lightgreen/yellow`) — not in official 6-family CD palette. Remediation plan R6 "done" claim inaccurate (only chart-1/5 correct). | `src/themes.css:117-121` | Repoint at `--theme-info/success/warning` (Cyan/Apple/Gold). |
+| THEME-2 | H | Headings use `font-bold` (700); official Frontend Styleguide mandates Semibold 600 for all web headings and disallows 700. Font `@import` also ships disallowed 300+700 weights. | `src/Header.tsx:32,57,82,107`; `src/tailwind.css:2` | Decision D2: conform (recommended) or document deliberate divergence. |
+| THEME-3 | H | 6 legacy non-CD `--color-uzh-*` families (grey, red, yellow, lightgreen, darkgreen, turqoise) still public at parity with correct families — off-brand trap for consumers; chart palette is a live victim. | `src/tailwind.css:51-92` | Deprecate/remove after THEME-1 lands. |
+| THEME-4 | H | Primary mid-ladder `blue-40/60/80` = mechanical white-fade, not official Blue Shade 2/3/4. Known deferred (audit S-2), still open; visible in Workflow/Switch/disabled states. | `src/tailwind.css:47-49` | Decision D5: adopt official chromatic ladder or accept + document. |
+| THEME-5 | M | `tailwindcss-radix` required peer dep, never loaded anywhere — same class as fixed F-bugs; forces useless install on consumers. | package.json peers vs `src/tailwind.css` plugins | Drop the peer. |
+| THEME-6 | M | Both `tw-animate-css` AND `tailwindcss-animate` active — alternatives, not complements; duplicate keyframes in 205 kB CSS; ambiguity for new components. | `src/tailwind.css:7,9` | Keep `tw-animate-css` (Tailwind-v4-native), drop the plugin. |
+| THEME-7 | M | Google Fonts runtime `@import` — CSP/GDPR issue, self-flagged in MIGRATION.md, unresolved. | `src/tailwind.css:2` | Self-host Source Sans 3 (VRT plan already requires it for determinism — do once). |
+| THEME-8 | M | No consumer rebrand/extension docs despite the `--theme-*` override architecture working; no css-import snippet; Tailwind-4 prerequisite stated nowhere in prose. | README/MIGRATION gaps | Write theming guide (~15 lines + example). |
+| THEME-9 | M | Toast (sonner) reads dark mode from `next-themes` hook — third undocumented theming mechanism; won't track DS `.dark` class. | `src/ui/sonner.tsx:3,8` | Wire to DS mechanism or document requirement. |
+| THEME-10 | L | Bare-ring fallback tokens point at static blue-500 (theme-unaware trap); `--theme-*` header comment inaccurate for `--primary`/`--ring`/`--sidebar-*`; ColorPicker preset colors non-CD (known deferred); shadow scale narrowed vs plan without reconciliation. | `src/tailwind.css:202-203`; `src/themes.css:98-114` | Batch as hygiene. |
+| THEME-11 | H | ✓ (ext. review, browser-verified by reviewer; mechanism code-confirmed) Scoped/nested theming broken both directions: (a) `ThemeProvider` sets `data-theme` on an inline wrapper `<div>` — Radix portalled overlays (hover-card, dialogs, dropdowns) render to `document.body`, escape the subtree, resolve neutral tokens inside a uzh subtree; (b) neutral-inside-uzh fails because the uzh block redeclares `--primary`/`--destructive`/`--ring`/`--sidebar-*` directly with no neutral reset (same mechanism as THEME-10 comment nit — now known to break, not a nit). | `src/ThemeProvider.tsx:57`; `src/themes.css:98-114` | D9: declare document-root theming (`<html data-theme>`) the ONLY supported v5 mode; document limitation; defer scoped mixed-theme portals unless an app needs it (then: portal-container wiring). |
+| THEME-12 | H | ✓ (ext. review; all code-confirmed) Theme-layer bypasses beyond COMP-9: `CycleProgress` default `color = 'var(--color-primary-100, #0028A5)'` (raw generated var — reviewer saw orange ring in uzh); `Toast` hardcodes `#7ca023` (+ siblings per type); `ui/calendar` hardcodes `border-[#E0E0E0] bg-white text-[#111111]`; `ui/alert-dialog` hardcodes `border-[#E0E0E0] bg-white`. Breaks neutral theme + dark mode for these components. | `src/CycleProgress.tsx:38`; `src/Toast.tsx:25,31`; `src/ui/calendar.tsx:36`; `src/ui/alert-dialog.tsx:57` | Sweep slice: route all four through semantic tokens; add grep-based guard (no raw hex / `bg-white` in components) to lint or CI. |
+
+### Testing / docs / DX (TEST)
+
+| ID | Sev | Finding | Evidence | Action |
+| --- | --- | --- | --- | --- |
+| TEST-1 | C | ✓ Published package README = unmodified Vite scaffold — that is the npmjs.com landing page (npm always includes README regardless of `files`). Repo-root README is good but doesn't ship. | `packages/design-system/README.md` | Replace with consumer-facing README (adapt root README theming section). |
+| TEST-2 | C | MIGRATION.md not in published tarball (`files: ["dist"]`) — upgrading consumers never see it. | `packages/design-system/package.json:23-25` | Add to `files` or fold into package README. |
+| TEST-3 | H | Visual regression: fully designed plan, ZERO implementation (no `tests/visual/`, no Dockerfile, no baselines). Only visual QA evidence = 18 manual PNGs. Two themes × 90 stories unprotected. | `project/2026-06-15-ladle-visual-regression-testing-plan.md:110-111` | Execute plan V1–V2 (Docker determinism + curated 15-component baseline) pre-GA. |
+| TEST-4 | H | a11y axe sweep (708 cases, both themes) built and working but removed from CI after 296 findings; `ALLOWLIST=[]`, triage backlog untouched → a11y regressions ship silently. | `tests/a11y/stories.spec.ts:16`; `main.yml:84`; a11y plan lines 122-146 | Re-add report-only now; triage (button-name/label/nested-interactive almost certainly real — overlaps A11Y findings); flip to blocking. |
+| TEST-5 | H | ESLint globalIgnores `**/ui` — 53 actively-edited files (half the implementation surface) have zero lint coverage (tsc still covers types). | `eslint.config.mjs:19-26` | Narrow ignore to `**/original`; fix resulting warnings once. |
+| TEST-6 | M | Doc drift confirmed on flagship Button: `size`/`asChild` props absent from stories + AI_DOCUMENTATION block (= Context7 source) — invisible to AI-assisted consumers. Sample finding, likely systemic. | `src/Button.tsx:14,20` vs `src/Button.stories.mdx:30-127` | Add size story + doc parity check idea (prop names substring-matched in story file). |
+| TEST-7 | M | CHANGELOG has zero v5 entries despite two published alphas; release scripts never run for v5 line. | `CHANGELOG.md` | Run `release:alpha` flow after ARCH-2 fix. |
+| TEST-8 | M | CI build/publish job needs only `[check-ts, test]` — lint/format failures don't block publish; no pre-commit hooks; no size tripwire. | `main.yml:98` | Add lint+format to needs; wire size-limit (ARCH-8). |
+| TEST-9 | L | `pnpm test` runs smoke+a11y (16+ min) while CI gate = `test:smoke` only — undocumented split; no CONTRIBUTING.md. Actions not SHA-pinned; no Playwright browser cache (both in plan, not started). | root scripts; workflows | Document script split; batch CI hardening. |
+| TEST-10 | L | 5 `Shadcn*`-prefixed stories document raw primitives, not public API; Menubar has no themed story. | `src/Shadcn*.stories.mdx` | Fold into COMP-5 API consolidation. |
+
+### Consumer readiness (CONS)
+
+| ID | Sev | Finding | Evidence | Action |
+| --- | --- | --- | --- | --- |
+| CONS-1 | H | Tree-shaking unverified: no bundle-analyzer run anywhere; heavy libs are hard deps inside the mega-chunks; consumer DCE ability unknown. | `vite.config.ts`; dist inspection | Throwaway Next app importing only Button vs published alpha; measure. Gate for GA. |
+| CONS-2 | H | No downstream app completed a v5 migration. gbl attempt parked `[DO-NOT-MERGE]` (`m2-v5-preview`, needed `transpilePackages` + manual React dedupe alias — pre-F1-fix, likely stale); klicker (React 19.1.2, DS 4.1.6, top imports all still exported) hasn't started. | gbl commits `02aacd1a`, `79f9c8d3` | Pilot: re-run gbl preview against published alpha.1; then full klicker migration before GA. |
+| CONS-3 | M | MIGRATION.md misses real behavior diffs: Button `fluid` sizing change, `bg-white`→`bg-background` — Button = klicker's #1 import (158×). New-exports table missing ~10 components. | Button.tsx main↔v5 diff | Systematic component-by-component diff pass for MIGRATION.md. |
+| CONS-4 | M | No shadcn-registry distribution (`npx shadcn add`) — components.json is internal CLI config only. Implicit gap given "shadcn-based" framing. | `components.json` | Decision D6; candidate future work, not GA blocker. |
+| CONS-5 | L | gbl-uzh/apps/website 2 majors behind (React 18, TW 3, DS v3-alpha) — multi-hop prerequisite, out of v5 scope. Root CHANGELOG silent on alphas (=TEST-7). | gbl package.json | Track in gbl planning, not here. |
+| CONS-6 | C | ✓ (ext. review) CSS delivery breaks EXISTING consumers on upgrade: klicker scans `@source "../node_modules/@uzh-bf/design-system/src"` — a path v5 no longer ships → DS utility classes never generated → unstyled components. Klicker's `@theme` also references `var(--theme-font-primary)`/`var(--source-sans-pro)` — injection points REMOVED in v5 (dual-theme plan deferred this to "S6 migration docs" that were never written). Compiled JS entries do not import the CSS; neither MIGRATION.md nor any README documents the required `import '@uzh-bf/design-system/css'`. My consumer-review missed this: it verified JS exports only, not style delivery. | klicker `apps/frontend-manage/src/globals.css:11,20`; `packages/design-system/MIGRATION.md` (no css-import instruction) | P0: document CSS migration (drop `@source` of src, add `/css` import or `@source` of dist, replace removed font vars) in MIGRATION.md + package README; make it a headline breaking change. |
+| CONS-7 | H | ✓ (ext. review) Klicker's brand contract has no supported v5 path: designer material fixes Klicker primary = app-local sky blue `rgb(124, 184, 228)`, NOT UZH blue (override via `.text-primary` rule in klicker globals today); v5 components now consume the full themed primary ramp, so an ad-hoc single-class override no longer works. | `UZH DF Design System/ui_kits/klicker/README.md:11` | D8: define a supported brand-token profile/override contract (redeclare `--theme-color-primary*` ramp) and ship it as part of the THEME-8 rebrand guide, with klicker as the acceptance case. Prerequisite for CONS-2b. |
+
+### Accessibility (A11Y) — WCAG 2.1/2.2 AA target, eCH-0059 context
+
+| ID | Sev | Finding | Evidence | Action |
+| --- | --- | --- | --- | --- |
+| A11Y-1 | C | Table sort = `onClick` on bare `<th>`: no keyboard access, no `aria-sort`, no `scope="col"`, icon-only signal. Level A fail in core admin widget. | `src/Table.tsx:198-231` | Real `<button>` in `<th>` + `aria-sort` + `scope`. |
+| A11Y-2 | C | Checkbox `label` prop renders unassociated `<div>` — no accessible name, label click doesn't toggle. Switch does it right → inconsistency bug. | `src/Checkbox.tsx:112-123` | Wire `htmlFor`/`FormLabel` like Switch. |
+| A11Y-3 | C | Forms error pattern: error text lives only in tooltip on icon; no `aria-describedby` from input; 4 of 7 fields don't even pass `ariaLabel` → unnamed focusable button. NumberField/DatePicker do pass it → inconsistent, fixable. Repeats in 7 files. | `forms/TextField.tsx:242-253` et al. | Central fix: stable-id error element + `aria-describedby`; add missing `ariaLabel`s. |
+| A11Y-4 | C | Navigation icon-only items: prop types expose NO aria-label field, no ARIA passthrough — consumer cannot name them at all. API gap. | `src/Navigation.tsx:47-52,210-213` | Add `ariaLabel` to icon-only prop types. |
+| A11Y-5 | C | uzh badge solid fills fail AA text contrast (measured): success 3.04:1, info 2.85:1, warning 2.75:1 (need 4.5:1). Neutral theme passes (5.4–7.9:1) → uzh-specific token defect. Brand-correct hues, wrong pairings. | `src/ui/badge.tsx:24-27`; themes.css tokens | Decision D4: re-derive fg/bg pairs (darken fills or dark text). |
+| A11Y-6 | H | Workflow step = `<div onClick>`; keyboard reach only accidental via tooltip-button bubbling; no `aria-current="step"`. | `src/Workflow.tsx:214-249` | Real button/tabIndex+keydown + `aria-current`. |
+| A11Y-7 | H | StepProgress: completed/incorrect/partial steps render icon-only button — accessible name lost once status set. | `src/StepProgress.tsx:19-37` | Keep number as sr-only text + status label. |
+| A11Y-8 | H | ColorPicker: no aria-expanded/haspopup, no Escape close, no focus management, unnamed swatch buttons, unlinked hex label. | `src/ColorPicker.tsx:132-266` | Same fix as COMP-10 (rebuild on Popover). |
+| A11Y-9 | H | `required` renders visual `*` only — never reaches `<Input>` as `required`/`aria-required`. And label↔input association silently breaks when optional `id` omitted. | forms/TextField et al.; `Label.tsx:72-132` | Forward required; derive id from `name` fallback. |
+| A11Y-10 | M | No `prefers-reduced-motion` anywhere (grep-verified zero) — skeleton shimmer, accordion, carousel, toasts, all `--animate-*` unconditional. | `src/tailwind.css:206-214` | Token-layer motion-reduce handling. |
+| A11Y-11 | M | Live-region gaps: Countdown (no `role="timer"`, color-only low-time warning — exam context!), UserNotification (no `role="alert"` unlike ui/alert), Spinner (`role="status"` with no name; stories claim `aria-label` that code lacks), Button loading (no aria-busy). | respective files | Batch live-region pass. |
+| A11Y-12 | M | uzh Alert icon non-text contrast: success 2.71:1, info 2.48:1 (need 3:1); Chart: no default text alternative (Recharts `accessibilityLayer` left to apps); Carousel: no autoplay pause contract. | `ui/alert.tsx:16-23`; `ui/chart.tsx` | Fold into D4 + component fixes. |
+| A11Y-13 | L | Neutral light focus ring 2.59:1 (borderline vs 3:1 SC 1.4.11); RTL = calendar-only (physical props elsewhere); hardcoded English strings, no central i18n hook (every German app overrides per instance); CycleProgress lacks progressbar role. | various | Post-GA hardening + D7 (i18n). |
+| A11Y-14 | M | Existing axe gate structurally blind to worst findings: default-state story scans only (no error/open states), and `<div onClick>` isn't an axe violation. Green axe ≠ compliant. | `tests/a11y/stories.spec.ts` | Add keyboard/tab-order specs + stateful stories alongside TEST-4. |
+
+## Cross-agent reconciliation notes
+
+- README "boilerplate" flagged by two agents = ONE issue: `packages/design-system/README.md` (ships to npm). Repo-root README is good (verified). Component-review's "root README boilerplate" claim was a mislabel.
+- Bundle bloat found independently by ARCH + CONS with consistent numbers — high confidence.
+- THEME agent confirms uzh brand hues largely CORRECT vs official CD; A11Y agent shows the *pairings* fail contrast. Not contradictory: hue selection right, foreground/background derivation unchecked. → single design decision D4.
+- Unused-dependency class appears 4×: `tailwindcss-radix` (peer), `yup` (peer), `@tailwindcss/aspect-ratio` (dev), zod-major drift. One hygiene slice.
+- Font self-hosting required twice independently (THEME-7 CSP/GDPR + VRT determinism) — do once, unlocks both.
+- MEMORY.md index claim "F3 still open" was stale; all agents confirm F1–F4 fixed. Index corrected 2026-07-18.
+- **External review verification (all 8 findings checked in code, 2026-07-18):** every substantive claim confirmed; none rejected. Notables: (a) it caught two things the 6-agent sweep missed outright — CSS-delivery breakage for existing consumers (CONS-6; my consumer agent only verified JS export surface) and the wrong Vite externals (ARCH-9; my arch agent attributed chunk bloat to barrels alone); (b) its MIGRATION-understatement finding extends CONS-3 (adds Tabs layout, density, package-contents/CSS-delivery changes to the known Button `fluid`/`bg-background` gaps); (c) its smoke-only-CI finding matches TEST-4/TEST-8/A11Y-14; (d) its scoped-theming finding upgrades my THEME-10 "comment nit" into the real defect THEME-11 — same mechanism, browser-verified consequence.
+- shadcn context (from ext. review, official changelog 2026-07): new shadcn projects now default to Base UI; Radix remains supported, existing apps advised NOT to migrate unnecessarily → D10.
+
+## Roadmap
+
+Phases ordered by dependency; P0 is days, P1+P2 can run in parallel slices, P3 gates GA.
+
+### P0 — Stop-the-bleeding (before ANY next tag/publish; ~1 short slice each)
+
+1. **ARCH-1** publish workflow dist-tag guard.
+2. **ARCH-2** version source-of-truth + `.versionrc` fix.
+3. **COMP-1** Modal `type={primaryType}` one-line fix.
+4. **ARCH-9** fix Vite externals (react-dom, react/jsx-runtime + all peers) + rebuild; verify chunks no longer contain react-dom/jsx-runtime.
+5. **TEST-1/2 + CONS-6** package README rewrite + ship MIGRATION.md + document the CSS-delivery breaking change (`/css` import, `@source` path removal, removed font vars) as headline migration step.
+6. Release `5.0.0-alpha.2` through the FIXED pipeline (validates ARCH-1/2 end-to-end) + first v5 CHANGELOG entry (TEST-7).
+
+### P1 — API + platform hardening (breaking changes allowed now, forbidden after GA)
+
+6. **COMP-2** remove index signatures (unmasks latent COMP-1-class bugs — expect compile errors, fix each).
+7. **COMP-3** ref forwarding across composites (React 19 ref-as-prop).
+8. **COMP-4** one testid convention, retrofit Table + Workflow first.
+9. **COMP-5/6/8 + D3** three-layer export restructure (root composites / `./primitives` / `./forms`); resolve duplicate API families; rename/alias `Shadcn*` exports; Field* direction.
+10. **ARCH-3/4 + CONS-1** chunking restructure + `sideEffects` + bundle-analyzer verification (define size-limit budget = TEST-8/ARCH-8 wiring). ARCH-9 (P0) first — re-measure after externals fix before deciding how much barrel surgery is still needed.
+11. Dependency hygiene slice: THEME-5, THEME-6, COMP-13, ARCH-7, ARCH-8 leftovers.
+12. **THEME-7** self-host Source Sans 3 (unlocks VRT determinism too).
+
+### P2 — Conformance + quality gates (parallel with P1)
+
+13. **THEME-1** chart palette → CD hues; **THEME-3** deprecate legacy swatches.
+14. **D2/THEME-2** heading weight ruling + implementation; **D5/THEME-4** mid-ladder ruling.
+14b. **THEME-12** theme-bypass sweep (CycleProgress, Toast, ui/calendar, ui/alert-dialog → semantic tokens) + raw-hex guard; **THEME-11/D9** document root-only theming, decide portal story.
+15. **A11Y Level-A batch 1**: A11Y-1 Table, A11Y-2 Checkbox, A11Y-3 forms error pattern, A11Y-4 Navigation (+A11Y-9 required/id).
+16. **A11Y batch 2**: A11Y-6/7/8 (Workflow, StepProgress, ColorPicker=COMP-10), A11Y-11 live regions.
+17. **D4/A11Y-5/12** uzh contrast re-derivation (design ruling needed).
+18. **TEST-4** a11y CI report-only → triage 296 → blocking; add keyboard specs (A11Y-14).
+19. **TEST-3** VRT V1–V2 (after fonts self-hosted); baselines for 15 curated components, both themes.
+20. **TEST-5** ESLint covers `src/ui`; **TEST-8** publish needs lint+format.
+
+### P3 — Pilot migrations + GA gate
+
+21. **CONS-2a** re-run gbl `m2-v5-preview` against published alpha (expect `transpilePackages` workaround obsolete; verify React dedupe).
+22. **CONS-3** systematic MIGRATION.md diff pass — ext. review confirms understatement is broader than Button (Tabs layout, component density, button dimensions, package contents, CSS delivery all changed while doc claims "additive"/"token routing only") + **THEME-8/CONS-7/D8** rebrand guide with klicker sky-blue profile as acceptance case.
+23. **CONS-2b** klicker-uzh full migration on a branch = the real GA acceptance test.
+24. **ARCH-6 + D1** legacy package deprecation executed.
+25. **GA cutover**: fresh finish gates (security review, maintainability review per repo policy), tag `v5.0.0`, npm `latest` promotion via fixed pipeline, release notes.
+
+### GA exit criteria (hard gate)
+
+- P0 all done; releases flow through CI only.
+- Zero Critical findings open (COMP-1, TEST-1/2, A11Y-1..5, ARCH-1/2/9, CONS-6).
+- No second react-dom/jsx-runtime in shipped chunks (grep-verified per release).
+- Documented CSS migration path proven against a real consumer (klicker `@source`/font-var fix applied and rendering verified).
+- Bundle verified tree-shakeable with budget enforced in CI.
+- a11y axe gate blocking + keyboard specs green; VRT baseline active.
+- One real consumer (klicker) migrated and shipped or ready-to-ship.
+- MIGRATION.md complete; CHANGELOG current; uzh theme CD-conformant (or divergences documented + signed off).
+
+### Future work (post-GA backlog, non-blocking)
+
+- **shadcn registry distribution** (D6): public `registry.json` → `npx shadcn add @uzh-bf/...`; complements npm packaging for copy-in consumers.
+- **i18n mechanism** (D7): central string-override context/provider instead of per-instance props; German defaults for UZH apps.
+- **Reduced-motion + RTL pass**: A11Y-10 token-layer motion handling; logical properties migration (A11Y-13).
+- **Dark-mode unification**: THEME-9 — one mechanism for `.dark`, `data-theme`, sonner/next-themes.
+- **Forms 2.0**: Field*-based rebuild (if D3 defers it), react-hook-form first-class support (ref forwarding enables it), retire Formik duplication pressure (COMP-14 shared core).
+- **Per-component subpath exports** for hard bundle isolation (`@uzh-bf/design-system/button`).
+- **Docs site**: consumer-facing docs beyond Ladle (theming playground, per-app integration guides); designer-docs pipeline without committed `types/` (ARCH-5).
+- **v4→v5 codemod** for mechanical migrations across remaining UZH apps.
+- **Formal accessibility audit** (external, eCH-0059/WCAG AA) once internal fixes land.
+- **`original/` policy**: documented refresh workflow for upstream shadcn diffing, or deletion (COMP-12).
+- **tc/elearning submodule consumer**: verify what it actually builds; migrate off submodule vendoring.
+- Chart accessibility defaults (`accessibilityLayer` on by default), Carousel pause contract, Countdown timer semantics beyond minimum (A11Y-12/11 residuals).
+
+## Open decisions (need user/design-owner ruling; recommendations marked)
+
+| ID | Decision | Options | Recommendation |
+| --- | --- | --- | --- |
+| D1 | Fate of 7 legacy packages (header/tag/parcel/tailwind-config) | migrate vs deprecate/archive | Deprecate + npm-deprecate notices; zero found consumers except possibly tc/elearning submodule — verify then archive. |
+| D2 | Heading weight 700 vs CD-mandated 600 | conform to CD vs documented divergence | Conform: `font-semibold`, trim font weights to 400/600 — cheaper payload, zero audit argument. |
+| D3 | Duplicate API families + Field* direction | keep both documented vs converge | Converge while breaking is free: promote ONE API per family, alias `Shadcn*` names with deprecation, migrate forms onto Field* only if budget allows, else explicitly unexport Field* until Forms 2.0. |
+| D4 | uzh status-color contrast failures (badge/alert) | darken brand fills vs dark-text foregrounds vs accept-fail | Dark-text foregrounds on brand tints where possible (keeps official hues intact); needs design-owner sign-off — same sign-off gate earlier plans left dangling. |
+| D5 | Primary mid-ladder (blue-40/60/80) | official chromatic Blue Shade 2/3/4 vs keep white-fade | Adopt official shades; visible components (Workflow/Switch) already CD-audited against them. |
+| D6 | shadcn registry distribution | build now vs post-GA vs never | Post-GA future work; npm package is the contract for klicker/gbl today. |
+| D7 | i18n approach for component strings | central provider vs per-instance props (status quo) | Central provider post-GA; document per-instance overrides as interim. |
+| D8 | Klicker brand profile (sky-blue primary vs UZH blue) | supported `--theme-*` override profile vs force UZH blue vs per-app hack (status quo) | Supported override profile shipped with the rebrand guide (THEME-8), klicker = acceptance case; check CD-compliance of non-UZH primary with design owner in the same ruling as D4. |
+| D9 | Theming scope contract for v5 | document-root only vs full nested/scoped (portals included) | Document-root only for v5 (ext. review rec adopted); portals escape the ThemeProvider wrapper and nested neutral-in-uzh cannot reset — fixing both is real engineering for a use case no app currently has. Keep ThemeProvider for context/JS, document the constraint. |
+| D10 | shadcn primitive baseline (Radix vs Base UI) | stay Radix, pin + document registry baseline, periodic CLI diffs vs migrate to Base UI | Stay Radix for v5 (official shadcn guidance: existing apps shouldn't migrate unnecessarily; Base UI is the default for NEW projects only). Pin the registry baseline, document it in `original/` policy (COMP-12), schedule periodic upstream diffs. Base UI evaluation = post-GA future work at most. |
+
+## Progress
+
+- 2026-07-18: 6-agent Opus review completed (arch, components, theming, testing, consumer, a11y). Findings reconciled, spot-verified (Modal.tsx:251 bug confirmed; package-vs-root README disambiguated; F1–F4 fixes confirmed in code + published artifact). This plan written. No fixes implemented yet.
+- 2026-07-18 (later): official CD portal (cd.uzh.ch/de/elements.html) reviewed — palette structure (UZH-Blau + 5 accents × 6 shades) confirms THEME-1/3 authoritatively. External engineer review received; all 8 findings re-verified in code and confirmed (vite externals gap ARCH-9, CSS-delivery break CONS-6, scoped-theming defect THEME-11, theme bypasses THEME-12, klicker brand contract CONS-7, `/ui` barrel COMP-8 upgrade, MIGRATION understatement → CONS-3, smoke-only CI = existing TEST findings). Its 3 recommended decisions adopted as D3-refinement (three-layer exports), D9 (root-only theming), D10 (stay Radix, pin baseline). Roadmap P0 now includes ARCH-9 + CONS-6 docs. Awaiting rulings on D1–D10; P0 items are decision-free and can start immediately on approval.
+- 2026-07-19: P0 execution started. Branch `v5-p0-release-safety` off `v5` (target: `v5`, draft PR at finish). User ruled: main agent implements directly (agy headless delegation blocked by harness permission classifier), native Claude subagents do per-slice review/simplify. P0 slice list + status:
+  - S1 (ARCH-1): publish-workflow dist-tag guard — `.github/workflows/main.yml`. Status: pending.
+  - S2 (ARCH-2): version source-of-truth + `.versionrc` legacy-bump fix — `.versionrc.js`, root `package.json`. Status: pending.
+  - S3 (COMP-1): Modal `type={primaryType}` one-line fix — `src/Modal.tsx`. Status: pending.
+  - S4 (ARCH-9): Vite externals (react-dom, react/jsx-runtime, all peers/subpaths) + rebuild + grep-verify chunks — `vite.config.ts`. Status: pending.
+  - S5 (TEST-1/2 + CONS-6): npm-facing README rewrite + ship MIGRATION.md + document CSS-delivery breaking change — `packages/design-system/README.md`, `package.json`, `MIGRATION.md`. Status: pending.
+  - S6 (release): `5.0.0-alpha.2` through fixed pipeline + first v5 CHANGELOG. Status: HELD — publish is external side effect, needs explicit user go.
