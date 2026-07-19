@@ -3,7 +3,6 @@ import * as AlertDialogPrimitive from '@radix-ui/react-alert-dialog';
 import * as AspectRatioPrimitive from '@radix-ui/react-aspect-ratio';
 import * as AvatarPrimitive from '@radix-ui/react-avatar';
 import { ClassProp } from 'class-variance-authority/types';
-import * as CollapsiblePrimitive from '@radix-ui/react-collapsible';
 import { Command as Command_2 } from 'cmdk';
 import * as ContextMenuPrimitive from '@radix-ui/react-context-menu';
 import { ControllerProps } from 'react-hook-form';
@@ -16,7 +15,6 @@ import { default as default_3 } from 'react';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { Dispatch } from 'react';
 import { Drawer as Drawer_2 } from 'vaul';
-import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
 import { ExternalToast } from 'sonner';
 import { FieldError as FieldError_2 } from 'react-hook-form';
 import { FieldInputProps } from 'formik';
@@ -29,10 +27,8 @@ import { IconDefinition as IconDefinition_2 } from '@fortawesome/free-regular-sv
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { JSX } from 'react/jsx-runtime';
 import * as LabelPrimitive from '@radix-ui/react-label';
-import * as MenubarPrimitive from '@radix-ui/react-menubar';
 import * as NavigationMenuPrimitive from '@radix-ui/react-navigation-menu';
 import * as PopoverPrimitive from '@radix-ui/react-popover';
-import * as ProgressPrimitive from '@radix-ui/react-progress';
 import * as RadioGroupPrimitive from '@radix-ui/react-radio-group';
 import * as React_2 from 'react';
 import * as RechartsPrimitive from 'recharts';
@@ -1278,7 +1274,7 @@ export declare function FieldError({ className, children, errors, ...props }: Re
 
 export declare function FieldGroup({ className, ...props }: React_2.ComponentProps<'div'>): JSX.Element;
 
-export declare function FieldLabel({ className, ...props }: React_2.ComponentProps<typeof ShadcnLabel>): JSX.Element;
+export declare function FieldLabel({ className, ...props }: React_2.ComponentProps<typeof Label_2>): JSX.Element;
 
 export declare function FieldLegend({ className, variant, ...props }: React_2.ComponentProps<'legend'> & {
     variant?: 'legend' | 'label';
@@ -1967,6 +1963,8 @@ export declare function KbdGroup({ className, ...props }: React_2.ComponentProps
  */
 export declare function Label({ id, data, forId, label, required, tooltip, showTooltipSymbol, tooltipSymbolSize, className, }: LabelProps): default_3.ReactElement;
 
+declare function Label_2({ className, ...props }: React_2.ComponentProps<typeof LabelPrimitive.Root>): JSX.Element;
+
 declare interface LabelItem extends BaseItem {
     type: 'label';
     value?: never;
@@ -2618,114 +2616,6 @@ declare interface SeparatorItem extends BaseItem {
     onClick?: never;
     selected?: never;
 }
-
-export declare function ShadcnCollapsible({ ...props }: React.ComponentProps<typeof CollapsiblePrimitive.Root>): JSX.Element;
-
-export declare function ShadcnCollapsibleContent({ ...props }: React.ComponentProps<typeof CollapsiblePrimitive.CollapsibleContent>): JSX.Element;
-
-export declare function ShadcnCollapsibleTrigger({ ...props }: React.ComponentProps<typeof CollapsiblePrimitive.CollapsibleTrigger>): JSX.Element;
-
-export declare function ShadcnDropdownMenu({ ...props }: React_2.ComponentProps<typeof DropdownMenuPrimitive.Root>): JSX.Element;
-
-export declare function ShadcnDropdownMenuCheckboxItem({ className, children, checked, ...props }: React_2.ComponentProps<typeof DropdownMenuPrimitive.CheckboxItem>): JSX.Element;
-
-export declare function ShadcnDropdownMenuContent({ className, sideOffset, ...props }: React_2.ComponentProps<typeof DropdownMenuPrimitive.Content>): JSX.Element;
-
-export declare function ShadcnDropdownMenuGroup({ ...props }: React_2.ComponentProps<typeof DropdownMenuPrimitive.Group>): JSX.Element;
-
-export declare function ShadcnDropdownMenuItem({ className, inset, variant, ...props }: React_2.ComponentProps<typeof DropdownMenuPrimitive.Item> & {
-    inset?: boolean;
-    variant?: 'default' | 'destructive';
-}): JSX.Element;
-
-export declare function ShadcnDropdownMenuLabel({ className, inset, ...props }: React_2.ComponentProps<typeof DropdownMenuPrimitive.Label> & {
-    inset?: boolean;
-}): JSX.Element;
-
-export declare function ShadcnDropdownMenuPortal({ ...props }: React_2.ComponentProps<typeof DropdownMenuPrimitive.Portal>): JSX.Element;
-
-export declare function ShadcnDropdownMenuRadioGroup({ ...props }: React_2.ComponentProps<typeof DropdownMenuPrimitive.RadioGroup>): JSX.Element;
-
-export declare function ShadcnDropdownMenuRadioItem({ className, children, ...props }: React_2.ComponentProps<typeof DropdownMenuPrimitive.RadioItem>): JSX.Element;
-
-export declare function ShadcnDropdownMenuSeparator({ className, ...props }: React_2.ComponentProps<typeof DropdownMenuPrimitive.Separator>): JSX.Element;
-
-export declare function ShadcnDropdownMenuShortcut({ className, ...props }: React_2.ComponentProps<'span'>): JSX.Element;
-
-export declare function ShadcnDropdownMenuSub({ ...props }: React_2.ComponentProps<typeof DropdownMenuPrimitive.Sub>): JSX.Element;
-
-export declare function ShadcnDropdownMenuSubContent({ className, ...props }: React_2.ComponentProps<typeof DropdownMenuPrimitive.SubContent>): JSX.Element;
-
-export declare function ShadcnDropdownMenuSubTrigger({ className, inset, children, ...props }: React_2.ComponentProps<typeof DropdownMenuPrimitive.SubTrigger> & {
-    inset?: boolean;
-}): JSX.Element;
-
-export declare function ShadcnDropdownMenuTrigger({ ...props }: React_2.ComponentProps<typeof DropdownMenuPrimitive.Trigger>): JSX.Element;
-
-export declare function ShadcnFormLabel({ className, ...props }: React_2.ComponentProps<typeof LabelPrimitive.Root>): JSX.Element;
-
-export declare function ShadcnLabel({ className, ...props }: React_2.ComponentProps<typeof LabelPrimitive.Root>): JSX.Element;
-
-export declare function ShadcnMenubar({ className, ...props }: React_2.ComponentProps<typeof MenubarPrimitive.Root>): JSX.Element;
-
-export declare function ShadcnMenubarCheckboxItem({ className, children, checked, ...props }: React_2.ComponentProps<typeof MenubarPrimitive.CheckboxItem>): JSX.Element;
-
-export declare function ShadcnMenubarContent({ className, align, alignOffset, sideOffset, ...props }: React_2.ComponentProps<typeof MenubarPrimitive.Content>): JSX.Element;
-
-export declare function ShadcnMenubarGroup({ ...props }: React_2.ComponentProps<typeof MenubarPrimitive.Group>): JSX.Element;
-
-export declare function ShadcnMenubarItem({ className, inset, variant, ...props }: React_2.ComponentProps<typeof MenubarPrimitive.Item> & {
-    inset?: boolean;
-    variant?: 'default' | 'destructive';
-}): JSX.Element;
-
-export declare function ShadcnMenubarLabel({ className, inset, ...props }: React_2.ComponentProps<typeof MenubarPrimitive.Label> & {
-    inset?: boolean;
-}): JSX.Element;
-
-export declare function ShadcnMenubarMenu({ ...props }: React_2.ComponentProps<typeof MenubarPrimitive.Menu>): JSX.Element;
-
-export declare function ShadcnMenubarPortal({ ...props }: React_2.ComponentProps<typeof MenubarPrimitive.Portal>): JSX.Element;
-
-export declare function ShadcnMenubarRadioGroup({ ...props }: React_2.ComponentProps<typeof MenubarPrimitive.RadioGroup>): JSX.Element;
-
-export declare function ShadcnMenubarRadioItem({ className, children, ...props }: React_2.ComponentProps<typeof MenubarPrimitive.RadioItem>): JSX.Element;
-
-export declare function ShadcnMenubarSeparator({ className, ...props }: React_2.ComponentProps<typeof MenubarPrimitive.Separator>): JSX.Element;
-
-export declare function ShadcnMenubarShortcut({ className, ...props }: React_2.ComponentProps<'span'>): JSX.Element;
-
-export declare function ShadcnMenubarSub({ ...props }: React_2.ComponentProps<typeof MenubarPrimitive.Sub>): JSX.Element;
-
-export declare function ShadcnMenubarSubContent({ className, ...props }: React_2.ComponentProps<typeof MenubarPrimitive.SubContent>): JSX.Element;
-
-export declare function ShadcnMenubarSubTrigger({ className, inset, children, ...props }: React_2.ComponentProps<typeof MenubarPrimitive.SubTrigger> & {
-    inset?: boolean;
-}): JSX.Element;
-
-export declare function ShadcnMenubarTrigger({ className, ...props }: React_2.ComponentProps<typeof MenubarPrimitive.Trigger>): JSX.Element;
-
-export declare function ShadcnProgress({ className, value, ...props }: React_2.ComponentProps<typeof ProgressPrimitive.Root>): JSX.Element;
-
-export declare function ShadcnTable({ className, containerClassName, ...props }: React_2.ComponentProps<'table'> & {
-    containerClassName?: string;
-}): JSX.Element;
-
-export declare function ShadcnTableBody({ className, ...props }: React_2.ComponentProps<'tbody'>): JSX.Element;
-
-export declare function ShadcnTableCaption({ className, ...props }: React_2.ComponentProps<'caption'>): JSX.Element;
-
-export declare function ShadcnTableCell({ className, ...props }: React_2.ComponentProps<'td'>): JSX.Element;
-
-export declare function ShadcnTableFooter({ className, ...props }: React_2.ComponentProps<'tfoot'>): JSX.Element;
-
-export declare function ShadcnTableHead({ className, ...props }: React_2.ComponentProps<'th'>): JSX.Element;
-
-export declare function ShadcnTableHeader({ className, ...props }: React_2.ComponentProps<'thead'>): JSX.Element;
-
-export declare function ShadcnTableRow({ className, hoverable, ...props }: React_2.ComponentProps<'tr'> & {
-    hoverable?: boolean;
-}): JSX.Element;
 
 export declare function Sheet({ ...props }: React_2.ComponentProps<typeof DialogPrimitive.Root>): JSX.Element;
 
