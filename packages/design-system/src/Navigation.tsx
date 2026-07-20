@@ -28,6 +28,7 @@ const dynamicUnderline = twMerge(
 export interface BaseNavigationButtonProps {
   onClick: React.MouseEventHandler
   disabled?: boolean
+  ariaLabel?: string
   data?: { cy?: string; test?: string }
   className?: { root?: string; label?: string; icon?: string }
   style?: {
@@ -46,6 +47,9 @@ export interface LabelOnlyButtonProps extends BaseNavigationButtonProps {
 
 export interface IconOnlyButtonProps extends BaseNavigationButtonProps {
   icon: IconDefinition
+  // Icon-only buttons have no visible text, so an accessible name is mandatory
+  // (WCAG 2.1 4.1.2). Narrows the optional base ariaLabel to required.
+  ariaLabel: string
   label?: undefined
   active?: undefined
   notification?: undefined
@@ -60,6 +64,7 @@ export type NavigationButtonProps = LabelOnlyButtonProps | IconOnlyButtonProps
  *
  * @param label - The text to display on the button (required for label or combined buttons).
  * @param icon - The FontAwesome icon definition to display (required for icon-only or combined buttons).
+ * @param ariaLabel - Accessible name for the trigger button. Required for icon-only buttons (which have no visible text); ignored when a visible label is set.
  * @param onClick - The function to be called when the button is clicked.
  * @param disabled - Specifies whether the button is disabled or not.
  * @param active - Indicates whether the button is in an active state (only for label buttons).
@@ -71,6 +76,7 @@ export type NavigationButtonProps = LabelOnlyButtonProps | IconOnlyButtonProps
 function NavigationButton({
   label,
   icon,
+  ariaLabel,
   onClick,
   disabled = false,
   active,
@@ -88,6 +94,7 @@ function NavigationButton({
       <MenubarTrigger
         onClick={onClick}
         disabled={disabled}
+        aria-label={!label ? ariaLabel : undefined}
         data-cy={data?.cy}
         data-test={data?.test}
         style={style?.root}
@@ -185,6 +192,7 @@ export interface BaseNavigationDropdownProps {
   disabled?: boolean
   active?: boolean
   notification?: boolean
+  ariaLabel?: string
   data?: { cy?: string; test?: string }
   className?: {
     trigger?: string
@@ -210,6 +218,9 @@ export interface LabelOnlyDropdownProps extends BaseNavigationDropdownProps {
 export interface IconOnlyDropdownProps extends BaseNavigationDropdownProps {
   label?: undefined
   icon: IconDefinition
+  // Icon-only dropdown triggers have no visible text, so an accessible name is
+  // mandatory (WCAG 2.1 4.1.2). Narrows the optional base ariaLabel to required.
+  ariaLabel: string
 }
 
 // combined type
@@ -256,6 +267,7 @@ function NavigationMenuItem({
  *
  * @param label - The text to display on the dropdown (required for label or combined dropdowns).
  * @param icon - The FontAwesome icon definition to display (required for icon-only or combined dropdowns).
+ * @param ariaLabel - Accessible name for the trigger button. Required for icon-only dropdowns (which have no visible text); ignored when a visible label is set.
  * @param elements - The array of elements to display in the dropdown (required).
  * @param disabled - Specifies whether the dropdown is disabled or not.
  * @param active - Indicates whether the dropdown is in an active state (only for label dropdowns).
@@ -267,6 +279,7 @@ function NavigationMenuItem({
 function NavigationDropdown({
   label,
   icon,
+  ariaLabel,
   disabled = false,
   active = false,
   notification = false,
@@ -283,6 +296,7 @@ function NavigationDropdown({
     <MenubarMenu>
       <MenubarTrigger
         disabled={disabled}
+        aria-label={!label ? ariaLabel : undefined}
         data-cy={data?.cy}
         data-test={data?.test}
         style={style?.trigger}
