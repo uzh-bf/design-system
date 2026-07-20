@@ -19,7 +19,7 @@ pnpm add @uzh-bf/design-system@alpha
 ```
 
 Runtime libraries are declared as **peer dependencies**, so your app provides
-them (`react`, `react-dom`, `formik`, `dayjs`, `lucide-react`,
+them (`react`, `react-dom`, `react-hook-form`, `formik`, `dayjs`, `lucide-react`,
 `class-variance-authority`, `clsx`, `tailwind-merge`, the `@fortawesome/*`
 packages, and the Tailwind toolchain). Your package manager reports any that are
 missing.
@@ -82,17 +82,26 @@ limitations.
 
 ## Usage
 
+v5 exposes two component doors: the root for opinionated composites, and
+`./primitives` for the raw shadcn/Radix primitives under their natural names. The
+form wrappers (`FormikTextField`, …) that lived under `./forms` in v4 now come
+from the root.
+
 ```tsx
-import { Button } from '@uzh-bf/design-system'
-import { FormikTextField } from '@uzh-bf/design-system/forms'
+import { Button, FormikTextField } from '@uzh-bf/design-system'
+import { DropdownMenu } from '@uzh-bf/design-system/primitives'
 ```
 
-| Entry                                 | Contents                                                      |
-| ------------------------------------- | ------------------------------------------------------------- |
-| `@uzh-bf/design-system`               | Components plus the `ThemeProvider` / `useTheme` theming API. |
-| `@uzh-bf/design-system/forms`         | Formik-integrated field wrappers.                             |
-| `@uzh-bf/design-system/css`           | Precompiled stylesheet (import once — see above).             |
-| `@uzh-bf/design-system/preflight.css` | Base/reset layer on its own.                                  |
+| Entry                                 | Contents                                                                                                                           |
+| ------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `@uzh-bf/design-system`               | Custom composites (`Button`, `Table`, `Modal`, `Form`, the `Formik*` fields, …) plus the `ThemeProvider` / `useTheme` theming API. |
+| `@uzh-bf/design-system/primitives`    | Raw shadcn/Radix primitives under their natural names (`DropdownMenu*`, `Table*`, …).                                              |
+| `@uzh-bf/design-system/css`           | Precompiled stylesheet (import once — see above).                                                                                  |
+| `@uzh-bf/design-system/preflight.css` | Base/reset layer on its own.                                                                                                       |
+
+Some natural names exist at **both** doors as different components (root = custom
+composite, `./primitives` = raw primitive). See
+[`MIGRATION.md`](./MIGRATION.md) for the full list and the door-selection rule.
 
 ## Documentation
 

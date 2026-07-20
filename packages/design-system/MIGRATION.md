@@ -95,15 +95,18 @@ wrappers under a `./forms` subpath. All of that duplication is removed.
 
 ### Entry points
 
-| Import specifier                   | Contents                                                                                                                                                                                                                                     |
-| ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `@uzh-bf/design-system`            | Opinionated **custom composites** — `Button`, `Table`, `Modal`, `Form`, the `Formik*` fields, and the rest of the UZH-styled components. The form wrappers that used to live under `./forms` now live here.                                  |
-| `@uzh-bf/design-system/primitives` | **Raw shadcn/Radix primitives** under their natural names (`Table`, `DropdownMenu*`, `Menubar*`, `Collapsible*`, `Label`, `Progress`, …). **New door** — it replaces both the removed `Shadcn*` root exports and the removed `./ui` subpath. |
-| `@uzh-bf/design-system/css`        | Precompiled stylesheet (see [CSS delivery](#breaking-change-css-delivery)). Unchanged.                                                                                                                                                       |
+| Import specifier                   | Contents                                                                                                                                                                                                                                                                    |
+| ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `@uzh-bf/design-system`            | Opinionated **custom composites** — `Button`, `Table`, `Modal`, `Form`, the `Formik*` fields, and the rest of the UZH-styled components. The form wrappers that used to live under `./forms` now live here.                                                                 |
+| `@uzh-bf/design-system/primitives` | **Raw shadcn/Radix primitives** under their natural names (`Table`, `DropdownMenu*`, `Menubar*`, `Collapsible*`, `Label`, `Progress`, …). **New door** — it replaces the removed `Shadcn*` root exports and the raw-primitive aliases that the `./ui` subpath also carried. |
+| `@uzh-bf/design-system/css`        | Precompiled stylesheet (see [CSS delivery](#breaking-change-css-delivery)). Unchanged.                                                                                                                                                                                      |
 
 ### Removed subpaths
 
-- `@uzh-bf/design-system/ui` → **`@uzh-bf/design-system/primitives`** (same raw primitives, natural names).
+- `@uzh-bf/design-system/ui` → this subpath re-exported the **custom composites**
+  (`Button`, `Accordion`, …), which now come from the root **`@uzh-bf/design-system`**;
+  the raw `Shadcn*` aliases it also carried move to **`@uzh-bf/design-system/primitives`**
+  under their natural names.
 - `@uzh-bf/design-system/forms` → **`@uzh-bf/design-system`** (the form wrappers moved up to the root).
 
 ### Removed `Shadcn*` exports
@@ -200,18 +203,23 @@ these, so an app that never installed them explicitly may now surface unmet-peer
 warnings — install the missing ones. As a side effect this removes the duplicate
 `react-dom` copy that v4 shipped inside its chunks.
 
-### `react-hook-form` is now an optional peer
+### `react-hook-form` is now a required peer
 
 The shadcn `Form` binding (`Form`, `FormField`, `FormControl`, …) is built on
-`react-hook-form`. v5 moves `react-hook-form` from a bundled **dependency** to an
-**optional peer dependency**: install it only if you use that binding. This keeps
-a single `react-hook-form` instance in your app — a bundled copy would break the
-`FormProvider` React context across the package boundary. If you use the binding
-and see an unmet-peer warning, add it:
+`react-hook-form`. v5 moves `react-hook-form` from a bundled **dependency** to a
+**peer dependency** you provide:
 
 ```sh
 pnpm add react-hook-form
 ```
+
+Providing it yourself keeps a single `react-hook-form` instance in your app — a
+bundled copy would break the `FormProvider` React context across the package
+boundary. It is a required peer rather than an optional one because the `Form`
+binding is re-exported from the package's main entry, so `react-hook-form` is
+resolved whenever the entry is loaded — even by consumers that never render the
+binding. A per-feature build split that would let non-`Form` consumers skip it is
+tracked for a later release; until then, install it alongside the package.
 
 v5 also **drops `@hookform/resolvers`** — the design system never imported it, so
 it was dead weight in the dependency tree. If you use an RHF resolver such as

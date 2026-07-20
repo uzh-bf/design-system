@@ -123,11 +123,6 @@
     "tailwindcss": "^4.1.11",
     "tw-animate-css": "^1.3.4"
   },
-  "peerDependenciesMeta": {
-    "react-hook-form": {
-      "optional": true
-    }
-  },
   "scripts": {
     "build": "run-s build:tsc build:vite build:copy",
     "build:copy": "tsx src/copy.ts",
