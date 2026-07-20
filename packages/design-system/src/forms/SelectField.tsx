@@ -1,12 +1,11 @@
 'use client'
 
-import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
 import FormLabel from '../FormLabel'
 import Select, { SelectClassName, SelectGroup, SelectItem } from '../Select'
-import { Tooltip } from '../Tooltip'
+import { FieldErrorIndicator } from './FieldErrorIndicator'
+import { useFieldError } from './useFieldError'
 
 interface SelectFieldProps {
   id?: string
@@ -91,8 +90,16 @@ export function SelectField({
   className,
   ...props
 }: SelectFieldItemsProps | SelectFieldGroupsProps) {
+  // SelectField has no `isTouched` gate, so treat the field as always touched:
+  // the error shows whenever one is set (matches its prior `error && !hideError`).
+  const { inputId, showError, errorId } = useFieldError({
+    id,
+    error,
+    isTouched: true,
+    hideError,
+  })
   return (
-    <div className={twMerge('flex w-max flex-col', className?.root)} id={id}>
+    <div className={twMerge('flex w-max flex-col', className?.root)}>
       <div
         className={twMerge(
           'flex w-full flex-row',
@@ -101,7 +108,7 @@ export function SelectField({
       >
         {label && (
           <FormLabel
-            id={id}
+            id={inputId}
             required={required}
             label={label}
             labelType={labelType}
@@ -111,60 +118,30 @@ export function SelectField({
         )}
 
         <div className="flex flex-row items-center gap-2">
-          {items ? (
-            <Select
-              data={data}
-              onChange={onChange}
-              onBlur={onBlur}
-              value={value}
-              name={name}
-              items={items}
-              placeholder={placeholder}
-              disabled={disabled}
-              className={{
-                ...className?.select,
-                trigger: twMerge(
-                  error &&
-                    'border-destructive bg-destructive-background! border',
-                  className?.select?.trigger
-                ),
-              }}
-              contentPosition={contentPosition}
-              {...props}
-            />
-          ) : (
-            <Select
-              data={data}
-              onChange={onChange}
-              onBlur={onBlur}
-              value={value}
-              name={name}
-              groups={groups}
-              placeholder={placeholder}
-              disabled={disabled}
-              className={{
-                ...className?.select,
-                trigger: twMerge(
-                  error &&
-                    'border-destructive bg-destructive-background! border',
-                  className?.select?.trigger
-                ),
-              }}
-              contentPosition={contentPosition}
-              {...props}
-            />
-          )}
-          {error && !hideError && (
-            <Tooltip
-              tooltip={error}
-              delay={0}
-              className={{ tooltip: 'max-w-120 text-sm' }}
-            >
-              <FontAwesomeIcon
-                icon={faCircleExclamation}
-                className="text-destructive mr-1"
-              />
-            </Tooltip>
+          <Select
+            id={inputId}
+            ariaRequired={required}
+            ariaDescribedBy={showError ? errorId : undefined}
+            data={data}
+            onChange={onChange}
+            onBlur={onBlur}
+            value={value}
+            name={name}
+            {...(items ? { items } : { groups })}
+            placeholder={placeholder}
+            disabled={disabled}
+            className={{
+              ...className?.select,
+              trigger: twMerge(
+                error && 'border-destructive bg-destructive-background! border',
+                className?.select?.trigger
+              ),
+            }}
+            contentPosition={contentPosition}
+            {...props}
+          />
+          {showError && (
+            <FieldErrorIndicator error={error!} errorId={errorId} />
           )}
         </div>
       </div>

@@ -1,9 +1,9 @@
 import { expect, test, type Page } from '@playwright/test'
 
-// Locks the WCAG Level A labeling/error contract for the native-input form
-// fields (TextField, NumberField, TextareaField). The axe sweep in
-// stories.spec.ts checks generic violations; these assertions pin the exact
-// wiring that a future refactor could silently break:
+// Locks the WCAG Level A labeling/error contract for the form fields
+// (TextField, NumberField, TextareaField and the Radix-based SelectField). The
+// axe sweep in stories.spec.ts checks generic violations; these assertions pin
+// the exact wiring that a future refactor could silently break:
 //   - the label's `for` matches the input's derived id (association survives an
 //     omitted `id`, since the id falls back to `useId()`)
 //   - `required` is exposed programmatically via `aria-required`
@@ -86,5 +86,42 @@ test.describe('form field labeling contract (WCAG Level A)', () => {
     expect(id, 'input has a derived id').toBeTruthy()
     await expect(page.locator(`label[for="${id}"]`)).toHaveCount(1)
     await expect(input).toHaveAttribute('aria-required', 'true')
+  })
+
+  // SelectField wraps a Radix trigger (role=combobox), not a native input: the
+  // accessible name must resolve to the visible label rather than the selected
+  // value, so it is asserted by name lookup rather than by htmlFor.
+  test('SelectField: trigger accessible name is the visible label', async ({
+    page,
+  }) => {
+    await gotoStory(page, 'select-field--label')
+    const trigger = page.getByRole('combobox', { name: 'Label' })
+    await trigger.waitFor({ state: 'attached' })
+    await expect(trigger).toHaveCount(1)
+  })
+
+  test('SelectField: required is exposed via aria-required', async ({
+    page,
+  }) => {
+    await gotoStory(page, 'select-field--required')
+    const trigger = page.getByRole('combobox', { name: 'Label' })
+    await trigger.waitFor({ state: 'attached' })
+    await expect(trigger).toHaveAttribute('aria-required', 'true')
+  })
+
+  test('SelectField: error is exposed via aria-describedby -> role=alert', async ({
+    page,
+  }) => {
+    await gotoStory(page, 'select-field--error')
+    const trigger = page.getByRole('combobox', { name: 'Label' }).first()
+    await trigger.waitFor({ state: 'attached' })
+    const describedby = await trigger.getAttribute('aria-describedby')
+    expect(
+      describedby,
+      'aria-describedby present while error shown'
+    ).toBeTruthy()
+    const alert = page.locator(`[id="${describedby}"]`)
+    await expect(alert).toHaveAttribute('role', 'alert')
+    await expect(alert).toHaveText('Error message')
   })
 })

@@ -39,6 +39,8 @@ interface SelectProps {
   defaultValue?: string
   basic?: boolean
   contentPosition?: 'item-aligned' | 'popper'
+  ariaRequired?: boolean
+  ariaDescribedBy?: string
 }
 
 export interface SelectItem {
@@ -108,6 +110,8 @@ const ItemContent = ({ item }: { item: SelectItem }) => (
  * @param basic - Specifies whether the select component is basic or not. A basic select component does only have minimal styling of the trigger.
  * @param className - The optional className object allows you to override the default styling.
  * @param contentPosition - The position of the content of the select component. Currently only 'item-aligned' and 'popper' are supported.
+ * @param ariaRequired - Forwarded to the trigger as aria-required to expose the required state to assistive technology.
+ * @param ariaDescribedBy - Forwarded to the trigger as aria-describedby to link an external description such as an error message.
  * @return Select component
  */
 export function Select({
@@ -125,6 +129,8 @@ export function Select({
   defaultValue,
   basic = false,
   contentPosition = 'item-aligned',
+  ariaRequired,
+  ariaDescribedBy,
 }: SelectWithItemsProps | SelectWithGroupsProps) {
   const [open, setOpen] = useState(false)
   const [shortLabel, setShortLabel] = useState<string | undefined>(undefined)
@@ -151,6 +157,8 @@ export function Select({
       >
         <SelectTrigger
           id={id}
+          aria-required={ariaRequired || undefined}
+          aria-describedby={ariaDescribedBy}
           data-cy={data?.cy}
           data-test={data?.test}
           className={twMerge(
@@ -177,7 +185,6 @@ export function Select({
           {items
             ? items.map((item, ix) => (
                 <SelectItem
-                  id={id}
                   key={`${item.value}-${ix}`}
                   value={item.value}
                   disabled={item.disabled}
@@ -217,7 +224,6 @@ export function Select({
                     )}
                     {group.items.map((item, item_ix) => (
                       <SelectItem
-                        id={id}
                         key={`${item.value}-${item_ix}`}
                         value={item.value}
                         disabled={item.disabled}
