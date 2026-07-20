@@ -1325,6 +1325,10 @@ export declare const FormField: <TFieldValues extends FieldValues = FieldValues,
  * @param uppercaseOnly - If true, lowercase characters are automatically converted to uppercase.
  * @param className - The optional className object allows you to override the default styling.
  * @returns Alphanumeric pin field component with Formik state management.
+ *
+ * @deprecated Frozen in v5 and scheduled for removal in v6. New code should use
+ * the react-hook-form `Form` binding (`Form` + `FormField` + a control) instead
+ * of the Formik field family. See MIGRATION.md for the migration path.
  */
 export declare function FormikAlphaNumericPinField({ id, data, name, length, label, labelType, tooltip, required, hideError, uppercaseOnly, className, ...props }: FormikAlphaNumericPinFieldProps): JSX.Element;
 
@@ -1367,6 +1371,10 @@ declare interface FormikAlphaNumericPinFieldProps {
  * @param dataTrigger - Optional data attributes for the trigger icon (for testing purposes).
  * @param dataHexInput - Optional data attributes for the hex input field (for testing purposes).
  * @returns A ColorPicker component that integrates with Formik for form handling.
+ *
+ * @deprecated Frozen in v5 and scheduled for removal in v6. New code should use
+ * the react-hook-form `Form` binding (`Form` + `FormField` + a control) instead
+ * of the Formik field family. See MIGRATION.md for the migration path.
  */
 export declare function FormikColorPicker({ name, label, labelType, validateForm, tooltip, required, disabled, triggerIcon, presetColors, position, submitText, colorLabel, colorTooltip, dataTrigger, dataHexInput, dataSubmit, className, }: FormikColorPickerProps): JSX.Element;
 
@@ -1419,6 +1427,10 @@ export declare interface FormikColorPickerProps {
  * @param dataNextMonth - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the next month button
  * @param dataPreviousMonth - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the previous month button
  * @returns Date changer component with optional label, edit button and save button.
+ *
+ * @deprecated Frozen in v5 and scheduled for removal in v6. New code should use
+ * the react-hook-form `Form` binding (`Form` + `FormField` + a control) instead
+ * of the Formik field family. See MIGRATION.md for the migration path.
  */
 export declare function FormikDatePicker({ id, name, label, labelType, placeholder, tooltip, required, disabled, hideError, className, dataTrigger, dataCalendar, dataNextMonth, dataPreviousMonth, ...props }: FormikDatePickerProps): JSX.Element;
 
@@ -1446,6 +1458,10 @@ export declare interface FormikDatePickerProps extends Omit<DatePickerProps, 'da
  * @param dataPreviousMonth - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the previous month button.
  * @param dataNextMonth - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the next month button.
  * @returns Datetime picker component with optional label, edit button and save button.
+ *
+ * @deprecated Frozen in v5 and scheduled for removal in v6. New code should use
+ * the react-hook-form `Form` binding (`Form` + `FormField` + a control) instead
+ * of the Formik field family. See MIGRATION.md for the migration path.
  */
 export declare function FormikDatetimePicker({ name, label, labelType, placeholder, tooltip, required, disabled, hideError, className, dataTrigger, dataCalendar, dataHours, dataMinutes, dataSeconds, dataPreviousMonth, dataNextMonth, ...props }: FormikDatetimePickerProps): JSX.Element;
 
@@ -1475,6 +1491,10 @@ export declare interface FormikDatetimePickerProps extends Omit<DateTimePickerPr
  * @param onBlur - The onBlur function of the input field.
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param className - The optional className object allows you to override the default styling.
+ *
+ * @deprecated Frozen in v5 and scheduled for removal in v6. New code should use
+ * the react-hook-form `Form` binding (`Form` + `FormField` + a control) instead
+ * of the Formik field family. See MIGRATION.md for the migration path.
  */
 export declare function FormikNumberField({ id, name, value, onChange, label, labelType, placeholder, precision, min, max, step, stepper, unit, tooltip, required, hideError, error, isTouched, disabled, onBlur, data, className, ...props }: FormikNumberFieldNameProps | FormikNumberFieldOnChangeProps): JSX.Element;
 
@@ -1533,6 +1553,10 @@ declare interface FormikNumberFieldProps {
  * @param className - The class names for the different parts of the component.
  * @param data - Optional data attributes for testing purposes.
  * @returns A pin field component that integrates with Formik for form handling.
+ *
+ * @deprecated Frozen in v5 and scheduled for removal in v6. New code should use
+ * the react-hook-form `Form` binding (`Form` + `FormField` + a control) instead
+ * of the Formik field family. See MIGRATION.md for the migration path.
  */
 export declare function FormikPinField({ id, name, length, required, label, labelType, tooltip, hideError, className, data, }: FormikPinFieldProps): JSX.Element;
 
@@ -1578,6 +1602,10 @@ export declare interface FormikPinFieldProps {
  * @param required - Indicate whether the field is required or not.
  * @param className - The optional className object allows you to override the default styling.
  * @returns Select component with formik state management.
+ *
+ * @deprecated Frozen in v5 and scheduled for removal in v6. New code should use
+ * the react-hook-form `Form` binding (`Form` + `FormField` + a control) instead
+ * of the Formik field family. See MIGRATION.md for the migration path.
  */
 export declare function FormikSelectField({ id, data, name, items, groups, label, labelType, placeholder, tooltip, required, disabled, error, hideError, contentPosition, className, ...props }: FormikSelectFieldItemsProps | FormikSelectFieldGroupsProps): JSX.Element;
 
@@ -1633,6 +1661,10 @@ declare interface FormikSelectFieldProps {
  * @param required - Indicator whether the field is required or not. This is only available with the standardLabel setting.
  * @param className - The optional className object allows you to override the default styling.
  * @returns Switch component with formik state management
+ *
+ * @deprecated Frozen in v5 and scheduled for removal in v6. New code should use
+ * the react-hook-form `Form` binding (`Form` + `FormField` + a control) instead
+ * of the Formik field family. See MIGRATION.md for the migration path.
  */
 export declare function FormikSwitchField({ id, name, data, disabled, error, hideError, label, labelLeft, size, required, tooltip, className, }: FormikSwitchFieldProps): JSX.Element;
 
@@ -1676,6 +1708,10 @@ export declare interface FormikSwitchFieldProps {
  * @param disabled - Disable the field.
  * @param className - The optional className object allows you to override the default styling.
  * @returns Text field component with Formik state management.
+ *
+ * @deprecated Frozen in v5 and scheduled for removal in v6. New code should use
+ * the react-hook-form `Form` binding (`Form` + `FormField` + a control) instead
+ * of the Formik field family. See MIGRATION.md for the migration path.
  */
 export declare function FormikTextareaField({ id, data, name, value, onChange, error, label, labelType, icon, placeholder, tooltip, required, hideError, disabled, className, ...props }: FormikTextareaFieldWithNameProps | FormikTextareaFieldWithOnChangeProps): JSX.Element;
 
@@ -1747,6 +1783,10 @@ export declare interface FormikTextareaFieldWithOnChangeProps extends FormikText
  * @param onPaste - An optional function that is called when the user pastes text into the field.
  * @param className - The optional className object allows you to override the default styling.
  * @returns Text field component with Formik state management.
+ *
+ * @deprecated Frozen in v5 and scheduled for removal in v6. New code should use
+ * the react-hook-form `Form` binding (`Form` + `FormField` + a control) instead
+ * of the Formik field family. See MIGRATION.md for the migration path.
  */
 export declare function FormikTextField({ id, data, name, value, onChange, onEnter, onReset, error, label, labelType, icon, iconPosition, onIconClick, placeholder, tooltip, required, hideError, isTouched, disabled, onPaste, className, ...props }: FormikTextFieldWithNameProps | FormikTextFieldWithOnChangeProps): JSX.Element;
 
