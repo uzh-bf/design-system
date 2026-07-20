@@ -374,3 +374,26 @@ Outline only; not built in Phase 1 per user sequencing.
   klicker fit: 100/111 root-door import names unchanged; missing 11 all `Shadcn*`
   with exact MIGRATION rows → migration near-mechanical (FE8 vindicated).
   Disposition pending user ruling on F1; F2/F3 applyable as doc slices; npm HELD.
+- 2026-07-20 FABLE FINDINGS RESOLVED (user rulings: F1 → required peer; next
+  milestone → A11Y Level-A on a separate branch after #181 merges):
+  - **F1 DONE** (commit `167a7b1`, `build(deps)!`): dropped
+    `peerDependenciesMeta.react-hook-form.optional` → RHF is a required peer.
+    Rewrote MIGRATION `### react-hook-form is now a required peer` explaining the
+    root-entry re-export forces resolution at load; noted the true-optionality
+    (per-feature `./form` split) deferral. README peer list +`react-hook-form`.
+    Verified: `pnpm check` + `format:check` clean; `pnpm build` exit 0 (6/6
+    fonts); `npm pack --dry-run` = 21 files, ships README+MIGRATION; frozen
+    lockfile unchanged (RHF is a devDep in-repo, so the meta drop moved no deps).
+  - **F2 DONE** (commit `167a7b1`): corrected MIGRATION removed-subpath mapping —
+    `./ui` re-exported composites (→ root `.`) + `Shadcn*` aliases (→ `./primitives`),
+    not "same raw primitives → ./primitives".
+  - **F3 DONE** (commit `167a7b1`): refreshed README Usage — removed the dead
+    `./forms` import, added `./primitives`, corrected the exports table, added
+    the both-doors collision note.
+  - **F4 DONE** (commit `6550e9f`, `docs(adr)`): created `docs/adr/0001-two-door-public-api.md`
+    (FE5/FE7/FE8 + required-RHF-peer, silent-collision consequence + deferrals).
+  - Delta gates: F1-F4 are doc/packaging-config only (one peer-meta line + prose +
+    a new ADR); no runtime/logic surface. Main-agent re-review: format/tsc/build/
+    pack green, no secrets/PII, tarball unchanged shape. Full thermo-nuclear +
+    security already PASSED pre-review; a heavyweight rerun on 4 doc lines adds no
+    signal — deferred to the GA cutover gate (#25). npm stays HELD.
