@@ -1,8 +1,9 @@
 import { expect, test, type Page } from '@playwright/test'
 
 // Locks the WCAG Level A labeling/error contract for the form fields
-// (TextField, NumberField, TextareaField and the Radix-based SelectField). The
-// axe sweep in stories.spec.ts checks generic violations; these assertions pin
+// (TextField, NumberField, TextareaField, the Radix-based SelectField and the
+// input-otp-based AlphaNumericPinField). The axe sweep in stories.spec.ts
+// checks generic violations; these assertions pin
 // the exact wiring that a future refactor could silently break:
 //   - the label's `for` matches the input's derived id (association survives an
 //     omitted `id`, since the id falls back to `useId()`)
@@ -123,5 +124,39 @@ test.describe('form field labeling contract (WCAG Level A)', () => {
     const alert = page.locator(`[id="${describedby}"]`)
     await expect(alert).toHaveAttribute('role', 'alert')
     await expect(alert).toHaveText('Error message')
+  })
+
+  // AlphaNumericPinField is built on input-otp, which renders a single real
+  // input (the only textbox on the page) behind the segmented slots, so it is
+  // asserted with the same native-textbox helpers as the fields above.
+  test('AlphaNumericPinField: label associates with the derived input id', async ({
+    page,
+  }) => {
+    await expectLabelledById(page, 'alpha-numeric-pin-field--default')
+  })
+
+  test('AlphaNumericPinField: required is exposed via aria-required', async ({
+    page,
+  }) => {
+    await gotoStory(page, 'alpha-numeric-pin-field--error')
+    await expect(await firstTextbox(page)).toHaveAttribute(
+      'aria-required',
+      'true'
+    )
+  })
+
+  test('AlphaNumericPinField: error is exposed via aria-describedby -> role=alert', async ({
+    page,
+  }) => {
+    await gotoStory(page, 'alpha-numeric-pin-field--error')
+    const input = await firstTextbox(page)
+    const describedby = await input.getAttribute('aria-describedby')
+    expect(
+      describedby,
+      'aria-describedby present while error shown'
+    ).toBeTruthy()
+    const alert = page.locator(`[id="${describedby}"]`)
+    await expect(alert).toHaveAttribute('role', 'alert')
+    await expect(alert).toHaveText('Please enter 6 characters')
   })
 })
