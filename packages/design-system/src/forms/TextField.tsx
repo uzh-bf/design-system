@@ -113,7 +113,7 @@ export function TextField({
   onReset,
   ...props
 }: TextFieldNameProps | TextFieldOnChangeProps) {
-  const { inputId, showError, errorId } = useFieldError({
+  const { inputId, visibleError, errorId } = useFieldError({
     id,
     error,
     isTouched,
@@ -145,7 +145,7 @@ export function TextField({
               {...field}
               id={inputId}
               aria-required={required || undefined}
-              aria-describedby={showError ? errorId : undefined}
+              aria-describedby={visibleError ? errorId : undefined}
               data-cy={data?.cy}
               data-test={data?.test}
               name={name}
@@ -179,7 +179,7 @@ export function TextField({
             <Input
               id={inputId}
               aria-required={required || undefined}
-              aria-describedby={showError ? errorId : undefined}
+              aria-describedby={visibleError ? errorId : undefined}
               data-cy={data?.cy}
               data-test={data?.test}
               value={value}
@@ -250,7 +250,9 @@ export function TextField({
             />
           ) : null}
         </div>
-        {showError && <FieldErrorIndicator error={error!} errorId={errorId} />}
+        {visibleError && (
+          <FieldErrorIndicator error={visibleError} errorId={errorId} />
+        )}
       </div>
     </div>
   )

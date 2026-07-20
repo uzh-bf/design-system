@@ -68,7 +68,7 @@ export function AlphaNumericPinField({
   className,
   data,
 }: AlphaNumericPinFieldProps) {
-  const { inputId, showError, errorId } = useFieldError({
+  const { inputId, visibleError, errorId } = useFieldError({
     id,
     error,
     isTouched,
@@ -97,7 +97,7 @@ export function AlphaNumericPinField({
         <InputOTP
           id={inputId}
           aria-required={required || undefined}
-          aria-describedby={showError ? errorId : undefined}
+          aria-describedby={visibleError ? errorId : undefined}
           maxLength={length}
           inputMode="text" // accept alphanumeric input
           pattern="[A-Za-z0-9]*" // restrict to alphanumeric at the input level
@@ -142,7 +142,9 @@ export function AlphaNumericPinField({
               ))}
           </InputOTPGroup>
         </InputOTP>
-        {showError && <FieldErrorIndicator error={error!} errorId={errorId} />}
+        {visibleError && (
+          <FieldErrorIndicator error={visibleError} errorId={errorId} />
+        )}
       </div>
     </div>
   )

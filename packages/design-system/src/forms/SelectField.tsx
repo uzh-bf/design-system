@@ -92,7 +92,7 @@ export function SelectField({
 }: SelectFieldItemsProps | SelectFieldGroupsProps) {
   // SelectField has no `isTouched` gate, so treat the field as always touched:
   // the error shows whenever one is set (matches its prior `error && !hideError`).
-  const { inputId, showError, errorId } = useFieldError({
+  const { inputId, visibleError, errorId } = useFieldError({
     id,
     error,
     isTouched: true,
@@ -121,7 +121,7 @@ export function SelectField({
           <Select
             id={inputId}
             ariaRequired={required}
-            ariaDescribedBy={showError ? errorId : undefined}
+            ariaDescribedBy={visibleError ? errorId : undefined}
             data={data}
             onChange={onChange}
             onBlur={onBlur}
@@ -140,8 +140,8 @@ export function SelectField({
             contentPosition={contentPosition}
             {...props}
           />
-          {showError && (
-            <FieldErrorIndicator error={error!} errorId={errorId} />
+          {visibleError && (
+            <FieldErrorIndicator error={visibleError} errorId={errorId} />
           )}
         </div>
       </div>

@@ -13,7 +13,7 @@ import { useId } from 'react'
  * @param error - The error message (validation is handled by the consumer).
  * @param isTouched - Whether the field has been touched.
  * @param hideError - Whether the error message should be hidden.
- * @returns inputId (stable), showError (whether to surface the error), errorId (id of the alert node).
+ * @returns inputId (stable), visibleError (the error string when it should be surfaced, else undefined), errorId (id of the alert node).
  */
 export function useFieldError({
   id,
@@ -28,7 +28,10 @@ export function useFieldError({
 }) {
   const generatedId = useId()
   const inputId = id ?? generatedId
-  const showError = !!error && !!isTouched && !hideError
+  // Narrow the error to a defined string exactly when it should be surfaced, so
+  // callers gate the alert and link `aria-describedby` off one value without a
+  // non-null assertion.
+  const visibleError = !!error && !!isTouched && !hideError ? error : undefined
   const errorId = `${inputId}-error`
-  return { inputId, showError, errorId }
+  return { inputId, visibleError, errorId }
 }

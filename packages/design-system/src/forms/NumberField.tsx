@@ -94,7 +94,7 @@ export function NumberField({
   className,
   ...props
 }: NumberFieldProps): React.ReactElement {
-  const { inputId, showError, errorId } = useFieldError({
+  const { inputId, visibleError, errorId } = useFieldError({
     id,
     error,
     isTouched,
@@ -199,7 +199,7 @@ export function NumberField({
           <Input
             id={inputId}
             aria-required={required || undefined}
-            aria-describedby={showError ? errorId : undefined}
+            aria-describedby={visibleError ? errorId : undefined}
             data-cy={data?.cy}
             data-test={data?.test}
             type="text"
@@ -269,7 +269,9 @@ export function NumberField({
             </>
           )}
         </div>
-        {showError && <FieldErrorIndicator error={error!} errorId={errorId} />}
+        {visibleError && (
+          <FieldErrorIndicator error={visibleError} errorId={errorId} />
+        )}
       </div>
     </div>
   )
