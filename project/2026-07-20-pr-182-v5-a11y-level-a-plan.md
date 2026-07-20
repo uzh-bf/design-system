@@ -4,10 +4,10 @@ Date: 2026-07-20. Type: `fix(a11y)` batch. Caveman form.
 
 ## Identity
 
-- Plan: `project/2026-07-20-v5-a11y-level-a-plan.md`
+- Plan: `project/2026-07-20-pr-182-v5-a11y-level-a-plan.md`
 - Branch: `v5-a11y-level-a` (off `v5` @ `b22d1ba`, the merged #181 tip)
 - Target: `v5` (long-lived integration branch; draft PR at finish, merge-commit like #180/#181)
-- PR: none yet
+- PR: [#182](https://github.com/uzh-bf/design-system/pull/182) (DRAFT; npm HELD, no merge without explicit authority)
 - Parent roadmap: `project/2026-07-18-v5-production-readiness-roadmap.md` item #15 (P2 A11Y Level-A batch 1)
 - Prior merged plans (history): `2026-07-19-pr-181-v5-api-consolidation-plan.md` (#181), roadmap #180
 
