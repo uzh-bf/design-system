@@ -1,14 +1,15 @@
 'use client'
 
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
-import { faCircleExclamation, faX } from '@fortawesome/free-solid-svg-icons'
+import { faX } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { FieldInputProps } from 'formik'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
 import FormLabel from '../FormLabel'
-import { Tooltip } from '../Tooltip'
 import { Input } from '../ui/input'
+import { FieldErrorIndicator } from './FieldErrorIndicator'
+import { useFieldError } from './useFieldError'
 
 export interface TextFieldClassName {
   field?: string
@@ -112,6 +113,12 @@ export function TextField({
   onReset,
   ...props
 }: TextFieldNameProps | TextFieldOnChangeProps) {
+  const { inputId, showError, errorId } = useFieldError({
+    id,
+    error,
+    isTouched,
+    hideError,
+  })
   return (
     <div
       className={twMerge(
@@ -122,7 +129,7 @@ export function TextField({
     >
       {label && (
         <FormLabel
-          id={id}
+          id={inputId}
           required={required}
           label={label}
           labelType={labelType}
@@ -136,7 +143,9 @@ export function TextField({
           {name && field ? (
             <Input
               {...field}
-              id={id}
+              id={inputId}
+              aria-required={required || undefined}
+              aria-describedby={showError ? errorId : undefined}
               data-cy={data?.cy}
               data-test={data?.test}
               name={name}
@@ -168,7 +177,9 @@ export function TextField({
             />
           ) : (
             <Input
-              id={id}
+              id={inputId}
+              aria-required={required || undefined}
+              aria-describedby={showError ? errorId : undefined}
               data-cy={data?.cy}
               data-test={data?.test}
               value={value}
@@ -239,18 +250,7 @@ export function TextField({
             />
           ) : null}
         </div>
-        {error && !hideError && isTouched && (
-          <Tooltip
-            tooltip={error}
-            delay={0}
-            className={{ tooltip: 'max-w-120 text-sm' }}
-          >
-            <FontAwesomeIcon
-              icon={faCircleExclamation}
-              className="text-destructive mr-1"
-            />
-          </Tooltip>
-        )}
+        {showError && <FieldErrorIndicator error={error!} errorId={errorId} />}
       </div>
     </div>
   )
