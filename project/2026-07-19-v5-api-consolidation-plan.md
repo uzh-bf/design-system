@@ -326,8 +326,25 @@ Outline only; not built in Phase 1 per user sequencing.
   undercounted (5→12 real silent-swap names: added Button/Checkbox/Select/Slider/
   Switch/Tabs/Tooltip, all verified custom composites); fixed to a rule-of-thumb
   framing. `build:ladle` ✓. **Phase 1 (S1–S7) code-complete.**
-- Remaining before PR: finish gates — `$security-review`,
-  `$thermo-nuclear-code-quality-review`, scratch-consumer exports-resolution probe
-  for `.`/`./primitives`/`./css` — then draft PR via `$rs-mr-description-writer`
-  (whole-branch, draft by default). **npm release stays HELD** (no publish of any
-  tag) per standing ruling.
+- 2026-07-20 FINISH GATES run (all PASS):
+  - Exports-resolution probe ✓: all 4 public specifiers (`.`/`./primitives`/`./css`/
+    `./preflight.css`) resolve via Node's ESM resolver from an isolated consumer;
+    `npm pack` ships `MIGRATION.md`+`dist/*`+`package.json` only.
+  - `$thermo-nuclear-code-quality-review` PASS: branch mostly *deletes* complexity
+    (flat `primitives.ts` barrel, 6 `Shadcn*` wrappers + `ui.ts`/`forms.ts` gone,
+    −5434 lines); grep-verified **zero dangling refs** to removed modules/subpaths;
+    no hand-written file near 1k lines. One finding **FIXED** (commit `f456636`):
+    tracked `types/index.d.ts` was stale (dts emits `outDir:['dist','types']`; S6
+    committed source `@deprecated` but not the regenerated decl — not consumer-facing,
+    npm ships `dist/`). Deferred (own slice/ADR): untrack generated `types/` to kill
+    the drift class.
+  - Security assessment PASS (`$security-review` skill absent this session +
+    subagents classifier-gated → main-agent review): no secrets/PII in diff, no
+    credential files tracked, tarball = `dist`+`MIGRATION.md` only, **zero new deps**
+    (net −2 runtime deps). No runtime security surface touched.
+- PR-BASE CORRECTION: base = **`origin/v5` (`4305c86`)**, the merged-#180 tip — NOT
+  local `v5` (`bb1ed4f`, stale/behind the whole P0 batch). Scoped branch =
+  `4305c86..HEAD` (13 commits). Branch not yet pushed; no PR exists.
+- Remaining: `git push` + draft PR via `$rs-mr-description-writer` (whole-branch vs
+  `origin/v5`, draft) — **HELD for explicit push authority** (external action).
+  **npm release stays HELD** (no publish of any tag) per standing ruling.
