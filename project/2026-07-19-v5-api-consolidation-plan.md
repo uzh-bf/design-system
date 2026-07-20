@@ -345,6 +345,14 @@ Outline only; not built in Phase 1 per user sequencing.
 - PR-BASE CORRECTION: base = **`origin/v5` (`4305c86`)**, the merged-#180 tip — NOT
   local `v5` (`bb1ed4f`, stale/behind the whole P0 batch). Scoped branch =
   `4305c86..HEAD` (13 commits). Branch not yet pushed; no PR exists.
-- Remaining: `git push` + draft PR via `$rs-mr-description-writer` (whole-branch vs
-  `origin/v5`, draft) — **HELD for explicit push authority** (external action).
+- 2026-07-20 S8 DONE (commit `e7980c9`): resolved the deferred thermo-nuclear
+  finding — stopped tracking generated `types/`. Added `types` to the package
+  `.gitignore` (next to `dist`) + `git rm --cached` the 3 tracked decls; the build
+  regenerates them (`outDir:['dist','types']`). No consumer of the tracked copy
+  (no tsconfig/import/config ref; only historical plan-markdown mentions). Also
+  drops a stale `constants.d.ts` that `rollupTypes` no longer emits. Verified:
+  `pnpm check` exit 0; `pnpm build` exit 0 regenerates `dist/`+`types/`; 6/6 fonts.
+  Kills the drift class permanently. Not ADR-worthy (trivially reversible).
+- 2026-07-20 Push authorized by user → `git push` + draft PR via
+  `$rs-mr-description-writer` (whole-branch vs `origin/v5`, draft by default).
   **npm release stays HELD** (no publish of any tag) per standing ruling.
