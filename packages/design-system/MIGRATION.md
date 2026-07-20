@@ -95,11 +95,11 @@ wrappers under a `./forms` subpath. All of that duplication is removed.
 
 ### Entry points
 
-| Import specifier | Contents |
-| --- | --- |
-| `@uzh-bf/design-system` | Opinionated **custom composites** — `Button`, `Table`, `Modal`, `Form`, the `Formik*` fields, and the rest of the UZH-styled components. The form wrappers that used to live under `./forms` now live here. |
+| Import specifier                   | Contents                                                                                                                                                                                                                                     |
+| ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `@uzh-bf/design-system`            | Opinionated **custom composites** — `Button`, `Table`, `Modal`, `Form`, the `Formik*` fields, and the rest of the UZH-styled components. The form wrappers that used to live under `./forms` now live here.                                  |
 | `@uzh-bf/design-system/primitives` | **Raw shadcn/Radix primitives** under their natural names (`Table`, `DropdownMenu*`, `Menubar*`, `Collapsible*`, `Label`, `Progress`, …). **New door** — it replaces both the removed `Shadcn*` root exports and the removed `./ui` subpath. |
-| `@uzh-bf/design-system/css` | Precompiled stylesheet (see [CSS delivery](#breaking-change-css-delivery)). Unchanged. |
+| `@uzh-bf/design-system/css`        | Precompiled stylesheet (see [CSS delivery](#breaking-change-css-delivery)). Unchanged.                                                                                                                                                       |
 
 ### Removed subpaths
 
@@ -121,53 +121,53 @@ import { Table, TableRow } from '@uzh-bf/design-system/primitives'
 Complete mapping (all removed under `@uzh-bf/design-system`, all available from
 `@uzh-bf/design-system/primitives`):
 
-| Removed export | Replacement (natural name) |
-| --- | --- |
-| `ShadcnCollapsible` | `Collapsible` |
-| `ShadcnCollapsibleContent` | `CollapsibleContent` |
-| `ShadcnCollapsibleTrigger` | `CollapsibleTrigger` |
-| `ShadcnDropdownMenu` | `DropdownMenu` |
+| Removed export                   | Replacement (natural name) |
+| -------------------------------- | -------------------------- |
+| `ShadcnCollapsible`              | `Collapsible`              |
+| `ShadcnCollapsibleContent`       | `CollapsibleContent`       |
+| `ShadcnCollapsibleTrigger`       | `CollapsibleTrigger`       |
+| `ShadcnDropdownMenu`             | `DropdownMenu`             |
 | `ShadcnDropdownMenuCheckboxItem` | `DropdownMenuCheckboxItem` |
-| `ShadcnDropdownMenuContent` | `DropdownMenuContent` |
-| `ShadcnDropdownMenuGroup` | `DropdownMenuGroup` |
-| `ShadcnDropdownMenuItem` | `DropdownMenuItem` |
-| `ShadcnDropdownMenuLabel` | `DropdownMenuLabel` |
-| `ShadcnDropdownMenuPortal` | `DropdownMenuPortal` |
-| `ShadcnDropdownMenuRadioGroup` | `DropdownMenuRadioGroup` |
-| `ShadcnDropdownMenuRadioItem` | `DropdownMenuRadioItem` |
-| `ShadcnDropdownMenuSeparator` | `DropdownMenuSeparator` |
-| `ShadcnDropdownMenuShortcut` | `DropdownMenuShortcut` |
-| `ShadcnDropdownMenuSub` | `DropdownMenuSub` |
-| `ShadcnDropdownMenuSubContent` | `DropdownMenuSubContent` |
-| `ShadcnDropdownMenuSubTrigger` | `DropdownMenuSubTrigger` |
-| `ShadcnDropdownMenuTrigger` | `DropdownMenuTrigger` |
-| `ShadcnLabel` | `Label` |
-| `ShadcnMenubar` | `Menubar` |
-| `ShadcnMenubarCheckboxItem` | `MenubarCheckboxItem` |
-| `ShadcnMenubarContent` | `MenubarContent` |
-| `ShadcnMenubarGroup` | `MenubarGroup` |
-| `ShadcnMenubarItem` | `MenubarItem` |
-| `ShadcnMenubarLabel` | `MenubarLabel` |
-| `ShadcnMenubarMenu` | `MenubarMenu` |
-| `ShadcnMenubarPortal` | `MenubarPortal` |
-| `ShadcnMenubarRadioGroup` | `MenubarRadioGroup` |
-| `ShadcnMenubarRadioItem` | `MenubarRadioItem` |
-| `ShadcnMenubarSeparator` | `MenubarSeparator` |
-| `ShadcnMenubarShortcut` | `MenubarShortcut` |
-| `ShadcnMenubarSub` | `MenubarSub` |
-| `ShadcnMenubarSubContent` | `MenubarSubContent` |
-| `ShadcnMenubarSubTrigger` | `MenubarSubTrigger` |
-| `ShadcnMenubarTrigger` | `MenubarTrigger` |
-| `ShadcnProgress` | `Progress` |
-| `ShadcnTable` | `Table` |
-| `ShadcnTableBody` | `TableBody` |
-| `ShadcnTableCaption` | `TableCaption` |
-| `ShadcnTableCell` | `TableCell` |
-| `ShadcnTableFooter` | `TableFooter` |
-| `ShadcnTableHead` | `TableHead` |
-| `ShadcnTableHeader` | `TableHeader` |
-| `ShadcnTableRow` | `TableRow` |
-| `ShadcnFormLabel` | `FormLabel` |
+| `ShadcnDropdownMenuContent`      | `DropdownMenuContent`      |
+| `ShadcnDropdownMenuGroup`        | `DropdownMenuGroup`        |
+| `ShadcnDropdownMenuItem`         | `DropdownMenuItem`         |
+| `ShadcnDropdownMenuLabel`        | `DropdownMenuLabel`        |
+| `ShadcnDropdownMenuPortal`       | `DropdownMenuPortal`       |
+| `ShadcnDropdownMenuRadioGroup`   | `DropdownMenuRadioGroup`   |
+| `ShadcnDropdownMenuRadioItem`    | `DropdownMenuRadioItem`    |
+| `ShadcnDropdownMenuSeparator`    | `DropdownMenuSeparator`    |
+| `ShadcnDropdownMenuShortcut`     | `DropdownMenuShortcut`     |
+| `ShadcnDropdownMenuSub`          | `DropdownMenuSub`          |
+| `ShadcnDropdownMenuSubContent`   | `DropdownMenuSubContent`   |
+| `ShadcnDropdownMenuSubTrigger`   | `DropdownMenuSubTrigger`   |
+| `ShadcnDropdownMenuTrigger`      | `DropdownMenuTrigger`      |
+| `ShadcnLabel`                    | `Label`                    |
+| `ShadcnMenubar`                  | `Menubar`                  |
+| `ShadcnMenubarCheckboxItem`      | `MenubarCheckboxItem`      |
+| `ShadcnMenubarContent`           | `MenubarContent`           |
+| `ShadcnMenubarGroup`             | `MenubarGroup`             |
+| `ShadcnMenubarItem`              | `MenubarItem`              |
+| `ShadcnMenubarLabel`             | `MenubarLabel`             |
+| `ShadcnMenubarMenu`              | `MenubarMenu`              |
+| `ShadcnMenubarPortal`            | `MenubarPortal`            |
+| `ShadcnMenubarRadioGroup`        | `MenubarRadioGroup`        |
+| `ShadcnMenubarRadioItem`         | `MenubarRadioItem`         |
+| `ShadcnMenubarSeparator`         | `MenubarSeparator`         |
+| `ShadcnMenubarShortcut`          | `MenubarShortcut`          |
+| `ShadcnMenubarSub`               | `MenubarSub`               |
+| `ShadcnMenubarSubContent`        | `MenubarSubContent`        |
+| `ShadcnMenubarSubTrigger`        | `MenubarSubTrigger`        |
+| `ShadcnMenubarTrigger`           | `MenubarTrigger`           |
+| `ShadcnProgress`                 | `Progress`                 |
+| `ShadcnTable`                    | `Table`                    |
+| `ShadcnTableBody`                | `TableBody`                |
+| `ShadcnTableCaption`             | `TableCaption`             |
+| `ShadcnTableCell`                | `TableCell`                |
+| `ShadcnTableFooter`              | `TableFooter`              |
+| `ShadcnTableHead`                | `TableHead`                |
+| `ShadcnTableHeader`              | `TableHeader`              |
+| `ShadcnTableRow`                 | `TableRow`                 |
+| `ShadcnFormLabel`                | `FormLabel`                |
 
 > **Watch for name collisions (silent swap).** Wherever a name exists at **both**
 > doors, the **root** is the opinionated custom composite and `./primitives` is the
