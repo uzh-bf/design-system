@@ -286,3 +286,48 @@ Outline only; not built in Phase 1 per user sequencing.
 - S7 follow-up (doc slice): several `*.stories.mdx` still carry stale PROSE
   referencing removed `Shadcn*` names ("distinct from the ShadcnTable component",
   "ShadcnProgress: Basic …"). Not build-breaking; clean up in the migration doc.
+- 2026-07-19 S3 DONE (commit `47aa3a0`): removed the `./ui` + `./forms` doors —
+  deleted `package.json` export blocks + `typesVersions` entries, the two
+  `vite.config` build entries, `src/ui.ts` + `src/forms.ts`, and the orphaned
+  tracked `types/ui.d.ts` + `types/forms.d.ts` (3670 deletions, pure removal).
+  Verified: no internal barrel imports; `pnpm build` ✓ (`dist/ui.js`+`dist/
+  forms.js` gone, `index`+`primitives` remain); `npm pack --dry-run` ships only
+  `dist/index.*`+`dist/primitives.*`; `build:ladle` ✓. Public doors now = `.`,
+  `./primitives`, `./css`. Breaks for S7 doc: `./ui` (2 vet-platform sites) +
+  `./forms` (0 imports) removed → migrate to root `.`.
+- 2026-07-19 S4 DONE (commit `9358656`): added `"sideEffects": ["*.css"]` to
+  `package.json`. `pnpm build` clean, 6/6 fonts extracted. Non-breaking (additive
+  metadata); consumer-side tree-shaking payoff verified at the finish-gate
+  scratch-consumer probe, not the library build (sideEffects is consumer-facing).
+- 2026-07-19 S5 DONE (commit `9db4fcc`): `react-hook-form` moved from
+  `dependencies` to an optional `peerDependency` (`^7.59.0`) + pinned
+  `devDependency` (`7.59.0`) so build/Ladle resolve; `peerDependenciesMeta.optional`.
+  Dropped `@hookform/resolvers` entirely (never imported by the DS). Lockfile
+  synced (`pnpm install`). Verified: `pnpm build` ✓ with RHF now **externalized**
+  (shared chunk emits `import { FormProvider, Controller, useFormContext,
+  useFormState } from 'react-hook-form'`, no inlined internals — the peer-move
+  goal); `build:ladle` ✓ (Form.stories resolves the dev-install); `npm pack
+  --dry-run` ships no inlined RHF. Breaking (consumers provide RHF; resolvers no
+  longer transitive) → in S7 doc.
+- 2026-07-19 S6 DONE (commit `78918cd`): `@deprecated` JSDoc added to all 10
+  `Formik*` wrappers (frozen v5, removed v6; points at the RHF `Form` binding +
+  `MIGRATION.md`). Comment-only (40 insertions), `tsc --noEmit` clean;
+  self-reviewed (near-zero risk surface, gated subagent not warranted).
+- 2026-07-19 S7 DONE (commit `f2cec65`): extended `MIGRATION.md` — two-door model,
+  removed `./ui`/`./forms` (→ `./primitives`/root), complete **45-entry**
+  `Shadcn*`→`./primitives` map, silent-collision callout, RHF dep→optional-peer +
+  `@hookform/resolvers` drop, Formik `@deprecated`/v6. Cleaned stale `Shadcn*`
+  prose in 7 stories (Accordion/Checkbox/Select/Table/Progress/Dropdown/
+  Collapsible). **BLOCKING completeness gate PASSED**: derived the removed-public
+  set from the pre-S2 tree — 45 `export` aliases; the 5 `import`-only internal
+  `as Shadcn*` aliases (Button/Select/Tabs/Tooltip) correctly excluded; all 45 in
+  the table; current public surface has 0 `Shadcn*` names (3 remaining refs are
+  JSDoc prose). Independent review found 1 real defect — collision callout
+  undercounted (5→12 real silent-swap names: added Button/Checkbox/Select/Slider/
+  Switch/Tabs/Tooltip, all verified custom composites); fixed to a rule-of-thumb
+  framing. `build:ladle` ✓. **Phase 1 (S1–S7) code-complete.**
+- Remaining before PR: finish gates — `$security-review`,
+  `$thermo-nuclear-code-quality-review`, scratch-consumer exports-resolution probe
+  for `.`/`./primitives`/`./css` — then draft PR via `$rs-mr-description-writer`
+  (whole-branch, draft by default). **npm release stays HELD** (no publish of any
+  tag) per standing ruling.
