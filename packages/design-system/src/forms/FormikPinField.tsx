@@ -45,6 +45,10 @@ export interface FormikPinFieldProps {
  * @param className - The class names for the different parts of the component.
  * @param data - Optional data attributes for testing purposes.
  * @returns A pin field component that integrates with Formik for form handling.
+ *
+ * @deprecated Frozen in v5 and scheduled for removal in v6. New code should use
+ * the react-hook-form `Form` binding (`Form` + `FormField` + a control) instead
+ * of the Formik field family. See MIGRATION.md for the migration path.
  */
 export function FormikPinField({
   id,

@@ -73,6 +73,10 @@ export interface FormikTextFieldWithOnChangeProps extends FormikTextFieldProps {
  * @param onPaste - An optional function that is called when the user pastes text into the field.
  * @param className - The optional className object allows you to override the default styling.
  * @returns Text field component with Formik state management.
+ *
+ * @deprecated Frozen in v5 and scheduled for removal in v6. New code should use
+ * the react-hook-form `Form` binding (`Form` + `FormField` + a control) instead
+ * of the Formik field family. See MIGRATION.md for the migration path.
  */
 export function FormikTextField({
   id,
