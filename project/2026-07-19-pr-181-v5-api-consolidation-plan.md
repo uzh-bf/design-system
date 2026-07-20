@@ -6,9 +6,10 @@ yet** (klicker still on Formik).
 
 ## Plan identity
 
-- Plan: `project/2026-07-19-v5-api-consolidation-plan.md`
+- Plan: `project/2026-07-19-pr-181-v5-api-consolidation-plan.md`
 - Branch: `v5-api-consolidation` (off `v5`) — created 2026-07-19.
 - Target: `v5`
+- PR: [#181](https://github.com/uzh-bf/design-system/pull/181) (draft, base `v5`)
 - Related: roadmap `project/2026-07-18-v5-production-readiness-roadmap.md`;
   PR [#180](https://github.com/uzh-bf/design-system/pull/180) on
   `v5-p0-release-safety` → **merge into `v5` first (recommended), then fork this
