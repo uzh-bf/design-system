@@ -31,6 +31,10 @@ export interface FormikDatetimePickerProps
  * @param dataPreviousMonth - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the previous month button.
  * @param dataNextMonth - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the next month button.
  * @returns Datetime picker component with optional label, edit button and save button.
+ *
+ * @deprecated Frozen in v5 and scheduled for removal in v6. New code should use
+ * the react-hook-form `Form` binding (`Form` + `FormField` + a control) instead
+ * of the Formik field family. See MIGRATION.md for the migration path.
  */
 export function FormikDatetimePicker({
   name,

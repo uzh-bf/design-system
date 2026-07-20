@@ -86,6 +86,113 @@ Anything inside a `data-theme="uzh"` container (set directly or via
 > `ThemeProvider` wrapper and resolve the document-root theme. Keep a single root
 > theme unless you have verified a specific nested case.
 
+## Breaking change: public API surface
+
+v5 consolidates the package into **two component entry points** plus the CSS
+entry. Earlier setups exposed the raw shadcn primitives twice — once with a
+`Shadcn*` prefix at the package root, once under a `./ui` subpath — and the form
+wrappers under a `./forms` subpath. All of that duplication is removed.
+
+### Entry points
+
+| Import specifier                   | Contents                                                                                                                                                                                                                                                                    |
+| ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `@uzh-bf/design-system`            | Opinionated **custom composites** — `Button`, `Table`, `Modal`, `Form`, the `Formik*` fields, and the rest of the UZH-styled components. The form wrappers that used to live under `./forms` now live here.                                                                 |
+| `@uzh-bf/design-system/primitives` | **Raw shadcn/Radix primitives** under their natural names (`Table`, `DropdownMenu*`, `Menubar*`, `Collapsible*`, `Label`, `Progress`, …). **New door** — it replaces the removed `Shadcn*` root exports and the raw-primitive aliases that the `./ui` subpath also carried. |
+| `@uzh-bf/design-system/css`        | Precompiled stylesheet (see [CSS delivery](#breaking-change-css-delivery)). Unchanged.                                                                                                                                                                                      |
+
+### Removed subpaths
+
+- `@uzh-bf/design-system/ui` → this subpath re-exported the **custom composites**
+  (`Button`, `Accordion`, …), which now come from the root **`@uzh-bf/design-system`**;
+  the raw `Shadcn*` aliases it also carried move to **`@uzh-bf/design-system/primitives`**
+  under their natural names.
+- `@uzh-bf/design-system/forms` → **`@uzh-bf/design-system`** (the form wrappers moved up to the root).
+
+### Removed `Shadcn*` exports
+
+The `Shadcn*`-prefixed root exports are gone. Import the raw primitive from
+`./primitives` under its **natural name** instead:
+
+```ts
+// before
+import { ShadcnTable, ShadcnTableRow } from '@uzh-bf/design-system'
+// after
+import { Table, TableRow } from '@uzh-bf/design-system/primitives'
+```
+
+Complete mapping (all removed under `@uzh-bf/design-system`, all available from
+`@uzh-bf/design-system/primitives`):
+
+| Removed export                   | Replacement (natural name) |
+| -------------------------------- | -------------------------- |
+| `ShadcnCollapsible`              | `Collapsible`              |
+| `ShadcnCollapsibleContent`       | `CollapsibleContent`       |
+| `ShadcnCollapsibleTrigger`       | `CollapsibleTrigger`       |
+| `ShadcnDropdownMenu`             | `DropdownMenu`             |
+| `ShadcnDropdownMenuCheckboxItem` | `DropdownMenuCheckboxItem` |
+| `ShadcnDropdownMenuContent`      | `DropdownMenuContent`      |
+| `ShadcnDropdownMenuGroup`        | `DropdownMenuGroup`        |
+| `ShadcnDropdownMenuItem`         | `DropdownMenuItem`         |
+| `ShadcnDropdownMenuLabel`        | `DropdownMenuLabel`        |
+| `ShadcnDropdownMenuPortal`       | `DropdownMenuPortal`       |
+| `ShadcnDropdownMenuRadioGroup`   | `DropdownMenuRadioGroup`   |
+| `ShadcnDropdownMenuRadioItem`    | `DropdownMenuRadioItem`    |
+| `ShadcnDropdownMenuSeparator`    | `DropdownMenuSeparator`    |
+| `ShadcnDropdownMenuShortcut`     | `DropdownMenuShortcut`     |
+| `ShadcnDropdownMenuSub`          | `DropdownMenuSub`          |
+| `ShadcnDropdownMenuSubContent`   | `DropdownMenuSubContent`   |
+| `ShadcnDropdownMenuSubTrigger`   | `DropdownMenuSubTrigger`   |
+| `ShadcnDropdownMenuTrigger`      | `DropdownMenuTrigger`      |
+| `ShadcnLabel`                    | `Label`                    |
+| `ShadcnMenubar`                  | `Menubar`                  |
+| `ShadcnMenubarCheckboxItem`      | `MenubarCheckboxItem`      |
+| `ShadcnMenubarContent`           | `MenubarContent`           |
+| `ShadcnMenubarGroup`             | `MenubarGroup`             |
+| `ShadcnMenubarItem`              | `MenubarItem`              |
+| `ShadcnMenubarLabel`             | `MenubarLabel`             |
+| `ShadcnMenubarMenu`              | `MenubarMenu`              |
+| `ShadcnMenubarPortal`            | `MenubarPortal`            |
+| `ShadcnMenubarRadioGroup`        | `MenubarRadioGroup`        |
+| `ShadcnMenubarRadioItem`         | `MenubarRadioItem`         |
+| `ShadcnMenubarSeparator`         | `MenubarSeparator`         |
+| `ShadcnMenubarShortcut`          | `MenubarShortcut`          |
+| `ShadcnMenubarSub`               | `MenubarSub`               |
+| `ShadcnMenubarSubContent`        | `MenubarSubContent`        |
+| `ShadcnMenubarSubTrigger`        | `MenubarSubTrigger`        |
+| `ShadcnMenubarTrigger`           | `MenubarTrigger`           |
+| `ShadcnProgress`                 | `Progress`                 |
+| `ShadcnTable`                    | `Table`                    |
+| `ShadcnTableBody`                | `TableBody`                |
+| `ShadcnTableCaption`             | `TableCaption`             |
+| `ShadcnTableCell`                | `TableCell`                |
+| `ShadcnTableFooter`              | `TableFooter`              |
+| `ShadcnTableHead`                | `TableHead`                |
+| `ShadcnTableHeader`              | `TableHeader`              |
+| `ShadcnTableRow`                 | `TableRow`                 |
+| `ShadcnFormLabel`                | `FormLabel`                |
+
+> **Watch for name collisions (silent swap).** Wherever a name exists at **both**
+> doors, the **root** is the opinionated custom composite and `./primitives` is the
+> raw shadcn primitive. When they differ, TypeScript does **not** error on the wrong
+> door, so the swap is silent. This affects at least twelve names — `Button`,
+> `Checkbox`, `Collapsible`, `FormLabel`, `Label`, `Progress`, `Select`, `Slider`,
+> `Switch`, `Table`, `Tabs`, `Tooltip` — five of which (`Collapsible`, `FormLabel`,
+> `Label`, `Progress`, `Table`) are also among the removed `Shadcn*` names above.
+> **Rule of thumb:** import the raw primitive **explicitly from `./primitives`** and
+> the composite from the root. Names such as `DropdownMenu*`, `Menubar*`, and the
+> `Table*` sub-parts (`TableRow`, …) exist only under `./primitives`, so nothing
+> shadows them.
+
+This is the break most likely to hit existing consumers: apps that imported
+`ShadcnTable*` for a bare table now import `Table*` from
+`@uzh-bf/design-system/primitives`, keeping the root `Table` free for the custom
+data-table composite.
+
+v5 also marks the package `"sideEffects": ["*.css"]` so consuming bundlers can
+tree-shake unused components while preserving the required stylesheet import — no
+action needed.
+
 ## Peer dependencies
 
 v5 no longer bundles its runtime libraries — every one is declared as a **peer
@@ -95,6 +202,39 @@ the `@fortawesome/*` packages, and the Tailwind toolchain). v4 inlined some of
 these, so an app that never installed them explicitly may now surface unmet-peer
 warnings — install the missing ones. As a side effect this removes the duplicate
 `react-dom` copy that v4 shipped inside its chunks.
+
+### `react-hook-form` is now a required peer
+
+The shadcn `Form` binding (`Form`, `FormField`, `FormControl`, …) is built on
+`react-hook-form`. v5 moves `react-hook-form` from a bundled **dependency** to a
+**peer dependency** you provide:
+
+```sh
+pnpm add react-hook-form
+```
+
+Providing it yourself keeps a single `react-hook-form` instance in your app — a
+bundled copy would break the `FormProvider` React context across the package
+boundary. It is a required peer rather than an optional one because the `Form`
+binding is re-exported from the package's main entry, so `react-hook-form` is
+resolved whenever the entry is loaded — even by consumers that never render the
+binding. A per-feature build split that would let non-`Form` consumers skip it is
+tracked for a later release; until then, install it alongside the package.
+
+v5 also **drops `@hookform/resolvers`** — the design system never imported it, so
+it was dead weight in the dependency tree. If you use an RHF resolver such as
+`zodResolver`, depend on `@hookform/resolvers` directly in your app.
+
+## Deprecations
+
+The **Formik field family** — `FormikTextField`, `FormikNumberField`,
+`FormikTextareaField`, `FormikSelectField`, `FormikSwitchField`,
+`FormikColorPicker`, `FormikDatePicker`, `FormikDatetimePicker`, `FormikPinField`,
+and `FormikAlphaNumericPinField` — is marked **`@deprecated` as of v5 and will be
+removed in v6.** These components keep working unchanged in v5; the tag only
+surfaces an editor warning. New code should use the react-hook-form `Form`
+binding (`Form` + `FormField` + a control) instead. `formik` remains a v5 peer
+dependency so existing Formik usage keeps compiling until the v6 removal.
 
 ## New exports
 

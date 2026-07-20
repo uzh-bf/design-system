@@ -6,8 +6,8 @@ import {
   FormField,
   FormItem,
   FormMessage,
-  ShadcnFormLabel,
 } from './Form'
+import { FormLabel } from './ui/form'
 import { Button } from './Button'
 
 {/* START README */}
@@ -18,7 +18,7 @@ and validation messages together with the correct `id`/`aria-*` associations, so
 fields are accessible by default.
 
 Wrap your form in `Form` (spread the object returned by `useForm`), then describe
-each field with `FormField` + `FormItem` + `ShadcnFormLabel` + `FormControl` +
+each field with `FormField` + `FormItem` + `FormLabel` + `FormControl` +
 `FormMessage`. `FormControl` accepts any control via `asChild` and injects the
 ids/aria so the label and error message are linked to it automatically.
 
@@ -30,7 +30,7 @@ For the simpler, Formik-based field components used across UZH apps, see the
 {/*
 AI_DOCUMENTATION_START
 
-Technical Overview: react-hook-form binding (shadcn Form). FormField/FormItem/ShadcnFormLabel/FormControl/FormMessage compose an accessible field with auto-wired id/aria associations.
+Technical Overview: react-hook-form binding (shadcn Form). FormField/FormItem/FormLabel/FormControl/FormMessage compose an accessible field with auto-wired id/aria associations.
 Dependencies: react-hook-form
 
 Available Stories:
@@ -42,7 +42,7 @@ Exports:
 - Form - FormProvider wrapper (spread the useForm() return value)
 - FormField - Controller binding a name to the field render
 - FormItem - Field layout wrapper that generates the shared ids
-- ShadcnFormLabel - Label wired to the control via htmlFor
+- FormLabel - Label wired to the control via htmlFor
 - FormControl - Slot that injects id/aria onto the control
 - FormDescription - Helper text linked via aria-describedby
 - FormMessage - Validation message linked via aria-describedby
@@ -56,7 +56,7 @@ const form = useForm({ defaultValues: { username: '' } })
 <Form {...form}>
   <FormField control={form.control} name="username" render={({ field }) => (
     <FormItem>
-      <ShadcnFormLabel>Username</ShadcnFormLabel>
+      <FormLabel>Username</FormLabel>
       <FormControl><input {...field} /></FormControl>
       <FormMessage />
     </FormItem>
@@ -86,7 +86,7 @@ export const Default = () => {
           rules={{ required: 'A username is required.' }}
           render={({ field }) => (
             <FormItem>
-              <ShadcnFormLabel>Username</ShadcnFormLabel>
+              <FormLabel>Username</FormLabel>
               <FormControl>
                 <input
                   {...field}

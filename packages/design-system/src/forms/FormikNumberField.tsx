@@ -66,6 +66,10 @@ export interface FormikNumberFieldOnChangeProps extends FormikNumberFieldProps {
  * @param onBlur - The onBlur function of the input field.
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param className - The optional className object allows you to override the default styling.
+ *
+ * @deprecated Frozen in v5 and scheduled for removal in v6. New code should use
+ * the react-hook-form `Form` binding (`Form` + `FormField` + a control) instead
+ * of the Formik field family. See MIGRATION.md for the migration path.
  */
 export function FormikNumberField({
   id,

@@ -1,5 +1,5 @@
 import { RadioGroup, RadioGroupItem } from './RadioGroup'
-import { ShadcnLabel } from './ShadcnLabel'
+import { Label } from './ui/label'
 
 {/* START README */}
 <div className="prose prose-sm max-w-none">
@@ -103,15 +103,15 @@ export const Default = () => {
     <RadioGroup defaultValue="comfortable">
       <div className="flex items-center gap-3">
         <RadioGroupItem value="default" id="r1" />
-        <ShadcnLabel htmlFor="r1">Default</ShadcnLabel>
+        <Label htmlFor="r1">Default</Label>
       </div>
       <div className="flex items-center gap-3">
         <RadioGroupItem value="comfortable" id="r2" />
-        <ShadcnLabel htmlFor="r2">Comfortable</ShadcnLabel>
+        <Label htmlFor="r2">Comfortable</Label>
       </div>
       <div className="flex items-center gap-3">
         <RadioGroupItem value="compact" id="r3" />
-        <ShadcnLabel htmlFor="r3">Compact</ShadcnLabel>
+        <Label htmlFor="r3">Compact</Label>
       </div>
     </RadioGroup>
   )

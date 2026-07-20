@@ -53,6 +53,10 @@ export interface FormikColorPickerProps {
  * @param dataTrigger - Optional data attributes for the trigger icon (for testing purposes).
  * @param dataHexInput - Optional data attributes for the hex input field (for testing purposes).
  * @returns A ColorPicker component that integrates with Formik for form handling.
+ *
+ * @deprecated Frozen in v5 and scheduled for removal in v6. New code should use
+ * the react-hook-form `Form` binding (`Form` + `FormField` + a control) instead
+ * of the Formik field family. See MIGRATION.md for the migration path.
  */
 export function FormikColorPicker({
   name,

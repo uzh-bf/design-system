@@ -10,12 +10,12 @@ import {
 } from './Breadcrumb'
 import { Separator } from './Separator'
 import {
-  ShadcnDropdownMenu,
-  ShadcnDropdownMenuContent,
-  ShadcnDropdownMenuItem,
-  ShadcnDropdownMenuTrigger,
-} from './ShadcnDropdown'
-import { ShadcnLabel } from './ShadcnLabel'
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from './ui/dropdown-menu'
+import { Label } from './ui/label'
 import {
   Sidebar,
   SidebarContent,
@@ -224,8 +224,8 @@ return (
     <SidebarHeader>
       <SidebarMenu>
         <SidebarMenuItem>
-          <ShadcnDropdownMenu>
-            <ShadcnDropdownMenuTrigger asChild>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
               <SidebarMenuButton
                 size="lg"
                 className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
@@ -239,30 +239,30 @@ return (
                 </div>
                 <ChevronsUpDown className="ml-auto" />
               </SidebarMenuButton>
-            </ShadcnDropdownMenuTrigger>
-            <ShadcnDropdownMenuContent
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
               className="w-(--radix-dropdown-menu-trigger-width)"
               align="start"
             >
               {sidebarData.versions.map((version) => (
-                <ShadcnDropdownMenuItem
+                <DropdownMenuItem
                   key={version}
                   onSelect={() => setSelectedVersion(version)}
                 >
                   v{version}{' '}
                   {version === selectedVersion && <Check className="ml-auto" />}
-                </ShadcnDropdownMenuItem>
+                </DropdownMenuItem>
               ))}
-            </ShadcnDropdownMenuContent>
-          </ShadcnDropdownMenu>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </SidebarMenuItem>
       </SidebarMenu>
       <form>
         <SidebarGroup className="py-0">
           <SidebarGroupContent className="relative">
-            <ShadcnLabel htmlFor="search" className="sr-only">
+            <Label htmlFor="search" className="sr-only">
               Search
-            </ShadcnLabel>
+            </Label>
             <SidebarInput
               id="search"
               placeholder="Search the docs..."
