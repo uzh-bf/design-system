@@ -357,3 +357,20 @@ Outline only; not built in Phase 1 per user sequencing.
 - 2026-07-20 Push authorized by user → `git push` + draft PR via
   `$rs-mr-description-writer` (whole-branch vs `origin/v5`, draft by default).
   **npm release stays HELD** (no publish of any tag) per standing ruling.
+- 2026-07-20 FABLE REVIEW (independent final, `claude-fable-5` main-agent run) →
+  full findings persisted at `project/2026-07-20-pr-181-fable-review-findings.md`.
+  Verdict: core solid, blocking gate PASS, collision claim exact, smoke 454/454.
+  **3 defects + 1 ADR advisory, all in packaging/docs layer:**
+  - **F1 (needs ruling, conf 100):** `react-hook-form` `optional:true` is not
+    honored — both doors static-import the shared form chunk
+    (`dist/toggle-group-*.js:9`), so any consumer skipping RHF crashes on first
+    import of EITHER `.` or `./primitives`. Recommend drop `optional:true` (make
+    RHF a required peer) + rewrite MIGRATION §RHF; true optionality → v6 `./form` door.
+  - **F2 (gated_auto, conf 100):** `MIGRATION.md:106`/`:101` point removed `./ui`
+    (was 65 COMPOSITE re-exports) at `./primitives` (raw) → should be root `.`.
+  - **F3 (gated_auto, conf 100):** `README.md:87` still shows `./forms` import +
+    omits `./primitives`; npm auto-ships README. (S7 dangling grep missed prose.)
+  - **F4 (advisory, conf 50):** two-door decision (FE5/FE7/FE8) has no ADR.
+  klicker fit: 100/111 root-door import names unchanged; missing 11 all `Shadcn*`
+  with exact MIGRATION rows → migration near-mechanical (FE8 vindicated).
+  Disposition pending user ruling on F1; F2/F3 applyable as doc slices; npm HELD.
