@@ -15,12 +15,13 @@ Date: 2026-07-20. Type: `fix(a11y)` batch. Caveman form.
 
 Fix the WCAG 2.1/2.2 **Level A** failures in core widgets so the uzh public-sector (eCH-0059) target is reachable. Scope = roadmap #15: A11Y-1 Table, A11Y-2 Checkbox, A11Y-3 forms error pattern, A11Y-4 Navigation, +A11Y-9 required/id.
 
+**Scope extended 2026-07-21** (user: "do the remaining work on a11y on this branch and PR, then finalize the PR"): roadmap #16 batch 2 folds into the same branch/PR — A11Y-6 Workflow, A11Y-7 StepProgress, A11Y-8/COMP-10 ColorPicker, A11Y-11 live regions, A11Y-10 reduced-motion, plus persisted keyboard contracts (partial A11Y-14). See `## Batch 2`.
+
 ## Non-goals
 
-- A11Y-5/A11Y-12 uzh contrast (Critical but **D4-gated**, design ruling) — excluded.
-- A11Y-6/7/8 (Workflow, StepProgress, ColorPicker) = batch 2, next milestone.
-- A11Y-10/11/13/14 (reduced-motion, live regions, RTL, axe keyboard specs) — later.
-- TEST-4 a11y CI re-enable/triage — separate slice.
+- A11Y-5/A11Y-12 uzh contrast (Critical but **D4-gated**, design ruling) — excluded, blocked on design.
+- A11Y-13 (focus-ring contrast, RTL/logical properties, central i18n hook = D7) — post-GA.
+- TEST-4 a11y CI re-enable/triage (roadmap #18) — deferred, see decision DI.
 - No npm release (HELD). No back-compat shims. Keep all composites.
 
 ## Decisions made on user's behalf (veto-able)
@@ -89,6 +90,77 @@ Fix the WCAG 2.1/2.2 **Level A** failures in core widgets so the uzh public-sect
 - Check: browser Switch story — switch exposes the label as accessible name; label click toggles once; disabled no-op. tsc/lint/format clean.
 - Commit: `fix(a11y): associate Switch label for accessible name`
 
+## Batch 2 (added 2026-07-21, same branch + PR #182)
+
+### Research (done 2026-07-21, 37-agent workflow `wf_f92b900a-371`)
+
+6 readers (Workflow, StepProgress, ColorPicker, live regions, reduced-motion, test/CI infra) → 31 defect claims → each claim sent to an independent adversarial verifier told to **refute** it. Kept only what survived.
+
+- **Confirmed Level A:** Workflow (2.1.1 no keyboard target, 4.1.2 no `aria-current`, 1.3.1 no list/nav semantics); StepProgress (4.1.2 × 3 icon-only status branches with empty accname, × 2 unnamed overflow buttons, no `aria-current`); ColorPicker (4.1.2 trigger has no `aria-expanded`/`haspopup`/name, unnamed swatches, hex input label unlinked, no Escape/focus management); Countdown low-time warning by **colour alone** (1.4.1).
+- **Refuted / downgraded — do not implement as stated:** `workflow-tooltip-branch-implicit-bubbling` (Radix `TooltipTrigger` **does** render a real focusable `<button>`; step selection works via un-stopped bubbling — fragile contract, not a defect); Spinner name, Button `aria-busy`, UserNotification role = SC **4.1.3 Status Messages, Level AA** not A; all reduced-motion claims = **AAA** (2.3.3); A11Y-14 axe-blindness = test-coverage gap, no SC.
+- **Corrected fact:** axe sweep is **740** cases (370 non-readme stories × 2 themes), not the roadmap's 708. Roadmap TEST-4 line to be corrected so the eventual triage is not under-scoped.
+- **Verified-safe mechanisms:** Radix `Presence` takes the `ANIMATION_OUT` branch as long as `animation-name` stays non-`none` → a `0.01ms` duration override cannot strand an unmount (`@radix-ui/react-presence@1.1.4` dist read directly). `ui/popover.tsx` does **not** portal → a ColorPicker rebuild keeps the popover inline in the DOM. `sonner` already ships its own `prefers-reduced-motion` handling.
+
+### Decisions made on user's behalf (veto-able)
+
+| # | Decision | Choice | Why |
+| --- | --- | --- | --- |
+| DD | A11Y-8/COMP-10 ColorPicker fix shape | **Rebuild on shared `ui/popover`** | Radix `Popover` emits `aria-haspopup="dialog"`/`aria-expanded`/`aria-controls` and wraps content in `FocusScope`+`DismissableLayer` (Escape + outside-dismiss + focus return) for free; closes COMP-10's hand-rolled `any`-typed outside-click in the same change. The in-place patch **cannot** restore focus — `src/Button.tsx` has no `forwardRef`. Same pattern already used unmodified by DatePicker/DateRangePicker/DatetimePicker/Combobox/MultiSelect. Cost: remap the 4-value `position` prop onto Radix `side`/`align`. |
+| DE | sr-only status/nav text (StepProgress et al.) | **Hardcode English, no override props** | Matches in-repo precedent (`ui/pagination.tsx`, `ui/carousel.tsx` hardcode sr-only text). A central i18n hook is roadmap D7/A11Y-13; adding per-component override props now pre-empts that decision and creates API surface to delete later. |
+| DF | A11Y-10 reduced-motion | **Include; exempt `.animate-spin`** | Property-level kill switch in `@layer base` reaches Radix data-state utilities, local keyframes and `transition-*` alike — token redefinition does not, because Tailwind v4 folds single-use `@theme` custom properties into literals (verified in built `dist/design-system.css`). Spinners stay animated: freezing one reads as "stuck", and WCAG 2.2.2 exempts essential motion. |
+| DG | A11Y-11 live regions | **Additive ARIA only; skip the Countdown threshold announcer** | `role="timer"` + a non-colour low-time cue is the Level A part (1.4.1). A "announce only at thresholds" state machine on a component ticking at `intervalDelay={0}` is new stateful logic with real re-render/double-announce risk for an AA-level gain. Never `aria-live="polite"` on a per-second ticker. |
+| DH | Persisted keyboard contracts | **Add `tests/a11y/keyboard.spec.ts`** | Batch 1 shipped with zero keyboard regression lock. Playwright `.press()`/`.focus()` work in this harness — the earlier "CDP key input unverifiable" note referred to the agent's interactive browser pane, not the Playwright runner. |
+| DI | TEST-4 a11y CI gate | **Defer to roadmap #18** | 740 cases, 296-finding untriaged backlog, 16.6 min on CI runners; the previous enable attempt already failed once for exactly this reason. A permanently-red report-only job is alarm fatigue, not a gate. |
+| DJ | A11Y-5/A11Y-12 uzh contrast | **Excluded — blocked on D4** | Re-deriving brand foreground/background pairs is a design ruling, not an engineering call. |
+
+### S5 — A11Y-6 Workflow: list semantics + real button + aria-current
+
+- Problem: `Workflow.tsx:249` puts `onClick` on a plain `<div>`; the no-tooltip branch (`:312`) has no focusable descendant at all — 6 of 8 stories use tooltip-less fixtures (`values.ts:218`), so a keyboard user cannot reach a single step. Root (`:101`) and each item (`:215`) are bare `<div>`s: no `nav`/`ol`/`li`, no `aria-current`.
+- Do: root → `<nav><ol>`; item wrapper → `<li>` keeping the arrow pseudo-element classes and inline width/gradient style; move `onClick` onto a real `<button type="button">` in **both** branches; `aria-current={ix === activeIx ? 'step' : undefined}`; `aria-disabled={disabled || undefined}` (ARIA-only, keeps the disabled-tooltip reachable, runtime guard already blocks the action).
+- Files: `src/Workflow.tsx` (+ `src/Tooltip.tsx` only if an `asChild` passthrough is needed to avoid nesting a button in a button).
+- Check: keyboard reach + Enter/Space in both branches; `aria-current` on the active step only; axe workflow stories green.
+- Commit: `fix(a11y): keyboard-operable workflow steps with list semantics and aria-current`
+
+### S6 — A11Y-7 StepProgress: accessible names for status steps
+
+- Problem: `contentFormatter` (`StepProgress.tsx:19-37`) returns a bare `FontAwesomeIcon` for `correct`/`incorrect`/`partial`; FontAwesome defaults to `aria-hidden="true"`, so the wrapping `<button>` (`:134`) has an **empty** accessible name once a status is set. Both overflow buttons (`:115`, `:168`) are icon-only and unnamed. Current step (`value === ix`, `:143`) is styling-only.
+- Do: keep the icon decorative, add a sibling `<span className="sr-only">` per status branch (one naming mechanism across all branches, mirrors `FieldErrorIndicator`); `aria-label` on the two overflow buttons; `aria-current={value === ix ? 'step' : undefined}`. Consumer-supplied `formatter` stays consumer-owned (out of scope, do not claim coverage).
+- Files: `src/StepProgress.tsx`.
+- Check: `getByRole('button', { name: … })` resolves for each status; axe `button-name` (impact critical, already blocking in the sweep) clears on `step-progress--status*`.
+- Commit: `fix(a11y): name StepProgress status steps and overflow controls`
+
+### S7 — A11Y-8 + COMP-10 ColorPicker: rebuild on Popover, name every control
+
+- Problem: trigger is an icon-only `Button` with no name and no `aria-expanded`/`haspopup`/`controls`; preset swatches are unnamed buttons; the hex input's visible `Label` is not linked to it; the popover is hand-rolled with an `any`-typed `mousedown` listener, no Escape, no focus containment or return (`ColorPicker.tsx:63-80`, `132-266`).
+- Do (decision DD): `Popover`/`PopoverTrigger asChild`/`PopoverContent`; required `triggerAriaLabel` on `ColorPickerProps` (breaking TS-only, matches DB); `aria-label` per swatch; `useId()`-linked `Label`↔`HexColorInput`; map `position` → `side`/`align`. Thread the new required prop through `forms/FormikColorPicker.tsx` (enumerates props explicitly, no spread — build breaks otherwise).
+- Files: `src/ColorPicker.tsx`, `src/forms/FormikColorPicker.tsx`, stories.
+- Check: trigger name + `aria-expanded` flip; one distinct name per swatch; hex input reachable by `getByRole('textbox', { name })`; Escape closes; **visual QA of all 4 `position` values + the `Styled` story in both themes**.
+- Commit: `fix(a11y)!: rebuild ColorPicker on Popover and name its controls`
+
+### S8 — A11Y-11 status/live semantics (Level A part + cheap additive ARIA)
+
+- Problem: Countdown signals the low-time warning by **text colour alone** (`Countdown.tsx:87-90`, `100-103`) in an exam context (1.4.1 Level A) and carries no timer role; `UserNotification` has no role at all unlike `ui/alert`; `ui/spinner.tsx` sets `role="status"` with no name (its story documents an `aria-label` the code lacks); `Button` never sets `aria-busy` while loading.
+- Do: non-colour warning cue + `role="timer"` on Countdown/CycleCountdown (no per-tick live region — decision DG); role on `UserNotification`; `aria-label="Loading"` on the spinner; `aria-busy={loading || undefined}` on Button.
+- Files: `src/Countdown.tsx`, `src/CycleCountdown.tsx`, `src/UserNotification.tsx`, `src/ui/spinner.tsx`, `src/Button.tsx`.
+- Check: attribute contracts per component; axe green; visual check that the warning cue does not shift layout.
+- Commit: `fix(a11y): non-colour countdown warning and status roles for feedback components`
+
+### S9 — A11Y-10 reduced-motion
+
+- Problem: zero `prefers-reduced-motion` handling anywhere (grep-verified); skeleton shimmer loops infinitely, every Radix enter/exit, accordion, sheet and drawer animate unconditionally.
+- Do: one `@media (prefers-reduced-motion: reduce)` block in `@layer base` of `src/tailwind.css` neutralising `animation-duration`/`animation-iteration-count`/`transition-duration`/`scroll-behavior`, exempting `.animate-spin` (decision DF). Embla drag momentum is JS-driven and stays out of reach — record as a follow-up.
+- Files: `src/tailwind.css`.
+- Check: rebuild and grep `dist/design-system.css` for the surviving media block (Tailwind v4 optimiser); Playwright `emulateMedia({ reducedMotion: 'reduce' })` — skeleton/accordion duration ≈ 0, dialog still unmounts promptly (proves Presence is not stranded), spinner duration unchanged.
+- Commit: `fix(a11y): honour prefers-reduced-motion at the token layer`
+
+### S10 — persisted keyboard + interaction contracts (partial A11Y-14)
+
+- Problem: batch 1 and batch 2 both rely on "native `<button>` = keyboard operable" with **no persisted test**; the axe sweep only ever sees default states.
+- Do: `tests/a11y/keyboard.spec.ts` in the deterministic `field-labeling.spec.ts` style (local `gotoStory`, locator-level waits, attribute assertions, no axe): Table header Enter/Space → `aria-sort` cycle; Checkbox/Switch Space toggle; SelectField Enter opens + Escape closes and returns focus; Navigation icon-only trigger Enter/Escape; Workflow step Enter; ColorPicker Escape. Also correct the roadmap's stale 708 → 740 case count.
+- Files: `tests/a11y/keyboard.spec.ts` (new), `project/2026-07-18-v5-production-readiness-roadmap.md`.
+- Check: suite passes at default parallelism (attribute assertions are workers-agnostic) and at `--workers=1`.
+- Commit: `test(a11y): persist keyboard and interaction contracts`
+
 ## Cadence
 
 Per `$rs-sliced-development-workflow`: one slice at a time — implement, fast verify, browser a11y proof, native review + simplify subagents on the exact diff, integrate, re-verify, update Progress, conventional commit. Main agent implements (agy delegation OFF). Finish gate at end: security review (`$security-review`), thermo-nuclear maintainability, independent branch review, then draft PR via `$rs-mr-description-writer`. npm HELD.
@@ -111,3 +183,8 @@ Per `$rs-sliced-development-workflow`: one slice at a time — implement, fast v
 - 2026-07-20: **Security gate — PASS.** `$security-review` subagent on the whole-branch diff: "No high-confidence vulnerabilities identified." Confirmed all rendered values (`{error}`, `{ariaLabel}`, `{label}`) are React-escaped text/attributes (no `dangerouslySetInnerHTML`, no `v-html`), the `errorId` template-string is a benign DOM id (no injection/clobbering), aria/id values are dev-supplied props or `useId()` output (not attacker-controlled), and **no new runtime dependencies** (package.json diff empty; `@radix-ui/react-label` + `input-otp` were already deps).
 - 2026-07-20: **Maintainability gate — `$thermo-nuclear-code-quality-review` → APPROVE-WITH-NITS, nit integrated.** Reviewer verified (in-repo, not diff-only): the two-file hook/component split is a real `react-refresh/only-export-components` constraint (reproduced); `useFieldError`/`FieldErrorIndicator` earns its keep across 5 consumers (collapsed 5 near-identical ~10-line Tooltip blocks, incidentally fixing a missing-`ariaLabel` drift); the SelectField items/groups collapse is real dedup that typechecks against the discriminated union with no cast; layering of the `aria-X={cond || undefined}` guards is correct; no file-size explosion, no spaghetti. **One nit integrated →** the `error!` non-null assertion appeared 5× only because the hook returned `showError` (boolean) + `error` separately. `useFieldError` now returns **`visibleError: string | undefined`** (the error string exactly when it should surface, else undefined) instead of `showError`; all 5 fields gate the alert and `aria-describedby` off that single narrowed value — **deletes the `showError` concept AND all 5 casts** (net simpler, explicit type boundary). Verified behavior-preserving: tsc/lint/prettier clean; contract **12/12**; field-family axe **172/172** at `--workers=1`. Commit: `refactor(a11y): return narrowed visibleError from useFieldError`.
 - 2026-07-20: Remaining finish-gate steps: independent branch review (external agent), then DRAFT PR via `$rs-mr-description-writer` (merge-commit onto `v5`, like #180/#181). **npm HELD.** PR stays DRAFT — no merge without explicit user authority.
+- 2026-07-20: **Batch 1 finished.** Independent branch review APPROVE-WITH-NITS (no blockers; 2 nits deferred: `.mdx` not tsc-checked, `{...props}` spread ordering pre-existing). DRAFT [PR #182](https://github.com/uzh-bf/design-system/pull/182) opened, all CI green (Formatting/Types/Lint/Test 2m26s/build/Vercel).
+
+## Progress — batch 2
+
+- 2026-07-21: **Batch-2 research DONE.** 37-agent workflow (`wf_f92b900a-371`): 6 component/infra readers → 31 defect claims → 31 independent adversarial verifiers. 8 claims refuted or downgraded off Level A (see `## Batch 2` → Research). Scope, decisions DD–DJ and slices S5–S10 written above. Next: S5 (Workflow).
