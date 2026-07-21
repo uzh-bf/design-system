@@ -89,6 +89,7 @@ Usage Examples:
       label="Theme Color"
       submitText="Apply Color"
       colorLabel="Custom Color"
+      triggerAriaLabel="Pick a color"
     />
     <Button type="submit">Save Theme</Button>
   </Form>
@@ -117,6 +118,7 @@ Usage Examples:
       validateForm={validateForm}
       submitText="Select Color"
       colorLabel="Hex Value"
+      triggerAriaLabel="Pick a color"
     />
   </Form>
 </Formik>
@@ -133,6 +135,7 @@ Usage Examples:
   presetColors={designSystemColors}
   submitText="Apply"
   colorLabel="Color Value"
+  triggerAriaLabel="Pick a color"
   colorTooltip="Enter a valid hex color code"
   dataTrigger={{ 'data-cy': 'color-picker-trigger' }}
   dataHexInput={{ 'data-testid': 'hex-input' }}
@@ -164,6 +167,7 @@ Usage Examples:
         presetColors={primaryColorPresets}
         submitText="Set Primary"
         colorLabel="Primary"
+        triggerAriaLabel="Pick a color"
       />
 
       <FormikColorPicker
@@ -175,6 +179,7 @@ Usage Examples:
         presetColors={secondaryColorPresets}
         submitText="Set Secondary"
         colorLabel="Secondary"
+        triggerAriaLabel="Pick a color"
       />
 
       <FormikColorPicker
@@ -186,6 +191,7 @@ Usage Examples:
         presetColors={accentColorPresets}
         submitText="Set Accent"
         colorLabel="Accent"
+        triggerAriaLabel="Pick a color"
       />
 
       <Button type="submit">Save Color Scheme</Button>
@@ -219,6 +225,7 @@ Usage Examples:
           validateForm={validateForm}
           submitText="Apply Custom Color"
           colorLabel="Theme Color"
+          triggerAriaLabel="Pick a color"
         />
       )}
 
@@ -305,6 +312,7 @@ export const Default = () => (
                 name="color"
                 submitText="Save"
                 colorLabel="Color"
+                triggerAriaLabel="Pick a color"
                 className={{ root: 'mb-4' }}
               />
               <Button type="submit">Submit</Button>
@@ -338,6 +346,7 @@ export const Label = () => (
                 required
                 submitText="Save"
                 colorLabel="Color"
+                triggerAriaLabel="Pick a color"
                 label="Picker"
                 tooltip="This is a tooltip"
                 name="color"
@@ -347,6 +356,7 @@ export const Label = () => (
                 required
                 submitText="Save"
                 colorLabel="Color"
+                triggerAriaLabel="Pick a color"
                 label="Picker"
                 labelType="large"
                 tooltip="This is a tooltip"
@@ -386,6 +396,7 @@ export const Disabled = () => (
                 className={{ root: 'mb-4' }}
                 submitText="Save"
                 colorLabel="Color"
+                triggerAriaLabel="Pick a color"
               />
               <Button type="submit">Submit</Button>
             </Form>
@@ -420,6 +431,7 @@ export const CustomPresets = () => (
                 presetColors={['#FF0000', '#00FF00', '#0000FF']}
                 submitText="Save"
                 colorLabel="Color"
+                triggerAriaLabel="Pick a color"
               />
               <Button type="submit">Submit</Button>
             </Form>
@@ -461,6 +473,7 @@ export const Validation = () => (
                 name="color"
                 submitText="Save"
                 colorLabel="Color"
+                triggerAriaLabel="Pick a color"
                 validateForm={validateForm}
                 className={{ root: 'mb-4' }}
               />
