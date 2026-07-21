@@ -98,7 +98,7 @@ export function Workflow({
   )
 
   return (
-    <div
+    <ol
       className={twMerge(
         'flex w-full flex-row',
         hasDescription ? 'h-[50px]' : minimal ? 'h-[26px]' : 'h-[34px]',
@@ -145,7 +145,7 @@ export function Workflow({
           />
         )
       })}
-    </div>
+    </ol>
   )
 }
 
@@ -175,6 +175,11 @@ interface WorkflowItemProps {
   }
 }
 
+/**
+ * A single workflow step. It renders an `<li>` and must therefore be placed
+ * inside an `<ol>`/`<ul>`; an orphaned list item is invalid HTML and loses its
+ * implicit `listitem` role. Prefer rendering `Workflow`, which owns the list.
+ */
 export function WorkflowItem({
   item,
   ix,
@@ -211,21 +216,43 @@ export function WorkflowItem({
     </div>
   )
 
+  // The step is a real button so it is reachable and operable by keyboard. The
+  // arrow-shaped pseudo-elements and the progress gradient stay on the list
+  // item, while the padding that offsets the incoming arrow moves onto the
+  // button so the whole cell remains clickable. `first:`/`last:` cannot express
+  // that from inside the item, hence the explicit edge check.
+  const isEdgeItem = ix === 0 || ix === numItems - 1
+  const buttonClassName = twMerge(
+    'focus-visible:ring-ring flex h-full w-full cursor-pointer items-center justify-center gap-2 select-none focus-visible:ring-2 focus-visible:outline-hidden focus-visible:ring-inset',
+    hasDescription ? 'pl-[25px]' : minimal ? 'pl-[13px]' : 'pl-[17px]',
+    isEdgeItem && 'pl-0',
+    disabled && 'cursor-not-allowed'
+  )
+  const buttonProps = {
+    type: 'button',
+    onClick: () => (disabled ? null : onClick(item, ix)),
+    'aria-current': ix === activeIx ? 'step' : undefined,
+    // aria-disabled, not the native attribute: a disabled step must stay
+    // focusable so keyboard users can still read its `tooltipDisabled`
+    // explanation. The runtime guard above already blocks the action.
+    'aria-disabled': disabled || undefined,
+  } as const
+
   return (
-    <div
+    <li
       className={twMerge(
         'group bg-muted relative flex items-center justify-center text-center',
-        'mr-1 cursor-pointer select-none first:before:border-none! last:mr-0 last:after:border-none!',
+        'mr-1 first:before:border-none! last:mr-0 last:after:border-none!',
         'after:z-10 after:border after:border-r-0 after:border-solid after:border-y-transparent',
         "before:absolute before:right-auto before:left-0 before:z-0 before:content-['']",
         'before:border before:border-r-0 before:border-solid before:border-y-transparent',
         "after:border-l-muted before:border-l-white after:absolute after:content-['']",
         twStyles.bgHover,
         hasDescription
-          ? 'h-[50px] pl-[25px] before:border-y-25 before:border-l-25 after:right-[-25px] after:border-y-25 after:border-l-25 first:pl-0 last:pl-0'
+          ? 'h-[50px] before:border-y-25 before:border-l-25 after:right-[-25px] after:border-y-25 after:border-l-25'
           : minimal
-            ? 'h-[26px] pl-[13px] before:border-y-13 before:border-l-13 after:right-[-13px] after:border-y-13 after:border-l-13 first:pl-0 last:pl-0'
-            : 'h-[34px] pl-[17px] before:border-y-17 before:border-l-17 after:right-[-17px] after:border-y-17 after:border-l-17 first:pl-0 last:pl-0',
+            ? 'h-[26px] before:border-y-13 before:border-l-13 after:right-[-13px] after:border-y-13 after:border-l-13'
+            : 'h-[34px] before:border-y-17 before:border-l-17 after:right-[-17px] after:border-y-17 after:border-l-17',
         ix < (activeIx || -1) &&
           twMerge(twStyles.bgPast, 'text-primary-100', className?.past),
         ix === activeIx &&
@@ -242,11 +269,9 @@ export function WorkflowItem({
           item.progress !== 1 &&
           item.progress &&
           'hover:after:border-l-muted! hover:bg-none',
-        disabled &&
-          'hover:bg-muted hover:after:border-l-muted! cursor-not-allowed text-gray-500',
+        disabled && 'hover:bg-muted hover:after:border-l-muted! text-gray-500',
         className?.item
       )}
-      onClick={() => (disabled ? null : onClick(item, ix))}
       style={{
         width: `${100 / numItems}%`,
         background:
@@ -263,14 +288,15 @@ export function WorkflowItem({
         <Tooltip
           tooltip={tooltip}
           delay={1500}
+          asChild
           className={{
             tooltip: 'z-20 max-w-120',
-            trigger: 'w-full!',
           }}
         >
-          <div
+          <button
+            {...buttonProps}
             className={twMerge(
-              'flex flex-row items-center justify-center gap-2',
+              buttonClassName,
               showTooltipSymbols && 'justify-between'
             )}
           >
@@ -306,14 +332,12 @@ export function WorkflowItem({
                 )}
               />
             )}
-          </div>
+          </button>
         </Tooltip>
       ) : (
-        <div
-          className={twMerge(
-            'flex flex-row items-center gap-2',
-            item.error && 'ga-0 w-full justify-between'
-          )}
+        <button
+          {...buttonProps}
+          className={twMerge(buttonClassName, item.error && 'justify-between')}
         >
           {item.error && (
             <FontAwesomeIcon
@@ -332,9 +356,9 @@ export function WorkflowItem({
           ) : null}
           <div className="mt-0.5">{content}</div>
           {item.error && <div className="w-3" />}
-        </div>
+        </button>
       )}
-    </div>
+    </li>
   )
 }
 
