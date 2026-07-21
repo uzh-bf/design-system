@@ -97,6 +97,9 @@ export function UserNotification({
   return (
     <div
       id={id}
+      // Errors and warnings interrupt as soon as they appear; everything else
+      // is a passive status region.
+      role={type === 'error' || type === 'warning' ? 'alert' : 'status'}
       data-cy={data?.cy}
       data-test={data?.test}
       className={twMerge(

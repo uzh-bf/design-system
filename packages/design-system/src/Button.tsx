@@ -82,6 +82,9 @@ export function Button({
       }
       size={size === 'sm' ? 'sm' : size === 'lg' ? 'lg' : 'default'}
       disabled={disabled || loading}
+      // The loading spinner is decorative, so the busy state is only available
+      // to assistive technology through aria-busy.
+      aria-busy={loading || undefined}
       asChild={asChild}
       type={type}
       onClick={onClick}
@@ -104,6 +107,7 @@ export function Button({
         <>
           {loading && (
             <svg
+              aria-hidden="true"
               className={`text-primary mr-2 -ml-1 h-5 w-5 animate-spin`}
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
