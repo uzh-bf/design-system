@@ -31,54 +31,66 @@ Axe sweep runs in CI as a **blocking** job at serious+critical. Deterministic, u
 
 ## Research
 
-**Backlog is zero.** Serial run at `55f48dc`: 761 passed, 4 harness timeouts,
-**0 `A11Y::` violation markers** across all 740 story x theme cases. The "296
-findings" in the roadmap predate the Level-A batch. The gate has nothing to triage.
+**The sweep was scanning an empty page.** This is the finding that invalidates
+everything built on top of it, including the verification evidence for PR #182.
 
-**The flake is one bug, not many.** Every intermittent failure is axe scanning a
-partially rendered story:
+`gotoStory` waited for `body > :not(#ladle-root)` as its "story mounted" signal.
+That selector matches `<div class="ladle-background">`, which Ladle renders before
+anything else — so the wait always returned immediately and asserted nothing. The
+story does not render outside `#ladle-root` as the code comment claimed; it renders
+*inside* it, next to the toolbar.
 
-| Rule | Why it fires early |
+Timeline probe on `select--default`, single browser, idle machine:
+
+| t | state |
 | --- | --- |
-| `aria-progressbar-name` | progressbar is named by its `formatter(value)` text |
-| `button-name` | trigger content not committed |
-| `label` | label/input pair not committed |
-| `aria-valid-attr-value` | `aria-controls` target panel not committed |
-| `color-contrast` | text painted in a fallback face |
+| 104 ms | `html[data-storyloaded]` set; body holds chrome only |
+| 366 ms | still chrome only |
+| 622 ms | story appears inside `#ladle-root`, combobox reads "Select an item" |
 
-Isolation proves it: `tabs--*` fail under load, pass 10/10 alone; `alert--destructive`
-same. No component defect reproduces serially.
+Half a second of nothing, and axe was free to scan any of it. An empty page has no
+violations, so the sweep reported **false passes**. The "0 violations" serial run
+and the "765/765" figure both measured Ladle's own chrome.
 
-**Contention is the trigger, worker count the amplifier.** Machine has 18 cores;
-Playwright default is 50% = 9 workers.
+**Fixing the wait makes the suite deterministic.** Waiting on
+`#ladle-root > [data-theme] > :not(#ladle-theme-controls)` — the story itself —
+gives byte-identical results across runs (same md5 over the violation set):
 
 | Harness | Workers | Runs |
 | --- | --- | --- |
-| baseline | 9 (default) | 84, 70 fails |
-| baseline | 1 | 4 harness timeouts, 0 axe |
-| `+ fonts.ready` | 9 (default) | 3, 14, 38 fails (escalating) |
-| `+ fonts.ready` | 4 | 0, 0, 7 fails |
+| pre-fix | 9 | 410 fails |
+| `+ fonts.ready + mutation-quiet` | 9 | 164, 156, 149 fails |
+| `+ correct story wait` | 9 | **186, 186, 186** fails |
 
-`document.fonts.ready` helps and is now safe (the comment forbidding it cited Google
-Fonts stalling; THEME-7 self-hosted them). It is not sufficient. Capping workers is a
-band-aid, not a fix.
+Failure count went *up* because the scan finally sees real components. Determinism
+is the goal, and determinism is achieved.
 
-**Not defects, checked and dismissed:**
+**There is a real Level-A backlog.** Confirmed by isolation at `--workers=1`, where
+contention cannot be the cause:
 
-- **A11Y-17 Tabs `aria-controls`** — withdrawn. Radix `Presence` gets function
-  children, so `TabsContent` stays mounted-and-`hidden` rather than unmounting, and
-  axe's `idref` check is a plain `getElementById` that ignores `hidden`. Verified by
-  SSR repro against pinned `@radix-ui/react-tabs@1.1.12`, and `tabs--*` passes 10/10
-  in isolation. It was a partial-render artifact like the rest.
-- **Select / NavigationMenu / Popover dangling `aria-controls`** — these primitives
-  *do* truly unmount their content while closed, so the IDREF really can dangle. Axe
-  does not flag it, upstream shadcn ships it unmodified, and the ARIA APG disclosure
-  pattern tolerates it because `aria-expanded="false"` already carries the state.
-  Left alone deliberately; recorded so the next audit does not re-derive it.
+- `button--icon`, `button--color-button`, `button--button-icon-group` —
+  `button-name` (critical). `Button.Icon` with `withoutLabel` and no `ariaLabel`
+  produces a button with no accessible name at all. `Button.stories.mdx:176`.
+- `tabs--*` — `aria-valid-attr-value` (critical), 10/10 stories, both themes.
+- `tabs--tooltips` — additionally `aria-required-children`, `aria-required-parent`,
+  `nested-interactive`. The tooltip wrapper breaks the tablist structure.
 
-**Structural gap worth a guard (not a bug today):** `Tabs.tsx` builds triggers from
-the `tabs` prop and panels from opaque `children`, with no cross-check. A tab added
-without a matching `TabContent` yields a genuinely dangling `aria-controls`.
+**A11Y-17 is reinstated.** I withdrew it earlier on the strength of an isolation run
+that "passed 10/10" — that run was scanning an empty page. The Radix `Presence`
+analysis explains why *inactive* panels stay in the DOM, but it does not explain
+these failures, and the failures reproduce serially. Treat the withdrawal as void
+and re-derive the diagnosis against real DOM.
+
+**Local measurement hazard.** Playwright leaves headless Chromium processes behind
+when a run is interrupted; 54 accumulated here and pushed the machine 5 GB into
+swap, which inflated failure counts run over run and produced a fake "escalating
+flake" signal. Kill strays between runs before trusting any local number.
+
+**Select / NavigationMenu / Popover dangling `aria-controls`** — these primitives
+truly unmount their content while closed, so the IDREF can dangle. Axe does not flag
+it, upstream shadcn ships it unmodified, and the APG disclosure pattern tolerates it
+because `aria-expanded="false"` carries the state. Left alone deliberately; recorded
+so the next audit does not re-derive it.
 
 **CI shape:** new dedicated job, 4-way `--shard` matrix, explicit `--workers`. Each
 shard builds Ladle itself (parallel from t=0 beats a serialized shared-artifact job).
@@ -152,6 +164,12 @@ commit range, integrate, re-verify, commit.
   Flake root-caused to the mount wait. A11Y-17 withdrawn. Plan written. S1 next.
 - 2026-07-22: correction posted on the merged PR #182 — the 765/765 figure in its
   body and squash commit message does not reproduce.
+- 2026-07-22: S1 root-caused and fixed. The story-mounted wait was a no-op matching
+  Ladle's background div, so the sweep scanned chrome and reported false passes.
+  Waiting on the story element makes the suite deterministic (186/186/186 at 9
+  workers). That also means the plan's premise was wrong: the backlog is not zero,
+  and the PR #182 axe evidence was invalid. A11Y-17 is reinstated. Slices S2-S5 are
+  paused pending a scope ruling on the backlog.
 
 ## Finish gate
 

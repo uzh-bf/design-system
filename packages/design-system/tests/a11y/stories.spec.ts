@@ -26,8 +26,8 @@ for (const theme of THEMES) {
       test(id, async ({ page }) => {
         await gotoStory(page, id, theme)
 
-        // Full page minus the dev toolbar: in preview mode the story renders
-        // outside #ladle-root, so scoping to #ladle-root would scan nothing.
+        // The whole page minus the dev toolbar. Radix portals its overlays to
+        // <body>, so scoping the scan to the story subtree would miss them.
         const { violations } = await new AxeBuilder({ page })
           .exclude(TOOLBAR_SELECTOR)
           .analyze()
@@ -37,8 +37,9 @@ for (const theme of THEMES) {
             BLOCKING_IMPACTS.includes(v.impact ?? '') && !isWaived(v.id, id)
         )
 
-        // Inventory marker — greppable during triage.
-        for (const v of blocking) {
+        // Inventory marker — greppable during triage. Every violation is
+        // logged, including the moderate and minor ones the gate lets through.
+        for (const v of violations) {
           console.log(`A11Y::${v.id}::${v.impact}::${id}::${theme}`)
         }
 
