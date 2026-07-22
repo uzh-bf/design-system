@@ -132,17 +132,62 @@ test.describe('keyboard operability and accessible naming (WCAG Level A)', () =>
     await expect(trigger).toBeFocused()
   })
 
-  test('Navigation: icon-only trigger exposes its accessible name', async ({
+  test('Navigation: an action item is named, keyboard-operable and claims no menu', async ({
     page,
   }) => {
+    const fired: string[] = []
+    page.on('dialog', (dialog) => {
+      fired.push(dialog.message())
+      dialog.dismiss()
+    })
     // The icon-only trigger carries its accessible name only through the
-    // `ariaLabel` prop that batch 1 made required — matching by name here fails
-    // loudly if that prop ever stops being forwarded. The keyboard contract for
-    // this story is asserted separately, once the button item stops claiming to
-    // own a menu it does not have.
+    // `ariaLabel` prop that batch 1 made required.
+    const trigger = page.getByRole('menuitem', { name: 'Support' })
     await gotoStory(page, 'navigation--icon-trigger')
-    await ready(page.locator('[role="menuitem"]').first())
-    await expect(page.getByRole('menuitem', { name: 'Support' })).toHaveCount(1)
+    await ready(trigger)
+
+    // Radix's MenubarTrigger advertises a menu unconditionally. An action item
+    // has none, and saying otherwise also wedged the menubar open on activation.
+    await expect(trigger).not.toHaveAttribute('aria-haspopup')
+    await expect(trigger).not.toHaveAttribute('aria-expanded')
+    await expect(trigger).not.toHaveAttribute('aria-controls')
+
+    // Both keys have to reach onClick. Radix default-prevents them for its own
+    // menu toggle, which suppressed the native click and left the item operable
+    // by mouse only.
+    await tabTo(page, trigger)
+    await page.keyboard.press('Enter')
+    expect(fired).toHaveLength(1)
+    await page.keyboard.press(' ')
+    expect(fired).toHaveLength(2)
+    await expect(trigger).toHaveAttribute('data-state', 'closed')
+
+    // ArrowDown is the menubar's "open this item's menu" key, and it reaches
+    // Radix by a different path than Enter/Space.
+    await page.keyboard.press('ArrowDown')
+    await expect(trigger).toHaveAttribute('data-state', 'closed')
+    await expect(page.getByRole('menu')).toHaveCount(0)
+  })
+
+  test('Navigation: hovering an action item leaves an open dropdown alone', async ({
+    page,
+  }) => {
+    page.on('dialog', (dialog) => dialog.dismiss())
+    const dropdown = page.getByRole('menuitem', { name: 'Dropdown Menu' })
+    const actionItem = page.getByRole('menuitem', { name: 'Support' })
+    await gotoStory(page, 'navigation--complex')
+    await ready(dropdown)
+
+    await dropdown.click()
+    await expect(page.getByRole('menu')).toBeVisible()
+
+    // Once a menu is open, the menubar follows the pointer and opens whatever
+    // it enters. On an action item that used to dismiss the dropdown the user
+    // was reading and wedge the bar open on an item with nothing to show.
+    await actionItem.hover()
+    await expect(actionItem).toHaveAttribute('data-state', 'closed')
+    await expect(dropdown).toHaveAttribute('aria-expanded', 'true')
+    await expect(page.getByRole('menu')).toBeVisible()
   })
 
   test('Workflow: Enter activates a step and moves aria-current', async ({

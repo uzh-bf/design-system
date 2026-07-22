@@ -89,9 +89,60 @@ function NavigationButton({
     typeof label !== 'undefined' && typeof icon !== 'undefined'
   const iconOnly = typeof label === 'undefined' && typeof icon !== 'undefined'
 
+  // A `type: 'button'` item performs an action; it has no menu. `MenubarTrigger`
+  // is the only way to stay registered with the menubar's roving focus (so the
+  // arrow keys keep working), but it unconditionally advertises a menu it does
+  // not have and drives the menubar's open/close state machine — with no
+  // `MenubarContent` to render, activating one used to leave the bar wedged in
+  // its open state and the item announced as expanded for good.
+  //
+  // Radix composes consumer handlers ahead of its own and skips its own once the
+  // event is default-prevented, so pre-empting the three events that reach the
+  // trigger both stops the bogus state change and lets the item behave like the
+  // plain action it is.
+  // Enter and Space have to invoke `onClick` here: Radix's own key handler
+  // default-prevents them, which suppresses the native click, and the item was
+  // therefore only operable with a mouse.
+  const actionItemProps = {
+    'aria-haspopup': undefined,
+    'aria-expanded': undefined,
+    'aria-controls': undefined,
+    onKeyDown: (event: React.KeyboardEvent<HTMLButtonElement>) => {
+      // ArrowDown asks Radix to open the menu, Enter and Space ask it to toggle.
+      // Neither has anything to open here.
+      if (event.key === 'ArrowDown') {
+        event.preventDefault()
+        return
+      }
+      if (event.key !== 'Enter' && event.key !== ' ') return
+      // Radix default-prevents both keys for its own toggle, which suppresses
+      // the native click. Dispatching a real one keeps `onClick` receiving a
+      // real MouseEvent, and a disabled button ignores it for free.
+      event.preventDefault()
+      event.currentTarget.click()
+    },
+    onPointerDown: (event: React.PointerEvent<HTMLButtonElement>) => {
+      // Mirrors the guard Radix applies to its own pointer-down handler, so a
+      // right, middle or ctrl-click keeps falling through to the platform.
+      if (event.button !== 0 || event.ctrlKey) return
+      // Radix opens the menu here and default-prevents, which also drops the
+      // focus a click would normally give the button — so take focus explicitly.
+      event.preventDefault()
+      event.currentTarget.focus()
+    },
+    onPointerEnter: (event: React.PointerEvent<HTMLButtonElement>) => {
+      // Once any menu in the bar is open, Radix follows the pointer and opens
+      // whichever item it enters. On an action item that dismissed the dropdown
+      // the user was actually reading and left the bar stuck open on an item
+      // with nothing to show.
+      event.preventDefault()
+    },
+  }
+
   return (
     <MenubarMenu>
       <MenubarTrigger
+        {...actionItemProps}
         onClick={onClick}
         disabled={disabled}
         aria-label={!label ? ariaLabel : undefined}
