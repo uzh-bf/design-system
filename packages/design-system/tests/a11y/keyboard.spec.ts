@@ -263,6 +263,32 @@ test.describe('keyboard operability and accessible naming (WCAG Level A)', () =>
     await expect(activeStep).toHaveAttribute('aria-current', 'step')
   })
 
+  test('Workflow: a step speaks its completed, error and in-progress state', async ({
+    page,
+  }) => {
+    page.on('dialog', (dialog) => dialog.dismiss())
+    await gotoStory(page, 'workflow--progress')
+    await ready(page.getByRole('button').first())
+
+    // The status icons are decorative and the background colour carries the
+    // rest, so before this the state reached nobody using a screen reader —
+    // and axe never complained, because the step was named all along by its
+    // title. Exact names, so dropping the hidden text fails here.
+    await expect(
+      page.getByRole('button', { name: 'Step 1 completed', exact: true })
+    ).toHaveCount(4)
+    await expect(
+      page.getByRole('button', { name: 'Step 3 in progress', exact: true })
+    ).toHaveCount(2)
+    await expect(
+      page.getByRole('button', { name: 'Step 2 error', exact: true })
+    ).toHaveCount(2)
+    // A step with no status must not pick one up.
+    await expect(
+      page.getByRole('button', { name: 'Step 4', exact: true })
+    ).toHaveCount(4)
+  })
+
   test('StepProgress: every step keeps a spoken name, with or without a status', async ({
     page,
   }) => {

@@ -194,6 +194,20 @@ export function WorkflowItem({
   twStyles,
   className,
 }: WorkflowItemProps) {
+  // Completed, failed and in-progress steps are marked by a decorative icon and
+  // a background colour, both of which FontAwesome renders `aria-hidden`. The
+  // step keeps its accessible name either way — the title is always visible —
+  // but without this the state itself never reaches a screen reader (1.3.1).
+  // Same visually-hidden-text pattern StepProgress uses, and English is
+  // hardcoded for the same reason (decision DE).
+  const statusLabel = item.error
+    ? 'error'
+    : item.completed || item.progress === 1
+      ? 'completed'
+      : item.progress && item.progress < 1
+        ? 'in progress'
+        : null
+
   const content = (
     <div className="flex w-full flex-col">
       <div
@@ -209,6 +223,7 @@ export function WorkflowItem({
       >
         {item.title}
       </div>
+      {statusLabel && <span className="sr-only">{statusLabel}</span>}
       {/* // TODO: introduce line-clamp-1 here once support is sufficient */}
       <div className={twMerge('text-sm', className?.description)}>
         {item.description}
