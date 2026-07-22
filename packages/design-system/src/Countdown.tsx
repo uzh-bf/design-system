@@ -25,7 +25,7 @@ export interface CountdownProps {
  *
  * @param isStatic - If true, the countdown will not be running, but instead show the initial value. However, as the end value is given by a date, reloading can modify the displayed countdown value
  * @param expiresAt - Date when the countdown should expire
- * @param formatter - Function to format the countdown value
+ * @param formatter - Function to format the countdown value. Its output is wrapped in the timer role, so it must represent the remaining time, and it owns the warning styling (the built-in non-colour warning cue only applies to the default rendering).
  * @param warning - Force the countdown into its warning style.
  * @param warningThresholdSeconds - Remaining seconds threshold for automatic warning style.
  * @param onExpire - Function that is executed when the countdown expires
@@ -56,6 +56,7 @@ export function Countdown({
         if (formatter) {
           return (
             <div
+              role="timer"
               className={className?.root}
               data-cy={data?.cy}
               data-test={data?.test}
@@ -68,6 +69,12 @@ export function Countdown({
         const minutes = Math.floor(totalSeconds / 60)
         const seconds = totalSeconds % 60
         const isWarning = warning || totalSeconds <= warningThresholdSeconds
+        // The warning state used to be conveyed by the red text alone (WCAG
+        // 1.4.1). The underline is the redundant non-colour cue; it rides along
+        // the existing text box, so switching it on never reflows the digits.
+        const warningClassName = isWarning
+          ? 'text-destructive underline decoration-2 underline-offset-2'
+          : 'text-foreground'
         const cellClassName =
           'font-mono text-[32px] leading-none font-bold tabular-nums'
         const labelClassName =
@@ -75,6 +82,7 @@ export function Countdown({
 
         return (
           <div
+            role="timer"
             className={twMerge(
               'inline-flex items-start gap-2.5 font-sans',
               className?.root
@@ -83,12 +91,7 @@ export function Countdown({
             data-test={data?.test}
           >
             <div className="flex flex-col items-center gap-1">
-              <span
-                className={twMerge(
-                  cellClassName,
-                  isWarning ? 'text-destructive' : 'text-foreground'
-                )}
-              >
+              <span className={twMerge(cellClassName, warningClassName)}>
                 {String(minutes).padStart(2, '0')}
               </span>
               <span className={labelClassName}>min</span>
@@ -97,12 +100,7 @@ export function Countdown({
               :
             </span>
             <div className="flex flex-col items-center gap-1">
-              <span
-                className={twMerge(
-                  cellClassName,
-                  isWarning ? 'text-destructive' : 'text-foreground'
-                )}
-              >
+              <span className={twMerge(cellClassName, warningClassName)}>
                 {String(seconds).padStart(2, '0')}
               </span>
               <span className={labelClassName}>sec</span>

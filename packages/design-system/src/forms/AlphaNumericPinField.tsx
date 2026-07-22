@@ -1,12 +1,11 @@
 'use client'
 
-import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
 import FormLabel from '../FormLabel'
-import Tooltip from '../Tooltip'
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '../ui/input-otp'
+import { FieldErrorIndicator } from './FieldErrorIndicator'
+import { useFieldError } from './useFieldError'
 
 export interface AlphaNumericPinFieldClassName {
   field?: string
@@ -69,6 +68,12 @@ export function AlphaNumericPinField({
   className,
   data,
 }: AlphaNumericPinFieldProps) {
+  const { inputId, visibleError, errorId } = useFieldError({
+    id,
+    error,
+    isTouched,
+    hideError,
+  })
   return (
     <div
       className={twMerge(
@@ -79,7 +84,7 @@ export function AlphaNumericPinField({
     >
       {label && (
         <FormLabel
-          id={id}
+          id={inputId}
           required={required}
           label={label}
           labelType={labelType}
@@ -90,6 +95,9 @@ export function AlphaNumericPinField({
 
       <div className="flex w-full flex-row items-center gap-2">
         <InputOTP
+          id={inputId}
+          aria-required={required || undefined}
+          aria-describedby={visibleError ? errorId : undefined}
           maxLength={length}
           inputMode="text" // accept alphanumeric input
           pattern="[A-Za-z0-9]*" // restrict to alphanumeric at the input level
@@ -134,17 +142,8 @@ export function AlphaNumericPinField({
               ))}
           </InputOTPGroup>
         </InputOTP>
-        {error && !hideError && isTouched && (
-          <Tooltip
-            tooltip={error}
-            delay={0}
-            className={{ tooltip: 'max-w-120 text-sm' }}
-          >
-            <FontAwesomeIcon
-              icon={faCircleExclamation}
-              className="text-destructive mr-1"
-            />
-          </Tooltip>
+        {visibleError && (
+          <FieldErrorIndicator error={visibleError} errorId={errorId} />
         )}
       </div>
     </div>

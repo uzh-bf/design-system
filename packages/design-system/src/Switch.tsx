@@ -3,7 +3,7 @@
 import { faCircleExclamation, faLock } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as RadixSwitch from '@radix-ui/react-switch'
-import React from 'react'
+import React, { useId } from 'react'
 import { twMerge } from 'tailwind-merge'
 import FormLabel from './FormLabel'
 import { Tooltip } from './Tooltip'
@@ -27,6 +27,7 @@ export interface SwitchProps {
   onBlur?: () => void
   disabled?: boolean
   label?: string
+  ariaLabel?: string
   tooltip?: string | React.ReactNode
   fluid?: boolean
   error?: string
@@ -44,6 +45,7 @@ export interface SwitchProps {
  * @param id - The id of the switch.
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param label - The label that is displayed next to the switch.
+ * @param ariaLabel - Accessible name for the switch when no visible label is provided. Ignored when label is set.
  * @param tooltip - The tooltip that is displayed when hovering over the label.
  * @param checked - Indicator whether the switch is checked or not (or indefinite if undefined value). State is managed by the parent component.
  * @param onCheckedChange - The function that is called when the switch is checked or unchecked. The new value is passed as a parameter.
@@ -63,6 +65,7 @@ export function Switch({
   data,
   disabled = false,
   label,
+  ariaLabel,
   tooltip,
   checked,
   onCheckedChange,
@@ -75,6 +78,8 @@ export function Switch({
   size = 'md',
   className,
 }: SwitchProps) {
+  const generatedId = useId()
+  const inputId = id ?? generatedId
   const rootSize = {
     sm: 'w-10 h-[1.3rem]',
     md: 'w-12 h-[1.6rem]',
@@ -111,6 +116,7 @@ export function Switch({
     >
       {labelLeft && label && (
         <FormLabel
+          id={inputId}
           className={{
             label: twMerge('mr-0', className?.label),
             tooltip: className?.tooltip,
@@ -122,7 +128,8 @@ export function Switch({
         />
       )}
       <RadixSwitch.Root
-        id={id}
+        id={inputId}
+        aria-label={!label ? ariaLabel : undefined}
         data-cy={data?.cy}
         data-test={data?.test}
         checked={checked}
@@ -159,6 +166,7 @@ export function Switch({
       </RadixSwitch.Root>
       {!labelLeft && label && (
         <FormLabel
+          id={inputId}
           className={{ label: className?.label, tooltip: className?.tooltip }}
           label={label}
           labelType="large"

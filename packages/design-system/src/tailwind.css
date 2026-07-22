@@ -313,6 +313,32 @@
   [role='button']:not(:disabled) {
     cursor: pointer;
   }
+
+  /* Honour the OS "reduce motion" setting for everything the library animates:
+     Radix enter/exit transitions, the skeleton shimmer, accordions, sheets and
+     drawers. Animations are collapsed rather than removed, so components that
+     wait for an animation to end (Radix Presence) still unmount. The spinner is
+     exempt because it is the only animation that carries meaning — a frozen
+     spinner would claim that nothing is loading.
+
+     The selector is universal on purpose: Radix portals its overlays to
+     `document.body`, so scoping this to a wrapper element would miss exactly
+     the enter/exit animations it is meant to collapse.
+
+     `!important` is required because Tailwind writes the durations as
+     utilities of the same specificity. It also inverts cascade-layer order,
+     so this rule outranks a consumer's unlayered `!important` too. A consumer
+     that has to keep one animation running under reduced motion needs to
+     re-declare it inside its own later `@layer base` block. */
+  @media (prefers-reduced-motion: reduce) {
+    *:not(.animate-spin),
+    *:not(.animate-spin)::before,
+    *:not(.animate-spin)::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 }
 
 @layer utilities {

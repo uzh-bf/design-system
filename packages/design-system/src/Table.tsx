@@ -196,37 +196,48 @@ export function Table<
         <thead>
           <tr>
             {columns.map((col) => {
+              const isSorted = sortField === col.accessor
+              const sortAriaValue = isSorted
+                ? order === 'asc'
+                  ? 'ascending'
+                  : 'descending'
+                : 'none'
               return (
                 <th
                   key={col.accessor}
-                  onClick={
-                    col.sortable
-                      ? () => handleSortingChange(col.accessor)
-                      : undefined
-                  }
+                  scope="col"
+                  aria-sort={col.sortable ? sortAriaValue : undefined}
                   className={twMerge(
-                    'border-border bg-muted text-muted-foreground border-b px-4 py-3 text-start text-xs font-semibold tracking-[0.06em] whitespace-nowrap uppercase',
-                    col.sortable && 'cursor-pointer',
+                    'border-border bg-muted text-muted-foreground border-b text-start text-xs font-semibold tracking-[0.06em] whitespace-nowrap uppercase',
+                    !col.sortable && 'px-4 py-3',
                     className?.tableHeader,
                     col.className
                   )}
                 >
-                  {col.sortable && (
-                    <FontAwesomeIcon
-                      className={twMerge(
-                        'mr-2',
-                        !(sortField === col.accessor) && 'text-muted-foreground'
-                      )}
-                      icon={
-                        sortField === col.accessor
-                          ? order === 'asc'
-                            ? faSortUp
-                            : faSortDown
-                          : faSort
-                      }
-                    />
+                  {col.sortable ? (
+                    <button
+                      type="button"
+                      onClick={() => handleSortingChange(col.accessor)}
+                      className="focus-visible:ring-ring flex w-full cursor-pointer items-center px-4 py-3 text-start focus-visible:ring-2 focus-visible:outline-hidden focus-visible:ring-inset"
+                    >
+                      <FontAwesomeIcon
+                        className={twMerge(
+                          'mr-2',
+                          !isSorted && 'text-muted-foreground'
+                        )}
+                        icon={
+                          isSorted
+                            ? order === 'asc'
+                              ? faSortUp
+                              : faSortDown
+                            : faSort
+                        }
+                      />
+                      {col.label}
+                    </button>
+                  ) : (
+                    col.label
                   )}
-                  {col.label}
                 </th>
               )
             })}

@@ -42,7 +42,7 @@ export interface CycleCountdownProps {
  * @param isStatic - If true, the countdown will not be running, but instead show the initial value. However, as the end value is given by a date, reloading can modify the displayed countdown value
  * @param terminalColor - Color of the progress bar when the countdown is expired (total Duration 0 or expiration in the past)
  * @param terminalPercentage - Percentage of the progress bar when the countdown is expired (totalDuration 0 or expiration in the past)
- * @param formatter - Function to format the countdown value
+ * @param formatter - Function to format the countdown value. It replaces the default rendering entirely, including the warning/expired colour and its non-colour underline cue, so a custom formatter has to convey that state itself.
  * @param onExpire - Function that is executed when the countdown expires
  * @param onUpdate - Function that is executed when the countdown is updated (not when it expires)
  * @param data - Optional data object that can be used for testing (e.g. data-test or data-cy)
@@ -82,17 +82,27 @@ export function CycleCountdown({
     : isWarning
       ? 'var(--color-destructive, #BD3902)'
       : color
+  const isDangerState = isExpired || isWarning
   const countdownFormatter =
     formatter ??
     ((value: number) => (
       <div
         className={twMerge(
           'flex flex-col items-center justify-center font-mono leading-none tabular-nums',
-          isExpired || isWarning ? 'text-destructive' : 'text-[#111111]',
+          isDangerState ? 'text-destructive' : 'text-[#111111]',
           className?.countdown
         )}
       >
-        <span className="text-[22px] font-bold">{Math.max(0, value)}</span>
+        <span
+          className={twMerge(
+            'text-[22px] font-bold',
+            // Redundant non-colour cue for the warning state (WCAG 1.4.1); an
+            // underline does not reflow the digits inside the progress ring.
+            isDangerState && 'underline decoration-2 underline-offset-2'
+          )}
+        >
+          {Math.max(0, value)}
+        </span>
         <span className="mt-1 font-sans text-[11px] leading-none font-normal text-[#A3A3A3]">
           sec
         </span>

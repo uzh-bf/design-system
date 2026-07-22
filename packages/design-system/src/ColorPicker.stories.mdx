@@ -108,6 +108,7 @@ Usage Examples:
   onSubmit={(newColor) => setSelectedColor(newColor)}
   submitText="Apply Color"
   colorLabel="Choose Color"
+  triggerAriaLabel="Pick a color"
 />
 
 // With preset colors and label
@@ -118,6 +119,7 @@ Usage Examples:
   presetColors={['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FECA57']}
   onSubmit={handleColorChange}
   tooltip="Select a color for your theme"
+  triggerAriaLabel="Pick a theme color"
 />
 
 // Custom positioning
@@ -127,6 +129,7 @@ Usage Examples:
   onSubmit={handleColorChange}
   submitText="Save"
   colorLabel="Background Color"
+  triggerAriaLabel="Pick a color"
 />
 
 // With validation and error handling
@@ -137,12 +140,14 @@ Usage Examples:
   isTouched={touched.color}
   required
   label="Brand Color"
+  triggerAriaLabel="Pick a brand color"
 />
 
 // Custom styling
 <ColorPicker
   color="#E74C3C"
   onSubmit={handleColorChange}
+  triggerAriaLabel="Pick a color"
   className={{
     root: 'bg-gray-50 border border-gray-200',
     trigger: 'rounded-lg shadow-sm',
@@ -174,6 +179,7 @@ export const Default = () => {
       }}
       tooltip="This is a tooltip"
       colorLabel="Color"
+      triggerAriaLabel="Pick a color"
       submitText="Save"
     />
   )
@@ -191,6 +197,7 @@ export const Label = () => {
       label="Color Picker"
       tooltip="This is a tooltip"
       colorLabel="Color"
+      triggerAriaLabel="Pick a color"
       submitText="Save"
       required
     />
@@ -209,6 +216,7 @@ export const Disabled = () => {
       }}
       submitText="Speichern"
       colorLabel="Farbe"
+      triggerAriaLabel="Pick a color"
     />
   )
 }
@@ -233,6 +241,7 @@ export const Position = () => {
           }}
           submitText="Save"
           colorLabel="Color"
+          triggerAriaLabel="Pick a color"
         />
         <ColorPicker
           position="top-left"
@@ -243,6 +252,7 @@ export const Position = () => {
           }}
           submitText="Save"
           colorLabel="Color"
+          triggerAriaLabel="Pick a color"
         />
         <ColorPicker
           position="bottom-left"
@@ -253,6 +263,7 @@ export const Position = () => {
           }}
           submitText="Save"
           colorLabel="Color"
+          triggerAriaLabel="Pick a color"
         />
       </div>
     </div>
@@ -271,6 +282,7 @@ export const Styled = () => {
       }}
       submitText="Save"
       colorLabel="Color"
+      triggerAriaLabel="Pick a color"
       className={{
         root: 'bg-gray-100',
         trigger: 'bg-gray-200',
@@ -297,6 +309,7 @@ export const CustomText = () => {
       }}
       submitText="Custom Submit"
       colorLabel="Custom Color Label"
+      triggerAriaLabel="Pick a color"
     />
   )
 }

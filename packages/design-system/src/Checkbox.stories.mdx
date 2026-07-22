@@ -223,7 +223,11 @@ AI_DOCUMENTATION_END
 export const Default = () => {
   const [isChecked, setIsChecked] = useState(true)
   return (
-    <Checkbox checked={isChecked} onCheck={() => setIsChecked(!isChecked)} />
+    <Checkbox
+      checked={isChecked}
+      onCheck={() => setIsChecked(!isChecked)}
+      ariaLabel="Accept terms"
+    />
   )
 }
 
