@@ -2,6 +2,7 @@
 
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Badge } from './ui/badge'
 import {
@@ -96,28 +97,22 @@ function NavigationButton({
   // `MenubarContent` to render, activating one used to leave the bar wedged in
   // its open state and the item announced as expanded for good.
   //
-  // Radix composes consumer handlers ahead of its own and skips its own once the
-  // event is default-prevented, so pre-empting the three events that reach the
-  // trigger both stops the bogus state change and lets the item behave like the
-  // plain action it is.
-  // Enter and Space have to invoke `onClick` here: Radix's own key handler
-  // default-prevents them, which suppresses the native click, and the item was
-  // therefore only operable with a mouse.
+  // `Navigation` refuses the open state for these items (see `onValueChange`
+  // there), so nothing below has to fight Radix for the state itself. What is
+  // left are the side effects Radix performs on the way there, one per handler
+  // below: it default-prevents the events it claims, costing the item its native
+  // click and its click focus, and it treats a hover as a request to switch
+  // menus.
   const actionItemProps = {
     'aria-haspopup': undefined,
     'aria-expanded': undefined,
     'aria-controls': undefined,
     onKeyDown: (event: React.KeyboardEvent<HTMLButtonElement>) => {
-      // ArrowDown asks Radix to open the menu, Enter and Space ask it to toggle.
-      // Neither has anything to open here.
-      if (event.key === 'ArrowDown') {
-        event.preventDefault()
-        return
-      }
       if (event.key !== 'Enter' && event.key !== ' ') return
-      // Radix default-prevents both keys for its own toggle, which suppresses
-      // the native click. Dispatching a real one keeps `onClick` receiving a
-      // real MouseEvent, and a disabled button ignores it for free.
+      // Radix default-prevents both keys for its own menu toggle, which
+      // suppresses the native click and left the item operable by mouse only.
+      // Dispatching a real click keeps `onClick` receiving a real MouseEvent,
+      // and a disabled button ignores it for free.
       event.preventDefault()
       event.currentTarget.click()
     },
@@ -132,51 +127,39 @@ function NavigationButton({
     },
     onPointerEnter: (event: React.PointerEvent<HTMLButtonElement>) => {
       // Once any menu in the bar is open, Radix follows the pointer and opens
-      // whichever item it enters. On an action item that dismissed the dropdown
-      // the user was actually reading and left the bar stuck open on an item
-      // with nothing to show.
+      // whichever item it enters. Merely refusing that open is not enough here:
+      // the refusal closes the bar, so simply moving the mouse across an action
+      // item would dismiss the dropdown the user is reading.
       event.preventDefault()
     },
   }
 
   return (
-    <MenubarMenu>
-      <MenubarTrigger
-        {...actionItemProps}
-        onClick={onClick}
-        disabled={disabled}
-        aria-label={!label ? ariaLabel : undefined}
-        data-cy={data?.cy}
-        data-test={data?.test}
-        style={style?.root}
-        className={twMerge(
-          'text-sm hover:cursor-pointer',
-          !iconOnly && !disabled && dynamicUnderline,
-          hasIconAndLabel && 'flex flex-row items-center gap-2',
-          active && 'text-black after:scale-x-100',
-          disabled &&
-            'text-slate-400! hover:cursor-not-allowed hover:text-slate-400!',
-          className?.root
-        )}
-      >
-        {hasIconAndLabel ? (
-          <>
-            <FontAwesomeIcon
-              icon={icon}
-              style={style?.icon}
-              className={className?.icon}
-            />
-            <div
-              style={style?.label}
-              className={twMerge('relative', className?.label)}
-            >
-              {label}
-              {notification && (
-                <div className="bg-notification absolute -top-0.5 -right-2 h-2.5 w-2.5 rounded-full" />
-              )}
-            </div>
-          </>
-        ) : label ? (
+    <MenubarTrigger
+      {...actionItemProps}
+      onClick={onClick}
+      disabled={disabled}
+      aria-label={!label ? ariaLabel : undefined}
+      data-cy={data?.cy}
+      data-test={data?.test}
+      style={style?.root}
+      className={twMerge(
+        'text-sm hover:cursor-pointer',
+        !iconOnly && !disabled && dynamicUnderline,
+        hasIconAndLabel && 'flex flex-row items-center gap-2',
+        active && 'text-black after:scale-x-100',
+        disabled &&
+          'text-slate-400! hover:cursor-not-allowed hover:text-slate-400!',
+        className?.root
+      )}
+    >
+      {hasIconAndLabel ? (
+        <>
+          <FontAwesomeIcon
+            icon={icon}
+            style={style?.icon}
+            className={className?.icon}
+          />
           <div
             style={style?.label}
             className={twMerge('relative', className?.label)}
@@ -186,16 +169,26 @@ function NavigationButton({
               <div className="bg-notification absolute -top-0.5 -right-2 h-2.5 w-2.5 rounded-full" />
             )}
           </div>
-        ) : (
-          <FontAwesomeIcon
-            icon={icon!}
-            size="lg"
-            style={style?.icon}
-            className={className?.icon}
-          />
-        )}
-      </MenubarTrigger>
-    </MenubarMenu>
+        </>
+      ) : label ? (
+        <div
+          style={style?.label}
+          className={twMerge('relative', className?.label)}
+        >
+          {label}
+          {notification && (
+            <div className="bg-notification absolute -top-0.5 -right-2 h-2.5 w-2.5 rounded-full" />
+          )}
+        </div>
+      ) : (
+        <FontAwesomeIcon
+          icon={icon!}
+          size="lg"
+          style={style?.icon}
+          className={className?.icon}
+        />
+      )}
+    </MenubarTrigger>
   )
 }
 // #endregion
@@ -344,7 +337,7 @@ function NavigationDropdown({
   const iconOnly = typeof label === 'undefined' && typeof icon !== 'undefined'
 
   return (
-    <MenubarMenu>
+    <>
       <MenubarTrigger
         disabled={disabled}
         aria-label={!label ? ariaLabel : undefined}
@@ -435,7 +428,7 @@ function NavigationDropdown({
           })}
         </MenubarContent>
       ) : null}
-    </MenubarMenu>
+    </>
   )
 }
 // #endregion
@@ -478,6 +471,12 @@ export function Navigation({
   style,
   ...props
 }: NavigationProps) {
+  // Which menu the bar currently has open, keyed by item. Radix would happily
+  // track this itself, but only the owner of the state can refuse a value: a
+  // `type: 'button'` item has no `MenubarContent`, so "open" is a state it must
+  // never enter.
+  const [openItem, setOpenItem] = useState('')
+
   return (
     <ShadcnMenubar
       className={twMerge(
@@ -486,14 +485,33 @@ export function Navigation({
       )}
       style={style?.root}
       {...props}
+      value={openItem}
+      // `MenubarContent` moves between menus on ArrowLeft/ArrowRight by calling
+      // the bar's open handler directly, and composes that handler with
+      // `checkForDefaultPrevented: false` — so arrowing sideways out of an open
+      // dropdown onto an action item cannot be intercepted at the trigger the
+      // way the other entry paths can. Rejecting the value here catches every
+      // path at the one point they all funnel through: the state itself.
+      // Closing the bar (rather than holding the previous menu open) is what
+      // keeps arrow navigation moving — Radix then hands focus back to the bar,
+      // and the next arrow press walks on to the item the user was heading for.
+      onValueChange={(next) =>
+        setOpenItem(
+          items.some((item) => item.type === 'button' && item.key === next)
+            ? ''
+            : next
+        )
+      }
     >
-      {items.map((item) => {
-        if (item.type === 'button') {
-          return <NavigationButton {...item} key={item.key} />
-        } else if (item.type === 'dropdown') {
-          return <NavigationDropdown {...item} key={item.key} />
-        }
-      })}
+      {items.map((item) => (
+        <MenubarMenu value={item.key} key={item.key}>
+          {item.type === 'button' ? (
+            <NavigationButton {...item} />
+          ) : (
+            <NavigationDropdown {...item} />
+          )}
+        </MenubarMenu>
+      ))}
     </ShadcnMenubar>
   )
 }

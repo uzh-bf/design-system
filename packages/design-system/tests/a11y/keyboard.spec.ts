@@ -190,6 +190,36 @@ test.describe('keyboard operability and accessible naming (WCAG Level A)', () =>
     await expect(page.getByRole('menu')).toBeVisible()
   })
 
+  test('Navigation: arrowing out of an open dropdown onto an action item closes the bar', async ({
+    page,
+  }) => {
+    page.on('dialog', (dialog) => dialog.dismiss())
+    const dropdown = page.getByRole('menuitem', { name: 'Dropdown Menu' })
+    const actionItem = page.getByRole('menuitem', { name: 'Active Content' })
+    await gotoStory(page, 'navigation--complex')
+    await ready(dropdown)
+
+    await dropdown.click()
+    await expect(page.getByRole('menu')).toBeVisible()
+
+    // The open menu's own content moves between menus on ArrowLeft/ArrowRight by
+    // calling the menubar's open handler directly, and Radix composes that
+    // handler so it runs even after preventDefault. The trigger therefore cannot
+    // intercept this the way it intercepts every other entry path — only the
+    // owner of the open state can refuse it.
+    await page.keyboard.press('ArrowLeft')
+    await expect(page.getByRole('menu')).toHaveCount(0)
+    await expect(actionItem).toHaveAttribute('data-state', 'closed')
+    // Focus has to stay in the bar. It used to be dropped on `<body>` while the
+    // action item kept the highlight of a menu that was never there.
+    await expect(dropdown).toBeFocused()
+
+    // And navigation has to keep moving, otherwise the arrow keys dead-end on
+    // the first action item in the bar.
+    await page.keyboard.press('ArrowLeft')
+    await expect(actionItem).toBeFocused()
+  })
+
   test('Workflow: Enter activates a step and moves aria-current', async ({
     page,
   }) => {
