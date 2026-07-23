@@ -53,7 +53,14 @@ export async function gotoStory(
   }
   await page.goto(`?story=${id}&mode=preview`)
   await page.waitForSelector('html[data-storyloaded]', { timeout: 15_000 })
-  await page.waitForSelector(STORY_SELECTOR, { timeout: 15_000 })
+  // Attached, not visible: a story's first element can legitimately have no
+  // box — Toast leads with Sonner's empty aria-live region — and waiting for
+  // visibility would hang on it. Attachment means React committed; `settle`
+  // below is what waits for the rest of the tree.
+  await page.waitForSelector(STORY_SELECTOR, {
+    state: 'attached',
+    timeout: 15_000,
+  })
   await settle(page)
 }
 
