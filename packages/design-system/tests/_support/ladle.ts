@@ -15,6 +15,14 @@ const META_PATH = path.join(process.cwd(), 'build', 'meta.json')
 const QUIET_MS = 150
 /** Upper bound, for stories that never stop mutating. */
 const SETTLE_CAP_MS = 2_500
+/**
+ * Upper bound on the font wait. Fonts are same-origin and self-hosted, so
+ * `fonts.ready` resolves in well under this; the cap only matters if a face
+ * never settles, so it can't turn into an unbounded hang that trips the
+ * per-test timeout with no violation behind it. If it fires, the mutation
+ * quiet-window below still absorbs any late font-swap reflow.
+ */
+const FONTS_CAP_MS = 3_000
 
 /** All story ids from the built Ladle manifest. `pnpm test` builds first. */
 export function loadStoryIds(): string[] {
@@ -80,8 +88,12 @@ export async function gotoStory(
  */
 async function settle(page: Page): Promise<void> {
   await page.evaluate(
-    async ([idleMs, maxMs]) => {
-      await document.fonts.ready
+    async ([idleMs, maxMs, fontsMs]) => {
+      // Bounded: a face that never settles must not hang the whole test.
+      await Promise.race([
+        document.fonts.ready,
+        new Promise((resolve) => window.setTimeout(resolve, fontsMs)),
+      ])
       await new Promise<void>((resolve) => {
         let quiet: number
         const observer = new MutationObserver(() => {
@@ -104,6 +116,6 @@ async function settle(page: Page): Promise<void> {
         quiet = window.setTimeout(stop, idleMs)
       })
     },
-    [QUIET_MS, SETTLE_CAP_MS]
+    [QUIET_MS, SETTLE_CAP_MS, FONTS_CAP_MS]
   )
 }

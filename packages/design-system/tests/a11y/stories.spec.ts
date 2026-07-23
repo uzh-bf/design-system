@@ -17,8 +17,10 @@ const BLOCKING_IMPACTS = ['serious', 'critical']
 // This is the known-debt baseline, measured on 2026-07-22 at commit bad9e9d,
 // the first commit where the sweep actually looked at rendered stories. It is a
 // ratchet, not an amnesty: the gate blocks, so nothing outside these waivers can
-// regress, and each waiver is retired as its finding is fixed. Counts are
-// story x theme cases at the time of measurement — 186 in total.
+// regress, and each waiver is retired as its finding is fixed. The per-rule
+// counts below are violation instances (story x theme); one story can carry
+// several rules (tabs--tooltips carries four), so they sum to 190 — more than
+// the number of distinct failing stories.
 //
 // Do not add an entry to make a build green. A new violation means new debt.
 const ALLOWLIST: { rule: string; story?: RegExp; reason: string }[] = [
@@ -89,10 +91,13 @@ const ALLOWLIST: { rule: string; story?: RegExp; reason: string }[] = [
   },
   {
     rule: 'color-contrast',
+    story:
+      /^(alert|badge|button|collapsible|field|formik-number-field|formik-pin-field|formik-select-field|formik-text-field|formik-textarea-field|progress|select|step-progress|table|text-field|textarea-field|user-notification|workflow)--/,
     reason:
-      'A11Y-22: text and UI contrast below AA in both themes (23 neutral, 31 ' +
-      'uzh). The uzh half is A11Y-5/A11Y-12 and blocked on design ruling D4, so ' +
-      'this one is waived rule-wide rather than per component. 54 cases.',
+      'A11Y-22: text and UI contrast below AA (23 neutral, 31 uzh). The uzh half ' +
+      'is A11Y-5/A11Y-12 and blocked on design ruling D4. Scoped to the ' +
+      'components that fail today, not rule-wide, so a contrast regression on any ' +
+      'other component still trips the gate. 54 cases.',
   },
 ]
 
@@ -132,3 +137,21 @@ for (const theme of THEMES) {
     }
   })
 }
+
+// The bug this whole suite exists to catch is silent: when the mount wait
+// regressed to matching Ladle's chrome, the scan ran on an empty page and every
+// story "passed" with zero violations. The per-story tests above cannot detect a
+// recurrence — fewer violations reads as "debt fixed," not "scan broken." This
+// canary makes it loud: button--icon deterministically emits button-name
+// (A11Y-18), so if the harness ever stops reaching real story content this fails
+// instead of the whole sweep going quietly green. Retire or repoint it when
+// A11Y-18 is fixed and button--icon no longer offends.
+test('harness canary: the scan reaches rendered story content', async ({
+  page,
+}) => {
+  await gotoStory(page, 'button--icon', 'neutral')
+  const { violations } = await new AxeBuilder({ page })
+    .exclude(TOOLBAR_SELECTOR)
+    .analyze()
+  expect(violations.map((v) => v.id)).toContain('button-name')
+})

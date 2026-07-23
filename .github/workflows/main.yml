@@ -78,9 +78,9 @@ jobs:
       - name: Install Playwright browser
         run: pnpm --filter @uzh-bf/design-system test:install
 
-      # Smoke only in CI for now: it is fast and reliable. The axe a11y sweep
-      # (pnpm test:a11y) surfaced real candidate issues that still need triage
-      # (real vs render-timing) before it can gate — tracked in the test plan.
+      # Smoke stays in this job: it is fast and reuses the build here. The full
+      # axe a11y sweep runs as its own sharded `a11y` job (below) that gates
+      # `build`, so the heavy scan does not slow this job down.
       - name: Run Playwright smoke tests
         run: pnpm --filter @uzh-bf/design-system test:smoke
 
