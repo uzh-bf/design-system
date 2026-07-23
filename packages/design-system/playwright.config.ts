@@ -15,6 +15,12 @@ export default defineConfig({
   testDir: './tests',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
+  // The a11y harness (tests/_support/ladle.ts) can wait up to ~35s before axe
+  // even runs (15s data-storyloaded + 15s story mount + 3s fonts + 2.5s settle).
+  // Playwright's 30s default would let a slow-but-healthy run under contention
+  // time out with zero violations behind it, which is exactly the false-red the
+  // gate must not produce. 60s clears the worst case; retries:1 absorbs a stray.
+  timeout: 60_000,
   retries: process.env.CI ? 1 : 0,
   reporter: process.env.CI
     ? [['github'], ['list'], ['html', { open: 'never' }]]
