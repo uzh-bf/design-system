@@ -184,7 +184,7 @@ Phases ordered by dependency; P0 is days, P1+P2 can run in parallel slices, P3 g
 21. **CONS-2a** re-run gbl `m2-v5-preview` against published alpha (expect `transpilePackages` workaround obsolete; verify React dedupe).
 22. **CONS-3** systematic MIGRATION.md diff pass — ext. review confirms understatement is broader than Button (Tabs layout, component density, button dimensions, package contents, CSS delivery all changed while doc claims "additive"/"token routing only") + **THEME-8/CONS-7/D8** rebrand guide with klicker sky-blue profile as acceptance case.
 23. **CONS-2b** klicker-uzh full migration on a branch = the real GA acceptance test.
-24. **ARCH-6 + D1** legacy package deprecation executed.
+24. ~~**ARCH-6 + D1** legacy package deprecation executed.~~ Dropped from the GA path per the D1 ruling (2026-07-23: leave frozen); packages remain in the workspace, already excluded from version bumps since #180.
 25. **GA cutover**: fresh finish gates (security review, maintainability review per repo policy), tag `v5.0.0`, npm `latest` promotion via fixed pipeline, release notes.
 
 ### GA exit criteria (hard gate)
@@ -213,7 +213,20 @@ Phases ordered by dependency; P0 is days, P1+P2 can run in parallel slices, P3 g
 - **tc/elearning submodule consumer**: verify what it actually builds; migrate off submodule vendoring.
 - Chart accessibility defaults (`accessibilityLayer` on by default), Carousel pause contract, Countdown timer semantics beyond minimum (A11Y-12/11 residuals).
 
-## Open decisions (need user/design-owner ruling; recommendations marked)
+## Open decisions (RULED 2026-07-23 — user grill; original options/recommendations kept below for context)
+
+**Rulings (2026-07-23, one-at-a-time grill):**
+
+- **D1 — legacy packages: LEAVE FROZEN** (overrides the deprecate/archive recommendation). Consequence: P3 item 24 (ARCH-6 execution) drops out of the GA path; the packages stay in the workspace, already excluded from version bumps since #180; silent-green CI on them is accepted.
+- **D2 — headings: CONFORM to Semibold 600** (`font-semibold` in Header). Unblocks THEME-2.
+- **D3 residual — forms direction (Field*/RHF vs frozen Formik): DEFER post-GA** (Forms 2.0 decision round after the klicker migration produces usage evidence). The export-restructure half of D3 shipped in #181.
+- **D4 — uzh status contrast: DARK TEXT ON BRAND TINTS** (official hues stay; foregrounds go dark to pass AA). Unblocks A11Y-5/A11Y-12 + the 31 waived uzh contrast instances.
+- **D5 — primary mid-ladder: ADOPT official Blue Shade 2/3/4**. Unblocks THEME-4.
+- **D6 — shadcn registry: DEFER post-GA.**
+- **D7 — central i18n: DEFER post-GA.**
+- **D8 — klicker brand: SUPPORTED OVERRIDE PROFILE** (redeclare the `--theme-color-primary*` ramp; ships with the THEME-8 rebrand guide, klicker migration = acceptance case).
+- **D9 — theming scope: RATIFIED document-root-only** (matches what #180 documented; scoped/mixed theming out of scope for v5).
+- **D10 — primitives: RATIFIED stay on Radix** (pin baseline, periodic upstream diffs; Base UI = post-GA evaluation at most).
 
 | ID | Decision | Options | Recommendation |
 | --- | --- | --- | --- |
@@ -261,4 +274,5 @@ Phases ordered by dependency; P0 is days, P1+P2 can run in parallel slices, P3 g
 - 2026-07-22: [PR #182](https://github.com/uzh-bf/design-system/pull/182) merged (`55f48dc`) — WCAG Level-A names/keyboard/states for core widgets + 25 persisted contract assertions (13 keyboard + 12 field-labeling). Its original "765/765 axe, 0 findings" evidence was later invalidated (A11Y-HARNESS: the sweep scanned an empty page); two correction comments posted on the PR (the second supersedes the first); the contract assertions, not axe counts, are the real evidence. Plan: `project/2026-07-20-pr-182-v5-a11y-level-a-plan.md`.
 - 2026-07-23: [PR #183](https://github.com/uzh-bf/design-system/pull/183) merged (`c32042b`) — TEST-4 done: harness fix (wait on the story element + bounded settle; `button--icon`→`button-name` canary), blocking sharded `a11y` CI job (4×) with a 190-instance ratchet allowlist (A11Y-17..23), `Build and Publish` now `needs` a11y. Plan: `project/2026-07-22-v5-a11y-ci-gate-plan.md`.
 - 2026-07-23 (independent review): progress + planning review pass — all #180–#183 claims verified in code by two verifier subagents; one re-ran the full suite (766/766) and reproduced every allowlist rule count exactly. GA-criteria check: only the a11y-gate criterion is fully met. **S6 release stays HELD by user ruling (2026-07-23): no consumers to serve yet**, so `5.0.0-alpha.2` is unpublished and the ARCH-1/2 pipeline remains unvalidated end-to-end until the next tag (note: npm `alpha` = `alpha.1` predates all merged fixes). Ratchet limit recorded at item 18. Critical path = design rulings (D2/D4/D5/D8) + consumer migration, not engineering. This staleness sync is the review's doc fix; D-rulings from the 2026-07-23 grill land as a follow-up commit.
+- 2026-07-23 (decision grill): all remaining D-items ruled one-at-a-time by the user — see the rulings block in "Open decisions". Net effect on the plan: P2 conformance items 14 (D2/D5) and 17 (D4) are now decision-unblocked engineering; P3 gains the D8 override profile as a prerequisite for the klicker migration; item 24 (ARCH-6) is dropped; D3-residual/D6/D7 move to the post-GA backlog. Recommended execution order (2026-07-23 review): design-ruling conformance slice (D2+D4+D5 token/typography work) → P1 API hardening (COMP-2/3/4, then chunking + size budget) → TEST-3 VRT → CONS-2a consumer preview (needs a published alpha first; S6 held until consumers exist).
 
