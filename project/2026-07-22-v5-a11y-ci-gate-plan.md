@@ -181,11 +181,27 @@ commit range, integrate, re-verify, commit.
   roadmap + plan docs. Local full-suite green could not be measured — the machine is
   in swap death (1.6h for a 2min suite, 44x slowdown, all failures are timeouts, 0
   axe violations); the definitive green is deferred to CI on dedicated runners.
-- OPEN: (1) push branch + open DRAFT PR so CI proves the gate green — needs push
-  authority; (2) #182 re-verification cross-reference + second correction comment;
-  (3) per-slice review (first agent stalled under contention, must re-run serialized);
-  (4) finish gates: `$security-review`, `$thermo-nuclear-code-quality-review`. No
-  merge authority — do not merge.
+- 2026-07-23: finish-gate reviews run serialized (machine idle). Security: clean.
+  Thermo-nuclear: one finding (stale smoke-job comment), fixed. Code-review: four
+  findings, all integrated in `a19ebe1`: (1) bounded the harness wait budget —
+  `fonts.ready` was unbounded and the mount waits could exceed the 30s default
+  per-test timeout → false red with 0 violations; capped fonts at 3s + explicit
+  60s test timeout; (2) scoped the color-contrast waiver to the 18 failing
+  components (was rule-wide, silently absorbing any future contrast regression) —
+  verified the regex covers all 31 measured color-contrast stories; (3) added a
+  harness canary (button--icon → button-name) so an empty-page regression fails
+  loudly; (4) corrected the baseline header (190 rule-cases, not 186). Re-measured
+  the full backlog on the fixed harness to reconcile: per-rule counts confirmed
+  (sum 190). Verify on the fixed harness: full tests/a11y suite 766/766 passed,
+  0 failures, 0 timeouts, 4.6 min at workers=3 (740 sweep + canary + 25 contract
+  assertions); 190 serious+critical markers all waived. tsc + prettier clean.
+  The earlier workstation timeouts were a workers=6 contention artifact, gone at
+  workers=3. CI still re-proves it on dedicated runners per shard.
+- 2026-07-23: #182 second correction confirmed live (issuecomment 2026-07-23
+  05:11:52Z, supersedes the first). Its conclusions still hold after this
+  session's gate refinements — no update needed.
+- OPEN: push branch + open DRAFT PR so CI proves the gate green — needs push
+  authority. No merge authority — do not merge; npm stays HELD.
 
 ## Finish gate
 
