@@ -92,10 +92,56 @@ jobs:
           path: packages/design-system/playwright-report/
           retention-days: 14
 
+  a11y:
+    runs-on: ubuntu-latest
+    name: A11y (shard ${{ matrix.shard }}/4)
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4]
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Use Node 22
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22.x
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.30.0
+          run_install: true
+
+      - name: Install Playwright browser
+        run: pnpm --filter @uzh-bf/design-system test:install
+
+      - name: Build Ladle
+        run: pnpm --filter @uzh-bf/design-system build:ladle
+
+      # Blocking axe sweep over every story x theme, at serious+critical. Known
+      # debt is waived in tests/a11y/stories.spec.ts (A11Y-17..23); anything new
+      # fails the build. Sharded four ways so no single runner is starved into
+      # timeouts, which is the only way this suite goes red without a real
+      # violation; retries:1 (playwright.config.ts, CI only) absorbs a stray one.
+      - name: Run axe a11y sweep
+        working-directory: packages/design-system
+        env:
+          PWTEST_SKIP_BUILD: "1"
+        run: pnpm exec playwright test tests/a11y --shard=${{ matrix.shard }}/4
+
+      - name: Upload Playwright report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-a11y-${{ matrix.shard }}
+          path: packages/design-system/playwright-report/
+          retention-days: 14
+
   build:
     name: Build and Publish
     runs-on: ubuntu-latest
-    needs: [check-ts, test]
+    needs: [check-ts, test, a11y]
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
