@@ -43,9 +43,9 @@
   /* UZH colors */
   --color-uzh-blue: #0028a5;
   --color-uzh-blue-100: #0028a5;
-  --color-uzh-blue-80: #3353b7;
-  --color-uzh-blue-60: #667ec9;
-  --color-uzh-blue-40: #99a9db;
+  --color-uzh-blue-80: #001e7c;
+  --color-uzh-blue-60: #3062ff;
+  --color-uzh-blue-40: #7596ff;
   --color-uzh-blue-20: #bdc9e8;
   --color-uzh-grey: #a3adb7;
   --color-uzh-grey-100: #a3adb7;
@@ -167,6 +167,8 @@
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
+  --color-destructive-text: var(--theme-destructive-text);
+  --color-destructive-foreground: var(--destructive-foreground);
   --color-destructive-background: var(--destructive-background);
   --color-notification: var(--notification);
 

@@ -175,9 +175,9 @@ export function StepProgress({
                 ix > (value || 0) + displayOffsetRight &&
                 'hidden',
               element.status === 'correct' &&
-                'bg-opacity-60! bg-green-700/90! text-white hover:bg-green-700! hover:text-white',
+                'bg-success text-success-foreground hover:bg-success hover:text-success-foreground',
               element.status === 'incorrect' &&
-                'bg-opacity-60! bg-destructive/90! hover:bg-destructive! text-white hover:text-white',
+                'bg-destructive text-destructive-foreground hover:bg-destructive hover:text-destructive-foreground',
               element.status === 'partial' &&
                 'bg-opacity-60! bg-secondary-100/90! hover:bg-secondary-100! text-white hover:text-white',
               value === ix && 'bg-opacity-100',

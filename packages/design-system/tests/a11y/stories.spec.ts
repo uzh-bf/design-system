@@ -5,9 +5,8 @@ import { gotoStory, loadStoryIds, TOOLBAR_SELECTOR } from '../_support/ladle'
 
 // Axe a11y sweep over every component story in both themes. Readme (MDX prose)
 // pages are smoke-only (see tests/smoke), so they are excluded here.
-const storyIds = loadStoryIds().filter((id) => !id.endsWith('--readme'))
-
 const THEMES = ['neutral', 'uzh'] as const
+const storyIds = loadStoryIds().filter((id) => !id.endsWith('--readme'))
 
 // Block on serious + critical only; moderate/minor are tracked, not gated.
 const BLOCKING_IMPACTS = ['serious', 'critical']
@@ -23,7 +22,12 @@ const BLOCKING_IMPACTS = ['serious', 'critical']
 // the number of distinct failing stories.
 //
 // Do not add an entry to make a build green. A new violation means new debt.
-const ALLOWLIST: { rule: string; story?: RegExp; reason: string }[] = [
+const ALLOWLIST: {
+  rule: string
+  story?: RegExp
+  theme?: (typeof THEMES)[number]
+  reason: string
+}[] = [
   {
     rule: 'aria-valid-attr-value',
     story: /^tabs--/,
@@ -93,17 +97,25 @@ const ALLOWLIST: { rule: string; story?: RegExp; reason: string }[] = [
     rule: 'color-contrast',
     story:
       /^(alert|badge|button|collapsible|field|formik-number-field|formik-pin-field|formik-select-field|formik-text-field|formik-textarea-field|progress|select|step-progress|table|text-field|textarea-field|user-notification|workflow)--/,
+    theme: 'neutral',
     reason:
-      'A11Y-22: text and UI contrast below AA (23 neutral, 31 uzh). The uzh half ' +
-      'is A11Y-5/A11Y-12 and blocked on design ruling D4. Scoped to the ' +
-      'components that fail today, not rule-wide, so a contrast regression on any ' +
-      'other component still trips the gate. 54 cases.',
+      'A11Y-22: neutral text and UI contrast below AA (23 cases). The uzh ' +
+      'status-color half was retired after D4 pairings were fixed. Scoped to ' +
+      'the components that still fail today, not rule-wide, so a contrast ' +
+      'regression on any other component still trips the gate.',
   },
 ]
 
-const isWaived = (ruleId: string, storyId: string) =>
+const isWaived = (
+  ruleId: string,
+  storyId: string,
+  theme: (typeof THEMES)[number]
+) =>
   ALLOWLIST.some(
-    (e) => e.rule === ruleId && (e.story ? e.story.test(storyId) : true)
+    (e) =>
+      e.rule === ruleId &&
+      (!e.theme || e.theme === theme) &&
+      (e.story ? e.story.test(storyId) : true)
   )
 
 for (const theme of THEMES) {
@@ -120,7 +132,8 @@ for (const theme of THEMES) {
 
         const blocking = violations.filter(
           (v) =>
-            BLOCKING_IMPACTS.includes(v.impact ?? '') && !isWaived(v.id, id)
+            BLOCKING_IMPACTS.includes(v.impact ?? '') &&
+            !isWaived(v.id, id, theme)
         )
 
         // Inventory marker — greppable during triage. Every violation is

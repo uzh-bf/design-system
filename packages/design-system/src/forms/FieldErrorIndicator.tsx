@@ -31,7 +31,7 @@ export function FieldErrorIndicator({
       >
         <FontAwesomeIcon
           icon={faCircleExclamation}
-          className="text-destructive mr-1"
+          className="text-destructive-text mr-1"
         />
       </Tooltip>
       <span id={errorId} role="alert" className="sr-only">

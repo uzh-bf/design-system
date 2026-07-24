@@ -13,18 +13,18 @@ const alertVariants = cva(
         // treatment: tinted bg + 4px coloured left border + variant-coloured icon.
         default: 'bg-card text-card-foreground',
         neutral: 'bg-muted text-foreground border-l-4 border-l-border',
-        info: 'bg-info-background text-foreground border-l-4 border-l-info [&>svg]:text-info *:data-[slot=alert-description]:text-foreground/80',
+        info: 'bg-info-background text-foreground border-l-4 border-l-info [&>svg]:text-info-foreground dark:[&>svg]:text-info *:data-[slot=alert-description]:text-foreground/80',
         success:
-          'bg-success-background text-foreground border-l-4 border-l-success [&>svg]:text-success *:data-[slot=alert-description]:text-foreground/80',
+          'bg-success-background text-foreground border-l-4 border-l-success [&>svg]:text-success-foreground dark:[&>svg]:text-success *:data-[slot=alert-description]:text-foreground/80',
         // warning icon uses the dark -foreground (not the light amber main) so it
         // stays visible on the light warning tint; in dark mode the tint is dark,
         // so the icon flips to the bright amber main instead.
         warning:
           'bg-warning-background text-foreground border-l-4 border-l-warning [&>svg]:text-warning-foreground dark:[&>svg]:text-warning *:data-[slot=alert-description]:text-foreground/80',
         error:
-          'bg-destructive-background text-destructive border-l-4 border-l-destructive *:data-[slot=alert-description]:text-destructive/90',
+          'bg-destructive-background text-destructive-text border-l-4 border-l-destructive *:data-[slot=alert-description]:text-destructive-text/90',
         destructive:
-          'text-destructive bg-card [&>svg]:text-current *:data-[slot=alert-description]:text-destructive/90',
+          'text-destructive-text bg-card [&>svg]:text-current *:data-[slot=alert-description]:text-destructive-text/90',
       },
     },
     defaultVariants: {
@@ -69,7 +69,7 @@ function AlertDescription({
     <div
       data-slot="alert-description"
       className={cn(
-        'text-muted-foreground col-start-2 grid justify-items-start gap-1 text-[13px] [&_p]:leading-relaxed',
+        'text-foreground/80 col-start-2 grid justify-items-start gap-1 text-[13px] [&_p]:leading-relaxed',
         className
       )}
       {...props}

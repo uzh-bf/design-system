@@ -133,7 +133,8 @@ export function SelectField({
             className={{
               ...className?.select,
               trigger: twMerge(
-                error && 'border-destructive bg-destructive-background! border',
+                error &&
+                  'border-destructive bg-destructive-background! text-destructive-text data-placeholder:text-destructive-text border',
                 className?.select?.trigger
               ),
             }}

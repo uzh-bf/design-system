@@ -96,7 +96,11 @@ export const WithError = () => {
     <FieldGroup className="max-w-sm">
       <Field data-invalid="true">
         <FieldLabel htmlFor="name">Name</FieldLabel>
-        <Input id="name" aria-invalid="true" />
+        <Input
+          id="name"
+          aria-invalid="true"
+          className="border-destructive-text!"
+        />
         <FieldError errors={[{ message: 'Name is required.' }]} />
       </Field>
     </FieldGroup>

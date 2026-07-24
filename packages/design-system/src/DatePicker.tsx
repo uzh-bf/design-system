@@ -165,7 +165,7 @@ export function DatePicker({
             >
               <FontAwesomeIcon
                 icon={faCircleExclamation}
-                className="text-destructive mr-1"
+                className="text-destructive-text mr-1"
               />
             </Tooltip>
           )}
