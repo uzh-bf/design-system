@@ -152,10 +152,13 @@ unsupported values into Radix or shadcn primitives.
 - 2026-08-01: Prettier passes on changed code/data/plan files. The seven touched
   legacy MDX stories still report formatter drift, and their pre-A1 `HEAD`
   contents fail the same check; no unrelated formatter churn was included.
-- Next: commit the verified simplification fixes, run the exact-range final
-  review pass, then stop at the Stack A Gate 2 review before adding A2 work. No
-  stack rebase, push, PR submission, queue, or merge is authorized here; `v5`
-  remains the only target and `main` is prohibited.
+- 2026-08-01: final exact-range review of `18e8252..38a613c` passed with no
+  findings. The range is directly descended from `v5` at `4aa021a`; `main`
+  remains prohibited.
+- Next: pause at the Stack A Gate 2 review. Before A2, checkpoint the native
+  stack metadata and explicitly confirm that every operation still targets
+  `v5`; no stack rebase, push, PR submission, queue, or merge is authorized
+  here. Do not start A2 until that Gate 2 decision is made.
 
 ## Commit boundaries
 
@@ -168,6 +171,8 @@ unsupported values into Radix or shadcn primitives.
 - `fix(api): preserve v5 story contract behavior` — narrow raw-primitive story
   call sites, clarify Workflow migration semantics, and include the durable
   contract check in the package gate.
+- `docs(project): record A1 gate review` — record the clean final review and
+  the Gate 2 pause boundary.
 
 ## Out of scope / follow-ups
 
