@@ -34,9 +34,10 @@ imperative focus.
   `HTMLTextAreaElement` for `TextareaField`.
 - Pass the ref through the existing primitive boundary without introducing a
   wrapper or changing event, keyboard, accessibility, theme, or loading
-  behavior. The default `Button` native-button path is the A2 target; alternate
-  `asChild` element contracts remain a follow-up if their target cannot be
-  typed without weakening the concrete ref guarantee.
+  behavior. Model `Button` as a discriminated contract: the native-button path
+  (`asChild` omitted or `false`) accepts `React.Ref<HTMLButtonElement>`, while
+  `asChild: true` rejects `ref` until a sound polymorphic child-target contract
+  is designed. Do not claim an `HTMLButtonElement` ref for an arbitrary child.
 - Keep `Select` and `Combobox` refs on their visible interactive triggers. Do
   not expose refs to decorative wrappers, portals, command search inputs, or
   internal Radix roots.
@@ -54,7 +55,8 @@ imperative focus.
   class.
 - `Button` supports `asChild`; claiming an `HTMLButtonElement` ref for an
   arbitrary child would be unsound. Keep the A2 type/runtime proof on the
-  native-button path and record any child-target need as a follow-up.
+  native-button path, reject `asChild` plus `ref` in the type fixture, and record
+  any child-target need as a follow-up.
 - `Select` and `Combobox` have controlled state and portals. Ref wiring must not
   change open/close behavior, keyboard navigation, accessible names, or the
   selected value.
@@ -71,19 +73,23 @@ imperative focus.
 - Target/trunk: `v5` at `4aa021ac2b8fd43cad6076dcc30071feb87d97f6`
 - Parent: A1 `rs/v5-prop-contracts` at `a6610f822869eeca5759699641c68b6d8dc6e908`
 - Dependent: A3 `rs/v5-composite-refs`
-- Native stack: `trunk: v5`; all branches are local, unqueued, and currently
-  aligned at the A1 parent. Never target or merge this stack into `main`.
+- Native stack: `trunk: v5`; all branches are local and unqueued. A2 and its
+  dependent A3 currently point at this plan commit while A1 remains the parent.
+  Never target or merge this stack into `main`.
 
 ## Do
 
 1. Add the explicit ref props and thread them to the concrete DOM targets in
    Button, TextField, NumberField, TextareaField, Select, and Combobox.
 2. Add durable no-emit type cases covering valid target refs and negative
-   wrong-target refs for every in-scope class. Keep the fixture in the package's
+   wrong-target refs for every in-scope class, including the invalid
+   `Button asChild` plus `ref` combination. Keep the fixture in the package's
    normal `check` gate.
 3. Add one focused Ladle contract story and Playwright proof. Each story control
    must expose a deterministic action that focuses its ref target; each test
-   must assert `document.activeElement` is the visible interactive element.
+   must assert `document.activeElement` is the visible interactive element. For
+   Select and Combobox, activate the focused trigger and exercise the existing
+   open, keyboard-select, close, and focus-return path as well as the ref check.
 4. Update the migration guide with the concrete ref target map and the rule
    that A2 uses `ref`, not `forwardedRef`. Do not document deferred composite
    or Table migration as completed.
@@ -98,9 +104,11 @@ imperative focus.
   known pre-existing formatter drift in legacy MDX stories.
 - Mandatory package `tsc`/Vite/font-copy build and Ladle production build.
 - Focused Playwright proof for Button, TextField, NumberField, TextareaField,
-  Select, and Combobox ref-driven focus.
-- Existing stories and focused a11y behavior remain green; no visual output or
-  non-ref interaction behavior intentionally changes.
+  Select, and Combobox ref-driven focus plus the Select/Combobox interaction
+  contract described above.
+- Full repository `tests/a11y` Playwright suite, run separately from the
+  focused ref proof, must remain green. Existing stories and non-ref
+  interaction behavior remain green; no visual output is intentionally changed.
 
 ## Review routing
 
@@ -116,9 +124,12 @@ imperative focus.
 - 2026-08-01: A1 Gate 2 was approved. The native no-trunk rebase completed with
   `v5` untouched; recovery refs are recorded under
   `refs/stack-backup/20260801-220941/`.
-- Next: commit this plan, obtain exact-range plan review, then implement only
-  the six direct-control classes above. No push, PR submission, queue, merge,
-  or `main` target is authorized here.
+- 2026-08-01: Exact-range plan review of `8821341` required the sound
+  `Button asChild`/`ref` discriminator, the full `tests/a11y` gate, and
+  Select/Combobox open-select-close assertions; those requirements are recorded
+  above before implementation.
+- Next: implement only the six direct-control classes above. No push, PR
+  submission, queue, merge, or `main` target is authorized here.
 
 ## Commit boundaries
 
