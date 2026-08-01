@@ -1,7 +1,7 @@
 import { Minus, Plus } from 'lucide-react'
 import { useState } from 'react'
 import { Bar, BarChart, ResponsiveContainer } from 'recharts'
-import { Button } from './Button'
+import { Button } from './ui/button'
 import {
   Drawer,
   DrawerClose,
@@ -120,7 +120,7 @@ return (
           <Button
             variant="outline"
             size="icon"
-            className={{ root: 'h-8 w-8 shrink-0 rounded-full' }}
+            className="h-8 w-8 shrink-0 rounded-full"
             onClick={() => setGoal(Math.max(200, Math.min(400, goal - 10)))}
             disabled={goal <= 200}
           >
@@ -136,7 +136,7 @@ return (
           <Button
             variant="outline"
             size="icon"
-            className={{ root: 'h-8 w-8 shrink-0 rounded-full' }}
+            className="h-8 w-8 shrink-0 rounded-full"
             onClick={() => setGoal(Math.max(200, Math.min(400, goal + 10)))}
             disabled={goal >= 400}
           >

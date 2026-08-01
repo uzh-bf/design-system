@@ -18,7 +18,6 @@ interface StepBaseProps {
   progress?: number
   completed?: boolean
   error?: boolean
-  [x: string]: unknown
 }
 
 interface StepProps extends StepBaseProps {

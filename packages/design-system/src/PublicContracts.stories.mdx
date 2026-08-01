@@ -1,0 +1,31 @@
+import Button from './Button'
+import Navigation from './Navigation'
+import Progress from './Progress'
+
+export const Default = () => (
+  <div className="flex w-full flex-col gap-4">
+    <Button aria-label="Contract button" data={{ cy: 'contract-button' }}>
+      Contract button
+    </Button>
+    <Navigation
+      aria-label="Contract navigation"
+      title="Contract navigation"
+      items={[
+        {
+          type: 'button',
+          key: 'contract-action',
+          label: 'Contract action',
+          active: false,
+          onClick: () => undefined,
+        },
+      ]}
+    />
+    <Progress
+      aria-label="Contract progress"
+      data={{ cy: 'contract-progress' }}
+      value={50}
+      max={100}
+      formatter={(value) => value}
+    />
+  </div>
+)

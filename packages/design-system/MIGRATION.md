@@ -189,6 +189,22 @@ This is the break most likely to hit existing consumers: apps that imported
 `@uzh-bf/design-system/primitives`, keeping the root `Table` free for the custom
 data-table composite.
 
+### Strict composite prop contracts
+
+The custom `Button`, `Navigation`, and `Progress` composites no longer accept
+arbitrary props. They still accept native and ARIA attributes that the
+component forwards to its root element, alongside their documented custom
+props. `className`, controlled state, and custom variant props remain owned by
+the composite. `Workflow` and `WorkflowProgress` step items likewise accept
+only their documented fields; arbitrary metadata is not passed back through
+the click handler.
+
+If an application needs a raw primitive prop that the composite intentionally
+does not expose (for example, a shadcn button `variant`), import the raw
+component from `@uzh-bf/design-system/primitives` instead of adding an
+unsupported prop to the custom composite. Move application-specific workflow
+metadata outside the step object or model it in the owning application state.
+
 v5 also marks the package `"sideEffects": ["*.css"]` so consuming bundlers can
 tree-shake unused components while preserving the required stylesheet import — no
 action needed.

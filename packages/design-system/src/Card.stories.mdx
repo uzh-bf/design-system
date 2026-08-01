@@ -1,4 +1,4 @@
-import { Button } from './Button'
+import { Button } from './ui/button'
 import {
   Card,
   CardContent,
@@ -136,10 +136,10 @@ export const Default = () => {
         </form>
       </CardContent>
       <CardFooter className="flex-col gap-2">
-        <Button type="submit" className={{ root: 'w-full' }}>
+        <Button type="submit" className="w-full">
           Login
         </Button>
-        <Button variant="outline" className={{ root: 'w-full' }}>
+        <Button variant="outline" className="w-full">
           Login with Google
         </Button>
       </CardFooter>

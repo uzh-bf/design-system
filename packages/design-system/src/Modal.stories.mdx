@@ -1,5 +1,5 @@
 import { useState, useEffect, forwardRef, ComponentProps } from 'react'
-import Button from './Button'
+import { Button } from './ui/button'
 import Modal from './Modal'
 
 {/* START README */}
@@ -373,7 +373,7 @@ export const Trigger = () => {
       {...props}
       ref={forwardedRef}
       onClick={() => setIsOpen(true)}
-      className={{ root: 'border-red-500 bg-blue-300' }}
+      className="border-red-500 bg-blue-300"
     >
       Open Modal
     </Button>

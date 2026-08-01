@@ -123,8 +123,19 @@ unsupported values into Radix or shadcn primitives.
 - 2026-08-01: plan review required explicit without-ref composition, runtime
   forwarding proof, mandatory package/Ladle builds, and a durable type-test
   seam; all four findings were accepted into this plan.
-- Next: implement the strict public contracts and fix only the resulting
-  in-repo call sites.
+- 2026-08-01: A1 implementation is complete in the working tree. Button,
+  Navigation, and Progress now compose without-ref primitive props with
+  component-owned keys omitted; Workflow step metadata no longer has a
+  catch-all. A durable type fixture, contract story, and focused DOM proof were
+  added, and raw-primitive story call sites were corrected.
+- 2026-08-01: direct TypeScript, durable type-contract TypeScript, ESLint,
+  Prettier, library `tsc`/Vite/font-copy, Ladle production build, and the
+  focused Playwright proof all pass. The pnpm signature shim remains a separate
+  package-manager blocker; no override or dependency mutation was made.
+- Next: commit the verified A1 implementation, run the exact-range reviewer and
+  simplification passes, then stop at the Stack A Gate 2 review before adding
+  A2 work. No stack push, PR submission, queue, or merge is authorized here;
+  `v5` remains the only target and `main` is prohibited.
 
 ## Commit boundaries
 
