@@ -84,7 +84,7 @@ Severity: C = Critical, H = High, M = Medium, L = Low. Evidence spot-checked whe
 | TEST-1 | C | ✓ Published package README = unmodified Vite scaffold — that is the npmjs.com landing page (npm always includes README regardless of `files`). Repo-root README is good but doesn't ship. | `packages/design-system/README.md` | Replace with consumer-facing README (adapt root README theming section). |
 | TEST-2 | C | MIGRATION.md not in published tarball (`files: ["dist"]`) — upgrading consumers never see it. | `packages/design-system/package.json:23-25` | Add to `files` or fold into package README. |
 | TEST-3 | H | Visual regression: fully designed plan, ZERO implementation (no `tests/visual/`, no Dockerfile, no baselines). Only visual QA evidence = 18 manual PNGs. Two themes × 90 stories unprotected. | `project/2026-06-15-ladle-visual-regression-testing-plan.md:110-111` | Execute plan V1–V2 (Docker determinism + curated 15-component baseline) pre-GA. |
-| TEST-4 | H | a11y axe sweep (740 cases = 370 non-readme stories × 2 themes, both themes) built and working but removed from CI after 296 findings; `ALLOWLIST=[]`, triage backlog untouched → a11y regressions ship silently. | `tests/a11y/stories.spec.ts:16`; `main.yml:84`; a11y plan lines 122-146 | Re-add report-only now; triage (button-name/label/nested-interactive almost certainly real — overlaps A11Y findings); flip to blocking. |
+| TEST-4 | H | a11y axe sweep (740 cases = 370 non-readme stories × 2 themes, both themes) built and working but removed from CI after 296 findings; `ALLOWLIST=[]`, triage backlog untouched → a11y regressions ship silently. *(The "296" was later shown to be measured against an empty page — A11Y-HARNESS.)* | `tests/a11y/stories.spec.ts:16`; `main.yml:84`; a11y plan lines 122-146 | **DONE via PR #183** — went straight to blocking (not report-only) with a 190-instance ratchet waiver baseline; see roadmap item 18. |
 | TEST-5 | H | ESLint globalIgnores `**/ui` — 53 actively-edited files (half the implementation surface) have zero lint coverage (tsc still covers types). | `eslint.config.mjs:19-26` | Narrow ignore to `**/original`; fix resulting warnings once. |
 | TEST-6 | M | Doc drift confirmed on flagship Button: `size`/`asChild` props absent from stories + AI_DOCUMENTATION block (= Context7 source) — invisible to AI-assisted consumers. Sample finding, likely systemic. | `src/Button.tsx:14,20` vs `src/Button.stories.mdx:30-127` | Add size story + doc parity check idea (prop names substring-matched in story file). |
 | TEST-7 | M | CHANGELOG has zero v5 entries despite two published alphas; release scripts never run for v5 line. | `CHANGELOG.md` | Run `release:alpha` flow after ARCH-2 fix. |
@@ -162,7 +162,7 @@ Phases ordered by dependency; P0 is days, P1+P2 can run in parallel slices, P3 g
 6. **COMP-2** remove index signatures (unmasks latent COMP-1-class bugs — expect compile errors, fix each).
 7. **COMP-3** ref forwarding across composites (React 19 ref-as-prop).
 8. **COMP-4** one testid convention, retrofit Table + Workflow first.
-9. **COMP-5/6/8 + D3** three-layer export restructure (root composites / `./primitives` / `./forms`); resolve duplicate API families; rename/alias `Shadcn*` exports; Field* direction.
+9. **COMP-5/6/8 + D3** export restructure — **DONE, merged as [PR #181](https://github.com/uzh-bf/design-system/pull/181) (`b22d1ba`, 2026-07-20)** as **two doors**, not three: root composites + `./primitives` (+ `./css`/`./preflight.css` asset entries); `./forms` dropped (0 imports across all 6 consumers per the D3 audit) and `./ui` removed. `Shadcn*` names gone from the public surface (internal import aliases only). Field*/forms direction stays open → post-GA Forms 2.0.
 10. **ARCH-3/4 + CONS-1** chunking restructure + `sideEffects` + bundle-analyzer verification (define size-limit budget = TEST-8/ARCH-8 wiring). ARCH-9 (P0) first — re-measure after externals fix before deciding how much barrel surgery is still needed.
 11. Dependency hygiene slice: THEME-5, THEME-6, COMP-13, ARCH-7, ARCH-8 leftovers.
 12. **THEME-7** self-host Source Sans 3 (unlocks VRT determinism too).
@@ -170,12 +170,12 @@ Phases ordered by dependency; P0 is days, P1+P2 can run in parallel slices, P3 g
 ### P2 — Conformance + quality gates (parallel with P1)
 
 13. **THEME-1** chart palette → CD hues; **THEME-3** deprecate legacy swatches.
-14. **D2/THEME-2** heading weight ruling + implementation; **D5/THEME-4** mid-ladder ruling.
+14. **D2/THEME-2** heading weight ruling + implementation; **D5/THEME-4** mid-ladder ruling — **DONE in the 2026-07-24 D2+D4+D5 conformance slice**.
 14b. **THEME-12** theme-bypass sweep (CycleProgress, Toast, ui/calendar, ui/alert-dialog → semantic tokens) + raw-hex guard; **THEME-11/D9** document root-only theming, decide portal story.
-15. **A11Y Level-A batch 1**: A11Y-1 Table, A11Y-2 Checkbox, A11Y-3 forms error pattern, A11Y-4 Navigation (+A11Y-9 required/id).
-16. **A11Y batch 2**: A11Y-6/7/8 (Workflow, StepProgress, ColorPicker=COMP-10), A11Y-11 live regions.
-17. **D4/A11Y-5/12** uzh contrast re-derivation (design ruling needed).
-18. **TEST-4** a11y CI blocking gate. *In progress on `v5-a11y-ci-gate`.* Fixed the harness defect that made the sweep scan an empty page (A11Y-HARNESS), which invalidated the "296 findings" and "765/765" figures. Real baseline is 186 serious+critical (story×theme). Gate lands **blocking** now with today's debt waived (A11Y-17..23) and burns down later — not report-only. Keyboard specs (A11Y-14) already shipped in PR #182.
+15. **A11Y Level-A batch 1** — **DONE via [PR #182](https://github.com/uzh-bf/design-system/pull/182) (`55f48dc`, 2026-07-22)**: A11Y-1 Table, A11Y-2 Checkbox, A11Y-3 forms error pattern, A11Y-4 Navigation (+A11Y-9 required/id).
+16. **A11Y batch 2** — **DONE via PR #182 (same merge)**: A11Y-6/7/8 (Workflow, StepProgress, ColorPicker=COMP-10), A11Y-11 live regions; +A11Y-15/16 found and fixed in-flight; 25 contract assertions persisted (13 keyboard + 12 field-labeling).
+17. **D4/A11Y-5/12** uzh contrast re-derivation — **DONE in the 2026-07-24 D2+D4+D5 conformance slice**; official hues retained, dark pairings measured, status waivers ratcheted.
+18. **TEST-4** a11y CI blocking gate — **DONE, merged as [PR #183](https://github.com/uzh-bf/design-system/pull/183) (`c32042b`, 2026-07-23)**. Fixed the harness defect that made the sweep scan an empty page (A11Y-HARNESS), which invalidated the "296 findings" and "765/765" figures. Blocking from day one with today's debt waived on a ratchet allowlist: **190 serious+critical violation instances (rule×story×theme)** across A11Y-17..23 (≈186 distinct failing story×theme tests — instances > tests because multi-rule stories). Sharded `a11y` job (4×) gates Build and Publish. Keyboard specs (A11Y-14) shipped in PR #182. Known ratchet limit (2026-07-23 review): waivers are rule×story-family scoped with no pinned instance counts, so a NEW instance of an already-waived rule inside a waived family passes silently; hardening (pin per-(rule,story,theme) baselines) is a candidate follow-up slice.
 19. **TEST-3** VRT V1–V2 (after fonts self-hosted); baselines for 15 curated components, both themes.
 20. **TEST-5** ESLint covers `src/ui`; **TEST-8** publish needs lint+format.
 
@@ -184,7 +184,7 @@ Phases ordered by dependency; P0 is days, P1+P2 can run in parallel slices, P3 g
 21. **CONS-2a** re-run gbl `m2-v5-preview` against published alpha (expect `transpilePackages` workaround obsolete; verify React dedupe).
 22. **CONS-3** systematic MIGRATION.md diff pass — ext. review confirms understatement is broader than Button (Tabs layout, component density, button dimensions, package contents, CSS delivery all changed while doc claims "additive"/"token routing only") + **THEME-8/CONS-7/D8** rebrand guide with klicker sky-blue profile as acceptance case.
 23. **CONS-2b** klicker-uzh full migration on a branch = the real GA acceptance test.
-24. **ARCH-6 + D1** legacy package deprecation executed.
+24. ~~**ARCH-6 + D1** legacy package deprecation executed.~~ Dropped from the GA path per the D1 ruling (2026-07-23: leave frozen); packages remain in the workspace, already excluded from version bumps since #180.
 25. **GA cutover**: fresh finish gates (security review, maintainability review per repo policy), tag `v5.0.0`, npm `latest` promotion via fixed pipeline, release notes.
 
 ### GA exit criteria (hard gate)
@@ -213,7 +213,20 @@ Phases ordered by dependency; P0 is days, P1+P2 can run in parallel slices, P3 g
 - **tc/elearning submodule consumer**: verify what it actually builds; migrate off submodule vendoring.
 - Chart accessibility defaults (`accessibilityLayer` on by default), Carousel pause contract, Countdown timer semantics beyond minimum (A11Y-12/11 residuals).
 
-## Open decisions (need user/design-owner ruling; recommendations marked)
+## Open decisions (RULED 2026-07-23 — user grill; original options/recommendations kept below for context)
+
+**Rulings (2026-07-23, one-at-a-time grill):**
+
+- **D1 — legacy packages: LEAVE FROZEN** (overrides the deprecate/archive recommendation). Consequence: P3 item 24 (ARCH-6 execution) drops out of the GA path; the packages stay in the workspace, already excluded from version bumps since #180; silent-green CI on them is accepted.
+- **D2 — headings: CONFORM to Semibold 600** (`font-semibold` in Header). Unblocks THEME-2.
+- **D3 residual — forms direction (Field*/RHF vs frozen Formik): DEFER post-GA** (Forms 2.0 decision round after the klicker migration produces usage evidence). The export-restructure half of D3 shipped in #181.
+- **D4 — uzh status contrast: DARK TEXT ON BRAND TINTS** (official hues stay; foregrounds go dark to pass AA). Unblocks A11Y-5/A11Y-12 + the 31 waived uzh contrast instances.
+- **D5 — primary mid-ladder: ADOPT official Blue Shade 2/3/4**. Unblocks THEME-4.
+- **D6 — shadcn registry: DEFER post-GA.**
+- **D7 — central i18n: DEFER post-GA.**
+- **D8 — klicker brand: SUPPORTED OVERRIDE PROFILE** (redeclare the `--theme-color-primary*` ramp; ships with the THEME-8 rebrand guide, klicker migration = acceptance case).
+- **D9 — theming scope: RATIFIED document-root-only** (matches what #180 documented; scoped/mixed theming out of scope for v5).
+- **D10 — primitives: RATIFIED stay on Radix** (pin baseline, periodic upstream diffs; Base UI = post-GA evaluation at most).
 
 | ID | Decision | Options | Recommendation |
 | --- | --- | --- | --- |
@@ -257,4 +270,9 @@ Phases ordered by dependency; P0 is days, P1+P2 can run in parallel slices, P3 g
   - **Packaging corroboration:** gbl-uzh `globals.css` carries a code comment reaching the DS CSS "directly through node_modules until v5 exports it" → the v5 `./css` export (S5/CONS-6) lands a documented pain. gbl `apps/website` (3.0-alpha, no exports map) deep-imports `@uzh-bf/design-system/dist/constants.js` for Tailwind presets → a formal constants/preset export may be needed if it upgrades. gbl `packages/ui` vendors its own local shadcn Card/Form primitives — third parallel implementation (fragmentation).
   - Weighting caveat: gbl's 3 example apps are near-identical scaffolds (~1 pattern ×3); klicker is the heaviest real signal; vet-platform is n=2 pre-alpha.
   - D3 recommendation re-cut per-family (row above). Grounding research launched for the forms/RHF + Next.js-export questions (Forms 2.0 direction, native-shadcn exposure, RSC/`use client` export rationale) ahead of a decision-mapping grill.
-
+- 2026-07-20: [PR #181](https://github.com/uzh-bf/design-system/pull/181) merged onto `v5` (`b22d1ba`, merge commit) — API consolidation as two doors (root + `./primitives`, plus `./css`/`./preflight.css`); `./ui` + `./forms` subpaths dropped; `Shadcn*` removed from public names; 7 newer primitives exported from `./primitives`. Plan: `project/2026-07-19-pr-181-v5-api-consolidation-plan.md`.
+- 2026-07-22: [PR #182](https://github.com/uzh-bf/design-system/pull/182) merged (`55f48dc`) — WCAG Level-A names/keyboard/states for core widgets + 25 persisted contract assertions (13 keyboard + 12 field-labeling). Its original "765/765 axe, 0 findings" evidence was later invalidated (A11Y-HARNESS: the sweep scanned an empty page); two correction comments posted on the PR (the second supersedes the first); the contract assertions, not axe counts, are the real evidence. Plan: `project/2026-07-20-pr-182-v5-a11y-level-a-plan.md`.
+- 2026-07-23: [PR #183](https://github.com/uzh-bf/design-system/pull/183) merged (`c32042b`) — TEST-4 done: harness fix (wait on the story element + bounded settle; `button--icon`→`button-name` canary), blocking sharded `a11y` CI job (4×) with a 190-instance ratchet allowlist (A11Y-17..23), `Build and Publish` now `needs` a11y. Plan: `project/2026-07-22-v5-a11y-ci-gate-plan.md`.
+- 2026-07-23 (independent review): progress + planning review pass — all #180–#183 claims verified in code by two verifier subagents; one re-ran the full suite (766/766) and reproduced every allowlist rule count exactly. GA-criteria check: only the a11y-gate criterion is fully met. **S6 release stays HELD by user ruling (2026-07-23): no consumers to serve yet**, so `5.0.0-alpha.2` is unpublished and the ARCH-1/2 pipeline remains unvalidated end-to-end until the next tag (note: npm `alpha` = `alpha.1` predates all merged fixes). Ratchet limit recorded at item 18. Critical path = design rulings (D2/D4/D5/D8) + consumer migration, not engineering. This staleness sync is the review's doc fix; D-rulings from the 2026-07-23 grill land as a follow-up commit.
+- 2026-07-23 (decision grill): all remaining D-items ruled one-at-a-time by the user — see the rulings block in "Open decisions". Net effect on the plan: P2 conformance items 14 (D2/D5) and 17 (D4) are now decision-unblocked engineering; P3 gains the D8 override profile as a prerequisite for the klicker migration; item 24 (ARCH-6) is dropped; D3-residual/D6/D7 move to the post-GA backlog. Recommended execution order (2026-07-23 review): design-ruling conformance slice (D2+D4+D5 token/typography work) → P1 API hardening (COMP-2/3/4, then chunking + size budget) → TEST-3 VRT → CONS-2a consumer preview (needs a published alpha first; S6 held until consumers exist).
+- 2026-07-24: D2+D4+D5 conformance slice implemented on `anja-zgraggen-finalize-v5-conformance`: v5 Header headings now use `font-semibold`; UZH status foregrounds and destructive/error text use dark pairings; status-dependent Workflow/StepProgress paths use semantic tokens; official Blue Shade 2/3/4 values (`#7596FF`/`#3062FF`/`#001E7C`) replace the mechanical mid-ramp. The a11y allowlist is theme-aware: the UZH contrast waiver was deleted, only neutral debt remains, and the documented suite passes 766/766. No release or remote operation performed.

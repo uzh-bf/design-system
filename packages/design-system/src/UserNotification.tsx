@@ -74,19 +74,23 @@ export function UserNotification({
 
   switch (type) {
     case 'warning':
-      computedClassName = 'text-warning-foreground bg-warning-background'
+      computedClassName =
+        'text-warning-foreground bg-warning-background dark:text-warning'
       notifIcon = faTriangleExclamation
       break
     case 'error':
-      computedClassName = 'text-destructive bg-destructive-background'
+      computedClassName =
+        'text-destructive-text bg-destructive-background dark:text-destructive'
       notifIcon = faCircleXmark
       break
     case 'info':
-      computedClassName = 'text-info bg-info-background'
+      computedClassName =
+        'text-info-foreground bg-info-background dark:text-info'
       notifIcon = faCircleInfo
       break
     case 'success':
-      computedClassName = 'text-success bg-success-background'
+      computedClassName =
+        'text-success-foreground bg-success-background dark:text-success'
       notifIcon = faCircleCheck
       break
     default:

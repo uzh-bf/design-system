@@ -328,24 +328,26 @@ export const Formatted = () => {
             sortable: true,
             className: 'font-bold italic',
             formatter: ({ row }) => (
-              <div className="bg-red-300">{row['answer']}</div>
+              <div className="bg-destructive-background text-destructive-text">
+                {row['answer']}
+              </div>
             ),
           },
           { label: 'Username', accessor: 'username', sortable: false },
         ]}
         data={[
           {
-            className: 'text-green-200',
+            className: 'text-foreground',
             ...data[0],
           },
           ...data,
         ]}
         caption="Table with example data"
         className={{
-          root: 'bg-white',
-          tableHeader: 'bg-gray-200',
-          body: 'bg-gray-100',
-          row: 'bg-white',
+          root: 'bg-background',
+          tableHeader: 'bg-muted',
+          body: 'bg-muted',
+          row: 'bg-background',
         }}
       />
     </div>

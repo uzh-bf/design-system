@@ -274,12 +274,12 @@ export function WorkflowItem({
           twMerge(twStyles.bgActive, 'text-white', className?.active),
         (item.completed || item.progress === 1) &&
           (ix === activeIx
-            ? 'bg-green-600 after:border-l-green-600 hover:bg-green-200 hover:after:border-l-green-200!'
-            : 'bg-green-200 after:border-l-green-200 hover:bg-green-200 hover:after:border-l-green-200!'),
+            ? 'bg-success text-success-foreground after:border-l-success hover:bg-success hover:after:border-l-success!'
+            : 'bg-success-background text-success-foreground dark:text-success after:border-l-success-background hover:bg-success-background hover:after:border-l-success-background!'),
         item.error &&
           (ix === activeIx
-            ? 'bg-destructive after:border-l-destructive hover:bg-red-200 hover:after:border-l-red-200!'
-            : 'bg-red-200 after:border-l-red-200 hover:bg-red-200 hover:after:border-l-red-200!'),
+            ? 'bg-destructive text-destructive-foreground after:border-l-destructive hover:bg-destructive hover:after:border-l-destructive!'
+            : 'bg-destructive-background text-destructive-text after:border-l-destructive-background hover:bg-destructive-background hover:after:border-l-destructive-background!'),
         !item.completed &&
           item.progress !== 1 &&
           item.progress &&

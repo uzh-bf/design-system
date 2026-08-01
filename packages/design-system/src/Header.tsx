@@ -29,7 +29,7 @@ export function H1({ id, data, className, children }: HeaderProps) {
       data-cy={data?.cy}
       data-test={data?.test}
       className={twMerge(
-        'mb-[0.2em] font-sans text-2xl font-bold',
+        'mb-[0.2em] font-sans text-2xl font-semibold',
         className?.root
       )}
     >
@@ -54,7 +54,7 @@ export function H2({ id, data, className, children }: HeaderProps) {
       data-cy={data?.cy}
       data-test={data?.test}
       className={twMerge(
-        'mb-[0.2em] font-sans text-xl font-bold',
+        'mb-[0.2em] font-sans text-xl font-semibold',
         className?.root
       )}
     >
@@ -79,7 +79,7 @@ export function H3({ id, data, className, children }: HeaderProps) {
       data-cy={data?.cy}
       data-test={data?.test}
       className={twMerge(
-        'mb-[0.2em] font-sans text-lg font-bold',
+        'mb-[0.2em] font-sans text-lg font-semibold',
         className?.root
       )}
     >
@@ -104,7 +104,7 @@ export function H4({ id, data, className, children }: HeaderProps) {
       data-cy={data?.cy}
       data-test={data?.test}
       className={twMerge(
-        'text-md mb-[0.2em] font-sans font-bold',
+        'text-md mb-[0.2em] font-sans font-semibold',
         className?.root
       )}
     >

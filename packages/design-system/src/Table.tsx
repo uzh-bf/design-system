@@ -208,7 +208,7 @@ export function Table<
                   scope="col"
                   aria-sort={col.sortable ? sortAriaValue : undefined}
                   className={twMerge(
-                    'border-border bg-muted text-muted-foreground border-b text-start text-xs font-semibold tracking-[0.06em] whitespace-nowrap uppercase',
+                    'border-border bg-muted text-foreground border-b text-start text-xs font-semibold tracking-[0.06em] whitespace-nowrap uppercase',
                     !col.sortable && 'px-4 py-3',
                     className?.tableHeader,
                     col.className
@@ -223,7 +223,7 @@ export function Table<
                       <FontAwesomeIcon
                         className={twMerge(
                           'mr-2',
-                          !isSorted && 'text-muted-foreground'
+                          !isSorted && 'text-foreground'
                         )}
                         icon={
                           isSorted

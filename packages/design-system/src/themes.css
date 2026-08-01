@@ -55,6 +55,7 @@
   --theme-info: oklch(0.5 0.14 245);
   --theme-info-foreground: oklch(0.985 0 0);
   --theme-info-background: oklch(0.96 0.03 240);
+  --theme-destructive-text: #b91c1c;
 }
 
 /* ── UZH corporate design ──────────────────────────────────────────────── */
@@ -83,23 +84,24 @@
   --theme-color-secondary-20: var(--color-uzh-berry-20);
 
   /* status — UZH accent hues (reference colors-semantic.html):
-     success Apple4, warning Gold, info Cyan4. Main token = border/icon/text
-     on the light -background tint; -foreground = text on the solid fill. */
+     success Apple4, warning Gold, info Cyan4. Dark text is used for both
+     solid status surfaces and their light brand tints to meet AA. */
   --theme-success: #7ca023;
-  --theme-success-foreground: #ffffff;
+  --theme-success-foreground: #111111;
   --theme-success-background: #ecf6d6;
   --theme-warning: #ffc845;
-  --theme-warning-foreground: #a27200;
+  --theme-warning-foreground: #111111;
   --theme-warning-background: #fff4da;
   --theme-info: #1ea7c4;
-  --theme-info-foreground: #ffffff;
+  --theme-info-foreground: #111111;
   --theme-info-background: #dbf4f9;
 
   /* destructive + notification — UZH Orange / Berry (reference).
      Scoped here (not theme-agnostic) so neutral keeps the shadcn red. */
   --destructive: #fc4c02;
-  --destructive-foreground: #ffffff;
+  --destructive-foreground: #111111;
   --destructive-background: #ffdbcc;
+  --theme-destructive-text: #111111;
   --notification: var(--color-uzh-berry-100);
 
   /* bridge shadcn semantic primary + focus ring to UZH blue */
