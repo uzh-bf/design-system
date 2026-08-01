@@ -195,9 +195,10 @@ The custom `Button`, `Navigation`, and `Progress` composites no longer accept
 arbitrary props. They still accept native and ARIA attributes that the
 component forwards to its root element, alongside their documented custom
 props. `className`, controlled state, and custom variant props remain owned by
-the composite. `Workflow` and `WorkflowProgress` step items likewise accept
-only their documented fields; arbitrary metadata is not passed back through
-the click handler.
+the composite. `Workflow` and `WorkflowProgress` step items likewise expose
+only their documented fields in the callback type; arbitrary metadata is not a
+supported contract, although the original runtime item object is still passed
+through unchanged.
 
 If an application needs a raw primitive prop that the composite intentionally
 does not expose (for example, a shadcn button `variant`), import the raw

@@ -1,4 +1,4 @@
-import { Button } from './ui/button'
+import { Button as PrimitiveButton } from './ui/button'
 import { Popover, PopoverContent, PopoverTrigger } from './Popover'
 import { Label } from './ui/label'
 import { Input } from './ui/input'
@@ -109,7 +109,7 @@ export const Default = () => {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline">Open popover</Button>
+        <PrimitiveButton variant="outline">Open popover</PrimitiveButton>
       </PopoverTrigger>
       <PopoverContent className="w-80">
         <div className="grid gap-4">

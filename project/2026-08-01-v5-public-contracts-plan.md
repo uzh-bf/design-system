@@ -138,12 +138,24 @@ unsupported values into Radix or shadcn primitives.
 - 2026-08-01: implementation review identified three contract-proof gaps:
   Navigation's internally controlled `defaultValue`, invalid string ref
   negatives, and a Button assertion that did not prove `aria-label` forwarding.
-  The fixes are now in the working tree; the focused Playwright proof passes
+  The fixes were committed in `9f2b017`; the focused Playwright proof passes
   against the updated story.
-- Next: commit the verified review fixes, run the exact-range simplification and
-  final review passes, then stop at the Stack A Gate 2 review before adding A2
-  work. No stack rebase, push, PR submission, queue, or merge is authorized
-  here; `v5` remains the only target and `main` is prohibited.
+- 2026-08-01: simplification review found broad story import swaps that could
+  change already-valid composite Button visuals, a misleading Workflow
+  migration claim, and a durable type check that was not included in the
+  package's normal `check` script. The story call sites now alias raw buttons
+  only where primitive-only props are required; the migration text preserves
+  the unchanged runtime callback object; and `check` runs both type checks.
+- 2026-08-01: cleanup verification passed the combined package type check,
+  package `tsc`/Vite/font-copy build, and Ladle production build. No dependency
+  or pnpm-signature override was introduced.
+- 2026-08-01: Prettier passes on changed code/data/plan files. The seven touched
+  legacy MDX stories still report formatter drift, and their pre-A1 `HEAD`
+  contents fail the same check; no unrelated formatter churn was included.
+- Next: commit the verified simplification fixes, run the exact-range final
+  review pass, then stop at the Stack A Gate 2 review before adding A2 work. No
+  stack rebase, push, PR submission, queue, or merge is authorized here; `v5`
+  remains the only target and `main` is prohibited.
 
 ## Commit boundaries
 
@@ -153,6 +165,9 @@ unsupported values into Radix or shadcn primitives.
 - `test(api): harden v5 public contract checks` — verified review fixes for
   controlled Navigation props, valid ref rejection assertions, and Button DOM
   forwarding evidence.
+- `fix(api): preserve v5 story contract behavior` — narrow raw-primitive story
+  call sites, clarify Workflow migration semantics, and include the durable
+  contract check in the package gate.
 
 ## Out of scope / follow-ups
 
