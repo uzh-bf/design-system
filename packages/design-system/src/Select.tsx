@@ -1,5 +1,6 @@
 'use client'
 
+import type { Ref } from 'react'
 import { useEffect, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import Tooltip from './Tooltip' // New import for tooltips
@@ -41,6 +42,7 @@ interface SelectProps {
   contentPosition?: 'item-aligned' | 'popper'
   ariaRequired?: boolean
   ariaDescribedBy?: string
+  ref?: Ref<HTMLButtonElement>
 }
 
 export interface SelectItem {
@@ -112,6 +114,7 @@ const ItemContent = ({ item }: { item: SelectItem }) => (
  * @param contentPosition - The position of the content of the select component. Currently only 'item-aligned' and 'popper' are supported.
  * @param ariaRequired - Forwarded to the trigger as aria-required to expose the required state to assistive technology.
  * @param ariaDescribedBy - Forwarded to the trigger as aria-describedby to link an external description such as an error message.
+ * @param ref - A ref to the visible trigger button.
  * @return Select component
  */
 export function Select({
@@ -131,6 +134,7 @@ export function Select({
   contentPosition = 'item-aligned',
   ariaRequired,
   ariaDescribedBy,
+  ref,
 }: SelectWithItemsProps | SelectWithGroupsProps) {
   const [open, setOpen] = useState(false)
   const [shortLabel, setShortLabel] = useState<string | undefined>(undefined)
@@ -157,6 +161,7 @@ export function Select({
       >
         <SelectTrigger
           id={id}
+          ref={ref}
           aria-required={ariaRequired || undefined}
           aria-describedby={ariaDescribedBy}
           data-cy={data?.cy}

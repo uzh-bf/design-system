@@ -206,6 +206,25 @@ component from `@uzh-bf/design-system/primitives` instead of adding an
 unsupported prop to the custom composite. Move application-specific workflow
 metadata outside the step object or model it in the owning application state.
 
+### Direct-control refs
+
+The v5 direct-control components use React 19's normal `ref` prop to expose the
+visible interactive element. The ref target is intentionally concrete:
+
+| Component                     | Ref target                          |
+| ----------------------------- | ----------------------------------- |
+| `Button` (native-button path) | `HTMLButtonElement`                 |
+| `TextField`                   | `HTMLInputElement`                  |
+| `NumberField`                 | `HTMLInputElement`                  |
+| `TextareaField`               | `HTMLTextAreaElement`               |
+| `Select`                      | visible trigger `HTMLButtonElement` |
+| `Combobox`                    | visible trigger `HTMLButtonElement` |
+
+Use `ref`, not a parallel `forwardedRef` prop. `Button` rejects `ref` when
+`asChild` is `true` because the child may not be a button; polymorphic child
+refs remain a follow-up. Composite refs for deprecated Formik wrappers, OTP,
+date/color pickers, and `Table` are not part of this direct-control migration.
+
 v5 also marks the package `"sideEffects": ["*.css"]` so consuming bundlers can
 tree-shake unused components while preserving the required stylesheet import — no
 action needed.

@@ -34,6 +34,7 @@ interface TextareaFieldProps {
     error?: string
     tooltip?: string
   }
+  ref?: React.Ref<HTMLTextAreaElement>
 }
 
 export interface TextareaFieldNameProps extends TextareaFieldProps {
@@ -74,6 +75,7 @@ export interface TextareaFieldOnChangeProps extends TextareaFieldProps {
  * @param error - The error message that is shown below the field.
  * @param disabled - Indicate whether the field is disabled or not.
  * @param className - The optional className object allows you to override the default styling.
+ * @param ref - A ref to the underlying textarea element.
  * @returns Text field component with optional label, tooltip, error message and icon.
  */
 export function TextareaField({
@@ -96,6 +98,7 @@ export function TextareaField({
   error,
   disabled,
   className,
+  ref,
   ...props
 }: TextareaFieldNameProps | TextareaFieldOnChangeProps) {
   const { inputId, visibleError, errorId } = useFieldError({
@@ -129,6 +132,7 @@ export function TextareaField({
             <Textarea
               {...field}
               id={inputId}
+              ref={ref}
               aria-required={required || undefined}
               aria-describedby={visibleError ? errorId : undefined}
               data-cy={data?.cy}
@@ -150,6 +154,7 @@ export function TextareaField({
           ) : (
             <Textarea
               id={inputId}
+              ref={ref}
               aria-required={required || undefined}
               aria-describedby={visibleError ? errorId : undefined}
               data-cy={data?.cy}

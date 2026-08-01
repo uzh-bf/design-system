@@ -17,12 +17,6 @@ acceptsButtonProps({
 // @ts-expect-error Arbitrary composite props are not part of the v5 contract.
 acceptsButtonProps({ unsupportedProp: true })
 
-const buttonRef = (element: HTMLButtonElement | null) => {
-  void element
-}
-// @ts-expect-error Ref support belongs to the A2 direct-control-ref layer.
-acceptsButtonProps({ ref: buttonRef })
-
 function acceptsNavigationProps(props: NavigationProps) {
   return props
 }

@@ -42,6 +42,7 @@ export interface NumberFieldProps {
     test?: string
   }
   className?: NumberFieldClassName
+  ref?: React.Ref<HTMLInputElement>
   [key: string]: unknown
 }
 
@@ -69,6 +70,7 @@ export interface NumberFieldProps {
  * @param onBlur - The onBlur function of the input field.
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param className - The optional className object allows you to override the default styling.
+ * @param ref - A ref to the underlying input element.
  */
 export function NumberField({
   id,
@@ -92,6 +94,7 @@ export function NumberField({
   onBlur,
   data,
   className,
+  ref,
   ...props
 }: NumberFieldProps): React.ReactElement {
   const { inputId, visibleError, errorId } = useFieldError({
@@ -198,6 +201,7 @@ export function NumberField({
           )}
           <Input
             id={inputId}
+            ref={ref}
             aria-required={required || undefined}
             aria-describedby={visibleError ? errorId : undefined}
             data-cy={data?.cy}
