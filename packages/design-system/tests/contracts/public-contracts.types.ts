@@ -17,8 +17,11 @@ acceptsButtonProps({
 // @ts-expect-error Arbitrary composite props are not part of the v5 contract.
 acceptsButtonProps({ unsupportedProp: true })
 
+const buttonRef = (element: HTMLButtonElement | null) => {
+  void element
+}
 // @ts-expect-error Ref support belongs to the A2 direct-control-ref layer.
-acceptsButtonProps({ ref: 'not-a-ref' })
+acceptsButtonProps({ ref: buttonRef })
 
 function acceptsNavigationProps(props: NavigationProps) {
   return props
@@ -43,8 +46,14 @@ acceptsNavigationProps({
 // @ts-expect-error Arbitrary composite props are not part of the v5 contract.
 acceptsNavigationProps({ items: navigationItems, unsupportedProp: true })
 
+const navigationRef = (element: HTMLDivElement | null) => {
+  void element
+}
 // @ts-expect-error Ref support belongs to the A2 direct-control-ref layer.
-acceptsNavigationProps({ items: navigationItems, ref: 'not-a-ref' })
+acceptsNavigationProps({ items: navigationItems, ref: navigationRef })
+
+// @ts-expect-error Navigation owns its controlled open state; defaultValue is a no-op.
+acceptsNavigationProps({ items: navigationItems, defaultValue: 'home' })
 
 function acceptsProgressProps(props: ProgressProps) {
   return props
@@ -71,7 +80,9 @@ acceptsProgressProps({
   max: 100,
   formatter: String,
   // @ts-expect-error Ref support belongs to the A2 direct-control-ref layer.
-  ref: 'not-a-ref',
+  ref: (element: HTMLDivElement | null) => {
+    void element
+  },
 })
 
 function acceptsWorkflowProps(props: WorkflowProps) {

@@ -455,7 +455,12 @@ type NavigationPrimitiveProps = ComponentPropsWithoutRef<typeof ShadcnMenubar>
 export interface NavigationProps
   extends Omit<
     NavigationPrimitiveProps,
-    'children' | 'className' | 'onValueChange' | 'style' | 'value'
+    | 'children'
+    | 'className'
+    | 'defaultValue'
+    | 'onValueChange'
+    | 'style'
+    | 'value'
   > {
   items: NavigationItemProps[]
   className?: { root?: string }

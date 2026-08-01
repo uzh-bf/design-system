@@ -7,8 +7,14 @@ test('composite native attributes reach their root elements', async ({
 }) => {
   await gotoStory(page, 'public-contracts--default')
 
-  const button = page.getByRole('button', { name: 'Contract button' })
+  const button = page.getByRole('button', {
+    name: 'Contract button accessible name',
+  })
   await expect(button).toHaveAttribute('data-cy', 'contract-button')
+  await expect(button).toHaveAttribute(
+    'aria-label',
+    'Contract button accessible name'
+  )
 
   const navigation = page.getByRole('menubar')
   await expect(navigation).toHaveAttribute('aria-label', 'Contract navigation')

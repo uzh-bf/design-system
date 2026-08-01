@@ -63,8 +63,10 @@ unsupported values into Radix or shadcn primitives.
 - Target/trunk: `v5` at `4aa021ac2b8fd43cad6076dcc30071feb87d97f6`
 - Dependents: A2 `rs/v5-direct-control-refs`, then A3
   `rs/v5-composite-refs`
-- Stack metadata: native `gh stack`, `trunk: v5`, all branches at the target
-  tip, `needsRebase: false`
+- Stack metadata at initialization: native `gh stack`, `trunk: v5`, all
+  branches at the target tip, `needsRebase: false`. After the A1 commit, the
+  dependent branches remain empty until an explicitly checkpointed stack
+  rebase; no rebase or publication is authorized in this slice.
 - Existing release PR: [#184](https://github.com/uzh-bf/design-system/pull/184)
   merged as the base commit above; never target or merge this stack into
   `main`.
@@ -77,7 +79,8 @@ unsupported values into Radix or shadcn primitives.
    changing unrelated components.
 3. Add the strict-prop migration note and update only documentation that claims
    arbitrary custom fields/props remain supported.
-4. Add a small durable no-emit type-contract fixture under `tests/types/` and
+4. Add a small durable no-emit type-contract fixture under `tests/contracts/`
+   and
    wire it to a package script. Its `@ts-expect-error` cases must reject
    arbitrary props and `ref` while its positive cases accept the native/ARIA
    attributes that each component forwards.
@@ -132,16 +135,24 @@ unsupported values into Radix or shadcn primitives.
   Prettier, library `tsc`/Vite/font-copy, Ladle production build, and the
   focused Playwright proof all pass. The pnpm signature shim remains a separate
   package-manager blocker; no override or dependency mutation was made.
-- Next: commit the verified A1 implementation, run the exact-range reviewer and
-  simplification passes, then stop at the Stack A Gate 2 review before adding
-  A2 work. No stack push, PR submission, queue, or merge is authorized here;
-  `v5` remains the only target and `main` is prohibited.
+- 2026-08-01: implementation review identified three contract-proof gaps:
+  Navigation's internally controlled `defaultValue`, invalid string ref
+  negatives, and a Button assertion that did not prove `aria-label` forwarding.
+  The fixes are now in the working tree; the focused Playwright proof passes
+  against the updated story.
+- Next: commit the verified review fixes, run the exact-range simplification and
+  final review passes, then stop at the Stack A Gate 2 review before adding A2
+  work. No stack rebase, push, PR submission, queue, or merge is authorized
+  here; `v5` remains the only target and `main` is prohibited.
 
 ## Commit boundaries
 
 - `docs(project): add v5 public contracts plan` — this plan only.
 - `refactor(api): tighten v5 public prop contracts` — A1 implementation,
   affected stories/docs, and focused type evidence once verified.
+- `test(api): harden v5 public contract checks` — verified review fixes for
+  controlled Navigation props, valid ref rejection assertions, and Button DOM
+  forwarding evidence.
 
 ## Out of scope / follow-ups
 
