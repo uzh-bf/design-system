@@ -64,9 +64,12 @@ unsupported values into Radix or shadcn primitives.
 - Dependents: A2 `rs/v5-direct-control-refs`, then A3
   `rs/v5-composite-refs`
 - Stack metadata at initialization: native `gh stack`, `trunk: v5`, all
-  branches at the target tip, `needsRebase: false`. After the A1 commit, the
-  dependent branches remain empty until an explicitly checkpointed stack
-  rebase; no rebase or publication is authorized in this slice.
+  branches at the target tip, `needsRebase: false`.
+- Approved Gate 2 checkpoint: recovery refs were recorded under
+  `refs/stack-backup/20260801-220746/` for all three branches, and
+  `gh stack rebase --no-trunk` completed locally. Current stack heads are all
+  `bac96d5`; A2 and A3 now base on the preceding layer, while `v5` and
+  `origin/v5` remain `4aa021a`. No stack publication occurred.
 - Existing release PR: [#184](https://github.com/uzh-bf/design-system/pull/184)
   merged as the base commit above; never target or merge this stack into
   `main`.
@@ -155,10 +158,12 @@ unsupported values into Radix or shadcn primitives.
 - 2026-08-01: final exact-range review of `18e8252..38a613c` passed with no
   findings. The range is directly descended from `v5` at `4aa021a`; `main`
   remains prohibited.
-- Next: pause at the Stack A Gate 2 review. Before A2, checkpoint the native
-  stack metadata and explicitly confirm that every operation still targets
-  `v5`; no stack rebase, push, PR submission, queue, or merge is authorized
-  here. Do not start A2 until that Gate 2 decision is made.
+- 2026-08-01: Gate 2 was approved after the checkpointed no-trunk rebase;
+  native metadata reports all three Stack A branches clean and unqueued with
+  `v5` as trunk.
+- Next: create the A2 worktree and commit its plan on top of `bac96d5`. Keep
+  Stack A local and unqueued; `v5` remains the only trunk and `main` remains
+  prohibited.
 
 ## Commit boundaries
 
