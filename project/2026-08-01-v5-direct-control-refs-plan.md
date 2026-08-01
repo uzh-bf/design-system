@@ -128,8 +128,26 @@ imperative focus.
   `Button asChild`/`ref` discriminator, the full `tests/a11y` gate, and
   Select/Combobox open-select-close assertions; those requirements are recorded
   above before implementation.
-- Next: implement only the six direct-control classes above. No push, PR
-  submission, queue, merge, or `main` target is authorized here.
+- 2026-08-01: A2 implementation committed as `f1d117b` after the six direct-
+  control contracts, durable no-emit fixture, consumer story, interaction proof,
+  and migration guidance were verified. Static gates passed: package source
+  and public-contract type checks, changed-file ESLint, Prettier, package
+  `tsc -b`, Vite build, font/licence extraction, and Ladle production build.
+- 2026-08-01: Focused direct-control Playwright proof passed 3/3 tests. The
+  full `tests/a11y` suite completed 768/770; both direct-control story entries
+  passed and the canary passed. The only failures were the two pre-existing
+  `modal--trigger` color-contrast findings (neutral and uzh), already outside
+  this slice's changed surface.
+- 2026-08-01: Simplification review found one documentation follow-up: the
+  `ButtonProps` interface-to-union change can affect consumer wrappers that use
+  `interface ... extends ButtonProps`; the migration note now shows the
+  intersection form. An ADR was suggested as a future governance improvement,
+  but is not required to complete this approved A2 slice.
+- Next: complete the exact-range implementation review, record any verified
+  follow-up, and rebase the local A3 dependent onto the finalized A2 head.
+  Stack A security/maintainability gates remain required before any draft
+  publication or ready-for-review decision. No push, PR submission, queue,
+  merge, or `main` target is authorized here.
 
 ## Commit boundaries
 

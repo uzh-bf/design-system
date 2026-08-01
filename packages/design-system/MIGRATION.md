@@ -225,6 +225,14 @@ Use `ref`, not a parallel `forwardedRef` prop. `Button` rejects `ref` when
 refs remain a follow-up. Composite refs for deprecated Formik wrappers, OTP,
 date/color pickers, and `Table` are not part of this direct-control migration.
 
+`ButtonProps` is now a discriminated union so the native-button ref target can
+remain sound. If a wrapper previously used `interface ... extends ButtonProps`,
+define the wrapper props as an intersection instead:
+
+```ts
+type WrappedButtonProps = ButtonProps & { analyticsId?: string }
+```
+
 v5 also marks the package `"sideEffects": ["*.css"]` so consuming bundlers can
 tree-shake unused components while preserving the required stylesheet import — no
 action needed.
