@@ -27,8 +27,10 @@ unsupported values into Radix or shadcn primitives.
 ## Decision
 
 - Compose native attributes only where the component forwards them to the same
-  underlying DOM/primitive root, using `React.ComponentProps<typeof Primitive>`
-  with the component-owned keys omitted.
+  underlying DOM/primitive root, using
+  `React.ComponentPropsWithoutRef<typeof Primitive>` with an explicit list of
+  component-owned keys omitted. `ref` remains rejected in A1 and is introduced
+  only by the A2 direct-control-ref layer.
 - Keep the existing opinionated props and their runtime behavior unchanged.
 - Remove the four broad index signatures; do not replace them with `Record` or
   another generic escape hatch.
@@ -75,22 +77,31 @@ unsupported values into Radix or shadcn primitives.
    changing unrelated components.
 3. Add the strict-prop migration note and update only documentation that claims
    arbitrary custom fields/props remain supported.
-4. Run a temporary negative/positive TypeScript fixture against the emitted
-   public prop types so arbitrary props fail while intended native attributes
-   compile; keep the fixture out of the repository unless a durable test seam
-   is justified by the evidence.
+4. Add a small durable no-emit type-contract fixture under `tests/types/` and
+   wire it to a package script. Its `@ts-expect-error` cases must reject
+   arbitrary props and `ref` while its positive cases accept the native/ARIA
+   attributes that each component forwards.
+5. Add one focused Ladle contract story and Playwright proof that representative
+   delegated attributes land on the Button, Navigation, and Progress root DOM
+   elements. Compile-time acceptance alone is not sufficient evidence of
+   forwarding or correct root placement.
 
 ## Check
 
 - Direct installed TypeScript: `/Users/rschlae/Git/df/design-system/node_modules/.bin/tsc --noEmit` from `packages/design-system`.
+- Direct installed TypeScript: `/Users/rschlae/Git/df/design-system/node_modules/.bin/tsc -p tsconfig.types.json --noEmit` for the durable public-contract fixture.
 - Direct installed ESLint on every changed TypeScript file with
   `--report-unused-disable-directives --max-warnings 0`.
 - Prettier check on every changed file.
-- Package build and Ladle build when the local dependency/toolchain gate allows
-  them; record the pnpm signature blocker separately if it persists.
-- Temporary type fixture proves arbitrary props are rejected for Button,
-  Navigation, Progress, and Workflow step items, while forwarded native/ARIA
-  attributes remain accepted.
+- Package build and Ladle build are mandatory A1 gates. Use direct installed
+  binaries where they safely bypass only the pnpm signature shim; if either
+  build remains unavailable, stop A1 at a verification blocker rather than
+  calling the implementation green.
+- The durable type fixture proves arbitrary props and `ref` are rejected for
+  Button, Navigation, Progress, and Workflow step items, while forwarded
+  native/ARIA attributes remain accepted.
+- The focused Playwright proof verifies representative delegated attributes on
+  the rendered Button, Navigation, and Progress root elements.
 - Existing story/type compilation remains green; no visual or interaction
   behavior is intentionally changed in A1.
 
@@ -109,8 +120,11 @@ unsupported values into Radix or shadcn primitives.
 - 2026-08-01: baseline direct `tsc --noEmit` and ESLint pass. The pnpm shim's
   pinned-version signature verification fails before project execution; no
   `pmOnFail` override or dependency mutation was made.
-- Next: commit this plan as the first A1 commit, then implement the strict
-  public contracts and fix only the resulting in-repo call sites.
+- 2026-08-01: plan review required explicit without-ref composition, runtime
+  forwarding proof, mandatory package/Ladle builds, and a durable type-test
+  seam; all four findings were accepted into this plan.
+- Next: implement the strict public contracts and fix only the resulting
+  in-repo call sites.
 
 ## Commit boundaries
 
