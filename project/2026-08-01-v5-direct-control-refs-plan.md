@@ -151,10 +151,10 @@ imperative focus.
   `e9cc32a` Modal correction against the rebuilt bundle and the targeted
   neutral/uzh checks (2/2); the complete rerun is recorded above as 770/770.
 - 2026-08-01: Native `gh stack rebase --no-trunk` completed after the final
-  A2 evidence checkpoint. A3 now bases on `7ce1706`, all local stack entries
-  report `needsRebase: false`, and `v5`/`origin/v5` remain at `4aa021a`. A
-  recovery snapshot for this transition is under
-  `refs/stack-backup/20260801-233612/`.
+  A2 evidence checkpoint. A3 now bases on the finalized A2 branch, all local
+  stack entries report `needsRebase: false`, and `v5`/`origin/v5` remain at
+  `4aa021a`. Recovery snapshots for the stack transitions remain under
+  `refs/stack-backup/`.
 - Next: keep Stack A security and maintainability gates before any draft
   publication or ready-for-review decision. No push, PR submission, queue,
   merge, or `main` target is authorized here.
