@@ -134,17 +134,20 @@ imperative focus.
   and public-contract type checks, changed-file ESLint, Prettier, package
   `tsc -b`, Vite build, font/licence extraction, and Ladle production build.
 - 2026-08-01: Focused direct-control Playwright proof passed 3/3 tests. The
-  full `tests/a11y` suite completed 768/770; both direct-control story entries
-  passed and the canary passed. The only failures were the two pre-existing
-  `modal--trigger` color-contrast findings (neutral and uzh), already outside
-  this slice's changed surface.
+  first full `tests/a11y` run completed 768/770 and exposed the two
+  `modal--trigger` color-contrast findings (neutral and uzh). Exact-range
+  implementation review confirmed that the inherited A1 story change was in
+  this reviewed stack, so it was corrected in `e9cc32a` by using the public
+  `Button` contract while retaining the story's style mapping. The targeted
+  Modal a11y proof and the rerun of the complete suite then passed 770/770,
+  including both direct-control story entries and the canary.
 - 2026-08-01: Simplification review found one documentation follow-up: the
   `ButtonProps` interface-to-union change can affect consumer wrappers that use
   `interface ... extends ButtonProps`; the migration note now shows the
   intersection form. An ADR was suggested as a future governance improvement,
   but is not required to complete this approved A2 slice.
-- Next: complete the exact-range implementation review, record any verified
-  follow-up, and rebase the local A3 dependent onto the finalized A2 head.
+- Next: record the final exact-range review outcome and rebase the local A3
+  dependent onto the finalized A2 head.
   Stack A security/maintainability gates remain required before any draft
   publication or ready-for-review decision. No push, PR submission, queue,
   merge, or `main` target is authorized here.
@@ -154,7 +157,10 @@ imperative focus.
 - `docs(project): add v5 direct-control refs plan` — this plan only.
 - `feat(refs): expose v5 direct-control refs` — A2 implementation, durable
   type proof, focused story/test, and migration note after verification.
-- Follow-up commits must remain narrowly scoped to verified review findings.
+- `fix(stories): preserve modal trigger contrast` — verified implementation-
+  review follow-up for the inherited Modal trigger story.
+- Follow-up documentation commits must remain narrowly scoped to verified
+  review findings and verification evidence.
 
 ## Out of scope / follow-ups
 
