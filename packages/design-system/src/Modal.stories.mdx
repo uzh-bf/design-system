@@ -370,14 +370,14 @@ export const ThreeSecondLoading = () => {
 export const Trigger = () => {
   const [isOpen, setIsOpen] = useState(false)
   const StyledButton = forwardRef((props, forwardedRef) => (
-    <PrimitiveButton
+    <Button
       {...props}
       ref={forwardedRef}
       onClick={() => setIsOpen(true)}
-      className="border-red-500 bg-blue-300"
+      className={{ root: 'border-red-500 bg-blue-300' }}
     >
       Open Modal
-    </PrimitiveButton>
+    </Button>
   ))
 
 return (
