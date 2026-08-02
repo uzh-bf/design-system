@@ -18,6 +18,7 @@ export interface SwitchClassName {
 
 export interface SwitchProps {
   id?: string
+  ref?: React.Ref<HTMLButtonElement>
   data?: {
     cy?: string
     test?: string
@@ -62,6 +63,7 @@ export interface SwitchProps {
  */
 export function Switch({
   id,
+  ref,
   data,
   disabled = false,
   label,
@@ -129,6 +131,7 @@ export function Switch({
       )}
       <RadixSwitch.Root
         id={inputId}
+        ref={ref}
         aria-label={!label ? ariaLabel : undefined}
         data-cy={data?.cy}
         data-test={data?.test}

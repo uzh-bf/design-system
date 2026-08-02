@@ -6,6 +6,7 @@ import { twMerge } from 'tailwind-merge'
 
 interface SliderProps {
   id?: string
+  ref?: React.Ref<HTMLSpanElement>
   value?: number
   handleChange: (newValue: number) => void
   defaultValue?: number
@@ -74,6 +75,7 @@ export interface SliderWithIconsProps extends SliderProps {
  */
 export function Slider({
   id,
+  ref,
   value,
   labels,
   handleChange,
@@ -104,7 +106,7 @@ export function Slider({
         data-cy={data?.cy}
         data-test={data?.test}
         className={twMerge(
-          'relative flex w-full items-center select-none',
+          'relative flex w-full select-none items-center',
           compact ? 'h-4' : 'h-[18px]',
           className?.root
         )}
@@ -137,8 +139,9 @@ export function Slider({
         </RadixSlider.Track>
 
         <RadixSlider.Thumb
+          ref={ref}
           className={twMerge(
-            'focus:ring-ring/50 flex size-[18px] flex-col items-center justify-center rounded-full border-2 border-solid bg-white shadow-sm transition-[color,box-shadow] focus:ring-[3px] focus:outline-hidden',
+            'focus:ring-ring/50 focus:outline-hidden flex size-[18px] flex-col items-center justify-center rounded-full border-2 border-solid bg-white shadow-sm transition-[color,box-shadow] focus:ring-[3px]',
             compact && 'size-4 border-[1.5px]',
             disabled ? 'cursor-not-allowed' : 'cursor-move',
             disabled && compact ? 'bg-gray-100' : 'bg-white',

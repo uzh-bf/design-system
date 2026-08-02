@@ -9,6 +9,7 @@ import { twMerge } from 'tailwind-merge'
 
 export interface CheckboxProps {
   id?: string
+  ref?: React.Ref<HTMLButtonElement>
   data?: {
     cy?: string
     test?: string
@@ -49,6 +50,7 @@ export interface CheckboxProps {
  */
 export function Checkbox({
   id,
+  ref,
   data,
   children,
   checked,
@@ -87,6 +89,7 @@ export function Checkbox({
     <div className="flex flex-row items-center gap-2">
       <RadixCheckbox.Root
         id={inputId}
+        ref={ref}
         aria-labelledby={label ? labelId : undefined}
         aria-label={!label ? ariaLabel : undefined}
         data-cy={data?.cy}
@@ -94,7 +97,7 @@ export function Checkbox({
         defaultChecked
         checked={checked || partial}
         className={twMerge(
-          'peer border-input ring-offset-background focus-visible:ring-ring data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground disabled:bg-muted disabled:border-border shrink-0 cursor-pointer rounded-[4px] border-[1.5px] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden disabled:cursor-not-allowed',
+          'border-input ring-offset-background focus-visible:ring-ring data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground disabled:bg-muted disabled:border-border focus-visible:outline-hidden peer shrink-0 cursor-pointer rounded-[4px] border-[1.5px] focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed',
           (checked || partial) && 'border-primary',
           disabled && 'cursor-not-allowed',
           checkboxSize[size],

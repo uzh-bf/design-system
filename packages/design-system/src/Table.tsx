@@ -9,6 +9,10 @@ type BaseRowType = {
   className?: string
 }
 
+export interface TableRef {
+  reset(): void
+}
+
 export type ColumnType<RowType> = {
   className?: string
   label: string
@@ -45,7 +49,7 @@ export interface TableProps<RowType extends BaseRowType> {
     body?: string
     row?: string
   }
-  forwardedRef?: React.Ref<unknown>
+  ref?: React.Ref<TableRef>
   emptyCellText?: string
   defaultSortField?: string
   defaultSortOrder?: 'asc' | 'desc'
@@ -64,7 +68,6 @@ export interface TableProps<RowType extends BaseRowType> {
  * @param caption - The optional caption of the table.
  * @param ref - The optional ref object allows you to access the table methods.
  * @param className - The optional className object allows you to override the default styling.
- * @param forwardedRef - The optional forwardedRef object allows you to access table methods from the parent component.
  * @param emptyCellText - The optional emptyCellText allows you to define the text that should be displayed in empty cells.
  * @param defaultSortField - The optional defaultSortField allows you to define the default sorting field.
  * @param defaultSortOrder - The optional defaultSortOrder allows you to define the default sorting order.
@@ -79,7 +82,7 @@ export function Table<
   data,
   caption,
   className,
-  forwardedRef,
+  ref,
   emptyCellText = '——',
   defaultSortField,
   defaultSortOrder = 'asc',
@@ -89,7 +92,7 @@ export function Table<
   )
   const [order, setOrder] = useState<'asc' | 'desc'>(defaultSortOrder)
 
-  useImperativeHandle(forwardedRef, () => {
+  useImperativeHandle(ref, () => {
     return {
       reset() {
         setSortField(defaultSortField)
@@ -208,7 +211,7 @@ export function Table<
                   scope="col"
                   aria-sort={col.sortable ? sortAriaValue : undefined}
                   className={twMerge(
-                    'border-border bg-muted text-foreground border-b text-start text-xs font-semibold tracking-[0.06em] whitespace-nowrap uppercase',
+                    'border-border bg-muted text-foreground whitespace-nowrap border-b text-start text-xs font-semibold uppercase tracking-[0.06em]',
                     !col.sortable && 'px-4 py-3',
                     className?.tableHeader,
                     col.className
@@ -218,7 +221,7 @@ export function Table<
                     <button
                       type="button"
                       onClick={() => handleSortingChange(col.accessor)}
-                      className="focus-visible:ring-ring flex w-full cursor-pointer items-center px-4 py-3 text-start focus-visible:ring-2 focus-visible:outline-hidden focus-visible:ring-inset"
+                      className="focus-visible:ring-ring focus-visible:outline-hidden flex w-full cursor-pointer items-center px-4 py-3 text-start focus-visible:ring-2 focus-visible:ring-inset"
                     >
                       <FontAwesomeIcon
                         className={twMerge(

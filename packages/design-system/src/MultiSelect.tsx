@@ -34,6 +34,7 @@ export interface MultiSelectClassName {
 
 export interface MultiSelectProps {
   id?: string
+  ref?: React.Ref<HTMLButtonElement>
   items: MultiSelectItem[]
   value: string[]
   onChange: (newValue: string[]) => void
@@ -71,6 +72,7 @@ export interface MultiSelectProps {
  */
 export function MultiSelect({
   id,
+  ref,
   items,
   value,
   onChange,
@@ -100,6 +102,7 @@ export function MultiSelect({
         <PopoverTrigger asChild>
           <Button
             id={id}
+            ref={ref}
             type="button"
             variant="outline"
             aria-haspopup="listbox"
@@ -165,7 +168,7 @@ export function MultiSelect({
             <span
               key={item.value}
               className={twMerge(
-                'bg-primary-20 text-primary-100 inline-flex items-center gap-1 rounded-md py-0.5 pr-1 pl-2 text-sm',
+                'bg-primary-20 text-primary-100 inline-flex items-center gap-1 rounded-md py-0.5 pl-2 pr-1 text-sm',
                 className?.chip
               )}
             >

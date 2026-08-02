@@ -97,6 +97,7 @@ type Item =
 
 interface DropdownProps {
   id?: string
+  ref?: React.Ref<HTMLButtonElement>
   disabled?: boolean
   trigger: string | React.ReactNode
   items?: Item[]
@@ -138,6 +139,7 @@ export interface DropdownWithGroupsProps extends DropdownProps {
  */
 export function Dropdown({
   id,
+  ref,
   disabled = false,
   trigger,
   items,
@@ -150,9 +152,10 @@ export function Dropdown({
     <DropdownMenu>
       <DropdownMenuTrigger
         id={id}
+        ref={ref}
         disabled={disabled}
         className={twMerge(
-          'border-input bg-background ring-offset-background hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring inline-flex h-max items-center justify-center rounded-md border px-3 py-1.5 text-sm font-medium whitespace-normal transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden disabled:cursor-not-allowed disabled:opacity-50 data-disabled:bg-white',
+          'border-input bg-background ring-offset-background hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring focus-visible:outline-hidden data-disabled:bg-white inline-flex h-max items-center justify-center whitespace-normal rounded-md border px-3 py-1.5 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
           className?.trigger
         )}
         data-cy={data?.cy}
