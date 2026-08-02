@@ -165,7 +165,11 @@ imperative focus.
   high-confidence exploitable vulnerabilities. Differential Opengrep found
   zero findings introduced by the stack; its one current finding is
   pre-existing in the `v5` baseline.
-- Next: publish Stack A as draft PRs targeting `v5` only. Keep `main` out of
+- 2026-08-02: Draft [PR #187](https://github.com/uzh-bf/design-system/pull/187)
+  was published as the dependent A2 layer on [PR #186](https://github.com/uzh-bf/design-system/pull/186).
+  Both PRs target the `v5` release line; the empty A3 placeholder remains
+  local and unsubmitted.
+- Next: await CI and reviewer feedback on the draft PRs. Keep `main` out of
   the stack and do not merge or queue any branch from this checkpoint.
 
 ## Commit boundaries
