@@ -9,6 +9,7 @@ import Button from './Button'
 
 export interface CollapsibleProps {
   id?: string
+  ref?: React.Ref<HTMLButtonElement>
   data?: {
     cy?: string
     test?: string
@@ -58,6 +59,7 @@ export interface CollapsibleProps {
  */
 export function Collapsible({
   id,
+  ref,
   data,
   open,
   onChange,
@@ -110,6 +112,7 @@ export function Collapsible({
             )}
           </div>
           <RadixCollapsible.Trigger
+            ref={ref}
             className={twMerge(
               'col-span-1 flex w-full cursor-pointer flex-col justify-end text-center disabled:cursor-not-allowed',
               className?.trigger

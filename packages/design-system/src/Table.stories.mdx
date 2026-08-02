@@ -29,7 +29,6 @@ The Table component accepts the following props:
 - @param caption - The optional caption of the table.
 - @param ref - The optional ref object allows you to access the table methods.
 - @param className - The optional className object allows you to override the default styling.
-- @param forwardedRef - The optional forwardedRef object allows you to access table methods from the parent component.
 - @param emptyCellText - The optional emptyCellText allows you to define the text that should be displayed in empty cells.
 - @param defaultSortField - The optional defaultSortField allows you to define the default sorting field.
 - @param defaultSortOrder - The optional defaultSortOrder allows you to define the default sorting order.
@@ -71,7 +70,6 @@ Props (Table component):
   body?: string,
   row?: string
   } - Styling overrides for table parts
-- forwardedRef?: React.Ref - Alternative ref prop for parent access
 - emptyCellText?: string - Text to show in empty cells (default: '-')
 - defaultSortField?: string - Initial column to sort by
 - defaultSortOrder?: 'asc' | 'desc' - Initial sort direction
@@ -281,8 +279,9 @@ return (
     className={{ root: 'mb-4' }}
   />
   <Button
+    data={{ test: 'reset-table' }}
     onClick={() => {
-      ref.current.reset()
+      ref.current?.reset()
     }}
   >
     Reset Table Filters
@@ -301,7 +300,7 @@ return (
     ]}
     data={data}
     caption="Table with example data"
-    forwardedRef={ref}
+    ref={ref}
   />
 </>
 ) }

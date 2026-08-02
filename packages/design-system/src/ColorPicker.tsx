@@ -28,6 +28,7 @@ export interface ColorPickerClassName {
 }
 
 export interface ColorPickerProps {
+  ref?: React.Ref<HTMLButtonElement>
   color: string
   label?: string
   labelType?: 'small' | 'large'
@@ -95,6 +96,7 @@ const POPOVER_PLACEMENT = {
  * @returns A ColorPicker component that allows users to select a color and submit it.
  */
 export function ColorPicker({
+  ref,
   color,
   label,
   labelType = 'small',
@@ -168,6 +170,7 @@ export function ColorPicker({
           >
             <PopoverTrigger asChild>
               <Button
+                ref={ref}
                 aria-label={triggerAriaLabel}
                 aria-describedby={visibleError ? errorId : undefined}
                 disabled={disabled}

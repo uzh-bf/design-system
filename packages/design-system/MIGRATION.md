@@ -237,6 +237,50 @@ v5 also marks the package `"sideEffects": ["*.css"]` so consuming bundlers can
 tree-shake unused components while preserving the required stylesheet import — no
 action needed.
 
+### Composite refs and Table
+
+Applicable v5 composites now use React 19's normal `ref` prop for their one
+stable interactive target:
+
+| Component              | Ref target                                         |
+| ---------------------- | -------------------------------------------------- |
+| `Checkbox`             | `HTMLButtonElement` (Radix checkbox root)          |
+| `Switch`               | `HTMLButtonElement` (Radix switch root)            |
+| `Slider`               | `HTMLSpanElement` (the focusable thumb)            |
+| `Collapsible`          | `HTMLButtonElement` (the trigger)                  |
+| `Dropdown`             | `HTMLButtonElement` (the menu trigger)             |
+| `MultiSelect`          | `HTMLButtonElement` (the visible popover trigger)  |
+| `SelectField`          | `HTMLButtonElement` (the delegated Select trigger) |
+| `AlphaNumericPinField` | `HTMLInputElement` (the underlying OTP input)      |
+| `ColorPicker`          | `HTMLButtonElement` (the palette trigger)          |
+| `DatePicker`           | `HTMLButtonElement` (the calendar trigger)         |
+| `DateRangePicker`      | `HTMLButtonElement` (the calendar trigger)         |
+| `DateTimePicker`       | `HTMLButtonElement` (the calendar trigger)         |
+
+`Slider` also accepts an optional `ariaLabel` for naming its focusable thumb
+when the surrounding UI does not provide an accessible label.
+
+`Table` exposes an imperative handle instead of a DOM node:
+
+```tsx
+interface TableRef {
+  reset(): void
+}
+
+const tableRef = useRef<TableRef>(null)
+<Table ref={tableRef} ... />
+tableRef.current?.reset()
+```
+
+The former `forwardedRef` prop is removed; replace it with `ref` as shown above.
+The removed alias is not accepted as a compatibility prop. `TableRef` is
+exported from the package root and is the only supported Table ref target.
+
+`DateTimePickerRef` remains an exported type alias for `HTMLButtonElement` so
+type-only imports remain useful, but the old pseudo-handle's Date-valued
+`.value` property is gone. Read the selected date from the controlled `value`
+prop and `onChange` callback instead.
+
 ## Peer dependencies
 
 v5 no longer bundles its runtime libraries — every one is declared as a **peer

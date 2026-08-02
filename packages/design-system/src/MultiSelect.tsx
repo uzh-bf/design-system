@@ -34,6 +34,7 @@ export interface MultiSelectClassName {
 
 export interface MultiSelectProps {
   id?: string
+  ref?: React.Ref<HTMLButtonElement>
   items: MultiSelectItem[]
   value: string[]
   onChange: (newValue: string[]) => void
@@ -71,6 +72,7 @@ export interface MultiSelectProps {
  */
 export function MultiSelect({
   id,
+  ref,
   items,
   value,
   onChange,
@@ -100,6 +102,7 @@ export function MultiSelect({
         <PopoverTrigger asChild>
           <Button
             id={id}
+            ref={ref}
             type="button"
             variant="outline"
             aria-haspopup="listbox"

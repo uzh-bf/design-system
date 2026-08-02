@@ -9,6 +9,7 @@ import { useFieldError } from './useFieldError'
 
 interface SelectFieldProps {
   id?: string
+  ref?: React.Ref<HTMLButtonElement>
   data?: {
     cy?: string
     test?: string
@@ -71,6 +72,7 @@ export interface SelectFieldGroupsProps extends SelectFieldProps {
  */
 export function SelectField({
   id,
+  ref,
   data,
   name,
   items,
@@ -120,6 +122,7 @@ export function SelectField({
         <div className="flex flex-row items-center gap-2">
           <Select
             id={inputId}
+            ref={ref}
             ariaRequired={required}
             ariaDescribedBy={visibleError ? errorId : undefined}
             data={data}

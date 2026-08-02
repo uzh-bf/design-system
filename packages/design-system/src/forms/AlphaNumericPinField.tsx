@@ -17,6 +17,7 @@ export interface AlphaNumericPinFieldClassName {
 
 export interface AlphaNumericPinFieldProps {
   id?: string
+  ref?: React.Ref<HTMLInputElement>
   value: string
   onChange: (newValue: string) => Promise<void>
   length: number
@@ -54,6 +55,7 @@ export interface AlphaNumericPinFieldProps {
  */
 export function AlphaNumericPinField({
   id,
+  ref,
   value,
   onChange,
   length,
@@ -96,6 +98,7 @@ export function AlphaNumericPinField({
       <div className="flex w-full flex-row items-center gap-2">
         <InputOTP
           id={inputId}
+          ref={ref}
           aria-required={required || undefined}
           aria-describedby={visibleError ? errorId : undefined}
           maxLength={length}

@@ -20,6 +20,7 @@ export interface DateRangePickerClassName {
 
 export interface DateRangePickerProps {
   id?: string
+  ref?: React.Ref<HTMLButtonElement>
   range: DateRange | undefined
   onRangeChange: (range: DateRange | undefined) => void
   label?: string
@@ -81,6 +82,7 @@ const DATE_FORMAT = 'DD.MM.YYYY'
  */
 export function DateRangePicker({
   id,
+  ref,
   range,
   onRangeChange,
   label = '',
@@ -125,6 +127,7 @@ export function DateRangePicker({
         <PopoverTrigger disabled={disabled} asChild>
           <Button
             id={id}
+            ref={ref}
             type="button"
             variant="outline"
             disabled={disabled}

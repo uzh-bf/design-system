@@ -22,6 +22,7 @@ export interface DatePickerClassName {
 
 export interface DatePickerProps {
   id?: string
+  ref?: React.Ref<HTMLButtonElement>
   date: Date | undefined
   onDateChange: Dispatch<SetStateAction<Date | undefined>>
   label?: string
@@ -84,6 +85,7 @@ export interface DatePickerProps {
  */
 export function DatePicker({
   id,
+  ref,
   date,
   onDateChange,
   label = '',
@@ -129,6 +131,7 @@ export function DatePicker({
         <div className="flex flex-row gap-2">
           <PopoverTrigger disabled={disabled} asChild>
             <Button
+              ref={ref}
               type="button"
               variant="outline"
               disabled={disabled}
