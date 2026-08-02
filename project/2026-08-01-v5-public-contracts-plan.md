@@ -161,9 +161,17 @@ unsupported values into Radix or shadcn primitives.
 - 2026-08-01: Gate 2 was approved after the checkpointed no-trunk rebase;
   native metadata reports all three Stack A branches clean and unqueued with
   `v5` as trunk.
-- Next: create the A2 worktree and commit its plan on top of `bac96d5`. Keep
-  Stack A local and unqueued; `v5` remains the only trunk and `main` remains
-  prohibited.
+- 2026-08-02: Final Stack A thermo-nuclear maintainability review over
+  `4aa021a..65b2bc6` passed with no structural, abstraction, boundary,
+  duplication, spaghetti-growth, or file-size findings. The largest changed
+  file is `Navigation.tsx` at 531 lines; the review's fresh TypeScript and
+  changed-file ESLint checks also passed.
+- 2026-08-02: Bounded security review over `4aa021a..65b2bc6` found no
+  high-confidence exploitable vulnerabilities. Differential Opengrep found
+  zero findings introduced by the stack; its one current finding is
+  pre-existing in the `v5` baseline.
+- Next: publish Stack A as draft PRs targeting `v5` only. Keep `main` out of
+  the stack and do not merge or queue any branch from this checkpoint.
 
 ## Commit boundaries
 
