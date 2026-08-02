@@ -400,3 +400,8 @@ container.
   public API. Remaining matches are the migration explanation, the negative
   type test, and an existing local variable in the excluded Modal story's
   `forwardRef` example; none is a shipped A3 prop alias.
+- 2026-08-02: The repository `pnpm --dir packages/design-system check`
+  wrapper was also attempted and stopped before running checks because
+  `pnpm@10.30.0` could not fetch or verify its npm registry signatures. No
+  signature override or dependency mutation was used; the equivalent installed
+  `tsc` binaries passed directly.
