@@ -257,6 +257,9 @@ stable interactive target:
 | `DateRangePicker`      | `HTMLButtonElement` (the calendar trigger)         |
 | `DateTimePicker`       | `HTMLButtonElement` (the calendar trigger)         |
 
+`Slider` also accepts an optional `ariaLabel` for naming its focusable thumb
+when the surrounding UI does not provide an accessible label.
+
 `Table` exposes an imperative handle instead of a DOM node:
 
 ```tsx

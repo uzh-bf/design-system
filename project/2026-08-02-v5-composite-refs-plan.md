@@ -376,3 +376,27 @@ container.
   alias while no `forwardedRef` prop alias is retained; draft publication is
   separated from post-push CI readiness; and ignored generated declarations
   are inspected rather than force-added.
+- 2026-08-02: W1 implemented the twelve concrete DOM ref targets and the
+  DateTimePicker handle correction in `306dfab8`; W3 added the Table
+  imperative `TableRef`, the contract story/type fixture, migration guidance,
+  and the first focused runtime proof in `f15386bc`. The review identified
+  missing stateful-selection assertions; `45e11f5b` added Collapsible and
+  ColorPicker toggle coverage plus deterministic menu, select, date, and
+  color selections with focus-return checks. That follow-up also adds the
+  optional Slider accessible name used by the contract story.
+- 2026-08-02: The focused composite contract is green (`4 passed`), the
+  existing keyboard and direct-control contracts are green (`16 passed`),
+  and the full Ladle accessibility suite is green (`772 passed` across
+  neutral and UZH). The composite story emits only the existing moderate
+  `region` inventory entry; no new blocking axe finding remains.
+- 2026-08-02: Package source and durable type checks passed; `tsc -b`, Vite
+  declaration build, and the asset-copy step passed (the unprivileged `tsx`
+  invocation initially hit an IPC `EPERM` and was rerun with host permissions).
+  Generated declarations contain concrete DOM ref types, `DateTimePickerRef`
+  as `HTMLButtonElement`, and `TableRef`; generated `dist` remains ignored.
+  Changed-file ESLint passed. Prettier reports pre-existing ordering drift in
+  `Slider.tsx` and `Table.tsx`; no whole-file reformat was introduced.
+- 2026-08-02: The deliberate `forwardedRef` search is clean for the removed
+  public API. Remaining matches are the migration explanation, the negative
+  type test, and an existing local variable in the excluded Modal story's
+  `forwardRef` example; none is a shipped A3 prop alias.
