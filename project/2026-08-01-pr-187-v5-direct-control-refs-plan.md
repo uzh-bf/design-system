@@ -116,9 +116,9 @@ imperative focus.
 - Exact-range current-provider plan review before implementation.
 - Exact-range implementation review after the implementation commit.
 - Separate simplification pass after implementation review.
-- Final Stack A security and maintainability gates remain required before any
-  draft stack publication or ready-for-review decision; no publication is part
-  of this A2 slice.
+- Final Stack A security and maintainability gates were required before draft
+  publication and are recorded in Progress. PR #187 is now published as a
+  draft; no ready-for-review or merge action is included in this slice.
 
 ## Progress
 
