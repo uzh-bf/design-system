@@ -155,9 +155,17 @@ imperative focus.
   stack entries report `needsRebase: false`, and `v5`/`origin/v5` remain at
   `4aa021a`. Recovery snapshots for the stack transitions remain under
   `refs/stack-backup/`.
-- Next: keep Stack A security and maintainability gates before any draft
-  publication or ready-for-review decision. No push, PR submission, queue,
-  merge, or `main` target is authorized here.
+- 2026-08-02: Final Stack A thermo-nuclear maintainability review over
+  `4aa021a..65b2bc6` passed with no structural, abstraction, boundary,
+  duplication, spaghetti-growth, or file-size findings. The largest changed
+  file is `Navigation.tsx` at 531 lines; fresh TypeScript and changed-file
+  ESLint checks also passed.
+- 2026-08-02: Bounded security review over `4aa021a..65b2bc6` found no
+  high-confidence exploitable vulnerabilities. Differential Opengrep found
+  zero findings introduced by the stack; its one current finding is
+  pre-existing in the `v5` baseline.
+- Next: publish Stack A as draft PRs targeting `v5` only. Keep `main` out of
+  the stack and do not merge or queue any branch from this checkpoint.
 
 ## Commit boundaries
 
