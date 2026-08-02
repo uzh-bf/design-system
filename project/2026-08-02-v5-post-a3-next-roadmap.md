@@ -3,8 +3,8 @@
 ## Identity and operating contract
 
 - Date: 2026-08-02
-- Status: execution-ready; W1 is the only implementation slice authorised by
-  this handoff.
+- Status: roadmap committed; W1 is prepared but paused at an explicit public
+  API naming gate discovered by the delegated executor and confirmed by Sol.
 - Repository: `uzh-bf/design-system`
 - Release trunk: `v5` (long-lived branch and final merge target).
 - Current base: `origin/v5` at `77db88226e8c2fd14a59ca4e73ae869b5499a43d`, the
@@ -33,6 +33,7 @@ older plans or turn the release trunk into a stack layer.
 | repository visibility | GitHub reports the repository as public; no submodules or project Kimi agent definitions were found | A bounded public-OSS Kimi implementation is eligible. |
 | Kimi runtime | `kimi` 0.31.1 is installed and the `kimi-executor` role/model routing smoke-tested successfully | Kimi may edit only the named W1 scope; it has no push, merge, release, or publication authority. |
 | local worktree | The root checkout is stale and has unrelated `.pnpm-store/` plus an untracked prior roadmap | Keep root untouched. Use the clean `trees/rs-v5-test-selector-contract` worktree. |
+| CI contract coverage | CI runs `tests/smoke` and `tests/a11y`; files under `tests/contracts` are useful local fixtures but are not enforced by the current CI jobs | Put the W1 runtime selector proof under `tests/smoke`; keep type fixtures under the existing contract-type setup. |
 
 ## Non-negotiable boundaries
 
@@ -41,9 +42,10 @@ older plans or turn the release trunk into a stack layer.
 2. W1 is a selector-contract change, not a general test migration. Do not add
    refs, theme changes, visual redesigns, bundle changes, Formik work, export
    changes, new dependencies, or unrelated cleanup.
-3. The supported value shape is exactly `{ cy?: string; test?: string }`,
-   rendered as `data-cy` and `data-test`. Do not introduce or preserve a new
-   `data-testid` convention in W1.
+3. The supported selector value shape is exactly `{ cy?: string; test?:
+   string }`, rendered as `data-cy` and `data-test`. Do not introduce or
+   preserve a new `data-testid` convention in W1. The Table prop name remains
+   gated below because Table already uses `data` for its row collection.
 4. Preserve semantic names for independently addressable controls only when
    each value uses the same shape. Do not collapse a multi-control API into a
    single ambiguous selector.
@@ -115,10 +117,21 @@ data?: {
 }
 ```
 
-- `Table`: replace `dataAttributes` with `data`, document the breaking rename,
-  and keep the attributes on the component's existing outer root. This root is
-  the stable table selector; sortable header buttons remain discoverable by
-  role and are not silently given a second ad-hoc selector API.
+- `Table`: its current public props are `data: RowType[]` (rows) and
+  `dataAttributes: { cy?: string; test?: string }` (selector). A literal
+  `dataAttributes` → `data` rename cannot compile while the row prop remains
+  named `data`. This is a decision gate, not an executor guess:
+
+  | Option | Result | Recommendation |
+  | --- | --- | --- |
+  | A — rename rows to `rows` and selectors to `data` together | One coherent selector vocabulary, but a second breaking Table API rename; requires every in-repository Table call site and migration example to change | Recommended only if the user explicitly accepts the wider v5 break |
+  | B — keep Table's `dataAttributes` for now and implement Workflow's item-level `data` | Smallest safe PR, but the public selector vocabulary remains inconsistent and Table becomes a follow-up | Safe fallback if the wider Table break is not approved |
+  | C — use another selector name on Table | Avoids the collision but creates a third public convention | Reject |
+
+  Do not implement A or silently choose B until the ruling is recorded. Under
+  option A, keep selector attributes on the existing outer root; this root is
+  the stable table selector and sortable header buttons remain discoverable by
+  role rather than receiving an ad-hoc second selector API.
 - `Workflow`: each step is an independently actionable button. Add the same
   optional `data` value to the step item shape and render its `data-cy` and
   `data-test` on that step's actual `<button>` in both tooltip and non-tooltip
@@ -142,8 +155,10 @@ needed by the repository's existing contract-test convention):
 - `packages/design-system/src/PublicContracts.stories.mdx` for the focused
   Ladle fixture (extend the existing contract story; do not create a second
   generic test page)
-- `packages/design-system/tests/contracts/test-selectors.spec.ts`
+- `packages/design-system/tests/smoke/test-selectors.spec.ts`
 - `packages/design-system/tests/contracts/test-selectors.types.ts`
+- `packages/design-system/tests/contracts/composite-refs.types.ts` only if
+  option A requires updating existing Table call-site type fixtures
 - `packages/design-system/tsconfig.types.json` only if the type fixture needs
   an existing project include adjustment
 - `packages/design-system/MIGRATION.md` for the `dataAttributes` → `data`
@@ -154,16 +169,18 @@ Formik modules, or the broader selector inventory in W1.
 
 #### Required W1 proof
 
-1. The existing `PublicContracts.stories.mdx` contract story renders a Table
-   with `data={{ cy: ..., test: ... }}` and a Workflow/WorkflowProgress with
-   distinct per-step selectors.
+1. After the Table gate is resolved, the existing `PublicContracts.stories.mdx`
+   contract story renders the approved Table shape and a
+   Workflow/WorkflowProgress with distinct per-step selectors.
 2. The focused Playwright test asserts the attributes on the Table root and on
    the actual Workflow step buttons, including the tooltip branch. It must also
    assert that a disabled step remains the selector-bearing button rather than
    a wrapper.
 3. A type fixture accepts the exact `cy`/`test` shape and rejects arbitrary
-   keys (especially `data-testid`) and the removed Table `dataAttributes` prop
-   with `@ts-expect-error` where the repository's type-test setup supports it.
+   keys (especially `data-testid`). If option A is approved, it also rejects
+   the removed Table `dataAttributes` prop and row arrays passed through
+   `Table.data`; if option B is chosen, the Table assertion remains a tracked
+   follow-up instead of being faked.
 4. Existing keyboard and accessibility behavior remains intact: Workflow
    buttons remain focusable, disabled steps retain `aria-disabled`, and Table
    sorting/`aria-sort` behavior is unchanged.
@@ -211,19 +228,33 @@ alpha publication is held.
 
 ### W5 — deterministic visual evidence (future)
 
-Follow the existing Ladle/Playwright plan: pinned container, self-hosted fonts,
-reduced motion, one Button canary, then the curated 15-component neutral/UZH
-set, initially report-only in CI. Host-generated screenshots are not baselines.
+Split the visual work into three independently reviewable layers:
+
+- D1: pinned container, self-hosted fonts, reduced motion, one Button canary,
+  and two repeated zero-diff runs. Host-generated screenshots are not
+  baselines.
+- D2: curated 15-component neutral/UZH desktop set, manually inspected and
+  generated in the same container.
+- D3: the identical container in CI with actual/diff artifacts, initially
+  report-only until stability evidence supports a later blocking decision.
 
 ### W6 — release and consumer gates (future and separately authorised)
 
-Only after the engineering work is merged and reviewed:
+Keep the later sequence explicit:
 
-- request explicit alpha authorization;
-- publish through the guarded release path and verify package resolution;
-- run consumer pilots in the consumer repositories;
-- implement the D8 supported override profile only if the pilot requires it;
-- make a fresh, evidence-backed GA decision.
+- E1: request explicit alpha authorization, then publish and verify package
+  resolution;
+- E2: run the GBL preview pilot in its own repository, including React dedupe
+  and `transpilePackages` evidence;
+- E3: implement the already-approved D8 supported primary-ramp override
+  contract;
+- E4: document that profile, migration corrections, and a Klicker acceptance
+  fixture;
+- E5: publish a newer alpha containing E3/E4; the earlier alpha cannot prove
+  later brand-profile code;
+- E6: run the Klicker migration pilot against that newer alpha;
+- E7: re-run final package, consumer, maintainability, and bounded security
+  gates, then request separate `v5.0.0`/`latest` authority.
 
 No item in W6 is authorized by this roadmap.
 
@@ -296,3 +327,8 @@ review. Publication and PR readiness remain orchestrator/user decisions.
 - 2026-08-02: selected W1/B1 as the next bounded execution slice: Table's
   `dataAttributes` rename and Workflow's per-step selector contract, with W2
   inventory rollout held behind the W1 acceptance gate.
+- 2026-08-02: Sol's independent roadmap review found that the planned Table
+  rename collides with its existing required `data: RowType[]` row prop and
+  that `tests/contracts` is not CI-enforced. Kimi was stopped before editing;
+  W1 now awaits the explicit Table naming ruling and will place runtime proof
+  under `tests/smoke`.
