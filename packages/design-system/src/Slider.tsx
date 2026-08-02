@@ -109,7 +109,7 @@ export function Slider({
         data-cy={data?.cy}
         data-test={data?.test}
         className={twMerge(
-          'relative flex w-full select-none items-center',
+          'relative flex w-full items-center select-none',
           compact ? 'h-4' : 'h-[18px]',
           className?.root
         )}
@@ -145,7 +145,7 @@ export function Slider({
           ref={ref}
           aria-label={ariaLabel}
           className={twMerge(
-            'focus:ring-ring/50 focus:outline-hidden flex size-[18px] flex-col items-center justify-center rounded-full border-2 border-solid bg-white shadow-sm transition-[color,box-shadow] focus:ring-[3px]',
+            'focus:ring-ring/50 flex size-[18px] flex-col items-center justify-center rounded-full border-2 border-solid bg-white shadow-sm transition-[color,box-shadow] focus:ring-[3px] focus:outline-hidden',
             compact && 'size-4 border-[1.5px]',
             disabled ? 'cursor-not-allowed' : 'cursor-move',
             disabled && compact ? 'bg-gray-100' : 'bg-white',

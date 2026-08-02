@@ -77,7 +77,7 @@ export function Collapsible({
     <RadixCollapsible.Root open={open} onOpenChange={onChange}>
       <div
         className={twMerge(
-          'border-border pb-0! w-full rounded-md border-2 border-solid p-2',
+          'border-border w-full rounded-md border-2 border-solid p-2 pb-0!',
           className?.root
         )}
       >

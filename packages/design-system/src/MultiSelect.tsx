@@ -168,7 +168,7 @@ export function MultiSelect({
             <span
               key={item.value}
               className={twMerge(
-                'bg-primary-20 text-primary-100 inline-flex items-center gap-1 rounded-md py-0.5 pl-2 pr-1 text-sm',
+                'bg-primary-20 text-primary-100 inline-flex items-center gap-1 rounded-md py-0.5 pr-1 pl-2 text-sm',
                 className?.chip
               )}
             >

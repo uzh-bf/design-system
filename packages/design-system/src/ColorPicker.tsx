@@ -196,7 +196,7 @@ export function ColorPicker({
               side={side}
               align={align}
               className={twMerge(
-                'w-92 flex h-40 flex-row rounded-md p-1 shadow-md',
+                'flex h-40 w-92 flex-row rounded-md p-1 shadow-md',
                 className?.popover
               )}
             >
@@ -229,7 +229,7 @@ export function ColorPicker({
                     forId={inputId}
                     className={{
                       root: twMerge(
-                        'my-auto -mb-0.5 min-w-max text-base font-bold leading-6 text-gray-600',
+                        'my-auto -mb-0.5 min-w-max text-base leading-6 font-bold text-gray-600',
                         className?.inputLabel
                       ),
                       tooltip: twMerge(

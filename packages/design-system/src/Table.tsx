@@ -211,7 +211,7 @@ export function Table<
                   scope="col"
                   aria-sort={col.sortable ? sortAriaValue : undefined}
                   className={twMerge(
-                    'border-border bg-muted text-foreground whitespace-nowrap border-b text-start text-xs font-semibold uppercase tracking-[0.06em]',
+                    'border-border bg-muted text-foreground border-b text-start text-xs font-semibold tracking-[0.06em] whitespace-nowrap uppercase',
                     !col.sortable && 'px-4 py-3',
                     className?.tableHeader,
                     col.className
@@ -221,7 +221,7 @@ export function Table<
                     <button
                       type="button"
                       onClick={() => handleSortingChange(col.accessor)}
-                      className="focus-visible:ring-ring focus-visible:outline-hidden flex w-full cursor-pointer items-center px-4 py-3 text-start focus-visible:ring-2 focus-visible:ring-inset"
+                      className="focus-visible:ring-ring flex w-full cursor-pointer items-center px-4 py-3 text-start focus-visible:ring-2 focus-visible:outline-hidden focus-visible:ring-inset"
                     >
                       <FontAwesomeIcon
                         className={twMerge(
