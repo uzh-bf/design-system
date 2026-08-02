@@ -139,6 +139,9 @@ needed by the repository's existing contract-test convention):
 - `packages/design-system/src/Table.stories.mdx`
 - `packages/design-system/src/Workflow.tsx`
 - `packages/design-system/src/Workflow.stories.mdx`
+- `packages/design-system/src/PublicContracts.stories.mdx` for the focused
+  Ladle fixture (extend the existing contract story; do not create a second
+  generic test page)
 - `packages/design-system/tests/contracts/test-selectors.spec.ts`
 - `packages/design-system/tests/contracts/test-selectors.types.ts`
 - `packages/design-system/tsconfig.types.json` only if the type fixture needs
@@ -151,8 +154,9 @@ Formik modules, or the broader selector inventory in W1.
 
 #### Required W1 proof
 
-1. A browser contract story renders a Table with `data={{ cy: ..., test: ...
-   }}` and a Workflow/WorkflowProgress with distinct per-step selectors.
+1. The existing `PublicContracts.stories.mdx` contract story renders a Table
+   with `data={{ cy: ..., test: ... }}` and a Workflow/WorkflowProgress with
+   distinct per-step selectors.
 2. The focused Playwright test asserts the attributes on the Table root and on
    the actual Workflow step buttons, including the tooltip branch. It must also
    assert that a disabled step remains the selector-bearing button rather than
