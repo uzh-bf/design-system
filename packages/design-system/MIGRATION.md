@@ -283,14 +283,22 @@ prop and `onChange` callback instead.
 
 ### Test selectors: `data={{ cy, test }}`
 
-v5 has one selector convention across the composites: an optional `data` prop
-whose `cy` and `test` fields render as `data-cy` and `data-test`. There is no
-`data-testid` and no arbitrary attribute record.
+v5 standardises the **shape** of every test selector: `{ cy?: string; test?:
+string }`, rendered as `data-cy` and `data-test`. There is no `data-testid` and
+no arbitrary attribute record.
 
-`Table` is the last composite to adopt it, which required freeing the `data`
-name. **Its row collection moved to `rows` and its selector prop is now
-`data`** — both halves of the rename land together, so a partially migrated
-call site fails to compile rather than silently passing rows as selectors:
+Where a composite has one obvious target, the prop is named `data`. Components
+with several independently addressable controls keep their named per-element
+props (`Modal`'s `dataContent`/`dataCloseButton`/`dataPrimaryAction`, the
+pickers' `dataTrigger`/`dataCalendar`/…, `Slider`'s `dataThumb`,
+`Tooltip`'s `dataContent`), which now all carry that same value shape. Many
+composites still expose no selector prop at all; those are unchanged.
+
+`Table` was the last composite still using the old `dataAttributes` name.
+Adopting `data` required freeing that name. **Its row collection moved to
+`rows` and its selector prop is now `data`** — both halves of the rename land
+together, so a partially migrated call site fails to compile rather than
+silently passing rows as selectors:
 
 ```tsx
 // before

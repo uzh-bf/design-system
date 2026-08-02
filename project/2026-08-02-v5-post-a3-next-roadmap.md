@@ -343,10 +343,14 @@ review. Publication and PR readiness remain orchestrator/user decisions.
   a Kimi round-trip, with the mandatory review gates unchanged.
 - 2026-08-02: W1 implemented and verified. `pnpm check` (both projects),
   `lint`, `format:check`, `build`, and `build:ladle` pass; `tests/smoke` plus
-  `tests/contracts` are 470/470 and `tests/a11y` is 772/772 (766 before, plus
-  the four a11y cases of the extended contract story and the two new selector
-  tests). The emitted `dist/index.d.ts` shows `TableProps` with `rows` and the
-  `data` selector, so the rename reaches consumers.
+  `tests/contracts` are 470/470, which includes the two new selector tests, and
+  `tests/a11y` is 772/772. The a11y total is unchanged by this slice: that
+  suite is a function of the story-id set, and extending the existing
+  `public-contracts--default` story widens what its two existing a11y cases
+  scan without adding a story. The earlier 766 figure predates the merged
+  A1–A3 contract work, not this change. The emitted `dist/index.d.ts` shows
+  `TableProps` with `rows` and the `data` selector, so the rename reaches
+  consumers.
 - 2026-08-02: follow-up recorded, not fixed in W1. A `WorkflowProgress` step
   with `completed: true` that is not the active step renders
   `text-success-foreground` (#fafafa) on `bg-success-background` (#e4f8e7) in

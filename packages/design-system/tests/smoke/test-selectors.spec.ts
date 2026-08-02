@@ -59,8 +59,16 @@ test.describe('selector contract', () => {
     await disabled.focus()
     await expect(disabled).toBeFocused()
 
-    // The list root deliberately carries no single ambiguous selector.
-    const listRoots = page.getByRole('list')
-    await expect(listRoots.first()).not.toHaveAttribute('data-cy', /.*/)
+    // The list roots deliberately carry no single ambiguous selector. Anchor on
+    // the workflows themselves rather than document order, so adding another
+    // list to this shared contract story cannot silently retarget the guard.
+    const listRoots = page.locator(
+      'ol:has([data-cy^="contract-step"]), ol:has([data-cy^="contract-progress"])'
+    )
+    await expect(listRoots).toHaveCount(2)
+    for (const root of await listRoots.all()) {
+      await expect(root).not.toHaveAttribute('data-cy', /.*/)
+      await expect(root).not.toHaveAttribute('data-test', /.*/)
+    }
   })
 })

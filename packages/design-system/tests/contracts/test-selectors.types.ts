@@ -22,8 +22,10 @@ acceptsTableProps({ columns, rows, data: { cy: 'table', test: 'table' } })
 acceptsTableProps({ columns, rows, data: { cy: 'table' } })
 acceptsTableProps({ columns, rows, data: { test: 'table' } })
 
+// `rows` is supplied so the only available error is the selector/row mix-up
+// itself, not an incidental missing-prop error.
 // @ts-expect-error Rows are passed through `rows`; `data` now carries selectors.
-acceptsTableProps({ columns, data: rows })
+acceptsTableProps({ columns, rows, data: rows })
 
 // @ts-expect-error `dataAttributes` was renamed to `data` in v5.
 acceptsTableProps({ columns, rows, dataAttributes: { cy: 'table' } })
