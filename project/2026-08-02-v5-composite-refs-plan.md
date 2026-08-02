@@ -194,9 +194,9 @@ regenerate after the source contract is stable.
 - For `DateTimePicker`, replace the public `React.forwardRef` pseudo-handle
   and `useImperativeHandle` with a normal React 19 ref-as-prop function,
   retain the internal button ref only if needed for local behavior, and expose
-  the actual trigger `HTMLButtonElement`. Redefine the exported
-  `DateTimePickerRef` compatibility name as `HTMLButtonElement` only if that
-  keeps existing type imports useful; document that `.value` is removed.
+  the actual trigger `HTMLButtonElement`. Keep the exported
+  `DateTimePickerRef` name as an `HTMLButtonElement` alias so existing type
+  imports remain useful, and document that `.value` is removed.
 - Preserve all existing event handlers, controlled state, labels, data
   attributes, Radix composition, and theme classes.
 
@@ -362,3 +362,7 @@ container.
   multi-target surfaces remain excluded.
 - 2026-08-02: Plan authored as the first A3 branch change. Implementation,
   review, final gates, and draft PR publication remain pending.
+- 2026-08-02: The configured plan-review agent did not return after two
+  bounded waits and was interrupted without edits. Sol's live-source review
+  remains the independent scope review; the primary session performed a
+  read-only fallback audit of the exact plan commit before W1.
