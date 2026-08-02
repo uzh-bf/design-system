@@ -35,6 +35,7 @@ test.describe('composite ref contracts', () => {
     await gotoStory(page, story)
 
     const cases = [
+      'ref-collapsible',
       'ref-dropdown',
       'ref-multi-select',
       'ref-select-field',
@@ -49,10 +50,77 @@ test.describe('composite ref contracts', () => {
       await expect(trigger).toBeFocused()
       await page.keyboard.press('Enter')
       await expect(trigger).toHaveAttribute('aria-expanded', 'true')
-      await page.keyboard.press('Escape')
+      await page.keyboard.press(
+        target === 'ref-collapsible' ? 'Enter' : 'Escape'
+      )
       await expect(trigger).toHaveAttribute('aria-expanded', 'false')
       await expect(trigger).toBeFocused()
     }
+
+    const colorTrigger = page.locator('[data-test="ref-color-picker"]')
+    await colorTrigger.focus()
+    await page.keyboard.press('Enter')
+    await expect(colorTrigger).toHaveAttribute('aria-expanded', 'true')
+    await page.keyboard.press('Escape')
+    await expect(colorTrigger).toHaveAttribute('aria-expanded', 'false')
+    await expect(colorTrigger).toBeFocused()
+  })
+
+  test('preserves stateful selections and focus return', async ({ page }) => {
+    await gotoStory(page, story)
+
+    const dropdownTrigger = page.locator('[data-test="ref-dropdown"]')
+    await dropdownTrigger.click()
+    await page.getByRole('menuitem', { name: 'One' }).click()
+    await expect(page.locator('[data-test="selected-dropdown"]')).toHaveText(
+      'One'
+    )
+    await expect(dropdownTrigger).toBeFocused()
+
+    const multiSelectTrigger = page.locator('[data-test="ref-multi-select"]')
+    await multiSelectTrigger.click()
+    await page.getByRole('option', { name: 'One' }).click()
+    await expect(multiSelectTrigger).toContainText('1 selected')
+    await page.keyboard.press('Escape')
+    await expect(multiSelectTrigger).toBeFocused()
+
+    const selectTrigger = page.locator('[data-test="ref-select-field"]')
+    await selectTrigger.click()
+    await page.getByRole('option', { name: 'One' }).click()
+    await expect(selectTrigger).toContainText('One')
+    await expect(selectTrigger).toHaveAttribute('aria-expanded', 'false')
+    await expect(selectTrigger).toBeFocused()
+
+    const dateCases = [
+      ['ref-date-picker', 'Pick a date'],
+      ['ref-date-range-picker', 'Pick a date range'],
+      ['ref-date-time-picker', 'Pick a date'],
+    ] as const
+
+    for (const [target, placeholder] of dateCases) {
+      const trigger = page.locator(`[data-test="${target}"]`)
+      await trigger.click()
+      const dayButtons = page.locator(
+        '[data-slot="calendar"] button[data-day]:not([disabled])'
+      )
+      await dayButtons.first().click()
+      if (target === 'ref-date-range-picker') {
+        await dayButtons.nth(1).click()
+      }
+      await expect(trigger).not.toContainText(placeholder)
+      await page.keyboard.press('Escape')
+      await expect(trigger).toBeFocused()
+    }
+
+    const colorTrigger = page.locator('[data-test="ref-color-picker"]')
+    await colorTrigger.click()
+    const dialog = page.getByRole('dialog', { name: 'Pick a color' })
+    await dialog.getByRole('button', { name: 'Preset color #016272' }).click()
+    await dialog.locator('[data-test="submit-color-picker"]').click()
+    await expect(page.locator('[data-test="selected-color"]')).toHaveText(
+      '#016272'
+    )
+    await expect(colorTrigger).toBeFocused()
   })
 
   test('resets Table sorting through the imperative ref', async ({ page }) => {

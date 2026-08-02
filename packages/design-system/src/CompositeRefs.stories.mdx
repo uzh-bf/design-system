@@ -38,6 +38,7 @@ export const Default = () => {
   const [switchChecked, setSwitchChecked] = useState(false)
   const [sliderValue, setSliderValue] = useState(5)
   const [collapsibleOpen, setCollapsibleOpen] = useState(false)
+  const [dropdownValue, setDropdownValue] = useState('')
   const [multiValue, setMultiValue] = useState([])
   const [selectValue, setSelectValue] = useState('')
   const [pinValue, setPinValue] = useState('')
@@ -85,6 +86,7 @@ export const Default = () => {
       <div className="flex items-center gap-2">
         <Slider
           ref={sliderRef}
+          ariaLabel="Slider"
           min={0}
           max={10}
           step={1}
@@ -126,9 +128,16 @@ export const Default = () => {
         <Dropdown
           ref={dropdownRef}
           trigger="Open menu"
-          items={[{ id: 'one', label: 'One', onClick: () => undefined }]}
+          items={[
+            {
+              id: 'one',
+              label: 'One',
+              onClick: () => setDropdownValue('One'),
+            },
+          ]}
           data={{ test: 'ref-dropdown' }}
         />
+        <output data-test="selected-dropdown">{dropdownValue}</output>
         <button
           type="button"
           data-test="focus-dropdown"
@@ -168,6 +177,7 @@ export const Default = () => {
           ]}
           value={selectValue}
           onChange={setSelectValue}
+          label="Select field"
           placeholder="Select one"
           data={{ test: 'ref-select-field' }}
         />
@@ -208,7 +218,9 @@ export const Default = () => {
           colorLabel="Color"
           triggerAriaLabel="Pick a color"
           dataTrigger={{ test: 'ref-color-picker' }}
+          dataSubmit={{ test: 'submit-color-picker' }}
         />
+        <output data-test="selected-color">{color}</output>
         <button
           type="button"
           data-test="focus-color-picker"

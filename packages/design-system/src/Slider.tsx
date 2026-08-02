@@ -7,6 +7,7 @@ import { twMerge } from 'tailwind-merge'
 interface SliderProps {
   id?: string
   ref?: React.Ref<HTMLSpanElement>
+  ariaLabel?: string
   value?: number
   handleChange: (newValue: number) => void
   defaultValue?: number
@@ -57,6 +58,7 @@ export interface SliderWithIconsProps extends SliderProps {
  * This function returns a pre-styled Slider component based on the RadixUI slider component and the custom theme.
  *
  * @param id - The id of the slider.
+ * @param ariaLabel - Accessible name for the slider thumb.
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param value - The value of the slider. The value should be between the min and max value and is maintained by the parent component.
  * @param defaultValue - The default value of the slider, if the value is undefined
@@ -76,6 +78,7 @@ export interface SliderWithIconsProps extends SliderProps {
 export function Slider({
   id,
   ref,
+  ariaLabel,
   value,
   labels,
   handleChange,
@@ -140,6 +143,7 @@ export function Slider({
 
         <RadixSlider.Thumb
           ref={ref}
+          aria-label={ariaLabel}
           className={twMerge(
             'focus:ring-ring/50 focus:outline-hidden flex size-[18px] flex-col items-center justify-center rounded-full border-2 border-solid bg-white shadow-sm transition-[color,box-shadow] focus:ring-[3px]',
             compact && 'size-4 border-[1.5px]',
