@@ -284,8 +284,10 @@ prop and `onChange` callback instead.
 ### Test selectors: `data={{ cy, test }}`
 
 v5 standardises the **shape** of every test selector: `{ cy?: string; test?:
-string }`, rendered as `data-cy` and `data-test`. There is no `data-testid` and
-no arbitrary attribute record.
+string }`, rendered as `data-cy` and `data-test`. No selector prop accepts
+`data-testid` or an arbitrary attribute record. Some component stories still
+show a `data-testid` form in their examples; those docs are stale and are being
+corrected — the prop types above are authoritative.
 
 Where a composite has one obvious target, the prop is named `data`. Components
 with several independently addressable controls keep their named per-element

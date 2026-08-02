@@ -360,3 +360,16 @@ review. Publication and PR readiness remain orchestrator/user decisions.
   fixture therefore covers plain, tooltip, disabled, and in-progress steps but
   not the completed state. Fix belongs to theme conformance; the waiver was
   deliberately not widened, since that would blunt the ratchet.
+- 2026-08-02: recorded for W2 under this plan's stop condition on stale MDX
+  examples — not swept into W1. Eight shipped story docs still show a
+  `data-testid` selector form that no prop actually accepts, all pre-existing
+  at base `77db8822`: `Tabs.stories.mdx:275/282/289` (`:275` also uses the
+  wrong `data-cy` key form), `Navigation.stories.mdx:313`,
+  `Slider.stories.mdx:256`, `Tooltip.stories.mdx:238`,
+  `DatePicker.stories.mdx:145` and `:204`, `DatetimePicker.stories.mdx:213`,
+  `Header.stories.mdx:86`, and `NotificationBadgeWrapper.stories.mdx:251`.
+  They are prose and comment blocks, so nothing type-checks them. W2's
+  inventory must treat them as defects to correct, not as a convention to
+  preserve. `MIGRATION.md` was narrowed to claim only that no selector *prop*
+  accepts `data-testid`, so the guide no longer contradicts docs this release
+  still ships.
