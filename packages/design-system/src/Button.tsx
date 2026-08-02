@@ -8,24 +8,22 @@ import { Button as ShadcnButton } from './ui/button'
 
 type ButtonPrimitiveProps = ComponentPropsWithoutRef<typeof ShadcnButton>
 
-export interface ButtonProps
-  extends Omit<
-    ButtonPrimitiveProps,
-    | 'asChild'
-    | 'aria-busy'
-    | 'children'
-    | 'className'
-    | 'disabled'
-    | 'onClick'
-    | 'size'
-    | 'type'
-    | 'variant'
-  > {
+type ButtonBaseProps = Omit<
+  ButtonPrimitiveProps,
+  | 'asChild'
+  | 'aria-busy'
+  | 'children'
+  | 'className'
+  | 'disabled'
+  | 'onClick'
+  | 'size'
+  | 'type'
+  | 'variant'
+> & {
   id?: string
   children?: React.ReactNode
   onClick?: (e?: React.MouseEvent<HTMLButtonElement>) => void
   disabled?: boolean
-  asChild?: boolean
   primary?: boolean
   destructive?: boolean
   active?: boolean
@@ -44,6 +42,16 @@ export interface ButtonProps
   }
 }
 
+export type ButtonProps =
+  | (ButtonBaseProps & {
+      asChild?: false
+      ref?: React.Ref<HTMLButtonElement>
+    })
+  | (ButtonBaseProps & {
+      asChild: true
+      ref?: never
+    })
+
 /**
  * This function returns a pre-styled Button component based on the custom theme.
  *
@@ -61,6 +69,7 @@ export interface ButtonProps
  * @param type - The html type of the button.
  * @param className - The optional className object allows you to override the default styling.
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
+ * @param ref - A ref to the native button. Refs are not supported with `asChild` until a polymorphic child-target contract is defined.
  * @returns Button component
  */
 export function Button({
@@ -79,6 +88,7 @@ export function Button({
   type = 'button',
   className,
   data,
+  ref,
   ...props
 }: ButtonProps) {
   return (
@@ -95,6 +105,7 @@ export function Button({
       }
       size={size === 'sm' ? 'sm' : size === 'lg' ? 'lg' : 'default'}
       disabled={disabled || loading}
+      ref={ref}
       // The loading spinner is decorative, so the busy state is only available
       // to assistive technology through aria-busy.
       aria-busy={loading || undefined}

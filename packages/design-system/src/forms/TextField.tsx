@@ -42,6 +42,7 @@ interface TextFieldProps {
   onIconClick?: () => void
   onEnter?: (event: React.KeyboardEvent<HTMLInputElement>) => void
   onReset?: () => void
+  ref?: React.Ref<HTMLInputElement>
 }
 
 export interface TextFieldNameProps extends TextFieldProps {
@@ -85,6 +86,7 @@ export interface TextFieldOnChangeProps extends TextFieldProps {
  * @param onIconClick - The optional onIconClick function is called when the icon is clicked.
  * @param onEnter - The optional onEnter function is called when the user presses the Enter key in the input field.
  * @param onReset - The optional onReset function adds a cancellation icon to the text field (right side; replacing icons positioned there)
+ * @param ref - A ref to the underlying input element.
  * @returns Text field component with optional label, tooltip, error message and icon.
  */
 
@@ -111,6 +113,7 @@ export function TextField({
   onIconClick,
   onEnter,
   onReset,
+  ref,
   ...props
 }: TextFieldNameProps | TextFieldOnChangeProps) {
   const { inputId, visibleError, errorId } = useFieldError({
@@ -144,6 +147,7 @@ export function TextField({
             <Input
               {...field}
               id={inputId}
+              ref={ref}
               aria-required={required || undefined}
               aria-describedby={visibleError ? errorId : undefined}
               data-cy={data?.cy}
@@ -178,6 +182,7 @@ export function TextField({
           ) : (
             <Input
               id={inputId}
+              ref={ref}
               aria-required={required || undefined}
               aria-describedby={visibleError ? errorId : undefined}
               data-cy={data?.cy}

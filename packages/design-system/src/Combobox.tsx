@@ -1,6 +1,7 @@
 'use client'
 
 import { Check, ChevronsUpDown } from 'lucide-react'
+import type { Ref } from 'react'
 import { useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
@@ -46,6 +47,7 @@ export interface ComboboxProps {
     test?: string
   }
   className?: ComboboxClassName
+  ref?: Ref<HTMLButtonElement>
 }
 
 /**
@@ -64,6 +66,7 @@ export interface ComboboxProps {
  * @param ariaLabel - Optional accessible name for the trigger (use when the visible label is ambiguous).
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy).
  * @param className - The optional className object allows you to override the default styling.
+ * @param ref - A ref to the visible trigger button.
  * @returns Combobox component
  */
 export function Combobox({
@@ -78,6 +81,7 @@ export function Combobox({
   ariaLabel,
   data,
   className,
+  ref,
 }: ComboboxProps) {
   const [open, setOpen] = useState(false)
 
@@ -92,6 +96,7 @@ export function Combobox({
       <PopoverTrigger asChild>
         <Button
           id={id}
+          ref={ref}
           type="button"
           variant="outline"
           aria-haspopup="listbox"
