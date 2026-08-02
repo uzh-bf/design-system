@@ -74,8 +74,10 @@ The ref is an imperative `TableRef`, not an `HTMLTableElement`; the contract
 must not claim DOM methods that Table does not expose.
 
 For DOM composites, the public `ref` is a concrete `React.Ref<T>` passed to
-the one visible, focusable target. No new `forwardedRef`, `unknown`, wrapper
-ref, polymorphic-ref abstraction, or compatibility alias is allowed.
+the one visible, focusable target. No new `forwardedRef` prop alias, `unknown`
+target, wrapper ref, or polymorphic-ref abstraction is allowed. The existing
+`DateTimePickerRef` type export is intentionally retained as a direct
+`HTMLButtonElement` alias so type-only imports do not break unnecessarily.
 
 ## Sol's independent inventory and decision
 
@@ -146,14 +148,14 @@ const tableRef = useRef<TableRef>(null)
 
 ## Decision gates and stop conditions
 
-| Gate                              | Decision/evidence required                                                                                                                | Stop if                                                                                                                          |
-| --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| D1 — base                         | `origin/v5` and the placeholder branch still equal `b7d72b5f`; worktree is clean before implementation                                    | v5 moves or unrelated work appears in the A3 worktree; checkpoint and ask before rebasing or widening                            |
-| D2 — target                       | Each included component has exactly one visible interactive target matching the inventory                                                 | A candidate is polymorphic, conditional, multi-target, or lands the ref on a wrapper                                             |
-| D3 — DateTimePicker compatibility | No verified consumer requires the old pseudo-ref `.value` property; selected date remains available through controlled `value`/`onChange` | A real consumer depends on `.value`; stop and ask for a compatibility decision rather than silently preserving an unsound object |
-| D4 — behavior                     | Focus, keyboard, open/close, selection, Table sorting, reset, and a11y behavior remain green                                              | Any regression in these behaviors or in accessible names/roles                                                                   |
-| D5 — declarations                 | Built declarations expose the concrete targets and `TableRef`; no `forwardedRef` remains                                                  | Generated declarations are widened, stale, or retain the alias                                                                   |
-| D6 — publication                  | All review, security, maintainability, CI, and description gates pass before a draft PR is submitted                                      | A gate is missing, blocked, or only assumed from a plan file                                                                     |
+| Gate                              | Decision/evidence required                                                                                                                                                              | Stop if                                                                                                                          |
+| --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| D1 — base                         | `origin/v5` remains `b7d72b5f`; the branch is cleanly descended from that base (`git merge-base --is-ancestor b7d72b5f HEAD`) and the dedicated worktree is clean before implementation | v5 moves, ancestry is lost, or unrelated work appears in the A3 worktree; checkpoint and ask before rebasing or widening         |
+| D2 — target                       | Each included component has exactly one visible interactive target matching the inventory                                                                                               | A candidate is polymorphic, conditional, multi-target, or lands the ref on a wrapper                                             |
+| D3 — DateTimePicker compatibility | No verified consumer requires the old pseudo-ref `.value` property; selected date remains available through controlled `value`/`onChange`                                               | A real consumer depends on `.value`; stop and ask for a compatibility decision rather than silently preserving an unsound object |
+| D4 — behavior                     | Focus, keyboard, open/close, selection, Table sorting, reset, and a11y behavior remain green                                                                                            | Any regression in these behaviors or in accessible names/roles                                                                   |
+| D5 — declarations                 | Built declarations expose the concrete targets and `TableRef`; no `forwardedRef` remains                                                                                                | Generated declarations are widened, stale, or retain the alias                                                                   |
+| D6 — publication                  | Local implementation/review/security/maintainability gates pass before draft submission; forge CI then passes before ready-for-review                                                   | A gate is missing, blocked, or only assumed from a plan file                                                                     |
 
 ## Work sequence and commit boundaries
 
@@ -285,8 +287,9 @@ regenerate after the source contract is stable.
   `DateTimePickerRef`, `TableRef`, and absence of `forwardedRef`.
 - Append verified results, exact commands, and any pre-existing tool warnings
   to this plan's `Progress` section. Do not rewrite prior entries.
-- Commit only generated output and progress when source behavior is already
-  reviewed.
+- Commit only a tracked progress update when source behavior is already
+  reviewed. Generated `dist` output is ignored and is inspection evidence, not
+  a force-added artifact.
 
 **Check**
 
@@ -295,7 +298,8 @@ regenerate after the source contract is stable.
 
 **Commit**
 
-`chore(refs): refresh v5 composite declarations`
+`docs(project): record A3 final verification` (only if the progress update is
+the only remaining tracked change)
 
 ## Verification matrix
 
@@ -317,7 +321,7 @@ container.
 | Security                 | bounded `$security-review` over the exact implementation range                                                | no unverified high-confidence issue; pre-existing findings separated    |
 | Maintainability          | mandatory `$thermo-nuclear-code-quality-review` over the exact final range                                    | pass or verified findings resolved                                      |
 | Independent final review | opposing provider or `agy` where available; current-provider fallback recorded if unavailable                 | no unresolved blocking finding                                          |
-| Forge/CI                 | required checks on the draft PR                                                                               | green before ready-for-review; do not merge in this goal                |
+| Forge/CI                 | submit the draft PR after local gates, then read its required checks                                          | green before ready-for-review; do not merge in this goal                |
 
 ## Review and publication routing
 
@@ -366,3 +370,9 @@ container.
   bounded waits and was interrupted without edits. Sol's live-source review
   remains the independent scope review; the primary session performed a
   read-only fallback audit of the exact plan commit before W1.
+- 2026-08-02: The fallback plan review found four issues and they were
+  accepted: D1 now checks ancestry rather than impossible branch equality;
+  `DateTimePickerRef` is explicitly retained as an `HTMLButtonElement` type
+  alias while no `forwardedRef` prop alias is retained; draft publication is
+  separated from post-push CI readiness; and ignored generated declarations
+  are inspected rather than force-added.
