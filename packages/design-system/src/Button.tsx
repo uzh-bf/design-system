@@ -2,11 +2,25 @@
 
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Dispatch } from 'react'
+import type { ComponentPropsWithoutRef, Dispatch } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Button as ShadcnButton } from './ui/button'
 
-export interface ButtonProps {
+type ButtonPrimitiveProps = ComponentPropsWithoutRef<typeof ShadcnButton>
+
+export interface ButtonProps
+  extends Omit<
+    ButtonPrimitiveProps,
+    | 'asChild'
+    | 'aria-busy'
+    | 'children'
+    | 'className'
+    | 'disabled'
+    | 'onClick'
+    | 'size'
+    | 'type'
+    | 'variant'
+  > {
   id?: string
   children?: React.ReactNode
   onClick?: (e?: React.MouseEvent<HTMLButtonElement>) => void
@@ -28,7 +42,6 @@ export interface ButtonProps {
     cy?: string
     test?: string
   }
-  [x: string]: unknown
 }
 
 /**

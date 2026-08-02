@@ -9,7 +9,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from './AlertDialog'
-import { Button } from './Button'
+import { Button as PrimitiveButton } from './ui/button'
 
 {/* START README */}
 <div className="prose prose-sm max-w-none">
@@ -89,7 +89,7 @@ export const Default = () => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="outline">Show Dialog</Button>
+        <PrimitiveButton variant="outline">Show Dialog</PrimitiveButton>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>

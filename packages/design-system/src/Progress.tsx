@@ -1,10 +1,22 @@
 'use client'
 
 import * as RadixProgress from '@radix-ui/react-progress'
-import React, { useEffect, useState } from 'react'
+import React, {
+  type ComponentPropsWithoutRef,
+  useEffect,
+  useState,
+} from 'react'
 import { twMerge } from 'tailwind-merge'
 
-interface BaseProgressProps {
+type ProgressPrimitiveProps = ComponentPropsWithoutRef<
+  typeof RadixProgress.Root
+>
+
+interface BaseProgressProps
+  extends Omit<
+    ProgressPrimitiveProps,
+    'children' | 'className' | 'id' | 'max' | 'ref' | 'value'
+  > {
   id?: string
   data?: {
     cy?: string
@@ -15,7 +27,6 @@ interface BaseProgressProps {
   formatter: (value: string | number) => string | React.ReactNode
   isMaxVisible?: boolean
   noMinWidth?: boolean
-  [x: string]: unknown
 }
 
 interface SingleValueProgressProps extends BaseProgressProps {

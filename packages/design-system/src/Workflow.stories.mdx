@@ -57,8 +57,8 @@ Available Stories:
 Props:
 
 - items: Array of step objects (StepProps or StepProgressProps)
-  - StepProps: { title, description?, tooltip?, tooltipDisabled?, ...customData }
-  - StepProgressProps: { title, description?, tooltip?, tooltipDisabled?, progress?, completed?, error?, ...customData }
+  - StepProps: { title, description?, tooltip?, tooltipDisabled? }
+  - StepProgressProps: { title, description?, tooltip?, tooltipDisabled?, progress?, completed?, error? }
 - onClick: (item, index) => void - Handler for step clicks
 - activeIx?: number - Currently active step index (required for basic workflow, optional for progress workflow)
 - twStyles?: Object with bgHover, bgActive, bgPast for color customization
@@ -113,7 +113,8 @@ export function Default() {
         container and splits the available space evenly between the number of
         passed items. If a description is passed, the height of the component
         adapts accordingly. Limited custom styling is available. The items can
-        contain custom data, which is passed back to the onClick handler.
+        contain the documented step fields, which are passed back to the onClick
+        handler.
       </div>
       <Workflow
         items={workflowItems}
@@ -136,7 +137,8 @@ export function Description() {
         container and splits the available space evenly between the number of
         passed items. If a description is passed, the height of the component
         adapts accordingly. Limited custom styling is available. The items can
-        contain custom data, which is passed back to the onClick handler.
+        contain the documented step fields, which are passed back to the onClick
+        handler.
       </div>
       <Workflow
         items={workflowItemsDescription}
@@ -264,7 +266,8 @@ export function Styled() {
         container and splits the available space evenly between the number of
         passed items. If a description is passed, the height of the component
         adapts accordingly. Limited custom styling is available. The items can
-        contain custom data, which is passed back to the onClick handler.
+        contain the documented step fields, which are passed back to the onClick
+        handler.
       </div>
       <Workflow
         items={workflowItems}

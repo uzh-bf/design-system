@@ -2,6 +2,7 @@
 
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import type { ComponentPropsWithoutRef } from 'react'
 import { useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Badge } from './ui/badge'
@@ -449,11 +450,21 @@ export type NavigationItemProps =
   | NavigationButtonItemProps
   | NavigationDropdownItemProps
 
-export interface NavigationProps {
+type NavigationPrimitiveProps = ComponentPropsWithoutRef<typeof ShadcnMenubar>
+
+export interface NavigationProps
+  extends Omit<
+    NavigationPrimitiveProps,
+    | 'children'
+    | 'className'
+    | 'defaultValue'
+    | 'onValueChange'
+    | 'style'
+    | 'value'
+  > {
   items: NavigationItemProps[]
   className?: { root?: string }
   style?: { root?: React.CSSProperties }
-  [x: string]: unknown
 }
 
 /**

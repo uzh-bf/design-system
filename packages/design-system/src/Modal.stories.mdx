@@ -1,5 +1,6 @@
 import { useState, useEffect, forwardRef, ComponentProps } from 'react'
-import Button from './Button'
+import { Button } from './Button'
+import { Button as PrimitiveButton } from './ui/button'
 import Modal from './Modal'
 
 {/* START README */}
@@ -136,12 +137,12 @@ const [isDeleteOpen, setIsDeleteOpen] = useState(false)
   onClose={() => setIsModalOpen(false)}
   title="Settings"
   trigger={
-    <Button
+    <PrimitiveButton
       onClick={() => setIsModalOpen(true)}
       variant="outline"
     >
       Open Settings
-    </Button>
+    </PrimitiveButton>
   }
 >
   <SettingsForm onSave={handleSave} />
@@ -317,7 +318,7 @@ export const Basic = () => {
 export const Loading = () => {
   const [isOpen, setIsOpen] = useState(false)
   return (
-    <Modal 
+    <Modal
       loading
       open={isOpen}
       trigger={<Button onClick={() => setIsOpen(true)}>Open Modal</Button>}
