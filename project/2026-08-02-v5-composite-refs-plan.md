@@ -420,3 +420,9 @@ container.
   files, and `6f77e8ff` only appends plan progress. The local Prettier check
   for all seven forge-named files is green; no new semantic review surface was
   introduced.
+- 2026-08-02: Forge CI run `30745547873` is fully green: formatting, types,
+  lint, smoke Test (`460 passed`), all four A11y shards (`193 passed` each),
+  Greptile review, and the build-only `Build and Publish` job. Its npm publish
+  and dist-tag steps were skipped, as required. The draft PR remains open and
+  targets `v5`; no merge, ready-for-review transition, tag, release, or main
+  branch operation was performed.
