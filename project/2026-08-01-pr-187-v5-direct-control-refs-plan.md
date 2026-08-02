@@ -70,8 +70,9 @@ imperative focus.
 - Layer: A2 of 3
 - Worktree: `trees/rs-v5-direct-control-refs`
 - Branch: `rs/v5-direct-control-refs`
+- PR: [#187](https://github.com/uzh-bf/design-system/pull/187)
 - Target/trunk: `v5` at `4aa021ac2b8fd43cad6076dcc30071feb87d97f6`
-- Parent: A1 `rs/v5-prop-contracts` at `a6610f822869eeca5759699641c68b6d8dc6e908`
+- Parent: A1 `rs/v5-prop-contracts` at `8ac3bfadcb44fa008e669ffc8ffdb268ce5f2b90`
 - Dependent: A3 `rs/v5-composite-refs`
 - Native stack: `trunk: v5`; all branches are local and unqueued. A2 and its
   dependent A3 currently point at this plan commit while A1 remains the parent.
