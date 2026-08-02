@@ -405,3 +405,12 @@ container.
   `pnpm@10.30.0` could not fetch or verify its npm registry signatures. No
   signature override or dependency mutation was used; the equivalent installed
   `tsc` binaries passed directly.
+- 2026-08-02: The first forge run reached the repository checks but failed only
+  at package-wide Prettier validation. The formatter log named seven touched
+  source files (`Checkbox.tsx`, `Collapsible.tsx`, `ColorPicker.tsx`,
+  `Dropdown.tsx`, `MultiSelect.tsx`, `Slider.tsx`, and `Table.tsx`). Installed
+  repository Prettier was run on those files, producing only class-order
+  changes in `ef0e29bb`; no ref, runtime, type, story, or migration semantics
+  changed. The PR body and final verification state must be refreshed after
+  this corrective push, with forge checks still treated as pending until the
+  rerun is read back.
