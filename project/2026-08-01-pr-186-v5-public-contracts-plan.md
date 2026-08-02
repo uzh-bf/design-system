@@ -60,6 +60,7 @@ unsupported values into Radix or shadcn primitives.
 - Layer: A1 of 3
 - Worktree: `trees/rs-v5-public-contracts`
 - Branch: `rs/v5-prop-contracts`
+- PR: [#186](https://github.com/uzh-bf/design-system/pull/186)
 - Target/trunk: `v5` at `4aa021ac2b8fd43cad6076dcc30071feb87d97f6`
 - Dependents: A2 `rs/v5-direct-control-refs`, then A3
   `rs/v5-composite-refs`
