@@ -6,6 +6,7 @@ import type {
   DatePickerProps,
   DateRangePickerProps,
   DateTimePickerProps,
+  DateTimePickerRef,
   DropdownWithItemsProps,
   MultiSelectProps,
   SelectFieldItemsProps,
@@ -29,6 +30,10 @@ const wrongRef = (element: HTMLDivElement | null) => {
 }
 const wrongObjectRef = { current: null as HTMLDivElement | null }
 const wrongSvgObjectRef = { current: null as SVGSVGElement | null }
+const wrongTableObjectRef = { current: null as HTMLTableElement | null }
+const wrongDateTimePseudoRef = {
+  current: { value: new Date() } as { value?: Date } | null,
+}
 
 function acceptsCheckboxProps(props: CheckboxProps) {
   return props
@@ -228,12 +233,16 @@ function acceptsDateTimePickerProps(props: DateTimePickerProps) {
   return props
 }
 
+const dateTimeButtonRef = (value: DateTimePickerRef | null) => {
+  void value
+}
+
 acceptsDateTimePickerProps({
   locale: undefined,
   weekStartsOn: undefined,
   showWeekNumber: false,
   showOutsideDays: false,
-  ref: buttonRef,
+  ref: dateTimeButtonRef,
 })
 acceptsDateTimePickerProps({
   locale: undefined,
@@ -242,6 +251,14 @@ acceptsDateTimePickerProps({
   showOutsideDays: false,
   // @ts-expect-error DateTimePicker refs must target the calendar trigger button.
   ref: wrongObjectRef,
+})
+acceptsDateTimePickerProps({
+  locale: undefined,
+  weekStartsOn: undefined,
+  showWeekNumber: false,
+  showOutsideDays: false,
+  // @ts-expect-error The removed pseudo-ref with a Date-valued `.value` must not compile.
+  ref: wrongDateTimePseudoRef,
 })
 
 type Row = { name: string; className?: string }
@@ -263,7 +280,7 @@ acceptsTableProps({
   columns: [{ accessor: 'name', label: 'Name' }],
   data: [{ name: 'Ada' }],
   // @ts-expect-error Table refs expose the imperative TableRef, not the DOM table element.
-  ref: wrongObjectRef,
+  ref: wrongTableObjectRef,
 })
 acceptsTableProps({
   columns: [{ accessor: 'name', label: 'Name' }],

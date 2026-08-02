@@ -612,6 +612,7 @@ type DateTimePickerRef = HTMLButtonElement
  * This component provides a date and time picker with optional label, error handling, and customizable display and granularity.
  *
  * @param value - The currently selected date value.
+ * @param ref - A ref to the visible calendar trigger button.
  * @param onChange - Callback function called when the date value changes.
  * @param onMonthChange - Callback function called when the displayed month changes.
  * @param disabled - Whether the picker is disabled.
