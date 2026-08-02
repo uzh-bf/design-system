@@ -3,8 +3,8 @@
 ## Identity and operating contract
 
 - Date: 2026-08-02
-- Status: roadmap committed; W1 is prepared but paused at an explicit public
-  API naming gate discovered by the delegated executor and confirmed by Sol.
+- Status: roadmap committed; the Table naming gate is ruled (option A) and W1 is
+  in execution.
 - Repository: `uzh-bf/design-system`
 - Release trunk: `v5` (long-lived branch and final merge target).
 - Current base: `origin/v5` at `77db88226e8c2fd14a59ca4e73ae869b5499a43d`, the
@@ -117,21 +117,23 @@ data?: {
 }
 ```
 
-- `Table`: its current public props are `data: RowType[]` (rows) and
+- `Table`: its current public props were `data: RowType[]` (rows) and
   `dataAttributes: { cy?: string; test?: string }` (selector). A literal
   `dataAttributes` → `data` rename cannot compile while the row prop remains
-  named `data`. This is a decision gate, not an executor guess:
+  named `data`.
 
-  | Option | Result | Recommendation |
-  | --- | --- | --- |
-  | A — rename rows to `rows` and selectors to `data` together | One coherent selector vocabulary, but a second breaking Table API rename; requires every in-repository Table call site and migration example to change | Recommended only if the user explicitly accepts the wider v5 break |
-  | B — keep Table's `dataAttributes` for now and implement Workflow's item-level `data` | Smallest safe PR, but the public selector vocabulary remains inconsistent and Table becomes a follow-up | Safe fallback if the wider Table break is not approved |
-  | C — use another selector name on Table | Avoids the collision but creates a third public convention | Reject |
+  **Ruling (2026-08-02, user): option A.** Rename the row prop `data` → `rows`
+  and the selector prop `dataAttributes` → `data` in the same change, so Table
+  matches the `data={{ cy, test }}` convention already used by Button,
+  Checkbox, Progress, and the other v5 composites. The recorded blast radius
+  was overstated: `Table` is referenced only in `Table.tsx`,
+  `Table.stories.mdx`, and `MIGRATION.md`, and v5 has no consumers, so the
+  rename is cheap now and expensive after GA. Options B (Workflow-only, Table
+  deferred) and C (a third selector name) are rejected.
 
-  Do not implement A or silently choose B until the ruling is recorded. Under
-  option A, keep selector attributes on the existing outer root; this root is
-  the stable table selector and sortable header buttons remain discoverable by
-  role rather than receiving an ad-hoc second selector API.
+  Selector attributes stay on the existing outer root; this root is the stable
+  table selector and sortable header buttons remain discoverable by role rather
+  than receiving an ad-hoc second selector API.
 - `Workflow`: each step is an independently actionable button. Add the same
   optional `data` value to the step item shape and render its `data-cy` and
   `data-test` on that step's actual `<button>` in both tooltip and non-tooltip
@@ -157,8 +159,8 @@ needed by the repository's existing contract-test convention):
   generic test page)
 - `packages/design-system/tests/smoke/test-selectors.spec.ts`
 - `packages/design-system/tests/contracts/test-selectors.types.ts`
-- `packages/design-system/tests/contracts/composite-refs.types.ts` only if
-  option A requires updating existing Table call-site type fixtures
+- `packages/design-system/tests/contracts/composite-refs.types.ts` to update the
+  existing Table call-site type fixtures for the option A rename
 - `packages/design-system/tsconfig.types.json` only if the type fixture needs
   an existing project include adjustment
 - `packages/design-system/MIGRATION.md` for the `dataAttributes` → `data`
@@ -177,10 +179,9 @@ Formik modules, or the broader selector inventory in W1.
    assert that a disabled step remains the selector-bearing button rather than
    a wrapper.
 3. A type fixture accepts the exact `cy`/`test` shape and rejects arbitrary
-   keys (especially `data-testid`). If option A is approved, it also rejects
+   keys (especially `data-testid`). Under the ruled option A it also rejects
    the removed Table `dataAttributes` prop and row arrays passed through
-   `Table.data`; if option B is chosen, the Table assertion remains a tracked
-   follow-up instead of being faked.
+   `Table.data`.
 4. Existing keyboard and accessibility behavior remains intact: Workflow
    buttons remain focusable, disabled steps retain `aria-disabled`, and Table
    sorting/`aria-sort` behavior is unchanged.
@@ -332,3 +333,26 @@ review. Publication and PR readiness remain orchestrator/user decisions.
   that `tests/contracts` is not CI-enforced. Kimi was stopped before editing;
   W1 now awaits the explicit Table naming ruling and will place runtime proof
   under `tests/smoke`.
+- 2026-08-02: takeover session re-verified `origin/v5` at `77db8822`, the clean
+  `rs/v5-test-selector-contract` worktree three commits ahead, and the absence
+  of any PR for the branch. Measured the actual option A blast radius (three
+  files reference `Table`; seven `dataAttributes` occurrences), which is far
+  smaller than the checkpoint recorded.
+- 2026-08-02: user ruled option A. Table's row prop becomes `rows` and its
+  selector prop becomes `data`; W1 executes in the main session rather than via
+  a Kimi round-trip, with the mandatory review gates unchanged.
+- 2026-08-02: W1 implemented and verified. `pnpm check` (both projects),
+  `lint`, `format:check`, `build`, and `build:ladle` pass; `tests/smoke` plus
+  `tests/contracts` are 470/470 and `tests/a11y` is 772/772 (766 before, plus
+  the four a11y cases of the extended contract story and the two new selector
+  tests). The emitted `dist/index.d.ts` shows `TableProps` with `rows` and the
+  `data` selector, so the rename reaches consumers.
+- 2026-08-02: follow-up recorded, not fixed in W1. A `WorkflowProgress` step
+  with `completed: true` that is not the active step renders
+  `text-success-foreground` (#fafafa) on `bg-success-background` (#e4f8e7) in
+  the neutral theme — 1.06:1 against a 4.5:1 requirement. This is pre-existing
+  A11Y-22 breakage, waived only for `workflow--*` story ids, so it surfaced as
+  soon as the state appeared on a `public-contracts--` story. The contract
+  fixture therefore covers plain, tooltip, disabled, and in-progress steps but
+  not the completed state. Fix belongs to theme conformance; the waiver was
+  deliberately not widened, since that would blunt the ratchet.

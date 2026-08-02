@@ -36,12 +36,12 @@ export type ColumnType<RowType> = {
 
 export interface TableProps<RowType extends BaseRowType> {
   id?: string
-  dataAttributes?: {
+  data?: {
     cy?: string
     test?: string
   }
   columns: ColumnType<RowType>[]
-  data: RowType[]
+  rows: RowType[]
   caption?: string
   className?: {
     root?: string
@@ -58,13 +58,13 @@ export interface TableProps<RowType extends BaseRowType> {
 /**
  * This function returns a pre-styled Table component based on the RadixUI table component and the custom theme.
  * The table is sortable by clicking on the column header.
- * Before the table is being sorted according to the sorting parameters, the transformer will be applied to the data.
+ * Before the table is being sorted according to the sorting parameters, the transformer will be applied to the rows.
  * The formatter is meant to be used for visual modifications of the fields and applied after sorting.
  *
  * @param id - The id of the table.
- * @param dataAttributes - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
+ * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param columns - The columns of the table. The columns are defined by an array of objects where each object has a label, an accessor and optional transformer and formatters.
- * @param data - The data of the table. The data is defined by an array of objects where each object has a key-value pair for each column.
+ * @param rows - The rows of the table. The rows are defined by an array of objects where each object has a key-value pair for each column.
  * @param caption - The optional caption of the table.
  * @param ref - The optional ref object allows you to access the table methods.
  * @param className - The optional className object allows you to override the default styling.
@@ -77,9 +77,9 @@ export function Table<
   RowType extends Record<string, string | number | boolean>,
 >({
   id,
-  dataAttributes,
-  columns,
   data,
+  columns,
+  rows,
   caption,
   className,
   ref,
@@ -108,7 +108,7 @@ export function Table<
   }
 
   const tableData = useMemo(() => {
-    const transformedData = data.map(
+    const transformedData = rows.map(
       (row, index) =>
         columns
           .map((col) =>
@@ -178,7 +178,7 @@ export function Table<
         })}
       </tr>
     ))
-  }, [data, columns, sortField, order, className, emptyCellText])
+  }, [rows, columns, sortField, order, className, emptyCellText])
 
   return (
     <div
@@ -187,8 +187,8 @@ export function Table<
         className?.root
       )}
       id={id}
-      data-cy={dataAttributes?.cy}
-      data-test={dataAttributes?.test}
+      data-cy={data?.cy}
+      data-test={data?.test}
     >
       <table className="w-full table-auto border-collapse text-sm">
         {caption && (

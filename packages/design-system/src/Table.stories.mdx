@@ -23,9 +23,9 @@ The component supports column-based configuration, data transformers for preproc
 The Table component accepts the following props:
 
 - @param id - The id of the table.
-- @param dataAttributes - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
+- @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
 - @param columns - The columns of the table. The columns are defined by an array of objects where each object has a label, an accessor and optional transformer and formatters.
-- @param data - The data of the table. The data is defined by an array of objects where each object has a key-value pair for each column.
+- @param rows - The rows of the table. The rows are defined by an array of objects where each object has a key-value pair for each column.
 - @param caption - The optional caption of the table.
 - @param ref - The optional ref object allows you to access the table methods.
 - @param className - The optional className object allows you to override the default styling.
@@ -59,9 +59,9 @@ Available Stories:
 Props (Table component):
 
 - id?: string - HTML id attribute for the table
-- dataAttributes?: Record<string, string> - Data attributes for testing
+- data?: { cy?: string, test?: string } - Data attributes for testing
 - columns: ColumnDefinition[] - Column configuration array
-- data: DataRow[] - Array of data objects to display
+- rows: DataRow[] - Array of row objects to display
 - caption?: string - Accessible table caption
 - ref?: React.Ref - Reference to table for method access
 - className?: {
@@ -102,7 +102,7 @@ Usage Examples:
     { label: 'Age', accessor: 'age', sortable: true },
     { label: 'Email', accessor: 'email', sortable: false }
   ]}
-  data={[
+  rows={[
     { name: 'John Doe', age: 30, email: 'john@example.com' },
     { name: 'Jane Smith', age: 25, email: 'jane@example.com' }
   ]}
@@ -129,7 +129,7 @@ Usage Examples:
       )
     }
   ]}
-  data={salesData}
+  rows={salesData}
   defaultSortField="revenue"
   defaultSortOrder="desc"
 />
@@ -137,7 +137,7 @@ Usage Examples:
 // With custom styling
 <Table
   columns={columns}
-  data={data}
+  rows={data}
   className={{
     root: 'rounded-lg shadow-sm border',
     tableHeader: 'bg-gray-50 border-b',
@@ -157,7 +157,7 @@ const tableRef = useRef(null)
   <Table
     ref={tableRef}
     columns={columns}
-    data={data}
+    rows={data}
   />
 </>
 
@@ -179,7 +179,7 @@ interface UserData {
       formatter: ({ row }) => formatDistanceToNow(row.lastLogin)
     }
   ]}
-  data={userData}
+  rows={userData}
 />
 ```
 
@@ -220,7 +220,7 @@ export const Simple = () => {
           { label: 'Answer', accessor: 'answer', sortable: true },
           { label: 'Username', accessor: 'username', sortable: false },
         ]}
-        data={data}
+        rows={data}
         caption="Table with example data"
       />
     </div>
@@ -241,7 +241,7 @@ export const DefaultSorting = () => {
           { label: 'Answer', accessor: 'answer', sortable: true },
           { label: 'Username', accessor: 'username', sortable: false },
         ]}
-        data={data}
+        rows={data}
         caption="Table with example data"
         defaultSortField="count"
         defaultSortOrder="desc"
@@ -260,7 +260,7 @@ export const Sorting = () => {
       />
       <Table
         columns={[{ label: 'Count', accessor: 'count', sortable: true }]}
-        data={[{ count: 100 }, { count: -50 }, { count: -70 }, { count: 30 }]}
+        rows={[{ count: 100 }, { count: -50 }, { count: -70 }, { count: 30 }]}
         caption="Table with example data"
       />
     </div>
@@ -298,7 +298,7 @@ return (
       { label: 'Answer', accessor: 'answer', sortable: true },
       { label: 'Username', accessor: 'username', sortable: false },
     ]}
-    data={data}
+    rows={data}
     caption="Table with example data"
     ref={ref}
   />
@@ -334,7 +334,7 @@ export const Formatted = () => {
           },
           { label: 'Username', accessor: 'username', sortable: false },
         ]}
-        data={[
+        rows={[
           {
             className: 'text-foreground',
             ...data[0],
@@ -380,7 +380,7 @@ export const Combined = () => {
           },
           { label: 'Username', accessor: 'username', sortable: false },
         ]}
-        data={data}
+        rows={data}
         caption="Table with example data"
         className={{
           root: 'bg-white',

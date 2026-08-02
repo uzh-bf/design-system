@@ -15,6 +15,12 @@ interface StepBaseProps {
   description?: string
   tooltip?: string
   tooltipDisabled?: string
+  // Selectors are per-step because each step is an independently actionable
+  // button; the `<ol>` root deliberately has no single selector.
+  data?: {
+    cy?: string
+    test?: string
+  }
   progress?: number
   completed?: boolean
   error?: boolean
@@ -67,7 +73,7 @@ export interface WorkflowProgressProps extends WorkflowBaseProps {
 /**
  * This function returns a pre-styled Workflow component. Theme-based styling is not available for this component at the moment, use the twStyles or className objects instead to override default styling.
  *
- * @param items - The array of steps that should be displayed in the workflow.
+ * @param items - The array of steps that should be displayed in the workflow. Each step accepts an optional data object ({ cy, test }) whose attributes are rendered on that step's button.
  * @param onClick - The function that is called when a step is clicked. The step object is passed as an argument.
  * @param activeIx - The index of the active step. State management is not handled by this component.
  * @param twStyles - The optional twStyles object allows you to override the default styling.
@@ -250,6 +256,10 @@ export function WorkflowItem({
     // focusable so keyboard users can still read its `tooltipDisabled`
     // explanation. The runtime guard above already blocks the action.
     'aria-disabled': disabled || undefined,
+    // The selector belongs on the button in both the tooltip and the plain
+    // path, so a disabled step stays addressable through the same element.
+    'data-cy': item.data?.cy,
+    'data-test': item.data?.test,
   } as const
 
   return (

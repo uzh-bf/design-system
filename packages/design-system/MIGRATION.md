@@ -281,6 +281,51 @@ type-only imports remain useful, but the old pseudo-handle's Date-valued
 `.value` property is gone. Read the selected date from the controlled `value`
 prop and `onChange` callback instead.
 
+### Test selectors: `data={{ cy, test }}`
+
+v5 has one selector convention across the composites: an optional `data` prop
+whose `cy` and `test` fields render as `data-cy` and `data-test`. There is no
+`data-testid` and no arbitrary attribute record.
+
+`Table` is the last composite to adopt it, which required freeing the `data`
+name. **Its row collection moved to `rows` and its selector prop is now
+`data`** — both halves of the rename land together, so a partially migrated
+call site fails to compile rather than silently passing rows as selectors:
+
+```tsx
+// before
+<Table data={rows} dataAttributes={{ cy: 'results', test: 'results' }} />
+// after
+<Table rows={rows} data={{ cy: 'results', test: 'results' }} />
+```
+
+The attributes stay on the composite's outer root, which is the stable table
+selector. Sortable header buttons are addressed by role (`columnheader` →
+`button`), not by a second selector API.
+
+`Workflow` and `WorkflowProgress` steps are independently actionable, so their
+selectors are per step rather than on the list:
+
+```tsx
+<Workflow
+  activeIx={0}
+  onClick={handleClick}
+  items={[
+    { title: 'Draft', data: { cy: 'step-draft' } },
+    {
+      title: 'Review',
+      tooltip: 'Not yet available',
+      data: { cy: 'step-review' },
+    },
+  ]}
+/>
+```
+
+The attributes render on each step's `<button>` in both the tooltip and plain
+paths, and a disabled step keeps them on that same focusable button. The `<ol>`
+root intentionally carries no selector, since no single one would identify a
+step. The step object passed to `onClick` is unchanged.
+
 ## Peer dependencies
 
 v5 no longer bundles its runtime libraries — every one is declared as a **peer

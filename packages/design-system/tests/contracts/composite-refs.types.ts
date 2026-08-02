@@ -273,18 +273,18 @@ const tableRef = (value: TableRef | null) => {
 
 acceptsTableProps({
   columns: [{ accessor: 'name', label: 'Name' }],
-  data: [{ name: 'Ada' }],
+  rows: [{ name: 'Ada' }],
   ref: tableRef,
 })
 acceptsTableProps({
   columns: [{ accessor: 'name', label: 'Name' }],
-  data: [{ name: 'Ada' }],
+  rows: [{ name: 'Ada' }],
   // @ts-expect-error Table refs expose the imperative TableRef, not the DOM table element.
   ref: wrongTableObjectRef,
 })
 acceptsTableProps({
   columns: [{ accessor: 'name', label: 'Name' }],
-  data: [{ name: 'Ada' }],
+  rows: [{ name: 'Ada' }],
   // @ts-expect-error Table's removed forwardedRef alias must not compile.
   forwardedRef: tableRef,
 })
