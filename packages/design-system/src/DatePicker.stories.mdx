@@ -141,10 +141,10 @@ const error = !birthDate && touched ? "Birth date is required" : ""
 <DatePicker
   date={testDate}
   onDateChange={setTestDate}
-  dataTrigger={{ 'data-cy': 'date-trigger' }}
-  dataCalendar={{ 'data-testid': 'calendar' }}
-  dataNextMonth={{ 'data-cy': 'next-month' }}
-  dataPreviousMonth={{ 'data-cy': 'prev-month' }}
+  dataTrigger={{ cy: 'date-trigger' }}
+  dataCalendar={{ test: 'calendar' }}
+  dataNextMonth={{ cy: 'next-month' }}
+  dataPreviousMonth={{ cy: 'prev-month' }}
 />
 
 // Custom styling
@@ -201,7 +201,7 @@ Testing Support:
 
 - Comprehensive data attributes for all interactive elements
 - Separate attributes for trigger, calendar, navigation
-- Support for both data-cy and data-testid patterns
+- Support for the `data` selector prop, rendering `data-cy` and `data-test`
 - Complete E2E testing capability
 
 Accessibility Features:

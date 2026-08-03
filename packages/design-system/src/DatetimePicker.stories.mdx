@@ -209,10 +209,10 @@ const error = !deadline && touched ? "Deadline is required" : ""
 <DatetimePicker
   value={testDatetime}
   onChange={setTestDatetime}
-  dataTrigger={{ 'data-cy': 'datetime-trigger' }}
-  dataCalendar={{ 'data-testid': 'calendar' }}
-  dataHours={{ 'data-cy': 'hours-input' }}
-  dataMinutes={{ 'data-cy': 'minutes-input' }}
+  dataTrigger={{ cy: 'datetime-trigger' }}
+  dataCalendar={{ test: 'calendar' }}
+  dataHours={{ cy: 'hours-input' }}
+  dataMinutes={{ cy: 'minutes-input' }}
 />
 ```
 
