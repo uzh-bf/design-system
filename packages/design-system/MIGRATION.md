@@ -281,6 +281,61 @@ type-only imports remain useful, but the old pseudo-handle's Date-valued
 `.value` property is gone. Read the selected date from the controlled `value`
 prop and `onChange` callback instead.
 
+### Test selectors: `data={{ cy, test }}`
+
+v5 standardises the **shape** of every test selector: `{ cy?: string; test?:
+string }`, rendered as `data-cy` and `data-test`. No selector prop accepts
+`data-testid` or an arbitrary attribute record. Some component stories still
+show a `data-testid` form in their examples; those docs are stale and are being
+corrected — the prop types above are authoritative.
+
+Where a composite has one obvious target, the prop is named `data`. Components
+with several independently addressable controls keep their named per-element
+props (`Modal`'s `dataContent`/`dataCloseButton`/`dataPrimaryAction`, the
+pickers' `dataTrigger`/`dataCalendar`/…, `Slider`'s `dataThumb`,
+`Tooltip`'s `dataContent`), which now all carry that same value shape. Many
+composites still expose no selector prop at all; those are unchanged.
+
+`Table` was the last composite still using the old `dataAttributes` name.
+Adopting `data` required freeing that name. **Its row collection moved to
+`rows` and its selector prop is now `data`** — both halves of the rename land
+together, so a partially migrated call site fails to compile rather than
+silently passing rows as selectors:
+
+```tsx
+// before
+<Table data={rows} dataAttributes={{ cy: 'results', test: 'results' }} />
+// after
+<Table rows={rows} data={{ cy: 'results', test: 'results' }} />
+```
+
+The attributes stay on the composite's outer root, which is the stable table
+selector. Sortable header buttons are addressed by role (`columnheader` →
+`button`), not by a second selector API.
+
+`Workflow` and `WorkflowProgress` steps are independently actionable, so their
+selectors are per step rather than on the list:
+
+```tsx
+<Workflow
+  activeIx={0}
+  onClick={handleClick}
+  items={[
+    { title: 'Draft', data: { cy: 'step-draft' } },
+    {
+      title: 'Review',
+      tooltip: 'Not yet available',
+      data: { cy: 'step-review' },
+    },
+  ]}
+/>
+```
+
+The attributes render on each step's `<button>` in both the tooltip and plain
+paths, and a disabled step keeps them on that same focusable button. The `<ol>`
+root intentionally carries no selector, since no single one would identify a
+step. The step object passed to `onClick` is unchanged.
+
 ## Peer dependencies
 
 v5 no longer bundles its runtime libraries — every one is declared as a **peer

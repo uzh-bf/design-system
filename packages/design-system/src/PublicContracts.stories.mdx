@@ -1,11 +1,16 @@
 import Button from './Button'
 import Navigation from './Navigation'
 import Progress from './Progress'
+import Table from './Table'
+import Workflow from './Workflow'
 
 {/* START README */}
 <div className="prose prose-sm max-w-none">
 This story exercises the narrowed public prop contracts for Button, Navigation,
-and Progress with representative native, ARIA, and data attributes.
+and Progress with representative native, ARIA, and data attributes. It also
+pins the v5 selector contract: `Table` carries its selectors on the composite
+root through `data`, while `Workflow` and `WorkflowProgress` carry per-step
+selectors on each step's own button, including the tooltip and disabled paths.
 </div>
 {/* END README */}
 
@@ -36,6 +41,63 @@ export const Default = () => (
       value={50}
       max={100}
       formatter={(value) => value}
+    />
+    <Table
+      data={{ cy: 'contract-table', test: 'contract-table' }}
+      caption="Contract table"
+      columns={[
+        { label: 'Count', accessor: 'count', sortable: true },
+        { label: 'Answer', accessor: 'answer', sortable: false },
+      ]}
+      rows={[
+        { count: 2, answer: 'Second' },
+        { count: 1, answer: 'First' },
+      ]}
+    />
+    <Workflow
+      activeIx={0}
+      disabledFrom={2}
+      onClick={() => undefined}
+      items={[
+        {
+          title: 'Plain step',
+          data: { cy: 'contract-step-plain', test: 'contract-step-plain' },
+        },
+        {
+          title: 'Tooltip step',
+          tooltip: 'Contract tooltip',
+          data: { cy: 'contract-step-tooltip', test: 'contract-step-tooltip' },
+        },
+        {
+          title: 'Disabled step',
+          tooltipDisabled: 'Contract disabled tooltip',
+          data: {
+            cy: 'contract-step-disabled',
+            test: 'contract-step-disabled',
+          },
+        },
+      ]}
+    />
+    <Workflow
+      onClick={() => undefined}
+      items={[
+        {
+          title: 'Progress step',
+          progress: 0.5,
+          data: {
+            cy: 'contract-progress-step',
+            test: 'contract-progress-step',
+          },
+        },
+        {
+          title: 'Progress tooltip step',
+          tooltip: 'Contract progress tooltip',
+          data: {
+            cy: 'contract-progress-tooltip',
+            test: 'contract-progress-tooltip',
+          },
+        },
+      ]}
     />
   </div>
 )

@@ -21,7 +21,7 @@ Key features include progress indicators, disabled states for future steps, cust
 
 The workflow component accepts the following props:
 
-- @param items - The array of steps that should be displayed in the workflow.
+- @param items - The array of steps that should be displayed in the workflow. Each step accepts an optional `data` object with `cy` and `test` fields, whose attributes are rendered on that step's button.
 - @param onClick - The function that is called when a step is clicked. The step object is passed as an argument.
 - @param activeIx - The index of the active step. State management is not handled by this component.
 - @param twStyles - The optional twStyles object allows you to override the default styling.
@@ -57,8 +57,9 @@ Available Stories:
 Props:
 
 - items: Array of step objects (StepProps or StepProgressProps)
-  - StepProps: { title, description?, tooltip?, tooltipDisabled? }
-  - StepProgressProps: { title, description?, tooltip?, tooltipDisabled?, progress?, completed?, error? }
+  - StepProps: { title, description?, tooltip?, tooltipDisabled?, data? }
+  - StepProgressProps: { title, description?, tooltip?, tooltipDisabled?, data?, progress?, completed?, error? }
+  - data?: { cy?: string, test?: string } - Selector attributes rendered on that step's button
 - onClick: (item, index) => void - Handler for step clicks
 - activeIx?: number - Currently active step index (required for basic workflow, optional for progress workflow)
 - twStyles?: Object with bgHover, bgActive, bgPast for color customization
