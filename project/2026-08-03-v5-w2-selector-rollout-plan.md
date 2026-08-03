@@ -258,6 +258,9 @@ review after verification, before the PR is published.
 - 2026-08-03: Branch and worktree created at `2fc8f915`. Inventory completed and
   verified: 0 deviant shapes, 8 components with per-element props, 37 with none,
   `src/original` confirmed dead. Both scope rulings obtained.
+- 2026-08-03: W2.1, W2.2 and W2.3 complete in `7257ab39` (ColorPicker
+  `data-text` fix, root `data` prop on the five components, `FormikColorPicker`
+  pass-through) and `578fe1d4` (33 corrected examples across 15 story files).
 - 2026-08-03: W2.4, W2.5 and W2.6 complete. Full suite green at 1245 tests: 473
   smoke plus contracts (three new selector cases) and 772 a11y, unchanged as
   predicted, so adding the five components to `public-contracts--default` cost
@@ -279,3 +282,33 @@ review after verification, before the PR is published.
   nothing, two `{...props}` spreads can silently misplace the new prop, and the
   a11y expectation conflated case count with suite health. Story-doc scope
   restated from 8 files to 15 files / 33 lines.
+- 2026-08-03: Final integrated review gate run on `2fc8f915..74113351`. Nine
+  findings, none critical or high, all verified against source before acting.
+  **The leak/precedence guard could not fail.** `root.locator(...)` matches
+  descendants only, but `<PopoverContent>` is a *sibling* of the wrapper that
+  carries the root selector, and the popover was still closed at that line; the
+  second assertion was a tautology (an element found by `data-cy=X` cannot also
+  have `data-cy=Y`). The DatePicker instance could never prove the point anyway,
+  because its own `dataCalendar` masks a leak through the `??` fallback. Rewritten
+  against `DatetimePicker`, the one unmasked vector: it sets `data`, sets no
+  `dataCalendar`, and does spread `{...props}` into `<Calendar>`. Falsifiability
+  confirmed empirically — routing its root selector through `props.data` makes the
+  count 2 and the test red; restored and green.
+- 2026-08-03: Same gate, documentation findings. `MIGRATION.md` claimed only the
+  deprecated `Formik*` stories were stale (the per-story prop reference lists are
+  too), presented an eight-item per-element list as exhaustive when four props
+  were missing, and stated a "per-element prop wins" precedence that has no
+  instance in the shipped API — no component renders a root `data` and a
+  per-element prop on the same element. Corrected, and the real rule documented:
+  the root selector is never inherited by sub-elements. The new root `data` prop
+  was also absent from the entire story corpus. Added to all five, and the
+  adjacent pre-v5 `Record<string, string>` type lines in those same five files
+  corrected with it, since a correctly typed `data` line beside them would have
+  left two contradicting conventions in one list. The equivalent stale lines in
+  `Modal`, `Header`, `Navigation` and others remain; `MIGRATION.md` now says so
+  rather than claiming the corpus is clean.
+- 2026-08-03: Ladle's production build drops `.stories.mdx` prose entirely — it
+  appears in neither `build/assets/` nor `meta.json`. Pre-existing behaviour, not
+  a branch regression (prose never touched by this branch is absent too), but it
+  means story documentation cannot be verified through the built bundle and the
+  freshness check above does not cover it.

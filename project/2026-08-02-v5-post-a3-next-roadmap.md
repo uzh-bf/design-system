@@ -198,9 +198,10 @@ W1 is ready for orchestrator review only when the diff is limited to the owned
 ### W2 — inventory-backed selector rollout (future, gated on W1)
 
 Superseded in scope by the inventory taken at `2fc8f915`. The migration this
-section anticipated was already complete: no `dataAttributes`, `dataX`, or
-`Record<string, string>` selector form survives anywhere in shipped source, and
-no `.tsx` under `src` contains `data-testid`. `Table` was the last holdout and
+section anticipated was already complete: no deviant selector value shape
+survives anywhere in shipped source — no `dataAttributes` prop name, no
+attribute record, nothing permitting `data-testid`. The named per-element props
+themselves are retained; it is their value shape that is now uniform. `Table` was the last holdout and
 W1 closed it. What W2 actually carries is recorded in
 `project/2026-08-03-v5-w2-selector-rollout-plan.md`:
 

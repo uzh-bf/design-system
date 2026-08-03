@@ -28,6 +28,7 @@ The props for the DatetimePicker component are as follows:
 - @param granularity - The smallest unit displayed by the picker (e.g., 'second', 'minute', 'hour', 'day').
 - @param className - Optional object to override default styling for trigger, input, label, tooltip, and error.
 - @param defaultPopupValue - The default date and time shown when the calendar popup opens.
+- @param data - Data attributes for testing the component root.
 - @param dataTrigger - Data attributes for testing the popover trigger.
 - @param dataCalendar - Data attributes for testing the calendar.
 - @param dataHours - Data attributes for testing the hours input.
@@ -104,13 +105,14 @@ Form Integration Props:
 
 Testing Props:
 
-- dataTrigger?: Record<string, string> - Data attributes for trigger
-- dataCalendar?: Record<string, string> - Data attributes for calendar
-- dataHours?: Record<string, string> - Data attributes for hours input
-- dataMinutes?: Record<string, string> - Data attributes for minutes input
-- dataSeconds?: Record<string, string> - Data attributes for seconds input
-- dataNextMonth?: Record<string, string> - Data attributes for next month
-- dataPreviousMonth?: Record<string, string> - Data attributes for previous month
+- data?: `{ cy?: string; test?: string }` - Test selectors for the component root
+- dataTrigger?: `{ cy?: string; test?: string }` - Test selectors for the trigger
+- dataCalendar?: `{ cy?: string; test?: string }` - Test selectors for the calendar
+- dataHours?: `{ cy?: string; test?: string }` - Test selectors for the hours input
+- dataMinutes?: `{ cy?: string; test?: string }` - Test selectors for the minutes input
+- dataSeconds?: `{ cy?: string; test?: string }` - Test selectors for the seconds input
+- dataNextMonth?: `{ cy?: string; test?: string }` - Test selectors for the next month button
+- dataPreviousMonth?: `{ cy?: string; test?: string }` - Test selectors for the previous month button
 
 Component Structure:
 
