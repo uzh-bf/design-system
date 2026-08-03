@@ -197,18 +197,30 @@ W1 is ready for orchestrator review only when the diff is limited to the owned
 
 ### W2 — inventory-backed selector rollout (future, gated on W1)
 
-Build a current inventory from source, stories, and public examples. Classify
-each interactive component as primary-only, multiple-control, or intentionally
-non-interactive. Retrofit only the approved public set:
+Superseded in scope by the inventory taken at `2fc8f915`. The migration this
+section anticipated was already complete: no `dataAttributes`, `dataX`, or
+`Record<string, string>` selector form survives anywhere in shipped source, and
+no `.tsx` under `src` contains `data-testid`. `Table` was the last holdout and
+W1 closed it. What W2 actually carries is recorded in
+`project/2026-08-03-v5-w2-selector-rollout-plan.md`:
 
-- migrate remaining `dataAttributes`, `dataX`, and `Record<string, string>`
-  forms to the same `{ cy, test }` value shape;
+- add a root `data` prop to `Calendar`, `ColorPicker`, `DatePicker`,
+  `DateRangePicker`, and `DatetimePicker`, which exposed per-element selectors
+  but no way to address their own root (user ruling, 2026-08-03);
+- do not retrofit the 37 components that expose no selector prop; they gain one
+  on demand when a consumer needs it (user ruling, 2026-08-03);
 - retain named sub-element props for Modal, picker popovers, and similar
-  multi-control components only when their values use that shape;
+  multi-control components, whose values already use the correct shape;
+- fix `ColorPicker` rendering `dataHexInput.test` as a misspelled `data-text`;
 - update stories and `MIGRATION.md` with before/after examples;
 - add inventory-backed DOM contracts, not a global search-and-replace;
 - leave deprecated Formik components, passive layout components, and unrelated
   consumer examples out unless a separately approved package policy changes.
+
+The story corpus was larger than W1 recorded: 15 files, not 8. W1 scanned only
+for `data-testid`, which missed record-shape examples written with `data-cy`
+alone and the whole `src/forms/` tree. Five non-deprecated forms stories were in
+scope; the eight deprecated `Formik*` stories stay as they are.
 
 W2 cannot start until W1's location and naming contract is reviewed and merged.
 

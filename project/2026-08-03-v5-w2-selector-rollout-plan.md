@@ -258,6 +258,19 @@ review after verification, before the PR is published.
 - 2026-08-03: Branch and worktree created at `2fc8f915`. Inventory completed and
   verified: 0 deviant shapes, 8 components with per-element props, 37 with none,
   `src/original` confirmed dead. Both scope rulings obtained.
+- 2026-08-03: W2.4, W2.5 and W2.6 complete. Full suite green at 1245 tests: 473
+  smoke plus contracts (three new selector cases) and 772 a11y, unchanged as
+  predicted, so adding the five components to `public-contracts--default` cost
+  no story-id waiver.
+- 2026-08-03: **`pnpm build:ladle` fails open.** A story importing a missing
+  export produced a rollup error, left the previous `build/` in place, and still
+  exited 0, so `pnpm test` ran its whole suite against stale content and
+  reported green. The three new selector tests failed only because they asserted
+  on markup the stale build did not contain; had they been weaker, the slice
+  would have looked verified while proving nothing. Anything trusting a green
+  local run must confirm `build/` actually contains the markup under test. Worth
+  a follow-up slice to make the build exit non-zero. Note `DatetimePicker.tsx`
+  has no default export; the component is `DateTimePicker`, capital T.
 - 2026-08-03: Plan review gate run. Seven findings, all independently verified
   against source and folded in: the `src/forms/` doc corpus was missing entirely
   (5 in-scope files, 8 excluded), `MIGRATION.md` was dropped despite roadmap line

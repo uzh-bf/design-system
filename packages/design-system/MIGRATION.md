@@ -285,16 +285,30 @@ prop and `onChange` callback instead.
 
 v5 standardises the **shape** of every test selector: `{ cy?: string; test?:
 string }`, rendered as `data-cy` and `data-test`. No selector prop accepts
-`data-testid` or an arbitrary attribute record. Some component stories still
-show a `data-testid` form in their examples; those docs are stale and are being
-corrected — the prop types above are authoritative.
+`data-testid` or an arbitrary attribute record. The examples in the component
+stories were corrected to match, except in the deprecated `Formik*` stories,
+which still show the old attribute-record form. The prop types are
+authoritative wherever the two disagree.
 
 Where a composite has one obvious target, the prop is named `data`. Components
-with several independently addressable controls keep their named per-element
-props (`Modal`'s `dataContent`/`dataCloseButton`/`dataPrimaryAction`, the
-pickers' `dataTrigger`/`dataCalendar`/…, `Slider`'s `dataThumb`,
-`Tooltip`'s `dataContent`), which now all carry that same value shape. Many
-composites still expose no selector prop at all; those are unchanged.
+with several independently addressable controls also expose named per-element
+props: `Modal`'s `dataContent`/`dataCloseButton`/`dataPrimaryAction`/
+`dataSecondaryAction`, `Slider`'s `dataThumb`, `Tooltip`'s `dataContent`, and on
+the pickers `dataTrigger`/`dataCalendar` plus the `DatetimePicker`'s
+`dataHours`/`dataMinutes`/`dataSeconds`. Every one carries the same value shape.
+
+`Calendar`, `ColorPicker`, `DatePicker`, `DateRangePicker`, and
+`DatetimePicker` now also accept a root `data` prop, so the component itself is
+addressable alongside its individual controls. This is additive; existing
+per-element props are unchanged. Where both apply to the same element, the
+per-element prop wins. Most components still expose no selector prop at all;
+those are unchanged, and role- or label-based queries remain the way to reach
+them.
+
+`ColorPicker`'s `dataHexInput.test` now renders as `data-test`. It previously
+rendered as a misspelled `data-text`, present since the component shipped, so a
+suite asserting on `[data-text=…]` against the hex input must update that
+selector. The `cy` half was always correct.
 
 `Table` was the last composite still using the old `dataAttributes` name.
 Adopting `data` required freeing that name. **Its row collection moved to
