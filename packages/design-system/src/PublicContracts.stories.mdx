@@ -111,6 +111,14 @@ export const Default = () => (
     <Calendar
       mode="single"
       data={{ cy: 'contract-calendar', test: 'contract-calendar' }}
+      dataNextMonth={{
+        cy: 'contract-calendar-next',
+        test: 'contract-calendar-next',
+      }}
+      dataPreviousMonth={{
+        cy: 'contract-calendar-previous',
+        test: 'contract-calendar-previous',
+      }}
     />
     <ColorPicker
       color="#aa0000"
@@ -150,6 +158,10 @@ export const Default = () => (
         cy: 'contract-daterangepicker',
         test: 'contract-daterangepicker',
       }}
+      dataTrigger={{
+        cy: 'contract-daterangepicker-trigger',
+        test: 'contract-daterangepicker-trigger',
+      }}
     />
     <DateTimePicker
       label="Contract datetime"
@@ -162,6 +174,9 @@ export const Default = () => (
         cy: 'contract-datetimepicker-trigger',
         test: 'contract-datetimepicker-trigger',
       }}
+      dataHours={{ cy: 'contract-datetimepicker-hours' }}
+      dataMinutes={{ cy: 'contract-datetimepicker-minutes' }}
+      dataSeconds={{ cy: 'contract-datetimepicker-seconds' }}
     />
   </div>
 )

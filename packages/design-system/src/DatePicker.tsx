@@ -67,7 +67,7 @@ export interface DatePickerProps {
  * @param isTouched - Whether the date changer has been touched
  * @param className - The optional className object allows you to override the default styling.
  * @param onDateChange - The function to be called when the date is changed (state management)
- * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the component root
+ * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the trigger area. It does not enclose the popover; use dataCalendar to address the open calendar.
  * @param dataTrigger - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the popover trigger
  * @param dataCalendar - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the calendar
  * @param dataNextMonth - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the next month button

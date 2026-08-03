@@ -622,7 +622,7 @@ type DateTimePickerRef = HTMLButtonElement
  * @param granularity - The smallest unit displayed by the picker (e.g., 'second', 'minute', 'hour', 'day').
  * @param className - Optional object to override default styling for trigger, input, label, tooltip, and error.
  * @param defaultPopupValue - The default date and time shown when the calendar popup opens.
- * @param data - Data attributes for testing the component root.
+ * @param data - Data attributes for testing the trigger area. It does not enclose the popover; use dataCalendar to address the open calendar.
  * @param dataTrigger - Data attributes for testing the popover trigger.
  * @param dataCalendar - Data attributes for testing the calendar.
  * @param dataHours - Data attributes for testing the hours input.

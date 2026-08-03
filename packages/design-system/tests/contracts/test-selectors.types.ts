@@ -189,8 +189,13 @@ acceptsCalendarProps({
   data: { 'data-testid': 'calendar' },
 })
 
+// `data` is the supported form and is the one pinned here. Note this pins the
+// object-literal position only: TypeScript exempts hyphenated names from excess
+// property checks in JSX, so `<Calendar data-cy="x" />` still compiles and still
+// reaches the DOM through DayPicker's prop passthrough. It is undocumented
+// rather than rejected, and `data` now takes precedence over it.
 acceptsCalendarProps({
   mode: 'single',
-  // @ts-expect-error Calendar takes `data`; the raw attribute form was removed in v5.
+  // @ts-expect-error Selectors go through `data`, not a raw attribute prop.
   'data-cy': 'calendar',
 })

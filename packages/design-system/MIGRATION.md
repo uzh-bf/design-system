@@ -324,6 +324,23 @@ pickers. Address the popover contents on those through `dataCalendar` (or the
 `DatetimePicker`'s `dataHours`/`dataMinutes`/`dataSeconds`) instead of by
 descending from the root.
 
+The value shape is now exported as `TestSelectors`, so a suite can name it
+instead of retyping the literal:
+
+```ts
+import type { TestSelectors } from '@uzh-bf/design-system'
+
+const pickerSelectors: TestSelectors = {
+  cy: 'date-picker',
+  test: 'date-picker',
+}
+```
+
+`DatePicker` no longer forwards undeclared props through to its underlying
+calendar. Typed callers are unaffected, because `DatePickerProps` never
+accepted them; a JavaScript caller that relied on the pass-through to set a
+`react-day-picker` option must now use a declared prop instead.
+
 Most components still expose no selector prop at all; those are unchanged, and
 role- or label-based queries remain the way to reach them.
 

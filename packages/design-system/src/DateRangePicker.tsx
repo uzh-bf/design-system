@@ -64,7 +64,7 @@ const DATE_FORMAT = 'DD.MM.YYYY'
  * @param tooltip - Tooltip shown next to the label (only when a label is given).
  * @param disabled - Whether the range picker is disabled.
  * @param className - The optional className object allows you to override the default styling.
- * @param data - Data attributes for the component root (e.g. data-test, data-cy).
+ * @param data - Data attributes for the trigger area (e.g. data-test, data-cy). It does not enclose the popover; use dataCalendar to address the open calendar.
  * @param dataTrigger - Data attributes for the popover trigger (e.g. data-test, data-cy).
  * @param dataCalendar - Data attributes for the calendar.
  * @param dataNextMonth - Data attributes for the next-month button.

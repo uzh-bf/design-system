@@ -364,3 +364,42 @@ review after verification, before the PR is published.
 - 2026-08-03: post-gate verification, all green — `pnpm check`, `pnpm lint`,
   `pnpm format:check`, `pnpm build`, `build:ladle` clean, full Playwright suite
   1247 passed (up from 1245: the leak guard was split into three focused tests).
+- 2026-08-03: gate re-run against `911de6bf` returned APPROVE-WITH-FOLLOWUP with
+  eight findings, none blocking, and one of them corrected a claim this branch
+  had made in three places at once. Its own least-confident point was the crux,
+  so it was settled empirically rather than accepted: a scratch `tsc` probe
+  confirms `<Calendar mode="single" data-cy="x" />` still compiles. Removing the
+  declared `'data-cy'`/`'data-test'` props did NOT remove the raw-attribute
+  path — hyphenated names are exempt from excess-property checking in JSX, and
+  the attribute still reaches the DOM through the trailing `{...props}`. The
+  commit message, `MIGRATION.md` and a `@ts-expect-error` all said otherwise.
+  Resolved by making the code match the intent rather than softening the claim:
+  `testAttrs` now omits unset keys, and `{...testAttrs(data)}` moved to last in
+  `calendar.tsx` so the declared prop wins while an unset `data` still lets the
+  raw passthrough work. The fixture comment now says it pins the object-literal
+  position only.
+- 2026-08-03: `testAttrs` emitting both keys unconditionally was a latent trap.
+  A spread-last call would have blanked whatever a preceding spread supplied —
+  the same silent attribute loss the module exists to prevent, and `calendar.tsx`
+  used both spread positions. Omitting unset keys makes placement safe in either
+  position, which the Calendar chevron tests now cover directly.
+- 2026-08-03: the trigger-area correction had been applied to `MIGRATION.md`
+  only. Six further prop-reference sites — the three date-picker JSDoc blocks and
+  their story prop lists — still called it the component root, which is the
+  higher-traffic surface since it is what Ladle renders. All six corrected;
+  `ColorPicker` and `Calendar` legitimately say "component root" and were left.
+- 2026-08-03: `TestSelectors` exported from both `src/index.ts` and
+  `src/primitives.ts`. Without it the type had no public name, so a consumer
+  wanting to hoist a selector object would retype the literal — reproducing
+  outside the package exactly the duplication removed inside it. It is also the
+  cheapest brake on the two-idiom drift while the remaining 49 files wait on the
+  mechanical follow-up.
+- 2026-08-03: six converted render sites had no DOM coverage (the three
+  DatetimePicker time inputs, both Calendar chevrons, the DateRangePicker
+  trigger). The chevrons matter most because they spread selectors AFTER the
+  forwarded `{...props}`. Added to the contract story and pinned by two new
+  tests, taking the selector spec from 7 to 9 cases.
+- 2026-08-03: `MIGRATION.md` now also records that `DatePicker` no longer
+  forwards undeclared props to its calendar. Typed callers were never able to
+  pass them, but an untyped JavaScript caller relying on the pass-through to
+  reach a react-day-picker option loses it silently, which belongs in the guide.

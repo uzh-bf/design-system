@@ -28,7 +28,7 @@ The props for the DatetimePicker component are as follows:
 - @param granularity - The smallest unit displayed by the picker (e.g., 'second', 'minute', 'hour', 'day').
 - @param className - Optional object to override default styling for trigger, input, label, tooltip, and error.
 - @param defaultPopupValue - The default date and time shown when the calendar popup opens.
-- @param data - Data attributes for testing the component root.
+- @param data - Data attributes for testing the trigger area. It does not enclose the popover; use dataCalendar to address the open calendar.
 - @param dataTrigger - Data attributes for testing the popover trigger.
 - @param dataCalendar - Data attributes for testing the calendar.
 - @param dataHours - Data attributes for testing the hours input.
@@ -105,7 +105,7 @@ Form Integration Props:
 
 Testing Props:
 
-- data?: `{ cy?: string; test?: string }` - Test selectors for the component root
+- data?: `{ cy?: string; test?: string }` - Test selectors for the trigger area (does not enclose the popover)
 - dataTrigger?: `{ cy?: string; test?: string }` - Test selectors for the trigger
 - dataCalendar?: `{ cy?: string; test?: string }` - Test selectors for the calendar
 - dataHours?: `{ cy?: string; test?: string }` - Test selectors for the hours input

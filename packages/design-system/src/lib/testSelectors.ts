@@ -21,12 +21,15 @@ export type TestSelectors = {
  * <div {...testAttrs(data)} />
  * ```
  *
- * Both keys are always present, so an unset selector renders no attribute
- * rather than an empty one, and JSX spread precedence stays predictable.
+ * Only keys that carry a value are emitted, so the result is safe to spread in
+ * any position: an unset selector cannot blank an attribute that a neighbouring
+ * spread supplied. Emitting both keys unconditionally would make a spread-last
+ * call destructive, which is the same silent attribute loss this module exists
+ * to prevent.
  */
 export function testAttrs(data?: TestSelectors) {
   return {
-    'data-cy': data?.cy,
-    'data-test': data?.test,
+    ...(data?.cy !== undefined && { 'data-cy': data.cy }),
+    ...(data?.test !== undefined && { 'data-test': data.test }),
   }
 }

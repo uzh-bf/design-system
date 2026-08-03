@@ -103,9 +103,13 @@ test.describe('selector contract', () => {
 
     // DatetimePicker sets `data` and no `dataCalendar`, so nothing else can
     // account for a second match: if the root selector ever reaches <Calendar>
-    // as well, this count becomes 2. Both pickers used to forward a residual
-    // `{...props}` into <Calendar>, which is exactly how that would happen;
-    // the spreads are gone, and this pins them staying gone.
+    // as well, this count becomes 2.
+    //
+    // Be precise about what this does and does not catch. Re-adding a residual
+    // `{...props}` spread into <Calendar> alone does NOT trip it, because `data`
+    // is destructured out of the rest. It fails only on the pair: a rest spread
+    // reaching <Calendar> AND `data` left undestructured. That pair was
+    // reproduced against a clean rebuild and gave `Expected: 1, Received: 2`.
     const root = page.locator('[data-cy="contract-datetimepicker"]')
     await expect(root).toHaveCount(1)
 
@@ -159,6 +163,45 @@ test.describe('selector contract', () => {
     await page.locator('[data-cy="contract-colorpicker-trigger"]').click()
     const colorPickerRoot = page.locator('[data-cy="contract-colorpicker"]')
     await expect(colorPickerRoot.getByRole('dialog')).toHaveCount(1)
+  })
+
+  test('renders the per-element selectors that need no popover', async ({
+    page,
+  }) => {
+    await gotoStory(page, story)
+
+    // The Calendar chevrons spread their selectors AFTER the forwarded
+    // `{...props}`, which is the placement most likely to be dropped by a
+    // refactor, and they are reachable without opening anything.
+    for (const selector of [
+      'contract-calendar-next',
+      'contract-calendar-previous',
+      'contract-daterangepicker-trigger',
+      'contract-datepicker-trigger',
+      'contract-datetimepicker-trigger',
+      'contract-colorpicker-trigger',
+    ] as const) {
+      const element = page.locator(`[data-cy="${selector}"]`)
+      await expect(element).toHaveCount(1)
+      await expect(element).toHaveAttribute('data-test', selector)
+    }
+  })
+
+  test('renders the DatetimePicker time-input selectors', async ({ page }) => {
+    await gotoStory(page, story)
+
+    // These reach the DOM through TimePickerInput's own rest spread into
+    // <Input>, so they are the longest forwarding chain in the contract.
+    await page.locator('[data-cy="contract-datetimepicker-trigger"]').click()
+    await expect(page.getByRole('dialog')).toBeVisible()
+
+    for (const selector of [
+      'contract-datetimepicker-hours',
+      'contract-datetimepicker-minutes',
+      'contract-datetimepicker-seconds',
+    ] as const) {
+      await expect(page.locator(`[data-cy="${selector}"]`)).toHaveCount(1)
+    }
   })
 
   test('renders the ColorPicker hex input selector as data-test', async ({

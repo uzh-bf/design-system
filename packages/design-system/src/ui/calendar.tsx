@@ -34,7 +34,6 @@ function Calendar({
 
   return (
     <DayPicker
-      {...testAttrs(data)}
       showOutsideDays={showOutsideDays}
       className={cn(
         'group/calendar border-border bg-background text-foreground w-fit min-w-[280px] rounded-lg border p-4 shadow-lg [--cell-size:34px] in-data-[slot=card-content]:bg-transparent',
@@ -186,6 +185,10 @@ function Calendar({
         ...components,
       }}
       {...props}
+      // Last, so the declared `data` prop wins over a raw data-cy/data-test
+      // arriving through {...props}. testAttrs omits unset keys, so a Calendar
+      // without `data` still lets that raw passthrough reach the DOM.
+      {...testAttrs(data)}
     />
   )
 }
