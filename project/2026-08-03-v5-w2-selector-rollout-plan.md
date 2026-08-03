@@ -307,8 +307,16 @@ review after verification, before the PR is published.
   left two contradicting conventions in one list. The equivalent stale lines in
   `Modal`, `Header`, `Navigation` and others remain; `MIGRATION.md` now says so
   rather than claiming the corpus is clean.
-- 2026-08-03: Ladle's production build drops `.stories.mdx` prose entirely — it
-  appears in neither `build/assets/` nor `meta.json`. Pre-existing behaviour, not
-  a branch regression (prose never touched by this branch is absent too), but it
-  means story documentation cannot be verified through the built bundle and the
-  freshness check above does not cover it.
+- 2026-08-03: which parts of a `.stories.mdx` actually reach the rendered page.
+  An earlier note here claimed Ladle drops story prose wholesale; that was wrong,
+  and the grep that suggested it had picked a phrase living in the dropped half.
+  The real split: text inside the `{/* START README */}` `<div>` compiles into the
+  story chunk, while everything inside the `{/* AI_DOCUMENTATION ... */}` comment
+  is an MDX comment and never renders. Verified per file against `build/assets/`:
+  the new root `data` entries for `ColorPicker`, `DatePicker` and `DatetimePicker`
+  sit in the README `<div>` and are present in their built chunks; `Calendar` and
+  `DateRangePicker` have prose-only READMEs with no prop list at all, so their
+  `data` entries live in the AI_DOCUMENTATION block and render nowhere. That is
+  the right home for them given those two files document no other prop in the
+  README, but it means the Ladle page for those two does not advertise the new
+  prop. Left as is rather than introducing a prop list those files never had.
