@@ -45,6 +45,10 @@ export interface ColorPickerProps {
   colorTooltip?: string
   error?: string
   isTouched?: boolean
+  data?: {
+    cy?: string
+    test?: string
+  }
   dataTrigger?: {
     cy?: string
     test?: string
@@ -89,6 +93,7 @@ const POPOVER_PLACEMENT = {
  * @param tooltip - Optional tooltip text or component to display additional information.
  * @param error - An error message to display if the color picker has an error.
  * @param isTouched - Indicates whether the color picker has been touched (used for error display).
+ * @param data - Optional data attributes for the component root (for testing purposes).
  * @param dataTrigger - Optional data attributes for the trigger icon (for testing purposes).
  * @param dataHexInput - Optional data attributes for the hex input field (for testing purposes).
  * @param dataSubmit - Optional data attributes for the submit button (for testing purposes).
@@ -113,6 +118,7 @@ export function ColorPicker({
   colorTooltip,
   error,
   isTouched,
+  data,
   dataTrigger,
   dataHexInput,
   dataSubmit,
@@ -138,6 +144,8 @@ export function ColorPicker({
         labelType === 'small' && 'flex-col',
         className?.root
       )}
+      data-cy={data?.cy}
+      data-test={data?.test}
     >
       {label && (
         <FormLabel
@@ -250,7 +258,7 @@ export function ColorPicker({
                     color={newColor}
                     onChange={setNewColor}
                     data-cy={dataHexInput?.cy}
-                    data-text={dataHexInput?.test}
+                    data-test={dataHexInput?.test}
                   />
                 </div>
                 <Button

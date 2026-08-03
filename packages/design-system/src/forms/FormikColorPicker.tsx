@@ -20,6 +20,10 @@ export interface FormikColorPickerProps {
   colorLabel: string
   triggerAriaLabel: string
   colorTooltip?: string
+  data?: {
+    cy?: string
+    test?: string
+  }
   dataTrigger?: {
     cy?: string
     test?: string
@@ -52,6 +56,7 @@ export interface FormikColorPickerProps {
  * @param colorLabel - The label for the color input field.
  * @param triggerAriaLabel - Accessible name for the icon-only trigger button. Required, since the trigger has no visible text.
  * @param colorTooltip - Optional tooltip for the color input field.
+ * @param data - Optional data attributes for the component root (for testing purposes).
  * @param dataTrigger - Optional data attributes for the trigger icon (for testing purposes).
  * @param dataHexInput - Optional data attributes for the hex input field (for testing purposes).
  * @returns A ColorPicker component that integrates with Formik for form handling.
@@ -75,6 +80,7 @@ export function FormikColorPicker({
   colorLabel,
   triggerAriaLabel,
   colorTooltip,
+  data,
   dataTrigger,
   dataHexInput,
   dataSubmit,
@@ -108,6 +114,7 @@ export function FormikColorPicker({
       colorTooltip={colorTooltip}
       error={meta.error}
       isTouched={meta.touched}
+      data={data}
       dataTrigger={dataTrigger}
       dataHexInput={dataHexInput}
       dataSubmit={dataSubmit}

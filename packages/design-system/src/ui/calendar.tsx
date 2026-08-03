@@ -19,11 +19,13 @@ function Calendar({
   buttonVariant = 'ghost',
   formatters,
   components,
+  data,
   dataPreviousMonth,
   dataNextMonth,
   ...props
 }: React.ComponentProps<typeof DayPicker> & {
   buttonVariant?: React.ComponentProps<typeof Button>['variant']
+  data?: { cy?: string; test?: string }
   dataPreviousMonth?: { cy?: string; test?: string }
   dataNextMonth?: { cy?: string; test?: string }
 }) {
@@ -31,6 +33,8 @@ function Calendar({
 
   return (
     <DayPicker
+      data-cy={data?.cy}
+      data-test={data?.test}
       showOutsideDays={showOutsideDays}
       className={cn(
         'group/calendar border-border bg-background text-foreground w-fit min-w-[280px] rounded-lg border p-4 shadow-lg [--cell-size:34px] in-data-[slot=card-content]:bg-transparent',

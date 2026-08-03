@@ -36,6 +36,10 @@ export interface DateRangePickerProps {
   tooltip?: string | React.ReactNode
   disabled?: boolean
   className?: DateRangePickerClassName
+  data?: {
+    cy?: string
+    test?: string
+  }
   dataTrigger?: {
     cy?: string
     test?: string
@@ -74,6 +78,7 @@ const DATE_FORMAT = 'DD.MM.YYYY'
  * @param tooltip - Tooltip shown next to the label (only when a label is given).
  * @param disabled - Whether the range picker is disabled.
  * @param className - The optional className object allows you to override the default styling.
+ * @param data - Data attributes for the component root (e.g. data-test, data-cy).
  * @param dataTrigger - Data attributes for the popover trigger (e.g. data-test, data-cy).
  * @param dataCalendar - Data attributes for the calendar.
  * @param dataNextMonth - Data attributes for the next-month button.
@@ -95,6 +100,7 @@ export function DateRangePicker({
   tooltip,
   disabled = false,
   className,
+  data,
   dataTrigger,
   dataCalendar,
   dataNextMonth,
@@ -113,6 +119,8 @@ export function DateRangePicker({
           labelType === 'small' && 'flex-col',
           className?.root
         )}
+        data-cy={data?.cy}
+        data-test={data?.test}
       >
         {label && (
           <FormLabel

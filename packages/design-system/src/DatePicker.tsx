@@ -40,6 +40,10 @@ export interface DatePickerProps {
   hideError?: boolean
   isTouched?: boolean
   className?: DatePickerClassName
+  data?: {
+    cy?: string
+    test?: string
+  }
   dataTrigger?: {
     cy?: string
     test?: string
@@ -77,6 +81,7 @@ export interface DatePickerProps {
  * @param isTouched - Whether the date changer has been touched
  * @param className - The optional className object allows you to override the default styling.
  * @param onDateChange - The function to be called when the date is changed (state management)
+ * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the component root
  * @param dataTrigger - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the popover trigger
  * @param dataCalendar - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the calendar
  * @param dataNextMonth - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the next month button
@@ -100,6 +105,7 @@ export function DatePicker({
   hideError = false,
   isTouched = false,
   className,
+  data,
   dataTrigger,
   dataCalendar,
   dataNextMonth,
@@ -114,6 +120,8 @@ export function DatePicker({
           labelType === 'small' && 'flex-col',
           className?.trigger
         )}
+        data-cy={data?.cy}
+        data-test={data?.test}
       >
         {label && (
           <FormLabel

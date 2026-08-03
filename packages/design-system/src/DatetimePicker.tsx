@@ -582,6 +582,7 @@ type DateTimePickerProps = {
    * Show the default month and time when popup the calendar. Default is the current Date().
    **/
   defaultPopupValue?: Date
+  data?: { cy?: string; test?: string }
   dataTrigger?: { cy?: string; test?: string }
   dataCalendar?: { cy?: string; test?: string }
   dataHours?: { cy?: string; test?: string }
@@ -623,6 +624,7 @@ type DateTimePickerRef = HTMLButtonElement
  * @param granularity - The smallest unit displayed by the picker (e.g., 'second', 'minute', 'hour', 'day').
  * @param className - Optional object to override default styling for trigger, input, label, tooltip, and error.
  * @param defaultPopupValue - The default date and time shown when the calendar popup opens.
+ * @param data - Data attributes for testing the component root.
  * @param dataTrigger - Data attributes for testing the popover trigger.
  * @param dataCalendar - Data attributes for testing the calendar.
  * @param dataHours - Data attributes for testing the hours input.
@@ -667,6 +669,7 @@ const DateTimePicker = ({
   required = false,
   tooltip,
   ref,
+  data,
   ...props
 }: DateTimePickerProps) => {
   const [month, setMonth] = React.useState<Date>(value ?? defaultPopupValue)
@@ -740,6 +743,8 @@ const DateTimePicker = ({
           labelType === 'small' && 'flex-col',
           className?.trigger
         )}
+        data-cy={data?.cy}
+        data-test={data?.test}
       >
         {label && (
           <FormLabel
