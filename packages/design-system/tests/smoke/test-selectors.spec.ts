@@ -71,4 +71,72 @@ test.describe('selector contract', () => {
       await expect(root).not.toHaveAttribute('data-test', /.*/)
     }
   })
+
+  test('renders root selectors on the picker and calendar roots', async ({
+    page,
+  }) => {
+    await gotoStory(page, story)
+
+    // Four of the five are popover-based. Their root selector sits on the
+    // wrapper outside the popover content, so it must be present and visible
+    // without opening anything.
+    const roots = [
+      'contract-calendar',
+      'contract-colorpicker',
+      'contract-datepicker',
+      'contract-daterangepicker',
+      'contract-datetimepicker',
+    ] as const
+
+    for (const selector of roots) {
+      const root = page.locator(`[data-cy="${selector}"]`)
+      await expect(root).toHaveCount(1)
+      await expect(root).toHaveAttribute('data-test', selector)
+      await expect(root).toBeVisible()
+    }
+  })
+
+  test('keeps the picker root selector off the calendar in the popover', async ({
+    page,
+  }) => {
+    await gotoStory(page, story)
+
+    // The root `data` is destructured in DatePicker, so it must not reach the
+    // Calendar through the residual `{...props}` spread. If it leaks, the
+    // selector renders inside the popover instead of on the root.
+    const root = page.locator('[data-cy="contract-datepicker"]')
+    await expect(root).toHaveCount(1)
+    await expect(root.locator('[data-cy="contract-datepicker"]')).toHaveCount(0)
+
+    // Opening the popover shows the per-element `dataCalendar` selector, which
+    // still wins on the calendar it names. This is the precedence guard: an
+    // explicit data-cy attribute beats the root prop on that element, and the
+    // root prop must not overwrite it.
+    await root.getByRole('button').first().click()
+    const calendar = page.locator('[data-cy="contract-datepicker-calendar"]')
+    await expect(calendar).toHaveCount(1)
+    await expect(calendar).toHaveAttribute(
+      'data-test',
+      'contract-datepicker-calendar'
+    )
+    await expect(calendar).not.toHaveAttribute('data-cy', 'contract-datepicker')
+  })
+
+  test('renders the ColorPicker hex input selector as data-test', async ({
+    page,
+  }) => {
+    await gotoStory(page, story)
+
+    // Regression guard for the misspelled `data-text` that shipped from
+    // f7cd6d65: the value is typed correctly but never reached the DOM.
+    const trigger = page.locator('[data-cy="contract-colorpicker"]')
+    await trigger
+      .getByRole('button', { name: 'Contract colour picker' })
+      .click()
+
+    const hexInput = page.locator('[data-cy="contract-hex-input"]')
+    await expect(hexInput).toHaveCount(1)
+    await expect(hexInput).toHaveAttribute('data-test', 'contract-hex-input')
+    await expect(hexInput).not.toHaveAttribute('data-text', /.*/)
+  })
 })

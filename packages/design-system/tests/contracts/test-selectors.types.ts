@@ -1,4 +1,8 @@
 import type {
+  ColorPickerProps,
+  DatePickerProps,
+  DateRangePickerProps,
+  DateTimePickerProps,
   TableProps,
   WorkflowProgressProps,
   WorkflowProps,
@@ -86,4 +90,62 @@ acceptsWorkflowProgressProps({
     { title: 'Step', progress: 0.5, data: { 'data-testid': 'step' } },
   ],
   onClick: () => undefined,
+})
+
+// The five components that previously exposed per-element selectors but no way
+// to address their own root. The root prop carries the same value shape, and
+// the per-element props keep working alongside it.
+
+function acceptsDatePickerProps(props: DatePickerProps) {
+  return props
+}
+
+acceptsDatePickerProps({
+  date: undefined,
+  onDateChange: () => undefined,
+  data: { cy: 'picker', test: 'picker' },
+  dataTrigger: { cy: 'trigger' },
+  dataCalendar: { test: 'calendar' },
+})
+
+acceptsDatePickerProps({
+  date: undefined,
+  onDateChange: () => undefined,
+  // @ts-expect-error Root selectors use the `{ cy, test }` shape only.
+  data: { 'data-testid': 'picker' },
+})
+
+function acceptsDateRangePickerProps(props: DateRangePickerProps) {
+  return props
+}
+
+acceptsDateRangePickerProps({
+  range: undefined,
+  onRangeChange: () => undefined,
+  data: { cy: 'range' },
+})
+
+function acceptsDatetimePickerProps(props: DateTimePickerProps) {
+  return props
+}
+
+acceptsDatetimePickerProps({ data: { cy: 'datetime', test: 'datetime' } })
+
+acceptsDatetimePickerProps({
+  // @ts-expect-error Root selectors are an object, not a bare string.
+  data: 'datetime',
+})
+
+function acceptsColorPickerProps(props: ColorPickerProps) {
+  return props
+}
+
+acceptsColorPickerProps({
+  color: '#aa0000',
+  onSubmit: () => undefined,
+  submitText: 'Submit',
+  colorLabel: 'Colour',
+  triggerAriaLabel: 'Colour picker',
+  data: { cy: 'colorpicker' },
+  dataHexInput: { cy: 'hex', test: 'hex' },
 })

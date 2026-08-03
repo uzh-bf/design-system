@@ -1,8 +1,13 @@
 import Button from './Button'
+import ColorPicker from './ColorPicker'
+import DatePicker from './DatePicker'
+import DateRangePicker from './DateRangePicker'
+import { DateTimePicker } from './DatetimePicker'
 import Navigation from './Navigation'
 import Progress from './Progress'
 import Table from './Table'
 import Workflow from './Workflow'
+import { Calendar } from './ui/calendar'
 
 {/* START README */}
 <div className="prose prose-sm max-w-none">
@@ -11,6 +16,10 @@ and Progress with representative native, ARIA, and data attributes. It also
 pins the v5 selector contract: `Table` carries its selectors on the composite
 root through `data`, while `Workflow` and `WorkflowProgress` carry per-step
 selectors on each step's own button, including the tooltip and disabled paths.
+`Calendar`, `ColorPicker`, `DatePicker`, `DateRangePicker` and `DatetimePicker`
+pin the root `data` selector alongside their per-element props, proving the root
+stays addressable while the popover is closed and that a per-element selector
+still wins on the element it names.
 </div>
 {/* END README */}
 
@@ -98,6 +107,49 @@ export const Default = () => (
           },
         },
       ]}
+    />
+    <Calendar
+      mode="single"
+      data={{ cy: 'contract-calendar', test: 'contract-calendar' }}
+    />
+    <ColorPicker
+      color="#aa0000"
+      onSubmit={() => undefined}
+      submitText="Contract submit"
+      colorLabel="Contract colour"
+      triggerAriaLabel="Contract colour picker"
+      data={{ cy: 'contract-colorpicker', test: 'contract-colorpicker' }}
+      dataHexInput={{
+        cy: 'contract-hex-input',
+        test: 'contract-hex-input',
+      }}
+    />
+    <DatePicker
+      label="Contract date"
+      date={undefined}
+      onDateChange={() => undefined}
+      data={{ cy: 'contract-datepicker', test: 'contract-datepicker' }}
+      dataCalendar={{
+        cy: 'contract-datepicker-calendar',
+        test: 'contract-datepicker-calendar',
+      }}
+    />
+    <DateRangePicker
+      label="Contract range"
+      range={undefined}
+      onRangeChange={() => undefined}
+      data={{
+        cy: 'contract-daterangepicker',
+        test: 'contract-daterangepicker',
+      }}
+    />
+    <DateTimePicker
+      label="Contract datetime"
+      onChange={() => undefined}
+      data={{
+        cy: 'contract-datetimepicker',
+        test: 'contract-datetimepicker',
+      }}
     />
   </div>
 )

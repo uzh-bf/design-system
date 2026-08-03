@@ -22,19 +22,27 @@ function Calendar({
   data,
   dataPreviousMonth,
   dataNextMonth,
+  'data-cy': dataCyAttribute,
+  'data-test': dataTestAttribute,
   ...props
 }: React.ComponentProps<typeof DayPicker> & {
   buttonVariant?: React.ComponentProps<typeof Button>['variant']
   data?: { cy?: string; test?: string }
   dataPreviousMonth?: { cy?: string; test?: string }
   dataNextMonth?: { cy?: string; test?: string }
+  'data-cy'?: string
+  'data-test'?: string
 }) {
   const defaultClassNames = getDefaultClassNames()
 
+  // An explicit data-cy/data-test attribute wins over the root data prop, but
+  // only when it carries a value. Callers such as DatePicker always pass the
+  // key, so relying on JSX spread precedence would let an undefined
+  // dataCalendar blank a root selector that was set.
   return (
     <DayPicker
-      data-cy={data?.cy}
-      data-test={data?.test}
+      data-cy={dataCyAttribute ?? data?.cy}
+      data-test={dataTestAttribute ?? data?.test}
       showOutsideDays={showOutsideDays}
       className={cn(
         'group/calendar border-border bg-background text-foreground w-fit min-w-[280px] rounded-lg border p-4 shadow-lg [--cell-size:34px] in-data-[slot=card-content]:bg-transparent',
