@@ -4,6 +4,7 @@ import { IconDefinition } from '@fortawesome/free-regular-svg-icons'
 import { useField } from 'formik'
 import React, { useEffect } from 'react'
 import ColorPicker, { ColorPickerClassName } from '../ColorPicker'
+import { type TestSelectors } from '../lib/testSelectors'
 
 export interface FormikColorPickerProps {
   name: string
@@ -20,22 +21,10 @@ export interface FormikColorPickerProps {
   colorLabel: string
   triggerAriaLabel: string
   colorTooltip?: string
-  data?: {
-    cy?: string
-    test?: string
-  }
-  dataTrigger?: {
-    cy?: string
-    test?: string
-  }
-  dataHexInput?: {
-    cy?: string
-    test?: string
-  }
-  dataSubmit?: {
-    cy?: string
-    test?: string
-  }
+  data?: TestSelectors
+  dataTrigger?: TestSelectors
+  dataHexInput?: TestSelectors
+  dataSubmit?: TestSelectors
   className?: ColorPickerClassName
 }
 

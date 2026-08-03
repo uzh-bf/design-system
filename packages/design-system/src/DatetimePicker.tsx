@@ -12,6 +12,7 @@ import { useImperativeHandle } from 'react'
 import { DayPicker, DayPickerProps } from 'react-day-picker'
 import { twMerge } from 'tailwind-merge'
 import FormLabel from './FormLabel'
+import { testAttrs, type TestSelectors } from './lib/testSelectors'
 import { cn } from './lib/utils'
 import Tooltip from './Tooltip'
 import { Button } from './ui/button'
@@ -427,9 +428,9 @@ interface TimePickerProps {
    * Default is 'second'.
    * */
   granularity?: Granularity
-  dataHours?: { cy?: string; test?: string }
-  dataMinutes?: { cy?: string; test?: string }
-  dataSeconds?: { cy?: string; test?: string }
+  dataHours?: TestSelectors
+  dataMinutes?: TestSelectors
+  dataSeconds?: TestSelectors
 }
 
 interface TimePickerRef {
@@ -485,8 +486,7 @@ const TimePicker = React.forwardRef<TimePickerRef, TimePickerProps>(
           period={period}
           onRightFocus={() => minuteRef?.current?.focus()}
           className="h-8 text-sm"
-          data-cy={dataHours?.cy}
-          data-test={dataHours?.test}
+          {...testAttrs(dataHours)}
         />
         {(granularity === 'minute' || granularity === 'second') && (
           <>
@@ -500,8 +500,7 @@ const TimePicker = React.forwardRef<TimePickerRef, TimePickerProps>(
               onLeftFocus={() => hourRef?.current?.focus()}
               onRightFocus={() => secondRef?.current?.focus()}
               className="h-8 text-sm"
-              data-cy={dataMinutes?.cy}
-              data-test={dataMinutes?.test}
+              {...testAttrs(dataMinutes)}
             />
           </>
         )}
@@ -517,8 +516,7 @@ const TimePicker = React.forwardRef<TimePickerRef, TimePickerProps>(
               onLeftFocus={() => minuteRef?.current?.focus()}
               onRightFocus={() => periodRef?.current?.focus()}
               className="h-8 text-sm"
-              data-cy={dataSeconds?.cy}
-              data-test={dataSeconds?.test}
+              {...testAttrs(dataSeconds)}
             />
           </>
         )}
@@ -582,14 +580,14 @@ type DateTimePickerProps = {
    * Show the default month and time when popup the calendar. Default is the current Date().
    **/
   defaultPopupValue?: Date
-  data?: { cy?: string; test?: string }
-  dataTrigger?: { cy?: string; test?: string }
-  dataCalendar?: { cy?: string; test?: string }
-  dataHours?: { cy?: string; test?: string }
-  dataMinutes?: { cy?: string; test?: string }
-  dataSeconds?: { cy?: string; test?: string }
-  dataNextMonth?: { cy?: string; test?: string }
-  dataPreviousMonth?: { cy?: string; test?: string }
+  data?: TestSelectors
+  dataTrigger?: TestSelectors
+  dataCalendar?: TestSelectors
+  dataHours?: TestSelectors
+  dataMinutes?: TestSelectors
+  dataSeconds?: TestSelectors
+  dataNextMonth?: TestSelectors
+  dataPreviousMonth?: TestSelectors
   error?: string
   hideError?: boolean
   isTouched?: boolean
@@ -743,8 +741,7 @@ const DateTimePicker = ({
           labelType === 'small' && 'flex-col',
           className?.trigger
         )}
-        data-cy={data?.cy}
-        data-test={data?.test}
+        {...testAttrs(data)}
       >
         {label && (
           <FormLabel
@@ -773,8 +770,7 @@ const DateTimePicker = ({
                 className?.input
               )}
               ref={ref}
-              data-cy={props.dataTrigger?.cy}
-              data-test={props.dataTrigger?.test}
+              {...testAttrs(props.dataTrigger)}
             >
               <FontAwesomeIcon
                 icon={faCalendar}
@@ -852,14 +848,15 @@ const DateTimePicker = ({
             locale={locale}
             dataNextMonth={props.dataNextMonth}
             dataPreviousMonth={props.dataPreviousMonth}
-            data-cy={props.dataCalendar?.cy}
-            data-test={props.dataCalendar?.test}
+            data={props.dataCalendar}
             className={
               granularity !== 'day'
                 ? 'rounded-none border-0 shadow-none'
                 : undefined
             }
-            {...props}
+            weekStartsOn={props.weekStartsOn}
+            showWeekNumber={props.showWeekNumber}
+            showOutsideDays={props.showOutsideDays}
           />
           {granularity !== 'day' && (
             <div className="border-t border-[#E0E0E0] bg-white p-3">

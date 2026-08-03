@@ -5,10 +5,5 @@
     "noEmit": true,
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.types.tsbuildinfo"
   },
-  "include": [
-    "tests/contracts/public-contracts.types.ts",
-    "tests/contracts/direct-control-refs.types.ts",
-    "tests/contracts/composite-refs.types.ts",
-    "tests/contracts/test-selectors.types.ts"
-  ]
+  "include": ["tests/contracts/**/*.types.ts"]
 }

@@ -8,6 +8,7 @@ import { DayPicker, type DateRange } from 'react-day-picker'
 import { twMerge } from 'tailwind-merge'
 
 import FormLabel from './FormLabel'
+import { testAttrs, type TestSelectors } from './lib/testSelectors'
 import { Button } from './ui/button'
 import { Calendar } from './ui/calendar'
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover'
@@ -36,26 +37,11 @@ export interface DateRangePickerProps {
   tooltip?: string | React.ReactNode
   disabled?: boolean
   className?: DateRangePickerClassName
-  data?: {
-    cy?: string
-    test?: string
-  }
-  dataTrigger?: {
-    cy?: string
-    test?: string
-  }
-  dataCalendar?: {
-    cy?: string
-    test?: string
-  }
-  dataNextMonth?: {
-    cy?: string
-    test?: string
-  }
-  dataPreviousMonth?: {
-    cy?: string
-    test?: string
-  }
+  data?: TestSelectors
+  dataTrigger?: TestSelectors
+  dataCalendar?: TestSelectors
+  dataNextMonth?: TestSelectors
+  dataPreviousMonth?: TestSelectors
 }
 
 const DATE_FORMAT = 'DD.MM.YYYY'
@@ -119,8 +105,7 @@ export function DateRangePicker({
           labelType === 'small' && 'flex-col',
           className?.root
         )}
-        data-cy={data?.cy}
-        data-test={data?.test}
+        {...testAttrs(data)}
       >
         {label && (
           <FormLabel
@@ -144,8 +129,7 @@ export function DateRangePicker({
               !range?.from && 'text-[#666666]',
               className?.trigger
             )}
-            data-cy={dataTrigger?.cy}
-            data-test={dataTrigger?.test}
+            {...testAttrs(dataTrigger)}
           >
             <FontAwesomeIcon
               icon={faCalendar}
@@ -168,8 +152,7 @@ export function DateRangePicker({
           selected={range}
           defaultMonth={range?.from ?? range?.to}
           onSelect={onRangeChange}
-          data-cy={dataCalendar?.cy}
-          data-test={dataCalendar?.test}
+          data={dataCalendar}
           dataNextMonth={dataNextMonth}
           dataPreviousMonth={dataPreviousMonth}
         />

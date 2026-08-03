@@ -7,7 +7,7 @@ import Navigation from './Navigation'
 import Progress from './Progress'
 import Table from './Table'
 import Workflow from './Workflow'
-import { Calendar } from './ui/calendar'
+import { Calendar } from './Calendar'
 
 {/* START README */}
 <div className="prose prose-sm max-w-none">
@@ -119,6 +119,10 @@ export const Default = () => (
       colorLabel="Contract colour"
       triggerAriaLabel="Contract colour picker"
       data={{ cy: 'contract-colorpicker', test: 'contract-colorpicker' }}
+      dataTrigger={{
+        cy: 'contract-colorpicker-trigger',
+        test: 'contract-colorpicker-trigger',
+      }}
       dataHexInput={{
         cy: 'contract-hex-input',
         test: 'contract-hex-input',
@@ -129,6 +133,10 @@ export const Default = () => (
       date={undefined}
       onDateChange={() => undefined}
       data={{ cy: 'contract-datepicker', test: 'contract-datepicker' }}
+      dataTrigger={{
+        cy: 'contract-datepicker-trigger',
+        test: 'contract-datepicker-trigger',
+      }}
       dataCalendar={{
         cy: 'contract-datepicker-calendar',
         test: 'contract-datepicker-calendar',
@@ -149,6 +157,10 @@ export const Default = () => (
       data={{
         cy: 'contract-datetimepicker',
         test: 'contract-datetimepicker',
+      }}
+      dataTrigger={{
+        cy: 'contract-datetimepicker-trigger',
+        test: 'contract-datetimepicker-trigger',
       }}
     />
   </div>

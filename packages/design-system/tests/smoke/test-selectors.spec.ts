@@ -101,37 +101,64 @@ test.describe('selector contract', () => {
   }) => {
     await gotoStory(page, story)
 
-    // DatetimePicker is the one unmasked leak vector: it sets `data` with no
-    // `dataCalendar` and does spread the residual `{...props}` into <Calendar>.
-    // If the `data` destructuring is ever dropped, the root selector reaches
-    // the calendar too and the count below becomes 2. The DatePicker instance
-    // cannot prove this, because its own `dataCalendar` would mask a leak.
+    // DatetimePicker sets `data` and no `dataCalendar`, so nothing else can
+    // account for a second match: if the root selector ever reaches <Calendar>
+    // as well, this count becomes 2. Both pickers used to forward a residual
+    // `{...props}` into <Calendar>, which is exactly how that would happen;
+    // the spreads are gone, and this pins them staying gone.
     const root = page.locator('[data-cy="contract-datetimepicker"]')
     await expect(root).toHaveCount(1)
 
     // Assert the popover actually mounted before counting. A trigger locator
     // that silently fails to open would otherwise leave the count at 1 and pass
     // the leak guard vacuously.
-    await root.getByRole('button').first().click()
+    await page.locator('[data-cy="contract-datetimepicker-trigger"]').click()
     await expect(page.getByRole('dialog')).toBeVisible()
     await expect(root).toHaveCount(1)
+  })
 
-    // The per-element `dataCalendar` still names the calendar on the picker
-    // that sets one, so the popover carries its own selector rather than the
-    // root's.
-    // Dismiss explicitly: an outside click on the next trigger would be
-    // swallowed closing this popover instead of opening the next one.
-    await page.keyboard.press('Escape')
-    await expect(page.getByRole('dialog')).toHaveCount(0)
+  test('names the calendar through dataCalendar, not the root selector', async ({
+    page,
+  }) => {
+    await gotoStory(page, story)
 
-    const datePickerRoot = page.locator('[data-cy="contract-datepicker"]')
-    await datePickerRoot.getByRole('button').first().click()
+    await page.locator('[data-cy="contract-datepicker-trigger"]').click()
+    await expect(page.getByRole('dialog')).toBeVisible()
+
     const calendar = page.locator('[data-cy="contract-datepicker-calendar"]')
     await expect(calendar).toHaveCount(1)
     await expect(calendar).toHaveAttribute(
       'data-test',
       'contract-datepicker-calendar'
     )
+  })
+
+  test('scopes the root selector to the trigger area on the popover pickers', async ({
+    page,
+  }) => {
+    await gotoStory(page, story)
+
+    // Following shadcn, PopoverTrigger and PopoverContent are siblings under
+    // Popover rather than nested in a shared wrapper, so on the three date
+    // pickers the root selector marks the trigger area and does NOT contain
+    // the popover. MIGRATION.md states this; pin it so the two cannot drift.
+    await page.locator('[data-cy="contract-datepicker-trigger"]').click()
+    const dialog = page.getByRole('dialog')
+    await expect(dialog).toBeVisible()
+
+    const root = page.locator('[data-cy="contract-datepicker"]')
+    await expect(root.getByRole('dialog')).toHaveCount(0)
+
+    // ColorPicker is the counter-example: its root div wraps its own Popover,
+    // so the identical query does find the content there. Same prop name, two
+    // different scopes — asserted here so the asymmetry is visible rather than
+    // discovered by a consumer.
+    await page.keyboard.press('Escape')
+    await expect(dialog).toHaveCount(0)
+
+    await page.locator('[data-cy="contract-colorpicker-trigger"]').click()
+    const colorPickerRoot = page.locator('[data-cy="contract-colorpicker"]')
+    await expect(colorPickerRoot.getByRole('dialog')).toHaveCount(1)
   })
 
   test('renders the ColorPicker hex input selector as data-test', async ({

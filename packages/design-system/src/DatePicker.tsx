@@ -8,6 +8,7 @@ import React, { Dispatch, SetStateAction } from 'react'
 import { DayPicker } from 'react-day-picker'
 import { twMerge } from 'tailwind-merge'
 import FormLabel from './FormLabel'
+import { testAttrs, type TestSelectors } from './lib/testSelectors'
 import Tooltip from './Tooltip'
 import { Button } from './ui/button'
 import { Calendar } from './ui/calendar'
@@ -40,26 +41,11 @@ export interface DatePickerProps {
   hideError?: boolean
   isTouched?: boolean
   className?: DatePickerClassName
-  data?: {
-    cy?: string
-    test?: string
-  }
-  dataTrigger?: {
-    cy?: string
-    test?: string
-  }
-  dataCalendar?: {
-    cy?: string
-    test?: string
-  }
-  dataNextMonth?: {
-    cy?: string
-    test?: string
-  }
-  dataPreviousMonth?: {
-    cy?: string
-    test?: string
-  }
+  data?: TestSelectors
+  dataTrigger?: TestSelectors
+  dataCalendar?: TestSelectors
+  dataNextMonth?: TestSelectors
+  dataPreviousMonth?: TestSelectors
 }
 
 /**
@@ -110,7 +96,6 @@ export function DatePicker({
   dataCalendar,
   dataNextMonth,
   dataPreviousMonth,
-  ...props
 }: DatePickerProps) {
   return (
     <Popover>
@@ -120,8 +105,7 @@ export function DatePicker({
           labelType === 'small' && 'flex-col',
           className?.trigger
         )}
-        data-cy={data?.cy}
-        data-test={data?.test}
+        {...testAttrs(data)}
       >
         {label && (
           <FormLabel
@@ -151,8 +135,7 @@ export function DatePicker({
                   'border-destructive bg-destructive-background',
                 className?.input
               )}
-              data-cy={dataTrigger?.cy}
-              data-test={dataTrigger?.test}
+              {...testAttrs(dataTrigger)}
             >
               <FontAwesomeIcon
                 icon={faCalendar}
@@ -199,11 +182,9 @@ export function DatePicker({
               onDateChange(newDate)
             }
           }}
-          data-cy={dataCalendar?.cy}
-          data-test={dataCalendar?.test}
+          data={dataCalendar}
           dataNextMonth={dataNextMonth}
           dataPreviousMonth={dataPreviousMonth}
-          {...props}
         />
       </PopoverContent>
     </Popover>

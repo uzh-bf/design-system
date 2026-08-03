@@ -320,3 +320,47 @@ review after verification, before the PR is published.
   the right home for them given those two files document no other prop in the
   README, but it means the Ladle page for those two does not advertise the new
   prop. Left as is rather than introducing a prop list those files never had.
+- 2026-08-03: mandatory maintainability gate (`$thermo-nuclear-code-quality-review`)
+  run against `098a46f8` as a separate read-only review. Verdict BLOCK, eight
+  findings, all eight verified against source before acting. Two of them
+  corrected claims recorded earlier in this file:
+  - The contract type fixtures ARE CI-gated. `package.json` defines `check` as
+    `run-s check:ts check:types`, `check:types` runs
+    `tsc -p tsconfig.types.json --noEmit`, and `.github/workflows/main.yml`
+    runs `pnpm run check`. The earlier note claiming enforcement rested on the
+    tsconfig `include` alone was wrong. What is genuinely unenforced is
+    `tests/contracts/*.spec.ts`, which no CI job executes.
+  - The root `data` prop does not mean the same thing on all five components.
+    `ColorPicker`'s selector div encloses its `Popover` and `Calendar`'s is the
+    whole widget, but on the three date pickers the div is a DOM sibling of
+    `PopoverContent`, so it does not contain the open calendar. Checked against
+    the shadcn reference via Context7: shadcn composes `PopoverTrigger` and
+    `PopoverContent` as siblings under `Popover` with no shared wrapper, so the
+    sibling structure is correct and the docs were wrong, not the DOM. Ruling:
+    match shadcn, correct `MIGRATION.md`, and pin the asymmetry with a test.
+- 2026-08-03: the dual-API deferral did not survive the gate. `Calendar`'s raw
+  `data-cy`/`data-test` props were never load-bearing — TypeScript does not
+  excess-property-check hyphenated JSX attributes on custom components, so the
+  pickers compiled without them all along. Removed; the three pickers now pass
+  `data={dataCalendar}`. `tsc` clean, and a `@ts-expect-error` in the fixture
+  now proves the raw form is rejected. The `??` fallback is gone with it.
+- 2026-08-03: introduced the canonical layer the contract was missing —
+  `src/lib/testSelectors.ts` exporting `TestSelectors` and `testAttrs()`.
+  Applied to the six files this branch already touches; the other 48 remain a
+  mechanical follow-up. The `data-text` typo fixed in W2 was possible only
+  because every render site spelled the attribute out by hand, so this removes
+  the defect class rather than one instance of it.
+- 2026-08-03: both residual `{...props}` spreads into `<Calendar>` removed.
+  `DatePickerProps` is closed and fully destructured, so its residual was
+  provably always `{}`; `DatetimePicker`'s now forwards `weekStartsOn`,
+  `showWeekNumber` and `showOutsideDays` explicitly. The trap is gone by
+  construction instead of defended against.
+- 2026-08-03: leak-guard falsifiability re-proven after the restructure, and
+  the first attempt was a false negative worth recording. Re-adding `{...props}`
+  alone does NOT leak, because `data` is destructured out — the guard only fails
+  when a spread returns AND `data` is left undestructured. Reproduced that exact
+  pair against a clean `rm -rf build` rebuild: `Expected: 1, Received: 2`.
+  Restored from backup, `diff` against the backup clean.
+- 2026-08-03: post-gate verification, all green — `pnpm check`, `pnpm lint`,
+  `pnpm format:check`, `pnpm build`, `build:ladle` clean, full Playwright suite
+  1247 passed (up from 1245: the leak guard was split into three focused tests).

@@ -1,4 +1,7 @@
+import type * as React from 'react'
+
 import type {
+  Calendar,
   ColorPickerProps,
   DatePickerProps,
   DateRangePickerProps,
@@ -94,7 +97,9 @@ acceptsWorkflowProgressProps({
 
 // The five components that previously exposed per-element selectors but no way
 // to address their own root. The root prop carries the same value shape, and
-// the per-element props keep working alongside it.
+// the per-element props keep working alongside it. Calendar is pinned last: it
+// is the only one of the five that used to accept raw `data-cy`/`data-test`
+// attributes as well, so it carries a negative case proving that form is gone.
 
 function acceptsDatePickerProps(props: DatePickerProps) {
   return props
@@ -125,6 +130,13 @@ acceptsDateRangePickerProps({
   data: { cy: 'range' },
 })
 
+acceptsDateRangePickerProps({
+  range: undefined,
+  onRangeChange: () => undefined,
+  // @ts-expect-error Root selectors use the `{ cy, test }` shape only.
+  data: { 'data-testid': 'range' },
+})
+
 function acceptsDatetimePickerProps(props: DateTimePickerProps) {
   return props
 }
@@ -148,4 +160,37 @@ acceptsColorPickerProps({
   triggerAriaLabel: 'Colour picker',
   data: { cy: 'colorpicker' },
   dataHexInput: { cy: 'hex', test: 'hex' },
+})
+
+acceptsColorPickerProps({
+  color: '#aa0000',
+  onSubmit: () => undefined,
+  submitText: 'Submit',
+  colorLabel: 'Colour',
+  triggerAriaLabel: 'Colour picker',
+  // @ts-expect-error Root selectors use the `{ cy, test }` shape only.
+  data: { 'data-testid': 'colorpicker' },
+})
+
+function acceptsCalendarProps(props: React.ComponentProps<typeof Calendar>) {
+  return props
+}
+
+acceptsCalendarProps({
+  mode: 'single',
+  data: { cy: 'calendar', test: 'calendar' },
+  dataNextMonth: { cy: 'next' },
+  dataPreviousMonth: { cy: 'previous' },
+})
+
+acceptsCalendarProps({
+  mode: 'single',
+  // @ts-expect-error Root selectors use the `{ cy, test }` shape only.
+  data: { 'data-testid': 'calendar' },
+})
+
+acceptsCalendarProps({
+  mode: 'single',
+  // @ts-expect-error Calendar takes `data`; the raw attribute form was removed in v5.
+  'data-cy': 'calendar',
 })

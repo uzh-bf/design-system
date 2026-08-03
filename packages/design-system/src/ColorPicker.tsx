@@ -10,6 +10,7 @@ import FormLabel from './FormLabel'
 import { FieldErrorIndicator } from './forms/FieldErrorIndicator'
 import Label from './forms/Label'
 import { useFieldError } from './forms/useFieldError'
+import { testAttrs, type TestSelectors } from './lib/testSelectors'
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover'
 
 export interface ColorPickerClassName {
@@ -45,22 +46,10 @@ export interface ColorPickerProps {
   colorTooltip?: string
   error?: string
   isTouched?: boolean
-  data?: {
-    cy?: string
-    test?: string
-  }
-  dataTrigger?: {
-    cy?: string
-    test?: string
-  }
-  dataHexInput?: {
-    cy?: string
-    test?: string
-  }
-  dataSubmit?: {
-    cy?: string
-    test?: string
-  }
+  data?: TestSelectors
+  dataTrigger?: TestSelectors
+  dataHexInput?: TestSelectors
+  dataSubmit?: TestSelectors
   className?: ColorPickerClassName
 }
 
@@ -144,8 +133,7 @@ export function ColorPicker({
         labelType === 'small' && 'flex-col',
         className?.root
       )}
-      data-cy={data?.cy}
-      data-test={data?.test}
+      {...testAttrs(data)}
     >
       {label && (
         <FormLabel
@@ -257,8 +245,7 @@ export function ColorPicker({
                     )}
                     color={newColor}
                     onChange={setNewColor}
-                    data-cy={dataHexInput?.cy}
-                    data-test={dataHexInput?.test}
+                    {...testAttrs(dataHexInput)}
                   />
                 </div>
                 <Button

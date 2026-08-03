@@ -8,6 +8,7 @@ import {
 import * as React from 'react'
 import { DayButton, DayPicker, getDefaultClassNames } from 'react-day-picker'
 
+import { testAttrs, type TestSelectors } from '../lib/testSelectors'
 import { cn } from '../lib/utils'
 import { Button, buttonVariants } from './button'
 
@@ -22,28 +23,18 @@ function Calendar({
   data,
   dataPreviousMonth,
   dataNextMonth,
-  'data-cy': dataCyAttribute,
-  'data-test': dataTestAttribute,
   ...props
 }: React.ComponentProps<typeof DayPicker> & {
   buttonVariant?: React.ComponentProps<typeof Button>['variant']
-  data?: { cy?: string; test?: string }
-  dataPreviousMonth?: { cy?: string; test?: string }
-  dataNextMonth?: { cy?: string; test?: string }
-  'data-cy'?: string
-  'data-test'?: string
+  data?: TestSelectors
+  dataPreviousMonth?: TestSelectors
+  dataNextMonth?: TestSelectors
 }) {
   const defaultClassNames = getDefaultClassNames()
 
-  // Calendar accepts both the `data` prop and raw data-cy/data-test
-  // attributes, because the pickers forward their `dataCalendar` as raw
-  // attributes. A raw attribute wins, but only when it carries a value: the
-  // pickers always pass the key, so plain JSX spread precedence would let an
-  // unset dataCalendar blank a `data` prop that a direct caller had set.
   return (
     <DayPicker
-      data-cy={dataCyAttribute ?? data?.cy}
-      data-test={dataTestAttribute ?? data?.test}
+      {...testAttrs(data)}
       showOutsideDays={showOutsideDays}
       className={cn(
         'group/calendar border-border bg-background text-foreground w-fit min-w-[280px] rounded-lg border p-4 shadow-lg [--cell-size:34px] in-data-[slot=card-content]:bg-transparent',
@@ -163,8 +154,7 @@ function Calendar({
               <ChevronLeftIcon
                 className={cn('size-4', className)}
                 {...props}
-                data-cy={dataPreviousMonth?.cy}
-                data-test={dataPreviousMonth?.test}
+                {...testAttrs(dataPreviousMonth)}
               />
             )
           }
@@ -174,8 +164,7 @@ function Calendar({
               <ChevronRightIcon
                 className={cn('size-4', className)}
                 {...props}
-                data-cy={dataNextMonth?.cy}
-                data-test={dataNextMonth?.test}
+                {...testAttrs(dataNextMonth)}
               />
             )
           }

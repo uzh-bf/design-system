@@ -302,16 +302,30 @@ props, among them `Modal`'s `dataContent`/`dataCloseButton`/`dataPrimaryAction`/
 the same value shape.
 
 `Calendar`, `ColorPicker`, `DatePicker`, `DateRangePicker`, and
-`DatetimePicker` now also accept a root `data` prop, so the component itself is
-addressable alongside its individual controls. This is additive; existing
+`DatetimePicker` now also accept a root `data` prop. This is additive; existing
 per-element props are unchanged. The root prop and the per-element props always
 target different elements — the root selector is never inherited by
 sub-elements, so each control still needs its own prop to be addressable.
-`Calendar` additionally accepts raw `data-cy`/`data-test` attributes, which the
-pickers use to forward `dataCalendar`; a raw attribute carrying a value wins
-over `data` on that element. Most components still expose no selector prop at
-all; those are unchanged, and role- or label-based queries remain the way to
-reach them.
+
+Note what the root selector does and does not enclose, because it differs by
+component. On `Calendar` it marks the whole widget, and on `ColorPicker` it
+marks a wrapper that contains the popover. On `DatePicker`, `DateRangePicker`
+and `DatetimePicker` it marks the **trigger area only**: following shadcn's
+composition, `PopoverTrigger` and `PopoverContent` are siblings under
+`Popover` rather than nested inside a shared wrapper, so the open calendar is
+not a descendant of the root selector. A query like
+
+```js
+cy.get('[data-cy="my-picker"]').find('[role="dialog"]')
+```
+
+therefore matches on `ColorPicker` and finds nothing on the three date
+pickers. Address the popover contents on those through `dataCalendar` (or the
+`DatetimePicker`'s `dataHours`/`dataMinutes`/`dataSeconds`) instead of by
+descending from the root.
+
+Most components still expose no selector prop at all; those are unchanged, and
+role- or label-based queries remain the way to reach them.
 
 **`ColorPicker`'s `dataHexInput.test` now renders as `data-test`.** It
 previously rendered as a misspelled `data-text`, present since the component
