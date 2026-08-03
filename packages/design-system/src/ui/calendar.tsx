@@ -35,10 +35,11 @@ function Calendar({
 }) {
   const defaultClassNames = getDefaultClassNames()
 
-  // An explicit data-cy/data-test attribute wins over the root data prop, but
-  // only when it carries a value. Callers such as DatePicker always pass the
-  // key, so relying on JSX spread precedence would let an undefined
-  // dataCalendar blank a root selector that was set.
+  // Calendar accepts both the `data` prop and raw data-cy/data-test
+  // attributes, because the pickers forward their `dataCalendar` as raw
+  // attributes. A raw attribute wins, but only when it carries a value: the
+  // pickers always pass the key, so plain JSX spread precedence would let an
+  // unset dataCalendar blank a `data` prop that a direct caller had set.
   return (
     <DayPicker
       data-cy={dataCyAttribute ?? data?.cy}

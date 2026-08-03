@@ -101,25 +101,37 @@ test.describe('selector contract', () => {
   }) => {
     await gotoStory(page, story)
 
-    // The root `data` is destructured in DatePicker, so it must not reach the
-    // Calendar through the residual `{...props}` spread. If it leaks, the
-    // selector renders inside the popover instead of on the root.
-    const root = page.locator('[data-cy="contract-datepicker"]')
+    // DatetimePicker is the one unmasked leak vector: it sets `data` with no
+    // `dataCalendar` and does spread the residual `{...props}` into <Calendar>.
+    // If the `data` destructuring is ever dropped, the root selector reaches
+    // the calendar too and the count below becomes 2. The DatePicker instance
+    // cannot prove this, because its own `dataCalendar` would mask a leak.
+    const root = page.locator('[data-cy="contract-datetimepicker"]')
     await expect(root).toHaveCount(1)
-    await expect(root.locator('[data-cy="contract-datepicker"]')).toHaveCount(0)
 
-    // Opening the popover shows the per-element `dataCalendar` selector, which
-    // still wins on the calendar it names. This is the precedence guard: an
-    // explicit data-cy attribute beats the root prop on that element, and the
-    // root prop must not overwrite it.
+    // Assert the popover actually mounted before counting. A trigger locator
+    // that silently fails to open would otherwise leave the count at 1 and pass
+    // the leak guard vacuously.
     await root.getByRole('button').first().click()
+    await expect(page.getByRole('dialog')).toBeVisible()
+    await expect(root).toHaveCount(1)
+
+    // The per-element `dataCalendar` still names the calendar on the picker
+    // that sets one, so the popover carries its own selector rather than the
+    // root's.
+    // Dismiss explicitly: an outside click on the next trigger would be
+    // swallowed closing this popover instead of opening the next one.
+    await page.keyboard.press('Escape')
+    await expect(page.getByRole('dialog')).toHaveCount(0)
+
+    const datePickerRoot = page.locator('[data-cy="contract-datepicker"]')
+    await datePickerRoot.getByRole('button').first().click()
     const calendar = page.locator('[data-cy="contract-datepicker-calendar"]')
     await expect(calendar).toHaveCount(1)
     await expect(calendar).toHaveAttribute(
       'data-test',
       'contract-datepicker-calendar'
     )
-    await expect(calendar).not.toHaveAttribute('data-cy', 'contract-datepicker')
   })
 
   test('renders the ColorPicker hex input selector as data-test', async ({
