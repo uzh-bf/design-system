@@ -192,8 +192,9 @@ acceptsCalendarProps({
 // `data` is the supported form and is the one pinned here. Note this pins the
 // object-literal position only: TypeScript exempts hyphenated names from excess
 // property checks in JSX, so `<Calendar data-cy="x" />` still compiles and still
-// reaches the DOM through DayPicker's prop passthrough. It is undocumented
-// rather than rejected, and `data` now takes precedence over it.
+// reaches the DOM through DayPicker's prop passthrough. That form is
+// undocumented rather than rejected: it is not part of the contract, and the
+// behaviour of passing both it and `data` is unspecified.
 acceptsCalendarProps({
   mode: 'single',
   // @ts-expect-error Selectors go through `data`, not a raw attribute prop.
