@@ -1,6 +1,6 @@
 # v5 W3 bundle boundaries plan
 
-Status: in progress
+Status: implementation verified; final review pending
 Date: 2026-08-05
 Branch: `rs/v5-bundle-boundaries`
 Base: `origin/v5` at `30ffba0d00219bf0dda1d8573f90ab68bda2ffbd`
@@ -99,27 +99,34 @@ The required read-only planning-stage review returned `CHANGES_REQUIRED`. Its re
 - [x] Installed the frozen lockfile with pnpm 10.30.0.
 - [x] Built the baseline and recorded final `dist/` sizes, compression, hashes, dependency membership, peer-runtime markers, and packed contents.
 - [x] Rejected `preserveModules` alone and `manualChunks` alone in disposable experiments because they either emitted dependency modules or left the generic graph coupled to heavy chunks.
-- [x] Tested the combined `preserveModules` plus declared-runtime-externalization candidate: it emitted source modules without `node_modules` copies, but the packed consumer contract failed and the uncommitted candidate was reverted.
+- [x] Tested the combined `preserveModules` plus declared-runtime-externalization candidate; an initial input-count reading was corrected to `bytesInOutput` before deciding the consumer contract.
 - [x] Completed the separate planning-stage review and incorporated its corrections.
 - [x] Commit this plan as the first W3 commit (`3684a2c4`).
-- [ ] Implement the Vite-only graph change.
-- [ ] Run the verification contract and inspect the final diff.
+- [x] Implement the Vite-only graph change in `packages/design-system/vite.config.ts` (`8af0614b`).
+- [x] Run the verification contract and inspect the final diff.
 - [ ] Run required maintainability, security, and integrated final-outcome reviews on committed scope.
-- [x] Commit this blocker progress update and hand off for a scope ruling (`a9ade3ba`).
+- [x] Ask the Sol advisor to challenge the input-count interpretation; it returned `KEEP_CURRENT_CONTRACTS` and recommended the corrected consumer-bundle measurements.
+- [x] Commit the revised verification progress and scope ruling.
 
-## Validation result and scope blocker
+## Validation result and contract decision
 
-The candidate build succeeded and produced a 431,910-byte packed tarball, but the packed consumer fixtures failed the generic-import stop condition:
+The initial consumer experiment counted resolved esbuild inputs, which overstated emitted dependency inclusion. The corrected check uses `outputs[*].inputs[*].bytesInOutput` and was repeated with esbuild and Vite/Rollup.
 
-- Root `Button`: 3,485 esbuild inputs, including date-fns, react-day-picker, Recharts/D3, and Embla inputs.
-- `./primitives` `Button`: 2,787 esbuild inputs, including the same heavy dependency groups.
-- A temporary `sideEffects: false` package-metadata test produced the same result, so package side-effect metadata is not the cause.
-- The emitted source modules are physically separated, but `src/index.ts` and `src/primitives.ts` still contain static re-exports of the heavy modules. `preserveModules` changes output granularity; it does not make those root barrels lazy.
+| Fixture | esbuild output | Vite/Rollup output | Heavy contribution |
+| --- | ---: | ---: | --- |
+| Root `Button` | 301,713 bytes | 229,226 bytes | date/chart/carousel: 0 bytes |
+| `./primitives` `Button` | 155,645 bytes | 116,588 bytes | date/chart/carousel: 0 bytes |
+| `Calendar` positive control | 324,570 bytes; date 138,481 | 268,748 bytes; date 258,090 | retained |
+| `ChartContainer` positive control | 205,812 bytes; chart 10,833 | 156,926 bytes; chart 9,779 | retained |
+| `Carousel` positive control | 201,225 bytes; carousel 51,001 | 162,076 bytes; carousel 50,779 | retained |
+| `DateTimePicker` positive control | 757,027 bytes; date 139,276 | 649,059 bytes; date 259,971 | retained |
 
-The candidate was reverted, the baseline build was restored, and no implementation commit was made. W3 cannot meet its generic consumer boundary with a Vite/Rollup-only graph change while preserving the current root and `./primitives` named-export contracts. Continuing requires one explicit scope decision: either authorize a public export/source-architecture change that removes static heavy re-exports, or redefine W3 acceptance to the emitted package graph rather than generic consumer bundles. The current recommendation is to stop here and carry the contract redesign into a separately approved slice.
+The candidate packed artifact is 431,910 bytes with 230 dist files. All five package exports resolve, root and primitives runtime imports execute, declarations/fonts/licences/README/MIGRATION are present, sourcemaps contain no `node_modules`, and all bare imports are declared. CSS and preflight remain 240,923 and 8,179 bytes respectively. Host-level repository smoke verification passed all 469 tests; the sandbox-only run failed before browser launch with Chromium Mach-port permission denial.
+
+The Sol advisor reviewed the corrected evidence and returned `KEEP_CURRENT_CONTRACTS`. The current root and `./primitives` named-export contracts remain unchanged; W3 is accepted on emitted consumer bundle contribution, not zero graph traversal or optional installation under native ESM.
 
 ## Commit and stop rules
 
-Commit 1 contains only this plan. No implementation commit is valid until the generic packed-consumer contract passes. A final progress commit may update this plan after the scope decision and review evidence are available.
+Commit 1 contains only this plan. Commit 2 contains only `packages/design-system/vite.config.ts`. A final progress commit may update this plan after review evidence is available.
 
-Do not push or open/update a PR from this task. With the current contract, stop with the baseline and evidence rather than changing the public export map or source architecture inside W3.
+Do not push or open/update a PR from this task. Do not change the public export map or source architecture inside W3.
