@@ -1,6 +1,6 @@
 # v5 W3 bundle boundaries plan
 
-Status: implementation verified; final review pending
+Status: verified locally; publication held
 Date: 2026-08-05
 Branch: `rs/v5-bundle-boundaries`
 Base: `origin/v5` at `30ffba0d00219bf0dda1d8573f90ab68bda2ffbd`
@@ -104,9 +104,10 @@ The required read-only planning-stage review returned `CHANGES_REQUIRED`. Its re
 - [x] Commit this plan as the first W3 commit (`3684a2c4`).
 - [x] Implement the Vite-only graph change in `packages/design-system/vite.config.ts` (`8af0614b`).
 - [x] Run the verification contract and inspect the final diff.
-- [ ] Run required maintainability, security, and integrated final-outcome reviews on committed scope.
+- [x] Run required maintainability, security, and integrated final-outcome reviews on committed scope; Terra returned APPROVE_WITH_CONCERNS with one low-severity auditability concern, closed in the reproducibility record below.
 - [x] Ask the Sol advisor to challenge the input-count interpretation; it returned `KEEP_CURRENT_CONTRACTS` and recommended the corrected consumer-bundle measurements.
 - [x] Commit the revised verification progress and scope ruling.
+- [x] Close the final-review reproducibility concern without changing implementation behavior.
 
 ## Validation result and contract decision
 
@@ -124,6 +125,64 @@ The initial consumer experiment counted resolved esbuild inputs, which overstate
 The candidate packed artifact is 431,910 bytes with 230 dist files. All five package exports resolve, root and primitives runtime imports execute, declarations/fonts/licences/README/MIGRATION are present, sourcemaps contain no `node_modules`, and all bare imports are declared. CSS and preflight remain 240,923 and 8,179 bytes respectively. Host-level repository smoke verification passed all 469 tests; the sandbox-only run failed before browser launch with Chromium Mach-port permission denial.
 
 The Sol advisor reviewed the corrected evidence and returned `KEEP_CURRENT_CONTRACTS`. The current root and `./primitives` named-export contracts remain unchanged; W3 is accepted on emitted consumer bundle contribution, not zero graph traversal or optional installation under native ESM.
+
+## Reproducibility record
+
+All consumer checks ran from the W3 worktree with temporary fixtures under /private/tmp; no verification fixture was added to the repository.
+
+The candidate package was created with:
+
+    pack_dir=$(mktemp -d /private/tmp/design-system-w3-pack.XXXXXX)
+    VOLTA_FEATURE_PNPM=1 pnpm --dir packages/design-system pack --pack-destination "$pack_dir"
+
+The resulting pnpm tarball was 431,910 bytes with SHA-256 a9c49dbfe15620962827bfeccfe1438c2dd1f8a1fa734ba2455b20e08a1de2b6. The plan's tarball measurements use pnpm pack. For comparison, npm pack --dry-run --json with a task-local NPM_CONFIG_CACHE reported size: 427012, unpackedSize: 1355897, and entryCount: 233; the npm dry-run metadata size is not mixed with the pnpm tarball byte measurement.
+
+The packed consumer fixture used the following setup:
+
+    fixture=$(mktemp -d /private/tmp/design-system-w3-consumer-bytes.XXXXXX)
+    mkdir -p "$fixture/node_modules/@uzh-bf"
+    tar -xzf "$candidate_tgz" -C "$fixture/node_modules/@uzh-bf"
+    mv "$fixture/node_modules/@uzh-bf/package" "$fixture/node_modules/@uzh-bf/design-system"
+    ln -s "/Users/rschlae/Git/df/design-system/trees/rs-v5-bundle-boundaries/packages/design-system/node_modules" "$fixture/node_modules/@uzh-bf/design-system/node_modules"
+
+Each consumer case generated the same source shape, replacing Symbol and the package specifier per case:
+
+    import { Symbol } from "package";
+    console.log(Symbol);
+
+The esbuild check used the local esbuild 0.25.5 binary and these options:
+
+    stdin: { contents: source, loader: "tsx", resolveDir: fixture, sourcefile: "entry.tsx" }
+    bundle: true, format: "esm", platform: "browser"
+    metafile: true, write: false, logLevel: "silent"
+
+It summed bytesInOutput for positive-output entries in Object.values(result.metafile.outputs)[0].inputs and separately inspected emitted code for retained heavy imports. The marker groups were date: /date-fns|react-day-picker|@date-fns\/tz/, chart: /recharts|d3-|victory-vendor/, and carousel: /embla-carousel/. Cases were root Button, ./primitives Button, Calendar, ChartContainer, Carousel, and DateTimePicker.
+
+The Vite/Rollup check used Vite 6.3.5 with a virtual-entry plugin and:
+
+    build({
+      root: fixture,
+      configFile: false,
+      logLevel: "error",
+      plugins: [virtualEntryPlugin],
+      build: {
+        write: false,
+        minify: false,
+        rollupOptions: { input: virtualName }
+      }
+    })
+
+It summed renderedLength for matching entries in each returned chunk's modules object and inspected chunk.imports for retained heavy imports. The same six cases and marker groups were used. The artifact script ran from the extracted fixture directory with node --input-type=module; it resolved all five exports, imported root and primitives at runtime, checked the expected 230 dist files, rejected dist/node_modules, checked sourcemap sources, parsed every published JavaScript import against declared dependencies and peers, and verified CSS bytes.
+
+The browser command was:
+
+    VOLTA_FEATURE_PNPM=1 pnpm --dir packages/design-system test:smoke
+
+The host-level run passed all 469 tests. The sandbox run stopped before browser launch with Chromium Mach-port permission denial, so it is recorded as an environment limitation rather than a product failure.
+
+Static analysis used opengrep scan --config auto. For the base comparison, origin/v5 was exported with git archive --format=tar origin/v5 -o "$scratch/base.tar" into a disposable directory, indexed with git init -q and git add --all, and scanned with the same OpenGrep command. Head and base each produced 36 findings and two partially analyzed files; normalized check_id, path, line, and column fingerprints had zero additions and zero removals, and neither run found packages/design-system/vite.config.ts. The first sandbox scan could not write OpenGrep's global log, so the recorded scan was rerun at host level.
+
+Terra's final read-only review covered origin/v5..49b37db7 and returned APPROVE_WITH_CONCERNS; it found no security, runtime-resolution, or contract defect. Its only concern was missing reproducibility detail and the unspecified pack method. This record closes that concern. The follow-up changes only this plan, so the reviewed implementation behavior is unchanged.
 
 ## Commit and stop rules
 
