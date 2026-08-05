@@ -133,3 +133,4 @@ v5 is ready to prototype when W1 is verified and both W2 and W3 have real applic
 - 2026-08-05: PR #192 merged into `v5` at `4627432709ab91aaf29c1c5129a9a79b5ab74246`.
 - 2026-08-05: live registry and consumer checks identified the source-versus-alpha mismatch and selected VetSim plus GBL demo-game as the first two prototype pilots.
 - 2026-08-05: user approved W1–W3. Fresh worktree created at `trees/rs-v5-prototype-readiness` from `origin/v5`.
+- 2026-08-05: W1 release preparation committed as `978a7250`; local package build, type checks, lint, formatting, pack inspection, and scratch-consumer export resolution passed. No tag or npm publication was created.
