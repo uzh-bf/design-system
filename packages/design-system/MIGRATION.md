@@ -285,16 +285,76 @@ prop and `onChange` callback instead.
 
 v5 standardises the **shape** of every test selector: `{ cy?: string; test?:
 string }`, rendered as `data-cy` and `data-test`. No selector prop accepts
-`data-testid` or an arbitrary attribute record. Some component stories still
-show a `data-testid` form in their examples; those docs are stale and are being
-corrected — the prop types above are authoritative.
+`data-testid` or an arbitrary attribute record. The code examples in the
+non-deprecated stories were corrected to match. Two groups still show pre-v5
+forms: the deprecated `Formik*` stories keep the old attribute-record examples,
+and the per-story prop reference lists outside the pickers and `ColorPicker`
+still give the type as `Record<string, string>`. The prop types are
+authoritative wherever the two disagree.
 
 Where a composite has one obvious target, the prop is named `data`. Components
-with several independently addressable controls keep their named per-element
-props (`Modal`'s `dataContent`/`dataCloseButton`/`dataPrimaryAction`, the
-pickers' `dataTrigger`/`dataCalendar`/…, `Slider`'s `dataThumb`,
-`Tooltip`'s `dataContent`), which now all carry that same value shape. Many
-composites still expose no selector prop at all; those are unchanged.
+with several independently addressable controls also expose named per-element
+props, among them `Modal`'s `dataContent`/`dataCloseButton`/`dataPrimaryAction`/
+`dataSecondaryAction`, `Slider`'s `dataThumb`, `Tooltip`'s `dataContent`,
+`ColorPicker`'s `dataHexInput`/`dataSubmit`, and on the pickers
+`dataTrigger`/`dataCalendar`/`dataNextMonth`/`dataPreviousMonth` plus the
+`DatetimePicker`'s `dataHours`/`dataMinutes`/`dataSeconds`. Every one carries
+the same value shape.
+
+`Calendar`, `ColorPicker`, `DatePicker`, `DateRangePicker`, and
+`DatetimePicker` now also accept a root `data` prop. This is additive; existing
+per-element props are unchanged. The root prop and the per-element props always
+target different elements — the root selector is never inherited by
+sub-elements, so each control still needs its own prop to be addressable.
+
+Note what the root selector does and does not enclose, because it differs by
+component. On `Calendar` it marks the whole widget, and on `ColorPicker` it
+marks a wrapper that contains the popover. On `DatePicker`, `DateRangePicker`
+and `DatetimePicker` it marks the **trigger area only**: following shadcn's
+composition, `PopoverTrigger` and `PopoverContent` are siblings under
+`Popover` rather than nested inside a shared wrapper, so the open calendar is
+not a descendant of the root selector. A query like
+
+```js
+cy.get('[data-cy="my-picker"]').find('[role="dialog"]')
+```
+
+therefore matches on `ColorPicker` and finds nothing on the three date
+pickers. Address the popover contents on those through `dataCalendar` (or the
+`DatetimePicker`'s `dataHours`/`dataMinutes`/`dataSeconds`) instead of by
+descending from the root.
+
+The value shape is now exported as `TestSelectors`, so a suite can name it
+instead of retyping the literal:
+
+```ts
+import type { TestSelectors } from '@uzh-bf/design-system'
+
+const pickerSelectors: TestSelectors = {
+  cy: 'date-picker',
+  test: 'date-picker',
+}
+```
+
+`DatePicker` no longer forwards undeclared props through to its underlying
+calendar. Typed callers are unaffected, because `DatePickerProps` never
+accepted them; a JavaScript caller that relied on the pass-through to set a
+`react-day-picker` option must now use a declared prop instead.
+
+Most components still expose no selector prop at all; those are unchanged, and
+role- or label-based queries remain the way to reach them.
+
+**`ColorPicker`'s `dataHexInput.test` now renders as `data-test`.** It
+previously rendered as a misspelled `data-text`, present since the component
+shipped, so a suite asserting against the hex input must update that selector.
+The `cy` half was always correct.
+
+```tsx
+// before
+cy.get('[data-text="hex-input"]')
+// after
+cy.get('[data-test="hex-input"]')
+```
 
 `Table` was the last composite still using the old `dataAttributes` name.
 Adopting `data` required freeing that name. **Its row collection moved to

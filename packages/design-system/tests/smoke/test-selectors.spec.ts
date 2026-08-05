@@ -71,4 +71,154 @@ test.describe('selector contract', () => {
       await expect(root).not.toHaveAttribute('data-test', /.*/)
     }
   })
+
+  test('renders root selectors on the picker and calendar roots', async ({
+    page,
+  }) => {
+    await gotoStory(page, story)
+
+    // Four of the five are popover-based. Their root selector sits on the
+    // wrapper outside the popover content, so it must be present and visible
+    // without opening anything.
+    const roots = [
+      'contract-calendar',
+      'contract-colorpicker',
+      'contract-datepicker',
+      'contract-daterangepicker',
+      'contract-datetimepicker',
+    ] as const
+
+    for (const selector of roots) {
+      const root = page.locator(`[data-cy="${selector}"]`)
+      await expect(root).toHaveCount(1)
+      await expect(root).toHaveAttribute('data-test', selector)
+      await expect(root).toBeVisible()
+    }
+  })
+
+  test('keeps the picker root selector off the calendar in the popover', async ({
+    page,
+  }) => {
+    await gotoStory(page, story)
+
+    // DatetimePicker sets `data` and no `dataCalendar`, so nothing else can
+    // account for a second match: if the root selector ever reaches <Calendar>
+    // as well, this count becomes 2.
+    //
+    // Be precise about what this does and does not catch. Re-adding a residual
+    // `{...props}` spread into <Calendar> alone does NOT trip it, because `data`
+    // is destructured out of the rest. It fails only on the pair: a rest spread
+    // reaching <Calendar> AND `data` left undestructured. That pair was
+    // reproduced against a clean rebuild and gave `Expected: 1, Received: 2`.
+    const root = page.locator('[data-cy="contract-datetimepicker"]')
+    await expect(root).toHaveCount(1)
+
+    // Assert the popover actually mounted before counting. A trigger locator
+    // that silently fails to open would otherwise leave the count at 1 and pass
+    // the leak guard vacuously.
+    await page.locator('[data-cy="contract-datetimepicker-trigger"]').click()
+    await expect(page.getByRole('dialog')).toBeVisible()
+    await expect(root).toHaveCount(1)
+  })
+
+  test('names the calendar through dataCalendar, not the root selector', async ({
+    page,
+  }) => {
+    await gotoStory(page, story)
+
+    await page.locator('[data-cy="contract-datepicker-trigger"]').click()
+    await expect(page.getByRole('dialog')).toBeVisible()
+
+    const calendar = page.locator('[data-cy="contract-datepicker-calendar"]')
+    await expect(calendar).toHaveCount(1)
+    await expect(calendar).toHaveAttribute(
+      'data-test',
+      'contract-datepicker-calendar'
+    )
+  })
+
+  test('scopes the root selector to the trigger area on the popover pickers', async ({
+    page,
+  }) => {
+    await gotoStory(page, story)
+
+    // Following shadcn, PopoverTrigger and PopoverContent are siblings under
+    // Popover rather than nested in a shared wrapper, so on the three date
+    // pickers the root selector marks the trigger area and does NOT contain
+    // the popover. MIGRATION.md states this; pin it so the two cannot drift.
+    await page.locator('[data-cy="contract-datepicker-trigger"]').click()
+    const dialog = page.getByRole('dialog')
+    await expect(dialog).toBeVisible()
+
+    const root = page.locator('[data-cy="contract-datepicker"]')
+    await expect(root.getByRole('dialog')).toHaveCount(0)
+
+    // ColorPicker is the counter-example: its root div wraps its own Popover,
+    // so the identical query does find the content there. Same prop name, two
+    // different scopes — asserted here so the asymmetry is visible rather than
+    // discovered by a consumer.
+    await page.keyboard.press('Escape')
+    await expect(dialog).toHaveCount(0)
+
+    await page.locator('[data-cy="contract-colorpicker-trigger"]').click()
+    const colorPickerRoot = page.locator('[data-cy="contract-colorpicker"]')
+    await expect(colorPickerRoot.getByRole('dialog')).toHaveCount(1)
+  })
+
+  test('renders the per-element selectors that need no popover', async ({
+    page,
+  }) => {
+    await gotoStory(page, story)
+
+    // The Calendar chevrons spread their selectors AFTER the forwarded
+    // `{...props}`, which is the placement most likely to be dropped by a
+    // refactor, and they are reachable without opening anything.
+    for (const selector of [
+      'contract-calendar-next',
+      'contract-calendar-previous',
+      'contract-daterangepicker-trigger',
+      'contract-datepicker-trigger',
+      'contract-datetimepicker-trigger',
+      'contract-colorpicker-trigger',
+    ] as const) {
+      const element = page.locator(`[data-cy="${selector}"]`)
+      await expect(element).toHaveCount(1)
+      await expect(element).toHaveAttribute('data-test', selector)
+    }
+  })
+
+  test('renders the DatetimePicker time-input selectors', async ({ page }) => {
+    await gotoStory(page, story)
+
+    // These reach the DOM through TimePickerInput's own rest spread into
+    // <Input>, so they are the longest forwarding chain in the contract.
+    await page.locator('[data-cy="contract-datetimepicker-trigger"]').click()
+    await expect(page.getByRole('dialog')).toBeVisible()
+
+    for (const selector of [
+      'contract-datetimepicker-hours',
+      'contract-datetimepicker-minutes',
+      'contract-datetimepicker-seconds',
+    ] as const) {
+      await expect(page.locator(`[data-cy="${selector}"]`)).toHaveCount(1)
+    }
+  })
+
+  test('renders the ColorPicker hex input selector as data-test', async ({
+    page,
+  }) => {
+    await gotoStory(page, story)
+
+    // Regression guard for the misspelled `data-text` that shipped from
+    // f7cd6d65: the value is typed correctly but never reached the DOM.
+    const trigger = page.locator('[data-cy="contract-colorpicker"]')
+    await trigger
+      .getByRole('button', { name: 'Contract colour picker' })
+      .click()
+
+    const hexInput = page.locator('[data-cy="contract-hex-input"]')
+    await expect(hexInput).toHaveCount(1)
+    await expect(hexInput).toHaveAttribute('data-test', 'contract-hex-input')
+    await expect(hexInput).not.toHaveAttribute('data-text', /.*/)
+  })
 })

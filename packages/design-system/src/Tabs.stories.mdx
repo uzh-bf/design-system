@@ -266,27 +266,27 @@ const [validationErrors, setValidationErrors] = useState({})
       id: 'test-tab1',
       value: 'test-tab1',
       label: 'Tab 1',
-      data: { 'data-cy': 'tab-1-trigger' }
+      data: { cy: 'tab-1-trigger' }
     },
     {
       id: 'test-tab2',
       value: 'test-tab2',
       label: 'Tab 2',
-      data: { 'data-cy': 'tab-2-trigger' }
+      data: { cy: 'tab-2-trigger' }
     }
   ]}
   id="test-tabs"
 >
   <TabContent
     value="test-tab1"
-    data={{ 'data-testid': 'tab-1-content' }}
+    data={{ test: 'tab-1-content' }}
   >
     Tab 1 Content
   </TabContent>
 
   <TabContent
     value="test-tab2"
-    data={{ 'data-testid': 'tab-2-content' }}
+    data={{ test: 'tab-2-content' }}
   >
     Tab 2 Content
   </TabContent>

@@ -1,4 +1,11 @@
+import type * as React from 'react'
+
 import type {
+  Calendar,
+  ColorPickerProps,
+  DatePickerProps,
+  DateRangePickerProps,
+  DateTimePickerProps,
   TableProps,
   WorkflowProgressProps,
   WorkflowProps,
@@ -86,4 +93,110 @@ acceptsWorkflowProgressProps({
     { title: 'Step', progress: 0.5, data: { 'data-testid': 'step' } },
   ],
   onClick: () => undefined,
+})
+
+// The five components that previously exposed per-element selectors but no way
+// to address their own root. The root prop carries the same value shape, and
+// the per-element props keep working alongside it. Calendar is pinned last: it
+// is the only one of the five that used to accept raw `data-cy`/`data-test`
+// attributes as well, so it carries a negative case proving that form is gone.
+
+function acceptsDatePickerProps(props: DatePickerProps) {
+  return props
+}
+
+acceptsDatePickerProps({
+  date: undefined,
+  onDateChange: () => undefined,
+  data: { cy: 'picker', test: 'picker' },
+  dataTrigger: { cy: 'trigger' },
+  dataCalendar: { test: 'calendar' },
+})
+
+acceptsDatePickerProps({
+  date: undefined,
+  onDateChange: () => undefined,
+  // @ts-expect-error Root selectors use the `{ cy, test }` shape only.
+  data: { 'data-testid': 'picker' },
+})
+
+function acceptsDateRangePickerProps(props: DateRangePickerProps) {
+  return props
+}
+
+acceptsDateRangePickerProps({
+  range: undefined,
+  onRangeChange: () => undefined,
+  data: { cy: 'range' },
+})
+
+acceptsDateRangePickerProps({
+  range: undefined,
+  onRangeChange: () => undefined,
+  // @ts-expect-error Root selectors use the `{ cy, test }` shape only.
+  data: { 'data-testid': 'range' },
+})
+
+function acceptsDatetimePickerProps(props: DateTimePickerProps) {
+  return props
+}
+
+acceptsDatetimePickerProps({ data: { cy: 'datetime', test: 'datetime' } })
+
+acceptsDatetimePickerProps({
+  // @ts-expect-error Root selectors are an object, not a bare string.
+  data: 'datetime',
+})
+
+function acceptsColorPickerProps(props: ColorPickerProps) {
+  return props
+}
+
+acceptsColorPickerProps({
+  color: '#aa0000',
+  onSubmit: () => undefined,
+  submitText: 'Submit',
+  colorLabel: 'Colour',
+  triggerAriaLabel: 'Colour picker',
+  data: { cy: 'colorpicker' },
+  dataHexInput: { cy: 'hex', test: 'hex' },
+})
+
+acceptsColorPickerProps({
+  color: '#aa0000',
+  onSubmit: () => undefined,
+  submitText: 'Submit',
+  colorLabel: 'Colour',
+  triggerAriaLabel: 'Colour picker',
+  // @ts-expect-error Root selectors use the `{ cy, test }` shape only.
+  data: { 'data-testid': 'colorpicker' },
+})
+
+function acceptsCalendarProps(props: React.ComponentProps<typeof Calendar>) {
+  return props
+}
+
+acceptsCalendarProps({
+  mode: 'single',
+  data: { cy: 'calendar', test: 'calendar' },
+  dataNextMonth: { cy: 'next' },
+  dataPreviousMonth: { cy: 'previous' },
+})
+
+acceptsCalendarProps({
+  mode: 'single',
+  // @ts-expect-error Root selectors use the `{ cy, test }` shape only.
+  data: { 'data-testid': 'calendar' },
+})
+
+// `data` is the supported form and is the one pinned here. Note this pins the
+// object-literal position only: TypeScript exempts hyphenated names from excess
+// property checks in JSX, so `<Calendar data-cy="x" />` still compiles and still
+// reaches the DOM through DayPicker's prop passthrough. That form is
+// undocumented rather than rejected: it is not part of the contract, and the
+// behaviour of passing both it and `data` is unspecified.
+acceptsCalendarProps({
+  mode: 'single',
+  // @ts-expect-error Selectors go through `data`, not a raw attribute prop.
+  'data-cy': 'calendar',
 })

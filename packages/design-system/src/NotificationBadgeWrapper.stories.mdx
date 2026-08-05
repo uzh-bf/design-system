@@ -185,7 +185,7 @@ const hasNotifications = unreadCount > 0
 // Testing configuration
 <NotificationBadgeWrapper
   count={testCount}
-  data={{ 'data-cy': 'notification-badge' }}
+  data={{ cy: 'notification-badge' }}
   id="test-notification"
 >
   <TestComponent />
@@ -247,8 +247,7 @@ Accessibility Considerations:
 Testing Support:
 
 - id prop for unique element identification
-- data prop for comprehensive testing attributes
-- Support for both data-cy and data-testid patterns
+- Support for the `data` selector prop, rendering `data-cy` and `data-test`
 - Consistent element targeting for E2E tests
 
 Related Components:

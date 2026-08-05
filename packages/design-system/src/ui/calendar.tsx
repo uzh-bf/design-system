@@ -8,6 +8,7 @@ import {
 import * as React from 'react'
 import { DayButton, DayPicker, getDefaultClassNames } from 'react-day-picker'
 
+import { testAttrs, type TestSelectors } from '../lib/testSelectors'
 import { cn } from '../lib/utils'
 import { Button, buttonVariants } from './button'
 
@@ -19,13 +20,15 @@ function Calendar({
   buttonVariant = 'ghost',
   formatters,
   components,
+  data,
   dataPreviousMonth,
   dataNextMonth,
   ...props
 }: React.ComponentProps<typeof DayPicker> & {
   buttonVariant?: React.ComponentProps<typeof Button>['variant']
-  dataPreviousMonth?: { cy?: string; test?: string }
-  dataNextMonth?: { cy?: string; test?: string }
+  data?: TestSelectors
+  dataPreviousMonth?: TestSelectors
+  dataNextMonth?: TestSelectors
 }) {
   const defaultClassNames = getDefaultClassNames()
 
@@ -150,8 +153,7 @@ function Calendar({
               <ChevronLeftIcon
                 className={cn('size-4', className)}
                 {...props}
-                data-cy={dataPreviousMonth?.cy}
-                data-test={dataPreviousMonth?.test}
+                {...testAttrs(dataPreviousMonth)}
               />
             )
           }
@@ -161,8 +163,7 @@ function Calendar({
               <ChevronRightIcon
                 className={cn('size-4', className)}
                 {...props}
-                data-cy={dataNextMonth?.cy}
-                data-test={dataNextMonth?.test}
+                {...testAttrs(dataNextMonth)}
               />
             )
           }
@@ -184,6 +185,10 @@ function Calendar({
         ...components,
       }}
       {...props}
+      // Last, so the declared `data` prop wins over a raw data-cy/data-test
+      // arriving through {...props}. testAttrs omits unset keys, so a Calendar
+      // without `data` still lets that raw passthrough reach the DOM.
+      {...testAttrs(data)}
     />
   )
 }

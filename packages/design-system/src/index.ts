@@ -1,5 +1,7 @@
 import './tailwind.css'
 
+export type { TestSelectors } from './lib/testSelectors'
+
 export * from './Accordion'
 export * from './Alert'
 export * from './AlertDialog'

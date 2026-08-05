@@ -31,6 +31,7 @@ The props for the ColorPicker component are as follows:
 - @param tooltip - Optional tooltip text or component to display additional information.
 - @param error - An error message to display if the color picker has an error.
 - @param isTouched - Indicates whether the color picker has been touched (used for error display).
+- @param data - Optional data attributes for the component root (for testing purposes).
 - @param dataTrigger - Optional data attributes for the trigger icon (for testing purposes).
 - @param dataHexInput - Optional data attributes for the hex input field (for testing purposes).
 - @param dataSubmit - Optional data attributes for the submit button (for testing purposes).
@@ -76,9 +77,10 @@ Props (ColorPicker component):
 - tooltip?: string | React.ReactNode - Tooltip for the main component
 - error?: string - Error message to display
 - isTouched?: boolean - Whether the field has been touched (for error display)
-- dataTrigger?: Record<string, string> - Data attributes for trigger (testing)
-- dataHexInput?: Record<string, string> - Data attributes for hex input (testing)
-- dataSubmit?: Record<string, string> - Data attributes for submit button (testing)
+- data?: `{ cy?: string; test?: string }` - Test selectors for the component root
+- dataTrigger?: `{ cy?: string; test?: string }` - Test selectors for the trigger
+- dataHexInput?: `{ cy?: string; test?: string }` - Test selectors for the hex input
+- dataSubmit?: `{ cy?: string; test?: string }` - Test selectors for the submit button
 - className?: {
   root?: string,
   trigger?: string,

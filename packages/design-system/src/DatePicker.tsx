@@ -8,6 +8,7 @@ import React, { Dispatch, SetStateAction } from 'react'
 import { DayPicker } from 'react-day-picker'
 import { twMerge } from 'tailwind-merge'
 import FormLabel from './FormLabel'
+import { testAttrs, type TestSelectors } from './lib/testSelectors'
 import Tooltip from './Tooltip'
 import { Button } from './ui/button'
 import { Calendar } from './ui/calendar'
@@ -40,22 +41,11 @@ export interface DatePickerProps {
   hideError?: boolean
   isTouched?: boolean
   className?: DatePickerClassName
-  dataTrigger?: {
-    cy?: string
-    test?: string
-  }
-  dataCalendar?: {
-    cy?: string
-    test?: string
-  }
-  dataNextMonth?: {
-    cy?: string
-    test?: string
-  }
-  dataPreviousMonth?: {
-    cy?: string
-    test?: string
-  }
+  data?: TestSelectors
+  dataTrigger?: TestSelectors
+  dataCalendar?: TestSelectors
+  dataNextMonth?: TestSelectors
+  dataPreviousMonth?: TestSelectors
 }
 
 /**
@@ -77,6 +67,7 @@ export interface DatePickerProps {
  * @param isTouched - Whether the date changer has been touched
  * @param className - The optional className object allows you to override the default styling.
  * @param onDateChange - The function to be called when the date is changed (state management)
+ * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the trigger area. It does not enclose the popover; use dataCalendar to address the open calendar.
  * @param dataTrigger - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the popover trigger
  * @param dataCalendar - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the calendar
  * @param dataNextMonth - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the next month button
@@ -100,11 +91,11 @@ export function DatePicker({
   hideError = false,
   isTouched = false,
   className,
+  data,
   dataTrigger,
   dataCalendar,
   dataNextMonth,
   dataPreviousMonth,
-  ...props
 }: DatePickerProps) {
   return (
     <Popover>
@@ -114,6 +105,7 @@ export function DatePicker({
           labelType === 'small' && 'flex-col',
           className?.trigger
         )}
+        {...testAttrs(data)}
       >
         {label && (
           <FormLabel
@@ -143,8 +135,7 @@ export function DatePicker({
                   'border-destructive bg-destructive-background',
                 className?.input
               )}
-              data-cy={dataTrigger?.cy}
-              data-test={dataTrigger?.test}
+              {...testAttrs(dataTrigger)}
             >
               <FontAwesomeIcon
                 icon={faCalendar}
@@ -191,11 +182,9 @@ export function DatePicker({
               onDateChange(newDate)
             }
           }}
-          data-cy={dataCalendar?.cy}
-          data-test={dataCalendar?.test}
+          data={dataCalendar}
           dataNextMonth={dataNextMonth}
           dataPreviousMonth={dataPreviousMonth}
-          {...props}
         />
       </PopoverContent>
     </Popover>

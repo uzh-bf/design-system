@@ -37,6 +37,11 @@ Props (DateRangePicker component):
 - captionLayout: "dropdown" | "label" | ... - Calendar caption layout
 - disabled: boolean - Disables the trigger
 - className: { root?, label?, trigger? } - Style overrides
+- data?: `{ cy?: string; test?: string }` - Test selectors for the trigger area (does not enclose the popover)
+- dataTrigger?: `{ cy?: string; test?: string }` - Test selectors for the popover trigger
+- dataCalendar?: `{ cy?: string; test?: string }` - Test selectors for the calendar
+- dataNextMonth?: `{ cy?: string; test?: string }` - Test selectors for the next month button
+- dataPreviousMonth?: `{ cy?: string; test?: string }` - Test selectors for the previous month button
 
 Usage Examples:
 
