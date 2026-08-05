@@ -10,18 +10,21 @@ const isLadle =
   process.env.LADLE === 'true' ||
   process.argv.some((arg) => arg.includes('ladle'))
 
-// Externalize every declared peer dependency and its subpaths (ARCH-9).
+// Externalize every declared runtime dependency and its subpaths (ARCH-9/W3).
 // Plain-string externals like ['react', 'formik'] did NOT cover subpaths, so
 // react-dom AND react/jsx-runtime were bundled into the library chunks — a
-// second react-dom copy per consumer (version-skew hazard) plus dead weight
-// from every other peer. Deriving the list from package.json keeps it in sync:
-// peers are provided by the consumer and must never be inlined.
+// second react-dom copy per consumer (version-skew hazard) plus dead weight.
+// Deriving the list from package.json keeps it in sync: peers are provided by
+// the consumer, while regular dependencies remain package-owned runtime edges.
 const pkg = JSON.parse(
   readFileSync(path.resolve(__dirname, 'package.json'), 'utf-8')
 )
-const peerDependencies = Object.keys(pkg.peerDependencies ?? {})
+const runtimeDependencies = [
+  ...Object.keys(pkg.dependencies ?? {}),
+  ...Object.keys(pkg.peerDependencies ?? {}),
+]
 const isExternal = (id: string) =>
-  peerDependencies.some((dep) => id === dep || id.startsWith(`${dep}/`))
+  runtimeDependencies.some((dep) => id === dep || id.startsWith(`${dep}/`))
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -58,6 +61,8 @@ export default defineConfig({
           rollupOptions: {
             external: isExternal,
             output: {
+              preserveModules: true,
+              preserveModulesRoot: path.resolve(__dirname, 'src'),
               sourcemapExcludeSources: true,
             },
           },
