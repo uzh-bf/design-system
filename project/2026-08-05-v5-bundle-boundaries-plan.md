@@ -105,7 +105,7 @@ The required read-only planning-stage review returned `CHANGES_REQUIRED`. Its re
 - [ ] Implement the Vite-only graph change.
 - [ ] Run the verification contract and inspect the final diff.
 - [ ] Run required maintainability, security, and integrated final-outcome reviews on committed scope.
-- [ ] Commit this blocker progress update and hand off for a scope ruling.
+- [x] Commit this blocker progress update and hand off for a scope ruling (`a9ade3ba`).
 
 ## Validation result and scope blocker
 
