@@ -1,6 +1,6 @@
 # v5 W3 bundle boundaries plan
 
-Status: verified locally; publication held
+Status: draft PR publication authorized; merge and release held
 Date: 2026-08-05
 Branch: `rs/v5-bundle-boundaries`
 Base: `origin/v5` at `30ffba0d00219bf0dda1d8573f90ab68bda2ffbd`
@@ -16,7 +16,7 @@ The published root and `./primitives` JavaScript exports, CSS exports, preflight
 
 - No public API redesign or lazy root barrel.
 - No source-component rewrite, dependency upgrade, new dependency, size threshold, or size-limit policy in W3.
-- No `latest`/4.1.6 release, npm publish, tag, deploy, merge, or push.
+- No `latest`/4.1.6 release, npm publish, tag, deploy, merge, or ready-for-review action. Push and draft-PR creation are allowed only under the explicit authorization recorded below.
 - No changes to the root checkout or existing worktrees.
 
 ## Evidence and baseline
@@ -108,6 +108,7 @@ The required read-only planning-stage review returned `CHANGES_REQUIRED`. Its re
 - [x] Ask the Sol advisor to challenge the input-count interpretation; it returned `KEEP_CURRENT_CONTRACTS` and recommended the corrected consumer-bundle measurements.
 - [x] Commit the revised verification progress and scope ruling.
 - [x] Close the final-review reproducibility concern without changing implementation behavior.
+- [x] Receive explicit authorization to push this branch and open a draft PR against `v5`; keep merge, ready-for-review, deployment, tag, and npm-publication gates separate.
 
 ## Validation result and contract decision
 
@@ -188,4 +189,4 @@ Terra's final read-only review covered origin/v5..49b37db7 and returned APPROVE_
 
 Commit 1 contains only this plan. Commit 2 contains only `packages/design-system/vite.config.ts`. A final progress commit may update this plan after review evidence is available.
 
-Do not push or open/update a PR from this task. Do not change the public export map or source architecture inside W3.
+The user explicitly authorized pushing this branch and opening a draft PR against `v5`. Do not mark it ready, merge, deploy, tag, or publish npm from this task. Do not change the public export map or source architecture inside W3.
