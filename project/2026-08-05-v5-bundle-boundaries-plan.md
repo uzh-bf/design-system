@@ -99,16 +99,27 @@ The required read-only planning-stage review returned `CHANGES_REQUIRED`. Its re
 - [x] Installed the frozen lockfile with pnpm 10.30.0.
 - [x] Built the baseline and recorded final `dist/` sizes, compression, hashes, dependency membership, peer-runtime markers, and packed contents.
 - [x] Rejected `preserveModules` alone and `manualChunks` alone in disposable experiments because they either emitted dependency modules or left the generic graph coupled to heavy chunks.
-- [x] Confirmed the combined `preserveModules` plus declared-runtime-externalization candidate emits source modules without `node_modules` copies; consumer proof remains pending.
+- [x] Tested the combined `preserveModules` plus declared-runtime-externalization candidate: it emitted source modules without `node_modules` copies, but the packed consumer contract failed and the uncommitted candidate was reverted.
 - [x] Completed the separate planning-stage review and incorporated its corrections.
-- [ ] Commit this plan as the first W3 commit.
+- [x] Commit this plan as the first W3 commit (`3684a2c4`).
 - [ ] Implement the Vite-only graph change.
 - [ ] Run the verification contract and inspect the final diff.
 - [ ] Run required maintainability, security, and integrated final-outcome reviews on committed scope.
-- [ ] Update this plan with final measurements, review results, and any blocker before handoff.
+- [ ] Commit this blocker progress update and hand off for a scope ruling.
+
+## Validation result and scope blocker
+
+The candidate build succeeded and produced a 431,910-byte packed tarball, but the packed consumer fixtures failed the generic-import stop condition:
+
+- Root `Button`: 3,485 esbuild inputs, including date-fns, react-day-picker, Recharts/D3, and Embla inputs.
+- `./primitives` `Button`: 2,787 esbuild inputs, including the same heavy dependency groups.
+- A temporary `sideEffects: false` package-metadata test produced the same result, so package side-effect metadata is not the cause.
+- The emitted source modules are physically separated, but `src/index.ts` and `src/primitives.ts` still contain static re-exports of the heavy modules. `preserveModules` changes output granularity; it does not make those root barrels lazy.
+
+The candidate was reverted, the baseline build was restored, and no implementation commit was made. W3 cannot meet its generic consumer boundary with a Vite/Rollup-only graph change while preserving the current root and `./primitives` named-export contracts. Continuing requires one explicit scope decision: either authorize a public export/source-architecture change that removes static heavy re-exports, or redefine W3 acceptance to the emitted package graph rather than generic consumer bundles. The current recommendation is to stop here and carry the contract redesign into a separately approved slice.
 
 ## Commit and stop rules
 
-Commit 1 contains only this plan. Commit 2 contains only `packages/design-system/vite.config.ts`. A final progress commit may update this plan after verification and review evidence is available.
+Commit 1 contains only this plan. No implementation commit is valid until the generic packed-consumer contract passes. A final progress commit may update this plan after the scope decision and review evidence are available.
 
-Do not push or open/update a PR from this task. If the generic fixtures still include heavy dependencies, stop with the baseline and evidence rather than changing the public export map or source architecture inside W3.
+Do not push or open/update a PR from this task. With the current contract, stop with the baseline and evidence rather than changing the public export map or source architecture inside W3.
