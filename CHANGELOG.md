@@ -61,7 +61,7 @@ injection points.
 * **ui:** add input-group, field primitives ([fb2f200](https://github.com/uzh-bf/design-system/commit/fb2f200be98d1fccd96dbb732e4405cd593057f2))
 * **ui:** add item, button-group primitives ([7ff8264](https://github.com/uzh-bf/design-system/commit/7ff8264ec240b60e6581ae34554d224c4ddfa50b))
 * **ui:** add spinner, kbd, empty primitives ([ef115e8](https://github.com/uzh-bf/design-system/commit/ef115e8d43d02a90094bc48837f7927bce5e8c89))
-* **ui:** content/identity/time visual fidelity ([ee4bd95](https://github.com/uzh-bf/design-system/commit/ee4bd95b65e19f13c28d7fb4b1c41ef7ec7e9c3d)), closes [#7ca023](https://github.com/uzh-bf/design-system/issues/7ca023)
+* **ui:** content/identity/time visual fidelity ([ee4bd95](https://github.com/uzh-bf/design-system/commit/ee4bd95b65e19f13c28d7fb4b1c41ef7ec7e9c3d))
 * **ui:** overlay + feedback design fidelity ([ecba1af](https://github.com/uzh-bf/design-system/commit/ecba1afebaf49927772f98198e19369feca63119))
 
 
@@ -90,10 +90,10 @@ injection points.
 * **test:** wait for story attachment, not visibility ([d3f300e](https://github.com/uzh-bf/design-system/commit/d3f300ece8f3599eac4e7c241e469693bd6d7c5c))
 * **theme:** finalize v5 D2-D5 conformance ([e565e9a](https://github.com/uzh-bf/design-system/commit/e565e9ade145612a785994b445e9f8d487fd1336))
 * **theme:** repoint uzh chart palette to CD accent hues ([23b48a7](https://github.com/uzh-bf/design-system/commit/23b48a7b18099b90e4e048d839b9f3eaa7334106))
-* **theme:** route hardcoded component colors through semantic tokens ([873eef6](https://github.com/uzh-bf/design-system/commit/873eef62a3e7710e78cd68bfe62f1db9801347b9)), closes [#666666](https://github.com/uzh-bf/design-system/issues/666666) [#A3A3A3](https://github.com/uzh-bf/design-system/issues/A3A3A3)
+* **theme:** route hardcoded component colors through semantic tokens ([873eef6](https://github.com/uzh-bf/design-system/commit/873eef62a3e7710e78cd68bfe62f1db9801347b9))
 * **ui:** align control height/radius/font to 40px/6px/14px spec ([f7ad8b7](https://github.com/uzh-bf/design-system/commit/f7ad8b79b08efbd68f53fd0f61d6d81723f25cbe))
 * **ui:** checkbox unchecked border + pin-field individual boxes ([5e6aa06](https://github.com/uzh-bf/design-system/commit/5e6aa06e711741c66a548f40662d95b52dbf3877))
-* **ui:** map destructive/secondary/status tokens to UZH brand hues ([beeab6f](https://github.com/uzh-bf/design-system/commit/beeab6fd3a2e5044df5e68229f6e7bc5d3bf2f58)), closes [#FC4C02](https://github.com/uzh-bf/design-system/issues/FC4C02) [#BF0D3](https://github.com/uzh-bf/design-system/issues/BF0D3) [#7CA023](https://github.com/uzh-bf/design-system/issues/7CA023) [#FFC845](https://github.com/uzh-bf/design-system/issues/FFC845) [#1EA7C4](https://github.com/uzh-bf/design-system/issues/1EA7C4) [#ccd4](https://github.com/uzh-bf/design-system/issues/ccd4) [#bdc9e8](https://github.com/uzh-bf/design-system/issues/bdc9e8)
+* **ui:** map destructive/secondary/status tokens to UZH brand hues ([beeab6f](https://github.com/uzh-bf/design-system/commit/beeab6fd3a2e5044df5e68229f6e7bc5d3bf2f58))
 * **ui:** route active/selected/on states through UZH primary ([6a1b184](https://github.com/uzh-bf/design-system/commit/6a1b1848d3769403fa5d60574bd157ba8812755a))
 * **ui:** route hardcoded wrapper colors through semantic tokens ([e348956](https://github.com/uzh-bf/design-system/commit/e34895633586d75a7e4caf7f1fc3ab2d33d16f24))
 * **ui:** ship aspect-video in compiled CSS; cut v5.0.0-alpha.1 ([3b69340](https://github.com/uzh-bf/design-system/commit/3b69340bc6aa21caafe79e119ef5fd21b8f3ff15))
@@ -152,7 +152,7 @@ injection points.
 ### Refactors
 
 * **api:** tighten v5 public prop contracts ([#186](https://github.com/uzh-bf/design-system/issues/186)) ([66a3f64](https://github.com/uzh-bf/design-system/commit/66a3f64964937910d1c026a0b82185116245fa29))
-* change TextBlock attachments to programmatic download links, fix DurationsPopover click propagation, update Module 6 Unit 1 Excel exercise to use inline markdown link, and rename seedCompetencies function to _seedCompetencies ([925284a](https://github.com/uzh-bf/design-system/commit/925284a79160b579ddc1ba8d5321768bc8af0d06))
+* **button:** add the `asChild` prop to Button and pass it through to the underlying primitive ([925284a](https://github.com/uzh-bf/design-system/commit/925284a79160b579ddc1ba8d5321768bc8af0d06))
 * **exports:** remove Shadcn* prefix, raw shadcn moves to ./primitives ([57a0776](https://github.com/uzh-bf/design-system/commit/57a0776bbe38f8173dff486427306dce9fd54dec))
 * **forms:** mark Formik fields [@deprecated](https://github.com/deprecated) toward v6 removal ([78918cd](https://github.com/uzh-bf/design-system/commit/78918cdb7bf8af7ddb8594c4d45340b692f0deab))
 * **selectors:** collapse the selector contract onto a canonical layer ([911de6b](https://github.com/uzh-bf/design-system/commit/911de6bfb5af31666e0327ad298efb2aeab73ed4))
