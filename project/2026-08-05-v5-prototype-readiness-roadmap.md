@@ -8,7 +8,7 @@
 - Working branch: `rs/v5-prototype-readiness`
 - Working tree: `/Users/rschlae/Git/df/design-system/trees/rs-v5-prototype-readiness`
 - Audience: maintainers of the design system and the first application teams adopting v5.
-- Status: approved roadmap; W1 is in progress. W2 and W3 are dependent consumer work packages.
+- Status: approved roadmap; W1 is released as `5.0.0-alpha.2`. W2 and W3 are dependent consumer work packages.
 - Planning review: the requested read-only Sol planning pass was attempted once but the model stream disconnected before returning a report. The scope was then explicitly approved by the user. This missing independent report remains a review limitation; no publication or PR-ready claim is made here on that basis.
 
 ## How to work
@@ -24,7 +24,7 @@
 
 - PR #192 is merged into `v5` as `4627432709ab91aaf29c1c5129a9a79b5ab74246`. Required build, lint, type, formatting, test, accessibility, publish, and preview checks were green at merge.
 - The merged package source is still version `5.0.0-alpha.1`, but its exports are now only `.`, `./primitives`, `./css`, `./preflight.css`, and `./package.json`. The package ships `dist` and `MIGRATION.md`, not source files.
-- The live npm `alpha` dist-tag remains `5.0.0-alpha.1`, while `latest` remains `4.1.6`. That registry artifact predates the merged W3 contract and still exposes the older consumer surface.
+- The live npm `alpha` dist-tag is `5.0.0-alpha.2`, while `latest` remains `4.1.6`. The alpha artifact carries the merged v5 contract: root composites, `/primitives`, `/css`, `/preflight.css`, and `/package.json`, with `/ui` and `/forms` removed.
 - VetSim is pinned to `5.0.0-alpha.1`, already imports the compiled design-system CSS, and already sets the UZH theme at the document root. Two components still import `Badge` and `Button` from the removed `/ui` subpath; this makes VetSim the smallest useful first consumer pilot.
 - GBL `apps/demo-game` remains on `4.1.6`, React 19, Next 16, and Tailwind 4. Its Next configuration contains v4-era development transpilation and React-deduplication workarounds. It is the second pilot for published-package, dev/prod, and React singleton behavior.
 - Thesis Platform, Careers, and Klicker remain v4 consumers with old package-source scans and/or removed font variables. They are migration waves after prototype readiness, not prerequisites for the first two pilots.
@@ -135,3 +135,5 @@ v5 is ready to prototype when W1 is verified and both W2 and W3 have real applic
 - 2026-08-05: user approved W1–W3. Fresh worktree created at `trees/rs-v5-prototype-readiness` from `origin/v5`.
 - 2026-08-05: W1 release preparation committed as `978a7250`; local package build, type checks, lint, formatting, pack inspection, and scratch-consumer export resolution passed. No tag or npm publication was created.
 - 2026-08-05: the required final review found one generated-changelog accuracy issue; it was verified and corrected in `e05edfb0`. The correction changed release prose only, and main-session checks closed the finding. W1 remains publication-gated.
+- 2026-08-05: tag `v5.0.0-alpha.2` pushed; the release workflow published `5.0.0-alpha.2` to the npm `alpha` dist-tag and to GitHub Packages. Registry readback and tarball inspection confirm the published artifact matches the branch tip `eb543bcd` and exposes only the supported export roots.
+- 2026-08-06: PR #193 merged into `v5`, recording the released alpha and the W1 evidence.
