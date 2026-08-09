@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { Button } from '../Button'
@@ -33,11 +33,17 @@ function Fields({
   control?: ReturnType<typeof useForm<Values>>['control']
   rules?: boolean
 }) {
+  const textRef = useRef<HTMLInputElement>(null)
+  const numberRef = useRef<HTMLInputElement>(null)
+  const selectRef = useRef<HTMLButtonElement>(null)
+  const multiSelectRef = useRef<HTMLButtonElement>(null)
+
   return (
     <div className="flex w-96 flex-col gap-4">
       <RhfTextField
         control={control}
         name="name"
+        ref={textRef}
         label="Name"
         description="The public name for this example."
         data={{ test: 'rhf-text' }}
@@ -47,18 +53,22 @@ function Fields({
       <RhfNumberField
         control={control}
         name="amount"
+        ref={numberRef}
         label="Amount"
         description="Numbers remain numeric in RHF while the input keeps its editing buffer."
         data={{ test: 'rhf-number' }}
         min={0}
         max={100}
         precision={2}
+        step={0.5}
+        stepper
         rules={rules ? { required: 'An amount is required.' } : undefined}
         required={rules}
       />
       <RhfSelectField
         control={control}
         name="location"
+        ref={selectRef}
         label="Location"
         items={locations}
         placeholder="Choose a location"
@@ -69,6 +79,7 @@ function Fields({
       <RhfMultiSelect
         control={control}
         name="elements"
+        ref={multiSelectRef}
         label="Elements"
         items={elements}
         placeholder="Choose elements"
@@ -83,6 +94,36 @@ function Fields({
             : undefined
         }
       />
+      <div className="flex flex-wrap gap-2">
+        <Button
+          type="button"
+          data-test="rhf-focus-text"
+          onClick={() => textRef.current?.focus()}
+        >
+          Focus name
+        </Button>
+        <Button
+          type="button"
+          data-test="rhf-focus-number"
+          onClick={() => numberRef.current?.focus()}
+        >
+          Focus amount
+        </Button>
+        <Button
+          type="button"
+          data-test="rhf-focus-select"
+          onClick={() => selectRef.current?.focus()}
+        >
+          Focus location
+        </Button>
+        <Button
+          type="button"
+          data-test="rhf-focus-multi-select"
+          onClick={() => multiSelectRef.current?.focus()}
+        >
+          Focus elements
+        </Button>
+      </div>
     </div>
   )
 }
@@ -90,11 +131,14 @@ function Fields({
 function Harness({
   explicitControl = false,
   rules = false,
+  disabled = false,
 }: {
   explicitControl?: boolean
   rules?: boolean
+  disabled?: boolean
 }) {
   const form = useForm<Values>({
+    disabled,
     mode: rules ? 'onBlur' : 'onSubmit',
     defaultValues: {
       name: '',
@@ -154,3 +198,5 @@ export const Default = () => <Harness />
 export const Validation = () => <Harness rules />
 
 export const ExplicitControl = () => <Harness explicitControl />
+
+export const Disabled = () => <Harness disabled />

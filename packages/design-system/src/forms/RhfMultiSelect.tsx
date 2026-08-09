@@ -1,7 +1,7 @@
 'use client'
 
 import type { Ref } from 'react'
-import type { FieldPath, FieldValues } from 'react-hook-form'
+import type { FieldPath, FieldPathByValue, FieldValues } from 'react-hook-form'
 import MultiSelect, {
   type MultiSelectClassName,
   type MultiSelectItem,
@@ -17,7 +17,7 @@ type RhfMultiSelectVisualClassName = RhfFieldProps<
 
 export type RhfMultiSelectProps<
   TFieldValues extends FieldValues,
-  TName extends FieldPath<TFieldValues>,
+  TName extends FieldPathByValue<TFieldValues, string[]>,
   TContext = unknown,
   TTransformedValues = TFieldValues,
 > = Omit<
@@ -35,7 +35,7 @@ export type RhfMultiSelectProps<
 
 export function RhfMultiSelect<
   TFieldValues extends FieldValues,
-  TName extends FieldPath<TFieldValues>,
+  TName extends FieldPathByValue<TFieldValues, string[]>,
   TContext = unknown,
   TTransformedValues = TFieldValues,
 >(
@@ -67,8 +67,8 @@ export function RhfMultiSelect<
         value={value}
         onChange={state.field.onChange}
         onBlur={state.field.onBlur}
-        disabled={props.disabled}
-        ariaLabel={props.ariaLabel}
+        disabled={state.field.disabled}
+        ariaLabel={props.ariaLabel ?? props.label}
         ariaRequired={props.required}
         ariaInvalid={state.showError}
         ariaDescribedBy={state.describedBy}

@@ -158,10 +158,10 @@ export function MultiSelect({
             ref={ref}
             type="button"
             variant="outline"
-            role={ariaRequired ? 'combobox' : undefined}
+            role="combobox"
             aria-haspopup="listbox"
             aria-expanded={open}
-            aria-label={ariaLabel}
+            aria-label={ariaLabel ?? placeholder}
             aria-required={ariaRequired || undefined}
             aria-invalid={ariaInvalid || undefined}
             aria-describedby={ariaDescribedBy}

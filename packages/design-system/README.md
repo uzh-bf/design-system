@@ -100,6 +100,11 @@ const form = useForm({ defaultValues: { name: '' } })
 </Form>
 ```
 
+RHF wrapper names are value-safe: text/select paths are strings, number paths
+are `number | ''`, and multi-select paths are `string[]`. Form-level RHF
+`disabled` state reaches the rendered controls, and composite selects report
+blur when the user leaves the control or closes its open menu.
+
 | Entry                                 | Contents                                                                                                                                                      |
 | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `@uzh-bf/design-system`               | Custom composites (`Button`, `Table`, `Modal`, `Form`, the `Formik*` fields, and the `Rhf*Field` wrappers) plus the `ThemeProvider` / `useTheme` theming API. |

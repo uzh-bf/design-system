@@ -27,7 +27,7 @@ test.describe('RHF field wrappers', () => {
     await page.locator(text('rhf-select')).click()
     await page.getByRole('option', { name: 'Zurich' }).click()
 
-    await page.getByRole('button', { name: 'Elements' }).click()
+    await page.getByRole('combobox', { name: 'Elements' }).click()
     await page.getByRole('option', { name: 'Story' }).click()
     await page.keyboard.press('Escape')
 
@@ -55,6 +55,28 @@ test.describe('RHF field wrappers', () => {
     await expect(number).toHaveValue('-')
     await number.blur()
     await expect(number).toHaveValue('1')
+
+    await number.fill('.')
+    await expect(number).toHaveValue('.')
+    await number.blur()
+    await expect(number).toHaveValue('1')
+
+    await number.fill('-.')
+    await expect(number).toHaveValue('-.')
+    await number.blur()
+    await expect(number).toHaveValue('1')
+
+    await number.fill('')
+    await expect(number).toHaveValue('')
+    await number.fill('1')
+    await page.getByRole('button', { name: 'Increase value' }).click()
+    await expect(number).toHaveValue('1.50')
+    await number.fill('12.5')
+    await expect(number).toHaveValue('12.5')
+    await number.fill('101')
+    await expect(number).toHaveValue('12.5')
+    await number.fill('12.345')
+    await expect(number).toHaveValue('12.5')
 
     await number.fill('1.')
     await page.locator(text('rhf-reset-same')).click()
@@ -115,5 +137,74 @@ test.describe('RHF field wrappers', () => {
     await expect(page.getByRole('alert')).toContainText(
       'Choose at least one element.'
     )
+  })
+
+  test('closed select blur marks the field touched', async ({ page }) => {
+    await gotoStory(page, 'rhf-fields--validation')
+    const select = page.locator(text('rhf-select'))
+
+    await select.focus()
+    await page.keyboard.press('Tab')
+
+    await expect(page.getByRole('alert')).toContainText(
+      'A location is required.'
+    )
+  })
+
+  test('select open-close and multi-select internal focus use one blur boundary', async ({
+    page,
+  }) => {
+    await gotoStory(page, 'rhf-fields--validation')
+    const select = page.locator(text('rhf-select'))
+    const multiSelect = page.locator(text('rhf-multi-select'))
+
+    await select.click()
+    await page.keyboard.press('Escape')
+    await expect(page.getByRole('alert')).toContainText(
+      'A location is required.'
+    )
+
+    await multiSelect.click()
+    await page.getByPlaceholder('Search…').focus()
+    await expect(
+      page
+        .getByRole('alert')
+        .filter({ hasText: 'Choose at least one element.' })
+    ).toHaveCount(0)
+    await page.keyboard.press('Escape')
+    await expect(
+      page
+        .getByRole('alert')
+        .filter({ hasText: 'Choose at least one element.' })
+    ).toContainText('Choose at least one element.')
+  })
+
+  test('caller refs focus each RHF wrapper target', async ({ page }) => {
+    await gotoStory(page, 'rhf-fields--default')
+
+    for (const [buttonId, fieldId] of [
+      ['rhf-focus-text', 'rhf-text'],
+      ['rhf-focus-number', 'rhf-number'],
+      ['rhf-focus-select', 'rhf-select'],
+      ['rhf-focus-multi-select', 'rhf-multi-select'],
+    ]) {
+      await page.locator(text(buttonId)).click()
+      await expect(page.locator(text(fieldId))).toBeFocused()
+    }
+  })
+
+  test('form-level disabled state reaches every wrapper primitive', async ({
+    page,
+  }) => {
+    await gotoStory(page, 'rhf-fields--disabled')
+
+    for (const testId of [
+      'rhf-text',
+      'rhf-number',
+      'rhf-select',
+      'rhf-multi-select',
+    ]) {
+      await expect(page.locator(text(testId))).toBeDisabled()
+    }
   })
 })

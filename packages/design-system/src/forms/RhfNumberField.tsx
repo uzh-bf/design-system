@@ -2,7 +2,11 @@
 
 import type { Ref } from 'react'
 import { useEffect, useRef, useState } from 'react'
-import type { FieldPath, FieldValues, RegisterOptions } from 'react-hook-form'
+import type {
+  FieldPathByValue,
+  FieldValues,
+  RegisterOptions,
+} from 'react-hook-form'
 import NumberField, { type NumberFieldProps } from './NumberField'
 import { RhfFieldShell } from './RhfField'
 import { mergeRefs, omitRhfProps, useRhfField, type RhfFieldProps } from './rhf'
@@ -19,7 +23,7 @@ function displayValue(value: unknown): string {
 
 function mergeNumberRules<
   TFieldValues extends FieldValues,
-  TName extends FieldPath<TFieldValues>,
+  TName extends FieldPathByValue<TFieldValues, number | ''>,
 >(
   rules: RegisterOptions<TFieldValues, TName> | undefined,
   min: number | undefined,
@@ -38,7 +42,7 @@ function mergeNumberRules<
 
 export type RhfNumberFieldProps<
   TFieldValues extends FieldValues,
-  TName extends FieldPath<TFieldValues>,
+  TName extends FieldPathByValue<TFieldValues, number | ''>,
   TContext = unknown,
   TTransformedValues = TFieldValues,
 > = Omit<
@@ -76,7 +80,7 @@ export type RhfNumberFieldProps<
 
 export function RhfNumberField<
   TFieldValues extends FieldValues,
-  TName extends FieldPath<TFieldValues>,
+  TName extends FieldPathByValue<TFieldValues, number | ''>,
   TContext = unknown,
   TTransformedValues = TFieldValues,
 >(
@@ -184,7 +188,7 @@ export function RhfNumberField<
         onChange={handleChange}
         onBlur={handleBlur}
         required={props.required}
-        disabled={props.disabled}
+        disabled={state.field.disabled}
         min={min}
         max={max}
         error={state.error}

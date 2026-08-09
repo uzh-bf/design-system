@@ -1,7 +1,7 @@
 'use client'
 
 import type { Ref } from 'react'
-import type { FieldPath, FieldValues } from 'react-hook-form'
+import type { FieldPath, FieldPathByValue, FieldValues } from 'react-hook-form'
 import Select, {
   type SelectClassName,
   type SelectGroup,
@@ -18,7 +18,7 @@ type RhfSelectVisualClassName = RhfFieldProps<
 
 export type RhfSelectFieldProps<
   TFieldValues extends FieldValues,
-  TName extends FieldPath<TFieldValues>,
+  TName extends FieldPathByValue<TFieldValues, string>,
   TContext = unknown,
   TTransformedValues = TFieldValues,
 > = Omit<
@@ -37,7 +37,7 @@ export type RhfSelectFieldProps<
 
 export function RhfSelectField<
   TFieldValues extends FieldValues,
-  TName extends FieldPath<TFieldValues>,
+  TName extends FieldPathByValue<TFieldValues, string>,
   TContext = unknown,
   TTransformedValues = TFieldValues,
 >(
@@ -76,7 +76,7 @@ export function RhfSelectField<
         onChange={state.field.onChange}
         onBlur={state.field.onBlur}
         value={typeof state.field.value === 'string' ? state.field.value : ''}
-        disabled={props.disabled}
+        disabled={state.field.disabled}
         placeholder={props.placeholder}
         contentPosition={props.contentPosition}
         ariaRequired={props.required}

@@ -1,14 +1,14 @@
 'use client'
 
 import type { Ref } from 'react'
-import type { FieldPath, FieldValues } from 'react-hook-form'
+import type { FieldPathByValue, FieldValues } from 'react-hook-form'
 import { RhfFieldShell } from './RhfField'
 import TextField, { type TextFieldOnChangeProps } from './TextField'
 import { mergeRefs, omitRhfProps, useRhfField, type RhfFieldProps } from './rhf'
 
 export type RhfTextFieldProps<
   TFieldValues extends FieldValues,
-  TName extends FieldPath<TFieldValues>,
+  TName extends FieldPathByValue<TFieldValues, string>,
   TContext = unknown,
   TTransformedValues = TFieldValues,
 > = Omit<
@@ -40,7 +40,7 @@ export type RhfTextFieldProps<
 
 export function RhfTextField<
   TFieldValues extends FieldValues,
-  TName extends FieldPath<TFieldValues>,
+  TName extends FieldPathByValue<TFieldValues, string>,
   TContext = unknown,
   TTransformedValues = TFieldValues,
 >(props: RhfTextFieldProps<TFieldValues, TName, TContext, TTransformedValues>) {
@@ -90,7 +90,7 @@ export function RhfTextField<
         onChange={state.field.onChange}
         onBlur={state.field.onBlur}
         required={props.required}
-        disabled={props.disabled}
+        disabled={state.field.disabled}
         error={state.error}
         isTouched={state.showError}
         hideError

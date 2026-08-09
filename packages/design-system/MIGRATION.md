@@ -460,6 +460,12 @@ Each wrapper accepts a typed `name`, optional explicit `control`, RHF `rules`,
 caller refs. If `control` is omitted, the wrapper uses the nearest
 `FormProvider`. Validation messages are surfaced after the field is touched or
 after a submit attempt and are linked to the control with `aria-describedby`.
+The `name` type is constrained to the wrapper's value shape: text and select
+fields use string paths, number fields use `number | ''` paths, and multi-selects
+use `string[]` paths. RHF's form-level `disabled` option is forwarded to every
+primitive. Select fields mark the field touched when a closed trigger loses
+focus or when an open menu closes; multi-select triggers consistently expose the
+combobox role and use the composite boundary for blur handling.
 
 `RhfNumberField` keeps the RHF value as `number | ''` while retaining transient
 editing strings such as `1.` in the input. Empty values clear the field;
