@@ -41,6 +41,7 @@ interface SelectProps {
   basic?: boolean
   contentPosition?: 'item-aligned' | 'popper'
   ariaRequired?: boolean
+  ariaInvalid?: boolean
   ariaDescribedBy?: string
   ref?: Ref<HTMLButtonElement>
 }
@@ -133,6 +134,7 @@ export function Select({
   basic = false,
   contentPosition = 'item-aligned',
   ariaRequired,
+  ariaInvalid,
   ariaDescribedBy,
   ref,
 }: SelectWithItemsProps | SelectWithGroupsProps) {
@@ -163,6 +165,7 @@ export function Select({
           id={id}
           ref={ref}
           aria-required={ariaRequired || undefined}
+          aria-invalid={ariaInvalid || undefined}
           aria-describedby={ariaDescribedBy}
           data-cy={data?.cy}
           data-test={data?.test}

@@ -1,7 +1,7 @@
 'use client'
 
 import { Check, ChevronsUpDown, X } from 'lucide-react'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 import { Button } from './ui/button'
@@ -35,14 +35,19 @@ export interface MultiSelectClassName {
 export interface MultiSelectProps {
   id?: string
   ref?: React.Ref<HTMLButtonElement>
+  name?: string
   items: MultiSelectItem[]
   value: string[]
   onChange: (newValue: string[]) => void
+  onBlur?: () => void
   placeholder?: string
   searchPlaceholder?: string
   emptyText?: string
   disabled?: boolean
   ariaLabel?: string
+  ariaRequired?: boolean
+  ariaInvalid?: boolean
+  ariaDescribedBy?: string
   data?: {
     cy?: string
     test?: string
@@ -73,18 +78,31 @@ export interface MultiSelectProps {
 export function MultiSelect({
   id,
   ref,
+  name,
   items,
   value,
   onChange,
+  onBlur,
   placeholder = 'Select…',
   searchPlaceholder = 'Search…',
   emptyText = 'No results found.',
   disabled = false,
   ariaLabel,
+  ariaRequired,
+  ariaInvalid,
+  ariaDescribedBy,
   data,
   className,
 }: MultiSelectProps) {
   const [open, setOpen] = useState(false)
+  const openRef = useRef(false)
+  const blurNotifiedRef = useRef(false)
+
+  const notifyBlur = () => {
+    if (blurNotifiedRef.current) return
+    blurNotifiedRef.current = true
+    onBlur?.()
+  }
 
   const toggle = (itemValue: string) => {
     onChange(
@@ -98,16 +116,39 @@ export function MultiSelect({
 
   return (
     <div className="flex w-60 flex-col gap-2">
-      <Popover open={open} onOpenChange={setOpen}>
+      <Popover
+        open={open}
+        onOpenChange={(nextOpen) => {
+          if (nextOpen) {
+            blurNotifiedRef.current = false
+          } else if (openRef.current) {
+            notifyBlur()
+          }
+          openRef.current = nextOpen
+          setOpen(nextOpen)
+        }}
+      >
         <PopoverTrigger asChild>
           <Button
             id={id}
+            name={name}
             ref={ref}
             type="button"
             variant="outline"
+            onFocus={() => {
+              blurNotifiedRef.current = false
+            }}
+            onBlur={() => {
+              // Moving focus from the trigger into the open popover is not a
+              // field blur. The close transition below owns that notification.
+              if (!openRef.current) notifyBlur()
+            }}
             aria-haspopup="listbox"
             aria-expanded={open}
             aria-label={ariaLabel}
+            aria-required={ariaRequired || undefined}
+            aria-invalid={ariaInvalid || undefined}
+            aria-describedby={ariaDescribedBy}
             disabled={disabled}
             data-cy={data?.cy}
             data-test={data?.test}
