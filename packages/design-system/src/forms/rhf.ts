@@ -167,8 +167,9 @@ export function useRhfField<
   const inputId = props.id ?? generatedId
   const error = controller.fieldState.error?.message
   const errorMessage = error ? String(error) : undefined
+  const hasError = Boolean(controller.fieldState.error)
   const showError = Boolean(
-    errorMessage &&
+    hasError &&
       (controller.fieldState.isTouched || controller.formState.isSubmitted)
   )
   const descriptionId =
@@ -177,7 +178,7 @@ export function useRhfField<
       : `${inputId}-description`
   const errorId = `${inputId}-error`
   const describedBy =
-    [descriptionId, showError ? errorId : undefined]
+    [descriptionId, showError && errorMessage ? errorId : undefined]
       .filter(Boolean)
       .join(' ') || undefined
 

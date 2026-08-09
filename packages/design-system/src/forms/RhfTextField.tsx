@@ -94,6 +94,7 @@ export function RhfTextField<
         error={state.error}
         isTouched={state.showError}
         hideError
+        invalid={state.showError}
         aria-invalid={state.showError}
         aria-describedby={state.describedBy}
         className={props.className}

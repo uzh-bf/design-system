@@ -29,9 +29,11 @@ const elements = [
 function Fields({
   control,
   rules,
+  messageLess,
 }: {
   control?: ReturnType<typeof useForm<Values>>['control']
   rules?: boolean
+  messageLess?: boolean
 }) {
   const textRef = useRef<HTMLInputElement>(null)
   const numberRef = useRef<HTMLInputElement>(null)
@@ -48,7 +50,13 @@ function Fields({
         description="The public name for this example."
         data={{ test: 'rhf-text' }}
         required={rules}
-        rules={rules ? { required: 'A name is required.' } : undefined}
+        rules={
+          rules
+            ? messageLess
+              ? { required: true }
+              : { required: 'A name is required.' }
+            : undefined
+        }
       />
       <RhfNumberField
         control={control}
@@ -62,7 +70,13 @@ function Fields({
         precision={2}
         step={0.5}
         stepper
-        rules={rules ? { required: 'An amount is required.' } : undefined}
+        rules={
+          rules
+            ? messageLess
+              ? { required: true }
+              : { required: 'An amount is required.' }
+            : undefined
+        }
         required={rules}
       />
       <RhfSelectField
@@ -74,7 +88,13 @@ function Fields({
         placeholder="Choose a location"
         data={{ test: 'rhf-select' }}
         required={rules}
-        rules={rules ? { required: 'A location is required.' } : undefined}
+        rules={
+          rules
+            ? messageLess
+              ? { required: true }
+              : { required: 'A location is required.' }
+            : undefined
+        }
       />
       <RhfMultiSelect
         control={control}
@@ -89,7 +109,8 @@ function Fields({
           rules
             ? {
                 validate: (value) =>
-                  value.length > 0 || 'Choose at least one element.',
+                  value.length > 0 ||
+                  (messageLess ? false : 'Choose at least one element.'),
               }
             : undefined
         }
@@ -132,10 +153,12 @@ function Harness({
   explicitControl = false,
   rules = false,
   disabled = false,
+  messageLess = false,
 }: {
   explicitControl?: boolean
   rules?: boolean
   disabled?: boolean
+  messageLess?: boolean
 }) {
   const form = useForm<Values>({
     disabled,
@@ -151,6 +174,7 @@ function Harness({
 
   const content = (
     <form
+      noValidate={messageLess}
       onSubmit={form.handleSubmit((values) =>
         setSubmitted(JSON.stringify(values))
       )}
@@ -159,6 +183,7 @@ function Harness({
       <Fields
         control={explicitControl ? form.control : undefined}
         rules={rules}
+        messageLess={messageLess}
       />
       <div className="flex gap-2">
         <Button type="submit" data-test="rhf-submit">
@@ -196,6 +221,8 @@ function Harness({
 export const Default = () => <Harness />
 
 export const Validation = () => <Harness rules />
+
+export const MessageLessValidation = () => <Harness rules messageLess />
 
 export const ExplicitControl = () => <Harness explicitControl />
 

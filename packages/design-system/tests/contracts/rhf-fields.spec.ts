@@ -111,6 +111,25 @@ test.describe('RHF field wrappers', () => {
     }
   })
 
+  test('message-less RHF errors still mark every control invalid', async ({
+    page,
+  }) => {
+    await gotoStory(page, 'rhf-fields--message-less-validation')
+    await page.locator(text('rhf-submit')).click()
+
+    for (const testId of [
+      'rhf-text',
+      'rhf-number',
+      'rhf-select',
+      'rhf-multi-select',
+    ]) {
+      await expect(page.locator(text(testId))).toHaveAttribute(
+        'aria-invalid',
+        'true'
+      )
+    }
+  })
+
   test('explicit control mode works without FormProvider context', async ({
     page,
   }) => {
