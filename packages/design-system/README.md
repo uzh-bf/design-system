@@ -93,17 +93,21 @@ import { useForm } from 'react-hook-form'
 import { Button, Form, RhfTextField } from '@uzh-bf/design-system'
 import { DropdownMenu } from '@uzh-bf/design-system/primitives'
 
-const form = useForm({ defaultValues: { name: '' } })
+type FormValues = { name: string }
+const form = useForm<FormValues>({ defaultValues: { name: '' } })
 
 <Form {...form}>
-  <RhfTextField name="name" label="Name" />
+  <RhfTextField control={form.control} name="name" label="Name" />
 </Form>
 ```
 
-RHF wrapper names are value-safe: text/select paths are strings, number paths
-are `number | ''`, and multi-select paths are `string[]`. Form-level RHF
-`disabled` state reaches the rendered controls, and composite selects report
-blur when the user leaves the control or closes its open menu.
+When `control={form.control}` is supplied, wrapper names are value-safe:
+text/select paths are strings, number paths are `number | ''`, and multi-select
+paths are `string[]`. Omitting `control` still uses the nearest `FormProvider`
+at runtime, but TypeScript cannot infer that provider's form shape through
+React context, so context-only JSX is not schema-safe. Form-level RHF `disabled`
+state reaches the rendered controls, and composite selects report blur when the
+user leaves the control or closes its open menu.
 
 | Entry                                 | Contents                                                                                                                                                      |
 | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |

@@ -443,29 +443,48 @@ import {
   RhfTextField,
 } from '@uzh-bf/design-system'
 
-const form = useForm({
+type DemoFormValues = {
+  name: string
+  amount: number | ''
+  location: string
+  elements: string[]
+}
+
+const form = useForm<DemoFormValues>({
   defaultValues: { name: '', amount: '', location: '', elements: [] },
 })
 
 <Form {...form}>
-  <RhfTextField name="name" label="Name" />
-  <RhfNumberField name="amount" label="Amount" />
-  <RhfSelectField name="location" label="Location" items={locations} />
-  <RhfMultiSelect name="elements" label="Elements" items={elements} />
+  <RhfTextField control={form.control} name="name" label="Name" />
+  <RhfNumberField control={form.control} name="amount" label="Amount" />
+  <RhfSelectField
+    control={form.control}
+    name="location"
+    label="Location"
+    items={locations}
+  />
+  <RhfMultiSelect
+    control={form.control}
+    name="elements"
+    label="Elements"
+    items={elements}
+  />
 </Form>
 ```
 
-Each wrapper accepts a typed `name`, optional explicit `control`, RHF `rules`,
-`defaultValue`, `shouldUnregister`, labels, descriptions, required state, and
-caller refs. If `control` is omitted, the wrapper uses the nearest
-`FormProvider`. Validation messages are surfaced after the field is touched or
-after a submit attempt and are linked to the control with `aria-describedby`.
-The `name` type is constrained to the wrapper's value shape: text and select
-fields use string paths, number fields use `number | ''` paths, and multi-selects
-use `string[]` paths. RHF's form-level `disabled` option is forwarded to every
-primitive. Select fields mark the field touched when a closed trigger loses
-focus or when an open menu closes; multi-select triggers consistently expose the
-combobox role and use the composite boundary for blur handling.
+Each wrapper accepts a value-safe typed `name` when an explicit
+`control={form.control}` is supplied, plus optional runtime context mode, RHF
+`rules`, `defaultValue`, `shouldUnregister`, labels, descriptions, required
+state, and caller refs. If `control` is omitted, the wrapper uses the nearest
+`FormProvider`, but TypeScript cannot infer that provider's form shape through
+React context; context-only JSX is therefore a runtime convenience, not a
+schema-safety boundary. The `name` type is constrained to the wrapper's value
+shape: text and select fields use string paths, number fields use `number | ''`
+paths, and multi-selects use `string[]` paths. RHF's form-level `disabled` option
+is forwarded to every primitive. Select fields mark the field touched when a
+closed trigger loses focus or when an open menu closes; multi-select triggers
+consistently expose the combobox role and use the composite boundary for blur
+handling.
 
 `RhfNumberField` keeps the RHF value as `number | ''` while retaining transient
 editing strings such as `1.` in the input. Empty values clear the field;
