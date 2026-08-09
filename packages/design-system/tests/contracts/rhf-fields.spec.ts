@@ -95,6 +95,34 @@ test.describe('RHF field wrappers', () => {
     await expect(number).toHaveValue('42')
   })
 
+  test('number editing accepts negative values and enforces the lower bound', async ({
+    page,
+  }) => {
+    await gotoStory(page, 'rhf-fields--number-range')
+    const number = page.locator(text('rhf-range-number'))
+
+    await number.fill('-3.5')
+    await number.blur()
+    await expect(number).toHaveValue('-3.5')
+    await page.locator(text('rhf-range-submit')).click()
+    await expect(page.locator(text('rhf-range-submitted'))).toHaveText(
+      JSON.stringify({ amount: -3.5 })
+    )
+
+    await number.fill('-10')
+    await page.locator(text('rhf-range-submit')).click()
+    await expect(page.locator(text('rhf-range-submitted'))).toHaveText(
+      JSON.stringify({ amount: -10 })
+    )
+
+    await page.locator(text('rhf-range-set-below-min')).click()
+    await expect(number).toHaveValue('-11')
+    await page.locator(text('rhf-range-submit')).click()
+    await expect(page.getByRole('alert')).toContainText(
+      'Amount must be at least -10.'
+    )
+  })
+
   test('validation appears after submit and is linked to every control', async ({
     page,
   }) => {
@@ -204,6 +232,52 @@ test.describe('RHF field wrappers', () => {
         .getByRole('alert')
         .filter({ hasText: 'Choose at least one element.' })
     ).toContainText('Choose at least one element.')
+  })
+
+  test('closed composite controls notify blur once when focus leaves', async ({
+    page,
+  }) => {
+    await gotoStory(page, 'rhf-fields--composite-blur-contracts')
+
+    await page.locator(text('blur-contract-select')).focus()
+    await page.keyboard.press('Tab')
+    await expect(page.locator(text('select-blur-count'))).toHaveText('1')
+
+    await page.locator(text('blur-contract-multi-select')).focus()
+    await page.keyboard.press('Tab')
+    await expect(page.locator(text('multi-select-blur-count'))).toHaveText('1')
+  })
+
+  test('select blur fires once for Escape and pointer-outside close', async ({
+    page,
+  }) => {
+    await gotoStory(page, 'rhf-fields--composite-blur-contracts')
+    const select = page.locator(text('blur-contract-select'))
+
+    await select.click()
+    await page.keyboard.press('Escape')
+    await expect(page.locator(text('select-blur-count'))).toHaveText('1')
+
+    await select.click()
+    await page.mouse.click(5, 5)
+    await expect(page.locator(text('select-blur-count'))).toHaveText('2')
+  })
+
+  test('multi-select internal focus stays open and closes with one blur', async ({
+    page,
+  }) => {
+    await gotoStory(page, 'rhf-fields--composite-blur-contracts')
+    const multiSelect = page.locator(text('blur-contract-multi-select'))
+
+    await multiSelect.click()
+    await page.getByPlaceholder('Search elements…').focus()
+    await expect(page.locator(text('multi-select-blur-count'))).toHaveText('0')
+    await page.keyboard.press('Escape')
+    await expect(page.locator(text('multi-select-blur-count'))).toHaveText('1')
+
+    await multiSelect.click()
+    await page.mouse.click(5, 5)
+    await expect(page.locator(text('multi-select-blur-count'))).toHaveText('2')
   })
 
   test('caller refs focus each RHF wrapper target', async ({ page }) => {

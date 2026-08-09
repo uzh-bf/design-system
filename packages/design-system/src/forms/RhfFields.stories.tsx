@@ -3,6 +3,8 @@ import { useForm } from 'react-hook-form'
 
 import { Button } from '../Button'
 import { Form } from '../Form'
+import MultiSelect from '../MultiSelect'
+import Select from '../Select'
 import { RhfMultiSelect } from './RhfMultiSelect'
 import { RhfNumberField } from './RhfNumberField'
 import { RhfSelectField } from './RhfSelectField'
@@ -232,11 +234,107 @@ function Harness({
   return explicitControl ? content : <Form {...form}>{content}</Form>
 }
 
+function NumberRangeForm() {
+  const form = useForm<{ amount: number | '' }>({
+    defaultValues: { amount: 0 },
+  })
+  const [submitted, setSubmitted] = useState('')
+
+  return (
+    <Form {...form}>
+      <form
+        onSubmit={form.handleSubmit((values) =>
+          setSubmitted(JSON.stringify(values))
+        )}
+        className="flex w-96 flex-col gap-4"
+      >
+        <RhfNumberField
+          name="amount"
+          label="Amount"
+          min={-10}
+          max={10}
+          precision={1}
+          rules={{
+            min: { value: -10, message: 'Amount must be at least -10.' },
+            max: { value: 10, message: 'Amount must be at most 10.' },
+          }}
+          data={{ test: 'rhf-range-number' }}
+        />
+        <div className="flex gap-2">
+          <Button type="submit" data-test="rhf-range-submit">
+            Submit
+          </Button>
+          <Button
+            type="button"
+            data-test="rhf-range-set-below-min"
+            onClick={() => form.setValue('amount', -11)}
+          >
+            Set below minimum
+          </Button>
+        </div>
+        <output data-test="rhf-range-submitted">{submitted}</output>
+      </form>
+    </Form>
+  )
+}
+
+export const CompositeBlurContracts = () => {
+  const [location, setLocation] = useState('')
+  const [selectedElements, setSelectedElements] = useState<string[]>([])
+  const [selectBlurCount, setSelectBlurCount] = useState(0)
+  const [multiSelectBlurCount, setMultiSelectBlurCount] = useState(0)
+
+  return (
+    <div className="flex w-96 flex-col gap-4">
+      <div>
+        <label htmlFor="blur-contract-select">Location</label>
+        <Select
+          id="blur-contract-select"
+          items={locations}
+          value={location}
+          onChange={setLocation}
+          onBlur={() => setSelectBlurCount((count) => count + 1)}
+          placeholder="Choose a location"
+          data={{ test: 'blur-contract-select' }}
+        />
+      </div>
+      <div>
+        <label htmlFor="blur-contract-multi-select">Elements</label>
+        <MultiSelect
+          id="blur-contract-multi-select"
+          items={elements}
+          value={selectedElements}
+          onChange={setSelectedElements}
+          onBlur={() => setMultiSelectBlurCount((count) => count + 1)}
+          ariaLabel="Elements"
+          placeholder="Choose elements"
+          searchPlaceholder="Search elements…"
+          data={{ test: 'blur-contract-multi-select' }}
+        />
+      </div>
+      <Button type="button" data-test="blur-contract-outside">
+        Outside
+      </Button>
+      <output aria-label="Select blur count" data-test="select-blur-count">
+        {selectBlurCount}
+      </output>
+      <output
+        aria-label="Multi-select blur count"
+        data-test="multi-select-blur-count"
+      >
+        {multiSelectBlurCount}
+      </output>
+    </div>
+  )
+}
+
 export const Default = () => <Harness />
 
 export const Validation = () => <Harness rules />
 
 export const MessageLessValidation = () => <Harness rules messageLess />
+
+export const NumberRange = () => <NumberRangeForm />
 
 export const ExplicitControl = () => <Harness explicitControl />
 
