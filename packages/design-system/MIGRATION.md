@@ -428,6 +428,47 @@ v5 also **drops `@hookform/resolvers`** — the design system never imported it,
 it was dead weight in the dependency tree. If you use an RHF resolver such as
 `zodResolver`, depend on `@hookform/resolvers` directly in your app.
 
+### RHF field wrappers in alpha.3
+
+`5.0.0-alpha.3` adds turnkey RHF wrappers for the generic controls needed by the
+demo-game migration:
+
+```tsx
+import { useForm } from 'react-hook-form'
+import {
+  Form,
+  RhfMultiSelect,
+  RhfNumberField,
+  RhfSelectField,
+  RhfTextField,
+} from '@uzh-bf/design-system'
+
+const form = useForm({
+  defaultValues: { name: '', amount: '', location: '', elements: [] },
+})
+
+<Form {...form}>
+  <RhfTextField name="name" label="Name" />
+  <RhfNumberField name="amount" label="Amount" />
+  <RhfSelectField name="location" label="Location" items={locations} />
+  <RhfMultiSelect name="elements" label="Elements" items={elements} />
+</Form>
+```
+
+Each wrapper accepts a typed `name`, optional explicit `control`, RHF `rules`,
+`defaultValue`, `shouldUnregister`, labels, descriptions, required state, and
+caller refs. If `control` is omitted, the wrapper uses the nearest
+`FormProvider`. Validation messages are surfaced after the field is touched or
+after a submit attempt and are linked to the control with `aria-describedby`.
+
+`RhfNumberField` keeps the RHF value as `number | ''` while retaining transient
+editing strings such as `1.` in the input. Empty values clear the field;
+incomplete buffers such as `-` resolve to the last committed value on blur; and
+RHF resets replace the local editing buffer, including a reset to the same
+number. `RhfMultiSelect` marks the field touched when the composite is left or
+when its open selection popover closes, not when focus merely moves into that
+popover.
+
 ## Deprecations
 
 The **Formik field family** — `FormikTextField`, `FormikNumberField`,

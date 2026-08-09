@@ -41,6 +41,7 @@ function Fields({
         label="Name"
         description="The public name for this example."
         data={{ test: 'rhf-text' }}
+        required={rules}
         rules={rules ? { required: 'A name is required.' } : undefined}
       />
       <RhfNumberField
@@ -53,6 +54,7 @@ function Fields({
         max={100}
         precision={2}
         rules={rules ? { required: 'An amount is required.' } : undefined}
+        required={rules}
       />
       <RhfSelectField
         control={control}
@@ -61,6 +63,7 @@ function Fields({
         items={locations}
         placeholder="Choose a location"
         data={{ test: 'rhf-select' }}
+        required={rules}
         rules={rules ? { required: 'A location is required.' } : undefined}
       />
       <RhfMultiSelect
@@ -70,6 +73,7 @@ function Fields({
         items={elements}
         placeholder="Choose elements"
         data={{ test: 'rhf-multi-select' }}
+        required={rules}
         rules={
           rules
             ? {
@@ -91,6 +95,7 @@ function Harness({
   rules?: boolean
 }) {
   const form = useForm<Values>({
+    mode: rules ? 'onBlur' : 'onSubmit',
     defaultValues: {
       name: '',
       amount: rules ? '' : 1,
@@ -128,6 +133,13 @@ function Harness({
           }
         >
           Reset
+        </Button>
+        <Button
+          type="button"
+          data-test="rhf-reset-same"
+          onClick={() => form.reset()}
+        >
+          Reset same
         </Button>
       </div>
       <output data-test="rhf-submitted">{submitted}</output>

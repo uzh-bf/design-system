@@ -10,6 +10,17 @@ test.describe('RHF field wrappers', () => {
   }) => {
     await gotoStory(page, 'rhf-fields--default')
 
+    await expect(page.locator(text('rhf-text'))).toHaveAccessibleName('Name')
+    await expect(page.locator(text('rhf-number'))).toHaveAccessibleName(
+      'Amount'
+    )
+    await expect(page.locator(text('rhf-select'))).toHaveAccessibleName(
+      'Location'
+    )
+    await expect(page.locator(text('rhf-multi-select'))).toHaveAccessibleName(
+      'Elements'
+    )
+
     await page.locator(text('rhf-text')).fill('Demo game')
     await page.locator(text('rhf-number')).fill('12.5')
 
@@ -41,7 +52,12 @@ test.describe('RHF field wrappers', () => {
     await expect(number).toHaveValue('1.')
 
     await number.fill('-')
+    await expect(number).toHaveValue('-')
     await number.blur()
+    await expect(number).toHaveValue('1')
+
+    await number.fill('1.')
+    await page.locator(text('rhf-reset-same')).click()
     await expect(number).toHaveValue('1')
 
     await number.fill('1.')
@@ -87,6 +103,17 @@ test.describe('RHF field wrappers', () => {
         location: '',
         elements: [],
       })
+    )
+  })
+
+  test('multi-select close marks the field touched without submitting', async ({
+    page,
+  }) => {
+    await gotoStory(page, 'rhf-fields--validation')
+    await page.locator(text('rhf-multi-select')).click()
+    await page.keyboard.press('Escape')
+    await expect(page.getByRole('alert')).toContainText(
+      'Choose at least one element.'
     )
   })
 })

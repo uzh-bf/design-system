@@ -1,7 +1,7 @@
 'use client'
 
 import type { Ref } from 'react'
-import { useId } from 'react'
+import { useEffect, useId, useState } from 'react'
 import type {
   Control,
   FieldPath,
@@ -61,6 +61,7 @@ export interface RhfFieldState<
   describedBy?: string
   error?: string
   showError: boolean
+  resetVersion: number
 }
 
 export function mergeRefs<T>(
@@ -125,6 +126,25 @@ export function useRhfField<
     )
   }
 
+  const [resetVersion, setResetVersion] = useState(0)
+
+  useEffect(() => {
+    const subscription = control._subjects.state.subscribe({
+      next: (event) => {
+        // RHF emits a values event without a field name for reset(). This is
+        // the only reliable signal for a reset that restores the same value.
+        if (
+          !event.name &&
+          Object.prototype.hasOwnProperty.call(event, 'values')
+        ) {
+          setResetVersion((version) => version + 1)
+        }
+      },
+    })
+
+    return () => subscription.unsubscribe()
+  }, [control])
+
   const controller = useController({
     name: props.name,
     control,
@@ -161,5 +181,6 @@ export function useRhfField<
     describedBy,
     error: errorMessage,
     showError,
+    resetVersion,
   }
 }

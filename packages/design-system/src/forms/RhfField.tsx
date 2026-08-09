@@ -40,7 +40,7 @@ export function RhfFieldShell({
     <div className={twMerge('flex w-full flex-col', className?.root)}>
       {label && (
         <FormLabel
-          id={`${inputId}-label`}
+          id={inputId}
           required={required}
           label={label}
           labelType={labelType}

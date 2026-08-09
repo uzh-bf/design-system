@@ -95,17 +95,23 @@ export function RhfNumberField<
   const lastCommittedDisplay = useRef(displayValue(state.field.value))
   const previousValue = useRef<unknown>(state.field.value)
   const previousDefaults = useRef(state.formState.defaultValues)
+  const previousResetVersion = useRef(state.resetVersion)
   const pendingInternalValue = useRef<unknown>(unset)
 
   useEffect(() => {
     const defaultsChanged =
       previousDefaults.current !== state.formState.defaultValues
+    const resetChanged = previousResetVersion.current !== state.resetVersion
     const valueChanged = !Object.is(previousValue.current, state.field.value)
     const expectedInternalChange =
       pendingInternalValue.current !== unset &&
       Object.is(pendingInternalValue.current, state.field.value)
 
-    if (defaultsChanged || (valueChanged && !expectedInternalChange)) {
+    if (
+      resetChanged ||
+      defaultsChanged ||
+      (valueChanged && !expectedInternalChange)
+    ) {
       const nextDisplay = displayValue(state.field.value)
       setBuffer(nextDisplay)
       lastCommittedValue.current = state.field.value ?? ''
@@ -119,7 +125,8 @@ export function RhfNumberField<
 
     previousValue.current = state.field.value
     previousDefaults.current = state.formState.defaultValues
-  }, [state.field.value, state.formState.defaultValues])
+    previousResetVersion.current = state.resetVersion
+  }, [state.field.value, state.formState.defaultValues, state.resetVersion])
 
   const handleChange = (nextBuffer: string) => {
     if (!incompleteNumber.test(nextBuffer)) return

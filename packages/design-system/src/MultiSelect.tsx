@@ -95,6 +95,7 @@ export function MultiSelect({
   className,
 }: MultiSelectProps) {
   const [open, setOpen] = useState(false)
+  const compositeRef = useRef<HTMLDivElement>(null)
   const openRef = useRef(false)
   const blurNotifiedRef = useRef(false)
 
@@ -115,7 +116,29 @@ export function MultiSelect({
   const selectedItems = items.filter((item) => value.includes(item.value))
 
   return (
-    <div className="flex w-60 flex-col gap-2">
+    <div
+      ref={compositeRef}
+      className="flex w-60 flex-col gap-2"
+      onFocusCapture={(event) => {
+        const relatedTarget = event.relatedTarget
+        if (
+          !relatedTarget ||
+          !compositeRef.current?.contains(relatedTarget as Node)
+        ) {
+          blurNotifiedRef.current = false
+        }
+      }}
+      onBlurCapture={(event) => {
+        const relatedTarget = event.relatedTarget
+        if (
+          relatedTarget &&
+          compositeRef.current?.contains(relatedTarget as Node)
+        ) {
+          return
+        }
+        if (!openRef.current) notifyBlur()
+      }}
+    >
       <Popover
         open={open}
         onOpenChange={(nextOpen) => {
@@ -135,14 +158,7 @@ export function MultiSelect({
             ref={ref}
             type="button"
             variant="outline"
-            onFocus={() => {
-              blurNotifiedRef.current = false
-            }}
-            onBlur={() => {
-              // Moving focus from the trigger into the open popover is not a
-              // field blur. The close transition below owns that notification.
-              if (!openRef.current) notifyBlur()
-            }}
+            role={ariaRequired ? 'combobox' : undefined}
             aria-haspopup="listbox"
             aria-expanded={open}
             aria-label={ariaLabel}
