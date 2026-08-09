@@ -13,6 +13,7 @@ All notable changes to this project will be documented in this file. See [standa
 ### Bug Fixes
 
 * **forms:** close RHF wrapper review gaps ([3a1bca8](https://github.com/uzh-bf/design-system/commit/3a1bca816b8e19f65f677df612cf97028e84b6ca))
+* **forms:** close final RHF contract gaps ([29c1f67](https://github.com/uzh-bf/design-system/commit/29c1f67cb1591cbad793fd6f72aced23eb330ef7))
 
 
 ### Documentation

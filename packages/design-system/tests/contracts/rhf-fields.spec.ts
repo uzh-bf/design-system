@@ -207,4 +207,11 @@ test.describe('RHF field wrappers', () => {
       await expect(page.locator(text(testId))).toBeDisabled()
     }
   })
+
+  test('raw multi-select preserves an externally associated label', async ({
+    page,
+  }) => {
+    await gotoStory(page, 'multi-select--external-label')
+    await expect(page.getByRole('combobox', { name: 'Elements' })).toBeVisible()
+  })
 })

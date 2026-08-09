@@ -161,7 +161,7 @@ export function MultiSelect({
             role="combobox"
             aria-haspopup="listbox"
             aria-expanded={open}
-            aria-label={ariaLabel ?? placeholder}
+            aria-label={ariaLabel}
             aria-required={ariaRequired || undefined}
             aria-invalid={ariaInvalid || undefined}
             aria-describedby={ariaDescribedBy}

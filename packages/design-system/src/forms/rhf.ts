@@ -26,6 +26,16 @@ export interface RhfFieldData {
   test?: string
 }
 
+export type FieldPathByExactValue<TFieldValues extends FieldValues, TValue> = {
+  [TName in FieldPath<TFieldValues>]: [
+    FieldPathValue<TFieldValues, TName>,
+  ] extends [TValue]
+    ? [TValue] extends [FieldPathValue<TFieldValues, TName>]
+      ? TName
+      : never
+    : never
+}[FieldPath<TFieldValues>]
+
 export type RhfFieldProps<
   TFieldValues extends FieldValues,
   TName extends FieldPath<TFieldValues>,

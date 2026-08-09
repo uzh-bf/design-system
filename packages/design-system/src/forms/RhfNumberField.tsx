@@ -2,14 +2,16 @@
 
 import type { Ref } from 'react'
 import { useEffect, useRef, useState } from 'react'
-import type {
-  FieldPathByValue,
-  FieldValues,
-  RegisterOptions,
-} from 'react-hook-form'
+import type { FieldValues, RegisterOptions } from 'react-hook-form'
 import NumberField, { type NumberFieldProps } from './NumberField'
 import { RhfFieldShell } from './RhfField'
-import { mergeRefs, omitRhfProps, useRhfField, type RhfFieldProps } from './rhf'
+import {
+  mergeRefs,
+  omitRhfProps,
+  useRhfField,
+  type FieldPathByExactValue,
+  type RhfFieldProps,
+} from './rhf'
 
 const incompleteNumber = /^-?(?:\d*\.?\d*)$/
 const completeNumber = /^-?(?:\d+(?:\.\d*)?|\.\d+)$/
@@ -23,7 +25,7 @@ function displayValue(value: unknown): string {
 
 function mergeNumberRules<
   TFieldValues extends FieldValues,
-  TName extends FieldPathByValue<TFieldValues, number | ''>,
+  TName extends FieldPathByExactValue<TFieldValues, number | ''>,
 >(
   rules: RegisterOptions<TFieldValues, TName> | undefined,
   min: number | undefined,
@@ -42,7 +44,7 @@ function mergeNumberRules<
 
 export type RhfNumberFieldProps<
   TFieldValues extends FieldValues,
-  TName extends FieldPathByValue<TFieldValues, number | ''>,
+  TName extends FieldPathByExactValue<TFieldValues, number | ''>,
   TContext = unknown,
   TTransformedValues = TFieldValues,
 > = Omit<
@@ -80,7 +82,7 @@ export type RhfNumberFieldProps<
 
 export function RhfNumberField<
   TFieldValues extends FieldValues,
-  TName extends FieldPathByValue<TFieldValues, number | ''>,
+  TName extends FieldPathByExactValue<TFieldValues, number | ''>,
   TContext = unknown,
   TTransformedValues = TFieldValues,
 >(

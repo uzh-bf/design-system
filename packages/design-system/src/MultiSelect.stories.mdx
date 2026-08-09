@@ -77,6 +77,7 @@ export const Default = () => {
       items={languages}
       value={value}
       onChange={setValue}
+      ariaLabel="Select languages"
       placeholder="Select languages…"
       searchPlaceholder="Search languages…"
     />
@@ -91,7 +92,14 @@ export const Preselected = () => {
     { value: 'go', label: 'Go' },
     { value: 'rust', label: 'Rust' },
   ]
-  return <MultiSelect items={languages} value={value} onChange={setValue} />
+  return (
+    <MultiSelect
+      items={languages}
+      value={value}
+      onChange={setValue}
+      ariaLabel="Select languages"
+    />
+  )
 }
 
 export const Disabled = () => {
@@ -106,7 +114,28 @@ export const Disabled = () => {
       value={value}
       onChange={setValue}
       disabled
+      ariaLabel="Disabled languages"
       placeholder="Disabled"
     />
+  )
+}
+
+export const ExternalLabel = () => {
+  const [value, setValue] = useState([])
+  const languages = [
+    { value: 'ts', label: 'TypeScript' },
+    { value: 'go', label: 'Go' },
+  ]
+  return (
+    <div>
+      <label htmlFor="labelled-multi-select">Elements</label>
+      <MultiSelect
+        id="labelled-multi-select"
+        items={languages}
+        value={value}
+        onChange={setValue}
+        placeholder="Choose elements…"
+      />
+    </div>
   )
 }

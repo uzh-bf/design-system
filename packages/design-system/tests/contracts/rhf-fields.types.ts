@@ -8,6 +8,7 @@ import type {
 type Values = {
   name: string
   amount: number | ''
+  count: number
   location: string
   elements: string[]
 }
@@ -31,8 +32,8 @@ void multiSelectProps
 // @ts-expect-error RhfTextField only accepts string-valued field paths.
 type InvalidTextPath = RhfTextFieldProps<Values, 'amount'>
 
-// @ts-expect-error RhfNumberField only accepts number | '' field paths.
-type InvalidNumberPath = RhfNumberFieldProps<Values, 'name'>
+// @ts-expect-error RhfNumberField rejects number-only paths because clearing writes ''.
+type InvalidNumberPath = RhfNumberFieldProps<Values, 'count'>
 
 // @ts-expect-error RhfSelectField only accepts string-valued field paths.
 type InvalidSelectPath = RhfSelectFieldProps<Values, 'amount'>
