@@ -19,7 +19,7 @@ test.describe('RHF field wrappers', () => {
       'name',
       'amount'
     )
-    await expect(page.locator(text('rhf-number'))).toHaveRole('spinbutton')
+    await expect(page.locator(text('rhf-number'))).toHaveRole('textbox')
     await expect(page.locator(text('rhf-select'))).toHaveAccessibleName(
       'Location'
     )
