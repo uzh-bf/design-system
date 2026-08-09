@@ -1,8 +1,13 @@
-import { expect, test } from '@playwright/test'
+import { expect, test, type Page } from '@playwright/test'
 
 import { gotoStory } from '../_support/ladle'
 
 const text = (testId: string) => `[data-test="${testId}"]`
+const amountField = (page: Page, required = false) =>
+  page.getByRole('textbox', {
+    name: required ? 'Amount *' : 'Amount',
+    exact: true,
+  })
 
 test.describe('RHF field wrappers', () => {
   test('context mode owns text, number, select, and multi-select values', async ({
@@ -10,16 +15,12 @@ test.describe('RHF field wrappers', () => {
   }) => {
     await gotoStory(page, 'rhf-fields--default')
 
+    const number = amountField(page)
     await expect(page.locator(text('rhf-text'))).toHaveAccessibleName('Name')
-    await expect(page.locator(text('rhf-number'))).toHaveAccessibleName(
-      'Amount'
-    )
+    await expect(number).toHaveAccessibleName('Amount')
     await expect(page.locator(text('rhf-text'))).toHaveAttribute('name', 'name')
-    await expect(page.locator(text('rhf-number'))).toHaveAttribute(
-      'name',
-      'amount'
-    )
-    await expect(page.locator(text('rhf-number'))).toHaveRole('textbox')
+    await expect(number).toHaveAttribute('name', 'amount')
+    await expect(number).toHaveRole('textbox')
     await expect(page.locator(text('rhf-select'))).toHaveAccessibleName(
       'Location'
     )
@@ -28,7 +29,7 @@ test.describe('RHF field wrappers', () => {
     )
 
     await page.locator(text('rhf-text')).fill('Demo game')
-    await page.locator(text('rhf-number')).fill('12.5')
+    await number.fill('12.5')
 
     await page.locator(text('rhf-select')).click()
     await page.getByRole('option', { name: 'Zurich' }).click()
@@ -52,7 +53,7 @@ test.describe('RHF field wrappers', () => {
     page,
   }) => {
     await gotoStory(page, 'rhf-fields--default')
-    const number = page.locator(text('rhf-number'))
+    const number = amountField(page)
 
     await number.fill('1.')
     await expect(number).toHaveValue('1.')
@@ -105,7 +106,7 @@ test.describe('RHF field wrappers', () => {
     page,
   }) => {
     await gotoStory(page, 'rhf-fields--number-range')
-    const number = page.locator(text('rhf-range-number'))
+    const number = amountField(page)
 
     await number.fill('-3.5')
     await number.blur()
@@ -141,7 +142,10 @@ test.describe('RHF field wrappers', () => {
       'rhf-select',
       'rhf-multi-select',
     ]) {
-      const control = page.locator(text(testId))
+      const control =
+        testId === 'rhf-number'
+          ? amountField(page, true)
+          : page.locator(text(testId))
       const describedBy = await control.getAttribute('aria-describedby')
       expect(describedBy, `${testId} has an error description`).toBeTruthy()
       const describedByIds = describedBy?.split(/\s+/) ?? []
@@ -165,10 +169,11 @@ test.describe('RHF field wrappers', () => {
       'rhf-select',
       'rhf-multi-select',
     ]) {
-      await expect(page.locator(text(testId))).toHaveAttribute(
-        'aria-invalid',
-        'true'
-      )
+      const control =
+        testId === 'rhf-number'
+          ? amountField(page, true)
+          : page.locator(text(testId))
+      await expect(control).toHaveAttribute('aria-invalid', 'true')
     }
   })
 
@@ -177,7 +182,7 @@ test.describe('RHF field wrappers', () => {
   }) => {
     await gotoStory(page, 'rhf-fields--explicit-control')
     await page.locator(text('rhf-text')).fill('Explicit')
-    await page.locator(text('rhf-number')).fill('7')
+    await amountField(page).fill('7')
     await page.locator(text('rhf-submit')).click()
     await expect(page.locator(text('rhf-submitted'))).toHaveText(
       JSON.stringify({

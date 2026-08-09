@@ -18,6 +18,8 @@ All notable changes to this project will be documented in this file. See [standa
 * **forms:** expose message-less RHF invalid state ([41c866d](https://github.com/uzh-bf/design-system/commit/41c866df98299e78216bf42c608a4886390b9de4))
 * **forms:** synchronize RHF programmatic number updates ([420791b](https://github.com/uzh-bf/design-system/commit/420791b9ac80f9c9a7b1a36d527564e3f54f02ce))
 * **forms:** document explicit RHF control typing ([0867408](https://github.com/uzh-bf/design-system/commit/08674087c83adb2d2c0c78c1c1c0734c6dfc502e))
+* **forms:** preserve native RHF field names and consumer semantics ([f5f6fc8](https://github.com/uzh-bf/design-system/commit/f5f6fc83ac4534c171c916cbf07b9b98077dc64c))
+* **forms:** keep numeric RHF wrappers as textboxes and close button layout regression ([272254d](https://github.com/uzh-bf/design-system/commit/272254dffc021c3d0e626a82c22c80725d413199))
 
 
 ### Documentation
