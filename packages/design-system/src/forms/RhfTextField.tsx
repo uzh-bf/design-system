@@ -84,6 +84,7 @@ export function RhfTextField<
       <TextField
         {...inputProps}
         id={state.inputId}
+        name={state.field.name}
         ref={mergeRefs(state.field.ref, props.ref)}
         data={props.data}
         value={value}

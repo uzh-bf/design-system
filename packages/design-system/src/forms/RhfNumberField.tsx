@@ -184,8 +184,10 @@ export function RhfNumberField<
       <NumberField
         {...inputProps}
         id={state.inputId}
+        name={state.field.name}
         ref={mergeRefs(state.field.ref, props.ref)}
         data={props.data}
+        role="spinbutton"
         value={buffer}
         onChange={handleChange}
         onBlur={handleBlur}
