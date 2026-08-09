@@ -17,6 +17,7 @@ All notable changes to this project will be documented in this file. See [standa
 * **forms:** enforce exact RHF value contracts ([155fd49](https://github.com/uzh-bf/design-system/commit/155fd49b8473d6b93ffd98b94ba08608faa8308d))
 * **forms:** expose message-less RHF invalid state ([41c866d](https://github.com/uzh-bf/design-system/commit/41c866df98299e78216bf42c608a4886390b9de4))
 * **forms:** synchronize RHF programmatic number updates ([420791b](https://github.com/uzh-bf/design-system/commit/420791b9ac80f9c9a7b1a36d527564e3f54f02ce))
+* **forms:** document explicit RHF control typing ([0867408](https://github.com/uzh-bf/design-system/commit/08674087c83adb2d2c0c78c1c1c0734c6dfc502e))
 
 
 ### Documentation
