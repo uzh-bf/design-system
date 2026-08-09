@@ -210,6 +210,20 @@ function Harness({
         >
           Reset same
         </Button>
+        <Button
+          type="button"
+          data-test="rhf-set-value-same"
+          onClick={() => form.setValue('amount', 1)}
+        >
+          Set amount same
+        </Button>
+        <Button
+          type="button"
+          data-test="rhf-reset-field-same"
+          onClick={() => form.resetField('amount')}
+        >
+          Reset amount
+        </Button>
       </div>
       <output data-test="rhf-submitted">{submitted}</output>
     </form>

@@ -79,6 +79,14 @@ test.describe('RHF field wrappers', () => {
     await expect(number).toHaveValue('12.5')
 
     await number.fill('1.')
+    await page.locator(text('rhf-set-value-same')).click()
+    await expect(number).toHaveValue('1')
+
+    await number.fill('1.')
+    await page.locator(text('rhf-reset-field-same')).click()
+    await expect(number).toHaveValue('1')
+
+    await number.fill('1.')
     await page.locator(text('rhf-reset-same')).click()
     await expect(number).toHaveValue('1')
 

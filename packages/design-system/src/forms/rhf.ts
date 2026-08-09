@@ -137,23 +137,28 @@ export function useRhfField<
   }
 
   const [resetVersion, setResetVersion] = useState(0)
+  const rhfName = props.name
 
   useEffect(() => {
     const subscription = control._subjects.state.subscribe({
       next: (event) => {
-        // RHF emits a values event without a field name for reset(). This is
-        // the only reliable signal for a reset that restores the same value.
-        if (
-          !event.name &&
-          Object.prototype.hasOwnProperty.call(event, 'values')
-        ) {
+        // RHF emits a values event without a field name for reset(), and a
+        // named values-only event for setValue()/resetField(). Controller
+        // onChange events also carry values, but include a type and must not
+        // reset the local editing buffer.
+        const hasValues = Object.prototype.hasOwnProperty.call(event, 'values')
+        const isNamedValueUpdate =
+          event.name === rhfName &&
+          hasValues &&
+          !Object.prototype.hasOwnProperty.call(event, 'type')
+        if ((!event.name && hasValues) || isNamedValueUpdate) {
           setResetVersion((version) => version + 1)
         }
       },
     })
 
     return () => subscription.unsubscribe()
-  }, [control])
+  }, [control, rhfName])
 
   const controller = useController({
     name: props.name,
