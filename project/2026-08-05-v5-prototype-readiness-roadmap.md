@@ -139,3 +139,4 @@ v5 is ready to prototype when W1 is verified, alpha.3 is registry-proven, and bo
 - 2026-08-05: tag `v5.0.0-alpha.2` pushed; the release workflow published `5.0.0-alpha.2` to the npm `alpha` dist-tag and to GitHub Packages. Registry readback and tarball inspection confirm the published artifact matches the branch tip `eb543bcd` and exposes only the supported export roots.
 - 2026-08-06: PR #193 merged into `v5`, recording the released alpha and the W1 evidence.
 - 2026-08-09: expanded W3 plan committed as `18df75eb6` and passed the corrected Sol planning review; the DS wrapper slice is committed as `0e1965e30` and is awaiting the repository-specific final review gates.
+- 2026-08-09: alpha.3 release inputs prepared without a tag or publication; the local packed artifact is `5.0.0-alpha.3` with SHA-256 `64ea1b607d5815e2e7e04fc1a500a8628f218c68ec5ce1c647cbe16d4c2b1935`.
