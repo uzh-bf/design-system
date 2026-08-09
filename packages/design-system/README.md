@@ -85,19 +85,36 @@ limitations.
 v5 exposes two component doors: the root for opinionated composites, and
 `./primitives` for the raw shadcn/Radix primitives under their natural names. The
 form wrappers (`FormikTextField`, …) that lived under `./forms` in v4 now come
-from the root.
+from the root. The v5 alpha also provides `RhfTextField`, `RhfNumberField`,
+`RhfSelectField`, and `RhfMultiSelect` for turnkey React Hook Form fields.
 
 ```tsx
-import { Button, FormikTextField } from '@uzh-bf/design-system'
+import { useForm } from 'react-hook-form'
+import { Button, Form, RhfTextField } from '@uzh-bf/design-system'
 import { DropdownMenu } from '@uzh-bf/design-system/primitives'
+
+type FormValues = { name: string }
+const form = useForm<FormValues>({ defaultValues: { name: '' } })
+
+<Form {...form}>
+  <RhfTextField control={form.control} name="name" label="Name" />
+</Form>
 ```
 
-| Entry                                 | Contents                                                                                                                           |
-| ------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| `@uzh-bf/design-system`               | Custom composites (`Button`, `Table`, `Modal`, `Form`, the `Formik*` fields, …) plus the `ThemeProvider` / `useTheme` theming API. |
-| `@uzh-bf/design-system/primitives`    | Raw shadcn/Radix primitives under their natural names (`DropdownMenu*`, `Table*`, …).                                              |
-| `@uzh-bf/design-system/css`           | Precompiled stylesheet (import once — see above).                                                                                  |
-| `@uzh-bf/design-system/preflight.css` | Base/reset layer on its own.                                                                                                       |
+When `control={form.control}` is supplied, wrapper names are value-safe:
+text/select paths are strings, number paths are `number | ''`, and multi-select
+paths are `string[]`. Omitting `control` still uses the nearest `FormProvider`
+at runtime, but TypeScript cannot infer that provider's form shape through
+React context, so context-only JSX is not schema-safe. Form-level RHF `disabled`
+state reaches the rendered controls, and composite selects report blur when the
+user leaves the control or closes its open menu.
+
+| Entry                                 | Contents                                                                                                                                                      |
+| ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `@uzh-bf/design-system`               | Custom composites (`Button`, `Table`, `Modal`, `Form`, the `Formik*` fields, and the `Rhf*Field` wrappers) plus the `ThemeProvider` / `useTheme` theming API. |
+| `@uzh-bf/design-system/primitives`    | Raw shadcn/Radix primitives under their natural names (`DropdownMenu*`, `Table*`, …).                                                                         |
+| `@uzh-bf/design-system/css`           | Precompiled stylesheet (import once — see above).                                                                                                             |
+| `@uzh-bf/design-system/preflight.css` | Base/reset layer on its own.                                                                                                                                  |
 
 Some natural names exist at **both** doors as different components (root = custom
 composite, `./primitives` = raw primitive). See

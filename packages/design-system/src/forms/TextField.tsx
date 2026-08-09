@@ -54,7 +54,7 @@ export interface TextFieldNameProps extends TextFieldProps {
 }
 
 export interface TextFieldOnChangeProps extends TextFieldProps {
-  name?: never
+  name?: string
   field?: never
   value: string
   onChange: (newValue: string) => void
@@ -187,6 +187,7 @@ export function TextField({
               aria-describedby={visibleError ? errorId : undefined}
               data-cy={data?.cy}
               data-test={data?.test}
+              name={name}
               value={value}
               onChange={(e) => {
                 e?.stopPropagation()

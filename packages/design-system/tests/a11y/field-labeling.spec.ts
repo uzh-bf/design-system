@@ -68,6 +68,15 @@ test.describe('form field labeling contract (WCAG Level A)', () => {
     await expectLabelledById(page, 'number-field--labelled')
   })
 
+  test('NumberField: preserves textbox semantics for numeric editing', async ({
+    page,
+  }) => {
+    await gotoStory(page, 'number-field--labelled')
+    const input = page.locator('input[type="text"]').first()
+    await input.waitFor({ state: 'attached' })
+    await expect(input).toHaveRole('textbox')
+  })
+
   test('NumberField: required is exposed via aria-required', async ({
     page,
   }) => {

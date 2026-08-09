@@ -1,7 +1,7 @@
 'use client'
 
 import type { Ref } from 'react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import Tooltip from './Tooltip' // New import for tooltips
 import {
@@ -41,6 +41,7 @@ interface SelectProps {
   basic?: boolean
   contentPosition?: 'item-aligned' | 'popper'
   ariaRequired?: boolean
+  ariaInvalid?: boolean
   ariaDescribedBy?: string
   ref?: Ref<HTMLButtonElement>
 }
@@ -133,10 +134,19 @@ export function Select({
   basic = false,
   contentPosition = 'item-aligned',
   ariaRequired,
+  ariaInvalid,
   ariaDescribedBy,
   ref,
 }: SelectWithItemsProps | SelectWithGroupsProps) {
   const [open, setOpen] = useState(false)
+  const openRef = useRef(false)
+  const blurNotifiedRef = useRef(false)
+
+  const notifyBlur = () => {
+    if (blurNotifiedRef.current) return
+    blurNotifiedRef.current = true
+    onBlur?.()
+  }
   const [shortLabel, setShortLabel] = useState<string | undefined>(undefined)
 
   useEffect(() => {
@@ -151,10 +161,13 @@ export function Select({
         open={open}
         onValueChange={onChange}
         onOpenChange={(open) => {
-          setOpen(open)
-          if (!open && onBlur) {
-            onBlur()
+          if (open) {
+            blurNotifiedRef.current = false
+          } else if (openRef.current) {
+            notifyBlur()
           }
+          openRef.current = open
+          setOpen(open)
         }}
         value={value}
         defaultValue={defaultValue}
@@ -162,7 +175,14 @@ export function Select({
         <SelectTrigger
           id={id}
           ref={ref}
+          onFocus={() => {
+            blurNotifiedRef.current = false
+          }}
+          onBlur={() => {
+            if (!openRef.current) notifyBlur()
+          }}
           aria-required={ariaRequired || undefined}
+          aria-invalid={ariaInvalid || undefined}
           aria-describedby={ariaDescribedBy}
           data-cy={data?.cy}
           data-test={data?.test}

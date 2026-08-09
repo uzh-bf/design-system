@@ -113,6 +113,7 @@ export function Button({
       type={type}
       onClick={onClick}
       className={twMerge(
+        basic && 'h-auto p-0',
         // fluid buttons grow with their content (auto height + wrap), floored at the md height
         fluid
           ? 'h-max min-h-10 w-full justify-center py-2 whitespace-normal'

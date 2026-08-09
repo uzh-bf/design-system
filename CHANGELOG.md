@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.0.0-alpha.3](https://github.com/uzh-bf/design-system/compare/v5.0.0-alpha.2...v5.0.0-alpha.3) (2026-08-09)
+
+
+### Features
+
+* **forms:** add RHF field wrappers ([0e1965e](https://github.com/uzh-bf/design-system/commit/0e1965e3042cbfc32db2efb17f9a59e1a0617c38))
+
+
+### Bug Fixes
+
+* **forms:** close RHF wrapper review gaps ([3a1bca8](https://github.com/uzh-bf/design-system/commit/3a1bca816b8e19f65f677df612cf97028e84b6ca))
+* **forms:** close final RHF contract gaps ([29c1f67](https://github.com/uzh-bf/design-system/commit/29c1f67cb1591cbad793fd6f72aced23eb330ef7))
+* **forms:** enforce exact RHF value contracts ([155fd49](https://github.com/uzh-bf/design-system/commit/155fd49b8473d6b93ffd98b94ba08608faa8308d))
+* **forms:** expose message-less RHF invalid state ([41c866d](https://github.com/uzh-bf/design-system/commit/41c866df98299e78216bf42c608a4886390b9de4))
+* **forms:** synchronize RHF programmatic number updates ([420791b](https://github.com/uzh-bf/design-system/commit/420791b9ac80f9c9a7b1a36d527564e3f54f02ce))
+* **forms:** document explicit RHF control typing ([0867408](https://github.com/uzh-bf/design-system/commit/08674087c83adb2d2c0c78c1c1c0734c6dfc502e))
+* **forms:** preserve native RHF field names and consumer semantics ([f5f6fc8](https://github.com/uzh-bf/design-system/commit/f5f6fc83ac4534c171c916cbf07b9b98077dc64c))
+* **forms:** keep numeric RHF wrappers as textboxes and close button layout regression ([272254d](https://github.com/uzh-bf/design-system/commit/272254dffc021c3d0e626a82c22c80725d413199))
+
+
+### Documentation
+
+* **roadmap:** record v5 alpha publication ([f759b11](https://github.com/uzh-bf/design-system/commit/f759b1101b29646e6b5561e4b14cce891c69b5e8))
+* **v5:** plan RHF W3 migration ([18df75e](https://github.com/uzh-bf/design-system/commit/18df75eb68176173f694090613b509aea8cbdcf8))
+
 ## [5.0.0-alpha.2](https://github.com/uzh-bf/design-system/compare/v4.1.6...v5.0.0-alpha.2) (2026-08-05)
 
 

@@ -212,12 +212,16 @@ export function NumberField({
               e?.stopPropagation()
               e?.preventDefault()
 
+              const isIncompleteValue = /^-?$|^\.?$|^-\.$/.test(e.target.value)
+
               if (
                 e.target.value.match(validInput) !== null &&
                 (e.target.value === '' ||
+                  isIncompleteValue ||
                   typeof min === 'undefined' ||
                   parseFloat(e.target.value) >= min) &&
                 (e.target.value === '' ||
+                  isIncompleteValue ||
                   typeof max === 'undefined' ||
                   parseFloat(e.target.value) <= max)
               ) {
