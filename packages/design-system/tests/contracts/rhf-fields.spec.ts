@@ -259,7 +259,8 @@ test.describe('RHF field wrappers', () => {
     await expect(page.locator(text('select-blur-count'))).toHaveText('1')
 
     await select.click()
-    await page.mouse.click(5, 5)
+    await expect(select).toHaveAttribute('aria-expanded', 'true')
+    await page.locator(text('blur-contract-outside')).click({ force: true })
     await expect(page.locator(text('select-blur-count'))).toHaveText('2')
   })
 
@@ -276,7 +277,8 @@ test.describe('RHF field wrappers', () => {
     await expect(page.locator(text('multi-select-blur-count'))).toHaveText('1')
 
     await multiSelect.click()
-    await page.mouse.click(5, 5)
+    await expect(multiSelect).toHaveAttribute('aria-expanded', 'true')
+    await page.locator('body').dispatchEvent('pointerdown')
     await expect(page.locator(text('multi-select-blur-count'))).toHaveText('2')
   })
 
