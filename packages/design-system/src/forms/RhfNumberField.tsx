@@ -91,7 +91,6 @@ export function RhfNumberField<
   const inputProps = omitRhfProps(props)
 
   const [buffer, setBuffer] = useState(() => displayValue(state.field.value))
-  const lastCommittedValue = useRef<unknown>(state.field.value ?? '')
   const lastCommittedDisplay = useRef(displayValue(state.field.value))
   const previousValue = useRef<unknown>(state.field.value)
   const previousDefaults = useRef(state.formState.defaultValues)
@@ -114,11 +113,9 @@ export function RhfNumberField<
     ) {
       const nextDisplay = displayValue(state.field.value)
       setBuffer(nextDisplay)
-      lastCommittedValue.current = state.field.value ?? ''
       lastCommittedDisplay.current = nextDisplay
       pendingInternalValue.current = unset
     } else if (expectedInternalChange) {
-      lastCommittedValue.current = state.field.value ?? ''
       lastCommittedDisplay.current = displayValue(state.field.value)
       pendingInternalValue.current = unset
     }
@@ -149,12 +146,10 @@ export function RhfNumberField<
 
   const handleBlur = () => {
     if (buffer === '') {
-      lastCommittedValue.current = ''
       lastCommittedDisplay.current = ''
     } else if (completeNumber.test(buffer)) {
       const nextValue = Number(buffer)
       if (Number.isFinite(nextValue)) {
-        lastCommittedValue.current = nextValue
         lastCommittedDisplay.current = String(nextValue)
         setBuffer(String(nextValue))
       }
