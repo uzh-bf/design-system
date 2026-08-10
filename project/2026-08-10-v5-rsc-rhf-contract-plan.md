@@ -40,12 +40,12 @@ Delivery: one full-path Design System PR; no push, PR creation, merge, tag, publ
 - Slice 3 — implementation committed locally: migration and README examples
   use `./react-hook-form`; RHF stories and type contracts use the dedicated
   source entry; and package check, lint, format, and whitespace checks pass.
-- Final contract fixes in progress from the maintainability review: direct
-  declaration-boundary assertions, standalone root-only and dedicated packed
-  lockfiles, a legacy `typesVersions` compile, emitted-directive coverage, a
-  shared packed-artifact helper, and removal of the orphan `src/Form.tsx`.
-- Next: commit these final adjustments, rerun fresh package and packed
-  verification, then rerun the exact-range security, maintainability, and
+- Final contract fixes are committed locally: direct declaration-boundary
+  assertions, standalone root-only and dedicated packed lockfiles, a legacy
+  `typesVersions` compile, emitted-directive coverage, a shared packed-artifact
+  helper, and removal of the orphan `src/Form.tsx`.
+- The ADR and plan status corrections are included in the current local
+  documentation commit. Next: rerun the exact-range maintainability and
   integrated final reviews. The browser hydration gate remains an explicit
   environment blocker, and P2 delivery authority remains separate.
 

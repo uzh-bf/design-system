@@ -1,6 +1,12 @@
 # 0001 — Two-door public API for v5
 
-Status: Accepted (2026-07-20)
+Status: Superseded in part by ADR 0002 (2026-08-10)
+
+ADR 0002 overrides this record's RHF-specific two-door and required-peer
+clauses. The naming, compatibility, and raw-primitive decisions below remain
+in force; RHF runtime and declaration exports now live behind
+`./react-hook-form`, and `react-hook-form` is an optional peer for root-only
+consumers.
 
 ## Context
 
@@ -12,7 +18,7 @@ and the duplication had to be maintained by hand.
 
 ## Decision
 
-v5 exposes exactly two component doors:
+At the time of this decision, v5 exposed exactly two component doors:
 
 - root `.` = the opinionated UZH **composites** (PascalCase, config-prop APIs),
   including the form wrappers that used to live under `./forms`;

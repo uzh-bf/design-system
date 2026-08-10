@@ -7,8 +7,11 @@ React Hook Form runtime and declaration edges, preserves emitted `use client`
 boundaries, and exposes the RHF `Form` binding and `Rhf*` wrappers only through
 the explicit client entry `./react-hook-form`. `react-hook-form` becomes an
 optional peer for root-only consumers, while consumers of the dedicated entry
-must install it. The decision supersedes ADR 0001's deferred per-feature split
-because the packed alpha.3 root currently fails a Next App Router Server
+must install it. This decision supersedes ADR 0001's RHF-specific claim that
+v5 has exactly two component doors and that `react-hook-form` is a required
+peer; ADR 0001's naming, compatibility, and raw-primitive decisions remain in
+force. It also supersedes ADR 0001's deferred per-feature split because the
+packed alpha.3 root currently fails a Next App Router Server
 Component build by reaching RHF through both the root and primitive graphs.
 
 ## Consequences
