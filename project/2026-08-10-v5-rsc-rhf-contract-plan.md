@@ -21,9 +21,20 @@ Delivery: one full-path Design System PR; no push, PR creation, merge, tag, publ
   `bootstrap_check_in ... Permission denied`; the same failure occurs through
   the native Node browser runtime. No product failure is inferred from this
   gap.
-- Next: run the required read-only public-contract review on this exact slice;
-  then resolve or explicitly carry the browser gate before Slice 2/final
-  readiness.
+- Intermediate review: Terra returned `DONE_WITH_CONCERNS` for
+  `70eb98a..324c79d`. The accepted confidence-100 finding is that direct entry
+  scans do not prove transitive RHF-free root and primitive graphs. Slice 2
+  therefore includes recursive emitted-graph checks and a packed
+  `./primitives` Server Component import.
+- Slice 2 — implementation ready locally: the recursive graph checks pass for
+  101 root modules and 56 primitive modules; both packed Next build modes pass
+  with root and primitive server imports; and the separate packed root-only and
+  dedicated consumers pass type, runtime, CSS, optional-peer, distinct-label,
+  and removed-root-export checks.
+- Environment gap carried: Playwright still cannot launch Chromium in this
+  macOS sandbox, so hydration/submission remains unverified.
+- Next: commit Slice 2, then complete the existing RHF contract migration docs
+  and tests in Slice 3 before the integrated final review.
 
 ## Research
 

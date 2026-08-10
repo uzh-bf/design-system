@@ -1,0 +1,29 @@
+{
+  "name": "root-only",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "6.7.2",
+    "@fortawesome/free-regular-svg-icons": "6.7.2",
+    "@fortawesome/free-solid-svg-icons": "6.7.2",
+    "@fortawesome/react-fontawesome": "0.2.2",
+    "@tailwindcss/postcss": "4.1.11",
+    "@uzh-bf/design-system": "file:../../.artifacts/design-system.tgz",
+    "class-variance-authority": "0.7.1",
+    "clsx": "2.1.1",
+    "dayjs": "1.11.13",
+    "formik": "2.4.6",
+    "lucide-react": "0.522.0",
+    "postcss": "8.4.41",
+    "react": "19.2.7",
+    "react-dom": "19.2.7",
+    "tailwind-merge": "3.3.1",
+    "tailwindcss": "4.1.11",
+    "tw-animate-css": "1.3.4"
+  },
+  "devDependencies": {
+    "@types/react": "19.1.8",
+    "@types/react-dom": "19.1.6",
+    "typescript": "5.8.3"
+  }
+}

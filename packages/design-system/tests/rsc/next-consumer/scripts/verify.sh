@@ -36,17 +36,57 @@ test -f "$dist_dir/index.d.ts"
 test -f "$dist_dir/primitives.d.ts"
 test -f "$dist_dir/react-hook-form.d.ts"
 
-if grep -Eq '^(import|export)[[:space:]].*react-hook-form' \
-  "$dist_dir/index.js" "$dist_dir/index.d.ts" \
-  "$dist_dir/primitives.js" "$dist_dir/primitives.d.ts"; then
-  echo 'RSC contract failure: root or primitives output reaches react-hook-form' >&2
-  exit 1
-fi
+node --input-type=module - "$dist_dir" <<'NODE'
+import fs from 'node:fs'
+import path from 'node:path'
 
-if grep -Eq "^[[:space:]]*(['\"]use client['\"])[[:space:]]*;?" "$dist_dir/index.js"; then
-  echo 'RSC contract failure: root output is classified as a client entry' >&2
-  exit 1
-fi
+const distDir = path.resolve(process.argv[2])
+const rhfImport = /^\s*(?:import|export)\b[^\n]*?(?:from\s*)?['"]react-hook-form['"]/m
+const relativeImport = /(?:from\s+|import\s*(?:\(\s*)?|export\s+)(['"])(\.[^'"]+)\1/g
+
+function resolveModule(directory, specifier) {
+  const candidates = [
+    path.resolve(directory, specifier),
+    path.resolve(directory, `${specifier}.js`),
+    path.resolve(directory, `${specifier}.d.ts`),
+  ]
+  return candidates.find((candidate) => fs.existsSync(candidate))
+}
+
+function assertGraph(entry) {
+  const queue = [path.resolve(distDir, entry)]
+  const visited = new Set()
+
+  while (queue.length > 0) {
+    const file = queue.shift()
+    if (visited.has(file)) continue
+    visited.add(file)
+
+    const code = fs.readFileSync(file, 'utf8')
+    if (rhfImport.test(code)) {
+      throw new Error(`${entry} reaches react-hook-form through ${path.relative(distDir, file)}`)
+    }
+
+    for (const match of code.matchAll(relativeImport)) {
+      const child = resolveModule(path.dirname(file), match[2])
+      if (child) queue.push(child)
+    }
+  }
+
+  return visited.size
+}
+
+if (/^\s*(['"])use client\1\s*;?/m.test(fs.readFileSync(path.join(distDir, 'index.js'), 'utf8'))) {
+  throw new Error('root output is classified as a client entry')
+}
+if (!/^\s*(['"])use client\1\s*;?/m.test(fs.readFileSync(path.join(distDir, 'react-hook-form.js'), 'utf8'))) {
+  throw new Error('dedicated RHF output lost its client boundary')
+}
+
+const rootModules = assertGraph('index.js')
+const primitiveModules = assertGraph('primitives.js')
+console.log(`RSC graphs clean: root ${rootModules} modules, primitives ${primitiveModules} modules`)
+NODE
 
 grep -Eq "^[[:space:]]*(['\"]use client['\"])[[:space:]]*;?" "$dist_dir/react-hook-form.js"
 grep -Eq '^(import|export)[[:space:]].*react-hook-form' \
