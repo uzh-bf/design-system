@@ -88,18 +88,21 @@ Anything inside a `data-theme="uzh"` container (set directly or via
 
 ## Breaking change: public API surface
 
-v5 consolidates the package into **two component entry points** plus the CSS
-entry. Earlier setups exposed the raw shadcn primitives twice — once with a
+v5 consolidates the package into **three component entry points** plus the CSS
+entries. Earlier setups exposed the raw shadcn primitives twice — once with a
 `Shadcn*` prefix at the package root, once under a `./ui` subpath — and the form
-wrappers under a `./forms` subpath. All of that duplication is removed.
+wrappers under a `./forms` subpath. All of that duplication is removed. RHF
+bindings now live behind an explicit client-only entry so Server Components can
+use the root and primitive doors without reaching `react-hook-form`.
 
 ### Entry points
 
-| Import specifier                   | Contents                                                                                                                                                                                                                                                                    |
-| ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `@uzh-bf/design-system`            | Opinionated **custom composites** — `Button`, `Table`, `Modal`, `Form`, the `Formik*` fields, and the rest of the UZH-styled components. The form wrappers that used to live under `./forms` now live here.                                                                 |
-| `@uzh-bf/design-system/primitives` | **Raw shadcn/Radix primitives** under their natural names (`Table`, `DropdownMenu*`, `Menubar*`, `Collapsible*`, `Label`, `Progress`, …). **New door** — it replaces the removed `Shadcn*` root exports and the raw-primitive aliases that the `./ui` subpath also carried. |
-| `@uzh-bf/design-system/css`        | Precompiled stylesheet (see [CSS delivery](#breaking-change-css-delivery)). Unchanged.                                                                                                                                                                                      |
+| Import specifier                        | Contents                                                                                                                                                                                                                                                                    |
+| --------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `@uzh-bf/design-system`                 | Opinionated **custom composites** — `Button`, `Table`, `Modal`, the `Formik*` fields, and the rest of the UZH-styled components. The Formik wrappers that used to live under `./forms` now live here. This door is RHF-free.                                                |
+| `@uzh-bf/design-system/primitives`      | **Raw shadcn/Radix primitives** under their natural names (`Table`, `DropdownMenu*`, `Menubar*`, `Collapsible*`, `Label`, `Progress`, …). **New door** — it replaces the removed `Shadcn*` root exports and the raw-primitive aliases that the `./ui` subpath also carried. |
+| `@uzh-bf/design-system/react-hook-form` | Client-only React Hook Form binding: `Form`, `FormField`, `FormItem`, `FormLabel`, `FormControl`, `FormDescription`, `FormMessage`, `useFormField`, and the `Rhf*` field wrappers.                                                                                          |
+| `@uzh-bf/design-system/css`             | Precompiled stylesheet (see [CSS delivery](#breaking-change-css-delivery)). Unchanged.                                                                                                                                                                                      |
 
 ### Removed subpaths
 
@@ -107,7 +110,8 @@ wrappers under a `./forms` subpath. All of that duplication is removed.
   (`Button`, `Accordion`, …), which now come from the root **`@uzh-bf/design-system`**;
   the raw `Shadcn*` aliases it also carried move to **`@uzh-bf/design-system/primitives`**
   under their natural names.
-- `@uzh-bf/design-system/forms` → **`@uzh-bf/design-system`** (the form wrappers moved up to the root).
+- `@uzh-bf/design-system/forms` → **`@uzh-bf/design-system`** for Formik wrappers;
+  RHF bindings move to **`@uzh-bf/design-system/react-hook-form`**.
 
 ### Removed `Shadcn*` exports
 
@@ -406,11 +410,12 @@ these, so an app that never installed them explicitly may now surface unmet-peer
 warnings — install the missing ones. As a side effect this removes the duplicate
 `react-dom` copy that v4 shipped inside its chunks.
 
-### `react-hook-form` is now a required peer
+### `react-hook-form` is an optional peer behind a dedicated client entry
 
-The shadcn `Form` binding (`Form`, `FormField`, `FormControl`, …) is built on
-`react-hook-form`. v5 moves `react-hook-form` from a bundled **dependency** to a
-**peer dependency** you provide:
+The shadcn `Form` binding (`Form`, `FormField`, `FormControl`, …) and the `Rhf*`
+field wrappers are built on `react-hook-form`. The package declares it as an
+**optional peer**: root-only and primitive-only consumers do not need to install
+it, while consumers of the dedicated RHF entry must provide it:
 
 ```sh
 pnpm add react-hook-form
@@ -418,30 +423,38 @@ pnpm add react-hook-form
 
 Providing it yourself keeps a single `react-hook-form` instance in your app — a
 bundled copy would break the `FormProvider` React context across the package
-boundary. It is a required peer rather than an optional one because the `Form`
-binding is re-exported from the package's main entry, so `react-hook-form` is
-resolved whenever the entry is loaded — even by consumers that never render the
-binding. A per-feature build split that would let non-`Form` consumers skip it is
-tracked for a later release; until then, install it alongside the package.
+boundary. The root `@uzh-bf/design-system` and `./primitives` doors no longer
+export `Form` or `Rhf*`, and do not have RHF runtime or declaration edges. Import
+the client-only RHF door explicitly:
+
+```tsx
+import { useForm } from 'react-hook-form'
+import { Form, RhfTextField } from '@uzh-bf/design-system/react-hook-form'
+```
+
+This is a deliberate pre-GA breaking change. The root `FormLabel` remains the
+standalone design-system label; the RHF-aware `FormLabel` is exported from
+`./react-hook-form` only. Add a client boundary around components that import
+the RHF entry when using Next.js Server Components.
 
 v5 also **drops `@hookform/resolvers`** — the design system never imported it, so
 it was dead weight in the dependency tree. If you use an RHF resolver such as
 `zodResolver`, depend on `@hookform/resolvers` directly in your app.
 
-### RHF field wrappers in alpha.3
+### RHF field wrappers
 
-`5.0.0-alpha.3` adds turnkey RHF wrappers for the generic controls needed by the
-demo-game migration:
+The v5 alpha provides turnkey RHF wrappers for the generic controls needed by
+the demo-game migration:
 
 ```tsx
-import { useForm } from 'react-hook-form'
 import {
   Form,
   RhfMultiSelect,
   RhfNumberField,
   RhfSelectField,
   RhfTextField,
-} from '@uzh-bf/design-system'
+} from '@uzh-bf/design-system/react-hook-form'
+import { useForm } from 'react-hook-form'
 
 type DemoFormValues = {
   name: string

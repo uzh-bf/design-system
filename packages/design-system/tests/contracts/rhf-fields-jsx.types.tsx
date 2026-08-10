@@ -5,7 +5,7 @@ import {
   RhfNumberField,
   RhfSelectField,
   RhfTextField,
-} from '../../src'
+} from '../../src/react-hook-form'
 
 type Values = {
   name: string

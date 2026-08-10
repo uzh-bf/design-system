@@ -19,10 +19,11 @@ pnpm add @uzh-bf/design-system@alpha
 ```
 
 Runtime libraries are declared as **peer dependencies**, so your app provides
-them (`react`, `react-dom`, `react-hook-form`, `formik`, `dayjs`, `lucide-react`,
+them (`react`, `react-dom`, `formik`, `dayjs`, `lucide-react`,
 `class-variance-authority`, `clsx`, `tailwind-merge`, the `@fortawesome/*`
-packages, and the Tailwind toolchain). Your package manager reports any that are
-missing.
+packages, and the Tailwind toolchain). `react-hook-form` is an optional peer for
+the dedicated RHF entry; install it only when using that entry. Your package
+manager reports any missing required peers.
 
 ## Prerequisites
 
@@ -82,15 +83,16 @@ limitations.
 
 ## Usage
 
-v5 exposes two component doors: the root for opinionated composites, and
-`./primitives` for the raw shadcn/Radix primitives under their natural names. The
-form wrappers (`FormikTextField`, …) that lived under `./forms` in v4 now come
-from the root. The v5 alpha also provides `RhfTextField`, `RhfNumberField`,
-`RhfSelectField`, and `RhfMultiSelect` for turnkey React Hook Form fields.
+v5 exposes three component doors: the root for opinionated composites,
+`./primitives` for raw shadcn/Radix primitives under their natural names, and
+the client-only `./react-hook-form` entry for the RHF binding and field wrappers.
+The Formik wrappers (`FormikTextField`, …) that lived under `./forms` in v4 now
+come from the root.
 
 ```tsx
 import { useForm } from 'react-hook-form'
-import { Button, Form, RhfTextField } from '@uzh-bf/design-system'
+import { Button } from '@uzh-bf/design-system'
+import { Form, RhfTextField } from '@uzh-bf/design-system/react-hook-form'
 import { DropdownMenu } from '@uzh-bf/design-system/primitives'
 
 type FormValues = { name: string }
@@ -109,12 +111,13 @@ React context, so context-only JSX is not schema-safe. Form-level RHF `disabled`
 state reaches the rendered controls, and composite selects report blur when the
 user leaves the control or closes its open menu.
 
-| Entry                                 | Contents                                                                                                                                                      |
-| ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `@uzh-bf/design-system`               | Custom composites (`Button`, `Table`, `Modal`, `Form`, the `Formik*` fields, and the `Rhf*Field` wrappers) plus the `ThemeProvider` / `useTheme` theming API. |
-| `@uzh-bf/design-system/primitives`    | Raw shadcn/Radix primitives under their natural names (`DropdownMenu*`, `Table*`, …).                                                                         |
-| `@uzh-bf/design-system/css`           | Precompiled stylesheet (import once — see above).                                                                                                             |
-| `@uzh-bf/design-system/preflight.css` | Base/reset layer on its own.                                                                                                                                  |
+| Entry                                   | Contents                                                                                                                                       |
+| --------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `@uzh-bf/design-system`                 | Custom composites (`Button`, `Table`, `Modal`, the `Formik*` fields) plus the `ThemeProvider` / `useTheme` theming API. This door is RHF-free. |
+| `@uzh-bf/design-system/primitives`      | Raw shadcn/Radix primitives under their natural names (`DropdownMenu*`, `Table*`, …).                                                          |
+| `@uzh-bf/design-system/react-hook-form` | Client-only RHF binding (`Form`, `FormField`, `FormItem`, `FormLabel`, `FormControl`, and the `Rhf*` wrappers).                                |
+| `@uzh-bf/design-system/css`             | Precompiled stylesheet (import once — see above).                                                                                              |
+| `@uzh-bf/design-system/preflight.css`   | Base/reset layer on its own.                                                                                                                   |
 
 Some natural names exist at **both** doors as different components (root = custom
 composite, `./primitives` = raw primitive). See
