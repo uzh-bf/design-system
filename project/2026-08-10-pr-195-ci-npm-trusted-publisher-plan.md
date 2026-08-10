@@ -1,9 +1,10 @@
 # Plan — PR #195 v5 alpha.3 npm Trusted Publisher replay
 
-Status: implementation complete; final reviews and refreshed PR CI remain.
-The v5.0.0-alpha.3 tag has been published through npm Trusted Publisher, and
-the registry-backed GBL migration is complete, verified, and intentionally
-local and unmerged.
+Status: implementation and source reviews complete. Live CI and delivery state
+are tracked on draft PR #195; merge and readiness remain unapproved. The
+v5.0.0-alpha.3 tag has been published through npm Trusted Publisher, and the
+registry-backed GBL migration is complete, verified, and intentionally local
+and unmerged.
 
 Date: 2026-08-10
 Branch: `rs/ci-npm-trusted-publisher`
@@ -110,11 +111,14 @@ but it closes the missing capable challenge before the draft PR is updated.
   from `Build and Publish` to `Build`.
 - The late planning recovery pass returned `PASS_WITH_CONCERNS`; its two
   progress-only findings are closed in the current follow-up.
+- The integrated final re-review passed exact range
+  `origin/v5...61361a398` with no findings. The following plan update records
+  that result only and does not change reviewed workflow behavior or scope.
 - Current evidence: local YAML, formatting, lint, and type/build checks pass.
   The initial sandbox type/build run could not open Parcel's LMDB cache; the
   approved host-level rerun passed.
-- Next: integrated final re-review of the progress-only tip, then push and wait
-  for fresh PR CI. The draft remains unmerged and not ready for review.
+- Next: push the existing branch, refresh the draft PR body, and wait for fresh
+  exact-tip CI. The draft remains unmerged and not ready for review.
 
 ## Slice — release workflow and alpha.3 replay
 
