@@ -39,10 +39,10 @@ publication with `GITHUB_TOKEN` and grant the publish job the package-write
 permission it needs.
 Add `workflow_dispatch` without weakening the existing tag guard. Manual
 dispatch may publish only `v5.0.0-alpha.3`; normal push-tag releases retain
-their existing tag behavior. Because GitHub registers manual workflows only
-when the workflow file exists on the default `main` branch, add the smallest
-possible default-branch trigger registration as a separate reviewable change
-before dispatching the v5 tag.
+their existing tag behavior. The replay uses the corrected workflow branch as
+the dispatch ref, passes the single alpha3 choice, and explicitly checks out
+the immutable alpha3 tag for both the build and publish job. This avoids
+moving the tag or changing the default `main` branch.
 
 ## Non-goals
 
@@ -66,10 +66,13 @@ required before presenting the workflow change as ready.
 - `07938b7f0`: manual alpha3-only replay guard and default-branch prerequisite
   recorded; intermediate review found that publish-capable permissions must be
   isolated from ordinary push builds.
-- Current slice: split the tag-gated publish job from the ordinary build job.
-- Next: rerun the intermediate review on the corrected exact range, prepare
-  the default-branch trigger registration, then run final review before any
-  push or publication.
+- `9b6fd28d0`: split the tag-gated publish job from the ordinary build job and
+  added the required progress record.
+- Current slice: replay alpha3 from the corrected workflow branch while
+  explicitly checking out the immutable tag.
+- Next: rerun the intermediate review on the corrected exact range, push the
+  branch, dispatch the alpha3 replay, then run final review before presenting
+  the package as complete.
 
 ## Slice — release workflow and alpha.3 replay
 
@@ -96,9 +99,9 @@ Check:
 - Manual dispatch on `v5.0.0-alpha.3` reaches the tag guard and publishes via
   OIDC; read back the npm version, alpha dist-tag, tarball URL, integrity, and
   provenance metadata.
-- The default `main` branch contains the workflow trigger registration needed
-  for GitHub to expose manual dispatch, while the v5 workflow contains the
-  OIDC implementation and replay guard.
+- The replay command uses `gh workflow run main.yml --ref
+  rs/ci-npm-trusted-publisher -f release_tag=v5.0.0-alpha.3`, and the run
+  checks out `v5.0.0-alpha.3` before building or publishing.
 
 Commit: `ci(release): publish v5 tags through npm trusted publisher`.
 

@@ -4,6 +4,13 @@ on:
   # Allows a release job to replay an immutable version tag after a workflow
   # fix without moving the tag or creating a second package version.
   workflow_dispatch:
+    inputs:
+      release_tag:
+        description: Version tag to replay through this workflow revision
+        required: true
+        type: choice
+        options:
+          - v5.0.0-alpha.3
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -168,7 +175,7 @@ jobs:
 
   publish:
     name: Publish
-    if: ${{ startsWith(github.ref, 'refs/tags/v') && (github.event_name != 'workflow_dispatch' || github.ref_name == 'v5.0.0-alpha.3') }}
+    if: ${{ startsWith(github.ref, 'refs/tags/v') || (github.event_name == 'workflow_dispatch' && inputs.release_tag == 'v5.0.0-alpha.3') }}
     runs-on: ubuntu-latest
     needs: [build]
     permissions:
@@ -178,6 +185,8 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.release_tag || github.ref }}
 
       - name: Use Node 24
         uses: actions/setup-node@v4
@@ -201,11 +210,13 @@ jobs:
       - name: Resolve npm dist-tag and verify tag matches package version
         id: release_meta
         working-directory: packages/design-system
+        env:
+          RELEASE_REF: ${{ inputs.release_tag || github.ref_name }}
         run: |
           PKG_VERSION="$(node -p "require('./package.json').version")"
-          GIT_TAG="${GITHUB_REF_NAME#v}"
+          GIT_TAG="${RELEASE_REF#v}"
           if [ "$PKG_VERSION" != "$GIT_TAG" ]; then
-            echo "::error::Git tag '${GITHUB_REF_NAME}' does not match packages/design-system version '${PKG_VERSION}'. Refusing to publish."
+            echo "::error::Release ref '${RELEASE_REF}' does not match packages/design-system version '${PKG_VERSION}'. Refusing to publish."
             exit 1
           fi
           # Strip build metadata (everything after '+') before inspecting the
