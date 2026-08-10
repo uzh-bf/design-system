@@ -1,6 +1,6 @@
 # Plan — v5 package-size budgets
 
-Status: Slice 2 complete; CI wiring pending
+Status: Slice 3 complete; integrated close-out pending
 Date: 2026-08-10
 Branch: `rs/v5-package-budgets`
 Target: `v5`
@@ -256,5 +256,11 @@ push/PR authority from this plan.
   lower-cap run fails as expected; packed exports resolve; and the W3 marker
   checks pass. Test delta: two implementation files added, one package script
   changed, no browser test file added.
-- Next: wire the size gate into the ordinary Node 22 Build job and the
-  independent Node 24 Publish build.
+- Slice 3 is complete: both Build and Publish contain the size gate after their
+  package builds; YAML parsing and structural job inspection pass; and the
+  exact package build plus `pnpm run size:check` pass locally. `actionlint` is
+  unavailable. A repository-wide Turbo build remains outside this workflow's
+  package-only release path and failed only in legacy Parcel header/tag builds
+  on the known LMDB sandbox limitation.
+- Next: run integrated repository checks, commit the CI wiring and progress,
+  then perform the required final reviews on the exact branch range.
