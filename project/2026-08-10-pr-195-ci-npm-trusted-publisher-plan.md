@@ -1,4 +1,4 @@
-# Plan — v5 alpha.3 npm Trusted Publisher replay
+# Plan — PR #195 v5 alpha.3 npm Trusted Publisher replay
 
 Status: in progress. The v5.0.0-alpha.3 tag exists and has now been published
 through the configured npm Trusted Publisher path. The remaining work is the
@@ -7,6 +7,7 @@ GBL registry-lockfile reconciliation and consumer verification.
 Date: 2026-08-10
 Branch: `rs/ci-npm-trusted-publisher`
 Target: `v5`
+PR: https://github.com/uzh-bf/design-system/pull/195
 Related release: `v5.0.0-alpha.3` at
 `1de22ddc0a1cffdfccdfa5a99af91d5b217ccf40`
 
