@@ -6,6 +6,25 @@ Repository: `/Users/rschlae/Git/df/design-system`
 Base: fresh branch from `origin/v5` at merged P0; P1 remains a separate local branch
 Delivery: one full-path Design System PR; no push, PR creation, merge, tag, publication, deployment, consumer migration, or GA promotion authorized by this draft
 
+## Progress
+
+- Slice 1 — implementation committed locally: build the packed Next App Router
+  tracer bullet and split RHF behind `./react-hook-form` while keeping `.` and
+  `./primitives` RHF-free.
+- Evidence: package build, source type check, lint, format check, metadata
+  checks, and emitted client-directive preservation all pass. The isolated
+  fixture installs its packed tarball with pnpm 11.21.0; `next build` and
+  `next build --webpack` both pass, including the root Server Component import
+  and client RHF leaf compilation.
+- Environment gap: the required Playwright hydration interaction is not
+  runnable in this macOS sandbox. Chromium exits before launch with
+  `bootstrap_check_in ... Permission denied`; the same failure occurs through
+  the native Node browser runtime. No product failure is inferred from this
+  gap.
+- Next: run the required read-only public-contract review on this exact slice;
+  then resolve or explicitly carry the browser gate before Slice 2/final
+  readiness.
+
 ## Research
 
 - Question: Does the current compiled package satisfy the roadmap's RSC
