@@ -84,19 +84,19 @@ Historical inputs:
 
 ## Current milestone state
 
-| Milestone                           | Status                                 | Evidence and next gate                                                                                                                                       |
-| ----------------------------------- | -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| v5 engineering through RHF wrappers | Complete                               | PRs #180-#194 are in remote `v5` at `1de22ddc`; alpha.3 contains the four RHF wrappers.                                                                      |
-| Alpha.3 publication                 | Complete                               | npm `alpha` resolves to `5.0.0-alpha.3`; `latest` remains `4.1.6`; Trusted Publisher replay run `31364726904` passed.                                        |
-| VetSim consumer pilot               | Complete and merged                    | VetSim PR [#18](https://github.com/rschlaefli/vet-platform/pull/18) and hover correction [#19](https://github.com/rschlaefli/vet-platform/pull/19) merged.   |
-| GBL demo-game pilot                 | Implementation complete; delivery held | Clean local branch `rs/v5-alpha-pilot` at `9f8c76b`, five commits ahead of `origin/dev`; final verification and review passed.                               |
-| Trusted Publisher PR                | P0 in progress                         | PR [#195](https://github.com/uzh-bf/design-system/pull/195) is draft; replay proof is green; privileged action pins and complete prerequisite gating remain. |
-| Package size gate                   | Not started                            | Size Limit dependencies exist, but no script, configuration, threshold, or CI gate exists.                                                                   |
-| Accessibility retirement            | Ratchet active; inventory uncertain    | The allowlist header says 190 serious/critical rule-cases, while its itemized reason counts sum to 159. Re-measure before claiming either count.             |
-| Deterministic VRT                   | Not started                            | Playwright and self-hosted fonts exist; no `tests/visual` suite or committed baseline exists.                                                                |
-| Consumer contracts                  | Decision required                      | VetSim exposed a root-barrel RSC incompatibility and theme-token ownership/cascade friction.                                                                 |
-| Brand override and Klicker          | Not started                            | D8 gives a direction, but the complete approved ramp, ownership, profile, and consumer migration do not exist.                                               |
-| GA promotion                        | Held                                   | PR #179 is draft and spans 170 commits and 275 files; its current checks are not fresh GA evidence.                                                          |
+| Milestone                           | Status                                 | Evidence and next gate                                                                                                                                                                                  |
+| ----------------------------------- | -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| v5 engineering through RHF wrappers | Complete                               | PRs #180-#194 are in remote `v5` at `1de22ddc`; alpha.3 contains the four RHF wrappers.                                                                                                                 |
+| Alpha.3 publication                 | Complete                               | npm `alpha` resolves to `5.0.0-alpha.3`; `latest` remains `4.1.6`; Trusted Publisher replay run `31364726904` passed.                                                                                   |
+| VetSim consumer pilot               | Complete and merged                    | VetSim PR [#18](https://github.com/rschlaefli/vet-platform/pull/18) and hover correction [#19](https://github.com/rschlaefli/vet-platform/pull/19) merged.                                              |
+| GBL demo-game pilot                 | Implementation complete; delivery held | Clean local branch `rs/v5-alpha-pilot` at `9f8c76b`, five commits ahead of `origin/dev`; final verification and review passed.                                                                          |
+| Trusted Publisher PR                | P0 security follow-up in progress      | PR [#195](https://github.com/uzh-bf/design-system/pull/195) is draft; replay proof is green; final review required removal of the one-time dispatch path and an explicit read-only permission baseline. |
+| Package size gate                   | Not started                            | Size Limit dependencies exist, but no script, configuration, threshold, or CI gate exists.                                                                                                              |
+| Accessibility retirement            | Ratchet active; inventory uncertain    | The allowlist header says 190 serious/critical rule-cases, while its itemized reason counts sum to 159. Re-measure before claiming either count.                                                        |
+| Deterministic VRT                   | Not started                            | Playwright and self-hosted fonts exist; no `tests/visual` suite or committed baseline exists.                                                                                                           |
+| Consumer contracts                  | Decision required                      | VetSim exposed a root-barrel RSC incompatibility and theme-token ownership/cascade friction.                                                                                                            |
+| Brand override and Klicker          | Not started                            | D8 gives a direction, but the complete approved ramp, ownership, profile, and consumer migration do not exist.                                                                                          |
+| GA promotion                        | Held                                   | PR #179 is draft and spans 170 commits and 275 files; its current checks are not fresh GA evidence.                                                                                                     |
 
 ## Dependency sequence
 
@@ -174,21 +174,26 @@ alpha containing P1-P7.
 - Decision: Make `build` depend on `lint` and `check-format` as well as
   `check-ts`, `test`, and `a11y`. The publish job continues to depend only on
   `build`, so that job becomes the complete release prerequisite gate.
+- Decision: Remove the one-time alpha.3 `workflow_dispatch` path after its
+  successful replay. Keep normal version-tag pushes as the only publication
+  trigger. Set workflow-level permissions to `contents: read`; let only the
+  publish job add OIDC and package-write permissions.
 - Risk: Pinning an annotated tag object instead of its peeled commit; changing
   unrelated CI jobs; implying that plan or PR completion authorizes merge.
 - Do:
   1. Pin the four privileged-job actions with version comments.
   2. Add lint and formatting to the build prerequisite list.
-  3. Keep the alpha.3-only replay input and immutable-tag checkout unchanged.
-  4. Add this roadmap and close PR #195's execution plan with current GBL and
+  3. Remove the one-time manual replay input and branch-dispatch publish path.
+  4. Set the workflow-wide read-only permission baseline.
+  5. Add this roadmap and close PR #195's execution plan with current GBL and
      registry evidence.
-  5. Run required security, maintainability, and integrated final reviews on
+  6. Run required security, maintainability, and integrated final reviews on
      the exact final range.
-  6. Push the existing branch, update the draft PR body, and wait for CI.
+  7. Push the existing branch, update the draft PR body, and wait for CI.
 - Check: YAML parse; full-SHA/action-comment inspection; `git diff --check`;
-  no `NPM_TOKEN`; no new publish-capable permission on ordinary jobs; all PR
-  checks green. Do not replay alpha.3 again because that immutable version is
-  already published.
+  no `NPM_TOKEN`; no `workflow_dispatch`; workflow-level `contents: read`;
+  publish-only OIDC/package-write; all PR checks green. Do not replay alpha.3
+  again because that immutable version is already published.
 - Test obligation: Extend existing workflow/CI evidence; no new test file.
 - Delivery boundary: Existing branch and draft PR only. Push/update is
   authorized. Merge, readiness, tag, publication, and deployment are held.

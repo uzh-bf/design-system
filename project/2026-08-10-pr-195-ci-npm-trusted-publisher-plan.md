@@ -55,16 +55,17 @@ uses Node 24, action v4, and only the permissions needed for the two registry
 publishes. Remove the public npm token input. Retain the GitHub Packages
 publication with `GITHUB_TOKEN` and grant the publish job the package-write
 permission it needs.
-Add `workflow_dispatch` without weakening the existing tag guard. Manual
-dispatch may publish only `v5.0.0-alpha.3`; normal push-tag releases retain
-their existing tag behavior. The replay uses the corrected workflow branch as
-the dispatch ref, passes the single alpha3 choice, and explicitly checks out
-the immutable alpha3 tag for both the build and publish job. This avoids
-moving the tag or changing the default `main` branch.
+The one-time replay used `workflow_dispatch` on this corrected workflow branch,
+passed a single alpha3 choice, and checked out the alpha3 tag for both jobs.
+After the successful publication and registry readback, the final workflow
+removes that branch-dispatch release authority. Normal version-tag pushes are
+the only remaining publication trigger.
 Only the privileged publish job receives immutable action pins in this PR;
 upgrading unrelated jobs or action major versions is outside scope. The release
 build now waits for lint, formatting, types, tests, and accessibility, and the
 publish job continues to depend on that single complete gate.
+Workflow-level permissions default every job to `contents: read`; the publish
+job explicitly adds only OIDC and package-write permissions.
 
 ## Non-goals
 
@@ -99,11 +100,15 @@ required before presenting the workflow change as ready.
   stale milestone ordering without rewriting historical plans.
 - `d1fb0dc1e`: pin every privileged publish action to an immutable commit and
   make lint plus formatting release prerequisites.
+- The final security gate then identified the still-live one-time dispatch,
+  implicit token defaults on ordinary jobs, and mutable tag-name checkout on
+  that dispatch. All three findings are accepted: remove manual dispatch and
+  set a workflow-wide read-only permission baseline.
 - Current slice: local YAML, formatting, lint, and type/build checks pass. The
   initial sandbox type/build run could not open Parcel's LMDB cache; the
   approved host-level rerun passed.
-- Next: run the required security, maintainability, and integrated final
-  reviews; record their results; push the branch and wait for fresh PR CI.
+- Next: commit and re-review the security follow-up, run maintainability and
+  integrated final reviews, record results, push, and wait for fresh PR CI.
 
 ## Slice — release workflow and alpha.3 replay
 
@@ -112,8 +117,8 @@ Files: `.github/workflows/main.yml`.
 Do:
 
 - Preserve push-triggered CI and the existing tag/version/dist-tag guard.
-- Add a manual workflow trigger for replaying alpha3; branch/manual runs and
-  manual dispatches for other tags must skip publication.
+- Retain push-triggered CI and version-tag publication, and remove the
+  one-time manual replay trigger after alpha3 registry readback.
 - Keep the ordinary build job at `contents: read` and give only the tag-gated
   publish job `contents: read`, `packages: write`, and `id-token: write`.
 - Use Node 24 and `JS-DevTools/npm-publish@v4` without `NPM_TOKEN` for public
@@ -124,20 +129,21 @@ Do:
   the verified v4 release, with a readable version comment.
 - Require lint and formatting alongside types, tests, and accessibility before
   the release build can succeed.
+- Set workflow-level permissions to `contents: read`; let only `publish`
+  explicitly add `id-token: write` and `packages: write`.
 
 Check:
 
 - Ruby YAML parsing, `git diff --check`, and a focused diff review pass
   locally; `actionlint` is unavailable in this environment, so GitHub Actions
   remains the authoritative workflow syntax check.
+- The final workflow has no `workflow_dispatch`, replay input, or branch-based
+  publish path.
 - Branch CI is green after the workflow change; ordinary branch CI skips
   publication.
 - Manual dispatch on `v5.0.0-alpha.3` reaches the tag guard and publishes via
   OIDC; read back the npm version, alpha dist-tag, tarball URL, integrity, and
   provenance metadata.
-- The replay command uses `gh workflow run main.yml --ref
-rs/ci-npm-trusted-publisher -f release_tag=v5.0.0-alpha.3`, and the run
-  checks out `v5.0.0-alpha.3` before building or publishing.
 - Do not replay alpha.3 after the immutable version is present in npm. The
   next live Trusted Publisher proof belongs to a separately authorized future
   alpha tag.
@@ -145,6 +151,8 @@ rs/ci-npm-trusted-publisher -f release_tag=v5.0.0-alpha.3`, and the run
 Observed release evidence:
 
 - Workflow run: `31364726904`.
+- One-time replay command: `gh workflow run main.yml --ref
+rs/ci-npm-trusted-publisher -f release_tag=v5.0.0-alpha.3`.
 - Public package: `@uzh-bf/design-system@5.0.0-alpha.3`.
 - Public `alpha` dist-tag: `5.0.0-alpha.3`.
 - Registry metadata exposes the published tarball integrity and provenance

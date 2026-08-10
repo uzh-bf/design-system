@@ -1,16 +1,10 @@
 name: CI
 on:
   push:
-  # Allows a release job to replay an immutable version tag after a workflow
-  # fix without moving the tag or creating a second package version.
-  workflow_dispatch:
-    inputs:
-      release_tag:
-        description: Version tag to replay through this workflow revision
-        required: true
-        type: choice
-        options:
-          - v5.0.0-alpha.3
+
+permissions:
+  contents: read
+
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -152,14 +146,10 @@ jobs:
   build:
     name: Build and Publish
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
     needs: [lint, check-ts, check-format, test, a11y]
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-        with:
-          ref: ${{ inputs.release_tag || github.ref }}
 
       - name: Use Node 22
         uses: actions/setup-node@v4
@@ -177,7 +167,7 @@ jobs:
 
   publish:
     name: Publish
-    if: ${{ startsWith(github.ref, 'refs/tags/v') || (github.event_name == 'workflow_dispatch' && inputs.release_tag == 'v5.0.0-alpha.3') }}
+    if: ${{ startsWith(github.ref, 'refs/tags/v') }}
     runs-on: ubuntu-latest
     needs: [build]
     permissions:
@@ -187,8 +177,6 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
-        with:
-          ref: ${{ inputs.release_tag || github.ref }}
 
       - name: Use Node 24
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
@@ -213,7 +201,7 @@ jobs:
         id: release_meta
         working-directory: packages/design-system
         env:
-          RELEASE_REF: ${{ inputs.release_tag || github.ref_name }}
+          RELEASE_REF: ${{ github.ref_name }}
         run: |
           PKG_VERSION="$(node -p "require('./package.json').version")"
           GIT_TAG="${RELEASE_REF#v}"
