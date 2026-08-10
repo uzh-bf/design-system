@@ -31,10 +31,12 @@ create unnecessary release drift; the existing tag needs a safe replay path.
 
 ## Decision
 
-Use npm Trusted Publisher for the public npm step. Upgrade that action to v4,
-run the release job on Node 24, grant only the release job `id-token: write`,
-and remove the public npm token input. Retain the GitHub Packages publication
-with `GITHUB_TOKEN` and grant the job the package-write permission it needs.
+Use npm Trusted Publisher for the public npm step. Keep the ordinary build job
+free of publish-capable credentials, and add a tag-gated publish job that
+uses Node 24, action v4, and only the permissions needed for the two registry
+publishes. Remove the public npm token input. Retain the GitHub Packages
+publication with `GITHUB_TOKEN` and grant the publish job the package-write
+permission it needs.
 Add `workflow_dispatch` without weakening the existing tag guard. Manual
 dispatch may publish only `v5.0.0-alpha.3`; normal push-tag releases retain
 their existing tag behavior. Because GitHub registers manual workflows only
@@ -57,6 +59,18 @@ verified npm documentation, the configured publisher screenshot, the live
 workflow, and the failed tag-run evidence. The integrated final review remains
 required before presenting the workflow change as ready.
 
+## Progress
+
+- `162e6c2ac`: plan committed before implementation.
+- `2ff08ed0`: initial OIDC workflow slice committed.
+- `07938b7f0`: manual alpha3-only replay guard and default-branch prerequisite
+  recorded; intermediate review found that publish-capable permissions must be
+  isolated from ordinary push builds.
+- Current slice: split the tag-gated publish job from the ordinary build job.
+- Next: rerun the intermediate review on the corrected exact range, prepare
+  the default-branch trigger registration, then run final review before any
+  push or publication.
+
 ## Slice — release workflow and alpha.3 replay
 
 Files: `.github/workflows/main.yml`.
@@ -66,14 +80,18 @@ Do:
 - Preserve push-triggered CI and the existing tag/version/dist-tag guard.
 - Add a manual workflow trigger for replaying alpha3; branch/manual runs and
   manual dispatches for other tags must skip publication.
-- Give only the build job `contents: read`, `packages: write`, and
-  `id-token: write` permissions.
+- Keep the ordinary build job at `contents: read` and give only the tag-gated
+  publish job `contents: read`, `packages: write`, and `id-token: write`.
 - Use Node 24 and `JS-DevTools/npm-publish@v4` without `NPM_TOKEN` for public
-  npm; retain the GitHub Packages publish step with `GITHUB_TOKEN`.
+  npm; retain the GitHub Packages publish step with `GITHUB_TOKEN`. Rebuild in
+  the isolated publish job rather than passing an artifact from the ordinary
+  build job.
 
 Check:
 
-- YAML/action syntax and a focused diff review pass locally.
+- Ruby YAML parsing, `git diff --check`, and a focused diff review pass
+  locally; `actionlint` is unavailable in this environment, so GitHub Actions
+  remains the authoritative workflow syntax check.
 - Branch CI is green after the workflow change.
 - Manual dispatch on `v5.0.0-alpha.3` reaches the tag guard and publishes via
   OIDC; read back the npm version, alpha dist-tag, tarball URL, integrity, and
