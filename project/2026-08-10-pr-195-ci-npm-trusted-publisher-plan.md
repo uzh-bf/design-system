@@ -1,8 +1,9 @@
 # Plan — PR #195 v5 alpha.3 npm Trusted Publisher replay
 
-Status: in progress. The v5.0.0-alpha.3 tag exists and has now been published
-through the configured npm Trusted Publisher path. The remaining work is the
-GBL registry-lockfile reconciliation and consumer verification.
+Status: implementation complete; final reviews and refreshed PR CI remain.
+The v5.0.0-alpha.3 tag has been published through npm Trusted Publisher, and
+the registry-backed GBL migration is complete, verified, and intentionally
+local and unmerged.
 
 Date: 2026-08-10
 Branch: `rs/ci-npm-trusted-publisher`
@@ -37,6 +38,14 @@ create unnecessary release drift; the existing tag needs a safe replay path.
 - Public registry readback confirms `5.0.0-alpha.3` is present, the `alpha`
   dist-tag points to it, and the version metadata includes integrity and
   provenance metadata.
+- The GBL demo-game migration is complete at local commit `9f8c76b`, five
+  commits ahead of `origin/dev`; frozen install, package/build checks,
+  authenticated browser tests, and final review passed. The branch remains
+  unpushed and unmerged.
+- Live PR review identified that the privileged publish job still used mutable
+  action tags. The current branch pins each action in that job to the peeled
+  commit selected by its documented v4 release and makes lint plus formatting
+  prerequisites for the release build.
 
 ## Decision
 
@@ -52,11 +61,15 @@ their existing tag behavior. The replay uses the corrected workflow branch as
 the dispatch ref, passes the single alpha3 choice, and explicitly checks out
 the immutable alpha3 tag for both the build and publish job. This avoids
 moving the tag or changing the default `main` branch.
+Only the privileged publish job receives immutable action pins in this PR;
+upgrading unrelated jobs or action major versions is outside scope. The release
+build now waits for lint, formatting, types, tests, and accessibility, and the
+publish job continues to depend on that single complete gate.
 
 ## Non-goals
 
 - No package source, public API, version, or tag change.
-- No GBL lockfile change until npm registry readback confirms alpha.3.
+- No further GBL code, lockfile, branch, PR, or deployment change.
 - No GBL merge, deployment, or consumer PR merge.
 - No secret value retrieval, persistence, or chat transmission.
 
@@ -79,10 +92,18 @@ required before presenting the workflow change as ready.
   added the required progress record.
 - `91482113f`: replay alpha3 from the immutable tag in both jobs.
 - `daf6566f`: gate the ordinary build checkout on the replay source as well.
-- Current slice: Trusted Publisher replay completed successfully; registry
-  readback is green.
-- Next: reconcile the GBL registry lockfile, run consumer checks and browser
-  verification, then leave the GBL work unmerged after final review.
+- `17211de31`: record successful Trusted Publisher replay and public registry
+  evidence.
+- `68f308fa6`: rename this plan to include PR #195.
+- `578dfad00`: add the planning-reviewed v5 GA-readiness roadmap and supersede
+  stale milestone ordering without rewriting historical plans.
+- `d1fb0dc1e`: pin every privileged publish action to an immutable commit and
+  make lint plus formatting release prerequisites.
+- Current slice: local YAML, formatting, lint, and type/build checks pass. The
+  initial sandbox type/build run could not open Parcel's LMDB cache; the
+  approved host-level rerun passed.
+- Next: run the required security, maintainability, and integrated final
+  reviews; record their results; push the branch and wait for fresh PR CI.
 
 ## Slice — release workflow and alpha.3 replay
 
@@ -99,19 +120,27 @@ Do:
   npm; retain the GitHub Packages publish step with `GITHUB_TOKEN`. Rebuild in
   the isolated publish job rather than passing an artifact from the ordinary
   build job.
+- Pin every action in the privileged publish job to the immutable commit for
+  the verified v4 release, with a readable version comment.
+- Require lint and formatting alongside types, tests, and accessibility before
+  the release build can succeed.
 
 Check:
 
 - Ruby YAML parsing, `git diff --check`, and a focused diff review pass
   locally; `actionlint` is unavailable in this environment, so GitHub Actions
   remains the authoritative workflow syntax check.
-- Branch CI is green after the workflow change.
+- Branch CI is green after the workflow change; ordinary branch CI skips
+  publication.
 - Manual dispatch on `v5.0.0-alpha.3` reaches the tag guard and publishes via
   OIDC; read back the npm version, alpha dist-tag, tarball URL, integrity, and
   provenance metadata.
 - The replay command uses `gh workflow run main.yml --ref
-  rs/ci-npm-trusted-publisher -f release_tag=v5.0.0-alpha.3`, and the run
+rs/ci-npm-trusted-publisher -f release_tag=v5.0.0-alpha.3`, and the run
   checks out `v5.0.0-alpha.3` before building or publishing.
+- Do not replay alpha.3 after the immutable version is present in npm. The
+  next live Trusted Publisher proof belongs to a separately authorized future
+  alpha tag.
 
 Observed release evidence:
 
@@ -125,7 +154,9 @@ Commit: `ci(release): publish v5 tags through npm trusted publisher`.
 
 ## Close-out
 
-After publication readback, reconcile the GBL registry manifests and lockfile
-in its existing worktree, rerun the consumer checks and authenticated browser
-flow, commit the GBL migration only if the registry graph is green, and run
-the required read-only final review. Leave all GBL work unmerged.
+The release replay and GBL consumer proof are complete. Close PR #195 only
+after the exact final branch passes the required read-only reviews and fresh PR
+CI. Keep the PR draft, and leave merge, readiness, tags, package publication,
+GBL delivery, and deployment behind their explicit authority gates. Continue
+post-P0 work from `project/2026-08-10-v5-ga-readiness-roadmap.md` in separate
+package-level plans and PRs.

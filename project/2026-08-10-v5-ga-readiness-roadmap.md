@@ -84,19 +84,19 @@ Historical inputs:
 
 ## Current milestone state
 
-| Milestone | Status | Evidence and next gate |
-| --- | --- | --- |
-| v5 engineering through RHF wrappers | Complete | PRs #180-#194 are in remote `v5` at `1de22ddc`; alpha.3 contains the four RHF wrappers. |
-| Alpha.3 publication | Complete | npm `alpha` resolves to `5.0.0-alpha.3`; `latest` remains `4.1.6`; Trusted Publisher replay run `31364726904` passed. |
-| VetSim consumer pilot | Complete and merged | VetSim PR [#18](https://github.com/rschlaefli/vet-platform/pull/18) and hover correction [#19](https://github.com/rschlaefli/vet-platform/pull/19) merged. |
-| GBL demo-game pilot | Implementation complete; delivery held | Clean local branch `rs/v5-alpha-pilot` at `9f8c76b`, five commits ahead of `origin/dev`; final verification and review passed. |
-| Trusted Publisher PR | P0 in progress | PR [#195](https://github.com/uzh-bf/design-system/pull/195) is draft; replay proof is green; privileged action pins and complete prerequisite gating remain. |
-| Package size gate | Not started | Size Limit dependencies exist, but no script, configuration, threshold, or CI gate exists. |
-| Accessibility retirement | Ratchet active; inventory uncertain | The allowlist header says 190 serious/critical rule-cases, while its itemized reason counts sum to 159. Re-measure before claiming either count. |
-| Deterministic VRT | Not started | Playwright and self-hosted fonts exist; no `tests/visual` suite or committed baseline exists. |
-| Consumer contracts | Decision required | VetSim exposed a root-barrel RSC incompatibility and theme-token ownership/cascade friction. |
-| Brand override and Klicker | Not started | D8 gives a direction, but the complete approved ramp, ownership, profile, and consumer migration do not exist. |
-| GA promotion | Held | PR #179 is draft and spans 170 commits and 275 files; its current checks are not fresh GA evidence. |
+| Milestone                           | Status                                 | Evidence and next gate                                                                                                                                       |
+| ----------------------------------- | -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| v5 engineering through RHF wrappers | Complete                               | PRs #180-#194 are in remote `v5` at `1de22ddc`; alpha.3 contains the four RHF wrappers.                                                                      |
+| Alpha.3 publication                 | Complete                               | npm `alpha` resolves to `5.0.0-alpha.3`; `latest` remains `4.1.6`; Trusted Publisher replay run `31364726904` passed.                                        |
+| VetSim consumer pilot               | Complete and merged                    | VetSim PR [#18](https://github.com/rschlaefli/vet-platform/pull/18) and hover correction [#19](https://github.com/rschlaefli/vet-platform/pull/19) merged.   |
+| GBL demo-game pilot                 | Implementation complete; delivery held | Clean local branch `rs/v5-alpha-pilot` at `9f8c76b`, five commits ahead of `origin/dev`; final verification and review passed.                               |
+| Trusted Publisher PR                | P0 in progress                         | PR [#195](https://github.com/uzh-bf/design-system/pull/195) is draft; replay proof is green; privileged action pins and complete prerequisite gating remain. |
+| Package size gate                   | Not started                            | Size Limit dependencies exist, but no script, configuration, threshold, or CI gate exists.                                                                   |
+| Accessibility retirement            | Ratchet active; inventory uncertain    | The allowlist header says 190 serious/critical rule-cases, while its itemized reason counts sum to 159. Re-measure before claiming either count.             |
+| Deterministic VRT                   | Not started                            | Playwright and self-hosted fonts exist; no `tests/visual` suite or committed baseline exists.                                                                |
+| Consumer contracts                  | Decision required                      | VetSim exposed a root-barrel RSC incompatibility and theme-token ownership/cascade friction.                                                                 |
+| Brand override and Klicker          | Not started                            | D8 gives a direction, but the complete approved ramp, ownership, profile, and consumer migration do not exist.                                               |
+| GA promotion                        | Held                                   | PR #179 is draft and spans 170 commits and 275 files; its current checks are not fresh GA evidence.                                                          |
 
 ## Dependency sequence
 
@@ -137,19 +137,19 @@ alpha containing P1-P7.
 
 ## Test portfolio
 
-| Consequential risk | Existing protection | Test obligation | Primary seam | Distinct failure caught | Owner |
-| --- | --- | --- | --- | --- | --- |
-| Privileged release code changes under a mutable tag | Successful alpha.3 replay and tag/version guard | Extend existing CI evidence; no new test file | Workflow action refs and job graph | Upstream tag retarget or publish despite lint/format failure | P0 |
-| Generic import regresses into heavy dependency graph | W3 esbuild/Vite packed-consumer measurements | Add a hard built-package budget | Named root/primitives consumer bundles | Button import silently absorbs date/chart/carousel code | P1 |
-| Root composite import fails in a Server Component | VetSim client wrapper workaround | Add packed Next App Router integration | `react-server` resolution of root and RHF entry | Root resolves client-only RHF symbols | P2 |
-| Theme or app variables override each other unpredictably | VetSim aliases and current Ladle themes | Extend computed-token and consumer fixture coverage | Document-root theme plus app-prefixed variables | UZH primary/destructive tokens resolve neutral or unreadable | P3 |
-| Accessibility debt count is stale or fail-open | Four-shard axe ratchet and harness canary | Replace broad prose count with exact inventory | `(rule, story, theme)` report | Empty scan or regex waiver absorbs new debt | P4 |
-| Visual output changes without review | Manual historical screenshots only | Add deterministic snapshot seam | Digest-pinned Playwright container | Theme/component appearance changes with no diff artifact | P5 |
-| Known serious/critical accessibility defects ship into GA | Current allowlist | Remove every waiver with its owning fix | Axe plus focused keyboard/label/browser contracts | Known inaccessible semantics survive GA | P6 |
-| Brand profile applies only one color and breaks focus/sidebar states | D8 direction and VetSim experience | Extend theme contract and VRT | Complete approved profile | Primary ramp, ring, sidebar, or contrast diverges | P7 |
-| Real consumer cannot install/build/run candidate | VetSim and GBL proof | Extend application-native journeys | Klicker package/build/browser boundaries | Package contract works in fixtures but fails in the main consumer | P8 |
-| Older consumers hide a critical compatibility break | Historical source audits | Extend each consumer's existing build/browser seam | Per-repository packed-candidate probe | Unknown critical break remains at GA | P9 |
-| Promotion uses stale checks or wrong package metadata | Alpha release guard and registry readback | Rerun established portfolio; no promotion-only test | PR #179, tag/version mapping, registry dry run | Wrong commit/version/dist-tag is promoted | P10 |
+| Consequential risk                                                   | Existing protection                             | Test obligation                                     | Primary seam                                      | Distinct failure caught                                           | Owner |
+| -------------------------------------------------------------------- | ----------------------------------------------- | --------------------------------------------------- | ------------------------------------------------- | ----------------------------------------------------------------- | ----- |
+| Privileged release code changes under a mutable tag                  | Successful alpha.3 replay and tag/version guard | Extend existing CI evidence; no new test file       | Workflow action refs and job graph                | Upstream tag retarget or publish despite lint/format failure      | P0    |
+| Generic import regresses into heavy dependency graph                 | W3 esbuild/Vite packed-consumer measurements    | Add a hard built-package budget                     | Named root/primitives consumer bundles            | Button import silently absorbs date/chart/carousel code           | P1    |
+| Root composite import fails in a Server Component                    | VetSim client wrapper workaround                | Add packed Next App Router integration              | `react-server` resolution of root and RHF entry   | Root resolves client-only RHF symbols                             | P2    |
+| Theme or app variables override each other unpredictably             | VetSim aliases and current Ladle themes         | Extend computed-token and consumer fixture coverage | Document-root theme plus app-prefixed variables   | UZH primary/destructive tokens resolve neutral or unreadable      | P3    |
+| Accessibility debt count is stale or fail-open                       | Four-shard axe ratchet and harness canary       | Replace broad prose count with exact inventory      | `(rule, story, theme)` report                     | Empty scan or regex waiver absorbs new debt                       | P4    |
+| Visual output changes without review                                 | Manual historical screenshots only              | Add deterministic snapshot seam                     | Digest-pinned Playwright container                | Theme/component appearance changes with no diff artifact          | P5    |
+| Known serious/critical accessibility defects ship into GA            | Current allowlist                               | Remove every waiver with its owning fix             | Axe plus focused keyboard/label/browser contracts | Known inaccessible semantics survive GA                           | P6    |
+| Brand profile applies only one color and breaks focus/sidebar states | D8 direction and VetSim experience              | Extend theme contract and VRT                       | Complete approved profile                         | Primary ramp, ring, sidebar, or contrast diverges                 | P7    |
+| Real consumer cannot install/build/run candidate                     | VetSim and GBL proof                            | Extend application-native journeys                  | Klicker package/build/browser boundaries          | Package contract works in fixtures but fails in the main consumer | P8    |
+| Older consumers hide a critical compatibility break                  | Historical source audits                        | Extend each consumer's existing build/browser seam  | Per-repository packed-candidate probe             | Unknown critical break remains at GA                              | P9    |
+| Promotion uses stale checks or wrong package metadata                | Alpha release guard and registry readback       | Rerun established portfolio; no promotion-only test | PR #179, tag/version mapping, registry dry run    | Wrong commit/version/dist-tag is promoted                         | P10   |
 
 ## Work packages
 
@@ -193,7 +193,7 @@ alpha containing P1-P7.
 - Delivery boundary: Existing branch and draft PR only. Push/update is
   authorized. Merge, readiness, tag, publication, and deployment are held.
 - Commit shape: metadata rename; roadmap commit; `ci(release): pin privileged
-  publish actions`; final progress/review commit.
+publish actions`; final progress/review commit.
 - Stop: A resolved SHA does not match the documented release; GitHub checks a
   different ref; the fix changes release semantics; any secret value appears.
 
@@ -468,30 +468,30 @@ alpha containing P1-P7.
 
 ## Authority gates
 
-| Action | Authority required |
-| --- | --- |
-| Push/update PR #195 | Authorized for P0 |
-| Mark PR #195 ready | Explicit readiness authorization |
-| Merge PR #195 or any later DS PR | Explicit DS merge authorization per PR |
-| Push GBL branch | Explicit GBL push authorization |
-| Open GBL PR | Explicit GBL PR authorization |
-| Merge GBL PR | Explicit GBL merge authorization |
-| Create a release tag locally | Explicit tag authorization |
-| Push a release tag and publish | Explicit authorization naming the tag and both registries |
-| Publish a candidate alpha | Explicit alpha publication authorization plus registry readback |
-| Merge PR #179 | Explicit `v5 -> main` merge authorization |
-| Publish `5.0.0` to `latest` | Explicit GA/latest authorization |
-| Deploy any consumer or documentation site | Explicit deployment authorization |
+| Action                                    | Authority required                                              |
+| ----------------------------------------- | --------------------------------------------------------------- |
+| Push/update PR #195                       | Authorized for P0                                               |
+| Mark PR #195 ready                        | Explicit readiness authorization                                |
+| Merge PR #195 or any later DS PR          | Explicit DS merge authorization per PR                          |
+| Push GBL branch                           | Explicit GBL push authorization                                 |
+| Open GBL PR                               | Explicit GBL PR authorization                                   |
+| Merge GBL PR                              | Explicit GBL merge authorization                                |
+| Create a release tag locally              | Explicit tag authorization                                      |
+| Push a release tag and publish            | Explicit authorization naming the tag and both registries       |
+| Publish a candidate alpha                 | Explicit alpha publication authorization plus registry readback |
+| Merge PR #179                             | Explicit `v5 -> main` merge authorization                       |
+| Publish `5.0.0` to `latest`               | Explicit GA/latest authorization                                |
+| Deploy any consumer or documentation site | Explicit deployment authorization                               |
 
 ## Directly delegable next tasks
 
-| Task | Owner | Paths | Verification | Stop condition |
-| --- | --- | --- | --- | --- |
-| Pin PR #195 actions and prerequisite gate | Main session because the job is privileged | `.github/workflows/main.yml` | Full-SHA inspection, YAML, fresh CI | Any release-semantic change |
-| Close PR #195 plans and evidence | Bounded executor after final facts are fixed, or main session | Current PR plan and this roadmap | Links, formatting, data hygiene | Contradiction with live refs |
-| Prepare P1 execution plan and baseline | Executor for measurements; main session for thresholds | Root package/config and built package | Reproducible Size Limit baseline | Threshold chosen before measurement |
-| Draft P2 ADR options | Main session plus planning reviewer | ADR, exports, Vite entries, packed fixture design | Next App Router reproduction | User has not ruled public API |
-| Reconstruct P4 inventory | Executor after plan approval | A11y suite and task-local reports | Exact two-run counts and canary | Fail-open or unexplained drift |
+| Task                                      | Owner                                                         | Paths                                             | Verification                        | Stop condition                      |
+| ----------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------- | ----------------------------------- | ----------------------------------- |
+| Pin PR #195 actions and prerequisite gate | Main session because the job is privileged                    | `.github/workflows/main.yml`                      | Full-SHA inspection, YAML, fresh CI | Any release-semantic change         |
+| Close PR #195 plans and evidence          | Bounded executor after final facts are fixed, or main session | Current PR plan and this roadmap                  | Links, formatting, data hygiene     | Contradiction with live refs        |
+| Prepare P1 execution plan and baseline    | Executor for measurements; main session for thresholds        | Root package/config and built package             | Reproducible Size Limit baseline    | Threshold chosen before measurement |
+| Draft P2 ADR options                      | Main session plus planning reviewer                           | ADR, exports, Vite entries, packed fixture design | Next App Router reproduction        | User has not ruled public API       |
+| Reconstruct P4 inventory                  | Executor after plan approval                                  | A11y suite and task-local reports                 | Exact two-run counts and canary     | Fail-open or unexplained drift      |
 
 ## Global stop conditions
 
