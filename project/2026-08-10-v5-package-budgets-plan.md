@@ -268,6 +268,7 @@ push/PR authority from this plan.
   identities and the canonical Size Limit import contracts; the validator now
   does both and its focused gate passes. A second review also required the
   complete seven-check inventory to remain independent of the config under
-  test; that inventory is now explicit.
-- Next: verify and commit the independent inventory, then perform the required
-  final reviews on the exact branch range.
+  test; that inventory is now explicit and was committed as `1da4aec`.
+- Remaining: perform the integrated final review on the exact branch range,
+  persist the close-out evidence, and stop at the explicit push/PR authority
+  gate.
