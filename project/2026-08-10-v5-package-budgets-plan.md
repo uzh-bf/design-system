@@ -1,6 +1,6 @@
 # Plan — v5 package-size budgets
 
-Status: Slice 3 complete; integrated close-out pending
+Status: P1 package complete locally; push/PR authority pending
 Date: 2026-08-10
 Branch: `rs/v5-package-budgets`
 Target: `v5`
@@ -269,6 +269,8 @@ push/PR authority from this plan.
   does both and its focused gate passes. A second review also required the
   complete seven-check inventory to remain independent of the config under
   test; that inventory is now explicit and was committed as `1da4aec`.
-- Remaining: perform the integrated final review on the exact branch range,
-  persist the close-out evidence, and stop at the explicit push/PR authority
-  gate.
+- Integrated final review passed on `70eb98a..c65f07c`; close-out evidence is
+  persisted under `project/_local/reviews/`.
+- P1 is complete locally on `rs/v5-package-budgets`. Next is the explicit
+  push/PR authority gate; publication, deployment, consumer migration, and GA
+  promotion remain separate roadmap gates.
