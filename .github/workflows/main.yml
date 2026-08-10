@@ -1,5 +1,9 @@
 name: CI
-on: [push]
+on:
+  push:
+  # Allows a release job to replay an immutable version tag after a workflow
+  # fix without moving the tag or creating a second package version.
+  workflow_dispatch:
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -141,15 +145,19 @@ jobs:
   build:
     name: Build and Publish
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+      packages: write
     needs: [check-ts, test, a11y]
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Use Node 22
-        uses: actions/setup-node@v3
+      - name: Use Node 24
+        uses: actions/setup-node@v4
         with:
-          node-version: 22.x
+          node-version: 24.x
 
       - uses: pnpm/action-setup@v4
         with:
@@ -195,15 +203,17 @@ jobs:
           echo "dist_tag=${DIST_TAG}" >> "$GITHUB_OUTPUT"
           echo "Publishing ${PKG_VERSION} to npm dist-tag '${DIST_TAG}'"
 
-      - uses: JS-DevTools/npm-publish@v3
+      # npm Trusted Publisher authenticates this public publish through the
+      # job's id-token: write permission; no long-lived npm token is needed.
+      - uses: JS-DevTools/npm-publish@v4
         if: startsWith(github.ref, 'refs/tags/v')
         with:
-          token: ${{ secrets.NPM_TOKEN }}
           access: public
           tag: ${{ steps.release_meta.outputs.dist_tag }}
           package: packages/design-system/package.json
+          provenance: true
 
-      - uses: JS-DevTools/npm-publish@v3
+      - uses: JS-DevTools/npm-publish@v4
         if: startsWith(github.ref, 'refs/tags/v')
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
