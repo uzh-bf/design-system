@@ -45,9 +45,15 @@ Delivery: one full-path Design System PR; no push, PR creation, merge, tag, publ
   `typesVersions` compile, emitted-directive coverage, a shared packed-artifact
   helper, and removal of the orphan `src/Form.tsx`.
 - The ADR and plan status corrections are included in the current local
-  documentation commit. Next: rerun the exact-range maintainability and
-  integrated final reviews. The browser hydration gate remains an explicit
-  environment blocker, and P2 delivery authority remains separate.
+  documentation commit.
+- Build review fix committed in `8628709`: the client-boundary build hook now
+  generates an offset-aware sourcemap when injecting `use client`, and the
+  packed Next verifier checks that the emitted map retains its source and
+  directive offset. Package checks, packed consumers, both Next build modes,
+  recursive RHF-free graphs, and the 89-directive scan pass after the fix.
+- Next: rerun the exact-range security, maintainability, and integrated final
+  reviews. The browser hydration gate remains an explicit environment blocker,
+  and P2 delivery authority remains separate.
 
 ## Research
 
