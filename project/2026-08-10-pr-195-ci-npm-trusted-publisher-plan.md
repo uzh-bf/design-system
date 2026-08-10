@@ -141,12 +141,10 @@ Check:
   publish path.
 - Branch CI is green after the workflow change; ordinary branch CI skips
   publication.
-- Manual dispatch on `v5.0.0-alpha.3` reaches the tag guard and publishes via
-  OIDC; read back the npm version, alpha dist-tag, tarball URL, integrity, and
-  provenance metadata.
 - Do not replay alpha.3 after the immutable version is present in npm. The
   next live Trusted Publisher proof belongs to a separately authorized future
-  alpha tag.
+  version-tag push and must include registry readback of version, dist-tag,
+  tarball URL, integrity, and provenance metadata.
 
 Observed release evidence:
 
