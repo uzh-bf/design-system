@@ -106,14 +106,15 @@ for positive controls so an accidental removal cannot make the gate pass by
 shrinking the component. The lower bounds are Calendar 25 kB, Chart 25 kB, and
 Carousel 13 kB; each is below the current stable baseline but above a 10%
 shrink. The script will also run the W3 consumer-marker checks against
-Size Limit's saved Webpack bundles: Button imports must contain none of the
-date/chart/carousel markers, while Calendar and Chart must retain their
-corresponding dependency markers. Webpack resolves Embla's package name away,
-so Carousel uses its emitted `canScroll`/`scrollNext`/`scrollPrev` controller
-methods as the positive-control marker. It will fail closed on missing checks,
-malformed output, absent `dist/` files, an unexpectedly changed check name, or
-missing marker evidence. Temporary config and bundle directories live under
-`/private/tmp` and are removed by the script.
+the full Webpack stats/module graph for each named import. Generic Button
+graphs must contain no date/chart/carousel modules, while Calendar, Chart, and
+Carousel must retain their corresponding resolved dependency identities. The
+check filters to emitted modules (`orphan: false` or a non-empty chunk list),
+so unused modules reachable through a barrel do not fail the generic contract.
+It will fail closed on missing checks, malformed output, absent `dist/` files,
+an unexpectedly changed check name, or missing graph evidence. Temporary
+config, stats, and bundle directories live under `/private/tmp` and are
+removed by the script.
 
 The CI `Build` job will run `pnpm run size:check` after its Node 22 package
 build and before `Publish`; branch pushes still run `Build` and skip only
@@ -249,8 +250,9 @@ push/PR authority from this plan.
 - Planning review completed with corrections incorporated in this draft.
 - The temporary `.size-limit.js` experiment was removed.
 - The first Slice 2 gate run exposed that Webpack removes the literal Embla
-  package name; the validator now checks the emitted carousel controller
-  methods while retaining the W3 dependency markers for the other controls.
+  package name. The validator now inspects emitted Webpack module identities,
+  including the resolved Embla modules, while retaining the W3 dependency
+  markers for all controls.
 - Slice 2 is complete: `.size-limit.cjs`, `scripts/check-package-size.mjs`,
   and the root `size:check` script pass the clean baseline; the temporary
   lower-cap run fails as expected; packed exports resolve; and the W3 marker
@@ -262,5 +264,8 @@ push/PR authority from this plan.
   unavailable. A repository-wide Turbo build remains outside this workflow's
   package-only release path and failed only in legacy Parcel header/tag builds
   on the known LMDB sandbox limitation.
-- Next: run integrated repository checks, commit the CI wiring and progress,
-  then perform the required final reviews on the exact branch range.
+- The maintainability review required the graph assertions to use emitted module
+  identities and the canonical Size Limit import contracts; the validator now
+  does both and its focused gate passes.
+- Next: commit the maintainability correction and progress, then perform the
+  required final reviews on the exact branch range.

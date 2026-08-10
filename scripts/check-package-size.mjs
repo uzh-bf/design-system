@@ -9,20 +9,13 @@ import {
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import sizeChecks from "../.size-limit.cjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dist = path.resolve(root, "packages/design-system/dist");
 const sizeConfig = path.resolve(root, ".size-limit.cjs");
 
-const expectedChecks = [
-  "root Button",
-  "primitives Button",
-  "design-system CSS",
-  "preflight CSS",
-  "Calendar positive control",
-  "Chart positive control",
-  "Carousel positive control",
-];
+const expectedChecks = sizeChecks.map((check) => check.name);
 
 const positiveMinimums = {
   "Calendar positive control": 25_000,
@@ -30,46 +23,34 @@ const positiveMinimums = {
   "Carousel positive control": 13_000,
 };
 
-const markerCases = [
+const markerExpectations = [
   {
     name: "root Button",
-    file: "index.js",
-    importStatement: "{ Button }",
     forbidden: [
-      /date-fns|react-day-picker|@date-fns\//,
-      /recharts|d3-|victory-vendor/,
-      /embla-carousel/,
+      /node_modules[\\/].*(date-fns|react-day-picker)[\\/]/,
+      /node_modules[\\/].*(recharts|d3-[^\\/]+|victory-vendor)[\\/]/,
+      /node_modules[\\/].*embla-carousel[\\/]/,
     ],
   },
   {
     name: "primitives Button",
-    file: "primitives.js",
-    importStatement: "{ Button }",
     forbidden: [
-      /date-fns|react-day-picker|@date-fns\//,
-      /recharts|d3-|victory-vendor/,
-      /embla-carousel/,
+      /node_modules[\\/].*(date-fns|react-day-picker)[\\/]/,
+      /node_modules[\\/].*(recharts|d3-[^\\/]+|victory-vendor)[\\/]/,
+      /node_modules[\\/].*embla-carousel[\\/]/,
     ],
   },
   {
     name: "Calendar positive control",
-    file: "index.js",
-    importStatement: "{ Calendar }",
-    required: [/date-fns|react-day-picker|@date-fns\//],
+    required: [/node_modules[\\/].*(date-fns|react-day-picker)[\\/]/],
   },
   {
     name: "Chart positive control",
-    file: "index.js",
-    importStatement: "{ ChartContainer }",
-    required: [/recharts|d3-|victory-vendor/],
+    required: [/node_modules[\\/].*(recharts|d3-[^\\/]+|victory-vendor)[\\/]/],
   },
   {
     name: "Carousel positive control",
-    file: "index.js",
-    importStatement: "{ Carousel }",
-    // Webpack resolves Embla's package name away; assert the emitted carousel
-    // controller methods instead of relying on a source-package string.
-    required: [/canScroll|scrollNext|scrollPrev/],
+    required: [/node_modules[\\/].*(embla-carousel-react|embla-carousel)[\\/]/],
   },
 ];
 
@@ -86,16 +67,33 @@ function runSizeLimit(config, extraArgs = []) {
   return JSON.parse(stdout);
 }
 
-function collectJavaScriptFiles(directory) {
-  return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
-    const filePath = path.join(directory, entry.name);
-    if (entry.isDirectory()) return collectJavaScriptFiles(filePath);
-    return entry.name.endsWith(".js") ? [filePath] : [];
-  });
-}
-
 function assert(condition, message) {
   if (!condition) throw new Error(message);
+}
+
+function collectEmittedModuleIdentifiers(value, identifiers = []) {
+  if (!value || typeof value !== "object") return identifiers;
+  const emitted = value.orphan === false || value.chunks?.length > 0;
+  if (emitted && typeof value.identifier === "string") {
+    identifiers.push(value.identifier);
+  }
+  if (emitted && typeof value.name === "string") identifiers.push(value.name);
+  for (const child of Object.values(value)) {
+    collectEmittedModuleIdentifiers(child, identifiers);
+  }
+  return identifiers;
+}
+
+function resolveMarkerCase(expectation) {
+  const check = sizeChecks.find(({ name }) => name === expectation.name);
+  assert(check, `Missing Size Limit configuration for ${expectation.name}`);
+  const imports = Object.entries(check.import ?? {});
+  assert(
+    imports.length === 1,
+    `${expectation.name} must define exactly one import contract`,
+  );
+  const [[entryPath, importStatement]] = imports;
+  return { ...expectation, entryPath, importStatement };
 }
 
 function runBudgetChecks() {
@@ -131,8 +129,11 @@ function runMarkerChecks() {
   );
 
   try {
-    for (const markerCase of markerCases) {
-      const entryPath = path.join(dist, markerCase.file);
+    for (const markerCase of markerExpectations.map(resolveMarkerCase)) {
+      const statsPath = path.join(
+        temporaryRoot,
+        `${markerCase.name.replaceAll(" ", "-").toLowerCase()}.stats.json`,
+      );
       const configPath = path.join(
         temporaryRoot,
         `${markerCase.name.replaceAll(" ", "-").toLowerCase()}.cjs`,
@@ -141,15 +142,33 @@ function runMarkerChecks() {
         temporaryRoot,
         `${markerCase.name.replaceAll(" ", "-").toLowerCase()}-bundle`,
       );
-      const config = `module.exports = ${JSON.stringify([
-        {
-          name: markerCase.name,
-          path: entryPath,
-          import: { [entryPath]: markerCase.importStatement },
-          limit: "1000 kB",
-          running: false,
-        },
-      ])}\n`;
+      const config = [
+        "const fs = require('node:fs')",
+        `const statsPath = ${JSON.stringify(statsPath)}`,
+        `module.exports = ${JSON.stringify([
+          {
+            name: markerCase.name,
+            path: markerCase.entryPath,
+            import: { [markerCase.entryPath]: markerCase.importStatement },
+            limit: "1000 kB",
+            running: false,
+          },
+        ])}`,
+        "module.exports[0].modifyWebpackConfig = webpackConfig => ({",
+        "  ...webpackConfig,",
+        "  plugins: [",
+        "    ...(webpackConfig.plugins ?? []),",
+        "    {",
+        "      apply(compiler) {",
+        "        compiler.hooks.done.tap('write-size-stats', stats => {",
+        "          fs.writeFileSync(statsPath, JSON.stringify(stats.toJson({ all: true })))",
+        "        })",
+        "      },",
+        "    },",
+        "  ],",
+        "})",
+        "",
+      ].join("\n");
       writeFileSync(configPath, config);
       const result = runSizeLimit(configPath, [
         "--save-bundle",
@@ -158,19 +177,19 @@ function runMarkerChecks() {
       ])[0];
       assert(result?.passed === true, `${markerCase.name} bundle did not pass`);
 
-      const javascript = collectJavaScriptFiles(bundlePath)
-        .map((filePath) => readFileSync(filePath, "utf8"))
-        .join("\n");
+      const moduleGraph = collectEmittedModuleIdentifiers(
+        JSON.parse(readFileSync(statsPath, "utf8")),
+      ).join("\n");
       for (const pattern of markerCase.forbidden ?? []) {
         assert(
-          !pattern.test(javascript),
-          `${markerCase.name} unexpectedly contains ${pattern}`,
+          !pattern.test(moduleGraph),
+          `${markerCase.name} unexpectedly resolves ${pattern}`,
         );
       }
       for (const pattern of markerCase.required ?? []) {
         assert(
-          pattern.test(javascript),
-          `${markerCase.name} is missing required marker ${pattern}`,
+          pattern.test(moduleGraph),
+          `${markerCase.name} is missing resolved dependency ${pattern}`,
         );
       }
     }
