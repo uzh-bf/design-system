@@ -1,8 +1,8 @@
 # Plan — v5 alpha.3 npm Trusted Publisher replay
 
-Status: in progress. The v5.0.0-alpha.3 tag exists, but its public npm
-publication failed at the token-authenticated publish step. The npm package
-settings now trust `uzh-bf/design-system` workflow `main.yml` through OIDC.
+Status: in progress. The v5.0.0-alpha.3 tag exists and has now been published
+through the configured npm Trusted Publisher path. The remaining work is the
+GBL registry-lockfile reconciliation and consumer verification.
 
 Date: 2026-08-10
 Branch: `rs/ci-npm-trusted-publisher`
@@ -28,6 +28,14 @@ create unnecessary release drift; the existing tag needs a safe replay path.
 - The failed tag run passed build, formatting, lint, types, smoke tests, and
   all four accessibility shards before npm returned `E404` on the publish
   `PUT` request.
+- Corrected branch CI run `31364356289` passed; its publish job was skipped on
+  an ordinary branch push, confirming the permission isolation.
+- Replay run `31364726904` passed all checks, rebuilt from the immutable
+  `v5.0.0-alpha.3` tag, and completed both the public npm and GitHub Packages
+  publish steps.
+- Public registry readback confirms `5.0.0-alpha.3` is present, the `alpha`
+  dist-tag points to it, and the version metadata includes integrity and
+  provenance metadata.
 
 ## Decision
 
@@ -68,11 +76,12 @@ required before presenting the workflow change as ready.
   isolated from ordinary push builds.
 - `9b6fd28d0`: split the tag-gated publish job from the ordinary build job and
   added the required progress record.
-- Current slice: replay alpha3 from the corrected workflow branch while
-  explicitly checking out the immutable tag.
-- Next: rerun the intermediate review on the corrected exact range, push the
-  branch, dispatch the alpha3 replay, then run final review before presenting
-  the package as complete.
+- `91482113f`: replay alpha3 from the immutable tag in both jobs.
+- `daf6566f`: gate the ordinary build checkout on the replay source as well.
+- Current slice: Trusted Publisher replay completed successfully; registry
+  readback is green.
+- Next: reconcile the GBL registry lockfile, run consumer checks and browser
+  verification, then leave the GBL work unmerged after final review.
 
 ## Slice — release workflow and alpha.3 replay
 
@@ -102,6 +111,14 @@ Check:
 - The replay command uses `gh workflow run main.yml --ref
   rs/ci-npm-trusted-publisher -f release_tag=v5.0.0-alpha.3`, and the run
   checks out `v5.0.0-alpha.3` before building or publishing.
+
+Observed release evidence:
+
+- Workflow run: `31364726904`.
+- Public package: `@uzh-bf/design-system@5.0.0-alpha.3`.
+- Public `alpha` dist-tag: `5.0.0-alpha.3`.
+- Registry metadata exposes the published tarball integrity and provenance
+  metadata.
 
 Commit: `ci(release): publish v5 tags through npm trusted publisher`.
 
