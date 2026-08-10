@@ -1,5 +1,3 @@
-packages:
-  - consumers/*
 allowBuilds:
   '@tailwindcss/oxide': true
   sharp: true
