@@ -1,6 +1,6 @@
 # Plan — v5 package-size budgets
 
-Status: planning-stage review complete; implementation pending
+Status: Slice 2 complete; CI wiring pending
 Date: 2026-08-10
 Branch: `rs/v5-package-budgets`
 Target: `v5`
@@ -84,15 +84,15 @@ small Node script for positive-control lower bounds and output validation.
 `.size-limit.cjs` will measure these named checks after the package build using
 deterministic Brotli compression:
 
-| Check | Current | Proposed initial cap | Rationale |
-| --- | ---: | ---: | --- |
-| root `Button` | 27,149 B | 32 kB | ~18% headroom for harmless implementation drift |
-| `./primitives` `Button` | 9,619 B | 12 kB | ~25% headroom |
-| design-system CSS | 24,802 B | 30 kB | ~21% headroom |
-| preflight CSS | 2,333 B | 3 kB | ~29% headroom |
-| Calendar positive control | 27,674 B | 33 kB | retains the current control while allowing small changes |
-| Chart positive control | 28,104 B | 34 kB | retains the current control while allowing small changes |
-| Carousel positive control | 14,398 B | 18 kB | retains the current control while allowing small changes |
+| Check                     |  Current | Proposed initial cap | Rationale                                                |
+| ------------------------- | -------: | -------------------: | -------------------------------------------------------- |
+| root `Button`             | 27,149 B |                32 kB | ~18% headroom for harmless implementation drift          |
+| `./primitives` `Button`   |  9,619 B |                12 kB | ~25% headroom                                            |
+| design-system CSS         | 24,802 B |                30 kB | ~21% headroom                                            |
+| preflight CSS             |  2,333 B |                 3 kB | ~29% headroom                                            |
+| Calendar positive control | 27,674 B |                33 kB | retains the current control while allowing small changes |
+| Chart positive control    | 28,104 B |                34 kB | retains the current control while allowing small changes |
+| Carousel positive control | 14,398 B |                18 kB | retains the current control while allowing small changes |
 
 The implementation must confirm these caps against a clean baseline. If the
 planning review or a clean two-run measurement shows that a cap is not stable,
@@ -107,8 +107,10 @@ shrinking the component. The lower bounds are Calendar 25 kB, Chart 25 kB, and
 Carousel 13 kB; each is below the current stable baseline but above a 10%
 shrink. The script will also run the W3 consumer-marker checks against
 Size Limit's saved Webpack bundles: Button imports must contain none of the
-date/chart/carousel markers, while Calendar, Chart, and Carousel must retain
-their corresponding marker group. It will fail closed on missing checks,
+date/chart/carousel markers, while Calendar and Chart must retain their
+corresponding dependency markers. Webpack resolves Embla's package name away,
+so Carousel uses its emitted `canScroll`/`scrollNext`/`scrollPrev` controller
+methods as the positive-control marker. It will fail closed on missing checks,
 malformed output, absent `dist/` files, an unexpectedly changed check name, or
 missing marker evidence. Temporary config and bundle directories live under
 `/private/tmp` and are removed by the script.
@@ -122,13 +124,13 @@ remains the publication gate.
 
 ## Test portfolio
 
-| Risk | Existing protection | Test obligation | Primary seam | Distinct failure caught | Owner |
-| --- | --- | --- | --- | --- | --- |
-| Generic root import absorbs date/chart/carousel graph | W3 consumer measurements | Add new | Size Limit root `Button` and primitives `Button` | Generic import crosses the selected cap | P1 |
-| CSS/preflight grows silently | W3 final CSS bytes | Add new | Size Limit file checks | Theme or preflight change exceeds cap | P1 |
-| Positive control disappears or loses its intended graph | W3 retained positive controls | Add new | Positive-control Size Limit lower bounds | Calendar/Chart/Carousel becomes an inert or incomplete stub | P1 |
-| Gate runs before build or is bypassed | Existing CI `Build -> Publish` graph | Extend existing | CI Build job | Publish proceeds without fresh size evidence | P1 |
-| Packaged public exports drift | W3 packed export proof | Extend existing evidence; no separate permanent test unless the implementation exposes a gap | `pnpm pack` and export-resolution fixture | Budget passes on an unpacked-only artifact | P1 |
+| Risk                                                    | Existing protection                  | Test obligation                                                                              | Primary seam                                     | Distinct failure caught                                     | Owner |
+| ------------------------------------------------------- | ------------------------------------ | -------------------------------------------------------------------------------------------- | ------------------------------------------------ | ----------------------------------------------------------- | ----- |
+| Generic root import absorbs date/chart/carousel graph   | W3 consumer measurements             | Add new                                                                                      | Size Limit root `Button` and primitives `Button` | Generic import crosses the selected cap                     | P1    |
+| CSS/preflight grows silently                            | W3 final CSS bytes                   | Add new                                                                                      | Size Limit file checks                           | Theme or preflight change exceeds cap                       | P1    |
+| Positive control disappears or loses its intended graph | W3 retained positive controls        | Add new                                                                                      | Positive-control Size Limit lower bounds         | Calendar/Chart/Carousel becomes an inert or incomplete stub | P1    |
+| Gate runs before build or is bypassed                   | Existing CI `Build -> Publish` graph | Extend existing                                                                              | CI Build job                                     | Publish proceeds without fresh size evidence                | P1    |
+| Packaged public exports drift                           | W3 packed export proof               | Extend existing evidence; no separate permanent test unless the implementation exposes a gap | `pnpm pack` and export-resolution fixture        | Budget passes on an unpacked-only artifact                  | P1    |
 
 ## Slices
 
@@ -246,5 +248,13 @@ push/PR authority from this plan.
   with the recorded lower bounds and marker checks.
 - Planning review completed with corrections incorporated in this draft.
 - The temporary `.size-limit.js` experiment was removed.
-- Next: commit this reviewed plan as the first repository commit, then
-  implement Slice 2.
+- The first Slice 2 gate run exposed that Webpack removes the literal Embla
+  package name; the validator now checks the emitted carousel controller
+  methods while retaining the W3 dependency markers for the other controls.
+- Slice 2 is complete: `.size-limit.cjs`, `scripts/check-package-size.mjs`,
+  and the root `size:check` script pass the clean baseline; the temporary
+  lower-cap run fails as expected; packed exports resolve; and the W3 marker
+  checks pass. Test delta: two implementation files added, one package script
+  changed, no browser test file added.
+- Next: wire the size gate into the ordinary Node 22 Build job and the
+  independent Node 24 Publish build.
