@@ -33,6 +33,10 @@ Delivery: one full-path Design System PR; no push, PR creation, merge, tag, publ
   and removed-root-export checks.
 - Environment gap carried: Playwright still cannot launch Chromium in this
   macOS sandbox, so hydration/submission remains unverified.
+- Fixture hardening: both packed verification scripts refresh only the local
+  tarball integrity in the isolated copied lockfile because `pnpm pack` emits
+  nondeterministic archive metadata; external dependency resolutions remain
+  frozen.
 - Slice 3 — implementation ready locally: migration and README examples use
   `./react-hook-form`; RHF stories and type contracts use the dedicated source
   entry; and package check, lint, format, and whitespace checks pass.

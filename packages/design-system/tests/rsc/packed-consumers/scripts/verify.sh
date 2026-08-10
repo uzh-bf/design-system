@@ -22,6 +22,43 @@ packed_tarball=$(find "$run_fixture/.artifacts" -maxdepth 1 -type f -name '*.tgz
 test -n "$packed_tarball"
 mv "$packed_tarball" "$run_fixture/.artifacts/design-system.tgz"
 
+tarball_integrity=$(node --input-type=module - "$run_fixture/.artifacts/design-system.tgz" <<'NODE'
+import fs from 'node:fs'
+import { createHash } from 'node:crypto'
+
+console.log(
+  createHash('sha512')
+    .update(fs.readFileSync(process.argv[2]))
+    .digest('base64')
+)
+NODE
+)
+
+node --input-type=module - "$run_fixture/pnpm-lock.yaml" "$tarball_integrity" <<'NODE'
+import fs from 'node:fs'
+
+const lockfile = process.argv[2]
+const integrity = process.argv[3]
+const lines = fs.readFileSync(lockfile, 'utf8').split('\n')
+let updated = 0
+
+for (let index = 0; index < lines.length; index += 1) {
+  if (!lines[index].includes('@uzh-bf/design-system@file:.artifacts/design-system.tgz')) continue
+  for (let next = index; next < Math.min(index + 8, lines.length); next += 1) {
+    if (!lines[next].includes('integrity: sha512-')) continue
+    lines[next] = lines[next].replace(
+      /integrity: sha512-[A-Za-z0-9+/=]+/,
+      `integrity: sha512-${integrity}`
+    )
+    updated += 1
+    break
+  }
+}
+
+if (updated !== 1) throw new Error(`expected one local Design System integrity, found ${updated}`)
+fs.writeFileSync(lockfile, lines.join('\n'))
+NODE
+
 (
   cd "$run_fixture"
   pnpm install --frozen-lockfile
