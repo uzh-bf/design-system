@@ -35,9 +35,12 @@ Use npm Trusted Publisher for the public npm step. Upgrade that action to v4,
 run the release job on Node 24, grant only the release job `id-token: write`,
 and remove the public npm token input. Retain the GitHub Packages publication
 with `GITHUB_TOKEN` and grant the job the package-write permission it needs.
-Add `workflow_dispatch` without weakening the existing tag guard so the
-existing alpha.3 tag can be replayed after the workflow change without moving
-the tag.
+Add `workflow_dispatch` without weakening the existing tag guard. Manual
+dispatch may publish only `v5.0.0-alpha.3`; normal push-tag releases retain
+their existing tag behavior. Because GitHub registers manual workflows only
+when the workflow file exists on the default `main` branch, add the smallest
+possible default-branch trigger registration as a separate reviewable change
+before dispatching the v5 tag.
 
 ## Non-goals
 
@@ -61,9 +64,8 @@ Files: `.github/workflows/main.yml`.
 Do:
 
 - Preserve push-triggered CI and the existing tag/version/dist-tag guard.
-- Add a manual workflow trigger for replaying a selected tag; branch/manual
-  runs must continue to skip publication because the publish steps remain
-  guarded by `refs/tags/v`.
+- Add a manual workflow trigger for replaying alpha3; branch/manual runs and
+  manual dispatches for other tags must skip publication.
 - Give only the build job `contents: read`, `packages: write`, and
   `id-token: write` permissions.
 - Use Node 24 and `JS-DevTools/npm-publish@v4` without `NPM_TOKEN` for public
@@ -76,6 +78,9 @@ Check:
 - Manual dispatch on `v5.0.0-alpha.3` reaches the tag guard and publishes via
   OIDC; read back the npm version, alpha dist-tag, tarball URL, integrity, and
   provenance metadata.
+- The default `main` branch contains the workflow trigger registration needed
+  for GitHub to expose manual dispatch, while the v5 workflow contains the
+  OIDC implementation and replay guard.
 
 Commit: `ci(release): publish v5 tags through npm trusted publisher`.
 
