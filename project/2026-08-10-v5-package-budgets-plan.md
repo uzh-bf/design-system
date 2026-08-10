@@ -1,6 +1,6 @@
 # Plan — v5 package-size budgets
 
-Status: P1 package complete locally; push/PR authority pending
+Status: P1 package complete; draft PR delivery authorized
 Date: 2026-08-10
 Branch: `rs/v5-package-budgets`
 Target: `v5`
@@ -224,12 +224,11 @@ request to publish/deploy/merge outside the explicit authority gate.
 
 ## Authority boundary
 
-This goal authorizes implementation and local commits for P1. It does not by
-itself authorize pushing a branch, creating or updating a PR, marking a PR
-ready, merging, creating a candidate alpha, publishing to npm/GitHub Packages,
-deploying, migrating consumers, or promoting GA. Those remain separate gates
-in the parent roadmap and require explicit authorization at the relevant
-boundary.
+The user has now authorized pushing this branch and opening its draft PR. This
+does not authorize marking the PR ready, merging, creating a candidate alpha,
+publishing to npm/GitHub Packages, deploying, migrating consumers, or
+promoting GA. Those remain separate gates in the parent roadmap and require
+explicit authorization at the relevant boundary.
 
 ## Planning-stage specialist
 
@@ -271,6 +270,6 @@ push/PR authority from this plan.
   test; that inventory is now explicit and was committed as `1da4aec`.
 - Integrated final review passed on `70eb98a..c65f07c`; close-out evidence is
   persisted under `project/_local/reviews/`.
-- P1 is complete locally on `rs/v5-package-budgets`. Next is the explicit
-  push/PR authority gate; publication, deployment, consumer migration, and GA
-  promotion remain separate roadmap gates.
+- P1 is complete on `rs/v5-package-budgets`; the user authorized pushing the
+  branch and opening a draft PR. Publication, deployment, consumer migration,
+  PR readiness, merge, and GA promotion remain separate roadmap gates.
