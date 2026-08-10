@@ -266,6 +266,8 @@ push/PR authority from this plan.
   on the known LMDB sandbox limitation.
 - The maintainability review required the graph assertions to use emitted module
   identities and the canonical Size Limit import contracts; the validator now
-  does both and its focused gate passes.
-- Next: commit the maintainability correction and progress, then perform the
-  required final reviews on the exact branch range.
+  does both and its focused gate passes. A second review also required the
+  complete seven-check inventory to remain independent of the config under
+  test; that inventory is now explicit.
+- Next: verify and commit the independent inventory, then perform the required
+  final reviews on the exact branch range.

@@ -15,7 +15,15 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dist = path.resolve(root, "packages/design-system/dist");
 const sizeConfig = path.resolve(root, ".size-limit.cjs");
 
-const expectedChecks = sizeChecks.map((check) => check.name);
+const requiredChecks = [
+  "root Button",
+  "primitives Button",
+  "design-system CSS",
+  "preflight CSS",
+  "Calendar positive control",
+  "Chart positive control",
+  "Carousel positive control",
+];
 
 const positiveMinimums = {
   "Calendar positive control": 25_000,
@@ -100,8 +108,8 @@ function runBudgetChecks() {
   const results = runSizeLimit(sizeConfig);
   const actualChecks = results.map((result) => result.name);
   assert(
-    JSON.stringify(actualChecks) === JSON.stringify(expectedChecks),
-    `Unexpected Size Limit checks. Expected ${expectedChecks.join(", ")}; received ${actualChecks.join(", ")}`,
+    JSON.stringify(actualChecks) === JSON.stringify(requiredChecks),
+    `Unexpected Size Limit checks. Expected ${requiredChecks.join(", ")}; received ${actualChecks.join(", ")}`,
   );
 
   for (const result of results) {
