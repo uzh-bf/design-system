@@ -76,11 +76,13 @@ job explicitly adds only OIDC and package-write permissions.
 
 ## Planning gate
 
-A read-only planning challenge was dispatched to the configured planner and
-timed out after repeated bounded waits. The main-session plan is based on the
-verified npm documentation, the configured publisher screenshot, the live
-workflow, and the failed tag-run evidence. The integrated final review remains
-required before presenting the workflow change as ready.
+The original read-only planning challenge timed out. A capable planner later
+completed an explicit recovery review of this plan and exact range
+`origin/v5...72d238662`, returning `PASS_WITH_CONCERNS`. It confirmed that the
+plan is implementation-ready and the implementation follows it safely. Its
+only findings were to record the recovered gate and correct stale progress;
+both are accepted here. This late pass does not rewrite the historical timing,
+but it closes the missing capable challenge before the draft PR is updated.
 
 ## Progress
 
@@ -100,15 +102,19 @@ required before presenting the workflow change as ready.
   stale milestone ordering without rewriting historical plans.
 - `d1fb0dc1e`: pin every privileged publish action to an immutable commit and
   make lint plus formatting release prerequisites.
-- The final security gate then identified the still-live one-time dispatch,
-  implicit token defaults on ordinary jobs, and mutable tag-name checkout on
-  that dispatch. All three findings are accepted: remove manual dispatch and
-  set a workflow-wide read-only permission baseline.
-- Current slice: local YAML, formatting, lint, and type/build checks pass. The
-  initial sandbox type/build run could not open Parcel's LMDB cache; the
+- `71c12cc4f`: remove the completed manual replay path and set the workflow-wide
+  read-only permission baseline. The exact security re-review passed with no
+  remaining finding.
+- `72d238662`: close the maintainability findings by removing the impossible
+  manual-dispatch check, consolidating P0 status, and renaming the ordinary job
+  from `Build and Publish` to `Build`.
+- The late planning recovery pass returned `PASS_WITH_CONCERNS`; its two
+  progress-only findings are closed in the current follow-up.
+- Current evidence: local YAML, formatting, lint, and type/build checks pass.
+  The initial sandbox type/build run could not open Parcel's LMDB cache; the
   approved host-level rerun passed.
-- Next: commit and re-review the security follow-up, run maintainability and
-  integrated final reviews, record results, push, and wait for fresh PR CI.
+- Next: integrated final re-review of the progress-only tip, then push and wait
+  for fresh PR CI. The draft remains unmerged and not ready for review.
 
 ## Slice — release workflow and alpha.3 replay
 
@@ -116,9 +122,9 @@ Files: `.github/workflows/main.yml`.
 
 Do:
 
-- Preserve push-triggered CI and the existing tag/version/dist-tag guard.
-- Retain push-triggered CI and version-tag publication, and remove the
-  one-time manual replay trigger after alpha3 registry readback.
+- Preserve push-triggered CI and the existing version-tag/version/dist-tag
+  guard; remove the one-time manual replay trigger after alpha3 registry
+  readback.
 - Keep the ordinary build job at `contents: read` and give only the tag-gated
   publish job `contents: read`, `packages: write`, and `id-token: write`.
 - Use Node 24 and `JS-DevTools/npm-publish@v4` without `NPM_TOKEN` for public

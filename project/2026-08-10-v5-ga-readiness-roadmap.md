@@ -522,6 +522,10 @@ Stop the active package and report when:
   `DONE_WITH_CONCERNS`. Accepted concerns: P2 requires an explicit RSC/API
   ruling; P7 requires approved brand ramp and ownership; P4 must re-measure the
   190-versus-159 accessibility discrepancy.
-- 2026-08-10: PR #195 execution plan renamed to include its PR ID. P0 roadmap
-  and CI hardening are next. No merge, tag, publication, GBL delivery, or
+- 2026-08-10: PR #195 plan metadata, this roadmap, immutable privileged action
+  pins, complete release prerequisites, workflow-wide read-only permissions,
+  and removal of manual replay are committed. The security re-review passed;
+  maintainability findings are closed; and the late planning recovery passed
+  with its progress-only concerns integrated. Integrated final re-review and
+  fresh PR CI remain. No merge, readiness, tag, publication, GBL delivery, or
   deployment is authorized by this roadmap.
