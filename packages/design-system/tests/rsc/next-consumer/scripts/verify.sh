@@ -131,6 +131,25 @@ grep -Eq "^[[:space:]]*(['\"]use client['\"])[[:space:]]*;?" "$dist_dir/react-ho
 grep -Eq '^(import|export)[[:space:]].*react-hook-form' \
   "$dist_dir/react-hook-form.js" "$dist_dir/react-hook-form.d.ts"
 
+node --input-type=module - "$dist_dir" <<'NODE'
+import fs from 'node:fs'
+import path from 'node:path'
+
+const distDir = path.resolve(process.argv[2])
+const map = JSON.parse(
+  fs.readFileSync(path.join(distDir, 'forms/RhfTextField.js.map'), 'utf8')
+)
+const firstMappedLine = map.mappings.split(';').findIndex((segment) => segment.length > 0)
+
+if (firstMappedLine < 1) {
+  throw new Error('client sourcemap does not account for the injected directive line')
+}
+if (!map.sources.some((source) => source.endsWith('/src/forms/RhfTextField.tsx'))) {
+  throw new Error('client sourcemap lost its source module')
+}
+console.log(`client sourcemap preserves the directive offset at generated line ${firstMappedLine + 1}`)
+NODE
+
 (
   cd "$run_fixture"
   pnpm install --frozen-lockfile

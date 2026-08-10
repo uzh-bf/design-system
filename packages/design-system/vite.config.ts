@@ -1,5 +1,6 @@
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react-swc'
+import MagicString from 'magic-string'
 import { readFileSync } from 'node:fs'
 import path from 'path'
 import { defineConfig } from 'vite'
@@ -31,9 +32,12 @@ const preserveUseClient: import('vite').Plugin = {
 
     if (!isClientModule || hasUseClientDirective(code)) return null
 
+    const magicString = new MagicString(code)
+    magicString.prepend("'use client';\n")
+
     return {
-      code: `'use client';\n${code}`,
-      map: null,
+      code: magicString.toString(),
+      map: magicString.generateMap({ hires: true }),
     }
   },
 }
