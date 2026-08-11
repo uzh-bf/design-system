@@ -165,6 +165,9 @@ jobs:
         working-directory: packages/design-system
         run: pnpm run build
 
+      - name: Check package size
+        run: pnpm run size:check
+
   publish:
     name: Publish
     if: ${{ startsWith(github.ref, 'refs/tags/v') }}
@@ -191,6 +194,9 @@ jobs:
       - name: Build
         working-directory: packages/design-system
         run: pnpm run build
+
+      - name: Check package size
+        run: pnpm run size:check
 
       # Release guard (ARCH-1): only version tags (v<semver>) publish, the git
       # tag must match the design-system package version, and the npm dist-tag
