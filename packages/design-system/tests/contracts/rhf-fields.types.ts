@@ -3,7 +3,7 @@ import type {
   RhfNumberFieldProps,
   RhfSelectFieldProps,
   RhfTextFieldProps,
-} from '../../src'
+} from '../../src/react-hook-form'
 
 type Values = {
   name: string

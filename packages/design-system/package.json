@@ -19,6 +19,10 @@
       "types": "./dist/primitives.d.ts",
       "import": "./dist/primitives.js"
     },
+    "./react-hook-form": {
+      "types": "./dist/react-hook-form.d.ts",
+      "import": "./dist/react-hook-form.js"
+    },
     "./css": "./dist/design-system.css",
     "./preflight.css": "./dist/preflight.css",
     "./package.json": "./package.json"
@@ -93,6 +97,7 @@
     "eslint": "9.30.1",
     "eslint-plugin-react-hooks": "5.2.0",
     "eslint-plugin-react-refresh": "0.4.20",
+    "magic-string": "0.30.17",
     "npm-run-all": "4.1.5",
     "prettier": "3.6.2",
     "prettier-plugin-organize-imports": "4.1.0",
@@ -123,6 +128,11 @@
     "tailwindcss": "^4.1.11",
     "tw-animate-css": "^1.3.4"
   },
+  "peerDependenciesMeta": {
+    "react-hook-form": {
+      "optional": true
+    }
+  },
   "scripts": {
     "build": "run-s build:tsc build:vite build:copy",
     "build:copy": "tsx src/copy.ts",
@@ -152,6 +162,9 @@
   "type": "module",
   "typesVersions": {
     "*": {
+      "react-hook-form": [
+        "dist/react-hook-form.d.ts"
+      ],
       "primitives": [
         "dist/primitives.d.ts"
       ],

@@ -2,13 +2,15 @@ import { useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { Button } from '../Button'
-import { Form } from '../Form'
 import MultiSelect from '../MultiSelect'
 import Select from '../Select'
-import { RhfMultiSelect } from './RhfMultiSelect'
-import { RhfNumberField } from './RhfNumberField'
-import { RhfSelectField } from './RhfSelectField'
-import { RhfTextField } from './RhfTextField'
+import {
+  Form,
+  RhfMultiSelect,
+  RhfNumberField,
+  RhfSelectField,
+  RhfTextField,
+} from '../react-hook-form'
 
 type Values = {
   name: string
