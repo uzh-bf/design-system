@@ -290,6 +290,35 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+/*
+ * The imported theme layer appears before these generic `:root` and `.dark`
+ * declarations in the packed stylesheet. Re-assert UZH's semantic values on
+ * the document root after those defaults with the same specificity as
+ * `[data-theme]`, so a consumer can still intentionally override generic names
+ * by loading its CSS after the design system. The primary bridges reference the
+ * complete ramp; the remaining declarations preserve UZH-owned fixed tokens.
+ */
+:where(html)[data-theme='uzh'] {
+  --primary: var(--theme-color-primary);
+  --ring: var(--theme-color-primary);
+  --sidebar-primary: var(--theme-color-primary);
+  --sidebar-ring: var(--theme-color-primary);
+  --sidebar-accent: var(--theme-color-primary-20);
+  --sidebar-accent-foreground: var(--theme-color-primary);
+
+  --primary-foreground: #ffffff;
+  --sidebar-primary-foreground: #ffffff;
+  --destructive: #fc4c02;
+  --destructive-foreground: #111111;
+  --destructive-background: #ffdbcc;
+  --notification: var(--color-uzh-berry-100);
+  --chart-1: var(--color-uzh-blue-100);
+  --chart-2: var(--theme-info);
+  --chart-3: var(--theme-success);
+  --chart-4: var(--theme-warning);
+  --chart-5: var(--color-uzh-berry-100);
+}
+
 /* base styling for apps from design system */
 @layer base {
   * {

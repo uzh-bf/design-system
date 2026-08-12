@@ -15,24 +15,31 @@
 ## Progress
 
 - Slice 0 — complete. The reviewed plan is committed as `ae9c31785`.
-- Slice 1 — complete in the pending commit. The packed harness, named package
-  script, CI invocation, and app-prefixed assertions are in scope.
+- Slice 1 — complete in commits `302e1070d` and `bcfddea0a`. The packed
+  harness, named package script, CI invocation, and app-prefixed assertions are
+  in scope.
 - Evidence: the packed `./css` artifact was built, packed, extracted, and
   exercised in 4 document roots × 6 stylesheet cells. The focused command passed
   656/656 token assertions. Pre-Slice-2 evidence shows UZH light bridges resolve
   to generic root values and UZH dark bridges resolve to dark-axis values, while
   the five public ramp values and fixed-token sentinels remain stable.
 - Test delta: added one packed computed-token contract, one package script, and
-  one CI invocation; no production source change. Generic collisions remain
+  one CI invocation; Slice 2 now adds the primary-ramp bridge assertions and
+  the reproduced UZH source-order correction. Generic collisions remain
   consumer-owned, app-prefixed variables remain consumer-owned, and the full
-  ramp changes only the intended five ramp values before Slice 2.
+  ramp changes only its five ramp values plus the six intended bridges.
 - Intermediate review: not required — this slice adds diagnostic test/CI
   plumbing and does not change the public runtime/theme behavior.
 - Simplifier: done — exact range `ae9c31785..302e1070d`; accepted two
   behavior-preserving reductions in the follow-up: removed redundant packed-CSS
   marker/hash preflight and removed pass-only per-token logging while retaining
   matrix headings, failure details, and aggregate counts.
-- Next gate: implement and review the ADR 0003 bridge mappings in Slice 2.
+- Slice 2 — implementation complete and ready for review in the working tree.
+  The packed contract passed 656/656 after the UZH bridge and fixed-token
+  expectations were updated. The document-root selector keeps consumer CSS
+  loaded later authoritative for generic collisions.
+- Next gate: commit and run the required Slice 2 intermediate reviewer and
+  simplifier in parallel.
 
 ## Goal
 

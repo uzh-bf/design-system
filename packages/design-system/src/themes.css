@@ -105,15 +105,15 @@
   --notification: var(--color-uzh-berry-100);
 
   /* bridge shadcn semantic primary + focus ring to UZH blue */
-  --primary: var(--color-uzh-blue-100);
+  --primary: var(--theme-color-primary);
   --primary-foreground: #ffffff;
-  --ring: var(--color-uzh-blue-100);
-  --sidebar-primary: var(--color-uzh-blue-100);
+  --ring: var(--theme-color-primary);
+  --sidebar-primary: var(--theme-color-primary);
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-ring: var(--color-uzh-blue-100);
+  --sidebar-ring: var(--theme-color-primary);
   /* active nav item — UZH blue tint bg + blue text (reference side-nav) */
-  --sidebar-accent: var(--color-uzh-blue-20);
-  --sidebar-accent-foreground: var(--color-uzh-blue-100);
+  --sidebar-accent: var(--theme-color-primary-20);
+  --sidebar-accent-foreground: var(--theme-color-primary);
 
   /* UZH chart palette — CD accent hues (blue, cyan, apple, gold, berry).
      chart-2/3/4 reuse the status accent tokens (Cyan/Apple/Gold) so the

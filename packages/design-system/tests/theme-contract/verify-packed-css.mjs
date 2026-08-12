@@ -156,6 +156,15 @@ const RAMP_RESULT = {
   '--color-primary-20': '#fae4d9',
 }
 
+const UZH_RAMP_BRIDGE_RESULT = {
+  '--primary': '#d94f2b',
+  '--ring': '#d94f2b',
+  '--sidebar-primary': '#d94f2b',
+  '--sidebar-ring': '#d94f2b',
+  '--sidebar-accent': '#fae4d9',
+  '--sidebar-accent-foreground': '#d94f2b',
+}
+
 /* ---- Baseline computed literals per root (current packed artifact) ---- */
 
 const NEUTRAL_FONT_SANS =
@@ -224,14 +233,14 @@ const BASE = {
     '--color-primary-60': '#3062ff',
     '--color-primary-40': '#7596ff',
     '--color-primary-20': '#bdc9e8',
-    '--primary': 'oklch(20.5% 0 0)',
-    '--ring': 'oklch(70.8% 0 0)',
-    '--sidebar-primary': 'oklch(20.5% 0 0)',
-    '--sidebar-ring': 'oklch(70.8% 0 0)',
-    '--sidebar-accent': 'oklch(97% 0 0)',
-    '--sidebar-accent-foreground': 'oklch(20.5% 0 0)',
+    '--primary': '#0028a5',
+    '--ring': '#0028a5',
+    '--sidebar-primary': '#0028a5',
+    '--sidebar-ring': '#0028a5',
+    '--sidebar-accent': '#bdc9e8',
+    '--sidebar-accent-foreground': '#0028a5',
     '--accent': 'oklch(97% 0 0)',
-    '--destructive': 'oklch(57.71% .2152 27.33)',
+    '--destructive': '#fc4c02',
     '--theme-color-secondary': '#bf0d3e',
     '--theme-color-secondary-80': '#d9305f',
     '--theme-color-secondary-60': '#f3537f',
@@ -247,16 +256,16 @@ const BASE = {
     '--theme-info-foreground': '#111',
     '--theme-info-background': '#dbf4f9',
     '--theme-destructive-text': '#111',
-    '--destructive-foreground': 'oklch(98.38% .0035 247.86)',
-    '--destructive-background': 'oklch(97.05% .0129 17.38)',
-    '--notification': 'oklch(57.71% .2152 27.33)',
+    '--destructive-foreground': '#111',
+    '--destructive-background': '#ffdbcc',
+    '--notification': '#bf0d3e',
     '--theme-font-sans': UZH_FONT_SANS,
     '--theme-font-mono': UZH_FONT_MONO,
-    '--chart-1': 'oklch(64.6% .222 41.116)',
-    '--chart-2': 'oklch(60% .118 184.704)',
-    '--chart-3': 'oklch(39.8% .07 227.392)',
-    '--chart-4': 'oklch(82.8% .189 84.429)',
-    '--chart-5': 'oklch(76.9% .188 70.08)',
+    '--chart-1': '#0028a5',
+    '--chart-2': '#1ea7c4',
+    '--chart-3': '#7ca023',
+    '--chart-4': '#ffc845',
+    '--chart-5': '#bf0d3e',
   },
   'neutral-dark': {
     '--theme-color-primary': 'oklch(20.5% 0 0)',
@@ -314,14 +323,14 @@ const BASE = {
     '--color-primary-60': '#3062ff',
     '--color-primary-40': '#7596ff',
     '--color-primary-20': '#bdc9e8',
-    '--primary': 'oklch(92.2% 0 0)',
-    '--ring': 'oklch(55.6% 0 0)',
-    '--sidebar-primary': 'oklch(48.8% .243 264.376)',
-    '--sidebar-ring': 'oklch(55.6% 0 0)',
-    '--sidebar-accent': 'oklch(26.9% 0 0)',
-    '--sidebar-accent-foreground': 'oklch(98.5% 0 0)',
+    '--primary': '#0028a5',
+    '--ring': '#0028a5',
+    '--sidebar-primary': '#0028a5',
+    '--sidebar-ring': '#0028a5',
+    '--sidebar-accent': '#bdc9e8',
+    '--sidebar-accent-foreground': '#0028a5',
     '--accent': 'oklch(26.9% 0 0)',
-    '--destructive': 'oklch(70.4% .191 22.216)',
+    '--destructive': '#fc4c02',
     '--theme-color-secondary': '#bf0d3e',
     '--theme-color-secondary-80': '#d9305f',
     '--theme-color-secondary-60': '#f3537f',
@@ -337,16 +346,16 @@ const BASE = {
     '--theme-info-foreground': '#111',
     '--theme-info-background': 'oklch(25% .04 200)',
     '--theme-destructive-text': '#111',
-    '--destructive-foreground': 'oklch(98.38% .0035 247.86)',
-    '--destructive-background': 'oklch(55.6% .191 22.216)',
-    '--notification': 'oklch(70.4% .191 22.216)',
+    '--destructive-foreground': '#111',
+    '--destructive-background': '#ffdbcc',
+    '--notification': '#bf0d3e',
     '--theme-font-sans': UZH_FONT_SANS,
     '--theme-font-mono': UZH_FONT_MONO,
-    '--chart-1': 'oklch(48.8% .243 264.376)',
-    '--chart-2': 'oklch(69.6% .17 162.48)',
-    '--chart-3': 'oklch(76.9% .188 70.08)',
-    '--chart-4': 'oklch(62.7% .265 303.9)',
-    '--chart-5': 'oklch(64.5% .246 16.439)',
+    '--chart-1': '#0028a5',
+    '--chart-2': '#1ea7c4',
+    '--chart-3': '#7ca023',
+    '--chart-4': '#ffc845',
+    '--chart-5': '#bf0d3e',
   },
 }
 
@@ -396,7 +405,11 @@ const CELLS = [
 ]
 
 function expectedFor(rootId, cell) {
-  return { ...BASE[rootId], ...(cell.override ?? {}) }
+  const expected = { ...BASE[rootId], ...(cell.override ?? {}) }
+  if (rootId.startsWith('uzh') && cell.id === 'ramp-after-ds') {
+    Object.assign(expected, UZH_RAMP_BRIDGE_RESULT)
+  }
+  return expected
 }
 
 /* ---- Packed artifact preparation ---- */
