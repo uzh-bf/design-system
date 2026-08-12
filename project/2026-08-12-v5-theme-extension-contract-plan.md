@@ -3,7 +3,8 @@
 ## Identity
 
 - Date: 2026-08-12
-- Status: implementation and integrated verification complete; final review pending
+- Status: implementation and integrated verification complete; final review
+  complete; publication boundary remains closed
 - Repository: `/Users/rschlae/Git/df/design-system`
 - Base and target: `v5` at `3bb6ade0e9b95061d4bbf79fc385253576ae7ad7`
 - Branch: `rs/v5-theme-extension-contract`
@@ -62,16 +63,18 @@
   `pnpm check`, `pnpm lint`, `pnpm format:check`, `pnpm build`, and
   `pnpm size:check` passed. The packed CSS harness passed 656/656 assertions.
   `pnpm --dir packages/design-system build:ladle` passed. With the isolated
-  Next/RHF fixture excluded from the Ladle runner, `PWTEST_SKIP_BUILD=1 pnpm
-  --dir packages/design-system test:fast` passed 1294/1294 intended tests;
+  Next/RHF fixture excluded from the Ladle runner,
+  `PWTEST_SKIP_BUILD=1 pnpm --dir packages/design-system test:fast` passed
+  1294/1294 intended tests;
   focused UI, a11y, and smoke coverage passed as part of that run. Chromium
   required host access because the sandbox reports a macOS bootstrap permission
   error before browser launch. The independent `verify.sh` RSC consumer build
   completed but its existing submission assertion remained red on the base and
   W1 branch.
-- Final review: the parent dispatches the integrated-final gate against the
-  exact current base-to-HEAD range and records that identity in the review
-  artifact; this plan does not hard-code a pre-review commit.
+- Final review: correction review complete against
+  `3bb6ade0e9b95061d4bbf79fc385253576ae7ad7..a07e2655a5ce53e34b6443b18918b704326a0453`.
+  The final report is persisted at
+  `project/_local/reviews/2026-08-12-v5-theme-extension-contract-integrated-final.md`.
 
 ## Goal
 
@@ -303,7 +306,8 @@ cascade and the rendered component states.
   boundary changed.
 - Slice 3 simplifier: done — exact range `9ba32c746..cce84b48d`; the accepted
   reduction is recorded above.
-- Integrated final review: required before any PR update or completion claim.
+- Integrated final review: complete — correction review covered the exact range
+  above; the final report is persisted under `project/_local/reviews/`.
 
 ## Stop conditions
 
@@ -322,5 +326,6 @@ Stop and report the exact evidence if:
 
 ## Next steps
 
-Commit Slice 0 in the W1 worktree, then execute Slice 1 as the packed CSS
-ownership tracer. Keep the roadmap worktree and primary checkout unchanged.
+Stop at the publication boundary. Keep the roadmap worktree and primary
+checkout unchanged; any PR, push, readiness change, merge, publication, or
+consumer delivery needs separate explicit authority.
