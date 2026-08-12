@@ -3,14 +3,16 @@
 ## Identity
 
 - Date: 2026-08-12
-- Status: implementation and integrated verification complete; final review
-  complete; publication boundary remains closed
+- Status: implementation complete; correction slice reopened after branch review;
+  publication boundary remains closed
 - Repository: `/Users/rschlae/Git/df/design-system`
 - Base and target: `v5` at `3bb6ade0e9b95061d4bbf79fc385253576ae7ad7`
 - Branch: `rs/v5-theme-extension-contract`
 - Worktree: `/Users/rschlae/Git/df/design-system/trees/rs-v5-theme-extension-contract`
-- Delivery: one full-path Design System PR; no PR exists yet
-- Roadmap: [remaining v5 GA work](./2026-08-12-v5-ga-remaining-roadmap.md), W1
+- Delivery: draft PR #198 targets `v5`:
+  <https://github.com/uzh-bf/design-system/pull/198>
+- Roadmap: W1 in `project/2026-08-12-v5-ga-remaining-roadmap.md` on local branch
+  `rs/v5-ga-remaining-roadmap`; that artifact is not part of PR #198
 - Durable contract: [ADR 0003](../docs/adr/0003-uzh-primary-ramp-override-boundary.md)
 
 ## Progress
@@ -75,6 +77,18 @@
   `3bb6ade0e9b95061d4bbf79fc385253576ae7ad7..a07e2655a5ce53e34b6443b18918b704326a0453`.
   The final report is persisted at
   `project/_local/reviews/2026-08-12-v5-theme-extension-contract-integrated-final.md`.
+- Post-push branch review: `code-review` found one standards cleanup and
+  four specification-proof gaps at `36a1cb5ca`. The packed ownership contract
+  remains accepted. The open correction must replace plan-codename comments
+  with domain language, prove neutral, UZH, and synthetic-ramp rendered states
+  at the document root, prove the focused shadow consumes the ramp-derived ring,
+  and add fixed foreground sentinels for the two UZH values reasserted in
+  `tailwind.css`. The duplicated ramp values remain intentional: the story owns
+  the stimulus while the Playwright expectation remains an independent oracle.
+- Remote evidence: draft PR #198 targets `v5`, is mergeable at `36a1cb5ca`, and
+  its build, lint, types, formatting, test, four accessibility shards, package
+  build, Vercel, and Greptile checks passed. CodeRabbit skipped the draft. These
+  results predate the correction slice and must rerun at the corrected head.
 
 ## Goal
 
@@ -289,10 +303,55 @@ cascade and the rendered component states.
   a fixed-token or dark-axis assertion fails, browser evidence is missing where
   applicable, or any publish/PR/deployment authority would be needed.
 
+### Slice 5 — Close branch-review proof gaps
+
+- Route: configured executor for the bounded story/test correction; main session
+  owns integration and review disposition.
+- Paths: `packages/design-system/src/ThemeExtensionContract.stories.tsx`,
+  `packages/design-system/tests/contracts/theme-extension-ui.spec.ts`,
+  `packages/design-system/tests/theme-contract/verify-packed-css.mjs`, and this
+  progress section only.
+- Outcome: expose final story IDs `theme-extension-contract--neutral`,
+  `theme-extension-contract--uzh`, and
+  `theme-extension-contract--synthetic-ramp`. Have the focused test set
+  `data-theme`, the optional synthetic ramp, and the dark axis directly on
+  `document.documentElement` before styles are read. The story must not add a
+  competing nested theme wrapper. For every state, record the expected root
+  `--primary`, `--ring`, `--sidebar-accent`, and
+  `--sidebar-accent-foreground` values; assert Button and Badge backgrounds
+  consume `--primary`, the focused Input shadow contains the resolved `--ring`
+  colour, and active/hover Sidebar backgrounds and foregrounds consume the two
+  sidebar accent values.
+  Add fixed sentinels for `--primary-foreground` and
+  `--sidebar-primary-foreground`, and replace “Slice 1/2” comments with durable
+  packed-contract language.
+- Acceptance: a fresh Ladle build plus the focused UI test proves all three
+  document-root states; `test:theme-contract` passes with the extra sentinels;
+  `pnpm check`, `pnpm lint`, and `pnpm format:check` pass; exact-head CI reruns
+  after push. Reverting the document-root setup or ramp bridge makes the focused
+  proof fail.
+- Review: this corrects tests and fixture shape without changing runtime CSS or
+  the public contract. Main-session verification closes the exact proof-only
+  findings. If runtime CSS or the public contract changes, stop for package-scope,
+  risk, and review-budget reassessment; do not dispatch a third integrated-final
+  review automatically. After the correction commit, run the configured
+  simplifier if the story/test rewrite is substantive; otherwise record a
+  specific trivial proof-only skip reason.
+- Commit: `test(theme): prove document-root extension states`.
+- Stop: the correction needs nested or portal support, changes runtime CSS, or
+  cannot prove neutral/base UZH without weakening the synthetic-ramp oracle.
+
 ## Review and simplification records
 
 - Planning review: done —
   `project/_local/reviews/2026-08-12-v5-theme-extension-contract-planning.md`.
+- Adaptation planning review: done — exact W1 draft
+  `a4f84f10c8da2cc61ff3c4c30efecb1283d11da1a132c6ecc625f531417f27be`
+  and roadmap draft
+  `97bfd12144a5325aa440545426264b76d58810eeb5dd2a236b012c49b7ba73a3`
+  were reviewed; seven findings were then incorporated and verified in the
+  follow-up drafts. The report is persisted at
+  `project/_local/reviews/2026-08-12-v5-ga-roadmap-w1-review-adaptation-planning.md`.
 - Slice 1 intermediate review: not required — diagnostic harness and CI wiring
   are reviewed through main-session verification unless the implementation adds
   a new trust-boundary behavior.
@@ -308,6 +367,14 @@ cascade and the rendered component states.
   reduction is recorded above.
 - Integrated final review: complete — correction review covered the exact range
   above; the final report is persisted under `project/_local/reviews/`.
+- Post-push Standards review: open — remove plan-codename comments. The
+  duplicated ramp literals are accepted as independent stimulus and oracle.
+  Report:
+  `project/_local/reviews/2026-08-12-v5-theme-extension-contract-standards-review.md`.
+- Post-push Spec review: open — close the document-root, neutral/base UZH,
+  fixed-foreground sentinel, and focused-ring consumption findings in Slice 5.
+  Report:
+  `project/_local/reviews/2026-08-12-v5-theme-extension-contract-spec-review.md`.
 
 ## Stop conditions
 
@@ -326,6 +393,7 @@ Stop and report the exact evidence if:
 
 ## Next steps
 
-Stop at the publication boundary. Keep the roadmap worktree and primary
-checkout unchanged; any PR, push, readiness change, merge, publication, or
-consumer delivery needs separate explicit authority.
+Execute Slice 5 locally, verify it, commit it, and update the existing draft PR
+only under explicit push authority. Keep the roadmap worktree and primary
+checkout unchanged. Readiness, merge, tag, publication, consumer delivery, and
+deployment remain separate explicit authority gates.
