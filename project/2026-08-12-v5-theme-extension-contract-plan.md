@@ -3,8 +3,8 @@
 ## Identity
 
 - Date: 2026-08-12
-- Status: implementation complete; correction slice reopened after branch review;
-  publication boundary remains closed
+- Status: implementation and local proof correction complete; publication
+  boundary remains closed
 - Repository: `/Users/rschlae/Git/df/design-system`
 - Base and target: `v5` at `3bb6ade0e9b95061d4bbf79fc385253576ae7ad7`
 - Branch: `rs/v5-theme-extension-contract`
@@ -67,8 +67,9 @@
   applies the theme and ramp on the document root, and asserts root tokens,
   Button/Badge primary consumption, the settled focus ring (the ring layer is
   `color-mix(in oklab, var(--ring) 50%, transparent)`, compared against the same
-  mix resolved from the root token), and active/hover Sidebar consumption of the
-  theme ramp tokens. The packed harness gained `--primary-foreground` and
+  mix resolved from the root token), the active Sidebar item's direct primary
+  ramp utilities, and the hover Sidebar item's accent bridges. The packed
+  harness gained `--primary-foreground` and
   `--sidebar-primary-foreground` sentinels (UZH literals match the minified
   `#fff` serialization) and durable contract language.
 - Slice 5 verification: `build:ladle` passed and the built page is free of the
@@ -417,12 +418,16 @@ cascade and the rendered component states.
   reduction is recorded above.
 - Integrated final review: complete — correction review covered the exact range
   above; the final report is persisted under `project/_local/reviews/`.
-- Post-push Standards review: open — remove plan-codename comments. The
-  duplicated ramp literals are accepted as independent stimulus and oracle.
+- Post-push Standards review: closed locally by Slice 5 — plan-codename comments
+  were replaced with durable contract language. The duplicated ramp literals
+  remain accepted as independent stimulus and oracle. Exact-head CI still needs
+  to rerun after an authorized push.
   Report:
   `project/_local/reviews/2026-08-12-v5-theme-extension-contract-standards-review.md`.
-- Post-push Spec review: open — close the document-root, neutral/base UZH,
-  fixed-foreground sentinel, and focused-ring consumption findings in Slice 5.
+- Post-push Spec review: closed locally by Slice 5 — the document-root,
+  neutral/base UZH, fixed-foreground sentinel, and focused-ring consumption
+  findings now have passing focused and full-suite proof. Exact-head CI still
+  needs to rerun after an authorized push.
   Report:
   `project/_local/reviews/2026-08-12-v5-theme-extension-contract-spec-review.md`.
 
@@ -443,7 +448,7 @@ Stop and report the exact evidence if:
 
 ## Next steps
 
-Execute Slice 5 locally, verify it, commit it, and update the existing draft PR
-only under explicit push authority. Keep the roadmap worktree and primary
-checkout unchanged. Readiness, merge, tag, publication, consumer delivery, and
-deployment remain separate explicit authority gates.
+Request explicit authority before pushing the corrected local head and updating
+draft PR #198. After an authorized push, verify the remote ref and exact-head CI
+before any readiness decision. Merge, tag, publication, consumer delivery,
+deployment, and GA promotion remain separate explicit authority gates.
