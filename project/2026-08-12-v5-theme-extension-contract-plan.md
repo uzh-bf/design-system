@@ -28,8 +28,10 @@
   ramp changes only the intended five ramp values before Slice 2.
 - Intermediate review: not required — this slice adds diagnostic test/CI
   plumbing and does not change the public runtime/theme behavior.
-- Simplifier: pending post-commit classification; the harness is code-bearing
-  and will receive the required pragmatic-design pass if classified substantive.
+- Simplifier: done — exact range `ae9c31785..302e1070d`; accepted two
+  behavior-preserving reductions in the follow-up: removed redundant packed-CSS
+  marker/hash preflight and removed pass-only per-token logging while retaining
+  matrix headings, failure details, and aggregate counts.
 - Next gate: implement and review the ADR 0003 bridge mappings in Slice 2.
 
 ## Goal

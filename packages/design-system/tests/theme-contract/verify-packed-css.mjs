@@ -14,7 +14,6 @@
  */
 import { chromium } from '@playwright/test'
 import { execFileSync } from 'node:child_process'
-import { createHash } from 'node:crypto'
 import {
   mkdirSync,
   mkdtempSync,
@@ -402,10 +401,6 @@ function expectedFor(rootId, cell) {
 
 /* ---- Packed artifact preparation ---- */
 
-function sha256(text) {
-  return createHash('sha256').update(text).digest('hex')
-}
-
 const tmpDir = mkdtempSync(path.join(tmpdir(), 'theme-contract-'))
 const extractDir = path.join(tmpDir, 'extracted')
 
@@ -436,14 +431,8 @@ try {
     'design-system.css'
   )
   const packedCss = readFileSync(packedCssPath, 'utf8')
-  const markers = ['--theme-color-primary', '[data-theme="uzh"]']
-  for (const marker of markers) {
-    if (!packedCss.includes(marker)) {
-      throw new Error(`packed ${packedCssPath} is missing marker "${marker}"`)
-    }
-  }
   console.log(
-    `[theme-contract] artifact under test: ${packedCssPath} (${packedCss.length} bytes, sha256 ${sha256(packedCss)})`
+    `[theme-contract] artifact under test: ${packedCssPath} (${packedCss.length} bytes)`
   )
 
   /* ---- Browser matrix ---- */
@@ -495,8 +484,6 @@ try {
           console.log(
             `  FAIL ${token}\n    expected: ${want}\n    actual:   ${got}`
           )
-        } else {
-          console.log(`  ok   ${token} = ${got}`)
         }
       }
     }
