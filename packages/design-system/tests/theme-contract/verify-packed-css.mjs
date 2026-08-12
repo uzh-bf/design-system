@@ -1,5 +1,5 @@
 /**
- * Packed CSS ownership tracer (Slice 1 of the v5 theme extension contract).
+ * Packed CSS ownership tracer for the v5 theme extension contract.
  *
  * Builds and packs the local design system, extracts the packed ./css artifact
  * from the resulting tarball, loads it into a minimal browser page WITHOUT
@@ -9,8 +9,9 @@
  * The packed artifact is the source under test: this harness never reads
  * src/*.css or the workspace dist directly. All expected values below are
  * independent literals derived from the current compiled artifact, so a
- * deliberate change to the compiled cascade (e.g. Slice 2's ramp bridges)
- * flips this command red until the contract table is updated with it.
+ * deliberate change to the compiled cascade (e.g. the ramp bridges or the
+ * fixed foreground sentinels) flips this command red until the contract
+ * table is updated with it.
  */
 /* global console, document, getComputedStyle, process */
 
@@ -62,6 +63,8 @@ const GENERIC_TOKENS = ['--accent', '--destructive']
 const APP_TOKENS = ['--app-primary', '--app-accent', '--app-destructive']
 
 const SENTINEL_TOKENS = [
+  '--primary-foreground',
+  '--sidebar-primary-foreground',
   '--theme-color-secondary',
   '--theme-color-secondary-80',
   '--theme-color-secondary-60',
@@ -191,8 +194,10 @@ const BASE = {
     '--color-primary-40': 'oklch(72% 0 0)',
     '--color-primary-20': 'oklch(92% 0 0)',
     '--primary': 'oklch(20.5% 0 0)',
+    '--primary-foreground': 'oklch(98.5% 0 0)',
     '--ring': 'oklch(70.8% 0 0)',
     '--sidebar-primary': 'oklch(20.5% 0 0)',
+    '--sidebar-primary-foreground': 'oklch(98.5% 0 0)',
     '--sidebar-ring': 'oklch(70.8% 0 0)',
     '--sidebar-accent': 'oklch(97% 0 0)',
     '--sidebar-accent-foreground': 'oklch(20.5% 0 0)',
@@ -236,8 +241,10 @@ const BASE = {
     '--color-primary-40': '#7596ff',
     '--color-primary-20': '#bdc9e8',
     '--primary': '#0028a5',
+    '--primary-foreground': '#fff',
     '--ring': '#0028a5',
     '--sidebar-primary': '#0028a5',
+    '--sidebar-primary-foreground': '#fff',
     '--sidebar-ring': '#0028a5',
     '--sidebar-accent': '#bdc9e8',
     '--sidebar-accent-foreground': '#0028a5',
@@ -281,8 +288,10 @@ const BASE = {
     '--color-primary-40': 'oklch(72% 0 0)',
     '--color-primary-20': 'oklch(92% 0 0)',
     '--primary': 'oklch(92.2% 0 0)',
+    '--primary-foreground': 'oklch(20.5% 0 0)',
     '--ring': 'oklch(55.6% 0 0)',
     '--sidebar-primary': 'oklch(48.8% .243 264.376)',
+    '--sidebar-primary-foreground': 'oklch(98.5% 0 0)',
     '--sidebar-ring': 'oklch(55.6% 0 0)',
     '--sidebar-accent': 'oklch(26.9% 0 0)',
     '--sidebar-accent-foreground': 'oklch(98.5% 0 0)',
@@ -326,8 +335,10 @@ const BASE = {
     '--color-primary-40': '#7596ff',
     '--color-primary-20': '#bdc9e8',
     '--primary': '#0028a5',
+    '--primary-foreground': '#fff',
     '--ring': '#0028a5',
     '--sidebar-primary': '#0028a5',
+    '--sidebar-primary-foreground': '#fff',
     '--sidebar-ring': '#0028a5',
     '--sidebar-accent': '#bdc9e8',
     '--sidebar-accent-foreground': '#0028a5',

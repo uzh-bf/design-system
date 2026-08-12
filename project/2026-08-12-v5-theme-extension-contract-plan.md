@@ -12,7 +12,10 @@
 - Delivery: draft PR #198 targets `v5`:
   <https://github.com/uzh-bf/design-system/pull/198>
 - Roadmap: W1 in `project/2026-08-12-v5-ga-remaining-roadmap.md` on local branch
-  `rs/v5-ga-remaining-roadmap`; that artifact is not part of PR #198
+  `rs/v5-ga-remaining-roadmap`, frozen for this amendment at
+  `39da9ab22692ec55bfb9983712ec12e053188249` with selected W1 contract
+  `42b9b78b9942c043a5641307d481baa538d71d0fc195e4a275bcbd30de7d1f97`;
+  that artifact is not part of PR #198
 - Durable contract: [ADR 0003](../docs/adr/0003-uzh-primary-ramp-override-boundary.md)
 
 ## Progress
@@ -54,6 +57,28 @@
   or the public token graph.
 - Slice 3 simplifier: done — exact range `9ba32c746..cce84b48d`; `SIMPLIFY`, with
   the README duplicate ramp syntax reduced to a canonical migration-guide link.
+- Slice 5 — complete locally. The obsolete v4 `:root` token and font overrides
+  were removed from `.ladle/head.html`; the self-hosted-font comment now stands
+  alone. The story exposes `theme-extension-contract--neutral`,
+  `theme-extension-contract--uzh`, and `theme-extension-contract--synthetic-ramp`
+  without any nested theme wrapper; the synthetic ramp is applied to
+  `document.documentElement` by the story and cleaned up on unmount. The focused
+  proof inspects the unmodified built page: it neutralizes the Ladle wrapper,
+  applies the theme and ramp on the document root, and asserts root tokens,
+  Button/Badge primary consumption, the settled focus ring (the ring layer is
+  `color-mix(in oklab, var(--ring) 50%, transparent)`, compared against the same
+  mix resolved from the root token), and active/hover Sidebar consumption of the
+  theme ramp tokens. The packed harness gained `--primary-foreground` and
+  `--sidebar-primary-foreground` sentinels (UZH literals match the minified
+  `#fff` serialization) and durable contract language.
+- Slice 5 verification: `build:ladle` passed and the built page is free of the
+  removed overrides; the focused spec passed 3/3; `test:theme-contract` passed
+  672/672; port 61011 was free before `CI=true PWTEST_SKIP_BUILD=1 test:fast`
+  passed 1302/1302 on a fresh preview; `pnpm check`, `pnpm lint`, and
+  `pnpm format:check` passed. Negative proof: disabling the document-root
+  theme application fails the UZH and synthetic-ramp root-token assertions, and
+  disabling the ramp application fails only the synthetic-ramp state; both
+  restored before commit.
 - Follow-up verification: the synthetic ramp was changed to WCAG-safe values after
   the full a11y sweep identified insufficient contrast in the first fixture; the
   focused UI test and both a11y theme runs then passed. The root Playwright config
@@ -85,6 +110,11 @@
   and add fixed foreground sentinels for the two UZH values reasserted in
   `tailwind.css`. The duplicated ramp values remain intentional: the story owns
   the stimulus while the Playwright expectation remains an independent oracle.
+- Slice 5 intermediate review: not required — proof-only correction; no
+  architecture, security, data-integrity, or cross-system boundary changed.
+- Slice 5 simplifier: pending — exactly one configured simplifier runs on the
+  immutable correction commit; its disposition is recorded here before
+  coordinator acceptance.
 - Remote evidence: draft PR #198 targets `v5`, is mergeable at `36a1cb5ca`, and
   its build, lint, types, formatting, test, four accessibility shards, package
   build, Vercel, and Greptile checks passed. CodeRabbit skipped the draft. These
@@ -305,12 +335,15 @@ cascade and the rendered component states.
 
 ### Slice 5 — Close branch-review proof gaps
 
-- Route: configured executor for the bounded story/test correction; main session
-  owns integration and review disposition.
+- Route: resume existing delegated task
+  `019ff6e6-f4b9-7842-9883-e63f8e71be44` as the sole writer for the bounded
+  correction. Do not create a replacement executor or edit overlapping W1 paths
+  in the main session before terminal handback. The main session owns
+  verification, integration, and review disposition.
 - Paths: `packages/design-system/src/ThemeExtensionContract.stories.tsx`,
   `packages/design-system/tests/contracts/theme-extension-ui.spec.ts`,
-  `packages/design-system/tests/theme-contract/verify-packed-css.mjs`, and this
-  progress section only.
+  `packages/design-system/tests/theme-contract/verify-packed-css.mjs`,
+  `packages/design-system/.ladle/head.html`, and this progress section only.
 - Outcome: expose final story IDs `theme-extension-contract--neutral`,
   `theme-extension-contract--uzh`, and
   `theme-extension-contract--synthetic-ramp`. Have the focused test set
@@ -324,9 +357,17 @@ cascade and the rendered component states.
   sidebar accent values.
   Add fixed sentinels for `--primary-foreground` and
   `--sidebar-primary-foreground`, and replace “Slice 1/2” comments with durable
-  packed-contract language.
+  packed-contract language. Remove the obsolete v4 `:root` token and font
+  overrides from `.ladle/head.html`: Ladle currently injects that block after
+  the v5 stylesheet, so its orange ramp masks both neutral and UZH
+  document-root states. The focused test must inspect the unmodified built page,
+  not delete or neutralize preview CSS at runtime.
 - Acceptance: a fresh Ladle build plus the focused UI test proves all three
   document-root states; `test:theme-contract` passes with the extra sentinels;
+  port 61011 is free after the fresh build, then
+  `CI=true PWTEST_SKIP_BUILD=1 pnpm --dir packages/design-system test:fast`
+  passes so Playwright cannot reuse a stale preview and no story or
+  accessibility path silently depended on the obsolete overrides;
   `pnpm check`, `pnpm lint`, and `pnpm format:check` pass; exact-head CI reruns
   after push. Reverting the document-root setup or ramp bridge makes the focused
   proof fail.
@@ -334,12 +375,14 @@ cascade and the rendered component states.
   the public contract. Main-session verification closes the exact proof-only
   findings. If runtime CSS or the public contract changes, stop for package-scope,
   risk, and review-budget reassessment; do not dispatch a third integrated-final
-  review automatically. After the correction commit, run the configured
-  simplifier if the story/test rewrite is substantive; otherwise record a
-  specific trivial proof-only skip reason.
+  review automatically. The story/test rewrite is substantive; after the
+  correction commit, run exactly one configured simplifier on the immutable
+  commit or range and disposition its result before coordinator acceptance.
 - Commit: `test(theme): prove document-root extension states`.
-- Stop: the correction needs nested or portal support, changes runtime CSS, or
-  cannot prove neutral/base UZH without weakening the synthetic-ramp oracle.
+- Stop: the correction needs nested or portal support, changes runtime CSS,
+  removing the obsolete Ladle override exposes a component/runtime regression
+  rather than fixture debt, or neutral/base UZH cannot be proved without
+  weakening the synthetic-ramp oracle.
 
 ## Review and simplification records
 
@@ -352,6 +395,10 @@ cascade and the rendered component states.
   were reviewed; seven findings were then incorporated and verified in the
   follow-up drafts. The report is persisted at
   `project/_local/reviews/2026-08-12-v5-ga-roadmap-w1-review-adaptation-planning.md`.
+- Slice 5 amendment planning review: done — exact combined draft identity
+  `draft:7aafcc83d27cbe0605f7a49857d50e935a2a92d1dfc9b8260b00a2160f18c68b`
+  received `DONE_WITH_CONCERNS`; all four findings are incorporated. Report:
+  `project/_local/reviews/2026-08-12-v5-theme-extension-contract-slice5-amendment-planning.md`.
 - Slice 1 intermediate review: not required — diagnostic harness and CI wiring
   are reviewed through main-session verification unless the implementation adds
   a new trust-boundary behavior.
