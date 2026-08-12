@@ -106,7 +106,6 @@ async function applyDocumentRootState(
  */
 async function readProbeColors(page: Parameters<typeof gotoStory>[0]): Promise<{
   primary: string
-  ring: string
   sidebarAccent: string
   sidebarAccentForeground: string
   primary20: string
@@ -123,7 +122,6 @@ async function readProbeColors(page: Parameters<typeof gotoStory>[0]): Promise<{
     }
     const result = {
       primary: read('var(--primary)'),
-      ring: read('var(--ring)'),
       sidebarAccent: read('var(--sidebar-accent)'),
       sidebarAccentForeground: (() => {
         probe.style.color = 'var(--sidebar-accent-foreground)'
@@ -227,7 +225,7 @@ for (const state of STATES) {
     await input.focus()
     await expect(input).toBeFocused()
     const focusRingColor = await settledFocusRingColor(page, input)
-    const expectedRingColor = await expectedFocusRingColor(page, probe.ring)
+    const expectedRingColor = await expectedFocusRingColor(page, 'var(--ring)')
     expect(focusRingColor).toBe(expectedRingColor)
 
     // Hover consumes the sidebar accent pair; the active state consumes the

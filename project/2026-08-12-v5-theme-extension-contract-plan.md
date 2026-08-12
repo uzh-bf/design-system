@@ -112,9 +112,12 @@
   the stimulus while the Playwright expectation remains an independent oracle.
 - Slice 5 intermediate review: not required — proof-only correction; no
   architecture, security, data-integrity, or cross-system boundary changed.
-- Slice 5 simplifier: pending — exactly one configured simplifier runs on the
-  immutable correction commit; its disposition is recorded here before
-  coordinator acceptance.
+- Slice 5 simplifier: done — exact range `9dd0b2668..fb402e4b1`; `SIMPLIFY`,
+  with one accepted behavior-preserving reduction (the focus-ring oracle now
+  resolves `var(--ring)` itself instead of reading a redundant probe field).
+  Re-verified after the edit: focused spec 3/3, `pnpm check`, `pnpm lint`, and
+  `pnpm format:check` passed. Report:
+  `project/_local/reviews/2026-08-12-v5-theme-extension-contract-slice5-simplifier.md`.
 - Remote evidence: draft PR #198 targets `v5`, is mergeable at `36a1cb5ca`, and
   its build, lint, types, formatting, test, four accessibility shards, package
   build, Vercel, and Greptile checks passed. CodeRabbit skipped the draft. These
