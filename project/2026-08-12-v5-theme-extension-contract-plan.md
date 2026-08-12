@@ -3,7 +3,7 @@
 ## Identity
 
 - Date: 2026-08-12
-- Status: implementation and proof correction pushed at `0b37bbf80`; the PR
+- Status: implementation and proof correction pushed; the PR
   remains draft and publication boundary remains closed
 - Repository: `/Users/rschlae/Git/df/design-system`
 - Base and target: `v5` at `3bb6ade0e9b95061d4bbf79fc385253576ae7ad7`
@@ -57,7 +57,7 @@
   or the public token graph.
 - Slice 3 simplifier: done — exact range `9ba32c746..cce84b48d`; `SIMPLIFY`, with
   the README duplicate ramp syntax reduced to a canonical migration-guide link.
-- Slice 5 — complete and pushed at `0b37bbf80`. The obsolete v4 `:root` token and font overrides
+- Slice 5 — complete and pushed. The obsolete v4 `:root` token and font overrides
   were removed from `.ladle/head.html`; the self-hosted-font comment now stands
   alone. The story exposes `theme-extension-contract--neutral`,
   `theme-extension-contract--uzh`, and `theme-extension-contract--synthetic-ramp`
@@ -119,12 +119,12 @@
   Re-verified after the edit: focused spec 3/3, `pnpm check`, `pnpm lint`, and
   `pnpm format:check` passed. Report:
   `project/_local/reviews/2026-08-12-v5-theme-extension-contract-slice5-simplifier.md`.
-- Remote evidence: draft PR #198 targets `v5` at pushed head `0b37bbf80` and is
-  mergeable. CI run `31628221645` passed lint, formatting, types, tests, four
-  accessibility shards, and Build; Build & Deploy run `31628221636` passed with
-  deployment skipped. Vercel and Greptile passed. The verified local screenshot
-  set is under `project/_local/screenshots/theme-extension-contract/` and
-  remains ignored pending attachment before readiness.
+- Remote evidence: draft PR #198 targets `v5` at the pushed branch head and is
+  mergeable. Exact-head CI passed lint, formatting, types, tests, four
+  accessibility shards, and Build; Build & Deploy passed with deployment
+  skipped. Vercel and Greptile passed. The verified local screenshot set is
+  under `project/_local/screenshots/theme-extension-contract/` and remains
+  ignored pending attachment before readiness.
 
 ## Goal
 
@@ -450,7 +450,7 @@ Stop and report the exact evidence if:
 
 ## Next steps
 
-The corrected head is pushed to draft PR #198 at `0b37bbf80`, and exact-head CI
-is green. Attach the ignored desktop and narrow-viewport screenshot set before
+The corrected head is pushed to draft PR #198, and exact-head CI is green. Attach
+the ignored desktop and narrow-viewport screenshot set before
 requesting separate readiness authority. Merge, tag, publication, consumer
 delivery, deployment, and GA promotion remain separate explicit authority gates.
