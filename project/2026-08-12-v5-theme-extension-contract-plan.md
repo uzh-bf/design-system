@@ -119,12 +119,12 @@
   Re-verified after the edit: focused spec 3/3, `pnpm check`, `pnpm lint`, and
   `pnpm format:check` passed. Report:
   `project/_local/reviews/2026-08-12-v5-theme-extension-contract-slice5-simplifier.md`.
-- Remote evidence: draft PR #198 targets `v5` at the pushed branch head and is
-  mergeable. Exact-head CI passed lint, formatting, types, tests, four
-  accessibility shards, and Build; Build & Deploy passed with deployment
-  skipped. Vercel and Greptile passed. The verified local screenshot set is
-  under `project/_local/screenshots/theme-extension-contract/` and remains
-  ignored pending attachment before readiness.
+- Remote evidence: draft PR #198 targets `v5` at the latest pushed branch head
+  and is mergeable. The latest exact-head CI passed lint, formatting, types,
+  tests, four accessibility shards, and Build; Build & Deploy passed with
+  deployment skipped. Vercel and Greptile passed. The verified local
+  screenshot set is under `project/_local/screenshots/theme-extension-contract/`
+  and remains ignored pending attachment before readiness.
 
 ## Goal
 
@@ -422,14 +422,14 @@ cascade and the rendered component states.
   above; the final report is persisted under `project/_local/reviews/`.
 - Post-push Standards review: closed locally by Slice 5 — plan-codename comments
   were replaced with durable contract language. The duplicated ramp literals
-  remain accepted as independent stimulus and oracle. Exact-head CI still needs
-  to rerun after an authorized push.
+  remain accepted as independent stimulus and oracle. Exact-head CI was rerun
+  after the authorized push and is green.
   Report:
   `project/_local/reviews/2026-08-12-v5-theme-extension-contract-standards-review.md`.
 - Post-push Spec review: closed locally by Slice 5 — the document-root,
   neutral/base UZH, fixed-foreground sentinel, and focused-ring consumption
-  findings now have passing focused and full-suite proof. Exact-head CI still
-  needs to rerun after an authorized push.
+  findings now have passing focused and full-suite proof. Exact-head CI was
+  rerun after the authorized push and is green.
   Report:
   `project/_local/reviews/2026-08-12-v5-theme-extension-contract-spec-review.md`.
 
