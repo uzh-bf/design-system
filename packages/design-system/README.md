@@ -77,9 +77,42 @@ import { ThemeProvider } from '@uzh-bf/design-system'
 ;<ThemeProvider theme="uzh">{children}</ThemeProvider>
 ```
 
-Document-root theming is the supported and verified mode in v5. See
-[`MIGRATION.md`](./MIGRATION.md) for the theming model and its current
-limitations.
+Document-root theming is the supported and verified mode in v5. `ThemeProvider`
+remains useful for a component subtree, but it does not make nested themes or
+portal content a separately verified theme boundary. See [`MIGRATION.md`](./MIGRATION.md)
+for the current limitations.
+
+### Complete primary-ramp extension
+
+Consumers may replace the UZH primary family with a design-approved complete
+five-step ramp. Import the packaged design-system stylesheet first, then load
+the consumer override after it. The six semantic bridges follow the ramp; do
+not provide only one primary colour or generate missing steps in application
+code.
+
+```css
+/* app.css: the design-system import comes first */
+@import '@uzh-bf/design-system/css';
+
+:root[data-theme='uzh'] {
+  --theme-color-primary: var(--app-primary-100);
+  --theme-color-primary-80: var(--app-primary-80);
+  --theme-color-primary-60: var(--app-primary-60);
+  --theme-color-primary-40: var(--app-primary-40);
+  --theme-color-primary-20: var(--app-primary-20);
+}
+```
+
+The example assumes the app has already defined those app-prefixed variables;
+the design system does not own or generate their values.
+
+This extension changes `--primary`, `--ring`, `--sidebar-primary`,
+`--sidebar-ring`, `--sidebar-accent`, and `--sidebar-accent-foreground`. The
+secondary, status, destructive, font, chart, and other UZH tokens remain owned
+by the design system. Application-specific semantic variables should use an
+app prefix such as `--app-primary-100`; declarations of generic `--primary`,
+`--accent`, or `--destructive` are namespace collisions, not this extension
+contract.
 
 ## Usage
 

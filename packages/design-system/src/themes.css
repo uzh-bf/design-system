@@ -1,17 +1,17 @@
 /*
  * Theme layer for @uzh-bf/design-system v5.
  *
- * Two selectable themes, driven by a `data-theme` attribute on any ancestor
- * element (default = neutral on :root):
+ * Two selectable themes, driven by a `data-theme` attribute (default = neutral
+ * on :root):
  *   - neutral: de-branded, shadcn-like. Default for white-label / non-UZH apps.
  *   - uzh:     UZH corporate design (UZH blue primary, UZH red secondary,
  *              Source Sans 3). Opt in with `data-theme="uzh"`.
  *
  * Mechanism: every theme-varying token is an intermediate `--theme-*` custom
  * property consumed (by reference) from `@theme inline` in tailwind.css. A
- * `data-theme` ancestor re-declares these vars; the var() chain resolves to the
- * nearest ancestor at runtime, so themes switch with zero JS and can be nested
- * either way (uzh inside neutral, neutral inside uzh).
+ * `data-theme` element re-declares these vars, so themes switch with zero JS.
+ * The verified contract is one theme on the document root; nested themes and
+ * content portaled outside that root are not guaranteed to stay isolated.
  *
  * The fixed `--color-uzh-*` corporate palette lives in tailwind.css and is
  * available in BOTH themes for explicit / chart use.
