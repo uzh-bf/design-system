@@ -5,17 +5,17 @@ import { gotoStory } from '../_support/ladle'
 const STORY = 'theme-extension-contract--default'
 
 const RAMP_VALUES = {
-  '--theme-color-primary': '#d94f2b',
-  '--theme-color-primary-80': '#e27454',
-  '--theme-color-primary-60': '#ea997d',
-  '--theme-color-primary-40': '#f2bfa7',
-  '--theme-color-primary-20': '#fae4d9',
-  '--primary': '#d94f2b',
-  '--ring': '#d94f2b',
-  '--sidebar-primary': '#d94f2b',
-  '--sidebar-ring': '#d94f2b',
-  '--sidebar-accent': '#fae4d9',
-  '--sidebar-accent-foreground': '#d94f2b',
+  '--theme-color-primary': '#8c2f14',
+  '--theme-color-primary-80': '#a94425',
+  '--theme-color-primary-60': '#c76645',
+  '--theme-color-primary-40': '#e5a38f',
+  '--theme-color-primary-20': '#f7d9cf',
+  '--primary': '#8c2f14',
+  '--ring': '#8c2f14',
+  '--sidebar-primary': '#8c2f14',
+  '--sidebar-ring': '#8c2f14',
+  '--sidebar-accent': '#f7d9cf',
+  '--sidebar-accent-foreground': '#8c2f14',
 }
 
 test('renders the primary-ramp contract states', async ({ page }) => {
@@ -52,10 +52,10 @@ test('renders the primary-ramp contract states', async ({ page }) => {
 
   await expect(
     rampPanel.locator('[data-test="theme-contract-button-synthetic-ramp"]')
-  ).toHaveCSS('background-color', 'rgb(217, 79, 43)')
+  ).toHaveCSS('background-color', 'rgb(140, 47, 20)')
   await expect(
     rampPanel.locator('[data-test="theme-contract-badge-synthetic-ramp"]')
-  ).toHaveCSS('background-color', 'rgb(217, 79, 43)')
+  ).toHaveCSS('background-color', 'rgb(140, 47, 20)')
 
   const input = rampPanel.locator(
     '[data-test="theme-contract-input-synthetic-ramp"]'
@@ -72,7 +72,7 @@ test('renders the primary-ramp contract states', async ({ page }) => {
       ring: styles.getPropertyValue('--ring').trim(),
     }
   })
-  expect(focusedState.ring).toBe('#d94f2b')
+  expect(focusedState.ring).toBe('#8c2f14')
   expect(focusedState.boxShadow).not.toBe(unfocusedBoxShadow)
 
   const activeSidebarItem = rampPanel.locator(
@@ -80,9 +80,9 @@ test('renders the primary-ramp contract states', async ({ page }) => {
   )
   await expect(activeSidebarItem).toHaveCSS(
     'background-color',
-    'rgb(250, 228, 217)'
+    'rgb(247, 217, 207)'
   )
-  await expect(activeSidebarItem).toHaveCSS('color', 'rgb(217, 79, 43)')
+  await expect(activeSidebarItem).toHaveCSS('color', 'rgb(140, 47, 20)')
 
   const hoverSidebarItem = rampPanel.locator(
     '[data-test="theme-contract-sidebar-hover-synthetic-ramp"]'
@@ -90,7 +90,7 @@ test('renders the primary-ramp contract states', async ({ page }) => {
   await hoverSidebarItem.hover()
   await expect(hoverSidebarItem).toHaveCSS(
     'background-color',
-    'rgb(250, 228, 217)'
+    'rgb(247, 217, 207)'
   )
-  await expect(hoverSidebarItem).toHaveCSS('color', 'rgb(217, 79, 43)')
+  await expect(hoverSidebarItem).toHaveCSS('color', 'rgb(140, 47, 20)')
 })

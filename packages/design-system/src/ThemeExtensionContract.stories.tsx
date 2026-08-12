@@ -13,11 +13,11 @@ import {
 import { Input } from './ui/input'
 
 const SYNTHETIC_RAMP = {
-  '--theme-color-primary': '#d94f2b',
-  '--theme-color-primary-80': '#e27454',
-  '--theme-color-primary-60': '#ea997d',
-  '--theme-color-primary-40': '#f2bfa7',
-  '--theme-color-primary-20': '#fae4d9',
+  '--theme-color-primary': '#8c2f14',
+  '--theme-color-primary-80': '#a94425',
+  '--theme-color-primary-60': '#c76645',
+  '--theme-color-primary-40': '#e5a38f',
+  '--theme-color-primary-20': '#f7d9cf',
 } as CSSProperties
 
 function ContractPanel({

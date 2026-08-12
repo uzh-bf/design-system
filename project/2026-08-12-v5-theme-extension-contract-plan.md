@@ -3,7 +3,7 @@
 ## Identity
 
 - Date: 2026-08-12
-- Status: Slice 3 implemented; Slice 4 integrated verification next
+- Status: implementation and integrated verification complete; final review pending
 - Repository: `/Users/rschlae/Git/df/design-system`
 - Base and target: `v5` at `3bb6ade0e9b95061d4bbf79fc385253576ae7ad7`
 - Branch: `rs/v5-theme-extension-contract`
@@ -38,7 +38,7 @@
   approved exact range `bcfddea0a..9ba32c746` with no findings, and the
   simplifier returned `KEEP` with no safe reduction. A fresh post-review packed
   run passed 656/656.
-- Slice 3 — complete in commit `cce84b48d`. Documentation now
+- Slice 3 — complete in commit `cce84b48d`, with follow-up `488a6acae`. Documentation now
   states CSS import order, document-root support, the five-variable ramp, six
   derived bridges, fixed-token ownership, app-prefix collisions, and
   nested/portal limits. The new `theme-extension-contract--default` Ladle
@@ -51,7 +51,25 @@
   or the public token graph.
 - Slice 3 simplifier: done — exact range `9ba32c746..cce84b48d`; `SIMPLIFY`, with
   the README duplicate ramp syntax reduced to a canonical migration-guide link.
-- Next gate: finish Slice 4 integrated verification and final review.
+- Follow-up verification: the synthetic ramp was changed to WCAG-safe values after
+  the full a11y sweep identified insufficient contrast in the first fixture; the
+  focused UI test and both a11y theme runs then passed. The root Playwright config
+  now excludes the isolated Next/RHF consumer, which owns its own server and
+  config. The packed consumer's submission assertion still fails unchanged on
+  both this branch and the `v5` base; it is a pre-existing RSC/W3 issue outside
+  W1 and is not included in the theme package gate.
+- Slice 4 — complete locally. `CI=true pnpm install --frozen-lockfile` passed.
+  `pnpm check`, `pnpm lint`, `pnpm format:check`, `pnpm build`, and
+  `pnpm size:check` passed. The packed CSS harness passed 656/656 assertions.
+  `pnpm --dir packages/design-system build:ladle` passed. With the isolated
+  Next/RHF fixture excluded from the Ladle runner, `PWTEST_SKIP_BUILD=1 pnpm
+  --dir packages/design-system test:fast` passed 1294/1294 intended tests;
+  focused UI, a11y, and smoke coverage passed as part of that run. Chromium
+  required host access because the sandbox reports a macOS bootstrap permission
+  error before browser launch. The independent `verify.sh` RSC consumer build
+  completed but its existing submission assertion remained red on the base and
+  W1 branch.
+- Final review: pending on the complete committed range ending at `488a6acae`.
 
 ## Goal
 
