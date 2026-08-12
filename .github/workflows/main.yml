@@ -83,6 +83,13 @@ jobs:
       - name: Install Playwright browser
         run: pnpm --filter @uzh-bf/design-system test:install
 
+      # Packed CSS ownership tracer: builds and packs the package, then asserts
+      # the computed-token contract matrix from the packed ./css artifact in
+      # Chromium (no Ladle). Runs after browser setup; `test:fast` does not
+      # discover it implicitly.
+      - name: Run packed theme contract tests
+        run: pnpm --filter @uzh-bf/design-system test:theme-contract
+
       # Smoke stays in this job: it is fast and reuses the build here. The full
       # axe a11y sweep runs as its own sharded `a11y` job (below) that gates
       # `build`, so the heavy scan does not slow this job down.

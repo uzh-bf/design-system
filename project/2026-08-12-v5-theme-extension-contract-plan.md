@@ -3,7 +3,7 @@
 ## Identity
 
 - Date: 2026-08-12
-- Status: approved; implementation not started
+- Status: Slice 1 committed; Slice 2 implementation next
 - Repository: `/Users/rschlae/Git/df/design-system`
 - Base and target: `v5` at `3bb6ade0e9b95061d4bbf79fc385253576ae7ad7`
 - Branch: `rs/v5-theme-extension-contract`
@@ -11,6 +11,26 @@
 - Delivery: one full-path Design System PR; no PR exists yet
 - Roadmap: [remaining v5 GA work](./2026-08-12-v5-ga-remaining-roadmap.md), W1
 - Durable contract: [ADR 0003](../docs/adr/0003-uzh-primary-ramp-override-boundary.md)
+
+## Progress
+
+- Slice 0 — complete. The reviewed plan is committed as `ae9c31785`.
+- Slice 1 — complete in the pending commit. The packed harness, named package
+  script, CI invocation, and app-prefixed assertions are in scope.
+- Evidence: the packed `./css` artifact was built, packed, extracted, and
+  exercised in 4 document roots × 6 stylesheet cells. The focused command passed
+  656/656 token assertions. Pre-Slice-2 evidence shows UZH light bridges resolve
+  to generic root values and UZH dark bridges resolve to dark-axis values, while
+  the five public ramp values and fixed-token sentinels remain stable.
+- Test delta: added one packed computed-token contract, one package script, and
+  one CI invocation; no production source change. Generic collisions remain
+  consumer-owned, app-prefixed variables remain consumer-owned, and the full
+  ramp changes only the intended five ramp values before Slice 2.
+- Intermediate review: not required — this slice adds diagnostic test/CI
+  plumbing and does not change the public runtime/theme behavior.
+- Simplifier: pending post-commit classification; the harness is code-bearing
+  and will receive the required pragmatic-design pass if classified substantive.
+- Next gate: implement and review the ADR 0003 bridge mappings in Slice 2.
 
 ## Goal
 
