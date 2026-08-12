@@ -12,6 +12,8 @@
  * deliberate change to the compiled cascade (e.g. Slice 2's ramp bridges)
  * flips this command red until the contract table is updated with it.
  */
+/* global console, document, getComputedStyle, process */
+
 import { chromium } from '@playwright/test'
 import { execFileSync } from 'node:child_process'
 import {

@@ -38,7 +38,7 @@
   approved exact range `bcfddea0a..9ba32c746` with no findings, and the
   simplifier returned `KEEP` with no safe reduction. A fresh post-review packed
   run passed 656/656.
-- Slice 3 — implementation complete in the working tree. Documentation now
+- Slice 3 — complete in commit `cce84b48d`. Documentation now
   states CSS import order, document-root support, the five-variable ramp, six
   derived bridges, fixed-token ownership, app-prefix collisions, and
   nested/portal limits. The new `theme-extension-contract--default` Ladle
@@ -49,8 +49,9 @@
 - Slice 3 intermediate review: not required — the slice adds documentation and
   a focused rendered contract fixture without changing architecture, data flow,
   or the public token graph.
-- Next gate: commit Slice 3, run the required simplifier, then execute Slice 4
-  integrated verification and final review.
+- Slice 3 simplifier: done — exact range `9ba32c746..cce84b48d`; `SIMPLIFY`, with
+  the README duplicate ramp syntax reduced to a canonical migration-guide link.
+- Next gate: finish Slice 4 integrated verification and final review.
 
 ## Goal
 
@@ -280,7 +281,8 @@ cascade and the rendered component states.
 - Slice 3 intermediate review: not required — documentation and focused Ladle
   fixture only; no architecture, security, data-integrity, or cross-system
   boundary changed.
-- Slice 3 simplifier: required — substantive story/test and docs range.
+- Slice 3 simplifier: done — exact range `9ba32c746..cce84b48d`; the accepted
+  reduction is recorded above.
 - Integrated final review: required before any PR update or completion claim.
 
 ## Stop conditions
