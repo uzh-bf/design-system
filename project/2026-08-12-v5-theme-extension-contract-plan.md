@@ -69,7 +69,9 @@
   error before browser launch. The independent `verify.sh` RSC consumer build
   completed but its existing submission assertion remained red on the base and
   W1 branch.
-- Final review: pending on the complete committed range ending at `488a6acae`.
+- Final review: the parent dispatches the integrated-final gate against the
+  exact current base-to-HEAD range and records that identity in the review
+  artifact; this plan does not hard-code a pre-review commit.
 
 ## Goal
 
