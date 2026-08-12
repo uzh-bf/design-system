@@ -3,8 +3,8 @@
 ## Identity
 
 - Date: 2026-08-12
-- Status: implementation and local proof correction complete; publication
-  boundary remains closed
+- Status: implementation and proof correction pushed at `44e580aa1`; the PR
+  remains draft and publication boundary remains closed
 - Repository: `/Users/rschlae/Git/df/design-system`
 - Base and target: `v5` at `3bb6ade0e9b95061d4bbf79fc385253576ae7ad7`
 - Branch: `rs/v5-theme-extension-contract`
@@ -57,14 +57,14 @@
   or the public token graph.
 - Slice 3 simplifier: done — exact range `9ba32c746..cce84b48d`; `SIMPLIFY`, with
   the README duplicate ramp syntax reduced to a canonical migration-guide link.
-- Slice 5 — complete locally. The obsolete v4 `:root` token and font overrides
+- Slice 5 — complete and pushed at `44e580aa1`. The obsolete v4 `:root` token and font overrides
   were removed from `.ladle/head.html`; the self-hosted-font comment now stands
   alone. The story exposes `theme-extension-contract--neutral`,
   `theme-extension-contract--uzh`, and `theme-extension-contract--synthetic-ramp`
   without any nested theme wrapper; the synthetic ramp is applied to
   `document.documentElement` by the story and cleaned up on unmount. The focused
-  proof inspects the unmodified built page: it neutralizes the Ladle wrapper,
-  applies the theme and ramp on the document root, and asserts root tokens,
+  proof inspects the unmodified built page: it removes only the Ladle wrapper's
+  competing theme markers, applies the theme and ramp on the document root, and asserts root tokens,
   Button/Badge primary consumption, the settled focus ring (the ring layer is
   `color-mix(in oklab, var(--ring) 50%, transparent)`, compared against the same
   mix resolved from the root token), the active Sidebar item's direct primary
@@ -119,10 +119,12 @@
   Re-verified after the edit: focused spec 3/3, `pnpm check`, `pnpm lint`, and
   `pnpm format:check` passed. Report:
   `project/_local/reviews/2026-08-12-v5-theme-extension-contract-slice5-simplifier.md`.
-- Remote evidence: draft PR #198 targets `v5`, is mergeable at `36a1cb5ca`, and
-  its build, lint, types, formatting, test, four accessibility shards, package
-  build, Vercel, and Greptile checks passed. CodeRabbit skipped the draft. These
-  results predate the correction slice and must rerun at the corrected head.
+- Remote evidence: draft PR #198 targets `v5` at pushed head `44e580aa1` and is
+  mergeable. CI run `31628221645` passed lint, formatting, types, tests, four
+  accessibility shards, and Build; Build & Deploy run `31628221636` passed with
+  deployment skipped. Vercel and Greptile passed. The verified local screenshot
+  set is under `project/_local/screenshots/theme-extension-contract/` and
+  remains ignored pending attachment before readiness.
 
 ## Goal
 
@@ -443,12 +445,12 @@ Stop and report the exact evidence if:
 - neutral, base UZH, dark-axis, fixed-token, a11y, size, or package checks drift;
 - the browser cannot run in the required environment and no equivalent CI proof
   exists; or
-- the next action would be push, PR, readiness, merge, tag, publication,
-  consumer delivery, deployment, or GA promotion.
+- the next action would be PR readiness, merge, tag, publication, consumer
+  delivery, deployment, or GA promotion.
 
 ## Next steps
 
-Request explicit authority before pushing the corrected local head and updating
-draft PR #198. After an authorized push, verify the remote ref and exact-head CI
-before any readiness decision. Merge, tag, publication, consumer delivery,
-deployment, and GA promotion remain separate explicit authority gates.
+The corrected head is pushed to draft PR #198 at `44e580aa1`, and exact-head CI
+is green. Attach the ignored desktop and narrow-viewport screenshot set before
+requesting separate readiness authority. Merge, tag, publication, consumer
+delivery, deployment, and GA promotion remain separate explicit authority gates.
