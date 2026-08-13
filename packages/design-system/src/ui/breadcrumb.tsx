@@ -1,5 +1,5 @@
 import { Slot } from '@radix-ui/react-slot'
-import { ChevronRight, MoreHorizontal } from 'lucide-react'
+import { MoreHorizontal } from 'lucide-react'
 import * as React from 'react'
 
 import { cn } from '../lib/utils'
@@ -13,7 +13,7 @@ function BreadcrumbList({ className, ...props }: React.ComponentProps<'ol'>) {
     <ol
       data-slot="breadcrumb-list"
       className={cn(
-        'text-muted-foreground flex flex-wrap items-center gap-1.5 text-sm break-words sm:gap-2.5',
+        'flex flex-wrap items-center gap-2 text-sm break-words text-[#666666]',
         className
       )}
       {...props}
@@ -43,7 +43,10 @@ function BreadcrumbLink({
   return (
     <Comp
       data-slot="breadcrumb-link"
-      className={cn('hover:text-foreground transition-colors', className)}
+      className={cn(
+        'hover:text-primary-100 text-[#666666] transition-colors',
+        className
+      )}
       {...props}
     />
   )
@@ -56,7 +59,7 @@ function BreadcrumbPage({ className, ...props }: React.ComponentProps<'span'>) {
       role="link"
       aria-disabled="true"
       aria-current="page"
-      className={cn('text-foreground font-normal', className)}
+      className={cn('font-medium text-[#111111]', className)}
       {...props}
     />
   )
@@ -72,10 +75,10 @@ function BreadcrumbSeparator({
       data-slot="breadcrumb-separator"
       role="presentation"
       aria-hidden="true"
-      className={className}
+      className={cn('text-[#A3A3A3]', className)}
       {...props}
     >
-      {children ?? <ChevronRight className="size-3.5" />}
+      {children ?? '/'}
     </li>
   )
 }

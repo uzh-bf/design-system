@@ -7,9 +7,16 @@ import * as React from 'react'
 import { cn } from '../lib/utils'
 
 function Accordion({
+  className,
   ...props
 }: React.ComponentProps<typeof AccordionPrimitive.Root>) {
-  return <AccordionPrimitive.Root data-slot="accordion" {...props} />
+  return (
+    <AccordionPrimitive.Root
+      data-slot="accordion"
+      className={cn('w-full', className)}
+      {...props}
+    />
+  )
 }
 
 function AccordionItem({
@@ -19,7 +26,7 @@ function AccordionItem({
   return (
     <AccordionPrimitive.Item
       data-slot="accordion-item"
-      className={cn('border-b last:border-b-0', className)}
+      className={cn('border-b border-[#EFEFEF] last:border-b-0', className)}
       {...props}
     />
   )
@@ -35,13 +42,13 @@ function AccordionTrigger({
       <AccordionPrimitive.Trigger
         data-slot="accordion-trigger"
         className={cn(
-          'focus-visible:border-ring focus-visible:ring-ring/50 flex flex-1 cursor-pointer items-start justify-between gap-4 py-4 text-left text-base font-medium transition-all outline-none hover:underline focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:no-underline [&[data-state=open]>svg]:rotate-180',
+          'focus-visible:border-ring focus-visible:ring-ring/50 flex h-[52px] flex-1 cursor-pointer items-center justify-between gap-4 px-0 py-0 text-left text-[15px] font-semibold text-[#111111] transition-all outline-none hover:bg-transparent focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 [&[data-state=open]>svg]:rotate-180',
           className
         )}
         {...props}
       >
         {children}
-        <ChevronDownIcon className="text-muted-foreground pointer-events-none size-4 shrink-0 translate-y-0.5 transition-transform duration-200" />
+        <ChevronDownIcon className="pointer-events-none size-4 shrink-0 text-[#666666] transition-transform duration-200" />
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
   )
@@ -55,10 +62,10 @@ function AccordionContent({
   return (
     <AccordionPrimitive.Content
       data-slot="accordion-content"
-      className="data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden text-sm"
+      className="data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden text-sm leading-relaxed text-[#333333]"
       {...props}
     >
-      <div className={cn('pt-0 pb-4', className)}>{children}</div>
+      <div className={cn('px-0 pt-0 pb-4', className)}>{children}</div>
     </AccordionPrimitive.Content>
   )
 }

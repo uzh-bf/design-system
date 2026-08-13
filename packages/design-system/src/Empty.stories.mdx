@@ -1,0 +1,105 @@
+import { InboxIcon } from 'lucide-react'
+import { Button } from './Button'
+import {
+  Empty,
+  EmptyContent,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from './Empty'
+
+{/* START README */}
+<div className="prose prose-sm max-w-none">
+The `Empty` component renders an empty-state placeholder: a centered, dashed
+container with an optional icon, title, description, and call-to-action. It is
+the standard way to communicate "there is nothing here yet" while still guiding
+the user toward a next step.
+
+Use this component when you need to:
+
+- Show an empty list, table, search result, or inbox
+- Explain why a section has no content and what to do about it
+- Provide a primary action (create, invite, import) from an empty view
+
+Compose it from `EmptyHeader` (icon + title + description) and `EmptyContent`
+(actions). `EmptyMedia` supports an `icon` variant for a tinted icon badge.
+</div>
+{/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Composable empty-state surface with a dashed container, optional icon media, title, description, and an actions slot.
+Dependencies: class-variance-authority
+
+Available Stories:
+
+- Default: An empty inbox with an icon, title, description, and a primary action
+
+Props (Empty component):
+
+- className: string - Additional CSS classes
+- All standard div element props are forwarded
+
+Props (EmptyMedia component):
+
+- variant: "default" | "icon" - "icon" renders a tinted, rounded icon badge
+- className: string - Additional CSS classes
+
+Component Structure:
+
+- Empty: Root dashed container (data-slot="empty")
+- EmptyHeader: Groups the media, title, and description
+- EmptyMedia: Icon/illustration slot, with an optional "icon" badge variant
+- EmptyTitle: The heading text
+- EmptyDescription: Supporting text (supports inline links)
+- EmptyContent: Container for actions (buttons, links)
+
+Usage Examples:
+
+```tsx
+<Empty>
+  <EmptyHeader>
+    <EmptyMedia variant="icon">
+      <InboxIcon />
+    </EmptyMedia>
+    <EmptyTitle>No messages</EmptyTitle>
+    <EmptyDescription>
+      Your inbox is empty. New messages will appear here.
+    </EmptyDescription>
+  </EmptyHeader>
+  <EmptyContent>
+    <Button primary>Compose</Button>
+  </EmptyContent>
+</Empty>
+```
+
+Related Components:
+
+- Card: Often wraps an Empty state inside a panel
+- Button: Used inside EmptyContent for the primary action
+- Skeleton: For the loading (not empty) state
+
+AI_DOCUMENTATION_END
+*/}
+
+export const Default = () => {
+  return (
+    <Empty className="max-w-md">
+      <EmptyHeader>
+        <EmptyMedia variant="icon">
+          <InboxIcon />
+        </EmptyMedia>
+        <EmptyTitle>No messages</EmptyTitle>
+        <EmptyDescription>
+          Your inbox is empty. New messages will appear here once you receive
+          them.
+        </EmptyDescription>
+      </EmptyHeader>
+      <EmptyContent>
+        <Button primary>Compose</Button>
+      </EmptyContent>
+    </Empty>
+  )
+}

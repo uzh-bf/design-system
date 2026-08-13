@@ -74,29 +74,36 @@ export function UserNotification({
 
   switch (type) {
     case 'warning':
-      computedClassName = 'text-uzh-red-100 bg-uzh-red-20'
+      computedClassName =
+        'text-warning-foreground bg-warning-background dark:text-warning'
       notifIcon = faTriangleExclamation
       break
     case 'error':
-      computedClassName = 'text-destructive bg-red-100'
+      computedClassName =
+        'text-destructive-text bg-destructive-background dark:text-destructive'
       notifIcon = faCircleXmark
       break
     case 'info':
-      computedClassName = 'text-uzh-blue-100 bg-uzh-blue-20'
+      computedClassName =
+        'text-info-foreground bg-info-background dark:text-info'
       notifIcon = faCircleInfo
       break
     case 'success':
-      computedClassName = 'text-uzh-darkgreen-100 bg-uzh-lightgreen-20'
+      computedClassName =
+        'text-success-foreground bg-success-background dark:text-success'
       notifIcon = faCircleCheck
       break
     default:
-      computedClassName = 'text-slate-800 bg-uzh-grey-20'
+      computedClassName = 'text-foreground bg-muted'
       notifIcon = faCircleInfo
   }
 
   return (
     <div
       id={id}
+      // Errors and warnings interrupt as soon as they appear; everything else
+      // is a passive status region.
+      role={type === 'error' || type === 'warning' ? 'alert' : 'status'}
       data-cy={data?.cy}
       data-test={data?.test}
       className={twMerge(
@@ -113,7 +120,7 @@ export function UserNotification({
           title="Dismiss"
           onClick={onDismiss}
           className={twMerge(
-            'focus:ring-uzh-blue-100 absolute top-2 right-2 inline-flex h-5 w-5 items-center justify-center rounded text-base hover:opacity-80 focus:ring-2 focus:ring-offset-2 focus:outline-none',
+            'focus:ring-primary-100 absolute top-2 right-2 inline-flex h-5 w-5 items-center justify-center rounded text-base hover:opacity-80 focus:ring-2 focus:ring-offset-2 focus:outline-none',
             className?.closeIcon
           )}
         >

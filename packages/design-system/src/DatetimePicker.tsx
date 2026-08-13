@@ -8,10 +8,11 @@ import { enUS } from 'date-fns/locale'
 import dayjs from 'dayjs'
 import { Clock } from 'lucide-react'
 import * as React from 'react'
-import { useImperativeHandle, useRef } from 'react'
+import { useImperativeHandle } from 'react'
 import { DayPicker, DayPickerProps } from 'react-day-picker'
 import { twMerge } from 'tailwind-merge'
 import FormLabel from './FormLabel'
+import { testAttrs, type TestSelectors } from './lib/testSelectors'
 import { cn } from './lib/utils'
 import Tooltip from './Tooltip'
 import { Button } from './ui/button'
@@ -395,7 +396,7 @@ const TimePickerInput = React.forwardRef<
         id={id || picker}
         name={name || picker}
         className={cn(
-          'focus:bg-accent focus:text-accent-foreground w-[48px] text-center font-mono text-base tabular-nums caret-transparent [&::-webkit-inner-spin-button]:appearance-none',
+          'focus-visible:border-primary-100 focus-visible:ring-primary-100/20 w-12 rounded-md border-[#E0E0E0] text-center font-mono text-sm tabular-nums caret-transparent [&::-webkit-inner-spin-button]:appearance-none',
           className
         )}
         value={value || calculatedValue}
@@ -427,9 +428,9 @@ interface TimePickerProps {
    * Default is 'second'.
    * */
   granularity?: Granularity
-  dataHours?: { cy?: string; test?: string }
-  dataMinutes?: { cy?: string; test?: string }
-  dataSeconds?: { cy?: string; test?: string }
+  dataHours?: TestSelectors
+  dataMinutes?: TestSelectors
+  dataSeconds?: TestSelectors
 }
 
 interface TimePickerRef {
@@ -485,8 +486,7 @@ const TimePicker = React.forwardRef<TimePickerRef, TimePickerProps>(
           period={period}
           onRightFocus={() => minuteRef?.current?.focus()}
           className="h-8 text-sm"
-          data-cy={dataHours?.cy}
-          data-test={dataHours?.test}
+          {...testAttrs(dataHours)}
         />
         {(granularity === 'minute' || granularity === 'second') && (
           <>
@@ -500,8 +500,7 @@ const TimePicker = React.forwardRef<TimePickerRef, TimePickerProps>(
               onLeftFocus={() => hourRef?.current?.focus()}
               onRightFocus={() => secondRef?.current?.focus()}
               className="h-8 text-sm"
-              data-cy={dataMinutes?.cy}
-              data-test={dataMinutes?.test}
+              {...testAttrs(dataMinutes)}
             />
           </>
         )}
@@ -517,8 +516,7 @@ const TimePicker = React.forwardRef<TimePickerRef, TimePickerProps>(
               onLeftFocus={() => minuteRef?.current?.focus()}
               onRightFocus={() => periodRef?.current?.focus()}
               className="h-8 text-sm"
-              data-cy={dataSeconds?.cy}
-              data-test={dataSeconds?.test}
+              {...testAttrs(dataSeconds)}
             />
           </>
         )}
@@ -549,6 +547,7 @@ TimePicker.displayName = 'TimePicker'
 
 type Granularity = 'day' | 'hour' | 'minute' | 'second'
 type DateTimePickerProps = {
+  ref?: React.Ref<HTMLButtonElement>
   value?: Date
   onChange?: (date: Date | undefined) => void
   onMonthChange?: (date: Date | undefined) => void
@@ -581,13 +580,14 @@ type DateTimePickerProps = {
    * Show the default month and time when popup the calendar. Default is the current Date().
    **/
   defaultPopupValue?: Date
-  dataTrigger?: { cy?: string; test?: string }
-  dataCalendar?: { cy?: string; test?: string }
-  dataHours?: { cy?: string; test?: string }
-  dataMinutes?: { cy?: string; test?: string }
-  dataSeconds?: { cy?: string; test?: string }
-  dataNextMonth?: { cy?: string; test?: string }
-  dataPreviousMonth?: { cy?: string; test?: string }
+  data?: TestSelectors
+  dataTrigger?: TestSelectors
+  dataCalendar?: TestSelectors
+  dataHours?: TestSelectors
+  dataMinutes?: TestSelectors
+  dataSeconds?: TestSelectors
+  dataNextMonth?: TestSelectors
+  dataPreviousMonth?: TestSelectors
   error?: string
   hideError?: boolean
   isTouched?: boolean
@@ -605,14 +605,13 @@ type DateTimePickerProps = {
   'locale' | 'weekStartsOn' | 'showWeekNumber' | 'showOutsideDays'
 >
 
-type DateTimePickerRef = {
-  value?: Date
-} & Omit<HTMLButtonElement, 'value'>
+type DateTimePickerRef = HTMLButtonElement
 
 /**
  * This component provides a date and time picker with optional label, error handling, and customizable display and granularity.
  *
  * @param value - The currently selected date value.
+ * @param ref - A ref to the visible calendar trigger button.
  * @param onChange - Callback function called when the date value changes.
  * @param onMonthChange - Callback function called when the displayed month changes.
  * @param disabled - Whether the picker is disabled.
@@ -623,6 +622,7 @@ type DateTimePickerRef = {
  * @param granularity - The smallest unit displayed by the picker (e.g., 'second', 'minute', 'hour', 'day').
  * @param className - Optional object to override default styling for trigger, input, label, tooltip, and error.
  * @param defaultPopupValue - The default date and time shown when the calendar popup opens.
+ * @param data - Data attributes for testing the trigger area. It does not enclose the popover; use dataCalendar to address the open calendar.
  * @param dataTrigger - Data attributes for testing the popover trigger.
  * @param dataCalendar - Data attributes for testing the calendar.
  * @param dataHours - Data attributes for testing the hours input.
@@ -645,166 +645,189 @@ type DateTimePickerRef = {
  * @param showOutsideDays - Whether to show days from adjacent months in the calendar.
  * @returns Date and time picker component with optional label, error display, and customizable granularity and formatting.
  */
-const DateTimePicker = React.forwardRef<
-  Partial<DateTimePickerRef>,
-  DateTimePickerProps
->(
-  (
-    {
-      locale = enUS,
-      defaultPopupValue = new Date(new Date().setHours(0, 0, 0, 0)),
-      value,
-      onChange,
-      onMonthChange,
-      hourCycle = 24,
-      disabled = false,
-      displayFormat,
-      granularity = 'second',
-      placeholder = 'Pick a date',
-      error,
-      hideError,
-      isTouched,
-      className,
-      label,
-      labelType = 'small',
-      align = 'start',
-      captionLayout = 'dropdown',
-      required = false,
-      tooltip,
-      ...props
-    },
-    ref
-  ) => {
-    const [month, setMonth] = React.useState<Date>(value ?? defaultPopupValue)
-    const buttonRef = useRef<HTMLButtonElement>(null)
-    const [displayDate, setDisplayDate] = React.useState<Date | undefined>(
-      value ?? undefined
-    )
+const DateTimePicker = ({
+  locale = enUS,
+  defaultPopupValue = new Date(new Date().setHours(0, 0, 0, 0)),
+  value,
+  onChange,
+  onMonthChange,
+  hourCycle = 24,
+  disabled = false,
+  displayFormat,
+  granularity = 'second',
+  placeholder = 'Pick a date',
+  error,
+  hideError,
+  isTouched,
+  className,
+  label,
+  labelType = 'small',
+  align = 'start',
+  captionLayout = 'dropdown',
+  required = false,
+  tooltip,
+  ref,
+  data,
+  ...props
+}: DateTimePickerProps) => {
+  const [month, setMonth] = React.useState<Date>(value ?? defaultPopupValue)
+  const [displayDate, setDisplayDate] = React.useState<Date | undefined>(
+    value ?? undefined
+  )
+  const useSplitTrigger = Boolean(
+    displayDate && !displayFormat && granularity !== 'day'
+  )
+  const triggerDateLabel = displayDate
+    ? dayjs(displayDate).format(
+        useSplitTrigger ? 'DD.MM.YYYY' : (displayFormat ?? 'DD.MM.YYYY')
+      )
+    : placeholder
+  const triggerTimeLabel = displayDate ? dayjs(displayDate).format('HH:mm') : ''
 
-    /**
-     * Makes sure display date updates when value change on
-     * parent component
-     */
-    React.useEffect(() => {
-      setDisplayDate(value)
-    }, [value])
+  /**
+   * Makes sure display date updates when value change on
+   * parent component
+   */
+  React.useEffect(() => {
+    setDisplayDate(value)
+  }, [value])
 
-    /**
-     * carry over the current time when a user clicks a new day
-     * instead of resetting to 00:00
-     */
-    const handleMonthChange = (newDay: Date | undefined) => {
-      if (!newDay) {
-        return
-      }
-      if (!defaultPopupValue) {
-        newDay.setHours(
-          month?.getHours() ?? 0,
-          month?.getMinutes() ?? 0,
-          month?.getSeconds() ?? 0
-        )
-        onMonthChange?.(newDay)
-        setMonth(newDay)
-        return
-      }
-      const diff = newDay.getTime() - defaultPopupValue.getTime()
-      const diffInDays = diff / (1000 * 60 * 60 * 24)
-      const newDateFull = add(defaultPopupValue, {
-        days: Math.ceil(diffInDays),
-      })
-      newDateFull.setHours(
+  /**
+   * carry over the current time when a user clicks a new day
+   * instead of resetting to 00:00
+   */
+  const handleMonthChange = (newDay: Date | undefined) => {
+    if (!newDay) {
+      return
+    }
+    if (!defaultPopupValue) {
+      newDay.setHours(
         month?.getHours() ?? 0,
         month?.getMinutes() ?? 0,
         month?.getSeconds() ?? 0
       )
-      onMonthChange?.(newDateFull)
-      setMonth(newDateFull)
-    }
-
-    const onSelect = (newDay?: Date) => {
-      if (!newDay) {
-        return
-      }
-      onChange?.(newDay)
+      onMonthChange?.(newDay)
       setMonth(newDay)
-      setDisplayDate(newDay)
+      return
     }
-
-    useImperativeHandle(
-      ref,
-      () => ({
-        ...buttonRef.current,
-        value: displayDate,
-      }),
-      [displayDate]
+    const diff = newDay.getTime() - defaultPopupValue.getTime()
+    const diffInDays = diff / (1000 * 60 * 60 * 24)
+    const newDateFull = add(defaultPopupValue, {
+      days: Math.ceil(diffInDays),
+    })
+    newDateFull.setHours(
+      month?.getHours() ?? 0,
+      month?.getMinutes() ?? 0,
+      month?.getSeconds() ?? 0
     )
+    onMonthChange?.(newDateFull)
+    setMonth(newDateFull)
+  }
 
-    return (
-      <Popover>
+  const onSelect = (newDay?: Date) => {
+    if (!newDay) {
+      return
+    }
+    onChange?.(newDay)
+    setMonth(newDay)
+    setDisplayDate(newDay)
+  }
+
+  return (
+    <Popover>
+      <div
+        className={twMerge(
+          'flex w-[280px] flex-row',
+          labelType === 'small' && 'flex-col',
+          className?.trigger
+        )}
+        {...testAttrs(data)}
+      >
+        {label && (
+          <FormLabel
+            required={required}
+            label={label}
+            labelType={labelType}
+            tooltip={tooltip}
+            className={{
+              label: className?.label,
+              tooltip: className?.tooltip,
+            }}
+          />
+        )}
+        <div className="flex flex-row gap-2">
+          <PopoverTrigger asChild disabled={disabled}>
+            <Button
+              variant="outline"
+              type="button"
+              disabled={disabled}
+              className={cn(
+                'h-10 min-w-[220px] justify-start overflow-hidden rounded-md border-[#E0E0E0] px-0 text-left text-sm font-normal text-[#111111] hover:bg-[#FAFAFA]',
+                !displayDate && 'px-3 text-[#666666]',
+                !!error &&
+                  isTouched &&
+                  'border-destructive bg-destructive-background',
+                className?.input
+              )}
+              ref={ref}
+              {...testAttrs(props.dataTrigger)}
+            >
+              <FontAwesomeIcon
+                icon={faCalendar}
+                className={cn(
+                  'h-4 w-4 text-[#666666]',
+                  displayDate ? 'mr-2.5 ml-3' : 'mr-2.5'
+                )}
+              />
+              {displayDate ? (
+                <>
+                  <span>{triggerDateLabel}</span>
+                  {useSplitTrigger && (
+                    <>
+                      <span
+                        aria-hidden="true"
+                        className="mx-3 h-10 w-px bg-[#E0E0E0]"
+                      />
+                      <Clock className="mr-2 h-4 w-4 text-[#666666]" />
+                      <span className="pr-3 font-mono text-sm tabular-nums">
+                        {triggerTimeLabel}
+                      </span>
+                    </>
+                  )}
+                </>
+              ) : (
+                <span>{triggerDateLabel}</span>
+              )}
+            </Button>
+          </PopoverTrigger>
+          {error && !hideError && isTouched && (
+            <Tooltip
+              tooltip={error}
+              ariaLabel={error}
+              delay={0}
+              className={{
+                tooltip: twMerge('max-w-120 text-sm', className?.error),
+              }}
+            >
+              <FontAwesomeIcon
+                icon={faCircleExclamation}
+                className="text-destructive-text mr-1"
+              />
+            </Tooltip>
+          )}
+        </div>
+      </div>
+      <PopoverContent
+        className="w-auto border-none bg-transparent p-0 shadow-none"
+        align={align}
+      >
         <div
-          className={twMerge(
-            'flex w-[280px] flex-row',
-            labelType === 'small' && 'flex-col',
-            className?.trigger
+          className={cn(
+            'w-fit',
+            granularity !== 'day' &&
+              'overflow-hidden rounded-lg border border-[#E0E0E0] bg-white shadow-lg'
           )}
         >
-          {label && (
-            <FormLabel
-              required={required}
-              label={label}
-              labelType={labelType}
-              tooltip={tooltip}
-              className={{
-                label: className?.label,
-                tooltip: className?.tooltip,
-              }}
-            />
-          )}
-          <div className="flex flex-row gap-2">
-            <PopoverTrigger asChild disabled={disabled}>
-              <Button
-                variant="outline"
-                type="button"
-                disabled={disabled}
-                className={cn(
-                  'w-44 justify-start text-left text-base font-normal',
-                  !displayDate && 'text-muted-foreground',
-                  !!error &&
-                    isTouched &&
-                    'border-destructive bg-destructive-background',
-                  className?.input
-                )}
-                ref={buttonRef}
-                data-cy={props.dataTrigger?.cy}
-                data-test={props.dataTrigger?.test}
-              >
-                <FontAwesomeIcon icon={faCalendar} className="mr-2.5 h-4 w-4" />
-                {displayDate ? (
-                  dayjs(displayDate).format(
-                    displayFormat ?? 'DD.MM.YYYY, HH:mm'
-                  )
-                ) : (
-                  <span>{placeholder}</span>
-                )}
-              </Button>
-            </PopoverTrigger>
-            {error && !hideError && isTouched && (
-              <Tooltip
-                tooltip={error}
-                delay={0}
-                className={{
-                  tooltip: twMerge('max-w-120 text-sm', className?.error),
-                }}
-              >
-                <FontAwesomeIcon
-                  icon={faCircleExclamation}
-                  className="text-destructive mr-1"
-                />
-              </Tooltip>
-            )}
-          </div>
-        </div>
-        <PopoverContent className="w-auto p-0" align={align}>
           <Calendar
             mode="single"
             captionLayout={captionLayout}
@@ -825,12 +848,18 @@ const DateTimePicker = React.forwardRef<
             locale={locale}
             dataNextMonth={props.dataNextMonth}
             dataPreviousMonth={props.dataPreviousMonth}
-            data-cy={props.dataCalendar?.cy}
-            data-test={props.dataCalendar?.test}
-            {...props}
+            data={props.dataCalendar}
+            className={
+              granularity !== 'day'
+                ? 'rounded-none border-0 shadow-none'
+                : undefined
+            }
+            weekStartsOn={props.weekStartsOn}
+            showWeekNumber={props.showWeekNumber}
+            showOutsideDays={props.showOutsideDays}
           />
           {granularity !== 'day' && (
-            <div className="border-border border-t p-3">
+            <div className="border-t border-[#E0E0E0] bg-white p-3">
               <TimePicker
                 disabled={disabled}
                 onChange={(value) => {
@@ -849,11 +878,11 @@ const DateTimePicker = React.forwardRef<
               />
             </div>
           )}
-        </PopoverContent>
-      </Popover>
-    )
-  }
-)
+        </div>
+      </PopoverContent>
+    </Popover>
+  )
+}
 
 DateTimePicker.displayName = 'DateTimePicker'
 

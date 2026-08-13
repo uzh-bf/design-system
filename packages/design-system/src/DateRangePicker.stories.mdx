@@ -1,0 +1,93 @@
+import { useState } from 'react'
+import { DateRangePicker } from './DateRangePicker'
+
+{/* START README */}
+<div className="prose prose-sm max-w-none">
+The `DateRangePicker` selects a date range (from–to). It composes the `Popover`
+and `Calendar` primitives, driving the calendar in `range` mode with two months
+shown side by side. The open state is internal; the selected range is controlled
+via `range` / `onRangeChange`.
+
+The `range` value is a react-day-picker `DateRange` (`{ from?: Date; to?: Date }`).
+Pick a start day, then an end day; the trigger shows `DD.MM.YYYY – DD.MM.YYYY`
+(and `… ` while only the start is chosen).
+</div>
+{/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: From–to date range picker composing Popover + Calendar (react-day-picker) in range mode. Controlled range, internal open state.
+Dependencies: react-day-picker, @radix-ui/react-popover, dayjs, @fortawesome/react-fontawesome
+
+Available Stories:
+
+- Default: An empty two-month range picker
+- Preselected: Opens with a range already selected
+- Disabled: A disabled range picker
+
+Props (DateRangePicker component):
+
+- range: DateRange | undefined - The selected range ({ from?, to? }), controlled
+- onRangeChange: (range: DateRange | undefined) => void - Called when the selection changes
+- label: string - Optional label above/next to the trigger
+- numberOfMonths: number - Months shown side by side (default 2)
+- placeholder: string - Trigger text when nothing is selected
+- align: "start" | "center" | "end" - Popover alignment
+- captionLayout: "dropdown" | "label" | ... - Calendar caption layout
+- disabled: boolean - Disables the trigger
+- className: { root?, label?, trigger? } - Style overrides
+- data?: `{ cy?: string; test?: string }` - Test selectors for the trigger area (does not enclose the popover)
+- dataTrigger?: `{ cy?: string; test?: string }` - Test selectors for the popover trigger
+- dataCalendar?: `{ cy?: string; test?: string }` - Test selectors for the calendar
+- dataNextMonth?: `{ cy?: string; test?: string }` - Test selectors for the next month button
+- dataPreviousMonth?: `{ cy?: string; test?: string }` - Test selectors for the previous month button
+
+Usage Examples:
+
+```tsx
+const [range, setRange] = useState()
+
+<DateRangePicker range={range} onRangeChange={setRange} placeholder="Pick a range…" />
+```
+
+Related Components:
+
+- DatePicker: Single-date selection
+- DatetimePicker: Single date + time selection
+- Calendar: The underlying react-day-picker primitive
+
+AI_DOCUMENTATION_END
+*/}
+
+export const Default = () => {
+  const [range, setRange] = useState(undefined)
+  return (
+    <DateRangePicker
+      range={range}
+      onRangeChange={setRange}
+      placeholder="Pick a date range…"
+    />
+  )
+}
+
+export const Preselected = () => {
+  // June 8–15, 2026 (JS Date month is 0-indexed, so 5 = June)
+  const [range, setRange] = useState({
+    from: new Date(2026, 5, 8),
+    to: new Date(2026, 5, 15),
+  })
+  return <DateRangePicker range={range} onRangeChange={setRange} />
+}
+
+export const Disabled = () => {
+  const [range, setRange] = useState(undefined)
+  return (
+    <DateRangePicker
+      range={range}
+      onRangeChange={setRange}
+      disabled
+      placeholder="Disabled"
+    />
+  )
+}

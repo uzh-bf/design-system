@@ -2,6 +2,7 @@ import { Minus, Plus } from 'lucide-react'
 import { useState } from 'react'
 import { Bar, BarChart, ResponsiveContainer } from 'recharts'
 import { Button } from './Button'
+import { Button as PrimitiveButton } from './ui/button'
 import {
   Drawer,
   DrawerClose,
@@ -107,7 +108,7 @@ return (
 
 <Drawer>
   <DrawerTrigger asChild>
-    <Button variant="outline">Open Drawer</Button>
+    <PrimitiveButton variant="outline">Open Drawer</PrimitiveButton>
   </DrawerTrigger>
   <DrawerContent>
     <div className="mx-auto w-full max-w-sm">
@@ -117,32 +118,32 @@ return (
       </DrawerHeader>
       <div className="p-4 pb-0">
         <div className="flex items-center justify-center space-x-2">
-          <Button
+          <PrimitiveButton
             variant="outline"
             size="icon"
-            className={{ root: 'h-8 w-8 shrink-0 rounded-full' }}
+            className="h-8 w-8 shrink-0 rounded-full"
             onClick={() => setGoal(Math.max(200, Math.min(400, goal - 10)))}
             disabled={goal <= 200}
           >
             <Minus />
             <span className="sr-only">Decrease</span>
-          </Button>
+          </PrimitiveButton>
           <div className="flex-1 text-center">
             <div className="text-7xl font-bold tracking-tighter">{goal}</div>
             <div className="text-muted-foreground text-[0.70rem] uppercase">
               Calories/day
             </div>
           </div>
-          <Button
+          <PrimitiveButton
             variant="outline"
             size="icon"
-            className={{ root: 'h-8 w-8 shrink-0 rounded-full' }}
+            className="h-8 w-8 shrink-0 rounded-full"
             onClick={() => setGoal(Math.max(200, Math.min(400, goal + 10)))}
             disabled={goal >= 400}
           >
             <Plus />
             <span className="sr-only">Increase</span>
-          </Button>
+          </PrimitiveButton>
         </div>
         <div className="mt-3 h-[120px]">
           <ResponsiveContainer width="100%" height="100%">
@@ -177,7 +178,7 @@ return (
       <DrawerFooter>
         <Button>Submit</Button>
         <DrawerClose asChild>
-          <Button variant="outline">Cancel</Button>
+          <PrimitiveButton variant="outline">Cancel</PrimitiveButton>
         </DrawerClose>
       </DrawerFooter>
     </div>

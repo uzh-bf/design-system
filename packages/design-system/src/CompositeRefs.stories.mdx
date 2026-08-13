@@ -1,0 +1,285 @@
+import { useRef, useState } from 'react'
+import Checkbox from './Checkbox'
+import Collapsible from './Collapsible'
+import ColorPicker from './ColorPicker'
+import DatePicker from './DatePicker'
+import DateRangePicker from './DateRangePicker'
+import { DateTimePicker } from './DatetimePicker'
+import Dropdown from './Dropdown'
+import MultiSelect from './MultiSelect'
+import Slider from './Slider'
+import Switch from './Switch'
+import SelectField from './forms/SelectField'
+import AlphaNumericPinField from './forms/AlphaNumericPinField'
+
+{/* START README */}
+<div className="prose prose-sm max-w-none">
+This story is a consumer-facing contract harness for the v5 composite refs.
+Each action focuses the public ref target, including the visible trigger for
+stateful composites and the underlying input or slider thumb where applicable.
+</div>
+{/* END README */}
+
+export const Default = () => {
+  const checkboxRef = useRef(null)
+  const switchRef = useRef(null)
+  const sliderRef = useRef(null)
+  const collapsibleRef = useRef(null)
+  const dropdownRef = useRef(null)
+  const multiSelectRef = useRef(null)
+  const selectFieldRef = useRef(null)
+  const pinRef = useRef(null)
+  const colorPickerRef = useRef(null)
+  const datePickerRef = useRef(null)
+  const dateRangePickerRef = useRef(null)
+  const dateTimePickerRef = useRef(null)
+
+  const [checked, setChecked] = useState(false)
+  const [switchChecked, setSwitchChecked] = useState(false)
+  const [sliderValue, setSliderValue] = useState(5)
+  const [collapsibleOpen, setCollapsibleOpen] = useState(false)
+  const [dropdownValue, setDropdownValue] = useState('')
+  const [multiValue, setMultiValue] = useState([])
+  const [selectValue, setSelectValue] = useState('')
+  const [pinValue, setPinValue] = useState('')
+  const [color, setColor] = useState('#262FAD')
+  const [date, setDate] = useState(undefined)
+  const [range, setRange] = useState(undefined)
+  const [dateTime, setDateTime] = useState(undefined)
+
+  return (
+    <div className="flex max-w-3xl flex-col gap-4">
+      <div className="flex items-center gap-2">
+        <Checkbox
+          ref={checkboxRef}
+          checked={checked}
+          onCheck={() => setChecked((value) => !value)}
+          label="Checkbox"
+          data={{ test: 'ref-checkbox' }}
+        />
+        <button
+          type="button"
+          data-test="focus-checkbox"
+          onClick={() => checkboxRef.current?.focus()}
+        >
+          Focus checkbox
+        </button>
+      </div>
+
+      <div className="flex items-center gap-2">
+        <Switch
+          ref={switchRef}
+          checked={switchChecked}
+          onCheckedChange={setSwitchChecked}
+          label="Switch"
+          data={{ test: 'ref-switch' }}
+        />
+        <button
+          type="button"
+          data-test="focus-switch"
+          onClick={() => switchRef.current?.focus()}
+        >
+          Focus switch
+        </button>
+      </div>
+
+      <div className="flex items-center gap-2">
+        <Slider
+          ref={sliderRef}
+          ariaLabel="Slider"
+          min={0}
+          max={10}
+          step={1}
+          value={sliderValue}
+          handleChange={setSliderValue}
+          labels={{ min: '0', mid: '5', max: '10' }}
+          dataThumb={{ test: 'ref-slider' }}
+        />
+        <button
+          type="button"
+          data-test="focus-slider"
+          onClick={() => sliderRef.current?.focus()}
+        >
+          Focus slider
+        </button>
+      </div>
+
+      <div className="flex items-center gap-2">
+        <Collapsible
+          ref={collapsibleRef}
+          open={collapsibleOpen}
+          onChange={() => setCollapsibleOpen((value) => !value)}
+          staticContent="Static content"
+          customTrigger="Toggle"
+          data={{ test: 'ref-collapsible' }}
+        >
+          Collapsible content
+        </Collapsible>
+        <button
+          type="button"
+          data-test="focus-collapsible"
+          onClick={() => collapsibleRef.current?.focus()}
+        >
+          Focus collapsible
+        </button>
+      </div>
+
+      <div className="flex items-center gap-2">
+        <Dropdown
+          ref={dropdownRef}
+          trigger="Open menu"
+          items={[
+            {
+              id: 'one',
+              label: 'One',
+              onClick: () => setDropdownValue('One'),
+            },
+          ]}
+          data={{ test: 'ref-dropdown' }}
+        />
+        <output data-test="selected-dropdown">{dropdownValue}</output>
+        <button
+          type="button"
+          data-test="focus-dropdown"
+          onClick={() => dropdownRef.current?.focus()}
+        >
+          Focus dropdown
+        </button>
+      </div>
+
+      <div className="flex items-center gap-2">
+        <MultiSelect
+          ref={multiSelectRef}
+          items={[
+            { value: 'one', label: 'One' },
+            { value: 'two', label: 'Two' },
+          ]}
+          value={multiValue}
+          onChange={setMultiValue}
+          ariaLabel="Multi-select"
+          data={{ test: 'ref-multi-select' }}
+        />
+        <button
+          type="button"
+          data-test="focus-multi-select"
+          onClick={() => multiSelectRef.current?.focus()}
+        >
+          Focus multi-select
+        </button>
+      </div>
+
+      <div className="flex items-center gap-2">
+        <SelectField
+          ref={selectFieldRef}
+          items={[
+            { value: 'one', label: 'One' },
+            { value: 'two', label: 'Two' },
+          ]}
+          value={selectValue}
+          onChange={setSelectValue}
+          label="Select field"
+          placeholder="Select one"
+          data={{ test: 'ref-select-field' }}
+        />
+        <button
+          type="button"
+          data-test="focus-select-field"
+          onClick={() => selectFieldRef.current?.focus()}
+        >
+          Focus select field
+        </button>
+      </div>
+
+      <div className="flex items-center gap-2">
+        <AlphaNumericPinField
+          id="ref-pin"
+          ref={pinRef}
+          value={pinValue}
+          onChange={async (value) => setPinValue(value)}
+          length={4}
+          label="PIN"
+          data={{ test: 'ref-pin' }}
+        />
+        <button
+          type="button"
+          data-test="focus-pin"
+          onClick={() => pinRef.current?.focus()}
+        >
+          Focus PIN
+        </button>
+      </div>
+
+      <div className="flex items-center gap-2">
+        <ColorPicker
+          ref={colorPickerRef}
+          color={color}
+          onSubmit={setColor}
+          submitText="Save"
+          colorLabel="Color"
+          triggerAriaLabel="Pick a color"
+          dataTrigger={{ test: 'ref-color-picker' }}
+          dataSubmit={{ test: 'submit-color-picker' }}
+        />
+        <output data-test="selected-color">{color}</output>
+        <button
+          type="button"
+          data-test="focus-color-picker"
+          onClick={() => colorPickerRef.current?.focus()}
+        >
+          Focus color picker
+        </button>
+      </div>
+
+      <div className="flex items-center gap-2">
+        <DatePicker
+          ref={datePickerRef}
+          date={date}
+          onDateChange={setDate}
+          dataTrigger={{ test: 'ref-date-picker' }}
+        />
+        <button
+          type="button"
+          data-test="focus-date-picker"
+          onClick={() => datePickerRef.current?.focus()}
+        >
+          Focus date picker
+        </button>
+      </div>
+
+      <div className="flex items-center gap-2">
+        <DateRangePicker
+          ref={dateRangePickerRef}
+          range={range}
+          onRangeChange={setRange}
+          dataTrigger={{ test: 'ref-date-range-picker' }}
+        />
+        <button
+          type="button"
+          data-test="focus-date-range-picker"
+          onClick={() => dateRangePickerRef.current?.focus()}
+        >
+          Focus date range picker
+        </button>
+      </div>
+
+      <div className="flex items-center gap-2">
+        <DateTimePicker
+          ref={dateTimePickerRef}
+          weekStartsOn={1}
+          showWeekNumber={false}
+          showOutsideDays={false}
+          value={dateTime}
+          onChange={setDateTime}
+          dataTrigger={{ test: 'ref-date-time-picker' }}
+        />
+        <button
+          type="button"
+          data-test="focus-date-time-picker"
+          onClick={() => dateTimePickerRef.current?.focus()}
+        >
+          Focus date-time picker
+        </button>
+      </div>
+    </div>
+  )
+}

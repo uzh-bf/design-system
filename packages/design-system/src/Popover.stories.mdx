@@ -1,6 +1,6 @@
-import { Button } from './Button'
+import { Button as PrimitiveButton } from './ui/button'
 import { Popover, PopoverContent, PopoverTrigger } from './Popover'
-import { ShadcnLabel } from './ShadcnLabel'
+import { Label } from './ui/label'
 import { Input } from './ui/input'
 
 {/* START README */}
@@ -109,7 +109,7 @@ export const Default = () => {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline">Open popover</Button>
+        <PrimitiveButton variant="outline">Open popover</PrimitiveButton>
       </PopoverTrigger>
       <PopoverContent className="w-80">
         <div className="grid gap-4">
@@ -121,7 +121,7 @@ export const Default = () => {
           </div>
           <div className="grid gap-2">
             <div className="grid grid-cols-3 items-center gap-4">
-              <ShadcnLabel htmlFor="width">Width</ShadcnLabel>
+              <Label htmlFor="width">Width</Label>
               <Input
                 id="width"
                 defaultValue="100%"
@@ -129,7 +129,7 @@ export const Default = () => {
               />
             </div>
             <div className="grid grid-cols-3 items-center gap-4">
-              <ShadcnLabel htmlFor="maxWidth">Max. width</ShadcnLabel>
+              <Label htmlFor="maxWidth">Max. width</Label>
               <Input
                 id="maxWidth"
                 defaultValue="300px"
@@ -137,7 +137,7 @@ export const Default = () => {
               />
             </div>
             <div className="grid grid-cols-3 items-center gap-4">
-              <ShadcnLabel htmlFor="height">Height</ShadcnLabel>
+              <Label htmlFor="height">Height</Label>
               <Input
                 id="height"
                 defaultValue="25px"
@@ -145,7 +145,7 @@ export const Default = () => {
               />
             </div>
             <div className="grid grid-cols-3 items-center gap-4">
-              <ShadcnLabel htmlFor="maxHeight">Max. height</ShadcnLabel>
+              <Label htmlFor="maxHeight">Max. height</Label>
               <Input
                 id="maxHeight"
                 defaultValue="none"

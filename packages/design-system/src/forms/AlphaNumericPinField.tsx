@@ -1,12 +1,11 @@
 'use client'
 
-import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
 import FormLabel from '../FormLabel'
-import Tooltip from '../Tooltip'
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '../ui/input-otp'
+import { FieldErrorIndicator } from './FieldErrorIndicator'
+import { useFieldError } from './useFieldError'
 
 export interface AlphaNumericPinFieldClassName {
   field?: string
@@ -18,6 +17,7 @@ export interface AlphaNumericPinFieldClassName {
 
 export interface AlphaNumericPinFieldProps {
   id?: string
+  ref?: React.Ref<HTMLInputElement>
   value: string
   onChange: (newValue: string) => Promise<void>
   length: number
@@ -55,6 +55,7 @@ export interface AlphaNumericPinFieldProps {
  */
 export function AlphaNumericPinField({
   id,
+  ref,
   value,
   onChange,
   length,
@@ -69,6 +70,12 @@ export function AlphaNumericPinField({
   className,
   data,
 }: AlphaNumericPinFieldProps) {
+  const { inputId, visibleError, errorId } = useFieldError({
+    id,
+    error,
+    isTouched,
+    hideError,
+  })
   return (
     <div
       className={twMerge(
@@ -79,7 +86,7 @@ export function AlphaNumericPinField({
     >
       {label && (
         <FormLabel
-          id={id}
+          id={inputId}
           required={required}
           label={label}
           labelType={labelType}
@@ -90,6 +97,10 @@ export function AlphaNumericPinField({
 
       <div className="flex w-full flex-row items-center gap-2">
         <InputOTP
+          id={inputId}
+          ref={ref}
+          aria-required={required || undefined}
+          aria-describedby={visibleError ? errorId : undefined}
           maxLength={length}
           inputMode="text" // accept alphanumeric input
           pattern="[A-Za-z0-9]*" // restrict to alphanumeric at the input level
@@ -120,11 +131,11 @@ export function AlphaNumericPinField({
               .fill('')
               .map((_, index) => (
                 <InputOTPSlot
+                  key={index}
                   index={index}
                   data-cy={`${data?.cy}-${index + 1}`}
                   data-test={`${data?.test}-${index + 1}`}
                   className={twMerge(
-                    'h-9 text-base',
                     !!error &&
                       isTouched &&
                       'border-destructive bg-destructive-background border-y',
@@ -134,17 +145,8 @@ export function AlphaNumericPinField({
               ))}
           </InputOTPGroup>
         </InputOTP>
-        {error && !hideError && isTouched && (
-          <Tooltip
-            tooltip={error}
-            delay={0}
-            className={{ tooltip: 'max-w-120 text-sm' }}
-          >
-            <FontAwesomeIcon
-              icon={faCircleExclamation}
-              className="text-destructive mr-1"
-            />
-          </Tooltip>
+        {visibleError && (
+          <FieldErrorIndicator error={visibleError} errorId={errorId} />
         )}
       </div>
     </div>

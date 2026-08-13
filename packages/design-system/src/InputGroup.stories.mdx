@@ -1,0 +1,100 @@
+import { MailIcon, SearchIcon } from 'lucide-react'
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+} from './InputGroup'
+
+{/* START README */}
+<div className="prose prose-sm max-w-none">
+The `InputGroup` component wraps an input (or textarea) together with leading and
+trailing addons — icons, text, or buttons — inside a single bordered control
+that shares one focus ring.
+
+Use this component when you need to:
+
+- Prefix or suffix an input with an icon (search, mail, currency)
+- Attach a static unit or label to a field (e.g. "https://", ".com", "USD")
+- Place an inline button inside the field (clear, submit, toggle visibility)
+
+Place an `InputGroupInput` (or `InputGroupTextarea`) as the control and add
+`InputGroupAddon` elements with `align` set to `inline-start`, `inline-end`,
+`block-start`, or `block-end`. Clicking an addon focuses the control.
+</div>
+{/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Bordered input wrapper that composes a control with leading/trailing addons (icons, text, buttons) sharing a single focus and error state.
+Dependencies: class-variance-authority
+
+Available Stories:
+
+- Default: A search field with a leading icon
+- WithButton: An email field with a trailing inline button
+
+Props (InputGroupAddon component):
+
+- align: "inline-start" | "inline-end" | "block-start" | "block-end" - Addon placement
+- className: string - Additional CSS classes
+
+Props (InputGroupButton component):
+
+- size: "xs" | "sm" | "icon-xs" | "icon-sm" - Compact button sizing inside the group
+- variant: Button variant (defaults to "ghost")
+- All standard Button props are forwarded
+
+Component Structure:
+
+- InputGroup: The bordered container (role="group", data-slot="input-group")
+- InputGroupInput / InputGroupTextarea: The control (data-slot="input-group-control")
+- InputGroupAddon: A leading/trailing slot, positioned via the align prop
+- InputGroupText: Non-interactive inline text/unit
+- InputGroupButton: A compact button rendered inside the group
+
+Usage Examples:
+
+```tsx
+<InputGroup>
+  <InputGroupAddon>
+    <SearchIcon />
+  </InputGroupAddon>
+  <InputGroupInput placeholder="Search…" />
+</InputGroup>
+```
+
+Related Components:
+
+- Field: Wraps an InputGroup with a label, description, and error
+- ButtonGroup: For joining buttons rather than wrapping an input
+- TextField: The Formik-bound single-line text field for forms
+
+AI_DOCUMENTATION_END
+*/}
+
+export const Default = () => {
+  return (
+    <InputGroup className="max-w-sm">
+      <InputGroupAddon>
+        <SearchIcon />
+      </InputGroupAddon>
+      <InputGroupInput placeholder="Search…" />
+    </InputGroup>
+  )
+}
+
+export const WithButton = () => {
+  return (
+    <InputGroup className="max-w-sm">
+      <InputGroupAddon>
+        <MailIcon />
+      </InputGroupAddon>
+      <InputGroupInput placeholder="you@example.com" />
+      <InputGroupAddon align="inline-end">
+        <InputGroupButton>Invite</InputGroupButton>
+      </InputGroupAddon>
+    </InputGroup>
+  )
+}

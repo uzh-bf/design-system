@@ -1,6 +1,7 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import type { Ref } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import Tooltip from './Tooltip' // New import for tooltips
 import {
@@ -39,6 +40,10 @@ interface SelectProps {
   defaultValue?: string
   basic?: boolean
   contentPosition?: 'item-aligned' | 'popper'
+  ariaRequired?: boolean
+  ariaInvalid?: boolean
+  ariaDescribedBy?: string
+  ref?: Ref<HTMLButtonElement>
 }
 
 export interface SelectItem {
@@ -108,6 +113,9 @@ const ItemContent = ({ item }: { item: SelectItem }) => (
  * @param basic - Specifies whether the select component is basic or not. A basic select component does only have minimal styling of the trigger.
  * @param className - The optional className object allows you to override the default styling.
  * @param contentPosition - The position of the content of the select component. Currently only 'item-aligned' and 'popper' are supported.
+ * @param ariaRequired - Forwarded to the trigger as aria-required to expose the required state to assistive technology.
+ * @param ariaDescribedBy - Forwarded to the trigger as aria-describedby to link an external description such as an error message.
+ * @param ref - A ref to the visible trigger button.
  * @return Select component
  */
 export function Select({
@@ -125,8 +133,20 @@ export function Select({
   defaultValue,
   basic = false,
   contentPosition = 'item-aligned',
+  ariaRequired,
+  ariaInvalid,
+  ariaDescribedBy,
+  ref,
 }: SelectWithItemsProps | SelectWithGroupsProps) {
   const [open, setOpen] = useState(false)
+  const openRef = useRef(false)
+  const blurNotifiedRef = useRef(false)
+
+  const notifyBlur = () => {
+    if (blurNotifiedRef.current) return
+    blurNotifiedRef.current = true
+    onBlur?.()
+  }
   const [shortLabel, setShortLabel] = useState<string | undefined>(undefined)
 
   useEffect(() => {
@@ -141,21 +161,34 @@ export function Select({
         open={open}
         onValueChange={onChange}
         onOpenChange={(open) => {
-          setOpen(open)
-          if (!open && onBlur) {
-            onBlur()
+          if (open) {
+            blurNotifiedRef.current = false
+          } else if (openRef.current) {
+            notifyBlur()
           }
+          openRef.current = open
+          setOpen(open)
         }}
         value={value}
         defaultValue={defaultValue}
       >
         <SelectTrigger
           id={id}
+          ref={ref}
+          onFocus={() => {
+            blurNotifiedRef.current = false
+          }}
+          onBlur={() => {
+            if (!openRef.current) notifyBlur()
+          }}
+          aria-required={ariaRequired || undefined}
+          aria-invalid={ariaInvalid || undefined}
+          aria-describedby={ariaDescribedBy}
           data-cy={data?.cy}
           data-test={data?.test}
           className={twMerge(
-            'h-9 w-60 text-base [&>span]:text-start',
-            disabled && 'bg-uzh-grey-20 opacity-70',
+            'h-10 w-60 text-sm [&>span]:text-start',
+            disabled && 'bg-muted opacity-70',
             basic && '[all:unset]',
             className?.trigger
           )}
@@ -177,7 +210,6 @@ export function Select({
           {items
             ? items.map((item, ix) => (
                 <SelectItem
-                  id={id}
                   key={`${item.value}-${ix}`}
                   value={item.value}
                   disabled={item.disabled}
@@ -208,7 +240,7 @@ export function Select({
                     {group.label && (
                       <SelectLabel
                         className={twMerge(
-                          'text-sm font-bold text-black',
+                          'text-foreground text-sm font-bold',
                           className?.groupLabel
                         )}
                       >
@@ -217,7 +249,6 @@ export function Select({
                     )}
                     {group.items.map((item, item_ix) => (
                       <SelectItem
-                        id={id}
                         key={`${item.value}-${item_ix}`}
                         value={item.value}
                         disabled={item.disabled}

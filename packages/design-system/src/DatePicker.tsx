@@ -8,6 +8,7 @@ import React, { Dispatch, SetStateAction } from 'react'
 import { DayPicker } from 'react-day-picker'
 import { twMerge } from 'tailwind-merge'
 import FormLabel from './FormLabel'
+import { testAttrs, type TestSelectors } from './lib/testSelectors'
 import Tooltip from './Tooltip'
 import { Button } from './ui/button'
 import { Calendar } from './ui/calendar'
@@ -22,6 +23,7 @@ export interface DatePickerClassName {
 
 export interface DatePickerProps {
   id?: string
+  ref?: React.Ref<HTMLButtonElement>
   date: Date | undefined
   onDateChange: Dispatch<SetStateAction<Date | undefined>>
   label?: string
@@ -39,22 +41,11 @@ export interface DatePickerProps {
   hideError?: boolean
   isTouched?: boolean
   className?: DatePickerClassName
-  dataTrigger?: {
-    cy?: string
-    test?: string
-  }
-  dataCalendar?: {
-    cy?: string
-    test?: string
-  }
-  dataNextMonth?: {
-    cy?: string
-    test?: string
-  }
-  dataPreviousMonth?: {
-    cy?: string
-    test?: string
-  }
+  data?: TestSelectors
+  dataTrigger?: TestSelectors
+  dataCalendar?: TestSelectors
+  dataNextMonth?: TestSelectors
+  dataPreviousMonth?: TestSelectors
 }
 
 /**
@@ -76,6 +67,7 @@ export interface DatePickerProps {
  * @param isTouched - Whether the date changer has been touched
  * @param className - The optional className object allows you to override the default styling.
  * @param onDateChange - The function to be called when the date is changed (state management)
+ * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the trigger area. It does not enclose the popover; use dataCalendar to address the open calendar.
  * @param dataTrigger - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the popover trigger
  * @param dataCalendar - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the calendar
  * @param dataNextMonth - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the next month button
@@ -84,6 +76,7 @@ export interface DatePickerProps {
  */
 export function DatePicker({
   id,
+  ref,
   date,
   onDateChange,
   label = '',
@@ -98,11 +91,11 @@ export function DatePicker({
   hideError = false,
   isTouched = false,
   className,
+  data,
   dataTrigger,
   dataCalendar,
   dataNextMonth,
   dataPreviousMonth,
-  ...props
 }: DatePickerProps) {
   return (
     <Popover>
@@ -112,6 +105,7 @@ export function DatePicker({
           labelType === 'small' && 'flex-col',
           className?.trigger
         )}
+        {...testAttrs(data)}
       >
         {label && (
           <FormLabel
@@ -129,21 +123,24 @@ export function DatePicker({
         <div className="flex flex-row gap-2">
           <PopoverTrigger disabled={disabled} asChild>
             <Button
+              ref={ref}
               type="button"
               variant="outline"
               disabled={disabled}
               className={twMerge(
-                'w-36 justify-start text-left text-base font-normal',
-                !date && 'text-muted-foreground',
+                'h-10 min-w-[200px] justify-start rounded-md border-[#E0E0E0] px-3 text-left text-sm font-normal text-[#111111] hover:bg-[#FAFAFA]',
+                !date && 'text-[#666666]',
                 !!error &&
                   isTouched &&
                   'border-destructive bg-destructive-background',
                 className?.input
               )}
-              data-cy={dataTrigger?.cy}
-              data-test={dataTrigger?.test}
+              {...testAttrs(dataTrigger)}
             >
-              <FontAwesomeIcon icon={faCalendar} className="mr-2.5 h-4 w-4" />
+              <FontAwesomeIcon
+                icon={faCalendar}
+                className="mr-2.5 h-4 w-4 text-[#666666]"
+              />
               {date ? (
                 dayjs(date).format('DD.MM.YYYY')
               ) : (
@@ -154,6 +151,7 @@ export function DatePicker({
           {error && !hideError && isTouched && (
             <Tooltip
               tooltip={error}
+              ariaLabel={error}
               delay={0}
               className={{
                 tooltip: twMerge('max-w-120 text-sm', className?.tooltip),
@@ -161,13 +159,16 @@ export function DatePicker({
             >
               <FontAwesomeIcon
                 icon={faCircleExclamation}
-                className="text-destructive mr-1"
+                className="text-destructive-text mr-1"
               />
             </Tooltip>
           )}
         </div>
       </div>
-      <PopoverContent className="w-auto p-0" align={align}>
+      <PopoverContent
+        className="w-auto border-none bg-transparent p-0 shadow-none"
+        align={align}
+      >
         <Calendar
           id={id}
           mode="single"
@@ -181,11 +182,9 @@ export function DatePicker({
               onDateChange(newDate)
             }
           }}
-          data-cy={dataCalendar?.cy}
-          data-test={dataCalendar?.test}
+          data={dataCalendar}
           dataNextMonth={dataNextMonth}
           dataPreviousMonth={dataPreviousMonth}
-          {...props}
         />
       </PopoverContent>
     </Popover>

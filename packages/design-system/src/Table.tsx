@@ -9,6 +9,10 @@ type BaseRowType = {
   className?: string
 }
 
+export interface TableRef {
+  reset(): void
+}
+
 export type ColumnType<RowType> = {
   className?: string
   label: string
@@ -32,12 +36,12 @@ export type ColumnType<RowType> = {
 
 export interface TableProps<RowType extends BaseRowType> {
   id?: string
-  dataAttributes?: {
+  data?: {
     cy?: string
     test?: string
   }
   columns: ColumnType<RowType>[]
-  data: RowType[]
+  rows: RowType[]
   caption?: string
   className?: {
     root?: string
@@ -45,7 +49,7 @@ export interface TableProps<RowType extends BaseRowType> {
     body?: string
     row?: string
   }
-  forwardedRef?: React.Ref<unknown>
+  ref?: React.Ref<TableRef>
   emptyCellText?: string
   defaultSortField?: string
   defaultSortOrder?: 'asc' | 'desc'
@@ -54,17 +58,16 @@ export interface TableProps<RowType extends BaseRowType> {
 /**
  * This function returns a pre-styled Table component based on the RadixUI table component and the custom theme.
  * The table is sortable by clicking on the column header.
- * Before the table is being sorted according to the sorting parameters, the transformer will be applied to the data.
+ * Before the table is being sorted according to the sorting parameters, the transformer will be applied to the rows.
  * The formatter is meant to be used for visual modifications of the fields and applied after sorting.
  *
  * @param id - The id of the table.
- * @param dataAttributes - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
+ * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
  * @param columns - The columns of the table. The columns are defined by an array of objects where each object has a label, an accessor and optional transformer and formatters.
- * @param data - The data of the table. The data is defined by an array of objects where each object has a key-value pair for each column.
+ * @param rows - The rows of the table. The rows are defined by an array of objects where each object has a key-value pair for each column.
  * @param caption - The optional caption of the table.
  * @param ref - The optional ref object allows you to access the table methods.
  * @param className - The optional className object allows you to override the default styling.
- * @param forwardedRef - The optional forwardedRef object allows you to access table methods from the parent component.
  * @param emptyCellText - The optional emptyCellText allows you to define the text that should be displayed in empty cells.
  * @param defaultSortField - The optional defaultSortField allows you to define the default sorting field.
  * @param defaultSortOrder - The optional defaultSortOrder allows you to define the default sorting order.
@@ -74,12 +77,12 @@ export function Table<
   RowType extends Record<string, string | number | boolean>,
 >({
   id,
-  dataAttributes,
-  columns,
   data,
+  columns,
+  rows,
   caption,
   className,
-  forwardedRef,
+  ref,
   emptyCellText = '——',
   defaultSortField,
   defaultSortOrder = 'asc',
@@ -89,7 +92,7 @@ export function Table<
   )
   const [order, setOrder] = useState<'asc' | 'desc'>(defaultSortOrder)
 
-  useImperativeHandle(forwardedRef, () => {
+  useImperativeHandle(ref, () => {
     return {
       reset() {
         setSortField(defaultSortField)
@@ -105,7 +108,7 @@ export function Table<
   }
 
   const tableData = useMemo(() => {
-    const transformedData = data.map(
+    const transformedData = rows.map(
       (row, index) =>
         columns
           .map((col) =>
@@ -147,7 +150,7 @@ export function Table<
       <tr
         key={index}
         className={twMerge(
-          'odd:bg-uzh-grey-20 first:border-t-0',
+          'hover:bg-muted transition-colors',
           className?.row,
           row.className as string
         )}
@@ -162,7 +165,7 @@ export function Table<
           return (
             <td
               className={twMerge(
-                'border-uzh-grey-60 border-t-2 p-4',
+                'border-border border-b px-4 py-[13px] align-middle',
                 col.className
               )}
               key={col.accessor}
@@ -175,51 +178,69 @@ export function Table<
         })}
       </tr>
     ))
-  }, [data, columns, sortField, order, className, emptyCellText])
+  }, [rows, columns, sortField, order, className, emptyCellText])
 
   return (
     <div
-      className={twMerge('table w-full', className?.root)}
+      className={twMerge(
+        'bg-card overflow-hidden rounded-md border',
+        className?.root
+      )}
       id={id}
-      data-cy={dataAttributes?.cy}
-      data-test={dataAttributes?.test}
+      data-cy={data?.cy}
+      data-test={data?.test}
     >
-      <table className="w-full table-auto">
-        <caption className="text-sm italic">{caption}</caption>
+      <table className="w-full table-auto border-collapse text-sm">
+        {caption && (
+          <caption className="text-muted-foreground py-2 text-sm italic">
+            {caption}
+          </caption>
+        )}
         <thead>
           <tr>
             {columns.map((col) => {
+              const isSorted = sortField === col.accessor
+              const sortAriaValue = isSorted
+                ? order === 'asc'
+                  ? 'ascending'
+                  : 'descending'
+                : 'none'
               return (
                 <th
                   key={col.accessor}
-                  onClick={
-                    col.sortable
-                      ? () => handleSortingChange(col.accessor)
-                      : undefined
-                  }
+                  scope="col"
+                  aria-sort={col.sortable ? sortAriaValue : undefined}
                   className={twMerge(
-                    'mr-20 border-b-2 border-b-gray-800 py-2 pr-10 pl-4 text-start text-lg whitespace-nowrap text-gray-800',
-                    col.sortable && 'cursor-pointer pl-0',
+                    'border-border bg-muted text-foreground border-b text-start text-xs font-semibold tracking-[0.06em] whitespace-nowrap uppercase',
+                    !col.sortable && 'px-4 py-3',
                     className?.tableHeader,
                     col.className
                   )}
                 >
-                  {col.sortable && (
-                    <FontAwesomeIcon
-                      className={twMerge(
-                        'mr-2',
-                        !(sortField === col.accessor) && 'text-uzh-grey-100'
-                      )}
-                      icon={
-                        sortField === col.accessor
-                          ? order === 'asc'
-                            ? faSortUp
-                            : faSortDown
-                          : faSort
-                      }
-                    />
+                  {col.sortable ? (
+                    <button
+                      type="button"
+                      onClick={() => handleSortingChange(col.accessor)}
+                      className="focus-visible:ring-ring flex w-full cursor-pointer items-center px-4 py-3 text-start focus-visible:ring-2 focus-visible:outline-hidden focus-visible:ring-inset"
+                    >
+                      <FontAwesomeIcon
+                        className={twMerge(
+                          'mr-2',
+                          !isSorted && 'text-foreground'
+                        )}
+                        icon={
+                          isSorted
+                            ? order === 'asc'
+                              ? faSortUp
+                              : faSortDown
+                            : faSort
+                        }
+                      />
+                      {col.label}
+                    </button>
+                  ) : (
+                    col.label
                   )}
-                  {col.label}
                 </th>
               )
             })}

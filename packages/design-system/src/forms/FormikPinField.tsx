@@ -45,6 +45,10 @@ export interface FormikPinFieldProps {
  * @param className - The class names for the different parts of the component.
  * @param data - Optional data attributes for testing purposes.
  * @returns A pin field component that integrates with Formik for form handling.
+ *
+ * @deprecated Frozen in v5 and scheduled for removal in v6. New code should use
+ * the react-hook-form `Form` binding (`Form` + `FormField` + a control) instead
+ * of the Formik field family. See MIGRATION.md for the migration path.
  */
 export function FormikPinField({
   id,
@@ -111,11 +115,11 @@ export function FormikPinField({
               .fill('')
               .map((_, index) => (
                 <InputOTPSlot
+                  key={index}
                   index={index}
                   data-cy={`${data?.cy}-${index + 1}`}
                   data-test={`${data?.test}-${index + 1}`}
                   className={twMerge(
-                    'h-9 text-base',
                     !!meta.error &&
                       meta.touched &&
                       'border-destructive bg-destructive-background border-y',
@@ -133,7 +137,7 @@ export function FormikPinField({
           >
             <FontAwesomeIcon
               icon={faCircleExclamation}
-              className="text-destructive mr-1"
+              className="text-destructive-text mr-1"
             />
           </Tooltip>
         )}

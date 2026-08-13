@@ -4,6 +4,7 @@ import { IconDefinition } from '@fortawesome/free-regular-svg-icons'
 import { useField } from 'formik'
 import React, { useEffect } from 'react'
 import ColorPicker, { ColorPickerClassName } from '../ColorPicker'
+import { type TestSelectors } from '../lib/testSelectors'
 
 export interface FormikColorPickerProps {
   name: string
@@ -18,19 +19,12 @@ export interface FormikColorPickerProps {
   position?: 'bottom' | 'top' | 'bottom-left' | 'top-left'
   submitText: string
   colorLabel: string
+  triggerAriaLabel: string
   colorTooltip?: string
-  dataTrigger?: {
-    cy?: string
-    test?: string
-  }
-  dataHexInput?: {
-    cy?: string
-    test?: string
-  }
-  dataSubmit?: {
-    cy?: string
-    test?: string
-  }
+  data?: TestSelectors
+  dataTrigger?: TestSelectors
+  dataHexInput?: TestSelectors
+  dataSubmit?: TestSelectors
   className?: ColorPickerClassName
 }
 
@@ -49,10 +43,16 @@ export interface FormikColorPickerProps {
  * @param position - The position of the color picker relative to the trigger icon.
  * @param submitText - The text to display on the submit button of the color picker.
  * @param colorLabel - The label for the color input field.
+ * @param triggerAriaLabel - Accessible name for the icon-only trigger button. Required, since the trigger has no visible text.
  * @param colorTooltip - Optional tooltip for the color input field.
+ * @param data - Optional data attributes for the component root (for testing purposes).
  * @param dataTrigger - Optional data attributes for the trigger icon (for testing purposes).
  * @param dataHexInput - Optional data attributes for the hex input field (for testing purposes).
  * @returns A ColorPicker component that integrates with Formik for form handling.
+ *
+ * @deprecated Frozen in v5 and scheduled for removal in v6. New code should use
+ * the react-hook-form `Form` binding (`Form` + `FormField` + a control) instead
+ * of the Formik field family. See MIGRATION.md for the migration path.
  */
 export function FormikColorPicker({
   name,
@@ -67,7 +67,9 @@ export function FormikColorPicker({
   position,
   submitText,
   colorLabel,
+  triggerAriaLabel,
   colorTooltip,
+  data,
   dataTrigger,
   dataHexInput,
   dataSubmit,
@@ -96,10 +98,12 @@ export function FormikColorPicker({
       position={position}
       submitText={submitText}
       colorLabel={colorLabel}
+      triggerAriaLabel={triggerAriaLabel}
       tooltip={tooltip}
       colorTooltip={colorTooltip}
       error={meta.error}
       isTouched={meta.touched}
+      data={data}
       dataTrigger={dataTrigger}
       dataHexInput={dataHexInput}
       dataSubmit={dataSubmit}

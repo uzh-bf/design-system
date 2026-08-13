@@ -2,6 +2,7 @@
 node_modules/
 dist/
 .turbo/
+trees/
 
 .DS_Store
 .vercel/
@@ -12,3 +13,15 @@ build/
 
 scratchpad.md
 .github/chatmodes/*
+
+# Claude Code: track shared launch config, ignore machine-local settings
+.claude/*
+!.claude/launch.json
+
+# UZH v5 theme design reference (zip drop + extract, not tracked)
+UZH DF Design System.zip
+UZH DF Design System/
+uzh-design-reference/
+
+# Local, untracked project handoffs and scratch
+project/_local/

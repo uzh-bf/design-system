@@ -1,12 +1,12 @@
 @layer theme, base, components, utilities;
+@import './fonts.css';
 @import 'tailwindcss/preflight.css' layer(base);
 @import 'tailwindcss/theme.css' layer(theme);
 @import 'tailwindcss/utilities.css' layer(utilities);
 
 @import 'tw-animate-css';
-@plugin 'tailwindcss-animate';
+@import './themes.css';
 @plugin '@tailwindcss/typography';
-@plugin '@tailwindcss/aspect-ratio';
 @plugin '@tailwindcss/forms';
 
 @source "./";
@@ -14,22 +14,39 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  /* UZH fonts */
-  --font-sans:
-    var(--theme-font-primary), var(--source-sans-pro), 'Source Sans 3',
-    'Source Sans Pro', ui-sans-serif, system-ui, sans-serif,
-    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  --font-mono:
-    var(--mono-space-font), ui-monospace, SFMono-Regular, 'SF Mono', Menlo,
-    Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  /* fonts — resolved per theme via --theme-font-* (see themes.css); the
+     fallback stack keeps text visible even if themes.css is not imported */
+  --font-sans: var(
+    --theme-font-sans,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    'Helvetica Neue',
+    Arial,
+    sans-serif
+  );
+  --font-mono: var(
+    --theme-font-mono,
+    ui-monospace,
+    SFMono-Regular,
+    'SF Mono',
+    Menlo,
+    Monaco,
+    Consolas,
+    'Liberation Mono',
+    'Courier New',
+    monospace
+  );
 
   /* UZH colors */
   --color-uzh-blue: #0028a5;
   --color-uzh-blue-100: #0028a5;
-  --color-uzh-blue-80: #3353b7;
-  --color-uzh-blue-60: #667ec9;
-  --color-uzh-blue-40: #99a9db;
-  --color-uzh-blue-20: #ccd4ed;
+  --color-uzh-blue-80: #001e7c;
+  --color-uzh-blue-60: #3062ff;
+  --color-uzh-blue-40: #7596ff;
+  --color-uzh-blue-20: #bdc9e8;
   --color-uzh-grey: #a3adb7;
   --color-uzh-grey-100: #a3adb7;
   --color-uzh-grey-80: #b5bdc5;
@@ -42,6 +59,12 @@
   --color-uzh-red-60: #eaa07d;
   --color-uzh-red-40: #f1bfa9;
   --color-uzh-red-20: #f8dfd4;
+  --color-uzh-berry: #bf0d3e;
+  --color-uzh-berry-100: #bf0d3e;
+  --color-uzh-berry-80: #d9305f;
+  --color-uzh-berry-60: #f3537f;
+  --color-uzh-berry-40: #f78caa;
+  --color-uzh-berry-20: #fbc6d4;
   --color-uzh-yellow: #fede00;
   --color-uzh-yellow-100: #fede00;
   --color-uzh-yellow-80: #fbe651;
@@ -67,17 +90,7 @@
   --color-uzh-turqoise-40: #9ed0d9;
   --color-uzh-turqoise-20: #cfe8ec;
 
-  /* theme colors */
-  --theme-color-primary: #0028a5;
-  --theme-color-primary-80: #3353b7;
-  --theme-color-primary-60: #667ec9;
-  --theme-color-primary-40: #99a9db;
-  --theme-color-primary-20: #ccd4ed;
-  --theme-color-secondary: #dc6027;
-  --theme-color-secondary-80: #e38052;
-  --theme-color-secondary-60: #eaa07d;
-  --theme-color-secondary-40: #f1bfa9;
-  --theme-color-secondary-20: #f8dfd4;
+  /* semantic colour ramps — resolved per theme via --theme-color-* (see themes.css) */
   --color-primary-100: var(--theme-color-primary);
   --color-primary-80: var(--theme-color-primary-80);
   --color-primary-60: var(--theme-color-primary-60);
@@ -130,6 +143,14 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 
+  /* extra type step — h4 (17px at the 16px root); Tailwind has no built-in text-md */
+  --text-md: 1.0625rem;
+  --text-md--line-height: 1.35;
+
+  /* surface elevation — matches the reference card/popover tier (0.06 alpha) */
+  --shadow-card:
+    0 1px 3px 0 rgb(0 0 0 / 0.06), 0 1px 2px -1px rgb(0 0 0 / 0.06);
+
   /* custom color variants */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -146,8 +167,21 @@
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
+  --color-destructive-text: var(--theme-destructive-text);
+  --color-destructive-foreground: var(--destructive-foreground);
   --color-destructive-background: var(--destructive-background);
   --color-notification: var(--notification);
+
+  /* status colours — resolved per theme via --theme-* (see themes.css) */
+  --color-success: var(--theme-success);
+  --color-success-foreground: var(--theme-success-foreground);
+  --color-success-background: var(--theme-success-background);
+  --color-warning: var(--theme-warning);
+  --color-warning-foreground: var(--theme-warning-foreground);
+  --color-warning-background: var(--theme-warning-background);
+  --color-info: var(--theme-info);
+  --color-info-foreground: var(--theme-info-foreground);
+  --color-info-background: var(--theme-info-background);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
@@ -178,6 +212,7 @@
   --animate-scale-out-content: scale-out-content 0.2s ease;
   --animate-fade-in: fade-in 0.2s ease;
   --animate-fade-out: fade-out 0.2s ease;
+  --animate-shimmer: shimmer 1.6s ease infinite;
 }
 
 :root {
@@ -255,6 +290,35 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+/*
+ * The imported theme layer appears before these generic `:root` and `.dark`
+ * declarations in the packed stylesheet. Re-assert UZH's semantic values on
+ * the document root after those defaults with the same specificity as
+ * `[data-theme]`, so a consumer can still intentionally override generic names
+ * by loading its CSS after the design system. The primary bridges reference the
+ * complete ramp; the remaining declarations preserve UZH-owned fixed tokens.
+ */
+:where(html)[data-theme='uzh'] {
+  --primary: var(--theme-color-primary);
+  --ring: var(--theme-color-primary);
+  --sidebar-primary: var(--theme-color-primary);
+  --sidebar-ring: var(--theme-color-primary);
+  --sidebar-accent: var(--theme-color-primary-20);
+  --sidebar-accent-foreground: var(--theme-color-primary);
+
+  --primary-foreground: #ffffff;
+  --sidebar-primary-foreground: #ffffff;
+  --destructive: #fc4c02;
+  --destructive-foreground: #111111;
+  --destructive-background: #ffdbcc;
+  --notification: var(--color-uzh-berry-100);
+  --chart-1: var(--color-uzh-blue-100);
+  --chart-2: var(--theme-info);
+  --chart-3: var(--theme-success);
+  --chart-4: var(--theme-warning);
+  --chart-5: var(--color-uzh-berry-100);
+}
+
 /* base styling for apps from design system */
 @layer base {
   * {
@@ -280,10 +344,46 @@
   [role='button']:not(:disabled) {
     cursor: pointer;
   }
+
+  /* Honour the OS "reduce motion" setting for everything the library animates:
+     Radix enter/exit transitions, the skeleton shimmer, accordions, sheets and
+     drawers. Animations are collapsed rather than removed, so components that
+     wait for an animation to end (Radix Presence) still unmount. The spinner is
+     exempt because it is the only animation that carries meaning — a frozen
+     spinner would claim that nothing is loading.
+
+     The selector is universal on purpose: Radix portals its overlays to
+     `document.body`, so scoping this to a wrapper element would miss exactly
+     the enter/exit animations it is meant to collapse.
+
+     `!important` is required because Tailwind writes the durations as
+     utilities of the same specificity. It also inverts cascade-layer order,
+     so this rule outranks a consumer's unlayered `!important` too. A consumer
+     that has to keep one animation running under reduced motion needs to
+     re-declare it inside its own later `@layer base` block. */
+  @media (prefers-reduced-motion: reduce) {
+    *:not(.animate-spin),
+    *:not(.animate-spin)::before,
+    *:not(.animate-spin)::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 }
 
 @layer utilities {
   /* custom keyframes for animations */
+  @keyframes shimmer {
+    0%,
+    100% {
+      opacity: 0.55;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
   @keyframes enter-from-right {
     0% {
       transform: translateX(200px);

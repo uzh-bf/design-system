@@ -285,7 +285,7 @@ const complexGroups = [
   groups={complexGroups}
   value={selectedIde}
   onChange={setSelectedIde}
-  data={{ 'data-cy': 'ide-selector' }}
+  data={{ cy: 'ide-selector' }}
 />
 ```
 
@@ -356,7 +356,7 @@ Testing Support:
 Related Components:
 
 - FormikSelectField: Formik integration wrapper
-- ShadcnSelect: Basic Shadcn UI select variant
+- Select (from @uzh-bf/design-system/primitives): raw shadcn select primitives
 - Dropdown: For action menu implementations
 - Combobox: For searchable selection
 
@@ -509,9 +509,10 @@ export const Styled = () => {
         className={{
           root: 'h-full rounded-none border-none',
           content: 'bg-green-200',
-          trigger: 'bg-uzh-blue-20 rounded-none border-none text-lg',
-          item: 'text-red-700',
-          groupLabel: 'text-red-700',
+          trigger:
+            'bg-primary-20 rounded-none border-none text-lg data-placeholder:text-primary-100',
+          item: 'text-destructive-text',
+          groupLabel: 'text-destructive-text',
           separator: 'bg-green-700',
         }}
       />

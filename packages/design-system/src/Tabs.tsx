@@ -63,15 +63,7 @@ export function Tabs({
       onValueChange={onValueChange}
       className={className?.root}
     >
-      <TabsList
-        className={twMerge(
-          'flex h-max w-full flex-col md:grid md:h-10',
-          className?.list
-        )}
-        style={{
-          gridTemplateColumns: `repeat(${tabs.length}, minmax(0, 1fr))`,
-        }}
-      >
+      <TabsList className={className?.list}>
         {tabs.map((tab) => {
           const trigger = (
             <TabsTrigger
@@ -80,11 +72,7 @@ export function Tabs({
               disabled={tab.disabled}
               data-cy={tab.data?.cy}
               data-test={tab.data?.test}
-              className={twMerge(
-                'w-full data-[state=active]:font-bold',
-                className?.trigger,
-                tab.className?.trigger
-              )}
+              className={twMerge(className?.trigger, tab.className?.trigger)}
             >
               {tab.label}
             </TabsTrigger>

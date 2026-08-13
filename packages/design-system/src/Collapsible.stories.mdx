@@ -4,7 +4,7 @@ import { H2 } from './Header'
 
 {/* START README */}
 <div className="prose prose-sm max-w-none">
-The `Collapsible` component provides an advanced collapsible interface with enhanced action buttons, conditional content, and extensive customization options. Unlike the basic ShadcnCollapsible, this component offers action buttons, state-dependent content display, and complex trigger customization.
+The `Collapsible` component provides an advanced collapsible interface with enhanced action buttons, conditional content, and extensive customization options. Unlike the raw shadcn Collapsible (from `@uzh-bf/design-system/primitives`), this component offers action buttons, state-dependent content display, and complex trigger customization.
 
 Use this component when you need to:
 
@@ -16,7 +16,7 @@ Use this component when you need to:
 
 The component supports static content that's always visible, conditional content for closed state, custom trigger elements, primary and secondary action buttons with callbacks, and comprehensive styling customization for all parts.
 
-**Note**: This is distinct from ShadcnCollapsible, offering advanced action handling and state-dependent content display capabilities.
+**Note**: This is distinct from the raw shadcn Collapsible (available from `@uzh-bf/design-system/primitives`), offering advanced action handling and state-dependent content display capabilities.
 
 The props for the Collapsible component are as follows:
 
@@ -209,7 +209,7 @@ Common Use Cases:
 
 Related Components:
 
-- ShadcnCollapsible: Basic collapsible without actions
+- Collapsible (from @uzh-bf/design-system/primitives): raw collapsible without actions
 - Accordion: Multiple collapsible sections
 - Tabs: Alternative content organization
 - Modal: For content requiring full focus
@@ -331,10 +331,10 @@ return (
   closedContent="Closed content"
   className={{
     root: `bg-primary-20 border`,
-    trigger: 'text-red-500',
-    content: 'text-blue-500',
-    staticContent: 'text-green-500',
-    closedContent: 'text-yellow-500',
+    trigger: 'text-destructive-text',
+    content: 'text-primary-100',
+    staticContent: 'text-success-foreground',
+    closedContent: 'text-warning-foreground',
   }}
 >
   Dynamic content

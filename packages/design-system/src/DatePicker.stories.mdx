@@ -32,6 +32,7 @@ The props for the DatePicker component are as follows:
 - @param isTouched - Whether the date changer has been touched
 - @param className - The optional className object allows you to override the default styling.
 - @param onDateChange - The function to be called when the date is changed (state management)
+- @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the trigger area. It does not enclose the popover; use dataCalendar to address the open calendar.
 - @param dataTrigger - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the popover trigger
 - @param dataCalendar - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the calendar
 - @param dataNextMonth - The object of data attributes that can be used for testing (e.g. data-test or data-cy) for the next month button
@@ -75,10 +76,11 @@ Props (DatePicker component):
 - hideError?: boolean - Whether to hide the error message
 - isTouched?: boolean - Whether the field has been interacted with
 - className?: Record<string, string> - Styling overrides for different parts
-- dataTrigger?: Record<string, string> - Data attributes for popover trigger
-- dataCalendar?: Record<string, string> - Data attributes for calendar
-- dataNextMonth?: Record<string, string> - Data attributes for next month button
-- dataPreviousMonth?: Record<string, string> - Data attributes for previous month button
+- data?: `{ cy?: string; test?: string }` - Test selectors for the trigger area (does not enclose the popover)
+- dataTrigger?: `{ cy?: string; test?: string }` - Test selectors for the popover trigger
+- dataCalendar?: `{ cy?: string; test?: string }` - Test selectors for the calendar
+- dataNextMonth?: `{ cy?: string; test?: string }` - Test selectors for the next month button
+- dataPreviousMonth?: `{ cy?: string; test?: string }` - Test selectors for the previous month button
 
 Component Structure:
 
@@ -141,10 +143,10 @@ const error = !birthDate && touched ? "Birth date is required" : ""
 <DatePicker
   date={testDate}
   onDateChange={setTestDate}
-  dataTrigger={{ 'data-cy': 'date-trigger' }}
-  dataCalendar={{ 'data-testid': 'calendar' }}
-  dataNextMonth={{ 'data-cy': 'next-month' }}
-  dataPreviousMonth={{ 'data-cy': 'prev-month' }}
+  dataTrigger={{ cy: 'date-trigger' }}
+  dataCalendar={{ test: 'calendar' }}
+  dataNextMonth={{ cy: 'next-month' }}
+  dataPreviousMonth={{ cy: 'prev-month' }}
 />
 
 // Custom styling
@@ -201,7 +203,7 @@ Testing Support:
 
 - Comprehensive data attributes for all interactive elements
 - Separate attributes for trigger, calendar, navigation
-- Support for both data-cy and data-testid patterns
+- Support for the `data` selector prop, rendering `data-cy` and `data-test`
 - Complete E2E testing capability
 
 Accessibility Features:

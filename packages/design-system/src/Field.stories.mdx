@@ -1,0 +1,108 @@
+import { Input } from './ui/input'
+import {
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from './Field'
+
+{/* START README */}
+<div className="prose prose-sm max-w-none">
+The `Field` component is a layout primitive for form rows: it aligns a label, a
+control, an optional description, and validation errors with consistent spacing
+and orientation. It is presentation-only and does not manage form state.
+
+Use this component when you need to:
+
+- Lay out a label + control + helper text + error as one accessible unit
+- Switch a field between `vertical`, `horizontal`, and `responsive` orientation
+- Group several fields with `FieldGroup`, `FieldSet`, and `FieldLegend`
+
+`Field` does not bind form state. For Formik-managed inputs in this library,
+keep using the `Formik*` field components; reach for `Field` when you are
+composing custom controls and only need the layout and a11y wiring.
+</div>
+{/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Presentation-only form-row layout that aligns label, control, description, and error with configurable orientation; does not own form state.
+Dependencies: class-variance-authority
+
+Available Stories:
+
+- Default: A vertical field with label, input, and description
+- WithError: A field rendering a validation error
+
+Props (Field component):
+
+- orientation: "vertical" | "horizontal" | "responsive" - Row layout direction
+- className: string - Additional CSS classes
+
+Props (FieldError component):
+
+- errors: Array<{ message?: string }> - Validation errors; de-duplicated and rendered as a list
+- children: ReactNode - Explicit error content (overrides errors)
+
+Component Structure:
+
+- Field: The row container (role="group", data-slot="field")
+- FieldLabel: Label bound to the control (wraps the Label primitive)
+- FieldContent: Flex column for the control and supporting text
+- FieldDescription: Helper text below the control
+- FieldError: Validation message(s); renders nothing when empty
+- FieldGroup: Vertical container for multiple fields
+- FieldSet / FieldLegend: Native fieldset/legend grouping
+- FieldSeparator: Divider (with optional centered label) between fields
+- FieldTitle: Inline title used inside choice cards
+
+Usage Examples:
+
+```tsx
+<FieldGroup>
+  <Field>
+    <FieldLabel htmlFor="email">Email</FieldLabel>
+    <Input id="email" type="email" />
+    <FieldDescription>We never share your address.</FieldDescription>
+  </Field>
+</FieldGroup>
+```
+
+Related Components:
+
+- InputGroup: A control with addons that can sit inside a Field
+- FormLabel / Label: The standalone label components
+- TextField: The Formik-bound field for managed form state
+
+AI_DOCUMENTATION_END
+*/}
+
+export const Default = () => {
+  return (
+    <FieldGroup className="max-w-sm">
+      <Field>
+        <FieldLabel htmlFor="email">Email</FieldLabel>
+        <Input id="email" type="email" placeholder="you@example.com" />
+        <FieldDescription>We never share your address.</FieldDescription>
+      </Field>
+    </FieldGroup>
+  )
+}
+
+export const WithError = () => {
+  return (
+    <FieldGroup className="max-w-sm">
+      <Field data-invalid="true">
+        <FieldLabel htmlFor="name">Name</FieldLabel>
+        <Input
+          id="name"
+          aria-invalid="true"
+          className="border-destructive-text!"
+        />
+        <FieldError errors={[{ message: 'Name is required.' }]} />
+      </Field>
+    </FieldGroup>
+  )
+}

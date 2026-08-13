@@ -1,0 +1,87 @@
+import { Spinner } from './Spinner'
+import { Button } from './Button'
+
+{/* START README */}
+<div className="prose prose-sm max-w-none">
+The `Spinner` component is a minimal, accessible loading indicator. It renders a
+spinning icon with `role="status"` and an `aria-label`, so screen readers
+announce the loading state without any extra markup.
+
+Use this component when you need to:
+
+- Indicate an in-progress action (saving, fetching, processing)
+- Show a loading state inside buttons, inputs, or list items
+- Fill a panel while its content is loading
+
+The spinner inherits the current text color (`currentColor`) and is sized via
+the `size-*` utilities, so it adapts to whatever context it is placed in.
+</div>
+{/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Accessible loading spinner built on the lucide-react Loader2 icon with an animate-spin utility and status role.
+Dependencies: lucide-react
+
+Available Stories:
+
+- Default: A single spinner at the default size
+- Sizes: Small, medium, and large spinners
+- InButton: A spinner used inside a button to indicate a pending action
+
+Props (Spinner component):
+
+- className: string - Additional CSS classes (use size-* to resize, text-* to recolor)
+- All standard SVG props are forwarded
+
+Component Structure:
+
+- Spinner: A spinning Loader2 icon with role="status" and aria-label="Loading"
+
+Usage Examples:
+
+```tsx
+// Basic spinner
+<Spinner />
+
+// Larger, coloured spinner
+<Spinner className="size-8 text-primary-100" />
+
+// Inside a pending button
+<Button disabled>
+  <Spinner className="mr-2" />
+  Saving...
+</Button>
+```
+
+Related Components:
+
+- Button: Has its own built-in loading prop, but Spinner can be used standalone
+- Skeleton: For content-shaped placeholder loading states
+
+AI_DOCUMENTATION_END
+*/}
+
+export const Default = () => {
+  return <Spinner />
+}
+
+export const Sizes = () => {
+  return (
+    <div className="flex flex-row items-center gap-4">
+      <Spinner className="size-4" />
+      <Spinner className="size-6" />
+      <Spinner className="size-8" />
+    </div>
+  )
+}
+
+export const InButton = () => {
+  return (
+    <Button disabled>
+      <Spinner className="mr-2" />
+      Saving...
+    </Button>
+  )
+}

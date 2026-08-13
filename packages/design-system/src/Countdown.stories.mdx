@@ -257,3 +257,10 @@ return (
   }}
 />
 ) }
+
+export const Warning = () => {
+  const time = new Date()
+  time.setSeconds(time.getSeconds() + 8)
+
+return <Countdown expiresAt={time} />
+}

@@ -1,0 +1,182 @@
+import Button from './Button'
+import ColorPicker from './ColorPicker'
+import DatePicker from './DatePicker'
+import DateRangePicker from './DateRangePicker'
+import { DateTimePicker } from './DatetimePicker'
+import Navigation from './Navigation'
+import Progress from './Progress'
+import Table from './Table'
+import Workflow from './Workflow'
+import { Calendar } from './Calendar'
+
+{/* START README */}
+<div className="prose prose-sm max-w-none">
+This story exercises the narrowed public prop contracts for Button, Navigation,
+and Progress with representative native, ARIA, and data attributes. It also
+pins the v5 selector contract: `Table` carries its selectors on the composite
+root through `data`, while `Workflow` and `WorkflowProgress` carry per-step
+selectors on each step's own button, including the tooltip and disabled paths.
+`Calendar`, `ColorPicker`, `DatePicker`, `DateRangePicker` and `DatetimePicker`
+pin the root `data` selector alongside their per-element props, proving the root
+stays addressable while the popover is closed and that a per-element selector
+still wins on the element it names.
+</div>
+{/* END README */}
+
+export const Default = () => (
+  <div className="flex w-full flex-col gap-4">
+    <Button
+      aria-label="Contract button accessible name"
+      data={{ cy: 'contract-button' }}
+    >
+      Contract button
+    </Button>
+    <Navigation
+      aria-label="Contract navigation"
+      title="Contract navigation"
+      items={[
+        {
+          type: 'button',
+          key: 'contract-action',
+          label: 'Contract action',
+          active: false,
+          onClick: () => undefined,
+        },
+      ]}
+    />
+    <Progress
+      aria-label="Contract progress"
+      data={{ cy: 'contract-progress' }}
+      value={50}
+      max={100}
+      formatter={(value) => value}
+    />
+    <Table
+      data={{ cy: 'contract-table', test: 'contract-table' }}
+      caption="Contract table"
+      columns={[
+        { label: 'Count', accessor: 'count', sortable: true },
+        { label: 'Answer', accessor: 'answer', sortable: false },
+      ]}
+      rows={[
+        { count: 2, answer: 'Second' },
+        { count: 1, answer: 'First' },
+      ]}
+    />
+    <Workflow
+      activeIx={0}
+      disabledFrom={2}
+      onClick={() => undefined}
+      items={[
+        {
+          title: 'Plain step',
+          data: { cy: 'contract-step-plain', test: 'contract-step-plain' },
+        },
+        {
+          title: 'Tooltip step',
+          tooltip: 'Contract tooltip',
+          data: { cy: 'contract-step-tooltip', test: 'contract-step-tooltip' },
+        },
+        {
+          title: 'Disabled step',
+          tooltipDisabled: 'Contract disabled tooltip',
+          data: {
+            cy: 'contract-step-disabled',
+            test: 'contract-step-disabled',
+          },
+        },
+      ]}
+    />
+    <Workflow
+      onClick={() => undefined}
+      items={[
+        {
+          title: 'Progress step',
+          progress: 0.5,
+          data: {
+            cy: 'contract-progress-step',
+            test: 'contract-progress-step',
+          },
+        },
+        {
+          title: 'Progress tooltip step',
+          tooltip: 'Contract progress tooltip',
+          data: {
+            cy: 'contract-progress-tooltip',
+            test: 'contract-progress-tooltip',
+          },
+        },
+      ]}
+    />
+    <Calendar
+      mode="single"
+      data={{ cy: 'contract-calendar', test: 'contract-calendar' }}
+      dataNextMonth={{
+        cy: 'contract-calendar-next',
+        test: 'contract-calendar-next',
+      }}
+      dataPreviousMonth={{
+        cy: 'contract-calendar-previous',
+        test: 'contract-calendar-previous',
+      }}
+    />
+    <ColorPicker
+      color="#aa0000"
+      onSubmit={() => undefined}
+      submitText="Contract submit"
+      colorLabel="Contract colour"
+      triggerAriaLabel="Contract colour picker"
+      data={{ cy: 'contract-colorpicker', test: 'contract-colorpicker' }}
+      dataTrigger={{
+        cy: 'contract-colorpicker-trigger',
+        test: 'contract-colorpicker-trigger',
+      }}
+      dataHexInput={{
+        cy: 'contract-hex-input',
+        test: 'contract-hex-input',
+      }}
+    />
+    <DatePicker
+      label="Contract date"
+      date={undefined}
+      onDateChange={() => undefined}
+      data={{ cy: 'contract-datepicker', test: 'contract-datepicker' }}
+      dataTrigger={{
+        cy: 'contract-datepicker-trigger',
+        test: 'contract-datepicker-trigger',
+      }}
+      dataCalendar={{
+        cy: 'contract-datepicker-calendar',
+        test: 'contract-datepicker-calendar',
+      }}
+    />
+    <DateRangePicker
+      label="Contract range"
+      range={undefined}
+      onRangeChange={() => undefined}
+      data={{
+        cy: 'contract-daterangepicker',
+        test: 'contract-daterangepicker',
+      }}
+      dataTrigger={{
+        cy: 'contract-daterangepicker-trigger',
+        test: 'contract-daterangepicker-trigger',
+      }}
+    />
+    <DateTimePicker
+      label="Contract datetime"
+      onChange={() => undefined}
+      data={{
+        cy: 'contract-datetimepicker',
+        test: 'contract-datetimepicker',
+      }}
+      dataTrigger={{
+        cy: 'contract-datetimepicker-trigger',
+        test: 'contract-datetimepicker-trigger',
+      }}
+      dataHours={{ cy: 'contract-datetimepicker-hours' }}
+      dataMinutes={{ cy: 'contract-datetimepicker-minutes' }}
+      dataSeconds={{ cy: 'contract-datetimepicker-seconds' }}
+    />
+  </div>
+)

@@ -1,5 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from './Avatar'
-import { Button } from './Button'
+import { Button as PrimitiveButton } from './ui/button'
 import { HoverCard, HoverCardContent, HoverCardTrigger } from './HoverCard'
 
 {/* START README */}
@@ -114,7 +114,7 @@ export const Default = () => {
   return (
     <HoverCard>
       <HoverCardTrigger asChild>
-        <Button variant="link">@nextjs</Button>
+        <PrimitiveButton variant="link">@nextjs</PrimitiveButton>
       </HoverCardTrigger>
       <HoverCardContent className="w-80">
         <div className="flex justify-between gap-4">

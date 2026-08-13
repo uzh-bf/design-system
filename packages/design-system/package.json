@@ -1,30 +1,40 @@
 {
   "name": "@uzh-bf/design-system",
-  "version": "4.1.6",
+  "version": "5.0.0-alpha.3",
+  "description": "React component library for University of Zurich web applications: shadcn/Radix-based primitives with UZH-aligned composites and a neutral/uzh dual theme.",
+  "homepage": "https://github.com/uzh-bf/design-system#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uzh-bf/design-system.git",
+    "directory": "packages/design-system"
+  },
   "main": "dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "development": "./src/index.ts",
-      "import": "./dist/index.js",
-      "types": "./types/index.d.ts"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
     },
-    "./ui": {
-      "development": "./src/ui.ts",
-      "import": "./dist/ui.js",
-      "types": "./types/ui.d.ts"
+    "./primitives": {
+      "types": "./dist/primitives.d.ts",
+      "import": "./dist/primitives.js"
     },
-    "./forms": {
-      "development": "./src/forms.ts",
-      "import": "./dist/forms.js",
-      "types": "./types/forms.d.ts"
-    }
+    "./react-hook-form": {
+      "types": "./dist/react-hook-form.d.ts",
+      "import": "./dist/react-hook-form.js"
+    },
+    "./css": "./dist/design-system.css",
+    "./preflight.css": "./dist/preflight.css",
+    "./package.json": "./package.json"
   },
   "files": [
     "dist",
-    "src"
+    "MIGRATION.md"
+  ],
+  "sideEffects": [
+    "*.css"
   ],
   "dependencies": {
-    "@hookform/resolvers": "5.1.1",
     "@radix-ui/react-accordion": "1.2.11",
     "@radix-ui/react-alert-dialog": "1.1.14",
     "@radix-ui/react-aspect-ratio": "1.1.7",
@@ -59,18 +69,21 @@
     "react-colorful": "5.6.1",
     "react-countdown": "2.3.6",
     "react-day-picker": "9.7.0",
-    "react-hook-form": "7.59.0",
     "react-resizable-panels": "3.0.3",
     "recharts": "2.15.3",
     "sonner": "1.7.3",
     "vaul": "1.1.2",
-    "zod": "3.25.72"
+    "zod": "^3.25.72"
   },
   "devDependencies": {
+    "@axe-core/playwright": "4.11.3",
     "@eslint/compat": "1.3.1",
     "@eslint/eslintrc": "3.3.1",
     "@eslint/js": "9.30.1",
+    "@fontsource-variable/jetbrains-mono": "5.3.0",
+    "@fontsource-variable/source-sans-3": "5.3.0",
     "@ladle/react": "5.0.3",
+    "@playwright/test": "1.61.0",
     "@tailwindcss/aspect-ratio": "0.4.2",
     "@tailwindcss/forms": "0.5.10",
     "@tailwindcss/typography": "0.5.16",
@@ -84,14 +97,17 @@
     "eslint": "9.30.1",
     "eslint-plugin-react-hooks": "5.2.0",
     "eslint-plugin-react-refresh": "0.4.20",
+    "magic-string": "0.30.17",
     "npm-run-all": "4.1.5",
     "prettier": "3.6.2",
     "prettier-plugin-organize-imports": "4.1.0",
     "prettier-plugin-tailwindcss": "0.6.13",
+    "react-hook-form": "7.59.0",
     "tsx": "4.20.3",
     "typescript": "5.8.3",
     "vite": "6.3.5",
-    "vite-plugin-dts": "4.5.4"
+    "vite-plugin-dts": "4.5.4",
+    "yup": "^1.6.1"
   },
   "peerDependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
@@ -107,12 +123,15 @@
     "postcss": "^8.4.41",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-hook-form": "^7.59.0",
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "^4.1.11",
-    "tailwindcss-animate": "^1.0.7",
-    "tailwindcss-radix": "^4.0.2",
-    "tw-animate-css": "^1.3.4",
-    "yup": "^1.6.1"
+    "tw-animate-css": "^1.3.4"
+  },
+  "peerDependenciesMeta": {
+    "react-hook-form": {
+      "optional": true
+    }
   },
   "scripts": {
     "build": "run-s build:tsc build:vite build:copy",
@@ -125,10 +144,18 @@
     "format:check": "prettier --check .",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "LADLE=true ladle preview",
-    "check": "tsc --noEmit"
+    "test": "pnpm build:ladle && PWTEST_SKIP_BUILD=1 playwright test",
+    "test:smoke": "pnpm build:ladle && PWTEST_SKIP_BUILD=1 playwright test tests/smoke",
+    "test:a11y": "pnpm build:ladle && PWTEST_SKIP_BUILD=1 playwright test tests/a11y",
+    "test:fast": "PWTEST_SKIP_BUILD=1 playwright test",
+    "test:install": "playwright install --with-deps chromium",
+    "test:theme-contract": "node tests/theme-contract/verify-packed-css.mjs",
+    "check": "run-s check:ts check:types",
+    "check:ts": "tsc --noEmit",
+    "check:types": "tsc -p tsconfig.types.json --noEmit"
   },
   "engines": {
-    "node": "=22"
+    "node": ">=22"
   },
   "volta": {
     "extends": "../../package.json"
@@ -136,14 +163,14 @@
   "type": "module",
   "typesVersions": {
     "*": {
-      "ui": [
-        "types/ui.d.ts"
+      "react-hook-form": [
+        "dist/react-hook-form.d.ts"
       ],
-      "forms": [
-        "types/forms.d.ts"
+      "primitives": [
+        "dist/primitives.d.ts"
       ],
       "*": [
-        "types/index.d.ts"
+        "dist/index.d.ts"
       ]
     }
   }

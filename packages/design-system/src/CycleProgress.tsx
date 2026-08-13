@@ -24,7 +24,7 @@ export interface CycleProgressProps {
  * @param size - Size of the progress bar, can be 'sm' or 'md'
  * @param overrideSize - If size adjustments of the relative placement are required due to font changes, this value can be used to override the circle size
  * @param percentage - Percentage of the progress bar (0-100)
- * @param color - Color of the progress bar (static for the moment)
+ * @param color - Color of the progress arc; defaults to the theme primary token (`var(--primary)`), so it follows the active theme and dark mode
  * @param strokeWidthRem - Width of the progress bar. For small size, a smaller value is recommended
  * @param children - Content of the progress bar, displayed in the center
  * @param data - Optional data object that can be used for testing (e.g. data-test or data-cy)
@@ -35,62 +35,82 @@ export function CycleProgress({
   size = 'md',
   overrideSize,
   percentage,
-  color = '#00A321',
-  strokeWidthRem = 0.35,
+  color = 'var(--primary)',
+  strokeWidthRem,
   children,
   data,
   className,
 }: CycleProgressProps) {
-  const sizeNumber =
-    overrideSize || (size === 'sm' ? 14 : size === 'lg' ? 40 : 24)
-  const r = Math.round(0.8 * sizeNumber)
-  const circ = 2 * Math.PI * r
-  const strokePct = ((100 - percentage) * circ) / 100
+  const diameter = overrideSize
+    ? overrideSize * 2
+    : size === 'sm'
+      ? 56
+      : size === 'lg'
+        ? 128
+        : 96
+  const strokeWidth =
+    typeof strokeWidthRem === 'number'
+      ? strokeWidthRem * 16
+      : size === 'sm'
+        ? 6
+        : size === 'lg'
+          ? 10
+          : 8
+  const radius = (diameter - strokeWidth) / 2
+  const circumference = 2 * Math.PI * radius
+  const clampedPercentage = Math.min(Math.max(percentage, 0), 100)
+  const strokeOffset = ((100 - clampedPercentage) * circumference) / 100
 
   return (
     <div
-      className={twMerge(
-        'relative h-12 w-12',
-        size === 'sm' && 'h-7 w-7',
-        size === 'lg' && 'h-20 w-20',
-        className?.root
-      )}
+      className={twMerge('relative shrink-0 font-sans', className?.root)}
+      style={{ width: diameter, height: diameter }}
       data-cy={data?.cy}
       data-test={data?.test}
     >
-      <svg className="absolute h-full w-full">
+      <svg
+        className="absolute inset-0"
+        width={diameter}
+        height={diameter}
+        viewBox={`0 0 ${diameter} ${diameter}`}
+      >
         <circle
-          r={r}
-          cx={sizeNumber}
-          cy={sizeNumber}
+          r={radius}
+          cx={diameter / 2}
+          cy={diameter / 2}
           fill="transparent"
-          stroke={'#D3D3D3'}
-          strokeWidth={`${strokeWidthRem}rem`}
-          strokeDasharray={circ}
-          strokeLinecap="round"
+          stroke="var(--border)"
+          strokeWidth={strokeWidth}
         />
         <circle
-          r={r}
-          cx={sizeNumber}
-          cy={sizeNumber}
+          r={radius}
+          cx={diameter / 2}
+          cy={diameter / 2}
           fill="transparent"
-          stroke={strokePct !== circ ? color : ''}
-          strokeWidth={`${strokeWidthRem}rem`}
-          strokeDasharray={circ}
-          strokeDashoffset={percentage ? strokePct : 0}
+          stroke={clampedPercentage ? color : 'transparent'}
+          strokeWidth={strokeWidth}
+          strokeDasharray={circumference}
+          strokeDashoffset={strokeOffset}
           strokeLinecap="round"
-          transform={`rotate(-90 ${sizeNumber} ${sizeNumber})`}
+          transform={`rotate(-90 ${diameter / 2} ${diameter / 2})`}
         />
       </svg>
       <div
         className={twMerge(
-          'absolute flex h-full w-full items-center justify-center bg-transparent text-sm',
-          size === 'sm' && 'text-xs',
-          size === 'lg' && 'text-lg',
+          'text-foreground absolute inset-0 flex flex-col items-center justify-center bg-transparent text-center font-mono text-xl leading-none font-bold',
+          size === 'sm' && 'text-base',
+          size === 'lg' && 'text-2xl',
           className?.children
         )}
       >
-        {children}
+        {children ?? (
+          <>
+            <span>{Math.round(clampedPercentage)}%</span>
+            <span className="text-muted-foreground mt-1 font-sans text-[11px] leading-none font-normal">
+              complete
+            </span>
+          </>
+        )}
       </div>
     </div>
   )

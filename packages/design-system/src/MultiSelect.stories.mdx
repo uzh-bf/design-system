@@ -1,0 +1,141 @@
+import { useState } from 'react'
+import { MultiSelect } from './MultiSelect'
+
+{/* START README */}
+<div className="prose prose-sm max-w-none">
+The `MultiSelect` is a searchable multi-value select. It composes the `Popover`
+and `Command` primitives (like `Combobox`), but allows toggling several values.
+Selected values appear as removable chips below the trigger — kept outside the
+trigger button so the chip remove buttons are not nested inside another button.
+
+The popover stays open while you toggle items. The selected `value` is a
+controlled `string[]` managed via `value` / `onChange`.
+</div>
+{/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Searchable multi-value select composing Popover + Command/cmdk. Toggling keeps the popover open; selections render as removable chips below the trigger (outside the button to avoid nested-interactive).
+Dependencies: cmdk, @radix-ui/react-popover, lucide-react
+
+Available Stories:
+
+- Default: An empty multi-select
+- Preselected: Opens with several values selected
+- Disabled: A disabled multi-select
+
+Props (MultiSelect component):
+
+- items: MultiSelectItem[] - Selectable items ({ value: string, label: ReactNode, disabled?: boolean })
+- value: string[] - The currently selected values (controlled)
+- onChange: (newValue: string[]) => void - Called with the next array on toggle/remove
+- placeholder: string - Trigger text when nothing is selected
+- searchPlaceholder: string - Placeholder in the search input
+- emptyText: string - Shown when the search yields no results
+- disabled: boolean - Disables the trigger and chip remove buttons
+- ariaLabel: string - Accessible name override for the trigger
+- className: { trigger?, content?, item?, chip? } - Style overrides
+
+Usage Examples:
+
+```tsx
+const [value, setValue] = useState([])
+
+<MultiSelect
+  items={[
+    { value: 'ts', label: 'TypeScript' },
+    { value: 'go', label: 'Go' },
+  ]}
+  value={value}
+  onChange={setValue}
+  placeholder="Select languages…"
+/>
+```
+
+Related Components:
+
+- Combobox: Searchable single-select
+- Select: Plain (non-searchable) single-select
+- Tag: Static label, similar visual to the selection chips
+
+AI_DOCUMENTATION_END
+*/}
+
+export const Default = () => {
+  const [value, setValue] = useState([])
+  const languages = [
+    { value: 'ts', label: 'TypeScript' },
+    { value: 'js', label: 'JavaScript' },
+    { value: 'go', label: 'Go' },
+    { value: 'rust', label: 'Rust' },
+    { value: 'python', label: 'Python' },
+    { value: 'elixir', label: 'Elixir' },
+  ]
+  return (
+    <MultiSelect
+      items={languages}
+      value={value}
+      onChange={setValue}
+      ariaLabel="Select languages"
+      placeholder="Select languages…"
+      searchPlaceholder="Search languages…"
+    />
+  )
+}
+
+export const Preselected = () => {
+  const [value, setValue] = useState(['ts', 'go'])
+  const languages = [
+    { value: 'ts', label: 'TypeScript' },
+    { value: 'js', label: 'JavaScript' },
+    { value: 'go', label: 'Go' },
+    { value: 'rust', label: 'Rust' },
+  ]
+  return (
+    <MultiSelect
+      items={languages}
+      value={value}
+      onChange={setValue}
+      ariaLabel="Select languages"
+    />
+  )
+}
+
+export const Disabled = () => {
+  const [value, setValue] = useState(['ts'])
+  const languages = [
+    { value: 'ts', label: 'TypeScript' },
+    { value: 'go', label: 'Go' },
+  ]
+  return (
+    <MultiSelect
+      items={languages}
+      value={value}
+      onChange={setValue}
+      disabled
+      ariaLabel="Disabled languages"
+      placeholder="Disabled"
+    />
+  )
+}
+
+export const ExternalLabel = () => {
+  const [value, setValue] = useState([])
+  const languages = [
+    { value: 'ts', label: 'TypeScript' },
+    { value: 'go', label: 'Go' },
+  ]
+  return (
+    <div>
+      <label htmlFor="labelled-multi-select">Elements</label>
+      <MultiSelect
+        id="labelled-multi-select"
+        items={languages}
+        value={value}
+        onChange={setValue}
+        placeholder="Choose elements…"
+      />
+    </div>
+  )
+}

@@ -2,6 +2,8 @@
 
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import type { ComponentPropsWithoutRef } from 'react'
+import { useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Badge } from './ui/badge'
 import {
@@ -28,6 +30,7 @@ const dynamicUnderline = twMerge(
 export interface BaseNavigationButtonProps {
   onClick: React.MouseEventHandler
   disabled?: boolean
+  ariaLabel?: string
   data?: { cy?: string; test?: string }
   className?: { root?: string; label?: string; icon?: string }
   style?: {
@@ -46,6 +49,9 @@ export interface LabelOnlyButtonProps extends BaseNavigationButtonProps {
 
 export interface IconOnlyButtonProps extends BaseNavigationButtonProps {
   icon: IconDefinition
+  // Icon-only buttons have no visible text, so an accessible name is mandatory
+  // (WCAG 2.1 4.1.2). Narrows the optional base ariaLabel to required.
+  ariaLabel: string
   label?: undefined
   active?: undefined
   notification?: undefined
@@ -60,6 +66,7 @@ export type NavigationButtonProps = LabelOnlyButtonProps | IconOnlyButtonProps
  *
  * @param label - The text to display on the button (required for label or combined buttons).
  * @param icon - The FontAwesome icon definition to display (required for icon-only or combined buttons).
+ * @param ariaLabel - Accessible name for the trigger button. Required for icon-only buttons (which have no visible text); ignored when a visible label is set.
  * @param onClick - The function to be called when the button is clicked.
  * @param disabled - Specifies whether the button is disabled or not.
  * @param active - Indicates whether the button is in an active state (only for label buttons).
@@ -71,6 +78,7 @@ export type NavigationButtonProps = LabelOnlyButtonProps | IconOnlyButtonProps
 function NavigationButton({
   label,
   icon,
+  ariaLabel,
   onClick,
   disabled = false,
   active,
@@ -83,42 +91,76 @@ function NavigationButton({
     typeof label !== 'undefined' && typeof icon !== 'undefined'
   const iconOnly = typeof label === 'undefined' && typeof icon !== 'undefined'
 
+  // A `type: 'button'` item performs an action; it has no menu. `MenubarTrigger`
+  // is the only way to stay registered with the menubar's roving focus (so the
+  // arrow keys keep working), but it unconditionally advertises a menu it does
+  // not have and drives the menubar's open/close state machine — with no
+  // `MenubarContent` to render, activating one used to leave the bar wedged in
+  // its open state and the item announced as expanded for good.
+  //
+  // `Navigation` refuses the open state for these items (see `onValueChange`
+  // there), so nothing below has to fight Radix for the state itself. What is
+  // left are the side effects Radix performs on the way there, one per handler
+  // below: it default-prevents the events it claims, costing the item its native
+  // click and its click focus, and it treats a hover as a request to switch
+  // menus.
+  const actionItemProps = {
+    'aria-haspopup': undefined,
+    'aria-expanded': undefined,
+    'aria-controls': undefined,
+    onKeyDown: (event: React.KeyboardEvent<HTMLButtonElement>) => {
+      if (event.key !== 'Enter' && event.key !== ' ') return
+      // Radix default-prevents both keys for its own menu toggle, which
+      // suppresses the native click and left the item operable by mouse only.
+      // Dispatching a real click keeps `onClick` receiving a real MouseEvent,
+      // and a disabled button ignores it for free.
+      event.preventDefault()
+      event.currentTarget.click()
+    },
+    onPointerDown: (event: React.PointerEvent<HTMLButtonElement>) => {
+      // Mirrors the guard Radix applies to its own pointer-down handler, so a
+      // right, middle or ctrl-click keeps falling through to the platform.
+      if (event.button !== 0 || event.ctrlKey) return
+      // Radix opens the menu here and default-prevents, which also drops the
+      // focus a click would normally give the button — so take focus explicitly.
+      event.preventDefault()
+      event.currentTarget.focus()
+    },
+    onPointerEnter: (event: React.PointerEvent<HTMLButtonElement>) => {
+      // Once any menu in the bar is open, Radix follows the pointer and opens
+      // whichever item it enters. Merely refusing that open is not enough here:
+      // the refusal closes the bar, so simply moving the mouse across an action
+      // item would dismiss the dropdown the user is reading.
+      event.preventDefault()
+    },
+  }
+
   return (
-    <MenubarMenu>
-      <MenubarTrigger
-        onClick={onClick}
-        disabled={disabled}
-        data-cy={data?.cy}
-        data-test={data?.test}
-        style={style?.root}
-        className={twMerge(
-          'text-base hover:cursor-pointer',
-          !iconOnly && !disabled && dynamicUnderline,
-          hasIconAndLabel && 'flex flex-row items-center gap-2',
-          active && 'text-black after:scale-x-100',
-          disabled &&
-            'text-slate-400! hover:cursor-not-allowed hover:text-slate-400!',
-          className?.root
-        )}
-      >
-        {hasIconAndLabel ? (
-          <>
-            <FontAwesomeIcon
-              icon={icon}
-              style={style?.icon}
-              className={className?.icon}
-            />
-            <div
-              style={style?.label}
-              className={twMerge('relative', className?.label)}
-            >
-              {label}
-              {notification && (
-                <div className="bg-notification absolute -top-0.5 -right-2 h-2.5 w-2.5 rounded-full" />
-              )}
-            </div>
-          </>
-        ) : label ? (
+    <MenubarTrigger
+      {...actionItemProps}
+      onClick={onClick}
+      disabled={disabled}
+      aria-label={!label ? ariaLabel : undefined}
+      data-cy={data?.cy}
+      data-test={data?.test}
+      style={style?.root}
+      className={twMerge(
+        'text-sm hover:cursor-pointer',
+        !iconOnly && !disabled && dynamicUnderline,
+        hasIconAndLabel && 'flex flex-row items-center gap-2',
+        active && 'text-black after:scale-x-100',
+        disabled &&
+          'text-slate-400! hover:cursor-not-allowed hover:text-slate-400!',
+        className?.root
+      )}
+    >
+      {hasIconAndLabel ? (
+        <>
+          <FontAwesomeIcon
+            icon={icon}
+            style={style?.icon}
+            className={className?.icon}
+          />
           <div
             style={style?.label}
             className={twMerge('relative', className?.label)}
@@ -128,16 +170,26 @@ function NavigationButton({
               <div className="bg-notification absolute -top-0.5 -right-2 h-2.5 w-2.5 rounded-full" />
             )}
           </div>
-        ) : (
-          <FontAwesomeIcon
-            icon={icon!}
-            size="lg"
-            style={style?.icon}
-            className={className?.icon}
-          />
-        )}
-      </MenubarTrigger>
-    </MenubarMenu>
+        </>
+      ) : label ? (
+        <div
+          style={style?.label}
+          className={twMerge('relative', className?.label)}
+        >
+          {label}
+          {notification && (
+            <div className="bg-notification absolute -top-0.5 -right-2 h-2.5 w-2.5 rounded-full" />
+          )}
+        </div>
+      ) : (
+        <FontAwesomeIcon
+          icon={icon!}
+          size="lg"
+          style={style?.icon}
+          className={className?.icon}
+        />
+      )}
+    </MenubarTrigger>
   )
 }
 // #endregion
@@ -185,6 +237,7 @@ export interface BaseNavigationDropdownProps {
   disabled?: boolean
   active?: boolean
   notification?: boolean
+  ariaLabel?: string
   data?: { cy?: string; test?: string }
   className?: {
     trigger?: string
@@ -210,6 +263,9 @@ export interface LabelOnlyDropdownProps extends BaseNavigationDropdownProps {
 export interface IconOnlyDropdownProps extends BaseNavigationDropdownProps {
   label?: undefined
   icon: IconDefinition
+  // Icon-only dropdown triggers have no visible text, so an accessible name is
+  // mandatory (WCAG 2.1 4.1.2). Narrows the optional base ariaLabel to required.
+  ariaLabel: string
 }
 
 // combined type
@@ -226,7 +282,7 @@ function NavigationMenuItem({
     <MenubarItem
       onClick={element.onClick}
       className={twMerge(
-        'h-7 justify-between text-base hover:cursor-pointer',
+        'h-9 justify-between text-sm hover:cursor-pointer',
         element.disabled &&
           'text-slate-400! hover:cursor-not-allowed hover:text-slate-400!',
         element.className?.label
@@ -256,6 +312,7 @@ function NavigationMenuItem({
  *
  * @param label - The text to display on the dropdown (required for label or combined dropdowns).
  * @param icon - The FontAwesome icon definition to display (required for icon-only or combined dropdowns).
+ * @param ariaLabel - Accessible name for the trigger button. Required for icon-only dropdowns (which have no visible text); ignored when a visible label is set.
  * @param elements - The array of elements to display in the dropdown (required).
  * @param disabled - Specifies whether the dropdown is disabled or not.
  * @param active - Indicates whether the dropdown is in an active state (only for label dropdowns).
@@ -267,6 +324,7 @@ function NavigationMenuItem({
 function NavigationDropdown({
   label,
   icon,
+  ariaLabel,
   disabled = false,
   active = false,
   notification = false,
@@ -280,14 +338,15 @@ function NavigationDropdown({
   const iconOnly = typeof label === 'undefined' && typeof icon !== 'undefined'
 
   return (
-    <MenubarMenu>
+    <>
       <MenubarTrigger
         disabled={disabled}
+        aria-label={!label ? ariaLabel : undefined}
         data-cy={data?.cy}
         data-test={data?.test}
         style={style?.trigger}
         className={twMerge(
-          'text-base hover:cursor-pointer',
+          'text-sm hover:cursor-pointer',
           hasIconAndLabel && 'flex flex-row items-center gap-2',
           !iconOnly && !disabled && dynamicUnderline,
           active && 'text-black after:scale-x-100',
@@ -351,7 +410,7 @@ function NavigationDropdown({
                   <MenubarSubTrigger
                     style={element.style?.label}
                     className={twMerge(
-                      'h-8 text-base hover:cursor-pointer',
+                      'h-9 text-sm hover:cursor-pointer',
                       element.className?.label
                     )}
                   >
@@ -370,7 +429,7 @@ function NavigationDropdown({
           })}
         </MenubarContent>
       ) : null}
-    </MenubarMenu>
+    </>
   )
 }
 // #endregion
@@ -391,11 +450,21 @@ export type NavigationItemProps =
   | NavigationButtonItemProps
   | NavigationDropdownItemProps
 
-export interface NavigationProps {
+type NavigationPrimitiveProps = ComponentPropsWithoutRef<typeof ShadcnMenubar>
+
+export interface NavigationProps
+  extends Omit<
+    NavigationPrimitiveProps,
+    | 'children'
+    | 'className'
+    | 'defaultValue'
+    | 'onValueChange'
+    | 'style'
+    | 'value'
+  > {
   items: NavigationItemProps[]
   className?: { root?: string }
   style?: { root?: React.CSSProperties }
-  [x: string]: unknown
 }
 
 /**
@@ -413,6 +482,12 @@ export function Navigation({
   style,
   ...props
 }: NavigationProps) {
+  // Which menu the bar currently has open, keyed by item. Radix would happily
+  // track this itself, but only the owner of the state can refuse a value: a
+  // `type: 'button'` item has no `MenubarContent`, so "open" is a state it must
+  // never enter.
+  const [openItem, setOpenItem] = useState('')
+
   return (
     <ShadcnMenubar
       className={twMerge(
@@ -421,14 +496,33 @@ export function Navigation({
       )}
       style={style?.root}
       {...props}
+      value={openItem}
+      // `MenubarContent` moves between menus on ArrowLeft/ArrowRight by calling
+      // the bar's open handler directly, and composes that handler with
+      // `checkForDefaultPrevented: false` — so arrowing sideways out of an open
+      // dropdown onto an action item cannot be intercepted at the trigger the
+      // way the other entry paths can. Rejecting the value here catches every
+      // path at the one point they all funnel through: the state itself.
+      // Closing the bar (rather than holding the previous menu open) is what
+      // keeps arrow navigation moving — Radix then hands focus back to the bar,
+      // and the next arrow press walks on to the item the user was heading for.
+      onValueChange={(next) =>
+        setOpenItem(
+          items.some((item) => item.type === 'button' && item.key === next)
+            ? ''
+            : next
+        )
+      }
     >
-      {items.map((item) => {
-        if (item.type === 'button') {
-          return <NavigationButton {...item} key={item.key} />
-        } else if (item.type === 'dropdown') {
-          return <NavigationDropdown {...item} key={item.key} />
-        }
-      })}
+      {items.map((item) => (
+        <MenubarMenu value={item.key} key={item.key}>
+          {item.type === 'button' ? (
+            <NavigationButton {...item} />
+          ) : (
+            <NavigationDropdown {...item} />
+          )}
+        </MenubarMenu>
+      ))}
     </ShadcnMenubar>
   )
 }

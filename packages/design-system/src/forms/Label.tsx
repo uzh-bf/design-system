@@ -94,6 +94,7 @@ export function Label({
         )}
         <Tooltip
           tooltip={tooltip}
+          ariaLabel={typeof tooltip === 'string' ? tooltip : 'Show help'}
           className={{
             tooltip: className?.tooltip,
             arrow: className?.arrow,

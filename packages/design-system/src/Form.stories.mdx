@@ -1,0 +1,108 @@
+import { useForm } from 'react-hook-form'
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormLabel,
+  FormItem,
+  FormMessage,
+} from './react-hook-form'
+import { Button } from './Button'
+
+{/* START README */}
+<div className="prose prose-sm max-w-none">
+`Form` is the design-system's [react-hook-form](https://react-hook-form.com)
+binding (the shadcn `Form` primitives). It wires labels, controls, descriptions
+and validation messages together with the correct `id`/`aria-*` associations, so
+fields are accessible by default.
+
+Wrap your form in `Form` (spread the object returned by `useForm`), then describe
+each field with `FormField` + `FormItem` + `FormLabel` + `FormControl` +
+`FormMessage`. `FormControl` accepts any control via `asChild` and injects the
+ids/aria so the label and error message are linked to it automatically.
+
+For the simpler, Formik-based field components used across UZH apps, see the
+`Formik*` field stories instead.
+</div>
+{/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: react-hook-form binding (shadcn Form). FormField/FormItem/FormLabel/FormControl/FormMessage compose an accessible field with auto-wired id/aria associations.
+Dependencies: react-hook-form
+
+Available Stories:
+
+- Default: A single text field with description and validation message
+
+Exports:
+
+- Form - FormProvider wrapper (spread the useForm() return value)
+- FormField - Controller binding a name to the field render
+- FormItem - Field layout wrapper that generates the shared ids
+- FormLabel - Label wired to the control via htmlFor
+- FormControl - Slot that injects id/aria onto the control
+- FormDescription - Helper text linked via aria-describedby
+- FormMessage - Validation message linked via aria-describedby
+- useFormField - Hook to read the current field state/ids
+
+Usage Examples:
+
+```tsx
+const form = useForm({ defaultValues: { username: '' } })
+
+<Form {...form}>
+  <FormField control={form.control} name="username" render={({ field }) => (
+    <FormItem>
+      <FormLabel>Username</FormLabel>
+      <FormControl><input {...field} /></FormControl>
+      <FormMessage />
+    </FormItem>
+  )} />
+</Form>
+```
+
+Related Components:
+
+- FormLabel: the standalone DS label used by the Formik field components
+- Field / InputGroup: layout primitives for building custom fields
+
+AI_DOCUMENTATION_END
+*/}
+
+export const Default = () => {
+  const form = useForm({ defaultValues: { username: '' } })
+  return (
+    <Form {...form}>
+      <form
+        onSubmit={form.handleSubmit(() => {})}
+        className="flex w-72 flex-col gap-4"
+      >
+        <FormField
+          control={form.control}
+          name="username"
+          rules={{ required: 'A username is required.' }}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Username</FormLabel>
+              <FormControl>
+                <input
+                  {...field}
+                  placeholder="jane.doe"
+                  className="border-input flex h-9 w-full rounded-md border bg-transparent px-3 py-1 text-sm shadow-xs outline-none"
+                />
+              </FormControl>
+              <FormDescription>Your public display name.</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button primary type="submit">
+          Submit
+        </Button>
+      </form>
+    </Form>
+  )
+}

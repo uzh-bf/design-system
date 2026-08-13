@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "ladle",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "@uzh-bf/design-system", "dev"],
+      "port": 61000
+    }
+  ]
+}

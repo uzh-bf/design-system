@@ -97,6 +97,7 @@ type Item =
 
 interface DropdownProps {
   id?: string
+  ref?: React.Ref<HTMLButtonElement>
   disabled?: boolean
   trigger: string | React.ReactNode
   items?: Item[]
@@ -138,6 +139,7 @@ export interface DropdownWithGroupsProps extends DropdownProps {
  */
 export function Dropdown({
   id,
+  ref,
   disabled = false,
   trigger,
   items,
@@ -150,9 +152,10 @@ export function Dropdown({
     <DropdownMenu>
       <DropdownMenuTrigger
         id={id}
+        ref={ref}
         disabled={disabled}
         className={twMerge(
-          'border-input bg-background ring-offset-background hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring inline-flex h-max items-center justify-center rounded-md border px-3 py-1.5 text-base font-medium whitespace-normal transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden disabled:cursor-not-allowed disabled:opacity-50 data-disabled:bg-white',
+          'border-input bg-background ring-offset-background hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring inline-flex h-max items-center justify-center rounded-md border px-3 py-1.5 text-sm font-medium whitespace-normal transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden disabled:cursor-not-allowed disabled:opacity-50 data-disabled:bg-white',
           className?.trigger
         )}
         data-cy={data?.cy}
@@ -209,7 +212,7 @@ export function DropdownItem({
           id={item.id}
           data-cy={item.data?.cy}
           data-test={item.data?.test}
-          className={twMerge('text-base', className, item.className?.item)}
+          className={twMerge('text-sm', className, item.className?.item)}
         />
       )
     }
@@ -220,7 +223,7 @@ export function DropdownItem({
           id={item.id}
           data-cy={item.data?.cy}
           data-test={item.data?.test}
-          className={twMerge('text-base', className, item.className?.item)}
+          className={twMerge('text-sm', className, item.className?.item)}
         >
           {item.label}
         </DropdownMenuLabel>
@@ -235,7 +238,7 @@ export function DropdownItem({
             disabled={item.disabled}
             data-cy={item.data?.cy}
             data-test={item.data?.test}
-            className={twMerge('text-base', className, item.className?.item)}
+            className={twMerge('text-sm', className, item.className?.item)}
           >
             {item.label}
           </DropdownMenuSubTrigger>
@@ -245,7 +248,7 @@ export function DropdownItem({
                 key={`dropdown-item-${subItem.id}`}
                 item={subItem}
                 className={twMerge(
-                  'text-base',
+                  'text-sm',
                   className,
                   subItem.className?.item
                 )}
@@ -265,7 +268,7 @@ export function DropdownItem({
           onClick={item.onClick}
           data-cy={item.data?.cy}
           data-test={item.data?.test}
-          className={twMerge('text-base', className, item.className?.item)}
+          className={twMerge('text-sm', className, item.className?.item)}
         >
           <DropdownLabelShortcut
             label={item.label}
@@ -286,7 +289,7 @@ export function DropdownItem({
           onClick={item.onClick}
           data-cy={item.data?.cy}
           data-test={item.data?.test}
-          className={twMerge('text-base', className, item.className?.item)}
+          className={twMerge('text-sm', className, item.className?.item)}
         >
           <DropdownLabelShortcut
             label={item.label}
@@ -307,7 +310,7 @@ export function DropdownItem({
           onClick={item.onClick}
           data-cy={item.data?.cy}
           data-test={item.data?.test}
-          className={twMerge('text-base', className, item.className?.item)}
+          className={twMerge('text-sm', className, item.className?.item)}
         >
           <DropdownLabelShortcut
             label={item.label}

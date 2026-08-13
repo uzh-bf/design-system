@@ -18,18 +18,17 @@ Use this component when you need to:
 
 The component supports column-based configuration, data transformers for preprocessing, formatters for display customization, programmatic table resets, and extensive styling options through className overrides.
 
-**Note**: This is distinct from the ShadcnTable component, which provides basic table structure without advanced data manipulation features.
+**Note**: This is distinct from the raw shadcn Table (available from `@uzh-bf/design-system/primitives`), which provides basic table structure without advanced data manipulation features.
 
 The Table component accepts the following props:
 
 - @param id - The id of the table.
-- @param dataAttributes - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
+- @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
 - @param columns - The columns of the table. The columns are defined by an array of objects where each object has a label, an accessor and optional transformer and formatters.
-- @param data - The data of the table. The data is defined by an array of objects where each object has a key-value pair for each column.
+- @param rows - The rows of the table. The rows are defined by an array of objects where each object has a key-value pair for each column.
 - @param caption - The optional caption of the table.
 - @param ref - The optional ref object allows you to access the table methods.
 - @param className - The optional className object allows you to override the default styling.
-- @param forwardedRef - The optional forwardedRef object allows you to access table methods from the parent component.
 - @param emptyCellText - The optional emptyCellText allows you to define the text that should be displayed in empty cells.
 - @param defaultSortField - The optional defaultSortField allows you to define the default sorting field.
 - @param defaultSortOrder - The optional defaultSortOrder allows you to define the default sorting order.
@@ -60,9 +59,9 @@ Available Stories:
 Props (Table component):
 
 - id?: string - HTML id attribute for the table
-- dataAttributes?: Record<string, string> - Data attributes for testing
+- data?: { cy?: string, test?: string } - Data attributes for testing
 - columns: ColumnDefinition[] - Column configuration array
-- data: DataRow[] - Array of data objects to display
+- rows: DataRow[] - Array of row objects to display
 - caption?: string - Accessible table caption
 - ref?: React.Ref - Reference to table for method access
 - className?: {
@@ -71,7 +70,6 @@ Props (Table component):
   body?: string,
   row?: string
   } - Styling overrides for table parts
-- forwardedRef?: React.Ref - Alternative ref prop for parent access
 - emptyCellText?: string - Text to show in empty cells (default: '-')
 - defaultSortField?: string - Initial column to sort by
 - defaultSortOrder?: 'asc' | 'desc' - Initial sort direction
@@ -104,7 +102,7 @@ Usage Examples:
     { label: 'Age', accessor: 'age', sortable: true },
     { label: 'Email', accessor: 'email', sortable: false }
   ]}
-  data={[
+  rows={[
     { name: 'John Doe', age: 30, email: 'john@example.com' },
     { name: 'Jane Smith', age: 25, email: 'jane@example.com' }
   ]}
@@ -131,7 +129,7 @@ Usage Examples:
       )
     }
   ]}
-  data={salesData}
+  rows={salesData}
   defaultSortField="revenue"
   defaultSortOrder="desc"
 />
@@ -139,7 +137,7 @@ Usage Examples:
 // With custom styling
 <Table
   columns={columns}
-  data={data}
+  rows={data}
   className={{
     root: 'rounded-lg shadow-sm border',
     tableHeader: 'bg-gray-50 border-b',
@@ -159,7 +157,7 @@ const tableRef = useRef(null)
   <Table
     ref={tableRef}
     columns={columns}
-    data={data}
+    rows={data}
   />
 </>
 
@@ -181,7 +179,7 @@ interface UserData {
       formatter: ({ row }) => formatDistanceToNow(row.lastLogin)
     }
   ]}
-  data={userData}
+  rows={userData}
 />
 ```
 
@@ -201,7 +199,7 @@ Common Patterns:
 
 Related Components:
 
-- ShadcnTable: Basic table structure without advanced features
+- Table (from @uzh-bf/design-system/primitives): raw table structure without advanced features
 - DataTable: Alternative table implementation
 - List: For simpler data display without tabular structure
 
@@ -222,7 +220,7 @@ export const Simple = () => {
           { label: 'Answer', accessor: 'answer', sortable: true },
           { label: 'Username', accessor: 'username', sortable: false },
         ]}
-        data={data}
+        rows={data}
         caption="Table with example data"
       />
     </div>
@@ -243,7 +241,7 @@ export const DefaultSorting = () => {
           { label: 'Answer', accessor: 'answer', sortable: true },
           { label: 'Username', accessor: 'username', sortable: false },
         ]}
-        data={data}
+        rows={data}
         caption="Table with example data"
         defaultSortField="count"
         defaultSortOrder="desc"
@@ -262,7 +260,7 @@ export const Sorting = () => {
       />
       <Table
         columns={[{ label: 'Count', accessor: 'count', sortable: true }]}
-        data={[{ count: 100 }, { count: -50 }, { count: -70 }, { count: 30 }]}
+        rows={[{ count: 100 }, { count: -50 }, { count: -70 }, { count: 30 }]}
         caption="Table with example data"
       />
     </div>
@@ -281,8 +279,9 @@ return (
     className={{ root: 'mb-4' }}
   />
   <Button
+    data={{ test: 'reset-table' }}
     onClick={() => {
-      ref.current.reset()
+      ref.current?.reset()
     }}
   >
     Reset Table Filters
@@ -299,9 +298,9 @@ return (
       { label: 'Answer', accessor: 'answer', sortable: true },
       { label: 'Username', accessor: 'username', sortable: false },
     ]}
-    data={data}
+    rows={data}
     caption="Table with example data"
-    forwardedRef={ref}
+    ref={ref}
   />
 </>
 ) }
@@ -328,24 +327,26 @@ export const Formatted = () => {
             sortable: true,
             className: 'font-bold italic',
             formatter: ({ row }) => (
-              <div className="bg-red-300">{row['answer']}</div>
+              <div className="bg-destructive-background text-destructive-text">
+                {row['answer']}
+              </div>
             ),
           },
           { label: 'Username', accessor: 'username', sortable: false },
         ]}
-        data={[
+        rows={[
           {
-            className: 'text-green-200',
+            className: 'text-foreground',
             ...data[0],
           },
           ...data,
         ]}
         caption="Table with example data"
         className={{
-          root: 'bg-white',
-          tableHeader: 'bg-gray-200',
-          body: 'bg-gray-100',
-          row: 'bg-white',
+          root: 'bg-background',
+          tableHeader: 'bg-muted',
+          body: 'bg-muted',
+          row: 'bg-background',
         }}
       />
     </div>
@@ -379,7 +380,7 @@ export const Combined = () => {
           },
           { label: 'Username', accessor: 'username', sortable: false },
         ]}
-        data={data}
+        rows={data}
         caption="Table with example data"
         className={{
           root: 'bg-white',

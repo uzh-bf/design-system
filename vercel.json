@@ -1,0 +1,7 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "pnpm install --frozen-lockfile",
+  "buildCommand": "LADLE=true pnpm --dir packages/design-system exec ladle build --base=/",
+  "outputDirectory": "packages/design-system/build"
+}

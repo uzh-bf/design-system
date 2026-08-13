@@ -2,6 +2,254 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.0.0-alpha.3](https://github.com/uzh-bf/design-system/compare/v5.0.0-alpha.2...v5.0.0-alpha.3) (2026-08-09)
+
+
+### Features
+
+* **forms:** add RHF field wrappers ([0e1965e](https://github.com/uzh-bf/design-system/commit/0e1965e3042cbfc32db2efb17f9a59e1a0617c38))
+
+
+### Bug Fixes
+
+* **forms:** close RHF wrapper review gaps ([3a1bca8](https://github.com/uzh-bf/design-system/commit/3a1bca816b8e19f65f677df612cf97028e84b6ca))
+* **forms:** close final RHF contract gaps ([29c1f67](https://github.com/uzh-bf/design-system/commit/29c1f67cb1591cbad793fd6f72aced23eb330ef7))
+* **forms:** enforce exact RHF value contracts ([155fd49](https://github.com/uzh-bf/design-system/commit/155fd49b8473d6b93ffd98b94ba08608faa8308d))
+* **forms:** expose message-less RHF invalid state ([41c866d](https://github.com/uzh-bf/design-system/commit/41c866df98299e78216bf42c608a4886390b9de4))
+* **forms:** synchronize RHF programmatic number updates ([420791b](https://github.com/uzh-bf/design-system/commit/420791b9ac80f9c9a7b1a36d527564e3f54f02ce))
+* **forms:** document explicit RHF control typing ([0867408](https://github.com/uzh-bf/design-system/commit/08674087c83adb2d2c0c78c1c1c0734c6dfc502e))
+* **forms:** preserve native RHF field names and consumer semantics ([f5f6fc8](https://github.com/uzh-bf/design-system/commit/f5f6fc83ac4534c171c916cbf07b9b98077dc64c))
+* **forms:** keep numeric RHF wrappers as textboxes and close button layout regression ([272254d](https://github.com/uzh-bf/design-system/commit/272254dffc021c3d0e626a82c22c80725d413199))
+
+
+### Documentation
+
+* **roadmap:** record v5 alpha publication ([f759b11](https://github.com/uzh-bf/design-system/commit/f759b1101b29646e6b5561e4b14cce891c69b5e8))
+* **v5:** plan RHF W3 migration ([18df75e](https://github.com/uzh-bf/design-system/commit/18df75eb68176173f694090613b509aea8cbdcf8))
+
+## [5.0.0-alpha.2](https://github.com/uzh-bf/design-system/compare/v4.1.6...v5.0.0-alpha.2) (2026-08-05)
+
+
+### ⚠ BREAKING CHANGES
+
+* **selectors:** collapse the selector contract onto a canonical layer
+* **selectors:** ColorPicker dataHexInput.test now renders as data-test. It
+previously rendered as the misspelled data-text, so a consumer asserting on
+[data-text=...] against the hex input must update the selector.
+* **selectors:** unify v5 test selector contract on table and workflow
+* **theme:** finalize v5 D2-D5 conformance
+* **a11y:** ariaLabel is now required on IconOnlyButtonProps and
+IconOnlyDropdownProps; triggerAriaLabel is required on ColorPickerProps and
+FormikColorPickerProps. TS-only, no runtime change for correctly typed callers.
+
+Verification at c2d3fcb: tests/a11y 765/765, tests/smoke 454/454, tsc, eslint
+and prettier clean, build clean with fonts 6/6. Axe is structurally blind to
+most of these defects, so the evidence is 25 mutation-tested Playwright contract
+assertions in tests/a11y/keyboard.spec.ts and tests/a11y/field-labeling.spec.ts.
+
+Plan: project/2026-07-20-pr-182-v5-a11y-level-a-plan.md
+* **deps:** require react-hook-form peer + correct v5 API docs
+* **deps:** react-hook-form → optional peerDependency
+* **exports:** remove ./ui and ./forms subpaths
+* **exports:** remove Shadcn* prefix, raw shadcn moves to ./primitives
+* **design-system:** existing consumers must import '@uzh-bf/design-system/css',
+drop the '@source .../src' scan path that v5 no longer ships, and remove the
+deleted --theme-font-primary / --source-sans-pro font vars. Add a peer-dependency
+migration note and correct the theming section to state document-root theming is
+the supported v5 mode (nested/portalled theming has known limits). Add package
+description, repository and homepage for the npm page.
+
+Refs TEST-1, TEST-2, CONS-6.
+* **theme:** default theme is now 'neutral' (de-branded). UZH apps must set
+data-theme="uzh". Removes undefined --theme-font-primary/--source-sans-pro font
+injection points.
+
+### Features
+
+* **alert,badge:** add semantic status variants aligned to UZH spec ([a4476b9](https://github.com/uzh-bf/design-system/commit/a4476b974e26c62507fcf1dbf18477f8dfba7943))
+* **avatar,table:** add avatar sizes + themed fallback, table hoverable opt-out ([041b3b6](https://github.com/uzh-bf/design-system/commit/041b3b648aa0a206bfc09e6d26c1181f671dc799))
+* **ds:** add Combobox (searchable single-select) ([9d6b57f](https://github.com/uzh-bf/design-system/commit/9d6b57f48a3831fda22a2396a6981b78d4ed2f3c))
+* **ds:** add DateRangePicker (range mode over Calendar) ([62382be](https://github.com/uzh-bf/design-system/commit/62382be55295a58c46c658915eea026642a88c7b))
+* **ds:** add MultiSelect (multi-value combobox with chips) ([f81cc23](https://github.com/uzh-bf/design-system/commit/f81cc23dc72e7d42f5a64a434d276463003088f6))
+* **ds:** add reference-backed advanced input variants ([deb8a7d](https://github.com/uzh-bf/design-system/commit/deb8a7d84596b10f2cd69046f58cdb4d45d1ad83))
+* **ds:** surface + table structural match to reference (card/alert/table) ([5c3354e](https://github.com/uzh-bf/design-system/commit/5c3354e10a108a4b41b647e07b2f2a1ec3dddef2))
+* **input,textarea:** add invalid prop mapped to aria-invalid ([ac44fc1](https://github.com/uzh-bf/design-system/commit/ac44fc1b8f3ba5ba2c52fd37e15d932ffe893e76))
+* **refs:** complete v5 composite ref contracts ([77db882](https://github.com/uzh-bf/design-system/commit/77db88226e8c2fd14a59ca4e73ae869b5499a43d))
+* **refs:** expose v5 direct-control refs ([#187](https://github.com/uzh-bf/design-system/issues/187)) ([b7d72b5](https://github.com/uzh-bf/design-system/commit/b7d72b5f309594ebfb02261c1fb35e85345a88bd))
+* **selectors:** add root data prop to picker and calendar components ([7257ab3](https://github.com/uzh-bf/design-system/commit/7257ab395c1d5bf896a5c2155adeec06d3ade07e)), closes [#56](https://github.com/uzh-bf/design-system/issues/56)
+* **selectors:** unify v5 test selector contract on table and workflow ([e86a3bc](https://github.com/uzh-bf/design-system/commit/e86a3bc1c14ac4b82ed897a8f49a1f872c11f568))
+* **tabs,header:** underline tabs + h4 text-md token ([c794064](https://github.com/uzh-bf/design-system/commit/c794064ee2b8a2e09ca3cf5ffb75f18aa51d6b58))
+* **theme:** add data-theme token layer with neutral default + uzh theme ([3aa7675](https://github.com/uzh-bf/design-system/commit/3aa76753c2a77c5b231798f98272fa9bf8c75b75))
+* **theme:** add ThemeProvider, useTheme, migration docs ([9f7d92c](https://github.com/uzh-bf/design-system/commit/9f7d92ca388fe79053e10a24f319f2f8d491752c))
+* **theme:** dark-mode status surfaces for alerts ([8caed2c](https://github.com/uzh-bf/design-system/commit/8caed2ce309cc590da7d300c2cf82046e768c684))
+* **ui:** accordion design fidelity (bordered box, semibold triggers) ([6aeea40](https://github.com/uzh-bf/design-system/commit/6aeea40a6dcc16f0e6dae8118070fbd73d290d26))
+* **ui:** add input-group, field primitives ([fb2f200](https://github.com/uzh-bf/design-system/commit/fb2f200be98d1fccd96dbb732e4405cd593057f2))
+* **ui:** add item, button-group primitives ([7ff8264](https://github.com/uzh-bf/design-system/commit/7ff8264ec240b60e6581ae34554d224c4ddfa50b))
+* **ui:** add spinner, kbd, empty primitives ([ef115e8](https://github.com/uzh-bf/design-system/commit/ef115e8d43d02a90094bc48837f7927bce5e8c89))
+* **ui:** content/identity/time visual fidelity ([ee4bd95](https://github.com/uzh-bf/design-system/commit/ee4bd95b65e19f13c28d7fb4b1c41ef7ec7e9c3d))
+* **ui:** overlay + feedback design fidelity ([ecba1af](https://github.com/uzh-bf/design-system/commit/ecba1afebaf49927772f98198e19369feca63119))
+
+
+### Bug Fixes
+
+* **a11y:** harden the sweep gate against false red and silent regressions ([a19ebe1](https://github.com/uzh-bf/design-system/commit/a19ebe1c2c00322cb92ec8c605abfe1c38db0363))
+* **a11y:** WCAG Level A names, keyboard paths and states for core widgets ([#182](https://github.com/uzh-bf/design-system/issues/182)) ([55f48dc](https://github.com/uzh-bf/design-system/commit/55f48dc4aa971cd9027bb8cfc69471bb6744a3f5))
+* **build:** externalize react-dom, react/jsx-runtime and all peers ([ef731aa](https://github.com/uzh-bf/design-system/commit/ef731aaafe2b462fba308426ab60418644533c1c))
+* **ds:** align heading line-heights + card shadow tier to reference ([a0c63d0](https://github.com/uzh-bf/design-system/commit/a0c63d0265ea3b3c35b1cb39e511268e1c0451d6))
+* **ds:** align navigation and menu polish to designer specs ([a8c7bc1](https://github.com/uzh-bf/design-system/commit/a8c7bc15d6fd3847e7ae152184f8f34b461dbfa8))
+* **ds:** align overlay dialog and disclosure specs ([84b5b85](https://github.com/uzh-bf/design-system/commit/84b5b85cf4e5336c2674c4af779cee00f569f089))
+* **ds:** align primitive components to designer specs ([9665640](https://github.com/uzh-bf/design-system/commit/9665640a0f78dcca88b4acfba09e77c7221b60f3))
+* **ds:** align progress and carousel shapes to designer specs ([2213ad7](https://github.com/uzh-bf/design-system/commit/2213ad76375a443de8d39dd700f0efeafce59679))
+* **ds:** avatar + badge structural match to reference ([53b988d](https://github.com/uzh-bf/design-system/commit/53b988dfb539df1098610de6e3e444cba65089ce))
+* **ds:** button fixed-height size ladder (fluid opt-out) + trigger heights ([c4980e7](https://github.com/uzh-bf/design-system/commit/c4980e7caed36e60872616061e248ef5afbb902e))
+* **ds:** chart story uses theme-reactive --theme-color-* tokens so bars follow the theme ([873419a](https://github.com/uzh-bf/design-system/commit/873419a3761d5546b5c3aa8c1c392cdde93c257d))
+* **ds:** checkbox structural match to reference (18px, both impls) ([61ca4ce](https://github.com/uzh-bf/design-system/commit/61ca4ceea19848ea571761e17387907508669ea1))
+* **ds:** pin-field cells + number-field height to reference ([baed41e](https://github.com/uzh-bf/design-system/commit/baed41e2271ca284a9654a0aec2429125731aa84))
+* **ds:** skeleton/separator/progress structural match to reference ([bd602af](https://github.com/uzh-bf/design-system/commit/bd602af4e2f52b1cb64e1531dfb10a0914f9f907))
+* **ds:** tabs underline strip to reference (drop full-width grid default) ([1e09789](https://github.com/uzh-bf/design-system/commit/1e09789cc6e8920c08ff96381aea2a1dd280dd1b))
+* **ds:** tighten form density to reference (gaps + label/error sizes) ([3a91f68](https://github.com/uzh-bf/design-system/commit/3a91f6809106c3ab708b1d463bbd622cf594fd1f))
+* **modal:** forward the primary button type so submit works ([36da2b6](https://github.com/uzh-bf/design-system/commit/36da2b600d95d6f93a28a21247dd05230616daf2))
+* **selectors:** make the removal claims match the code ([e6f2d49](https://github.com/uzh-bf/design-system/commit/e6f2d499f2e89d101540a67b34bb9dac0c578816))
+* **selectors:** tighten w1 selector proof after review ([77f7abf](https://github.com/uzh-bf/design-system/commit/77f7abfa12b4329b91d8aa9c1b0b2051e28c2489))
+* **test:** scan the rendered story, not Ladle's chrome ([bad9e9d](https://github.com/uzh-bf/design-system/commit/bad9e9d688f4bc5e36cf5f2890aafa9b454aa88e)), closes [#182](https://github.com/uzh-bf/design-system/issues/182)
+* **test:** wait for story attachment, not visibility ([d3f300e](https://github.com/uzh-bf/design-system/commit/d3f300ece8f3599eac4e7c241e469693bd6d7c5c))
+* **theme:** finalize v5 D2-D5 conformance ([e565e9a](https://github.com/uzh-bf/design-system/commit/e565e9ade145612a785994b445e9f8d487fd1336))
+* **theme:** repoint uzh chart palette to CD accent hues ([23b48a7](https://github.com/uzh-bf/design-system/commit/23b48a7b18099b90e4e048d839b9f3eaa7334106))
+* **theme:** route hardcoded component colors through semantic tokens ([873eef6](https://github.com/uzh-bf/design-system/commit/873eef62a3e7710e78cd68bfe62f1db9801347b9))
+* **ui:** align control height/radius/font to 40px/6px/14px spec ([f7ad8b7](https://github.com/uzh-bf/design-system/commit/f7ad8b79b08efbd68f53fd0f61d6d81723f25cbe))
+* **ui:** checkbox unchecked border + pin-field individual boxes ([5e6aa06](https://github.com/uzh-bf/design-system/commit/5e6aa06e711741c66a548f40662d95b52dbf3877))
+* **ui:** map destructive/secondary/status tokens to UZH brand hues ([beeab6f](https://github.com/uzh-bf/design-system/commit/beeab6fd3a2e5044df5e68229f6e7bc5d3bf2f58))
+* **ui:** route active/selected/on states through UZH primary ([6a1b184](https://github.com/uzh-bf/design-system/commit/6a1b1848d3769403fa5d60574bd157ba8812755a))
+* **ui:** route hardcoded wrapper colors through semantic tokens ([e348956](https://github.com/uzh-bf/design-system/commit/e34895633586d75a7e4caf7f1fc3ab2d33d16f24))
+* **ui:** ship aspect-video in compiled CSS; cut v5.0.0-alpha.1 ([3b69340](https://github.com/uzh-bf/design-system/commit/3b69340bc6aa21caafe79e119ef5fd21b8f3ff15))
+* **vercel:** deploy ladle branch builds as previews ([bb1ed4f](https://github.com/uzh-bf/design-system/commit/bb1ed4ff5ae1477c5e81c4d81108b9625968a3ac))
+
+
+### Build and CI
+
+* **a11y:** gate the build on a sharded axe sweep ([4e42ad0](https://github.com/uzh-bf/design-system/commit/4e42ad0223d30b453a3db42891893b1466fae4d8))
+* **deps:** add sideEffects css carve-out for tree-shaking ([9358656](https://github.com/uzh-bf/design-system/commit/935865603de9dc80ca245c3d1aa064b0a180e9e6))
+* **deps:** drop unused peers and duplicate animate plugin ([8afff37](https://github.com/uzh-bf/design-system/commit/8afff375b700da07e8d1844316487c83a31a81cd))
+* **deps:** react-hook-form → optional peerDependency ([9db4fcc](https://github.com/uzh-bf/design-system/commit/9db4fccab18ee012f0b4e3ae81255cac3b5153ee))
+* **deps:** require react-hook-form peer + correct v5 API docs ([167a7b1](https://github.com/uzh-bf/design-system/commit/167a7b198463fea609c7d211c4a64021c27f2ef9)), closes [#181](https://github.com/uzh-bf/design-system/issues/181)
+* **ds:** run playwright a11y/smoke tests + upload report ([7600d07](https://github.com/uzh-bf/design-system/commit/7600d07f055382de69469ed9567c77aec68cee39))
+* **ds:** run smoke in CI, drop a11y gate pending triage ([c3defae](https://github.com/uzh-bf/design-system/commit/c3defaee5a78ec82f008b9a224d4e7541a49b91f))
+* **exports:** add ./primitives entrypoint for raw shadcn primitives ([175da43](https://github.com/uzh-bf/design-system/commit/175da4316f42f48416ac84de3308fa7645bb5588))
+* **exports:** remove ./ui and ./forms subpaths ([47aa3a0](https://github.com/uzh-bf/design-system/commit/47aa3a0d0c3b060769cda5292f3b460afb9478b6))
+* **release:** guard npm publish dist-tag and assert tag matches version ([dc0b063](https://github.com/uzh-bf/design-system/commit/dc0b063d15446200b662e0c3ef60745e226f80e3))
+* **release:** reject prerelease ids that resolve to the reserved latest dist-tag ([e546fa2](https://github.com/uzh-bf/design-system/commit/e546fa2067eadcd741ac88a44b523c040e149d51))
+* **release:** source the version from design-system only ([d3a9982](https://github.com/uzh-bf/design-system/commit/d3a998239e554e8402f35ad0ead963b1232149cc))
+* **types:** stop tracking generated type declarations ([e7980c9](https://github.com/uzh-bf/design-system/commit/e7980c97e1a9f47df991d04ad02b97775030ec21))
+* **types:** sync tracked index.d.ts with Formik [@deprecated](https://github.com/deprecated) jsdoc ([f456636](https://github.com/uzh-bf/design-system/commit/f456636e13a5f61b8442b571caabcfe0b1160d1a))
+
+
+### Other
+
+* **a11y:** baseline known Level-A debt as a blocking allowlist ([92075d7](https://github.com/uzh-bf/design-system/commit/92075d74206de87afe8343993683ac12f8ea069c))
+* approve builds with pnpm ([0a78b2c](https://github.com/uzh-bf/design-system/commit/0a78b2c5095813d932243fe71e1cf60acc94dcb7))
+* **docs:** prettier-format MIGRATION.md v5 tables ([c1e3e5e](https://github.com/uzh-bf/design-system/commit/c1e3e5efd1361b48cc8290175ef4674a45e0732c))
+* **ds:** axe a11y sweep across all stories, both themes ([8ea860c](https://github.com/uzh-bf/design-system/commit/8ea860c3b223a5e0f9cf04fac7a5c3cf1da3c9ff))
+* **ds:** fix prettier formatting + react-refresh lint warnings ([6ebc9b3](https://github.com/uzh-bf/design-system/commit/6ebc9b34b35a7b013d9ef0ff7509d98e9c81c06e))
+* **ds:** playwright + axe tracer (button story) ([aede745](https://github.com/uzh-bf/design-system/commit/aede7452b5414287a71753c39fc83384ebaba7c2))
+* **ds:** prettier-format self-hosted font sources ([b9291d0](https://github.com/uzh-bf/design-system/commit/b9291d055e6685997605372ab1564260e2bb0ba1))
+* **ds:** prettier-format structural-alignment edits ([edb7952](https://github.com/uzh-bf/design-system/commit/edb79521ba06a88c270d3cfeb348a6d3062ac693))
+* **ds:** regenerate designer-docs alignment declarations ([32feb2d](https://github.com/uzh-bf/design-system/commit/32feb2d43f4f37dcaacf9714066f8247381ab205))
+* **ds:** regenerate type declarations for Button size prop ([6d6ba19](https://github.com/uzh-bf/design-system/commit/6d6ba19db1fda1bbc7ef0d676a5ea1990cfbc782))
+* **ds:** regenerate type declarations for new composite components ([4b1ec73](https://github.com/uzh-bf/design-system/commit/4b1ec73b447b3dc217b3f3acb7c2bdecbf996570))
+* **ds:** regenerate type declarations for v5 components ([646809e](https://github.com/uzh-bf/design-system/commit/646809ebbce9ac2bf7bc363f7618f348035b95f1))
+* **ds:** smoke-render sweep across all stories ([900557a](https://github.com/uzh-bf/design-system/commit/900557a4c22267330bcfa357208ccf1326728f4f))
+* gitignore UZH v5 design reference drop (zip + extract) ([ff45998](https://github.com/uzh-bf/design-system/commit/ff4599806a0da7e4f451b6723fa22d6970e7894f))
+* ignore built tarballs + machine-local .claude, track launch.json ([27c5ee4](https://github.com/uzh-bf/design-system/commit/27c5ee47ea90a72a93f446089d6f80ce22f43cc5))
+* ignore project/_local handoffs ([17e7372](https://github.com/uzh-bf/design-system/commit/17e7372a584da3b8c66b445330c030324797b0ec))
+* **ladle:** drive global chrome theme from the theme switch (menu accent + active item) ([027566f](https://github.com/uzh-bf/design-system/commit/027566fc7c8f0e2657052efe1c98c522e3fc529b))
+* **ladle:** persist theme/dark toggle across story navigation ([2e6aafc](https://github.com/uzh-bf/design-system/commit/2e6aafc81f27cf118e035b6a4d2d0f787f86af3d))
+* **release:** prepare @uzh-bf/design-system v5.0.0-alpha.0 ([d4892ab](https://github.com/uzh-bf/design-system/commit/d4892ab49d7603e0cb92802137460540f2ff2da1))
+* **repo:** ignore agent stack worktrees ([#185](https://github.com/uzh-bf/design-system/issues/185)) ([d99aeb0](https://github.com/uzh-bf/design-system/commit/d99aeb07ce2a4d27d1fbef0f73ac8d51b51f2cb1))
+* **repo:** ignore local designer reference drop ([d2ca8d1](https://github.com/uzh-bf/design-system/commit/d2ca8d1f7c82ee1403d680a15de6116660d853da))
+* **selectors:** make the calendar leak guard falsifiable ([39fc5ea](https://github.com/uzh-bf/design-system/commit/39fc5ea9469e70025b51d560a185f5f78c96acdd))
+* **selectors:** pin root selector contract for pickers and calendar ([28431e2](https://github.com/uzh-bf/design-system/commit/28431e2462de390bec019497b493efab3bcb4c13))
+* trim launch.json to portable ladle config ([829b954](https://github.com/uzh-bf/design-system/commit/829b95455e8cda12697db26d390a094400d21cc6))
+* update design-system submodule with local changes ([2b5fb20](https://github.com/uzh-bf/design-system/commit/2b5fb208d0560b73860df7443837f59c91dba56d))
+* update pnpm ([cb2cb92](https://github.com/uzh-bf/design-system/commit/cb2cb920b24a7dd8e7c3cac7017822d1eb954136))
+* **vercel:** add ladle preview deployment config ([2135c49](https://github.com/uzh-bf/design-system/commit/2135c494ec004a8d444676774e7a701df05a0df4))
+
+
+### Refactors
+
+* **api:** tighten v5 public prop contracts ([#186](https://github.com/uzh-bf/design-system/issues/186)) ([66a3f64](https://github.com/uzh-bf/design-system/commit/66a3f64964937910d1c026a0b82185116245fa29))
+* **button:** add the `asChild` prop to Button and pass it through to the underlying primitive ([925284a](https://github.com/uzh-bf/design-system/commit/925284a79160b579ddc1ba8d5321768bc8af0d06))
+* **exports:** remove Shadcn* prefix, raw shadcn moves to ./primitives ([57a0776](https://github.com/uzh-bf/design-system/commit/57a0776bbe38f8173dff486427306dce9fd54dec))
+* **forms:** mark Formik fields [@deprecated](https://github.com/deprecated) toward v6 removal ([78918cd](https://github.com/uzh-bf/design-system/commit/78918cdb7bf8af7ddb8594c4d45340b692f0deab))
+* **selectors:** collapse the selector contract onto a canonical layer ([911de6b](https://github.com/uzh-bf/design-system/commit/911de6bfb5af31666e0327ad298efb2aeab73ed4))
+* **theme:** route hardcoded uzh-* through semantic tokens ([ac68afb](https://github.com/uzh-bf/design-system/commit/ac68afb81a34452347ad0a192563295c390251f5))
+
+
+### Enhancements
+
+* **design-system:** split runtime bundle modules ([4627432](https://github.com/uzh-bf/design-system/commit/4627432709ab91aaf29c1c5129a9a79b5ab74246))
+* **ds:** self-host Source Sans 3 and JetBrains Mono webfonts ([b6ce876](https://github.com/uzh-bf/design-system/commit/b6ce876aae861c51f4d8fc895c039702f38683c3))
+
+
+### Documentation
+
+* **adr:** record the two-door public API decision (0001) ([6550e9f](https://github.com/uzh-bf/design-system/commit/6550e9fba6e0ed3c60fc6a7e4f5c2dcd3223527d))
+* **design-system:** document all v5 breaking changes and migration ([f2cec65](https://github.com/uzh-bf/design-system/commit/f2cec651a9658cf4d86cf355f07fbececdb4f0cf))
+* **design-system:** rewrite npm README and ship expanded migration guide ([c26a32f](https://github.com/uzh-bf/design-system/commit/c26a32f9e7d987060cdc42e44e129ff510c24fc5))
+* **ds:** correct Combobox search-keyword note ([3d4b164](https://github.com/uzh-bf/design-system/commit/3d4b16476160ff370a578c712c5b8e6ee3065fe9))
+* **ds:** stories for ThemeProvider, Chart, Form, FormLabel (close doc gap) ([1f46b0b](https://github.com/uzh-bf/design-system/commit/1f46b0b038497b068bca333f03ef317fd1bed298))
+* **project:** add a11y CI gate implementation plan ([e3f8a6b](https://github.com/uzh-bf/design-system/commit/e3f8a6b1d7a549de01839a4db85eea445aae2143))
+* **project:** add designer-docs alignment plan ([450fccb](https://github.com/uzh-bf/design-system/commit/450fccba77d0e3d0c2f69460ec691b6697cb5281))
+* **project:** add designer-docs PR screenshots ([a126a0d](https://github.com/uzh-bf/design-system/commit/a126a0da4fb196b997360a9920afbd61f2baab47))
+* **project:** add structural-baseline alignment implementation plan ([d9b7221](https://github.com/uzh-bf/design-system/commit/d9b7221496c3715133439871c6cc65b08438b5c6))
+* **project:** add v5 API consolidation plan ([819a81b](https://github.com/uzh-bf/design-system/commit/819a81b89b72a00318bf95c60cf3ca61d4105f90))
+* **project:** add v5 design-conformance audit + remediation plan ([6ed2415](https://github.com/uzh-bf/design-system/commit/6ed241531aa229bf21ce1232bf8152be63fc1849))
+* **project:** add v5 dual-theme (neutral/uzh) implementation plan ([26f86cd](https://github.com/uzh-bf/design-system/commit/26f86cd48cf2bb33caeeb23cc0cc7484880008d8))
+* **project:** add v5 production-readiness roadmap plan ([029f48f](https://github.com/uzh-bf/design-system/commit/029f48f80075763b43e8458d5336e166f1a701ff))
+* **project:** ADR keep-Ladle + a11y/playwright test plan ([6d56d64](https://github.com/uzh-bf/design-system/commit/6d56d649485d94bcc971aebd9581002cf8dbacb8))
+* **project:** composite-components + doc-gap plan for v5 ([429b02a](https://github.com/uzh-bf/design-system/commit/429b02a3127da92259af29c3a6dce6442b9a0d25)), closes [#179](https://github.com/uzh-bf/design-system/issues/179)
+* **project:** correct the Ladle story-prose finding ([098a46f](https://github.com/uzh-bf/design-system/commit/098a46f84031b32d1965b831fd2523b43259c07b))
+* **project:** gate selector api collision ([f57d8ac](https://github.com/uzh-bf/design-system/commit/f57d8ac3accd62eca7f91fee7761b680258d0a2f))
+* **project:** map post-a3 v5 roadmap ([c483d23](https://github.com/uzh-bf/design-system/commit/c483d237b8c1fe47520df63ba250b3bc639373c8))
+* **project:** persist Fable review findings for PR [#181](https://github.com/uzh-bf/design-system/issues/181) ([4d08520](https://github.com/uzh-bf/design-system/commit/4d085204be9e86f409e5e60c45e6122a835d88d2))
+* **project:** plan w2 selector rollout completion ([1d40e2a](https://github.com/uzh-bf/design-system/commit/1d40e2a620478bd1534708bee2200f96ff716953))
+* **project:** record chart token fix + ladle-chrome revert ([c056256](https://github.com/uzh-bf/design-system/commit/c05625648b2133513c6d5d388b19fe2d26fac165))
+* **project:** record D0 + D1 progress ([9059999](https://github.com/uzh-bf/design-system/commit/9059999488f3a017f42731bb183caa645145405a))
+* **project:** record D1-D10 rulings from the 2026-07-23 decision grill ([83cfea3](https://github.com/uzh-bf/design-system/commit/83cfea3a4fd346f356e78b8c73926b904e990c9c))
+* **project:** record D2 + D3, re-slice D3 (slider deferred, table->D4, tabs->D6) ([04b8b9d](https://github.com/uzh-bf/design-system/commit/04b8b9db8e026d483803c5b3a705f1dfa9a96924))
+* **project:** record D4 + D5 progress ([262dd29](https://github.com/uzh-bf/design-system/commit/262dd2920a2f47c2566240bc7fa99bc9ba5ad2e5))
+* **project:** record D6 + re-scope D7 to reference-backed only ([a2eece5](https://github.com/uzh-bf/design-system/commit/a2eece5a032c301e75f9e9e0454ea767ad69c7f9))
+* **project:** record D7 + final-gate next ([eb57092](https://github.com/uzh-bf/design-system/commit/eb5709299c9e35305db67019bb9be8b53e9ce26d))
+* **project:** record designer-docs visual verification ([b6305eb](https://github.com/uzh-bf/design-system/commit/b6305eb0fe0572612e3211910758c643b0a06404))
+* **project:** record Fable findings F1-F4 resolved ([f65a122](https://github.com/uzh-bf/design-system/commit/f65a122ac941f342b5a5819ede29ee538ad605ab))
+* **project:** record final gate (tests 1203 pass + secure) + Next Steps ([dec7489](https://github.com/uzh-bf/design-system/commit/dec7489d05cbf3d3a884c329c61c2085b47215d7))
+* **project:** record final gate (tests+security green) + Next Steps ([1da9647](https://github.com/uzh-bf/design-system/commit/1da9647890b44f37ec3e26755baf6cfc448fedbd))
+* **project:** record finish-gate results (thermo-nuclear + security PASS) ([9404f72](https://github.com/uzh-bf/design-system/commit/9404f72e0eefb86f898f90fa4cf2ba1a548ec872))
+* **project:** record P0 slice completion (S1-S5) in roadmap progress ([21e05fa](https://github.com/uzh-bf/design-system/commit/21e05fa6291a6d8285f5e02784fc9e77a95d2001))
+* **project:** record P1 decision-free batch (THEME-1/5/6/7) in roadmap progress ([971cce2](https://github.com/uzh-bf/design-system/commit/971cce20753eed9a17e8d719b3a0129366c20086))
+* **project:** record R6/R7 progress + R8 footer review, consolidate deferred backlog ([e7fa7f0](https://github.com/uzh-bf/design-system/commit/e7fa7f06ce61373f05f3760f8dca059670462457))
+* **project:** record review integration and [#182](https://github.com/uzh-bf/design-system/issues/182) correction status ([cdad51f](https://github.com/uzh-bf/design-system/commit/cdad51fe36c75fb89de00603f1809034dde65ddb))
+* **project:** record S1/S2 review and fixes ([be7cf44](https://github.com/uzh-bf/design-system/commit/be7cf44d65b5ec12613a01d23ab841b8b9469cb8))
+* **project:** record S3-S7 progress (Phase 1 code-complete) ([c7a40d2](https://github.com/uzh-bf/design-system/commit/c7a40d2ac947ae4e33c168e5385ec88769201fdf))
+* **project:** record S8-S11 + security review progress ([70d5f59](https://github.com/uzh-bf/design-system/commit/70d5f594313b84100cccd63aed21afd6750ebb95))
+* **project:** record T1 done + v5 lint/format pre-fix ([f4aaf88](https://github.com/uzh-bf/design-system/commit/f4aaf887b30349fc235bc0efd0a7d2e223bbf29a))
+* **project:** record T2-T4 done + security review (SECURE_WITH_NOTES) ([6f552f9](https://github.com/uzh-bf/design-system/commit/6f552f9443202268e435863fb172782b2f5c8ed5))
+* **project:** record the a11y harness defect and gate baseline ([855736c](https://github.com/uzh-bf/design-system/commit/855736c71e28ca013d9e85035eaf0a61cf67931b))
+* **project:** record THEME-12 slice + draft PR [#180](https://github.com/uzh-bf/design-system/issues/180) in roadmap progress ([89e435c](https://github.com/uzh-bf/design-system/commit/89e435c6efa9f3b95e132ab857bc06ff81f51691))
+* **project:** record types/ untrack slice + push authorization ([beaacf1](https://github.com/uzh-bf/design-system/commit/beaacf1f339889e0894f1c29e43379406041d1ae))
+* **project:** record v5 API consolidation in roadmap ([684447a](https://github.com/uzh-bf/design-system/commit/684447ab9de9d49b94401e2bf0d5d818e1d5816e))
+* **project:** refine selector contract fixture ([869eead](https://github.com/uzh-bf/design-system/commit/869eead99a3788737beca99a51574bbfeb9b3a1c))
+* **project:** rename plan to pr-179, mark finish complete ([e880c91](https://github.com/uzh-bf/design-system/commit/e880c918282f36e68db1f4cb5bb3e58b0f8686c4))
+* **project:** rename plan to pr-181 convention + record PR link ([a346882](https://github.com/uzh-bf/design-system/commit/a3468825ab921950f841d8e9d9e3d5d1b7695db4))
+* **project:** sync roadmap with merged milestones [#181](https://github.com/uzh-bf/design-system/issues/181)-[#183](https://github.com/uzh-bf/design-system/issues/183) and the 2026-07-23 review ([324f3e1](https://github.com/uzh-bf/design-system/commit/324f3e16eb22c8e0af05397423a1f6730a65121a)), closes [#182](https://github.com/uzh-bf/design-system/issues/182) [#182](https://github.com/uzh-bf/design-system/issues/182)
+* **project:** visual regression testing plan (docker-determinism-first) ([19cebb4](https://github.com/uzh-bf/design-system/commit/19cebb42e985fc97a66a320766901512244517b1))
+* **roadmap:** define v5 prototype readiness ([7c4d6c1](https://github.com/uzh-bf/design-system/commit/7c4d6c1d54a0c4a5f92908f9b618761381cbaab5))
+* **selectors:** align migration guide and roadmap with the shipped contract ([7411335](https://github.com/uzh-bf/design-system/commit/74113351b4cb6ceb89d59bbd156c96866360d893))
+* **selectors:** correct stale selector examples in stories ([578fe1d](https://github.com/uzh-bf/design-system/commit/578fe1d464537a2c8536d94672a7d4fe1c723e1b))
+* **selectors:** correct v5 selector claims in MIGRATION and story props ([337fd80](https://github.com/uzh-bf/design-system/commit/337fd808224d0d49c38743c5d8f1f0d97edf7580))
+* **selectors:** drop the unasserted precedence claim from the type fixture ([035b923](https://github.com/uzh-bf/design-system/commit/035b9236a4558b3546aae71be67d8f268339d0bb))
+* **selectors:** record stale data-testid story docs as w2 scope ([4555b5b](https://github.com/uzh-bf/design-system/commit/4555b5b7fdf0c987ca6ba0e82ab7fd3b547aeff8))
+* **theme:** document Google Fonts CSP/privacy considerations ([00b2a6b](https://github.com/uzh-bf/design-system/commit/00b2a6b7f10e17b8dd4b83c91546203c916f2008))
+
 ### [4.1.6](https://github.com/uzh-bf/design-system/compare/v4.1.5...v4.1.6) (2025-10-26)
 
 

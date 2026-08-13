@@ -10,6 +10,9 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+# Generated type declarations (vite-plugin-dts writes to both dist/ and types/;
+# dist/ is the shipped copy — types/ is a redundant build artifact, not source)
+types
 *.local
 
 # Editor directories and files
@@ -26,3 +29,12 @@ dist-ssr
 .cache/
 build/
 .vercel/
+
+# Built package tarballs (npm pack / publish output)
+*.tgz
+
+# Playwright
+test-results/
+playwright-report/
+blob-report/
+.playwright/

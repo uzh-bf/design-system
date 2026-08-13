@@ -22,6 +22,7 @@
       "dependsOn": []
     },
     "test": {
+      "cache": false,
       "dependsOn": ["^build"]
     }
   }

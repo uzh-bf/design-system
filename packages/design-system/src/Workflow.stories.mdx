@@ -21,7 +21,7 @@ Key features include progress indicators, disabled states for future steps, cust
 
 The workflow component accepts the following props:
 
-- @param items - The array of steps that should be displayed in the workflow.
+- @param items - The array of steps that should be displayed in the workflow. Each step accepts an optional `data` object with `cy` and `test` fields, whose attributes are rendered on that step's button.
 - @param onClick - The function that is called when a step is clicked. The step object is passed as an argument.
 - @param activeIx - The index of the active step. State management is not handled by this component.
 - @param twStyles - The optional twStyles object allows you to override the default styling.
@@ -57,8 +57,9 @@ Available Stories:
 Props:
 
 - items: Array of step objects (StepProps or StepProgressProps)
-  - StepProps: { title, description?, tooltip?, tooltipDisabled?, ...customData }
-  - StepProgressProps: { title, description?, tooltip?, tooltipDisabled?, progress?, completed?, error?, ...customData }
+  - StepProps: { title, description?, tooltip?, tooltipDisabled?, data? }
+  - StepProgressProps: { title, description?, tooltip?, tooltipDisabled?, data?, progress?, completed?, error? }
+  - data?: { cy?: string, test?: string } - Selector attributes rendered on that step's button
 - onClick: (item, index) => void - Handler for step clicks
 - activeIx?: number - Currently active step index (required for basic workflow, optional for progress workflow)
 - twStyles?: Object with bgHover, bgActive, bgPast for color customization
@@ -113,7 +114,8 @@ export function Default() {
         container and splits the available space evenly between the number of
         passed items. If a description is passed, the height of the component
         adapts accordingly. Limited custom styling is available. The items can
-        contain custom data, which is passed back to the onClick handler.
+        contain the documented step fields, which are passed back to the onClick
+        handler.
       </div>
       <Workflow
         items={workflowItems}
@@ -136,7 +138,8 @@ export function Description() {
         container and splits the available space evenly between the number of
         passed items. If a description is passed, the height of the component
         adapts accordingly. Limited custom styling is available. The items can
-        contain custom data, which is passed back to the onClick handler.
+        contain the documented step fields, which are passed back to the onClick
+        handler.
       </div>
       <Workflow
         items={workflowItemsDescription}
@@ -264,7 +267,8 @@ export function Styled() {
         container and splits the available space evenly between the number of
         passed items. If a description is passed, the height of the component
         adapts accordingly. Limited custom styling is available. The items can
-        contain custom data, which is passed back to the onClick handler.
+        contain the documented step fields, which are passed back to the onClick
+        handler.
       </div>
       <Workflow
         items={workflowItems}
@@ -275,8 +279,8 @@ export function Styled() {
         activeIx={activeIx}
         className={{
           root: 'w-1/2',
-          item: 'bg-blue-400',
-          active: 'bg-green-400',
+          item: 'bg-primary-100 text-primary-foreground',
+          active: 'bg-success text-success-foreground',
         }}
       />
     </div>

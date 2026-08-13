@@ -1,5 +1,10 @@
 name: CI
-on: [push]
+on:
+  push:
+
+permissions:
+  contents: read
+
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -75,12 +80,37 @@ jobs:
           version: 10.30.0
           run_install: true
 
-      - run: pnpm run test -- --ci --coverage --maxWorkers=2
+      - name: Install Playwright browser
+        run: pnpm --filter @uzh-bf/design-system test:install
 
-  build:
-    name: Build and Publish
+      # Packed CSS ownership tracer: builds and packs the package, then asserts
+      # the computed-token contract matrix from the packed ./css artifact in
+      # Chromium (no Ladle). Runs after browser setup; `test:fast` does not
+      # discover it implicitly.
+      - name: Run packed theme contract tests
+        run: pnpm --filter @uzh-bf/design-system test:theme-contract
+
+      # Smoke stays in this job: it is fast and reuses the build here. The full
+      # axe a11y sweep runs as its own sharded `a11y` job (below) that gates
+      # `build`, so the heavy scan does not slow this job down.
+      - name: Run Playwright smoke tests
+        run: pnpm --filter @uzh-bf/design-system test:smoke
+
+      - name: Upload Playwright report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: packages/design-system/playwright-report/
+          retention-days: 14
+
+  a11y:
     runs-on: ubuntu-latest
-    needs: [check-ts, test]
+    name: A11y (shard ${{ matrix.shard }}/4)
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4]
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -95,21 +125,135 @@ jobs:
           version: 10.30.0
           run_install: true
 
+      - name: Install Playwright browser
+        run: pnpm --filter @uzh-bf/design-system test:install
+
+      - name: Build Ladle
+        run: pnpm --filter @uzh-bf/design-system build:ladle
+
+      # Blocking axe sweep over every story x theme, at serious+critical. Known
+      # debt is waived in tests/a11y/stories.spec.ts (A11Y-17..23); anything new
+      # fails the build. Sharded four ways so no single runner is starved into
+      # timeouts, which is the only way this suite goes red without a real
+      # violation; retries:1 (playwright.config.ts, CI only) absorbs a stray one.
+      - name: Run axe a11y sweep
+        working-directory: packages/design-system
+        env:
+          PWTEST_SKIP_BUILD: "1"
+        run: pnpm exec playwright test tests/a11y --shard=${{ matrix.shard }}/4
+
+      - name: Upload Playwright report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-a11y-${{ matrix.shard }}
+          path: packages/design-system/playwright-report/
+          retention-days: 14
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs: [lint, check-ts, check-format, test, a11y]
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Use Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.30.0
+          run_install: true
+
       - name: Build
         working-directory: packages/design-system
         run: pnpm run build
 
-      - uses: JS-DevTools/npm-publish@v3
-        with:
-          token: ${{ secrets.NPM_TOKEN }}
-          access: public
-          package: packages/design-system/package.json
-        if: startsWith(github.ref, 'refs/tags/')
+      - name: Check package size
+        run: pnpm run size:check
 
-      - uses: JS-DevTools/npm-publish@v3
+  publish:
+    name: Publish
+    if: ${{ startsWith(github.ref, 'refs/tags/v') }}
+    runs-on: ubuntu-latest
+    needs: [build]
+    permissions:
+      contents: read
+      id-token: write
+      packages: write
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+
+      - name: Use Node 24
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 24.x
+
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4.3.0
+        with:
+          version: 10.30.0
+          run_install: true
+
+      - name: Build
+        working-directory: packages/design-system
+        run: pnpm run build
+
+      - name: Check package size
+        run: pnpm run size:check
+
+      # Release guard (ARCH-1): only version tags (v<semver>) publish, the git
+      # tag must match the design-system package version, and the npm dist-tag
+      # is derived from the prerelease id so a prerelease (e.g. v5.0.0-alpha.2)
+      # can never overwrite the `latest` tag. Without this, a tag push defaulted
+      # to publishing onto `latest`, clobbering the stable release.
+      - name: Resolve npm dist-tag and verify tag matches package version
+        id: release_meta
+        working-directory: packages/design-system
+        env:
+          RELEASE_REF: ${{ github.ref_name }}
+        run: |
+          PKG_VERSION="$(node -p "require('./package.json').version")"
+          GIT_TAG="${RELEASE_REF#v}"
+          if [ "$PKG_VERSION" != "$GIT_TAG" ]; then
+            echo "::error::Release ref '${RELEASE_REF}' does not match packages/design-system version '${PKG_VERSION}'. Refusing to publish."
+            exit 1
+          fi
+          # Strip build metadata (everything after '+') before inspecting the
+          # prerelease, so a '+build' suffix can never be misread as a dist-tag.
+          VERSION_CORE="${PKG_VERSION%%+*}"
+          if [[ "$VERSION_CORE" == *-* ]]; then
+            PRERELEASE="${VERSION_CORE#*-}"   # e.g. alpha.2
+            DIST_TAG="${PRERELEASE%%.*}"      # e.g. alpha
+            # A prerelease whose id is literally 'latest' (e.g. 5.0.0-latest.1)
+            # would otherwise resolve DIST_TAG=latest and clobber the stable tag
+            # this guard exists to protect. Reject the reserved value outright.
+            if [ "$DIST_TAG" = "latest" ]; then
+              echo "::error::Prerelease id resolves to the reserved dist-tag 'latest'. Refusing to publish."
+              exit 1
+            fi
+          else
+            DIST_TAG="latest"
+          fi
+          echo "dist_tag=${DIST_TAG}" >> "$GITHUB_OUTPUT"
+          echo "Publishing ${PKG_VERSION} to npm dist-tag '${DIST_TAG}'"
+
+      # npm Trusted Publisher authenticates this public publish through the
+      # job's id-token: write permission; no long-lived npm token is needed.
+      - uses: JS-DevTools/npm-publish@0fd2f4369c5d6bcfcde6091a7c527d810b9b5c3f # v4.1.5
+        with:
+          access: public
+          tag: ${{ steps.release_meta.outputs.dist_tag }}
+          package: packages/design-system/package.json
+          provenance: true
+
+      - uses: JS-DevTools/npm-publish@0fd2f4369c5d6bcfcde6091a7c527d810b9b5c3f # v4.1.5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           registry: https://npm.pkg.github.com
           access: public
+          tag: ${{ steps.release_meta.outputs.dist_tag }}
           package: packages/design-system/package.json
-        if: startsWith(github.ref, 'refs/tags/')

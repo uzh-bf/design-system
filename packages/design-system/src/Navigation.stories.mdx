@@ -129,6 +129,7 @@ Usage Examples:
       type: 'button',
       key: 'settings',
       icon: faGear,
+      ariaLabel: 'Settings',
       onClick: () => openSettings(),
       className: { icon: 'text-gray-600' }
     },
@@ -136,6 +137,7 @@ Usage Examples:
       type: 'button',
       key: 'help',
       icon: faQuestionCircle,
+      ariaLabel: 'Help',
       onClick: () => openHelp(),
       notification: true
     }
@@ -283,6 +285,7 @@ Usage Examples:
       type: 'button',
       key: 'profile',
       icon: faUser,
+      ariaLabel: 'Profile',
       onClick: () => navigate('/profile'),
       disabled: !isAuthenticated
     }
@@ -300,14 +303,14 @@ Usage Examples:
       key: 'test-button',
       label: 'Test Button',
       onClick: handleClick,
-      data: { 'data-cy': 'nav-button' }
+      data: { cy: 'nav-button' }
     },
     {
       type: 'dropdown',
       key: 'test-dropdown',
       label: 'Test Menu',
       elements: testMenuItems,
-      data: { 'data-testid': 'nav-dropdown' }
+      data: { test: 'nav-dropdown' }
     }
   ]}
 />
@@ -427,6 +430,7 @@ export const IconTrigger = () => {
   type: 'button',
   key: 'support-menubar-item',
   icon: faQuestionCircle,
+  ariaLabel: 'Support',
   onClick: () => alert('Support clicked'),
   className: { icon: '-mx-1 ' },
 }]
@@ -625,6 +629,7 @@ export const Complex = () => {
   type: 'button',
   key: 'support-menubar-item',
   icon: faQuestionCircle,
+  ariaLabel: 'Support',
   onClick: () => alert('Support clicked'),
   className: { icon: '-mx-1 ' },
 },
@@ -751,6 +756,7 @@ export const Disabled = () => {
   type: 'button',
   key: 'support-menubar-item',
   icon: faQuestionCircle,
+  ariaLabel: 'Support',
   onClick: () => alert('Support clicked'),
   className: { icon: '-mx-1 ' },
 }, disabled: true },

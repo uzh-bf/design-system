@@ -1,14 +1,15 @@
 'use client'
 
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
-import { faCircleExclamation, faX } from '@fortawesome/free-solid-svg-icons'
+import { faX } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { FieldInputProps } from 'formik'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
 import FormLabel from '../FormLabel'
-import { Tooltip } from '../Tooltip'
 import { Input } from '../ui/input'
+import { FieldErrorIndicator } from './FieldErrorIndicator'
+import { useFieldError } from './useFieldError'
 
 export interface TextFieldClassName {
   field?: string
@@ -41,6 +42,7 @@ interface TextFieldProps {
   onIconClick?: () => void
   onEnter?: (event: React.KeyboardEvent<HTMLInputElement>) => void
   onReset?: () => void
+  ref?: React.Ref<HTMLInputElement>
 }
 
 export interface TextFieldNameProps extends TextFieldProps {
@@ -52,7 +54,7 @@ export interface TextFieldNameProps extends TextFieldProps {
 }
 
 export interface TextFieldOnChangeProps extends TextFieldProps {
-  name?: never
+  name?: string
   field?: never
   value: string
   onChange: (newValue: string) => void
@@ -84,6 +86,7 @@ export interface TextFieldOnChangeProps extends TextFieldProps {
  * @param onIconClick - The optional onIconClick function is called when the icon is clicked.
  * @param onEnter - The optional onEnter function is called when the user presses the Enter key in the input field.
  * @param onReset - The optional onReset function adds a cancellation icon to the text field (right side; replacing icons positioned there)
+ * @param ref - A ref to the underlying input element.
  * @returns Text field component with optional label, tooltip, error message and icon.
  */
 
@@ -110,8 +113,15 @@ export function TextField({
   onIconClick,
   onEnter,
   onReset,
+  ref,
   ...props
 }: TextFieldNameProps | TextFieldOnChangeProps) {
+  const { inputId, visibleError, errorId } = useFieldError({
+    id,
+    error,
+    isTouched,
+    hideError,
+  })
   return (
     <div
       className={twMerge(
@@ -122,7 +132,7 @@ export function TextField({
     >
       {label && (
         <FormLabel
-          id={id}
+          id={inputId}
           required={required}
           label={label}
           labelType={labelType}
@@ -136,21 +146,25 @@ export function TextField({
           {name && field ? (
             <Input
               {...field}
-              id={id}
+              id={inputId}
+              ref={ref}
+              aria-required={required || undefined}
+              aria-describedby={visibleError ? errorId : undefined}
               data-cy={data?.cy}
               data-test={data?.test}
               name={name}
               type="text"
               placeholder={placeholder}
               disabled={disabled}
+              invalid={!!error && isTouched}
               onPaste={onPaste}
               className={twMerge(
-                'focus:border-input h-9 w-full text-base',
+                'focus:border-input h-10 w-full text-sm',
                 icon && iconPosition === 'left' && 'pl-8',
                 ((icon && iconPosition === 'right') ||
                   (!!value && typeof onReset !== 'undefined')) &&
                   'pr-10',
-                disabled && 'bg-uzh-grey-20 cursor-not-allowed opacity-70',
+                disabled && 'bg-muted cursor-not-allowed opacity-70',
                 !!error &&
                   isTouched &&
                   'border-destructive bg-destructive-background focus:border-destructive',
@@ -167,9 +181,13 @@ export function TextField({
             />
           ) : (
             <Input
-              id={id}
+              id={inputId}
+              ref={ref}
+              aria-required={required || undefined}
+              aria-describedby={visibleError ? errorId : undefined}
               data-cy={data?.cy}
               data-test={data?.test}
+              name={name}
               value={value}
               onChange={(e) => {
                 e?.stopPropagation()
@@ -179,14 +197,15 @@ export function TextField({
               type="text"
               placeholder={placeholder}
               disabled={disabled}
+              invalid={!!error && isTouched}
               onPaste={onPaste}
               className={twMerge(
-                'focus:border-input h-9 w-full text-base',
+                'focus:border-input h-10 w-full text-sm',
                 icon && iconPosition === 'left' && 'pl-8',
                 ((icon && iconPosition === 'right') ||
                   (!!value && typeof onReset !== 'undefined')) &&
                   'pr-10',
-                disabled && 'bg-uzh-grey-20 cursor-not-allowed opacity-70',
+                disabled && 'bg-muted cursor-not-allowed opacity-70',
                 !!error &&
                   isTouched &&
                   'border-destructive bg-destructive-background focus:border-destructive',
@@ -237,17 +256,8 @@ export function TextField({
             />
           ) : null}
         </div>
-        {error && !hideError && isTouched && (
-          <Tooltip
-            tooltip={error}
-            delay={0}
-            className={{ tooltip: 'max-w-120 text-sm' }}
-          >
-            <FontAwesomeIcon
-              icon={faCircleExclamation}
-              className="text-destructive mr-1"
-            />
-          </Tooltip>
+        {visibleError && (
+          <FieldErrorIndicator error={visibleError} errorId={errorId} />
         )}
       </div>
     </div>

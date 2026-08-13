@@ -2,22 +2,35 @@
 
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Dispatch } from 'react'
+import type { ComponentPropsWithoutRef, Dispatch } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Button as ShadcnButton } from './ui/button'
 
-export interface ButtonProps {
+type ButtonPrimitiveProps = ComponentPropsWithoutRef<typeof ShadcnButton>
+
+type ButtonBaseProps = Omit<
+  ButtonPrimitiveProps,
+  | 'asChild'
+  | 'aria-busy'
+  | 'children'
+  | 'className'
+  | 'disabled'
+  | 'onClick'
+  | 'size'
+  | 'type'
+  | 'variant'
+> & {
   id?: string
   children?: React.ReactNode
   onClick?: (e?: React.MouseEvent<HTMLButtonElement>) => void
   disabled?: boolean
-  asChild?: boolean
   primary?: boolean
   destructive?: boolean
   active?: boolean
   fluid?: boolean
   basic?: boolean
   loading?: boolean
+  size?: 'sm' | 'md' | 'lg'
   type?: 'button' | 'submit' | 'reset'
   className?: {
     root?: string
@@ -27,8 +40,17 @@ export interface ButtonProps {
     cy?: string
     test?: string
   }
-  [x: string]: unknown
 }
+
+export type ButtonProps =
+  | (ButtonBaseProps & {
+      asChild?: false
+      ref?: React.Ref<HTMLButtonElement>
+    })
+  | (ButtonBaseProps & {
+      asChild: true
+      ref?: never
+    })
 
 /**
  * This function returns a pre-styled Button component based on the custom theme.
@@ -43,9 +65,11 @@ export interface ButtonProps {
  * @param fluid - Indicate whether the button should be fluid or not. Conditional styling is applied, if this is true.
  * @param basic - This attribute allows to directly remove significant pre-styling and only applies basic styles and functionally required attributes.
  * @param loading - Indicate whether the button is loading or not. Conditional styling / loading symbol is applied, if this is true.
+ * @param size - The size of the button (sm/md/lg = 32/40/48px fixed height). Defaults to md. Ignored when `fluid` is set (fluid buttons grow with their content).
  * @param type - The html type of the button.
  * @param className - The optional className object allows you to override the default styling.
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy)
+ * @param ref - A ref to the native button. Refs are not supported with `asChild` until a polymorphic child-target contract is defined.
  * @returns Button component
  */
 export function Button({
@@ -60,9 +84,11 @@ export function Button({
   fluid = false,
   basic = false,
   loading = false,
+  size = 'md',
   type = 'button',
   className,
   data,
+  ref,
   ...props
 }: ButtonProps) {
   return (
@@ -77,14 +103,21 @@ export function Button({
               ? 'destructive'
               : 'outline'
       }
+      size={size === 'sm' ? 'sm' : size === 'lg' ? 'lg' : 'default'}
       disabled={disabled || loading}
+      ref={ref}
+      // The loading spinner is decorative, so the busy state is only available
+      // to assistive technology through aria-busy.
+      aria-busy={loading || undefined}
       asChild={asChild}
       type={type}
       onClick={onClick}
       className={twMerge(
-        // slightly increased margins are required for variants without border to ensure same size
-        primary || destructive ? 'px-3.25 py-1.75' : '',
-        fluid ? 'w-full justify-center' : '',
+        basic && 'h-auto p-0',
+        // fluid buttons grow with their content (auto height + wrap), floored at the md height
+        fluid
+          ? 'h-max min-h-10 w-full justify-center py-2 whitespace-normal'
+          : '',
         className?.root,
         active && 'border-primary-100 bg-primary-20 hover:bg-primary-20',
         active ? className?.active : ''
@@ -99,6 +132,7 @@ export function Button({
         <>
           {loading && (
             <svg
+              aria-hidden="true"
               className={`text-primary mr-2 -ml-1 h-5 w-5 animate-spin`}
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -220,7 +254,7 @@ Button.IconGroup = function ButtonIconGroup({
                 'rounded-none border-0 px-2 first:rounded-l-md last:rounded-r-md',
                 state === index
                   ? 'bg-primary-100 text-primary-foreground hover:bg-primary-80 hover:text-primary-foreground'
-                  : 'hover:bg-primary-20 bg-white',
+                  : 'hover:bg-primary-20 bg-background',
                 className?.children
               ),
             }}

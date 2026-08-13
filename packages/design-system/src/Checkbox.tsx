@@ -3,11 +3,13 @@
 import { faCheck, faMinus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as RadixCheckbox from '@radix-ui/react-checkbox'
-import React from 'react'
+import * as RadixLabel from '@radix-ui/react-label'
+import React, { useId } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 export interface CheckboxProps {
   id?: string
+  ref?: React.Ref<HTMLButtonElement>
   data?: {
     cy?: string
     test?: string
@@ -18,6 +20,7 @@ export interface CheckboxProps {
   disabled?: boolean
   onCheck: () => void
   label?: string | React.ReactNode
+  ariaLabel?: string
   size?: 'sm' | 'md' | 'lg' | 'xl'
   style?: { root?: React.CSSProperties; label?: React.CSSProperties }
   className?: {
@@ -39,6 +42,7 @@ export interface CheckboxProps {
  * @param onCheck - The function that is called when the checkbox is checked or unchecked.
  * @param disabled - Indicate whether the checkbox is disabled or not.
  * @param label - The label of the checkbox.
+ * @param ariaLabel - Accessible name for the checkbox when no visible label is provided (e.g. a checkbox in a table row). Ignored when label is set.
  * @param size - The size of the checkbox (can be small, medium, large or extra large).
  * @param style - The optional style object allows you to override the default styling.
  * @param className - The optional className object allows you to override the default styling.
@@ -46,26 +50,31 @@ export interface CheckboxProps {
  */
 export function Checkbox({
   id,
+  ref,
   data,
   children,
   checked,
   partial = false,
   disabled = false,
   label,
+  ariaLabel,
   onCheck,
   size = 'md',
   style,
   className,
 }: CheckboxProps): React.ReactElement {
+  const generatedId = useId()
+  const inputId = id ?? generatedId
+  const labelId = `${inputId}-label`
   const tickStyle = {
     sm: 'h-[0.8rem]',
-    md: 'h-4',
+    md: 'h-3',
     lg: 'h-5',
     xl: 'h-6',
   }
   const checkboxSize = {
     sm: 'w-4 h-4',
-    md: 'w-5 h-5',
+    md: 'w-[18px] h-[18px]',
     lg: 'w-6 h-6',
     xl: 'w-7 h-7',
   }
@@ -79,14 +88,17 @@ export function Checkbox({
   return (
     <div className="flex flex-row items-center gap-2">
       <RadixCheckbox.Root
-        id={id}
+        id={inputId}
+        ref={ref}
+        aria-labelledby={label ? labelId : undefined}
+        aria-label={!label ? ariaLabel : undefined}
         data-cy={data?.cy}
         data-test={data?.test}
         defaultChecked
         checked={checked || partial}
         className={twMerge(
-          'peer border-primary ring-offset-background focus-visible:ring-ring data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground disabled:bg-uzh-grey-20 disabled:border-border h-4 w-4 shrink-0 cursor-pointer rounded-md border focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden disabled:cursor-not-allowed',
-          (checked || partial) && 'border-black',
+          'border-input ring-offset-background focus-visible:ring-ring data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground disabled:bg-muted disabled:border-border peer shrink-0 cursor-pointer rounded-[4px] border-[1.5px] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden disabled:cursor-not-allowed',
+          (checked || partial) && 'border-primary',
           disabled && 'cursor-not-allowed',
           checkboxSize[size],
           className?.root
@@ -110,16 +122,19 @@ export function Checkbox({
         </RadixCheckbox.CheckboxIndicator>
       </RadixCheckbox.Root>
       {label && (
-        <div
+        <RadixLabel.Root
+          id={labelId}
+          htmlFor={inputId}
           style={style?.label}
           className={twMerge(
-            'flex h-full flex-col justify-center',
+            'flex h-full cursor-pointer flex-col justify-center',
+            disabled && 'cursor-not-allowed',
             maxLabelWidth[size],
             className?.label
           )}
         >
           {label}
-        </div>
+        </RadixLabel.Root>
       )}
     </div>
   )

@@ -1,0 +1,145 @@
+import { ChevronRightIcon, FileTextIcon } from 'lucide-react'
+import { Button } from './Button'
+import {
+  Item,
+  ItemActions,
+  ItemContent,
+  ItemDescription,
+  ItemGroup,
+  ItemMedia,
+  ItemSeparator,
+  ItemTitle,
+} from './Item'
+
+{/* START README */}
+<div className="prose prose-sm max-w-none">
+The `Item` component is a flexible row primitive for lists, settings panels, and
+selectable entries. It composes a leading media slot, a title/description
+content area, and a trailing actions slot into a single aligned row.
+
+Use this component when you need to:
+
+- Render a list of files, members, settings, or notifications
+- Show a leading icon or avatar next to a title and description
+- Place actions (buttons, switches, chevrons) at the end of a row
+- Group several rows with optional separators via `ItemGroup` and `ItemSeparator`
+
+`Item` supports `variant` (`default`, `outline`, `muted`) and `size`
+(`default`, `sm`). Set `asChild` to render the row as a link or button while
+keeping the layout.
+</div>
+{/* END README */}
+
+{/*
+AI_DOCUMENTATION_START
+
+Technical Overview: Composable list-row primitive with leading media, title/description content, and trailing actions, plus a group container and separator.
+Dependencies: class-variance-authority, @radix-ui/react-slot
+
+Available Stories:
+
+- Default: A single item with icon media, title, description, and an action
+- Group: Several items stacked with separators
+
+Props (Item component):
+
+- variant: "default" | "outline" | "muted" - Row background/border style
+- size: "default" | "sm" - Row padding and gap
+- asChild: boolean - Render as the child element (e.g. an anchor) instead of a div
+- className: string - Additional CSS classes
+
+Props (ItemMedia component):
+
+- variant: "default" | "icon" | "image" - Media framing (plain, tinted icon box, image crop)
+- className: string - Additional CSS classes
+
+Component Structure:
+
+- Item: The row container (data-slot="item")
+- ItemMedia: Leading icon/image slot, with "icon" and "image" variants
+- ItemContent: Flex column holding the title and description
+- ItemTitle: The row heading
+- ItemDescription: Supporting text (supports inline links, clamps to 2 lines)
+- ItemActions: Trailing slot for buttons or controls
+- ItemHeader / ItemFooter: Full-width header/footer rows within an item
+- ItemGroup: Vertical container for multiple items (role="list")
+- ItemSeparator: Horizontal divider between items
+
+Usage Examples:
+
+```tsx
+<Item variant="outline">
+  <ItemMedia variant="icon">
+    <FileTextIcon />
+  </ItemMedia>
+  <ItemContent>
+    <ItemTitle>Report.pdf</ItemTitle>
+    <ItemDescription>2.4 MB · Updated yesterday</ItemDescription>
+  </ItemContent>
+  <ItemActions>
+    <Button>Open</Button>
+  </ItemActions>
+</Item>
+```
+
+Related Components:
+
+- Card: For larger, standalone content blocks rather than list rows
+- Avatar: Often placed inside ItemMedia for people lists
+- Button: Used inside ItemActions
+
+AI_DOCUMENTATION_END
+*/}
+
+export const Default = () => {
+  return (
+    <Item variant="outline" className="max-w-md">
+      <ItemMedia variant="icon">
+        <FileTextIcon />
+      </ItemMedia>
+      <ItemContent>
+        <ItemTitle>Report.pdf</ItemTitle>
+        <ItemDescription>2.4 MB · Updated yesterday</ItemDescription>
+      </ItemContent>
+      <ItemActions>
+        <Button>Open</Button>
+      </ItemActions>
+    </Item>
+  )
+}
+
+export const Group = () => {
+  return (
+    <ItemGroup className="max-w-md">
+      <Item asChild>
+        <a href="#">
+          <ItemMedia variant="icon">
+            <FileTextIcon />
+          </ItemMedia>
+          <ItemContent>
+            <ItemTitle>Quarterly report</ItemTitle>
+            <ItemDescription>Shared with 3 people</ItemDescription>
+          </ItemContent>
+          <ItemActions>
+            <ChevronRightIcon className="text-muted-foreground size-4" />
+          </ItemActions>
+        </a>
+      </Item>
+      <ItemSeparator />
+      <Item asChild>
+        <a href="#">
+          <ItemMedia variant="icon">
+            <FileTextIcon />
+          </ItemMedia>
+          <ItemContent>
+            <ItemTitle>Budget overview</ItemTitle>
+            <ItemDescription>Only you</ItemDescription>
+          </ItemContent>
+          <ItemActions>
+            <ChevronRightIcon className="text-muted-foreground size-4" />
+          </ItemActions>
+        </a>
+      </Item>
+    </ItemGroup>
+  )
+}

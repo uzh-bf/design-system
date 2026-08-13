@@ -1,0 +1,157 @@
+/*
+ * Theme layer for @uzh-bf/design-system v5.
+ *
+ * Two selectable themes, driven by a `data-theme` attribute (default = neutral
+ * on :root):
+ *   - neutral: de-branded, shadcn-like. Default for white-label / non-UZH apps.
+ *   - uzh:     UZH corporate design (UZH blue primary, UZH red secondary,
+ *              Source Sans 3). Opt in with `data-theme="uzh"`.
+ *
+ * Mechanism: every theme-varying token is an intermediate `--theme-*` custom
+ * property consumed (by reference) from `@theme inline` in tailwind.css. A
+ * `data-theme` element re-declares these vars, so themes switch with zero JS.
+ * The verified contract is one theme on the document root; nested themes and
+ * content portaled outside that root are not guaranteed to stay isolated.
+ *
+ * The fixed `--color-uzh-*` corporate palette lives in tailwind.css and is
+ * available in BOTH themes for explicit / chart use.
+ */
+
+/* ── Neutral (default) ─────────────────────────────────────────────────── */
+:root,
+[data-theme='neutral'] {
+  /* fonts */
+  --theme-font-sans:
+    ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol', 'Noto Color Emoji';
+  --theme-font-mono:
+    ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco, Consolas,
+    'Liberation Mono', 'Courier New', monospace;
+
+  /* primary ramp — neutral greyscale (shadcn-like dark primary) */
+  --theme-color-primary: oklch(0.205 0 0);
+  --theme-color-primary-80: oklch(0.37 0 0);
+  --theme-color-primary-60: oklch(0.55 0 0);
+  --theme-color-primary-40: oklch(0.72 0 0);
+  --theme-color-primary-20: oklch(0.92 0 0);
+
+  /* secondary ramp — neutral mid greys */
+  --theme-color-secondary: oklch(0.45 0 0);
+  --theme-color-secondary-80: oklch(0.55 0 0);
+  --theme-color-secondary-60: oklch(0.65 0 0);
+  --theme-color-secondary-40: oklch(0.8 0 0);
+  --theme-color-secondary-20: oklch(0.92 0 0);
+
+  /* status — generic green / amber / blue.
+     Main tokens are dark enough to read as text on their light -background tint
+     (soft notification/alert style); -foreground is for text on the solid fill. */
+  --theme-success: oklch(0.5 0.13 150);
+  --theme-success-foreground: oklch(0.985 0 0);
+  --theme-success-background: oklch(0.96 0.03 150);
+  --theme-warning: oklch(0.8 0.16 80);
+  --theme-warning-foreground: oklch(0.27 0.02 80);
+  --theme-warning-background: oklch(0.96 0.05 90);
+  --theme-info: oklch(0.5 0.14 245);
+  --theme-info-foreground: oklch(0.985 0 0);
+  --theme-info-background: oklch(0.96 0.03 240);
+  --theme-destructive-text: #b91c1c;
+}
+
+/* ── UZH corporate design ──────────────────────────────────────────────── */
+[data-theme='uzh'] {
+  /* fonts — Source Sans 3 (UI) + JetBrains Mono (code), loaded in tailwind.css */
+  --theme-font-sans:
+    'Source Sans 3', 'Source Sans Pro', ui-sans-serif, system-ui, -apple-system,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --theme-font-mono:
+    'JetBrains Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco,
+    Consolas, 'Liberation Mono', 'Courier New', monospace;
+
+  /* primary ramp — UZH blue */
+  --theme-color-primary: var(--color-uzh-blue-100);
+  --theme-color-primary-80: var(--color-uzh-blue-80);
+  --theme-color-primary-60: var(--color-uzh-blue-60);
+  --theme-color-primary-40: var(--color-uzh-blue-40);
+  --theme-color-primary-20: var(--color-uzh-blue-20);
+
+  /* secondary ramp — UZH Berry (reference colors-secondary.html) */
+  --theme-color-secondary: var(--color-uzh-berry-100);
+  --theme-color-secondary-80: var(--color-uzh-berry-80);
+  --theme-color-secondary-60: var(--color-uzh-berry-60);
+  --theme-color-secondary-40: var(--color-uzh-berry-40);
+  --theme-color-secondary-20: var(--color-uzh-berry-20);
+
+  /* status — UZH accent hues (reference colors-semantic.html):
+     success Apple4, warning Gold, info Cyan4. Dark text is used for both
+     solid status surfaces and their light brand tints to meet AA. */
+  --theme-success: #7ca023;
+  --theme-success-foreground: #111111;
+  --theme-success-background: #ecf6d6;
+  --theme-warning: #ffc845;
+  --theme-warning-foreground: #111111;
+  --theme-warning-background: #fff4da;
+  --theme-info: #1ea7c4;
+  --theme-info-foreground: #111111;
+  --theme-info-background: #dbf4f9;
+
+  /* destructive + notification — UZH Orange / Berry (reference).
+     Scoped here (not theme-agnostic) so neutral keeps the shadcn red. */
+  --destructive: #fc4c02;
+  --destructive-foreground: #111111;
+  --destructive-background: #ffdbcc;
+  --theme-destructive-text: #111111;
+  --notification: var(--color-uzh-berry-100);
+
+  /* bridge shadcn semantic primary + focus ring to UZH blue */
+  --primary: var(--theme-color-primary);
+  --primary-foreground: #ffffff;
+  --ring: var(--theme-color-primary);
+  --sidebar-primary: var(--theme-color-primary);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-ring: var(--theme-color-primary);
+  /* active nav item — UZH blue tint bg + blue text (reference side-nav) */
+  --sidebar-accent: var(--theme-color-primary-20);
+  --sidebar-accent-foreground: var(--theme-color-primary);
+
+  /* UZH chart palette — CD accent hues (blue, cyan, apple, gold, berry).
+     chart-2/3/4 reuse the status accent tokens (Cyan/Apple/Gold) so the
+     categorical series stays on the official palette instead of the legacy
+     turqoise/lightgreen/yellow families. */
+  --chart-1: var(--color-uzh-blue-100);
+  --chart-2: var(--theme-info);
+  --chart-3: var(--theme-success);
+  --chart-4: var(--theme-warning);
+  --chart-5: var(--color-uzh-berry-100);
+}
+
+/* ── Dark-mode status surfaces ─────────────────────────────────────────────
+ * The `.dark` axis only re-maps core shadcn tokens, so without these the status
+ * `-background` tints keep their light values while `text-foreground` flips to
+ * light — light text on a light tint, unreadable. Re-map the status backgrounds
+ * to dark, low-chroma tints so the (now light) foreground text/border/icon read
+ * cleanly. Main colours and `-foreground` are left untouched, so solid status
+ * surfaces (badges) are unaffected.
+ *
+ * Selectors cover both supported placements: `.dark` co-located with the theme
+ * (Ladle; `<html class="dark" data-theme="…">`) and a `.dark` ancestor of the
+ * themed subtree. The compound/descendant selectors out-specify the base theme
+ * blocks, so they win regardless of source order. */
+/* `:root.dark:not([data-theme])` (not bare `:root.dark`) so a co-located
+ * `<html class="dark" data-theme="uzh">` is driven only by the uzh block below,
+ * not by a source-order tie between two equal-specificity selectors. */
+:root.dark:not([data-theme]),
+[data-theme='neutral'].dark,
+.dark [data-theme='neutral'] {
+  --theme-success-background: oklch(0.24 0.04 150);
+  --theme-warning-background: oklch(0.26 0.04 80);
+  --theme-info-background: oklch(0.24 0.04 245);
+}
+
+[data-theme='uzh'].dark,
+.dark [data-theme='uzh'] {
+  --theme-success-background: oklch(0.25 0.04 165);
+  --theme-warning-background: oklch(0.27 0.05 95);
+  --theme-info-background: oklch(0.25 0.04 200);
+}

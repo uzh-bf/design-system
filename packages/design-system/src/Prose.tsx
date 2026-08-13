@@ -29,7 +29,7 @@ export function Prose({ id, data, className, children }: ProseProps) {
       data-cy={data?.cy}
       data-test={data?.test}
       className={twMerge(
-        'prose-h4:text-md prose prose-headings:font-sans prose-headings:font-bold prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg hover:prose-a:text-primary-100',
+        'prose-h4:text-md prose prose-headings:font-sans prose-headings:font-bold prose-h1:text-2xl prose-h1:leading-[1.2] prose-h2:text-xl prose-h2:leading-[1.25] prose-h3:text-lg prose-h3:leading-[1.3] hover:prose-a:text-primary-100',
         className?.root
       )}
     >

@@ -16,24 +16,46 @@ export interface FormatterArgs {
   ix: number
 }
 
+// The status icons are decorative (FontAwesome renders them aria-hidden), so
+// every branch carries its own visually hidden text. Without it the wrapping
+// button has no accessible name at all as soon as a status is set, and the
+// plain number alone reads as a bare digit.
 function contentFormatter({ element, ix }: FormatterArgs) {
+  const step = `Step ${ix + 1}`
+
   if (element.status === 'correct') {
-    return <FontAwesomeIcon icon={faCheckDouble} />
+    return (
+      <>
+        <FontAwesomeIcon icon={faCheckDouble} />
+        <span className="sr-only">{step}: correct</span>
+      </>
+    )
   }
 
   if (element.status === 'incorrect') {
-    return <FontAwesomeIcon icon={faX} />
+    return (
+      <>
+        <FontAwesomeIcon icon={faX} />
+        <span className="sr-only">{step}: incorrect</span>
+      </>
+    )
   }
 
   if (element.status === 'partial') {
-    return <FontAwesomeIcon icon={faCheck} />
+    return (
+      <>
+        <FontAwesomeIcon icon={faCheck} />
+        <span className="sr-only">{step}: partially correct</span>
+      </>
+    )
   }
 
-  if (!element.status || element.status === 'unanswered') {
-    return <div>{ix + 1}</div>
-  }
-
-  return <div>{ix + 1}</div>
+  return (
+    <>
+      <span aria-hidden="true">{ix + 1}</span>
+      <span className="sr-only">{step}</span>
+    </>
+  )
 }
 
 export interface StepItem {
@@ -113,6 +135,8 @@ export function StepProgress({
       {typeof displayOffsetLeft !== 'undefined' &&
         (value || 0) - displayOffsetLeft > 0 && (
           <button
+            type="button"
+            aria-label="Go to previous step"
             data-cy={data?.cy ? `${data?.cy}-left` : undefined}
             className={twMerge(
               'hover:bg-primary-20 hover:text-primary-100 rounded-l px-3 py-1',
@@ -133,6 +157,8 @@ export function StepProgress({
         return (
           <button
             key={ix}
+            type="button"
+            aria-current={value === ix ? 'step' : undefined}
             data-cy={data?.cy ? `${data?.cy}-${ix}` : undefined}
             disabled={element.disabled ?? false}
             className={twMerge(
@@ -149,11 +175,11 @@ export function StepProgress({
                 ix > (value || 0) + displayOffsetRight &&
                 'hidden',
               element.status === 'correct' &&
-                'bg-opacity-60! bg-green-700/90! text-white hover:bg-green-700! hover:text-white',
+                'bg-success text-success-foreground hover:bg-success hover:text-success-foreground',
               element.status === 'incorrect' &&
-                'bg-opacity-60! bg-destructive/90! hover:destructive! text-white hover:text-white',
+                'bg-destructive text-destructive-foreground hover:bg-destructive hover:text-destructive-foreground',
               element.status === 'partial' &&
-                'bg-opacity-60! bg-uzh-red-100/90! hover:bg-uzh-red-100! text-white hover:text-white',
+                'bg-opacity-60! bg-secondary-100/90! hover:bg-secondary-100! text-white hover:text-white',
               value === ix && 'bg-opacity-100',
               element.className
             )}
@@ -166,6 +192,8 @@ export function StepProgress({
       {typeof displayOffsetRight !== 'undefined' &&
         length > (value || 0) + displayOffsetRight + 1 && (
           <button
+            type="button"
+            aria-label="Go to next step"
             data-cy={data?.cy ? `${data?.cy}-right` : undefined}
             className={twMerge(
               'hover:bg-primary-20 hover:text-primary-100 rounded-r px-3 py-1'
