@@ -82,8 +82,6 @@ async function expectRequestedTheme(
   page: Page,
   theme: LadleTheme
 ): Promise<void> {
-  const wrapper = page.locator(THEME_WRAPPER_SELECTOR)
-  await wrapper.waitFor({ state: 'attached', timeout: 15_000 })
   await page.waitForFunction(
     ({ selector, expected }) =>
       document.querySelector(selector)?.getAttribute('data-theme') === expected,
