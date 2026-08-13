@@ -124,7 +124,8 @@
   tests, four accessibility shards, and Build; Build & Deploy passed with
   deployment skipped. Vercel and Greptile passed. The verified local
   screenshot set is under `project/_local/screenshots/theme-extension-contract/`
-  and remains ignored pending attachment before readiness.
+  and remains ignored as local visual evidence; no GitHub attachment is
+  required before readiness.
 
 ## Goal
 
@@ -450,7 +451,8 @@ Stop and report the exact evidence if:
 
 ## Next steps
 
-The corrected head is pushed to draft PR #198, and exact-head CI is green. Attach
-the ignored desktop and narrow-viewport screenshot set before
-requesting separate readiness authority. Merge, tag, publication, consumer
-delivery, deployment, and GA promotion remain separate explicit authority gates.
+The corrected head is pushed to draft PR #198, and exact-head CI is green. The
+ignored desktop and narrow-viewport screenshot set is retained as local visual
+evidence. Request separate readiness authority when the maintainer is ready;
+merge, tag, publication, consumer delivery, deployment, and GA promotion remain
+separate explicit authority gates.
