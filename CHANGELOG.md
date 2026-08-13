@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.1.7](https://github.com/uzh-bf/design-system/compare/v4.1.6...v4.1.7) (2026-08-13)
+
+
+### Bug Fixes
+
+* **date-picker:** constrain popover to viewport ([#199](https://github.com/uzh-bf/design-system/issues/199)) ([ff6350d](https://github.com/uzh-bf/design-system/commit/ff6350ddfda95549d2cf039c3a1866118ec9cb3b))
+
+
+### Refactors
+
+* change TextBlock attachments to programmatic download links, fix DurationsPopover click propagation, update Module 6 Unit 1 Excel exercise to use inline markdown link, and rename seedCompetencies function to _seedCompetencies ([925284a](https://github.com/uzh-bf/design-system/commit/925284a79160b579ddc1ba8d5321768bc8af0d06))
+
+
+### Other
+
+* update design-system submodule with local changes ([2b5fb20](https://github.com/uzh-bf/design-system/commit/2b5fb208d0560b73860df7443837f59c91dba56d))
+* update pnpm ([cb2cb92](https://github.com/uzh-bf/design-system/commit/cb2cb920b24a7dd8e7c3cac7017822d1eb954136))
+
 ### [4.1.6](https://github.com/uzh-bf/design-system/compare/v4.1.5...v4.1.6) (2025-10-26)
 
 
