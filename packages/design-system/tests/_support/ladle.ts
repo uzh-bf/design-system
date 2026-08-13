@@ -41,6 +41,8 @@ export function loadStoryIds(): string[] {
  */
 const STORY_SELECTOR = `#ladle-root > [data-theme] > :not(${TOOLBAR_SELECTOR})`
 
+const THEME_WRAPPER_SELECTOR = '#ladle-root > [data-theme]'
+
 /**
  * Open a story in preview mode and wait until its content has actually mounted.
  *
@@ -69,7 +71,24 @@ export async function gotoStory(
     state: 'attached',
     timeout: 15_000,
   })
+  if (theme) {
+    await expectRequestedTheme(page, theme)
+  }
   await settle(page)
+}
+
+/** Confirm the Ladle provider rendered the requested theme before axe runs. */
+async function expectRequestedTheme(
+  page: Page,
+  theme: LadleTheme
+): Promise<void> {
+  const wrapper = page.locator(THEME_WRAPPER_SELECTOR)
+  await wrapper.waitFor({ state: 'attached', timeout: 15_000 })
+  await page.waitForFunction(
+    ({ selector, expected }) =>
+      document.querySelector(selector)?.getAttribute('data-theme') === expected,
+    { selector: THEME_WRAPPER_SELECTOR, expected: theme }
+  )
 }
 
 /**
