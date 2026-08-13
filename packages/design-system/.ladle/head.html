@@ -1,25 +1,3 @@
 <!-- Fonts are self-hosted by the design system itself (src/fonts.css, loaded via
-     tailwind.css), so the Ladle preview no longer fetches them from Google —
-     keeping the story/VRT environment deterministic and offline-capable.
-     NOTE (follow-up): the block below is legacy v4 scaffolding — the orange
-     --theme-color-primary tokens and the removed --theme-font-primary override
-     predate the v5 dual-theme system and should be revisited separately. -->
-<style>
-  :root {
-    --theme-color-primary: #dc6027;
-    --theme-color-primary-80: #e38052;
-    --theme-color-primary-60: #eaa07d;
-    --theme-color-primary-40: #f1bfa9;
-    --theme-color-primary-20: #f8dfd4;
-    --theme-color-secondary: #a3adb7;
-    --theme-color-secondary-80: #b5bdc5;
-    --theme-color-secondary-60: #c8ced4;
-    --theme-color-secondary-40: #dadee2;
-    --theme-color-secondary-20: #edeff1;
-    --theme-font-primary: 'Source Sans 3';
-  }
-
-  * {
-    font-family: var(--theme-font-primary);
-  }
-</style>
+     tailwind.css), so the Ladle preview does not need to fetch them from Google —
+     keeping the story/VRT environment deterministic and offline-capable. -->

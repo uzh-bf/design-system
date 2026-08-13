@@ -75,8 +75,9 @@ export function App({ children }) {
 }
 ```
 
-Anything inside a `data-theme="uzh"` container (set directly or via
-`ThemeProvider`) resolves its tokens against the UZH theme.
+Components inside a `data-theme="uzh"` container (set directly or via
+`ThemeProvider`) inherit the UZH token layer. The supported and verified
+application boundary is still one theme on the document root.
 
 > **Supported scope in v5: document-root theming.** Setting one theme on the
 > document root (`<html data-theme="…">`) is the supported, verified mode. Mixed
@@ -85,6 +86,37 @@ Anything inside a `data-theme="uzh"` container (set directly or via
 > (dialogs, dropdown/context menus, hover cards, tooltips) render outside a
 > `ThemeProvider` wrapper and resolve the document-root theme. Keep a single root
 > theme unless you have verified a specific nested case.
+
+### Complete primary-ramp extension
+
+The supported brand-extension seam is a complete, consumer-owned five-step
+primary ramp. Import `@uzh-bf/design-system/css` before the consumer stylesheet
+and override all five variables on the document root:
+
+```css
+@import '@uzh-bf/design-system/css';
+
+:root[data-theme='uzh'] {
+  --theme-color-primary: var(--app-primary-100);
+  --theme-color-primary-80: var(--app-primary-80);
+  --theme-color-primary-60: var(--app-primary-60);
+  --theme-color-primary-40: var(--app-primary-40);
+  --theme-color-primary-20: var(--app-primary-20);
+}
+```
+
+Define the app-prefixed variables in the consumer stylesheet or replace the
+references with the approved literal values. The design system does not own or
+generate those values.
+
+The design system derives the primary, focus-ring, and sidebar bridges from
+that ramp: `--primary`, `--ring`, `--sidebar-primary`, `--sidebar-ring`,
+`--sidebar-accent`, and `--sidebar-accent-foreground`. A single primary colour
+is not supported, and missing steps are not generated. Secondary, status,
+destructive, font, chart, and other UZH tokens stay design-system-owned.
+Application-specific semantic variables should be app-prefixed; generic
+`--primary`, `--accent`, and `--destructive` declarations are collisions rather
+than the branding extension path.
 
 ## Breaking change: public API surface
 

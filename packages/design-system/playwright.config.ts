@@ -13,6 +13,8 @@ const PREVIEW = `pnpm exec ladle preview --port ${PORT} --host 127.0.0.1`
 
 export default defineConfig({
   testDir: './tests',
+  // The packed Next/RHF fixture owns its server and Playwright config.
+  testIgnore: ['tests/rsc/next-consumer/**'],
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   // The a11y harness (tests/_support/ladle.ts) can wait up to ~35s before axe

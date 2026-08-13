@@ -77,9 +77,18 @@ import { ThemeProvider } from '@uzh-bf/design-system'
 ;<ThemeProvider theme="uzh">{children}</ThemeProvider>
 ```
 
-Document-root theming is the supported and verified mode in v5. See
-[`MIGRATION.md`](./MIGRATION.md) for the theming model and its current
-limitations.
+Document-root theming is the supported and verified mode in v5. `ThemeProvider`
+remains useful for a component subtree, but it does not make nested themes or
+portal content a separately verified theme boundary. See [`MIGRATION.md`](./MIGRATION.md)
+for the current limitations.
+
+### Complete primary-ramp extension
+
+Consumers may replace the UZH primary family with a design-approved complete
+five-step ramp loaded after the packaged stylesheet. The six semantic bridges
+follow the ramp; do not provide only one primary colour or generate missing
+steps in application code. The exact syntax, fixed-token boundary, and
+app-prefix collision guidance are in [`MIGRATION.md`](./MIGRATION.md#complete-primary-ramp-extension).
 
 ## Usage
 
