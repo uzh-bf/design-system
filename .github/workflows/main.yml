@@ -124,15 +124,17 @@ jobs:
       - name: Build Ladle
         run: pnpm --filter @uzh-bf/design-system build:ladle
 
-      # Blocking axe sweep over every story x theme, at serious+critical. Known
-      # debt is waived in tests/a11y/stories.spec.ts (A11Y-17..23); anything new
-      # fails the build. Sharded four ways so no single runner is starved into
-      # timeouts, which is the only way this suite goes red without a real
-      # violation; retries:1 (playwright.config.ts, CI only) absorbs a stray one.
+      # Blocking axe sweep over every story x theme, at serious+critical. The
+      # checked-in exact inventory fails on any unexpected, missing, or changed
+      # tuple. Sharded four ways so no single runner is starved into timeouts;
+      # retries:1 (playwright.config.ts, CI only) absorbs a stray one.
       - name: Run axe a11y sweep
         working-directory: packages/design-system
         env:
           PWTEST_SKIP_BUILD: "1"
+          A11Y_PREFLIGHT: "1"
+          A11Y_INVENTORY_OUTPUT: ${{ runner.temp }}/a11y-inventory-${{ matrix.shard }}.jsonl
+          A11Y_COVERAGE_OUTPUT: ${{ runner.temp }}/a11y-coverage-${{ matrix.shard }}.jsonl
         run: pnpm exec playwright test tests/a11y --shard=${{ matrix.shard }}/4
 
       - name: Upload Playwright report
@@ -141,6 +143,16 @@ jobs:
         with:
           name: playwright-report-a11y-${{ matrix.shard }}
           path: packages/design-system/playwright-report/
+          retention-days: 14
+
+      - name: Upload normalized a11y inventory
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: a11y-inventory-${{ matrix.shard }}
+          path: |
+            ${{ runner.temp }}/a11y-inventory-${{ matrix.shard }}.jsonl
+            ${{ runner.temp }}/a11y-coverage-${{ matrix.shard }}.jsonl
           retention-days: 14
 
   build:

@@ -5,12 +5,17 @@ import { gotoStory, loadStoryIds, TOOLBAR_SELECTOR } from '../_support/ladle'
 import {
   assertExactStoryInventory,
   assertStoryIds,
+  INVENTORY_THEMES,
   type SeriousCriticalTuple,
 } from './exact-inventory'
+import {
+  writeTestCoverageFile,
+  writeTestInventoryFile,
+} from './inventory-protocol'
 
 // Axe a11y sweep over every component story in both themes. Readme (MDX prose)
 // pages are smoke-only (see tests/smoke), so they are excluded here.
-const THEMES = ['neutral', 'uzh'] as const
+const THEMES = INVENTORY_THEMES
 const storyIds = loadStoryIds().filter((id) => !id.endsWith('--readme'))
 assertStoryIds(storyIds)
 
@@ -40,6 +45,21 @@ for (const theme of THEMES) {
           theme,
         }))
         assertExactStoryInventory(observed, id, theme)
+        if (process.env.A11Y_INVENTORY_OUTPUT) {
+          writeTestInventoryFile(
+            process.env.A11Y_INVENTORY_OUTPUT,
+            test.info().testId,
+            observed
+          )
+        }
+        if (process.env.A11Y_COVERAGE_OUTPUT) {
+          writeTestCoverageFile(
+            process.env.A11Y_COVERAGE_OUTPUT,
+            test.info().testId,
+            id,
+            theme
+          )
+        }
 
         // Inventory marker — greppable during triage. Every violation is
         // logged, including the moderate and minor ones the gate lets through.

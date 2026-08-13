@@ -6,12 +6,19 @@
 
 export type A11yTheme = 'neutral' | 'uzh'
 
+export const INVENTORY_THEMES = ['neutral', 'uzh'] as const
+
 export type SeriousCriticalTuple = {
   rule: string
   impact: 'serious' | 'critical'
   story: string
   theme: A11yTheme
 }
+
+export type InventoryTuple = Pick<
+  SeriousCriticalTuple,
+  'rule' | 'story' | 'theme'
+>
 
 export type InventoryMetadata = {
   reason: string
@@ -1361,13 +1368,13 @@ export const EXACT_SERIOUS_CRITICAL_INVENTORY = [
   },
 ] as const satisfies readonly SeriousCriticalTuple[]
 
-export function tupleKey(tuple: SeriousCriticalTuple): string {
+export function tupleKey(tuple: InventoryTuple): string {
   return `${tuple.theme}|${tuple.story}|${tuple.rule}`
 }
 
-export function sortTuples(
-  tuples: readonly SeriousCriticalTuple[]
-): SeriousCriticalTuple[] {
+export function sortTuples<T extends InventoryTuple>(
+  tuples: readonly T[]
+): T[] {
   return [...tuples].sort(
     (a, b) =>
       a.theme.localeCompare(b.theme) ||
