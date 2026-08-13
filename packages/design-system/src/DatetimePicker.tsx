@@ -804,7 +804,10 @@ const DateTimePicker = React.forwardRef<
             )}
           </div>
         </div>
-        <PopoverContent className="w-auto p-0" align={align}>
+        <PopoverContent
+          className="max-h-(--radix-popover-content-available-height) w-auto overflow-y-auto p-0"
+          align={align}
+        >
           <Calendar
             mode="single"
             captionLayout={captionLayout}
