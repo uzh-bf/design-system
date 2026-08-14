@@ -1,4 +1,4 @@
-# v4 npm Trusted Publishing and 4.1.8 release plan
+# PR [#200](https://github.com/uzh-bf/design-system/pull/200) — v4 npm Trusted Publishing and 4.1.8 release plan
 
 ## Goal
 
@@ -22,7 +22,7 @@
 - Branch: `rs/release-dry-run`
 - Target: `main`
 - Starting ref: `364cb6be0d5a7581922e58b02a828007adab8e5b` (`v4.1.7`)
-- PR: not created yet
+- PR: [#200](https://github.com/uzh-bf/design-system/pull/200), draft
 - Related source: v5 trusted-publisher implementation, merged as commit `70eb98a9a` through PR [#195](https://github.com/uzh-bf/design-system/pull/195)
 
 ## Research
