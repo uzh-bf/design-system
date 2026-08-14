@@ -13,6 +13,14 @@ const PREVIEW = `pnpm exec ladle preview --port ${PORT} --host 127.0.0.1`
 
 export default defineConfig({
   testDir: './tests',
+  globalSetup:
+    process.env.A11Y_PREFLIGHT === '1'
+      ? './tests/a11y/global-setup.ts'
+      : undefined,
+  globalTeardown:
+    process.env.A11Y_INVENTORY_OUTPUT || process.env.A11Y_COVERAGE_OUTPUT
+      ? './tests/a11y/global-teardown.ts'
+      : undefined,
   // The packed Next/RHF fixture owns its server and Playwright config.
   testIgnore: ['tests/rsc/next-consumer/**'],
   fullyParallel: true,
