@@ -50,7 +50,7 @@ Execution-tier skip reason: the implementation and release slices stay in the ma
 | Risk or behavior | Existing protection | Obligation and primary seam | Failure caught |
 | --- | --- | --- | --- |
 | Existing v4 validation remains required before publish | `lint`, `check-ts`, `check-format`, and `test` jobs | extend workflow dependency graph; CI job wiring | a tag publishes after a skipped or failed required check |
-| Only an exact version tag can publish | none in v4 | add workflow guard and shell edge-case exercises | stray tag, mismatch, build metadata, or reserved `latest` prerelease reaches npm |
+| Only an exact version tag can publish | none in v4 | add workflow guard and shell edge-case exercises | stray tag, mismatch, build metadata, reserved `latest`, or numeric prerelease reaches npm |
 | npm identity uses OIDC and provenance | v5 PR #195 implementation | extend workflow contract; static inspection plus authoritative CI | stale token path or missing OIDC/provenance configuration remains |
 | Package identity and exports remain compatible | existing package manifest | no new test; JSON/export-key comparison and `npm pack --dry-run` | metadata backport changes v4 entrypoints or package contents |
 | 4.1.8 release metadata is consistent | standard-version and prior release commits | extend release convention; manifest/changelog/tag assertions | root/package versions diverge or an existing tag is recreated |
@@ -72,7 +72,7 @@ Execution-tier skip reason: the implementation and release slices stay in the ma
   - use pinned checkout/setup-node/pnpm/npm-publish action SHAs from the reviewed v5 implementation;
   - use Node 24/npm 11-compatible publishing, without a registry-url or `NPM_TOKEN` on the npm path;
   - verify `github.ref_name` is exactly `v<packages/design-system/package.json version>`;
-  - derive `latest` for stable versions and the first prerelease identifier for prereleases, reject the reserved `latest` prerelease, and ignore build metadata;
+  - derive `latest` for stable versions and the first prerelease identifier for prereleases, reject reserved `latest` and numeric identifiers, and ignore build metadata;
   - publish to npm with provenance through OIDC, then retain GitHub Packages publication with `GITHUB_TOKEN` and `packages: write`.
 - Change `packages/design-system/package.json` only by adding the v5 repository object with the exact GitHub repository URL and `directory: packages/design-system`. Preserve the v4 exports, files, engine, and behavior.
 - Check: JSON parse, YAML structural checks, no NPM_TOKEN input, exact permissions, pinned actions, tag-only publish condition, positive/mismatch/prerelease guard exercises, and `git diff --check`.
@@ -111,9 +111,9 @@ Execution-tier skip reason: the implementation and release slices stay in the ma
 
 ## Progress
 
-- Status: integrated-final review complete with one runtime-parity concern resolved by fresh Node 24 evidence; branch delivery remains.
-- Completed: named worktree/branch/ref validation, v4/v5 workflow comparison, registry absence check for 4.1.7/4.1.8, workflow/package backport, JSON/YAML checks, guard edge-case exercises, standard-version 4.1.8 preparation, Node 22 repository checks, Node 24 publish-job build check, and local package verification.
-- Remaining: record final-review disposition, recheck remote main, push branch, create/update draft PR, observe branch CI, and report the final authoritative release boundary.
+- Status: PR #200 review correction applied locally; numeric first prerelease identifiers now fail clearly before either registry publish step.
+- Completed: named worktree/branch/ref validation, v4/v5 workflow comparison, registry absence check for 4.1.7/4.1.8, workflow/package backport, JSON/YAML checks, guard edge-case exercises including numeric prerelease rejection, standard-version 4.1.8 preparation, Node 22 repository checks, Node 24 publish-job build check, local package verification, draft PR delivery, and branch CI observation.
+- Remaining: commit and push the review correction, update PR #200, observe its correction CI, and report the final authoritative release boundary; Vercel remains report-only.
 - Latest evidence: Node 22.16/pnpm 10.30 frozen install, format, lint, type, test, and package build all passed with `CI=true`; Node 24.17/pnpm 10.30 frozen install and package build also passed with the expected `node: =22` warning; Node 24.17/npm 11.13.0 `npm pack --dry-run --json` produced `@uzh-bf/design-system@4.1.8`, 277 files, 973728 bytes; all nine manifests are 4.1.8; exports and repository metadata are correct; `pnpm-lock.yaml` is unchanged; no `v4.1.8` tag exists.
 - Security scan: Opengrep completed with 29 findings, all outside the privileged publish steps; mutable-action findings remain in ordinary workflow paths and existing NumberField/pnpm policy findings remain pre-existing. No secret values were inspected.
 - Review reports: planning, initial S1 slice, simplifier, correction, and integrated-final reports are under `project/_local/reviews/`; integrated-final concern is resolved by the Node 24 build evidence and the package engine remains unchanged.
