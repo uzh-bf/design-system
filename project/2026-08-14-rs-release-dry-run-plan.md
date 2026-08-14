@@ -111,9 +111,9 @@ Execution-tier skip reason: the implementation and release slices stay in the ma
 
 ## Progress
 
-- Status: S3 verification complete locally; planning-stage review completed with `DONE_WITH_CONCERNS`; S1 slice review and correction findings are resolved.
-- Completed: named worktree/branch/ref validation, v4/v5 workflow comparison, registry absence check for 4.1.7/4.1.8, workflow/package backport, JSON/YAML checks, guard edge-case exercises, standard-version 4.1.8 preparation, and local package verification.
-- Remaining: integrated-final review, branch-only push, draft PR, branch CI evidence, and the final authoritative release boundary report.
-- Latest evidence: Node 22.16/pnpm 10.30 frozen install, format, lint, type, test, and package build all passed with `CI=true`; Node 24.17/npm 11.13.0 `npm pack --dry-run --json` produced `@uzh-bf/design-system@4.1.8`, 277 files, 973728 bytes; all nine manifests are 4.1.8; exports and repository metadata are correct; `pnpm-lock.yaml` is unchanged; no `v4.1.8` tag exists.
+- Status: integrated-final review complete with one runtime-parity concern resolved by fresh Node 24 evidence; branch delivery remains.
+- Completed: named worktree/branch/ref validation, v4/v5 workflow comparison, registry absence check for 4.1.7/4.1.8, workflow/package backport, JSON/YAML checks, guard edge-case exercises, standard-version 4.1.8 preparation, Node 22 repository checks, Node 24 publish-job build check, and local package verification.
+- Remaining: record final-review disposition, recheck remote main, push branch, create/update draft PR, observe branch CI, and report the final authoritative release boundary.
+- Latest evidence: Node 22.16/pnpm 10.30 frozen install, format, lint, type, test, and package build all passed with `CI=true`; Node 24.17/pnpm 10.30 frozen install and package build also passed with the expected `node: =22` warning; Node 24.17/npm 11.13.0 `npm pack --dry-run --json` produced `@uzh-bf/design-system@4.1.8`, 277 files, 973728 bytes; all nine manifests are 4.1.8; exports and repository metadata are correct; `pnpm-lock.yaml` is unchanged; no `v4.1.8` tag exists.
 - Security scan: Opengrep completed with 29 findings, all outside the privileged publish steps; mutable-action findings remain in ordinary workflow paths and existing NumberField/pnpm policy findings remain pre-existing. No secret values were inspected.
-- Review reports: planning, initial S1 slice, simplifier, and correction reports are under `project/_local/reviews/`; integrated-final review is pending.
+- Review reports: planning, initial S1 slice, simplifier, correction, and integrated-final reports are under `project/_local/reviews/`; integrated-final concern is resolved by the Node 24 build evidence and the package engine remains unchanged.
