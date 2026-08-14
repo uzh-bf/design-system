@@ -91,8 +91,12 @@ Replace regex-family accessibility waivers with a measured, exact `(rule, story,
 ## Progress
 
 - Planning-stage review: `APPROVE_WITH_CONCERNS` with no must-fix findings; terminal report is `project/_local/reviews/2026-08-12-v5-a11y-exact-inventory-planning.md` in the roadmap worktree. Operational refinements were incorporated: stable JSON-lines output, canonical four-shard evidence in S2, `CI=true PWTEST_SKIP_BUILD=1`, and roadmap evidence prepared for the separate owner.
-- Current state: plan committed locally as the first W2 package commit; W1 is merged into `v5` as `d1825b4`, but the linked worktree cannot write its Git object database in this sandbox, so base refresh and implementation use a temporary standalone clone while the named worktree remains preserved.
-- Next step: confirm the three W1 story IDs in the refreshed `v5` manifest, then begin S1 through the configured `executor` route.
+- Current state: W2 S1 and S2 were completed in the verified standalone clone, then imported into the named worktree as canonical commits `08120037b`, `f6302575a`, `db5f28d1b`, and `450c3edd0`. The import preserved the reviewed a11y harness and resolved the Playwright configuration conflict by retaining both the shard preflight hooks and the existing packed Next/RHF exclusion.
+- S1 evidence: a fresh `v5@d1825b4` Ladle build produced 384 non-readme story IDs, including all three W1 theme-extension IDs. The complete neutral/UZH run passed 795/795 tests; the exact inventory contains 148 tuples (98 critical, 50 serious; 80 neutral, 68 UZH). Mutation checks for missing stories, missing tuples, and duplicate tuples passed. Simplification removed the redundant theme wait; slice review used the read-only executor fallback and returned `APPROVE`.
+- S2 evidence: every explicit CI shard runs story-manifest and configured-theme preflight. Two fresh-build four-shard cycles passed after the preflight correction, with 148 normalized tuples and all 768 story/theme pairs in each cycle; inventory and coverage unions were byte-equivalent. The configured slice reviewer was unavailable; the executor fallback's preflight concern was corrected in `450c3edd0` and the full protocol was rerun successfully. The S2 simplifier returned `ACCEPT`.
+- S3 evidence: the corrected standalone a11y suite passed 795/795; smoke passed 480/480; package build, size, packed theme contract 672/672, root `pnpm check`, root `pnpm lint`, root `pnpm format:check`, and `git diff --check` passed. A concurrent run was discarded because both suites competed for fixed preview port 61011; the standalone rerun is authoritative.
+- Integrated final: the complete reviewed range `d1825b45..ed917196` received `APPROVE` from the read-only executor fallback because the configured final reviewer was unavailable. The reports are under `/private/tmp/design-system-w2-exact-inventory/project/_local/reviews/`; no threshold findings remain. The local package is complete at the reviewed delivery layer. No push, PR update, merge, release, or deployment is authorized by this checkpoint.
+- Next step: reconcile W2 in the separate roadmap-owner checkpoint; do not start W3 until that roadmap state records W2's reviewed delivery.
 
 ### Package boundary
 
@@ -104,23 +108,23 @@ Replace regex-family accessibility waivers with a measured, exact `(rule, story,
     "path": "project/2026-08-12-v5-ga-remaining-roadmap.md",
     "w_item": "W2"
   },
-  "state": "active",
+  "state": "complete",
   "required_delivery": "reviewed",
-  "achieved_delivery": "planned",
+  "achieved_delivery": "reviewed",
   "slices": {
-    "completed": [],
-    "remaining": ["S1", "S2", "S3"]
+    "completed": ["S1", "S2", "S3"],
+    "remaining": []
   },
   "gates": {
-    "verification": {"required": true, "state": "pending", "evidence": []},
-    "simplification": {"required": true, "state": "pending", "evidence": []},
-    "slice_review": {"required": true, "state": "pending", "evidence": []},
-    "integrated_final": {"required": true, "state": "pending", "evidence": []}
+    "verification": {"required": true, "state": "passed", "evidence": ["795/795 corrected standalone a11y tests", "480/480 smoke tests", "two fresh four-shard cycles", "148 tuple union", "768 story/theme pairs per cycle", "672/672 packed theme-contract assertions", "root checks", "package size gate", "package build", "mutation checks"]},
+    "simplification": {"required": true, "state": "passed", "evidence": ["S1 redundant theme wait removed", "S2 simplifier ACCEPT"]},
+    "slice_review": {"required": true, "state": "passed_with_fallback", "evidence": ["S1 executor fallback APPROVE", "S2 executor fallback concern corrected in 450c3edd0", "native slice-reviewer unavailable"]},
+    "integrated_final": {"required": true, "state": "passed_with_fallback", "evidence": ["read-only executor fallback APPROVE over d1825b45..ed917196", "native final-reviewer unavailable"]}
   },
   "active_workers": [],
   "parking": null,
   "git": {
-    "head": "04bd362e04804781a6b330d783e79bda2ea8101e",
+    "head": "450c3edd0",
     "base": "d1825b450dc0b6899dece815811ab29bfc7524f1",
     "branch": "rs/v5-a11y-exact-inventory",
     "worktree": "/Users/rschlae/Git/df/design-system/trees/rs-v5-a11y-exact-inventory"
