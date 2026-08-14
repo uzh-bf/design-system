@@ -1,5 +1,10 @@
 name: CI
-on: [push]
+on:
+  push:
+
+permissions:
+  contents: read
+
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -78,15 +83,15 @@ jobs:
       - run: pnpm run test -- --ci --coverage --maxWorkers=2
 
   build:
-    name: Build and Publish
+    name: Build
     runs-on: ubuntu-latest
-    needs: [check-ts, test]
+    needs: [lint, check-ts, check-format, test]
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Use Node 22
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 22.x
 
@@ -99,17 +104,76 @@ jobs:
         working-directory: packages/design-system
         run: pnpm run build
 
-      - uses: JS-DevTools/npm-publish@v3
-        with:
-          token: ${{ secrets.NPM_TOKEN }}
-          access: public
-          package: packages/design-system/package.json
-        if: startsWith(github.ref, 'refs/tags/')
+  publish:
+    name: Publish
+    if: ${{ startsWith(github.ref, 'refs/tags/v') }}
+    runs-on: ubuntu-latest
+    needs: [build]
+    permissions:
+      contents: read
+      id-token: write
+      packages: write
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
 
-      - uses: JS-DevTools/npm-publish@v3
+      - name: Use Node 24
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 24.x
+
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4.3.0
+        with:
+          version: 10.30.0
+          run_install: true
+
+      - name: Build
+        working-directory: packages/design-system
+        run: pnpm run build
+
+      # Release guard: only version tags (v<semver>) publish, the git tag must
+      # match the design-system package version, and the npm dist-tag is
+      # derived from the prerelease id so a prerelease cannot overwrite latest.
+      - name: Resolve npm dist-tag and verify tag matches package version
+        id: release_meta
+        working-directory: packages/design-system
+        env:
+          RELEASE_REF: ${{ github.ref_name }}
+        run: |
+          PKG_VERSION="$(node -p "require('./package.json').version")"
+          GIT_TAG="${RELEASE_REF#v}"
+          if [ "$PKG_VERSION" != "$GIT_TAG" ]; then
+            echo "::error::Release ref '${RELEASE_REF}' does not match packages/design-system version '${PKG_VERSION}'. Refusing to publish."
+            exit 1
+          fi
+          # Strip build metadata before inspecting the prerelease so a '+build'
+          # suffix can never be misread as an npm dist-tag.
+          VERSION_CORE="${PKG_VERSION%%+*}"
+          if [[ "$VERSION_CORE" == *-* ]]; then
+            PRERELEASE="${VERSION_CORE#*-}"
+            DIST_TAG="${PRERELEASE%%.*}"
+            if [ "$DIST_TAG" = "latest" ]; then
+              echo "::error::Prerelease id resolves to the reserved dist-tag 'latest'. Refusing to publish."
+              exit 1
+            fi
+          else
+            DIST_TAG="latest"
+          fi
+          echo "dist_tag=${DIST_TAG}" >> "$GITHUB_OUTPUT"
+          echo "Publishing ${PKG_VERSION} to npm dist-tag '${DIST_TAG}'"
+
+      # npm Trusted Publisher authenticates this public publish through the
+      # job's id-token: write permission; no long-lived npm token is needed.
+      - uses: JS-DevTools/npm-publish@0fd2f4369c5d6bcfcde6091a7c527d810b9b5c3f # v4.1.5
+        with:
+          access: public
+          tag: ${{ steps.release_meta.outputs.dist_tag }}
+          package: packages/design-system/package.json
+          provenance: true
+
+      - uses: JS-DevTools/npm-publish@0fd2f4369c5d6bcfcde6091a7c527d810b9b5c3f # v4.1.5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           registry: https://npm.pkg.github.com
           access: public
           package: packages/design-system/package.json
-        if: startsWith(github.ref, 'refs/tags/')

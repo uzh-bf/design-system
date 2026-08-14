@@ -111,8 +111,8 @@ Execution-tier skip reason: the implementation and release slices stay in the ma
 
 ## Progress
 
-- Status: S0 active; planning-stage review completed with `DONE_WITH_CONCERNS`.
-- Completed: named worktree/branch/ref validation, v4/v5 workflow comparison, registry absence check for 4.1.7/4.1.8, Node 22 baseline package build, and format check.
-- Remaining: commit plan, implement S1, review S1, prepare S2, run S3, final review, push branch, create/update draft PR, and report the release boundary.
-- Latest evidence: clean worktree at `364cb6be0`; package build passed under Node 22.16 with pnpm 10.30 after sandbox IPC fallback; first sandbox build was not accepted because Node 26 violated the package engine and tsx IPC was blocked.
+- Status: S1 implementation complete locally; planning-stage review completed with `DONE_WITH_CONCERNS`.
+- Completed: named worktree/branch/ref validation, v4/v5 workflow comparison, registry absence check for 4.1.7/4.1.8, Node 22 baseline package build, format check, workflow/package backport, JSON/YAML checks, and guard edge-case exercises.
+- Remaining: commit S1, run slice reviews, prepare S2, run S3, final review, push branch, create/update draft PR, and report the release boundary.
+- Latest evidence: workflow YAML and both package manifests parse; no `NPM_TOKEN` input remains in the workflow; Node 24.17/npm 11.13.0 satisfies the publish runtime; guard cases pass for stable, prerelease, build metadata, mismatch, and reserved `latest`.
 - Review reports: planning-stage review is recorded in the session; slice and integrated-final reports are pending.
