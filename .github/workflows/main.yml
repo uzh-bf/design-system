@@ -176,4 +176,5 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           registry: https://npm.pkg.github.com
           access: public
+          tag: ${{ steps.release_meta.outputs.dist_tag }}
           package: packages/design-system/package.json
