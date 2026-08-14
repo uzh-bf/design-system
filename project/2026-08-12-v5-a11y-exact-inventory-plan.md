@@ -9,7 +9,15 @@
 - Planned branch/worktree: `rs/v5-a11y-exact-inventory` / `trees/rs-v5-a11y-exact-inventory`
 - Plan path: `project/2026-08-12-v5-a11y-exact-inventory-plan.md`
 - Dependency: final W1 theme stories must be merged into `v5` before W2 execution; planning may proceed in parallel
-- Base: `origin/v5` at `3bb6ade0e9b95061d4bbf79fc385253576ae7ad7` after GitHub API readback
+- Base: refreshed remote `v5` at `d1825b450dc0b6899dece815811ab29bfc7524f1`, the W1 merge commit
+
+## Delegation Map
+
+| Workstream | Slices | Owner | Dependency or handoff | Acceptance boundary |
+| --- | --- | --- | --- | --- |
+| Exact inventory contract | S1 | `executor` | Starts from refreshed `v5`; main session owns baseline interpretation and the independent story-ID oracle | Fresh Ladle manifest, exact serious/critical `(rule, story, theme)` tuples, requested-theme assertion, duplicate rejection, and all three merged W1 story IDs present |
+| Shard and repeatability guard | S2 | `executor` | Hands S1's exact representation to shard-local preflight and two-cycle comparison; main session owns CI topology | Every shard runs the preflight; two fresh four-shard normalized unions are byte-equivalent; missing, partial, duplicate, or changed tuples fail |
+| Package closeout | S3 | `main` | Integrates S1/S2 and their reports; no remote publication authority implied | Fresh build, two complete four-shard cycles, package gates, final review, data-hygiene check, and draft PR evidence |
 
 ## Goal
 
@@ -29,7 +37,7 @@ Replace regex-family accessibility waivers with a measured, exact `(rule, story,
 - `packages/design-system/tests/_support/ladle.ts` derives story IDs from the fresh-build `build/meta.json` and waits for rendered story content before axe, but the current selector does not assert the requested theme value.
 - `.github/workflows/main.yml` runs the a11y sweep as a four-shard blocking job and makes `build` depend on all shards.
 - Historical counts of 186 failing story/theme tests and 190 rule cases are stale until a fresh build; they are evidence only, not the new baseline.
-- W1 PR #198 is live at `572508a08`, draft, and unmerged. Its three theme-extension story IDs are a hard execution precondition, not a planning claim that W1 is integrated.
+- W1 PR #198 merged into `v5` as `d1825b4`. Its three theme-extension story IDs remain a hard execution precondition and must be confirmed in the fresh manifest and independent oracle.
 
 ## Test portfolio
 
@@ -48,6 +56,7 @@ Replace regex-family accessibility waivers with a measured, exact `(rule, story,
 - Do: after the W1 merge precondition is satisfied, build Ladle from the W2 branch; enumerate sorted component story IDs and compare them bidirectionally with a committed expected story-ID fixture; reject duplicates, unknown IDs, and missing W1 IDs. Run `neutral` and `uzh`, assert the requested rendered theme wrapper, and record every serious/critical violation as a canonical tuple `(rule, story, theme)` with stable sorting. Keep `impact` as the eligibility filter, not tuple identity. Replace regex waiver matching with exact tuple matching. Store reason, owner, and `fixture debt | component debt` metadata separately from matching so metadata cannot widen the baseline.
 - Owned paths: `packages/design-system/tests/a11y/stories.spec.ts`; one named fixture such as `packages/design-system/tests/a11y/exact-inventory.ts`; only the smallest helper path needed for exact tuple loading and theme assertion.
 - Route: `executor` for bounded implementation after plan approval; main session owns baseline interpretation and any ambiguity about the independent oracle.
+- Execution-tier skip reason: none; this is a bounded tool-using test-harness change with named paths and runnable acceptance checks.
 - Acceptance: the provisional S1 runs use a fresh Ladle build and `CI=true PWTEST_SKIP_BUILD=1`; the canonical two-cycle/four-shard evidence protocol is completed in S2. An unexpected, absent, duplicate, unknown, or changed tuple fails; every tuple is attributed to one story and one theme; the W1 IDs are present in the independent oracle and fresh manifest. Normalized shard output is a stable JSON-lines file sorted by `theme`, `story`, then `rule`; S2 compares the four-file union with a checked-in helper rather than parsing console output.
 - Review: substantive test-gate change; run exactly one configured `simplifier` and one risk-selected `slice-reviewer` on the same immutable commit range, in parallel, before integration.
 - Commit: `test(a11y): pin exact serious-critical inventory`.
@@ -82,8 +91,42 @@ Replace regex-family accessibility waivers with a measured, exact `(rule, story,
 ## Progress
 
 - Planning-stage review: `APPROVE_WITH_CONCERNS` with no must-fix findings; terminal report is `project/_local/reviews/2026-08-12-v5-a11y-exact-inventory-planning.md` in the roadmap worktree. Operational refinements were incorporated: stable JSON-lines output, canonical four-shard evidence in S2, `CI=true PWTEST_SKIP_BUILD=1`, and roadmap evidence prepared for the separate owner.
-- Current state: plan committed locally as the first W2 package commit; no implementation slice started because W1 PR #198 remains draft and unmerged.
-- Next step: after W1 merges into `v5`, refresh the base, confirm the three W1 story IDs, and begin S1 through the configured `executor` route.
+- Current state: plan committed locally as the first W2 package commit; W1 is merged into `v5` as `d1825b4`, but the linked worktree cannot write its Git object database in this sandbox, so base refresh and implementation use a temporary standalone clone while the named worktree remains preserved.
+- Next step: confirm the three W1 story IDs in the refreshed `v5` manifest, then begin S1 through the configured `executor` route.
+
+### Package boundary
+
+```json
+{
+  "schema": "PackageBoundary/v1",
+  "package_key": "v5-a11y-exact-inventory",
+  "roadmap": {
+    "path": "project/2026-08-12-v5-ga-remaining-roadmap.md",
+    "w_item": "W2"
+  },
+  "state": "active",
+  "required_delivery": "reviewed",
+  "achieved_delivery": "planned",
+  "slices": {
+    "completed": [],
+    "remaining": ["S1", "S2", "S3"]
+  },
+  "gates": {
+    "verification": {"required": true, "state": "pending", "evidence": []},
+    "simplification": {"required": true, "state": "pending", "evidence": []},
+    "slice_review": {"required": true, "state": "pending", "evidence": []},
+    "integrated_final": {"required": true, "state": "pending", "evidence": []}
+  },
+  "active_workers": [],
+  "parking": null,
+  "git": {
+    "head": "04bd362e04804781a6b330d783e79bda2ea8101e",
+    "base": "d1825b450dc0b6899dece815811ab29bfc7524f1",
+    "branch": "rs/v5-a11y-exact-inventory",
+    "worktree": "/Users/rschlae/Git/df/design-system/trees/rs-v5-a11y-exact-inventory"
+  }
+}
+```
 
 ## Review routing
 
