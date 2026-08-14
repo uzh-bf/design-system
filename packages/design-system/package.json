@@ -149,6 +149,7 @@
     "test:a11y": "pnpm build:ladle && PWTEST_SKIP_BUILD=1 playwright test tests/a11y",
     "test:fast": "PWTEST_SKIP_BUILD=1 playwright test",
     "test:install": "playwright install --with-deps chromium",
+    "test:theme-contract": "node tests/theme-contract/verify-packed-css.mjs",
     "check": "run-s check:ts check:types",
     "check:ts": "tsc --noEmit",
     "check:types": "tsc -p tsconfig.types.json --noEmit"

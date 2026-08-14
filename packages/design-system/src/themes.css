@@ -1,17 +1,17 @@
 /*
  * Theme layer for @uzh-bf/design-system v5.
  *
- * Two selectable themes, driven by a `data-theme` attribute on any ancestor
- * element (default = neutral on :root):
+ * Two selectable themes, driven by a `data-theme` attribute (default = neutral
+ * on :root):
  *   - neutral: de-branded, shadcn-like. Default for white-label / non-UZH apps.
  *   - uzh:     UZH corporate design (UZH blue primary, UZH red secondary,
  *              Source Sans 3). Opt in with `data-theme="uzh"`.
  *
  * Mechanism: every theme-varying token is an intermediate `--theme-*` custom
  * property consumed (by reference) from `@theme inline` in tailwind.css. A
- * `data-theme` ancestor re-declares these vars; the var() chain resolves to the
- * nearest ancestor at runtime, so themes switch with zero JS and can be nested
- * either way (uzh inside neutral, neutral inside uzh).
+ * `data-theme` element re-declares these vars, so themes switch with zero JS.
+ * The verified contract is one theme on the document root; nested themes and
+ * content portaled outside that root are not guaranteed to stay isolated.
  *
  * The fixed `--color-uzh-*` corporate palette lives in tailwind.css and is
  * available in BOTH themes for explicit / chart use.
@@ -105,15 +105,15 @@
   --notification: var(--color-uzh-berry-100);
 
   /* bridge shadcn semantic primary + focus ring to UZH blue */
-  --primary: var(--color-uzh-blue-100);
+  --primary: var(--theme-color-primary);
   --primary-foreground: #ffffff;
-  --ring: var(--color-uzh-blue-100);
-  --sidebar-primary: var(--color-uzh-blue-100);
+  --ring: var(--theme-color-primary);
+  --sidebar-primary: var(--theme-color-primary);
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-ring: var(--color-uzh-blue-100);
+  --sidebar-ring: var(--theme-color-primary);
   /* active nav item — UZH blue tint bg + blue text (reference side-nav) */
-  --sidebar-accent: var(--color-uzh-blue-20);
-  --sidebar-accent-foreground: var(--color-uzh-blue-100);
+  --sidebar-accent: var(--theme-color-primary-20);
+  --sidebar-accent-foreground: var(--theme-color-primary);
 
   /* UZH chart palette — CD accent hues (blue, cyan, apple, gold, berry).
      chart-2/3/4 reuse the status accent tokens (Cyan/Apple/Gold) so the
