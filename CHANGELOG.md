@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.1.8](https://github.com/uzh-bf/design-system/compare/v4.1.7...v4.1.8) (2026-08-14)
+
+
+### Bug Fixes
+
+* **release:** align GitHub package dist-tags ([6f461e3](https://github.com/uzh-bf/design-system/commit/6f461e3c31eb1e985eda47194f9a2eb92f9617e8))
+
+
+### Build and CI
+
+* **release:** backport npm trusted publishing for v4 ([cbd165a](https://github.com/uzh-bf/design-system/commit/cbd165a311f549c6105897084a77154971673087))
+
+
+### Documentation
+
+* **project:** add v4 trusted publishing release plan ([89369db](https://github.com/uzh-bf/design-system/commit/89369dbb46ff699fc1375f26d45a526ec0417c15))
+* **project:** record v4 release workflow review ([62ce573](https://github.com/uzh-bf/design-system/commit/62ce57324a6246a1b3aa873e415fa2c00ef10927))
+
+
+### Other
+
+* **repo:** ignore local review artifacts ([6ff2950](https://github.com/uzh-bf/design-system/commit/6ff29505eb0707b1bf7d171ff0496a44aad76aac))
+
 ### [4.1.7](https://github.com/uzh-bf/design-system/compare/v4.1.6...v4.1.7) (2026-08-13)
 
 
