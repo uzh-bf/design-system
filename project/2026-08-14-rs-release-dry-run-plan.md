@@ -111,8 +111,9 @@ Execution-tier skip reason: the implementation and release slices stay in the ma
 
 ## Progress
 
-- Status: S1 implementation complete locally; planning-stage review completed with `DONE_WITH_CONCERNS`; slice review found and corrected the GitHub Packages dist-tag omission.
-- Completed: named worktree/branch/ref validation, v4/v5 workflow comparison, registry absence check for 4.1.7/4.1.8, Node 22 baseline package build, format check, workflow/package backport, JSON/YAML checks, and guard edge-case exercises.
-- Remaining: prepare S2, run S3, final review, push branch, create/update draft PR, and report the release boundary.
-- Latest evidence: workflow YAML and both package manifests parse; no `NPM_TOKEN` input remains in the workflow; both registries receive the derived dist-tag; Node 24.17/npm 11.13.0 satisfies the publish runtime; guard cases pass for stable, prerelease, build metadata, mismatch, and reserved `latest`.
-- Review reports: planning-stage review is recorded in the session; initial slice review, simplifier, and correction findings are pending artifact capture; integrated-final review is pending.
+- Status: S3 verification complete locally; planning-stage review completed with `DONE_WITH_CONCERNS`; S1 slice review and correction findings are resolved.
+- Completed: named worktree/branch/ref validation, v4/v5 workflow comparison, registry absence check for 4.1.7/4.1.8, workflow/package backport, JSON/YAML checks, guard edge-case exercises, standard-version 4.1.8 preparation, and local package verification.
+- Remaining: integrated-final review, branch-only push, draft PR, branch CI evidence, and the final authoritative release boundary report.
+- Latest evidence: Node 22.16/pnpm 10.30 frozen install, format, lint, type, test, and package build all passed with `CI=true`; Node 24.17/npm 11.13.0 `npm pack --dry-run --json` produced `@uzh-bf/design-system@4.1.8`, 277 files, 973728 bytes; all nine manifests are 4.1.8; exports and repository metadata are correct; `pnpm-lock.yaml` is unchanged; no `v4.1.8` tag exists.
+- Security scan: Opengrep completed with 29 findings, all outside the privileged publish steps; mutable-action findings remain in ordinary workflow paths and existing NumberField/pnpm policy findings remain pre-existing. No secret values were inspected.
+- Review reports: planning, initial S1 slice, simplifier, and correction reports are under `project/_local/reviews/`; integrated-final review is pending.
