@@ -327,11 +327,17 @@ environment, branch, authority, or integration decisions.
   passed. `actionlint` was unavailable locally, and no remote job URL or
   artifact exists because push/CI execution remains outside the current
   authority.
+- S3 review: the slice-reviewer returned PASS. The simplifier accepted one
+  low-risk cleanup for the job-local `contents: read` block duplicated by the
+  workflow-wide least-privilege permission. The correction removes only that
+  redundant block; both reports are retained under `project/_local/reviews/`.
+- S3 correction evidence: after removing the redundant permission block, the
+  workflow still passes YAML parsing, workflow Prettier, and `git diff
+  --check`; the existing global `contents: read` permission remains in force.
 - Integrated final review: not started.
 - Active children: none.
 - Required delivery: local implementation plus report-only CI evidence.
 - Achieved delivery: approved plan committed; S1 and S2 locally verified,
-  reviewed, and correction-verified; S3 locally validated; no external
-  delivery performed.
-- Next action: commit and review the local S3 job, then stop at the explicit
-  S4 push/CI authority boundary.
+  reviewed, and correction-verified; S3 locally reviewed and
+  correction-verified; no external delivery performed.
+- Next action: stop at the explicit S4 push/CI authority boundary.
