@@ -348,7 +348,8 @@ environment, branch, authority, or integration decisions.
 - Transaction follow-up: the host-side transaction now captures its status
   outside the Bash conditional context that suppresses `errexit`, preserves
   the original exit status through the rollback trap, records rollback intent
-  before each move, handles HUP/INT/TERM, and keeps incomplete recovery data.
+  before each move, handles parent HUP/INT/TERM through cooperative
+  cancellation and child waiting, and keeps incomplete recovery data.
   A focused shell harness exercised copy failure, backup-move failure,
   install-move failure, and successful replacement; failures returned nonzero
   with the original baseline intact and success left no transaction residue.

@@ -170,18 +170,61 @@ replace_snapshots_transactionally() (
   snapshot_exit_handler() {
     local status=$?
 
-    trap - EXIT
+    trap - HUP INT TERM EXIT
     rollback_snapshot_transaction || status=1
     exit "$status"
   }
 
-  staging_dir="$(mktemp -d "${PACKAGE_DIR}/visual/.visual-snapshots.XXXXXX")"
+  snapshot_signal_handler() {
+    local status="$1"
+
+    trap - HUP INT TERM EXIT
+    rollback_snapshot_transaction || status=1
+    exit "$status"
+  }
+
+  local cancel_file="${output_dir}/.visual-regression-cancel"
+  check_snapshot_cancellation() {
+    local status=1
+
+    if [[ ! -f "$cancel_file" ]]; then
+      return 0
+    fi
+    if ! read -r status < "$cancel_file"; then
+      status=1
+    fi
+    case "$status" in
+      129 | 130 | 143) exit "$status" ;;
+      *) exit 1 ;;
+    esac
+  }
+
+  local setup_signal=''
+  local setup_signal_status=0
+  setup_signal_handler() {
+    setup_signal="$1"
+    setup_signal_status="$2"
+  }
+
   trap snapshot_exit_handler EXIT
-  trap 'exit 129' HUP
-  trap 'exit 130' INT
-  trap 'exit 143' TERM
+  trap 'setup_signal_handler HUP 129' HUP
+  trap 'setup_signal_handler INT 130' INT
+  trap 'setup_signal_handler TERM 143' TERM
+
+  staging_dir="$(mktemp -d "${PACKAGE_DIR}/visual/.visual-snapshots.XXXXXX")"
+  if [[ -n "$setup_signal" ]]; then
+    exit "$setup_signal_status"
+  fi
 
   backup_dir="$(mktemp -d "${PACKAGE_DIR}/visual/.visual-backups.XXXXXX")"
+  if [[ -n "$setup_signal" ]]; then
+    exit "$setup_signal_status"
+  fi
+  check_snapshot_cancellation
+
+  trap 'snapshot_signal_handler 129' HUP
+  trap 'snapshot_signal_handler 130' INT
+  trap 'snapshot_signal_handler 143' TERM
 
   snapshot_dirs=("${output_dir}"/snapshots/*.spec.ts-snapshots)
   if [[ ${#snapshot_dirs[@]} -eq 0 ]]; then
@@ -194,6 +237,7 @@ replace_snapshots_transactionally() (
     [[ -d "$snapshot_dir" ]]
     cp -a "$snapshot_dir" "$staging_dir/$snapshot_name"
     [[ -d "$staging_dir/$snapshot_name" ]]
+    check_snapshot_cancellation
   done
 
   for snapshot_dir in "$staging_dir"/*.spec.ts-snapshots; do
@@ -201,6 +245,7 @@ replace_snapshots_transactionally() (
     if [[ -d "${PACKAGE_DIR}/visual/${snapshot_name}" ]]; then
       backed_up_names+=("$snapshot_name")
       mv "${PACKAGE_DIR}/visual/${snapshot_name}" "$backup_dir/$snapshot_name"
+      check_snapshot_cancellation
     fi
   done
 
@@ -208,8 +253,10 @@ replace_snapshots_transactionally() (
     snapshot_name="$(basename "$snapshot_dir")"
     installed_names+=("$snapshot_name")
     mv "$snapshot_dir" "${PACKAGE_DIR}/visual/${snapshot_name}"
+    check_snapshot_cancellation
   done
 
+  check_snapshot_cancellation
   trap - EXIT
   if ! rm -rf -- "$staging_dir"; then
     printf 'Snapshot transaction committed; staging cleanup failed at %s\n' \
@@ -226,8 +273,47 @@ replace_snapshots_transactionally() (
 shopt -s nullglob
 if [[ "$mode" == generate && "$docker_status" -eq 0 ]]; then
   set +e
-  replace_snapshots_transactionally
-  snapshot_install_status=$?
+  transaction_pid=''
+  snapshot_signal=''
+  snapshot_signal_status=0
+  cancel_file="${output_dir}/.visual-regression-cancel"
+  snapshot_signal_handler() {
+    local signal_name="$1"
+    local signal_status="$2"
+
+    snapshot_signal="$signal_name"
+    snapshot_signal_status="$signal_status"
+    if [[ -z "${transaction_pid:-}" ]]; then
+      return 0
+    fi
+
+    trap - HUP INT TERM
+    printf '%s\n' "$signal_status" > "$cancel_file"
+    wait "$transaction_pid" 2>/dev/null || true
+    exit "$signal_status"
+  }
+
+  trap 'snapshot_signal_handler HUP 129' HUP
+  trap 'snapshot_signal_handler INT 130' INT
+  trap 'snapshot_signal_handler TERM 143' TERM
+
+  if [[ -z "$snapshot_signal" ]]; then
+    replace_snapshots_transactionally &
+    transaction_pid=$!
+    if [[ -n "$snapshot_signal" ]]; then
+      printf '%s\n' "$snapshot_signal_status" > "$cancel_file"
+    fi
+    wait "$transaction_pid"
+    snapshot_install_status=$?
+    if [[ "$snapshot_signal_status" -ne 0 ]]; then
+      snapshot_install_status="$snapshot_signal_status"
+    fi
+  else
+    snapshot_install_status="$snapshot_signal_status"
+  fi
+
+  transaction_pid=''
+  trap - HUP INT TERM
   set -e
   if [[ "$snapshot_install_status" -ne 0 ]]; then
     printf 'Failed to install generated snapshots transactionally\n' >&2
