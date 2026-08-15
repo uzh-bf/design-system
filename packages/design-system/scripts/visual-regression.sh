@@ -130,24 +130,50 @@ replace_snapshots_transactionally() (
   local -a backed_up_names=()
   local -a installed_names=()
 
-  staging_dir="$(mktemp -d "${PACKAGE_DIR}/visual/.visual-snapshots.XXXXXX")"
-  backup_dir="$(mktemp -d "${PACKAGE_DIR}/visual/.visual-backups.XXXXXX")"
+  staging_dir=''
+  backup_dir=''
 
   rollback_snapshot_transaction() {
     local name
+    local rollback_failed=0
 
     for name in "${installed_names[@]}"; do
-      rm -rf -- "${PACKAGE_DIR}/visual/${name}" || true
+      if [[ -e "${PACKAGE_DIR}/visual/${name}" ]] &&
+        ! rm -rf -- "${PACKAGE_DIR}/visual/${name}"; then
+        rollback_failed=1
+      fi
     done
     for name in "${backed_up_names[@]}"; do
       if [[ -d "${backup_dir}/${name}" ]]; then
-        mv "${backup_dir}/${name}" "${PACKAGE_DIR}/visual/${name}" || true
+        if ! mv "${backup_dir}/${name}" "${PACKAGE_DIR}/visual/${name}"; then
+          rollback_failed=1
+        fi
       fi
     done
-    rm -rf -- "$staging_dir" "$backup_dir" || true
+
+    if ((rollback_failed == 0)); then
+      if [[ -n "$staging_dir" ]] && ! rm -rf -- "$staging_dir"; then
+        rollback_failed=1
+      fi
+      if [[ -n "$backup_dir" ]] && ! rm -rf -- "$backup_dir"; then
+        rollback_failed=1
+      fi
+    fi
+
+    if ((rollback_failed != 0)); then
+      printf 'Snapshot rollback incomplete; retained recovery data at %s\n' \
+        "${backup_dir:-$staging_dir}" >&2
+      return 1
+    fi
   }
 
+  staging_dir="$(mktemp -d "${PACKAGE_DIR}/visual/.visual-snapshots.XXXXXX")"
   trap rollback_snapshot_transaction EXIT
+  trap 'exit 129' HUP
+  trap 'exit 130' INT
+  trap 'exit 143' TERM
+
+  backup_dir="$(mktemp -d "${PACKAGE_DIR}/visual/.visual-backups.XXXXXX")"
 
   snapshot_dirs=("${output_dir}"/snapshots/*.spec.ts-snapshots)
   if [[ ${#snapshot_dirs[@]} -eq 0 ]]; then
@@ -165,19 +191,28 @@ replace_snapshots_transactionally() (
   for snapshot_dir in "$staging_dir"/*.spec.ts-snapshots; do
     snapshot_name="$(basename "$snapshot_dir")"
     if [[ -d "${PACKAGE_DIR}/visual/${snapshot_name}" ]]; then
-      mv "${PACKAGE_DIR}/visual/${snapshot_name}" "$backup_dir/$snapshot_name"
       backed_up_names+=("$snapshot_name")
+      mv "${PACKAGE_DIR}/visual/${snapshot_name}" "$backup_dir/$snapshot_name"
     fi
   done
 
   for snapshot_dir in "$staging_dir"/*.spec.ts-snapshots; do
     snapshot_name="$(basename "$snapshot_dir")"
-    mv "$snapshot_dir" "${PACKAGE_DIR}/visual/${snapshot_name}"
     installed_names+=("$snapshot_name")
+    mv "$snapshot_dir" "${PACKAGE_DIR}/visual/${snapshot_name}"
   done
 
-  rm -rf -- "$staging_dir" "$backup_dir"
   trap - EXIT
+  if ! rm -rf -- "$staging_dir"; then
+    printf 'Snapshot transaction committed; staging cleanup failed at %s\n' \
+      "$staging_dir" >&2
+    exit 1
+  fi
+  if ! rm -rf -- "$backup_dir"; then
+    printf 'Snapshot transaction committed; recovery backup retained at %s\n' \
+      "$backup_dir" >&2
+    exit 1
+  fi
 )
 
 shopt -s nullglob
