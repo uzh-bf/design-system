@@ -38,6 +38,7 @@ const RAMP_VALUES = {
   '--theme-color-primary-40': '#e5a38f',
   '--theme-color-primary-20': '#f7d9cf',
 } as const
+const ORDINARY_THEMES = ['neutral', 'uzh'] as const
 
 /**
  * Each case names the exact built Ladle story, theme, and screenshot boundary.
@@ -45,20 +46,20 @@ const RAMP_VALUES = {
  * the story root.
  */
 const CASES = [
-  ...(['neutral', 'uzh'] as const).map((theme) => ({
+  ...ORDINARY_THEMES.map((theme) => ({
     name: 'button-disabled',
     storyId: 'button--disabled',
     theme,
     boundary: 'story-root',
   })),
-  ...(['neutral', 'uzh'] as const).map((theme) => ({
+  ...ORDINARY_THEMES.map((theme) => ({
     name: 'checkbox-partial',
     storyId: 'checkbox--partial',
     theme,
     boundary: 'story-root',
     interaction: 'checkbox-partial',
   })),
-  ...(['neutral', 'uzh'] as const).map((theme) => ({
+  ...ORDINARY_THEMES.map((theme) => ({
     name: 'modal-open',
     storyId: 'modal--default',
     theme,
@@ -66,7 +67,7 @@ const CASES = [
     interaction: 'modal-open',
     documentRoot: true,
   })),
-  ...(['neutral', 'uzh'] as const).map((theme) => ({
+  ...ORDINARY_THEMES.map((theme) => ({
     name: 'tooltip-shown',
     storyId: 'tooltip--default',
     theme,
@@ -74,38 +75,38 @@ const CASES = [
     interaction: 'tooltip-show',
     documentRoot: true,
   })),
-  ...(['neutral', 'uzh'] as const).map((theme) => ({
+  ...ORDINARY_THEMES.map((theme) => ({
     name: 'form-error',
     storyId: 'form--default',
     theme,
     boundary: 'story-root',
     interaction: 'form-error',
   })),
-  ...(['neutral', 'uzh'] as const).map((theme) => ({
+  ...ORDINARY_THEMES.map((theme) => ({
     name: 'text-field-error',
     storyId: 'text-field--error',
     theme,
     boundary: 'story-root',
   })),
-  ...(['neutral', 'uzh'] as const).map((theme) => ({
+  ...ORDINARY_THEMES.map((theme) => ({
     name: 'navigation-active',
     storyId: 'navigation--active',
     theme,
     boundary: 'story-root',
   })),
-  ...(['neutral', 'uzh'] as const).map((theme) => ({
+  ...ORDINARY_THEMES.map((theme) => ({
     name: 'sidebar-active',
     storyId: 'sidebar--default',
     theme,
     boundary: 'story-root',
   })),
-  ...(['neutral', 'uzh'] as const).map((theme) => ({
+  ...ORDINARY_THEMES.map((theme) => ({
     name: 'alert-variants',
     storyId: 'alert--variants',
     theme,
     boundary: 'story-root',
   })),
-  ...(['neutral', 'uzh'] as const).map((theme) => ({
+  ...ORDINARY_THEMES.map((theme) => ({
     name: 'user-notification-error',
     storyId: 'user-notification--error',
     theme,

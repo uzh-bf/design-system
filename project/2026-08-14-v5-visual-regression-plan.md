@@ -246,13 +246,12 @@ environment, branch, authority, or integration decisions.
 
 ## Progress
 
-- Status: S2 curated visual boundary implemented, determinism-verified, and
-  manually inspected; the S2 review gate is next.
+- Status: S2 curated visual boundary reviewed, corrected, and
+  determinism-verified; S3 report-only CI is next.
 - Completed: R0 live target resolved; S0 plan committed; S1 implementation,
   review, correction, and local determinism proof; S2 implementation and
   local determinism proof completed.
-- Remaining: S2 review and any bounded correction; S3 report-only CI; S4
-  conditional blocking proof.
+- Remaining: S3 report-only CI; S4 conditional blocking proof.
 - Latest verified base: e40f4f5d06ea4f54c7b059dcc1eb13915fe9d9d9.
 - Planning review: done —
   project/_local/reviews/2026-08-14-v5-visual-regression-planning.md
@@ -304,11 +303,19 @@ environment, branch, authority, or integration decisions.
   delay to the default tooltip; the loading-modal stories were excluded
   because their spinners remain animated under the fixed clock. Neither adds a
   distinct stable visual contract to this boundary.
+- S2 review: the simplifier accepted one low-risk duplication cleanup for the
+  repeated ordinary theme pair. The slice-reviewer accepted one low-risk plan
+  progress correction for the stale pre-commit next-action text. Both reports
+  are retained under `project/_local/reviews/`; the corrections are limited to
+  those findings.
+- S2 correction evidence: the ordinary theme pair is now defined once and
+  reused across the ten ordinary cases. After the correction, the pinned
+  container typecheck, lint, package-scoped Prettier check, and runner shell
+  syntax check passed, and one strict container comparison passed all 23 tests
+  with zero diffs and exit 0.
 - Integrated final review: not started.
 - Active children: none.
 - Required delivery: local implementation plus report-only CI evidence.
-- Achieved delivery: approved plan committed; S1 and S2 locally verified; no
-  external delivery performed.
-- Next action: stage and commit the verified S2 slice, then run one
-  simplifier and one slice-reviewer on that immutable commit before starting
-  S3 report-only CI work.
+- Achieved delivery: approved plan committed; S1 and S2 locally verified,
+  reviewed, and correction-verified; no external delivery performed.
+- Next action: delegate S3 report-only CI work from the verified S2 head.
