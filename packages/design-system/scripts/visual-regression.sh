@@ -6,7 +6,6 @@ readonly PLATFORM='linux/amd64'
 readonly SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 readonly PACKAGE_DIR="$(cd -- "${SCRIPT_DIR}/.." && pwd)"
 readonly REPO_DIR="$(cd -- "${PACKAGE_DIR}/../.." && pwd)"
-readonly SNAPSHOT_DIR="${PACKAGE_DIR}/visual/button-canary.spec.ts-snapshots"
 readonly RESULTS_DIR="${PACKAGE_DIR}/visual/test-results"
 readonly REPORT_DIR="${PACKAGE_DIR}/visual/playwright-report"
 
@@ -45,6 +44,7 @@ container_script='
 set -euo pipefail
 
 mode="$1"
+shopt -s nullglob
 mkdir -p /workspace
 tar -xf - -C /workspace
 cd /workspace
@@ -63,9 +63,11 @@ else
     --config=playwright.visual.config.ts || test_status=$?
 fi
 
-if [[ -d visual/button-canary.spec.ts-snapshots ]]; then
-  cp -a visual/button-canary.spec.ts-snapshots /output/snapshots/
-fi
+snapshot_dirs=(visual/*.spec.ts-snapshots)
+for snapshot_dir in "${snapshot_dirs[@]}"; do
+  cp -a "$snapshot_dir" "/output/snapshots/$(basename "$snapshot_dir")"
+done
+
 if [[ -d visual/test-results ]]; then
   cp -a visual/test-results/. /output/results/
 fi
@@ -108,11 +110,13 @@ git -C "$REPO_DIR" ls-files --cached --others --exclude-standard -z -- \
 docker_status=$?
 set -e
 
-if [[ -d "${output_dir}/snapshots/button-canary.spec.ts-snapshots" ]]; then
-  rm -rf -- "$SNAPSHOT_DIR"
-  cp -a "${output_dir}/snapshots/button-canary.spec.ts-snapshots" \
-    "${PACKAGE_DIR}/visual/"
-fi
+shopt -s nullglob
+snapshot_dirs=("${output_dir}"/snapshots/*.spec.ts-snapshots)
+for snapshot_dir in "${snapshot_dirs[@]}"; do
+  snapshot_name="$(basename "$snapshot_dir")"
+  rm -rf -- "${PACKAGE_DIR}/visual/${snapshot_name}"
+  cp -a "$snapshot_dir" "${PACKAGE_DIR}/visual/"
+done
 
 if [[ -d "${output_dir}/results" ]]; then
   rm -rf -- "$RESULTS_DIR"

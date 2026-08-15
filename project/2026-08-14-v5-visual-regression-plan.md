@@ -246,12 +246,13 @@ environment, branch, authority, or integration decisions.
 
 ## Progress
 
-- Status: S1 deterministic canary reviewed, correction-verified, and committed;
-  S2 is next.
+- Status: S2 curated visual boundary implemented, determinism-verified, and
+  manually inspected; the S2 review gate is next.
 - Completed: R0 live target resolved; S0 plan committed; S1 implementation,
-  review, correction, and local determinism proof completed.
-- Remaining: S2 curated visual boundary; S3 report-only CI; S4 conditional
-  blocking proof.
+  review, correction, and local determinism proof; S2 implementation and
+  local determinism proof completed.
+- Remaining: S2 review and any bounded correction; S3 report-only CI; S4
+  conditional blocking proof.
 - Latest verified base: e40f4f5d06ea4f54c7b059dcc1eb13915fe9d9d9.
 - Planning review: done —
   project/_local/reviews/2026-08-14-v5-visual-regression-planning.md
@@ -282,10 +283,32 @@ environment, branch, authority, or integration decisions.
   and package-scoped Prettier check all passed.
 - S1 correction commit: `a968debdf` (`fix(ds): harden visual runner input
   boundary`).
+- S2 implementation: added the exact curated visual cases for disabled button,
+  partial checkbox, open modal, shown tooltip, form error, text-field error,
+  active navigation, sidebar state, alert variants, UserNotification error,
+  and the ThemeExtensionContract synthetic ramp. The boundary covers ten
+  neutral/UZH pairs plus one UZH synthetic-ramp case, uses page captures for
+  portal states, unions multi-root story fragments for scoped captures, and
+  keeps fixed time, font, motion, and external-request guards. The runner now
+  copies every generated `*.spec.ts-snapshots` directory instead of assuming
+  the S1 canary directory.
+- S2 evidence: pinned container generation passed all 23 tests (the two S1
+  canaries plus 21 curated cases). Two independent strict container comparison
+  runs each passed all 23 tests with zero diffs and exit 0. The 21 new PNGs
+  were generated at the fixed 1280x720 viewport where page-boundary cases
+  apply; story-root cases retain their content dimensions. Every new PNG was
+  manually inspected for the named story/state, neutral or UZH theme, and
+  expected portal/error/contract content. The pinned-container typecheck,
+  lint, package-scoped Prettier check, and runner shell syntax check passed.
+- S2 exclusions: `tooltip--delay` was excluded because it only adds a fixed
+  delay to the default tooltip; the loading-modal stories were excluded
+  because their spinners remain animated under the fixed clock. Neither adds a
+  distinct stable visual contract to this boundary.
 - Integrated final review: not started.
 - Active children: none.
 - Required delivery: local implementation plus report-only CI evidence.
-- Achieved delivery: approved plan committed and S1 locally verified; no
+- Achieved delivery: approved plan committed; S1 and S2 locally verified; no
   external delivery performed.
-- Next action: delegate S2's curated visual boundary to one executor with the
-  exact S1 head and the named state manifest as its acceptance boundary.
+- Next action: stage and commit the verified S2 slice, then run one
+  simplifier and one slice-reviewer on that immutable commit before starting
+  S3 report-only CI work.
