@@ -246,12 +246,12 @@ environment, branch, authority, or integration decisions.
 
 ## Progress
 
-- Status: S1 deterministic canary reviewed and correction-verified; correction
-  commit pending.
+- Status: S1 deterministic canary reviewed, correction-verified, and committed;
+  S2 is next.
 - Completed: R0 live target resolved; S0 plan committed; S1 implementation,
   review, correction, and local determinism proof completed.
-- Remaining: S1 correction commit; S2 curated visual boundary; S3 report-only
-  CI; S4 conditional blocking proof.
+- Remaining: S2 curated visual boundary; S3 report-only CI; S4 conditional
+  blocking proof.
 - Latest verified base: e40f4f5d06ea4f54c7b059dcc1eb13915fe9d9d9.
 - Planning review: done —
   project/_local/reviews/2026-08-14-v5-visual-regression-planning.md
@@ -280,10 +280,12 @@ environment, branch, authority, or integration decisions.
   generation and two independent strict container comparison runs again passed
   both themes with zero diffs. The pinned-container package typecheck, lint,
   and package-scoped Prettier check all passed.
+- S1 correction commit: `a968debdf` (`fix(ds): harden visual runner input
+  boundary`).
 - Integrated final review: not started.
 - Active children: none.
 - Required delivery: local implementation plus report-only CI evidence.
 - Achieved delivery: approved plan committed and S1 locally verified; no
   external delivery performed.
-- Next action: inspect and stage the exact S1 correction diff, commit it, then
-  continue with S2.
+- Next action: delegate S2's curated visual boundary to one executor with the
+  exact S1 head and the named state manifest as its acceptance boundary.
