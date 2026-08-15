@@ -246,16 +246,33 @@ environment, branch, authority, or integration decisions.
 
 ## Progress
 
-- Status: approved package; plan commit is the current completed boundary.
-- Completed: R0 live target resolved; S0 plan drafted after planner revision.
-- Remaining: S1 deterministic canary; S2 curated visual boundary; S3
-  report-only CI; S4 conditional blocking proof.
+- Status: S1 deterministic canary implemented; post-slice review pending.
+- Completed: R0 live target resolved; S0 plan committed; S1 implementation and
+  local determinism proof completed.
+- Remaining: S1 review and commit; S2 curated visual boundary; S3 report-only
+  CI; S4 conditional blocking proof.
 - Latest verified base: e40f4f5d06ea4f54c7b059dcc1eb13915fe9d9d9.
 - Planning review: done —
   project/_local/reviews/2026-08-14-v5-visual-regression-planning.md
+- S1 routing: configured executor returned BLOCKED before editing; the
+  explicitly authorized Agy/Gemini fallback could not read files in headless
+  mode, so the bounded implementation returned to main.
+- S1 implementation: added the strict visual config, two-theme Button canary,
+  exported Ladle story selector, package scripts, and the pinned AMD64
+  container runner. The runner disables macOS AppleDouble sidecars with
+  `COPYFILE_DISABLE=1` and fails closed for the UZH Source Sans 3 face.
+- S1 evidence: pinned image
+  `mcr.microsoft.com/playwright:v1.61.0-noble@sha256:111dde95859f2c659291cb60e698f9048a8fc30b35b4ddb7c90f9cb5b73062d9`
+  reported `linux/amd64` and Node `v24.16.0`. Container baseline generation
+  passed 2 tests and produced the neutral and UZH Button PNGs at the fixed
+  1280x720 viewport. Two independent strict container comparison runs each
+  passed both themes with zero diffs. The generated PNGs were manually
+  inspected. Package typecheck and lint passed; package-scoped Prettier passed
+  after formatting the two new files.
 - Slice reviews: not started.
 - Integrated final review: not started.
 - Active children: none.
 - Required delivery: local implementation plus report-only CI evidence.
 - Achieved delivery: approved plan committed; no external delivery performed.
-- Next action: implement S1 and run its two-container determinism check.
+- Next action: inspect and stage the exact S1 diff, commit it, then run one
+  simplifier and one slice-reviewer in parallel.
