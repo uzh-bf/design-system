@@ -120,14 +120,72 @@ git -C "$REPO_DIR" ls-files --cached --others --exclude-standard -z -- \
 docker_status=$?
 set -e
 
-shopt -s nullglob
-if [[ "$mode" == generate && "$docker_status" -eq 0 ]]; then
+replace_snapshots_transactionally() (
+  set -euo pipefail
+
+  local staging_dir
+  local backup_dir
+  local snapshot_dir
+  local snapshot_name
+  local -a backed_up_names=()
+  local -a installed_names=()
+
+  staging_dir="$(mktemp -d "${PACKAGE_DIR}/visual/.visual-snapshots.XXXXXX")"
+  backup_dir="$(mktemp -d "${PACKAGE_DIR}/visual/.visual-backups.XXXXXX")"
+
+  rollback_snapshot_transaction() {
+    local name
+
+    for name in "${installed_names[@]}"; do
+      rm -rf -- "${PACKAGE_DIR}/visual/${name}" || true
+    done
+    for name in "${backed_up_names[@]}"; do
+      if [[ -d "${backup_dir}/${name}" ]]; then
+        mv "${backup_dir}/${name}" "${PACKAGE_DIR}/visual/${name}" || true
+      fi
+    done
+    rm -rf -- "$staging_dir" "$backup_dir" || true
+  }
+
+  trap rollback_snapshot_transaction EXIT
+
   snapshot_dirs=("${output_dir}"/snapshots/*.spec.ts-snapshots)
+  if [[ ${#snapshot_dirs[@]} -eq 0 ]]; then
+    printf 'No generated snapshot directories were returned\n' >&2
+    exit 1
+  fi
+
   for snapshot_dir in "${snapshot_dirs[@]}"; do
     snapshot_name="$(basename "$snapshot_dir")"
-    rm -rf -- "${PACKAGE_DIR}/visual/${snapshot_name}"
-    cp -a "$snapshot_dir" "${PACKAGE_DIR}/visual/"
+    [[ -d "$snapshot_dir" ]]
+    cp -a "$snapshot_dir" "$staging_dir/$snapshot_name"
+    [[ -d "$staging_dir/$snapshot_name" ]]
   done
+
+  for snapshot_dir in "$staging_dir"/*.spec.ts-snapshots; do
+    snapshot_name="$(basename "$snapshot_dir")"
+    if [[ -d "${PACKAGE_DIR}/visual/${snapshot_name}" ]]; then
+      mv "${PACKAGE_DIR}/visual/${snapshot_name}" "$backup_dir/$snapshot_name"
+      backed_up_names+=("$snapshot_name")
+    fi
+  done
+
+  for snapshot_dir in "$staging_dir"/*.spec.ts-snapshots; do
+    snapshot_name="$(basename "$snapshot_dir")"
+    mv "$snapshot_dir" "${PACKAGE_DIR}/visual/${snapshot_name}"
+    installed_names+=("$snapshot_name")
+  done
+
+  rm -rf -- "$staging_dir" "$backup_dir"
+  trap - EXIT
+)
+
+shopt -s nullglob
+if [[ "$mode" == generate && "$docker_status" -eq 0 ]]; then
+  if ! replace_snapshots_transactionally; then
+    printf 'Failed to install generated snapshots transactionally\n' >&2
+    docker_status=1
+  fi
 fi
 
 if [[ -d "${output_dir}/results" ]]; then
