@@ -2,12 +2,10 @@ import { defineConfig, devices } from '@playwright/test'
 
 const PORT = 61011
 const BASE_URL = 'http://127.0.0.1:' + PORT + '/design-system/'
-const SKIP_BUILD = process.env.PWTEST_SKIP_BUILD === '1'
 const PREVIEW = 'pnpm exec ladle preview --port ' + PORT + ' --host 127.0.0.1'
 
 export default defineConfig({
   testDir: './visual',
-  fullyParallel: false,
   workers: 1,
   forbidOnly: true,
   retries: 0,
@@ -51,7 +49,7 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: SKIP_BUILD ? PREVIEW : 'pnpm build:ladle && ' + PREVIEW,
+    command: 'pnpm build:ladle && ' + PREVIEW,
     url: BASE_URL,
     reuseExistingServer: false,
     timeout: 180_000,

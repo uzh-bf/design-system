@@ -96,13 +96,13 @@ for (const { theme, storyId } of CASES) {
     await disableMotion(page)
     await waitForVisualFonts(page, theme)
 
+    await expect(page.locator(STORY_SELECTOR)).toHaveScreenshot(
+      'button-' + theme + '.png'
+    )
+
     expect(
       blockedRequests,
       'The visual canary must not request external resources'
     ).toEqual([])
-
-    await expect(page.locator(STORY_SELECTOR)).toHaveScreenshot(
-      'button-' + theme + '.png'
-    )
   })
 }

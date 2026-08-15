@@ -51,16 +51,15 @@ cd /workspace
 
 corepack enable
 corepack pnpm install --frozen-lockfile
-corepack pnpm --filter @uzh-bf/design-system build:ladle
 
 cd /workspace/packages/design-system
 test_status=0
 if [[ "$mode" == generate ]]; then
-  PWTEST_SKIP_BUILD=1 corepack pnpm exec playwright test \
+  corepack pnpm exec playwright test \
     --config=playwright.visual.config.ts \
     --update-snapshots || test_status=$?
 else
-  PWTEST_SKIP_BUILD=1 corepack pnpm exec playwright test \
+  corepack pnpm exec playwright test \
     --config=playwright.visual.config.ts || test_status=$?
 fi
 
@@ -78,21 +77,26 @@ exit "$test_status"
 '
 
 set +e
-COPYFILE_DISABLE=1 tar \
-  --no-xattrs \
-  --exclude='.git' \
-  --exclude='node_modules' \
-  --exclude='*/node_modules' \
-  --exclude='._*' \
-  --exclude='*/._*' \
-  --exclude='__MACOSX' \
-  --exclude='packages/design-system/build' \
-  --exclude='packages/design-system/dist' \
-  --exclude='packages/design-system/visual/test-results' \
-  --exclude='packages/design-system/visual/playwright-report' \
-  --exclude='project/_local' \
-  --exclude='.pnpm-store' \
-  -C "$REPO_DIR" -cf - . |
+git -C "$REPO_DIR" ls-files --cached --others --exclude-standard -z -- \
+  ':(exclude)**/.env' \
+  ':(exclude)**/.env.*' \
+  ':(exclude)**/*.env' \
+  ':(exclude)**/.npmrc' \
+  ':(exclude)**/.netrc' \
+  ':(exclude)**/*credentials*' \
+  ':(exclude)**/*secret*' \
+  ':(exclude)**/*.pem' \
+  ':(exclude)**/*.key' \
+  ':(exclude)**/*.p12' \
+  ':(exclude)**/*.pfx' \
+  ':(exclude)**/.pnpm-store/**' \
+  ':(exclude)**/node_modules/**' \
+  ':(exclude)**/build/**' \
+  ':(exclude)**/dist/**' \
+  ':(exclude)**/test-results/**' \
+  ':(exclude)**/playwright-report/**' \
+  ':(exclude)project/_local/**' |
+  COPYFILE_DISABLE=1 tar --no-xattrs --null --files-from=- -C "$REPO_DIR" -cf - |
   docker run \
     --rm \
     --init \

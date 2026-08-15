@@ -246,10 +246,11 @@ environment, branch, authority, or integration decisions.
 
 ## Progress
 
-- Status: S1 deterministic canary implemented; post-slice review pending.
-- Completed: R0 live target resolved; S0 plan committed; S1 implementation and
-  local determinism proof completed.
-- Remaining: S1 review and commit; S2 curated visual boundary; S3 report-only
+- Status: S1 deterministic canary reviewed and correction-verified; correction
+  commit pending.
+- Completed: R0 live target resolved; S0 plan committed; S1 implementation,
+  review, correction, and local determinism proof completed.
+- Remaining: S1 correction commit; S2 curated visual boundary; S3 report-only
   CI; S4 conditional blocking proof.
 - Latest verified base: e40f4f5d06ea4f54c7b059dcc1eb13915fe9d9d9.
 - Planning review: done —
@@ -269,10 +270,20 @@ environment, branch, authority, or integration decisions.
   passed both themes with zero diffs. The generated PNGs were manually
   inspected. Package typecheck and lint passed; package-scoped Prettier passed
   after formatting the two new files.
-- Slice reviews: not started.
+- S1 review: completed by one simplifier and one slice-reviewer. The
+  slice-reviewer high-severity checkout-boundary finding and medium late-request
+  assertion finding were corrected. The simplifier's two low-risk cleanup
+  findings were accepted. Reports are retained under `project/_local/reviews/`.
+- S1 correction evidence: the safe NUL-delimited Git source manifest archived
+  489 entries with no env, credential, secret, key, certificate, dependency,
+  build, report, or macOS sidecar entries. After correction, baseline
+  generation and two independent strict container comparison runs again passed
+  both themes with zero diffs. The pinned-container package typecheck, lint,
+  and package-scoped Prettier check all passed.
 - Integrated final review: not started.
 - Active children: none.
 - Required delivery: local implementation plus report-only CI evidence.
-- Achieved delivery: approved plan committed; no external delivery performed.
-- Next action: inspect and stage the exact S1 diff, commit it, then run one
-  simplifier and one slice-reviewer in parallel.
+- Achieved delivery: approved plan committed and S1 locally verified; no
+  external delivery performed.
+- Next action: inspect and stage the exact S1 correction diff, commit it, then
+  continue with S2.
