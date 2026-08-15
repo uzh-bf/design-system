@@ -246,8 +246,8 @@ environment, branch, authority, or integration decisions.
 
 ## Progress
 
-- Status: S3 report-only CI implemented and locally validated; the S4
-  blocking-gate authority boundary is next.
+- Status: S1-S3 are implemented, locally validated, and final-review passed;
+  the S4 blocking-gate authority boundary is next.
 - Completed: R0 live target resolved; S0 plan committed; S1 implementation,
   review, correction, and local determinism proof; S2 implementation and
   local determinism proof completed.
@@ -335,9 +335,9 @@ environment, branch, authority, or integration decisions.
   workflow still passes YAML parsing, workflow Prettier, and `git diff
   --check`; the existing global `contents: read` permission remains in force.
 - Integrated final review: the first package review found six bounded
-  correction items; the correction pass is implemented and awaits the final
-  re-review. The findings and local evidence are retained in
-  `project/_local/reviews/2026-08-15-v5-visual-regression-final-review.md`.
+  correction items; those corrections were implemented and the final
+  re-review passed at `fd629d1a8`. The findings and local evidence are
+  retained in `project/_local/reviews/2026-08-15-v5-visual-regression-final-review.md`.
 - Final correction pass: fixed GNU tar option ordering for the pinned Linux
   runner, gated container export on test success, made host baseline
   replacement transactional with sibling staging and rollback-backed swaps,
@@ -356,14 +356,21 @@ environment, branch, authority, or integration decisions.
 - Final correction evidence: the pinned image generated all 23 snapshots
   successfully and produced no temporary runner directories; the post-
   correction strict comparison passed all 23 tests with zero diffs, and every
-  regenerated PNG was manually inspected at the fixed viewport. The pinned
-  container typecheck and lint passed before the formatting-only cleanup; the
-  changed files now pass package-scoped Prettier, package checks and lint pass
-  on the worktree, and the runner passes `bash -n`.
+  regenerated PNG was manually inspected at the fixed viewport. The focused
+  parent-only TERM/INT harnesses waited for cooperative rollback and left no
+  transaction residue. The pinned container typecheck and lint passed before
+  the formatting-only cleanup; the changed files now pass package-scoped
+  Prettier, package checks and lint pass on the worktree, and the runner passes
+  `bash -n`.
+- Integrated final review: PASS at final commit `fd629d1a8`; no change-
+  introduced findings remain. The review verified the six original findings,
+  transactional copy/move/rollback behavior, parent-only cancellation, all 23
+  PNGs, and secrets/data hygiene. Report:
+  `project/_local/reviews/2026-08-15-v5-visual-regression-final-correction-review.md`.
 - Active children: none.
 - Required delivery: local implementation plus report-only CI evidence.
 - Achieved delivery: approved plan committed; S1 and S2 locally verified,
   reviewed, and correction-verified; S3 locally reviewed and
-  correction-verified; final correction pass implemented; no external delivery
+  correction-verified; final package review passed; no external delivery
   performed.
 - Next action: stop at the explicit S4 push/CI authority boundary.
