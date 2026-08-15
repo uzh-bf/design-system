@@ -246,12 +246,13 @@ environment, branch, authority, or integration decisions.
 
 ## Progress
 
-- Status: S2 curated visual boundary reviewed, corrected, and
-  determinism-verified; S3 report-only CI is next.
+- Status: S3 report-only CI implemented and locally validated; the S4
+  blocking-gate authority boundary is next.
 - Completed: R0 live target resolved; S0 plan committed; S1 implementation,
   review, correction, and local determinism proof; S2 implementation and
   local determinism proof completed.
-- Remaining: S3 report-only CI; S4 conditional blocking proof.
+- Remaining: S4 conditional blocking proof, which is not authorized by this
+  plan approval.
 - Latest verified base: e40f4f5d06ea4f54c7b059dcc1eb13915fe9d9d9.
 - Planning review: done —
   project/_local/reviews/2026-08-14-v5-visual-regression-planning.md
@@ -313,9 +314,24 @@ environment, branch, authority, or integration decisions.
   container typecheck, lint, package-scoped Prettier check, and runner shell
   syntax check passed, and one strict container comparison passed all 23 tests
   with zero diffs and exit 0.
+- S3 implementation: added a standalone `visual-regression` job in
+  `.github/workflows/main.yml` that logs the pinned image and `linux/amd64`
+  platform, invokes the existing deterministic runner with
+  `continue-on-error: true`, and uploads SHA-qualified Playwright-report and
+  test-results artifacts whenever the job is not cancelled. The job has
+  `contents: read`, no dependency wiring into the existing build or publish
+  jobs, and no trigger changes.
+- S3 local evidence: the workflow parsed successfully with the repository's
+  pinned `js-yaml@4.1.0`; all eight jobs were present and the existing build
+  dependencies were unchanged. Workflow Prettier 3.6.2 and `git diff --check`
+  passed. `actionlint` was unavailable locally, and no remote job URL or
+  artifact exists because push/CI execution remains outside the current
+  authority.
 - Integrated final review: not started.
 - Active children: none.
 - Required delivery: local implementation plus report-only CI evidence.
 - Achieved delivery: approved plan committed; S1 and S2 locally verified,
-  reviewed, and correction-verified; no external delivery performed.
-- Next action: delegate S3 report-only CI work from the verified S2 head.
+  reviewed, and correction-verified; S3 locally validated; no external
+  delivery performed.
+- Next action: commit and review the local S3 job, then stop at the explicit
+  S4 push/CI authority boundary.
