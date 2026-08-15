@@ -345,6 +345,13 @@ environment, branch, authority, or integration decisions.
   removed the curated test's duplicate synthetic-ramp stimulus so the story
   remains the source of truth, hid Ladle workbench chrome for every capture
   boundary, and moved shared visual setup guards into `visual/visual-setup.ts`.
+- Transaction follow-up: the host-side transaction now captures its status
+  outside the Bash conditional context that suppresses `errexit`, preserves
+  the original exit status through the rollback trap, records rollback intent
+  before each move, handles HUP/INT/TERM, and keeps incomplete recovery data.
+  A focused shell harness exercised copy failure, backup-move failure,
+  install-move failure, and successful replacement; failures returned nonzero
+  with the original baseline intact and success left no transaction residue.
 - Final correction evidence: the pinned image generated all 23 snapshots
   successfully and produced no temporary runner directories; the post-
   correction strict comparison passed all 23 tests with zero diffs, and every

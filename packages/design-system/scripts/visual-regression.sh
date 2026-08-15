@@ -167,8 +167,16 @@ replace_snapshots_transactionally() (
     fi
   }
 
+  snapshot_exit_handler() {
+    local status=$?
+
+    trap - EXIT
+    rollback_snapshot_transaction || status=1
+    exit "$status"
+  }
+
   staging_dir="$(mktemp -d "${PACKAGE_DIR}/visual/.visual-snapshots.XXXXXX")"
-  trap rollback_snapshot_transaction EXIT
+  trap snapshot_exit_handler EXIT
   trap 'exit 129' HUP
   trap 'exit 130' INT
   trap 'exit 143' TERM
@@ -217,7 +225,11 @@ replace_snapshots_transactionally() (
 
 shopt -s nullglob
 if [[ "$mode" == generate && "$docker_status" -eq 0 ]]; then
-  if ! replace_snapshots_transactionally; then
+  set +e
+  replace_snapshots_transactionally
+  snapshot_install_status=$?
+  set -e
+  if [[ "$snapshot_install_status" -ne 0 ]]; then
     printf 'Failed to install generated snapshots transactionally\n' >&2
     docker_status=1
   fi
