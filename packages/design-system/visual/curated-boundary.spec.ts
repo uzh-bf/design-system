@@ -7,6 +7,12 @@ import {
   TOOLBAR_SELECTOR,
   type LadleTheme,
 } from '../tests/_support/ladle'
+import {
+  disableMotion,
+  hideWorkbenchChrome,
+  installVisualGuards,
+  waitForVisualFonts,
+} from './visual-setup'
 
 type ScreenshotBoundary = 'story-root' | 'page'
 type ScreenshotClip = {
@@ -28,16 +34,7 @@ type CuratedCase = {
   boundary: ScreenshotBoundary
   interaction?: Interaction
   documentRoot?: boolean
-  ramp?: Record<string, string>
 }
-
-const RAMP_VALUES = {
-  '--theme-color-primary': '#8c2f14',
-  '--theme-color-primary-80': '#a94425',
-  '--theme-color-primary-60': '#c76645',
-  '--theme-color-primary-40': '#e5a38f',
-  '--theme-color-primary-20': '#f7d9cf',
-} as const
 const ORDINARY_THEMES = ['neutral', 'uzh'] as const
 
 /**
@@ -118,7 +115,6 @@ const CASES = [
     theme: 'uzh',
     boundary: 'story-root',
     documentRoot: true,
-    ramp: RAMP_VALUES,
   },
 ] as const satisfies ReadonlyArray<CuratedCase>
 
@@ -127,82 +123,21 @@ const CASES = [
 // modal--three-second-loading retain an animated spinner under the fixed clock.
 // None adds a distinct stable visual contract to this curated boundary.
 
-const FIXED_NOW = 1_735_689_600_000
-const LOCAL_ORIGIN = 'http://127.0.0.1:61011'
 const ROOT_STORY_SELECTOR = `#ladle-root > :not(${TOOLBAR_SELECTOR}) > :not(${TOOLBAR_SELECTOR})`
-
-async function installVisualGuards(page: Page): Promise<string[]> {
-  const blockedRequests: string[] = []
-
-  await page.route('**/*', async (route) => {
-    const url = new URL(route.request().url())
-    if (
-      url.origin === LOCAL_ORIGIN ||
-      url.protocol === 'data:' ||
-      url.protocol === 'blob:'
-    ) {
-      await route.continue()
-      return
-    }
-
-    blockedRequests.push(url.href)
-    await route.abort('blockedbyclient')
-  })
-
-  await page.clock.install({ time: new Date(FIXED_NOW) })
-  return blockedRequests
-}
-
-async function waitForVisualFonts(
-  page: Page,
-  theme: LadleTheme
-): Promise<void> {
-  await page.evaluate(async (expectedTheme) => {
-    await document.fonts.ready
-
-    const failedFaces = [...document.fonts]
-      .filter((font) => font.status === 'error')
-      .map((font) => font.family)
-    if (failedFaces.length > 0) {
-      throw new Error('Visual font loading failed: ' + failedFaces.join(', '))
-    }
-
-    if (
-      expectedTheme === 'uzh' &&
-      (await document.fonts.load('16px "Source Sans 3"', 'Ag')).length === 0
-    ) {
-      throw new Error('Source Sans 3 is not available for the visual boundary')
-    }
-  }, theme)
-}
-
-async function disableMotion(page: Page): Promise<void> {
-  await page.addStyleTag({
-    content: [
-      '*,',
-      '*::before,',
-      '*::after {',
-      '  animation-duration: 0s !important;',
-      '  animation-delay: 0s !important;',
-      '  transition-duration: 0s !important;',
-      '  transition-delay: 0s !important;',
-      '  caret-color: transparent !important;',
-      '}',
-    ].join('\n'),
-  })
-}
 
 /**
  * Portal content is outside Ladle's themed wrapper. For those cases, and for
- * the synthetic ramp, apply the requested theme to the document root after
- * neutralizing the wrapper that would otherwise redeclare the theme tokens.
+ * the synthetic ramp story, apply only the requested theme to the document
+ * root after neutralizing the wrapper that would otherwise redeclare tokens.
+ * The synthetic-ramp story owns its inline stimulus and is deliberately left
+ * untouched here.
  */
 async function applyDocumentRootState(
   page: Page,
-  state: Pick<CuratedCase, 'theme' | 'ramp'>
+  state: Pick<CuratedCase, 'theme'>
 ): Promise<void> {
   await page.evaluate(
-    ({ theme, ramp, rampKeys }) => {
+    ({ theme }) => {
       const root = document.documentElement
       const wrapper = document.querySelector('#ladle-root > [data-theme]')
       wrapper?.removeAttribute('data-theme')
@@ -214,28 +149,9 @@ async function applyDocumentRootState(
       } else {
         root.removeAttribute('data-theme')
       }
-
-      for (const name of rampKeys) {
-        root.style.removeProperty(name)
-      }
-      if (ramp) {
-        for (const [name, value] of Object.entries(ramp)) {
-          root.style.setProperty(name, value)
-        }
-      }
     },
-    {
-      theme: state.theme,
-      ramp: state.ramp,
-      rampKeys: Object.keys(RAMP_VALUES),
-    }
+    { theme: state.theme }
   )
-}
-
-async function hideWorkbenchChrome(page: Page): Promise<void> {
-  await page.addStyleTag({
-    content: `${TOOLBAR_SELECTOR} { display: none !important; }`,
-  })
 }
 
 async function getStoryRootClip(
@@ -321,9 +237,7 @@ for (const state of CASES) {
     if (state.documentRoot) {
       await applyDocumentRootState(page, state)
     }
-    if (state.boundary === 'page') {
-      await hideWorkbenchChrome(page)
-    }
+    await hideWorkbenchChrome(page)
     await runInteraction(page, state.interaction)
 
     if (state.boundary === 'page') {

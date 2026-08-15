@@ -6,6 +6,8 @@ readonly PLATFORM='linux/amd64'
 readonly SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 readonly PACKAGE_DIR="$(cd -- "${SCRIPT_DIR}/.." && pwd)"
 readonly REPO_DIR="$(cd -- "${PACKAGE_DIR}/../.." && pwd)"
+readonly HOST_UID="$(id -u)"
+readonly HOST_GID="$(id -g)"
 readonly RESULTS_DIR="${PACKAGE_DIR}/visual/test-results"
 readonly REPORT_DIR="${PACKAGE_DIR}/visual/playwright-report"
 
@@ -45,14 +47,18 @@ set -euo pipefail
 
 mode="$1"
 shopt -s nullglob
-mkdir -p /workspace
-tar -xf - -C /workspace
-cd /workspace
+workspace_dir='/tmp/design-system-vrt-workspace'
+mkdir -p "$workspace_dir"
+tar -xf - -C "$workspace_dir"
+cd "$workspace_dir"
 
-corepack enable
+export COREPACK_HOME='/tmp/design-system-vrt-corepack'
+mkdir -p /tmp/design-system-vrt-bin
+corepack enable --install-directory /tmp/design-system-vrt-bin
+export PATH="/tmp/design-system-vrt-bin:$PATH"
 corepack pnpm install --frozen-lockfile
 
-cd /workspace/packages/design-system
+cd "$workspace_dir/packages/design-system"
 test_status=0
 if [[ "$mode" == generate ]]; then
   corepack pnpm exec playwright test \
@@ -63,10 +69,12 @@ else
     --config=playwright.visual.config.ts || test_status=$?
 fi
 
-snapshot_dirs=(visual/*.spec.ts-snapshots)
-for snapshot_dir in "${snapshot_dirs[@]}"; do
-  cp -a "$snapshot_dir" "/output/snapshots/$(basename "$snapshot_dir")"
-done
+if [[ "$mode" == generate && "$test_status" -eq 0 ]]; then
+  snapshot_dirs=(visual/*.spec.ts-snapshots)
+  for snapshot_dir in "${snapshot_dirs[@]}"; do
+    cp -a "$snapshot_dir" "/output/snapshots/$(basename "$snapshot_dir")"
+  done
+fi
 
 if [[ -d visual/test-results ]]; then
   cp -a visual/test-results/. /output/results/
@@ -98,12 +106,14 @@ git -C "$REPO_DIR" ls-files --cached --others --exclude-standard -z -- \
   ':(exclude)**/test-results/**' \
   ':(exclude)**/playwright-report/**' \
   ':(exclude)project/_local/**' |
-  COPYFILE_DISABLE=1 tar --no-xattrs --null --files-from=- -C "$REPO_DIR" -cf - |
+  COPYFILE_DISABLE=1 tar -C "$REPO_DIR" --no-xattrs --null --files-from=- -cf - |
   docker run \
     --rm \
     --init \
     --ipc=host \
     --platform="$PLATFORM" \
+    --user "${HOST_UID}:${HOST_GID}" \
+    --env COREPACK_HOME=/tmp/design-system-vrt-corepack \
     --mount "type=bind,src=${output_dir},dst=/output" \
     -i "$IMAGE" \
     bash -lc "$container_script" -- "$mode"
@@ -111,12 +121,14 @@ docker_status=$?
 set -e
 
 shopt -s nullglob
-snapshot_dirs=("${output_dir}"/snapshots/*.spec.ts-snapshots)
-for snapshot_dir in "${snapshot_dirs[@]}"; do
-  snapshot_name="$(basename "$snapshot_dir")"
-  rm -rf -- "${PACKAGE_DIR}/visual/${snapshot_name}"
-  cp -a "$snapshot_dir" "${PACKAGE_DIR}/visual/"
-done
+if [[ "$mode" == generate && "$docker_status" -eq 0 ]]; then
+  snapshot_dirs=("${output_dir}"/snapshots/*.spec.ts-snapshots)
+  for snapshot_dir in "${snapshot_dirs[@]}"; do
+    snapshot_name="$(basename "$snapshot_dir")"
+    rm -rf -- "${PACKAGE_DIR}/visual/${snapshot_name}"
+    cp -a "$snapshot_dir" "${PACKAGE_DIR}/visual/"
+  done
+fi
 
 if [[ -d "${output_dir}/results" ]]; then
   rm -rf -- "$RESULTS_DIR"

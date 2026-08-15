@@ -334,10 +334,28 @@ environment, branch, authority, or integration decisions.
 - S3 correction evidence: after removing the redundant permission block, the
   workflow still passes YAML parsing, workflow Prettier, and `git diff
   --check`; the existing global `contents: read` permission remains in force.
-- Integrated final review: not started.
+- Integrated final review: the first package review found six bounded
+  correction items; the correction pass is implemented and awaits the final
+  re-review. The findings and local evidence are retained in
+  `project/_local/reviews/2026-08-15-v5-visual-regression-final-review.md`.
+- Final correction pass: fixed GNU tar option ordering for the pinned Linux
+  runner, made baseline replacement transactional on both container and host
+  success, ran the container as the invoking UID/GID with writable Corepack
+  paths, removed the curated test's duplicate synthetic-ramp stimulus so the
+  story remains the source of truth, hid Ladle workbench chrome for every
+  capture boundary, and moved shared visual setup guards into
+  `visual/visual-setup.ts`.
+- Final correction evidence: the pinned image generated all 23 snapshots
+  successfully and produced no temporary runner directories; the post-
+  correction strict comparison passed all 23 tests with zero diffs, and every
+  regenerated PNG was manually inspected at the fixed viewport. The pinned
+  container typecheck and lint passed before the formatting-only cleanup; the
+  changed files now pass package-scoped Prettier and the runner passes
+  `bash -n`.
 - Active children: none.
 - Required delivery: local implementation plus report-only CI evidence.
 - Achieved delivery: approved plan committed; S1 and S2 locally verified,
   reviewed, and correction-verified; S3 locally reviewed and
-  correction-verified; no external delivery performed.
+  correction-verified; final correction pass implemented; no external delivery
+  performed.
 - Next action: stop at the explicit S4 push/CI authority boundary.
