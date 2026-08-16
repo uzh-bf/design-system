@@ -162,6 +162,43 @@ jobs:
             ${{ runner.temp }}/a11y-coverage-${{ matrix.shard }}.jsonl
           retention-days: 14
 
+  visual-regression:
+    runs-on: ubuntu-latest
+    name: Visual Regression (report-only)
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Show pinned VRT image and platform
+        run: |
+          echo "Playwright image: mcr.microsoft.com/playwright:v1.61.0-noble@sha256:111dde95859f2c659291cb60e698f9048a8fc30b35b4ddb7c90f9cb5b73062d9"
+          echo "Platform: linux/amd64"
+
+      # Report-only: a visual mismatch must not gate the package or fail the
+      # workflow, but the step outcome stays inspectable and the evidence is
+      # uploaded below.
+      - name: Run deterministic visual comparison
+        continue-on-error: true
+        run: bash packages/design-system/scripts/visual-regression.sh
+
+      - name: Upload visual regression report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-regression-report-${{ github.sha }}
+          path: packages/design-system/visual/playwright-report/
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Upload visual regression test results
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-regression-test-results-${{ github.sha }}
+          path: packages/design-system/visual/test-results/
+          if-no-files-found: warn
+          retention-days: 14
+
   build:
     name: Build
     runs-on: ubuntu-latest

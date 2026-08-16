@@ -39,7 +39,7 @@ export function loadStoryIds(): string[] {
  * The story itself: a child of the themed wrapper inside #ladle-root that is
  * not the dev toolbar. Ladle mounts the toolbar first and the story second.
  */
-const STORY_SELECTOR = `#ladle-root > [data-theme] > :not(${TOOLBAR_SELECTOR})`
+export const STORY_SELECTOR = `#ladle-root > [data-theme] > :not(${TOOLBAR_SELECTOR})`
 
 const THEME_WRAPPER_SELECTOR = '#ladle-root > [data-theme]'
 
