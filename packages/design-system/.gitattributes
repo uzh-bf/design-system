@@ -1,7 +1,7 @@
 * text=auto eol=lf
-*.png binary
-*.jpg binary
-*.jpeg binary
-*.gif binary
-*.ico binary
-*.webp binary
+*.png -text -eol
+*.jpg -text -eol
+*.jpeg -text -eol
+*.gif -text -eol
+*.ico -text -eol
+*.webp -text -eol
