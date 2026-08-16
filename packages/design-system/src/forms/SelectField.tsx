@@ -21,6 +21,7 @@ interface SelectFieldProps {
   label?: string
   labelType?: 'small' | 'large'
   placeholder?: string
+  ariaLabel?: string
   tooltip?: string | React.ReactNode
   required?: boolean
   disabled?: boolean
@@ -125,6 +126,7 @@ export function SelectField({
             ref={ref}
             ariaRequired={required}
             ariaDescribedBy={visibleError ? errorId : undefined}
+            ariaLabel={props.ariaLabel ?? label}
             data={data}
             onChange={onChange}
             onBlur={onBlur}
