@@ -477,80 +477,8 @@ export const INVENTORY_METADATA: Readonly<Record<string, InventoryMetadata>> = {
   },
 }
 
-export const EXACT_SERIOUS_CRITICAL_INVENTORY = [
-  {
-    rule: 'color-contrast',
-    impact: 'serious',
-    story: 'collapsible--styled',
-    theme: 'neutral',
-  },
-  {
-    rule: 'color-contrast',
-    impact: 'serious',
-    story: 'table--combined',
-    theme: 'neutral',
-  },
-  {
-    rule: 'color-contrast',
-    impact: 'serious',
-    story: 'table--default-sorting',
-    theme: 'neutral',
-  },
-  {
-    rule: 'color-contrast',
-    impact: 'serious',
-    story: 'table--formatted',
-    theme: 'neutral',
-  },
-  {
-    rule: 'color-contrast',
-    impact: 'serious',
-    story: 'table--reset-table',
-    theme: 'neutral',
-  },
-  {
-    rule: 'color-contrast',
-    impact: 'serious',
-    story: 'table--simple',
-    theme: 'neutral',
-  },
-  {
-    rule: 'color-contrast',
-    impact: 'serious',
-    story: 'table--sorting',
-    theme: 'neutral',
-  },
-  {
-    rule: 'color-contrast',
-    impact: 'serious',
-    story: 'user-notification--custom-content',
-    theme: 'neutral',
-  },
-  {
-    rule: 'color-contrast',
-    impact: 'serious',
-    story: 'user-notification--info',
-    theme: 'neutral',
-  },
-  {
-    rule: 'color-contrast',
-    impact: 'serious',
-    story: 'user-notification--styled',
-    theme: 'neutral',
-  },
-  {
-    rule: 'color-contrast',
-    impact: 'serious',
-    story: 'user-notification--success',
-    theme: 'neutral',
-  },
-  {
-    rule: 'color-contrast',
-    impact: 'serious',
-    story: 'workflow--progress',
-    theme: 'neutral',
-  },
-] as const satisfies readonly SeriousCriticalTuple[]
+export const EXACT_SERIOUS_CRITICAL_INVENTORY =
+  [] as const satisfies readonly SeriousCriticalTuple[]
 
 export function tupleKey(tuple: InventoryTuple): string {
   return `${tuple.theme}|${tuple.story}|${tuple.rule}`
