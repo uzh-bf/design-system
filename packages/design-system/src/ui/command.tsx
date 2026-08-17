@@ -1,6 +1,6 @@
 'use client'
 
-import { Command as CommandPrimitive } from 'cmdk'
+import { Command as CommandPrimitive, useCommandState } from 'cmdk'
 import { SearchIcon } from 'lucide-react'
 import * as React from 'react'
 
@@ -128,11 +128,17 @@ function CommandGroup({
 
 function CommandSeparator({
   className,
+  alwaysRender,
   ...props
 }: React.ComponentProps<typeof CommandPrimitive.Separator>) {
+  const search = useCommandState((state) => state.search)
+  if (!alwaysRender && search) {
+    return null
+  }
   return (
-    <CommandPrimitive.Separator
+    <div
       data-slot="command-separator"
+      role="none"
       className={cn('bg-border -mx-1 h-px', className)}
       {...props}
     />
