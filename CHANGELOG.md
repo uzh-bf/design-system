@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.0.0-alpha.4](https://github.com/uzh-bf/design-system/compare/v5.0.0-alpha.3...v5.0.0-alpha.4) (2026-08-17)
+
+
+### Features
+
+* **a11y:** remediate accessible names, labels, and progressbar oracle (W4.1) ([#203](https://github.com/uzh-bf/design-system/issues/203)) ([7918c94](https://github.com/uzh-bf/design-system/commit/7918c947832792e695f4547d109f0db36d9d57d4))
+* **a11y:** remediate ARIA structure, ownership, nested interactivity, and focusable scrolling (W4.2) ([#204](https://github.com/uzh-bf/design-system/issues/204)) ([60404c8](https://github.com/uzh-bf/design-system/commit/60404c84c6c50abab36be8bc1145c51264781f0a))
+* **a11y:** remediate color contrast and zero exact inventory (W4.3) ([#205](https://github.com/uzh-bf/design-system/issues/205)) ([bb8cd4e](https://github.com/uzh-bf/design-system/commit/bb8cd4ed662a2b1226cd2caf09406a24e4a55645))
+* **rsc:** isolate RHF behind dedicated client entry ([#197](https://github.com/uzh-bf/design-system/issues/197)) ([3bb6ade](https://github.com/uzh-bf/design-system/commit/3bb6ade0e9b95061d4bbf79fc385253576ae7ad7))
+
+
+### Build and CI
+
+* **release:** publish v5 tags through npm trusted publisher ([#195](https://github.com/uzh-bf/design-system/issues/195)) ([70eb98a](https://github.com/uzh-bf/design-system/commit/70eb98a9a25590b2f8215f41223c1233d7b23777))
+* **size:** enforce v5 package budgets ([#196](https://github.com/uzh-bf/design-system/issues/196)) ([a4e982d](https://github.com/uzh-bf/design-system/commit/a4e982d9c3361b337db4a86c89484828686f4472))
+
+
+### Enhancements
+
+* **theme:** support complete primary ramp overrides ([d1825b4](https://github.com/uzh-bf/design-system/commit/d1825b450dc0b6899dece815811ab29bfc7524f1))
+
+
+### Other
+
+* **a11y:** pin exact serious-critical inventory ([#201](https://github.com/uzh-bf/design-system/issues/201)) ([e40f4f5](https://github.com/uzh-bf/design-system/commit/e40f4f5d06ea4f54c7b059dcc1eb13915fe9d9d9))
+* **ds:** add deterministic visual regression protection ([#202](https://github.com/uzh-bf/design-system/issues/202)) ([76fddcb](https://github.com/uzh-bf/design-system/commit/76fddcbc665773b36a01e78b45bb5a5cecd4aad1))
+
 ## [5.0.0-alpha.3](https://github.com/uzh-bf/design-system/compare/v5.0.0-alpha.2...v5.0.0-alpha.3) (2026-08-09)
 
 
