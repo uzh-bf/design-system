@@ -75,16 +75,15 @@ for (const theme of THEMES) {
 // regressed to matching Ladle's chrome, the scan ran on an empty page and every
 // story "passed" with zero violations. The per-story tests above cannot detect a
 // recurrence — fewer violations reads as "debt fixed," not "scan broken." This
-// canary makes it loud: button--icon deterministically emits button-name
-// (A11Y-18), so if the harness ever stops reaching real story content this fails
-// instead of the whole sweep going quietly green. Retire or repoint it when
-// A11Y-18 is fixed and button--icon no longer offends.
+// canary makes it loud: command--default deterministically emits
+// aria-required-children (A11Y-12), so if the harness ever stops reaching real
+// story content this fails instead of the whole sweep going quietly green.
 test('harness canary: the scan reaches rendered story content', async ({
   page,
 }) => {
-  await gotoStory(page, 'button--icon', 'neutral')
+  await gotoStory(page, 'command--default', 'neutral')
   const { violations } = await new AxeBuilder({ page })
     .exclude(TOOLBAR_SELECTOR)
     .analyze()
-  expect(violations.map((v) => v.id)).toContain('button-name')
+  expect(violations.map((v) => v.id)).toContain('aria-required-children')
 })

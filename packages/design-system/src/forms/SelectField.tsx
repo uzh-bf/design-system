@@ -84,6 +84,7 @@ export function SelectField({
   label,
   labelType = 'small',
   placeholder,
+  ariaLabel,
   tooltip,
   required = false,
   disabled = false,
@@ -126,7 +127,7 @@ export function SelectField({
             ref={ref}
             ariaRequired={required}
             ariaDescribedBy={visibleError ? errorId : undefined}
-            ariaLabel={props.ariaLabel ?? label}
+            ariaLabel={ariaLabel ?? label}
             data={data}
             onChange={onChange}
             onBlur={onBlur}

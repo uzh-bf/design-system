@@ -134,6 +134,7 @@ export function Select({
   defaultValue,
   basic = false,
   contentPosition = 'item-aligned',
+  ariaLabel,
   ariaRequired,
   ariaInvalid,
   ariaDescribedBy,

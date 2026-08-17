@@ -2,7 +2,7 @@
 
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import type { ComponentPropsWithoutRef, Dispatch } from 'react'
+import React, { type ComponentPropsWithoutRef, type Dispatch } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Button as ShadcnButton } from './ui/button'
 
@@ -96,7 +96,10 @@ export function Button({
   return (
     <ShadcnButton
       id={id}
-      aria-label={ariaLabel ?? (props as Record<string, unknown>)['aria-label'] as string | undefined}
+      aria-label={
+        ariaLabel ??
+        ((props as Record<string, unknown>)['aria-label'] as string | undefined)
+      }
       variant={
         basic
           ? 'ghost'
@@ -253,8 +256,11 @@ Button.IconGroup = function ButtonIconGroup({
       )}
     >
       {children.map((child, index) => {
-        const childProps = React.isValidElement(child) ? (child.props as Record<string, unknown>) : undefined
-        const childAriaLabel = (childProps?.ariaLabel as string | undefined) ?? `Option ${index + 1}`
+        const childProps = React.isValidElement(child)
+          ? (child.props as Record<string, unknown>)
+          : undefined
+        const childAriaLabel =
+          (childProps?.ariaLabel as string | undefined) ?? `Option ${index + 1}`
         return (
           <Button
             key={index}
