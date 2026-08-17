@@ -385,6 +385,7 @@ export const MultiLine = () => {
 export const Styled = () => {
   return (
     <Tooltip
+      asChild
       className={{
         tooltip: '"font-bold text-black" bg-red-400 italic',
         arrow: 'fill-red-400',
@@ -405,6 +406,7 @@ export const Styled = () => {
 export const Children = () => {
   return (
     <Tooltip
+      asChild
       className={{ tooltip: 'bg-red-400', arrow: 'fill-red-400' }}
       tooltip={
         <div className="font-bold text-black italic">Styled Tooltip</div>
