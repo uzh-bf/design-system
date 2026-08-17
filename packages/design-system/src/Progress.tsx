@@ -80,6 +80,7 @@ export function Progress({
       id={id}
       data-cy={data?.cy}
       data-test={data?.test}
+      aria-label={props['aria-label'] ?? 'Progress'}
       className={twMerge('relative h-7 rounded text-sm', className?.root)}
       value={typeof value === 'number' ? value : value[0]}
       max={max}

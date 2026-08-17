@@ -24,6 +24,7 @@ export interface NumberFieldProps {
   label?: string
   labelType?: 'small' | 'large'
   placeholder?: string
+  ariaLabel?: string
   precision?: number
   min?: number
   max?: number
@@ -202,6 +203,14 @@ export function NumberField({
           <Input
             id={inputId}
             ref={ref}
+            aria-label={
+              !label
+                ? ((props.ariaLabel as string | undefined) ??
+                  (props['aria-label'] as string | undefined) ??
+                  placeholder ??
+                  'Number')
+                : undefined
+            }
             aria-required={required || undefined}
             aria-describedby={visibleError ? errorId : undefined}
             data-cy={data?.cy}

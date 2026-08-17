@@ -204,9 +204,12 @@ return (
     through the input field with the corresponding keys will not be possible
     anymore.
   </div>
-  <div className="mt-2 flex flex-row">
-    <div className="my-auto w-32">Generic Input: </div>
-    <TextField value={value} onChange={(newValue) => setValue(newValue)} />
+  <div className="mt-2">
+    <TextField
+      label="Generic Input"
+      value={value}
+      onChange={(newValue) => setValue(newValue)}
+    />
   </div>
 </div>
 ) }

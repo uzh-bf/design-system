@@ -1,13 +1,12 @@
 'use client'
 
-import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useField } from 'formik'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
 import FormLabel from '../FormLabel'
-import Tooltip from '../Tooltip'
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '../ui/input-otp'
+import { FieldErrorIndicator } from './FieldErrorIndicator'
+import { useFieldError } from './useFieldError'
 
 export interface FormikPinFieldProps {
   id?: string
@@ -63,6 +62,12 @@ export function FormikPinField({
   data,
 }: FormikPinFieldProps) {
   const [field, meta, helpers] = useField(name)
+  const { inputId, visibleError, errorId } = useFieldError({
+    id,
+    error: !!meta.error && meta.touched ? meta.error : undefined,
+    isTouched: meta.touched,
+    hideError,
+  })
 
   return (
     <div
@@ -74,7 +79,7 @@ export function FormikPinField({
     >
       {label && (
         <FormLabel
-          id={id}
+          id={inputId}
           required={required}
           label={label}
           labelType={labelType}
@@ -85,6 +90,10 @@ export function FormikPinField({
 
       <div className="flex w-full flex-row items-center gap-2">
         <InputOTP
+          id={inputId}
+          aria-label={label ? undefined : 'PIN code'}
+          aria-required={required || undefined}
+          aria-describedby={visibleError ? errorId : undefined}
           maxLength={length}
           value={field.value}
           onChange={async (newValue) => {
@@ -129,17 +138,8 @@ export function FormikPinField({
               ))}
           </InputOTPGroup>
         </InputOTP>
-        {meta.error && !hideError && meta.touched && (
-          <Tooltip
-            tooltip={!!meta.error && meta.touched ? meta.error : undefined}
-            delay={0}
-            className={{ tooltip: 'max-w-120 text-sm' }}
-          >
-            <FontAwesomeIcon
-              icon={faCircleExclamation}
-              className="text-destructive-text mr-1"
-            />
-          </Tooltip>
+        {visibleError && (
+          <FieldErrorIndicator error={visibleError} errorId={errorId} />
         )}
       </div>
     </div>

@@ -143,7 +143,7 @@ export function Slider({
 
         <RadixSlider.Thumb
           ref={ref}
-          aria-label={ariaLabel}
+          aria-label={ariaLabel ?? 'Value'}
           className={twMerge(
             'focus:ring-ring/50 flex size-[18px] flex-col items-center justify-center rounded-full border-2 border-solid bg-white shadow-sm transition-[color,box-shadow] focus:ring-[3px] focus:outline-hidden',
             compact && 'size-4 border-[1.5px]',

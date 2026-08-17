@@ -132,7 +132,7 @@ export function Switch({
       <RadixSwitch.Root
         id={inputId}
         ref={ref}
-        aria-label={!label ? ariaLabel : undefined}
+        aria-label={!label ? (ariaLabel ?? 'Toggle') : undefined}
         data-cy={data?.cy}
         data-test={data?.test}
         checked={checked}
@@ -180,6 +180,7 @@ export function Switch({
       {error && !hideError && (
         <Tooltip
           tooltip={error}
+          ariaLabel={typeof error === 'string' ? error : 'Error details'}
           delay={0}
           className={{ tooltip: 'max-w-120 text-sm' }}
         >

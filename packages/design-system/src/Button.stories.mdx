@@ -174,7 +174,7 @@ export const Default = () => (
 )
 
 export const Icon = () => (
-  <Button>
+  <Button ariaLabel="Send email">
     <Button.Icon icon={faEnvelope} withoutLabel />
   </Button>
 )
@@ -300,6 +300,7 @@ export const BasicButton = () => (
 
 export const ColorButton = () => (
   <Button
+    ariaLabel="Red color"
     className={{ root: 'h-8 w-8 rounded-full bg-red-300 hover:bg-red-500' }}
     onClick={() => alert('Red button was pressed!')}
   />
@@ -308,11 +309,19 @@ export const ColorButton = () => (
 export const ButtonIconGroup = () => {
   const [state, setState] = useState(undefined)
 
-return (
-
-<Button.IconGroup state={state} setState={setState}>
-  <Button.Icon icon={faPlaneArrival} withoutLabel />
-  <Button.Icon icon={faPlaneDeparture} withoutLabel />
-  <Button.Icon icon={faEnvelope} withoutLabel />
-</Button.IconGroup>
-) }
+  return (
+    <Button.IconGroup state={state} setState={setState}>
+      <Button.Icon
+        icon={faPlaneArrival}
+        ariaLabel="Arrivals"
+        withoutLabel
+      />
+      <Button.Icon
+        icon={faPlaneDeparture}
+        ariaLabel="Departures"
+        withoutLabel
+      />
+      <Button.Icon icon={faEnvelope} ariaLabel="Messages" withoutLabel />
+    </Button.IconGroup>
+  )
+}

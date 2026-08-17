@@ -40,6 +40,7 @@ interface SelectProps {
   defaultValue?: string
   basic?: boolean
   contentPosition?: 'item-aligned' | 'popper'
+  ariaLabel?: string
   ariaRequired?: boolean
   ariaInvalid?: boolean
   ariaDescribedBy?: string
@@ -133,6 +134,7 @@ export function Select({
   defaultValue,
   basic = false,
   contentPosition = 'item-aligned',
+  ariaLabel,
   ariaRequired,
   ariaInvalid,
   ariaDescribedBy,
@@ -175,6 +177,7 @@ export function Select({
         <SelectTrigger
           id={id}
           ref={ref}
+          aria-label={ariaLabel ?? placeholder ?? 'Select option'}
           onFocus={() => {
             blurNotifiedRef.current = false
           }}

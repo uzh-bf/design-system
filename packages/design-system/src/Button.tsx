@@ -2,7 +2,7 @@
 
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import type { ComponentPropsWithoutRef, Dispatch } from 'react'
+import React, { type ComponentPropsWithoutRef, type Dispatch } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Button as ShadcnButton } from './ui/button'
 
@@ -36,6 +36,7 @@ type ButtonBaseProps = Omit<
     root?: string
     active?: string
   }
+  ariaLabel?: string
   data?: {
     cy?: string
     test?: string
@@ -87,6 +88,7 @@ export function Button({
   size = 'md',
   type = 'button',
   className,
+  ariaLabel,
   data,
   ref,
   ...props
@@ -94,6 +96,10 @@ export function Button({
   return (
     <ShadcnButton
       id={id}
+      aria-label={
+        ariaLabel ??
+        ((props as Record<string, unknown>)['aria-label'] as string | undefined)
+      }
       variant={
         basic
           ? 'ghost'
@@ -165,6 +171,7 @@ export function Button({
  *
  * @param icon - The icon definition from FontAwesome.
  * @param withoutLabel - Conditionally, specific styling is not applied to the button that would be required for spacing between icon and label.
+ * @param ariaLabel - Accessible name when icon is rendered without a label.
  * @param loading - Conditionally, the icon can be hidden if a loading spinner is shown instead to keep the width of the button as consistent as possible.
  * @param className - The optional className object allows you to override the default styling of the icon.
  * @returns Icon component for use inside the Button component
@@ -172,11 +179,13 @@ export function Button({
 Button.Icon = function ButtonIcon({
   icon,
   withoutLabel,
+  ariaLabel,
   loading, // optional boolean to hide icon when loading is set -> only show loading spinner
   className,
 }: {
   icon: IconDefinition
   withoutLabel?: boolean
+  ariaLabel?: string
   loading?: boolean
   className?: {
     root?: string
@@ -189,6 +198,7 @@ Button.Icon = function ButtonIcon({
   return (
     <FontAwesomeIcon
       icon={icon}
+      aria-label={ariaLabel}
       className={twMerge('h-4 w-4', !withoutLabel && 'mr-2', className?.root)}
     />
   )
@@ -246,9 +256,15 @@ Button.IconGroup = function ButtonIconGroup({
       )}
     >
       {children.map((child, index) => {
+        const childProps = React.isValidElement(child)
+          ? (child.props as Record<string, unknown>)
+          : undefined
+        const childAriaLabel =
+          (childProps?.ariaLabel as string | undefined) ?? `Option ${index + 1}`
         return (
           <Button
             key={index}
+            ariaLabel={childAriaLabel}
             className={{
               root: twMerge(
                 'rounded-none border-0 px-2 first:rounded-l-md last:rounded-r-md',

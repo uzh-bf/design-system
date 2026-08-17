@@ -99,6 +99,7 @@ export function AlphaNumericPinField({
         <InputOTP
           id={inputId}
           ref={ref}
+          aria-label={label ? undefined : 'PIN code'}
           aria-required={required || undefined}
           aria-describedby={visibleError ? errorId : undefined}
           maxLength={length}
