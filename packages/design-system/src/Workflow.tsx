@@ -284,7 +284,7 @@ export function WorkflowItem({
         (item.completed || item.progress === 1) &&
           (ix === activeIx
             ? 'bg-success text-success-foreground after:border-l-success hover:bg-success hover:after:border-l-success!'
-            : 'bg-success-background text-success-foreground dark:text-success after:border-l-success-background hover:bg-success-background hover:after:border-l-success-background!'),
+            : 'bg-success-background text-foreground dark:text-success after:border-l-success-background hover:bg-success-background hover:after:border-l-success-background!'),
         item.error &&
           (ix === activeIx
             ? 'bg-destructive text-destructive-foreground after:border-l-destructive hover:bg-destructive hover:after:border-l-destructive!'

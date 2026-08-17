@@ -75,15 +75,15 @@ for (const theme of THEMES) {
 // regressed to matching Ladle's chrome, the scan ran on an empty page and every
 // story "passed" with zero violations. The per-story tests above cannot detect a
 // recurrence — fewer violations reads as "debt fixed," not "scan broken." This
-// canary makes it loud: user-notification--info deterministically emits
-// color-contrast (A11Y-07), so if the harness ever stops reaching real story
-// content this fails instead of the whole sweep going quietly green.
+// canary verifies that axe reaches real rendered story content by confirming
+// that element-level accessibility rules (such as button-name) execute and pass
+// against the rendered story tree instead of reporting an empty inapplicable scan.
 test('harness canary: the scan reaches rendered story content', async ({
   page,
 }) => {
-  await gotoStory(page, 'user-notification--info', 'neutral')
-  const { violations } = await new AxeBuilder({ page })
+  await gotoStory(page, 'button--default', 'neutral')
+  const { passes } = await new AxeBuilder({ page })
     .exclude(TOOLBAR_SELECTOR)
     .analyze()
-  expect(violations.map((v) => v.id)).toContain('color-contrast')
+  expect(passes.map((p) => p.id)).toContain('button-name')
 })
