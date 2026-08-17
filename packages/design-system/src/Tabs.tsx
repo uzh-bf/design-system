@@ -1,5 +1,6 @@
 'use client'
 
+import React, { createContext, useContext, useId } from 'react'
 import { twMerge } from 'tailwind-merge'
 import Tooltip from './Tooltip'
 import {
@@ -8,6 +9,8 @@ import {
   TabsList,
   TabsTrigger,
 } from './ui/tabs'
+
+const TabsContext = createContext<{ tabsId: string }>({ tabsId: '' })
 
 /**
  * This function returns a tabs component for use based on the Shadcn UI prestyled component
@@ -55,44 +58,55 @@ export function Tabs({
   }
   children: React.ReactNode // tabs content
 }) {
-  return (
-    <ShadcnTabs
-      id={id}
-      defaultValue={defaultValue}
-      value={value}
-      onValueChange={onValueChange}
-      className={className?.root}
-    >
-      <TabsList className={className?.list}>
-        {tabs.map((tab) => {
-          const trigger = (
-            <TabsTrigger
-              key={tab.id}
-              value={tab.value}
-              disabled={tab.disabled}
-              data-cy={tab.data?.cy}
-              data-test={tab.data?.test}
-              className={twMerge(className?.trigger, tab.className?.trigger)}
-            >
-              {tab.label}
-            </TabsTrigger>
-          )
+  const generatedId = useId().replace(/:/g, '')
+  const tabsId = id ?? `tabs-${generatedId}`
 
-          return tab.tooltip ? (
-            <Tooltip
-              tooltip={tab.tooltip}
-              delay={tab.tooltipDelay}
-              className={{ tooltip: tab.className?.tooltip }}
-            >
-              {trigger}
-            </Tooltip>
-          ) : (
-            trigger
-          )
-        })}
-      </TabsList>
-      {children}
-    </ShadcnTabs>
+  return (
+    <TabsContext.Provider value={{ tabsId }}>
+      <ShadcnTabs
+        id={id}
+        defaultValue={defaultValue}
+        value={value}
+        onValueChange={onValueChange}
+        className={className?.root}
+      >
+        <TabsList className={className?.list}>
+          {tabs.map((tab) => {
+            const triggerId = tab.id ?? `${tabsId}-trigger-${tab.value}`
+            const contentId = `${tabsId}-content-${tab.value}`
+            const trigger = (
+              <TabsTrigger
+                key={tab.id ?? tab.value}
+                id={triggerId}
+                aria-controls={contentId}
+                value={tab.value}
+                disabled={tab.disabled}
+                data-cy={tab.data?.cy}
+                data-test={tab.data?.test}
+                className={twMerge(className?.trigger, tab.className?.trigger)}
+              >
+                {tab.label}
+              </TabsTrigger>
+            )
+
+            return tab.tooltip ? (
+              <Tooltip
+                key={tab.id ?? tab.value}
+                asChild
+                tooltip={tab.tooltip}
+                delay={tab.tooltipDelay}
+                className={{ tooltip: tab.className?.tooltip }}
+              >
+                {trigger}
+              </Tooltip>
+            ) : (
+              trigger
+            )
+          })}
+        </TabsList>
+        {children}
+      </ShadcnTabs>
+    </TabsContext.Provider>
   )
 }
 
@@ -119,9 +133,14 @@ export function TabContent({
   data?: { cy?: string; test?: string }
   className?: { root?: string }
 }) {
+  const { tabsId } = useContext(TabsContext)
+  const contentId = id ?? (tabsId ? `${tabsId}-content-${value}` : undefined)
+  const triggerId = tabsId ? `${tabsId}-trigger-${value}` : undefined
+
   return (
     <ShadcnTabsContent
-      id={id}
+      id={contentId}
+      aria-labelledby={triggerId}
       value={value}
       data-cy={data?.cy}
       data-test={data?.test}
