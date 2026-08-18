@@ -9,6 +9,7 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     name: Lint
+    timeout-minutes: 10
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -28,6 +29,7 @@ jobs:
   check-ts:
     runs-on: ubuntu-latest
     name: Check Types
+    timeout-minutes: 10
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -47,6 +49,7 @@ jobs:
   check-format:
     runs-on: ubuntu-latest
     name: Check Formatting
+    timeout-minutes: 10
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -66,6 +69,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     name: Test
+    timeout-minutes: 25
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -80,8 +84,26 @@ jobs:
           version: 10.30.0
           run_install: true
 
+      - name: Resolve Playwright version
+        id: playwright
+        run: |
+          version="$(pnpm --filter @uzh-bf/design-system exec playwright --version | awk '{print $NF}')"
+          echo "version=${version}" >> "$GITHUB_OUTPUT"
+
+      # The browser bundle is downloaded from a CDN on every run otherwise, and
+      # that download is the least reliable thing in this workflow. The key
+      # carries the resolved Playwright version, so a dependency bump misses the
+      # cache and repopulates it instead of restoring browsers for the wrong
+      # release.
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ steps.playwright.outputs.version }}
+
       - name: Install Playwright browser
-        run: pnpm --filter @uzh-bf/design-system test:install
+        timeout-minutes: 17
+        run: bash .github/scripts/install-playwright-browser.sh
 
       # Packed CSS ownership tracer: builds and packs the package, then asserts
       # the computed-token contract matrix from the packed ./css artifact in
@@ -107,6 +129,7 @@ jobs:
   a11y:
     runs-on: ubuntu-latest
     name: A11y (shard ${{ matrix.shard }}/4)
+    timeout-minutes: 25
     strategy:
       fail-fast: false
       matrix:
@@ -125,8 +148,24 @@ jobs:
           version: 10.30.0
           run_install: true
 
+      - name: Resolve Playwright version
+        id: playwright
+        run: |
+          version="$(pnpm --filter @uzh-bf/design-system exec playwright --version | awk '{print $NF}')"
+          echo "version=${version}" >> "$GITHUB_OUTPUT"
+
+      # Four shards multiply the exposure: without this cache each one downloads
+      # the same browser bundle independently, so a single bad CDN response
+      # stalls the whole gate.
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ steps.playwright.outputs.version }}
+
       - name: Install Playwright browser
-        run: pnpm --filter @uzh-bf/design-system test:install
+        timeout-minutes: 17
+        run: bash .github/scripts/install-playwright-browser.sh
 
       - name: Build Ladle
         run: pnpm --filter @uzh-bf/design-system build:ladle
@@ -166,6 +205,7 @@ jobs:
     runs-on: ubuntu-latest
     name: A11y Inventory Protocol
     needs: a11y
+    timeout-minutes: 10
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -199,6 +239,7 @@ jobs:
   visual-regression:
     runs-on: ubuntu-latest
     name: Visual Regression
+    timeout-minutes: 20
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -240,6 +281,7 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     needs:
       [
         lint,
@@ -275,6 +317,7 @@ jobs:
     name: Publish
     if: ${{ startsWith(github.ref, 'refs/tags/v') }}
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     needs: [build]
     permissions:
       contents: read
