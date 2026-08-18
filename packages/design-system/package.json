@@ -152,6 +152,7 @@
     "test:visual": "bash scripts/visual-regression.sh",
     "test:visual:generate": "bash scripts/visual-regression.sh --generate",
     "test:theme-contract": "node tests/theme-contract/verify-packed-css.mjs",
+    "test:a11y:protocol": "tsx tests/a11y/assert-inventory-artifacts.ts",
     "check": "run-s check:ts check:types",
     "check:ts": "tsc --noEmit",
     "check:types": "tsc -p tsconfig.types.json --noEmit"
