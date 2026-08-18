@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## Unreleased
+
+### ⚠ BREAKING CHANGES
+
+* **theme:** `ThemeProvider` no longer renders a themed container. It writes `data-theme` to `document.documentElement` from an effect and keeps it in sync, so a consumer ramp override on `:root[data-theme='uzh']` is no longer shadowed inside the provider's subtree, and portaled overlays resolve the same theme. Consequences: server-rendered markup should carry `<html data-theme="…">` for the theme the app starts in, because the attribute is written on the client; several mounted providers no longer create nested theme regions (the root keeps the theme written last); and the `dark` class belongs on the document root next to `data-theme` rather than on the provider's `className`. Apps that opted in through the provider alone also change visually: `--font-sans` resolves on the document root, so the theme typography reaches them for the first time and UZH text renders in Source Sans 3 instead of the system font stack.
+
 ## [5.0.0-alpha.4](https://github.com/uzh-bf/design-system/compare/v5.0.0-alpha.3...v5.0.0-alpha.4) (2026-08-17)
 
 

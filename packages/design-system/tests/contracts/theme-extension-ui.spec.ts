@@ -1,6 +1,6 @@
 import { expect, test, type Locator } from '@playwright/test'
 
-import { gotoStory } from '../_support/ladle'
+import { gotoStory, seedLadleTheme } from '../_support/ladle'
 
 /**
  * Independent expectation oracle for the synthetic ramp. The story owns the
@@ -62,10 +62,11 @@ const STATES: ContractState[] = [
 ]
 
 /**
- * The supported contract is one theme on the document root. Ladle wraps every
- * story in a ThemeProvider div, so neutralize that wrapper first, then apply
- * the theme, optional synthetic ramp, and dark axis directly on
- * `document.documentElement` before any style is read.
+ * The supported contract is one theme on the document root: apply the theme,
+ * the optional synthetic ramp, and the dark axis directly on
+ * `document.documentElement` before any style is read. Ladle's own
+ * ThemeProvider writes the same root attribute, so there is no themed wrapper
+ * to neutralize first.
  */
 async function applyDocumentRootState(
   page: Parameters<typeof gotoStory>[0],
@@ -74,9 +75,6 @@ async function applyDocumentRootState(
   await page.evaluate(
     ({ theme, ramp, rampKeys }) => {
       const root = document.documentElement
-      const wrapper = document.querySelector('#ladle-root > [data-theme]')
-      wrapper?.removeAttribute('data-theme')
-      wrapper?.classList.remove('dark')
       root.classList.remove('dark')
       if (theme === 'uzh') {
         root.setAttribute('data-theme', 'uzh')
@@ -194,56 +192,124 @@ async function expectedFocusRingColor(
   }, ring)
 }
 
+/**
+ * The token expectations every contract state shares: the resolved root tokens,
+ * then the components that consume them. Component colors are compared against
+ * a probe attached to `document.body`, so a state where the components resolve
+ * different values than the document root fails here.
+ */
+async function expectContractState(
+  page: Parameters<typeof gotoStory>[0],
+  state: ContractState
+): Promise<void> {
+  const rootTokens = await page.evaluate((tokens) => {
+    const styles = getComputedStyle(document.documentElement)
+    return Object.fromEntries(
+      tokens.map((token) => [token, styles.getPropertyValue(token).trim()])
+    )
+  }, Object.keys(state.expected))
+  expect(rootTokens).toEqual(state.expected)
+
+  const probe = await readProbeColors(page)
+  const id = state.storyId.replace('theme-extension-contract--', '')
+
+  const button = page.locator(`[data-test="theme-contract-button-${id}"]`)
+  await expect(button).toHaveCount(1)
+  await expect(button).toHaveCSS('background-color', probe.primary)
+
+  const badge = page.locator(`[data-test="theme-contract-badge-${id}"]`)
+  await expect(badge).toHaveCount(1)
+  await expect(badge).toHaveCSS('background-color', probe.primary)
+
+  const input = page.locator(`[data-test="theme-contract-input-${id}"]`)
+  await expect(input).toHaveCount(1)
+  await input.focus()
+  await expect(input).toBeFocused()
+  const focusRingColor = await settledFocusRingColor(page, input)
+  const expectedRingColor = await expectedFocusRingColor(page, 'var(--ring)')
+  expect(focusRingColor).toBe(expectedRingColor)
+
+  // Hover consumes the sidebar accent pair; the active state consumes the
+  // public ramp utilities, which equal the accent pair under UZH and the
+  // synthetic ramp but stay distinct for neutral.
+  const activeItem = page.locator(
+    `[data-test="theme-contract-sidebar-active-${id}"]`
+  )
+  await expect(activeItem).toHaveCount(1)
+  await expect(activeItem).toHaveCSS('background-color', probe.primary20)
+  await expect(activeItem).toHaveCSS('color', probe.primary100)
+
+  const hoverItem = page.locator(
+    `[data-test="theme-contract-sidebar-hover-${id}"]`
+  )
+  await expect(hoverItem).toHaveCount(1)
+  await hoverItem.hover()
+  await expect(hoverItem).toHaveCSS('background-color', probe.sidebarAccent)
+  await expect(hoverItem).toHaveCSS('color', probe.sidebarAccentForeground)
+}
+
 for (const state of STATES) {
   test(`renders the ${state.storyId} document-root contract state`, async ({
     page,
   }) => {
     await gotoStory(page, state.storyId)
     await applyDocumentRootState(page, state)
-
-    const rootTokens = await page.evaluate((tokens) => {
-      const styles = getComputedStyle(document.documentElement)
-      return Object.fromEntries(
-        tokens.map((token) => [token, styles.getPropertyValue(token).trim()])
-      )
-    }, Object.keys(state.expected))
-    expect(rootTokens).toEqual(state.expected)
-
-    const probe = await readProbeColors(page)
-    const id = state.storyId.replace('theme-extension-contract--', '')
-
-    const button = page.locator(`[data-test="theme-contract-button-${id}"]`)
-    await expect(button).toHaveCount(1)
-    await expect(button).toHaveCSS('background-color', probe.primary)
-
-    const badge = page.locator(`[data-test="theme-contract-badge-${id}"]`)
-    await expect(badge).toHaveCount(1)
-    await expect(badge).toHaveCSS('background-color', probe.primary)
-
-    const input = page.locator(`[data-test="theme-contract-input-${id}"]`)
-    await expect(input).toHaveCount(1)
-    await input.focus()
-    await expect(input).toBeFocused()
-    const focusRingColor = await settledFocusRingColor(page, input)
-    const expectedRingColor = await expectedFocusRingColor(page, 'var(--ring)')
-    expect(focusRingColor).toBe(expectedRingColor)
-
-    // Hover consumes the sidebar accent pair; the active state consumes the
-    // public ramp utilities, which equal the accent pair under UZH and the
-    // synthetic ramp but stay distinct for neutral.
-    const activeItem = page.locator(
-      `[data-test="theme-contract-sidebar-active-${id}"]`
-    )
-    await expect(activeItem).toHaveCount(1)
-    await expect(activeItem).toHaveCSS('background-color', probe.primary20)
-    await expect(activeItem).toHaveCSS('color', probe.primary100)
-
-    const hoverItem = page.locator(
-      `[data-test="theme-contract-sidebar-hover-${id}"]`
-    )
-    await expect(hoverItem).toHaveCount(1)
-    await hoverItem.hover()
-    await expect(hoverItem).toHaveCSS('background-color', probe.sidebarAccent)
-    await expect(hoverItem).toHaveCSS('color', probe.sidebarAccentForeground)
+    await expectContractState(page, state)
   })
 }
+
+/**
+ * The ramp override as a consumer actually ships it: a stylesheet rule on
+ * `:root[data-theme='uzh']`, loaded after the packaged CSS, with the theme on
+ * the document root and a real `ThemeProvider` container in between — Ladle
+ * wraps every story in one, and this state deliberately leaves it in place.
+ *
+ * This is the state that regressed: while the provider set `data-theme` on its
+ * own container, that container re-declared the whole UZH token layer for the
+ * subtree, so components inside it fell back to UZH blue while the document
+ * root carried the consumer's color. The shared assertions compare components
+ * against a probe outside the container, so the state fails as soon as the
+ * provider themes a container again.
+ */
+const CONSUMER_RAMP_STATE: ContractState = {
+  storyId: 'theme-extension-contract--uzh',
+  theme: 'uzh',
+  ramp: RAMP_VALUES,
+  expected: {
+    '--primary': '#8c2f14',
+    '--ring': '#8c2f14',
+    '--sidebar-accent': '#f7d9cf',
+    '--sidebar-accent-foreground': '#8c2f14',
+  },
+}
+
+const CONSUMER_RAMP_STYLESHEET = `:root[data-theme='uzh'] {
+${Object.entries(RAMP_VALUES)
+  .map(([name, value]) => `  ${name}: ${value};`)
+  .join('\n')}
+}`
+
+test('keeps a consumer ramp override inside the ThemeProvider subtree', async ({
+  page,
+}) => {
+  // The provider renders `uzh`, so a container it themed would shadow the
+  // override with UZH blue rather than with the neutral defaults.
+  await seedLadleTheme(page, CONSUMER_RAMP_STATE.theme)
+  await gotoStory(page, CONSUMER_RAMP_STATE.storyId)
+  // No inline ramp on the root: the override must arrive through the stylesheet
+  // rule the migration guide documents.
+  await applyDocumentRootState(page, {
+    ...CONSUMER_RAMP_STATE,
+    ramp: undefined,
+  })
+  await page.addStyleTag({ content: CONSUMER_RAMP_STYLESHEET })
+
+  // Guards the state against going vacuous: the components below must really
+  // sit inside the provider's container.
+  await expect(page.locator('#ladle-root > div')).toHaveCount(1)
+  await expect(
+    page.locator('#ladle-root [data-test="theme-contract-button-uzh"]')
+  ).toHaveCount(1)
+
+  await expectContractState(page, CONSUMER_RAMP_STATE)
+})

@@ -15,19 +15,31 @@ const ThemeContext = React.createContext<ThemeContextValue | null>(null)
 const noop = () => {}
 
 /**
- * Wraps an application (or subtree) in a design-system theme.
+ * Wraps an application in a design-system theme.
  *
- * Renders a `data-theme` container so all design-system components below it
- * resolve their tokens against the chosen theme. The default theme is
- * `neutral` (de-branded shadcn); UZH apps pass `theme="uzh"`.
+ * Writes `data-theme` to `document.documentElement` in an effect and keeps it in
+ * sync with the active theme, so every design-system component resolves its
+ * tokens against one theme on the document root — including Radix overlays that
+ * portal to `document.body`. The default theme is `neutral` (de-branded
+ * shadcn); UZH apps pass `theme="uzh"`.
  *
  * Works controlled (`theme` prop) or uncontrolled (`defaultTheme` + `useTheme`).
  *
+ * Because the attribute is written from an effect, server-rendered markup is
+ * unthemed on first paint. Render `<html data-theme="uzh">` yourself for the
+ * theme the app starts in; this provider then syncs and toggles it on the
+ * client. The rendered container is `display: contents` and carries no theme of
+ * its own, so it never scopes a theme to a subtree: with several providers
+ * mounted, the document root holds the theme of whichever one wrote last (the
+ * outermost on mount, then the most recent change).
+ *
  * @param theme - Controlled theme. When set, the provider is fully controlled.
  * @param defaultTheme - Initial theme for uncontrolled usage (default `neutral`).
- * @param className - Optional classes for the wrapping container. The container
- *   uses `display: contents`, so only inherited classes (e.g. `dark`) take
- *   effect; box-model classes (padding, sizing, background) are a no-op.
+ * @param className - Optional classes for the container. The container uses
+ *   `display: contents`, so only inherited classes take effect; box-model
+ *   classes (padding, sizing, background) are a no-op. The `dark` axis belongs
+ *   on the document root next to `data-theme` — passing `dark` here leaves the
+ *   dark status surfaces of the `uzh` theme unmatched.
  * @param children - The subtree that should consume the theme.
  */
 export function ThemeProvider({
@@ -54,11 +66,18 @@ export function ThemeProvider({
     setTheme: isControlled ? noop : setUncontrolledTheme,
   }
 
+  // The theme lives on the document root, never on this container: a themed
+  // container re-declares the whole token layer for its subtree and would
+  // shadow a consumer ramp override made at `:root[data-theme='uzh']`. The
+  // attribute is left in place on unmount, so tearing down a provider cannot
+  // strip the theme from an app that still renders themed content.
+  React.useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme)
+  }, [theme])
+
   return (
     <ThemeContext.Provider value={value}>
-      <div data-theme={theme} className={twMerge('contents', className)}>
-        {children}
-      </div>
+      <div className={twMerge('contents', className)}>{children}</div>
     </ThemeContext.Provider>
   )
 }

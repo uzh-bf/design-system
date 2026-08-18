@@ -60,4 +60,7 @@ Planner pass (Fable, read-only) DONE_WITH_CONCERNS 2026-08-18; report persisted 
 
 ## Progress
 
-- 2026-08-18: plan committed (S1). Next: S2 executor dispatch.
+- 2026-08-18: plan committed (S1).
+- 2026-08-18: S2 done (executor report `project/_local/reviews/2026-08-18-s2-executor-report.md`). Option (c) implemented; 4th contract state proven to fail on old code (UZH blue vs consumer ramp) and pass with fix. 9 uzh visual baselines regenerated — the UZH font now genuinely applies through the provider path (typography-only diffs, verified visually); compare run 23/23. Suites: theme-contract 672, smoke 480, a11y 795, check/lint/format green.
+- Discovered (pre-existing at 7a905a234, A/B-verified): `tests/contracts/rhf-fields.spec.ts` 6 failures — number field story never renders. Folded in as slice S3b (diagnose root cause, fix if bounded). CI does not run tests/contracts, so CI is unaffected; the full local Playwright run is red on v5 without this.
+- Next: S2 fan-out gate (simplifier + slice-reviewer), then S3 executor.

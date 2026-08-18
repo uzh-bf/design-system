@@ -75,17 +75,30 @@ export function App({ children }) {
 }
 ```
 
-Components inside a `data-theme="uzh"` container (set directly or via
-`ThemeProvider`) inherit the UZH token layer. The supported and verified
-application boundary is still one theme on the document root.
+The two paths are equivalent: `ThemeProvider` writes `data-theme` to
+`document.documentElement` from an effect and keeps it in sync, so either way
+the whole document — including Radix overlays that portal to `document.body` —
+resolves the UZH token layer from one attribute on the document root.
 
-> **Supported scope in v5: document-root theming.** Setting one theme on the
-> document root (`<html data-theme="…">`) is the supported, verified mode. Mixed
-> or nested theming has known limitations: a `neutral` subtree inside a `uzh`
-> page does not fully reset, and Radix overlays that portal to `document.body`
-> (dialogs, dropdown/context menus, hover cards, tooltips) render outside a
-> `ThemeProvider` wrapper and resolve the document-root theme. Keep a single root
-> theme unless you have verified a specific nested case.
+Coming from `5.0.0-alpha.4` or earlier, expect a visible typography change on
+the provider path: `--font-sans` is resolved on the document root, so a themed
+provider container never reached it and UZH apps kept the system font stack.
+With the theme on the root, UZH text now renders in Source Sans 3, the font the
+theme has always documented. Colors, spacing, and layout are unaffected.
+
+> **Supported scope in v5: document-root theming.** The theme is global. A
+> second `ThemeProvider` does not theme its subtree separately; the document
+> root keeps the theme written last (the outermost provider on mount, then
+> whichever provider changed most recently). There is no supported way to render
+> a `neutral` region inside a `uzh` page. Put the `dark` class on the document
+> root next to `data-theme`, not on a `ThemeProvider` container — the dark
+> status surfaces are declared on the element that carries the theme.
+
+> **Server rendering.** The provider writes the attribute in an effect, so
+> server-rendered markup paints unthemed until React hydrates. Render the
+> starting theme yourself in the document shell (`<html data-theme="uzh">` — in
+> Next.js the `<html>` element of the root layout); the provider syncs the same
+> attribute afterwards, so an in-app toggle keeps working.
 
 ### Complete primary-ramp extension
 

@@ -69,18 +69,24 @@ document root:
 <html data-theme="uzh"></html>
 ```
 
-…or wrap a subtree with the provider — use it when you want an in-app toggle via
-`useTheme`:
+…or mount the provider — use it when you want an in-app toggle via `useTheme`:
 
 ```tsx
 import { ThemeProvider } from '@uzh-bf/design-system'
 ;<ThemeProvider theme="uzh">{children}</ThemeProvider>
 ```
 
-Document-root theming is the supported and verified mode in v5. `ThemeProvider`
-remains useful for a component subtree, but it does not make nested themes or
-portal content a separately verified theme boundary. See [`MIGRATION.md`](./MIGRATION.md)
-for the current limitations.
+Both paths end in the same place: `ThemeProvider` writes `data-theme` to
+`document.documentElement` from an effect and keeps it in sync, so the theme is
+always one attribute on the document root — which is also how portaled overlays
+(dialogs, menus, tooltips) get their theme. Because that write happens on the
+client, server-rendered markup should carry `<html data-theme="…">` for the
+theme the app starts in; the provider then takes over the toggling.
+
+Document-root theming is the supported and verified mode in v5. The theme is
+global by construction: mounting more than one provider does not create nested
+theme regions, it just means the root keeps whichever theme was written last.
+See [`MIGRATION.md`](./MIGRATION.md) for the current limitations.
 
 ### Complete primary-ramp extension
 
