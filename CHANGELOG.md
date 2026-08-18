@@ -13,6 +13,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 * **collapsible:** the English `Expand section`/`Collapse section` label no longer overrides a custom trigger's own accessible name, and the new optional `ariaLabel` prop makes the trigger name translatable.
 * **forms:** RHF number fields announce their visible label (including the required marker) instead of the generic `Number` fallback; the fallback still names a standalone `NumberField` with no label at all.
+* **label:** the required asterisk renders inside the labelling element in the tooltip variants too, so accessible names computed from the label (`aria-labelledby`, `<label for>`) include the visible required marker regardless of whether a tooltip is configured.
 * **tabs:** generated ids strip every character outside `[a-zA-Z0-9_-]`, so the React 19 `useId()` delimiters no longer leak into ids that a CSS selector cannot address.
 
 ### Enhancements

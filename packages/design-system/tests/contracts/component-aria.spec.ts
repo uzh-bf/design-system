@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
 
-import { gotoStory } from '../_support/ladle'
+import { STORY_SELECTOR, gotoStory } from '../_support/ladle'
 
 /**
  * Characters an id may contain and still be addressable by a plain CSS id
@@ -38,6 +38,26 @@ test.describe('Tabs ARIA wiring', () => {
     expect(await selectedTrigger.getAttribute('id')).toBe(labelledBy)
     await expect(page.locator(`#${labelledBy}`)).toHaveCount(1)
     await expect(page.locator(`#${panelId}`)).toHaveCount(1)
+  })
+})
+
+test.describe('Label required marker', () => {
+  /**
+   * `aria-labelledby` and `<label for>` compute the accessible name from the
+   * id-bearing element's own content, so the visible required asterisk must
+   * render inside the labelling element — including in the tooltip branches,
+   * which used to place it as a sibling.
+   */
+  test('a required label with a tooltip carries the asterisk inside the labelling element', async ({
+    page,
+  }) => {
+    await gotoStory(page, 'label--required-tooltip')
+
+    // Scoped to the story area: the Ladle toolbar renders labels of its own.
+    const label = page.locator(STORY_SELECTOR).locator('label')
+    await expect(label).toHaveCount(1)
+    await expect(label).toContainText('Required label')
+    await expect(label).toContainText('*')
   })
 })
 
