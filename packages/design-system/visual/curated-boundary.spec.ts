@@ -139,9 +139,6 @@ async function applyDocumentRootState(
   await page.evaluate(
     ({ theme }) => {
       const root = document.documentElement
-      const wrapper = document.querySelector('#ladle-root > [data-theme]')
-      wrapper?.removeAttribute('data-theme')
-      wrapper?.classList.remove('dark')
       root.classList.remove('dark')
 
       if (theme === 'uzh') {

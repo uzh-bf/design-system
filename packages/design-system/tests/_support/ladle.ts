@@ -80,10 +80,7 @@ export async function gotoStory(
  * Preselect the theme the Ladle provider renders with. Must run before the
  * navigation: the provider reads the persisted control on mount.
  */
-export async function seedLadleTheme(
-  page: Page,
-  theme: LadleTheme
-): Promise<void> {
+async function seedLadleTheme(page: Page, theme: LadleTheme): Promise<void> {
   await page.addInitScript((t) => {
     window.localStorage.setItem('ladle-theme', JSON.stringify(t))
   }, theme)

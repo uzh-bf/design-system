@@ -17,11 +17,12 @@ const noop = () => {}
 /**
  * Wraps an application in a design-system theme.
  *
- * Writes `data-theme` to `document.documentElement` in an effect and keeps it in
- * sync with the active theme, so every design-system component resolves its
- * tokens against one theme on the document root — including Radix overlays that
- * portal to `document.body`. The default theme is `neutral` (de-branded
- * shadcn); UZH apps pass `theme="uzh"`.
+ * Writes `data-theme` to `document.documentElement` in an effect and re-writes
+ * it whenever the active theme changes (a one-way write, not a reconciler —
+ * outside writes to the attribute are not observed), so every design-system
+ * component resolves its tokens against one theme on the document root —
+ * including Radix overlays that portal to `document.body`. The default theme is
+ * `neutral` (de-branded shadcn); UZH apps pass `theme="uzh"`.
  *
  * Works controlled (`theme` prop) or uncontrolled (`defaultTheme` + `useTheme`).
  *

@@ -1,6 +1,6 @@
 import { expect, test, type Locator } from '@playwright/test'
 
-import { gotoStory, seedLadleTheme } from '../_support/ladle'
+import { gotoStory } from '../_support/ladle'
 
 /**
  * Independent expectation oracle for the synthetic ramp. The story owns the
@@ -294,8 +294,7 @@ test('keeps a consumer ramp override inside the ThemeProvider subtree', async ({
 }) => {
   // The provider renders `uzh`, so a container it themed would shadow the
   // override with UZH blue rather than with the neutral defaults.
-  await seedLadleTheme(page, CONSUMER_RAMP_STATE.theme)
-  await gotoStory(page, CONSUMER_RAMP_STATE.storyId)
+  await gotoStory(page, CONSUMER_RAMP_STATE.storyId, CONSUMER_RAMP_STATE.theme)
   // No inline ramp on the root: the override must arrive through the stylesheet
   // rule the migration guide documents.
   await applyDocumentRootState(page, {
