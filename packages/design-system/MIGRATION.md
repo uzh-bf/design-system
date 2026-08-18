@@ -75,17 +75,35 @@ export function App({ children }) {
 }
 ```
 
-Components inside a `data-theme="uzh"` container (set directly or via
-`ThemeProvider`) inherit the UZH token layer. The supported and verified
-application boundary is still one theme on the document root.
+The two paths are equivalent: `ThemeProvider` writes `data-theme` to
+`document.documentElement` from an effect and keeps it in sync, so either way
+the whole document — including Radix overlays that portal to `document.body` —
+resolves the UZH token layer from one attribute on the document root.
 
-> **Supported scope in v5: document-root theming.** Setting one theme on the
-> document root (`<html data-theme="…">`) is the supported, verified mode. Mixed
-> or nested theming has known limitations: a `neutral` subtree inside a `uzh`
-> page does not fully reset, and Radix overlays that portal to `document.body`
-> (dialogs, dropdown/context menus, hover cards, tooltips) render outside a
-> `ThemeProvider` wrapper and resolve the document-root theme. Keep a single root
-> theme unless you have verified a specific nested case.
+Coming from `5.0.0-alpha.4` or earlier, expect a visible typography change on
+the provider path: `--font-sans` is resolved on the document root, so a themed
+provider container never reached it and UZH apps kept the system font stack.
+With the theme on the root, UZH text now renders in Source Sans 3, the font the
+theme has always documented. Colors, spacing, and layout are unaffected.
+
+> **Supported scope in v5: document-root theming.** The theme is global. A
+> second `ThemeProvider` does not theme its subtree separately; the document
+> root keeps the theme written last (the outermost provider on mount, then
+> whichever provider changed most recently). There is no supported way to render
+> a `neutral` region inside a `uzh` page. Put the `dark` class on the document
+> root next to `data-theme`, not on a `ThemeProvider` container — the dark
+> status surfaces are declared on the element that carries the theme.
+
+> **First paint.** The provider writes the attribute in an effect, which runs
+> after paint — so an app that themes only through the provider paints one
+> unthemed frame, whether server-rendered or purely client-rendered. Render the
+> starting theme yourself in the document shell (`<html data-theme="uzh">` — in
+> Next.js the `<html>` element of the root layout); the provider syncs the same
+> attribute afterwards, so an in-app toggle keeps working. The provider's
+> `theme`/`defaultTheme` **must match** the shell attribute: the effect
+> overwrites `data-theme` unconditionally on mount, so
+> `<html data-theme="uzh">` combined with a bare `<ThemeProvider>` reverts the
+> whole document to `neutral` after hydration.
 
 ### Complete primary-ramp extension
 
@@ -432,6 +450,46 @@ paths, and a disabled step keeps them on that same focusable button. The `<ol>`
 root intentionally carries no selector, since no single one would identify a
 step. The step object passed to `onClick` is unchanged.
 
+### `Tabs` derives its trigger and panel ids
+
+`Tabs` now builds every trigger and panel DOM id from the tabs id and the tab
+value (`<tabs-id>-trigger-<value>` and `<tabs-id>-content-<value>`), so both ends
+of the `aria-controls`/`aria-labelledby` pair always match. Two consequences:
+
+- `tabs[].id` is a React list key only and no longer reaches the DOM. A selector
+  that targeted a caller id (`#overview`) must move to `data={{ cy, test }}` or a
+  role-based query.
+- `TabContent` no longer accepts an `id` prop and always takes the derived id
+  from its parent `Tabs`. Remove the prop; TypeScript flags it.
+
+Pass `id` on the `Tabs` root when you need predictable ids:
+
+```tsx
+<Tabs
+  id="settings"
+  defaultValue="overview"
+  tabs={[{ label: 'Overview', value: 'overview' }]}
+>
+  <TabContent value="overview">…</TabContent>
+</Tabs>
+// renders #settings-trigger-overview and #settings-content-overview
+```
+
+### `Collapsible` custom triggers name themselves
+
+A `customTrigger` is now named by its own content instead of the English
+`Expand section`/`Collapse section` fallback. A trigger that renders visible
+text needs no change; an **icon-only** custom trigger no longer has an
+accessible name and must pass the new `ariaLabel` prop:
+
+```tsx
+<Collapsible
+  customTrigger={<FontAwesomeIcon icon={faChevronDown} />}
+  ariaLabel="Show details"
+  ...
+/>
+```
+
 ## Peer dependencies
 
 v5 no longer bundles its runtime libraries — every one is declared as a **peer
@@ -552,11 +610,11 @@ dependency so existing Formik usage keeps compiling until the v6 removal.
 
 ## New exports
 
-| Export          | Purpose                                                       |
-| --------------- | ------------------------------------------------------------- |
-| `ThemeProvider` | Renders a `data-theme` container; controlled or uncontrolled. |
-| `useTheme`      | Reads `{ theme, setTheme }` from the nearest `ThemeProvider`. |
-| `Theme`         | `'neutral' \| 'uzh'` type.                                    |
+| Export          | Purpose                                                                                                                                  |
+| --------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `ThemeProvider` | Writes `data-theme` to the document root; controlled or uncontrolled. See [UZH apps must opt in](#breaking-change-uzh-apps-must-opt-in). |
+| `useTheme`      | Reads `{ theme, setTheme }` from the nearest `ThemeProvider`.                                                                            |
+| `Theme`         | `'neutral' \| 'uzh'` type.                                                                                                               |
 
 `ThemeProvider` is optional — a plain `data-theme="uzh"` attribute is enough.
 Use the provider when you want an in-app theme toggle via `useTheme`.
@@ -593,7 +651,9 @@ These are **additive** — existing usage keeps working.
   `ui/table`, not the legacy `Table` component) — new `hoverable?: boolean`
   (default `true`) to opt out of row hover.
 - **`Tabs`** — restyled to an underline pattern (active tab gets a primary
-  bottom-border instead of a filled pill). API unchanged.
+  bottom-border instead of a filled pill). Props are unchanged apart from the id
+  handling described under [`Tabs` derives its trigger and panel
+  ids](#tabs-derives-its-trigger-and-panel-ids).
 
 ## Visual changes to verify
 

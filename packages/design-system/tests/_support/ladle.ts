@@ -36,12 +36,13 @@ export function loadStoryIds(): string[] {
 }
 
 /**
- * The story itself: a child of the themed wrapper inside #ladle-root that is
- * not the dev toolbar. Ladle mounts the toolbar first and the story second.
+ * The story itself: the sibling(s) rendered after the dev toolbar inside the
+ * provider wrapper. Anchoring on the toolbar matters — it is rendered by the
+ * global provider, so it appears only once that provider has mounted, and the
+ * selector cannot latch onto Ladle's own loading spinner. The wrapper carries
+ * no `data-theme`: the theme lives on the document root.
  */
-export const STORY_SELECTOR = `#ladle-root > [data-theme] > :not(${TOOLBAR_SELECTOR})`
-
-const THEME_WRAPPER_SELECTOR = '#ladle-root > [data-theme]'
+export const STORY_SELECTOR = `${TOOLBAR_SELECTOR} ~ *`
 
 /**
  * Open a story in preview mode and wait until its content has actually mounted.
@@ -57,9 +58,7 @@ export async function gotoStory(
   theme?: LadleTheme
 ): Promise<void> {
   if (theme) {
-    await page.addInitScript((t) => {
-      window.localStorage.setItem('ladle-theme', JSON.stringify(t))
-    }, theme)
+    await seedLadleTheme(page, theme)
   }
   await page.goto(`?story=${id}&mode=preview`)
   await page.waitForSelector('html[data-storyloaded]', { timeout: 15_000 })
@@ -77,15 +76,29 @@ export async function gotoStory(
   await settle(page)
 }
 
-/** Confirm the Ladle provider rendered the requested theme before axe runs. */
+/**
+ * Preselect the theme the Ladle provider renders with. Must run before the
+ * navigation: the provider reads the persisted control on mount.
+ */
+async function seedLadleTheme(page: Page, theme: LadleTheme): Promise<void> {
+  await page.addInitScript((t) => {
+    window.localStorage.setItem('ladle-theme', JSON.stringify(t))
+  }, theme)
+}
+
+/**
+ * Confirm the Ladle provider applied the requested theme before axe runs. The
+ * provider writes `data-theme` to the document root from an effect, so the
+ * attribute lands a tick after the story mounts.
+ */
 async function expectRequestedTheme(
   page: Page,
   theme: LadleTheme
 ): Promise<void> {
   await page.waitForFunction(
-    ({ selector, expected }) =>
-      document.querySelector(selector)?.getAttribute('data-theme') === expected,
-    { selector: THEME_WRAPPER_SELECTOR, expected: theme }
+    (expected) =>
+      document.documentElement.getAttribute('data-theme') === expected,
+    theme
   )
 }
 

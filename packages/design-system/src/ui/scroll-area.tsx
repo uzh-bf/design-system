@@ -8,6 +8,7 @@ import { cn } from '../lib/utils'
 function ScrollArea({
   className,
   children,
+  tabIndex,
   ...props
 }: React.ComponentProps<typeof ScrollAreaPrimitive.Root>) {
   return (
@@ -18,7 +19,9 @@ function ScrollArea({
     >
       <ScrollAreaPrimitive.Viewport
         data-slot="scroll-area-viewport"
-        tabIndex={0}
+        // The viewport, not the root, is the scrollable region, so a caller
+        // tabIndex belongs here. Keyboard users need the default tab stop.
+        tabIndex={tabIndex ?? 0}
         className="focus-visible:ring-ring/50 size-full rounded-[inherit] transition-[color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:outline-1"
       >
         {children}

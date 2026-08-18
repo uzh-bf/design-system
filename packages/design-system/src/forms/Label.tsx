@@ -60,18 +60,24 @@ export function Label({
         }}
       >
         <div className="flex flex-row">
+          {/* The required asterisk renders inside the id-bearing label so that
+              `aria-labelledby`/`for` accessible names include the visible
+              marker, matching the no-tooltip branch. */}
           <RadixLabel.Root
             id={id}
             data-cy={data?.cy}
             data-test={data?.test}
             htmlFor={forId}
-            className={twMerge('cursor-default', className?.root)}
+            className={twMerge(
+              'flex cursor-default flex-row items-center',
+              className?.root
+            )}
           >
             {label}
+            {required && (
+              <div className="text-notification mr-2 mb-1 ml-0.5">*</div>
+            )}
           </RadixLabel.Root>
-          {required && (
-            <div className="text-notification mr-2 mb-1 ml-0.5">*</div>
-          )}
         </div>
       </Tooltip>
     )
@@ -80,18 +86,23 @@ export function Label({
       <div
         className={twMerge('flex w-max flex-row items-center', className?.root)}
       >
+        {/* Same as above: the asterisk stays inside the labelling element; it
+            carries the `mr-2` toward the tooltip symbol when present. */}
         <RadixLabel.Root
           id={id}
           data-cy={data?.cy}
           data-test={data?.test}
           htmlFor={forId}
-          className={twMerge('mr-2 cursor-default', required && 'mr-0')}
+          className={twMerge(
+            'mr-2 flex cursor-default flex-row items-center',
+            required && 'mr-0'
+          )}
         >
           {label}
+          {required && (
+            <div className="text-notification mr-2 mb-1 ml-0.5">*</div>
+          )}
         </RadixLabel.Root>
-        {required && (
-          <div className="text-notification mr-2 mb-1 ml-0.5">*</div>
-        )}
         <Tooltip
           tooltip={tooltip}
           ariaLabel={typeof tooltip === 'string' ? tooltip : 'Show help'}

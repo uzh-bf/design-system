@@ -162,9 +162,43 @@ jobs:
             ${{ runner.temp }}/a11y-coverage-${{ matrix.shard }}.jsonl
           retention-days: 14
 
+  a11y-protocol:
+    runs-on: ubuntu-latest
+    name: A11y Inventory Protocol
+    needs: a11y
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Use Node 22
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22.x
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.30.0
+          run_install: true
+
+      - name: Download a11y shard inventories
+        uses: actions/download-artifact@v4
+        with:
+          pattern: a11y-inventory-*
+          merge-multiple: true
+          path: ${{ runner.temp }}/a11y-artifacts
+
+      # Cross-shard closure of the sharded axe sweep: only the four shard
+      # artifacts together reproduce the checked-in exact inventory and cover
+      # every story x theme pair. Each shard on its own passes with whatever
+      # subset it happened to scan, so without this job a shrunken scan (fewer
+      # stories, fewer themes, a missing shard artifact) lands green.
+      - name: Assert a11y inventory protocol
+        working-directory: packages/design-system
+        run: pnpm run test:a11y:protocol ${{ runner.temp }}/a11y-artifacts
+
   visual-regression:
     runs-on: ubuntu-latest
-    name: Visual Regression (report-only)
+    name: Visual Regression
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -174,11 +208,10 @@ jobs:
           echo "Playwright image: mcr.microsoft.com/playwright:v1.61.0-noble@sha256:111dde95859f2c659291cb60e698f9048a8fc30b35b4ddb7c90f9cb5b73062d9"
           echo "Platform: linux/amd64"
 
-      # Report-only: a visual mismatch must not gate the package or fail the
-      # workflow, but the step outcome stays inspectable and the evidence is
-      # uploaded below.
+      # Blocking: a visual mismatch fails this job, and `build` needs it, so an
+      # unreviewed pixel change can no longer reach the publish path. The
+      # evidence below still uploads on failure through `!cancelled()`.
       - name: Run deterministic visual comparison
-        continue-on-error: true
         run: bash packages/design-system/scripts/visual-regression.sh
 
       - name: Upload visual regression report
@@ -187,7 +220,9 @@ jobs:
         with:
           name: visual-regression-report-${{ github.sha }}
           path: packages/design-system/visual/playwright-report/
-          if-no-files-found: warn
+          # The HTML report is the required evidence for the now-blocking job:
+          # a missing report means the comparison never produced a verdict.
+          if-no-files-found: error
           retention-days: 14
 
       - name: Upload visual regression test results
@@ -196,13 +231,25 @@ jobs:
         with:
           name: visual-regression-test-results-${{ github.sha }}
           path: packages/design-system/visual/test-results/
+          # Traces and diffs only exist for failures, so a green run leaves this
+          # directory empty (except the hidden .last-run.json, which upload
+          # ignores). It must stay `warn` or every passing run would fail here.
           if-no-files-found: warn
           retention-days: 14
 
   build:
     name: Build
     runs-on: ubuntu-latest
-    needs: [lint, check-ts, check-format, test, a11y]
+    needs:
+      [
+        lint,
+        check-ts,
+        check-format,
+        test,
+        a11y,
+        a11y-protocol,
+        visual-regression,
+      ]
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4

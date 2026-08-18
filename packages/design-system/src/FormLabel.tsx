@@ -2,7 +2,10 @@ import { twMerge } from 'tailwind-merge'
 import { Label } from './forms/Label'
 
 export interface FormLabelProps {
+  /** Id of the labelled control — becomes the `for` attribute. */
   id?: string
+  /** Id of the label element itself, for controls that need aria-labelledby. */
+  labelId?: string
   required: boolean
   label: string
   labelType: 'small' | 'large'
@@ -15,6 +18,7 @@ export interface FormLabelProps {
 
 export function FormLabel({
   id,
+  labelId,
   required,
   label,
   labelType = 'small',
@@ -23,6 +27,7 @@ export function FormLabel({
 }: FormLabelProps) {
   return (
     <Label
+      id={labelId}
       forId={id}
       required={required}
       label={label}

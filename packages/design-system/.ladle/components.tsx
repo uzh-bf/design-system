@@ -7,9 +7,11 @@ import 'src/tailwind.css'
 /**
  * Ladle global provider with a design-system theme switcher.
  *
- * Wraps every story in the design-system `ThemeProvider` (neutral | uzh) and an
- * optional `.dark` class, so the v5 dual-theme system can be previewed live in
- * the demo.
+ * Wraps every story in the design-system `ThemeProvider` (neutral | uzh), which
+ * writes the theme to the document root, and puts the optional `.dark` class on
+ * the same root — the dark status surfaces of a theme are declared on the
+ * element that carries `data-theme`, so both axes must sit together. This is
+ * how the v5 dual-theme system is previewed live in the demo.
  */
 // Persist the preview controls so the selected theme survives Ladle's full-page
 // reload on every story navigation (otherwise it silently reverts to neutral).
@@ -33,9 +35,12 @@ export const Provider: GlobalProvider = ({ children }) => {
   React.useEffect(() => {
     window.localStorage.setItem('ladle-dark', JSON.stringify(dark))
   }, [dark])
+  React.useEffect(() => {
+    document.documentElement.classList.toggle('dark', dark)
+  }, [dark])
 
   return (
-    <ThemeProvider theme={theme} className={dark ? 'dark' : undefined}>
+    <ThemeProvider theme={theme}>
       <div
         id="ladle-theme-controls"
         style={{

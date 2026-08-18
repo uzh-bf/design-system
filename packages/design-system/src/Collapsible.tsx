@@ -19,6 +19,7 @@ export interface CollapsibleProps {
   staticContent: React.ReactNode | string // static content that is only
   closedContent?: React.ReactNode | string // optional content that is only shown when the collapsible is closed
   customTrigger?: React.ReactNode
+  ariaLabel?: string
   primary?: string | React.ReactNode
   onPrimaryClick?: () => void
   secondary?: string | React.ReactNode
@@ -49,6 +50,7 @@ export interface CollapsibleProps {
  * @param staticContent - The static content that is always shown.
  * @param closedContent - The optional content that is only shown when the collapsible is closed.
  * @param customTrigger - The optional custom trigger that is shown instead of the default arrow trigger.
+ * @param ariaLabel - The optional accessible name of the trigger button. Without it, the icon-only default trigger falls back to an English label, and a custom trigger is named by its own content.
  * @param primary - An optional text that will be displayed on a button in the right bottom corner of the collapsible. Alternatively, it is also possible to pass a React node instead.
  * @param onPrimaryClick - Function that will be called once the primary button is clicked (no function for custom primary nodes)
  * @param secondary - An optional text that will be displayed on a button in the left bottom corner of the collapsible. Alternatively, it is also possible to pass a React node instead.
@@ -66,6 +68,7 @@ export function Collapsible({
   staticContent,
   closedContent,
   customTrigger,
+  ariaLabel,
   primary,
   onPrimaryClick,
   secondary,
@@ -113,7 +116,17 @@ export function Collapsible({
           </div>
           <RadixCollapsible.Trigger
             ref={ref}
-            aria-label={open ? 'Collapse section' : 'Expand section'}
+            // A custom trigger carries its own accessible name, and an
+            // aria-label would silently replace it — so the English fallback
+            // only names the icon-only default trigger.
+            aria-label={
+              ariaLabel ??
+              (customTrigger
+                ? undefined
+                : open
+                  ? 'Collapse section'
+                  : 'Expand section')
+            }
             className={twMerge(
               'col-span-1 flex w-full cursor-pointer flex-col justify-end text-center disabled:cursor-not-allowed',
               className?.trigger

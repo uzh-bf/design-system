@@ -3,34 +3,44 @@ import { Button } from './Button'
 
 {/* START README */}
 <div className="prose prose-sm max-w-none">
-`ThemeProvider` wraps an app (or any subtree) and exposes a design-system theme
-to everything below it. It renders a `data-theme` container (using
-`display: contents`, so it adds no box of its own) — every DS component inside
-then resolves its tokens against the active theme.
+`ThemeProvider` gives an app a design-system theme. It writes `data-theme` to
+`document.documentElement` from an effect and keeps it in sync, so every DS
+component — including Radix overlays that portal to `document.body` — resolves
+its tokens against one theme on the document root. The element it renders is
+`display: contents` and carries no theme itself.
 
 There are two themes: `neutral` (the default, de-branded shadcn look) and `uzh`
 (University of Zürich brand — primary blue, Source Sans 3). Use it **controlled**
 (pass `theme`) or **uncontrolled** (pass `defaultTheme`, then read/update via the
 `useTheme()` hook).
+
+Two consequences follow from writing the root. The effect runs after paint, so
+an app themed only through the provider shows one unthemed frame — render
+`<html data-theme="uzh">` yourself for the theme the app starts in, and keep
+the provider's `theme`/`defaultTheme` matching it (the provider overwrites the
+attribute on mount, so a mismatch reverts the document after hydration). And
+several mounted providers do not create separate theme regions: the root holds
+whichever theme was written last. Put the `dark` class on the document root as
+well, next to `data-theme`, not on the provider's container.
 </div>
 {/* END README */}
 
 {/*
 AI_DOCUMENTATION_START
 
-Technical Overview: Context provider that renders a `data-theme` (display:contents) container so DS components resolve tokens against the chosen theme. Controlled via `theme`, or uncontrolled via `defaultTheme` + `useTheme()`.
+Technical Overview: Context provider that writes `data-theme` to `document.documentElement` in an effect (and keeps it in sync) so DS components resolve tokens against the chosen theme. It renders a display:contents container that carries no theme of its own. Controlled via `theme`, or uncontrolled via `defaultTheme` + `useTheme()`.
 Dependencies: react
 
 Available Stories:
 
-- Default: neutral vs uzh side by side (controlled)
+- Default: components following the ambient theme, read through useTheme
 - Uncontrolled: a self-managed provider toggled via useTheme
 
 Props (ThemeProvider component):
 
 - theme: "neutral" | "uzh" - Controlled theme. When set, the provider is fully controlled.
 - defaultTheme: "neutral" | "uzh" - Initial theme for uncontrolled usage (default "neutral")
-- className: string - Classes for the container (only inherited classes like `dark` apply; it is display:contents)
+- className: string - Classes for the container (only inherited classes apply; it is display:contents). Not the place for `dark` — that class belongs on the document root next to `data-theme`.
 - children: ReactNode - The subtree that consumes the theme
 
 Hook:
@@ -40,6 +50,12 @@ Hook:
 Usage Examples:
 
 ```tsx
+// Server-rendered shell: themed on first paint.
+<html data-theme="uzh">
+  …
+</html>
+
+// Client: the provider syncs and toggles the same attribute.
 <ThemeProvider theme="uzh">
   <App />
 </ThemeProvider>
@@ -49,27 +65,36 @@ Related Components:
 
 - All DS components consume the theme set here.
 
+Limitations:
+
+- The theme is global. Mounting a second provider does not theme a subtree; the document root keeps the theme written last.
+- Without `<html data-theme>` in the server-rendered markup, the first paint uses the `neutral` default.
+
 AI_DOCUMENTATION_END
 */}
 
+{/* The theme is a single document-root attribute, so a story cannot show two
+themes next to each other. This demo page is itself wrapped in a provider
+(driven by the theme switcher in the top-right corner) — the story below reads
+that ambient theme and shows components following it. */}
+
 export const Default = () => {
+  const Readout = () => {
+    const { theme } = useTheme()
+    return <span className="text-sm font-bold">active theme: {theme}</span>
+  }
   return (
-    <div className="flex gap-8">
-      <ThemeProvider theme="neutral">
-        <div className="flex flex-col items-start gap-2">
-          <span className="text-sm font-bold">neutral</span>
-          <Button primary>Primary</Button>
-        </div>
-      </ThemeProvider>
-      <ThemeProvider theme="uzh">
-        <div className="flex flex-col items-start gap-2">
-          <span className="text-sm font-bold">uzh</span>
-          <Button primary>Primary</Button>
-        </div>
-      </ThemeProvider>
+    <div className="flex flex-col items-start gap-2">
+      <Readout />
+      <Button primary>Primary</Button>
     </div>
   )
 }
+
+{/* Seeded from the ambient theme so the demo starts where the switcher left it;
+an app-level provider would pass a literal `defaultTheme` instead. Toggling
+rewrites the document root, so the whole page follows — including this page's
+own chrome. */}
 
 export const Uncontrolled = () => {
   const Inner = () => {
@@ -83,8 +108,9 @@ export const Uncontrolled = () => {
       </Button>
     )
   }
+  const { theme } = useTheme()
   return (
-    <ThemeProvider defaultTheme="neutral">
+    <ThemeProvider defaultTheme={theme}>
       <Inner />
     </ThemeProvider>
   )
