@@ -117,8 +117,21 @@ git -C "$REPO_DIR" ls-files --cached --others --exclude-standard -z -- \
     --mount "type=bind,src=${output_dir},dst=/output" \
     -i "$IMAGE" \
     bash -lc "$container_script" -- "$mode"
-docker_status=$?
+# Capture per-stage codes before any other command resets PIPESTATUS. The
+# container verdict is docker's own exit code; under `pipefail`, `$?` would
+# instead report the rightmost non-zero stage and let a producer failure
+# masquerade as (or mask) a test failure.
+pipe_status=("${PIPESTATUS[@]}")
 set -e
+docker_status="${pipe_status[2]}"
+if [[ "${pipe_status[0]}" -ne 0 || "${pipe_status[1]}" -ne 0 ]]; then
+  printf 'workspace archive pipeline failed (git=%s tar=%s docker=%s)\n' \
+    "${pipe_status[0]}" "${pipe_status[1]}" "${pipe_status[2]}" >&2
+  # An incomplete archive invalidates the container verdict; fail closed.
+  if [[ "$docker_status" -eq 0 ]]; then
+    docker_status=1
+  fi
+fi
 
 replace_snapshots_transactionally() (
   set -euo pipefail
