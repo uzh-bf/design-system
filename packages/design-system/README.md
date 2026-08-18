@@ -79,9 +79,13 @@ import { ThemeProvider } from '@uzh-bf/design-system'
 Both paths end in the same place: `ThemeProvider` writes `data-theme` to
 `document.documentElement` from an effect and keeps it in sync, so the theme is
 always one attribute on the document root — which is also how portaled overlays
-(dialogs, menus, tooltips) get their theme. Because that write happens on the
-client, server-rendered markup should carry `<html data-theme="…">` for the
-theme the app starts in; the provider then takes over the toggling.
+(dialogs, menus, tooltips) get their theme. Because that write happens in a
+client effect after paint, the markup should carry `<html data-theme="…">` for
+the theme the app starts in — server- and client-rendered apps alike paint one
+unthemed frame otherwise; the provider then takes over the toggling. Keep the
+provider's `theme`/`defaultTheme` in agreement with that shell attribute: the
+provider overwrites it on mount, so a mismatch reverts the document to the
+provider's theme after hydration.
 
 Document-root theming is the supported and verified mode in v5. The theme is
 global by construction: mounting more than one provider does not create nested

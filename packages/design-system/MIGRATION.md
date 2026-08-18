@@ -94,11 +94,16 @@ theme has always documented. Colors, spacing, and layout are unaffected.
 > root next to `data-theme`, not on a `ThemeProvider` container — the dark
 > status surfaces are declared on the element that carries the theme.
 
-> **Server rendering.** The provider writes the attribute in an effect, so
-> server-rendered markup paints unthemed until React hydrates. Render the
+> **First paint.** The provider writes the attribute in an effect, which runs
+> after paint — so an app that themes only through the provider paints one
+> unthemed frame, whether server-rendered or purely client-rendered. Render the
 > starting theme yourself in the document shell (`<html data-theme="uzh">` — in
 > Next.js the `<html>` element of the root layout); the provider syncs the same
-> attribute afterwards, so an in-app toggle keeps working.
+> attribute afterwards, so an in-app toggle keeps working. The provider's
+> `theme`/`defaultTheme` **must match** the shell attribute: the effect
+> overwrites `data-theme` unconditionally on mount, so
+> `<html data-theme="uzh">` combined with a bare `<ThemeProvider>` reverts the
+> whole document to `neutral` after hydration.
 
 ### Complete primary-ramp extension
 
@@ -470,6 +475,21 @@ Pass `id` on the `Tabs` root when you need predictable ids:
 // renders #settings-trigger-overview and #settings-content-overview
 ```
 
+### `Collapsible` custom triggers name themselves
+
+A `customTrigger` is now named by its own content instead of the English
+`Expand section`/`Collapse section` fallback. A trigger that renders visible
+text needs no change; an **icon-only** custom trigger no longer has an
+accessible name and must pass the new `ariaLabel` prop:
+
+```tsx
+<Collapsible
+  customTrigger={<FontAwesomeIcon icon={faChevronDown} />}
+  ariaLabel="Show details"
+  ...
+/>
+```
+
 ## Peer dependencies
 
 v5 no longer bundles its runtime libraries — every one is declared as a **peer
@@ -590,11 +610,11 @@ dependency so existing Formik usage keeps compiling until the v6 removal.
 
 ## New exports
 
-| Export          | Purpose                                                       |
-| --------------- | ------------------------------------------------------------- |
-| `ThemeProvider` | Renders a `data-theme` container; controlled or uncontrolled. |
-| `useTheme`      | Reads `{ theme, setTheme }` from the nearest `ThemeProvider`. |
-| `Theme`         | `'neutral' \| 'uzh'` type.                                    |
+| Export          | Purpose                                                                                                                                  |
+| --------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `ThemeProvider` | Writes `data-theme` to the document root; controlled or uncontrolled. See [UZH apps must opt in](#breaking-change-uzh-apps-must-opt-in). |
+| `useTheme`      | Reads `{ theme, setTheme }` from the nearest `ThemeProvider`.                                                                            |
+| `Theme`         | `'neutral' \| 'uzh'` type.                                                                                                               |
 
 `ThemeProvider` is optional — a plain `data-theme="uzh"` attribute is enough.
 Use the provider when you want an in-app theme toggle via `useTheme`.

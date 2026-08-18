@@ -14,12 +14,14 @@ There are two themes: `neutral` (the default, de-branded shadcn look) and `uzh`
 (pass `theme`) or **uncontrolled** (pass `defaultTheme`, then read/update via the
 `useTheme()` hook).
 
-Two consequences follow from writing the root. Server-rendered markup is
-unthemed until the effect runs, so render `<html data-theme="uzh">` yourself for
-the theme the app starts in — the provider then syncs and toggles it on the
-client. And several mounted providers do not create separate theme regions: the
-root holds whichever theme was written last. Put the `dark` class on the
-document root as well, next to `data-theme`, not on the provider's container.
+Two consequences follow from writing the root. The effect runs after paint, so
+an app themed only through the provider shows one unthemed frame — render
+`<html data-theme="uzh">` yourself for the theme the app starts in, and keep
+the provider's `theme`/`defaultTheme` matching it (the provider overwrites the
+attribute on mount, so a mismatch reverts the document after hydration). And
+several mounted providers do not create separate theme regions: the root holds
+whichever theme was written last. Put the `dark` class on the document root as
+well, next to `data-theme`, not on the provider's container.
 </div>
 {/* END README */}
 
