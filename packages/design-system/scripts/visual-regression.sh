@@ -116,7 +116,7 @@ git -C "$REPO_DIR" ls-files --cached --others --exclude-standard -z -- \
     --env COREPACK_HOME=/tmp/design-system-vrt-corepack \
     --mount "type=bind,src=${output_dir},dst=/output" \
     -i "$IMAGE" \
-    bash -lc "$container_script" -- "$mode"
+    bash -c "$container_script" -- "$mode"
 # Capture per-stage codes before any other command resets PIPESTATUS. The
 # container verdict is docker's own exit code; under `pipefail`, `$?` would
 # instead report the rightmost non-zero stage and let a producer failure
