@@ -203,8 +203,11 @@ export function NumberField({
           <Input
             id={inputId}
             ref={ref}
+            // Last-resort name for a standalone field without any label. An
+            // aria-label would outrank an external one, so it must stand down
+            // as soon as the caller points at a label element.
             aria-label={
-              !label
+              !label && !props['aria-labelledby']
                 ? ((props.ariaLabel as string | undefined) ??
                   (props['aria-label'] as string | undefined) ??
                   placeholder ??

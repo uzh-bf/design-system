@@ -27,6 +27,7 @@ The props for the Collapsible component are as follows:
 - @param staticContent - The static content that is always shown.
 - @param closedContent - The optional content that is only shown when the collapsible is closed.
 - @param customTrigger - The optional custom trigger that is shown instead of the default arrow trigger.
+- @param ariaLabel - The optional accessible name of the trigger button. Without it, the icon-only default trigger falls back to an English label, and a custom trigger is named by its own content.
 - @param primary - An optional text that will be displayed on a button in the right bottom corner of the collapsible. Alternatively, it is also possible to pass a React node instead.
 - @param onPrimaryClick - Function that will be called once the primary button is clicked (no function for custom primary nodes)
 - @param secondary - An optional text that will be displayed on a button in the left bottom corner of the collapsible. Alternatively, it is also possible to pass a React node instead.
@@ -66,6 +67,7 @@ Props (Collapsible component):
 - staticContent: React.ReactNode - Content always visible regardless of state
 - closedContent?: React.ReactNode - Content only visible when collapsed
 - customTrigger?: React.ReactNode - Custom trigger element (replaces default arrow)
+- ariaLabel?: string - Accessible name for the trigger button (translatable; overrides the English default-trigger fallback)
 - primary?: string | React.ReactNode - Primary action button text or custom component
 - onPrimaryClick?: () => void - Primary action callback (only for string primary)
 - secondary?: string | React.ReactNode - Secondary action button text or custom component

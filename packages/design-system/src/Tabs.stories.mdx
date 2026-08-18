@@ -21,13 +21,12 @@ The Tabs component accepts the following props:
 - @param defaultValue - The default value of the active tab.
 - @param value - The controlled value of the active tab.
 - @param onValueChange - Callback function to handle value changes.
-- @param tabs - An array of tab objects, each containing an id, label, value, disabled property, and optional data attributes.
+- @param tabs - An array of tab objects, each containing an optional id, label, value, disabled property, and optional data attributes. The tab id is only used as the React list key; the trigger and panel ids in the DOM are always derived from the tabs id and the tab value, so the two ends of the ARIA relation always match.
 - @param className - Optional class names for styling the tabs and their components.
 - @param children - The content of the tabs, which will be rendered in the corresponding tab content area.
 
 The TabsContent component is used to define the content for each tab. It accepts the following props:
 
-- @param id - The id of the tab content component.
 - @param value - The value of the tab content, which should match the value of the corresponding tab trigger.
 - @param children - The content to be displayed within the tab content area.
 - @param data - Optional data attributes for testing purposes.
@@ -71,7 +70,6 @@ Props (Tabs component):
 
 Props (TabContent component):
 
-- id?: string - HTML id attribute for the content panel
 - value: string - Tab value that this content corresponds to
 - children: React.ReactNode - Content to display in the tab panel
 - data?: Record<string, string> - Data attributes for testing purposes
@@ -79,7 +77,7 @@ Props (TabContent component):
 
 TabItem Structure:
 
-- id: string - Unique identifier for the tab
+- id?: string - Optional React list key for the tab; never rendered as a DOM id
 - value: string - Value used for state management and content matching
 - disabled?: boolean - Optional flag to disable the tab
 - label: string - Display text for the tab trigger
@@ -335,7 +333,7 @@ State Management:
 
 Tab Configuration:
 
-- Flexible: Each tab has id, value, label, and optional data attributes
+- Flexible: Each tab has an optional id (list key), a value, a label, and optional data attributes
 - Dynamic: Tabs array can be generated programmatically
 - Testable: Data attributes for comprehensive testing
 - Accessible: Proper ARIA labels and keyboard navigation
@@ -367,13 +365,14 @@ Accessibility Features:
 
 - Full keyboard navigation (arrow keys, tab, space, enter)
 - ARIA attributes for screen readers
+- Trigger and panel ids derived from the tabs id and tab value, so aria-controls and aria-labelledby always resolve
 - Focus management and visual indicators
 - Proper tab role semantics
 - Active state announcements
 
 Testing Support:
 
-- id prop for unique element identification
+- data attributes for unique element identification (tab ids never reach the DOM)
 - data attributes on tabs and content
 - Value-based content selection for verification
 - State tracking for interaction testing

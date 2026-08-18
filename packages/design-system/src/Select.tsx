@@ -41,6 +41,7 @@ interface SelectProps {
   basic?: boolean
   contentPosition?: 'item-aligned' | 'popper'
   ariaLabel?: string
+  ariaLabelledBy?: string
   ariaRequired?: boolean
   ariaInvalid?: boolean
   ariaDescribedBy?: string
@@ -114,6 +115,7 @@ const ItemContent = ({ item }: { item: SelectItem }) => (
  * @param basic - Specifies whether the select component is basic or not. A basic select component does only have minimal styling of the trigger.
  * @param className - The optional className object allows you to override the default styling.
  * @param contentPosition - The position of the content of the select component. Currently only 'item-aligned' and 'popper' are supported.
+ * @param ariaLabelledBy - Forwarded to the trigger as aria-labelledby to name it from an existing label element. It replaces the aria-label fallback, which would otherwise outrank that label.
  * @param ariaRequired - Forwarded to the trigger as aria-required to expose the required state to assistive technology.
  * @param ariaDescribedBy - Forwarded to the trigger as aria-describedby to link an external description such as an error message.
  * @param ref - A ref to the visible trigger button.
@@ -135,6 +137,7 @@ export function Select({
   basic = false,
   contentPosition = 'item-aligned',
   ariaLabel,
+  ariaLabelledBy,
   ariaRequired,
   ariaInvalid,
   ariaDescribedBy,
@@ -177,7 +180,15 @@ export function Select({
         <SelectTrigger
           id={id}
           ref={ref}
-          aria-label={ariaLabel ?? placeholder ?? 'Select option'}
+          // Last-resort name for a trigger with no label of its own. An
+          // aria-label outranks an external label element, so it stands down
+          // as soon as the caller points at one.
+          aria-label={
+            ariaLabelledBy
+              ? undefined
+              : (ariaLabel ?? placeholder ?? 'Select option')
+          }
+          aria-labelledby={ariaLabelledBy}
           onFocus={() => {
             blurNotifiedRef.current = false
           }}

@@ -445,6 +445,31 @@ paths, and a disabled step keeps them on that same focusable button. The `<ol>`
 root intentionally carries no selector, since no single one would identify a
 step. The step object passed to `onClick` is unchanged.
 
+### `Tabs` derives its trigger and panel ids
+
+`Tabs` now builds every trigger and panel DOM id from the tabs id and the tab
+value (`<tabs-id>-trigger-<value>` and `<tabs-id>-content-<value>`), so both ends
+of the `aria-controls`/`aria-labelledby` pair always match. Two consequences:
+
+- `tabs[].id` is a React list key only and no longer reaches the DOM. A selector
+  that targeted a caller id (`#overview`) must move to `data={{ cy, test }}` or a
+  role-based query.
+- `TabContent` no longer accepts an `id` prop and always takes the derived id
+  from its parent `Tabs`. Remove the prop; TypeScript flags it.
+
+Pass `id` on the `Tabs` root when you need predictable ids:
+
+```tsx
+<Tabs
+  id="settings"
+  defaultValue="overview"
+  tabs={[{ label: 'Overview', value: 'overview' }]}
+>
+  <TabContent value="overview">…</TabContent>
+</Tabs>
+// renders #settings-trigger-overview and #settings-content-overview
+```
+
 ## Peer dependencies
 
 v5 no longer bundles its runtime libraries — every one is declared as a **peer
@@ -606,7 +631,9 @@ These are **additive** — existing usage keeps working.
   `ui/table`, not the legacy `Table` component) — new `hoverable?: boolean`
   (default `true`) to opt out of row hover.
 - **`Tabs`** — restyled to an underline pattern (active tab gets a primary
-  bottom-border instead of a filled pill). API unchanged.
+  bottom-border instead of a filled pill). Props are unchanged apart from the id
+  handling described under [`Tabs` derives its trigger and panel
+  ids](#tabs-derives-its-trigger-and-panel-ids).
 
 ## Visual changes to verify
 

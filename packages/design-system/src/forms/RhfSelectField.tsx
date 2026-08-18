@@ -56,6 +56,7 @@ export function RhfSelectField<
   return (
     <RhfFieldShell
       inputId={state.inputId}
+      labelId={state.labelId}
       label={props.label}
       labelType={props.labelType}
       tooltip={props.tooltip}
@@ -79,6 +80,7 @@ export function RhfSelectField<
         disabled={state.field.disabled}
         placeholder={props.placeholder}
         contentPosition={props.contentPosition}
+        ariaLabelledBy={state.labelId}
         ariaRequired={props.required}
         ariaInvalid={state.showError}
         ariaDescribedBy={state.describedBy}

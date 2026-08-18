@@ -7,6 +7,17 @@ All notable changes to this project will be documented in this file. See [standa
 ### ⚠ BREAKING CHANGES
 
 * **theme:** `ThemeProvider` no longer renders a themed container. It writes `data-theme` to `document.documentElement` from an effect and keeps it in sync, so a consumer ramp override on `:root[data-theme='uzh']` is no longer shadowed inside the provider's subtree, and portaled overlays resolve the same theme. Consequences: server-rendered markup should carry `<html data-theme="…">` for the theme the app starts in, because the attribute is written on the client; several mounted providers no longer create nested theme regions (the root keeps the theme written last); and the `dark` class belongs on the document root next to `data-theme` rather than on the provider's `className`. Apps that opted in through the provider alone also change visually: `--font-sans` resolves on the document root, so the theme typography reaches them for the first time and UZH text renders in Source Sans 3 instead of the system font stack.
+* **tabs:** caller-supplied ids no longer become DOM ids. `tabs[].id` is now only a React list key, and `TabContent` no longer accepts an `id` prop; the trigger and panel ids are always derived from the tabs id and the tab value, so `aria-controls` and `aria-labelledby` resolve on both ends. Consumers that selected a trigger or panel through such an id (`#overview`) must switch to the `data-test`/`data-cy` attributes or a role-based selector.
+
+### Bug Fixes
+
+* **collapsible:** the English `Expand section`/`Collapse section` label no longer overrides a custom trigger's own accessible name, and the new optional `ariaLabel` prop makes the trigger name translatable.
+* **forms:** RHF number fields announce their visible label (including the required marker) instead of the generic `Number` fallback; the fallback still names a standalone `NumberField` with no label at all.
+* **tabs:** generated ids strip every character outside `[a-zA-Z0-9_-]`, so the React 19 `useId()` delimiters no longer leak into ids that a CSS selector cannot address.
+
+### Enhancements
+
+* **scroll-area:** `tabIndex` reaches the scrollable viewport, so consumers can opt out of the tab stop; the default stays `0`.
 
 ## [5.0.0-alpha.4](https://github.com/uzh-bf/design-system/compare/v5.0.0-alpha.3...v5.0.0-alpha.4) (2026-08-17)
 

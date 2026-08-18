@@ -7,6 +7,8 @@ import type { RhfFieldClassName, RhfFieldData } from './rhf'
 
 export interface RhfFieldShellProps {
   inputId: string
+  /** Id put on the label element so a control can point at it with aria-labelledby. */
+  labelId?: string
   label?: string
   labelType?: 'small' | 'large'
   tooltip?: string | React.ReactNode
@@ -23,6 +25,7 @@ export interface RhfFieldShellProps {
 
 export function RhfFieldShell({
   inputId,
+  labelId,
   label,
   labelType = 'small',
   tooltip,
@@ -41,6 +44,7 @@ export function RhfFieldShell({
       {label && (
         <FormLabel
           id={inputId}
+          labelId={labelId}
           required={required}
           label={label}
           labelType={labelType}

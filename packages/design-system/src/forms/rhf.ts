@@ -66,6 +66,8 @@ export interface RhfFieldState<
   >['fieldState']
   formState: ReturnType<typeof useController<TFieldValues, TName>>['formState']
   inputId: string
+  /** Id of the shell label element, set only when a label is rendered. */
+  labelId?: string
   descriptionId?: string
   errorId: string
   describedBy?: string
@@ -177,6 +179,7 @@ export function useRhfField<
     hasError &&
       (controller.fieldState.isTouched || controller.formState.isSubmitted)
   )
+  const labelId = props.label ? `${inputId}-label` : undefined
   const descriptionId =
     typeof props.description === 'undefined'
       ? undefined
@@ -192,6 +195,7 @@ export function useRhfField<
     fieldState: controller.fieldState,
     formState: controller.formState,
     inputId,
+    labelId,
     descriptionId,
     errorId,
     describedBy,

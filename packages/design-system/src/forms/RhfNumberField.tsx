@@ -169,6 +169,7 @@ export function RhfNumberField<
   return (
     <RhfFieldShell
       inputId={state.inputId}
+      labelId={state.labelId}
       label={props.label}
       labelType={props.labelType}
       tooltip={props.tooltip}
@@ -198,6 +199,12 @@ export function RhfNumberField<
         isTouched={state.showError}
         hideError
         aria-invalid={state.showError}
+        // The label lives in the shell, so the input has no label prop of its
+        // own; pointing at the shell label keeps the announced name in sync
+        // with the visible one (including the required marker).
+        aria-labelledby={
+          state.labelId ?? (props['aria-labelledby'] as string | undefined)
+        }
         aria-describedby={state.describedBy}
         className={props.className}
       />
