@@ -2,7 +2,9 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-## Unreleased
+## [5.0.0-alpha.5](https://github.com/uzh-bf/design-system/compare/v5.0.0-alpha.4...v5.0.0-alpha.5) (2026-08-18)
+
+All entries below land through [#207](https://github.com/uzh-bf/design-system/pull/207) ([736028a](https://github.com/uzh-bf/design-system/commit/736028a61784f69fb9f61d9094e604b66569a0e2)), which remediates the findings of the v5 GA package review.
 
 ### ⚠ BREAKING CHANGES
 
@@ -19,6 +21,10 @@ All notable changes to this project will be documented in this file. See [standa
 ### Enhancements
 
 * **scroll-area:** `tabIndex` reaches the scrollable viewport, so consumers can opt out of the tab stop; the default stays `0`.
+
+### Build System / CI
+
+* **ci:** the sharded a11y sweep's inventory protocol is asserted in CI over the downloaded shard artifacts, so a shrunken scan fails instead of passing silently; the visual regression job is blocking and both gates sit on the publish path. Fixes two defects in the visual-regression script that made it exit non-zero after a passing comparison on GitHub runners.
 
 ## [5.0.0-alpha.4](https://github.com/uzh-bf/design-system/compare/v5.0.0-alpha.3...v5.0.0-alpha.4) (2026-08-17)
 
