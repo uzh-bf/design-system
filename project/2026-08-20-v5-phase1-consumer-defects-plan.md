@@ -253,4 +253,56 @@ theme contract. Two of those seams are extended above rather than duplicated.
 
 ## Progress
 
-_Nothing implemented yet. Plan written and challenged 2026-08-20._
+**2026-08-20.**
+
+- **Slice 1 — done** (`02b724512`). Modal footer gated on having an action;
+  Dropdown separators and labels no longer take the shared item class.
+- **Slice 2 — done** (`2f6656288`). The source-level hypothesis held:
+  `focus:ring-2` was an outlier in exactly two files (`ui/dialog.tsx`,
+  `ui/sheet.tsx`) against eighteen using `focus-visible:`. Both narrowed. The
+  Ladle repro was therefore not needed to identify the surface, and `sheet.tsx`
+  — which no review had named — carried the same defect.
+- **Slice 3 — done** (`090cf5908`). Link tokens in both themes, exposed as
+  `--color-link` / `--color-link-visited`, consumed by `Prose` and
+  `Button variant="link"`. Neutral needed values of its own, since its primary
+  ramp is near-black; `#1D4ED8` / `#6D28D9` were chosen and are a decision made
+  without a ruling. **Theme contract: 688/688 assertions pass** against the
+  packed artifact, including the two new tokens on all four roots.
+- **Slice 4 — done** (`a30faa904`) **plus one follow-on fix.** The first a11y
+  run after the colour change came back **794 passed, 1 failed**:
+  `alert--variants` (uzh) reported `color-contrast`. Cause: `ui/alert.tsx`
+  rendered destructive descriptions at `text-destructive-text/90`, and Berry at
+  90% over the `#ffdbcc` tint is **4.39:1** — under AA, where full opacity is
+  4.86:1. The other variants fade `text-foreground`, which is near-black and
+  survives the fade; fading an already mid-tone colour is the actual defect.
+  The fade is removed for the `error` and `destructive` variants.
+  This is the zero-waiver inventory doing exactly its job, and it means the
+  hue choice was right but incomplete: no Berry rung darker than `#bf0d3e`
+  exists in the ladder today, so the fade had to go rather than the hue.
+  **The rerun is green: 795 passed, inventory back to exactly zero.**
+- **Slice 5 — done.** The delta table is derived mechanically:
+  a script compares the set of class tokens per component between `v4.1.8` and
+  `HEAD`. Result: **27 of 67 exported components changed classes**, 13 are new
+  in v5. The old text claimed the delta was two components. Note that
+  `MIGRATION.md:87`'s "colors, spacing, and layout are unaffected" was narrower
+  than the review implied — it scopes to the alpha.4 → alpha.5 root-sync change
+  and is true of it. It now points at the new section so it cannot be
+  over-read. Rows are worded as things to verify rather than as asserted
+  outcomes: the token-set method establishes *which* components moved, not how
+  they now look. `Countdown` / `CycleCountdown` show `+24 -0`, which means the
+  extractor found only added literals, so those two rows say "verify rendering
+  end to end" instead of naming a specific restyle.
+
+**Not started: slices 0 and 6.** Slice 6's step 1 needs slice 0's link loop.
+The candidate set is small — the whole library uses 26 `sm:` and 18 `md:`
+variants — so the enumeration is tractable, but which of them actually lose
+cannot be determined without a real consumer stylesheet in the cascade.
+
+### Commands for slice 0, when it runs
+
+```
+cd packages/design-system && pnpm build && pnpm pack
+# then, in the Klicker worktree on rs/ds-v5-alpha5-upgrade, point the
+# @uzh-bf/design-system dependency at the tarball with a file: specifier
+```
+The tarball must sit where the running devpod container can read it.

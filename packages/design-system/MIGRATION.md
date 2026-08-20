@@ -84,7 +84,9 @@ Coming from `5.0.0-alpha.4` or earlier, expect a visible typography change on
 the provider path: `--font-sans` is resolved on the document root, so a themed
 provider container never reached it and UZH apps kept the system font stack.
 With the theme on the root, UZH text now renders in Source Sans 3, the font the
-theme has always documented. Colors, spacing, and layout are unaffected.
+theme has always documented. Colors, spacing, and layout are unaffected **by
+this particular change** — for the v4 → v5 visual delta, which is substantial,
+see [Visual changes to verify](#visual-changes-to-verify).
 
 > **Supported scope in v5: document-root theming.** The theme is global. A
 > second `ThemeProvider` does not theme its subtree separately; the document
@@ -657,10 +659,88 @@ These are **additive** — existing usage keeps working.
 
 ## Visual changes to verify
 
-- **`AvatarFallback`** background changed from `bg-muted` to `bg-primary-20
-text-primary-100` (theme-tinted initials). Override via `className` if you
-  relied on the grey fallback.
-- **`Tabs`** look different (underline, not pill). Layout/markup is unchanged.
+**v5 changes what many components render.** Twenty-seven of the sixty-seven
+exported components changed their classes between `4.1.8` and v5, and thirteen
+more are new. Treat this section as the checklist, not as a note — an earlier
+draft of this guide said the visual delta was limited to two components, and
+that was wrong.
 
-Everything else is theme-token routing: components that hardcoded UZH colours now
-read semantic tokens, so they follow whichever `data-theme` is active.
+The table below is derived mechanically: for each component it compares the set
+of class tokens present in the source at `v4.1.8` against the current source.
+"Sizing" means a height, width, or padding moved, so surrounding layout can
+shift. "Tokens" means hardcoded colours were replaced by theme tokens, so the
+colour now follows `data-theme` — usually what you want, but it does change
+pixels in existing screens.
+
+| Component | What moved | Verify |
+| --- | --- | --- |
+| `Button` | Sizing and padding: `px-3.25 py-1.75` → `py-2`, plus `min-h-10`, `h-auto`, `whitespace-normal` | Verify button height and label wrapping |
+| `Checkbox` | Sizing and shape: `w-5` → `18px`, `rounded-md` → `rounded-[4px]`, border `1px` → `1.5px`, `border-black` → `border-input` | Alignment against adjacent text |
+| `Collapsible` | Tokens: `border-uzh-grey-80` → `border-border` | Border colour per theme <!-- gitleaks:allow: a Tailwind class name, not a key --> |
+| `ColorPicker` | Positioning removed: absolute placement, `-left-72`, `bottom-8`, `max-w-120` all dropped | Popover placement in your layout |
+| `Countdown`, `CycleCountdown` | Rewritten; the measurement finds only added classes, so treat these as fully changed rather than trusting a specific list | Verify rendering end to end |
+| `CycleProgress` | Sizing removed in favour of intrinsic sizing (`h-7/12/20`, `w-7/12/20` dropped) | Size in your layout; set it yourself if you relied on the preset |
+| `DatePicker`, `DatetimePicker` | Sizing and chrome: `w-36`/`w-44` → `min-w-[200px]`/`min-w-[220px]`, new borders and hover fills | Field width in narrow columns |
+| `Dropdown` | Type scale: `text-base` → `text-sm` | Menu density |
+| `FormLabel` | Type and colour: `text-gray-600` → `text-[13px] font-semibold text-foreground` | Label weight against your form rhythm |
+| `Header` | Weight: `font-bold` → `font-semibold` | — |
+| `Modal` | **Width cap.** `w-108 md:w-160 lg:w-220 xl:w-280 max-w-7xl` → `w-[calc(100%-2rem)] max-w-[520px]` | **Verify every wide modal.** See below |
+| `Navigation` | Sizing and type: `h-7`/`h-8` → `h-9`, `text-base` → `text-sm` | Bar height |
+| `Progress` | Fill: `bg-primary-60` → `bg-primary-100` | Contrast against your background |
+| `Prose` | Link colour now `text-link` / visited `text-link-visited`; heading line-heights tightened | Link colour and heading rhythm |
+| `Select` | Sizing and tokens: `h-9` → `h-10`, `bg-uzh-grey-20` → `bg-muted`, `text-black` → `text-foreground` | Height against adjacent inputs |
+| `Slider` | Fully restyled: thumb `size-4`/`size-[18px]`, track `bg-[#EFEFEF]`, ring on focus; old `h-12`/`h-14` presets gone | Track and thumb size |
+| `StepProgress` | Tokens: `bg-green-700`, `bg-uzh-red-100` → `bg-success`, `bg-destructive` | Status colours per theme |
+| `Switch` | Tokens: `bg-uzh-grey-80` → `bg-input`, `bg-primary-60` → `bg-primary-100` | On/off contrast |
+| `Table` | Substantially restyled: `p-4` → `px-4 py-3`, header now uppercase `text-xs` with letter-spacing, zebra `odd:bg-uzh-grey-20` dropped, focus ring added | **Verify row height, header treatment, and the loss of zebra striping** |
+| `Tabs` | Layout classes removed (`w-full`, `md:grid`, `md:h-10`); underline instead of pill | Verify tab track width; it no longer declares `w-full` |
+| `Tag` | Fully restyled: `bg-slate-100 text-slate-700 text-sm rounded` → `bg-primary-20 text-primary-100 text-[13px] h-6 rounded-xs`, plus a dismiss affordance | Tag size and colour |
+| `Toast` | Tokens and border: `border-2` → `border-l-4` status stripe; `bg-white` → `bg-background` | Toast shape |
+| `Tooltip` | `border-2 border-black` removed | Tooltip outline |
+| `UserNotification` | Tokens throughout: `bg-uzh-*-20` → `bg-*-background`, `text-uzh-*-100` → semantic text tokens | Every notification colour |
+| `Workflow` | Substantially restyled: all chevron and fill colours moved to tokens, focus ring added, `w-full!` dropped | Width and colours |
+| `AvatarFallback` | `bg-muted` → `bg-primary-20 text-primary-100` (theme-tinted initials) | Override via `className` for the old grey |
+
+Components with no class change between `4.1.8` and v5 are not listed. New in
+v5 and therefore not a migration concern: `ButtonGroup`, `Combobox`,
+`DateRangePicker`, `Empty`, `Field`, `InputGroup`, `Item`, `Kbd`,
+`MultiSelect`, `Spinner`, `ThemeProvider`.
+
+### The `Modal` width cap
+
+This one deserves its own note because it silently collapses existing screens.
+v4 sized modals with a responsive width ladder up to `xl:w-280`. v5 caps them
+at `max-w-[520px]`:
+
+```tsx
+// v4: a wide modal was the default at large viewports
+<Modal open={open} onClose={close}>{wideContent}</Modal>
+
+// v5: opt back in explicitly
+<Modal open={open} onClose={close} className={{ content: 'max-w-4xl' }}>
+  {wideContent}
+</Modal>
+```
+
+Any modal holding a table, a side-by-side layout, or a wide form needs
+`className.content` to restore its width. `fullScreen` remains the escape
+hatch for the largest cases.
+
+### Also changed in this release
+
+- **Empty modal footers no longer render.** A `Modal` with neither
+  `onPrimaryAction` nor `onSecondaryAction` previously drew the footer's top
+  divider above empty space; it now renders no footer at all.
+- **`Dropdown` separators and group labels ignore `className.item`.** Only
+  menu items take the shared item class. If you were compensating for fat
+  separators with a per-item override, remove it.
+- **Dialog and sheet close buttons ring only on keyboard focus.** They used
+  `focus:`, so opening either with the mouse painted a focus ring; they now use
+  `focus-visible:` like the rest of the library.
+- **Links have their own colour.** `--theme-color-link` and
+  `--theme-color-link-visited` are new, exposed as `text-link` and
+  `text-link-visited`. `Prose` anchors and `Button variant="link"` use them.
+  Previously prose links rendered as body text.
+- **The `uzh` error colour is visible again.** `--theme-destructive-text` was
+  `#111111` in the `uzh` theme, so error text and invalid-field borders were
+  near-black. It is now Berry `#BF0D3E`.
