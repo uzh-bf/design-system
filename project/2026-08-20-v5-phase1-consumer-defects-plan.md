@@ -293,6 +293,15 @@ theme contract. Two of those seams are extended above rather than duplicated.
   extractor found only added literals, so those two rows say "verify rendering
   end to end" instead of naming a specific restyle.
 
+- **Visual regression — run and re-baselined** (`871f9c2c2`). The first pinned
+  container run failed on `text-field-error-uzh`; the diff image showed only
+  the `aria-invalid` border and the error icon, both painted by
+  `--theme-destructive-text`. Regenerating updated exactly four snapshots
+  (`text-field-error-uzh`, `user-notification-error-uzh`, `alert-variants-uzh`,
+  `alert-variants-neutral`), each mapping to a surface this branch touched.
+  `modal-open` is unchanged in both themes, which is the evidence that slice 1
+  leaves a modal that *has* actions alone. Full suite: 23 passed.
+
 **Not started: slices 0 and 6.** Slice 6's step 1 needs slice 0's link loop.
 The candidate set is small — the whole library uses 26 `sm:` and 18 `md:`
 variants — so the enumeration is tractable, but which of them actually lose
