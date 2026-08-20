@@ -110,7 +110,7 @@
   /* Berry rather than the Orange of the fill beside it: destructive text also
      renders on --destructive-background, where Orange 4 reaches only 4.34:1.
      Berry reaches 4.86:1 there and 6.28:1 on white. See the Phase 1 plan. */
-  --theme-destructive-text: #111111;
+  --theme-destructive-text: #bf0d3e;
   --notification: var(--color-uzh-berry-100);
 
   /* links — UZH link blue and its visited pair (5.7:1 and 4.53:1 on white) */
