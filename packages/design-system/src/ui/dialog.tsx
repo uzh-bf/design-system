@@ -71,7 +71,7 @@ function DialogContent({
       {showCloseButton && (
         <DialogPrimitive.Close
           data-slot="dialog-close"
-          className="ring-offset-background focus:ring-ring absolute top-4 right-4 inline-flex size-8 cursor-pointer items-center justify-center rounded-md text-[#666666] opacity-70 transition-opacity hover:bg-[#FAFAFA] hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none disabled:cursor-not-allowed data-[state=open]:bg-[#FAFAFA] [&>svg]:size-4"
+          className="ring-offset-background focus-visible:ring-ring absolute top-4 right-4 inline-flex size-8 cursor-pointer items-center justify-center rounded-md text-[#666666] opacity-70 transition-opacity hover:bg-[#FAFAFA] hover:opacity-100 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden disabled:pointer-events-none disabled:cursor-not-allowed data-[state=open]:bg-[#FAFAFA] [&>svg]:size-4"
           data-cy={dataCloseButton?.cy}
           data-test={dataCloseButton?.test}
         >
