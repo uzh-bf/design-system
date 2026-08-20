@@ -21,10 +21,14 @@ const alertVariants = cva(
         // so the icon flips to the bright amber main instead.
         warning:
           'bg-warning-background text-foreground border-l-4 border-l-warning [&>svg]:text-warning-foreground dark:[&>svg]:text-warning *:data-[slot=alert-description]:text-foreground/80',
+        // The description does not fade like the other variants do. Those fade
+        // text-foreground, which is near-black and survives it; destructive
+        // text is already a mid-tone colour on a tinted fill, so an opacity
+        // fade drops it under 4.5:1.
         error:
-          'bg-destructive-background text-destructive-text border-l-4 border-l-destructive *:data-[slot=alert-description]:text-destructive-text/90',
+          'bg-destructive-background text-destructive-text border-l-4 border-l-destructive *:data-[slot=alert-description]:text-destructive-text',
         destructive:
-          'text-destructive-text bg-card [&>svg]:text-current *:data-[slot=alert-description]:text-destructive-text/90',
+          'text-destructive-text bg-card [&>svg]:text-current *:data-[slot=alert-description]:text-destructive-text',
       },
     },
     defaultVariants: {
