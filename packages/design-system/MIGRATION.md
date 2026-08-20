@@ -672,34 +672,34 @@ shift. "Tokens" means hardcoded colours were replaced by theme tokens, so the
 colour now follows `data-theme` — usually what you want, but it does change
 pixels in existing screens.
 
-| Component | What moved | Verify |
-| --- | --- | --- |
-| `Button` | Sizing and padding: `px-3.25 py-1.75` → `py-2`, plus `min-h-10`, `h-auto`, `whitespace-normal` | Verify button height and label wrapping |
-| `Checkbox` | Sizing and shape: `w-5` → `18px`, `rounded-md` → `rounded-[4px]`, border `1px` → `1.5px`, `border-black` → `border-input` | Alignment against adjacent text |
-| `Collapsible` | Tokens: `border-uzh-grey-80` → `border-border` | Border colour per theme <!-- gitleaks:allow: a Tailwind class name, not a key --> |
-| `ColorPicker` | Positioning removed: absolute placement, `-left-72`, `bottom-8`, `max-w-120` all dropped | Popover placement in your layout |
-| `Countdown`, `CycleCountdown` | Rewritten; the measurement finds only added classes, so treat these as fully changed rather than trusting a specific list | Verify rendering end to end |
-| `CycleProgress` | Sizing removed in favour of intrinsic sizing (`h-7/12/20`, `w-7/12/20` dropped) | Size in your layout; set it yourself if you relied on the preset |
-| `DatePicker`, `DatetimePicker` | Sizing and chrome: `w-36`/`w-44` → `min-w-[200px]`/`min-w-[220px]`, new borders and hover fills | Field width in narrow columns |
-| `Dropdown` | Type scale: `text-base` → `text-sm` | Menu density |
-| `FormLabel` | Type and colour: `text-gray-600` → `text-[13px] font-semibold text-foreground` | Label weight against your form rhythm |
-| `Header` | Weight: `font-bold` → `font-semibold` | — |
-| `Modal` | **Width cap.** `w-108 md:w-160 lg:w-220 xl:w-280 max-w-7xl` → `w-[calc(100%-2rem)] max-w-[520px]` | **Verify every wide modal.** See below |
-| `Navigation` | Sizing and type: `h-7`/`h-8` → `h-9`, `text-base` → `text-sm` | Bar height |
-| `Progress` | Fill: `bg-primary-60` → `bg-primary-100` | Contrast against your background |
-| `Prose` | Link colour now `text-link` / visited `text-link-visited`; heading line-heights tightened | Link colour and heading rhythm |
-| `Select` | Sizing and tokens: `h-9` → `h-10`, `bg-uzh-grey-20` → `bg-muted`, `text-black` → `text-foreground` | Height against adjacent inputs |
-| `Slider` | Fully restyled: thumb `size-4`/`size-[18px]`, track `bg-[#EFEFEF]`, ring on focus; old `h-12`/`h-14` presets gone | Track and thumb size |
-| `StepProgress` | Tokens: `bg-green-700`, `bg-uzh-red-100` → `bg-success`, `bg-destructive` | Status colours per theme |
-| `Switch` | Tokens: `bg-uzh-grey-80` → `bg-input`, `bg-primary-60` → `bg-primary-100` | On/off contrast |
-| `Table` | Substantially restyled: `p-4` → `px-4 py-3`, header now uppercase `text-xs` with letter-spacing, zebra `odd:bg-uzh-grey-20` dropped, focus ring added | **Verify row height, header treatment, and the loss of zebra striping** |
-| `Tabs` | Layout classes removed (`w-full`, `md:grid`, `md:h-10`); underline instead of pill | Verify tab track width; it no longer declares `w-full` |
-| `Tag` | Fully restyled: `bg-slate-100 text-slate-700 text-sm rounded` → `bg-primary-20 text-primary-100 text-[13px] h-6 rounded-xs`, plus a dismiss affordance | Tag size and colour |
-| `Toast` | Tokens and border: `border-2` → `border-l-4` status stripe; `bg-white` → `bg-background` | Toast shape |
-| `Tooltip` | `border-2 border-black` removed | Tooltip outline |
-| `UserNotification` | Tokens throughout: `bg-uzh-*-20` → `bg-*-background`, `text-uzh-*-100` → semantic text tokens | Every notification colour |
-| `Workflow` | Substantially restyled: all chevron and fill colours moved to tokens, focus ring added, `w-full!` dropped | Width and colours |
-| `AvatarFallback` | `bg-muted` → `bg-primary-20 text-primary-100` (theme-tinted initials) | Override via `className` for the old grey |
+| Component                      | What moved                                                                                                                                             | Verify                                                                            |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------- |
+| `Button`                       | Sizing and padding: `px-3.25 py-1.75` → `py-2`, plus `min-h-10`, `h-auto`, `whitespace-normal`                                                         | Verify button height and label wrapping                                           |
+| `Checkbox`                     | Sizing and shape: `w-5` → `18px`, `rounded-md` → `rounded-[4px]`, border `1px` → `1.5px`, `border-black` → `border-input`                              | Alignment against adjacent text                                                   |
+| `Collapsible`                  | Tokens: `border-uzh-grey-80` → `border-border`                                                                                                         | Border colour per theme <!-- gitleaks:allow: a Tailwind class name, not a key --> |
+| `ColorPicker`                  | Positioning removed: absolute placement, `-left-72`, `bottom-8`, `max-w-120` all dropped                                                               | Popover placement in your layout                                                  |
+| `Countdown`, `CycleCountdown`  | Rewritten; the measurement finds only added classes, so treat these as fully changed rather than trusting a specific list                              | Verify rendering end to end                                                       |
+| `CycleProgress`                | Sizing removed in favour of intrinsic sizing (`h-7/12/20`, `w-7/12/20` dropped)                                                                        | Size in your layout; set it yourself if you relied on the preset                  |
+| `DatePicker`, `DatetimePicker` | Sizing and chrome: `w-36`/`w-44` → `min-w-[200px]`/`min-w-[220px]`, new borders and hover fills                                                        | Field width in narrow columns                                                     |
+| `Dropdown`                     | Type scale: `text-base` → `text-sm`                                                                                                                    | Menu density                                                                      |
+| `FormLabel`                    | Type and colour: `text-gray-600` → `text-[13px] font-semibold text-foreground`                                                                         | Label weight against your form rhythm                                             |
+| `Header`                       | Weight: `font-bold` → `font-semibold`                                                                                                                  | —                                                                                 |
+| `Modal`                        | **Width cap.** `w-108 md:w-160 lg:w-220 xl:w-280 max-w-7xl` → `w-[calc(100%-2rem)] max-w-[520px]`                                                      | **Verify every wide modal.** See below                                            |
+| `Navigation`                   | Sizing and type: `h-7`/`h-8` → `h-9`, `text-base` → `text-sm`                                                                                          | Bar height                                                                        |
+| `Progress`                     | Fill: `bg-primary-60` → `bg-primary-100`                                                                                                               | Contrast against your background                                                  |
+| `Prose`                        | Link colour now `text-link` / visited `text-link-visited`; heading line-heights tightened                                                              | Link colour and heading rhythm                                                    |
+| `Select`                       | Sizing and tokens: `h-9` → `h-10`, `bg-uzh-grey-20` → `bg-muted`, `text-black` → `text-foreground`                                                     | Height against adjacent inputs                                                    |
+| `Slider`                       | Fully restyled: thumb `size-4`/`size-[18px]`, track `bg-[#EFEFEF]`, ring on focus; old `h-12`/`h-14` presets gone                                      | Track and thumb size                                                              |
+| `StepProgress`                 | Tokens: `bg-green-700`, `bg-uzh-red-100` → `bg-success`, `bg-destructive`                                                                              | Status colours per theme                                                          |
+| `Switch`                       | Tokens: `bg-uzh-grey-80` → `bg-input`, `bg-primary-60` → `bg-primary-100`                                                                              | On/off contrast                                                                   |
+| `Table`                        | Substantially restyled: `p-4` → `px-4 py-3`, header now uppercase `text-xs` with letter-spacing, zebra `odd:bg-uzh-grey-20` dropped, focus ring added  | **Verify row height, header treatment, and the loss of zebra striping**           |
+| `Tabs`                         | Layout classes removed (`w-full`, `md:grid`, `md:h-10`); underline instead of pill                                                                     | Verify tab track width; it no longer declares `w-full`                            |
+| `Tag`                          | Fully restyled: `bg-slate-100 text-slate-700 text-sm rounded` → `bg-primary-20 text-primary-100 text-[13px] h-6 rounded-xs`, plus a dismiss affordance | Tag size and colour                                                               |
+| `Toast`                        | Tokens and border: `border-2` → `border-l-4` status stripe; `bg-white` → `bg-background`                                                               | Toast shape                                                                       |
+| `Tooltip`                      | `border-2 border-black` removed                                                                                                                        | Tooltip outline                                                                   |
+| `UserNotification`             | Tokens throughout: `bg-uzh-*-20` → `bg-*-background`, `text-uzh-*-100` → semantic text tokens                                                          | Every notification colour                                                         |
+| `Workflow`                     | Substantially restyled: all chevron and fill colours moved to tokens, focus ring added, `w-full!` dropped                                              | Width and colours                                                                 |
+| `AvatarFallback`               | `bg-muted` → `bg-primary-20 text-primary-100` (theme-tinted initials)                                                                                  | Override via `className` for the old grey                                         |
 
 Components with no class change between `4.1.8` and v5 are not listed. New in
 v5 and therefore not a migration concern: `ButtonGroup`, `Combobox`,

@@ -160,6 +160,15 @@
   --theme-success-background: oklch(0.24 0.04 150);
   --theme-warning-background: oklch(0.26 0.04 80);
   --theme-info-background: oklch(0.24 0.04 245);
+
+  /* links need their own dark values. The light pair is chosen for white and
+     reaches only 2.95:1 and 2.79:1 on the dark surface. These lift the same
+     blue/violet pairing to 7.79:1 and 7.27:1 on --background, and stay above
+     6.5:1 on the lighter --card. No a11y story renders a dark root, so this
+     pairing is verified by the packed-CSS contract and by hand, not by the
+     inventory. */
+  --theme-color-link: #60a5fa;
+  --theme-color-link-visited: #a78bfa;
 }
 
 [data-theme='uzh'].dark,
@@ -167,4 +176,11 @@
   --theme-success-background: oklch(0.25 0.04 165);
   --theme-warning-background: oklch(0.27 0.05 95);
   --theme-info-background: oklch(0.25 0.04 200);
+
+  /* Both rungs come from the UZH blue ladder rather than a new hue, so the
+     branded theme stays branded in dark mode: Blue 40 for unvisited (7.13:1)
+     and the paler Blue 20 for visited (11.95:1). Visited reads as the duller
+     of the two, which is the conventional signal. */
+  --theme-color-link: var(--color-uzh-blue-40);
+  --theme-color-link-visited: var(--color-uzh-blue-20);
 }
