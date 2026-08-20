@@ -56,6 +56,12 @@
   --theme-info-foreground: oklch(0.985 0 0);
   --theme-info-background: oklch(0.96 0.03 240);
   --theme-destructive-text: #b91c1c;
+
+  /* links — a link needs its own hue, not the body text colour. The neutral
+     primary ramp is near-black, so inheriting it would leave links invisible
+     as links. Both values clear AA on white (6.7:1 and 7.1:1). */
+  --theme-color-link: #1d4ed8;
+  --theme-color-link-visited: #6d28d9;
 }
 
 /* ── UZH corporate design ──────────────────────────────────────────────── */
@@ -101,8 +107,15 @@
   --destructive: #fc4c02;
   --destructive-foreground: #111111;
   --destructive-background: #ffdbcc;
+  /* Berry rather than the Orange of the fill beside it: destructive text also
+     renders on --destructive-background, where Orange 4 reaches only 4.34:1.
+     Berry reaches 4.86:1 there and 6.28:1 on white. See the Phase 1 plan. */
   --theme-destructive-text: #111111;
   --notification: var(--color-uzh-berry-100);
+
+  /* links — UZH link blue and its visited pair (5.7:1 and 4.53:1 on white) */
+  --theme-color-link: #365dd5;
+  --theme-color-link-visited: #5972c5;
 
   /* bridge shadcn semantic primary + focus ring to UZH blue */
   --primary: var(--theme-color-primary);
