@@ -206,13 +206,16 @@ export function DropdownItem({
   className?: string
 }) {
   switch (item.type) {
+    // Separators and labels are not menu items, so the caller's shared item
+    // class must not reach them — a height or padding meant for clickable rows
+    // renders a separator as a thick grey band. Per-item classes still apply.
     case 'separator': {
       return (
         <DropdownMenuSeparator
           id={item.id}
           data-cy={item.data?.cy}
           data-test={item.data?.test}
-          className={twMerge('text-sm', className, item.className?.item)}
+          className={item.className?.item}
         />
       )
     }
@@ -223,7 +226,7 @@ export function DropdownItem({
           id={item.id}
           data-cy={item.data?.cy}
           data-test={item.data?.test}
-          className={twMerge('text-sm', className, item.className?.item)}
+          className={twMerge('text-sm', item.className?.item)}
         >
           {item.label}
         </DropdownMenuLabel>

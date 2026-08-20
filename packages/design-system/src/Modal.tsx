@@ -138,6 +138,11 @@ export function Modal({
   dataSecondaryAction,
   className,
 }: ModalProps) {
+  const hasSecondaryAction =
+    typeof onSecondaryAction !== 'undefined' && Boolean(secondaryLabel)
+  const hasPrimaryAction =
+    typeof onPrimaryAction !== 'undefined' && Boolean(primaryLabel)
+
   useEffect(() => {
     if (onPrev || onNext) {
       const keyDownHandler = ({ key }: KeyboardEvent) => {
@@ -222,43 +227,43 @@ export function Modal({
               )}
             </DialogHeader>
             <div className="h-max">{children}</div>
-            <DialogFooter
-              className={twMerge(
-                'mt-3 flex h-max gap-2 sm:flex-row sm:justify-end',
-                typeof onSecondaryAction === 'undefined' &&
-                  typeof onPrimaryAction !== 'undefined'
-                  ? 'sm:justify-end'
-                  : '',
-                className?.footer
-              )}
-            >
-              {typeof onSecondaryAction !== 'undefined' && secondaryLabel ? (
-                <Button
-                  type={secondaryType}
-                  primary={secondaryButtonStyle === 'primary'}
-                  destructive={secondaryButtonStyle === 'destructive'}
-                  onClick={onSecondaryAction}
-                  className={{ root: className?.secondary }}
-                  data={dataSecondaryAction}
-                >
-                  {secondaryLabel}
-                </Button>
-              ) : null}
-              {typeof onPrimaryAction !== 'undefined' && primaryLabel ? (
-                <Button
-                  primary={primaryButtonStyle === 'primary'}
-                  destructive={primaryButtonStyle === 'destructive'}
-                  type={primaryType}
-                  className={{ root: className?.primary }}
-                  onClick={onPrimaryAction}
-                  disabled={primaryDisabled}
-                  loading={primaryLoading}
-                  data={dataPrimaryAction}
-                >
-                  {primaryLabel}
-                </Button>
-              ) : null}
-            </DialogFooter>
+            {/* The footer draws a top divider, so an actionless modal must not
+                render it at all — otherwise the dialog ends in a stray rule. */}
+            {hasSecondaryAction || hasPrimaryAction ? (
+              <DialogFooter
+                className={twMerge(
+                  'mt-3 flex h-max gap-2 sm:flex-row sm:justify-end',
+                  className?.footer
+                )}
+              >
+                {hasSecondaryAction ? (
+                  <Button
+                    type={secondaryType}
+                    primary={secondaryButtonStyle === 'primary'}
+                    destructive={secondaryButtonStyle === 'destructive'}
+                    onClick={onSecondaryAction}
+                    className={{ root: className?.secondary }}
+                    data={dataSecondaryAction}
+                  >
+                    {secondaryLabel}
+                  </Button>
+                ) : null}
+                {hasPrimaryAction ? (
+                  <Button
+                    primary={primaryButtonStyle === 'primary'}
+                    destructive={primaryButtonStyle === 'destructive'}
+                    type={primaryType}
+                    className={{ root: className?.primary }}
+                    onClick={onPrimaryAction}
+                    disabled={primaryDisabled}
+                    loading={primaryLoading}
+                    data={dataPrimaryAction}
+                  >
+                    {primaryLabel}
+                  </Button>
+                ) : null}
+              </DialogFooter>
+            ) : null}
           </DialogContent>
         )}
       </DialogOverlay>
