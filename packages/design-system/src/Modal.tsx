@@ -138,9 +138,25 @@ export function Modal({
   dataSecondaryAction,
   className,
 }: ModalProps) {
+  const contentRef = React.useRef<HTMLDivElement>(null)
   useEffect(() => {
-    if (onPrev || onNext) {
-      const keyDownHandler = ({ key }: KeyboardEvent) => {
+    if (open && (onPrev || onNext)) {
+      const keyDownHandler = (event: KeyboardEvent) => {
+        const { key, target } = event
+        if (
+          event.defaultPrevented ||
+          event.altKey ||
+          event.ctrlKey ||
+          event.metaKey ||
+          event.shiftKey ||
+          !(target instanceof HTMLElement) ||
+          target.closest('[role="dialog"]') !== contentRef.current ||
+          target.closest(
+            'input, textarea, select, button, a, [contenteditable]:not([contenteditable="false"]), [role]:not([role="dialog"])'
+          )
+        )
+          return
+
         if (key === 'ArrowRight' && onNext) {
           onNext()
         } else if (key === 'ArrowLeft' && onPrev) {
@@ -151,7 +167,7 @@ export function Modal({
       window.addEventListener('keydown', keyDownHandler)
       return () => window.removeEventListener('keydown', keyDownHandler)
     }
-  }, [onNext, onPrev])
+  }, [open, onNext, onPrev])
 
   return (
     <Dialog
@@ -191,6 +207,7 @@ export function Modal({
           />
         ) : (
           <DialogContent
+            ref={contentRef}
             showCloseButton={!hideCloseButton}
             onOpenAutoFocus={(e) => e.preventDefault()} // avoid that the automatically sets focus on first element
             onEscapeKeyDown={
