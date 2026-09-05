@@ -141,6 +141,43 @@ export function Modal({
   const contentRef = React.useRef<HTMLDivElement>(null)
   useEffect(() => {
     if (open && (onPrev || onNext)) {
+      const interactiveSelector = [
+        'input',
+        'textarea',
+        'select',
+        'button',
+        'a',
+        '[contenteditable]:not([contenteditable="false"])',
+        ...[
+          'button',
+          'checkbox',
+          'combobox',
+          'grid',
+          'gridcell',
+          'link',
+          'listbox',
+          'menu',
+          'menubar',
+          'menuitem',
+          'menuitemcheckbox',
+          'menuitemradio',
+          'option',
+          'radio',
+          'radiogroup',
+          'scrollbar',
+          'searchbox',
+          'slider',
+          'spinbutton',
+          'switch',
+          'tab',
+          'tablist',
+          'textbox',
+          'toolbar',
+          'tree',
+          'treegrid',
+          'treeitem',
+        ].map((role) => `[role~="${role}"]`),
+      ].join(', ')
       const keyDownHandler = (event: KeyboardEvent) => {
         const { key, target } = event
         if (
@@ -152,9 +189,7 @@ export function Modal({
           !contentRef.current ||
           !(target instanceof HTMLElement) ||
           target.closest('[role="dialog"]') !== contentRef.current ||
-          target.closest(
-            'input, textarea, select, button, a, [contenteditable]:not([contenteditable="false"]), [role]:not([role="dialog"])'
-          )
+          target.closest(interactiveSelector)
         )
           return
 

@@ -86,7 +86,12 @@ export function Default() {
         <button type="button" onClick={() => setLoading(true)}>
           Start loading
         </button>
-        <div tabIndex={0} data-test="navigation-surface">
+        <div
+          tabIndex={0}
+          data-test="navigation-surface"
+          role="group"
+          aria-label="Slide content"
+        >
           Navigation surface
         </div>
         <label>
@@ -104,9 +109,9 @@ export function Default() {
           Amount
           <input type="range" aria-label="Amount" />
         </label>
-        <button type="button" data-test="nested-control">
+        <div role="button" tabIndex={0} data-test="nested-control">
           Nested control
-        </button>
+        </div>
         <div
           tabIndex={0}
           data-test="prevented"

@@ -209,7 +209,7 @@ for (const theme of ['neutral', 'uzh'] as const) {
       await page.locator('[data-test="background-input"]').press('ArrowRight')
       await expect(position).toHaveText('0')
       await page.getByRole('button', { name: 'Open navigation' }).click()
-      const surface = page.locator('[data-test="navigation-surface"]')
+      const surface = page.getByRole('group', { name: 'Slide content' })
       await surface.press('ArrowRight')
       await expect(position).toHaveText('1')
       await surface.press('ArrowLeft')
