@@ -206,6 +206,15 @@ for (const theme of ['neutral', 'uzh'] as const) {
       await expect(page.locator('[data-test="navigation-dialog"]')).toBeHidden()
       await page.locator('[data-test="background-input"]').press('ArrowRight')
       await expect(position).toHaveText('0')
+      await page.getByRole('button', { name: 'Open navigation' }).click()
+      await page.getByRole('button', { name: 'Start loading' }).click()
+      await expect(page.locator('[data-test="navigation-dialog"]')).toHaveCount(
+        0
+      )
+      await page
+        .locator('body')
+        .dispatchEvent('keydown', { key: 'ArrowRight', bubbles: true })
+      await expect(position).toHaveText('0')
     })
   })
 }

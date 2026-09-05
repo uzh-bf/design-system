@@ -149,6 +149,7 @@ export function Modal({
           event.ctrlKey ||
           event.metaKey ||
           event.shiftKey ||
+          !contentRef.current ||
           !(target instanceof HTMLElement) ||
           target.closest('[role="dialog"]') !== contentRef.current ||
           target.closest(

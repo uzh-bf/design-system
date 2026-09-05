@@ -12,6 +12,7 @@ export function Default() {
   )
   const [open, setOpen] = useState(false)
   const [position, setPosition] = useState(0)
+  const [loading, setLoading] = useState(false)
   return (
     <div className="flex flex-col gap-4 p-4">
       <DateTimePicker
@@ -64,12 +65,16 @@ export function Default() {
       <output data-test="position">{position}</output>
       <Modal
         open={open}
+        loading={loading}
         onClose={() => setOpen(false)}
         title="Navigation"
         onNext={() => setPosition((p) => p + 1)}
         onPrev={() => setPosition((p) => p - 1)}
         dataContent={{ test: 'navigation-dialog' }}
       >
+        <button type="button" onClick={() => setLoading(true)}>
+          Start loading
+        </button>
         <div tabIndex={0} data-test="navigation-surface">
           Navigation surface
         </div>

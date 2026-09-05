@@ -234,7 +234,6 @@ function display12HourValue(hours: number) {
 // ---------- utils end ----------
 interface PeriodSelectorProps {
   period: Period
-  setPeriod?: (m: Period) => void
   id?: string
   ariaLabel?: string
   disabled?: boolean
@@ -251,7 +250,6 @@ const TimePeriodSelect = React.forwardRef<
   (
     {
       period,
-      setPeriod,
       date,
       onDateChange,
       onLeftFocus,
@@ -276,8 +274,6 @@ const TimePeriodSelect = React.forwardRef<
     }
 
     const handleValueChange = (value: Period) => {
-      setPeriod?.(value)
-
       /**
        * trigger an update whenever the user switches between AM and PM;
        * otherwise user must manually change the hour each time
@@ -909,7 +905,7 @@ const DateTimePicker = ({
             dataPreviousMonth={props.dataPreviousMonth}
             data={props.dataCalendar}
             className={cn(
-              '[&_.rdp-weekday]:opacity-100',
+              '[&_.rdp-weekday]:text-foreground [&_.rdp-weekday]:opacity-100',
               granularity !== 'day' && 'rounded-none border-0 shadow-none'
             )}
             weekStartsOn={props.weekStartsOn}
