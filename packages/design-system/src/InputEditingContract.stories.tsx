@@ -13,18 +13,29 @@ export function Default() {
   const [open, setOpen] = useState(false)
   const [position, setPosition] = useState(0)
   const [loading, setLoading] = useState(false)
+  const [cloneUpdates, setCloneUpdates] = useState(false)
   return (
     <div className="flex flex-col gap-4 p-4">
       <DateTimePicker
         id="editing-date"
         label="Appointment"
         value={date}
-        onChange={setDate}
+        onChange={(value) =>
+          setDate(value && cloneUpdates ? new Date(value) : value)
+        }
         hourCycle={cycle}
         granularity={granularity}
         dataTrigger={{ test: 'editing-date-trigger' }}
       />
       <DateTimePicker label="Other appointment" value={initialDate()} />
+      <label>
+        Clone date updates
+        <input
+          type="checkbox"
+          checked={cloneUpdates}
+          onChange={(event) => setCloneUpdates(event.target.checked)}
+        />
+      </label>
       <output data-test="date-value">
         {date
           ? [

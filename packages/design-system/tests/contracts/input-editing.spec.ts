@@ -130,6 +130,31 @@ for (const theme of ['neutral', 'uzh'] as const) {
       await expect(hours).toHaveValue('12')
     })
 
+    test('preserves native drafts through cloned parent values and hour-cycle changes', async ({
+      page,
+    }) => {
+      await page.getByRole('checkbox', { name: 'Clone date updates' }).check()
+      await page
+        .getByRole('button', { name: 'Appointment', exact: true })
+        .click()
+      const hours = page.getByRole('textbox', { name: 'Hours', exact: true })
+      await hours.fill('')
+      await hours.press('1')
+      await expect(hours).toHaveValue('1')
+      await hours.press('5')
+      await expect(hours).toHaveValue('15')
+      await expect(page.locator('[data-test="date-value"]')).toHaveText(
+        '2026,0,15,15,24,35'
+      )
+      await page
+        .getByRole('button', { name: 'Toggle cycle' })
+        .evaluate((element: HTMLButtonElement) => element.click())
+      await expect(hours).toHaveValue('03')
+      await expect(
+        page.getByRole('combobox', { name: 'Period', exact: true })
+      ).toHaveText('PM')
+    })
+
     test('uses unique control ids and respects segment boundaries and granularity', async ({
       page,
     }) => {

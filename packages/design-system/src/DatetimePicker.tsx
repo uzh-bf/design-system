@@ -351,11 +351,17 @@ const TimePickerInput = React.forwardRef<
   ) => {
     const generatedId = React.useId()
     const [draft, setDraft] = React.useState<string | null>(null)
-    const lastEmittedDate = React.useRef<Date | undefined>(undefined)
+    const lastEmittedTimestamp = React.useRef<number | undefined>(undefined)
+    const previousPicker = React.useRef(picker)
     const calculatedValue = getDateByType(date, picker)
 
     React.useEffect(() => {
-      if (date !== lastEmittedDate.current) setDraft(null)
+      if (
+        date?.getTime() !== lastEmittedTimestamp.current ||
+        picker !== previousPicker.current
+      )
+        setDraft(null)
+      previousPicker.current = picker
     }, [date, picker, period])
 
     const commitValue = (nextValue: string) => {
@@ -365,7 +371,7 @@ const TimePickerInput = React.forwardRef<
         picker,
         period
       )
-      lastEmittedDate.current = nextDate
+      lastEmittedTimestamp.current = nextDate.getTime()
       onDateChange?.(nextDate)
     }
 
