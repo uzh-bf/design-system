@@ -39,8 +39,10 @@ interface TextFieldProps {
   className?: TextFieldClassName
   icon?: IconProp
   iconPosition?: 'left' | 'right'
+  iconAriaLabel?: string
   onIconClick?: () => void
   onEnter?: (event: React.KeyboardEvent<HTMLInputElement>) => void
+  resetAriaLabel?: string
   onReset?: () => void
   ref?: React.Ref<HTMLInputElement>
 }
@@ -83,8 +85,10 @@ export interface TextFieldOnChangeProps extends TextFieldProps {
  * @param className - The optional className object allows you to override the default styling.
  * @param icon - The optional icon is shown on the right side of the input field.
  * @param iconPosition - The optional iconPosition can be used to change the position of the icon to the left side of the input field.
+ * @param iconAriaLabel - The optional accessible name for an actionable icon.
  * @param onIconClick - The optional onIconClick function is called when the icon is clicked.
  * @param onEnter - The optional onEnter function is called when the user presses the Enter key in the input field.
+ * @param resetAriaLabel - The optional accessible name for the reset action.
  * @param onReset - The optional onReset function adds a cancellation icon to the text field (right side; replacing icons positioned there)
  * @param ref - A ref to the underlying input element.
  * @returns Text field component with optional label, tooltip, error message and icon.
@@ -110,12 +114,16 @@ export function TextField({
   className,
   icon,
   iconPosition = 'left',
+  iconAriaLabel,
   onIconClick,
   onEnter,
+  resetAriaLabel,
   onReset,
   ref,
   ...props
 }: TextFieldNameProps | TextFieldOnChangeProps) {
+  const defaultIconAriaLabel = label ? `${label} action` : 'Field action'
+  const defaultResetAriaLabel = label ? `Clear ${label}` : 'Clear field'
   const { inputId, visibleError, errorId } = useFieldError({
     id,
     error,
@@ -222,20 +230,57 @@ export function TextField({
             />
           )}
 
-          {icon && iconPosition === 'left' && (
-            <FontAwesomeIcon
+          {icon && iconPosition === 'left' && onIconClick ? (
+            <button
+              type="button"
+              aria-label={iconAriaLabel ?? defaultIconAriaLabel}
+              disabled={disabled}
               className={twMerge(
-                'absolute inset-y-2 left-2 text-slate-500',
-                className?.icon
+                'absolute inset-y-2 left-2 z-10 border-0 bg-transparent p-0 text-slate-500'
               )}
               onClick={onIconClick}
-              icon={icon}
-              size="lg"
-            />
+            >
+              <FontAwesomeIcon
+                icon={icon}
+                size="lg"
+                className={className?.icon}
+                aria-hidden="true"
+              />
+            </button>
+          ) : (
+            icon &&
+            iconPosition === 'left' && (
+              <FontAwesomeIcon
+                className={twMerge(
+                  'absolute inset-y-2 left-2 text-slate-500',
+                  className?.icon
+                )}
+                onClick={onIconClick}
+                icon={icon}
+                size="lg"
+              />
+            )
           )}
           {icon &&
             iconPosition === 'right' &&
-            !(!!value && typeof onReset !== 'undefined') && (
+            !(!!value && typeof onReset !== 'undefined') &&
+            (onIconClick ? (
+              <button
+                type="button"
+                aria-label={iconAriaLabel ?? defaultIconAriaLabel}
+                disabled={disabled}
+                className={twMerge(
+                  'absolute right-0 z-10 border-0 bg-transparent p-2 pr-3 hover:cursor-pointer'
+                )}
+                onClick={onIconClick}
+              >
+                <FontAwesomeIcon
+                  icon={icon}
+                  className={className?.icon}
+                  aria-hidden="true"
+                />
+              </button>
+            ) : (
               <FontAwesomeIcon
                 icon={icon}
                 onClick={onIconClick}
@@ -244,16 +289,23 @@ export function TextField({
                   className?.icon
                 )}
               />
-            )}
+            ))}
           {!!value && typeof onReset !== 'undefined' ? (
-            <FontAwesomeIcon
-              icon={faX}
-              onClick={onReset}
+            <button
+              type="button"
+              aria-label={resetAriaLabel ?? defaultResetAriaLabel}
+              disabled={disabled}
               className={twMerge(
-                'absolute right-0 z-10 p-2 pr-3 hover:cursor-pointer',
-                className?.icon
+                'absolute right-0 z-10 border-0 bg-transparent p-2 pr-3 hover:cursor-pointer'
               )}
-            />
+              onClick={onReset}
+            >
+              <FontAwesomeIcon
+                icon={faX}
+                className={className?.icon}
+                aria-hidden="true"
+              />
+            </button>
           ) : null}
         </div>
         {visibleError && (
