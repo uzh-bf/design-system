@@ -177,5 +177,9 @@ The parent accepted the five decisions and completed the input-package handover.
 
 - Input correction04cfd66e0 is published in draft PR210 and all checks passed.
 - Native planner01a07630-78b4-7ab3-9b8c-2d96a839546e approved after round2; four verification findings accepted.
-- Compatible dependency branch created from04cfd66e0; no dependency edits yet.
-- Registry candidate ledger covers71 direct dependencies at `/tmp/ds-v5-compatible-candidates.json`; exact update/hold choices remain to be made.
+- Compatible dependency branch `rs/v5-compatible-dependencies` extends the input layer. Selected 54 updated declarations; consumer peers, root/sibling manifests and release version remain unchanged. See the dependency selection and major-upgrade assessments beside this plan.
+- Package build, Ladle build, types, lint, formatting and size checks pass. Browser regression run passed 1,332 tests with one synthetic outside-interaction failure; replacing that synthetic event with a real click passes all 15 RHF contracts. Both-theme mobile input editing is included in the browser suite.
+- Packed CSS verification passes all 672 assertions. Font-token comparison preserves quoted family names and ordering while tolerating serialization whitespace; other tokens remain strict.
+- All three packed fixture graphs are regenerated explicitly. Normal verification retains frozen installs and verifies 39 installed runtime dependency versions. Packed consumers, Next production builds and the Next browser test pass; stale-graph negative checks fail as intended.
+- Minimum RHF 7.59.0 passes build, public type contracts and 15 browser contracts in an isolated snapshot. Selected RHF 7.87.0 passes the live package checks. The peer range is unchanged.
+- Deterministic visual verification is pending: the first local run had a screenshot timeout and Chromium page crash. A fresh pinned-container retry is running; no baselines changed. Dependency slice and final reviews remain pending. No dependency PR exists yet; field implementation follows acceptance of this layer.

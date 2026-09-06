@@ -5,11 +5,15 @@ import { createHash } from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
 
-const [packageDir, runFixture, ...lockfiles] = process.argv.slice(2)
+const rawArgs = process.argv.slice(2)
+const regenerate = rawArgs[0] === '--regenerate'
+const [packageDir, runFixture, ...lockfiles] = regenerate
+  ? rawArgs.slice(1)
+  : rawArgs
 
 if (!packageDir || !runFixture || lockfiles.length === 0) {
   throw new Error(
-    'usage: prepare-packed-artifact.mjs <package> <fixture> <lockfile...>'
+    'usage: prepare-packed-artifact.mjs [--regenerate] <package> <fixture> <lockfile...>'
   )
 }
 
@@ -36,6 +40,17 @@ if (tarballs.length !== 1) {
 const tarball = path.join(artifactsDir, tarballs[0])
 const normalizedTarball = path.join(artifactsDir, 'design-system.tgz')
 fs.renameSync(tarball, normalizedTarball)
+
+if (regenerate) {
+  for (const lockfile of lockfiles) {
+    execFileSync(
+      'pnpm',
+      ['update', '--lockfile-only', '@uzh-bf/design-system'],
+      { cwd: path.dirname(lockfile), stdio: 'inherit' }
+    )
+  }
+  process.exit(0)
+}
 
 const integrity = createHash('sha512')
   .update(fs.readFileSync(normalizedTarball))

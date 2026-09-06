@@ -153,6 +153,7 @@ NODE
 (
   cd "$run_fixture"
   pnpm install --frozen-lockfile
+  node "$fixture_dir/../packed-consumers/scripts/assert-installed-dependencies.mjs" "$run_fixture"
   pnpm exec next build
   pnpm exec next build --webpack
 )
