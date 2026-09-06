@@ -35,6 +35,7 @@ function FieldActionsFixture() {
           iconPosition="right"
           iconAriaLabel="Run search"
           onIconClick={() => setActionCount((count) => count + 1)}
+          className={{ icon: '!h-7 !w-7' }}
           resetAriaLabel="Clear search"
           onReset={() => {
             setResetCount((count) => count + 1)
@@ -53,6 +54,7 @@ function FieldActionsFixture() {
           iconPosition="left"
           iconAriaLabel="Run left action"
           onIconClick={() => setLeftActionCount((count) => count + 1)}
+          className={{ icon: '!h-7 !w-7' }}
           data={{ test: 'field-actions-left-input' }}
         />
       </div>

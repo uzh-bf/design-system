@@ -236,12 +236,16 @@ export function TextField({
               aria-label={iconAriaLabel ?? defaultIconAriaLabel}
               disabled={disabled}
               className={twMerge(
-                'absolute inset-y-2 left-2 z-10 border-0 bg-transparent p-0 text-slate-500',
-                className?.icon
+                'absolute inset-y-2 left-2 z-10 border-0 bg-transparent p-0 text-slate-500'
               )}
               onClick={onIconClick}
             >
-              <FontAwesomeIcon icon={icon} size="lg" aria-hidden="true" />
+              <FontAwesomeIcon
+                icon={icon}
+                size="lg"
+                className={className?.icon}
+                aria-hidden="true"
+              />
             </button>
           ) : (
             icon &&
@@ -266,12 +270,15 @@ export function TextField({
                 aria-label={iconAriaLabel ?? defaultIconAriaLabel}
                 disabled={disabled}
                 className={twMerge(
-                  'absolute right-0 z-10 border-0 bg-transparent p-2 pr-3 hover:cursor-pointer',
-                  className?.icon
+                  'absolute right-0 z-10 border-0 bg-transparent p-2 pr-3 hover:cursor-pointer'
                 )}
                 onClick={onIconClick}
               >
-                <FontAwesomeIcon icon={icon} aria-hidden="true" />
+                <FontAwesomeIcon
+                  icon={icon}
+                  className={className?.icon}
+                  aria-hidden="true"
+                />
               </button>
             ) : (
               <FontAwesomeIcon
@@ -289,12 +296,15 @@ export function TextField({
               aria-label={resetAriaLabel ?? defaultResetAriaLabel}
               disabled={disabled}
               className={twMerge(
-                'absolute right-0 z-10 border-0 bg-transparent p-2 pr-3 hover:cursor-pointer',
-                className?.icon
+                'absolute right-0 z-10 border-0 bg-transparent p-2 pr-3 hover:cursor-pointer'
               )}
               onClick={onReset}
             >
-              <FontAwesomeIcon icon={faX} aria-hidden="true" />
+              <FontAwesomeIcon
+                icon={faX}
+                className={className?.icon}
+                aria-hidden="true"
+              />
             </button>
           ) : null}
         </div>

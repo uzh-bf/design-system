@@ -6,6 +6,34 @@ const themes = ['neutral', 'uzh'] as const
 
 test.describe('field actions and state contracts', () => {
   for (const theme of themes) {
+    test(`${theme} applies fixture icon sizing to each actionable glyph`, async ({
+      page,
+    }) => {
+      await gotoStory(page, 'field-actions-contract--default', theme)
+      const story = page.locator(STORY_SELECTOR)
+      const expectedSize = '28px'
+
+      const rightActionIcon = story
+        .getByRole('button', { name: 'Run search' })
+        .locator('svg')
+      const leftActionIcon = story
+        .getByRole('button', { name: 'Run left action' })
+        .locator('svg')
+
+      await expect(rightActionIcon).toHaveCSS('height', expectedSize)
+      await expect(rightActionIcon).toHaveCSS('width', expectedSize)
+      await expect(leftActionIcon).toHaveCSS('height', expectedSize)
+      await expect(leftActionIcon).toHaveCSS('width', expectedSize)
+
+      await story.locator('[data-test="field-actions-input"]').fill('value')
+      const resetIcon = story
+        .getByRole('button', { name: 'Clear search' })
+        .locator('svg')
+
+      await expect(resetIcon).toHaveCSS('height', expectedSize)
+      await expect(resetIcon).toHaveCSS('width', expectedSize)
+    })
+
     test(`${theme} keeps actionable field icons keyboard-operable`, async ({
       page,
     }) => {
