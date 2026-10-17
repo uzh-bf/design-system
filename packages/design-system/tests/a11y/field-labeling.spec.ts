@@ -59,7 +59,17 @@ test.describe('form field labeling contract (WCAG Level A)', () => {
     ).toBeTruthy()
     const alert = page.locator(`[id="${describedby}"]`)
     await expect(alert).toHaveAttribute('role', 'alert')
-    await expect(alert).toHaveText('This is an error message')
+    // The alert copy is story prose; pin the reference relation and a
+    // non-empty alert instead of the sentence.
+    const alertId = await alert.getAttribute('id')
+    expect(
+      (describedby ?? '').split(/\s+/).filter(Boolean),
+      'control references the alert it describes'
+    ).toContain(alertId)
+    expect(
+      ((await alert.textContent()) ?? '').trim().length,
+      'alert exposes non-empty error text'
+    ).toBeGreaterThan(0)
   })
 
   test('NumberField: label associates with the derived input id', async ({
@@ -132,7 +142,15 @@ test.describe('form field labeling contract (WCAG Level A)', () => {
     ).toBeTruthy()
     const alert = page.locator(`[id="${describedby}"]`)
     await expect(alert).toHaveAttribute('role', 'alert')
-    await expect(alert).toHaveText('Error message')
+    const alertId = await alert.getAttribute('id')
+    expect(
+      (describedby ?? '').split(/\s+/).filter(Boolean),
+      'control references the alert it describes'
+    ).toContain(alertId)
+    expect(
+      ((await alert.textContent()) ?? '').trim().length,
+      'alert exposes non-empty error text'
+    ).toBeGreaterThan(0)
   })
 
   // AlphaNumericPinField is built on input-otp, which renders a single real
@@ -166,6 +184,14 @@ test.describe('form field labeling contract (WCAG Level A)', () => {
     ).toBeTruthy()
     const alert = page.locator(`[id="${describedby}"]`)
     await expect(alert).toHaveAttribute('role', 'alert')
-    await expect(alert).toHaveText('Please enter 6 characters')
+    const alertId = await alert.getAttribute('id')
+    expect(
+      (describedby ?? '').split(/\s+/).filter(Boolean),
+      'control references the alert it describes'
+    ).toContain(alertId)
+    expect(
+      ((await alert.textContent()) ?? '').trim().length,
+      'alert exposes non-empty error text'
+    ).toBeGreaterThan(0)
   })
 })

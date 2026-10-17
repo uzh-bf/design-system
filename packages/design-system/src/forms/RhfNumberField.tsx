@@ -1,6 +1,6 @@
 'use client'
 
-import type { Ref } from 'react'
+import type { InputHTMLAttributes, Ref } from 'react'
 import { useEffect, useRef, useState } from 'react'
 import type { FieldValues, RegisterOptions } from 'react-hook-form'
 import NumberField, { type NumberFieldProps } from './NumberField'
@@ -52,6 +52,19 @@ export type RhfNumberFieldProps<
   'className' | 'rules'
 > &
   Omit<
+    InputHTMLAttributes<HTMLInputElement>,
+    | 'className'
+    | 'onChange'
+    | 'value'
+    | 'defaultValue'
+    | 'name'
+    | 'id'
+    | 'onBlur'
+    | 'min'
+    | 'max'
+    | 'step'
+  > &
+  Omit<
     NumberFieldProps,
     | 'id'
     | 'label'
@@ -64,6 +77,9 @@ export type RhfNumberFieldProps<
     | 'onBlur'
     | 'ref'
   > & {
+    min?: number
+    max?: number
+    step?: number
     rules?: RhfFieldProps<
       TFieldValues,
       TName,
@@ -178,7 +194,8 @@ export function RhfNumberField<
       descriptionId={state.descriptionId}
       error={state.error}
       errorId={state.errorId}
-      showError={state.showError}
+      showError={state.showError && !props.hideError}
+      errorDisplay={props.errorDisplay}
       className={props.className}
       data={props.data}
     >

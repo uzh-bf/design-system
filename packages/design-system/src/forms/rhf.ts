@@ -11,6 +11,7 @@ import type {
   UseControllerProps,
 } from 'react-hook-form'
 import { useController, useFormContext } from 'react-hook-form'
+import { mergeDescriptionIds } from './useFieldError'
 
 export interface RhfFieldClassName {
   root?: string
@@ -51,6 +52,9 @@ export type RhfFieldProps<
   labelType?: 'small' | 'large'
   tooltip?: string | React.ReactNode
   description?: React.ReactNode
+  'aria-describedby'?: string
+  errorDisplay?: 'tooltip' | 'inline'
+  hideError?: boolean
   required?: boolean
   className?: RhfFieldClassName
   data?: RhfFieldData
@@ -102,6 +106,8 @@ const rhfPropNames = [
   'labelType',
   'tooltip',
   'description',
+  'errorDisplay',
+  'hideError',
   'required',
   'disabled',
   'className',
@@ -185,10 +191,11 @@ export function useRhfField<
       ? undefined
       : `${inputId}-description`
   const errorId = `${inputId}-error`
-  const describedBy =
-    [descriptionId, showError && errorMessage ? errorId : undefined]
-      .filter(Boolean)
-      .join(' ') || undefined
+  const describedBy = mergeDescriptionIds(
+    props['aria-describedby'],
+    descriptionId,
+    showError && errorMessage && !props.hideError ? errorId : undefined
+  )
 
   return {
     field: controller.field,

@@ -175,20 +175,45 @@ The parent accepted the five decisions and completed the input-package handover.
 
 ## Progress
 
-Resumed on 2026-10-17 in standard execution mode because the runtime does not expose an exact allowlisted main-model identity. The September results below remain historical evidence. The refreshed registry inventory covers all 71 direct dependencies; 36 additional compatible declarations are selected, making 55 changed declarations against the input layer. Root and sibling importer blocks remain unchanged. Fresh package/Ladle builds, types, lint and formatting pass. Browser verification and packed-fixture graph refresh are complete as recorded below. The current shadcn registry comparison is recorded in the assessment. GitHub GraphQL reads time out; the REST read confirms the existing input draft is open. Publication and hosted CI remain pending. No merge or deployment authority is granted.
+Resumed on 2026-10-17 in standard execution mode; runtime model identity is not
+exposed precisely. The approved topology and terminal condition remain unchanged.
 
-- October compatibility corrections: axe 4.14 exposes label-in-name defects in calendar days, date/time triggers and explicitly named combobox triggers. The parent owns these coupled corrections. Visible values now participate in their accessible names; migration guidance explains exact-name query changes. Generated Playwright reports/results are excluded from ESLint.
-- Fresh verification: full browser run has 1,309 passes and 24 label-name failures. The date/calendar follow-up passes 46 cases; the remaining two combobox cases then pass in an eight-case accessibility run. Combobox focus/selection contracts pass after scoping the test-owned option lookup to its listbox. All original failures are covered by these follow-ups; the complete suite was not repeated after localized corrections.
-- Packed fixture worker completed all three lock graphs, frozen installs, 39-runtime-version assertions, types/exports and Next production/webpack/browser checks. Minimum RHF worker confirms exact 7.59.0, public/generated declarations and all 15 RHF browser contracts against the refreshed graph. Parent accepts both scoped results; later date/combobox edits do not alter the RHF seam.
-- Final package/Ladle builds, types, lint, formatting, package budgets and 672 packed-CSS assertions pass. The first concurrent size check raced the CSS build and saw a missing output file; the serialized rerun passes. Pinned Linux visual comparison passes all 23 cases with unchanged baselines. New code changes accessibility naming only; no visible restyle is intended.
-- The historical dependency slice review completed with no findings. An affected October review and integrated final review remain pending. Dependency PR publication, per-layer hosted CI and the full field UX layer remain unfinished.
+- Input stabilization: [draft PR210](https://github.com/uzh-bf/design-system/pull/210),
+  head `04cfd66e0`, base `v5`, exact-head CI passes. Eight commits preserve native
+  date editing, keyboard actions, disabled state and modal arrow ownership.
+- Compatible dependencies: [draft PR211](https://github.com/uzh-bf/design-system/pull/211),
+  head `325bb6db8`, base the input branch. All 71 direct dependency entries were
+  refreshed; 55 declarations change, including 36 refreshed in October. Consumer
+  peers, exports, engines, release version and root/sibling importers are unchanged.
+- Dependency verification: package/Ladle builds, types, lint, formatting, size,
+  672 CSS assertions, 23 unchanged visual baselines, three frozen packed consumer
+  graphs and 39 installed-version assertions pass. Minimum RHF7.59 and selected
+  RHF7.90 pass the existing runtime and public type contracts. The full local
+  browser run's 24 accessible-name failures were corrected and verified in focused
+  runs; exact-head hosted [CI39066547194](https://github.com/uzh-bf/design-system/actions/runs/39066547194)
+  and [build39066547196](https://github.com/uzh-bf/design-system/actions/runs/39066547196)
+  pass. Deployment was skipped.
+- Dependency simplification and contract review completed without findings.
+  Integrated final review accepted code and reported two documentation findings;
+  both were verified and corrected by `325bb6db8`, with focused formatting checks.
+  Reports remain in the ignored review directory. Current Field/InputGroup
+  comparison and major-upgrade dispositions are recorded beside this plan.
+- Field UX: branch `rs/v5-field-ux` created on the accepted dependency tip.
+  Standalone association patch integrated after bounded executor review. Parent
+  owns RHF associations and inline presentation; both bounded executors are done.
+  Package builds, types, lint, formatting, 38 existing form/action/label contracts,
+  packed consumers, Next.js hydration/submission, 672 CSS assertions and package
+  budgets pass. Pinned visual comparison passes 23/23 without baseline changes.
+  The new focused suite passes22/24 after correcting asynchronous trigger-focus
+  expectations. Two open-select axe failures persist: Radix hides background
+  controls with aria-hidden while FocusScope contains focus, but axe still flags
+  their focusability. A browser-only inert experiment clears the finding and
+  preserves Escape restoration; a scoped read-only advisor is evaluating the
+  smallest supported production approach. No rule or inventory was suppressed.
+  Eight inspected synthetic screenshots cover standalone/RHF inline validation,
+  desktop/mobile, neutral/uzh. Full browser verification, open-state correction,
+  independent reviews, field draft publication and hosted CI remain.
 
-- Input correction04cfd66e0 is published in draft PR210 and all checks passed.
-- Native planner01a07630-78b4-7ab3-9b8c-2d96a839546e approved after round2; four verification findings accepted.
-- Compatible dependency branch `rs/v5-compatible-dependencies` extends the input layer. Selected 54 updated declarations; consumer peers, root/sibling manifests and release version remain unchanged. See the dependency selection and major-upgrade assessments beside this plan.
-- Package build, Ladle build, types, lint, formatting and size checks pass. Browser regression run passed 1,332 tests with one synthetic outside-interaction failure; replacing that synthetic event with a real click passes all 15 RHF contracts. Both-theme mobile input editing is included in the browser suite.
-- Packed CSS verification passes all 672 assertions. Font-token comparison preserves quoted family names and ordering while tolerating serialization whitespace; other tokens remain strict.
-- All three packed fixture graphs are regenerated explicitly. Normal verification retains frozen installs and verifies 39 installed runtime dependency versions. Packed consumers, Next production builds and the Next browser test pass; stale-graph negative checks fail as intended.
-- Minimum RHF 7.59.0 passes build, public type contracts and 15 browser contracts in an isolated snapshot. Selected RHF 7.87.0 passes the live package checks. The peer range is unchanged.
-- Deterministic visual verification passes 23/23 in the pinned Linux container with unchanged baselines. The first local run had a screenshot timeout and Chromium page crash; the fresh retry exits zero. Task-owned previews are stopped.
-- Dependency implementation is committed at `16c9d9276`. Simplification review passes with no changes requested. Contract-risk and integrated final reviews remain pending. No dependency PR exists yet; field implementation follows acceptance of this layer.
+No merge, ready conversion, release or deployment has been performed. Manual
+screen-reader, Safari and physical mobile checks remain unperformed. The separate
+UZH alignment branch is outside this approved dependency/field stack.
