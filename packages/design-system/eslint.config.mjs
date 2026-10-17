@@ -22,6 +22,8 @@ export default defineConfig([
     '**/ui',
     '**/types',
     '**/build',
+    '**/playwright-report',
+    '**/test-results',
     '**/original',
   ]),
   {

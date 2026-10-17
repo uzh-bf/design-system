@@ -62,6 +62,8 @@ const GENERIC_TOKENS = ['--accent', '--destructive']
 
 const APP_TOKENS = ['--app-primary', '--app-accent', '--app-destructive']
 
+const FONT_TOKENS = new Set(['--theme-font-sans', '--theme-font-mono'])
+
 const SENTINEL_TOKENS = [
   '--primary-foreground',
   '--sidebar-primary-foreground',
@@ -425,6 +427,50 @@ function expectedFor(rootId, cell) {
   return expected
 }
 
+/* Keep quoted names byte-for-byte while canonicalizing CSS whitespace outside them. */
+function normalizeFontValue(value) {
+  let normalized = ''
+  let quote = null
+  let escaped = false
+  let pendingWhitespace = false
+
+  for (const char of value) {
+    if (quote !== null) {
+      normalized += char
+      if (escaped) escaped = false
+      else if (char === '\\') escaped = true
+      else if (char === quote) quote = null
+    } else if (char === '"' || char === "'") {
+      if (pendingWhitespace && normalized && !normalized.endsWith(',')) {
+        normalized += ' '
+      }
+      pendingWhitespace = false
+      normalized += char
+      quote = char
+    } else if (char === ',') {
+      normalized = normalized.trimEnd()
+      normalized += ','
+      pendingWhitespace = false
+    } else if (/\s/.test(char)) {
+      pendingWhitespace = true
+    } else {
+      if (pendingWhitespace && normalized && !normalized.endsWith(',')) {
+        normalized += ' '
+      }
+      pendingWhitespace = false
+      normalized += char
+    }
+  }
+
+  return normalized
+}
+
+function valuesMatch(token, got, want) {
+  return FONT_TOKENS.has(token)
+    ? normalizeFontValue(got) === normalizeFontValue(want)
+    : got === want
+}
+
 /* ---- Packed artifact preparation ---- */
 
 const tmpDir = mkdtempSync(path.join(tmpdir(), 'theme-contract-'))
@@ -505,7 +551,7 @@ try {
         const got = values[token]
         const want = expected[token]
         assertions++
-        if (got !== want) {
+        if (!valuesMatch(token, got, want)) {
           failures++
           console.log(
             `  FAIL ${token}\n    expected: ${want}\n    actual:   ${got}`

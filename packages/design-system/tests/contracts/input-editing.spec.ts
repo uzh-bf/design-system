@@ -12,10 +12,15 @@ for (const theme of ['neutral', 'uzh'] as const) {
       page,
     }, testInfo) => {
       const trigger = page.getByRole('button', {
-        name: 'Appointment',
-        exact: true,
+        name: /^Appointment\b/,
       })
       await expect(trigger).toHaveAttribute('data-test', 'editing-date-trigger')
+      const visibleValue = (await trigger.innerText())
+        .replace(/\s+/g, ' ')
+        .trim()
+      await expect(trigger).toHaveAccessibleName(
+        new RegExp(visibleValue.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+      )
       await trigger.click()
       const hours = page.getByRole('textbox', { name: 'Hours', exact: true })
       const minutes = page.getByRole('textbox', {
@@ -89,9 +94,7 @@ for (const theme of ['neutral', 'uzh'] as const) {
       context,
     }) => {
       await page.getByRole('button', { name: 'Toggle cycle' }).click()
-      await page
-        .getByRole('button', { name: 'Appointment', exact: true })
-        .click()
+      await page.getByRole('button', { name: /^Appointment\b/ }).click()
       const hours = page.getByRole('textbox', { name: 'Hours', exact: true })
       const minutes = page.getByRole('textbox', {
         name: 'Minutes',
@@ -134,9 +137,7 @@ for (const theme of ['neutral', 'uzh'] as const) {
       page,
     }) => {
       await page.getByRole('checkbox', { name: 'Clone date updates' }).check()
-      await page
-        .getByRole('button', { name: 'Appointment', exact: true })
-        .click()
+      await page.getByRole('button', { name: /^Appointment\b/ }).click()
       const hours = page.getByRole('textbox', { name: 'Hours', exact: true })
       await hours.fill('')
       await hours.press('1')
@@ -158,9 +159,7 @@ for (const theme of ['neutral', 'uzh'] as const) {
     test('uses unique control ids and respects segment boundaries and granularity', async ({
       page,
     }) => {
-      await page
-        .getByRole('button', { name: 'Appointment', exact: true })
-        .click()
+      await page.getByRole('button', { name: /^Appointment\b/ }).click()
       const hours = page.getByRole('textbox', { name: 'Hours', exact: true })
       const minutes = page.getByRole('textbox', {
         name: 'Minutes',
@@ -179,18 +178,14 @@ for (const theme of ['neutral', 'uzh'] as const) {
       await expect(minutes).toHaveValue('25')
       await page.keyboard.press('Escape')
       await expect(
-        page.getByRole('button', { name: 'Appointment', exact: true })
+        page.getByRole('button', { name: /^Appointment\b/ })
       ).toBeFocused()
-      await page
-        .getByRole('button', { name: 'Other appointment', exact: true })
-        .click()
+      await page.getByRole('button', { name: /^Other appointment\b/ }).click()
       expect(await hours.getAttribute('id')).not.toBe(firstId)
       await page.keyboard.press('Escape')
       await page.getByRole('button', { name: 'Toggle cycle' }).click()
       await page.getByRole('button', { name: 'Reduce precision' }).click()
-      await page
-        .getByRole('button', { name: 'Appointment', exact: true })
-        .click()
+      await page.getByRole('button', { name: /^Appointment\b/ }).click()
       await expect(
         page.getByRole('textbox', { name: 'Seconds', exact: true })
       ).toHaveCount(0)
