@@ -7,6 +7,7 @@ import { FieldInputProps } from 'formik'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
 import FormLabel from '../FormLabel'
+import { FieldDescription, FieldError } from '../ui/field'
 import { Input } from '../ui/input'
 import { FieldErrorIndicator } from './FieldErrorIndicator'
 import { useFieldError } from './useFieldError'
@@ -20,7 +21,11 @@ export interface TextFieldClassName {
   icon?: string
 }
 
-interface TextFieldProps {
+interface TextFieldProps
+  extends Omit<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    'onChange' | 'className'
+  > {
   id?: string
   data?: {
     cy?: string
@@ -30,8 +35,10 @@ interface TextFieldProps {
   labelType?: 'small' | 'large'
   placeholder?: string
   tooltip?: string | React.ReactNode
+  description?: React.ReactNode
   required?: boolean
   hideError?: boolean
+  errorDisplay?: 'tooltip' | 'inline'
   error?: string
   isTouched?: boolean
   disabled?: boolean
@@ -76,6 +83,7 @@ export interface TextFieldOnChangeProps extends TextFieldProps {
  * @param labelType - The optional labelType can be used to change the size and position of the label according to pre-defined standards.
  * @param placeholder - The placeholder text for the input field.
  * @param tooltip - The optional tooltip is shown on hover over the tooltip next to the label.
+ * @param description - The optional description is shown below the field and linked through aria-describedby.
  * @param required - Indicate whether the field is required or not.
  * @param isTouched - Indicate whether the field has been touched or not (validation is not handled by this component).
  * @param hideError - Indicate whether the error message should be hidden or not.
@@ -105,9 +113,11 @@ export function TextField({
   labelType = 'small',
   placeholder,
   tooltip,
+  description,
   required = false,
   isTouched,
   hideError,
+  errorDisplay = 'tooltip',
   error,
   disabled,
   onPaste,
@@ -120,16 +130,20 @@ export function TextField({
   resetAriaLabel,
   onReset,
   ref,
+  'aria-describedby': callerDescribedBy,
   ...props
 }: TextFieldNameProps | TextFieldOnChangeProps) {
   const defaultIconAriaLabel = label ? `${label} action` : 'Field action'
   const defaultResetAriaLabel = label ? `Clear ${label}` : 'Clear field'
-  const { inputId, visibleError, errorId } = useFieldError({
-    id,
-    error,
-    isTouched,
-    hideError,
-  })
+  const { inputId, visibleError, errorId, descriptionId, describedBy } =
+    useFieldError({
+      id,
+      error,
+      isTouched,
+      hideError,
+      description,
+      describedBy: callerDescribedBy,
+    })
   return (
     <div
       className={twMerge(
@@ -149,167 +163,192 @@ export function TextField({
         />
       )}
 
-      <div className="flex w-full flex-row items-center gap-2">
-        <div className="relative flex w-full flex-row items-center">
-          {name && field ? (
-            <Input
-              {...field}
-              id={inputId}
-              ref={ref}
-              aria-required={required || undefined}
-              aria-describedby={visibleError ? errorId : undefined}
-              data-cy={data?.cy}
-              data-test={data?.test}
-              name={name}
-              type="text"
-              placeholder={placeholder}
-              disabled={disabled}
-              invalid={!!error && isTouched}
-              onPaste={onPaste}
-              className={twMerge(
-                'focus:border-input h-10 w-full text-sm',
-                icon && iconPosition === 'left' && 'pl-8',
-                ((icon && iconPosition === 'right') ||
-                  (!!value && typeof onReset !== 'undefined')) &&
-                  'pr-10',
-                disabled && 'bg-muted cursor-not-allowed opacity-70',
-                !!error &&
-                  isTouched &&
-                  'border-destructive bg-destructive-background focus:border-destructive',
-                className?.input
-              )}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' && onEnter) {
-                  e.stopPropagation()
-                  e.preventDefault()
-                  onEnter(e)
-                }
-              }}
-              {...props}
-            />
-          ) : (
-            <Input
-              id={inputId}
-              ref={ref}
-              aria-required={required || undefined}
-              aria-describedby={visibleError ? errorId : undefined}
-              data-cy={data?.cy}
-              data-test={data?.test}
-              name={name}
-              value={value}
-              onChange={(e) => {
-                e?.stopPropagation()
-                e?.preventDefault()
-                onChange!(e.target.value)
-              }}
-              type="text"
-              placeholder={placeholder}
-              disabled={disabled}
-              invalid={!!error && isTouched}
-              onPaste={onPaste}
-              className={twMerge(
-                'focus:border-input h-10 w-full text-sm',
-                icon && iconPosition === 'left' && 'pl-8',
-                ((icon && iconPosition === 'right') ||
-                  (!!value && typeof onReset !== 'undefined')) &&
-                  'pr-10',
-                disabled && 'bg-muted cursor-not-allowed opacity-70',
-                !!error &&
-                  isTouched &&
-                  'border-destructive bg-destructive-background focus:border-destructive',
-                className?.input
-              )}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' && onEnter) {
-                  e.stopPropagation()
-                  e.preventDefault()
-                  onEnter(e)
-                }
-              }}
-              {...props}
-            />
-          )}
-
-          {icon && iconPosition === 'left' && onIconClick ? (
-            <button
-              type="button"
-              aria-label={iconAriaLabel ?? defaultIconAriaLabel}
-              disabled={disabled}
-              className={twMerge(
-                'absolute inset-y-2 left-2 z-10 border-0 bg-transparent p-0 text-slate-500'
-              )}
-              onClick={onIconClick}
-            >
-              <FontAwesomeIcon
-                icon={icon}
-                size="lg"
-                className={className?.icon}
-                aria-hidden="true"
-              />
-            </button>
-          ) : (
-            icon &&
-            iconPosition === 'left' && (
-              <FontAwesomeIcon
+      <div className="flex w-full min-w-0 flex-col">
+        <div className="flex w-full flex-row items-center gap-2">
+          <div className="relative flex w-full flex-row items-center">
+            {name && field ? (
+              <Input
+                {...field}
+                id={inputId}
+                ref={ref}
+                aria-required={required || undefined}
+                aria-describedby={describedBy}
+                data-cy={data?.cy}
+                data-test={data?.test}
+                name={name}
+                type="text"
+                placeholder={placeholder}
+                disabled={disabled}
+                invalid={!!error && isTouched}
+                onPaste={onPaste}
                 className={twMerge(
-                  'absolute inset-y-2 left-2 text-slate-500',
-                  className?.icon
+                  'focus:border-input h-10 w-full text-sm',
+                  icon && iconPosition === 'left' && 'pl-8',
+                  ((icon && iconPosition === 'right') ||
+                    (!!value && typeof onReset !== 'undefined')) &&
+                    'pr-10',
+                  disabled && 'bg-muted cursor-not-allowed opacity-70',
+                  !!error &&
+                    isTouched &&
+                    'border-destructive bg-destructive-background focus:border-destructive',
+                  className?.input
                 )}
-                onClick={onIconClick}
-                icon={icon}
-                size="lg"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && onEnter) {
+                    e.stopPropagation()
+                    e.preventDefault()
+                    onEnter(e)
+                  }
+                }}
+                {...props}
               />
-            )
-          )}
-          {icon &&
-            iconPosition === 'right' &&
-            !(!!value && typeof onReset !== 'undefined') &&
-            (onIconClick ? (
+            ) : (
+              <Input
+                id={inputId}
+                ref={ref}
+                aria-required={required || undefined}
+                aria-describedby={describedBy}
+                data-cy={data?.cy}
+                data-test={data?.test}
+                name={name}
+                value={value}
+                onChange={(e) => {
+                  e?.stopPropagation()
+                  e?.preventDefault()
+                  onChange!(e.target.value)
+                }}
+                type="text"
+                placeholder={placeholder}
+                disabled={disabled}
+                invalid={!!error && isTouched}
+                onPaste={onPaste}
+                className={twMerge(
+                  'focus:border-input h-10 w-full text-sm',
+                  icon && iconPosition === 'left' && 'pl-8',
+                  ((icon && iconPosition === 'right') ||
+                    (!!value && typeof onReset !== 'undefined')) &&
+                    'pr-10',
+                  disabled && 'bg-muted cursor-not-allowed opacity-70',
+                  !!error &&
+                    isTouched &&
+                    'border-destructive bg-destructive-background focus:border-destructive',
+                  className?.input
+                )}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && onEnter) {
+                    e.stopPropagation()
+                    e.preventDefault()
+                    onEnter(e)
+                  }
+                }}
+                {...props}
+              />
+            )}
+
+            {icon && iconPosition === 'left' && onIconClick ? (
               <button
                 type="button"
                 aria-label={iconAriaLabel ?? defaultIconAriaLabel}
                 disabled={disabled}
                 className={twMerge(
-                  'absolute right-0 z-10 border-0 bg-transparent p-2 pr-3 hover:cursor-pointer'
+                  'absolute inset-y-2 left-2 z-10 border-0 bg-transparent p-0 text-slate-500'
                 )}
                 onClick={onIconClick}
               >
                 <FontAwesomeIcon
                   icon={icon}
+                  size="lg"
                   className={className?.icon}
                   aria-hidden="true"
                 />
               </button>
             ) : (
-              <FontAwesomeIcon
-                icon={icon}
-                onClick={onIconClick}
+              icon &&
+              iconPosition === 'left' && (
+                <FontAwesomeIcon
+                  className={twMerge(
+                    'absolute inset-y-2 left-2 text-slate-500',
+                    className?.icon
+                  )}
+                  onClick={onIconClick}
+                  icon={icon}
+                  size="lg"
+                />
+              )
+            )}
+            {icon &&
+              iconPosition === 'right' &&
+              !(!!value && typeof onReset !== 'undefined') &&
+              (onIconClick ? (
+                <button
+                  type="button"
+                  aria-label={iconAriaLabel ?? defaultIconAriaLabel}
+                  disabled={disabled}
+                  className={twMerge(
+                    'absolute right-0 z-10 border-0 bg-transparent p-2 pr-3 hover:cursor-pointer'
+                  )}
+                  onClick={onIconClick}
+                >
+                  <FontAwesomeIcon
+                    icon={icon}
+                    className={className?.icon}
+                    aria-hidden="true"
+                  />
+                </button>
+              ) : (
+                <FontAwesomeIcon
+                  icon={icon}
+                  onClick={onIconClick}
+                  className={twMerge(
+                    'absolute right-0 z-10 p-2 pr-3 hover:cursor-pointer',
+                    className?.icon
+                  )}
+                />
+              ))}
+            {!!value && typeof onReset !== 'undefined' ? (
+              <button
+                type="button"
+                aria-label={resetAriaLabel ?? defaultResetAriaLabel}
+                disabled={disabled}
                 className={twMerge(
-                  'absolute right-0 z-10 p-2 pr-3 hover:cursor-pointer',
-                  className?.icon
+                  'absolute right-0 z-10 border-0 bg-transparent p-2 pr-3 hover:cursor-pointer'
                 )}
-              />
-            ))}
-          {!!value && typeof onReset !== 'undefined' ? (
-            <button
-              type="button"
-              aria-label={resetAriaLabel ?? defaultResetAriaLabel}
-              disabled={disabled}
-              className={twMerge(
-                'absolute right-0 z-10 border-0 bg-transparent p-2 pr-3 hover:cursor-pointer'
-              )}
-              onClick={onReset}
-            >
-              <FontAwesomeIcon
-                icon={faX}
-                className={className?.icon}
-                aria-hidden="true"
-              />
-            </button>
-          ) : null}
+                onClick={onReset}
+              >
+                <FontAwesomeIcon
+                  icon={faX}
+                  className={className?.icon}
+                  aria-hidden="true"
+                />
+              </button>
+            ) : null}
+          </div>
+          {visibleError && errorDisplay === 'tooltip' && (
+            <FieldErrorIndicator error={visibleError} errorId={errorId} />
+          )}
         </div>
-        {visibleError && (
-          <FieldErrorIndicator error={visibleError} errorId={errorId} />
+        {typeof description !== 'undefined' &&
+          (typeof description === 'string' ? (
+            <div className="mt-1">
+              <FieldDescription id={descriptionId}>
+                {description}
+              </FieldDescription>
+            </div>
+          ) : (
+            <div
+              id={descriptionId}
+              className="text-muted-foreground mt-1 text-xs leading-normal font-normal"
+            >
+              {description}
+            </div>
+          ))}
+        {visibleError && errorDisplay === 'inline' && (
+          <FieldError
+            id={errorId}
+            className={twMerge('mt-1', className?.error)}
+          >
+            {visibleError}
+          </FieldError>
         )}
       </div>
     </div>

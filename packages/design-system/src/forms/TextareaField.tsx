@@ -4,11 +4,16 @@ import { FieldInputProps } from 'formik'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
 import FormLabel from '../FormLabel'
+import { FieldDescription, FieldError } from '../ui/field'
 import { Textarea } from '../ui/textarea'
 import { FieldErrorIndicator } from './FieldErrorIndicator'
 import { useFieldError } from './useFieldError'
 
-interface TextareaFieldProps {
+interface TextareaFieldProps
+  extends Omit<
+    React.TextareaHTMLAttributes<HTMLTextAreaElement>,
+    'onChange' | 'className'
+  > {
   id?: string
   data?: {
     cy?: string
@@ -18,11 +23,13 @@ interface TextareaFieldProps {
   labelType?: 'small' | 'large'
   placeholder?: string
   tooltip?: string | React.ReactNode
+  description?: React.ReactNode
   maxLength?: number
   maxLengthUnit?: string
   hideMaxLength?: boolean
   required?: boolean
   hideError?: boolean
+  errorDisplay?: 'tooltip' | 'inline'
   error?: string
   isTouched?: boolean
   disabled?: boolean
@@ -66,6 +73,7 @@ export interface TextareaFieldOnChangeProps extends TextareaFieldProps {
  * @param labelType - The optional labelType can be used to change the size and position of the label according to pre-defined standards.
  * @param placeholder - The placeholder text for the input field.
  * @param tooltip - The optional tooltip is shown on hover over the tooltip next to the label.
+ * @param description - The optional description is shown below the field and linked through aria-describedby.
  * @param maxLength - The optional maxLength is used to limit the number of characters that can be entered in the field.
  * @param maxLengthUnit - This optional label allows to specify a custom label for the maxLength indicator (e.g. "characters left" supporting internationalization).
  * @param hideMaxLength - Indicate whether the maxLength indicator should be hidden or not.
@@ -89,24 +97,30 @@ export function TextareaField({
   labelType = 'small',
   placeholder,
   tooltip,
+  description,
   maxLength,
   maxLengthUnit,
   hideMaxLength = false,
   required = false,
   isTouched,
   hideError,
+  errorDisplay = 'tooltip',
   error,
   disabled,
   className,
   ref,
+  'aria-describedby': callerDescribedBy,
   ...props
 }: TextareaFieldNameProps | TextareaFieldOnChangeProps) {
-  const { inputId, visibleError, errorId } = useFieldError({
-    id,
-    error,
-    isTouched,
-    hideError,
-  })
+  const { inputId, visibleError, errorId, descriptionId, describedBy } =
+    useFieldError({
+      id,
+      error,
+      isTouched,
+      hideError,
+      description,
+      describedBy: callerDescribedBy,
+    })
   return (
     <div className={twMerge('flex w-full flex-col', className?.root)}>
       <div
@@ -134,7 +148,7 @@ export function TextareaField({
               id={inputId}
               ref={ref}
               aria-required={required || undefined}
-              aria-describedby={visibleError ? errorId : undefined}
+              aria-describedby={describedBy}
               data-cy={data?.cy}
               data-test={data?.test}
               name={name}
@@ -156,7 +170,7 @@ export function TextareaField({
               id={inputId}
               ref={ref}
               aria-required={required || undefined}
-              aria-describedby={visibleError ? errorId : undefined}
+              aria-describedby={describedBy}
               data-cy={data?.cy}
               data-test={data?.test}
               value={value}
@@ -179,17 +193,37 @@ export function TextareaField({
               {...props}
             />
           )}
-          {visibleError && (
+          {visibleError && errorDisplay === 'tooltip' && (
             <FieldErrorIndicator error={visibleError} errorId={errorId} />
           )}
         </div>
       </div>
+      {typeof description !== 'undefined' &&
+        (typeof description === 'string' ? (
+          <div className="mt-1">
+            <FieldDescription id={descriptionId}>
+              {description}
+            </FieldDescription>
+          </div>
+        ) : (
+          <div
+            id={descriptionId}
+            className="text-muted-foreground mt-1 text-xs leading-normal font-normal"
+          >
+            {description}
+          </div>
+        ))}
       {maxLength && !hideMaxLength && (
         <div className="text-right text-sm italic">
           {`${value?.length ?? field?.value.length ?? 0} / ${maxLength} ${
             maxLengthUnit ?? ''
           }`}
         </div>
+      )}
+      {visibleError && errorDisplay === 'inline' && (
+        <FieldError id={errorId} className={twMerge('mt-1', className?.error)}>
+          {visibleError}
+        </FieldError>
       )}
     </div>
   )

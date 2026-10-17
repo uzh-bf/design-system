@@ -672,3 +672,57 @@ text-primary-100` (theme-tinted initials). Override via `className` if you
 
 Everything else is theme-token routing: components that hardcoded UZH colours now
 read semantic tokens, so they follow whichever `data-theme` is active.
+
+### Descriptions and inline validation
+
+`TextField`, `NumberField`, `TextareaField` and `SelectField` accept an optional
+`description`. Standalone fields and the existing `Rhf*` wrappers merge external
+`aria-describedby` references with their generated help and visible-error IDs.
+Repeated references are deduplicated. The generated references disappear when
+the corresponding help or error node disappears; caller-owned references remain.
+SelectField also accepts the existing camel-case `ariaDescribedBy` spelling.
+
+Use `errorDisplay="inline"` to show one visible validation message below a control.
+The default remains `"tooltip"`. `hideError` hides the error message and its
+reference while preserving invalid state. Standalone text, number and textarea
+fields retain their touched gate; SelectField still displays an error whenever
+one is supplied. RHF wrappers retain touched/submitted validation timing and
+continue to own values, change/blur handlers and refs.
+
+```tsx
+<TextField
+  label="Project name"
+  value={name}
+  onChange={setName}
+  description="Use the name shown to participants."
+  aria-describedby="project-policy"
+  errorDisplay="inline"
+  error={error}
+  isTouched={isTouched}
+/>
+<p id="project-policy">Names are visible to the project group.</p>
+
+<RhfTextField
+  control={form.control}
+  name="name"
+  label="Project name"
+  description={<div><strong>Guidance</strong><p>Rich help is supported.</p></div>}
+  aria-describedby="project-policy"
+  errorDisplay="inline"
+  rules={{ required: 'Enter a project name.' }}
+/>
+```
+
+Native attributes and event handlers on text, number and textarea controls are
+explicitly typed. Their existing string value callbacks and Formik unions remain
+unchanged. Select wrappers expose the documented trigger associations rather than
+arbitrary native input events. Frozen `FormikTextField`, `FormikNumberField` and
+`FormikTextareaField` forward the base-field additions through their existing
+catch-all props. `FormikSelectField` does not declare these options in its frozen
+type interface. No new Formik or RHF wrapper family is added.
+
+For custom input addons, compose `Field`, `FieldDescription`, `FieldError`,
+`InputGroup`, `InputGroupInput` and `InputGroupAddon` from the `./primitives` entry.
+Give each help/error node an ID, associate it on the actual control, and put
+`aria-invalid` on that control when validation fails. This primitive composition
+is available alongside the opinionated field wrappers.

@@ -4,8 +4,9 @@ import React from 'react'
 import { twMerge } from 'tailwind-merge'
 import FormLabel from '../FormLabel'
 import Select, { SelectClassName, SelectGroup, SelectItem } from '../Select'
+import { FieldDescription, FieldError } from '../ui/field'
 import { FieldErrorIndicator } from './FieldErrorIndicator'
-import { useFieldError } from './useFieldError'
+import { mergeDescriptionIds, useFieldError } from './useFieldError'
 
 interface SelectFieldProps {
   id?: string
@@ -23,11 +24,15 @@ interface SelectFieldProps {
   placeholder?: string
   ariaLabel?: string
   tooltip?: string | React.ReactNode
+  description?: React.ReactNode
   required?: boolean
   disabled?: boolean
   error?: string
   hideError?: boolean
+  errorDisplay?: 'tooltip' | 'inline'
   ariaInvalid?: boolean
+  ariaDescribedBy?: string
+  'aria-describedby'?: string
   contentPosition?: 'item-aligned' | 'popper'
   className?: {
     root?: string
@@ -68,6 +73,7 @@ export interface SelectFieldGroupsProps extends SelectFieldProps {
  * @param hideError - Hide the error message below this component as is might be more appropriate to show it somewhere else.
  * @param contentPosition - The position of the content of the select component. Currently only 'item-aligned' and 'popper' are supported.
  * @param tooltip - The optional tooltip is shown on hover next to the label.
+ * @param description - The optional description is shown below the field and linked through aria-describedby.
  * @param required - Indicate whether the field is required or not.
  * @param className - The optional className object allows you to override the default styling.
  * @returns Select component with formik state management.
@@ -87,26 +93,44 @@ export function SelectField({
   placeholder,
   ariaLabel,
   tooltip,
+  description,
   required = false,
   disabled = false,
   error,
   hideError = false,
+  errorDisplay = 'tooltip',
   ariaInvalid,
+  ariaDescribedBy: callerAriaDescribedBy,
+  'aria-describedby': callerDescribedBy,
   contentPosition = 'item-aligned',
   className,
   ...props
 }: SelectFieldItemsProps | SelectFieldGroupsProps) {
   // SelectField has no `isTouched` gate, so treat the field as always touched:
   // the error shows whenever one is set (matches its prior `error && !hideError`).
-  const { inputId, visibleError, errorId } = useFieldError({
-    id,
-    error,
-    isTouched: true,
-    hideError,
-  })
+  const { inputId, visibleError, errorId, descriptionId, describedBy } =
+    useFieldError({
+      id,
+      error,
+      isTouched: true,
+      hideError,
+      description,
+      describedBy: mergeDescriptionIds(
+        callerDescribedBy,
+        callerAriaDescribedBy
+      ),
+    })
   const resolvedAriaInvalid = ariaInvalid ?? !!error
   return (
-    <div className={twMerge('flex w-max flex-col', className?.root)}>
+    <div
+      className={twMerge(
+        'flex w-max flex-col',
+        (typeof description !== 'undefined' ||
+          (visibleError && errorDisplay === 'inline')) &&
+          'w-full',
+        className?.root
+      )}
+    >
       <div
         className={twMerge(
           'flex w-full flex-row',
@@ -124,35 +148,60 @@ export function SelectField({
           />
         )}
 
-        <div className="flex flex-row items-center gap-2">
-          <Select
-            id={inputId}
-            ref={ref}
-            ariaRequired={required}
-            ariaDescribedBy={visibleError ? errorId : undefined}
-            ariaLabel={ariaLabel ?? label}
-            data={data}
-            onChange={onChange}
-            onBlur={onBlur}
-            value={value}
-            name={name}
-            {...(items ? { items } : { groups })}
-            placeholder={placeholder}
-            disabled={disabled}
-            className={{
-              ...className?.select,
-              trigger: twMerge(
-                error &&
-                  'border-destructive bg-destructive-background! text-destructive-text data-placeholder:text-destructive-text border',
-                className?.select?.trigger
-              ),
-            }}
-            contentPosition={contentPosition}
-            {...props}
-            ariaInvalid={resolvedAriaInvalid}
-          />
-          {visibleError && (
-            <FieldErrorIndicator error={visibleError} errorId={errorId} />
+        <div className="flex min-w-0 flex-col">
+          <div className="flex flex-row items-center gap-2">
+            <Select
+              id={inputId}
+              ref={ref}
+              ariaRequired={required}
+              ariaDescribedBy={describedBy}
+              ariaLabel={ariaLabel ?? label}
+              data={data}
+              onChange={onChange}
+              onBlur={onBlur}
+              value={value}
+              name={name}
+              {...(items ? { items } : { groups })}
+              placeholder={placeholder}
+              disabled={disabled}
+              className={{
+                ...className?.select,
+                trigger: twMerge(
+                  error &&
+                    'border-destructive bg-destructive-background! text-destructive-text data-placeholder:text-destructive-text border',
+                  className?.select?.trigger
+                ),
+              }}
+              contentPosition={contentPosition}
+              {...props}
+              ariaInvalid={resolvedAriaInvalid}
+            />
+            {visibleError && errorDisplay === 'tooltip' && (
+              <FieldErrorIndicator error={visibleError} errorId={errorId} />
+            )}
+          </div>
+          {typeof description !== 'undefined' &&
+            (typeof description === 'string' ? (
+              <div className="mt-1">
+                <FieldDescription id={descriptionId}>
+                  {description}
+                </FieldDescription>
+              </div>
+            ) : (
+              <div
+                id={descriptionId}
+                className="text-muted-foreground mt-1 text-xs leading-normal font-normal"
+              >
+                {description}
+              </div>
+            ))}
+          {visibleError && errorDisplay === 'inline' && (
+            <FieldError
+              id={errorId}
+              className={twMerge('mt-1', className?.error)}
+            >
+              {visibleError}
+            </FieldError>
           )}
         </div>
       </div>

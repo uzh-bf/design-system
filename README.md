@@ -111,3 +111,34 @@ npm install @uzh-bf/design-system
 # Using pnpm (recommended)
 pnpm install @uzh-bf/design-system
 ```
+
+### v5 form composition
+
+Use the package root for standalone `TextField`, `NumberField`, `TextareaField`
+and `SelectField`, or `@uzh-bf/design-system/react-hook-form` for the existing
+`Rhf*` wrappers. Both support descriptions, merged external `aria-describedby`
+references and opt-in `errorDisplay="inline"` validation. Existing tooltip errors
+remain the default. See [field guidance](packages/design-system/MIGRATION.md#descriptions-and-inline-validation)
+for validation timing, rich descriptions and Formik compatibility.
+
+Custom input addons can use the existing `Field` and `InputGroup` primitives:
+
+```tsx
+import {
+  Field,
+  FieldDescription,
+  FieldLabel,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from "@uzh-bf/design-system/primitives";
+
+<Field>
+  <FieldLabel htmlFor="search">Search</FieldLabel>
+  <InputGroup>
+    <InputGroupInput id="search" aria-describedby="search-help" />
+    <InputGroupAddon>⌘ K</InputGroupAddon>
+  </InputGroup>
+  <FieldDescription id="search-help">Search project names.</FieldDescription>
+</Field>;
+```

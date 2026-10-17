@@ -64,3 +64,55 @@ void invalidTextField
 void invalidNumberField
 void invalidSelectField
 void invalidMultiSelect
+
+// Native handlers on the wrappers keep the React event types of the rendered
+// control, so its DOM properties stay reachable inside contextual callbacks.
+const nativeEventFields = (
+  <>
+    <RhfTextField
+      control={control}
+      name="name"
+      onPaste={(event) => {
+        const pastedText: string = event.clipboardData.getData('text')
+        const targetValue: string = event.currentTarget.value
+        void pastedText
+        void targetValue
+      }}
+      onKeyDown={(event) => {
+        const pressedKey: string = event.key
+        const targetValue: string = event.currentTarget.value
+        void pressedKey
+        void targetValue
+      }}
+    />
+    <RhfNumberField
+      control={control}
+      name="amount"
+      onKeyDown={(event) => {
+        const pressedKey: string = event.key
+        const targetValue: string = event.currentTarget.value
+        void pressedKey
+        void targetValue
+      }}
+    />
+  </>
+)
+
+void nativeEventFields
+
+const invalidMaxLength = (
+  // @ts-expect-error `maxLength` is a number; a string is not assignable.
+  <RhfTextField control={control} name="name" maxLength="ten" />
+)
+
+const invalidInputMode = (
+  <RhfNumberField
+    control={control}
+    name="amount"
+    // @ts-expect-error `inputMode` accepts only the fixed editing hints.
+    inputMode="currency"
+  />
+)
+
+void invalidMaxLength
+void invalidInputMode
