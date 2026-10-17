@@ -217,7 +217,18 @@ exposed precisely. The approved topology and terminal condition remain unchanged
   aria-label now reuses the field context (with a generic fallback). This adds
   one relevant shared component, taking the package to26 files; the coherent
   field contract and approved topology are retained. Focused follow-up and
-  independent reviews, field draft publication and hosted CI remain.
+  independent reviews are complete. Simplification and contract review found no
+  actionable implementation issue. Final review accepted the implementation;
+  two low-severity documentation/assertion findings were corrected by
+  `ddf80ef48`. Draft [PR213](https://github.com/uzh-bf/design-system/pull/213)
+  is based on the dependency branch. All eight screenshots are uploaded and
+  verified in the rendered PR. Implementation
+  [CI39073310453](https://github.com/uzh-bf/design-system/actions/runs/39073310453)
+  and correction [CI39074189295](https://github.com/uzh-bf/design-system/actions/runs/39074189295)
+  pass; both build workflows pass, with publication and deployment skipped.
+  GitHub's branch ref contains the correction, while its PR snapshot still
+  reports the preceding `dddd84541` commit. Publication reconciliation remains
+  open; passing branch CI does not establish that the PR snapshot advanced.
 
 No merge, ready conversion, release or deployment has been performed. Manual
 screen-reader, Safari and physical mobile checks remain unperformed. The separate
