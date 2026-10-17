@@ -81,11 +81,11 @@ async function expectNoHorizontalOverflow(
   ).toBeLessThanOrEqual(1)
 }
 
-async function seriousOrCriticalViolations(page: Page) {
+async function seriousOrCriticalViolations(page: Page, selector?: string) {
   await settle(page)
-  const { violations } = await new AxeBuilder({ page })
-    .exclude(TOOLBAR_SELECTOR)
-    .analyze()
+  const scan = new AxeBuilder({ page }).exclude(TOOLBAR_SELECTOR)
+  if (selector) scan.include(selector)
+  const { violations } = await scan.analyze()
   return violations
     .filter(({ impact }) => impact === 'serious' || impact === 'critical')
     .map(({ id, nodes }) => ({
@@ -95,6 +95,37 @@ async function seriousOrCriticalViolations(page: Page) {
         failureSummary,
       })),
     }))
+}
+
+async function expectSelectContainsFocus(page: Page) {
+  // ACT 6cfa84 treats synchronous focus redirection as non-focusability.
+  // Radix's document listeners enforce that behavior, which axe's static
+  // aria-hidden heuristic cannot infer for a listbox. Verify the hidden
+  // background before scanning the entire portaled popup with every rule.
+  const backgroundFocus = await page
+    .locator('[data-aria-hidden="true"]')
+    .evaluateAll((roots) =>
+      roots.flatMap((root) =>
+        [
+          ...root.querySelectorAll<HTMLElement>(
+            'input, textarea, button, select, a[href], [tabindex]'
+          ),
+        ].map((element) => {
+          element.focus()
+          return Boolean(document.activeElement?.closest('[role="listbox"]'))
+        })
+      )
+    )
+  expect(backgroundFocus.length).toBeGreaterThan(0)
+  expect(backgroundFocus.every(Boolean)).toBe(true)
+  for (const key of ['Tab', 'Shift+Tab']) {
+    await page.keyboard.press(key)
+    expect(
+      await page.evaluate(() =>
+        Boolean(document.activeElement?.closest('[role="listbox"]'))
+      )
+    ).toBe(true)
+  }
 }
 
 test.describe('field UX contract', () => {
@@ -319,14 +350,11 @@ test.describe('field UX contract', () => {
       const listbox = page.getByRole('listbox')
       await expect(listbox).toBeVisible()
 
+      const secondOption = listbox.getByRole('option').nth(1)
       await page.keyboard.press('ArrowDown')
-      const highlighted = page.locator('[role="option"][data-highlighted]')
-      await expect(
-        highlighted,
-        'arrow navigation highlights an option'
-      ).toHaveCount(1)
-      const highlightedLabel = ((await highlighted.textContent()) ?? '').trim()
-      expect(highlightedLabel, 'options expose their label').not.toBe('')
+      await expect(secondOption).toBeFocused()
+      const highlightedLabel = ((await secondOption.textContent()) ?? '').trim()
+      expect(highlightedLabel).not.toBe('')
       await page.keyboard.press('Enter')
       await expect(trigger).toHaveAttribute('aria-expanded', 'false')
       await expect(
@@ -504,9 +532,10 @@ test.describe('field UX contract', () => {
       await control(story, 'ux-select').click()
       await expect(page.getByRole('listbox')).toBeVisible()
       await expect(page.getByRole('option').first()).toBeFocused()
+      await expectSelectContainsFocus(page)
       expect(
-        await seriousOrCriticalViolations(page),
-        `${theme} standalone, open state`
+        await seriousOrCriticalViolations(page, '[data-slot="select-content"]'),
+        `${theme} standalone, open popup`
       ).toEqual([])
     })
 
@@ -522,6 +551,17 @@ test.describe('field UX contract', () => {
         await seriousOrCriticalViolations(page),
         `${theme} RHF, invalid state`
       ).toEqual([])
+      await control(story, 'ux-select').click()
+      await expect(page.getByRole('option').first()).toBeFocused()
+      await expectSelectContainsFocus(page)
+      expect(
+        await seriousOrCriticalViolations(page, '[data-slot="select-content"]')
+      ).toEqual([])
+      await page.keyboard.press('Escape')
+      await expect(control(story, 'ux-select')).toBeFocused()
+      await control(story, 'ux-multi').click()
+      await expect(page.getByRole('listbox')).toBeVisible()
+      expect(await seriousOrCriticalViolations(page)).toEqual([])
     })
   }
 })

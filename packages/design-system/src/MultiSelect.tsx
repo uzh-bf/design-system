@@ -180,6 +180,7 @@ export function MultiSelect({
           </Button>
         </PopoverTrigger>
         <PopoverContent
+          aria-label={ariaLabel ?? placeholder ?? 'Select options'}
           align="start"
           className={twMerge('w-60 p-0', className?.content)}
         >

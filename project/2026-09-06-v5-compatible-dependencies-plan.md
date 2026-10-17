@@ -204,14 +204,19 @@ exposed precisely. The approved topology and terminal condition remain unchanged
   Package builds, types, lint, formatting, 38 existing form/action/label contracts,
   packed consumers, Next.js hydration/submission, 672 CSS assertions and package
   budgets pass. Pinned visual comparison passes 23/23 without baseline changes.
-  The new focused suite passes22/24 after correcting asynchronous trigger-focus
-  expectations. Two open-select axe failures persist: Radix hides background
-  controls with aria-hidden while FocusScope contains focus, but axe still flags
-  their focusability. A browser-only inert experiment clears the finding and
-  preserves Escape restoration; a scoped read-only advisor is evaluating the
-  smallest supported production approach. No rule or inventory was suppressed.
+  The new focused suite passes24/24 after correcting asynchronous trigger-focus
+  expectations. A read-only advisor traced the open Select aria-hidden warning
+  to axe's static modal heuristic. Actual synchronous focus attempts and Tab/
+  Shift+Tab remain inside the listbox, matching W3C ACT6cfa84's focus-redirection
+  exception. Open-state checks pair this behavioral proof with all axe rules on
+  the complete portaled popup. Closed/invalid scans and the global zero-waiver
+  story inventory remain unchanged. No production inert management is added.
   Eight inspected synthetic screenshots cover standalone/RHF inline validation,
-  desktop/mobile, neutral/uzh. Full browser verification, open-state correction,
+  desktop/mobile, neutral/uzh. Full browser verification passes1,363 tests. The
+  later RHF open-state extension exposed an unnamed MultiSelect popover; a single
+  aria-label now reuses the field context (with a generic fallback). This adds
+  one relevant shared component, taking the package to26 files; the coherent
+  field contract and approved topology are retained. Focused follow-up and
   independent reviews, field draft publication and hosted CI remain.
 
 No merge, ready conversion, release or deployment has been performed. Manual
