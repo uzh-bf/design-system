@@ -14,3 +14,12 @@ The repository already includes Field, InputGroup, Empty, Spinner, Item, Kbd and
 Keep `components.json` pointed at `src/tailwind.css`. Earlier shadcn CLI discovery found a nested RSC fixture stylesheet; autodetection is not authority to change the package's actual CSS input. Preserve local neutral/uzh tokens and do not run a blanket component overwrite.
 
 This comparison covers the two relevant field composition sources. It does not claim every vendored shadcn component matches upstream or that manual assistive-technology testing has been completed.
+
+## Current registry check — 2026-10-17
+
+The public new-york-v4 registry was checked again for Field and InputGroup, alongside current Context7 form-composition documentation. Field retains the same description/error API, error deduplication and alert behavior. Upstream now imports useMemo directly; local density, typography and destructive-text contrast choices remain deliberate. InputGroup retains the same control/addon composition, focus/error selectors and textarea structure, apart from import and class ordering. No source overwrite is required.
+
+- `field`: [registry source](https://ui.shadcn.com/r/styles/new-york-v4/field.json), source SHA-256 `4a4d17fcb933513f637f9f7e2daf5d8348f7de086b29738337dec7e6dd1819a0`.
+- `input-group`: [registry source](https://ui.shadcn.com/r/styles/new-york-v4/input-group.json), source SHA-256 `e379899ac50d6cabc9d9eb1668f265176951c62b1fe83a6f23ee97fe8074d526`.
+
+These hashes identify the dated source comparison; the earlier immutable GitHub revision remains recorded above. They do not establish parity for other components.

@@ -61,8 +61,16 @@ test.describe('direct-control ref contracts', () => {
     await expect(trigger).toHaveAttribute('aria-expanded', 'true')
     const search = page.getByRole('combobox', { name: 'Search…' })
     await expect(search).toBeFocused()
+    const optionLabel = await page
+      .getByRole('listbox')
+      .getByRole('option')
+      .first()
+      .innerText()
     await page.keyboard.press('Enter')
-    await expect(trigger).toContainText('React')
+    await expect(trigger).toContainText(optionLabel)
+    await expect(trigger).toHaveAccessibleName(
+      new RegExp(optionLabel.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+    )
     await expect(trigger).toHaveAttribute('aria-expanded', 'false')
     await expect(trigger).toBeFocused()
 

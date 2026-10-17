@@ -38,7 +38,7 @@ The old dependency inventory at `/tmp/ds-v5-outdated.json` is unavailable. A fre
 
 **Delegation Map**
 
-This map describes future ownership only. No delegation occurred.
+This map describes implementation ownership. Completed verification workers are recorded in Progress.
 
 | Slice and outcome                                                                                   | Execution owner | Dependency                                                            | Acceptance                                                                                       |
 | --------------------------------------------------------------------------------------------------- | --------------- | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
@@ -174,6 +174,14 @@ Pause dependent work for unresolved API decisions, incompatible dependency requi
 The parent accepted the five decisions and completed the input-package handover. Planning produced no implementation changes.
 
 ## Progress
+
+Resumed on 2026-10-17 in standard execution mode because the runtime does not expose an exact allowlisted main-model identity. The September results below remain historical evidence. The refreshed registry inventory covers all 71 direct dependencies; 36 additional compatible declarations are selected, making 55 changed declarations against the input layer. Root and sibling importer blocks remain unchanged. Fresh package/Ladle builds, types, lint and formatting pass. Browser verification and packed-fixture graph refresh are complete as recorded below. The current shadcn registry comparison is recorded in the assessment. GitHub GraphQL reads time out; the REST read confirms the existing input draft is open. Publication and hosted CI remain pending. No merge or deployment authority is granted.
+
+- October compatibility corrections: axe 4.14 exposes label-in-name defects in calendar days, date/time triggers and explicitly named combobox triggers. The parent owns these coupled corrections. Visible values now participate in their accessible names; migration guidance explains exact-name query changes. Generated Playwright reports/results are excluded from ESLint.
+- Fresh verification: full browser run has 1,309 passes and 24 label-name failures. The date/calendar follow-up passes 46 cases; the remaining two combobox cases then pass in an eight-case accessibility run. Combobox focus/selection contracts pass after scoping the test-owned option lookup to its listbox. All original failures are covered by these follow-ups; the complete suite was not repeated after localized corrections.
+- Packed fixture worker completed all three lock graphs, frozen installs, 39-runtime-version assertions, types/exports and Next production/webpack/browser checks. Minimum RHF worker confirms exact 7.59.0, public/generated declarations and all 15 RHF browser contracts against the refreshed graph. Parent accepts both scoped results; later date/combobox edits do not alter the RHF seam.
+- Final package/Ladle builds, types, lint, formatting, package budgets and 672 packed-CSS assertions pass. The first concurrent size check raced the CSS build and saw a missing output file; the serialized rerun passes. Pinned Linux visual comparison passes all 23 cases with unchanged baselines. New code changes accessibility naming only; no visible restyle is intended.
+- The historical dependency slice review completed with no findings. An affected October review and integrated final review remain pending. Dependency PR publication, per-layer hosted CI and the full field UX layer remain unfinished.
 
 - Input correction04cfd66e0 is published in draft PR210 and all checks passed.
 - Native planner01a07630-78b4-7ab3-9b8c-2d96a839546e approved after round2; four verification findings accepted.
