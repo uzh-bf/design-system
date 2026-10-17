@@ -716,8 +716,10 @@ continue to own values, change/blur handlers and refs.
 Native attributes and event handlers on text, number and textarea controls are
 explicitly typed. Their existing string value callbacks and Formik unions remain
 unchanged. Select wrappers expose the documented trigger associations rather than
-arbitrary native input events. Frozen Formik wrappers inherit base-field additions
-through their existing pass-through; no new Formik or RHF wrapper family is added.
+arbitrary native input events. Frozen `FormikTextField`, `FormikNumberField` and
+`FormikTextareaField` forward the base-field additions through their existing
+catch-all props. `FormikSelectField` does not declare these options in its frozen
+type interface. No new Formik or RHF wrapper family is added.
 
 For custom input addons, compose `Field`, `FieldDescription`, `FieldError`,
 `InputGroup`, `InputGroupInput` and `InputGroupAddon` from the `./primitives` entry.

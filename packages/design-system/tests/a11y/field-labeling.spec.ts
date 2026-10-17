@@ -59,13 +59,7 @@ test.describe('form field labeling contract (WCAG Level A)', () => {
     ).toBeTruthy()
     const alert = page.locator(`[id="${describedby}"]`)
     await expect(alert).toHaveAttribute('role', 'alert')
-    // The alert copy is story prose; pin the reference relation and a
-    // non-empty alert instead of the sentence.
-    const alertId = await alert.getAttribute('id')
-    expect(
-      (describedby ?? '').split(/\s+/).filter(Boolean),
-      'control references the alert it describes'
-    ).toContain(alertId)
+    // The alert copy is story prose; check non-empty error text.
     expect(
       ((await alert.textContent()) ?? '').trim().length,
       'alert exposes non-empty error text'
@@ -142,11 +136,6 @@ test.describe('form field labeling contract (WCAG Level A)', () => {
     ).toBeTruthy()
     const alert = page.locator(`[id="${describedby}"]`)
     await expect(alert).toHaveAttribute('role', 'alert')
-    const alertId = await alert.getAttribute('id')
-    expect(
-      (describedby ?? '').split(/\s+/).filter(Boolean),
-      'control references the alert it describes'
-    ).toContain(alertId)
     expect(
       ((await alert.textContent()) ?? '').trim().length,
       'alert exposes non-empty error text'
@@ -184,11 +173,6 @@ test.describe('form field labeling contract (WCAG Level A)', () => {
     ).toBeTruthy()
     const alert = page.locator(`[id="${describedby}"]`)
     await expect(alert).toHaveAttribute('role', 'alert')
-    const alertId = await alert.getAttribute('id')
-    expect(
-      (describedby ?? '').split(/\s+/).filter(Boolean),
-      'control references the alert it describes'
-    ).toContain(alertId)
     expect(
       ((await alert.textContent()) ?? '').trim().length,
       'alert exposes non-empty error text'
