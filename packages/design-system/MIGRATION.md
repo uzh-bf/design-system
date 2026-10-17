@@ -335,6 +335,8 @@ type-only imports remain useful, but the old pseudo-handle's Date-valued
 `.value` property is gone. Read the selected date from the controlled `value`
 prop and `onChange` callback instead.
 
+### Accessible names include visible values
+
 Date/time trigger names include the field label and displayed date/time. A
 Combobox's explicit `ariaLabel` also prefixes its visible value. Exact
 field-label-only name queries should use the rendered value or a stable test
