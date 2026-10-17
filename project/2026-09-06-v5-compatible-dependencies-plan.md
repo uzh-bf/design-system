@@ -181,6 +181,9 @@ exposed precisely. The approved topology and terminal condition remain unchanged
 - Input stabilization: [draft PR210](https://github.com/uzh-bf/design-system/pull/210),
   head `04cfd66e0`, base `v5`, exact-head CI passes. Eight commits preserve native
   date editing, keyboard actions, disabled state and modal arrow ownership.
+  Eight exact-source synthetic screenshots are attached and rendered in PR210;
+  keyboard action/reset and time-segment editing checks pass in both themes.
+  The isolated capture preview and browser have stopped.
 - Compatible dependencies: [draft PR211](https://github.com/uzh-bf/design-system/pull/211),
   head `325bb6db8`, base the input branch. All 71 direct dependency entries were
   refreshed; 55 declarations change, including 36 refreshed in October. Consumer
@@ -226,9 +229,13 @@ exposed precisely. The approved topology and terminal condition remain unchanged
   [CI39073310453](https://github.com/uzh-bf/design-system/actions/runs/39073310453)
   and correction [CI39074189295](https://github.com/uzh-bf/design-system/actions/runs/39074189295)
   pass; both build workflows pass, with publication and deployment skipped.
-  GitHub's branch ref contains the correction, while its PR snapshot still
-  reports the preceding `dddd84541` commit. Publication reconciliation remains
-  open; passing branch CI does not establish that the PR snapshot advanced.
+  The temporary PR snapshot lag was resolved by the ordinary documentation
+  push: GitHub now includes the reviewed correction. Source acceptance and
+  per-layer CI receipts are complete; the final documentation commit receives
+  its own hosted checks. No implementation finding remains.
+
+The approved input/dependency/field package is delivered as three reviewed
+stacked draft PRs. The draft boundary is the terminal condition for this package.
 
 No merge, ready conversion, release or deployment has been performed. Manual
 screen-reader, Safari and physical mobile checks remain unperformed. The separate
