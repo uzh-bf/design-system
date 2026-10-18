@@ -335,6 +335,14 @@ type-only imports remain useful, but the old pseudo-handle's Date-valued
 `.value` property is gone. Read the selected date from the controlled `value`
 prop and `onChange` callback instead.
 
+### Accessible names include visible values
+
+Date/time trigger names include the field label and displayed date/time. A
+Combobox's explicit `ariaLabel` also prefixes its visible value. Exact
+field-label-only name queries should use the rendered value or a stable test
+selector. Calendar day names include the displayed number alongside the full date
+so speech input can match the visible control.
+
 ### Test selectors: `data={{ cy, test }}`
 
 v5 standardises the **shape** of every test selector: `{ cy?: string; test?:
@@ -492,13 +500,17 @@ accessible name and must pass the new `ariaLabel` prop:
 
 ## Peer dependencies
 
-v5 no longer bundles its runtime libraries — every one is declared as a **peer
-dependency** and must be installed by your app (`react`, `react-dom`, `formik`,
+v5 externalizes its runtime imports. Application-owned libraries are declared
+as **peer dependencies** and must be installed by your app (`react`, `react-dom`, `formik`,
 `dayjs`, `lucide-react`, `class-variance-authority`, `clsx`, `tailwind-merge`,
 the `@fortawesome/*` packages, and the Tailwind toolchain). v4 inlined some of
 these, so an app that never installed them explicitly may now surface unmet-peer
-warnings — install the missing ones. As a side effect this removes the duplicate
-`react-dom` copy that v4 shipped inside its chunks.
+warnings — install the missing ones. The package also declares regular
+dependencies, including Radix primitives and component support libraries; your
+package manager installs those automatically. Externalization describes the
+bundle boundary, while peer versus regular dependency describes installation
+ownership. This also removes the duplicate `react-dom` copy that v4 shipped
+inside its chunks.
 
 ### `react-hook-form` is an optional peer behind a dedicated client entry
 

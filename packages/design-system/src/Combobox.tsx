@@ -2,7 +2,7 @@
 
 import { Check, ChevronsUpDown } from 'lucide-react'
 import type { Ref } from 'react'
-import { useState } from 'react'
+import { useId, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 import { Button } from './ui/button'
@@ -63,7 +63,7 @@ export interface ComboboxProps {
  * @param searchPlaceholder - Placeholder text shown in the search input.
  * @param emptyText - Text shown when the search yields no results.
  * @param disabled - Specifies whether the combobox is disabled or not.
- * @param ariaLabel - Optional accessible name for the trigger (use when the visible label is ambiguous).
+ * @param ariaLabel - Optional context prepended to the trigger's visible value when its label is ambiguous.
  * @param data - The object of data attributes that can be used for testing (e.g. data-test or data-cy).
  * @param className - The optional className object allows you to override the default styling.
  * @param ref - A ref to the visible trigger button.
@@ -84,13 +84,16 @@ export function Combobox({
   ref,
 }: ComboboxProps) {
   const [open, setOpen] = useState(false)
+  const generatedId = useId()
+  const labelId = `${id ?? generatedId}-label`
+  const valueId = `${id ?? generatedId}-value`
 
   const selectedItem = items.find((item) => item.value === value)
 
   // The trigger is a disclosure button (aria-haspopup), NOT a combobox itself —
   // cmdk's CommandInput is the real role="combobox". A plain button derives its
   // accessible name from its visible content (selected label / placeholder), so
-  // the optional `ariaLabel` is only an override for ambiguous cases.
+  // the optional `ariaLabel` prefixes that content instead of replacing it.
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -101,7 +104,7 @@ export function Combobox({
           variant="outline"
           aria-haspopup="listbox"
           aria-expanded={open}
-          aria-label={ariaLabel}
+          aria-labelledby={ariaLabel ? `${labelId} ${valueId}` : undefined}
           disabled={disabled}
           data-cy={data?.cy}
           data-test={data?.test}
@@ -110,7 +113,12 @@ export function Combobox({
             className?.trigger
           )}
         >
-          <span className="truncate">
+          {ariaLabel && (
+            <span id={labelId} className="sr-only">
+              {ariaLabel}
+            </span>
+          )}
+          <span id={valueId} className="truncate">
             {selectedItem ? selectedItem.label : placeholder}
           </span>
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />

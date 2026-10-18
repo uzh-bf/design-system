@@ -744,6 +744,8 @@ const DateTimePicker = ({
   const generatedId = React.useId()
   const inputId = id ?? generatedId
   const labelId = `${inputId}-label`
+  const dateValueId = `${inputId}-date-value`
+  const timeValueId = `${inputId}-time-value`
   const [month, setMonth] = React.useState<Date>(value ?? defaultPopupValue)
   const [displayDate, setDisplayDate] = React.useState<Date | undefined>(
     value ?? undefined
@@ -810,8 +812,24 @@ const DateTimePicker = ({
           <PopoverTrigger asChild disabled={disabled}>
             <Button
               id={inputId}
-              aria-labelledby={label ? `${labelId} ${inputId}` : undefined}
-              aria-label={label ? undefined : ariaLabel}
+              aria-labelledby={
+                label
+                  ? [labelId, dateValueId, useSplitTrigger && timeValueId]
+                      .filter(Boolean)
+                      .join(' ')
+                  : undefined
+              }
+              aria-label={
+                !label && ariaLabel
+                  ? [
+                      ariaLabel,
+                      triggerDateLabel,
+                      useSplitTrigger && triggerTimeLabel,
+                    ]
+                      .filter(Boolean)
+                      .join(' ')
+                  : undefined
+              }
               variant="outline"
               type="button"
               disabled={disabled}
@@ -835,7 +853,10 @@ const DateTimePicker = ({
               />
               {displayDate ? (
                 <>
-                  <span>{triggerDateLabel}</span>
+                  <span id={dateValueId}>
+                    {triggerDateLabel}
+                    {useSplitTrigger ? ' ' : ''}
+                  </span>
                   {useSplitTrigger && (
                     <>
                       <span
@@ -843,14 +864,17 @@ const DateTimePicker = ({
                         className="mx-3 h-10 w-px bg-[#E0E0E0]"
                       />
                       <Clock className="mr-2 h-4 w-4 text-[#666666]" />
-                      <span className="pr-3 font-mono text-sm tabular-nums">
+                      <span
+                        id={timeValueId}
+                        className="pr-3 font-mono text-sm tabular-nums"
+                      >
                         {triggerTimeLabel}
                       </span>
                     </>
                   )}
                 </>
               ) : (
-                <span>{triggerDateLabel}</span>
+                <span id={dateValueId}>{triggerDateLabel}</span>
               )}
             </Button>
           </PopoverTrigger>

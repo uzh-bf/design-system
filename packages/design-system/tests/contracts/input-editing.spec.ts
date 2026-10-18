@@ -15,9 +15,11 @@ for (const theme of ['neutral', 'uzh'] as const) {
         name: /^Appointment\b/,
       })
       await expect(trigger).toHaveAttribute('data-test', 'editing-date-trigger')
-      const displayedValue = await trigger.innerText()
+      const visibleValue = (await trigger.innerText())
+        .replace(/\s+/g, ' ')
+        .trim()
       await expect(trigger).toHaveAccessibleName(
-        new RegExp(displayedValue.trim().split(/\s+/).join('\\s+'))
+        new RegExp(visibleValue.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
       )
       await trigger.click()
       const hours = page.getByRole('textbox', { name: 'Hours', exact: true })
