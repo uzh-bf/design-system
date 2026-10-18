@@ -204,6 +204,9 @@ export function Rhf() {
           data={{ test: 'ux-multi' }}
         />
         <output data-test="choice-value">{form.watch('choice')}</output>
+        <output data-test="choice-touched">
+          {String(Boolean(form.formState.touchedFields.choice))}
+        </output>
         <output data-test="multiple-value">
           {form.watch('multiple').join(',')}
         </output>
