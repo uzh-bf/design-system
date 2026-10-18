@@ -103,3 +103,10 @@ regression cases; the original passing receipts remain historical.
   lint and formatting checks pass. The initial full run scanned a calendar
   mid-transition; waiting for finite animations restores stable contrast
   measurement without suppressing any axe rule. No new tests or public API.
+
+- 2026-10-18 forge feedback: the pending-period regression also applied when
+  minutes or seconds were entered first. Reproduced in both themes before
+  correction. All segments now use the same pending-period-aware initial date.
+  Extended the existing reset/period case; all18 input contracts pass again.
+  No public contract or dependency changed. Current final source verification
+  continues before propagation into the remaining draft layers.

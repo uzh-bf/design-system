@@ -503,6 +503,16 @@ const TimePicker = React.forwardRef<TimePickerRef, TimePickerProps>(
     React.useEffect(() => {
       if (!date) setPendingPeriod('AM')
     }, [date])
+    const inputDate =
+      date ??
+      new Date(
+        new Date().setHours(
+          hourCycle === 12 && period === 'PM' ? 12 : 0,
+          0,
+          0,
+          0
+        )
+      )
 
     useImperativeHandle(
       ref,
@@ -522,7 +532,7 @@ const TimePicker = React.forwardRef<TimePickerRef, TimePickerProps>(
         <TimePickerInput
           disabled={disabled}
           picker={hourCycle === 24 ? 'hours' : '12hours'}
-          date={date}
+          date={inputDate}
           id={`${instanceId}-hours`}
           aria-label={timeLabels?.hours ?? 'Hours'}
           onDateChange={onChange}
@@ -540,7 +550,7 @@ const TimePicker = React.forwardRef<TimePickerRef, TimePickerProps>(
               picker="minutes"
               id={`${instanceId}-minutes`}
               aria-label={timeLabels?.minutes ?? 'Minutes'}
-              date={date}
+              date={inputDate}
               onDateChange={onChange}
               ref={minuteRef}
               onLeftFocus={() => hourRef?.current?.focus()}
@@ -560,7 +570,7 @@ const TimePicker = React.forwardRef<TimePickerRef, TimePickerProps>(
               picker="seconds"
               id={`${instanceId}-seconds`}
               aria-label={timeLabels?.seconds ?? 'Seconds'}
-              date={date}
+              date={inputDate}
               onDateChange={onChange}
               ref={secondRef}
               onLeftFocus={() => minuteRef?.current?.focus()}
