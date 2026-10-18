@@ -2,6 +2,7 @@ import { useEffect, useState, type CSSProperties } from 'react'
 
 import { Badge } from './Badge'
 import { Button } from './Button'
+import { FormLabel } from './FormLabel'
 import { H1, H2, H3, H4 } from './Header'
 import { Modal } from './Modal'
 import { Prose } from './Prose'
@@ -252,6 +253,14 @@ function ReferenceContent() {
         >
           <Button>Wrapper help</Button>
         </LegacyTooltip>
+        <div data-test="reference-label-help">
+          <FormLabel
+            required={false}
+            label="Field help"
+            labelType="large"
+            tooltip={help}
+          />
+        </div>
       </section>
       <Modal
         open={modalOpen}

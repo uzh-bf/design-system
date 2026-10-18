@@ -394,6 +394,14 @@ for (const theme of ['neutral', 'uzh'] as const) {
         await page.keyboard.press('Escape')
         await expect(tooltip).toBeHidden()
       }
+      await page.keyboard.press('Tab')
+      const fieldHelp = page.getByRole('tooltip')
+      await expect(fieldHelp).toBeVisible()
+      const fieldHelpRect = (await fieldHelp.boundingBox())!
+      expect(fieldHelpRect.x).toBeGreaterThanOrEqual(0)
+      expect(fieldHelpRect.x + fieldHelpRect.width).toBeLessThanOrEqual(width)
+      await page.keyboard.press('Escape')
+      await expect(fieldHelp).toBeHidden()
       await page.locator('[data-test="reference-open-modal"]').click()
       const dialog = page.getByRole('dialog')
       await expect(dialog).toBeVisible()
