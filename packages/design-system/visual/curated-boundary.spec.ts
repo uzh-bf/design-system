@@ -34,6 +34,7 @@ type CuratedCase = {
   boundary: ScreenshotBoundary
   interaction?: Interaction
   documentRoot?: boolean
+  width?: number
 }
 const ORDINARY_THEMES = ['neutral', 'uzh'] as const
 
@@ -116,6 +117,24 @@ const CASES = [
     boundary: 'story-root',
     documentRoot: true,
   },
+  ...ORDINARY_THEMES.flatMap((theme) =>
+    [390, 1440].map((width) => ({
+      name: `theme-reference-${width}`,
+      storyId: 'theme-extension-contract--reference',
+      theme,
+      boundary: 'page' as const,
+      documentRoot: true,
+      width,
+    }))
+  ),
+  ...[390, 1440].map((width) => ({
+    name: `theme-reference-synthetic-${width}`,
+    storyId: 'theme-extension-contract--reference-synthetic-ramp',
+    theme: 'uzh' as const,
+    boundary: 'page' as const,
+    documentRoot: true,
+    width,
+  })),
 ] as const satisfies ReadonlyArray<CuratedCase>
 
 // Deterministic exclusions: tooltip--delay adds only a 3,000 ms delay to the
@@ -227,6 +246,8 @@ for (const state of CASES) {
     )
 
     const blockedRequests = await installVisualGuards(page)
+    if ('width' in state)
+      await page.setViewportSize({ width: state.width, height: 1000 })
     await gotoStory(page, state.storyId, state.theme)
     await disableMotion(page)
     await waitForVisualFonts(page, state.theme)
@@ -238,7 +259,9 @@ for (const state of CASES) {
     await runInteraction(page, state.interaction)
 
     if (state.boundary === 'page') {
-      await expect(page).toHaveScreenshot(`${state.name}-${state.theme}.png`)
+      await expect(page).toHaveScreenshot(`${state.name}-${state.theme}.png`, {
+        fullPage: 'width' in state,
+      })
     } else {
       const selector = state.documentRoot ? ROOT_STORY_SELECTOR : STORY_SELECTOR
       await screenshotStoryRoot(

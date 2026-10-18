@@ -23,3 +23,11 @@ The public new-york-v4 registry was checked again for Field and InputGroup, alon
 - `input-group`: [registry source](https://ui.shadcn.com/r/styles/new-york-v4/input-group.json), source SHA-256 `e379899ac50d6cabc9d9eb1668f265176951c62b1fe83a6f23ee97fe8074d526`.
 
 These hashes identify the dated source comparison; the earlier immutable GitHub revision remains recorded above. They do not establish parity for other components.
+
+## Phase 2 touched-source check — 2026-10-18
+
+Current primary docs were retrieved for [Radix Badge](https://ui.shadcn.com/docs/components/radix/badge), [Tooltip](https://ui.shadcn.com/docs/components/radix/tooltip), [Table](https://ui.shadcn.com/docs/components/radix/table) and [Tabs](https://ui.shadcn.com/docs/components/radix/tabs) using the shadcn CLI docs command and direct page retrieval. A current CLI dry run names the four existing files and their existing Radix dependencies; no file or dependency was installed or overwritten. Local `components.json` remains the authority for registry/style and `src/tailwind.css` input.
+
+The configured `default` source comparison is not an automatic migration target: it presents older forwardRef-style component structure, while local components use explicit data slots and newer composition. Local container badge, readable bounded tooltip, wrapping table cells and full-width tabs are deliberate Phase 2 design choices. Retain caller class precedence and local theme contracts, compare relevant API/composition seams and use behavioral/packed evidence. A copied primitive is not synchronized by npm updates. This bounded comparison does not certify every vendored primitive or require changing registry style.
+
+Tailwind primary documentation confirms that source detection controls emitted utilities and that `@theme inline` references runtime variables. A separate packed-consumer experiment found missing palette compiler metadata; the Phase 2 plan records the required public-behavior proof. No consumer package-source scanning or new public stylesheet export is assumed.

@@ -28,6 +28,8 @@ export type InventoryMetadata = {
 
 export const W1_THEME_EXTENSION_STORY_IDS = [
   'theme-extension-contract--neutral',
+  'theme-extension-contract--reference',
+  'theme-extension-contract--reference-synthetic-ramp',
   'theme-extension-contract--synthetic-ramp',
   'theme-extension-contract--uzh',
 ] as const
@@ -384,6 +386,8 @@ export const EXPECTED_STORY_IDS = [
   'textarea-field--small-label',
   'textarea-field--styled',
   'theme-extension-contract--neutral',
+  'theme-extension-contract--reference',
+  'theme-extension-contract--reference-synthetic-ramp',
   'theme-extension-contract--synthetic-ramp',
   'theme-extension-contract--uzh',
   'theme-provider--default',
