@@ -1,0 +1,137 @@
+/* Scoped responsive defaults stay in components so explicit consumer utilities
+   can override them without unrelated base utilities changing their layout. */
+@layer components {
+  /* Dialog and AlertDialog share one header and one footer contract. */
+  .ds-dialog-header {
+    text-align: center;
+
+    @variant sm {
+      text-align: left;
+    }
+  }
+
+  .ds-dialog-footer {
+    flex-direction: column-reverse;
+
+    @variant sm {
+      flex-direction: row;
+      justify-content: flex-end;
+    }
+  }
+
+  .ds-alert-dialog-content {
+    max-width: calc(100% - 2rem);
+
+    @variant sm {
+      max-width: 520px;
+    }
+  }
+
+  .ds-calendar-months {
+    flex-direction: column;
+
+    @variant md {
+      flex-direction: row;
+    }
+  }
+
+  .ds-pagination-label {
+    display: none;
+
+    @variant sm {
+      display: block;
+    }
+  }
+
+  /* The sidebar wrapper, container and rail only render from their
+     breakpoint up. */
+  .ds-sidebar-root {
+    display: none;
+
+    @variant md {
+      display: block;
+    }
+  }
+
+  .ds-sidebar-container {
+    display: none;
+
+    @variant md {
+      display: flex;
+    }
+  }
+
+  .ds-sidebar-rail {
+    display: none;
+
+    @variant sm {
+      display: flex;
+    }
+  }
+
+  .ds-navigation-menu-content {
+    width: 100%;
+
+    @variant md {
+      width: auto;
+    }
+  }
+
+  .ds-navigation-menu-viewport {
+    width: 100%;
+
+    @variant md {
+      width: var(--radix-navigation-menu-viewport-width);
+    }
+  }
+
+  .ds-drawer-header {
+    gap: calc(var(--spacing) * 0.5);
+
+    @variant md {
+      gap: calc(var(--spacing) * 1.5);
+    }
+  }
+
+  .ds-empty {
+    padding: calc(var(--spacing) * 6);
+
+    @variant md {
+      padding: calc(var(--spacing) * 12);
+    }
+  }
+
+  /* Collapsible action row: the grid steps up with the viewport, and the
+     leading and trailing cells grow with it. */
+  .ds-collapsible-actions {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+
+    @variant sm {
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+    }
+
+    @variant md {
+      grid-template-columns: repeat(9, minmax(0, 1fr));
+    }
+
+    @variant lg {
+      grid-template-columns: repeat(11, minmax(0, 1fr));
+    }
+  }
+
+  .ds-collapsible-action {
+    grid-column: span 2 / span 2;
+
+    @variant sm {
+      grid-column: span 3 / span 3;
+    }
+
+    @variant md {
+      grid-column: span 4 / span 4;
+    }
+
+    @variant lg {
+      grid-column: span 5 / span 5;
+    }
+  }
+}

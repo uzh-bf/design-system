@@ -93,15 +93,12 @@ export function Collapsible({
         </RadixCollapsible.Content>
         <div
           className={twMerge(
-            'mb-1.5 grid w-full grid-cols-5 sm:grid-cols-7 md:grid-cols-9 lg:grid-cols-11',
+            'ds-collapsible-actions mb-1.5 grid w-full',
             className?.bottomWrapper
           )}
         >
           <div
-            className={twMerge(
-              'col-span-2 sm:col-span-3 md:col-span-4 lg:col-span-5',
-              className?.secondary
-            )}
+            className={twMerge('ds-collapsible-action', className?.secondary)}
           >
             {typeof secondary === 'string' && onSecondaryClick ? (
               <Button
@@ -142,12 +139,7 @@ export function Collapsible({
               />
             )}
           </RadixCollapsible.Trigger>
-          <div
-            className={twMerge(
-              'col-span-2 sm:col-span-3 md:col-span-4 lg:col-span-5',
-              className?.primary
-            )}
-          >
+          <div className={twMerge('ds-collapsible-action', className?.primary)}>
             {typeof primary === 'string' && onPrimaryClick ? (
               <Button
                 primary

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { DateTimePicker, TimePicker } from './DatetimePicker'
+import Dropdown from './Dropdown'
 import { Modal } from './Modal'
 
 const initialDate = () => new Date(2026, 0, 15, 13, 24, 35)
@@ -100,6 +101,19 @@ export function Default() {
         Open navigation
       </button>
       <output data-test="position">{position}</output>
+      <Dropdown
+        trigger="Sized menu"
+        className={{ item: 'h-12' }}
+        items={[
+          { id: 'contract-label', type: 'label', label: 'Actions' },
+          { id: 'contract-separator', type: 'separator' },
+          {
+            id: 'contract-item',
+            label: 'Choose action',
+            onClick: () => undefined,
+          },
+        ]}
+      />
       <Modal
         open={open}
         loading={loading}
