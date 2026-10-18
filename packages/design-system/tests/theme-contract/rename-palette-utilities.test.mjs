@@ -31,7 +31,7 @@ test('preserves non-utility identifiers, attribute values, comments and unmatche
   assert.equal(renamed.code, jsx.replace('bg-uzh-red p-2', 'bg-uzh-orange p-2'))
   assert.equal(renamed.changes, 1)
   assert.equal(renamed.unsupported.length, 2)
-  const possessive = `<p>The students' grades and 'text-uzh-grey' examples. Read: 'text-uzh-grey'</p>
+  const possessive = `<p>The students' grades and 'text-uzh-grey' examples. Read: 'text-uzh-grey'. const classes = 'text-uzh-grey'</p>
 <div className="bg-uzh-red p-2" aria-label="Pick text-uzh-grey or not" />
 <p>The teachers' notes</p>`
   const preserved = renamePaletteUtilities(possessive)
