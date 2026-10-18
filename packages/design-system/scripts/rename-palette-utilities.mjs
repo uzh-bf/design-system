@@ -95,12 +95,15 @@ export function renamePaletteUtilities(source) {
     const attribute = /\b([\w:-]+)\s*=\s*\{?\s*$/.exec(before)?.[1]
     const declaration = /\b(?:const|let|var)\s+[\w$]+\s*=\s*$/.test(before)
     const expression = /(?:^\s*|[([,:?=]\s*|=>\s*|\breturn\s+)$/.test(before)
+    const tagStart = before.lastIndexOf('<')
     const tagEnd = before.lastIndexOf('>')
     const afterTag = before.slice(tagEnd + 1)
     const jsxText =
-      tagEnd > before.lastIndexOf('<') &&
+      tagStart >= 0 &&
+      /^<\/?[A-Za-z]/.test(before.slice(tagStart)) &&
+      tagEnd > tagStart &&
       afterTag.split('{').length === afterTag.split('}').length
-    if (!attribute && !declaration && (!expression || jsxText)) {
+    if (jsxText || (!attribute && !declaration && !expression)) {
       code += source[index++]
       continue
     }
