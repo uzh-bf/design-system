@@ -232,6 +232,16 @@ for (const theme of ['neutral', 'uzh'] as const) {
       await expect(period).toHaveText('PM')
       await hours.fill('10')
       await expect(hourValue).toHaveText('22')
+      for (const segment of ['Standalone minutes', 'Standalone seconds']) {
+        await picker.getByRole('button', { name: 'Clear time' }).click()
+        await period.click()
+        await page.getByRole('option', { name: 'PM', exact: true }).click()
+        await picker
+          .getByRole('textbox', { name: segment, exact: true })
+          .fill('30')
+        await expect(hourValue).toHaveText('12')
+        await expect(period).toHaveText('PM')
+      }
     })
 
     for (const [segment, expected] of [
