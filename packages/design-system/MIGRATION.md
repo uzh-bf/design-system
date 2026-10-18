@@ -671,18 +671,14 @@ These are **additive** — existing usage keeps working.
 
 ## Visual changes to verify
 
-**v5 changes what many components render.** Twenty-seven of the sixty-seven
-exported components changed their classes between `4.1.8` and v5, and thirteen
-more are new. Treat this section as the checklist, not as a note — an earlier
-draft of this guide said the visual delta was limited to two components, and
-that was wrong.
+**v5 changes what many components render.** Use the table below to review
+existing wrappers and selected primitives when upgrading from `4.1.8`.
+It describes the known class and token changes; it is not a complete count of
+exports or a substitute for checking the components your application uses.
 
-The table below is derived mechanically: for each component it compares the set
-of class tokens present in the source at `v4.1.8` against the current source.
 "Sizing" means a height, width, or padding moved, so surrounding layout can
 shift. "Tokens" means hardcoded colours were replaced by theme tokens, so the
-colour now follows `data-theme` — usually what you want, but it does change
-pixels in existing screens.
+colour now follows `data-theme` and can change pixels in existing screens.
 
 | Component                      | What moved                                                                                                                                             | Verify                                                                            |
 | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------- |
@@ -713,8 +709,8 @@ pixels in existing screens.
 | `Workflow`                     | Substantially restyled: all chevron and fill colours moved to tokens, focus ring added, `w-full!` dropped                                              | Width and colours                                                                 |
 | `AvatarFallback`               | `bg-muted` → `bg-primary-20 text-primary-100` (theme-tinted initials)                                                                                  | Override via `className` for the old grey                                         |
 
-Components with no class change between `4.1.8` and v5 are not listed. New in
-v5 and therefore not a migration concern: `ButtonGroup`, `Combobox`,
+The table focuses on changed existing components. Additive v5 components
+include: `ButtonGroup`, `Combobox`,
 `DateRangePicker`, `Empty`, `Field`, `InputGroup`, `Item`, `Kbd`,
 `MultiSelect`, `Spinner`, `ThemeProvider`.
 
@@ -755,7 +751,9 @@ hatch for the largest cases.
   Previously prose links rendered as body text.
 - **The `uzh` error colour is visible again.** `--theme-destructive-text` was
   `#111111` in the `uzh` theme, so error text and invalid-field borders were
-  near-black. It is now Berry `#BF0D3E`.
+  near-black. It is now Berry `#BF0D3E`. Error/destructive Alert descriptions
+  also use the full semantic text colour instead of a 90% opacity fade in both
+  themes, preserving contrast on their tinted backgrounds.
 
 ### Descriptions and inline validation
 

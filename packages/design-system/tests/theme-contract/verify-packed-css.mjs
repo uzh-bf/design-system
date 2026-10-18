@@ -549,6 +549,39 @@ try {
   // Component nodes use scoped defaults; explicit utilities still take priority.
   const { default: postcss } = await import('postcss')
   const { default: tailwindPostcss } = await import('@tailwindcss/postcss')
+  // Browsers hide visited history from script. Substitute the complementary
+  // link state to verify that the compiled selector targets the anchor itself.
+  const visitedSelectors = []
+  postcss.parse(packedCss).walkRules((rule) => {
+    if (
+      rule.selector.includes('prose-a') &&
+      rule.selector.includes('text-link-visited')
+    ) {
+      visitedSelectors.push(rule.selector.replace(/(?<!\\):visited/g, ':link'))
+    }
+  })
+  const packedProse = readFileSync(
+    path.join(extractDir, 'package', 'dist', 'Prose.js'),
+    'utf8'
+  )
+  const visitedClass = packedProse.match(
+    /[\w:-]*prose-a[\w:-]*text-link-visited/
+  )
+  if (!visitedClass) throw new Error('packed Prose has no visited link class')
+  await page.setContent(
+    `<div class="${visitedClass[0]}"><a id="prose-link" href="https://example.invalid/visited-contract">Link</a></div>`
+  )
+  const visitedTargetsAnchor = await page.evaluate(
+    (selectors) =>
+      selectors.some((selector) =>
+        document.getElementById('prose-link').matches(selector)
+      ),
+    visitedSelectors
+  )
+  if (!visitedTargetsAnchor)
+    throw new Error('packed Prose visited selector does not target its anchor')
+  console.log('[theme-contract] Prose visited selector targets the anchor')
+
   const consumerCss = String(
     await postcss([tailwindPostcss({ base: packageDir })]).process(
       '@import "tailwindcss" source(none); @source inline("text-center flex-col-reverse flex-col hidden w-full gap-0.5 p-6 grid-cols-5 col-span-2 max-w-96 max-w-[calc(100%-2rem)]");',
