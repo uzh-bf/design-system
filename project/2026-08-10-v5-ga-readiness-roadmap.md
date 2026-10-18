@@ -135,7 +135,9 @@ warnings. Compact app navigation and editor-toolbar layout need consumer work;
 existing width/density overrides were retained. Phase 2 must retire the overrides
 corresponding to its default changes and refresh candidate acceptance.
 
-The next implementation package is Phase 2's public-family/alias inventory and
+The approved [theme/defaults execution plan](2026-10-18-v5-theme-defaults-plan.md)
+and [accepted findings](2026-10-18-v5-progress-roadmap-findings.md) persist the
+October 18 review and implementation sequence. The next package is Phase 2's public-family/alias inventory and
 dense internal reference fixture, followed by its token/default changes. The
 existing synthetic theme fixture proves the extension contract but does not
 establish every family/rung/alias or intended text/fill pair. Scope and acceptance
@@ -544,7 +546,13 @@ publish actions`; final progress/review commit.
 - A failed publication never permits moving an existing tag or substituting a
   local tarball in a committed consumer lockfile.
 
-## Authority gates
+## Historical authority gates — 2026-08-10
+
+This table records P0 and the original consumer delivery boundaries. Current
+implementation authority and remaining gates live in the
+[theme/defaults execution plan](2026-10-18-v5-theme-defaults-plan.md). Ordinary
+commits, non-force task pushes and draft delivery follow the approved package;
+readiness conversion, target merges, publication and deployment remain gated.
 
 | Action                                    | Authority required                                              |
 | ----------------------------------------- | --------------------------------------------------------------- |
@@ -561,7 +569,11 @@ publish actions`; final progress/review commit.
 | Publish `5.0.0` to `latest`               | Explicit GA/latest authorization                                |
 | Deploy any consumer or documentation site | Explicit deployment authorization                               |
 
-## Directly delegable next tasks
+## Historical directly delegable tasks — 2026-08-10
+
+These foundation tasks are complete. The [current execution index](#current-execution-index--2026-10-18)
+and [theme/defaults execution plan](2026-10-18-v5-theme-defaults-plan.md) own
+current work: palette coverage, token/default changes and candidate qualification.
 
 | Task                                   | Owner                                                                    | Paths                                             | Verification                                           | Stop condition                      |
 | -------------------------------------- | ------------------------------------------------------------------------ | ------------------------------------------------- | ------------------------------------------------------ | ----------------------------------- |
