@@ -49,5 +49,13 @@
   "packageManager": "pnpm@10.30.0",
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "pnpm": {
+    "overrides": {
+      "lodash@>=4.0.0 <4.18.1": "4.18.1",
+      "lodash-es@>=4.0.0 <4.18.1": "4.18.1",
+      "tar@>=7.0.0 <7.5.22": "7.5.22",
+      "@babel/runtime@>=7.0.0 <7.26.10": "7.29.10"
+    }
+  }
 }

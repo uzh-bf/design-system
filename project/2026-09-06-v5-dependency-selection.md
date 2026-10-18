@@ -83,3 +83,27 @@ Source metadata for each target is its public npm registry document at `https://
 ## October refresh
 
 The resumed package updates 36 additional declarations within the approved compatible lines. Root and sibling importer blocks remain byte-equivalent. The pinned Node 22.16.0 toolchain satisfies axe 4.14.0’s Node >=22.12 development requirement; consumer engine and peer declarations remain unchanged. Playwright, formatter cohort, TypeScript and SWC plugin holds still apply. September verification remains historical until the refreshed graph passes its checks.
+
+
+## Review remediation, October 18
+
+The input corrections are integrated through ordinary merge commits, retaining
+published history. Application peers, optional RHF metadata and exports stay
+unchanged. Root workspace overrides now pin compatible repairs for the named
+review paths: Lodash and lodash-es 4.18.1, tar 7.5.22, Babel runtime 7.29.10.
+The lockfile retains all other package versions except tar's required child
+change and newly unused transitive nodes. This is bounded maintenance of the
+supplied advisory paths, not a repository-wide security assessment or a claim
+that every advisory is exploitable or closed. Formik remains available in v5.
+
+Lodash's template-import advisory requires untrusted import keys; Formik uses
+Lodash field-path/collection helpers rather than compiling templates. Retaining
+Formik's public API does not freeze its transitive security maintenance.
+The tar path belongs to installation/build tooling; Babel runtime is reachable
+through Recharts animation support. Workspace overrides protect this checked-in
+build graph; they do not become a consumer's global dependency policy. Packed
+consumer graph checks and version-specific fixture locks remain release gates.
+
+Sources: [Lodash advisory](https://github.com/lodash/lodash/security/advisories/GHSA-r5fr-rjxr-66jc),
+[Babel advisory](https://github.com/advisories/GHSA-968p-4wvh-cqc8),
+[tar releases](https://github.com/isaacs/node-tar/releases).

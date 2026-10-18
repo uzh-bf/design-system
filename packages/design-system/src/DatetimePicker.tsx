@@ -3,7 +3,6 @@
 import { faCalendar } from '@fortawesome/free-regular-svg-icons'
 import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { add } from 'date-fns'
 import { enUS } from 'date-fns/locale'
 import dayjs from 'dayjs'
 import { Clock } from 'lucide-react'
@@ -234,6 +233,7 @@ function display12HourValue(hours: number) {
 // ---------- utils end ----------
 interface PeriodSelectorProps {
   period: Period
+  onPeriodChange?: (period: Period) => void
   id?: string
   ariaLabel?: string
   disabled?: boolean
@@ -250,6 +250,7 @@ const TimePeriodSelect = React.forwardRef<
   (
     {
       period,
+      onPeriodChange,
       date,
       onDateChange,
       onLeftFocus,
@@ -274,6 +275,7 @@ const TimePeriodSelect = React.forwardRef<
     }
 
     const handleValueChange = (value: Period) => {
+      onPeriodChange?.(value)
       /**
        * trigger an update whenever the user switches between AM and PM;
        * otherwise user must manually change the hour each time
@@ -492,7 +494,25 @@ const TimePicker = React.forwardRef<TimePickerRef, TimePickerProps>(
     const secondRef = React.useRef<HTMLInputElement>(null)
     const periodRef = React.useRef<HTMLButtonElement>(null)
     const instanceId = React.useId()
-    const period: Period = date && date.getHours() >= 12 ? 'PM' : 'AM'
+    const [pendingPeriod, setPendingPeriod] = React.useState<Period>('AM')
+    const period: Period = date
+      ? date.getHours() >= 12
+        ? 'PM'
+        : 'AM'
+      : pendingPeriod
+    React.useEffect(() => {
+      if (!date) setPendingPeriod('AM')
+    }, [date])
+    const inputDate =
+      date ??
+      new Date(
+        new Date().setHours(
+          hourCycle === 12 && period === 'PM' ? 12 : 0,
+          0,
+          0,
+          0
+        )
+      )
 
     useImperativeHandle(
       ref,
@@ -512,7 +532,7 @@ const TimePicker = React.forwardRef<TimePickerRef, TimePickerProps>(
         <TimePickerInput
           disabled={disabled}
           picker={hourCycle === 24 ? 'hours' : '12hours'}
-          date={date}
+          date={inputDate}
           id={`${instanceId}-hours`}
           aria-label={timeLabels?.hours ?? 'Hours'}
           onDateChange={onChange}
@@ -530,7 +550,7 @@ const TimePicker = React.forwardRef<TimePickerRef, TimePickerProps>(
               picker="minutes"
               id={`${instanceId}-minutes`}
               aria-label={timeLabels?.minutes ?? 'Minutes'}
-              date={date}
+              date={inputDate}
               onDateChange={onChange}
               ref={minuteRef}
               onLeftFocus={() => hourRef?.current?.focus()}
@@ -550,7 +570,7 @@ const TimePicker = React.forwardRef<TimePickerRef, TimePickerProps>(
               picker="seconds"
               id={`${instanceId}-seconds`}
               aria-label={timeLabels?.seconds ?? 'Seconds'}
-              date={date}
+              date={inputDate}
               onDateChange={onChange}
               ref={secondRef}
               onLeftFocus={() => minuteRef?.current?.focus()}
@@ -564,6 +584,7 @@ const TimePicker = React.forwardRef<TimePickerRef, TimePickerProps>(
           <div className="grid gap-1 text-center">
             <TimePeriodSelect
               period={period}
+              onPeriodChange={setPendingPeriod}
               id={`${instanceId}-period`}
               ariaLabel={timeLabels?.period}
               disabled={disabled}
@@ -748,36 +769,10 @@ const DateTimePicker = ({
     if (value) setMonth(value)
   }, [value])
 
-  /**
-   * carry over the current time when a user clicks a new day
-   * instead of resetting to 00:00
-   */
-  const handleMonthChange = (newDay: Date | undefined) => {
-    if (!newDay) {
-      return
-    }
-    if (!defaultPopupValue) {
-      newDay.setHours(
-        month?.getHours() ?? 0,
-        month?.getMinutes() ?? 0,
-        month?.getSeconds() ?? 0
-      )
-      onMonthChange?.(newDay)
-      setMonth(newDay)
-      return
-    }
-    const diff = newDay.getTime() - defaultPopupValue.getTime()
-    const diffInDays = diff / (1000 * 60 * 60 * 24)
-    const newDateFull = add(defaultPopupValue, {
-      days: Math.ceil(diffInDays),
-    })
-    newDateFull.setHours(
-      month?.getHours() ?? 0,
-      month?.getMinutes() ?? 0,
-      month?.getSeconds() ?? 0
-    )
-    onMonthChange?.(newDateFull)
-    setMonth(newDateFull)
+  const handleMonthChange = (nextMonth: Date | undefined) => {
+    if (!nextMonth) return
+    onMonthChange?.(nextMonth)
+    setMonth(nextMonth)
   }
 
   const onSelect = (newDay?: Date) => {
@@ -921,10 +916,11 @@ const DateTimePicker = ({
             month={month}
             onSelect={(newDate) => {
               if (newDate) {
+                const selectedTime = displayDate ?? defaultPopupValue
                 newDate.setHours(
-                  month?.getHours() ?? 0,
-                  month?.getMinutes() ?? 0,
-                  month?.getSeconds() ?? 0
+                  selectedTime.getHours(),
+                  selectedTime.getMinutes(),
+                  selectedTime.getSeconds()
                 )
                 onSelect(newDate)
               }
@@ -954,7 +950,7 @@ const DateTimePicker = ({
                     setMonth(value)
                   }
                 }}
-                date={month}
+                date={displayDate ?? defaultPopupValue}
                 hourCycle={hourCycle}
                 granularity={granularity}
                 dataHours={props.dataHours}

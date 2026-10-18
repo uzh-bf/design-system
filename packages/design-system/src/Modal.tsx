@@ -245,7 +245,10 @@ export function Modal({
           <DialogContent
             ref={contentRef}
             showCloseButton={!hideCloseButton}
-            onOpenAutoFocus={(e) => e.preventDefault()} // avoid that the automatically sets focus on first element
+            onOpenAutoFocus={(event) => {
+              event.preventDefault()
+              if (onNext || onPrev) contentRef.current?.focus()
+            }}
             onEscapeKeyDown={
               escapeDisabled ? (e) => e.preventDefault() : () => onClose()
             }
