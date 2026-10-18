@@ -87,7 +87,12 @@ export function renamePaletteUtilities(source) {
       }
     }
     const quote = source[index]
-    if (!['"', "'", '`'].includes(quote)) {
+    if (
+      !['"', "'", '`'].includes(quote) ||
+      (quote === "'" &&
+        /\w/.test(source[index - 1] ?? '') &&
+        /\w/.test(source[index + 1] ?? ''))
+    ) {
       code += source[index++]
       continue
     }

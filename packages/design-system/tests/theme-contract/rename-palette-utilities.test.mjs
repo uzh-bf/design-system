@@ -24,6 +24,13 @@ test('renames static class utilities while preserving variants, rungs and modifi
 test('preserves non-utility identifiers, attribute values, comments and unmatched rungs', () => {
   const input = `const name = 'uzh-red-100'; <div onClick={() => act()} id="bg-uzh-red-100" data-test="text-uzh-grey" title="text-uzh-grey" class="bg-uzh-red-900 bg-uzh-blue-100 bg-uzh-red-100-label"/> // 'bg-uzh-red-100'`
   assert.equal(renamePaletteUtilities(input).code, input)
+  const jsx = `<p>Don't worry</p>
+<div className="bg-uzh-red p-2" aria-label="Pick text-uzh-grey or not" title="Use text-uzh-grey here" />
+<p>It's fine</p>`
+  const renamed = renamePaletteUtilities(jsx)
+  assert.equal(renamed.code, jsx.replace('bg-uzh-red p-2', 'bg-uzh-orange p-2'))
+  assert.equal(renamed.changes, 1)
+  assert.deepEqual(renamed.unsupported, [])
 })
 
 test('rewrites CSS apply lists and ordinary static utility strings', () => {
