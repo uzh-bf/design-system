@@ -17,6 +17,9 @@ mkdir -p "$run_fixture/.artifacts" "$run_fixture/consumers"
 cp -R "$fixture_dir/consumers/root-only" "$run_fixture/consumers/"
 cp -R "$fixture_dir/consumers/dedicated" "$run_fixture/consumers/"
 
+rhf_version=$(node "$fixture_dir/../rhf-matrix.mjs" stage "$run_fixture/consumers/dedicated")
+echo "react-hook-form matrix cell: $rhf_version"
+
 node "$fixture_dir/../prepare-packed-artifact.mjs" \
   "$package_dir" \
   "$run_fixture" \
@@ -39,6 +42,7 @@ node "$fixture_dir/../prepare-packed-artifact.mjs" \
 (
   cd "$run_fixture/consumers/dedicated"
   pnpm install --frozen-lockfile
+  node "$fixture_dir/../rhf-matrix.mjs" assert-installed "$run_fixture/consumers/dedicated"
   node "$fixture_dir/scripts/assert-installed-dependencies.mjs" "$run_fixture/consumers/dedicated"
   pnpm exec tsc -p tsconfig.json
   pnpm exec tsc -p tsconfig.node10.json

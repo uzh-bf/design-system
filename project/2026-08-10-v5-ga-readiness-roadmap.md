@@ -97,7 +97,7 @@ readiness conversion, release publication and deployment remain gated.
 | Input stabilization                                                           | Draft PR210; two introduced regressions and inherited calendar/time coupling reopened acceptance                                          | Main: natural keyboard-open navigation, empty12h period and date invariance, both-theme contracts and exact-head CI                                     |
 | Compatible dependencies                                                       | Draft PR211; compatible updates and focused shadcn assessment complete                                                                    | Main: carry input correction upward, preserve peer/export contracts, triage only supplied transitive paths and correct ownership docs                   |
 | Shared field/selection behavior                                               | Draft PR213; help/inline errors implemented; disabled transitions, actual multi-selection semantics and transformed FormField remain open | Main plus bounded executor: browser/FormData/keyboard and packed public types                                                                           |
-| Durable contracts and consumers                                               | Hosted jobs are green but omit behavioral contracts and packed RHF/Next acceptance                                                        | Bounded executor: frozen minimum7.59/selected7.90 matrix, root without RHF, Next hydration and serialized outputs; release build depends on these jobs  |
+| Durable contracts and consumers | Field draft adds behavioral contracts and frozen RHF minimum/current packed and Next jobs to release prerequisites; local matrix verification in progress | Main: current-head hosted proof, failure propagation and isolated server cleanup before completed delivery |
 | Consumer CSS and UZH alignment                                                | Separate branch retains partial Phase1 fixes; CSS ownership and real consumer loop remain incomplete                                      | Main: independent consumer stylesheet collision/customization proof; integrate existing fixes and confirm real consumer behavior                        |
 | UZH pre-GA defaults and tokens                                                | Phase0 rulings recorded; Phase2 remains planned                                                                                           | Existing UZH roadmap owns interaction/status/neutral/focus/typography and default changes; finish only with reviewed visuals, axe and consumer evidence |
 | GA promotion                                                                  | PR179 is draft and conflicts with main                                                                                                    | Separate promotion package after integrated candidate/consumer acceptance; no release inferred from green CI                                            |
@@ -567,3 +567,32 @@ Stop the active package and report when:
   findings. Reconciled the current index with remote v5, existing draft heads
   and the separate UZH branch. Earlier completed draft-delivery receipts remain
   historical; input correctness acceptance and missing durable gates are open.
+
+
+## October 18 correction status
+
+The input and compatible-dependency drafts now contain corrected natural modal
+focus, calendar date invariance, pending twelve-hour periods for all segments,
+controlled null resets and value-bearing accessible names. Full lower-layer
+behavioral checks pass. The dependency draft also pins the four reviewed
+transitive maintenance paths and clarifies peer versus regular dependency
+ownership. Independent review accepts both committed layers. Hosted checks
+remain a separate gate.
+
+The field draft implements disabled-selection guards, actual MultiSelect
+selection semantics, transformed FormField output and durable consumer gates.
+The existing packed fixtures now cover minimum/current RHF versions and Next
+reset, numeric draft, ref, disabled, validation and submission behavior. Their
+server lifecycle uses distinct ports and direct process ownership. Local
+verification, current-head CI and refreshed visible evidence must finish before
+these rows can be marked delivered.
+
+The UZH Phase 1 branch remains a separate draft package after this stack.
+Its completed source fixes and migration table must be retained while scoped
+responsive component CSS and the independent-stylesheet regression matrix land.
+The existing Klicker acceptance workspace currently has no DevPod, and canonical
+startup fails because its devcontainer postCreateCommand lacks waitFor. Historical
+consumer probes are not current runtime acceptance. Phase 2's token/default
+work remains GA scope; additive presets/variants stay in v5.1. Wrapper convergence
+and complete Formik runtime/public-type removal stay in v6. Screen-reader,
+Safari and physical-mobile evidence remain open release qualifications.

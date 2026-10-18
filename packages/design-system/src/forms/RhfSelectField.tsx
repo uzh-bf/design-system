@@ -1,6 +1,6 @@
 'use client'
 
-import type { Ref } from 'react'
+import type { AriaAttributes, Ref } from 'react'
 import type { FieldPath, FieldPathByValue, FieldValues } from 'react-hook-form'
 import Select, {
   type SelectClassName,
@@ -29,6 +29,9 @@ export type RhfSelectFieldProps<
     | { items: SelectItem[]; groups?: never }
     | { groups: SelectGroup[]; items?: never }
   ) & {
+    'aria-label'?: string
+    'aria-labelledby'?: string
+    'aria-required'?: AriaAttributes['aria-required']
     placeholder?: string
     contentPosition?: 'item-aligned' | 'popper'
     className?: RhfSelectVisualClassName
@@ -65,7 +68,8 @@ export function RhfSelectField<
       descriptionId={state.descriptionId}
       error={state.error}
       errorId={state.errorId}
-      showError={state.showError}
+      showError={state.showError && !props.hideError}
+      errorDisplay={props.errorDisplay}
       className={props.className}
       data={props.data}
     >
@@ -80,8 +84,14 @@ export function RhfSelectField<
         disabled={state.field.disabled}
         placeholder={props.placeholder}
         contentPosition={props.contentPosition}
-        ariaLabelledBy={state.labelId}
-        ariaRequired={props.required}
+        ariaLabel={props['aria-label']}
+        ariaLabelledBy={props['aria-labelledby'] ?? state.labelId}
+        ariaRequired={
+          props['aria-required'] === undefined
+            ? props.required
+            : props['aria-required'] === true ||
+              props['aria-required'] === 'true'
+        }
         ariaInvalid={state.showError}
         ariaDescribedBy={state.describedBy}
         className={selectClassName}

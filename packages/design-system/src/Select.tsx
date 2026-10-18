@@ -1,7 +1,7 @@
 'use client'
 
 import type { Ref } from 'react'
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import Tooltip from './Tooltip' // New import for tooltips
 import {
@@ -147,11 +147,17 @@ export function Select({
   const openRef = useRef(false)
   const blurNotifiedRef = useRef(false)
 
-  const notifyBlur = () => {
+  const notifyBlur = useCallback(() => {
     if (blurNotifiedRef.current) return
     blurNotifiedRef.current = true
     onBlur?.()
-  }
+  }, [onBlur])
+  useEffect(() => {
+    if (!disabled) return
+    if (openRef.current) notifyBlur()
+    openRef.current = false
+    setOpen(false)
+  }, [disabled, notifyBlur])
   const [shortLabel, setShortLabel] = useState<string | undefined>(undefined)
 
   useEffect(() => {
@@ -164,8 +170,12 @@ export function Select({
       <ShadcnSelect
         name={name}
         open={open}
-        onValueChange={onChange}
+        disabled={disabled}
+        onValueChange={(nextValue) => {
+          if (!disabled) onChange?.(nextValue)
+        }}
         onOpenChange={(open) => {
+          if (open && disabled) return
           if (open) {
             blurNotifiedRef.current = false
           } else if (openRef.current) {
@@ -226,7 +236,7 @@ export function Select({
                 <SelectItem
                   key={`${item.value}-${ix}`}
                   value={item.value}
-                  disabled={item.disabled}
+                  disabled={disabled || item.disabled}
                   data-cy={item.data?.cy}
                   data-test={item.data?.test}
                   className={twMerge(
@@ -265,7 +275,7 @@ export function Select({
                       <SelectItem
                         key={`${item.value}-${item_ix}`}
                         value={item.value}
-                        disabled={item.disabled}
+                        disabled={disabled || item.disabled}
                         data-cy={item.data?.cy}
                         data-test={item.data?.test}
                         className={twMerge(

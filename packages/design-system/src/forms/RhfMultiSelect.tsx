@@ -29,6 +29,7 @@ export type RhfMultiSelectProps<
   searchPlaceholder?: string
   emptyText?: string
   ariaLabel?: string
+  'aria-label'?: string
   className?: RhfMultiSelectVisualClassName
   ref?: Ref<HTMLButtonElement>
 }
@@ -55,7 +56,8 @@ export function RhfMultiSelect<
       descriptionId={state.descriptionId}
       error={state.error}
       errorId={state.errorId}
-      showError={state.showError}
+      showError={state.showError && !props.hideError}
+      errorDisplay={props.errorDisplay}
       className={props.className}
       data={props.data}
     >
@@ -68,7 +70,7 @@ export function RhfMultiSelect<
         onChange={state.field.onChange}
         onBlur={state.field.onBlur}
         disabled={state.field.disabled}
-        ariaLabel={props.ariaLabel ?? props.label}
+        ariaLabel={props['aria-label'] ?? props.ariaLabel ?? props.label}
         ariaRequired={props.required}
         ariaInvalid={state.showError}
         ariaDescribedBy={state.describedBy}

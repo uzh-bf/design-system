@@ -71,6 +71,9 @@ Props (TextField component):
 - required?: boolean - Whether the field is required
 - isTouched?: boolean - Whether the field has been interacted with
 - hideError?: boolean - Whether to hide error message display
+- description?: React.ReactNode - Help content linked from the control
+- errorDisplay?: 'tooltip' | 'inline' - Validation presentation; tooltip by default
+- aria-describedby?: string - External help IDs merged with generated description/error IDs
 - error?: string - Error message to display below field
 - disabled?: boolean - Whether the input is disabled
 - onPaste?: (event: ClipboardEvent) => void - Paste event handler
