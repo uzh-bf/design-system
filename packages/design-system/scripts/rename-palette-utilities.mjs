@@ -87,12 +87,20 @@ export function renamePaletteUtilities(source) {
       }
     }
     const quote = source[index]
-    if (
-      !['"', "'", '`'].includes(quote) ||
-      (quote === "'" &&
-        /\w/.test(source[index - 1] ?? '') &&
-        /\w/.test(source[index + 1] ?? ''))
-    ) {
+    if (!['"', "'", '`'].includes(quote)) {
+      code += source[index++]
+      continue
+    }
+    const before = source.slice(0, index)
+    const attribute = /\b([\w:-]+)\s*=\s*\{?\s*$/.exec(before)?.[1]
+    const declaration = /\b(?:const|let|var)\s+[\w$]+\s*=\s*$/.test(before)
+    const expression = /(?:^\s*|[([,:?=]\s*|=>\s*|\breturn\s+)$/.test(before)
+    const tagEnd = before.lastIndexOf('>')
+    const afterTag = before.slice(tagEnd + 1)
+    const jsxText =
+      tagEnd > before.lastIndexOf('<') &&
+      afterTag.split('{').length === afterTag.split('}').length
+    if (!attribute && !declaration && (!expression || jsxText)) {
       code += source[index++]
       continue
     }
@@ -106,13 +114,16 @@ export function renamePaletteUtilities(source) {
       end++
     }
     if (end >= source.length) {
+      unsupported.push({ offset: index, reason: 'unterminated quote' })
       code += source.slice(index)
       break
     }
     const value = source.slice(index + 1, end)
-    const before = source.slice(0, index)
-    const attribute = /\b([\w:-]+)\s*=\s*\{?\s*$/.exec(before)?.[1]
-    const declaration = /\b(?:const|let|var)\s+[\w$]+\s*=\s*$/.test(before)
+    if (quote === "'" && /[<\r\n]/.test(value)) {
+      unsupported.push({ offset: index, reason: 'ambiguous quote context' })
+      code += source[index++]
+      continue
+    }
     const ordinaryString =
       !attribute || declaration || ['class', 'className'].includes(attribute)
     const dynamic =
@@ -127,6 +138,15 @@ export function renamePaletteUtilities(source) {
       unsupported.push({
         offset: index,
         reason: 'dynamic or escaped expression',
+      })
+    }
+    if (
+      !ordinaryString &&
+      value.split(/\s+/).some((token) => renameToken(token) !== token)
+    ) {
+      unsupported.push({
+        offset: index,
+        reason: 'non-class attribute or ambiguous assignment',
       })
     }
     code +=
