@@ -444,6 +444,33 @@ for (const theme of ['neutral', 'uzh'] as const) {
           .getByRole('tablist', { name: 'Compact reference' })
           .boundingBox())!.width
       ).toBeLessThan(tabWidth)
+      const dismissible = page.locator(
+        '[data-test="reference-dismissible-override"]'
+      )
+      await expect(dismissible).toHaveCSS('padding-left', '4px')
+      await expect(dismissible).toHaveCSS('padding-right', '48px')
+      const closeBox = (await dismissible.getByRole('button').boundingBox())!
+      const messageBox = (await dismissible
+        .locator('span')
+        .last()
+        .boundingBox())!
+      expect(messageBox.x + messageBox.width).toBeLessThanOrEqual(closeBox.x)
+      const disabledBasic = page.locator(
+        '[data-test="reference-basic-disabled"]'
+      )
+      for (const dark of [false, true]) {
+        await page.evaluate(
+          (dark) => document.documentElement.classList.toggle('dark', dark),
+          dark
+        )
+        for (const button of [basic, disabledBasic]) {
+          await button.hover({ force: true })
+          await expect(button).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)')
+        }
+      }
+      await page.evaluate(() =>
+        document.documentElement.classList.remove('dark')
+      )
       expect(
         await page.evaluate(() => document.documentElement.scrollWidth)
       ).toBeLessThanOrEqual(width)

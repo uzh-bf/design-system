@@ -309,6 +309,16 @@ function ReferenceContent() {
       <details data-test="reference-overrides">
         <summary>Explicit consumer overrides</summary>
         <div className="flex flex-col gap-3 p-3">
+          <Button basic disabled data={{ test: 'reference-basic-disabled' }}>
+            Disabled basic action
+          </Button>
+          <UserNotification
+            dismissible
+            onDismiss={() => {}}
+            className={{ root: 'p-1' }}
+            data={{ test: 'reference-dismissible-override' }}
+            message="A long synthetic notification first line must leave enough room for its dismiss action at every viewport."
+          />
           <Badge
             className="bg-background text-foreground"
             data-test="reference-badge-override"

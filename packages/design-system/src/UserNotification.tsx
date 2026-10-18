@@ -108,8 +108,8 @@ export function UserNotification({
       className={twMerge(
         'relative flex w-full flex-row items-start gap-3 rounded-md px-4 py-3.5 text-sm',
         computedClassName!,
-        dismissible && 'pr-12',
-        className?.root
+        className?.root,
+        dismissible && 'pr-12'
       )}
     >
       {dismissible && (
