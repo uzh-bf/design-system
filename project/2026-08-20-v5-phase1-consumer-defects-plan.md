@@ -367,5 +367,6 @@ cover desktop/mobile modal layout, actionless footer omission, keyboard close
 focus, status colors, prose links and Dropdown separators. All nine images
 were uploaded to PR214, read back and confirmed loaded in its rendered body.
 The field layer has a complete independent review and hosted CI pass. UZH
-hosted CI passes at source 557025003; its independent final review is pending. Current real consumer acceptance remains
+hosted CI passes at source 557025003. The final review and subsequent CI
+receipts are maintained in [PR214](https://github.com/uzh-bf/design-system/pull/214). Current real consumer acceptance remains
 blocked as stated above; Phase 2 is still outstanding before GA.

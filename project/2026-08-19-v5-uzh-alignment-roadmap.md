@@ -210,9 +210,10 @@ separator classes, close-button keyboard focus, link tokens, legible error state
 and full migration table. The integrated source passes 88 browser contracts,
 public types, lint, formatting and the packed token/CSS checks. All 23 pinned
 visual comparisons pass. PR214 and nine inspected/rendered screenshots are
-published; hosted CI passes at source 557025003 and independent UZH review
-remains pending. No target
-merge, release or deployment occurred.
+published. Hosted CI passes at source 557025003; subsequent review and CI
+receipts are maintained in [PR214](https://github.com/uzh-bf/design-system/pull/214).
+Current real consumer acceptance remains a GA gate. No target merge, release
+or deployment occurred.
 
 The brand posture is a project design decision. It is not evidence of an
 institution-wide exemption or institutional approval. UZH dark CSS remains
