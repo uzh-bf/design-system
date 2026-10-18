@@ -152,6 +152,11 @@ export function Select({
     blurNotifiedRef.current = true
     onBlur?.()
   }
+  useEffect(() => {
+    if (!disabled) return
+    openRef.current = false
+    setOpen(false)
+  }, [disabled])
   const [shortLabel, setShortLabel] = useState<string | undefined>(undefined)
 
   useEffect(() => {
@@ -164,8 +169,12 @@ export function Select({
       <ShadcnSelect
         name={name}
         open={open}
-        onValueChange={onChange}
+        disabled={disabled}
+        onValueChange={(nextValue) => {
+          if (!disabled) onChange?.(nextValue)
+        }}
         onOpenChange={(open) => {
+          if (open && disabled) return
           if (open) {
             blurNotifiedRef.current = false
           } else if (openRef.current) {
@@ -226,7 +235,7 @@ export function Select({
                 <SelectItem
                   key={`${item.value}-${ix}`}
                   value={item.value}
-                  disabled={item.disabled}
+                  disabled={disabled || item.disabled}
                   data-cy={item.data?.cy}
                   data-test={item.data?.test}
                   className={twMerge(
@@ -265,7 +274,7 @@ export function Select({
                       <SelectItem
                         key={`${item.value}-${item_ix}`}
                         value={item.value}
-                        disabled={item.disabled}
+                        disabled={disabled || item.disabled}
                         data-cy={item.data?.cy}
                         data-test={item.data?.test}
                         className={twMerge(

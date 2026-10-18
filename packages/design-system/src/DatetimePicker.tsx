@@ -3,7 +3,6 @@
 import { faCalendar } from '@fortawesome/free-regular-svg-icons'
 import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { add } from 'date-fns'
 import { enUS } from 'date-fns/locale'
 import dayjs from 'dayjs'
 import { Clock } from 'lucide-react'
@@ -234,7 +233,10 @@ function display12HourValue(hours: number) {
 // ---------- utils end ----------
 interface PeriodSelectorProps {
   period: Period
-  setPeriod?: (m: Period) => void
+  onPeriodChange?: (period: Period) => void
+  id?: string
+  ariaLabel?: string
+  disabled?: boolean
   date?: Date | null
   onDateChange?: (date: Date | undefined) => void
   onRightFocus?: () => void
@@ -246,17 +248,34 @@ const TimePeriodSelect = React.forwardRef<
   PeriodSelectorProps
 >(
   (
-    { period, setPeriod, date, onDateChange, onLeftFocus, onRightFocus },
+    {
+      period,
+      onPeriodChange,
+      date,
+      onDateChange,
+      onLeftFocus,
+      onRightFocus,
+      id,
+      ariaLabel,
+      disabled,
+    },
     ref
   ) => {
     const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
+      if (
+        e.defaultPrevented ||
+        e.altKey ||
+        e.ctrlKey ||
+        e.metaKey ||
+        e.shiftKey
+      )
+        return
       if (e.key === 'ArrowRight') onRightFocus?.()
       if (e.key === 'ArrowLeft') onLeftFocus?.()
     }
 
     const handleValueChange = (value: Period) => {
-      setPeriod?.(value)
-
+      onPeriodChange?.(value)
       /**
        * trigger an update whenever the user switches between AM and PM;
        * otherwise user must manually change the hour each time
@@ -265,12 +284,7 @@ const TimePeriodSelect = React.forwardRef<
         const tempDate = new Date(date)
         const hours = display12HourValue(date.getHours())
         onDateChange?.(
-          setDateByType(
-            tempDate,
-            hours.toString(),
-            '12hours',
-            period === 'AM' ? 'PM' : 'AM'
-          )
+          setDateByType(tempDate, hours.toString(), '12hours', value)
         )
       }
     }
@@ -278,11 +292,14 @@ const TimePeriodSelect = React.forwardRef<
     return (
       <div className="flex h-10 items-center">
         <Select
-          defaultValue={period}
+          value={period}
+          disabled={disabled}
           onValueChange={(value: Period) => handleValueChange(value)}
         >
           <SelectTrigger
             ref={ref}
+            id={id}
+            aria-label={ariaLabel ?? 'Period'}
             className="focus:bg-accent focus:text-accent-foreground w-[65px]"
             onKeyDown={handleKeyDown}
           >
@@ -325,6 +342,7 @@ const TimePickerInput = React.forwardRef<
       onDateChange,
       onChange,
       onKeyDown,
+      onBlur,
       picker,
       period,
       onLeftFocus,
@@ -333,76 +351,88 @@ const TimePickerInput = React.forwardRef<
     },
     ref
   ) => {
-    const [flag, setFlag] = React.useState<boolean>(false)
-    const [prevIntKey, setPrevIntKey] = React.useState<string>('0')
+    const generatedId = React.useId()
+    const [draft, setDraft] = React.useState<string | null>(null)
+    const lastEmittedTimestamp = React.useRef<number | undefined>(undefined)
+    const previousPicker = React.useRef(picker)
+    const calculatedValue = getDateByType(date, picker)
 
-    /**
-     * allow the user to enter the second digit within 2 seconds
-     * otherwise start again with entering first digit
-     */
     React.useEffect(() => {
-      if (flag) {
-        const timer = setTimeout(() => {
-          setFlag(false)
-        }, 2000)
+      if (
+        date?.getTime() !== lastEmittedTimestamp.current ||
+        picker !== previousPicker.current
+      )
+        setDraft(null)
+      previousPicker.current = picker
+    }, [date, picker, period])
 
-        return () => clearTimeout(timer)
-      }
-    }, [flag])
-
-    const calculatedValue = React.useMemo(() => {
-      return getDateByType(date, picker)
-    }, [date, picker])
-
-    const calculateNewValue = (key: string) => {
-      /*
-       * If picker is '12hours' and the first digit is 0, then the second digit is automatically set to 1.
-       * The second entered digit will break the condition and the value will be set to 10-12.
-       */
-      if (picker === '12hours') {
-        if (flag && calculatedValue.slice(1, 2) === '1' && prevIntKey === '0')
-          return `0${key}`
-      }
-
-      return !flag ? `0${key}` : calculatedValue.slice(1, 2) + key
+    const commitValue = (nextValue: string) => {
+      const nextDate = setDateByType(
+        date ? new Date(date) : new Date(),
+        nextValue,
+        picker,
+        period
+      )
+      lastEmittedTimestamp.current = nextDate.getTime()
+      onDateChange?.(nextDate)
     }
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-      if (e.key === 'Tab') return
-      e.preventDefault()
-      if (e.key === 'ArrowRight') onRightFocus?.()
-      if (e.key === 'ArrowLeft') onLeftFocus?.()
-      if (['ArrowUp', 'ArrowDown'].includes(e.key)) {
-        const step = e.key === 'ArrowUp' ? 1 : -1
-        const newValue = getArrowByType(calculatedValue, step, picker)
-        if (flag) setFlag(false)
-        const tempDate = date ? new Date(date) : new Date()
-        onDateChange?.(setDateByType(tempDate, newValue, picker, period))
-      }
-      if (e.key >= '0' && e.key <= '9') {
-        if (picker === '12hours') setPrevIntKey(e.key)
-
-        const newValue = calculateNewValue(e.key)
-        if (flag) onRightFocus?.()
-        setFlag((prev) => !prev)
-        const tempDate = date ? new Date(date) : new Date()
-        onDateChange?.(setDateByType(tempDate, newValue, picker, period))
+      if (
+        e.defaultPrevented ||
+        e.altKey ||
+        e.ctrlKey ||
+        e.metaKey ||
+        e.shiftKey
+      )
+        return
+      const input = e.currentTarget
+      const collapsed = input.selectionStart === input.selectionEnd
+      if (
+        e.key === 'ArrowRight' &&
+        collapsed &&
+        input.selectionEnd === input.value.length &&
+        onRightFocus
+      ) {
+        e.preventDefault()
+        onRightFocus()
+      } else if (
+        e.key === 'ArrowLeft' &&
+        collapsed &&
+        input.selectionStart === 0 &&
+        onLeftFocus
+      ) {
+        e.preventDefault()
+        onLeftFocus()
+      } else if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+        e.preventDefault()
+        setDraft(null)
+        commitValue(
+          getArrowByType(calculatedValue, e.key === 'ArrowUp' ? 1 : -1, picker)
+        )
       }
     }
 
     return (
       <Input
         ref={ref}
-        id={id || picker}
+        id={id ?? generatedId}
         name={name || picker}
         className={cn(
-          'focus-visible:border-primary-100 focus-visible:ring-primary-100/20 w-12 rounded-md border-[#E0E0E0] text-center font-mono text-sm tabular-nums caret-transparent [&::-webkit-inner-spin-button]:appearance-none',
+          'focus-visible:border-primary-100 focus-visible:ring-primary-100/20 w-12 rounded-md border-[#E0E0E0] text-center font-mono text-sm tabular-nums [&::-webkit-inner-spin-button]:appearance-none',
           className
         )}
-        value={value || calculatedValue}
+        value={value ?? draft ?? calculatedValue}
         onChange={(e) => {
-          e.preventDefault()
           onChange?.(e)
+          if (e.defaultPrevented) return
+          const nextValue = e.target.value
+          setDraft(nextValue)
+          if (/^\d{1,2}$/.test(nextValue)) commitValue(nextValue)
+        }}
+        onBlur={(e) => {
+          onBlur?.(e)
+          setDraft(null)
         }}
         type={type}
         inputMode="decimal"
@@ -418,7 +448,12 @@ const TimePickerInput = React.forwardRef<
 
 TimePickerInput.displayName = 'TimePickerInput'
 
+type TimeLabels = Partial<
+  Record<'hours' | 'minutes' | 'seconds' | 'period', string>
+>
+
 interface TimePickerProps {
+  timeLabels?: TimeLabels
   date?: Date | null
   onChange?: (date: Date | undefined) => void
   disabled?: boolean
@@ -447,6 +482,7 @@ const TimePicker = React.forwardRef<TimePickerRef, TimePickerProps>(
       disabled = false,
       hourCycle = 24,
       granularity = 'second',
+      timeLabels,
       dataHours,
       dataMinutes,
       dataSeconds,
@@ -457,9 +493,26 @@ const TimePicker = React.forwardRef<TimePickerRef, TimePickerProps>(
     const hourRef = React.useRef<HTMLInputElement>(null)
     const secondRef = React.useRef<HTMLInputElement>(null)
     const periodRef = React.useRef<HTMLButtonElement>(null)
-    const [period, setPeriod] = React.useState<Period>(
-      date && date.getHours() >= 12 ? 'PM' : 'AM'
-    )
+    const instanceId = React.useId()
+    const [pendingPeriod, setPendingPeriod] = React.useState<Period>('AM')
+    const period: Period = date
+      ? date.getHours() >= 12
+        ? 'PM'
+        : 'AM'
+      : pendingPeriod
+    React.useEffect(() => {
+      if (!date) setPendingPeriod('AM')
+    }, [date])
+    const inputDate =
+      date ??
+      new Date(
+        new Date().setHours(
+          hourCycle === 12 && period === 'PM' ? 12 : 0,
+          0,
+          0,
+          0
+        )
+      )
 
     useImperativeHandle(
       ref,
@@ -473,18 +526,19 @@ const TimePicker = React.forwardRef<TimePickerRef, TimePickerProps>(
     )
     return (
       <div className="flex items-center justify-center gap-2">
-        <label htmlFor="datetime-picker-hour-input" className="cursor-pointer">
-          <Clock className="mr-2 h-4 w-4" />
+        <label htmlFor={`${instanceId}-hours`} className="cursor-pointer">
+          <Clock aria-hidden="true" className="mr-2 h-4 w-4" />
         </label>
         <TimePickerInput
           disabled={disabled}
           picker={hourCycle === 24 ? 'hours' : '12hours'}
-          date={date}
-          id="datetime-picker-hour-input"
+          date={inputDate}
+          id={`${instanceId}-hours`}
+          aria-label={timeLabels?.hours ?? 'Hours'}
           onDateChange={onChange}
           ref={hourRef}
           period={period}
-          onRightFocus={() => minuteRef?.current?.focus()}
+          onRightFocus={() => (minuteRef.current ?? periodRef.current)?.focus()}
           className="h-8 text-sm"
           {...testAttrs(dataHours)}
         />
@@ -494,11 +548,15 @@ const TimePicker = React.forwardRef<TimePickerRef, TimePickerProps>(
             <TimePickerInput
               disabled={disabled}
               picker="minutes"
-              date={date}
+              id={`${instanceId}-minutes`}
+              aria-label={timeLabels?.minutes ?? 'Minutes'}
+              date={inputDate}
               onDateChange={onChange}
               ref={minuteRef}
               onLeftFocus={() => hourRef?.current?.focus()}
-              onRightFocus={() => secondRef?.current?.focus()}
+              onRightFocus={() =>
+                (secondRef.current ?? periodRef.current)?.focus()
+              }
               className="h-8 text-sm"
               {...testAttrs(dataMinutes)}
             />
@@ -510,7 +568,9 @@ const TimePicker = React.forwardRef<TimePickerRef, TimePickerProps>(
             <TimePickerInput
               disabled={disabled}
               picker="seconds"
-              date={date}
+              id={`${instanceId}-seconds`}
+              aria-label={timeLabels?.seconds ?? 'Seconds'}
+              date={inputDate}
               onDateChange={onChange}
               ref={secondRef}
               onLeftFocus={() => minuteRef?.current?.focus()}
@@ -524,18 +584,20 @@ const TimePicker = React.forwardRef<TimePickerRef, TimePickerProps>(
           <div className="grid gap-1 text-center">
             <TimePeriodSelect
               period={period}
-              setPeriod={setPeriod}
+              onPeriodChange={setPendingPeriod}
+              id={`${instanceId}-period`}
+              ariaLabel={timeLabels?.period}
+              disabled={disabled}
               date={date}
-              onDateChange={(date) => {
-                onChange?.(date)
-                if (date && date?.getHours() >= 12) {
-                  setPeriod('PM')
-                } else {
-                  setPeriod('AM')
-                }
-              }}
+              onDateChange={onChange}
               ref={periodRef}
-              onLeftFocus={() => secondRef?.current?.focus()}
+              onLeftFocus={() =>
+                (
+                  secondRef.current ??
+                  minuteRef.current ??
+                  hourRef.current
+                )?.focus()
+              }
             />
           </div>
         )}
@@ -547,6 +609,12 @@ TimePicker.displayName = 'TimePicker'
 
 type Granularity = 'day' | 'hour' | 'minute' | 'second'
 type DateTimePickerProps = {
+  /** Control id used to associate the visible field label. */
+  id?: string
+  /** Accessible name when no visible label is supplied. */
+  ariaLabel?: string
+  /** Localized names for the time segment controls. */
+  timeLabels?: TimeLabels
   ref?: React.Ref<HTMLButtonElement>
   value?: Date
   onChange?: (date: Date | undefined) => void
@@ -646,6 +714,9 @@ type DateTimePickerRef = HTMLButtonElement
  * @returns Date and time picker component with optional label, error display, and customizable granularity and formatting.
  */
 const DateTimePicker = ({
+  id,
+  ariaLabel,
+  timeLabels,
   locale = enUS,
   defaultPopupValue = new Date(new Date().setHours(0, 0, 0, 0)),
   value,
@@ -670,6 +741,11 @@ const DateTimePicker = ({
   data,
   ...props
 }: DateTimePickerProps) => {
+  const generatedId = React.useId()
+  const inputId = id ?? generatedId
+  const labelId = `${inputId}-label`
+  const dateValueId = `${inputId}-date-value`
+  const timeValueId = `${inputId}-time-value`
   const [month, setMonth] = React.useState<Date>(value ?? defaultPopupValue)
   const [displayDate, setDisplayDate] = React.useState<Date | undefined>(
     value ?? undefined
@@ -690,38 +766,13 @@ const DateTimePicker = ({
    */
   React.useEffect(() => {
     setDisplayDate(value)
+    if (value) setMonth(value)
   }, [value])
 
-  /**
-   * carry over the current time when a user clicks a new day
-   * instead of resetting to 00:00
-   */
-  const handleMonthChange = (newDay: Date | undefined) => {
-    if (!newDay) {
-      return
-    }
-    if (!defaultPopupValue) {
-      newDay.setHours(
-        month?.getHours() ?? 0,
-        month?.getMinutes() ?? 0,
-        month?.getSeconds() ?? 0
-      )
-      onMonthChange?.(newDay)
-      setMonth(newDay)
-      return
-    }
-    const diff = newDay.getTime() - defaultPopupValue.getTime()
-    const diffInDays = diff / (1000 * 60 * 60 * 24)
-    const newDateFull = add(defaultPopupValue, {
-      days: Math.ceil(diffInDays),
-    })
-    newDateFull.setHours(
-      month?.getHours() ?? 0,
-      month?.getMinutes() ?? 0,
-      month?.getSeconds() ?? 0
-    )
-    onMonthChange?.(newDateFull)
-    setMonth(newDateFull)
+  const handleMonthChange = (nextMonth: Date | undefined) => {
+    if (!nextMonth) return
+    onMonthChange?.(nextMonth)
+    setMonth(nextMonth)
   }
 
   const onSelect = (newDay?: Date) => {
@@ -745,6 +796,8 @@ const DateTimePicker = ({
       >
         {label && (
           <FormLabel
+            id={inputId}
+            labelId={labelId}
             required={required}
             label={label}
             labelType={labelType}
@@ -758,6 +811,25 @@ const DateTimePicker = ({
         <div className="flex flex-row gap-2">
           <PopoverTrigger asChild disabled={disabled}>
             <Button
+              id={inputId}
+              aria-labelledby={
+                label
+                  ? [labelId, dateValueId, useSplitTrigger && timeValueId]
+                      .filter(Boolean)
+                      .join(' ')
+                  : undefined
+              }
+              aria-label={
+                !label && ariaLabel
+                  ? [
+                      ariaLabel,
+                      triggerDateLabel,
+                      useSplitTrigger && triggerTimeLabel,
+                    ]
+                      .filter(Boolean)
+                      .join(' ')
+                  : undefined
+              }
               variant="outline"
               type="button"
               disabled={disabled}
@@ -781,7 +853,10 @@ const DateTimePicker = ({
               />
               {displayDate ? (
                 <>
-                  <span>{triggerDateLabel}</span>
+                  <span id={dateValueId}>
+                    {triggerDateLabel}
+                    {useSplitTrigger ? ' ' : ''}
+                  </span>
                   {useSplitTrigger && (
                     <>
                       <span
@@ -789,14 +864,17 @@ const DateTimePicker = ({
                         className="mx-3 h-10 w-px bg-[#E0E0E0]"
                       />
                       <Clock className="mr-2 h-4 w-4 text-[#666666]" />
-                      <span className="pr-3 font-mono text-sm tabular-nums">
+                      <span
+                        id={timeValueId}
+                        className="pr-3 font-mono text-sm tabular-nums"
+                      >
                         {triggerTimeLabel}
                       </span>
                     </>
                   )}
                 </>
               ) : (
-                <span>{triggerDateLabel}</span>
+                <span id={dateValueId}>{triggerDateLabel}</span>
               )}
             </Button>
           </PopoverTrigger>
@@ -818,6 +896,8 @@ const DateTimePicker = ({
         </div>
       </div>
       <PopoverContent
+        aria-labelledby={label ? labelId : undefined}
+        aria-label={label ? undefined : (ariaLabel ?? placeholder)}
         className="w-auto border-none bg-transparent p-0 shadow-none"
         align={align}
       >
@@ -836,10 +916,11 @@ const DateTimePicker = ({
             month={month}
             onSelect={(newDate) => {
               if (newDate) {
+                const selectedTime = displayDate ?? defaultPopupValue
                 newDate.setHours(
-                  month?.getHours() ?? 0,
-                  month?.getMinutes() ?? 0,
-                  month?.getSeconds() ?? 0
+                  selectedTime.getHours(),
+                  selectedTime.getMinutes(),
+                  selectedTime.getSeconds()
                 )
                 onSelect(newDate)
               }
@@ -849,11 +930,10 @@ const DateTimePicker = ({
             dataNextMonth={props.dataNextMonth}
             dataPreviousMonth={props.dataPreviousMonth}
             data={props.dataCalendar}
-            className={
-              granularity !== 'day'
-                ? 'rounded-none border-0 shadow-none'
-                : undefined
-            }
+            className={cn(
+              '[&_.rdp-weekday]:text-foreground [&_.rdp-weekday]:opacity-100',
+              granularity !== 'day' && 'rounded-none border-0 shadow-none'
+            )}
             weekStartsOn={props.weekStartsOn}
             showWeekNumber={props.showWeekNumber}
             showOutsideDays={props.showOutsideDays}
@@ -861,6 +941,7 @@ const DateTimePicker = ({
           {granularity !== 'day' && (
             <div className="border-t border-[#E0E0E0] bg-white p-3">
               <TimePicker
+                timeLabels={timeLabels}
                 disabled={disabled}
                 onChange={(value) => {
                   onChange?.(value)
@@ -869,7 +950,7 @@ const DateTimePicker = ({
                     setMonth(value)
                   }
                 }}
-                date={month}
+                date={displayDate ?? defaultPopupValue}
                 hourCycle={hourCycle}
                 granularity={granularity}
                 dataHours={props.dataHours}

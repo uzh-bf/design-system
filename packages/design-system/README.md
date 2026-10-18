@@ -154,3 +154,18 @@ utility on unrelated content cannot replace a component's responsive default;
 a utility deliberately passed through that component's className hook can
 still override the property. Do not scan the package source to reconstruct its
 styles. The packed CSS contract verifies both independently compiled stylesheets.
+
+### Selection and RHF compatibility
+
+Disabling a Select or MultiSelect closes its popup and prevents subsequent
+changes. A disabled named Select is excluded from native form submission.
+MultiSelect keeps keyboard highlight separate from selected values: its search
+input controls a multiple-selection listbox inside the named popup. Arrow keys
+move highlight, Enter toggles the highlighted option, and Escape returns to
+the trigger. Filtering does not clear selected values.
+
+The compositional `FormField` infers transformed resolver output from `control`,
+as the dedicated RHF wrappers do. CI runs behavioral contracts and isolated
+packed/Next consumers at RHF 7.59.0 and 7.90.0 before the release build. Formik
+support remains available throughout v5; migration and public-type removal are
+v6 work.

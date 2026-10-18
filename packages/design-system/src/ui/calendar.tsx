@@ -200,6 +200,11 @@ function CalendarDayButton({
   ...props
 }: React.ComponentProps<typeof DayButton>) {
   const defaultClassNames = getDefaultClassNames()
+  // Keep the displayed day as a word speech input can match, even when the date label uses an ordinal.
+  const visibleDay =
+    typeof props.children === 'string' || typeof props.children === 'number'
+      ? String(props.children)
+      : undefined
 
   const ref = React.useRef<HTMLButtonElement>(null)
   React.useEffect(() => {
@@ -227,6 +232,11 @@ function CalendarDayButton({
         className
       )}
       {...props}
+      aria-label={
+        visibleDay && props['aria-label']
+          ? `${visibleDay} ${props['aria-label']}`
+          : props['aria-label']
+      }
     />
   )
 }

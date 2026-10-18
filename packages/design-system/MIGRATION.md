@@ -337,6 +337,14 @@ type-only imports remain useful, but the old pseudo-handle's Date-valued
 `.value` property is gone. Read the selected date from the controlled `value`
 prop and `onChange` callback instead.
 
+### Accessible names include visible values
+
+Date/time trigger names include the field label and displayed date/time. A
+Combobox's explicit `ariaLabel` also prefixes its visible value. Exact
+field-label-only name queries should use the rendered value or a stable test
+selector. Calendar day names include the displayed number alongside the full date
+so speech input can match the visible control.
+
 ### Test selectors: `data={{ cy, test }}`
 
 v5 standardises the **shape** of every test selector: `{ cy?: string; test?:
@@ -494,13 +502,17 @@ accessible name and must pass the new `ariaLabel` prop:
 
 ## Peer dependencies
 
-v5 no longer bundles its runtime libraries — every one is declared as a **peer
-dependency** and must be installed by your app (`react`, `react-dom`, `formik`,
+v5 externalizes its runtime imports. Application-owned libraries are declared
+as **peer dependencies** and must be installed by your app (`react`, `react-dom`, `formik`,
 `dayjs`, `lucide-react`, `class-variance-authority`, `clsx`, `tailwind-merge`,
 the `@fortawesome/*` packages, and the Tailwind toolchain). v4 inlined some of
 these, so an app that never installed them explicitly may now surface unmet-peer
-warnings — install the missing ones. As a side effect this removes the duplicate
-`react-dom` copy that v4 shipped inside its chunks.
+warnings — install the missing ones. The package also declares regular
+dependencies, including Radix primitives and component support libraries; your
+package manager installs those automatically. Externalization describes the
+bundle boundary, while peer versus regular dependency describes installation
+ownership. This also removes the duplicate `react-dom` copy that v4 shipped
+inside its chunks.
 
 ### `react-hook-form` is an optional peer behind a dedicated client entry
 
@@ -744,3 +756,57 @@ hatch for the largest cases.
 - **The `uzh` error colour is visible again.** `--theme-destructive-text` was
   `#111111` in the `uzh` theme, so error text and invalid-field borders were
   near-black. It is now Berry `#BF0D3E`.
+
+### Descriptions and inline validation
+
+`TextField`, `NumberField`, `TextareaField` and `SelectField` accept an optional
+`description`. Standalone fields and the existing `Rhf*` wrappers merge external
+`aria-describedby` references with their generated help and visible-error IDs.
+Repeated references are deduplicated. The generated references disappear when
+the corresponding help or error node disappears; caller-owned references remain.
+SelectField also accepts the existing camel-case `ariaDescribedBy` spelling.
+
+Use `errorDisplay="inline"` to show one visible validation message below a control.
+The default remains `"tooltip"`. `hideError` hides the error message and its
+reference while preserving invalid state. Standalone text, number and textarea
+fields retain their touched gate; SelectField still displays an error whenever
+one is supplied. RHF wrappers retain touched/submitted validation timing and
+continue to own values, change/blur handlers and refs.
+
+```tsx
+<TextField
+  label="Project name"
+  value={name}
+  onChange={setName}
+  description="Use the name shown to participants."
+  aria-describedby="project-policy"
+  errorDisplay="inline"
+  error={error}
+  isTouched={isTouched}
+/>
+<p id="project-policy">Names are visible to the project group.</p>
+
+<RhfTextField
+  control={form.control}
+  name="name"
+  label="Project name"
+  description={<div><strong>Guidance</strong><p>Rich help is supported.</p></div>}
+  aria-describedby="project-policy"
+  errorDisplay="inline"
+  rules={{ required: 'Enter a project name.' }}
+/>
+```
+
+Native attributes and event handlers on text, number and textarea controls are
+explicitly typed. Their existing string value callbacks and Formik unions remain
+unchanged. Select wrappers expose the documented trigger associations rather than
+arbitrary native input events. Frozen `FormikTextField`, `FormikNumberField` and
+`FormikTextareaField` forward the base-field additions through their existing
+catch-all props. `FormikSelectField` does not declare these options in its frozen
+type interface. No new Formik or RHF wrapper family is added.
+
+For custom input addons, compose `Field`, `FieldDescription`, `FieldError`,
+`InputGroup`, `InputGroupInput` and `InputGroupAddon` from the `./primitives` entry.
+Give each help/error node an ID, associate it on the actual control, and put
+`aria-invalid` on that control when validation fails. This primitive composition
+is available alongside the opinionated field wrappers.

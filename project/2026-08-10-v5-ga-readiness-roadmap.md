@@ -2,15 +2,17 @@
 
 ## Identity and status
 
-- Date: 2026-08-10
-- Status: approved roadmap; P0 is executing in draft PR
-  [#195](https://github.com/uzh-bf/design-system/pull/195).
+- Date: 2026-08-10; current execution index refreshed 2026-10-18
+- Status: GA blocked. Verified input correctness, consumer CSS and durable
+  contract-gate gaps are being remediated in the existing draft stack.
 - Repository: `uzh-bf/design-system`
 - Release trunk: `v5`
-- Roadmap branch: `rs/ci-npm-trusted-publisher`
+- Active corrective branch: `rs/v5-input-stabilization`
 - Roadmap worktree:
-  `/Users/rschlae/Git/df/design-system/trees/rs-ci-npm-trusted-publisher`
-- First delivery: PR #195 into `v5`; merge remains separately authorized.
+  `/Users/rschlae/Git/df/design-system/trees/rs/v5-input-stabilization`
+- Current delivery: draft stack [#210](https://github.com/uzh-bf/design-system/pull/210) →
+  [#211](https://github.com/uzh-bf/design-system/pull/211) →
+  [#213](https://github.com/uzh-bf/design-system/pull/213). Merges remain separately gated.
 - Audience: maintainers and future execution agents preparing v5 for GA and
   migrating the first production consumers.
 
@@ -82,7 +84,37 @@ Historical inputs:
   from the upstream Git tag refs. Later packages must use their official tool
   documentation when selecting Size Limit or Playwright configuration.
 
-## Current milestone state
+## Current execution index — 2026-10-18
+
+Remote `v5` is `80d6f229c`. Its implemented foundations supersede the historical
+August status table below. The user approved verified-review remediation and
+this roadmap update; draft delivery is authorized, while target merges,
+readiness conversion, release publication and deployment remain gated.
+
+| Workstream                                                                    | Verified state                                                                                                                            | Owner and next acceptance                                                                                                                               |
+| ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Size, RSC/RHF entries, root themes, exact axe inventory and deterministic VRT | Implemented in v5; release metadata is alpha.5                                                                                            | Maintain existing protections; historical consumer proofs do not accept a later integrated candidate                                                    |
+| Input stabilization                                                           | Draft PR210; two introduced regressions and inherited calendar/time coupling reopened acceptance                                          | Main: natural keyboard-open navigation, empty12h period and date invariance, both-theme contracts and exact-head CI                                     |
+| Compatible dependencies                                                       | Draft PR211; compatible updates and focused shadcn assessment complete                                                                    | Main: carry input correction upward, preserve peer/export contracts, triage only supplied transitive paths and correct ownership docs                   |
+| Shared field/selection behavior                                               | Draft PR213; help/inline errors implemented; disabled transitions, actual multi-selection semantics and transformed FormField remain open | Main plus bounded executor: browser/FormData/keyboard and packed public types                                                                           |
+| Durable contracts and consumers | Field draft adds behavioral contracts and frozen RHF minimum/current packed and Next jobs to release prerequisites; local matrix verification in progress | Main: current-head hosted proof, failure propagation and isolated server cleanup before completed delivery |
+| Consumer CSS and UZH alignment                                                | Separate branch retains partial Phase1 fixes; CSS ownership and real consumer loop remain incomplete                                      | Main: independent consumer stylesheet collision/customization proof; integrate existing fixes and confirm real consumer behavior                        |
+| UZH pre-GA defaults and tokens                                                | Phase0 rulings recorded; Phase2 remains planned                                                                                           | Existing UZH roadmap owns interaction/status/neutral/focus/typography and default changes; finish only with reviewed visuals, axe and consumer evidence |
+| GA promotion                                                                  | PR179 is draft and conflicts with main                                                                                                    | Separate promotion package after integrated candidate/consumer acceptance; no release inferred from green CI                                            |
+
+The existing [UZH alignment roadmap](https://github.com/uzh-bf/design-system/blob/271d018b52a0c93bb8b13b28f789c35d2ee66a15/project/2026-08-19-v5-uzh-alignment-roadmap.md)
+owns its detailed design phases. Its local branch is two commits beyond that
+remote snapshot; preserve both unpublished corrections during integration.
+This index does not create a competing design roadmap or call Phase2 complete.
+
+Correction order: fix input acceptance; propagate lower history without force;
+close shared-field and durable CI gaps; finish CSS/UZH Phase1 with consumer
+proof; then complete pre-GA design work and a separately authorized candidate.
+Historical Formik support remains in v5. Migration recipes must cover used
+field families; v6 removal includes public Formik-specific types and a packed
+consumer without Formik, alongside wrapper/export/dependency removal.
+
+## Historical milestone state — 2026-08-10
 
 | Milestone                           | Status                                 | Evidence and next gate                                                                                                                                                                                               |
 | ----------------------------------- | -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -530,3 +562,37 @@ Stop the active package and report when:
   passed with no findings. The remaining CI and delivery state is tracked live
   on draft PR #195. No merge, readiness, tag, publication, GBL delivery, or
   deployment is authorized by this roadmap.
+
+- 2026-10-18: User approved working through the independently verified review
+  findings. Reconciled the current index with remote v5, existing draft heads
+  and the separate UZH branch. Earlier completed draft-delivery receipts remain
+  historical; input correctness acceptance and missing durable gates are open.
+
+
+## October 18 correction status
+
+The input and compatible-dependency drafts now contain corrected natural modal
+focus, calendar date invariance, pending twelve-hour periods for all segments,
+controlled null resets and value-bearing accessible names. Full lower-layer
+behavioral checks pass. The dependency draft also pins the four reviewed
+transitive maintenance paths and clarifies peer versus regular dependency
+ownership. Independent review accepts both committed layers. Hosted checks
+remain a separate gate.
+
+The field draft implements disabled-selection guards, actual MultiSelect
+selection semantics, transformed FormField output and durable consumer gates.
+The existing packed fixtures now cover minimum/current RHF versions and Next
+reset, numeric draft, ref, disabled, validation and submission behavior. Their
+server lifecycle uses distinct ports and direct process ownership. Local
+verification, current-head CI and refreshed visible evidence must finish before
+these rows can be marked delivered.
+
+The UZH Phase 1 branch remains a separate draft package after this stack.
+Its completed source fixes and migration table must be retained while scoped
+responsive component CSS and the independent-stylesheet regression matrix land.
+The existing Klicker acceptance workspace currently has no DevPod, and canonical
+startup fails because its devcontainer postCreateCommand lacks waitFor. Historical
+consumer probes are not current runtime acceptance. Phase 2's token/default
+work remains GA scope; additive presets/variants stay in v5.1. Wrapper convergence
+and complete Formik runtime/public-type removal stay in v6. Screen-reader,
+Safari and physical-mobile evidence remain open release qualifications.

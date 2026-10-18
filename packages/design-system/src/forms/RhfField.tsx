@@ -2,6 +2,7 @@
 
 import { twMerge } from 'tailwind-merge'
 import FormLabel from '../FormLabel'
+import { FieldError } from '../ui/field'
 import { FieldErrorIndicator } from './FieldErrorIndicator'
 import type { RhfFieldClassName, RhfFieldData } from './rhf'
 
@@ -18,6 +19,7 @@ export interface RhfFieldShellProps {
   error?: string
   errorId: string
   showError: boolean
+  errorDisplay?: 'tooltip' | 'inline'
   className?: RhfFieldClassName
   data?: RhfFieldData
   children: React.ReactNode
@@ -35,6 +37,7 @@ export function RhfFieldShell({
   error,
   errorId,
   showError,
+  errorDisplay = 'tooltip',
   className,
   data,
   children,
@@ -62,7 +65,7 @@ export function RhfFieldShell({
         )}
       >
         {children}
-        {showError && error && (
+        {showError && error && errorDisplay === 'tooltip' && (
           <FieldErrorIndicator error={error} errorId={errorId} />
         )}
       </div>
@@ -78,6 +81,11 @@ export function RhfFieldShell({
         >
           {description}
         </div>
+      )}
+      {showError && error && errorDisplay === 'inline' && (
+        <FieldError id={errorId} className={twMerge('mt-1', className?.error)}>
+          {error}
+        </FieldError>
       )}
     </div>
   )

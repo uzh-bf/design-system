@@ -69,6 +69,9 @@ Props (SelectField component):
 - disabled?: boolean - Whether the select is disabled
 - error?: string - Error message to display below field
 - hideError?: boolean - Whether to hide error message display
+- description?: React.ReactNode - Help content linked from the control
+- errorDisplay?: 'tooltip' | 'inline' - Validation presentation; tooltip by default
+- aria-describedby?: string - External help IDs merged with generated description/error IDs
 - contentPosition?: 'item-aligned' | 'popper' - Dropdown positioning strategy
 - tooltip?: string | React.ReactNode - Optional tooltip for additional information
 - required?: boolean - Whether the field is required

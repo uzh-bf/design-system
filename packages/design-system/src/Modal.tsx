@@ -143,9 +143,61 @@ export function Modal({
   const hasPrimaryAction =
     typeof onPrimaryAction !== 'undefined' && Boolean(primaryLabel)
 
+  const contentRef = React.useRef<HTMLDivElement>(null)
   useEffect(() => {
-    if (onPrev || onNext) {
-      const keyDownHandler = ({ key }: KeyboardEvent) => {
+    if (open && (onPrev || onNext)) {
+      const interactiveSelector = [
+        'input',
+        'textarea',
+        'select',
+        'button',
+        'a',
+        '[contenteditable]:not([contenteditable="false"])',
+        ...[
+          'button',
+          'checkbox',
+          'combobox',
+          'grid',
+          'gridcell',
+          'link',
+          'listbox',
+          'menu',
+          'menubar',
+          'menuitem',
+          'menuitemcheckbox',
+          'menuitemradio',
+          'option',
+          'radio',
+          'radiogroup',
+          'scrollbar',
+          'searchbox',
+          'slider',
+          'spinbutton',
+          'switch',
+          'tab',
+          'tablist',
+          'textbox',
+          'toolbar',
+          'tree',
+          'treegrid',
+          'treeitem',
+        ].map((role) => `[role~="${role}"]`),
+      ].join(', ')
+      const keyDownHandler = (event: KeyboardEvent) => {
+        const { key, target } = event
+        if (
+          event.defaultPrevented ||
+          event.altKey ||
+          event.ctrlKey ||
+          event.metaKey ||
+          event.shiftKey ||
+          !contentRef.current ||
+          !(target instanceof HTMLElement) ||
+          target.closest('[role="dialog"]') !== contentRef.current ||
+          target.closest(interactiveSelector)
+        )
+          return
+
         if (key === 'ArrowRight' && onNext) {
           onNext()
         } else if (key === 'ArrowLeft' && onPrev) {
@@ -156,7 +208,7 @@ export function Modal({
       window.addEventListener('keydown', keyDownHandler)
       return () => window.removeEventListener('keydown', keyDownHandler)
     }
-  }, [onNext, onPrev])
+  }, [open, onNext, onPrev])
 
   return (
     <Dialog
@@ -196,8 +248,12 @@ export function Modal({
           />
         ) : (
           <DialogContent
+            ref={contentRef}
             showCloseButton={!hideCloseButton}
-            onOpenAutoFocus={(e) => e.preventDefault()} // avoid that the automatically sets focus on first element
+            onOpenAutoFocus={(event) => {
+              event.preventDefault()
+              if (onNext || onPrev) contentRef.current?.focus()
+            }}
             onEscapeKeyDown={
               escapeDisabled ? (e) => e.preventDefault() : () => onClose()
             }
