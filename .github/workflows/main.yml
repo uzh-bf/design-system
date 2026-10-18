@@ -126,6 +126,66 @@ jobs:
           path: packages/design-system/playwright-report/
           retention-days: 14
 
+  contracts:
+    runs-on: ubuntu-latest
+    name: Behavioral Contracts
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.16.0
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.30.0
+          run_install: true
+      - name: Install Playwright browser
+        timeout-minutes: 17
+        run: bash .github/scripts/install-playwright-browser.sh
+      - name: Build Ladle
+        run: pnpm --filter @uzh-bf/design-system build:ladle
+      - name: Run behavioral contracts
+        working-directory: packages/design-system
+        env:
+          PWTEST_SKIP_BUILD: "1"
+        run: pnpm exec playwright test tests/contracts
+      - name: Upload contract report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-contracts
+          path: packages/design-system/playwright-report/
+          retention-days: 14
+
+  consumers:
+    runs-on: ubuntu-latest
+    name: Packed Consumers (RHF ${{ matrix.rhf }})
+    timeout-minutes: 35
+    strategy:
+      fail-fast: false
+      matrix:
+        rhf: ["7.59.0", "7.90.0"]
+    env:
+      RHF_VERSION: ${{ matrix.rhf }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.16.0
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.30.0
+          run_install: true
+      - name: Enable pinned consumer package managers
+        run: corepack enable
+      - name: Install Playwright browser
+        timeout-minutes: 17
+        run: bash .github/scripts/install-playwright-browser.sh
+      - name: Verify packed imports and public declarations
+        run: sh packages/design-system/tests/rsc/packed-consumers/scripts/verify.sh
+      - name: Verify Next server boundaries and client interactions
+        run: sh packages/design-system/tests/rsc/next-consumer/scripts/verify.sh
+
   a11y:
     runs-on: ubuntu-latest
     name: A11y (shard ${{ matrix.shard }}/4)
@@ -288,6 +348,8 @@ jobs:
         check-ts,
         check-format,
         test,
+        contracts,
+        consumers,
         a11y,
         a11y-protocol,
         visual-regression,

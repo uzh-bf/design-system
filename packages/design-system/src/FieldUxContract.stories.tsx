@@ -5,6 +5,7 @@ import NumberField from './forms/NumberField'
 import SelectField from './forms/SelectField'
 import TextareaField from './forms/TextareaField'
 import TextField from './forms/TextField'
+import MultiSelect from './MultiSelect'
 import {
   Form,
   RhfMultiSelect,
@@ -17,6 +18,12 @@ const choices = [
   { value: 'one', label: 'Option one' },
   { value: 'two', label: 'Option two' },
 ]
+const multiChoices = [
+  { value: 'alpha', label: 'Alpha' },
+  { value: 'blocked', label: 'Blocked', disabled: true },
+  { value: 'beta', label: 'Beta' },
+  { value: 'gamma', label: 'Gamma' },
+]
 const helpId = 'field-ux-external-help'
 const invalidMessage =
   'Synthetic validation error. Choose a value that satisfies this example field.'
@@ -28,6 +35,9 @@ export function Standalone() {
   const [number, setNumber] = useState('')
   const [area, setArea] = useState('')
   const [choice, setChoice] = useState('')
+  const [multiple, setMultiple] = useState<string[]>([])
+  const [disabled, setDisabled] = useState(false)
+  const [submittedChoice, setSubmittedChoice] = useState('')
   const [invalid, setInvalid] = useState(false)
   const [inline, setInline] = useState(false)
   const [descriptions, setDescriptions] = useState(true)
@@ -72,11 +82,46 @@ export function Standalone() {
       <SelectField
         {...common}
         label="Choice"
+        name="choice"
+        disabled={disabled}
         value={choice}
         onChange={setChoice}
         items={choices}
         data={{ test: 'ux-select' }}
       />
+      <MultiSelect
+        items={multiChoices}
+        value={multiple}
+        onChange={setMultiple}
+        disabled={disabled}
+        ariaLabel="Multiple choices"
+        data={{ test: 'ux-multi' }}
+      />
+      <output data-test="choice-value">{choice}</output>
+      <output data-test="multiple-value">{multiple.join(',')}</output>
+      <output data-test="submitted-choice">{submittedChoice}</output>
+      <button
+        type="button"
+        data-test="toggle-disabled"
+        onClick={() => setDisabled(!disabled)}
+      >
+        Toggle disabled
+      </button>
+      <button type="button" onClick={() => setMultiple(['gamma'])}>
+        Set multiple externally
+      </button>
+      <button
+        type="button"
+        onClick={(event) =>
+          setSubmittedChoice(
+            String(
+              new FormData(event.currentTarget.form!).get('choice') ?? 'absent'
+            )
+          )
+        }
+      >
+        Inspect native form
+      </button>
       <div className="flex flex-wrap gap-2">
         <button type="button" onClick={() => setInvalid(!invalid)}>
           Toggle validation
@@ -107,6 +152,7 @@ export function Rhf() {
     defaultValues: { text: '', number: '', choice: '', multiple: [] },
   })
   const [hidden, setHidden] = useState(false)
+  const [disabled, setDisabled] = useState(false)
   const common = {
     control: form.control,
     description: (
@@ -145,6 +191,7 @@ export function Rhf() {
           {...common}
           name="choice"
           label="RHF choice"
+          disabled={disabled}
           items={choices}
           data={{ test: 'ux-select' }}
         />
@@ -152,9 +199,27 @@ export function Rhf() {
           {...common}
           name="multiple"
           label="RHF multiple"
-          items={choices}
+          disabled={disabled}
+          items={multiChoices}
           data={{ test: 'ux-multi' }}
         />
+        <output data-test="choice-value">{form.watch('choice')}</output>
+        <output data-test="multiple-value">
+          {form.watch('multiple').join(',')}
+        </output>
+        <button
+          type="button"
+          data-test="toggle-disabled"
+          onClick={() => setDisabled(!disabled)}
+        >
+          Toggle disabled
+        </button>
+        <button
+          type="button"
+          onClick={() => form.setValue('multiple', ['gamma'])}
+        >
+          Set multiple externally
+        </button>
         <button type="submit">Validate fields</button>
         <button type="button" onClick={() => form.clearErrors()}>
           Clear validation

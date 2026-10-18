@@ -1,18 +1,11 @@
 'use client'
 
-import { Check, ChevronsUpDown, X } from 'lucide-react'
-import { useRef, useState } from 'react'
+import { defaultFilter } from 'cmdk'
+import { Check, ChevronsUpDown, Search, X } from 'lucide-react'
+import { useCallback, useEffect, useId, useRef, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 import { Button } from './ui/button'
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from './ui/command'
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover'
 
 export interface MultiSelectItem {
@@ -57,13 +50,13 @@ export interface MultiSelectProps {
 
 /**
  * This function returns a pre-styled MultiSelect: a searchable multi-value select
- * built by composing the Popover and Command (cmdk) primitives. Selected values are
+ * built with a Popover and a searchable multi-selection listbox. Selected values are
  * shown as removable chips below the trigger (kept OUTSIDE the trigger button so the
  * remove buttons are not nested inside another button). The popover stays open while
  * toggling. The selected values are managed externally via `value` / `onChange`.
  *
  * @param id - The id of the trigger.
- * @param items - The array of selectable items. Each item needs a unique string `value` and a `label`. String labels are searchable (passed to cmdk as keywords); a non-string label is matched only against its `value`.
+ * @param items - The array of selectable items. Each item needs a unique string `value` and a `label`. String labels are searchable with the cmdk scoring function; a non-string label is matched only against its `value`.
  * @param value - The currently selected values (managed externally). Chips render in `items` order, not selection order.
  * @param onChange - Function called with the next array of values when an item is toggled or removed.
  * @param placeholder - Text shown on the trigger when nothing is selected.
@@ -95,17 +88,53 @@ export function MultiSelect({
   className,
 }: MultiSelectProps) {
   const [open, setOpen] = useState(false)
+  const [search, setSearch] = useState('')
+  const [activeValue, setActiveValue] = useState<string | null>(null)
+  const listId = useId()
   const compositeRef = useRef<HTMLDivElement>(null)
   const openRef = useRef(false)
   const blurNotifiedRef = useRef(false)
 
-  const notifyBlur = () => {
+  const notifyBlur = useCallback(() => {
     if (blurNotifiedRef.current) return
     blurNotifiedRef.current = true
     onBlur?.()
-  }
+  }, [onBlur])
+
+  useEffect(() => {
+    if (!disabled) return
+    if (openRef.current) notifyBlur()
+    openRef.current = false
+    setOpen(false)
+  }, [disabled, notifyBlur])
+
+  const matches = items
+    .map((item) => ({
+      item,
+      score: search
+        ? defaultFilter(
+            item.value,
+            search,
+            typeof item.label === 'string' ? [item.label] : undefined
+          )
+        : 1,
+    }))
+    .filter(({ score }) => score > 0)
+    .sort((a, b) => b.score - a.score)
+    .map(({ item }) => item)
+  const enabledItems = matches.filter((item) => !item.disabled)
+  const activeItem =
+    enabledItems.find((item) => item.value === activeValue) ?? enabledItems[0]
+  const optionId = (item: MultiSelectItem) => `${listId}-${items.indexOf(item)}`
+
+  const activeId = activeItem ? optionId(activeItem) : undefined
+  useEffect(() => {
+    if (open && activeId)
+      document.getElementById(activeId)?.scrollIntoView({ block: 'nearest' })
+  }, [open, activeId])
 
   const toggle = (itemValue: string) => {
+    if (disabled) return
     onChange(
       value.includes(itemValue)
         ? value.filter((v) => v !== itemValue)
@@ -142,6 +171,9 @@ export function MultiSelect({
       <Popover
         open={open}
         onOpenChange={(nextOpen) => {
+          if (nextOpen && disabled) return
+          setSearch('')
+          setActiveValue(null)
           if (nextOpen) {
             blurNotifiedRef.current = false
           } else if (openRef.current) {
@@ -159,7 +191,7 @@ export function MultiSelect({
             type="button"
             variant="outline"
             role="combobox"
-            aria-haspopup="listbox"
+            aria-haspopup="dialog"
             aria-expanded={open}
             aria-label={ariaLabel}
             aria-required={ariaRequired || undefined}
@@ -184,39 +216,101 @@ export function MultiSelect({
           align="start"
           className={twMerge('w-60 p-0', className?.content)}
         >
-          <Command>
-            <CommandInput
-              placeholder={searchPlaceholder}
-              aria-label={searchPlaceholder}
-            />
-            <CommandList>
-              <CommandEmpty>{emptyText}</CommandEmpty>
-              <CommandGroup>
-                {items.map((item) => (
-                  <CommandItem
-                    key={item.value}
-                    value={item.value}
-                    keywords={
-                      typeof item.label === 'string' ? [item.label] : undefined
+          <div className="bg-popover text-popover-foreground flex h-max w-full flex-col overflow-hidden rounded-md">
+            <div className="flex h-9 items-center gap-2 border-b px-3">
+              <Search
+                className="size-4 shrink-0 opacity-50"
+                aria-hidden="true"
+              />
+              <input
+                role="combobox"
+                aria-label={searchPlaceholder}
+                aria-controls={listId}
+                aria-expanded={open}
+                aria-autocomplete="list"
+                aria-activedescendant={activeId}
+                placeholder={searchPlaceholder}
+                value={search}
+                disabled={disabled}
+                className="placeholder:text-muted-foreground flex h-10 w-full rounded-md border-none bg-transparent py-3 text-sm outline-hidden focus:ring-0 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
+                onChange={(event) => {
+                  setSearch(event.target.value)
+                  setActiveValue(null)
+                }}
+                onKeyDown={(event) => {
+                  if (disabled || event.nativeEvent.isComposing) return
+                  if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+                    event.preventDefault()
+                    const index = enabledItems.indexOf(activeItem)
+                    setActiveValue(
+                      enabledItems[
+                        (index +
+                          (event.key === 'ArrowDown' ? 1 : -1) +
+                          enabledItems.length) %
+                          enabledItems.length
+                      ]?.value ?? null
+                    )
+                  } else if (event.key === 'Enter') {
+                    event.preventDefault()
+                    if (activeItem) toggle(activeItem.value)
+                  }
+                }}
+              />
+            </div>
+            <div
+              id={listId}
+              role="listbox"
+              aria-label={ariaLabel ?? placeholder}
+              aria-multiselectable="true"
+              className="max-h-[300px] scroll-py-1 overflow-x-hidden overflow-y-auto p-1"
+            >
+              {matches.map((item) => (
+                <div
+                  key={item.value}
+                  id={optionId(item)}
+                  role="option"
+                  tabIndex={-1}
+                  aria-selected={value.includes(item.value)}
+                  aria-disabled={disabled || item.disabled || undefined}
+                  data-active={activeItem === item || undefined}
+                  data-disabled={disabled || item.disabled || undefined}
+                  data-cy={item.data?.cy}
+                  data-test={item.data?.test}
+                  onMouseDown={(event) => event.preventDefault()}
+                  onPointerMove={() => {
+                    if (!disabled && !item.disabled) setActiveValue(item.value)
+                  }}
+                  onClick={() => {
+                    if (!item.disabled) toggle(item.value)
+                  }}
+                  onKeyDown={(event) => {
+                    if (event.key === ' ' || event.key === 'Enter') {
+                      event.preventDefault()
+                      if (!item.disabled) toggle(item.value)
                     }
-                    disabled={item.disabled}
-                    data-cy={item.data?.cy}
-                    data-test={item.data?.test}
-                    onSelect={() => toggle(item.value)}
-                    className={className?.item}
-                  >
-                    <Check
-                      className={twMerge(
-                        'mr-2 h-4 w-4',
-                        value.includes(item.value) ? 'opacity-100' : 'opacity-0'
-                      )}
-                    />
-                    {item.label}
-                  </CommandItem>
-                ))}
-              </CommandGroup>
-            </CommandList>
-          </Command>
+                  }}
+                  className={twMerge(
+                    'data-[active=true]:bg-primary-20 data-[active=true]:text-primary-100 relative flex cursor-pointer items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[active=true]:font-semibold data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-50',
+                    className?.item
+                  )}
+                >
+                  <Check
+                    aria-hidden="true"
+                    className={twMerge(
+                      'mr-2 h-4 w-4',
+                      value.includes(item.value) ? 'opacity-100' : 'opacity-0'
+                    )}
+                  />
+                  {item.label}
+                </div>
+              ))}
+            </div>
+            {matches.length === 0 && (
+              <div role="status" className="py-6 text-center text-sm">
+                {emptyText}
+              </div>
+            )}
+          </div>
         </PopoverContent>
       </Popover>
 

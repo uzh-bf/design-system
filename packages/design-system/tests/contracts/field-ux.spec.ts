@@ -370,6 +370,92 @@ test.describe('field UX contract', () => {
       await expect(trigger, 'Escape returns focus to the trigger').toBeFocused()
     })
 
+    test(`${theme} disabling open controls prevents selection and native submission`, async ({
+      page,
+    }) => {
+      for (const storyId of [standaloneStory, rhfStory]) {
+        for (const testId of ['ux-select', 'ux-multi']) {
+          await gotoStory(page, storyId, theme)
+          const trigger = page.locator(`[data-test="${testId}"]`)
+          await trigger.click()
+          await expect(page.getByRole('listbox')).toBeVisible()
+          await page
+            .locator('[data-test="toggle-disabled"]')
+            .evaluate((button: HTMLButtonElement) => button.click())
+          await expect(trigger).toBeDisabled()
+          await expect(page.getByRole('listbox')).toHaveCount(0)
+          await expect(page.locator('[data-test="choice-value"]')).toBeEmpty()
+          await expect(page.locator('[data-test="multiple-value"]')).toBeEmpty()
+        }
+      }
+      await gotoStory(page, standaloneStory, theme)
+      await page.locator('[data-test="ux-select"]').click()
+      await page.getByRole('option').first().click()
+      await page.getByRole('button', { name: 'Inspect native form' }).click()
+      await expect(page.locator('[data-test="submitted-choice"]')).toHaveText(
+        'one'
+      )
+      await page.getByRole('button', { name: 'Toggle disabled' }).click()
+      await page.getByRole('button', { name: 'Inspect native form' }).click()
+      await expect(page.locator('[data-test="submitted-choice"]')).toHaveText(
+        'absent'
+      )
+    })
+
+    test(`${theme} multiple selection stays distinct from keyboard highlight and filtering`, async ({
+      page,
+    }) => {
+      for (const storyId of [standaloneStory, rhfStory]) {
+        await gotoStory(page, storyId, theme)
+        const trigger = page.locator('[data-test="ux-multi"]')
+        await trigger.focus()
+        await trigger.press('Enter')
+        await expect(trigger).toHaveAttribute('aria-haspopup', 'dialog')
+        const popup = page.locator('[data-slot="popover-content"]')
+        await expect(popup).toHaveRole('dialog')
+        const search = popup.getByRole('combobox')
+        const list = popup.getByRole('listbox')
+        await expect(list).toHaveAttribute('aria-multiselectable', 'true')
+        await expect(search).toHaveAttribute(
+          'aria-controls',
+          (await list.getAttribute('id'))!
+        )
+        const alpha = list.getByRole('option', { name: 'Alpha', exact: true })
+        const beta = list.getByRole('option', { name: 'Beta', exact: true })
+        const gamma = list.getByRole('option', { name: 'Gamma', exact: true })
+        await expect(alpha).toHaveAttribute('aria-selected', 'false')
+        await search.press('Enter')
+        await expect(alpha).toHaveAttribute('aria-selected', 'true')
+        await search.press('ArrowDown')
+        await expect(search).toHaveAttribute(
+          'aria-activedescendant',
+          (await beta.getAttribute('id'))!
+        )
+        await search.press('Enter')
+        await search.press('ArrowDown')
+        await expect(gamma).toHaveAttribute('aria-selected', 'false')
+        await expect(alpha).toHaveAttribute('aria-selected', 'true')
+        await expect(beta).toHaveAttribute('aria-selected', 'true')
+        await search.fill('Gamma')
+        await expect(list.getByRole('option')).toHaveCount(1)
+        await search.fill('')
+        await expect(alpha).toHaveAttribute('aria-selected', 'true')
+        await beta.focus()
+        await beta.press('Space')
+        await expect(beta).toHaveAttribute('aria-selected', 'false')
+        await page
+          .getByRole('button', { name: 'Set multiple externally' })
+          .evaluate((button: HTMLButtonElement) => button.click())
+        await expect(alpha).toHaveAttribute('aria-selected', 'false')
+        await expect(gamma).toHaveAttribute('aria-selected', 'true')
+        await page.keyboard.press('Escape')
+        await expect(trigger).toBeFocused()
+        await expect(page.locator('[data-test="multiple-value"]')).toHaveText(
+          'gamma'
+        )
+      }
+    })
+
     test(`${theme} fixture reflows without horizontal overflow at desktop and 390px`, async ({
       page,
     }) => {

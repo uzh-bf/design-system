@@ -240,3 +240,26 @@ stacked draft PRs. The draft boundary is the terminal condition for this package
 No merge, ready conversion, release or deployment has been performed. Manual
 screen-reader, Safari and physical mobile checks remain unperformed. The separate
 UZH alignment branch is outside this approved dependency/field stack.
+
+
+### October 18 review remediation
+
+The accepted input/dependency corrections propagate through ordinary merges.
+This field package now also owns the verified disabled-selection and FormField
+transformed-output defects, actual MultiSelect selection semantics, and release
+prerequisites for behavioral/packed-consumer contracts. The MultiSelect renderer
+uses existing cmdk scoring with independent highlight and selection state,
+retains search, chips, refs and blur boundaries, and aligns its trigger's popup
+type with the named Radix dialog. No dependency or public prop is added.
+
+Existing synthetic field stories and contracts extend open-to-disabled/native
+submission, multiple selection, filtering, keyboard entry, external values and
+RHF behavior. Existing consumer fixtures gain minimum/current frozen RHF locks,
+a transformed resolver type fixture and Next numeric/reset/ref/submit cases.
+The two verifier scripts serialize shared package builds and isolate their
+servers. A temporary failing behavioral test proved the actual CI command
+returns failure; it was removed after the test. No test pins prose.
+
+Acceptance remains current-head CI, local contracts/consumer matrix, refreshed
+synthetic screenshots and integrated review. GA remains held on the UZH CSS and
+consumer package plus the separately owned manual qualification work.
