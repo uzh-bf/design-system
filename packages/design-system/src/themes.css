@@ -39,6 +39,8 @@
   --theme-ui-surface-hover: #fafafa;
   --theme-ui-surface-muted: #efefef;
   --theme-ui-border: #e0e0e0;
+  --theme-ui-disabled-thumb: #f3f4f6;
+  --theme-ui-disabled-border: #d1d5db;
   --theme-ui-tooltip: #252525;
   --theme-ui-tooltip-foreground: #ffffff;
   --disabled: #94a3b8;
@@ -185,6 +187,8 @@
   --theme-ui-surface-hover: var(--accent);
   --theme-ui-surface-muted: var(--muted);
   --theme-ui-border: var(--border);
+  --theme-ui-disabled-thumb: var(--muted);
+  --theme-ui-disabled-border: var(--border);
   --disabled: var(--muted-foreground);
 
   --theme-success-background: oklch(0.24 0.04 150);
@@ -205,6 +209,8 @@
    current accessibility and visual-regression qualification. */
 [data-theme='uzh'].dark,
 .dark [data-theme='uzh'] {
+  --theme-success-text: var(--foreground);
+  --theme-info-text: var(--foreground);
   --theme-success-background: oklch(0.25 0.04 165);
   --theme-warning-background: oklch(0.27 0.05 95);
   --theme-info-background: oklch(0.25 0.04 200);

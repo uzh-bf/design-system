@@ -148,9 +148,11 @@ export function Slider({
             'focus:ring-ring/50 bg-control-thumb flex size-[18px] flex-col items-center justify-center rounded-full border-2 border-solid shadow-sm transition-[color,box-shadow] focus:ring-[3px] focus:outline-hidden',
             compact && 'size-4 border-[1.5px]',
             disabled ? 'cursor-not-allowed' : 'cursor-move',
-            disabled && compact ? 'bg-gray-100' : 'bg-control-thumb',
+            disabled && compact
+              ? 'bg-control-thumb-disabled'
+              : 'bg-control-thumb',
             disabled
-              ? 'border-gray-300'
+              ? 'border-control-border-disabled'
               : hasBorderColorMap
                 ? borderColorMap[String(currentValue)]
                 : 'border-primary-100',

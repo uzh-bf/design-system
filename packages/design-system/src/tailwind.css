@@ -197,6 +197,8 @@
   --color-content-muted: var(--theme-ui-content-muted);
   --color-surface: var(--theme-ui-surface);
   --color-control-thumb: var(--theme-ui-thumb);
+  --color-control-thumb-disabled: var(--theme-ui-disabled-thumb);
+  --color-control-border-disabled: var(--theme-ui-disabled-border);
   --color-surface-hover: var(--theme-ui-surface-hover);
   --color-surface-muted: var(--theme-ui-surface-muted);
   --color-control-border: var(--theme-ui-border);

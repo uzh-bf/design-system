@@ -75,12 +75,14 @@ const SENTINEL_TOKENS = [
   '--theme-success',
   '--theme-success-foreground',
   '--theme-success-background',
+  '--theme-success-text',
   '--theme-warning',
   '--theme-warning-foreground',
   '--theme-warning-background',
   '--theme-info',
   '--theme-info-foreground',
   '--theme-info-background',
+  '--theme-info-text',
   '--theme-destructive-text',
   '--theme-color-link',
   '--theme-color-link-visited',
@@ -300,6 +302,8 @@ const BASE = {
     '--theme-color-secondary-60': 'oklch(65% 0 0)',
     '--theme-color-secondary-40': 'oklch(80% 0 0)',
     '--theme-color-secondary-20': 'oklch(92% 0 0)',
+    '--theme-success-text': 'oklch(14.5% 0 0)',
+    '--theme-info-text': 'oklch(14.5% 0 0)',
     '--theme-success': 'oklch(50% .13 150)',
     '--theme-success-foreground': 'oklch(98.5% 0 0)',
     '--theme-success-background': 'oklch(96% .03 150)',
@@ -349,6 +353,8 @@ const BASE = {
     '--theme-color-secondary-60': '#f3537f',
     '--theme-color-secondary-40': '#f78caa',
     '--theme-color-secondary-20': '#fbc6d4',
+    '--theme-success-text': '#536b18',
+    '--theme-info-text': '#147082',
     '--theme-success': '#7ca023',
     '--theme-success-foreground': '#111',
     '--theme-success-background': '#ecf6d6',
@@ -398,6 +404,8 @@ const BASE = {
     '--theme-color-secondary-60': 'oklch(65% 0 0)',
     '--theme-color-secondary-40': 'oklch(80% 0 0)',
     '--theme-color-secondary-20': 'oklch(92% 0 0)',
+    '--theme-success-text': 'oklch(98.5% 0 0)',
+    '--theme-info-text': 'oklch(98.5% 0 0)',
     '--theme-success': 'oklch(50% .13 150)',
     '--theme-success-foreground': 'oklch(98.5% 0 0)',
     '--theme-success-background': 'oklch(24% .04 150)',
@@ -447,6 +455,8 @@ const BASE = {
     '--theme-color-secondary-60': '#f3537f',
     '--theme-color-secondary-40': '#f78caa',
     '--theme-color-secondary-20': '#fbc6d4',
+    '--theme-success-text': 'oklch(98.5% 0 0)',
+    '--theme-info-text': 'oklch(98.5% 0 0)',
     '--theme-success': '#7ca023',
     '--theme-success-foreground': '#111',
     '--theme-success-background': 'oklch(25% .04 165)',
@@ -611,7 +621,12 @@ try {
           rgb.slice(2, 4).toLowerCase() === rgb.slice(4, 6).toLowerCase()
         )
       })
-      if (neutral || source.includes('text-slate-400!'))
+      if (
+        neutral ||
+        source.includes('text-slate-400!') ||
+        (/(?:bg|text|border)-(?:gray|slate)-\d/.test(source) &&
+          file.endsWith('Slider.tsx'))
+      )
         throw new Error(
           `Owned neutral literal returned: ${path.relative(packageDir, file)}`
         )
