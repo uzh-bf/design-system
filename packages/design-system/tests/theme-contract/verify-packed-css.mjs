@@ -499,6 +499,168 @@ try {
       }, cell.tokens)
     }
   }
+  // Compile a consumer independently, with conflicting utilities used elsewhere.
+  // Component nodes use scoped defaults; explicit utilities still take priority.
+  const { default: postcss } = await import('postcss')
+  const { default: tailwindPostcss } = await import('@tailwindcss/postcss')
+  const consumerCss = String(
+    await postcss([tailwindPostcss({ base: packageDir })]).process(
+      '@import "tailwindcss" source(none); @source inline("text-center flex-col-reverse flex-col hidden w-full gap-0.5 p-6 grid-cols-5 col-span-2 max-w-[calc(100%-2rem)]");',
+      { from: path.join(packageDir, 'consumer-contract.css') }
+    )
+  )
+  const layouts = [
+    [
+      'header',
+      'ds-dialog-header',
+      'textAlign',
+      ['center', 'left', 'left', 'left'],
+      'text-center',
+      'center',
+    ],
+    [
+      'footer',
+      'ds-dialog-footer',
+      'flexDirection',
+      ['column-reverse', 'row', 'row', 'row'],
+      'flex-col-reverse',
+      'column-reverse',
+    ],
+    [
+      'calendar',
+      'ds-calendar-months',
+      'flexDirection',
+      ['column', 'column', 'row', 'row'],
+      'flex-col',
+      'column',
+    ],
+    [
+      'pagination',
+      'ds-pagination-label',
+      'display',
+      ['none', 'block', 'block', 'block'],
+      'hidden',
+      'none',
+    ],
+    [
+      'sidebar-root',
+      'ds-sidebar-root',
+      'display',
+      ['none', 'none', 'block', 'block'],
+      'hidden',
+      'none',
+    ],
+    [
+      'sidebar-container',
+      'ds-sidebar-container',
+      'display',
+      ['none', 'none', 'flex', 'flex'],
+      'hidden',
+      'none',
+    ],
+    [
+      'sidebar-rail',
+      'ds-sidebar-rail',
+      'display',
+      ['none', 'flex', 'flex', 'flex'],
+      'hidden',
+      'none',
+    ],
+    [
+      'drawer',
+      'ds-drawer-header',
+      'gap',
+      ['2px', '2px', '6px', '6px'],
+      'gap-0.5',
+      '2px',
+    ],
+    [
+      'empty',
+      'ds-empty',
+      'paddingTop',
+      ['24px', '24px', '48px', '48px'],
+      'p-6',
+      '24px',
+    ],
+    [
+      'action',
+      'ds-collapsible-action',
+      'gridColumnStart',
+      ['span 2', 'span 3', 'span 4', 'span 5'],
+      'col-span-2',
+      'span 2',
+    ],
+  ]
+  let layoutAssertions = 0
+  for (const theme of ['neutral', 'uzh']) {
+    for (const [widthIndex, width] of [390, 700, 900, 1100].entries()) {
+      await page.setViewportSize({ width, height: 844 })
+      for (const withConsumer of [false, true]) {
+        const nodes = layouts
+          .map(
+            ([id, cls, , , override]) =>
+              `<div id="${id}" class="${cls}"></div><div id="${id}-override" class="${cls} ${override}"></div>`
+          )
+          .join('')
+        await page.setContent(
+          `<!doctype html><html data-theme="${theme}"><head><style>${packedCss}</style>${withConsumer ? `<style>${consumerCss}</style>` : ''}</head><body><div style="width:300px">${nodes}<div id="grid" class="ds-collapsible-actions" style="display:grid;width:300px"></div><div id="grid-override" class="ds-collapsible-actions grid-cols-5" style="display:grid;width:300px"></div><div id="alert" class="ds-alert-dialog-content"></div><div id="nav-content" class="ds-navigation-menu-content" style="display:inline-block">x</div><div id="nav-viewport" class="ds-navigation-menu-viewport" style="--radix-navigation-menu-viewport-width:180px"></div></div></body></html>`
+        )
+        for (const [id, , property, expected, , overridden] of layouts) {
+          const actualValue = await page
+            .locator(`[id="${id}"]`)
+            .evaluate((el, prop) => getComputedStyle(el)[prop], property)
+          if (actualValue !== expected[widthIndex])
+            throw new Error(
+              `${theme}/${width}/${withConsumer}/${id}: ${actualValue} != ${expected[widthIndex]}`
+            )
+          layoutAssertions++
+          if (withConsumer) {
+            const overrideValue = await page
+              .locator(`[id="${id}-override"]`)
+              .evaluate((el, prop) => getComputedStyle(el)[prop], property)
+            if (overrideValue !== overridden)
+              throw new Error(
+                `${id} explicit override: ${overrideValue} != ${overridden}`
+              )
+            layoutAssertions++
+          }
+        }
+        const measured = await page.evaluate(() => ({
+          grid: getComputedStyle(
+            document.getElementById('grid')
+          ).gridTemplateColumns.split(' ').length,
+          gridOverride: getComputedStyle(
+            document.getElementById('grid-override')
+          ).gridTemplateColumns.split(' ').length,
+          max: getComputedStyle(document.getElementById('alert')).maxWidth,
+          content: document
+            .getElementById('nav-content')
+            .getBoundingClientRect().width,
+          viewport: document
+            .getElementById('nav-viewport')
+            .getBoundingClientRect().width,
+        }))
+        if (measured.grid !== [5, 7, 9, 11][widthIndex])
+          throw new Error('responsive action grid changed')
+        if (withConsumer && measured.gridOverride !== 5)
+          throw new Error('explicit action grid override failed')
+        if (measured.max !== (widthIndex === 0 ? 'calc(100% - 32px)' : '520px'))
+          throw new Error(`dialog max-width changed: ${measured.max}`)
+        if (
+          (widthIndex < 2 && measured.content !== 300) ||
+          (widthIndex >= 2 && measured.content >= 300)
+        )
+          throw new Error('navigation content width changed')
+        if (measured.viewport !== (widthIndex < 2 ? 300 : 180))
+          throw new Error('navigation viewport width changed')
+        layoutAssertions += 5
+      }
+    }
+  }
+  console.log(
+    `[theme-contract] ${layoutAssertions} responsive and consumer override assertions passed`
+  )
+
   await browser.close()
 
   /* ---- Record and assert ---- */

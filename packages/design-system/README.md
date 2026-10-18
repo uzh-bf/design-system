@@ -147,3 +147,10 @@ composite, `./primitives` = raw primitive). See
 Component stories, props, and examples live in the
 [repository](https://github.com/uzh-bf/design-system) (Ladle) and are indexed for
 Context7 at <https://context7.com/uzh-bf/design-system>.
+
+Component responsive defaults use scoped rules in the `components` cascade
+layer. Keep the documented package-then-application import order. A consumer
+utility on unrelated content cannot replace a component's responsive default;
+a utility deliberately passed through that component's className hook can
+still override the property. Do not scan the package source to reconstruct its
+styles. The packed CSS contract verifies both independently compiled stylesheets.

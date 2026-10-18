@@ -315,3 +315,35 @@ cd packages/design-system && pnpm build && pnpm pack
 # @uzh-bf/design-system dependency at the tarball with a file: specifier
 ```
 The tarball must sit where the running devpod container can read it.
+
+
+## October 18 approved remediation amendment
+
+The existing UZH branch is retained as a separate coherent draft after the
+corrected input/dependency/field stack. Ordinary merge propagation preserves
+published history and all existing Phase 1 fixes. No merge into v5/main, ready
+conversion, force push, release or deployment is authorized.
+
+Slice 6 now uses the measured general collision mechanism instead of only the
+historical consumer-specific failing subset. Add named src/component-layout.css
+in the components layer. Replace coupled base/responsive utility pairs on
+component nodes with unique scoped classes, retaining exact properties and
+breakpoints. Explicit consumer className utilities keep precedence. Do not
+reverse import order or move all utilities to a trailing layer. The bounded
+prototype passed mobile/desktop default and explicit-override checks against
+two independently compiled Tailwind stylesheets. Scope: Dialog/AlertDialog,
+Calendar, Pagination, Sidebar, NavigationMenu, Drawer, Empty, Collapsible;
+same-value pairs and state-only rules remain as recorded in the enumeration.
+
+Extend the existing packed CSS harness with computed default/collision/explicit
+consumer override cases for every owned pair, both supported themes and mobile,
+sm, md and lg widths. Keep token ownership tests. Run package/Ladle/type/lint,
+behavioral and pinned visual checks. Any intentional correction difference is
+reviewed; zero differences alone does not establish consumer CSS behavior.
+
+Real Klicker acceptance remains blocked by its historical workspace's missing
+waitFor setting on postCreateCommand. Canonical devrouter startup failed during
+validation before creating the runtime. Repairing that consumer repository's
+lifecycle configuration is separate from these design-system source fixes.
+Finish packed synthetic source verification and retain that exact acceptance
+gap; do not silently call historical consumer evidence current.
