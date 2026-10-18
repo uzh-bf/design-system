@@ -11,7 +11,9 @@ content pages, and that distinction decides most of its visual vocabulary.
 **UZH Corporate Design manual**:
 The official UZH brand specification, covering the colour families, typeface,
 and the uzh.ch content-site component patterns. A reference for this library,
-not a constraint on it — see `docs/adr/0005`.
+adapted to dense application interfaces by the project's design decisions — see
+`docs/adr/0005`. Those decisions establish neither an institution-wide exemption
+nor institutional approval.
 _Avoid_: CD guidelines, the styleguide, the brand manual
 
 **UZH DF Design System bundle**:

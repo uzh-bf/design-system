@@ -2,7 +2,7 @@
 
 **Date:** 2026-08-19 · **Baseline:** `origin/v5` at `80d6f229c`, published `5.0.0-alpha.5`
 **Supersedes:** `project/2026-08-01-v5-release-readiness-stacks-roadmap.md` (stacks A–D and the release sequence are all merged; it stays readable as history)
-**Status (2026-10-18):** Phase 0 decisions are recorded. Phase 1 source fixes and scoped responsive CSS are integrated with the corrected input/dependency/field stack on `rs/v5-uzh-alignment` and delivered in [draft PR214](https://github.com/uzh-bf/design-system/pull/214), which maintains current CI receipts. Real consumer acceptance remains open. Phase 2 still blocks GA.
+**Status (2026-10-18):** Phase 0 decisions are recorded. Phase 1 source fixes and scoped responsive CSS are integrated with the corrected input/dependency/field stack on `rs/v5-uzh-alignment` and delivered in [draft PR214](https://github.com/uzh-bf/design-system/pull/214), which maintains CI and browser receipts. The corrected packed candidate passes local Klicker pilot acceptance. Phase 2 and full release-candidate qualification still block GA.
 
 ## The thing that decides everything else
 
@@ -123,7 +123,7 @@ Queued rather than asked now, because the recommendation for each changes with t
 
 Under the shade-4 / shade-1 / shade-5 rule the manual's own table supports, 1 and 2 both reduce to a single posture question about tinted surfaces rather than three independent colour picks.
 
-**Historical consumer context:** the August workspace supplied the measurements above. On October 18, a temporary `waitFor` correction advanced canonical startup to the exact provider. The local MCP fixture could not start without installed dependencies. Installing the packed candidate then failed Klicker's 14-day dependency policy on 44 exact Radix versions; the last becomes eligible on October 26 at 21:06:42 UTC. Configuration and lockfile were restored byte-for-byte, the checkout is clean, and the provider is stopped with zero routes. No current installed or rendered candidate acceptance is established.
+**Consumer context:** the August pilot supplied the measurements above. On October 18, the user approved temporary lifecycle changes and exact-version exceptions for 44 Radix versions blocked by the consumer's 14-day policy. The corrected packed candidate installs and its 246 build files match the tarball. The container production build and real Formik save/reload, validation, responsive modal and dropdown checks pass. Configuration and lockfile were restored byte-for-byte; the checkout is clean and provider stopped with zero routes. This qualifies the new package against the historical pilot; current-trunk and broader release-candidate qualification remain open.
 
 ## Phase 1 — consumer-breaking defects, no ruling needed → alpha.6
 
@@ -190,7 +190,7 @@ This needs a canonical-layer decision per component, wrapper styling aligned to 
 ## Immediate next actions
 
 1. Retain the source qualification recorded in [PR214](https://github.com/uzh-bf/design-system/pull/214) through subsequent integration. Scoped responsive layout ownership, retained modal/dropdown/link/error fixes, migration guidance, independent review and eleven rendered captures are delivered.
-2. Resolve the consumer's dependency-age blocker by waiting for eligibility or obtaining explicit approval for temporary exact-version exceptions, then validate the integrated packed candidate and retire the corresponding consumer workarounds. Historical measurements and synthetic fixtures are insufficient for this gate.
+2. Retain the current packed-candidate Klicker acceptance and five real-application captures in PR214. Refresh it after Phase 2, retire its corresponding consumer workarounds and qualify the eventual candidate across the required consumers. The current run retains existing width/density overrides.
 3. Execute Phase 2's recorded pre-GA token and visual-default decisions, with reviewed swatches, migration aliases, component captures and zero-waiver accessibility checks.
 4. Keep additive Phase 3 APIs in v5.1. Keep wrapper convergence and complete Formik public-type/runtime removal in v6.
 5. Reconcile the v5 umbrella with main and qualify a fresh candidate only under separate merge/publication authority.
@@ -214,8 +214,11 @@ published. Hosted CI passes at source 557025003; the final source head passes
 behavioral, both RHF packed-consumer, types, lint, format, visual and all four
 accessibility shard jobs at c93a48774. Subsequent review and CI
 receipts are maintained in [PR214](https://github.com/uzh-bf/design-system/pull/214).
-Current real consumer acceptance remains a GA gate. No target merge, release
-or deployment occurred.
+The corrected packed candidate passes the real Klicker pilot build and synthetic
+application flows, with desktop/mobile captures in PR214. Compact app navigation,
+editor-toolbar layout and build translation/page-size warnings remain consumer
+follow-ups. Broader release-candidate acceptance remains a GA gate. No target
+merge, release or deployment occurred.
 
 The brand posture is a project design decision. It is not evidence of an
 institution-wide exemption or institutional approval. UZH dark CSS remains

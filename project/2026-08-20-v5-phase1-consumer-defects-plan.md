@@ -341,18 +341,20 @@ sm, md and lg widths. Keep token ownership tests. Run package/Ladle/type/lint,
 behavioral and pinned visual checks. Any intentional correction difference is
 reviewed; zero differences alone does not establish consumer CSS behavior.
 
-Real Klicker acceptance remains incomplete. A temporary waitFor setting on
-postCreateCommand advanced canonical startup to the exact consumer container,
-where missing dependencies prevented the local MCP fixture from starting.
-Installing the packed candidate then failed with
-ERR_PNPM_NO_MATURE_MATCHING_VERSION: the consumer's 14-day dependency policy
-rejects 44 exact Radix versions across 225 reported paths. The last listed
-version becomes eligible on October 26 at 21:06:42 UTC. Temporary exact-version
-exceptions require explicit user approval; otherwise wait for eligibility.
-Original tracked files were restored byte-for-byte, the consumer is clean,
-and canonical stop plus provider/route read-back confirms Stopped and zero
-routes. Packed synthetic verification does not establish real application
-acceptance.
+Real Klicker acceptance passed after explicit user approval of temporary
+exact-version exceptions for 44 Radix versions under the consumer's 14-day
+dependency policy. The same pilot at 1de7ad918 installed the corrected tarball;
+all 246 installed build files and package metadata match it. The repository's
+container bootstrap and production Manage build pass. Actual synthetic Formik
+create/cancel/reset, required-field validation and edit/save/reload pass, as do
+desktop/mobile modal layout, actionless footer omission and a 1px dropdown
+separator. An explicit header utility overrides its scoped default. Existing
+consumer width/density overrides remain; this run does not retire Phase 2 work.
+Five inspected browser captures and candidate provenance are maintained in
+PR214. Original configuration and lockfile were restored byte-for-byte; the
+consumer is clean. Canonical stop and fresh source-path/provider read-back
+confirm Stopped and zero routes. Current-trunk, other-consumer and manual
+qualification remain distinct GA gates.
 
 
 ## October 18 integrated verification
@@ -374,8 +376,9 @@ focus, status colors, prose links and Dropdown separators. All nine images
 were uploaded to PR214, read back and confirmed loaded in its rendered body.
 The field layer has a complete independent review and hosted CI pass. UZH
 hosted CI passes at source 557025003. The final review and subsequent CI
-receipts are maintained in [PR214](https://github.com/uzh-bf/design-system/pull/214). Current real consumer acceptance remains
-blocked as stated above; Phase 2 is still outstanding before GA.
+receipts are maintained in [PR214](https://github.com/uzh-bf/design-system/pull/214). The current packed candidate now also
+passes the real Klicker pilot acceptance above; Phase 2 remains outstanding
+before GA.
 
 
 Post-review: the complete independent review accepted the visited-link selector

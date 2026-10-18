@@ -5,7 +5,8 @@
 - Date: 2026-08-10; current execution index refreshed 2026-10-18
 - Status: GA blocked. Verified input correctness, consumer CSS and durable
   contract-gate corrections are delivered in the existing draft stack. Current
-  real-application acceptance and Phase 2 remain open.
+  Klicker candidate acceptance passes locally; Phase 2, manual qualification
+  and the broader release-candidate consumer matrix remain open.
 - Repository: `uzh-bf/design-system`
 - Release trunk: `v5`
 - Active corrective branch: `rs/v5-uzh-alignment`
@@ -99,7 +100,7 @@ readiness conversion, release publication and deployment remain gated.
 | Input correctness — [PR210](https://github.com/uzh-bf/design-system/pull/210) | Natural modal entry, empty twelve-hour periods, controlled resets, selected-date invariance and value-bearing names corrected; independent review accepted; current-head CI green | Retain these cases when integrating later layers |
 | Compatible dependencies — [PR211](https://github.com/uzh-bf/design-system/pull/211) | Compatible direct refresh and four supplied transitive paths corrected; peer/export contracts preserved; ownership docs clarified; independent review accepted; current-head CI green | Reassess remaining advisories and deferred majors before GA; a focused shadcn comparison does not certify every copied primitive |
 | Fields and durable CI — [PR213](https://github.com/uzh-bf/design-system/pull/213) | Disabled selection/FormData, true multi-selection semantics and transformed FormField types implemented; contracts and RHF minimum/current packed/Next consumers now gate release build | Disabled-close blur correction passes all 88 local contracts, complete independent review and current-head hosted CI |
-| Consumer CSS and UZH Phase 1 | Existing fixes integrated after the field stack; scoped responsive defaults replace colliding utility pairs; 90 contracts, 803 accessibility cases, 23 pinned visuals, 688 token assertions and 336 CSS/override assertions pass; complete independent review accepted | [PR214](https://github.com/uzh-bf/design-system/pull/214) carries eleven rendered screenshots and current CI receipts; source c93a48774 passes behavioral, packed-consumer, visual and all four accessibility shard jobs; current real consumer acceptance remains a GA gate |
+| Consumer CSS and UZH Phase 1 | Existing fixes integrated after the field stack; scoped responsive defaults replace colliding utility pairs; 90 contracts, 803 accessibility cases, 23 pinned visuals, 688 token assertions and 336 CSS/override assertions pass; complete independent review accepted | [PR214](https://github.com/uzh-bf/design-system/pull/214) maintains hosted CI and browser evidence. The packed candidate installs and builds in the existing Klicker pilot; actual Formik save/reload and desktop/mobile modal checks pass. Broader release-candidate qualification remains open |
 | UZH Phase 2 | Phase 0 decisions settled; token/value/default changes are specified but unimplemented | Execute the existing design roadmap before GA; reviewed visuals, aliases, migration table and zero-waiver accessibility proof |
 | GA promotion — [PR179](https://github.com/uzh-bf/design-system/pull/179) | Draft v5 umbrella still conflicts with main | Reconcile in a promotion package and qualify an integrated candidate; merge, publication and deployment require separate authority |
 
@@ -109,20 +110,25 @@ and corrected input/dependency/field history through ordinary merges. The index
 records source, local verification, hosted checks and real consumer acceptance
 separately; green CI does not establish GA readiness.
 
-The current packed candidate was attempted in the existing Klicker worktree.
-Temporary lifecycle settings allowed provider startup; missing installed
-dependencies then prevented the local MCP fixture from starting. Running
-the candidate install in that exact container exposed
-`ERR_PNPM_NO_MATURE_MATCHING_VERSION`: Klicker's 14-day policy rejects 44 exact
-Radix versions across 225 reported dependency paths. The last listed version
-becomes eligible on October 26 at 21:06:42 UTC. Preserve the policy unless the
-user explicitly approves exact-version exceptions for the verification run.
-No installed or rendered candidate acceptance is claimed. Temporary tracked
-changes were restored byte-for-byte, the consumer checkout is clean, and its
-provider is stopped with zero routes.
+The user approved temporary exact-version exceptions for the 44 Radix versions
+blocked by Klicker's 14-day dependency policy. The candidate tarball, SHA256
+`7d676910791ef19875608b22407389ff9efc6fdf75b02377f736609001fc7524`,
+installed in the existing pilot at `1de7ad918`. All 246 installed build files
+and package metadata match the tarball. The container production build passes;
+synthetic delegated login, Formik create/cancel/reset, invalid-state protection,
+edit/save/reload, actionless footer omission, responsive modal layout and a
+1px dropdown separator pass in the real application. Desktop and 390px captures
+are maintained in PR214. Temporary configuration and lockfile changes were
+restored byte-for-byte; the checkout is clean, provider stopped and routes zero.
+
+This qualifies the corrected package against that historical pilot, not current
+Klicker trunk or every consumer. The build reports translation and page-size
+warnings. Compact app navigation and editor-toolbar layout need consumer work;
+existing width/density overrides were retained. Phase 2 must retire the overrides
+corresponding to its default changes and refresh candidate acceptance.
 
 Correction sequence: retain the accepted field review correction; finish the UZH
-Phase 1 draft and current consumer qualification; execute Phase 2; then qualify
+Phase 1 draft evidence; execute Phase 2; then qualify
 a separately authorized integrated candidate. Additive variants remain v5.1.
 Formik remains supported in v5. Before v6, migration recipes must cover every
 used field family, and a packed consumer must build without Formik runtime or
@@ -590,7 +596,7 @@ or an explicitly recorded acceptance gate:
 
 | Review finding | Disposition | Evidence or remaining gate |
 | --- | --- | --- |
-| Responsive consumer CSS collision | Scoped component defaults implemented in Phase 1 | Independently compiled consumer CSS; mobile/sm/md/lg, both themes, explicit utility overrides; real consumer acceptance pending |
+| Responsive consumer CSS collision | Scoped component defaults implemented in Phase 1 | Independently compiled CSS across both themes/four widths; explicit primitive utility overrides; real Klicker modal desktop/mobile checks and explicit header override pass |
 | Calendar browsing changes selected date during time edits | Corrected in PR210 | Each time segment preserves selected calendar date after month browsing |
 | Missing behavioral and consumer release gates | Corrected in PR213 | Contract job and frozen RHF 7.59.0/7.90.0 packed/Next jobs are prerequisites; injected failing contract fails the actual command |
 | Modal arrows unreachable after keyboard opening | Corrected in PR210 | Natural trigger → Enter → arrow sequence; nested controls retain their keys |
@@ -606,11 +612,11 @@ The shadcn assessment covers selected components and capabilities; dependency
 updates do not synchronize copied primitive source automatically. Remaining
 majors and unused dependency ownership stay separate decisions.
 
-Current Klicker acceptance is blocked: the historical workspace has no DevPod,
-and canonical startup rejects its missing `waitFor` for `postCreateCommand`.
-Repairing that consumer lifecycle is separate from these design-system source
-fixes. Historical consumer probes and passing synthetic packed fixtures do not
-accept the current integrated application upgrade.
+Current packed-candidate acceptance passes in the historical Klicker pilot after
+the approved temporary lifecycle/dependency exceptions. It does not replace
+the refreshed multi-consumer qualification of the eventual release candidate.
+The original consumer policy and tracked files are restored; no consumer source
+change or delivery is included.
 
 Phase 2 token/default work remains required before GA. Manual screen-reader,
 Safari and physical-mobile qualification remain open. PR129's historical Formik
