@@ -450,3 +450,41 @@ for (const theme of ['neutral', 'uzh'] as const) {
     })
   }
 }
+
+for (const theme of ['neutral', 'uzh'] as const) {
+  test(`navigation combined states retain paired colors (${theme})`, async ({
+    page,
+  }) => {
+    await gotoStory(page, 'navigation-menu--default', theme)
+    if (theme === 'neutral')
+      await page.evaluate(() => document.documentElement.classList.add('dark'))
+    const trigger = page
+      .locator('[data-slot="navigation-menu-trigger"]')
+      .first()
+    await trigger.hover()
+    await expect(trigger).toHaveAttribute('data-state', 'open')
+    const primary = await page.evaluate(() => {
+      const probe = document.createElement('div')
+      probe.style.color = 'var(--color-primary-100)'
+      probe.style.backgroundColor = 'var(--primary-container)'
+      document.body.append(probe)
+      const colors = {
+        text: getComputedStyle(probe).color,
+        fill: getComputedStyle(probe).backgroundColor,
+      }
+      probe.remove()
+      return colors
+    })
+    await expect(trigger).toHaveCSS('background-color', primary.fill)
+    await expect(trigger).toHaveCSS('color', primary.text)
+    const link = page
+      .locator(
+        '[data-slot="navigation-menu-content"] [data-slot="navigation-menu-link"]'
+      )
+      .first()
+    await link.evaluate((node) => node.setAttribute('data-active', 'true'))
+    await link.focus()
+    await expect(link).toHaveCSS('background-color', primary.fill)
+    await expect(link).toHaveCSS('color', primary.text)
+  })
+}
