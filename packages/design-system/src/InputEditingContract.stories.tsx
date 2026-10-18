@@ -1,11 +1,12 @@
 import { useState } from 'react'
-import { DateTimePicker } from './DatetimePicker'
+import { DateTimePicker, TimePicker } from './DatetimePicker'
 import { Modal } from './Modal'
 
 const initialDate = () => new Date(2026, 0, 15, 13, 24, 35)
 
 export function Default() {
   const [date, setDate] = useState<Date | undefined>(initialDate)
+  const [emptyTime, setEmptyTime] = useState<Date | null | undefined>()
   const [cycle, setCycle] = useState<12 | 24>(24)
   const [granularity, setGranularity] = useState<'hour' | 'minute' | 'second'>(
     'second'
@@ -28,6 +29,31 @@ export function Default() {
         dataTrigger={{ test: 'editing-date-trigger' }}
       />
       <DateTimePicker label="Other appointment" value={initialDate()} />
+      <div role="group" aria-label="Standalone time">
+        <TimePicker
+          date={emptyTime}
+          onChange={setEmptyTime}
+          hourCycle={12}
+          timeLabels={{
+            hours: 'Standalone hours',
+            minutes: 'Standalone minutes',
+            seconds: 'Standalone seconds',
+            period: 'Standalone period',
+          }}
+        />
+        <output data-test="standalone-hour">
+          {emptyTime?.getHours() ?? ''}
+        </output>
+        <button type="button" onClick={() => setEmptyTime(undefined)}>
+          Clear time
+        </button>
+        <button type="button" onClick={() => setEmptyTime(null)}>
+          Reset empty time
+        </button>
+        <button type="button" onClick={() => setEmptyTime(initialDate())}>
+          Set afternoon
+        </button>
+      </div>
       <label>
         Clone date updates
         <input
