@@ -30,7 +30,17 @@ test('preserves non-utility identifiers, attribute values, comments and unmatche
   const renamed = renamePaletteUtilities(jsx)
   assert.equal(renamed.code, jsx.replace('bg-uzh-red p-2', 'bg-uzh-orange p-2'))
   assert.equal(renamed.changes, 1)
-  assert.deepEqual(renamed.unsupported, [])
+  assert.equal(renamed.unsupported.length, 2)
+  const possessive = `<p>The students' grades and 'text-uzh-grey' examples. Read: 'text-uzh-grey'</p>
+<div className="bg-uzh-red p-2" aria-label="Pick text-uzh-grey or not" />
+<p>The teachers' notes</p>`
+  const preserved = renamePaletteUtilities(possessive)
+  assert.equal(
+    preserved.code,
+    possessive.replace('bg-uzh-red p-2', 'bg-uzh-orange p-2')
+  )
+  assert.equal(preserved.changes, 1)
+  assert.equal(preserved.unsupported.length, 1)
 })
 
 test('rewrites CSS apply lists and ordinary static utility strings', () => {
@@ -49,6 +59,16 @@ test('reports dynamic and arbitrary expressions without partially rewriting them
   const result = renamePaletteUtilities(input)
   assert.equal(result.code, input)
   assert.equal(result.unsupported.length, 2)
+  const assignment = "classes = 'bg-uzh-red-100'"
+  const ambiguous = renamePaletteUtilities(assignment)
+  assert.equal(ambiguous.code, assignment)
+  assert.equal(ambiguous.changes, 0)
+  assert.equal(ambiguous.unsupported.length, 1)
+  const unterminated = "const classes = 'bg-uzh-red-100"
+  const incomplete = renamePaletteUtilities(unterminated)
+  assert.equal(incomplete.code, unterminated)
+  assert.equal(incomplete.changes, 0)
+  assert.equal(incomplete.unsupported.length, 1)
 })
 
 test('CLI defaults to dry run and writes only when explicitly requested', () => {
