@@ -153,9 +153,9 @@ The [Phase 1 plan](2026-08-20-v5-phase1-consumer-defects-plan.md) retains the or
 
 ## Phase 2 — token model and visual defaults before GA
 
-The October 18 Claude consultation confirmed the following sequence after source and ADR corroboration. This refines the existing scope; implementation packaging and stack topology still belong to its execution plan.
+The October 18 Claude consultation confirmed the following sequence after source and ADR corroboration. The approved [theme/defaults execution plan](2026-10-18-v5-theme-defaults-plan.md) owns implementation packages, stack topology and progress; its [accepted findings](2026-10-18-v5-progress-roadmap-findings.md) retain the review dispositions.
 
-1. **Establish coverage before changing values.** Inventory public families/rungs, freeze the alias mapping from `CONTEXT.md`, and extend the existing theme contract and stories with a dense application reference fixture. Cover palette samples, intended text/fill pairs, forms, status, tabs and a table at desktop/mobile in neutral and UZH. Existing stories cover some family utilities; current evidence does not establish every rung or alias. Keep the fixture internal to Ladle; no public app-shell API is needed.
+1. **Establish coverage before changing values.** Inventory public families/rungs, freeze the alias mapping from `CONTEXT.md`, and extend the existing theme contract and stories with a dense application reference fixture. Cover palette samples, intended text/fill pairs, forms, status, tabs and a table at desktop/mobile in neutral, UZH and the supported complete synthetic primary-ramp override. Inventory emitted selectors before adding literal story classes, which can generate additional utilities. Existing stories cover some family utilities; current evidence does not establish every rung or alias. Keep the fixture internal to Ladle; no public app-shell API is needed.
 2. **Implement the token graph.** Apply B1–B5 and C13 below, retaining deprecated aliases through 5.x. Re-measure owned neutral literals and identify the source check that will detect regressions; computed-token assertions alone cannot inventory class-string literals. Extend existing checks within this scope rather than assuming a new lint dependency is required.
 3. **Apply the changed defaults.** Complete the component items below against the token graph and preserve explicit consumer overrides. Remove wrapper `!important` escapes only where the new ownership makes them redundant.
 4. **Review the result and migration.** Regenerate pinned VRT baselines once per coherent visual package after its changes settle; inspect every intentional diff. Require alias/computed-style proof, AA for intended text/fill pairs, zero waived serious/critical axe cases, keyboard interactions, public types, RHF minimum/current packed/Next checks and size budgets. Maintain the migration delta table and rename guidance. Compare the touched badge/tooltip/table/tabs source with current shadcn documentation; copied primitives are not updated by dependency bumps.
@@ -163,7 +163,7 @@ The October 18 Claude consultation confirmed the following sequence after source
 
 ### Token and typography scope
 
-- **B1** — interaction-state tokens (`--primary-hover`, `--primary-pressed`, `--primary-container`) drawn from the published Blue ladder rather than invented, with button and menu states wired to them. The breaking one. B1's other half — re-basing the ladder onto mechanical 25% fades — is dropped: the manual publishes the chromatic ladder.
+- **B1** — interaction-state tokens (`--primary-hover`, `--primary-pressed`, `--primary-container`) derived from the selected theme primary ramp, with button and menu states wired to them. The UZH default uses the published Blue ladder; neutral and complete consumer-owned ramps follow their own tokens under ADR 0003. The breaking one. B1's other half — re-basing the ladder onto mechanical 25% fades — is dropped: the manual publishes the chromatic ladder.
 - **B2 + CD #16** — tokenize the owned neutral defaults using a fresh source/packed inventory. The August count of 168 is historical, not an acceptance target. Palette declarations and deliberate test stimuli remain valid literals; add a scoped regression guard to the existing verification where needed.
 - **B3 + CD #10** — the colour-family realignment as ruled in Phase 0: four families take the recorded official swatches with `-100` as the selected accent, `darkgreen` and `grey` leave the `uzh-` namespace, and `berry-80` `#d9305f` is replaced by the published Berry shade 4 `#8f0a2e` (CD #6's interpolated step). The August inventory measured 646 affected occurrences, so the work needs a migration table and a codemod alongside the release note.
 - **B4 + CD #12** — apply the recorded ring contract consistently to `--ring` and `--default-ring-color`, including consumer primary-ramp overrides.
@@ -173,11 +173,11 @@ The October 18 Claude consultation confirmed the following sequence after source
 **Changed defaults, which the GA rule puts here rather than in 5.1.** Each is backed by measured override economics rather than preference — Button 138 overrides on 201 usages, UserNotification 99 on 137, Tooltip 32 on 36. An 89% override rate is a wrong default, and a wrong default cannot be corrected in a minor.
 
 - **Badge default** — implement the settled container tint (blue-20 fill, blue-100 text), retaining solid as an explicit variant.
-- **C8 / C9 (partial)** — set a readable `text-sm` tooltip default with tokenized appearance, and review a default max-width of about 20rem. The primitive currently uses `text-xs`; the wrapper already bounds width at `max-w-120`, and label help already portals. Verify keyboard and portal behaviour inside modals and sticky headers rather than adding another portal.
+- **C8 / C9 (partial)** — set a readable `text-sm` tooltip default with tokenized appearance, and a primitive max-width of 20rem constrained to the viewport. Retain explicit wrapper/caller width precedence and verify both layers. The primitive currently uses `text-xs`; the wrapper already bounds width at `max-w-120`, and label help already portals. Verify keyboard and portal behaviour inside modals and sticky headers rather than adding another portal.
 - **C7** — raise UserNotification default padding and type to the alert treatment; retain tinted fills as ruled in Phase 0.
 - **C2 (partial)** — remove the filled hover overlay from the borderless/basic variant, which paints a button-like surface on things consumers use as plain links in 50 files.
-- **C6** — `TabsList` defaults to a full-width spanning track instead of `w-fit`, with an opt-out.
-- **C14** — reconsider `whitespace-nowrap` on every table body cell.
+- **C6** — `TabsList` defaults to a full-width spanning track instead of `w-fit`, with an explicit caller width utility as the opt-out.
+- **C14** — let ordinary table body content wrap by default; explicit `whitespace-nowrap` remains available to consumers.
 - **C13** — a `--disabled` token replacing `text-slate-400!`; folds naturally into the B2 tokenization sweep.
 
 The dependency dispositions remain dated: the compatible layer was selected on October 17. Later DayPicker, Resizable Panels, chart, toast, validation and build-tool majors need their own compatibility case; they are not automatic GA prerequisites. Preserve the RHF 7.59.0/7.90.0 matrix and revisit candidate metadata and advisories at qualification. A focused shadcn comparison does not establish parity across every copied primitive.
@@ -210,7 +210,7 @@ This needs a canonical-layer decision per component, wrapper styling aligned to 
 ## Immediate next actions
 
 1. Retain the source qualification recorded in [PR214](https://github.com/uzh-bf/design-system/pull/214), including eleven component and five real-application captures. The packed acceptance proves the historical pilot; record new source/artifact refs when refreshing it.
-2. Start Phase 2 with the public-family/alias inventory and dense internal reference fixture, then follow its ordered acceptance steps above. This is the next implementation package to plan.
+2. Start Phase 2 with the public-family/alias inventory and dense internal reference fixture, then follow its ordered acceptance steps above. Its approved execution plan is linked above; coverage precedes token changes.
 3. Refresh candidate acceptance after the token/default work, including relevant consumer override retirement and the outstanding manual accessibility/browser evidence.
 4. Keep additive Phase 3 APIs in v5.1. Keep wrapper convergence and complete Formik public-type/runtime removal in v6.
 5. Reconcile the existing v5 umbrella and qualify the integrated candidate in its promotion package; target merges, publication and deployment retain their separate authority gates.
