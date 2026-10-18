@@ -22,17 +22,17 @@ test('renames static class utilities while preserving variants, rungs and modifi
 })
 
 test('preserves non-utility identifiers, attribute values, comments and unmatched rungs', () => {
-  const input = `const name = 'uzh-red-100'; <div id="bg-uzh-red-100" data-test="text-uzh-grey" class="bg-uzh-red-900 bg-uzh-blue-100 bg-uzh-red-100-label"/> // 'bg-uzh-red-100'`
+  const input = `const name = 'uzh-red-100'; <div onClick={() => act()} id="bg-uzh-red-100" data-test="text-uzh-grey" title="text-uzh-grey" class="bg-uzh-red-900 bg-uzh-blue-100 bg-uzh-red-100-label"/> // 'bg-uzh-red-100'`
   assert.equal(renamePaletteUtilities(input).code, input)
 })
 
 test('rewrites CSS apply lists and ordinary static utility strings', () => {
   const result = renamePaletteUtilities(
-    `.a { @apply focus:bg-uzh-grey-40 text-uzh-red; } const classes = 'dark:decoration-uzh-yellow-20 ring-offset-uzh-turqoise-100/25'`
+    `.a { @apply\n focus:bg-uzh-grey-40 text-uzh-red; } const classes = 'dark:decoration-uzh-yellow-20 ring-offset-uzh-turqoise-100/25'`
   )
   assert.equal(
     result.code,
-    `.a { @apply focus:bg-df-grey-40 text-uzh-orange; } const classes = 'dark:decoration-uzh-gold-20 ring-offset-uzh-cyan-100/25'`
+    `.a { @apply\n focus:bg-df-grey-40 text-uzh-orange; } const classes = 'dark:decoration-uzh-gold-20 ring-offset-uzh-cyan-100/25'`
   )
 })
 

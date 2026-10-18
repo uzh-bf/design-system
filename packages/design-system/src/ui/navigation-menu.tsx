@@ -59,7 +59,7 @@ function NavigationMenuItem({
 }
 
 const navigationMenuTriggerStyle = cva(
-  'group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-3 py-0 text-sm font-medium text-content hover:bg-surface-hover hover:text-content focus:bg-primary-container focus:text-primary-100 disabled:pointer-events-none disabled:opacity-50 data-[state=open]:bg-primary-container data-[state=open]:text-primary-100 data-[state=open]:hover:bg-surface-hover data-[state=open]:focus:bg-primary-container focus-visible:ring-ring/50 outline-none transition-[color,box-shadow] focus-visible:ring-[3px] focus-visible:outline-1'
+  'group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-3 py-0 text-sm font-medium text-content hover:bg-surface-hover hover:text-content focus:bg-primary-container focus:text-primary-100 disabled:pointer-events-none disabled:opacity-50 data-[state=open]:bg-primary-container data-[state=open]:text-primary-100 data-[state=open]:hover:bg-primary-container data-[state=open]:focus:bg-primary-container focus-visible:ring-ring/50 outline-none transition-[color,box-shadow] focus-visible:ring-[3px] focus-visible:outline-1'
 )
 
 function NavigationMenuTrigger({
@@ -129,7 +129,7 @@ function NavigationMenuLink({
     <NavigationMenuPrimitive.Link
       data-slot="navigation-menu-link"
       className={cn(
-        'focus-visible:ring-ring/50 hover:bg-surface-hover hover:text-content focus:bg-primary-container focus:text-primary-100 data-[active=true]:bg-surface-hover data-[active=true]:text-content data-[active=true]:hover:bg-surface-hover data-[active=true]:focus:bg-primary-container flex flex-col gap-1 rounded-md p-2.5 text-sm transition-all outline-none focus-visible:ring-[3px] focus-visible:outline-1',
+        'focus-visible:ring-ring/50 hover:bg-surface-hover hover:text-content focus:bg-primary-container focus:text-primary-100 data-[active=true]:bg-surface-hover data-[active=true]:text-content data-[active=true]:hover:bg-surface-hover data-[active=true]:focus:bg-primary-container data-[active=true]:focus:text-primary-100 flex flex-col gap-1 rounded-md p-2.5 text-sm transition-all outline-none focus-visible:ring-[3px] focus-visible:outline-1',
         className
       )}
       {...props}

@@ -78,10 +78,10 @@ export function renamePaletteUtilities(source) {
       index = next
       continue
     }
-    if (source.startsWith('@apply ', index)) {
+    if (/^@apply\s/.test(source.slice(index))) {
       const end = source.indexOf(';', index)
       if (end >= 0) {
-        code += '@apply ' + renameList(source.slice(index + 7, end)) + ';'
+        code += '@apply' + renameList(source.slice(index + 6, end)) + ';'
         index = end + 1
         continue
       }
@@ -106,12 +106,10 @@ export function renamePaletteUtilities(source) {
     }
     const value = source.slice(index + 1, end)
     const before = source.slice(0, index)
-    const inTag = before.lastIndexOf('<') > before.lastIndexOf('>')
-    const attribute = inTag
-      ? /\b([\w:-]+)\s*=\s*\{?\s*$/.exec(before)?.[1]
-      : undefined
+    const attribute = /\b([\w:-]+)\s*=\s*\{?\s*$/.exec(before)?.[1]
+    const declaration = /\b(?:const|let|var)\s+[\w$]+\s*=\s*$/.test(before)
     const ordinaryString =
-      !attribute || ['class', 'className'].includes(attribute)
+      !attribute || declaration || ['class', 'className'].includes(attribute)
     const dynamic =
       value.includes('${') ||
       value.includes('\\') ||
