@@ -108,6 +108,7 @@ async function readProbeColors(page: Parameters<typeof gotoStory>[0]): Promise<{
   sidebarAccentForeground: string
   primary20: string
   primary100: string
+  primaryHover: string
 }> {
   return page.evaluate(() => {
     const probe = document.createElement('div')
@@ -120,6 +121,7 @@ async function readProbeColors(page: Parameters<typeof gotoStory>[0]): Promise<{
     }
     const result = {
       primary: read('var(--primary)'),
+      primaryHover: read('var(--primary-hover)'),
       sidebarAccent: read('var(--sidebar-accent)'),
       sidebarAccentForeground: (() => {
         probe.style.color = 'var(--sidebar-accent-foreground)'
@@ -329,6 +331,10 @@ for (const state of STATES) {
     await expect(
       page.locator('[data-test="theme-reference-primary"]')
     ).toHaveCSS('background-color', colors.primary)
+    await page.locator('[data-test="theme-reference-primary"]').hover()
+    await expect(
+      page.locator('[data-test="theme-reference-primary"]')
+    ).toHaveCSS('background-color', colors.primaryHover)
     const tabs = page.getByRole('tab')
     await tabs.first().focus()
     await tabs.first().press('ArrowRight')

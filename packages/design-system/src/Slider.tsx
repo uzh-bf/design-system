@@ -123,7 +123,7 @@ export function Slider({
       >
         <RadixSlider.Track
           className={twMerge(
-            'relative h-1.5 flex-1 rounded-full bg-[#EFEFEF]',
+            'bg-surface-muted relative h-1.5 flex-1 rounded-full',
             compact && 'h-1.5',
             className?.track
           )}
@@ -145,10 +145,10 @@ export function Slider({
           ref={ref}
           aria-label={ariaLabel ?? 'Value'}
           className={twMerge(
-            'focus:ring-ring/50 flex size-[18px] flex-col items-center justify-center rounded-full border-2 border-solid bg-white shadow-sm transition-[color,box-shadow] focus:ring-[3px] focus:outline-hidden',
+            'focus:ring-ring/50 bg-control-thumb flex size-[18px] flex-col items-center justify-center rounded-full border-2 border-solid shadow-sm transition-[color,box-shadow] focus:ring-[3px] focus:outline-hidden',
             compact && 'size-4 border-[1.5px]',
             disabled ? 'cursor-not-allowed' : 'cursor-move',
-            disabled && compact ? 'bg-gray-100' : 'bg-white',
+            disabled && compact ? 'bg-gray-100' : 'bg-control-thumb',
             disabled
               ? 'border-gray-300'
               : hasBorderColorMap

@@ -62,7 +62,7 @@ function DialogContent({
     <DialogPrimitive.Content
       data-slot="dialog-content"
       className={cn(
-        'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 relative z-50 w-full max-w-[520px] gap-4 rounded-lg border border-[#E0E0E0] bg-white p-6 shadow-lg duration-200',
+        'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 border-control-border bg-surface relative z-50 w-full max-w-[520px] gap-4 rounded-lg border p-6 shadow-lg duration-200',
         className
       )}
       {...props}
@@ -71,7 +71,7 @@ function DialogContent({
       {showCloseButton && (
         <DialogPrimitive.Close
           data-slot="dialog-close"
-          className="ring-offset-background focus-visible:ring-ring absolute top-4 right-4 inline-flex size-8 cursor-pointer items-center justify-center rounded-md text-[#666666] opacity-70 transition-opacity hover:bg-[#FAFAFA] hover:opacity-100 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden disabled:pointer-events-none disabled:cursor-not-allowed data-[state=open]:bg-[#FAFAFA] [&>svg]:size-4"
+          className="ring-offset-background focus-visible:ring-ring text-content-muted hover:bg-surface-hover data-[state=open]:bg-surface-hover absolute top-4 right-4 inline-flex size-8 cursor-pointer items-center justify-center rounded-md opacity-70 transition-opacity hover:opacity-100 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden disabled:pointer-events-none disabled:cursor-not-allowed [&>svg]:size-4"
           data-cy={dataCloseButton?.cy}
           data-test={dataCloseButton?.test}
         >
@@ -98,7 +98,7 @@ function DialogFooter({ className, ...props }: React.ComponentProps<'div'>) {
     <div
       data-slot="dialog-footer"
       className={cn(
-        'ds-dialog-footer flex gap-2 border-t border-[#EFEFEF] pt-4',
+        'ds-dialog-footer border-surface-muted flex gap-2 border-t pt-4',
         className
       )}
       {...props}
@@ -114,7 +114,7 @@ function DialogTitle({
     <DialogPrimitive.Title
       data-slot="dialog-title"
       className={cn(
-        'text-lg leading-[1.3] font-semibold text-[#111111]',
+        'text-content text-lg leading-[1.3] font-semibold',
         className
       )}
       {...props}
@@ -129,7 +129,7 @@ function DialogDescription({
   return (
     <DialogPrimitive.Description
       data-slot="dialog-description"
-      className={cn('text-sm leading-relaxed text-[#666666]', className)}
+      className={cn('text-content-muted text-sm leading-relaxed', className)}
       {...props}
     />
   )

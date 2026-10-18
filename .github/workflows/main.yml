@@ -148,7 +148,9 @@ jobs:
         working-directory: packages/design-system
         env:
           PWTEST_SKIP_BUILD: "1"
-        run: pnpm exec playwright test tests/contracts
+        run: |
+          node --test tests/theme-contract/rename-palette-utilities.test.mjs
+          pnpm exec playwright test tests/contracts
       - name: Upload contract report
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v4

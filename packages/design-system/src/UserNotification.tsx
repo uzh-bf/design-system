@@ -84,12 +84,12 @@ export function UserNotification({
       notifIcon = faCircleXmark
       break
     case 'info':
-      computedClassName = 'text-foreground bg-info-background dark:text-info'
+      computedClassName = 'text-info-text bg-info-background dark:text-info'
       notifIcon = faCircleInfo
       break
     case 'success':
       computedClassName =
-        'text-foreground bg-success-background dark:text-success'
+        'text-success-text bg-success-background dark:text-success'
       notifIcon = faCircleCheck
       break
     default:

@@ -814,3 +814,13 @@ For custom input addons, compose `Field`, `FieldDescription`, `FieldError`,
 Give each help/error node an ID, associate it on the actual control, and put
 `aria-invalid` on that control when validation fails. This primitive composition
 is available alongside the opinionated field wrappers.
+
+## Palette and interaction tokens before v5 GA
+
+The v5 token layer aligns the four legacy families to published UZH swatches. `uzh-red` maps to `uzh-orange`, `uzh-yellow` to `uzh-gold`, `uzh-lightgreen` to `uzh-apple`, and misspelled `uzh-turqoise` to `uzh-cyan`. House families use `df-grey` and `df-darkgreen`; their old `uzh-` names remain aliases. Base names and100/80/60/40/20 rungs keep compiling through5.x. The aliases point at the new values, so colors change at existing call sites before identifiers change. Berry80 is now the published `#8f0a2e`; Blue retains its intentional non-monotonic selected ladder.
+
+Generate custom palette utilities by importing `@uzh-bf/design-system/css` in the consumer's Tailwind root stylesheet. The packed CSS carries public palette compiler metadata, so new names, retained aliases, variants and opacity utilities can be generated without scanning package source. A JavaScript import still loads shipped component rules; it does not feed metadata into another Tailwind compilation. No new stylesheet export is required.
+
+The optional `scripts/rename-palette-utilities.mjs` helper in this repository defaults to a dry run over explicitly named UTF-8 files; pass `--write` to apply reviewed changes. It handles complete static color utility tokens in quoted class lists/strings and CSS `@apply`, preserving variants, rungs, opacity and important modifiers. Interpolated, escaped and arbitrary CSS expressions are reported and left untouched. Review the diff; this conservative token tool is not an AST migration and does not discover files or rewrite consumer code automatically. Deprecated aliases remain usable if the helper is not run.
+
+Primary hover/pressed/container states and bare ring colors follow the selected theme's complete primary ramp. Hover and pressed currently share the approved80rung; container uses20. No new consumer branding property or generated intermediate shade is introduced. Disabled navigation foregrounds and owned component neutrals now use theme tokens; explicit caller utilities retain precedence. Tinted status text uses contrast-checked pairs: Apple5/Apple1 and Cyan5/Cyan1, Berry error text on Orange1, and the retained dark warning foreground because Gold5/Gold1 does not meet4.5:1 for ordinary text.

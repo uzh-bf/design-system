@@ -419,7 +419,7 @@ const TimePickerInput = React.forwardRef<
         id={id ?? generatedId}
         name={name || picker}
         className={cn(
-          'focus-visible:border-primary-100 focus-visible:ring-primary-100/20 w-12 rounded-md border-[#E0E0E0] text-center font-mono text-sm tabular-nums [&::-webkit-inner-spin-button]:appearance-none',
+          'focus-visible:border-primary-100 focus-visible:ring-primary-100/20 border-control-border w-12 rounded-md text-center font-mono text-sm tabular-nums [&::-webkit-inner-spin-button]:appearance-none',
           className
         )}
         value={value ?? draft ?? calculatedValue}
@@ -834,8 +834,8 @@ const DateTimePicker = ({
               type="button"
               disabled={disabled}
               className={cn(
-                'h-10 min-w-[220px] justify-start overflow-hidden rounded-md border-[#E0E0E0] px-0 text-left text-sm font-normal text-[#111111] hover:bg-[#FAFAFA]',
-                !displayDate && 'px-3 text-[#666666]',
+                'border-control-border text-content hover:bg-surface-hover h-10 min-w-[220px] justify-start overflow-hidden rounded-md px-0 text-left text-sm font-normal',
+                !displayDate && 'text-content-muted px-3',
                 !!error &&
                   isTouched &&
                   'border-destructive bg-destructive-background',
@@ -847,7 +847,7 @@ const DateTimePicker = ({
               <FontAwesomeIcon
                 icon={faCalendar}
                 className={cn(
-                  'h-4 w-4 text-[#666666]',
+                  'text-content-muted h-4 w-4',
                   displayDate ? 'mr-2.5 ml-3' : 'mr-2.5'
                 )}
               />
@@ -861,9 +861,9 @@ const DateTimePicker = ({
                     <>
                       <span
                         aria-hidden="true"
-                        className="mx-3 h-10 w-px bg-[#E0E0E0]"
+                        className="bg-control-border mx-3 h-10 w-px"
                       />
-                      <Clock className="mr-2 h-4 w-4 text-[#666666]" />
+                      <Clock className="text-content-muted mr-2 h-4 w-4" />
                       <span
                         id={timeValueId}
                         className="pr-3 font-mono text-sm tabular-nums"
@@ -905,7 +905,7 @@ const DateTimePicker = ({
           className={cn(
             'w-fit',
             granularity !== 'day' &&
-              'overflow-hidden rounded-lg border border-[#E0E0E0] bg-white shadow-lg'
+              'border-control-border bg-surface overflow-hidden rounded-lg border shadow-lg'
           )}
         >
           <Calendar
@@ -939,7 +939,7 @@ const DateTimePicker = ({
             showOutsideDays={props.showOutsideDays}
           />
           {granularity !== 'day' && (
-            <div className="border-t border-[#E0E0E0] bg-white p-3">
+            <div className="border-control-border bg-surface border-t p-3">
               <TimePicker
                 timeLabels={timeLabels}
                 disabled={disabled}

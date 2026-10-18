@@ -125,15 +125,15 @@ export function DateRangePicker({
             variant="outline"
             disabled={disabled}
             className={twMerge(
-              'h-10 min-w-64 justify-start rounded-md border-[#E0E0E0] px-3 text-left text-sm font-normal text-[#111111] hover:bg-[#FAFAFA]',
-              !range?.from && 'text-[#666666]',
+              'border-control-border text-content hover:bg-surface-hover h-10 min-w-64 justify-start rounded-md px-3 text-left text-sm font-normal',
+              !range?.from && 'text-content-muted',
               className?.trigger
             )}
             {...testAttrs(dataTrigger)}
           >
             <FontAwesomeIcon
               icon={faCalendar}
-              className="mr-2.5 h-4 w-4 text-[#666666]"
+              className="text-content-muted mr-2.5 h-4 w-4"
             />
             {triggerLabel}
           </Button>

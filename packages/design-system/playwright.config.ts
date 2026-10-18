@@ -22,7 +22,10 @@ export default defineConfig({
       ? './tests/a11y/global-teardown.ts'
       : undefined,
   // The packed Next/RHF fixture owns its server and Playwright config.
-  testIgnore: ['tests/rsc/next-consumer/**'],
+  testIgnore: [
+    'tests/rsc/next-consumer/**',
+    'tests/theme-contract/rename-palette-utilities.test.mjs',
+  ],
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   // The a11y harness (tests/_support/ladle.ts) can wait up to ~35s before axe

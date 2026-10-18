@@ -117,42 +117,78 @@ const PALETTE = [
   ['uzh-grey-60', '#c8ced4'],
   ['uzh-grey-40', '#dadee2'],
   ['uzh-grey-20', '#edeff1'],
-  ['uzh-red', '#dc6027'],
-  ['uzh-red-100', '#dc6027'],
-  ['uzh-red-80', '#e38052'],
-  ['uzh-red-60', '#eaa07d'],
-  ['uzh-red-40', '#f1bfa9'],
-  ['uzh-red-20', '#f8dfd4'],
+  ['uzh-red', '#fc4c02'],
+  ['uzh-red-100', '#fc4c02'],
+  ['uzh-red-80', '#bd3902'],
+  ['uzh-red-60', '#fe9367'],
+  ['uzh-red-40', '#feb799'],
+  ['uzh-red-20', '#ffdbcc'],
   ['uzh-berry', '#bf0d3e'],
   ['uzh-berry-100', '#bf0d3e'],
-  ['uzh-berry-80', '#d9305f'],
+  ['uzh-berry-80', '#8f0a2e'],
   ['uzh-berry-60', '#f3537f'],
   ['uzh-berry-40', '#f78caa'],
   ['uzh-berry-20', '#fbc6d4'],
-  ['uzh-yellow', '#fede00'],
-  ['uzh-yellow-100', '#fede00'],
-  ['uzh-yellow-80', '#fbe651'],
-  ['uzh-yellow-60', '#fcec7c'],
-  ['uzh-yellow-40', '#fdf3a8'],
-  ['uzh-yellow-20', '#fef9d3'],
-  ['uzh-lightgreen', '#91c34a'],
-  ['uzh-lightgreen-100', '#91c34a'],
-  ['uzh-lightgreen-80', '#aad470'],
-  ['uzh-lightgreen-60', '#bfdfc4'],
-  ['uzh-lightgreen-40', '#d5e9b7'],
-  ['uzh-lightgreen-20', '#eaf4db'],
+  ['uzh-yellow', '#f3ab00'],
+  ['uzh-yellow-100', '#f3ab00'],
+  ['uzh-yellow-80', '#a27200'],
+  ['uzh-yellow-60', '#ffde8f'],
+  ['uzh-yellow-40', '#ffe9b5'],
+  ['uzh-yellow-20', '#fff4da'],
+  ['uzh-lightgreen', '#7ca023'],
+  ['uzh-lightgreen-100', '#7ca023'],
+  ['uzh-lightgreen-80', '#536b18'],
+  ['uzh-lightgreen-60', '#c8e485'],
+  ['uzh-lightgreen-40', '#dbedad'],
+  ['uzh-lightgreen-20', '#ecf6d6'],
   ['uzh-darkgreen', '#2a7f62'],
   ['uzh-darkgreen-100', '#2a7f62'],
   ['uzh-darkgreen-80', '#569d85'],
   ['uzh-darkgreen-60', '#80b6a4'],
   ['uzh-darkgreen-40', '#abcec2'],
   ['uzh-darkgreen-20', '#d5e7e1'],
-  ['uzh-turqoise', '#0b82a0'],
-  ['uzh-turqoise-100', '#0b82a0'],
-  ['uzh-turqoise-80', '#3c9fb6'],
-  ['uzh-turqoise-60', '#6bb7c7'],
-  ['uzh-turqoise-40', '#9ed0d9'],
-  ['uzh-turqoise-20', '#cfe8ec'],
+  ['uzh-turqoise', '#1ea7c4'],
+  ['uzh-turqoise-100', '#1ea7c4'],
+  ['uzh-turqoise-80', '#147082'],
+  ['uzh-turqoise-60', '#92dfee'],
+  ['uzh-turqoise-40', '#b7e9f4'],
+  ['uzh-turqoise-20', '#dbf4f9'],
+  ['uzh-orange', '#fc4c02'],
+  ['uzh-orange-100', '#fc4c02'],
+  ['uzh-orange-80', '#bd3902'],
+  ['uzh-orange-60', '#fe9367'],
+  ['uzh-orange-40', '#feb799'],
+  ['uzh-orange-20', '#ffdbcc'],
+  ['uzh-gold', '#f3ab00'],
+  ['uzh-gold-100', '#f3ab00'],
+  ['uzh-gold-80', '#a27200'],
+  ['uzh-gold-60', '#ffde8f'],
+  ['uzh-gold-40', '#ffe9b5'],
+  ['uzh-gold-20', '#fff4da'],
+  ['uzh-apple', '#7ca023'],
+  ['uzh-apple-100', '#7ca023'],
+  ['uzh-apple-80', '#536b18'],
+  ['uzh-apple-60', '#c8e485'],
+  ['uzh-apple-40', '#dbedad'],
+  ['uzh-apple-20', '#ecf6d6'],
+  ['uzh-cyan', '#1ea7c4'],
+  ['uzh-cyan-100', '#1ea7c4'],
+  ['uzh-cyan-80', '#147082'],
+  ['uzh-cyan-60', '#92dfee'],
+  ['uzh-cyan-40', '#b7e9f4'],
+  ['uzh-cyan-20', '#dbf4f9'],
+  ['df-grey', '#a3adb7'],
+  ['df-grey-100', '#a3adb7'],
+  ['df-grey-80', '#b5bdc5'],
+  ['df-grey-60', '#c8ced4'],
+  ['df-grey-40', '#dadee2'],
+  ['df-grey-20', '#edeff1'],
+  ['df-darkgreen', '#2a7f62'],
+  ['df-darkgreen-100', '#2a7f62'],
+  ['df-darkgreen-80', '#569d85'],
+  ['df-darkgreen-60', '#80b6a4'],
+  ['df-darkgreen-40', '#abcec2'],
+  ['df-darkgreen-20', '#d5e7e1'],
 ]
 
 /* ---- Document roots ---- */
@@ -309,14 +345,14 @@ const BASE = {
     '--accent': 'oklch(97% 0 0)',
     '--destructive': '#fc4c02',
     '--theme-color-secondary': '#bf0d3e',
-    '--theme-color-secondary-80': '#d9305f',
+    '--theme-color-secondary-80': '#8f0a2e',
     '--theme-color-secondary-60': '#f3537f',
     '--theme-color-secondary-40': '#f78caa',
     '--theme-color-secondary-20': '#fbc6d4',
     '--theme-success': '#7ca023',
     '--theme-success-foreground': '#111',
     '--theme-success-background': '#ecf6d6',
-    '--theme-warning': '#ffc845',
+    '--theme-warning': '#f3ab00',
     '--theme-warning-foreground': '#111',
     '--theme-warning-background': '#fff4da',
     '--theme-info': '#1ea7c4',
@@ -333,7 +369,7 @@ const BASE = {
     '--chart-1': '#0028a5',
     '--chart-2': '#1ea7c4',
     '--chart-3': '#7ca023',
-    '--chart-4': '#ffc845',
+    '--chart-4': '#f3ab00',
     '--chart-5': '#bf0d3e',
   },
   'neutral-dark': {
@@ -407,14 +443,14 @@ const BASE = {
     '--accent': 'oklch(26.9% 0 0)',
     '--destructive': '#fc4c02',
     '--theme-color-secondary': '#bf0d3e',
-    '--theme-color-secondary-80': '#d9305f',
+    '--theme-color-secondary-80': '#8f0a2e',
     '--theme-color-secondary-60': '#f3537f',
     '--theme-color-secondary-40': '#f78caa',
     '--theme-color-secondary-20': '#fbc6d4',
     '--theme-success': '#7ca023',
     '--theme-success-foreground': '#111',
     '--theme-success-background': 'oklch(25% .04 165)',
-    '--theme-warning': '#ffc845',
+    '--theme-warning': '#f3ab00',
     '--theme-warning-foreground': '#111',
     '--theme-warning-background': 'oklch(27% .05 95)',
     '--theme-info': '#1ea7c4',
@@ -431,7 +467,7 @@ const BASE = {
     '--chart-1': '#0028a5',
     '--chart-2': '#1ea7c4',
     '--chart-3': '#7ca023',
-    '--chart-4': '#ffc845',
+    '--chart-4': '#f3ab00',
     '--chart-5': '#bf0d3e',
   },
 }
@@ -540,6 +576,48 @@ const extractDir = path.join(tmpDir, 'extracted')
 
 let browser
 try {
+  const { readdirSync: listFiles } = await import('node:fs')
+  const sourceDir = path.join(packageDir, 'src')
+  const inspectSources = (directory) => {
+    for (const entry of listFiles(directory, { withFileTypes: true })) {
+      const file = path.join(directory, entry.name)
+      if (entry.isDirectory()) {
+        if (entry.name !== 'original') inspectSources(file)
+        continue
+      }
+      if (
+        !file.endsWith('.tsx') ||
+        file.includes('.stories.') ||
+        /Contracts\.tsx$/.test(file)
+      )
+        continue
+      const source = readFileSync(file, 'utf8')
+      const neutral = [
+        ...source.matchAll(
+          /(?:bg|text|border(?:-[a-z]+)?|fill|stroke)-\[(#[0-9a-f]{3,8})\]/gi
+        ),
+      ].some(([, hex]) => {
+        const digits = hex.slice(1)
+        const rgb =
+          digits.length <= 4
+            ? digits
+                .slice(0, 3)
+                .split('')
+                .map((value) => value + value)
+                .join('')
+            : digits.slice(0, 6)
+        return (
+          rgb.slice(0, 2).toLowerCase() === rgb.slice(2, 4).toLowerCase() &&
+          rgb.slice(2, 4).toLowerCase() === rgb.slice(4, 6).toLowerCase()
+        )
+      })
+      if (neutral || source.includes('text-slate-400!'))
+        throw new Error(
+          `Owned neutral literal returned: ${path.relative(packageDir, file)}`
+        )
+    }
+  }
+  inspectSources(sourceDir)
   console.log('[theme-contract] building the design system package')
   execFileSync('pnpm', ['build'], { cwd: packageDir, stdio: 'inherit' })
 
@@ -601,6 +679,98 @@ try {
   // Component nodes use scoped defaults; explicit utilities still take priority.
   const { default: postcss } = await import('postcss')
   const { default: tailwindPostcss } = await import('@tailwindcss/postcss')
+  const consumerPaletteInput = `@import "tailwindcss" source(none); @import "${packedCssPath}"; @source inline("${PALETTE.flatMap(([name]) => ['bg', 'text', 'border'].map((prefix) => `${prefix}-${name}`)).join(' ')} hover:text-uzh-berry-80/50 border-primary-60 bg-primary-hover bg-primary-pressed bg-primary-container");`
+  const paletteConsumerCss = String(
+    await postcss([tailwindPostcss({ base: packageDir })]).process(
+      consumerPaletteInput,
+      { from: path.join(packageDir, 'palette-consumer.css') }
+    )
+  )
+  for (const [name] of PALETTE) {
+    if (!paletteConsumerCss.includes(`.${'bg-' + name}`))
+      throw new Error(`Consumer palette utility missing: ${name}`)
+  }
+  if (!paletteConsumerCss.includes('hover\\:text-uzh-berry-80'))
+    throw new Error('Consumer opacity/hover palette variant missing')
+  for (const theme of ['neutral', 'uzh']) {
+    await page.setContent(
+      `<html data-theme="${theme}"><head><style>${paletteConsumerCss}</style></head><body></body></html>`
+    )
+    const failures = await page.evaluate((palette) => {
+      const probe = document.createElement('div')
+      const oracle = document.createElement('div')
+      document.body.append(probe, oracle)
+      const failures = []
+      for (const [name, value] of palette) {
+        for (const [prefix, property] of [
+          ['bg', 'backgroundColor'],
+          ['text', 'color'],
+          ['border', 'borderTopColor'],
+        ]) {
+          probe.className = `${prefix}-${name}`
+          oracle.style[property] = value
+          if (
+            getComputedStyle(probe)[property] !==
+            getComputedStyle(oracle)[property]
+          )
+            failures.push(`${prefix}-${name}`)
+        }
+      }
+      probe.remove()
+      oracle.remove()
+      return failures
+    }, PALETTE)
+    if (failures.length)
+      throw new Error(
+        `Consumer palette values differ (${theme}): ${failures.join(', ')}`
+      )
+  }
+  await page.setContent(
+    `<html data-theme="uzh"><head><style>${paletteConsumerCss}</style><style>${RAMP_CONSUMER_CSS}</style></head><body><div id="ramp-border" class="border-primary-60"></div><div id="palette-opacity" class="hover:text-uzh-berry-80/50">Opacity</div></body></html>`
+  )
+  const rampBorder = await page
+    .locator('#ramp-border')
+    .evaluate((node) => getComputedStyle(node).borderTopColor)
+  if (rampBorder !== 'rgb(234, 153, 125)')
+    throw new Error(
+      `Consumer ramp utility did not follow override: ${rampBorder}`
+    )
+  await page.locator('#palette-opacity').hover()
+  const opacity = await page
+    .locator('#palette-opacity')
+    .evaluate((node) => getComputedStyle(node).color)
+  if (!/\/ 0\.5|rgba\([^)]*, 0\.5\)/.test(opacity))
+    throw new Error(`Consumer palette opacity missing: ${opacity}`)
+  const stateProbes = await page.evaluate(() => {
+    const expected = {
+      'primary-hover': 'rgb(226, 116, 84)',
+      'primary-pressed': 'rgb(226, 116, 84)',
+      'primary-container': 'rgb(250, 228, 217)',
+    }
+    const failed = []
+    for (const [state, color] of Object.entries(expected)) {
+      const node = document.createElement('div')
+      node.className = `bg-${state}`
+      document.body.append(node)
+      if (getComputedStyle(node).backgroundColor !== color) failed.push(state)
+      node.remove()
+    }
+    const ring = document.createElement('div')
+    ring.style.color = 'var(--default-ring-color)'
+    document.body.append(ring)
+    if (getComputedStyle(ring).color !== 'rgb(217, 79, 43)')
+      failed.push('default-ring-color')
+    ring.remove()
+    return failed
+  })
+  if (stateProbes.length)
+    throw new Error(
+      `Consumer interaction/ring bridge failed: ${stateProbes.join(', ')}`
+    )
+  console.log(
+    `[theme-contract] consumer-generated palette/aliases verified: ${PALETTE.length} names, both themes, hover/opacity and synthetic ramp`
+  )
+
   const packedClasses = new Set()
   postcss.parse(packedCss).walkRules((rule) => {
     if (/^\.[a-z][a-z0-9-]*$/.test(rule.selector))

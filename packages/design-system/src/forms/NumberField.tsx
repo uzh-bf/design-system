@@ -203,7 +203,7 @@ export function NumberField({
             className={twMerge(
               'flex w-full flex-row items-center',
               stepper &&
-                'focus-within:border-primary-100 focus-within:ring-primary-100/20 w-fit overflow-hidden rounded-md border border-[#E0E0E0] bg-white focus-within:ring-[3px]',
+                'focus-within:border-primary-100 focus-within:ring-primary-100/20 border-control-border bg-surface w-fit overflow-hidden rounded-md border focus-within:ring-[3px]',
               disabled && stepper && 'bg-muted opacity-70'
             )}
           >
@@ -214,11 +214,14 @@ export function NumberField({
                   aria-label="Decrease value"
                   disabled={disabled || isAtMin}
                   onClick={() => handleStep(-1)}
-                  className="inline-flex h-10 w-10 shrink-0 items-center justify-center bg-white text-[#666666] hover:bg-[#FAFAFA] disabled:cursor-not-allowed disabled:text-[#A3A3A3] disabled:hover:bg-white"
+                  className="bg-surface text-content-muted hover:bg-surface-hover disabled:text-disabled disabled:hover:bg-surface inline-flex h-10 w-10 shrink-0 items-center justify-center disabled:cursor-not-allowed"
                 >
                   <MinusIcon className="h-3.5 w-3.5" aria-hidden="true" />
                 </button>
-                <span aria-hidden="true" className="h-10 w-px bg-[#E0E0E0]" />
+                <span
+                  aria-hidden="true"
+                  className="bg-control-border h-10 w-px"
+                />
               </>
             )}
             <Input
@@ -279,7 +282,7 @@ export function NumberField({
                   'border-destructive focus:border-destructive bg-destructive-background',
                 !!unit && !stepper && 'rounded-r-none',
                 stepper &&
-                  'h-10 w-16 rounded-none border-0 bg-transparent px-2 text-center font-mono text-sm text-[#111111] tabular-nums shadow-none focus-visible:ring-0 disabled:bg-transparent disabled:opacity-100',
+                  'text-content h-10 w-16 rounded-none border-0 bg-transparent px-2 text-center font-mono text-sm tabular-nums shadow-none focus-visible:ring-0 disabled:bg-transparent disabled:opacity-100',
                 className?.input
               )}
               {...props}
@@ -290,7 +293,7 @@ export function NumberField({
                   !stepper &&
                     'flex h-10 min-w-max flex-col items-center justify-center rounded-r bg-slate-600 px-4 text-white',
                   stepper &&
-                    'flex h-10 min-w-max flex-col items-center justify-center rounded-none border-0 bg-transparent px-2 pr-3 font-mono text-xs font-normal text-[#666666]',
+                    'text-content-muted flex h-10 min-w-max flex-col items-center justify-center rounded-none border-0 bg-transparent px-2 pr-3 font-mono text-xs font-normal',
                   className?.unit
                 )}
                 data-cy="input-numerical-unit"
@@ -300,13 +303,16 @@ export function NumberField({
             )}
             {stepper && (
               <>
-                <span aria-hidden="true" className="h-10 w-px bg-[#E0E0E0]" />
+                <span
+                  aria-hidden="true"
+                  className="bg-control-border h-10 w-px"
+                />
                 <button
                   type="button"
                   aria-label="Increase value"
                   disabled={disabled || isAtMax}
                   onClick={() => handleStep(1)}
-                  className="inline-flex h-10 w-10 shrink-0 items-center justify-center bg-white text-[#666666] hover:bg-[#FAFAFA] disabled:cursor-not-allowed disabled:text-[#A3A3A3] disabled:hover:bg-white"
+                  className="bg-surface text-content-muted hover:bg-surface-hover disabled:text-disabled disabled:hover:bg-surface inline-flex h-10 w-10 shrink-0 items-center justify-center disabled:cursor-not-allowed"
                 >
                   <PlusIcon className="h-3.5 w-3.5" aria-hidden="true" />
                 </button>

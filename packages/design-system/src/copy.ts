@@ -1,5 +1,6 @@
 import fs from 'fs'
 import path, { dirname } from 'path'
+import postcss from 'postcss'
 import { fileURLToPath } from 'url'
 
 const __filename = fileURLToPath(import.meta.url)
@@ -71,6 +72,27 @@ for (const { pkg, files } of fontPackages) {
     extracted++
   }
 }
+
+// Consumer Tailwind compilation needs the public palette metadata as well as
+// the compiled component rules. Browsers ignore this compiler-only at-rule.
+const sourceTheme = postcss.parse(
+  fs.readFileSync(path.resolve(__dirname, 'tailwind.css'), 'utf8')
+)
+const publicTheme = postcss.atRule({ name: 'theme', params: 'inline' })
+sourceTheme.walkAtRules('theme', (rule) => {
+  rule.walkDecls((declaration) => {
+    if (
+      /^--color-(?:uzh-|df-|(?:primary|secondary)-(?:100|80|60|40|20|hover|pressed|container)$)/.test(
+        declaration.prop
+      )
+    ) {
+      publicTheme.append(declaration.clone())
+    }
+  })
+})
+if (!publicTheme.nodes?.length)
+  throw new Error('Public palette metadata is missing')
+css += `\n${publicTheme.toString()}\n`
 
 fs.writeFileSync(cssPath, css)
 

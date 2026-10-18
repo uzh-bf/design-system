@@ -12,7 +12,7 @@ function Spinner({ className, ...props }: React.ComponentProps<'span'>) {
       // before the spread so consumers can still override it.
       aria-label="Loading"
       className={cn(
-        'border-t-primary-100 inline-block size-7 animate-spin rounded-full border-[3px] border-[#E0E0E0]',
+        'border-t-primary-100 border-control-border inline-block size-7 animate-spin rounded-full border-[3px]',
         className
       )}
       {...props}
