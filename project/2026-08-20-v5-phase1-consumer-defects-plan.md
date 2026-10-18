@@ -370,3 +370,14 @@ The field layer has a complete independent review and hosted CI pass. UZH
 hosted CI passes at source 557025003. The final review and subsequent CI
 receipts are maintained in [PR214](https://github.com/uzh-bf/design-system/pull/214). Current real consumer acceptance remains
 blocked as stated above; Phase 2 is still outstanding before GA.
+
+
+Post-review: the complete independent review accepted the visited-link selector
+correction and migration-guide fixes at f91149ee8. A packed regression fails
+with the old selector and passes with the corrected anchor selector. Natural
+browser navigation/Back confirms visited colors; eleven published captures
+render successfully. Focused forge feedback also added regression protection
+for footer omission, shared menu sizing isolation and keyboard-only close rings
+using the existing fixture/spec. All 90 behavioral contracts, types, lint and
+formatting pass. Production component source is unchanged by this coverage
+follow-up; latest-head hosted checks remain tracked in PR214.
