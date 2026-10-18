@@ -82,3 +82,13 @@ existing UZH work owns CSS delivery and real consumer acceptance.
 
 Progress: review findings reopened acceptance. Implementation begins with red
 regression cases; the original passing receipts remain historical.
+
+- 2026-10-18: Added meaningful failing cases for natural modal focus,
+  standalone pending period and each time segment after calendar browsing.
+  All ten new/extended both-theme cases failed on the original source.
+  Corrected panel autofocus, pending period and selected-date ownership.
+  Fresh package/Ladle builds, types, lint, package formatting and all60 lower
+  browser contracts pass; the18 input cases include every new regression.
+  Test delta: four new behaviors (eight both-theme cases), one existing modal
+  case extended; one existing synthetic fixture extended, no new test module.
+  Independent simplification/risk review and refreshed gallery remain next.

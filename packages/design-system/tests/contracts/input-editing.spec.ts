@@ -202,13 +202,65 @@ for (const theme of ['neutral', 'uzh'] as const) {
       ).toBeFocused()
     })
 
+    test('keeps an empty twelve-hour picker period and follows controlled resets', async ({
+      page,
+    }) => {
+      const picker = page.getByRole('group', { name: 'Standalone time' })
+      const period = picker.getByRole('combobox', { name: 'Standalone period' })
+      const hours = picker.getByRole('textbox', {
+        name: 'Standalone hours',
+        exact: true,
+      })
+      const hourValue = picker.locator('[data-test="standalone-hour"]')
+      await period.click()
+      await page.getByRole('option', { name: 'PM', exact: true }).click()
+      await expect(period).toHaveText('PM')
+      await hours.fill('9')
+      await hours.press('Tab')
+      await expect(hourValue).toHaveText('21')
+      await picker.getByRole('button', { name: 'Clear time' }).click()
+      await expect(period).toHaveText('AM')
+      await hours.fill('9')
+      await expect(hourValue).toHaveText('9')
+      await picker.getByRole('button', { name: 'Set afternoon' }).click()
+      await expect(period).toHaveText('PM')
+      await hours.fill('10')
+      await expect(hourValue).toHaveText('22')
+    })
+
+    for (const [segment, expected] of [
+      ['Hours', '2026,0,15,14,24,35'],
+      ['Minutes', '2026,0,15,13,25,35'],
+      ['Seconds', '2026,0,15,13,24,36'],
+    ] as const) {
+      test(`preserves the selected date after browsing and editing ${segment}`, async ({
+        page,
+      }) => {
+        await page.getByRole('button', { name: /^Appointment\b/ }).click()
+        await page.getByRole('button', { name: /Next Month/i }).click()
+        const input = page.getByRole('textbox', { name: segment, exact: true })
+        await input.press('ArrowUp')
+        await expect(page.locator('[data-test="date-value"]')).toHaveText(
+          expected
+        )
+      })
+    }
+
     test('scopes modal arrow navigation and preserves control editing', async ({
       page,
     }) => {
       const position = page.locator('[data-test="position"]')
       await page.locator('[data-test="background-input"]').press('ArrowRight')
       await expect(position).toHaveText('0')
-      await page.getByRole('button', { name: 'Open navigation' }).click()
+      await page.getByRole('button', { name: 'Open navigation' }).focus()
+      await page.keyboard.press('Enter')
+      await expect(
+        page.locator('[data-test="navigation-dialog"]')
+      ).toBeFocused()
+      await page.keyboard.press('ArrowRight')
+      await expect(position).toHaveText('1')
+      await page.keyboard.press('ArrowLeft')
+      await expect(position).toHaveText('0')
       const surface = page.getByRole('group', { name: 'Slide content' })
       await surface.press('ArrowRight')
       await expect(position).toHaveText('1')
