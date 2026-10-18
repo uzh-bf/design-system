@@ -182,7 +182,7 @@ export function Switch({
           tooltip={error}
           ariaLabel={typeof error === 'string' ? error : 'Error details'}
           delay={0}
-          className={{ tooltip: 'max-w-120 text-sm' }}
+          className={{ tooltip: 'text-sm' }}
         >
           <FontAwesomeIcon
             icon={faCircleExclamation}

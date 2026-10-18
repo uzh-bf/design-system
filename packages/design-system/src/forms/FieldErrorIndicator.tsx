@@ -27,7 +27,7 @@ export function FieldErrorIndicator({
         tooltip={error}
         ariaLabel={error}
         delay={0}
-        className={{ tooltip: 'max-w-120 text-sm' }}
+        className={{ tooltip: 'text-sm' }}
       >
         <FontAwesomeIcon
           icon={faCircleExclamation}

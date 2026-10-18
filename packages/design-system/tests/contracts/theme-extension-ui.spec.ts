@@ -1,6 +1,6 @@
 import { expect, test, type Locator } from '@playwright/test'
 
-import { gotoStory } from '../_support/ladle'
+import { gotoStory, settle } from '../_support/ladle'
 
 /**
  * Independent expectation oracle for the synthetic ramp. The story owns the
@@ -221,7 +221,8 @@ async function expectContractState(
 
   const badge = page.locator(`[data-test="theme-contract-badge-${id}"]`)
   await expect(badge).toHaveCount(1)
-  await expect(badge).toHaveCSS('background-color', probe.primary)
+  await expect(badge).toHaveCSS('background-color', probe.primary20)
+  await expect(badge).toHaveCSS('color', probe.primary100)
 
   const input = page.locator(`[data-test="theme-contract-input-${id}"]`)
   await expect(input).toHaveCount(1)
@@ -342,6 +343,160 @@ for (const state of STATES) {
     await expect(tabs.nth(1)).toBeFocused()
     await expect(page.getByRole('tabpanel')).toBeVisible()
   })
+}
+
+for (const theme of ['neutral', 'uzh'] as const) {
+  for (const width of [390, 1440]) {
+    test(`readable defaults and explicit consumer overrides (${theme}, ${width})`, async ({
+      page,
+    }) => {
+      await page.setViewportSize({ width, height: 1000 })
+      await gotoStory(page, 'theme-extension-contract--reference', theme)
+      const reference = page.locator('[data-test="theme-reference"]')
+      const colors = await readProbeColors(page)
+      await expect(page.locator('[data-test="reference-badge"]')).toHaveCSS(
+        'background-color',
+        colors.primary20
+      )
+      await expect(
+        page.locator('[data-test="reference-badge-solid"]')
+      ).toHaveCSS('background-color', colors.primary)
+      await expect(reference.locator('h1')).toHaveCSS('margin-bottom', '0px')
+      const tablist = page.getByRole('tablist', { name: 'Reference views' })
+      const tabWidth = (await tablist.boundingBox())!.width
+      expect(tabWidth).toBeGreaterThan(width - 40)
+      const cell = page.getByRole('cell').last()
+      await expect(cell).toHaveCSS('white-space', 'normal')
+      if (width === 390)
+        expect((await cell.boundingBox())!.height).toBeGreaterThan(60)
+      const basic = page.locator('[data-test="reference-basic"]')
+      await basic.hover()
+      await expect(basic).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)')
+      await basic.focus()
+      await page.keyboard.press('Tab')
+      await page.keyboard.press('Shift+Tab')
+      expect(
+        await basic.evaluate((node) => getComputedStyle(node).boxShadow)
+      ).not.toBe('none')
+      await page.mouse.move(0, 0)
+      await basic.scrollIntoViewIfNeeded()
+      await settle(page)
+      await basic.focus()
+      for (const kind of ['tooltip', 'wrapper-tooltip']) {
+        await page.keyboard.press('Tab')
+        const tooltip = page.locator(`[data-test="reference-${kind}-content"]`)
+        await expect(tooltip).toBeVisible()
+        await expect(tooltip).toHaveCSS('font-size', '14px')
+        const rect = (await tooltip.boundingBox())!
+        expect(rect.x).toBeGreaterThanOrEqual(0)
+        expect(rect.x + rect.width).toBeLessThanOrEqual(width)
+        if (kind === 'tooltip') expect(rect.width).toBeLessThanOrEqual(320)
+        await page.keyboard.press('Escape')
+        await expect(tooltip).toBeHidden()
+      }
+      await page.keyboard.press('Tab')
+      const fieldHelp = page.getByRole('tooltip')
+      await expect(fieldHelp).toBeVisible()
+      const fieldHelpRect = (await fieldHelp.boundingBox())!
+      expect(fieldHelpRect.x).toBeGreaterThanOrEqual(0)
+      expect(fieldHelpRect.x + fieldHelpRect.width).toBeLessThanOrEqual(width)
+      await page.keyboard.press('Escape')
+      await expect(fieldHelp).toBeHidden()
+      await page.locator('[data-test="reference-open-modal"]').click()
+      const dialog = page.getByRole('dialog')
+      await expect(dialog).toBeVisible()
+      await page.locator('[data-test="reference-modal-tooltip"]').focus()
+      const modalTooltip = page.locator(
+        '[data-test="reference-modal-tooltip-content"]'
+      )
+      await expect(modalTooltip).toBeVisible()
+      expect(
+        await modalTooltip.evaluate(
+          (node) => node.closest('[role=dialog]') === null
+        )
+      ).toBe(true)
+      await page.keyboard.press('Escape')
+      await expect(modalTooltip).toBeHidden()
+      await expect(dialog).toBeVisible()
+      await page.keyboard.press('Escape')
+      await expect(dialog).toBeHidden()
+      await expect(
+        page.locator('[data-test="reference-open-modal"]')
+      ).toBeFocused()
+      await page.locator('[data-test="reference-overrides"] summary').click()
+      const overrides = page.locator('[data-test="reference-overrides"]')
+      await expect(overrides.locator('h2').first()).toHaveCSS(
+        'margin-bottom',
+        '16px'
+      )
+      expect(
+        parseFloat(
+          await overrides
+            .locator('.prose h2')
+            .last()
+            .evaluate((node) => getComputedStyle(node).marginTop)
+        )
+      ).toBeGreaterThan(0)
+      await expect(
+        page.locator('[data-test="reference-notification-override"]')
+      ).toHaveCSS('padding-left', '4px')
+      await expect(
+        page.locator('[data-test="reference-notification-override"]')
+      ).toHaveCSS('font-size', '18px')
+      await expect(page.locator('[data-test="reference-nowrap"]')).toHaveCSS(
+        'white-space',
+        'nowrap'
+      )
+      expect(
+        (await page
+          .getByRole('tablist', { name: 'Compact reference' })
+          .boundingBox())!.width
+      ).toBeLessThan(tabWidth)
+      const dismissible = page.locator(
+        '[data-test="reference-dismissible-override"]'
+      )
+      await expect(dismissible).toHaveCSS('padding-left', '4px')
+      await expect(dismissible).toHaveCSS('padding-right', '48px')
+      for (const notification of [
+        dismissible,
+        page.locator('[data-test="reference-dismissible-short"]'),
+      ]) {
+        const containerBox = (await notification.boundingBox())!
+        const buttonBox = (await notification
+          .getByRole('button')
+          .boundingBox())!
+        expect(buttonBox.y).toBeGreaterThanOrEqual(containerBox.y)
+        expect(buttonBox.y + buttonBox.height).toBeLessThanOrEqual(
+          containerBox.y + containerBox.height
+        )
+      }
+      const closeBox = (await dismissible.getByRole('button').boundingBox())!
+      const messageBox = (await dismissible
+        .locator('span')
+        .last()
+        .boundingBox())!
+      expect(messageBox.x + messageBox.width).toBeLessThanOrEqual(closeBox.x)
+      const disabledBasic = page.locator(
+        '[data-test="reference-basic-disabled"]'
+      )
+      for (const dark of [false, true]) {
+        await page.evaluate(
+          (dark) => document.documentElement.classList.toggle('dark', dark),
+          dark
+        )
+        for (const button of [basic, disabledBasic]) {
+          await button.hover({ force: true })
+          await expect(button).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)')
+        }
+      }
+      await page.evaluate(() =>
+        document.documentElement.classList.remove('dark')
+      )
+      expect(
+        await page.evaluate(() => document.documentElement.scrollWidth)
+      ).toBeLessThanOrEqual(width)
+    })
+  }
 }
 
 for (const theme of ['neutral', 'uzh'] as const) {

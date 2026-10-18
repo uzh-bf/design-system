@@ -5,7 +5,7 @@
 - Date: 2026-08-10; current execution index refreshed 2026-10-18
 - Status: GA blocked. Verified input correctness, consumer CSS and durable
   contract-gate corrections are delivered in the existing draft stack. Current
-  Klicker candidate acceptance passes locally; Phase 2, manual qualification
+  Historical Klicker acceptance passes locally; Phase 2 final qualification, manual acceptance
   and the broader release-candidate consumer matrix remain open.
 - Repository: `uzh-bf/design-system`
 - Release trunk: `v5`
@@ -103,13 +103,13 @@ this roadmap update; draft delivery is authorized, while target merges,
 readiness conversion, release publication and deployment remain gated.
 
 | Workstream | Current evidence | Remaining acceptance |
-| --- | --- | --- |
+| ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Existing v5 foundations | Size budgets, separate RSC/RHF entries, root themes, generic primary-ramp extension with a synthetic fixture, exact axe inventory and deterministic VRT implemented; metadata remains alpha.5 | Maintain protections through the integrated candidate; qualify actual consumer-owned ramp values where used |
 | Input correctness — [PR210](https://github.com/uzh-bf/design-system/pull/210) | Natural modal entry, empty twelve-hour periods, controlled resets, selected-date invariance and value-bearing names corrected; independent review accepted; current-head CI green | Retain these cases when integrating later layers |
-| Compatible dependencies — [PR211](https://github.com/uzh-bf/design-system/pull/211) | Compatible direct refresh and four supplied transitive paths corrected; peer/export contracts preserved; ownership docs clarified; independent review accepted; current-head CI green | Reassess remaining advisories and deferred majors before GA; a focused shadcn comparison does not certify every copied primitive |
+| Compatible dependencies — [PR211](https://github.com/uzh-bf/design-system/pull/211) | Compatible direct refresh and four supplied transitive paths corrected; peer/export contracts preserved; ownership docs clarified; independent review accepted; current-head CI green | Fresh October 18 audit remains open (PostCSS/nanoid, source-map-js and retained Parcel paths); remediate before GA; a focused shadcn comparison does not certify every copied primitive |
 | Fields and durable CI — [PR213](https://github.com/uzh-bf/design-system/pull/213) | Disabled selection/FormData, true multi-selection semantics and transformed FormField types implemented; disabled-close blur correction passes all 88 local contracts, complete independent review and hosted CI; contracts and RHF minimum/current packed/Next consumers gate release build | Retain the corrected disabled-transition and public-type cases through integration |
 | Consumer CSS and UZH Phase 1 | Existing fixes integrated after the field stack; scoped responsive defaults replace colliding utility pairs; 90 contracts, 803 accessibility cases, 23 pinned visuals, 688 token assertions and 336 CSS/override assertions pass; complete independent review accepted | [PR214](https://github.com/uzh-bf/design-system/pull/214) maintains hosted CI and browser evidence. The packed candidate installs and builds in the existing Klicker pilot; actual Formik save/reload and desktop/mobile modal checks pass. Broader release-candidate qualification remains open |
-| UZH Phase 2 | Coverage delivered in draft PR215; token/value changes are implemented locally and under verification; component defaults follow | Follow the ordered design roadmap: establish family/alias coverage, implement tokens and defaults, then review visuals, migration and zero-waiver accessibility proof |
+| UZH Phase 2                                                                         | Coverage [PR215](https://github.com/uzh-bf/design-system/pull/215), tokens [PR216](https://github.com/uzh-bf/design-system/pull/216) and defaults [PR217](https://github.com/uzh-bf/design-system/pull/217) are implemented in the unmerged draft stack; final review corrections cover migration text preservation and internal tooltip bounds | Full runtime source CI passes; final helper corrections have focused proof and current draft checks. Refresh actual consumer acceptance, remediate dependency advisories and keep manual AT/Safari/physical-device rows open                                                                                                                                     |
 | GA promotion — [PR179](https://github.com/uzh-bf/design-system/pull/179) | Draft v5 umbrella still conflicts with main | Reconcile in a promotion package and qualify an integrated candidate; merge, publication and deployment require separate authority |
 
 The [UZH alignment roadmap](2026-08-19-v5-uzh-alignment-roadmap.md) owns the
@@ -137,11 +137,13 @@ corresponding to its default changes and refresh candidate acceptance.
 
 The approved [theme/defaults execution plan](2026-10-18-v5-theme-defaults-plan.md)
 and [accepted findings](2026-10-18-v5-progress-roadmap-findings.md) persist the
-October 18 review and implementation sequence. The next package is Phase 2's public-family/alias inventory and
-dense internal reference fixture, followed by its token/default changes. The
-existing synthetic theme fixture proves the extension contract but does not
-establish every family/rung/alias or intended text/fill pair. Scope and acceptance
-live in the [Phase 2 sequence](2026-08-19-v5-uzh-alignment-roadmap.md#phase-2--token-model-and-visual-defaults-before-ga).
+October 18 review and implementation sequence. Phase 2 now includes the public-family/alias inventory,
+dense internal reference fixture, token graph, conservative migration helper and changed defaults.
+The [candidate matrix](2026-10-18-v5-theme-defaults-plan.md#candidate-and-manual-acceptance-matrix)
+records producing-source identities, passing automated evidence and remaining qualification limits.
+Final review corrections preserve JSX accessible names and make internal help/error tooltips inherit the viewport bound.
+The [Phase 2 sequence](2026-08-19-v5-uzh-alignment-roadmap.md#phase-2--token-model-and-visual-defaults-before-ga)
+remains the acceptance contract; it is no longer a queue of unimplemented source work.
 
 After Phase 2, reconcile the promotion boundary and qualify the integrated
 candidate against recorded consumer refs and an immutable packed artifact,
@@ -626,14 +628,13 @@ Stop the active package and report when:
   badge-default item, distinguish rendered typography from additive exports,
   scope consumer override retirement and retire the superseded P7 ruling.
 
-
 ## October 18 correction status
 
 All eight actionable findings from the supplied review are corrected in the
 unmerged draft stack, with passing source verification at `b8d607280`:
 
 | Review finding | Disposition | Evidence or remaining gate |
-| --- | --- | --- |
+| --------------------------------------------------------- | ------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Responsive consumer CSS collision | Scoped component defaults implemented in Phase 1 | Independently compiled CSS across both themes/four widths; explicit primitive utility overrides; real Klicker modal desktop/mobile checks and explicit header override pass |
 | Calendar browsing changes selected date during time edits | Corrected in PR210 | Each time segment preserves selected calendar date after month browsing |
 | Missing behavioral and consumer release gates | Corrected in PR213 | Contract job and frozen RHF 7.59.0/7.90.0 packed/Next jobs are prerequisites; injected failing contract fails the actual command |
