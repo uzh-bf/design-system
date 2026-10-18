@@ -1,8 +1,10 @@
-import { useEffect, type CSSProperties } from 'react'
+import { useEffect, useState, type CSSProperties } from 'react'
 
 import { Badge } from './Badge'
 import { Button } from './Button'
 import { H1, H2, H3, H4 } from './Header'
+import { Modal } from './Modal'
+import { Prose } from './Prose'
 import {
   Sidebar,
   SidebarContent,
@@ -11,6 +13,7 @@ import {
   SidebarMenuItem,
   SidebarProvider,
 } from './Sidebar'
+import { Tooltip as LegacyTooltip } from './Tooltip'
 import { Input } from './ui/input'
 import {
   Table,
@@ -21,6 +24,7 @@ import {
   TableRow,
 } from './ui/table'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs'
+import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip'
 import { UserNotification } from './UserNotification'
 
 /**
@@ -164,6 +168,9 @@ function swatchInk(hex: string) {
 }
 
 function ReferenceContent() {
+  const [modalOpen, setModalOpen] = useState(false)
+  const help =
+    'A long synthetic explanation keeps help readable when a form is narrow and the surrounding content scrolls. It also checks that portaled content remains inside the available viewport.'
   return (
     <div
       data-test="theme-reference"
@@ -216,9 +223,61 @@ function ReferenceContent() {
             Save
           </Button>
           <Button disabled>Unavailable</Button>
-          <Badge>Selected</Badge>
+          <Badge data-test="reference-badge">Selected</Badge>
+          <Badge variant="solid" data-test="reference-badge-solid">
+            Solid
+          </Badge>
+          <Button basic data={{ test: 'reference-basic' }}>
+            Basic action
+          </Button>
         </div>
       </form>
+      <section
+        aria-label="Help"
+        className="bg-background sticky top-0 z-10 flex flex-wrap gap-2"
+      >
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button data={{ test: 'reference-tooltip' }}>Help</Button>
+          </TooltipTrigger>
+          <TooltipContent data-test="reference-tooltip-content">
+            {help}
+          </TooltipContent>
+        </Tooltip>
+        <LegacyTooltip
+          asChild
+          tooltip={help}
+          data={{ test: 'reference-wrapper-tooltip' }}
+          dataContent={{ test: 'reference-wrapper-tooltip-content' }}
+        >
+          <Button>Wrapper help</Button>
+        </LegacyTooltip>
+      </section>
+      <Modal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        title="Reference dialog"
+        data={{ test: 'reference-open-modal' }}
+        trigger={
+          <Button
+            data={{ test: 'reference-open-modal' }}
+            onClick={() => setModalOpen(true)}
+          >
+            Open help dialog
+          </Button>
+        }
+      >
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button data={{ test: 'reference-modal-tooltip' }}>
+              Dialog help
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent data-test="reference-modal-tooltip-content">
+            {help}
+          </TooltipContent>
+        </Tooltip>
+      </Modal>
       <Tabs defaultValue="overview">
         <TabsList aria-label="Reference views">
           <TabsTrigger value="overview">Overview</TabsTrigger>
@@ -247,6 +306,47 @@ function ReferenceContent() {
           <p>Additional reference content.</p>
         </TabsContent>
       </Tabs>
+      <details data-test="reference-overrides">
+        <summary>Explicit consumer overrides</summary>
+        <div className="flex flex-col gap-3 p-3">
+          <Badge
+            className="bg-background text-foreground"
+            data-test="reference-badge-override"
+          >
+            Custom
+          </Badge>
+          <H2 className={{ root: 'mb-4' }}>Spaced heading</H2>
+          <Prose>
+            <H2>Document heading</H2>
+            <p>Document rhythm stays with prose.</p>
+            <H2>Next section</H2>
+          </Prose>
+          <UserNotification
+            className={{ root: 'bg-background p-1 text-lg' }}
+            data={{ test: 'reference-notification-override' }}
+          >
+            Custom notification
+          </UserNotification>
+          <Tabs defaultValue="one">
+            <TabsList className="w-fit" aria-label="Compact reference">
+              <TabsTrigger value="one">One</TabsTrigger>
+              <TabsTrigger value="two">Two</TabsTrigger>
+            </TabsList>
+          </Tabs>
+          <Table>
+            <TableBody>
+              <TableRow>
+                <TableCell
+                  className="whitespace-nowrap"
+                  data-test="reference-nowrap"
+                >
+                  Explicit no-wrap content
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </div>
+      </details>
     </div>
   )
 }

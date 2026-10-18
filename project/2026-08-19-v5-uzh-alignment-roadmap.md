@@ -161,7 +161,7 @@ The October 18 Claude consultation confirmed the following sequence after source
 4. **Review the result and migration.** Regenerate pinned VRT baselines once per coherent visual package after its changes settle; inspect every intentional diff. Require alias/computed-style proof, AA for intended text/fill pairs, zero waived serious/critical axe cases, keyboard interactions, public types, RHF minimum/current packed/Next checks and size budgets. Maintain the migration delta table and rename guidance. Compare the touched badge/tooltip/table/tabs source with current shadcn documentation; copied primitives are not updated by dependency bumps.
 5. **Qualify the eventual candidate.** Record the exact packed artifact and consumer refs for refreshed acceptance, remove only demonstrated redundant overrides corresponding to changed defaults, and recheck consumer dependency-age policy. Manual screen-reader, Safari and physical-mobile evidence remain separate acceptance rows. UZH dark remains unsupported and outside this matrix.
 
-Coverage is delivered in [PR215](https://github.com/uzh-bf/design-system/pull/215). The token layer is under verification; changed component defaults and integrated qualification remain pending. The execution plan records exact producing runs and gate states.
+Coverage is delivered in [PR215](https://github.com/uzh-bf/design-system/pull/215). The token layer is delivered in draft [PR216](https://github.com/uzh-bf/design-system/pull/216), including accepted review corrections. Changed component defaults are under verification; integrated candidate qualification remains pending. The execution plan records exact producing runs and gate states.
 
 ### Token and typography scope
 

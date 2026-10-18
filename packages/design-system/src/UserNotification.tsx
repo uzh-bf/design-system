@@ -106,10 +106,10 @@ export function UserNotification({
       data-cy={data?.cy}
       data-test={data?.test}
       className={twMerge(
-        'relative flex flex-row gap-2 rounded-md p-2 text-sm',
-        className?.root,
+        'relative flex w-full flex-row items-start gap-3 rounded-md px-4 py-3.5 text-sm',
         computedClassName!,
-        dismissible && 'pr-8'
+        dismissible && 'pr-12',
+        className?.root
       )}
     >
       {dismissible && (
@@ -119,7 +119,7 @@ export function UserNotification({
           title="Dismiss"
           onClick={onDismiss}
           className={twMerge(
-            'focus:ring-primary-100 absolute top-2 right-2 inline-flex h-5 w-5 items-center justify-center rounded text-base hover:opacity-80 focus:ring-2 focus:ring-offset-2 focus:outline-none',
+            'focus:ring-primary-100 absolute top-3.5 right-4 inline-flex h-5 w-5 items-center justify-center rounded text-base hover:opacity-80 focus:ring-2 focus:ring-offset-2 focus:outline-none',
             className?.closeIcon
           )}
         >
