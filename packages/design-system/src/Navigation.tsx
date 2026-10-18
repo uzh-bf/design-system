@@ -150,7 +150,7 @@ function NavigationButton({
         hasIconAndLabel && 'flex flex-row items-center gap-2',
         active && 'text-black after:scale-x-100',
         disabled &&
-          'text-slate-400! hover:cursor-not-allowed hover:text-slate-400!',
+          'text-disabled hover:text-disabled hover:cursor-not-allowed',
         className?.root
       )}
     >
@@ -284,7 +284,7 @@ function NavigationMenuItem({
       className={twMerge(
         'h-9 justify-between text-sm hover:cursor-pointer',
         element.disabled &&
-          'text-slate-400! hover:cursor-not-allowed hover:text-slate-400!',
+          'text-disabled hover:text-disabled hover:cursor-not-allowed',
         element.className?.label
       )}
       style={element.style?.label}
@@ -351,7 +351,7 @@ function NavigationDropdown({
           !iconOnly && !disabled && dynamicUnderline,
           active && 'text-black after:scale-x-100',
           disabled &&
-            'text-slate-400! hover:cursor-not-allowed hover:text-slate-400!',
+            'text-disabled hover:text-disabled hover:cursor-not-allowed',
           className?.trigger
         )}
       >

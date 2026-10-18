@@ -40,9 +40,8 @@ must be established for the affected application separately.
 - Buttons keep the 6px radius, the 32/40/48 control ladder, and the app-sized
   type scale (h1 24px). These are decisions, not omissions, and a future
   conformance review should not reopen them as defects.
-- The focus ring stays a ring. Phase 2 will align `--default-ring-color` to the
-  ring token for internal consistency; the current source still uses generic
-  Tailwind blue for bare rings.
+- The focus ring stays a ring. The Phase 2 token layer aligns `--default-ring-color` to
+  the ring token for internal consistency, including complete consumer ramp overrides.
 - Weight 700 remains in the application type scale by project choice. The
   official font specimens use Regular and Semibold faces; this library also
   renders other weights from its variable font.

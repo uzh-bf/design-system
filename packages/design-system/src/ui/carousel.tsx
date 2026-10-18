@@ -211,7 +211,7 @@ function CarouselPrevious({
       variant={variant}
       size={size}
       className={cn(
-        'absolute size-9 rounded-full border-[#E0E0E0] bg-white text-[#666666] shadow-sm hover:bg-[#FAFAFA] hover:text-[#333333]',
+        'border-control-border bg-surface text-content-muted hover:bg-surface-hover hover:text-content-secondary absolute size-9 rounded-full shadow-sm',
         orientation === 'horizontal'
           ? 'top-1/2 -left-12 -translate-y-1/2'
           : '-top-12 left-1/2 -translate-x-1/2 rotate-90',
@@ -241,7 +241,7 @@ function CarouselNext({
       variant={variant}
       size={size}
       className={cn(
-        'absolute size-9 rounded-full border-[#E0E0E0] bg-white text-[#666666] shadow-sm hover:bg-[#FAFAFA] hover:text-[#333333]',
+        'border-control-border bg-surface text-content-muted hover:bg-surface-hover hover:text-content-secondary absolute size-9 rounded-full shadow-sm',
         orientation === 'horizontal'
           ? 'top-1/2 -right-12 -translate-y-1/2'
           : '-bottom-12 left-1/2 -translate-x-1/2 rotate-90',
@@ -278,7 +278,7 @@ function CarouselDots({ className, ...props }: React.ComponentProps<'div'>) {
             'h-1.5 rounded-full transition-all',
             index === selectedIndex
               ? 'bg-primary-100 w-4'
-              : 'w-1.5 bg-[#E0E0E0] hover:bg-[#A3A3A3]'
+              : 'bg-control-border hover:bg-disabled w-1.5'
           )}
           aria-label={`Go to slide ${index + 1}`}
           aria-current={index === selectedIndex ? 'true' : undefined}

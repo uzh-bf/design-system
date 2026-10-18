@@ -151,7 +151,7 @@ export function Switch({
       >
         <RadixSwitch.Thumb
           className={twMerge(
-            'flex items-center justify-center rounded-full bg-white transition-transform',
+            'bg-control-thumb flex items-center justify-center rounded-full transition-transform',
             typeof checked === 'undefined' &&
               transitionSizeUndefined[size || 'md'],
             checked === true && transitionSize[size || 'md'],

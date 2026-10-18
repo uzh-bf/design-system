@@ -14,7 +14,8 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@theme inline {
+/* Static emission keeps public palette variables available without incidental story usage. */
+@theme inline static {
   /* fonts — resolved per theme via --theme-font-* (see themes.css); the
      fallback stack keeps text visible even if themes.css is not imported */
   --font-sans: var(
@@ -41,55 +42,93 @@
     monospace
   );
 
-  /* UZH colors */
+  /* Official selected swatches and retained house families. Rungs are not a lightness ordering. */
   --color-uzh-blue: #0028a5;
   --color-uzh-blue-100: #0028a5;
   --color-uzh-blue-80: #001e7c;
   --color-uzh-blue-60: #3062ff;
   --color-uzh-blue-40: #7596ff;
   --color-uzh-blue-20: #bdc9e8;
-  --color-uzh-grey: #a3adb7;
-  --color-uzh-grey-100: #a3adb7;
-  --color-uzh-grey-80: #b5bdc5;
-  --color-uzh-grey-60: #c8ced4;
-  --color-uzh-grey-40: #dadee2;
-  --color-uzh-grey-20: #edeff1;
-  --color-uzh-red: #dc6027;
-  --color-uzh-red-100: #dc6027;
-  --color-uzh-red-80: #e38052;
-  --color-uzh-red-60: #eaa07d;
-  --color-uzh-red-40: #f1bfa9;
-  --color-uzh-red-20: #f8dfd4;
   --color-uzh-berry: #bf0d3e;
   --color-uzh-berry-100: #bf0d3e;
-  --color-uzh-berry-80: #d9305f;
+  --color-uzh-berry-80: #8f0a2e;
   --color-uzh-berry-60: #f3537f;
   --color-uzh-berry-40: #f78caa;
   --color-uzh-berry-20: #fbc6d4;
-  --color-uzh-yellow: #fede00;
-  --color-uzh-yellow-100: #fede00;
-  --color-uzh-yellow-80: #fbe651;
-  --color-uzh-yellow-60: #fcec7c;
-  --color-uzh-yellow-40: #fdf3a8;
-  --color-uzh-yellow-20: #fef9d3;
-  --color-uzh-lightgreen: #91c34a;
-  --color-uzh-lightgreen-100: #91c34a;
-  --color-uzh-lightgreen-80: #aad470;
-  --color-uzh-lightgreen-60: #bfdfc4;
-  --color-uzh-lightgreen-40: #d5e9b7;
-  --color-uzh-lightgreen-20: #eaf4db;
-  --color-uzh-darkgreen: #2a7f62;
-  --color-uzh-darkgreen-100: #2a7f62;
-  --color-uzh-darkgreen-80: #569d85;
-  --color-uzh-darkgreen-60: #80b6a4;
-  --color-uzh-darkgreen-40: #abcec2;
-  --color-uzh-darkgreen-20: #d5e7e1;
-  --color-uzh-turqoise: #0b82a0;
-  --color-uzh-turqoise-100: #0b82a0;
-  --color-uzh-turqoise-80: #3c9fb6;
-  --color-uzh-turqoise-60: #6bb7c7;
-  --color-uzh-turqoise-40: #9ed0d9;
-  --color-uzh-turqoise-20: #cfe8ec;
+  --color-uzh-orange: #fc4c02;
+  --color-uzh-orange-100: #fc4c02;
+  --color-uzh-orange-80: #bd3902;
+  --color-uzh-orange-60: #fe9367;
+  --color-uzh-orange-40: #feb799;
+  --color-uzh-orange-20: #ffdbcc;
+  --color-uzh-gold: #f3ab00;
+  --color-uzh-gold-100: #f3ab00;
+  --color-uzh-gold-80: #a27200;
+  --color-uzh-gold-60: #ffde8f;
+  --color-uzh-gold-40: #ffe9b5;
+  --color-uzh-gold-20: #fff4da;
+  --color-uzh-apple: #7ca023;
+  --color-uzh-apple-100: #7ca023;
+  --color-uzh-apple-80: #536b18;
+  --color-uzh-apple-60: #c8e485;
+  --color-uzh-apple-40: #dbedad;
+  --color-uzh-apple-20: #ecf6d6;
+  --color-uzh-cyan: #1ea7c4;
+  --color-uzh-cyan-100: #1ea7c4;
+  --color-uzh-cyan-80: #147082;
+  --color-uzh-cyan-60: #92dfee;
+  --color-uzh-cyan-40: #b7e9f4;
+  --color-uzh-cyan-20: #dbf4f9;
+  --color-df-grey: #a3adb7;
+  --color-df-grey-100: #a3adb7;
+  --color-df-grey-80: #b5bdc5;
+  --color-df-grey-60: #c8ced4;
+  --color-df-grey-40: #dadee2;
+  --color-df-grey-20: #edeff1;
+  --color-df-darkgreen: #2a7f62;
+  --color-df-darkgreen-100: #2a7f62;
+  --color-df-darkgreen-80: #569d85;
+  --color-df-darkgreen-60: #80b6a4;
+  --color-df-darkgreen-40: #abcec2;
+  --color-df-darkgreen-20: #d5e7e1;
+
+  /* Deprecated aliases retain call sites through 5.x. */
+  --color-uzh-red: var(--color-uzh-orange);
+  --color-uzh-red-100: var(--color-uzh-orange-100);
+  --color-uzh-red-80: var(--color-uzh-orange-80);
+  --color-uzh-red-60: var(--color-uzh-orange-60);
+  --color-uzh-red-40: var(--color-uzh-orange-40);
+  --color-uzh-red-20: var(--color-uzh-orange-20);
+  --color-uzh-yellow: var(--color-uzh-gold);
+  --color-uzh-yellow-100: var(--color-uzh-gold-100);
+  --color-uzh-yellow-80: var(--color-uzh-gold-80);
+  --color-uzh-yellow-60: var(--color-uzh-gold-60);
+  --color-uzh-yellow-40: var(--color-uzh-gold-40);
+  --color-uzh-yellow-20: var(--color-uzh-gold-20);
+  --color-uzh-lightgreen: var(--color-uzh-apple);
+  --color-uzh-lightgreen-100: var(--color-uzh-apple-100);
+  --color-uzh-lightgreen-80: var(--color-uzh-apple-80);
+  --color-uzh-lightgreen-60: var(--color-uzh-apple-60);
+  --color-uzh-lightgreen-40: var(--color-uzh-apple-40);
+  --color-uzh-lightgreen-20: var(--color-uzh-apple-20);
+  --color-uzh-turqoise: var(--color-uzh-cyan);
+  --color-uzh-turqoise-100: var(--color-uzh-cyan-100);
+  --color-uzh-turqoise-80: var(--color-uzh-cyan-80);
+  --color-uzh-turqoise-60: var(--color-uzh-cyan-60);
+  --color-uzh-turqoise-40: var(--color-uzh-cyan-40);
+  --color-uzh-turqoise-20: var(--color-uzh-cyan-20);
+  --color-uzh-grey: var(--color-df-grey);
+  --color-uzh-grey-100: var(--color-df-grey-100);
+  --color-uzh-grey-80: var(--color-df-grey-80);
+  --color-uzh-grey-60: var(--color-df-grey-60);
+  --color-uzh-grey-40: var(--color-df-grey-40);
+  --color-uzh-grey-20: var(--color-df-grey-20);
+  --color-uzh-darkgreen: var(--color-df-darkgreen);
+  --color-uzh-darkgreen-100: var(--color-df-darkgreen-100);
+  --color-uzh-darkgreen-80: var(--color-df-darkgreen-80);
+  --color-uzh-darkgreen-60: var(--color-df-darkgreen-60);
+  --color-uzh-darkgreen-40: var(--color-df-darkgreen-40);
+  --color-uzh-darkgreen-20: var(--color-df-darkgreen-20);
 
   /* semantic colour ramps — resolved per theme via --theme-color-* (see themes.css) */
   --color-primary-100: var(--theme-color-primary);
@@ -152,6 +191,26 @@
   --shadow-card:
     0 1px 3px 0 rgb(0 0 0 / 0.06), 0 1px 2px -1px rgb(0 0 0 / 0.06);
 
+  /* Owned application neutrals and interaction states resolve through the theme. */
+  --color-content: var(--theme-ui-content);
+  --color-content-secondary: var(--theme-ui-content-secondary);
+  --color-content-muted: var(--theme-ui-content-muted);
+  --color-surface: var(--theme-ui-surface);
+  --color-control-thumb: var(--theme-ui-thumb);
+  --color-control-thumb-disabled: var(--theme-ui-disabled-thumb);
+  --color-control-border-disabled: var(--theme-ui-disabled-border);
+  --color-surface-hover: var(--theme-ui-surface-hover);
+  --color-surface-muted: var(--theme-ui-surface-muted);
+  --color-control-border: var(--theme-ui-border);
+  --color-tooltip: var(--theme-ui-tooltip);
+  --color-tooltip-foreground: var(--theme-ui-tooltip-foreground);
+  --color-disabled: var(--disabled);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-pressed: var(--primary-pressed);
+  --color-primary-container: var(--primary-container);
+  --color-success-text: var(--theme-success-text);
+  --color-info-text: var(--theme-info-text);
+
   /* custom color variants */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -206,7 +265,7 @@
 
   /* override default ring widths and colors to be consistent with previous styling */
   --default-ring-width: 3px;
-  --default-ring-color: var(--color-blue-500);
+  --default-ring-color: var(--ring);
 
   /* custom animations */
   --animate-enter-from-right: enter-from-right 0.25s ease;

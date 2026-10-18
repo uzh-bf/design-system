@@ -44,6 +44,11 @@ import '@uzh-bf/design-system/css'
 @import '@uzh-bf/design-system/css';
 ```
 
+When generating your own palette utilities, put the CSS `@import` in your Tailwind
+root stylesheet so its compiler reads the public palette metadata. A JavaScript
+import loads shipped component styles but does not add metadata to another CSS
+compilation.
+
 This stylesheet already contains the design system's utility classes, theme
 tokens, and component styles, so you do **not** need to point Tailwind's
 `@source` at the package. `@uzh-bf/design-system/preflight.css` is exported
