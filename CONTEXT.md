@@ -42,7 +42,8 @@ _Avoid_: brand colour, corporate colour
 **House family**:
 A colour family with no counterpart in the manual, kept because consumers depend
 on it. Carries the `df-` prefix precisely so it does not read as a brand claim.
-Currently `df-grey` and `df-darkgreen`.
+Phase 2 will introduce `df-grey` and `df-darkgreen`; the current source still
+uses the legacy `uzh-grey` and `uzh-darkgreen` names.
 _Avoid_: custom colour, extra colour, off-palette family
 
 **Status set**:
@@ -51,10 +52,11 @@ one official family as fill at `-20`, accent at `-100`, and text at the family's
 darkest rung.
 _Avoid_: alert colours, semantic colours, feedback colours
 
-### Naming that has moved
+### Naming planned for Phase 2
 
-These legacy names describe a colour the token no longer paints. They survive as
-deprecated aliases through 5.x and are removed in 6.0.
+These mappings are settled design decisions and are not yet implemented.
+When Phase 2 lands, the legacy identifiers will remain deprecated aliases
+through 5.x and will be removed in 6.0.
 
 **`uzh-red`** → `uzh-orange` · **`uzh-yellow`** → `uzh-gold` ·
 **`uzh-lightgreen`** → `uzh-apple` · **`uzh-turqoise`** → `uzh-cyan` (also a
