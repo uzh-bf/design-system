@@ -384,6 +384,11 @@ test.describe('field UX contract', () => {
             .evaluate((button: HTMLButtonElement) => button.click())
           await expect(trigger).toBeDisabled()
           await expect(page.getByRole('listbox')).toHaveCount(0)
+          if (storyId === rhfStory && testId === 'ux-select') {
+            await expect(
+              page.locator('[data-test="choice-touched"]')
+            ).toHaveText('true')
+          }
           await expect(page.locator('[data-test="choice-value"]')).toBeEmpty()
           await expect(page.locator('[data-test="multiple-value"]')).toBeEmpty()
         }

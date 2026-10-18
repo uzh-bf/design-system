@@ -1,7 +1,7 @@
 'use client'
 
 import type { Ref } from 'react'
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import Tooltip from './Tooltip' // New import for tooltips
 import {
@@ -147,16 +147,17 @@ export function Select({
   const openRef = useRef(false)
   const blurNotifiedRef = useRef(false)
 
-  const notifyBlur = () => {
+  const notifyBlur = useCallback(() => {
     if (blurNotifiedRef.current) return
     blurNotifiedRef.current = true
     onBlur?.()
-  }
+  }, [onBlur])
   useEffect(() => {
     if (!disabled) return
+    if (openRef.current) notifyBlur()
     openRef.current = false
     setOpen(false)
-  }, [disabled])
+  }, [disabled, notifyBlur])
   const [shortLabel, setShortLabel] = useState<string | undefined>(undefined)
 
   useEffect(() => {
