@@ -2,9 +2,9 @@
 
 **Date:** 2026-08-19 · **Baseline:** `origin/v5` at `80d6f229c`, published `5.0.0-alpha.5`
 **Supersedes:** `project/2026-08-01-v5-release-readiness-stacks-roadmap.md` (stacks A–D and the release sequence are all merged; it stays readable as history)
-**Status (2026-10-18):** Phase 0 decisions are recorded. Phase 1 source fixes and scoped responsive CSS are integrated with the corrected input/dependency/field stack on `rs/v5-uzh-alignment` and delivered in [draft PR214](https://github.com/uzh-bf/design-system/pull/214), which maintains CI and browser receipts. The corrected packed candidate passes local Klicker pilot acceptance. Phase 2 and full release-candidate qualification still block GA.
+**Status (2026-10-18):** Phase 0 decisions are recorded. Phase 1 source fixes and scoped responsive CSS are integrated with the corrected input/dependency/field stack on `rs/v5-uzh-alignment` and delivered in [draft PR214](https://github.com/uzh-bf/design-system/pull/214). Hosted checks pass at `b8d607280`; the corrected packed candidate passes the historical Klicker pilot. These drafts are unmerged. Phase 2 and full release-candidate qualification still block GA. npm still serves `5.0.0-alpha.5` on `alpha` and `4.1.8` on `latest`; the corrected local tarball is not a published release.
 
-## The thing that decides everything else
+## Historical reconciliation — 2026-08-19
 
 **Corrected 2026-08-19, after reading the bundle's own documentation.** An earlier draft of this roadmap called the relationship between the two source documents a spec-authority conflict and made naming an authority the release-blocking gate. That was wrong, and the bundle says so itself.
 
@@ -19,7 +19,7 @@ That collapses most of what the earlier draft filed as rulings into facts:
 - **`#DC6027` is not a UZH colour.** It appears in no CD family. `DESIGN.md` asserts it as the secondary and calls it "UZH Red"; the same bundle's `GAPS-RESOLVED.md` #2 says the secondary is unruled with Berry `#BF0D3E` as the candidate. That is the bundle contradicting itself, not two authorities disagreeing.
 - **The manual does answer "secondary".** Its web-UI block reads `--c-grey: #666666 — secondary text, default buttons`, its button table gives the Default variant as `#FAFAFA` on `#666666`, and its colour rules say accent families are "for charts, data viz, category labels, card accents … **never as primary UI colors**". Berry-as-secondary-action is ruled out by the manual, and so is any hue-driven secondary button.
 
-**What actually remains is one genuine decision**, and it is not about which document wins. The CD manual is a **content-site specification**: teasers, hero sections, alternating section backgrounds, 18px inline links, `border-radius: 100px` pill buttons, focus expressed as a border-colour change. This library is a **dense application toolkit**. The open question is how literally a content-site spec binds an application UI — and that one answer decides the button shape, the type scale, the focus treatment, and the table header together.
+**The remaining decision at that review was the application-design posture.** The CD manual is a **content-site specification**: teasers, hero sections, alternating section backgrounds, 18px inline links, `border-radius: 100px` pill buttons, focus expressed as a border-colour change. This library is a **dense application toolkit**. Phase 0 settled how literally that specification binds an application UI; its recorded decisions govern the button shape, type scale, focus treatment and table header below.
 
 ## The GA boundary, and why the ruling is urgent
 
@@ -48,12 +48,12 @@ Read this table with the correction above in hand: the consumer review's column 
 | Focus ring | #12 — point `--default-ring-color` at `--color-ring` (solid UZH Blue) | B4 — bundle specifies translucent `rgba(0,40,165,0.18)` at 3px | **Consequence of the literalness question, not a free choice. The manual specifies focus as a border-colour change to `#0028A5` and no ring at all — see the WCAG note in Phase 0** |
 | Tint ladder | #17 — non-monotonic but all values official; document the intent. #6 — one interpolated Berry step is not official | B1 — ladder should be mechanical 25% fades, with separate `primary-hover` / `-pressed` / `-container` tokens | **Half settled. The ladder is chromatic and published, so the "mechanical fades" premise is wrong; the interaction-state tokens B1 asks for are still a real and breaking gap** |
 | Legacy `--color-uzh-*` | #10 — six families carry off-palette values, deprecate | B3 — five specced accent ladders are missing | **Not a conflict. Replace the off-palette values with official accent families under the same names** |
-| Hardcoded hex | #16 — five files bypass tokens | B2 — 168 arbitrary-hex occurrences in compiled `dist` | **Same defect; B2 is the complete measurement** |
+| Hardcoded hex | #16 — five files bypass tokens | B2 — 168 arbitrary-hex occurrences in the August published `dist` | **Same defect; refresh the owned-default inventory before implementation** |
 | Type scale | #9 — app-sized vs CD-sized, needs a recorded decision | B6 — not exported · C11 — headings bake in margin | **One typography package** |
 | Buttons | #7 pill radius · #8 size ladder | C2 — missing `icon-sm`, filled hover on borderless, no semantic outlines | **One button package; #7/#8 need rulings, C2 does not** |
 | Tables | #11 — CD header is light blue, not uppercase grey | C14 — `whitespace-nowrap` on every cell | **Adjacent; same file** |
 
-### Verified while writing this
+### Historical evidence — verified 2026-08-19
 
 Three claims were reproduced against the published `5.0.0-alpha.5` tarball rather than taken on trust, because the first phase is built on them:
 
@@ -72,13 +72,13 @@ Not an authority ruling. One posture decision plus a short tail of treatments th
 - **Dark theme: not supported for now.** It drops out of the a11y and VRT obligation set and is documented as unsupported. Disposition of the existing `.dark` blocks is a round-2 question.
 - **Colour families: align to the official UZH families**, and the mapping covers more than blue and berry — cyan, gold, apple and orange all have official counterparts to the legacy names. Scope and cost are round-2 questions, because the consumer measurement below changes the economics.
 
-Recorded as `docs/adr/0005-uzh-corporate-design-is-a-reference-not-a-constraint.md` (untracked until the implementation branch exists).
+Recorded in [ADR 0005](../docs/adr/0005-uzh-corporate-design-is-a-reference-not-a-constraint.md), tracked on the implementation branch. The ADR records the intended ring contract; Phase 2 still needs to align `--default-ring-color` in source.
 
 ### Round 2 rulings — settled 2026-08-19
 
 - **Realign all four mappable families**: `red`→Orange, `yellow`→Gold, `lightgreen`→Apple, `turqoise`→Cyan. Includes `red` despite 198 consumer occurrences, because all of them move together and `#dc6027` is the value that reads least like UZH.
 - **Keep `darkgreen` and `grey`, and move them out of the `uzh-` namespace.** Neither has an official counterpart — the manual has no dark green family, and its neutrals are an achromatic flat list rather than a five-shade family. Breaking 86 consumer files to delete them buys nothing; the rename is what stops the `uzh-` prefix implying brand backing.
-- **Ladder rule: `-100` is the darkest saturated rung usable as a fill or foreground** — the base for Blue, Berry and Orange, shade 4 for Cyan, Apple and Gold — and `-20` is shade 1 throughout. Blue and Berry keep exactly the values they ship today, so the 854 already-correct consumer occurrences do not move. Gold therefore resolves to `#F3AB00`, which is the value the status set already wants.
+- **Ladder rule: `-100` is the darkest saturated rung usable as a fill or foreground** — the base for Blue, Berry and Orange, shade 4 for Cyan, Apple and Gold — and `-20` is shade 1 throughout. Blue remains unchanged; Berry retains its existing family except for the explicitly scheduled `berry-80` correction to the published shade 4. Gold therefore resolves to `#F3AB00`, which is the value the status set already wants.
 - **Drop the font-weight change (CD #3 / #4).** Its justification was the manual's 400/600 web restriction, which posture (c) removes. It was the largest VRT-baseline churn in Phase 1 for no remaining benefit.
 - **Dark theme CSS stays dormant.** The `[data-theme='uzh'].dark` and `.dark [data-theme='uzh']` blocks remain in `themes.css`, documented as unsupported, out of the a11y inventory and VRT set. Deleting them would be a breaking change for any consumer currently setting the class.
 
@@ -90,11 +90,11 @@ Recorded as `docs/adr/0005-uzh-corporate-design-is-a-reference-not-a-constraint.
 - **Badge default becomes the container tint** (blue-20 fill, blue-100 text) with solid kept as a variant. It aligns badges with the selected-state surface used by tabs and toggles, and at 17 usages across 9 files it is the cheapest default change in the roadmap.
 - **Modal keeps the inset divider.** The full-bleed `#FAFAFA` band appears only in a preview page of the reconstruction, contradicted by the reconstruction's own `Modal.jsx`.
 
-Vocabulary from these rulings is recorded in `CONTEXT.md` (untracked, alongside the ADR).
+Vocabulary from these rulings is tracked in [CONTEXT.md](../CONTEXT.md).
 
-**Phase 0 is closed.** Nothing in Phases 1–4 is ruling-blocked.
+**Phase 0 is closed.** Its decisions are sufficient to plan Phase 2. Phase 4 still needs its own architectural decision before implementation.
 
-### Round 1 — the root, and the two questions independent of it
+### Historical Round 1 questions — resolved above
 
 **The root: how literally does a content-site specification bind a dense application UI?** The manual describes uzh.ch — teasers, hero blocks, alternating section backgrounds, 18px inline links, `border-radius: 100px` buttons at 14px/600 with `8px 16px` padding, focus as a border-colour change. This library builds dashboards, tables, and forms. Three coherent postures:
 
@@ -113,9 +113,9 @@ This one answer settles four items at once — button shape (CD #7) and the size
 
   **Corrected: these are not unused.** The CD review's "no shipped `.tsx` uses them, only stories" is true of the design system's own components — zero utility-class uses on `origin/v5` — and badly wrong for consumers. Measured on the Klicker worktree `rs/ds-v5-alpha5-upgrade`, the eight families account for **1,500 occurrences**: blue 555 (46 files), grey 379 (71), berry 299 (22), red 198 (45), darkgreen 38 (15), yellow 19 (6), lightgreen 6 (1), turqoise 6 (1). This is the most heavily used part of the public surface in the reference consumer, larger than every component override in the review combined. Of that, 646 occurrences sit on the six off-palette families, and 577 of those are `grey` and `red` alone. Any realignment is a visible change at consumer call sites, not a free cleanup.
 
-### Round 2 — treatments the manual does not cover, once the posture is set
+### Historical Round 2 questions — resolved above
 
-Queued rather than asked now, because the recommendation for each changes with the root:
+These were queued behind the posture decision; the recorded rulings above supersede their open-question wording:
 
 1. **Alert fills** — tinted status backgrounds (shipped, and the bundle's own `Alert.jsx` and status table) or white with coloured text and icon (`DESIGN.md`'s explicit "don't fill alert backgrounds with color"). The bundle is split against itself here, and the manual fills nothing but hero and CTA blocks.
 2. **Badge fill** — solid primary (shipped), container tint `#CCD4ED`, or neutral. `GAPS-RESOLVED.md` #5 lists this as unruled and v5 shipped a third option.
@@ -125,44 +125,48 @@ Under the shade-4 / shade-1 / shade-5 rule the manual's own table supports, 1 an
 
 **Consumer context:** the August pilot supplied the measurements above. On October 18, the user approved temporary lifecycle changes and exact-version exceptions for 44 Radix versions blocked by the consumer's 14-day policy. The corrected packed candidate installs and its 245 build files match the tarball. The container production build and real Formik save/reload, validation, responsive modal and dropdown checks pass. Configuration and lockfile were restored byte-for-byte; the checkout is clean and provider stopped with zero routes. This qualifies the new package against the historical pilot; current-trunk and broader release-candidate qualification remain open.
 
-## Phase 1 — consumer-breaking defects, no ruling needed → alpha.6
+## Phase 1 — delivered in the unmerged draft stack
 
-The verification loop comes first, because "fix in the design system, not in consumers" is unenforceable without it.
+The [Phase 1 plan](2026-08-20-v5-phase1-consumer-defects-plan.md) retains the original defects and implementation sequence. Source corrections and acceptance are complete in PR214:
 
-- **Slice 0 — local link loop.** Klicker consumes the published alpha; no link setup exists, so every fix below is claimed-fixed-unverified. `pnpm pack` plus a `file:` override in the Klicker worktree is the low-ceremony mechanism. Half a day.
-- **A1 — CSS delivery.** Compile component-critical styles into the `components` layer with media queries baked in, or change the documented consumption model. The most consequential item in either review: it silently degrades every consumer, and the failure is invisible until someone measures a computed style.
-- **A2 — modal autofocus ring.** `preventDefault()` on `onOpenAutoFocus`, or move initial focus to the non-interactive panel.
-- **C5 — Dropdown separator bug.** The legacy wrapper merges `className.item` into separators and labels, so a consumer item-height class renders a fat grey band.
-- **C1 — unconditional `DialogFooter`.** Actionless modals draw a stray divider.
-- ~~**CD #3 / #4 — font weights.**~~ Dropped by the Phase 0 round-2 ruling: posture (c) removes the manual's 400/600 restriction, and this was the largest VRT-baseline churn in the phase.
-- **CD #1 / #2 — link blue.** Add `--theme-color-link` / `--theme-color-link-visited` (`#365DD5` / `#5972C5`), fix `Prose` base anchor colour, point `Button variant="link"` at the link token. Today prose links render near-black.
-- **CD #5 — the error state has no colour.** `--theme-destructive-text: #111111` in the uzh theme makes error icons and invalid-input borders near-black. Both `#BD3902` and `#BF0D3E` clear AA on white — **and this slice must re-run the a11y inventory**, which is pinned at zero serious/critical with an empty waiver list, because `aria-invalid:border-destructive-text!` paints borders too.
-- **A3 — migration guide.** `MIGRATION.md` currently says "colors, spacing, and layout are unaffected" while 30 of 46 primitives changed. Add the per-primitive delta table, and document the new `max-w-[520px]` modal cap, which silently collapsed six Klicker modals and appears in no release note.
+- **Packed consumer loop:** the corrected tarball installs, its build files match, the container production build passes and synthetic Formik values survive save/reload in the historical Klicker pilot.
+- **A1 — CSS delivery:** component-scoped responsive defaults live in the `components` layer. Independent consumer compilation verifies default styles and explicit utility overrides across both themes and four widths; real modal checks corroborate them.
+- **A2 / C1 / C5 — modal and dropdown:** pointer entry avoids an incidental close-button ring, keyboard focus remains visible, actionless footers are omitted and separators no longer inherit item sizing.
+- **CD #1 / #2 / #5 — links and errors:** dedicated normal/visited link tokens and a legible UZH error colour are implemented, with browser, token and accessibility evidence.
+- **A3 — migration guidance:** the visual delta table and modal width cap are documented. The Phase 0 decision dropped CD #3 / #4 font-weight changes.
 
-Not in this phase: **CD #12** (`--default-ring-color`). It looks like a one-line fix, but it changes what consumer bare-`ring` utilities render today, and the ring ruling may change the value again. Fold it into Phase 2 so consumer rings move once.
+**CD #12** (`--default-ring-color`) remains in Phase 2 because it changes consumer bare-`ring` utilities alongside the token model. Phase 1 completion does not promise an alpha.6 publication or establish GA acceptance.
 
-Rough size: 1.5–2.5 weeks, wider if A1 forces a change to the documented consumption model.
+## Phase 2 — token model and visual defaults before GA
 
-## Phase 2 — token model → still GA, gated on Phase 0
+The October 18 Claude consultation confirmed the following sequence after source and ADR corroboration. This refines the existing scope; implementation packaging and stack topology still belong to its execution plan.
+
+1. **Establish coverage before changing values.** Inventory public families/rungs, freeze the alias mapping from `CONTEXT.md`, and extend the existing theme contract and stories with a dense application reference fixture. Cover palette samples, intended text/fill pairs, forms, status, tabs and a table at desktop/mobile in neutral and UZH. Existing stories cover some family utilities; current evidence does not establish every rung or alias. Keep the fixture internal to Ladle; no public app-shell API is needed.
+2. **Implement the token graph.** Apply B1–B5 and C13 below, retaining deprecated aliases through 5.x. Re-measure owned neutral literals and identify the source check that will detect regressions; computed-token assertions alone cannot inventory class-string literals. Extend existing checks within this scope rather than assuming a new lint dependency is required.
+3. **Apply the changed defaults.** Complete the component items below against the token graph and preserve explicit consumer overrides. Remove wrapper `!important` escapes only where the new ownership makes them redundant.
+4. **Review the result and migration.** Regenerate pinned VRT baselines once per coherent visual package after its changes settle; inspect every intentional diff. Require alias/computed-style proof, AA for intended text/fill pairs, zero waived serious/critical axe cases, keyboard interactions, public types, RHF minimum/current packed/Next checks and size budgets. Maintain the migration delta table and rename guidance. Compare the touched badge/tooltip/table/tabs source with current shadcn documentation; copied primitives are not updated by dependency bumps.
+5. **Qualify the eventual candidate.** Record the exact packed artifact and consumer refs for refreshed acceptance, remove only demonstrated redundant overrides corresponding to changed defaults, and recheck consumer dependency-age policy. Manual screen-reader, Safari and physical-mobile evidence remain separate acceptance rows. UZH dark remains unsupported and outside this matrix.
+
+### Token and typography scope
 
 - **B1** — interaction-state tokens (`--primary-hover`, `--primary-pressed`, `--primary-container`) drawn from the published Blue ladder rather than invented, with button and menu states wired to them. The breaking one. B1's other half — re-basing the ladder onto mechanical 25% fades — is dropped: the manual publishes the chromatic ladder.
-- **B2 + CD #16** — tokenize the neutral set, replace all 168 hex occurrences, remove the `!important` escapes the wrapper layer uses against its own primitives, and add a lint rule so it cannot regress.
+- **B2 + CD #16** — tokenize the owned neutral defaults using a fresh source/packed inventory. The August count of 168 is historical, not an acceptance target. Palette declarations and deliberate test stimuli remain valid literals; add a scoped regression guard to the existing verification where needed.
 - **B3 + CD #10** — the colour-family realignment as ruled in Phase 0: four families take official values under the `-100` = darkest-saturated-rung rule, `darkgreen` and `grey` leave the `uzh-` namespace, and `berry-80` `#d9305f` is replaced by the published Berry shade 4 `#8f0a2e` (CD #6's interpolated step). The largest consumer-visible change in the roadmap — 646 occurrences move — so it needs a migration table and a codemod, not just a release note.
-- **B4 + CD #12** — one ring decision, applied to both `--ring` and `--default-ring-color`.
+- **B4 + CD #12** — apply the recorded ring contract consistently to `--ring` and `--default-ring-color`, including consumer primary-ramp overrides.
 - **B5 + CD #6 / #14 / #17** — apply the shade-4 / shade-1 / shade-5 rule to the status set consistently, replace the interpolated Berry step with the published value, and document the non-monotonic ladder intent in `themes.css`. No longer ruling-gated: the manual's table supplies every value.
-- **CD #9 + B6 + C11** — the typography package: record the scale decision, export the scale, drop baked-in heading margins for UI headings while `Prose` keeps its rhythm.
+- **CD #9 + C11** — retain the ruled application type scale and weights; remove baked-in UI heading margins while `Prose` keeps its rhythm. The additive B6 type-scale export belongs to v5.1.
 
 **Changed defaults, which the GA rule puts here rather than in 5.1.** Each is backed by measured override economics rather than preference — Button 138 overrides on 201 usages, UserNotification 99 on 137, Tooltip 32 on 36. An 89% override rate is a wrong default, and a wrong default cannot be corrected in a minor.
 
-- **C8** — Tooltip to a `text-sm` default with a default max-width of about 20rem, against today's `text-xs` and unbounded width.
-- **C7** — UserNotification default padding and type raised to the alert spec. The fill treatment waits on ruling 1.
+- **Badge default** — implement the settled container tint (blue-20 fill, blue-100 text), retaining solid as an explicit variant.
+- **C8 / C9 (partial)** — set a readable `text-sm` tooltip default with tokenized appearance, and review a default max-width of about 20rem. The primitive currently uses `text-xs`; the wrapper already bounds width at `max-w-120`, and label help already portals. Verify keyboard and portal behaviour inside modals and sticky headers rather than adding another portal.
+- **C7** — raise UserNotification default padding and type to the alert treatment; retain tinted fills as ruled in Phase 0.
 - **C2 (partial)** — remove the filled hover overlay from the borderless/basic variant, which paints a button-like surface on things consumers use as plain links in 50 files.
 - **C6** — `TabsList` defaults to a full-width spanning track instead of `w-fit`, with an opt-out.
 - **C14** — reconsider `whitespace-nowrap` on every table body cell.
-- **C9 (partial)** — render the form label tooltip through the portaled `ui/tooltip` so it stops losing to sticky toolbars and modal chrome.
 - **C13** — a `--disabled` token replacing `text-slate-400!`; folds naturally into the B2 tokenization sweep.
 
-Rough size: 3–4 weeks after the rulings land, the upper half of that range reflecting the changed defaults that moved in from 5.1.
+The dependency dispositions remain dated: the compatible layer was selected on October 17. Later DayPicker, Resizable Panels, chart, toast, validation and build-tool majors need their own compatibility case; they are not automatic GA prerequisites. Preserve the RHF 7.59.0/7.90.0 matrix and revisit candidate metadata and advisories at qualification. A focused shadcn comparison does not establish parity across every copied primitive.
 
 ## Phase 3 — additive API only → 5.1
 
@@ -172,6 +176,7 @@ What is left once the GA rule has taken the default changes: new surface that al
 - **C2 (partial)** — `icon-sm` (`size-8`) alongside the existing `icon`, plus `destructive-outline` and `success` variants so status buttons stop hand-rolling `border-red-400` / `border-green-700`.
 - **C3** — Accordion trigger size variants against the fixed 52px, keeping the current height as the default.
 - **C9 (partial)** — a `fullWidth` prop and a documented horizontal-label layout for form fields.
+- **B6** — export the existing type scale without changing current rendering.
 
 ## Phase 4 — convergence → 6.0, needs an ADR first
 
@@ -181,19 +186,20 @@ This needs a canonical-layer decision per component, wrapper styling aligned to 
 
 ## Constraints that shape every phase
 
-- **Visual churn batches.** VRT is 23 container-pinned snapshots behind a now-blocking CI gate, regenerated only inside Docker via `packages/design-system/scripts/visual-regression.sh`. Phase 1's font-weight change and Phase 2's token work both move baselines. Regenerate once per package, never per slice, and remember a green local run is no evidence about CI.
+- **Visual churn batches.** VRT currently has 23 container-pinned snapshots behind a blocking CI gate, regenerated only inside Docker via `packages/design-system/scripts/visual-regression.sh`. Phase 2 token/default work needs intentional diff review and regeneration once per coherent visual package. The font-weight change was dropped. Local results and hosted checks remain separate evidence.
 - **The a11y inventory is zero-waiver.** `EXACT_SERIOUS_CRITICAL_INVENTORY = []`, enforced by both the sharded `a11y` job and the `a11y-protocol` job. Any colour change re-runs it.
-- **Report line numbers are stale by two merges.** The CD review measured `53d12495d`; `origin/v5` is at `80d6f229c`, and the intervening commits touched `Collapsible.tsx`, `Tabs.tsx`, `forms/Label.tsx`, `ThemeProvider.tsx`, the RHF fields, and a VRT baseline. Verify each `file:line` with `git show origin/v5:<path>` — including from the `rs-v5-w5-candidate-metadata` worktree, which sits one commit behind.
-- **Klicker's interim workarounds are the acceptance test.** Commits `dc56eca29`, `8ee2fc5aa`, `1de7ad918` work around the modal cap, sidebar density, tab track, and dropdown. Section D of the consumer review maps which override dies with which design-system fix; a fix that does not let its override be deleted is not finished.
+- **Report line numbers are historical.** The CD review measured `53d12495d`; merged `origin/v5` is `80d6f229c`, and the corrected draft source is `b8d607280`. Verify source claims against the applicable ref rather than the review's old lines.
+- **Consumer workarounds provide acceptance cases.** The historical Klicker pilot retains width/density overrides. Remove an override when the corresponding changed default demonstrably replaces it; application-specific layout constraints may remain. Additive modal size presets belong to v5.1 and do not block Phase 2.
+- **Theme ownership is settled.** [ADR 0003](../docs/adr/0003-uzh-primary-ramp-override-boundary.md) assigns full approved primary-ramp overrides to consumers; [ADR 0004](../docs/adr/0004-themeprovider-root-sync.md) fixes document-root placement. The generic contract and synthetic fixture already exist. Any actual branded values need approval in the consumer candidate that uses them; no DS-owned branded export is required for base UZH GA.
 - **Existing worktree:** `trees/rs-v5-uzh-alignment` on `rs/v5-uzh-alignment`. Preserve its original fixes and use ordinary merge propagation from the field layer; do not recreate the branch.
 
 ## Immediate next actions
 
-1. Retain the source qualification recorded in [PR214](https://github.com/uzh-bf/design-system/pull/214) through subsequent integration. Scoped responsive layout ownership, retained modal/dropdown/link/error fixes, migration guidance, independent review and eleven rendered captures are delivered.
-2. Retain the current packed-candidate Klicker acceptance and five real-application captures in PR214. Refresh it after Phase 2, retire its corresponding consumer workarounds and qualify the eventual candidate across the required consumers. The current run retains existing width/density overrides.
-3. Execute Phase 2's recorded pre-GA token and visual-default decisions, with reviewed swatches, migration aliases, component captures and zero-waiver accessibility checks.
+1. Retain the source qualification recorded in [PR214](https://github.com/uzh-bf/design-system/pull/214), including eleven component and five real-application captures. The packed acceptance proves the historical pilot; record new source/artifact refs when refreshing it.
+2. Start Phase 2 with the public-family/alias inventory and dense internal reference fixture, then follow its ordered acceptance steps above. This is the next implementation package to plan.
+3. Refresh candidate acceptance after the token/default work, including relevant consumer override retirement and the outstanding manual accessibility/browser evidence.
 4. Keep additive Phase 3 APIs in v5.1. Keep wrapper convergence and complete Formik public-type/runtime removal in v6.
-5. Reconcile the v5 umbrella with main and qualify a fresh candidate only under separate merge/publication authority.
+5. Reconcile the existing v5 umbrella and qualify the integrated candidate in its promotion package; target merges, publication and deployment retain their separate authority gates.
 
 
 ## October 18 evidence and remaining gates
@@ -210,10 +216,7 @@ separator classes, close-button keyboard focus, link tokens, legible error state
 and visual migration table. The integrated source passes 90 browser contracts,
 public types, lint, formatting and the packed token/CSS checks. All 23 pinned
 visual comparisons pass. PR214 and eleven inspected/rendered screenshots are
-published. Hosted CI passes at source 557025003; the final source head passes
-behavioral, both RHF packed-consumer, types, lint, format, visual and all four
-accessibility shard jobs at c93a48774. Subsequent review and CI
-receipts are maintained in [PR214](https://github.com/uzh-bf/design-system/pull/214).
+published. [Hosted CI at b8d607280](https://github.com/uzh-bf/design-system/actions/runs/39157156790) passes behavioral, both RHF packed-consumer, types, lint, format, visual, all four accessibility shards and the release build. Subsequent documentation-only edits reuse this source evidence; their hosted checks are recorded separately in [PR214](https://github.com/uzh-bf/design-system/pull/214).
 The corrected packed candidate passes the real Klicker pilot build and synthetic
 application flows, with desktop/mobile captures in PR214. Compact app navigation,
 editor-toolbar layout and build translation/page-size warnings remain consumer
