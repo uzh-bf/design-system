@@ -92,3 +92,14 @@ regression cases; the original passing receipts remain historical.
   Test delta: four new behaviors (eight both-theme cases), one existing modal
   case extended; one existing synthetic fixture extended, no new test module.
   Independent simplification/risk review and refreshed gallery remain next.
+
+- 2026-10-18 correction review: natural modal entry and selected-date ownership
+  accepted; the reviewer found an explicit null reset retained pending PM and
+  the integrated review found the trigger label hid its displayed date.
+  Both assertions failed in both themes before correction. Empty-state reset
+  now observes the controlled Date/null/undefined value, and trigger naming
+  combines its label and displayed value. All18 input cases pass, including
+  settled axe; the other42 lower contracts passed unchanged. Fresh type,
+  lint and formatting checks pass. The initial full run scanned a calendar
+  mid-transition; waiting for finite animations restores stable contrast
+  measurement without suppressing any axe rule. No new tests or public API.

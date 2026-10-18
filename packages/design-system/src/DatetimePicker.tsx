@@ -500,10 +500,9 @@ const TimePicker = React.forwardRef<TimePickerRef, TimePickerProps>(
         ? 'PM'
         : 'AM'
       : pendingPeriod
-    const timestamp = date?.getTime()
     React.useEffect(() => {
-      if (timestamp === undefined) setPendingPeriod('AM')
-    }, [timestamp])
+      if (!date) setPendingPeriod('AM')
+    }, [date])
 
     useImperativeHandle(
       ref,
@@ -801,7 +800,7 @@ const DateTimePicker = ({
           <PopoverTrigger asChild disabled={disabled}>
             <Button
               id={inputId}
-              aria-labelledby={label ? labelId : undefined}
+              aria-labelledby={label ? `${labelId} ${inputId}` : undefined}
               aria-label={label ? undefined : ariaLabel}
               variant="outline"
               type="button"

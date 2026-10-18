@@ -6,7 +6,7 @@ const initialDate = () => new Date(2026, 0, 15, 13, 24, 35)
 
 export function Default() {
   const [date, setDate] = useState<Date | undefined>(initialDate)
-  const [emptyTime, setEmptyTime] = useState<Date | undefined>()
+  const [emptyTime, setEmptyTime] = useState<Date | null | undefined>()
   const [cycle, setCycle] = useState<12 | 24>(24)
   const [granularity, setGranularity] = useState<'hour' | 'minute' | 'second'>(
     'second'
@@ -46,6 +46,9 @@ export function Default() {
         </output>
         <button type="button" onClick={() => setEmptyTime(undefined)}>
           Clear time
+        </button>
+        <button type="button" onClick={() => setEmptyTime(null)}>
+          Reset empty time
         </button>
         <button type="button" onClick={() => setEmptyTime(initialDate())}>
           Set afternoon

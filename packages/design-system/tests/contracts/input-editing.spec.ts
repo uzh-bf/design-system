@@ -12,10 +12,13 @@ for (const theme of ['neutral', 'uzh'] as const) {
       page,
     }, testInfo) => {
       const trigger = page.getByRole('button', {
-        name: 'Appointment',
-        exact: true,
+        name: /^Appointment\b/,
       })
       await expect(trigger).toHaveAttribute('data-test', 'editing-date-trigger')
+      const displayedValue = await trigger.innerText()
+      await expect(trigger).toHaveAccessibleName(
+        new RegExp(displayedValue.trim().split(/\s+/).join('\\s+'))
+      )
       await trigger.click()
       const hours = page.getByRole('textbox', { name: 'Hours', exact: true })
       const minutes = page.getByRole('textbox', {
@@ -29,6 +32,15 @@ for (const theme of ['neutral', 'uzh'] as const) {
       await expect(hours).toHaveValue('13')
       await expect(minutes).toHaveValue('24')
       await expect(seconds).toHaveValue('35')
+      await page.waitForFunction(() =>
+        document
+          .getAnimations()
+          .every(
+            (animation) =>
+              animation.effect?.getTiming().iterations === Infinity ||
+              animation.playState !== 'running'
+          )
+      )
       const scan = await new AxeBuilder({ page })
         .include('[data-slot="popover-content"]')
         .analyze()
@@ -89,9 +101,7 @@ for (const theme of ['neutral', 'uzh'] as const) {
       context,
     }) => {
       await page.getByRole('button', { name: 'Toggle cycle' }).click()
-      await page
-        .getByRole('button', { name: 'Appointment', exact: true })
-        .click()
+      await page.getByRole('button', { name: /^Appointment\b/ }).click()
       const hours = page.getByRole('textbox', { name: 'Hours', exact: true })
       const minutes = page.getByRole('textbox', {
         name: 'Minutes',
@@ -134,9 +144,7 @@ for (const theme of ['neutral', 'uzh'] as const) {
       page,
     }) => {
       await page.getByRole('checkbox', { name: 'Clone date updates' }).check()
-      await page
-        .getByRole('button', { name: 'Appointment', exact: true })
-        .click()
+      await page.getByRole('button', { name: /^Appointment\b/ }).click()
       const hours = page.getByRole('textbox', { name: 'Hours', exact: true })
       await hours.fill('')
       await hours.press('1')
@@ -158,9 +166,7 @@ for (const theme of ['neutral', 'uzh'] as const) {
     test('uses unique control ids and respects segment boundaries and granularity', async ({
       page,
     }) => {
-      await page
-        .getByRole('button', { name: 'Appointment', exact: true })
-        .click()
+      await page.getByRole('button', { name: /^Appointment\b/ }).click()
       const hours = page.getByRole('textbox', { name: 'Hours', exact: true })
       const minutes = page.getByRole('textbox', {
         name: 'Minutes',
@@ -179,18 +185,14 @@ for (const theme of ['neutral', 'uzh'] as const) {
       await expect(minutes).toHaveValue('25')
       await page.keyboard.press('Escape')
       await expect(
-        page.getByRole('button', { name: 'Appointment', exact: true })
+        page.getByRole('button', { name: /^Appointment\b/ })
       ).toBeFocused()
-      await page
-        .getByRole('button', { name: 'Other appointment', exact: true })
-        .click()
+      await page.getByRole('button', { name: /^Other appointment\b/ }).click()
       expect(await hours.getAttribute('id')).not.toBe(firstId)
       await page.keyboard.press('Escape')
       await page.getByRole('button', { name: 'Toggle cycle' }).click()
       await page.getByRole('button', { name: 'Reduce precision' }).click()
-      await page
-        .getByRole('button', { name: 'Appointment', exact: true })
-        .click()
+      await page.getByRole('button', { name: /^Appointment\b/ }).click()
       await expect(
         page.getByRole('textbox', { name: 'Seconds', exact: true })
       ).toHaveCount(0)
@@ -215,6 +217,10 @@ for (const theme of ['neutral', 'uzh'] as const) {
       await period.click()
       await page.getByRole('option', { name: 'PM', exact: true }).click()
       await expect(period).toHaveText('PM')
+      await picker.getByRole('button', { name: 'Reset empty time' }).click()
+      await expect(period).toHaveText('AM')
+      await period.click()
+      await page.getByRole('option', { name: 'PM', exact: true }).click()
       await hours.fill('9')
       await hours.press('Tab')
       await expect(hourValue).toHaveText('21')
