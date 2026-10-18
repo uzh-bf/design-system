@@ -42,3 +42,43 @@ Preserve comments and unrelated formatting. Check every changed hunk and staged 
 - Same slice reviewer accepted the complete corrections with DONE and no new findings. Task browser/server stopped and port verified clear. All authorized implementation and verification are complete; integrated final review is the remaining local gate. Prior check evidence is detailed in project/_local/reviews/2026-09-05-input-stabilization-verification.md.
 - Integrated final review found one regression: excluding all role-bearing elements also blocked noninteractive semantic containers. Narrowed the exclusion to interactive widget roles. Both-theme regression now verifies group-container navigation and custom button-role protection. Fresh package build, type/lint/format checks and all ten date/modal contracts pass. Same final reviewer correction pass pending.
 - Complete: same integrated final reviewer returned DONE / pass on 80d6f229..0807179a7 with no findings. Required simplification, slice review and final review are dispositioned. Verified local committed implementation is complete; no unresolved implementation or verification gate remains. No push, PR, merge, dependency upgrade, upstream integration, publication or deployment occurred. Task runtime is stopped. Source head 0807179a7; this final progress-only commit preserves its verification and review evidence.
+
+## Review remediation — approved 2026-10-18
+
+The user approved correcting the verified review findings and updating the
+existing roadmap. The earlier local-only delivery notes above are historical;
+ordinary commits, non-force task-branch pushes and draft PR updates are
+now authorized. PR210 remains the input layer of stack212 (210→211→213).
+Merging into v5/main, force push, ready conversion, release and deployment
+remain withheld. The same worktree owns every layer sequentially.
+
+Native planning review approved round3. Scope for this layer: Modal.tsx,
+DatetimePicker.tsx, InputEditingContract.stories.tsx, existing
+input-editing.spec.ts and this plan. No new dependency or public prop is needed.
+Main owns the coupled date/focus corrections and acceptance. Bound behavior:
+
+- Navigation modals focus their panel on opening so trigger→Enter→arrow works.
+  Editable controls, nested widgets and consumed/modified events retain keys.
+- An empty standalone twelve-hour TimePicker keeps an AM/PM choice until a
+  date is entered. External controlled dates synchronize the period; clearing
+  the value resets the pending period to AM.
+- Calendar month navigation changes only the viewport. Time edits and newly
+  selected days carry time from the selected value (or existing popup default),
+  never from the browsed month. Preserve date callbacks, clone-safe drafts,
+  hour cycles, granularity and both themes.
+
+Extend existing contracts with natural keyboard entry, empty PM→9→21,
+external AM/PM synchronization/reset and month-browse→each-time-segment edits.
+Run the new cases against unchanged source first to establish failure, then
+fresh build/type/lint/format and input contracts. Refresh relevant real-browser
+screenshots. Do not add copy snapshots or tests for roadmap wording.
+
+Before propagating, record clean state and recovery refs for all three tips.
+Use ordinary merges input→dependencies→fields and verify every old remote tip
+remains an ancestor before ordinary push. No cascading rebase/force sync.
+Per-layer checks and exact-head CI remain independent gates. The field layer
+owns the later disabled-selection/FormField and durable consumer-CI work;
+existing UZH work owns CSS delivery and real consumer acceptance.
+
+Progress: review findings reopened acceptance. Implementation begins with red
+regression cases; the original passing receipts remain historical.
