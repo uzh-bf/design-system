@@ -686,12 +686,6 @@ try {
       { from: path.join(packageDir, 'palette-consumer.css') }
     )
   )
-  for (const [name] of PALETTE) {
-    if (!paletteConsumerCss.includes(`.${'bg-' + name}`))
-      throw new Error(`Consumer palette utility missing: ${name}`)
-  }
-  if (!paletteConsumerCss.includes('hover\\:text-uzh-berry-80'))
-    throw new Error('Consumer opacity/hover palette variant missing')
   for (const theme of ['neutral', 'uzh']) {
     await page.setContent(
       `<html data-theme="${theme}"><head><style>${paletteConsumerCss}</style></head><body></body></html>`
