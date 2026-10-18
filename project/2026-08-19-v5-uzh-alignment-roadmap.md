@@ -4,22 +4,36 @@
 **Supersedes:** `project/2026-08-01-v5-release-readiness-stacks-roadmap.md` (stacks A–D and the release sequence are all merged; it stays readable as history)
 **Status (2026-10-18):** Phase 0 decisions are recorded. Phase 1 source fixes and scoped responsive CSS are integrated with the corrected input/dependency/field stack on `rs/v5-uzh-alignment` and delivered in [draft PR214](https://github.com/uzh-bf/design-system/pull/214). Hosted checks pass at `b8d607280`; the corrected packed candidate passes the historical Klicker pilot. These drafts are unmerged. Phase 2 and full release-candidate qualification still block GA. npm still serves `5.0.0-alpha.5` on `alpha` and `4.1.8` on `latest`; the corrected local tarball is not a published release.
 
+## Official-source correction — 2026-10-18
+
+The [official styleguide link](https://www.frontend.uzh.ch/style/) is reachable;
+its release list currently identifies [2.10.0, dated June 10, 2026](https://www.frontend.uzh.ch/prod/releases/2.10.0/index.html).
+The comparison below is corrected against that release's [CSS](https://www.frontend.uzh.ch/prod/releases/2.10.0/assets/css/main.css)
+and component documentation. The colour manual supplies palette values; the
+styleguide supplies web defaults and functional colours. The reconstructed bundle
+and cached local distillation do not establish official requirements.
+
+The accepted application-design posture remains in place. It does not establish
+strict CD conformance or an institutional exemption: the [UZH Web-CD policy](https://www.kommunikation.uzh.ch/de/web/policies/cd.html)
+also covers non-CMS websites. Qualification of an application and its branding
+remains separate from the package's theme mechanism.
+
 ## Historical reconciliation — 2026-08-19
 
 **Corrected 2026-08-19, after reading the bundle's own documentation.** An earlier draft of this roadmap called the relationship between the two source documents a spec-authority conflict and made naming an authority the release-blocking gate. That was wrong, and the bundle says so itself.
 
 `GAPS-RESOLVED.md` opens by describing itself as a "reconciliation of the UZH-BF design-system reference against the upstream public export surface … read from `uzh-bf/design-system@main`", states that "this reference is an **AI reconstruction** with known internal conflicts", and tags every brand-colour line in its own source with `/* VERIFY vs official UZH CD */`. `DESIGN.md` says the same in one line: "Everything below is reconstructed from the public `uzh-bf/design-system` monorepo."
 
-So the bundle is a **derived description of our own v4 library**, produced by an agent, which explicitly defers to the official UZH Corporate Design manual on every colour question. It is not a competing authority and cannot outrank the manual. There is exactly one brand authority: the **official UZH Corporate Design manual**.
+So the bundle is a **derived description of our own v4 library**, produced by an agent, which explicitly defers to official UZH sources. It is not a competing authority. The official colour manual and Frontend Styleguide supply different parts of the reference; a palette swatch does not by itself prescribe a component's semantic role.
 
 That collapses most of what the earlier draft filed as rulings into facts:
 
-- **The bundle's status palette is the CD palette.** Info `#1EA7C4` / `#DBF4F9` / `#147082` is Cyan shades 4 / 1 / 5. Success `#7CA023` / `#ECF6D6` / `#536B18` is Apple 4 / 1 / 5. Warning `#F3AB00` / `#FFF4DA` / `#A27200` is Gold 4 / 1 / 5. Error `#FC4C02` / `#FFDBCC` / `#BD3902` is Orange base / 1 / 4. One consistent rule — accent from the base or shade 4, tinted background from shade 1, text from shade 5. No conflict, and the rule is worth adopting as ours because it is derivable rather than taste.
+- **The bundle's status hues are drawn from the CD palette.** Cyan, Apple, Gold, Orange and Berry supply official swatches. Assigning them to info/success/warning/error and choosing their fill/accent/text pairs are project decisions. The official web templates instead use functional green/red values and 5% tints in `.FormMessage--inner`; palette provenance does not make our status recipe an official requirement. The implemented Berry error-text exception preserves contrast on the Orange tint.
 - **The ladder is chromatic, and it is published.** `GAPS-RESOLVED.md` #4 asks whether the mid-ladder is chromatic or a mechanical opacity fade of `#0028A5`. The CD manual answers it: Blue shade 1 is `#BDC9E8`, exactly the value the bundle used. Chromatic, from the table. No ruling needed, and finding B1's premise that the ladder "should be mechanical 25% fades" is contradicted by the manual.
 - **`#DC6027` is not a UZH colour.** It appears in no CD family. `DESIGN.md` asserts it as the secondary and calls it "UZH Red"; the same bundle's `GAPS-RESOLVED.md` #2 says the secondary is unruled with Berry `#BF0D3E` as the candidate. That is the bundle contradicting itself, not two authorities disagreeing.
-- **The manual does answer "secondary".** Its web-UI block reads `--c-grey: #666666 — secondary text, default buttons`, its button table gives the Default variant as `#FAFAFA` on `#666666`, and its colour rules say accent families are "for charts, data viz, category labels, card accents … **never as primary UI colors**". Berry-as-secondary-action is ruled out by the manual, and so is any hue-driven secondary button.
+- **The official default button is neutral.** Release 2.10.0 uses `#FAFAFA` with `#666666` text for `.Button`. Our root Button defaults to outline, and the primitive secondary variant uses neutral `--secondary`; the separate `--theme-color-secondary-*` family is Berry. This distinction does not establish a universal prohibition on coloured actions or certify every consumer's use of the family utilities.
 
-**The remaining decision at that review was the application-design posture.** The CD manual is a **content-site specification**: teasers, hero sections, alternating section backgrounds, 18px inline links, `border-radius: 100px` pill buttons, focus expressed as a border-colour change. This library is a **dense application toolkit**. Phase 0 settled how literally that specification binds an application UI; its recorded decisions govern the button shape, type scale, focus treatment and table header below.
+**The remaining decision at that review was the application-design posture.** The official web patterns include content pages, pill buttons and a dedicated Flyingfocus keyboard indicator. This library is a **dense application toolkit**. Phase 0 recorded the project's adaptation of geometry, type scale, focus and table treatment; it did not rule on institutional applicability or certify a consumer's CD conformance.
 
 ## The GA boundary, and why the ruling is urgent
 
@@ -43,15 +57,15 @@ Read this table with the correction above in hand: the consumer review's column 
 
 | Subject | CD review | Consumer review | Disposition |
 |---|---|---|---|
-| Secondary colour | #14 — Berry `#BF0D3E`, verified official, keep | B5 — `DESIGN.md` says `#DC6027`; v5 pre-empted an unruled question | **Not a conflict. `#DC6027` is off-palette and the bundle itself flags the secondary as unruled. The manual assigns secondary/default buttons to grey `#666666` and bars accent hues from primary UI, so keep Berry as an accent and do not promote it to a secondary action colour** |
-| Warning hue | #14 — Gold `#FFC845`, verified official, keep | B5 — spec says gold `#F3AB00` | **Not a conflict. `#F3AB00` is Gold shade 4 from the same official family; the bundle uses shade 4 as the accent and `#FFC845` is the base. Pick one rung and apply the shade-4 / shade-1 / shade-5 rule consistently** |
-| Focus ring | #12 — point `--default-ring-color` at `--color-ring` (solid UZH Blue) | B4 — bundle specifies translucent `rgba(0,40,165,0.18)` at 3px | **Consequence of the literalness question, not a free choice. The manual specifies focus as a border-colour change to `#0028A5` and no ring at all — see the WCAG note in Phase 0** |
+| Secondary colour | #14 — Berry `#BF0D3E`, verified official, keep | B5 — `DESIGN.md` says `#DC6027`; v5 pre-empted an unruled question | **`#DC6027` is off-palette. Berry remains an accent family; default/secondary button variants are neutral. Palette names and action semantics are distinct contracts** |
+| Warning hue | #14 — Gold `#FFC845`, verified official, keep | B5 — spec says gold `#F3AB00` | **Both are official Gold swatches. Phase 0 selects shade 4 for the application accent; that selection is a project decision** |
+| Focus ring | #12 — point `--default-ring-color` at `--color-ring` (solid UZH Blue) | B4 — bundle specifies translucent `rgba(0,40,165,0.18)` at 3px | **Keep the ruled per-control indicator and fix internal ring consistency. Official 2.10.0 also has Flyingfocus; the earlier border-only premise was incorrect** |
 | Tint ladder | #17 — non-monotonic but all values official; document the intent. #6 — one interpolated Berry step is not official | B1 — ladder should be mechanical 25% fades, with separate `primary-hover` / `-pressed` / `-container` tokens | **Half settled. The ladder is chromatic and published, so the "mechanical fades" premise is wrong; the interaction-state tokens B1 asks for are still a real and breaking gap** |
-| Legacy `--color-uzh-*` | #10 — six families carry off-palette values, deprecate | B3 — five specced accent ladders are missing | **Not a conflict. Replace the off-palette values with official accent families under the same names** |
+| Legacy `--color-uzh-*` | #10 — six families carry off-palette values, deprecate | B3 — five specced accent ladders are missing | **Realign four families to official names and values; identify grey/darkgreen as house families. Preserve deprecated aliases through 5.x** |
 | Hardcoded hex | #16 — five files bypass tokens | B2 — 168 arbitrary-hex occurrences in the August published `dist` | **Same defect; refresh the owned-default inventory before implementation** |
 | Type scale | #9 — app-sized vs CD-sized, needs a recorded decision | B6 — not exported · C11 — headings bake in margin | **One typography package** |
-| Buttons | #7 pill radius · #8 size ladder | C2 — missing `icon-sm`, filled hover on borderless, no semantic outlines | **One button package; #7/#8 need rulings, C2 does not** |
-| Tables | #11 — CD header is light blue, not uppercase grey | C14 — `whitespace-nowrap` on every cell | **Adjacent; same file** |
+| Buttons | #7 pill radius · #8 size ladder | C2 — missing `icon-sm`, filled hover on borderless, no semantic outlines | **Phase 0 keeps application geometry; Phase 2 handles changed defaults and Phase 3 the additive variants** |
+| Tables | #11 — cached claim that the CD header must be light blue | C14 — `whitespace-nowrap` on every cell | **The current guide styles tables, but the blanket light-blue header requirement was not established. Keep the ruled header treatment; review body wrapping as application UX** |
 
 ### Historical evidence — verified 2026-08-19
 
@@ -59,7 +73,7 @@ Three claims were reproduced against the published `5.0.0-alpha.5` tarball rathe
 
 - **A1 holds design-system side.** `dist/design-system.css` declares `@layer components;` empty at line 747 and emits everything into `@layer utilities` from line 749 — `.text-center` at 4395, `.sm\:text-left` at 7850. A consumer's Tailwind appends its own `@layer utilities` after ours, so a consumer-authored base utility beats our responsive variant at every viewport. `README.md:47-50` does tell consumers not to `@source` the package, so a consumer following the documentation is exposed. This is a real every-consumer bug, not a Klicker build-config issue.
 - **B2's count is exact.** 168 arbitrary-hex class occurrences across 116 dist modules, with the same distribution the review reports (`#111111` ×53, `#FAFAFA` ×39, `#E0E0E0` ×28, `#666666` ×24, `#EFEFEF` ×10, `#A3A3A3` ×6, `#333333` ×5, `#252525` ×3).
-- **`frontend.uzh.ch` still does not resolve** from this network (checked 2026-08-19). CD findings #1, #7, #8, #9, #11, #13 and #18 continue to rest on the local `$rs-uzh-design` distillation rather than a live read of Release 2.9.0.
+- **The bare `frontend.uzh.ch` host failed in August.** The October 18 check followed UZH's actual `www.frontend.uzh.ch` link and retrieved release 2.10.0. Its current source supersedes cached 2.9.0 descriptions of focus, button weights and table headers.
 - **The bundle's provenance is stated in the bundle.** `SKILL.md` describes it as a prototyping skill shipping "typographic recreations" of the logos; `DESIGN.md` says it is "reconstructed from the public `uzh-bf/design-system` monorepo"; `GAPS-RESOLVED.md` calls itself an AI reconstruction read from `@main` and tags every brand colour `/* VERIFY vs official UZH CD */`. Because it reconstructs `main` — that is, v4 — a bundle/v5 difference may be documenting a deliberate v5 change rather than a v5 regression, and each B-finding needs reading that way.
 
 ## Phase 0 — the decision gate (you, via `$grill-with-docs`)
@@ -68,7 +82,7 @@ Not an authority ruling. One posture decision plus a short tail of treatments th
 
 ### Round 1 rulings — settled 2026-08-19
 
-- **Posture: (c) inspiration only.** The library is not bound by the UZH Corporate Design manual; it should "look somewhat like UZH". The palette and Source Sans 3 carry the recognisability; geometry, density, control sizing, focus affordance, and type scale are ours. Consequences: CD #7 (pill radius), #8 (button size ladder), #9 (type scale), #11 (table header) and the CD's border-change focus model are all closed as "keep what we ship, record the decision". CD #12 survives, but as an internal consistency fix rather than a conformance one.
+- **Posture: (c) inspiration only.** The project chooses an application adaptation: the palette and Source Sans 3 carry recognisability; geometry, density, control sizing, focus affordance and type scale follow application ergonomics. This records an internal decision, not an institutional exemption. CD #7/#8/#9/#11 remain closed as "keep what we ship, record the decision"; the per-control focus indicator is also retained. CD #12 survives as an internal consistency fix.
 - **Dark theme: not supported for now.** It drops out of the a11y and VRT obligation set and is documented as unsupported. Disposition of the existing `.dark` blocks is a round-2 question.
 - **Colour families: align to the official UZH families**, and the mapping covers more than blue and berry — cyan, gold, apple and orange all have official counterparts to the legacy names. Scope and cost are round-2 questions, because the consumer measurement below changes the economics.
 
@@ -78,15 +92,15 @@ Recorded in [ADR 0005](../docs/adr/0005-uzh-corporate-design-is-a-reference-not-
 
 - **Realign all four mappable families**: `red`→Orange, `yellow`→Gold, `lightgreen`→Apple, `turqoise`→Cyan. Includes `red` despite 198 consumer occurrences, because all of them move together and `#dc6027` is the value that reads least like UZH.
 - **Keep `darkgreen` and `grey`, and move them out of the `uzh-` namespace.** Neither has an official counterpart — the manual has no dark green family, and its neutrals are an achromatic flat list rather than a five-shade family. Breaking 86 consumer files to delete them buys nothing; the rename is what stops the `uzh-` prefix implying brand backing.
-- **Ladder rule: `-100` is the darkest saturated rung usable as a fill or foreground** — the base for Blue, Berry and Orange, shade 4 for Cyan, Apple and Gold — and `-20` is shade 1 throughout. Blue remains unchanged; Berry retains its existing family except for the explicitly scheduled `berry-80` correction to the published shade 4. Gold therefore resolves to `#F3AB00`, which is the value the status set already wants.
-- **Drop the font-weight change (CD #3 / #4).** Its justification was the manual's 400/600 web restriction, which posture (c) removes. It was the largest VRT-baseline churn in Phase 1 for no remaining benefit.
+- **Family mapping:** `-100` selects the base for Blue, Berry and Orange, and shade 4 for Cyan, Apple and Gold; `-20` selects shade 1. These labels do not guarantee a lightness ordering: the retained Blue `-80` is darker than Blue `-100`. Blue remains unchanged; Berry retains its family except for the scheduled `berry-80` correction to the published shade 4. Gold resolves to `#F3AB00` by project choice.
+- **Drop the font-weight change (CD #3 / #4).** The project retains its application weight scale. The official specimens show Regular and Semibold faces; that does not turn their defaults into a new implementation requirement for this package.
 - **Dark theme CSS stays dormant.** The `[data-theme='uzh'].dark` and `.dark [data-theme='uzh']` blocks remain in `themes.css`, documented as unsupported, out of the a11y inventory and VRT set. Deleting them would be a breaking change for any consumer currently setting the class.
 
 ### Round 3 rulings — settled 2026-08-20
 
 - **Realigned families take official names** — `uzh-orange`, `uzh-gold`, `uzh-apple`, `uzh-cyan` — with the legacy names surviving as deprecated aliases pointing at the new values through 5.x and removed in 6.0. Consumers do nothing at GA: call sites keep compiling and change colour, and the rename becomes a codemod on their own schedule. This is also the only chance to fix the `turqoise` misspelling without spending a second break on it.
 - **The two house families move to a `df-` prefix**: `df-grey` and `df-darkgreen`. The prefix is the point — it stops a colour with no manual backing from reading as a brand claim.
-- **Status surfaces keep tinted fills**, with the rule stated explicitly: shade 1 as the fill, shade 5 as the text. That is what already ships, so `UserNotification`'s 181 usages across 137 consumer files do not move, and it is the pairing that clears AA. `DESIGN.md`'s "don't fill alert backgrounds" line is contradicted by its own `Alert.jsx` and status table.
+- **Status surfaces keep tinted fills.** The recorded project recipe selects shade 1 as fill and shade 5 as text; this is design intent, not a claim that the complete token map already ships or an official semantic rule. Phase 2 still coordinates the tokens and verifies intended pairs, including the contrast-driven error treatment implemented in Phase 1. `DESIGN.md`'s "don't fill alert backgrounds" line is contradicted by its own `Alert.jsx` and status table.
 - **Badge default becomes the container tint** (blue-20 fill, blue-100 text) with solid kept as a variant. It aligns badges with the selected-state surface used by tabs and toggles, and at 17 usages across 9 files it is the cheapest default change in the roadmap.
 - **Modal keeps the inset divider.** The full-bleed `#FAFAFA` band appears only in a preview page of the reconstruction, contradicted by the reconstruction's own `Modal.jsx`.
 
@@ -96,20 +110,20 @@ Vocabulary from these rulings is tracked in [CONTEXT.md](../CONTEXT.md).
 
 ### Historical Round 1 questions — resolved above
 
-**The root: how literally does a content-site specification bind a dense application UI?** The manual describes uzh.ch — teasers, hero blocks, alternating section backgrounds, 18px inline links, `border-radius: 100px` buttons at 14px/600 with `8px 16px` padding, focus as a border-colour change. This library builds dashboards, tables, and forms. Three coherent postures:
+**The root: how closely should this application toolkit reproduce the official website patterns?** The current guide's base `.Button` is 14px/400 with a 100px radius; large buttons use 16px/600. Keyboard focus includes Flyingfocus, and input focus changes a light-blue background and border. This library builds dashboards, tables and forms. The three postures considered were:
 
-- **(a) Literal conformance** — pills, the CD button variants including the grey Default, CD-sized type, border-change focus. Survives a brand review unchanged; costs density and, for focus, likely fails WCAG 2.2 focus appearance, since a 1px border-colour change is a weak indicator.
-- **(b) Palette-and-type binding** — colour, typeface, weight scale, link treatment, and status semantics come from the manual and are non-negotiable; geometry, density, control sizing, and focus affordance are the library's, justified by application ergonomics and recorded as such.
+- **(a) Literal reproduction** — follow the official website component patterns, including typography, pills and Flyingfocus. Full application acceptance would still be required; no accessibility or brand-approval verdict follows from copying individual defaults.
+- **(b) Palette-and-type binding** — follow official palette/type defaults and choose application geometry, density, control sizing and focus affordance explicitly. Status-role assignments remain separate from palette provenance.
 - **(c) Inspiration only** — the manual is a reference, application ergonomics decide.
 
-The discriminating fact is whether a UZH brand authority can reject this library. If yes, (a) or (b); if no, (b) or (c). Either way (b) is the recommendation: it is the only posture that both survives a brand review on the things a reviewer actually checks and keeps a dense dashboard usable.
+The original recommendation was (b); the accepted project choice was (c), recorded above. That choice does not establish an institutional applicability ruling or guarantee a consumer's brand acceptance.
 
 This one answer settles four items at once — button shape (CD #7) and the size ladder (#8), the type scale (#9), the focus treatment (#12 and B4), and the table header (#11).
 
 **Independent of the root:**
 
-- **Dark theme (CD #13).** The manual defines none, under any posture. v5 ships one: `themes.css` carries `[data-theme='uzh'].dark` and `.dark [data-theme='uzh']` blocks that re-map the status tokens. So the question is whether the uzh dark theme is a supported product surface with its own contrast obligations, or an unspecced extension documented as best-effort.
-- **Legacy `--color-uzh-*` families (CD #10).** `tailwind.css` defines eight: `berry`, `blue`, `darkgreen`, `grey`, `lightgreen`, `red`, `turqoise` (misspelled), `yellow`. Only `berry` and `blue` carry official values; the other six are v4 mechanical-fade ladders on off-palette base hues.
+- **Dark theme (CD #13).** v5 retains UZH-dark CSS for compatibility. The recorded decision leaves it unsupported and outside the current accessibility/VRT qualification.
+- **Legacy `--color-uzh-*` families (CD #10).** `tailwind.css` defines eight: `berry`, `blue`, `darkgreen`, `grey`, `lightgreen`, `red`, `turqoise` (misspelled), `yellow`. Blue uses official selected swatches; Berry has the recorded `-80` exception. The other six retain legacy values pending the official/house-family realignment.
 
   **Corrected: these are not unused.** The CD review's "no shipped `.tsx` uses them, only stories" is true of the design system's own components — zero utility-class uses on `origin/v5` — and badly wrong for consumers. Measured on the Klicker worktree `rs/ds-v5-alpha5-upgrade`, the eight families account for **1,500 occurrences**: blue 555 (46 files), grey 379 (71), berry 299 (22), red 198 (45), darkgreen 38 (15), yellow 19 (6), lightgreen 6 (1), turqoise 6 (1). This is the most heavily used part of the public surface in the reference consumer, larger than every component override in the review combined. Of that, 646 occurrences sit on the six off-palette families, and 577 of those are `grey` and `red` alone. Any realignment is a visible change at consumer call sites, not a free cleanup.
 
@@ -117,11 +131,11 @@ This one answer settles four items at once — button shape (CD #7) and the size
 
 These were queued behind the posture decision; the recorded rulings above supersede their open-question wording:
 
-1. **Alert fills** — tinted status backgrounds (shipped, and the bundle's own `Alert.jsx` and status table) or white with coloured text and icon (`DESIGN.md`'s explicit "don't fill alert backgrounds with color"). The bundle is split against itself here, and the manual fills nothing but hero and CTA blocks.
+1. **Alert fills** — tinted status backgrounds (shipped, and the bundle's own `Alert.jsx` and status table) or white with coloured text and icon (`DESIGN.md`'s explicit "don't fill alert backgrounds with color"). The bundle is split against itself. The official web templates also have green/red tinted form messages; our palette-based semantic assignment is a project choice.
 2. **Badge fill** — solid primary (shipped), container tint `#CCD4ED`, or neutral. `GAPS-RESOLVED.md` #5 lists this as unruled and v5 shipped a third option.
 3. **Modal footer band** — the full-bleed `#FAFAFA` band the preview shows, or the inset divider both the bundle's `Modal.jsx` and v5 ship.
 
-Under the shade-4 / shade-1 / shade-5 rule the manual's own table supports, 1 and 2 both reduce to a single posture question about tinted surfaces rather than three independent colour picks.
+The recorded project choices retain tinted status surfaces and select a container-tint badge. The colour manual supplies swatches rather than prescribing those component defaults; intended text/fill pairs need their own contrast evidence.
 
 **Consumer context:** the August pilot supplied the measurements above. On October 18, the user approved temporary lifecycle changes and exact-version exceptions for 44 Radix versions blocked by the consumer's 14-day policy. The corrected packed candidate installs and its 245 build files match the tarball. The container production build and real Formik save/reload, validation, responsive modal and dropdown checks pass. Configuration and lockfile were restored byte-for-byte; the checkout is clean and provider stopped with zero routes. This qualifies the new package against the historical pilot; current-trunk and broader release-candidate qualification remain open.
 
@@ -151,9 +165,9 @@ The October 18 Claude consultation confirmed the following sequence after source
 
 - **B1** — interaction-state tokens (`--primary-hover`, `--primary-pressed`, `--primary-container`) drawn from the published Blue ladder rather than invented, with button and menu states wired to them. The breaking one. B1's other half — re-basing the ladder onto mechanical 25% fades — is dropped: the manual publishes the chromatic ladder.
 - **B2 + CD #16** — tokenize the owned neutral defaults using a fresh source/packed inventory. The August count of 168 is historical, not an acceptance target. Palette declarations and deliberate test stimuli remain valid literals; add a scoped regression guard to the existing verification where needed.
-- **B3 + CD #10** — the colour-family realignment as ruled in Phase 0: four families take official values under the `-100` = darkest-saturated-rung rule, `darkgreen` and `grey` leave the `uzh-` namespace, and `berry-80` `#d9305f` is replaced by the published Berry shade 4 `#8f0a2e` (CD #6's interpolated step). The largest consumer-visible change in the roadmap — 646 occurrences move — so it needs a migration table and a codemod, not just a release note.
+- **B3 + CD #10** — the colour-family realignment as ruled in Phase 0: four families take the recorded official swatches with `-100` as the selected accent, `darkgreen` and `grey` leave the `uzh-` namespace, and `berry-80` `#d9305f` is replaced by the published Berry shade 4 `#8f0a2e` (CD #6's interpolated step). The August inventory measured 646 affected occurrences, so the work needs a migration table and a codemod alongside the release note.
 - **B4 + CD #12** — apply the recorded ring contract consistently to `--ring` and `--default-ring-color`, including consumer primary-ramp overrides.
-- **B5 + CD #6 / #14 / #17** — apply the shade-4 / shade-1 / shade-5 rule to the status set consistently, replace the interpolated Berry step with the published value, and document the non-monotonic ladder intent in `themes.css`. No longer ruling-gated: the manual's table supplies every value.
+- **B5 + CD #6 / #14 / #17** — coordinate the recorded status fill/accent/text recipe using official swatches, verify intended pairs including the contrast-driven error treatment, replace the interpolated Berry step and document the non-monotonic ladder intent in `themes.css`. The semantic assignment is a project choice; the manual's swatch table does not mandate it.
 - **CD #9 + C11** — retain the ruled application type scale and weights; remove baked-in UI heading margins while `Prose` keeps its rhythm. The additive B6 type-scale export belongs to v5.1.
 
 **Changed defaults, which the GA rule puts here rather than in 5.1.** Each is backed by measured override economics rather than preference — Button 138 overrides on 201 usages, UserNotification 99 on 137, Tooltip 32 on 36. An 89% override rate is a wrong default, and a wrong default cannot be corrected in a minor.

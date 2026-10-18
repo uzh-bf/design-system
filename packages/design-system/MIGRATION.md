@@ -5,10 +5,12 @@ themes, selected by a `data-theme` attribute:
 
 - **`neutral`** (default) — de-branded, shadcn-like. Applied on `:root`, so it is
   what you get with no extra setup.
-- **`uzh`** — the UZH corporate-design theme (UZH blue/red palette, Source Sans 3).
+- **`uzh`** — a UZH-inspired application theme (UZH Blue, Berry accent, Source Sans 3).
 
 Both themes share one set of components; only the CSS custom properties differ.
 There is no JS theme engine — switching is a pure CSS-variable cascade.
+The `uzh` theme adapts brand elements to dense application interfaces; it does not
+establish whole-application CD conformance or institutional approval of consumer branding.
 
 ## Breaking change: CSS delivery
 
@@ -95,6 +97,10 @@ see [Visual changes to verify](#visual-changes-to-verify).
 > a `neutral` region inside a `uzh` page. Put the `dark` class on the document
 > root next to `data-theme`, not on a `ThemeProvider` container — the dark
 > status surfaces are declared on the element that carries the theme.
+
+> **UZH dark mode is unsupported.** Its CSS remains for compatibility, but it is
+> outside the current accessibility and visual-regression qualification. The
+> placement instruction above does not establish support for that combination.
 
 > **First paint.** The provider writes the attribute in an effect, which runs
 > after paint — so an app that themes only through the provider paints one

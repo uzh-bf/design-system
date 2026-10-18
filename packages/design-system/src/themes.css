@@ -4,7 +4,7 @@
  * Two selectable themes, driven by a `data-theme` attribute (default = neutral
  * on :root):
  *   - neutral: de-branded, shadcn-like. Default for white-label / non-UZH apps.
- *   - uzh:     UZH corporate design (UZH blue primary, UZH red secondary,
+ *   - uzh:     UZH-inspired application theme (UZH Blue, Berry accent,
  *              Source Sans 3). Opt in with `data-theme="uzh"`.
  *
  * Mechanism: every theme-varying token is an intermediate `--theme-*` custom
@@ -13,8 +13,9 @@
  * The verified contract is one theme on the document root; nested themes and
  * content portaled outside that root are not guaranteed to stay isolated.
  *
- * The fixed `--color-uzh-*` corporate palette lives in tailwind.css and is
- * available in BOTH themes for explicit / chart use.
+ * The fixed `--color-uzh-*` families live in tailwind.css and are available in
+ * BOTH themes for explicit / chart use. They include retained legacy values;
+ * the prefix does not yet guarantee official palette membership.
  */
 
 /* ── Neutral (default) ─────────────────────────────────────────────────── */
@@ -171,6 +172,8 @@
   --theme-color-link-visited: #a78bfa;
 }
 
+/* Retained for compatibility. UZH dark mode is unsupported and outside the
+   current accessibility and visual-regression qualification. */
 [data-theme='uzh'].dark,
 .dark [data-theme='uzh'] {
   --theme-success-background: oklch(0.25 0.04 165);

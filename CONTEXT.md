@@ -9,11 +9,11 @@ content pages, and that distinction decides most of its visual vocabulary.
 ### Sources of visual authority
 
 **UZH Corporate Design manual**:
-The official UZH brand specification, covering the colour families, typeface,
-and the uzh.ch content-site component patterns. A reference for this library,
-adapted to dense application interfaces by the project's design decisions — see
-`docs/adr/0005`. Those decisions establish neither an institution-wide exemption
-nor institutional approval.
+The official UZH palette reference. Web component patterns and functional colours
+are specified separately in the [UZH Frontend Styleguide](https://www.frontend.uzh.ch/style/).
+This library adapts UZH brand elements to dense application interfaces through
+the project's decisions — see `docs/adr/0005`. Those decisions establish neither
+an institution-wide exemption nor institutional approval.
 _Avoid_: CD guidelines, the styleguide, the brand manual
 
 **UZH DF Design System bundle**:
@@ -31,9 +31,10 @@ a family's values are public API.
 _Avoid_: palette, ramp, scale, colour set
 
 **Rung**:
-One step of a family's ladder. `-100` is the darkest saturated value usable as a
-fill or foreground; `-20` is the lightest tint. Rungs are chromatic values taken
-from the manual, never opacity fades of the base.
+One step of a family's ladder. `-100` is its selected accent and `-20` its light
+tint; the labels do not guarantee a lightness ordering. The retained Blue `-80`
+is darker than Blue `-100`. Official families use selected published swatches;
+Phase 2 corrects the remaining legacy values and identifies the house families.
 _Avoid_: shade, step, tint level
 
 **Official family**:
@@ -49,9 +50,10 @@ uses the legacy `uzh-grey` and `uzh-darkgreen` names.
 _Avoid_: custom colour, extra colour, off-palette family
 
 **Status set**:
-The four semantic status hues — info, success, warning, error — each drawn from
-one official family as fill at `-20`, accent at `-100`, and text at the family's
-darkest rung.
+The four application roles — info, success, warning, error — using hues drawn
+from official families. Their semantic assignment and fill/accent/text pairings
+are project decisions, distinct from the official web templates' functional
+green/red mapping. Phase 2 coordinates the tokens and verifies the intended pairs.
 _Avoid_: alert colours, semantic colours, feedback colours
 
 ### Naming planned for Phase 2

@@ -3,7 +3,7 @@
 React component library for University of Zurich web applications, maintained by
 the IT dev-ops team at the Teaching Center of the Department of Finance (UZH). It
 pairs shadcn/Radix-based primitives with UZH-aligned composite components and a
-dual-theme system: a de-branded `neutral` default plus the UZH corporate-design
+dual-theme system: a de-branded `neutral` default plus the UZH-inspired application
 `uzh` theme.
 
 > **v5 is a prerelease** (`5.0.0-alpha.x`, published on the npm `alpha` dist-tag);
@@ -60,7 +60,12 @@ separately if you need the base/reset layer on its own.
 Components support two themes, selected by a `data-theme` attribute:
 
 - **`neutral`** (default) — de-branded, active on `:root` with no setup.
-- **`uzh`** — the UZH corporate-design theme (UZH blue/red, Source Sans 3).
+- **`uzh`** — a UZH-inspired application theme (UZH Blue, Berry accent, Source Sans 3).
+
+The `uzh` theme adapts brand elements to dense application interfaces. It does
+not establish whole-application CD conformance or institutional approval of
+consumer branding. UZH dark mode is unsupported and outside the current
+accessibility and visual-regression qualification; its CSS remains for compatibility.
 
 Switching is a pure CSS-variable cascade (no JS engine). Set the theme on the
 document root:

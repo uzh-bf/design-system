@@ -1,16 +1,18 @@
-# UZH Corporate Design is a reference, not a constraint
+# UZH-inspired design for dense applications
 
 Status: Accepted (2026-08-19)
 
-The official UZH Corporate Design manual specifies a content website — teasers,
-hero blocks, alternating section backgrounds, 18px inline links, pill buttons at
-`border-radius: 100px`, and input focus expressed as a border-colour change.
-This library builds dense application interfaces: dashboards, tables, and forms.
-The project has chosen to treat the manual as a reference rather than a
-specification for this application toolkit: the palette and Source Sans 3 carry the visual
-relationship to UZH, and geometry, density, control sizing, type scale, and
-focus affordance are the design system's own, decided on application
-ergonomics.
+Source descriptions corrected 2026-10-18; the accepted application-design choices remain in place.
+
+The [official UZH colour manual](https://cd.uzh.ch/dam/jcr:1af76e91-0421-4647-b55a-cc15e1966dfb/uzh-corporate-colors-manual.pdf)
+defines the corporate palette. The
+[Frontend Styleguide 2.10.0](https://www.frontend.uzh.ch/prod/releases/2.10.0/index.html)
+provides web component patterns, including pill buttons and a dedicated
+[Flyingfocus keyboard indicator](https://www.frontend.uzh.ch/prod/releases/2.10.0/components/bootstrap/_accessibility/Flyingfocus/Flyingfocus.html).
+This library builds dense application interfaces: dashboards, tables and forms.
+The project adapts UZH brand elements to that setting: the palette and Source
+Sans 3 carry the visual relationship, while geometry, density, control sizing,
+type scale and per-control focus indicators follow application ergonomics.
 
 The corollary is that the colour families are the part that must stay faithful.
 Where a legacy `uzh-*` family has an official counterpart, it takes the official
@@ -19,26 +21,31 @@ implying brand backing that does not exist.
 
 ## Considered options
 
-Literal conformance was rejected on two grounds. It costs the information
-density the library exists to provide, and the manual's focus model — a 1px
-border-colour change with no ring — is a weak indicator that would likely fail
-the WCAG 2.2 focus-appearance criterion, against an accessibility inventory this
-repository pins at zero serious and critical violations with no waivers.
+Literal reproduction of the website patterns was rejected because it would
+reduce application information density. The project keeps per-control focus
+indicators for its controls. The earlier description of official focus as only
+a 1px border-colour change was incorrect: the styleguide includes Flyingfocus,
+and its input focus also changes the background and border. No accessibility
+verdict on that official implementation follows from this comparison.
 
 A middle posture, binding on palette and typography while freeing geometry,
 would produce approximately the same application design. The chosen posture
 records the project's design decision; it establishes neither an institution-wide
-exemption nor institutional approval.
+exemption nor institutional approval. The [UZH Web-CD policy](https://www.kommunikation.uzh.ch/de/web/policies/cd.html)
+also covers non-CMS websites. Strict CD conformance and any permitted departures
+must be established for the affected application separately.
 
 ## Consequences
 
 - Buttons keep the 6px radius, the 32/40/48 control ladder, and the app-sized
   type scale (h1 24px). These are decisions, not omissions, and a future
   conformance review should not reopen them as defects.
-- The focus ring stays a ring. `--default-ring-color` is aligned to the ring
-  token for internal consistency, not for conformance.
-- Weight 700 remains in the type scale. The manual's 400/600 web restriction
-  does not apply here.
+- The focus ring stays a ring. Phase 2 will align `--default-ring-color` to the
+  ring token for internal consistency; the current source still uses generic
+  Tailwind blue for bare rings.
+- Weight 700 remains in the application type scale by project choice. The
+  official font specimens use Regular and Semibold faces; this library also
+  renders other weights from its variable font.
 - The `uzh` dark theme is unsupported and outside the current accessibility and
   visual-regression qualification. The CSS stays in place for compatibility;
   its presence does not establish that it is accessible or approved for use.
