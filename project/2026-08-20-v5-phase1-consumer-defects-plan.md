@@ -341,12 +341,18 @@ sm, md and lg widths. Keep token ownership tests. Run package/Ladle/type/lint,
 behavioral and pinned visual checks. Any intentional correction difference is
 reviewed; zero differences alone does not establish consumer CSS behavior.
 
-Real Klicker acceptance remains blocked by its historical workspace's missing
-waitFor setting on postCreateCommand. Canonical devrouter startup failed during
-validation before creating the runtime. Repairing that consumer repository's
-lifecycle configuration is separate from these design-system source fixes.
-Finish packed synthetic source verification and retain that exact acceptance
-gap; do not silently call historical consumer evidence current.
+Real Klicker acceptance remains incomplete. A temporary waitFor setting on
+postCreateCommand advanced canonical startup to the exact consumer container,
+where missing dependencies prevented the local MCP fixture from starting.
+Installing the packed candidate then failed with
+ERR_PNPM_NO_MATURE_MATCHING_VERSION: the consumer's 14-day dependency policy
+rejects 44 exact Radix versions across 225 reported paths. The last listed
+version becomes eligible on October 26 at 21:06:42 UTC. Temporary exact-version
+exceptions require explicit user approval; otherwise wait for eligibility.
+Original tracked files were restored byte-for-byte, the consumer is clean,
+and canonical stop plus provider/route read-back confirms Stopped and zero
+routes. Packed synthetic verification does not establish real application
+acceptance.
 
 
 ## October 18 integrated verification

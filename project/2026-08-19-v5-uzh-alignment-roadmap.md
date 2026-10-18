@@ -2,7 +2,7 @@
 
 **Date:** 2026-08-19 · **Baseline:** `origin/v5` at `80d6f229c`, published `5.0.0-alpha.5`
 **Supersedes:** `project/2026-08-01-v5-release-readiness-stacks-roadmap.md` (stacks A–D and the release sequence are all merged; it stays readable as history)
-**Status (2026-10-18):** Phase 0 decisions are recorded. Phase 1 source fixes and scoped responsive CSS are integrated with the corrected input/dependency/field stack on `rs/v5-uzh-alignment`. Draft delivery and current consumer acceptance remain in progress. Phase 2 still blocks GA.
+**Status (2026-10-18):** Phase 0 decisions are recorded. Phase 1 source fixes and scoped responsive CSS are integrated with the corrected input/dependency/field stack on `rs/v5-uzh-alignment` and delivered in [draft PR214](https://github.com/uzh-bf/design-system/pull/214), which maintains current CI receipts. Real consumer acceptance remains open. Phase 2 still blocks GA.
 
 ## The thing that decides everything else
 
@@ -123,7 +123,7 @@ Queued rather than asked now, because the recommendation for each changes with t
 
 Under the shade-4 / shade-1 / shade-5 rule the manual's own table supports, 1 and 2 both reduce to a single posture question about tinted surfaces rather than three independent colour picks.
 
-**Historical consumer context:** the August workspace supplied the measurements above. On October 18, canonical startup fails validation because its devcontainer `postCreateCommand` lacks `waitFor`; no current consumer runtime is available. The scoped design-system fixes do not establish current Klicker acceptance.
+**Historical consumer context:** the August workspace supplied the measurements above. On October 18, a temporary `waitFor` correction advanced canonical startup to the exact provider. The local MCP fixture could not start without installed dependencies. Installing the packed candidate then failed Klicker's 14-day dependency policy on 44 exact Radix versions; the last becomes eligible on October 26 at 21:06:42 UTC. Configuration and lockfile were restored byte-for-byte, the checkout is clean, and the provider is stopped with zero routes. No current installed or rendered candidate acceptance is established.
 
 ## Phase 1 — consumer-breaking defects, no ruling needed → alpha.6
 
@@ -189,8 +189,8 @@ This needs a canonical-layer decision per component, wrapper styling aligned to 
 
 ## Immediate next actions
 
-1. Finish the Phase 1 draft after PR213: scoped responsive layout ownership, retained modal/dropdown/link/error fixes, migration table, visual and accessibility qualification, and current-head CI.
-2. Restore the existing consumer verification capability under a separately scoped lifecycle repair, then validate the integrated packed candidate and retire the corresponding consumer workarounds. Historical measurements and synthetic fixtures are insufficient for this gate.
+1. Retain the source qualification recorded in [PR214](https://github.com/uzh-bf/design-system/pull/214) through subsequent integration. Scoped responsive layout ownership, retained modal/dropdown/link/error fixes, migration guidance, independent review and eleven rendered captures are delivered.
+2. Resolve the consumer's dependency-age blocker by waiting for eligibility or obtaining explicit approval for temporary exact-version exceptions, then validate the integrated packed candidate and retire the corresponding consumer workarounds. Historical measurements and synthetic fixtures are insufficient for this gate.
 3. Execute Phase 2's recorded pre-GA token and visual-default decisions, with reviewed swatches, migration aliases, component captures and zero-waiver accessibility checks.
 4. Keep additive Phase 3 APIs in v5.1. Keep wrapper convergence and complete Formik public-type/runtime removal in v6.
 5. Reconcile the v5 umbrella with main and qualify a fresh candidate only under separate merge/publication authority.
@@ -207,10 +207,12 @@ the corrected source; its current-head hosted CI also passes.
 
 Phase 1 preserves the existing conditional modal footer, isolated Dropdown
 separator classes, close-button keyboard focus, link tokens, legible error state
-and full migration table. The integrated source passes 88 browser contracts,
+and visual migration table. The integrated source passes 90 browser contracts,
 public types, lint, formatting and the packed token/CSS checks. All 23 pinned
-visual comparisons pass. PR214 and nine inspected/rendered screenshots are
-published. Hosted CI passes at source 557025003; subsequent review and CI
+visual comparisons pass. PR214 and eleven inspected/rendered screenshots are
+published. Hosted CI passes at source 557025003; the final source head passes
+behavioral, both RHF packed-consumer, types, lint, format, visual and all four
+accessibility shard jobs at c93a48774. Subsequent review and CI
 receipts are maintained in [PR214](https://github.com/uzh-bf/design-system/pull/214).
 Current real consumer acceptance remains a GA gate. No target merge, release
 or deployment occurred.

@@ -4,15 +4,17 @@
 
 - Date: 2026-08-10; current execution index refreshed 2026-10-18
 - Status: GA blocked. Verified input correctness, consumer CSS and durable
-  contract-gate gaps are being remediated in the existing draft stack.
+  contract-gate corrections are delivered in the existing draft stack. Current
+  real-application acceptance and Phase 2 remain open.
 - Repository: `uzh-bf/design-system`
 - Release trunk: `v5`
-- Active corrective branch: `rs/v5-input-stabilization`
+- Active corrective branch: `rs/v5-uzh-alignment`
 - Roadmap worktree:
-  `/Users/rschlae/Git/df/design-system/trees/rs/v5-input-stabilization`
+  `/Users/rschlae/Git/df/design-system/trees/rs-v5-uzh-alignment`
 - Current delivery: draft stack [#210](https://github.com/uzh-bf/design-system/pull/210) →
   [#211](https://github.com/uzh-bf/design-system/pull/211) →
-  [#213](https://github.com/uzh-bf/design-system/pull/213). Merges remain separately gated.
+  [#213](https://github.com/uzh-bf/design-system/pull/213) →
+  [#214](https://github.com/uzh-bf/design-system/pull/214). Merges remain separately gated.
 - Audience: maintainers and future execution agents preparing v5 for GA and
   migrating the first production consumers.
 
@@ -97,7 +99,7 @@ readiness conversion, release publication and deployment remain gated.
 | Input correctness — [PR210](https://github.com/uzh-bf/design-system/pull/210) | Natural modal entry, empty twelve-hour periods, controlled resets, selected-date invariance and value-bearing names corrected; independent review accepted; current-head CI green | Retain these cases when integrating later layers |
 | Compatible dependencies — [PR211](https://github.com/uzh-bf/design-system/pull/211) | Compatible direct refresh and four supplied transitive paths corrected; peer/export contracts preserved; ownership docs clarified; independent review accepted; current-head CI green | Reassess remaining advisories and deferred majors before GA; a focused shadcn comparison does not certify every copied primitive |
 | Fields and durable CI — [PR213](https://github.com/uzh-bf/design-system/pull/213) | Disabled selection/FormData, true multi-selection semantics and transformed FormField types implemented; contracts and RHF minimum/current packed/Next consumers now gate release build | Disabled-close blur correction passes all 88 local contracts, complete independent review and current-head hosted CI |
-| Consumer CSS and UZH Phase 1 | Existing fixes integrated after the field stack; scoped responsive defaults replace colliding utility pairs; 88 contracts, 803 accessibility cases, 23 pinned visuals, 688 token assertions and 336 CSS/override assertions pass | [PR214](https://github.com/uzh-bf/design-system/pull/214) carries the review/CI receipts and nine rendered screenshots; hosted CI passes at source 557025003; current real consumer acceptance remains a GA gate |
+| Consumer CSS and UZH Phase 1 | Existing fixes integrated after the field stack; scoped responsive defaults replace colliding utility pairs; 90 contracts, 803 accessibility cases, 23 pinned visuals, 688 token assertions and 336 CSS/override assertions pass; complete independent review accepted | [PR214](https://github.com/uzh-bf/design-system/pull/214) carries eleven rendered screenshots and current CI receipts; source c93a48774 passes behavioral, packed-consumer, visual and all four accessibility shard jobs; current real consumer acceptance remains a GA gate |
 | UZH Phase 2 | Phase 0 decisions settled; token/value/default changes are specified but unimplemented | Execute the existing design roadmap before GA; reviewed visuals, aliases, migration table and zero-waiver accessibility proof |
 | GA promotion — [PR179](https://github.com/uzh-bf/design-system/pull/179) | Draft v5 umbrella still conflicts with main | Reconcile in a promotion package and qualify an integrated candidate; merge, publication and deployment require separate authority |
 
@@ -106,6 +108,18 @@ remaining design phases. Its existing branch retains the original Phase 1 fixes
 and corrected input/dependency/field history through ordinary merges. The index
 records source, local verification, hosted checks and real consumer acceptance
 separately; green CI does not establish GA readiness.
+
+The current packed candidate was attempted in the existing Klicker worktree.
+Temporary lifecycle settings allowed provider startup; missing installed
+dependencies then prevented the local MCP fixture from starting. Running
+the candidate install in that exact container exposed
+`ERR_PNPM_NO_MATURE_MATCHING_VERSION`: Klicker's 14-day policy rejects 44 exact
+Radix versions across 225 reported dependency paths. The last listed version
+becomes eligible on October 26 at 21:06:42 UTC. Preserve the policy unless the
+user explicitly approves exact-version exceptions for the verification run.
+No installed or rendered candidate acceptance is claimed. Temporary tracked
+changes were restored byte-for-byte, the consumer checkout is clean, and its
+provider is stopped with zero routes.
 
 Correction sequence: retain the accepted field review correction; finish the UZH
 Phase 1 draft and current consumer qualification; execute Phase 2; then qualify
