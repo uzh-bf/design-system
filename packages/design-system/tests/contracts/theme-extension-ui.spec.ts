@@ -457,6 +457,19 @@ for (const theme of ['neutral', 'uzh'] as const) {
       )
       await expect(dismissible).toHaveCSS('padding-left', '4px')
       await expect(dismissible).toHaveCSS('padding-right', '48px')
+      for (const notification of [
+        dismissible,
+        page.locator('[data-test="reference-dismissible-short"]'),
+      ]) {
+        const containerBox = (await notification.boundingBox())!
+        const buttonBox = (await notification
+          .getByRole('button')
+          .boundingBox())!
+        expect(buttonBox.y).toBeGreaterThanOrEqual(containerBox.y)
+        expect(buttonBox.y + buttonBox.height).toBeLessThanOrEqual(
+          containerBox.y + containerBox.height
+        )
+      }
       const closeBox = (await dismissible.getByRole('button').boundingBox())!
       const messageBox = (await dismissible
         .locator('span')

@@ -109,7 +109,7 @@ export function UserNotification({
         'relative flex w-full flex-row items-start gap-3 rounded-md px-4 py-3.5 text-sm',
         computedClassName!,
         className?.root,
-        dismissible && 'pr-12'
+        dismissible && 'min-h-12 pr-12'
       )}
     >
       {dismissible && (

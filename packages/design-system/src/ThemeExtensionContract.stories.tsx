@@ -328,6 +328,13 @@ function ReferenceContent() {
             data={{ test: 'reference-dismissible-override' }}
             message="A long synthetic notification first line must leave enough room for its dismiss action at every viewport."
           />
+          <UserNotification
+            dismissible
+            onDismiss={() => {}}
+            className={{ root: 'p-1' }}
+            data={{ test: 'reference-dismissible-short' }}
+            message="Short synthetic message"
+          />
           <Badge
             className="bg-background text-foreground"
             data-test="reference-badge-override"
