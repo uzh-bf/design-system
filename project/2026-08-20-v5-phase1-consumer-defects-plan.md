@@ -344,7 +344,7 @@ reviewed; zero differences alone does not establish consumer CSS behavior.
 Real Klicker acceptance passed after explicit user approval of temporary
 exact-version exceptions for 44 Radix versions under the consumer's 14-day
 dependency policy. The same pilot at 1de7ad918 installed the corrected tarball;
-all 246 installed build files and package metadata match it. The repository's
+all 245 installed build files and package metadata match it. The repository's
 container bootstrap and production Manage build pass. Actual synthetic Formik
 create/cancel/reset, required-field validation and edit/save/reload pass, as do
 desktop/mobile modal layout, actionless footer omission and a 1px dropdown

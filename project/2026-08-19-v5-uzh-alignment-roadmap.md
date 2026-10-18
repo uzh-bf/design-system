@@ -123,7 +123,7 @@ Queued rather than asked now, because the recommendation for each changes with t
 
 Under the shade-4 / shade-1 / shade-5 rule the manual's own table supports, 1 and 2 both reduce to a single posture question about tinted surfaces rather than three independent colour picks.
 
-**Consumer context:** the August pilot supplied the measurements above. On October 18, the user approved temporary lifecycle changes and exact-version exceptions for 44 Radix versions blocked by the consumer's 14-day policy. The corrected packed candidate installs and its 246 build files match the tarball. The container production build and real Formik save/reload, validation, responsive modal and dropdown checks pass. Configuration and lockfile were restored byte-for-byte; the checkout is clean and provider stopped with zero routes. This qualifies the new package against the historical pilot; current-trunk and broader release-candidate qualification remain open.
+**Consumer context:** the August pilot supplied the measurements above. On October 18, the user approved temporary lifecycle changes and exact-version exceptions for 44 Radix versions blocked by the consumer's 14-day policy. The corrected packed candidate installs and its 245 build files match the tarball. The container production build and real Formik save/reload, validation, responsive modal and dropdown checks pass. Configuration and lockfile were restored byte-for-byte; the checkout is clean and provider stopped with zero routes. This qualifies the new package against the historical pilot; current-trunk and broader release-candidate qualification remain open.
 
 ## Phase 1 — consumer-breaking defects, no ruling needed → alpha.6
 

@@ -113,7 +113,7 @@ separately; green CI does not establish GA readiness.
 The user approved temporary exact-version exceptions for the 44 Radix versions
 blocked by Klicker's 14-day dependency policy. The candidate tarball, SHA256
 `7d676910791ef19875608b22407389ff9efc6fdf75b02377f736609001fc7524`,
-installed in the existing pilot at `1de7ad918`. All 246 installed build files
+installed in the existing pilot at `1de7ad918`. All 245 installed build files
 and package metadata match the tarball. The container production build passes;
 synthetic delegated login, Formik create/cancel/reset, invalid-state protection,
 edit/save/reload, actionless footer omission, responsive modal layout and a
