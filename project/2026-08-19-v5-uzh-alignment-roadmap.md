@@ -202,15 +202,17 @@ The input layer corrects natural modal navigation, pending twelve-hour periods,
 controlled resets and date invariance after calendar browsing. The field layer
 corrects disabled transitions and native form submission, actual multi-selection
 semantics and transformed FormField output. Both supported RHF versions have
-passing hosted packed-consumer jobs; remaining hosted checks and independent
-field review are tracked separately from local results.
+passing hosted packed-consumer jobs. Complete independent field review accepted
+the corrected source; its current-head hosted CI also passes.
 
 Phase 1 preserves the existing conditional modal footer, isolated Dropdown
 separator classes, close-button keyboard focus, link tokens, legible error state
 and full migration table. The integrated source passes 88 browser contracts,
-public types, lint, formatting and the packed token/CSS checks. Current pinned
-visual comparison, independent review and exact-head CI must finish before draft
-delivery is called verified. No target merge, release or deployment occurred.
+public types, lint, formatting and the packed token/CSS checks. All 23 pinned
+visual comparisons pass. PR214 and nine inspected/rendered screenshots are
+published; hosted CI passes at source 557025003 and independent UZH review
+remains pending. No target
+merge, release or deployment occurred.
 
 The brand posture is a project design decision. It is not evidence of an
 institution-wide exemption or institutional approval. UZH dark CSS remains

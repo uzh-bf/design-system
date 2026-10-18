@@ -364,6 +364,8 @@ Parent simplification inspection retains the named stylesheet because it is
 the smallest way to own responsive defaults independently of generic utilities.
 The only new source file is the plan-named component-layout.css. Screenshots
 cover desktop/mobile modal layout, actionless footer omission, keyboard close
-focus, status colors, prose links and Dropdown separators. Independent final
-review and exact-head CI are pending. Current real consumer acceptance remains
+focus, status colors, prose links and Dropdown separators. All nine images
+were uploaded to PR214, read back and confirmed loaded in its rendered body.
+The field layer has a complete independent review and hosted CI pass. UZH
+hosted CI passes at source 557025003; its independent final review is pending. Current real consumer acceptance remains
 blocked as stated above; Phase 2 is still outstanding before GA.
