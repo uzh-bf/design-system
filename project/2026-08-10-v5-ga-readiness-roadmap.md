@@ -91,28 +91,28 @@ August status table below. The user approved verified-review remediation and
 this roadmap update; draft delivery is authorized, while target merges,
 readiness conversion, release publication and deployment remain gated.
 
-| Workstream                                                                    | Verified state                                                                                                                            | Owner and next acceptance                                                                                                                               |
-| ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Size, RSC/RHF entries, root themes, exact axe inventory and deterministic VRT | Implemented in v5; release metadata is alpha.5                                                                                            | Maintain existing protections; historical consumer proofs do not accept a later integrated candidate                                                    |
-| Input stabilization                                                           | Draft PR210; two introduced regressions and inherited calendar/time coupling reopened acceptance                                          | Main: natural keyboard-open navigation, empty12h period and date invariance, both-theme contracts and exact-head CI                                     |
-| Compatible dependencies                                                       | Draft PR211; compatible updates and focused shadcn assessment complete                                                                    | Main: carry input correction upward, preserve peer/export contracts, triage only supplied transitive paths and correct ownership docs                   |
-| Shared field/selection behavior                                               | Draft PR213; help/inline errors implemented; disabled transitions, actual multi-selection semantics and transformed FormField remain open | Main plus bounded executor: browser/FormData/keyboard and packed public types                                                                           |
-| Durable contracts and consumers | Field draft adds behavioral contracts and frozen RHF minimum/current packed and Next jobs to release prerequisites; local matrix verification in progress | Main: current-head hosted proof, failure propagation and isolated server cleanup before completed delivery |
-| Consumer CSS and UZH alignment                                                | Separate branch retains partial Phase1 fixes; CSS ownership and real consumer loop remain incomplete                                      | Main: independent consumer stylesheet collision/customization proof; integrate existing fixes and confirm real consumer behavior                        |
-| UZH pre-GA defaults and tokens                                                | Phase0 rulings recorded; Phase2 remains planned                                                                                           | Existing UZH roadmap owns interaction/status/neutral/focus/typography and default changes; finish only with reviewed visuals, axe and consumer evidence |
-| GA promotion                                                                  | PR179 is draft and conflicts with main                                                                                                    | Separate promotion package after integrated candidate/consumer acceptance; no release inferred from green CI                                            |
+| Workstream | Current evidence | Remaining acceptance |
+| --- | --- | --- |
+| Existing v5 foundations | Size budgets, separate RSC/RHF entries, root themes, exact axe inventory and deterministic VRT implemented; metadata remains alpha.5 | Maintain protections through the integrated candidate |
+| Input correctness — [PR210](https://github.com/uzh-bf/design-system/pull/210) | Natural modal entry, empty twelve-hour periods, controlled resets, selected-date invariance and value-bearing names corrected; independent review accepted; current-head CI green | Retain these cases when integrating later layers |
+| Compatible dependencies — [PR211](https://github.com/uzh-bf/design-system/pull/211) | Compatible direct refresh and four supplied transitive paths corrected; peer/export contracts preserved; ownership docs clarified; independent review accepted; current-head CI green | Reassess remaining advisories and deferred majors before GA; a focused shadcn comparison does not certify every copied primitive |
+| Fields and durable CI — [PR213](https://github.com/uzh-bf/design-system/pull/213) | Disabled selection/FormData, true multi-selection semantics and transformed FormField types implemented; contracts and RHF minimum/current packed/Next consumers now gate release build | Correct and reverify newly reported disabled-close blur notification; finish integrated independent review and fresh CI |
+| Consumer CSS and UZH Phase 1 | Existing fixes integrated after the field stack; scoped responsive defaults replace colliding utility pairs; 88 contracts, 803 accessibility cases, 23 pinned visuals, 688 token assertions and 336 CSS/override assertions pass | Finish draft evidence/review/current-head CI and restore current real consumer acceptance |
+| UZH Phase 2 | Phase 0 decisions settled; token/value/default changes are specified but unimplemented | Execute the existing design roadmap before GA; reviewed visuals, aliases, migration table and zero-waiver accessibility proof |
+| GA promotion — [PR179](https://github.com/uzh-bf/design-system/pull/179) | Draft v5 umbrella still conflicts with main | Reconcile in a promotion package and qualify an integrated candidate; merge, publication and deployment require separate authority |
 
-The existing [UZH alignment roadmap](https://github.com/uzh-bf/design-system/blob/271d018b52a0c93bb8b13b28f789c35d2ee66a15/project/2026-08-19-v5-uzh-alignment-roadmap.md)
-owns its detailed design phases. Its local branch is two commits beyond that
-remote snapshot; preserve both unpublished corrections during integration.
-This index does not create a competing design roadmap or call Phase2 complete.
+The [UZH alignment roadmap](2026-08-19-v5-uzh-alignment-roadmap.md) owns the
+remaining design phases. Its existing branch retains the original Phase 1 fixes
+and corrected input/dependency/field history through ordinary merges. The index
+records source, local verification, hosted checks and real consumer acceptance
+separately; green CI does not establish GA readiness.
 
-Correction order: fix input acceptance; propagate lower history without force;
-close shared-field and durable CI gaps; finish CSS/UZH Phase1 with consumer
-proof; then complete pre-GA design work and a separately authorized candidate.
-Historical Formik support remains in v5. Migration recipes must cover used
-field families; v6 removal includes public Formik-specific types and a packed
-consumer without Formik, alongside wrapper/export/dependency removal.
+Correction sequence: complete the field review correction; finish the UZH
+Phase 1 draft and current consumer qualification; execute Phase 2; then qualify
+a separately authorized integrated candidate. Additive variants remain v5.1.
+Formik remains supported in v5. Before v6, migration recipes must cover every
+used field family, and a packed consumer must build without Formik runtime or
+public types after the legacy wrappers, exports and dependency are removed.
 
 ## Historical milestone state — 2026-08-10
 
@@ -571,28 +571,35 @@ Stop the active package and report when:
 
 ## October 18 correction status
 
-The input and compatible-dependency drafts now contain corrected natural modal
-focus, calendar date invariance, pending twelve-hour periods for all segments,
-controlled null resets and value-bearing accessible names. Full lower-layer
-behavioral checks pass. The dependency draft also pins the four reviewed
-transitive maintenance paths and clarifies peer versus regular dependency
-ownership. Independent review accepts both committed layers. Hosted checks
-remain a separate gate.
+All eight actionable findings from the supplied review have an implementation
+or an explicitly recorded acceptance gate:
 
-The field draft implements disabled-selection guards, actual MultiSelect
-selection semantics, transformed FormField output and durable consumer gates.
-The existing packed fixtures now cover minimum/current RHF versions and Next
-reset, numeric draft, ref, disabled, validation and submission behavior. Their
-server lifecycle uses distinct ports and direct process ownership. Local
-verification, current-head CI and refreshed visible evidence must finish before
-these rows can be marked delivered.
+| Review finding | Disposition | Evidence or remaining gate |
+| --- | --- | --- |
+| Responsive consumer CSS collision | Scoped component defaults implemented in Phase 1 | Independently compiled consumer CSS; mobile/sm/md/lg, both themes, explicit utility overrides; real consumer acceptance pending |
+| Calendar browsing changes selected date during time edits | Corrected in PR210 | Each time segment preserves selected calendar date after month browsing |
+| Missing behavioral and consumer release gates | Corrected in PR213 | Contract job and frozen RHF 7.59.0/7.90.0 packed/Next jobs are prerequisites; injected failing contract fails the actual command |
+| Modal arrows unreachable after keyboard opening | Corrected in PR210 | Natural trigger → Enter → arrow sequence; nested controls retain their keys |
+| Empty twelve-hour picker discards PM | Corrected in PR210 | Pending period applies when hours, minutes or seconds are entered first; controlled reset/synchronization cases |
+| Open selection remains mutable when disabled | Corrected in PR213 | Standalone and RHF close/mutation guards; named disabled Select absent from FormData; disabled-close blur follow-up in progress |
+| Highlight exposed as multiple selection | Corrected in PR213 | Independent highlight and selected values, multiselectable listbox, consistent dialog popup relation; keyboard/filter/external-update checks |
+| FormField rejects transformed output | Corrected in PR213 | Public packed declaration fixture with inferred string input/number output at both supported RHF versions |
 
-The UZH Phase 1 branch remains a separate draft package after this stack.
-Its completed source fixes and migration table must be retained while scoped
-responsive component CSS and the independent-stylesheet regression matrix land.
-The existing Klicker acceptance workspace currently has no DevPod, and canonical
-startup fails because its devcontainer postCreateCommand lacks waitFor. Historical
-consumer probes are not current runtime acceptance. Phase 2's token/default
-work remains GA scope; additive presets/variants stay in v5.1. Wrapper convergence
-and complete Formik runtime/public-type removal stay in v6. Screen-reader,
-Safari and physical-mobile evidence remain open release qualifications.
+The compatible dependency layer retains the selected major lines and updates
+only the supplied inherited transitive paths. This is bounded maintenance, not
+a broad security assessment or evidence of zero remaining vulnerabilities.
+The shadcn assessment covers selected components and capabilities; dependency
+updates do not synchronize copied primitive source automatically. Remaining
+majors and unused dependency ownership stay separate decisions.
+
+Current Klicker acceptance is blocked: the historical workspace has no DevPod,
+and canonical startup rejects its missing `waitFor` for `postCreateCommand`.
+Repairing that consumer lifecycle is separate from these design-system source
+fixes. Historical consumer probes and passing synthetic packed fixtures do not
+accept the current integrated application upgrade.
+
+Phase 2 token/default work remains required before GA. Manual screen-reader,
+Safari and physical-mobile qualification remain open. PR129's historical Formik
+auto-submit remains conditional on a concrete consumer need; PR135's Stencil
+package remains a separate initiative. No target merge, ready conversion,
+release publication or deployment is part of this remediation goal.

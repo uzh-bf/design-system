@@ -551,7 +551,7 @@ try {
   const { default: tailwindPostcss } = await import('@tailwindcss/postcss')
   const consumerCss = String(
     await postcss([tailwindPostcss({ base: packageDir })]).process(
-      '@import "tailwindcss" source(none); @source inline("text-center flex-col-reverse flex-col hidden w-full gap-0.5 p-6 grid-cols-5 col-span-2 max-w-[calc(100%-2rem)]");',
+      '@import "tailwindcss" source(none); @source inline("text-center flex-col-reverse flex-col hidden w-full gap-0.5 p-6 grid-cols-5 col-span-2 max-w-96 max-w-[calc(100%-2rem)]");',
       { from: path.join(packageDir, 'consumer-contract.css') }
     )
   )
@@ -636,6 +636,30 @@ try {
       'col-span-2',
       'span 2',
     ],
+    [
+      'alert',
+      'ds-alert-dialog-content',
+      'maxWidth',
+      ['calc(100% - 32px)', '520px', '520px', '520px'],
+      'max-w-96',
+      '384px',
+    ],
+    [
+      'nav-content',
+      'ds-navigation-menu-content',
+      'width',
+      ['300px', '300px', '80px', '80px'],
+      'w-full',
+      '300px',
+    ],
+    [
+      'nav-viewport',
+      'ds-navigation-menu-viewport',
+      'width',
+      ['300px', '300px', '180px', '180px'],
+      'w-full',
+      '300px',
+    ],
   ]
   let layoutAssertions = 0
   for (const theme of ['neutral', 'uzh']) {
@@ -643,13 +667,20 @@ try {
       await page.setViewportSize({ width, height: 844 })
       for (const withConsumer of [false, true]) {
         const nodes = layouts
-          .map(
-            ([id, cls, , , override]) =>
-              `<div id="${id}" class="${cls}"></div><div id="${id}-override" class="${cls} ${override}"></div>`
-          )
+          .map(([id, cls, , , override]) => {
+            const style =
+              id === 'nav-content'
+                ? 'display:inline-block'
+                : id === 'nav-viewport'
+                  ? '--radix-navigation-menu-viewport-width:180px'
+                  : ''
+            const child =
+              id === 'nav-content' ? '<div style="width:80px"></div>' : ''
+            return `<div id="${id}" class="${cls}" style="${style}">${child}</div><div id="${id}-override" class="${cls} ${override}" style="${style}">${child}</div>`
+          })
           .join('')
         await page.setContent(
-          `<!doctype html><html data-theme="${theme}"><head><style>${packedCss}</style>${withConsumer ? `<style>${consumerCss}</style>` : ''}</head><body><div style="width:300px">${nodes}<div id="grid" class="ds-collapsible-actions" style="display:grid;width:300px"></div><div id="grid-override" class="ds-collapsible-actions grid-cols-5" style="display:grid;width:300px"></div><div id="alert" class="ds-alert-dialog-content"></div><div id="nav-content" class="ds-navigation-menu-content" style="display:inline-block">x</div><div id="nav-viewport" class="ds-navigation-menu-viewport" style="--radix-navigation-menu-viewport-width:180px"></div></div></body></html>`
+          `<!doctype html><html data-theme="${theme}"><head><style>${packedCss}</style>${withConsumer ? `<style>${consumerCss}</style>` : ''}</head><body><div style="width:300px">${nodes}<div id="grid" class="ds-collapsible-actions" style="display:grid;width:300px"></div><div id="grid-override" class="ds-collapsible-actions grid-cols-5" style="display:grid;width:300px"></div></div></body></html>`
         )
         for (const [id, , property, expected, , overridden] of layouts) {
           const actualValue = await page
@@ -678,28 +709,12 @@ try {
           gridOverride: getComputedStyle(
             document.getElementById('grid-override')
           ).gridTemplateColumns.split(' ').length,
-          max: getComputedStyle(document.getElementById('alert')).maxWidth,
-          content: document
-            .getElementById('nav-content')
-            .getBoundingClientRect().width,
-          viewport: document
-            .getElementById('nav-viewport')
-            .getBoundingClientRect().width,
         }))
         if (measured.grid !== [5, 7, 9, 11][widthIndex])
           throw new Error('responsive action grid changed')
         if (withConsumer && measured.gridOverride !== 5)
           throw new Error('explicit action grid override failed')
-        if (measured.max !== (widthIndex === 0 ? 'calc(100% - 32px)' : '520px'))
-          throw new Error(`dialog max-width changed: ${measured.max}`)
-        if (
-          (widthIndex < 2 && measured.content !== 300) ||
-          (widthIndex >= 2 && measured.content >= 300)
-        )
-          throw new Error('navigation content width changed')
-        if (measured.viewport !== (widthIndex < 2 ? 300 : 180))
-          throw new Error('navigation viewport width changed')
-        layoutAssertions += 5
+        layoutAssertions += withConsumer ? 2 : 1
       }
     }
   }

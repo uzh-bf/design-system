@@ -6,8 +6,8 @@ The official UZH Corporate Design manual specifies a content website — teasers
 hero blocks, alternating section backgrounds, 18px inline links, pill buttons at
 `border-radius: 100px`, and input focus expressed as a border-colour change.
 This library builds dense application interfaces: dashboards, tables, and forms.
-No UZH brand authority governs it. We therefore treat the manual as a reference
-rather than a specification: the palette and Source Sans 3 carry the visual
+The project has chosen to treat the manual as a reference rather than a
+specification for this application toolkit: the palette and Source Sans 3 carry the visual
 relationship to UZH, and geometry, density, control sizing, type scale, and
 focus affordance are the design system's own, decided on application
 ergonomics.
@@ -25,9 +25,10 @@ border-colour change with no ring — is a weak indicator that would likely fail
 the WCAG 2.2 focus-appearance criterion, against an accessibility inventory this
 repository pins at zero serious and critical violations with no waivers.
 
-A middle posture, binding on palette and typography while freeing geometry, was
-rejected only because no obligation exists to bind against; it describes
-approximately the same result.
+A middle posture, binding on palette and typography while freeing geometry,
+would produce approximately the same application design. The chosen posture
+records the project's design decision; it establishes neither an institution-wide
+exemption nor institutional approval.
 
 ## Consequences
 
@@ -38,9 +39,9 @@ approximately the same result.
   token for internal consistency, not for conformance.
 - Weight 700 remains in the type scale. The manual's 400/600 web restriction
   does not apply here.
-- The `uzh` dark theme is unsupported: it carries no manual backing, no
-  accessibility obligation, and no visual-regression coverage. The CSS stays in
-  place, dormant and documented as unsupported.
+- The `uzh` dark theme is unsupported and outside the current accessibility and
+  visual-regression qualification. The CSS stays in place for compatibility;
+  its presence does not establish that it is accessible or approved for use.
 - Realigning the colour families is a visible change at consumer call sites —
   1,500 `uzh-*` occurrences in the reference consumer, 646 of them on families
   whose values move. It is scheduled as a token-model change before 5.0.0, not

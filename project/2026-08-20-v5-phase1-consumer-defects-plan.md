@@ -347,3 +347,23 @@ validation before creating the runtime. Repairing that consumer repository's
 lifecycle configuration is separate from these design-system source fixes.
 Finish packed synthetic source verification and retain that exact acceptance
 gap; do not silently call historical consumer evidence current.
+
+
+## October 18 integrated verification
+
+Integrated corrected input/dependency/field history with an ordinary merge;
+kept every published tip as an ancestor and retained both migration sections,
+Modal's natural keyboard focus and the conditional action footer. Source checks
+pass: build/Ladle, types, lint, format, 88 behavioral contracts, 803 accessibility
+cases, 23 pinned Docker visual comparisons and 688 packed token assertions.
+The expanded consumer matrix passes 336 layout/default/explicit-override
+assertions across both themes and four widths, including maximum-width and
+navigation widths. No baseline changed for the new scoped CSS rules.
+
+Parent simplification inspection retains the named stylesheet because it is
+the smallest way to own responsive defaults independently of generic utilities.
+The only new source file is the plan-named component-layout.css. Screenshots
+cover desktop/mobile modal layout, actionless footer omission, keyboard close
+focus, status colors, prose links and Dropdown separators. Independent final
+review and exact-head CI are pending. Current real consumer acceptance remains
+blocked as stated above; Phase 2 is still outstanding before GA.

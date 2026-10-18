@@ -2,7 +2,7 @@
 
 **Date:** 2026-08-19 · **Baseline:** `origin/v5` at `80d6f229c`, published `5.0.0-alpha.5`
 **Supersedes:** `project/2026-08-01-v5-release-readiness-stacks-roadmap.md` (stacks A–D and the release sequence are all merged; it stays readable as history)
-**Status:** roadmap only. No branch, no worktree, no implementation. One ruling gate blocks the largest phase.
+**Status (2026-10-18):** Phase 0 decisions are recorded. Phase 1 source fixes and scoped responsive CSS are integrated with the corrected input/dependency/field stack on `rs/v5-uzh-alignment`. Draft delivery and current consumer acceptance remain in progress. Phase 2 still blocks GA.
 
 ## The thing that decides everything else
 
@@ -35,7 +35,7 @@ The token-model work fails that test hard. Adding interaction-state tokens and r
 | **5.1** | Purely additive API: `Modal size`, `Button icon-sm` / `destructive-outline` / `success`, Accordion size variants, form `fullWidth`, exported type-scale token | New surface, no existing rendering changes |
 | **6.0** | The legacy-wrapper convergence (finding C15), removal of the deprecated `--color-uzh-*` families | Architectural; needs an ADR of its own |
 
-Phase 0 is therefore not a nice-to-have parked item. It is on the GA critical path.
+Phase 0 was on the GA critical path. Its decisions below are settled; Phase 2 implements them before GA.
 
 ## What the two reviews say about the same things
 
@@ -123,7 +123,7 @@ Queued rather than asked now, because the recommendation for each changes with t
 
 Under the shade-4 / shade-1 / shade-5 rule the manual's own table supports, 1 and 2 both reduce to a single posture question about tinted surfaces rather than three independent colour picks.
 
-**Run this while the Klicker stack is up.** Button shape and type scale are questions a real application answers far better than a storybook, and the `rs-ds-v5-alpha5-upgrade` devpod is already running one.
+**Historical consumer context:** the August workspace supplied the measurements above. On October 18, canonical startup fails validation because its devcontainer `postCreateCommand` lacks `waitFor`; no current consumer runtime is available. The scoped design-system fixes do not establish current Klicker acceptance.
 
 ## Phase 1 — consumer-breaking defects, no ruling needed → alpha.6
 
@@ -185,10 +185,34 @@ This needs a canonical-layer decision per component, wrapper styling aligned to 
 - **The a11y inventory is zero-waiver.** `EXACT_SERIOUS_CRITICAL_INVENTORY = []`, enforced by both the sharded `a11y` job and the `a11y-protocol` job. Any colour change re-runs it.
 - **Report line numbers are stale by two merges.** The CD review measured `53d12495d`; `origin/v5` is at `80d6f229c`, and the intervening commits touched `Collapsible.tsx`, `Tabs.tsx`, `forms/Label.tsx`, `ThemeProvider.tsx`, the RHF fields, and a VRT baseline. Verify each `file:line` with `git show origin/v5:<path>` — including from the `rs-v5-w5-candidate-metadata` worktree, which sits one commit behind.
 - **Klicker's interim workarounds are the acceptance test.** Commits `dc56eca29`, `8ee2fc5aa`, `1de7ad918` work around the modal cap, sidebar density, tab track, and dropdown. Section D of the consumer review maps which override dies with which design-system fix; a fix that does not let its override be deleted is not finished.
-- **One worktree will be required.** No branch covers this work. Suggested `trees/rs-v5-uzh-alignment` on `rs/v5-uzh-alignment` from `80d6f229c`. Nothing else is to be created.
+- **Existing worktree:** `trees/rs-v5-uzh-alignment` on `rs/v5-uzh-alignment`. Preserve its original fixes and use ordinary merge propagation from the field layer; do not recreate the branch.
 
 ## Immediate next actions
 
-1. Answer Phase 0 round 1 — the posture question plus dark theme and the legacy families. Round 2's treatments follow from it. Best done while the Klicker stack is up.
-2. Authorize Phase 1 and its worktree. It needs no ruling and contains the only live rendering bug.
-3. Before the first execution plan is presented, run the planner gate on it — this roadmap is a horizon above that plan, not a substitute for it.
+1. Finish the Phase 1 draft after PR213: scoped responsive layout ownership, retained modal/dropdown/link/error fixes, migration table, visual and accessibility qualification, and current-head CI.
+2. Restore the existing consumer verification capability under a separately scoped lifecycle repair, then validate the integrated packed candidate and retire the corresponding consumer workarounds. Historical measurements and synthetic fixtures are insufficient for this gate.
+3. Execute Phase 2's recorded pre-GA token and visual-default decisions, with reviewed swatches, migration aliases, component captures and zero-waiver accessibility checks.
+4. Keep additive Phase 3 APIs in v5.1. Keep wrapper convergence and complete Formik public-type/runtime removal in v6.
+5. Reconcile the v5 umbrella with main and qualify a fresh candidate only under separate merge/publication authority.
+
+
+## October 18 evidence and remaining gates
+
+The input layer corrects natural modal navigation, pending twelve-hour periods,
+controlled resets and date invariance after calendar browsing. The field layer
+corrects disabled transitions and native form submission, actual multi-selection
+semantics and transformed FormField output. Both supported RHF versions have
+passing hosted packed-consumer jobs; remaining hosted checks and independent
+field review are tracked separately from local results.
+
+Phase 1 preserves the existing conditional modal footer, isolated Dropdown
+separator classes, close-button keyboard focus, link tokens, legible error state
+and full migration table. The integrated source passes 88 browser contracts,
+public types, lint, formatting and the packed token/CSS checks. Current pinned
+visual comparison, independent review and exact-head CI must finish before draft
+delivery is called verified. No target merge, release or deployment occurred.
+
+The brand posture is a project design decision. It is not evidence of an
+institution-wide exemption or institutional approval. UZH dark CSS remains
+unsupported and unqualified; retained CSS does not establish accessibility.
+Manual screen-reader, Safari and physical-mobile qualification remain open.
