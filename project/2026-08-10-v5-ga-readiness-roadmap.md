@@ -2,20 +2,24 @@
 
 ## Identity and status
 
-- Date: 2026-08-10; current execution index refreshed 2026-10-18
+- Date: 2026-08-10; current execution index refreshed 2026-10-19
 - Status: GA blocked. Verified input correctness, consumer CSS and durable
-  contract-gate corrections are delivered in the existing draft stack. Current
-  Historical Klicker acceptance passes locally; Phase 2 final qualification, manual acceptance
-  and the broader release-candidate consumer matrix remain open.
+  contract-gate corrections and Phase 2 theme/default changes are delivered in
+  the existing draft stack. Historical Klicker acceptance covers an earlier
+  artifact; final-candidate consumer acceptance is blocked by local authentication.
+  Dependency remediation, manual acceptance and broader candidate qualification remain open.
 - Repository: `uzh-bf/design-system`
 - Release trunk: `v5`
-- Active corrective branch: `rs/v5-uzh-alignment`
+- Active qualification branch: `rs/v5-ga-qualification`
 - Roadmap worktree:
   `/Users/rschlae/Git/df/design-system/trees/rs-v5-uzh-alignment`
 - Current delivery: draft stack [#210](https://github.com/uzh-bf/design-system/pull/210) →
   [#211](https://github.com/uzh-bf/design-system/pull/211) →
   [#213](https://github.com/uzh-bf/design-system/pull/213) →
-  [#214](https://github.com/uzh-bf/design-system/pull/214). Merges remain separately gated.
+  [#214](https://github.com/uzh-bf/design-system/pull/214) →
+  [#215](https://github.com/uzh-bf/design-system/pull/215) →
+  [#216](https://github.com/uzh-bf/design-system/pull/216) →
+  [#217](https://github.com/uzh-bf/design-system/pull/217). Merges remain separately gated.
 - Audience: maintainers and future execution agents preparing v5 for GA and
   migrating the first production consumers.
 
@@ -92,21 +96,25 @@ Historical inputs:
   from the upstream Git tag refs. Later packages must use their official tool
   documentation when selecting Size Limit or Playwright configuration.
 
-## Current execution index — 2026-10-18
+## Current execution index — 2026-10-19
 
-Remote `v5` is `80d6f229c`; the corrected draft source is `b8d607280`, with
-[passing hosted CI](https://github.com/uzh-bf/design-system/actions/runs/39157156790).
-npm still serves `5.0.0-alpha.5` on `alpha` and `4.1.8` on `latest`; the corrected
-local tarball has not been published. These facts supersede the historical
-August status table below. The user approved verified-review remediation and
-this roadmap update; draft delivery is authorized, while target merges,
-readiness conversion, release publication and deployment remain gated.
+Remote `v5` remains `80d6f229c`. The current defaults draft head is
+`2b35d856c`; producing runtime source is `f131398ce`, followed by helper/docs
+corrections. All 20 reported checks on each of the three Phase 2 draft heads
+pass or skip as expected. The local tarball SHA-256 is
+`306cbfc30128a49485aad2b20b95f01bc900a7ad9ae4ec8d2dbd87493ead7402`;
+it is unpublished and has no completed final-candidate real-consumer acceptance.
+Previously recorded registry tags are historical until re-read for release work.
+These facts supersede the August table below. The user approved the
+[qualification package](2026-10-19-v5-ga-qualification-plan.md) after requesting
+Claude consultation and a roadmap update. Draft delivery is authorized; target
+merges, readiness conversion, release publication and deployment remain gated.
 
 | Workstream | Current evidence | Remaining acceptance |
 | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Existing v5 foundations | Size budgets, separate RSC/RHF entries, root themes, generic primary-ramp extension with a synthetic fixture, exact axe inventory and deterministic VRT implemented; metadata remains alpha.5 | Maintain protections through the integrated candidate; qualify actual consumer-owned ramp values where used |
 | Input correctness — [PR210](https://github.com/uzh-bf/design-system/pull/210) | Natural modal entry, empty twelve-hour periods, controlled resets, selected-date invariance and value-bearing names corrected; independent review accepted; current-head CI green | Retain these cases when integrating later layers |
-| Compatible dependencies — [PR211](https://github.com/uzh-bf/design-system/pull/211) | Compatible direct refresh and four supplied transitive paths corrected; peer/export contracts preserved; ownership docs clarified; independent review accepted; current-head CI green | Fresh October 18 audit remains open (PostCSS/nanoid, source-map-js and retained Parcel paths); remediate before GA; a focused shadcn comparison does not certify every copied primitive |
+| Compatible dependencies — [PR211](https://github.com/uzh-bf/design-system/pull/211) | Compatible direct refresh and four supplied transitive paths corrected; peer/export contracts preserved; ownership docs clarified; independent review accepted; current-head CI green | October 18 audit identified PostCSS/nanoid, source-map-js and retained Parcel paths; the October 19 qualification package refreshes and remediates compatible paths before GA; a focused shadcn comparison does not certify every copied primitive |
 | Fields and durable CI — [PR213](https://github.com/uzh-bf/design-system/pull/213) | Disabled selection/FormData, true multi-selection semantics and transformed FormField types implemented; disabled-close blur correction passes all 88 local contracts, complete independent review and hosted CI; contracts and RHF minimum/current packed/Next consumers gate release build | Retain the corrected disabled-transition and public-type cases through integration |
 | Consumer CSS and UZH Phase 1 | Existing fixes integrated after the field stack; scoped responsive defaults replace colliding utility pairs; 90 contracts, 803 accessibility cases, 23 pinned visuals, 688 token assertions and 336 CSS/override assertions pass; complete independent review accepted | [PR214](https://github.com/uzh-bf/design-system/pull/214) maintains hosted CI and browser evidence. The packed candidate installs and builds in the existing Klicker pilot; actual Formik save/reload and desktop/mobile modal checks pass. Broader release-candidate qualification remains open |
 | UZH Phase 2                                                                         | Coverage [PR215](https://github.com/uzh-bf/design-system/pull/215), tokens [PR216](https://github.com/uzh-bf/design-system/pull/216) and defaults [PR217](https://github.com/uzh-bf/design-system/pull/217) are implemented in the unmerged draft stack; final review corrections cover migration text preservation and internal tooltip bounds | Full runtime source CI passes; final helper corrections have focused proof and current draft checks. Refresh actual consumer acceptance, remediate dependency advisories and keep manual AT/Safari/physical-device rows open                                                                                                                                     |
@@ -132,8 +140,8 @@ restored byte-for-byte; the checkout is clean, provider stopped and routes zero.
 This qualifies the corrected package against that historical pilot, not current
 Klicker trunk or every consumer. The build reports translation and page-size
 warnings. Compact app navigation and editor-toolbar layout need consumer work;
-existing width/density overrides were retained. Phase 2 must retire the overrides
-corresponding to its default changes and refresh candidate acceptance.
+existing width/density overrides were retained. Phase 2 source defaults are implemented. Override retirement and final-candidate
+acceptance remain open; remove an override only after demonstrated equivalence.
 
 The approved [theme/defaults execution plan](2026-10-18-v5-theme-defaults-plan.md)
 and [accepted findings](2026-10-18-v5-progress-roadmap-findings.md) persist the
@@ -145,9 +153,14 @@ Final review corrections preserve JSX accessible names and make internal help/er
 The [Phase 2 sequence](2026-08-19-v5-uzh-alignment-roadmap.md#phase-2--token-model-and-visual-defaults-before-ga)
 remains the acceptance contract; it is no longer a queue of unimplemented source work.
 
-After Phase 2, reconcile the promotion boundary and qualify the integrated
-candidate against recorded consumer refs and an immutable packed artifact,
-rechecking the consumer dependency-age policy.
+Next, execute the [dependency and qualification plan](2026-10-19-v5-ga-qualification-plan.md):
+refresh and remediate compatible advisories, pack the resulting artifact, diagnose
+the historical pilot's local authentication failure, then qualify that exact
+artifact against recorded consumer refs and dependency-age policy. Unresolved
+advisories and unavailable acceptance remain explicit GA gates; this update grants
+no waiver. Prepare actual manual scenarios and keep those rows pending until run.
+Promotion reconciliation remains a later package at the existing
+[promotion draft](https://github.com/uzh-bf/design-system/pull/179).
 Manual screen-reader, Safari and physical-mobile evidence remain separate gates.
 Merge, readiness, publication and deployment remain separately authorized actions.
 Additive variants and the type-scale export remain v5.1.

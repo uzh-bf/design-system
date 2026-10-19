@@ -2,7 +2,18 @@
 
 **Date:** 2026-08-19 · **Baseline:** `origin/v5` at `80d6f229c`, published `5.0.0-alpha.5`
 **Supersedes:** `project/2026-08-01-v5-release-readiness-stacks-roadmap.md` (stacks A–D and the release sequence are all merged; it stays readable as history)
-**Status (2026-10-18):** Phase 0 decisions are recorded. Phase 1 source fixes and scoped responsive CSS are integrated with the corrected input/dependency/field stack on `rs/v5-uzh-alignment` and delivered in [draft PR214](https://github.com/uzh-bf/design-system/pull/214). Hosted checks pass at `b8d607280`; the corrected packed candidate passes the historical Klicker pilot. These drafts are unmerged. Phase 2 and full release-candidate qualification still block GA. npm still serves `5.0.0-alpha.5` on `alpha` and `4.1.8` on `latest`; the corrected local tarball is not a published release.
+**Historical status (2026-10-18; superseded by the follow-up below):** Phase 0 decisions are recorded. Phase 1 source fixes and scoped responsive CSS are integrated with the corrected input/dependency/field stack on `rs/v5-uzh-alignment` and delivered in [draft PR214](https://github.com/uzh-bf/design-system/pull/214). Hosted checks pass at `b8d607280`; the corrected packed candidate passes the historical Klicker pilot. These drafts are unmerged. Phase 2 and full release-candidate qualification still block GA. npm still serves `5.0.0-alpha.5` on `alpha` and `4.1.8` on `latest`; the corrected local tarball is not a published release.
+
+Current follow-up (October 19): Phase 2 source delivery is complete in draft
+[coverage PR215](https://github.com/uzh-bf/design-system/pull/215),
+[token PR216](https://github.com/uzh-bf/design-system/pull/216) and
+[defaults PR217](https://github.com/uzh-bf/design-system/pull/217), with green
+reported checks. The [qualification package](2026-10-19-v5-ga-qualification-plan.md)
+now orders compatible dependency remediation before fresh exact-artifact consumer
+acceptance. Historical pilot success does not close the final candidate row;
+local authentication blocks that row. Actual AT/Safari/physical-mobile runs and
+later promotion remain separate GA gates. Additive 5.1 APIs and 6.0 convergence
+remain deferred.
 
 ## Official-source correction — 2026-10-18
 
