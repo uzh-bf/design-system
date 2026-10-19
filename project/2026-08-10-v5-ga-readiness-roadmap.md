@@ -19,7 +19,8 @@
   [#214](https://github.com/uzh-bf/design-system/pull/214) →
   [#215](https://github.com/uzh-bf/design-system/pull/215) →
   [#216](https://github.com/uzh-bf/design-system/pull/216) →
-  [#217](https://github.com/uzh-bf/design-system/pull/217). Merges remain separately gated.
+  [#217](https://github.com/uzh-bf/design-system/pull/217) →
+  [#218](https://github.com/uzh-bf/design-system/pull/218). Merges remain separately gated.
 - Audience: maintainers and future execution agents preparing v5 for GA and
   migrating the first production consumers.
 
@@ -105,6 +106,7 @@ pass or skip as expected. The local tarball SHA-256 is
 `306cbfc30128a49485aad2b20b95f01bc900a7ad9ae4ec8d2dbd87493ead7402`;
 it is unpublished and has no completed final-candidate real-consumer acceptance.
 Previously recorded registry tags are historical until re-read for release work.
+Qualification dependency source is `0126b42e0` in draft [PR218](https://github.com/uzh-bf/design-system/pull/218). Its immutable package and check evidence are tracked in the new plan.
 These facts supersede the August table below. The user approved the
 [qualification package](2026-10-19-v5-ga-qualification-plan.md) after requesting
 Claude consultation and a roadmap update. Draft delivery is authorized; target
@@ -114,7 +116,7 @@ merges, readiness conversion, release publication and deployment remain gated.
 | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Existing v5 foundations | Size budgets, separate RSC/RHF entries, root themes, generic primary-ramp extension with a synthetic fixture, exact axe inventory and deterministic VRT implemented; metadata remains alpha.5 | Maintain protections through the integrated candidate; qualify actual consumer-owned ramp values where used |
 | Input correctness — [PR210](https://github.com/uzh-bf/design-system/pull/210) | Natural modal entry, empty twelve-hour periods, controlled resets, selected-date invariance and value-bearing names corrected; independent review accepted; current-head CI green | Retain these cases when integrating later layers |
-| Compatible dependencies — [PR211](https://github.com/uzh-bf/design-system/pull/211) | Compatible direct refresh and four supplied transitive paths corrected; peer/export contracts preserved; ownership docs clarified; independent review accepted; current-head CI green | October 18 audit identified PostCSS/nanoid, source-map-js and retained Parcel paths; the October 19 qualification package refreshes and remediates compatible paths before GA; a focused shadcn comparison does not certify every copied primitive |
+| Compatible dependencies — [PR211](https://github.com/uzh-bf/design-system/pull/211) | Compatible direct refresh and four supplied transitive paths corrected; peer/export contracts preserved; ownership docs clarified; independent review accepted; current-head CI green | October 19 [qualification PR218](https://github.com/uzh-bf/design-system/pull/218) updates compatible paths: production-workspace audit has zero findings; full audit retains four high/two moderate tooling advisories with explicit constraints and no waivers. Final source/legacy/consumer qualification remains separate; the focused shadcn comparison does not certify every copied primitive |
 | Fields and durable CI — [PR213](https://github.com/uzh-bf/design-system/pull/213) | Disabled selection/FormData, true multi-selection semantics and transformed FormField types implemented; disabled-close blur correction passes all 88 local contracts, complete independent review and hosted CI; contracts and RHF minimum/current packed/Next consumers gate release build | Retain the corrected disabled-transition and public-type cases through integration |
 | Consumer CSS and UZH Phase 1 | Existing fixes integrated after the field stack; scoped responsive defaults replace colliding utility pairs; 90 contracts, 803 accessibility cases, 23 pinned visuals, 688 token assertions and 336 CSS/override assertions pass; complete independent review accepted | [PR214](https://github.com/uzh-bf/design-system/pull/214) maintains hosted CI and browser evidence. The packed candidate installs and builds in the existing Klicker pilot; actual Formik save/reload and desktop/mobile modal checks pass. Broader release-candidate qualification remains open |
 | UZH Phase 2                                                                         | Coverage [PR215](https://github.com/uzh-bf/design-system/pull/215), tokens [PR216](https://github.com/uzh-bf/design-system/pull/216) and defaults [PR217](https://github.com/uzh-bf/design-system/pull/217) are implemented in the unmerged draft stack; final review corrections cover migration text preservation and internal tooltip bounds | Full runtime source CI passes; final helper corrections have focused proof and current draft checks. Refresh actual consumer acceptance, remediate dependency advisories and keep manual AT/Safari/physical-device rows open                                                                                                                                     |
@@ -159,6 +161,12 @@ the historical pilot's local authentication failure, then qualify that exact
 artifact against recorded consumer refs and dependency-age policy. Unresolved
 advisories and unavailable acceptance remain explicit GA gates; this update grants
 no waiver. Prepare actual manual scenarios and keep those rows pending until run.
+The bounded October 19 pilot diagnosis isolates its authentication blocker to the
+local development bundler path: the unchanged handler returns providers JSON with
+Webpack; canonical Turbopack returns 404 before handler entry. This is environment
+diagnosis, not candidate acceptance or proof of a production auth defect. A
+permanent consumer repair remains a separate source package; actual acceptance
+stays open. Temporary configuration is restored and the pilot is stopped.
 Promotion reconciliation remains a later package at the existing
 [promotion draft](https://github.com/uzh-bf/design-system/pull/179).
 Manual screen-reader, Safari and physical-mobile evidence remain separate gates.

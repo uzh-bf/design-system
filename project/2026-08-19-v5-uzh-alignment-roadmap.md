@@ -9,8 +9,8 @@ Current follow-up (October 19): Phase 2 source delivery is complete in draft
 [token PR216](https://github.com/uzh-bf/design-system/pull/216) and
 [defaults PR217](https://github.com/uzh-bf/design-system/pull/217), with green
 reported checks. The [qualification package](2026-10-19-v5-ga-qualification-plan.md)
-now orders compatible dependency remediation before fresh exact-artifact consumer
-acceptance. Historical pilot success does not close the final candidate row;
+now delivers compatible dependency remediation in [draft PR218](https://github.com/uzh-bf/design-system/pull/218) before fresh exact-artifact consumer
+acceptance. Its production-workspace audit has zero findings; four high and two moderate tooling findings remain open in the full audit. Historical pilot success does not close the final candidate row;
 local authentication blocks that row. Actual AT/Safari/physical-mobile runs and
 later promotion remain separate GA gates. Additive 5.1 APIs and 6.0 convergence
 remain deferred.
