@@ -272,6 +272,10 @@ test.describe('RHF field wrappers', () => {
     await select.click()
     await expect(select).toHaveAttribute('aria-expanded', 'true')
     await expect(page.getByRole('option').first()).toBeFocused()
+    // Radix installs its outside-pointer listener in the next timer task.
+    await page.evaluate(
+      () => new Promise<void>((resolve) => window.setTimeout(resolve, 0))
+    )
     await page.locator(text('blur-contract-outside')).click({ force: true })
     await expect(page.locator(text('select-blur-count'))).toHaveText('2')
   })
