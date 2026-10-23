@@ -219,6 +219,22 @@ static alias/API disposition; representative behavior proof follows package risk
 | Typography            | [Utility recipe](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/content/docs/components/radix/typography.mdx)                                                               | App-owned semantic HTML/utility composition using existing DS typography and ADR0005; no upstream default typography export exists                                                                                                                                                                                                                              |
 | scroll-fade / shimmer | [CSS entry](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/packages/shadcn/src/tailwind.css) and pinned docs/utils/{scroll-fade,shimmer}.mdx                                        | Required CSS utility compatibility for messaging/scroll/code recipes; inventory emitted definitions, logical direction, reduced motion and browser fallback. Local existing shimmer alone does not establish equivalent named utilities. Choose a bounded compiled-CSS adapter instead of making every app install the CLI runtime; prove packed output/budgets |
 
+## Implemented compatibility packages
+
+The component layer in draft #223 adds compact Button sizes, filled/line/vertical
+Tabs, NativeSelect and shared Direction context. Its omission defaults, caller
+class precedence and legacy Formik/RHF boundaries remain covered. The table above
+records the original pinned-source comparison; these four gaps now have source
+and browser evidence in the component plan.
+
+The following Recharts layer implements the required application-owned peer
+`>=3.8.0 <4`, with exact development3.10.1. Local packed proof passes3.8.0 and
+3.10.1 with RHF7.90.0, plus3.10.1 with RHF7.59.0. Each cell checks shared runtime
+identity, strict root/dedicated imports and both Next builds with chart behavior.
+Six plot families and tooltip recipes have representative browser coverage;
+this does not qualify every upstream recipe or complete the remaining Radix gaps.
+Hosted checks and integrated review remain tracked in the execution plan.
+
 ## Chart gallery: six plot families and tooltip recipes
 
 The [pinned gallery](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/charts)

@@ -1,4 +1,25 @@
-import { Bar, BarChart, CartesianGrid, XAxis } from 'recharts'
+import { trendData, shareData, radarData, radialData, tooltipData, trendConfig, shareConfig, radialConfig } from './Chart.examples'
+import { ChartFrame } from './ChartFrame'
+import * as React from 'react'
+import {
+  Area as AreaMark,
+  AreaChart,
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Cell,
+  Line as LineMark,
+  LineChart,
+  Pie as PieMark,
+  PieChart,
+  PolarAngleAxis,
+  PolarGrid,
+  Radar as RadarMark,
+  RadarChart,
+  RadialBar,
+  RadialBarChart,
+  XAxis,
+} from 'recharts'
 import {
   ChartContainer,
   ChartLegend,
@@ -18,8 +39,9 @@ You drive the colors through a `config` object keyed by data series. Each key
 maps to a `label` and a `color`; the container emits CSS variables
 (`--color-<key>`) you reference from the Recharts marks (e.g.
 `fill="var(--color-desktop)"`). Point a series `color` at a **theme-reactive**
-DS token — the `--theme-color-*` intermediates (e.g. `var(--theme-color-primary)`,
-`var(--theme-color-primary-40)`) — and the chart recolors with the active theme.
+DS token, such as `var(--chart-1)`, and the chart recolors with the active
+theme and dark mode. These examples mix each plot token with the foreground
+to preserve visible boundaries; measure your own series against the background.
 Avoid the static `--color-primary-*` ramp here: those resolve once at `:root`
 (neutral) and do **not** follow `data-theme` when read as a raw `var()`.
 </div>
@@ -28,12 +50,18 @@ Avoid the static `--color-primary-*` ramp here: those resolve once at `:root`
 {/*
 AI_DOCUMENTATION_START
 
-Technical Overview: Recharts wrapper. ChartContainer takes a `config` (series → label+color), emits `--color-<key>` CSS vars, and renders a responsive container. ChartTooltipContent / ChartLegendContent are themed tooltip/legend renderers.
+Technical Overview: Recharts wrapper. ChartContainer takes a `config` (series → label+color), emits `--color-<key>` CSS vars, and renders a responsive container. ChartTooltipContent / ChartLegendContent are themed tooltip/legend renderers. ChartContainer defaults initialDimension to 320×200 and accepts a caller override.
 Dependencies: recharts
 
 Available Stories:
 
-- Default: A two-series bar chart with tooltip and legend
+- Default: representative bar chart, retaining the established story id
+- Area: responsive two-series area chart
+- Line: responsive line chart with a textual legend
+- Pie: responsive segmented chart with zero and null values
+- Radar: responsive radar chart
+- Radial: responsive radial bar chart
+- TooltipStates: default index, controlled active state, zero/null formatting, show/hide and resizing
 
 Exports:
 
@@ -46,10 +74,14 @@ Usage Examples:
 
 ```tsx
 const config = {
-  desktop: { label: 'Desktop', color: 'var(--theme-color-primary)' },
+  desktop: { label: 'Desktop', color: 'var(--chart-1)' },
 }
 
-<ChartContainer config={config}>
+<ChartContainer
+  config={config}
+  initialDimension={{ width: 320, height: 200 }}
+  className="min-h-80 w-full max-w-3xl"
+>
   <BarChart data={data}>
     <Bar dataKey="desktop" fill="var(--color-desktop)" />
   </BarChart>
@@ -63,22 +95,24 @@ Related Components:
 AI_DOCUMENTATION_END
 */}
 
-export const Default = () => {
-  const chartData = [
-    { month: 'January', desktop: 186, mobile: 80 },
-    { month: 'February', desktop: 305, mobile: 200 },
-    { month: 'March', desktop: 237, mobile: 120 },
-    { month: 'April', desktop: 73, mobile: 190 },
-    { month: 'May', desktop: 209, mobile: 130 },
-    { month: 'June', desktop: 214, mobile: 140 },
-  ]
-  const chartConfig = {
-    desktop: { label: 'Desktop', color: 'var(--theme-color-primary)' },
-    mobile: { label: 'Mobile', color: 'var(--theme-color-primary-40)' },
-  }
-  return (
-    <ChartContainer config={chartConfig} className="h-[300px] w-[600px]">
-      <BarChart data={chartData}>
+export const Default = () => (
+  <ChartFrame
+    title="Published and draft content"
+    summary="Bar lengths show volume by month. The legend names both series, and the draft series also uses a lighter outlined treatment."
+    testId="chart-default"
+  >
+    <ChartContainer
+      config={trendConfig}
+      className="aspect-auto h-80 w-full max-w-3xl"
+      data-test="chart-default"
+      role="group"
+      aria-label="Bar chart of published and draft content by month"
+    >
+      <BarChart
+        data={trendData}
+        margin={{ top: 12, right: 8, left: 8 }}
+        accessibilityLayer
+      >
         <CartesianGrid vertical={false} />
         <XAxis
           dataKey="month"
@@ -87,21 +121,304 @@ export const Default = () => {
           tickMargin={10}
           tickFormatter={(value) => value.slice(0, 3)}
         />
-        <ChartTooltip content={<ChartTooltipContent />} />
+        <ChartTooltip content={<ChartTooltipContent indicator="dashed" />} />
         <ChartLegend content={<ChartLegendContent />} />
         <Bar
-          dataKey="desktop"
-          fill="var(--color-desktop)"
+          dataKey="published"
+          fill="var(--color-published)"
           radius={4}
           isAnimationActive={false}
         />
         <Bar
-          dataKey="mobile"
-          fill="var(--color-mobile)"
+          dataKey="draft"
+          fill="var(--color-draft)"
+          stroke="var(--color-draft)"
+          strokeDasharray="4 3"
           radius={4}
           isAnimationActive={false}
         />
       </BarChart>
     </ChartContainer>
+  </ChartFrame>
+)
+
+export const Area = () => (
+  <ChartFrame
+    title="Content over time"
+    summary="The area chart labels the published series with a filled area and the draft series with a dashed edge. The legend repeats both names in text."
+    testId="chart-area"
+  >
+    <ChartContainer
+      config={trendConfig}
+      className="aspect-auto h-80 w-full max-w-3xl"
+      data-test="chart-area"
+      role="group"
+      aria-label="Area chart of published and draft content over time"
+    >
+      <AreaChart data={trendData} margin={{ top: 12, right: 8, left: 8 }}>
+        <CartesianGrid vertical={false} />
+        <XAxis dataKey="month" tickLine={false} axisLine={false} />
+        <ChartTooltip content={<ChartTooltipContent />} />
+        <ChartLegend content={<ChartLegendContent />} />
+        <AreaMark
+          dataKey="published"
+          type="monotone"
+          fill="var(--color-published)"
+          fillOpacity={0.2}
+          stroke="var(--color-published)"
+          isAnimationActive={false}
+        />
+        <AreaMark
+          dataKey="draft"
+          type="monotone"
+          fill="transparent"
+          stroke="var(--color-draft)"
+          strokeDasharray="6 4"
+          isAnimationActive={false}
+        />
+      </AreaChart>
+    </ChartContainer>
+  </ChartFrame>
+)
+
+export const Line = () => (
+  <ChartFrame
+    title="Publication trend"
+    summary="Published values use a solid line and draft values use a dashed line, so the two series remain distinguishable without color."
+    testId="chart-line"
+  >
+    <ChartContainer
+      config={trendConfig}
+      className="aspect-auto h-80 w-full max-w-3xl"
+      data-test="chart-line"
+      role="group"
+      aria-label="Line chart of the publication trend"
+    >
+      <LineChart data={trendData} margin={{ top: 12, right: 8, left: 8 }}>
+        <CartesianGrid vertical={false} />
+        <XAxis dataKey="month" tickLine={false} axisLine={false} />
+        <ChartTooltip content={<ChartTooltipContent indicator="line" />} />
+        <ChartLegend content={<ChartLegendContent />} />
+        <LineMark
+          dataKey="published"
+          type="monotone"
+          stroke="var(--color-published)"
+          strokeWidth={2}
+          dot={false}
+          isAnimationActive={false}
+        />
+        <LineMark
+          dataKey="draft"
+          type="monotone"
+          stroke="var(--color-draft)"
+          strokeDasharray="6 4"
+          strokeWidth={2}
+          dot={false}
+          isAnimationActive={false}
+        />
+      </LineChart>
+    </ChartContainer>
+  </ChartFrame>
+)
+
+export const Pie = () => (
+  <ChartFrame
+    title="Content mix"
+    summary="Each slice has a text legend label. A zero value and a missing value are included so empty states remain explicit."
+    testId="chart-pie"
+  >
+    <ChartContainer
+      config={shareConfig}
+      className="aspect-auto h-80 w-full max-w-3xl"
+      data-test="chart-pie"
+      role="group"
+      aria-label="Pie chart of the content mix"
+    >
+      <PieChart>
+        <ChartTooltip content={<ChartTooltipContent nameKey="segment" />} />
+        <ChartLegend
+          content={<ChartLegendContent nameKey="segment" />}
+          verticalAlign="bottom"
+        />
+        <PieMark
+          data={shareData}
+          dataKey="value"
+          nameKey="segment"
+          innerRadius={48}
+          outerRadius={88}
+          paddingAngle={2}
+          isAnimationActive={false}
+        >
+          {shareData.map((entry) => (
+            <Cell key={entry.segment} fill={`var(--color-${entry.segment})`} />
+          ))}
+        </PieMark>
+      </PieChart>
+    </ChartContainer>
+  </ChartFrame>
+)
+
+export const Radar = () => (
+  <ChartFrame
+    title="Learning activity profile"
+    summary="The profile compares published and draft activity across four stages. Both series are identified in text below the plot."
+    testId="chart-radar"
+  >
+    <ChartContainer
+      config={trendConfig}
+      className="aspect-auto h-80 w-full max-w-3xl"
+      data-test="chart-radar"
+      role="group"
+      aria-label="Radar chart of the learning activity profile"
+    >
+      <RadarChart data={radarData} outerRadius="72%">
+        <PolarGrid />
+        <PolarAngleAxis dataKey="area" />
+        <ChartTooltip content={<ChartTooltipContent />} />
+        <ChartLegend content={<ChartLegendContent />} />
+        <RadarMark
+          dataKey="published"
+          fill="var(--color-published)"
+          fillOpacity={0.2}
+          stroke="var(--color-published)"
+          isAnimationActive={false}
+        />
+        <RadarMark
+          dataKey="draft"
+          fill="transparent"
+          stroke="var(--color-draft)"
+          strokeDasharray="6 4"
+          isAnimationActive={false}
+        />
+      </RadarChart>
+    </ChartContainer>
+  </ChartFrame>
+)
+
+export const Radial = () => (
+  <ChartFrame
+    title="Completion rings"
+    summary="Published, draft and baseline rings use distinct theme tokens. The labels below provide the same series names as text."
+    testId="chart-radial"
+  >
+    <ChartContainer
+      config={radialConfig}
+      className="aspect-auto h-80 w-full max-w-3xl"
+      data-test="chart-radial"
+      role="group"
+      aria-label="Radial bar chart of completion rings"
+    >
+      <RadialBarChart
+        data={radialData}
+        innerRadius="24%"
+        outerRadius="92%"
+        startAngle={90}
+        endAngle={-270}
+      >
+        <ChartTooltip content={<ChartTooltipContent nameKey="segment" />} />
+        <ChartLegend content={<ChartLegendContent nameKey="segment" />} />
+        <RadialBar
+          dataKey="value"
+          nameKey="segment"
+          background={{ fill: 'var(--muted)' }}
+          isAnimationActive={false}
+        >
+          {radialData.map((item) => (
+            <Cell key={item.segment} fill={`var(--color-${item.segment})`} />
+          ))}
+        </RadialBar>
+      </RadialBarChart>
+    </ChartContainer>
+  </ChartFrame>
+)
+
+export const TooltipStates = () => {
+  const [tooltipVisible, setTooltipVisible] = React.useState(true)
+  const [draftVisible, setDraftVisible] = React.useState(true)
+  const [narrow, setNarrow] = React.useState(false)
+
+  return (
+    <ChartFrame
+      title="Tooltip and interaction states"
+      summary="The initial tooltip uses index zero, omits the null draft value, and preserves the formatter's zero output. The controls update active state, series geometry and responsive width."
+      testId="chart-tooltip-states"
+    >
+      <div className="mb-4 flex flex-wrap gap-2">
+        <button
+          type="button"
+          className="border-border bg-background hover:bg-muted rounded-md border px-3 py-1.5 text-sm font-medium"
+          aria-pressed={tooltipVisible}
+          data-test="chart-tooltip-toggle"
+          onClick={() => setTooltipVisible((visible) => !visible)}
+        >
+          {tooltipVisible ? 'Hide tooltip' : 'Show tooltip'}
+        </button>
+        <button
+          type="button"
+          className="border-border bg-background hover:bg-muted rounded-md border px-3 py-1.5 text-sm font-medium"
+          aria-pressed={draftVisible}
+          data-test="chart-series-toggle"
+          onClick={() => setDraftVisible((visible) => !visible)}
+        >
+          {draftVisible ? 'Hide draft series' : 'Show draft series'}
+        </button>
+        <button
+          type="button"
+          className="border-border bg-background hover:bg-muted rounded-md border px-3 py-1.5 text-sm font-medium"
+          aria-pressed={narrow}
+          data-test="chart-width-toggle"
+          onClick={() => setNarrow((isNarrow) => !isNarrow)}
+        >
+          {narrow ? 'Widen chart' : 'Narrow chart'}
+        </button>
+      </div>
+      <div
+        className="max-w-full"
+        data-test="chart-resize-frame"
+        style={{ width: narrow ? '18rem' : '36rem' }}
+      >
+        <ChartContainer
+          config={trendConfig}
+          initialDimension={{ width: 360, height: 240 }}
+          className="aspect-auto h-80 w-full"
+          data-test="chart-tooltip-states"
+          role="group"
+          aria-label="Controlled bar chart for tooltip and resize states"
+        >
+          <BarChart data={tooltipData} margin={{ top: 12, right: 8, left: 8 }}>
+            <CartesianGrid vertical={false} />
+            <XAxis dataKey="month" tickLine={false} axisLine={false} />
+            <ChartTooltip
+              active={tooltipVisible}
+              defaultIndex={0}
+              filterNull={false}
+              content={
+                <ChartTooltipContent
+                  formatter={(value) => (
+                    <span data-test="formatted-tooltip-value">
+                      {value === 0 ? '0 units' : `${String(value)} units`}
+                    </span>
+                  )}
+                />
+              }
+            />
+            <ChartLegend content={<ChartLegendContent />} />
+            <Bar
+              dataKey="published"
+              fill="var(--color-published)"
+              radius={4}
+              isAnimationActive={false}
+            />
+            <Bar
+              dataKey="draft"
+              fill="var(--color-draft)"
+              radius={4}
+              hide={!draftVisible}
+              isAnimationActive={false}
+            />
+          </BarChart>
+        </ChartContainer>
+      </div>
+    </ChartFrame>
   )
 }

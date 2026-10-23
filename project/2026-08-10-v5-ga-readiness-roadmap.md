@@ -238,6 +238,15 @@ The approved [catalog planning package](2026-10-23-v5-catalog-compatibility-plan
 owns evidence reconciliation, the finite
 [Radix capability matrix](2026-10-23-v5-radix-capability-matrix.md) and derived plans.
 
+Current execution: the user approved both first plans on 2026-10-23. The
+component layer is delivered in [draft #223](https://github.com/uzh-bf/design-system/pull/223)
+with final source review and local verification; exact-head hosted qualification
+is tracked there. Recharts source, six-family/tooltip coverage and all three
+packed/Next version cells pass locally. Named imports reduce the responsive
+wrapper to10.9kB; its historical25kB positive minimum now needs an explicit budget
+ruling, while the34kB ceiling passes. Keep the guard unchanged until that ruling.
+See the chart plan for remaining full-suite/CI/review qualification.
+
 1. **Small component compatibility.** Follow the reviewed
    [component plan](2026-10-23-v5-component-compatibility-plan.md) for Button
    sizes, Tabs variants/orientation, NativeSelect and Direction/RTL. Preserve

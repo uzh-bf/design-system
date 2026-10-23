@@ -166,14 +166,21 @@ jobs:
 
   consumers:
     runs-on: ubuntu-latest
-    name: Packed Consumers (RHF ${{ matrix.rhf }})
+    name: Packed Consumers (Recharts ${{ matrix.recharts }}, RHF ${{ matrix.rhf }})
     timeout-minutes: 35
     strategy:
       fail-fast: false
       matrix:
-        rhf: ["7.59.0", "7.90.0"]
+        include:
+          - recharts: "3.8.0"
+            rhf: "7.90.0"
+          - recharts: "3.10.1"
+            rhf: "7.90.0"
+          - recharts: "3.10.1"
+            rhf: "7.59.0"
     env:
       RHF_VERSION: ${{ matrix.rhf }}
+      RECHARTS_VERSION: ${{ matrix.recharts }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
