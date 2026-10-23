@@ -179,10 +179,12 @@ The [current shadcn assessment](2026-09-06-v5-shadcn-assessment.md#full-radix-sc
 owns the pinned source, missing inventory, auxiliary dependencies and coverage
 rules. All official Radix capabilities must have a disposition and proof;
 shared filenames alone close no rows. Include official recipes, hooks/utilities,
-blocks and AI composition patterns in the compatibility inventory. Support their
-composition through the library and documented application seams without copying
-entire example applications into the package. Upstream styles are visual
-references; our neutral/UZH themes remain the delivery surfaces.
+blocks and AI composition patterns in the compatibility inventory. The user's
+[chart/block ownership clarification](2026-09-06-v5-shadcn-assessment.md#chart-and-block-ownership--user-clarification-2026-10-23)
+keeps blocks application-owned and verifies compatibility with our public
+components. Charts retain direct Recharts composition, with our theme, tooltip
+and legend support. Upstream styles are visual references; our neutral/UZH themes
+remain the delivery surfaces.
 
 The [current UZH review](2026-08-19-v5-uzh-alignment-roadmap.md#official-styleguide-review--2026-10-23)
 owns the 2.11.0 delta, palette/type/focus/form traceability and adaptation rules.
@@ -207,6 +209,10 @@ at its draft boundary; do not queue it again. Continue in this order:
    compositions. Record dependency ownership, entry points, consumer-age policy,
    compatibility adapters and budgets before installation. A current snapshot
    does not justify blindly overwriting local themes or public contracts.
+   Within this work, qualify chart-gallery capabilities using direct Recharts
+   composition, then verify representative official blocks against the packed
+   components. Block source and block-only dependencies stay with the application;
+   neither gallery becomes a maintained collection of package exports.
 3. **UZH and integrated acceptance.** Maintain traceability during the first
    two packages, then qualify the complete candidate in neutral and UZH themes.
    Distinguish retained consumer overrides from accepted defaults. Exercise a

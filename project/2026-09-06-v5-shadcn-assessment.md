@@ -102,6 +102,35 @@ routing/data/AI seams; whole demo applications need not become package exports.
 Check upstream drift once at final qualification and record the disposition;
 continuous changes to main do not reset the finite implementation scope.
 
+### Chart and block ownership — user clarification, 2026-10-23
+
+[Official blocks](https://ui.shadcn.com/blocks) are compatibility consumers of
+our public components. Keep their application source, routing, authentication,
+data and block-only dependencies owned by the consuming application. We do not
+adopt a maintained fork of the block collection or export whole application
+blocks from the library. Inventory the official Radix blocks against the pinned
+snapshot, document import/alias adaptations, and resolve missing component APIs.
+Verify representative dashboard, sidebar and login/signup compositions against
+the packed package, including responsive layout and keyboard interactions in
+neutral and UZH themes. New block releases trigger compatibility assessment,
+not automatic copying into this repository.
+
+[Chart recipes](https://ui.shadcn.com/charts) continue to use Recharts directly.
+Consumers import chart components from `recharts` and compose them with our
+`ChartContainer`, tooltip, legend and theme tokens. This extends the current
+Recharts approach; it does not introduce another chart engine or a mandatory
+chart abstraction. Qualify the planned Recharts 3 migration against existing
+consumer charts and current official recipes. Resolve consumer dependency
+versions and verify one compatible Recharts runtime in the packed consumer.
+
+Use the pinned gallery as the capability checklist, with representative behavior
+proof across area, bar, line, pie, radar, radial and tooltip recipes. Verify
+responsive measurement, controlled interaction, formatting, legend/tooltip APIs,
+keyboard access and text alternatives. UZH palette provenance does not prove
+series contrast or distinguishability: check those separately and provide labels
+or other non-colour cues. Maintain useful reference compositions in existing
+documentation/stories; owning every upstream chart recipe is not required.
+
 ### Auxiliary dependency matrix
 
 These requirements come from the pinned Radix UI/hooks/lib registry manifests.
