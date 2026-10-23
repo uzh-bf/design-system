@@ -5,6 +5,9 @@ import { Field } from '@uzh-bf/design-system/primitives'
 import {
   Form,
   RhfAlphaNumericPinField,
+  RhfColorPicker,
+  RhfDatePicker,
+  RhfDatetimePicker,
   FormLabel as RhfFormLabel,
   RhfPinField,
   RhfSwitchField,
@@ -17,6 +20,9 @@ export type RootFormLabelProps = ComponentProps<typeof RootFormLabel>
 export type RhfFormLabelProps = ComponentProps<typeof RhfFormLabel>
 
 export const contract = {
+  RhfColorPicker,
+  RhfDatePicker,
+  RhfDatetimePicker,
   Field,
   Form,
   RhfFormLabel,

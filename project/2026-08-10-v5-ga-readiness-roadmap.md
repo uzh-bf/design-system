@@ -145,18 +145,18 @@ auxiliary dependencies. It does not request three complete primitive backends.
 A dependency used by an official Radix component, such as Base UI inside the
 current Combobox, belongs in the dependency compatibility assessment.
 
-| Formik family retained through v5 | Dedicated RHF counterpart at the source baseline | Completion requirement                                                |
+| Formik family retained through v5 | Dedicated RHF counterpart in current draft work  | Completion requirement                                                |
 | --------------------------------- | ------------------------------------------------ | --------------------------------------------------------------------- |
 | Text                              | `RhfTextField`                                   | Verify full capability parity                                         |
 | Number                            | `RhfNumberField`                                 | Verify transient editing, bounds, stepper and reset semantics         |
 | Select                            | `RhfSelectField`                                 | Verify selection, external errors and focus behavior                  |
-| Textarea                          | Missing                                          | Add `RhfTextareaField` using the existing control                     |
-| Switch                            | Missing                                          | Add `RhfSwitchField`; associate required/error state accessibly       |
-| Color picker                      | Missing                                          | Add `RhfColorPicker` with equivalent selection/reset behavior         |
-| Date picker                       | Missing                                          | Add `RhfDatePicker`; preserve empty/date/keyboard semantics           |
-| Date/time picker                  | Missing                                          | Add `RhfDatetimePicker`; preserve time-zone and partial-edit behavior |
-| Numeric PIN                       | Missing                                          | Add `RhfPinField`; preserve paste, sanitization and focus behavior    |
-| Alphanumeric PIN                  | Missing                                          | Add `RhfAlphaNumericPinField`; preserve casing and character rules    |
+| Textarea                          | `RhfTextareaField` in PR219                      | Add `RhfTextareaField` using the existing control                     |
+| Switch                            | `RhfSwitchField` in PR219                        | Add `RhfSwitchField`; associate required/error state accessibly       |
+| Color picker                      | `RhfColorPicker` in dependent draft              | Add `RhfColorPicker` with equivalent selection/reset behavior         |
+| Date picker                       | `RhfDatePicker` in dependent draft               | Add `RhfDatePicker`; preserve empty/date/keyboard semantics           |
+| Date/time picker                  | `RhfDatetimePicker` in dependent draft           | Add `RhfDatetimePicker`; preserve time-zone and partial-edit behavior |
+| Numeric PIN                       | `RhfPinField` in PR219                           | Add `RhfPinField`; preserve paste, sanitization and focus behavior    |
+| Alphanumeric PIN                  | `RhfAlphaNumericPinField` in PR219               | Add `RhfAlphaNumericPinField`; preserve casing and character rules    |
 
 `RhfMultiSelect` is an additional existing RHF control, not a fourth covered
 Formik family. Retain and qualify it. Parity covers typed paths/values and
@@ -205,16 +205,25 @@ Required upstream component variants and integrations belong before GA even when
 additive. Earlier blanket 5.1 deferrals no longer exclude these accepted RHF or
 Radix requirements. Unrelated additions retain their later horizon.
 
+### RHF implementation progress — 2026-10-23
+
+[Draft PR219](https://github.com/uzh-bf/design-system/pull/219) adds textarea,
+switch and both PIN adapters, shared numeric control and the accepted RHF error
+contract. The dependent picker layer adds color, date and date/time. The
+[approved execution plan](2026-10-23-v5-rhf-parity-plan.md) owns exact source,
+checks, reviews and remaining gates. Draft source and synthetic checks do not
+establish GBL acceptance, integrated GA readiness or release authority.
+
 ### Next implementation packages
 
 The historical pilot repair/acceptance package selected October 19 is complete
 at its draft boundary; do not queue it again. Continue in this order:
 
-1. **RHF parity.** Derive a bounded plan from the ten-family matrix above and
-   the [completed W3 foundation](2026-08-09-v5-rhf-w3-plan.md). Name existing
-   controls, new thin adapters, public types/exports, relevant stories and stable
-   behavioral/packed seams. Qualify every family and retain Formik regression
-   proof. If an upstream control migration is a prerequisite, deliver that seam
+1. **RHF parity.** Finish the [approved execution plan](2026-10-23-v5-rhf-parity-plan.md)
+   for the ten-family matrix above, extending the
+   [completed W3 foundation](2026-08-09-v5-rhf-w3-plan.md). Review both draft
+   layers, qualify every family and retain Formik regression proof. If an upstream
+   control migration is a prerequisite, deliver that seam
    before its adapter rather than duplicating widget logic.
    The accepted application proof route is a refreshed GBL RHF journey plus
    packed synthetic coverage of every family, alongside retained Klicker Formik

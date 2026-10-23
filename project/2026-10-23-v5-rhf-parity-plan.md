@@ -277,60 +277,66 @@ substitute or a claim of GA readiness.
 
 ## Progress
 
-- Status: executable batch approved by the user on October23. Active slice2 correction;
-  implementation owner main, standard execution mode.
-- Completed: four interview rulings accepted; ADR0006/0007 and roadmap/assessment
-  reconciliation committed separately as `afcc2b912eef289772af624ef767e92262c20ce3`.
-  Native stack initialized with custom trunk `rs/v5-ga-qualification` and first
-  layer `rs/v5-rhf-fields`; no earlier-stack topology changed.
-- Planning review: same configured planner `01a16863-27e9-7ba3-94ab-618a87306f10`
-  APPROVED in round2 after verified textarea-name/type coverage and ownership
-  sequencing corrections. Optional rival pass produced no usable review and is
-  unpassed; the native review remains valid. Transcript:
-  `project/_local/reviews/2026-10-23-rhf-parity-plan-hardening.md`.
-- Verified dependency: `afcc2b912eef289772af624ef767e92262c20ce3`; refreshed refs
-  October23,89 ahead/0 behind v5. No target integration is needed for this batch.
-- Required delivery: two reviewed, independently green draft PRs. Achieved:
-  approved plan and local native topology. Remaining: slices1–4; real GBL
-  qualification remains a separately planned consumer package afterward.
-- Documentation review: Claude weekly-limit failure occurred before useful work.
-  User explicitly authorized bounded AGY Gemini3.8Flash high fallback review of
-  the five-file decision commit plus supporting form source, excluding this
-  unpublished plan and sensitive data. That distinct final review is running;
-  preserve its private receipts and finish it before publishing the decision
-  commit. No additional destination authorization is inferred.
-- Slice1 complete at `a306197715d7ff704dad9277f3c2d6f6a2dcb4f9`: package
-  types/lint, built Ladle and16focused RHF browser cases pass. Configured
-  simplifier and risk reviewer returned no findings; private reports retained.
-- Slice2 source adds textarea, switch and both PIN adapters, shared numeric
-  control, minimal legacy seams and behavioral/type/packed/Next fixtures.
-  Seventy-one browser contracts and package types/lint pass. Both packed type/
-  runtime cells pass; Next cells, deterministic visuals and layer review remain
-  in progress. Captured neutral/UZH390/1440synthetic errors; manualGA proof open.
-- Documentation fallback passes canonical schema with no findings after its
-  bounded same-conversation correction; `afcc2b912` pushed and PR218 body updated.
-- Next: finish first-layer qualification, commit/review and native draft creation,
-  then continue the picker layer. No native goal, merge,
-  ready conversion, publication, deployment or consumer-runtime change started.
+Status: implementation complete locally through the picker slice; draft delivery
+and integrated review are in progress. Main remains the accountable owner in
+standard mode. No product ruling or new execution approval is needed.
 
-### First-layer draft and correction evidence
+Decision commit `afcc2b912eef289772af624ef767e92262c20ce3` contains the accepted
+ADRs and roadmap reconciliation. The configured planner approved this plan in
+round2. Claude reached its weekly limit before documentation review; the
+explicitly approved AGY Gemini 3.8 Flash high fallback passed canonical schema
+validation with no findings. Private review receipts are retained under
+`project/_local/reviews/`. The decision commit is pushed on the qualification
+branch and reflected in [draft PR218](https://github.com/uzh-bf/design-system/pull/218).
 
-Draft PR219 is based on `rs/v5-ga-qualification`; the prior stack remains
-unchanged. First tip81f6a3e3f passed both RHF packed/Next cells,71contracts,
-29pinnedvisuals,704CSS token assertions, budgets and74relevant a11y cases.
-Five reviewed synthetic captures were uploaded through `gh` and rendered in
-GitHub; private receipts preserve bytes/source and image load verification.
-Hosted CI is still watched separately and is not represented as passed.
+### Basic layer
 
-Forge review found duplicate root styling and a narrow fluid switch. The first
-correction3858c0f61 passed types/lint and20RHFcontracts, including a measured
-padding/width regression. Same-child risk review confirmed it and found the
-same field-slot duplication on both PIN adapters; main accepted and fixed those
-instances with the same observable regression. Required review remains pending
-integrated final acceptance. No human review was requested and no merge occurred.
-The unpublished picker layer was stashed while correcting the lower branch;
-restore its latest named stash after propagating the correction natively.
+[Draft PR219](https://github.com/uzh-bf/design-system/pull/219), tip
+`cf9549b89a29660993ab312492ad640bba73d13d`, adds the accepted error contract,
+textarea, switch and both PIN adapters. Its base is `rs/v5-ga-qualification`.
+The source keeps Formik and shares the numeric control. Slice simplification
+and risk review were completed; verified slot ownership and fluid-width findings
+were corrected with measured browser regressions. A later forge comment repeats
+the fluid-width issue already corrected and covered by that regression.
 
-The review-driven correction stays inside the approved public contract and two
-layer topology. The overall first layer remains within its estimated1,200–1,800
-substantive lines; no additional PR boundary is introduced.
+The initial basic tip passed types/lint, 71 focused browser contracts, 74 relevant
+axe story cases, both RHF packed/Next cells, 29 pinned visuals, 704 packed CSS
+token assertions and package budgets. All styling corrections pass 20 focused
+RHF contracts. Four corrected neutral/UZH desktop/mobile captures replace the
+superseded error-state images in the PR; the unchanged timing capture is marked
+historical. Attachment read-back and byte receipts are retained privately.
+Hosted CI at the current tip is queued on `ubuntu-latest`; it has no assigned
+runner and is not counted as passed. A single watcher owns that run.
+
+### Picker layer and integrated candidate
+
+The dependent local branch `rs/v5-rhf-pickers` adds color, date and date/time
+adapters, typed paths, the existing RHF reset signal, native focus seams and
+associated errors. Color retains staged edits and Apply/cancel behavior. Date
+and time retain `Date | undefined`, browsing and partial-edit behavior. Button
+triggers expose required markers through their labels rather than unsupported
+`aria-required`; accessible names include visible date/time values. The first
+accessibility run identified these association defects; the corrected 98-story
+run passes without new serious/critical exceptions.
+
+The integrated source passes types/lint, 74 RHF/shared-input/field behavior cases,
+both RHF 7.59.0/7.90.0 packed type/runtime cells and Next Turbopack/Webpack builds
+with eight browser cases per cell, 29 pinned visual cases, packed CSS and budgets.
+Long German-label fixtures exercise existing wrapping hooks; compact LTR/RTL
+layout and focus checks pass. All 102 relevant axe story cases pass, including
+these fixtures. The current gallery and final exact-source checks are being
+finished before publication. No existing control or dependency major was
+replaced. The new layers remain a separate native stack with custom trunk
+`rs/v5-ga-qualification`; the earlier eight-layer stack is unchanged.
+
+Remaining package gates: immutable picker slice reviews, inspected/published
+picker gallery, second draft creation and remote topology verification,
+integrated final review, current artifact identity and required hosted CI at both
+tips. The current lower layer is published; the upper layer has no PR yet.
+Native goals, merge, marking ready, release/publication, deployment and consumer
+runtime changes have not been started by this package.
+
+After the DS drafts qualify, the selected GBL RHF journey requires its own
+consumer-owned plan and proof against the exact candidate. Retained Klicker
+Formik evidence remains separate. Screen-reader, Safari and physical-device
+acceptance are still manual GA gates; synthetic Chromium checks do not close them.

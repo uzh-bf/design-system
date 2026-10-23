@@ -3,8 +3,13 @@
 import {
   Form,
   RhfAlphaNumericPinField,
+  RhfColorPicker,
+  RhfDatePicker,
+  RhfDatetimePicker,
+  RhfMultiSelect,
   RhfNumberField,
   RhfPinField,
+  RhfSelectField,
   RhfSwitchField,
   RhfTextField,
   RhfTextareaField,
@@ -19,6 +24,11 @@ type FormValues = {
   enabled: boolean
   pin: string
   code: string
+  color: string
+  day: Date | undefined
+  timestamp: Date | undefined
+  location: string
+  elements: string[]
 }
 
 export function RhfLeaf() {
@@ -35,6 +45,11 @@ export function RhfLeaf() {
       enabled: false,
       pin: '',
       code: '',
+      color: '#0028a5',
+      day: undefined,
+      timestamp: undefined,
+      location: '',
+      elements: [],
     },
   })
 
@@ -78,6 +93,42 @@ export function RhfLeaf() {
           length={4}
           uppercaseOnly
         />
+        <RhfColorPicker
+          control={form.control}
+          name="color"
+          label="Color"
+          submitText="Apply color"
+          colorLabel="Hex color"
+          triggerAriaLabel="Choose color"
+          dataHexInput={{ test: 'packed-color-hex' }}
+        />
+        <RhfDatePicker control={form.control} name="day" label="Day" />
+        <RhfDatetimePicker
+          control={form.control}
+          name="timestamp"
+          label="Time"
+        />
+        <RhfSelectField
+          control={form.control}
+          name="location"
+          label="Location"
+          items={[{ value: 'zurich', label: 'Zurich' }]}
+        />
+        <RhfMultiSelect
+          control={form.control}
+          name="elements"
+          label="Elements"
+          items={[{ value: 'event', label: 'Event' }]}
+        />
+        <button
+          type="button"
+          onClick={() => {
+            form.setValue('day', new Date(2025, 4, 15, 9))
+            form.setValue('timestamp', new Date(2025, 4, 15, 9))
+          }}
+        >
+          Set dates
+        </button>
         <output data-testid="all-values">{allValues}</output>
         <button type="submit">Submit RHF form</button>
         <output data-testid="submitted-value">{submittedName}</output>
@@ -94,6 +145,11 @@ export function RhfLeaf() {
               enabled: false,
               pin: '',
               code: '',
+              color: '#0028a5',
+              day: undefined,
+              timestamp: undefined,
+              location: '',
+              elements: [],
             })
           }
         >

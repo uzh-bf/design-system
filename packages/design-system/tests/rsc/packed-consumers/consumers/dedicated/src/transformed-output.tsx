@@ -6,6 +6,9 @@ import {
   FormLabel,
   FormMessage,
   RhfAlphaNumericPinField,
+  RhfColorPicker,
+  RhfDatePicker,
+  RhfDatetimePicker,
   RhfPinField,
   RhfSwitchField,
   RhfTextareaField,
@@ -15,20 +18,26 @@ import { useForm } from 'react-hook-form'
 type FormValues = {
   name: string
   enabled: boolean
+  day: Date | undefined
 }
 
 type TransformedValues = {
   name: number
   enabled: boolean
+  day: Date | undefined
 }
 
 // FormField must thread the transformed values type through ControllerProps
 // so a Controller-based field can compose with a transformed submit payload.
 export function TransformedOutputForm() {
   const form = useForm<FormValues, unknown, TransformedValues>({
-    defaultValues: { name: '', enabled: false },
+    defaultValues: { name: '', enabled: false, day: undefined },
     resolver: (values) => ({
-      values: { name: Number(values.name), enabled: values.enabled },
+      values: {
+        name: Number(values.name),
+        enabled: values.enabled,
+        day: values.day,
+      },
       errors: {},
     }),
   })
@@ -62,6 +71,15 @@ export function TransformedOutputForm() {
           name="name"
           length={4}
         />
+        <RhfColorPicker
+          control={form.control}
+          name="name"
+          submitText="Apply"
+          colorLabel="Hex"
+          triggerAriaLabel="Choose color"
+        />
+        <RhfDatePicker control={form.control} name="day" />
+        <RhfDatetimePicker control={form.control} name="day" />
         <button type="submit">Submit transformed form</button>
       </form>
     </Form>

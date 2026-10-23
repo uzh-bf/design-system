@@ -1,6 +1,9 @@
 'use client'
 
 export * from './forms/RhfAlphaNumericPinField'
+export * from './forms/RhfColorPicker'
+export * from './forms/RhfDatePicker'
+export * from './forms/RhfDatetimePicker'
 export * from './forms/RhfMultiSelect'
 export * from './forms/RhfNumberField'
 export * from './forms/RhfPinField'
