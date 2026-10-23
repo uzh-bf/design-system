@@ -477,3 +477,36 @@ test('shared numeric PIN preserves Formik paste, touched timing and reset', asyn
     JSON.stringify({ value: '', touched: false })
   )
 })
+
+test('basic adapter padding applies once and fluid switches span the field row', async ({
+  page,
+}) => {
+  await gotoStory(page, 'rhf-fields--basic-inputs')
+  const notes = page.getByRole('textbox', { name: 'Notes', exact: true })
+  const toggle = page.getByRole('switch', { name: 'Enabled', exact: true })
+  for (const control of [notes, toggle]) {
+    const horizontalPadding = await control.evaluate((element) => {
+      let padding = 0
+      for (
+        let node = element.parentElement;
+        node && node.tagName !== 'FORM';
+        node = node.parentElement
+      ) {
+        const style = getComputedStyle(node)
+        padding +=
+          parseFloat(style.paddingLeft) + parseFloat(style.paddingRight)
+      }
+      return padding
+    })
+    expect(horizontalPadding).toBe(32)
+  }
+  const dimensions = await toggle.evaluate((element) => {
+    const inner = element.parentElement!
+    const row = inner.parentElement!
+    return {
+      inner: inner.getBoundingClientRect().width,
+      row: row.getBoundingClientRect().width,
+    }
+  })
+  expect(Math.abs(dimensions.inner - dimensions.row)).toBeLessThan(1)
+})

@@ -69,7 +69,13 @@ export function RhfSwitchField<
         aria-labelledby={props['aria-labelledby']}
         aria-describedby={state.describedBy}
         aria-invalid={state.showError}
-        className={props.className}
+        className={{
+          element: props.className?.element,
+          thumb: props.className?.thumb,
+          label: props.className?.label,
+          tooltip: props.className?.tooltip,
+          root: props.fluid ? 'w-full' : undefined,
+        }}
       />
     </RhfFieldShell>
   )

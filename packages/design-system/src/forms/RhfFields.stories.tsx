@@ -464,6 +464,7 @@ function BasicInputsForm({ explicit = false }: { explicit?: boolean }) {
         label="Notes"
         description="Longer text for the activity."
         maxLength={40}
+        className={{ root: 'p-4' }}
         ref={notesRef}
         rules={{ required: 'Enter notes.' }}
         data={{ test: 'rhf-notes' }}
@@ -472,6 +473,8 @@ function BasicInputsForm({ explicit = false }: { explicit?: boolean }) {
         control={control}
         name="enabled"
         label="Enabled"
+        fluid
+        className={{ root: 'p-4' }}
         ref={switchRef}
         rules={{ validate: (value) => value || 'Enable this option.' }}
         data={{ test: 'rhf-enabled' }}

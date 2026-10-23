@@ -94,7 +94,7 @@ export function RhfTextareaField<
         aria-labelledby={props['aria-labelledby'] ?? state.labelId}
         aria-describedby={state.describedBy}
         aria-invalid={state.showError}
-        className={props.className}
+        className={{ input: props.className?.input }}
       />
     </RhfFieldShell>
   )
