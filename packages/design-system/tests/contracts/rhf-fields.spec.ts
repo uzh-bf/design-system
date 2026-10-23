@@ -271,6 +271,7 @@ test.describe('RHF field wrappers', () => {
 
     await select.click()
     await expect(select).toHaveAttribute('aria-expanded', 'true')
+    await expect(page.getByRole('option').first()).toBeFocused()
     await page.locator(text('blur-contract-outside')).click({ force: true })
     await expect(page.locator(text('select-blur-count'))).toHaveText('2')
   })
