@@ -1,6 +1,6 @@
 # RHF owns validation timing; adapters default to inline errors
 
-Status: Accepted (2026-10-23); implementation pending
+Status: Accepted (2026-10-23); implemented and qualified in draft PR219/PR220, unmerged
 
 All RHF adapters will default to inline error messages, with tooltip presentation available explicitly, so recovery guidance remains visible. Adapters will display errors already produced by RHF, including configured on-change validation and manual/server `setError` calls, without an additional touched-or-submitted gate; explicit caller suppression remains available. This deliberately changes the four existing RHF adapters as well as the seven planned adapters before v5 GA, superseding the W3 presentation and timing rules while preserving Formik presentation and validation behavior.
 
