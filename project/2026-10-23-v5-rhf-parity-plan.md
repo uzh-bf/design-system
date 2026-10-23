@@ -277,7 +277,7 @@ substitute or a claim of GA readiness.
 
 ## Progress
 
-- Status: executable batch approved by the user on October23. Active slice1;
+- Status: executable batch approved by the user on October23. Active slice2;
   implementation owner main, standard execution mode.
 - Completed: four interview rulings accepted; ADR0006/0007 and roadmap/assessment
   reconciliation committed separately as `afcc2b912eef289772af624ef767e92262c20ce3`.
@@ -299,6 +299,16 @@ substitute or a claim of GA readiness.
   unpublished plan and sensitive data. That distinct final review is running;
   preserve its private receipts and finish it before publishing the decision
   commit. No additional destination authorization is inferred.
-- Next: commit this approved plan first on `rs/v5-rhf-fields`, implement and
-  verify slice1, then proceed through the approved batch. No native goal, merge,
+- Slice1 complete at `a306197715d7ff704dad9277f3c2d6f6a2dcb4f9`: package
+  types/lint, built Ladle and16focused RHF browser cases pass. Configured
+  simplifier and risk reviewer returned no findings; private reports retained.
+- Slice2 source adds textarea, switch and both PIN adapters, shared numeric
+  control, minimal legacy seams and behavioral/type/packed/Next fixtures.
+  Seventy-one browser contracts and package types/lint pass. Both packed type/
+  runtime cells pass; Next cells, deterministic visuals and layer review remain
+  in progress. Captured neutral/UZH390/1440synthetic errors; manualGA proof open.
+- Documentation fallback passes canonical schema with no findings after its
+  bounded same-conversation correction; `afcc2b912` pushed and PR218 body updated.
+- Next: finish first-layer qualification, commit/review and native draft creation,
+  then continue the picker layer. No native goal, merge,
   ready conversion, publication, deployment or consumer-runtime change started.

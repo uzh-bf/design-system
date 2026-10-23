@@ -2,11 +2,7 @@
 
 import { useField } from 'formik'
 import React from 'react'
-import { twMerge } from 'tailwind-merge'
-import FormLabel from '../FormLabel'
-import { InputOTP, InputOTPGroup, InputOTPSlot } from '../ui/input-otp'
-import { FieldErrorIndicator } from './FieldErrorIndicator'
-import { useFieldError } from './useFieldError'
+import PinField from './PinField'
 
 export interface FormikPinFieldProps {
   id?: string
@@ -62,87 +58,26 @@ export function FormikPinField({
   data,
 }: FormikPinFieldProps) {
   const [field, meta, helpers] = useField(name)
-  const { inputId, visibleError, errorId } = useFieldError({
-    id,
-    error: !!meta.error && meta.touched ? meta.error : undefined,
-    isTouched: meta.touched,
-    hideError,
-  })
 
   return (
-    <div
-      className={twMerge(
-        'flex w-full flex-row',
-        labelType === 'small' && 'flex-col',
-        className?.field
-      )}
-    >
-      {label && (
-        <FormLabel
-          id={inputId}
-          required={required}
-          label={label}
-          labelType={labelType}
-          tooltip={tooltip}
-          className={{ label: className?.label, tooltip: className?.tooltip }}
-        />
-      )}
-
-      <div className="flex w-full flex-row items-center gap-2">
-        <InputOTP
-          id={inputId}
-          aria-label={label ? undefined : 'PIN code'}
-          aria-required={required || undefined}
-          aria-describedby={visibleError ? errorId : undefined}
-          maxLength={length}
-          value={field.value}
-          onChange={async (newValue) => {
-            const sanitizedValue = newValue
-              .replace(/\s+/g, '')
-              .replace(/[^0-9]/g, '')
-              .slice(0, length)
-            await helpers.setValue(sanitizedValue)
-            await helpers.setTouched(true)
-          }}
-          onPaste={async (event) => {
-            const pastedValue = event.clipboardData?.getData('text')
-
-            if (pastedValue) {
-              event.preventDefault()
-              const sanitizedValue = pastedValue
-                .replace(/\s+/g, '')
-                .replace(/[^0-9]/g, '')
-                .slice(0, length)
-              await helpers.setValue(sanitizedValue)
-              await helpers.setTouched(true)
-            }
-          }}
-          className={className?.input}
-        >
-          <InputOTPGroup>
-            {...Array(length)
-              .fill('')
-              .map((_, index) => (
-                <InputOTPSlot
-                  key={index}
-                  index={index}
-                  data-cy={`${data?.cy}-${index + 1}`}
-                  data-test={`${data?.test}-${index + 1}`}
-                  className={twMerge(
-                    !!meta.error &&
-                      meta.touched &&
-                      'border-destructive bg-destructive-background border-y',
-                    className?.inputItem
-                  )}
-                />
-              ))}
-          </InputOTPGroup>
-        </InputOTP>
-        {visibleError && (
-          <FieldErrorIndicator error={visibleError} errorId={errorId} />
-        )}
-      </div>
-    </div>
+    <PinField
+      id={id}
+      value={field.value}
+      onChange={async (newValue) => {
+        await helpers.setValue(newValue)
+        await helpers.setTouched(true)
+      }}
+      length={length}
+      required={required}
+      label={label}
+      labelType={labelType}
+      tooltip={tooltip}
+      hideError={hideError}
+      error={!!meta.error && meta.touched ? meta.error : undefined}
+      isTouched={meta.touched}
+      className={className}
+      data={data}
+    />
   )
 }
 

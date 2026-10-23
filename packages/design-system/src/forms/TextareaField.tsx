@@ -41,6 +41,7 @@ interface TextareaFieldProps
     error?: string
     tooltip?: string
   }
+  invalid?: boolean
   ref?: React.Ref<HTMLTextAreaElement>
 }
 
@@ -53,7 +54,7 @@ export interface TextareaFieldNameProps extends TextareaFieldProps {
 }
 
 export interface TextareaFieldOnChangeProps extends TextareaFieldProps {
-  name?: never
+  name?: string
   field?: never
   value: string
   onChange: (newValue: string) => void
@@ -109,6 +110,7 @@ export function TextareaField({
   disabled,
   className,
   ref,
+  invalid,
   'aria-describedby': callerDescribedBy,
   ...props
 }: TextareaFieldNameProps | TextareaFieldOnChangeProps) {
@@ -155,7 +157,7 @@ export function TextareaField({
               placeholder={placeholder}
               maxLength={maxLength}
               disabled={disabled}
-              invalid={!!error && isTouched}
+              invalid={invalid ?? (!!error && isTouched)}
               className={twMerge(
                 'focus:border-input w-full text-base',
                 !!error &&
@@ -167,6 +169,7 @@ export function TextareaField({
             />
           ) : (
             <Textarea
+              name={name}
               id={inputId}
               ref={ref}
               aria-required={required || undefined}
@@ -182,7 +185,7 @@ export function TextareaField({
               placeholder={placeholder}
               maxLength={maxLength}
               disabled={disabled}
-              invalid={!!error && isTouched}
+              invalid={invalid ?? (!!error && isTouched)}
               className={twMerge(
                 'focus:border-input w-full text-base',
                 !!error &&

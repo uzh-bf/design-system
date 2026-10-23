@@ -17,11 +17,14 @@ export interface AlphaNumericPinFieldClassName {
 
 export interface AlphaNumericPinFieldProps {
   id?: string
+  name?: string
   ref?: React.Ref<HTMLInputElement>
   value: string
-  onChange: (newValue: string) => Promise<void>
+  onChange: (newValue: string) => void | Promise<void>
+  onBlur?: React.FocusEventHandler<HTMLInputElement>
   length: number
   required?: boolean
+  disabled?: boolean
   label?: string
   labelType?: 'small' | 'large'
   tooltip?: string | React.ReactNode
@@ -31,6 +34,10 @@ export interface AlphaNumericPinFieldProps {
   uppercaseOnly?: boolean
   className?: AlphaNumericPinFieldClassName
   data?: { cy?: string; test?: string }
+  'aria-invalid'?: React.AriaAttributes['aria-invalid']
+  'aria-label'?: string
+  'aria-labelledby'?: string
+  'aria-describedby'?: string
 }
 
 /**
@@ -38,10 +45,13 @@ export interface AlphaNumericPinFieldProps {
  * It mirrors the styling and behavior of the numeric FormikPinField, but allows A–Z and 0–9 input.
  *
  * @param id - The id of the input field.
+ * @param name - The native name of the input field.
  * @param value - The current value of the segmented alphanumeric input (string of length 0..length).
  * @param onChange - The change handler called with the updated value when input changes.
+ * @param onBlur - The blur handler called by the native input.
  * @param length - The length of the pin (number of characters).
  * @param required - Indicate whether the field is required or not.
+ * @param disabled - Indicate whether the field is disabled or not.
  * @param label - The text displayed as label.
  * @param labelType - The optional labelType can be used to change the size and position of the label according to pre-defined standards.
  * @param tooltip - The optional tooltip is shown on hover over the tooltip next to the label.
@@ -55,11 +65,14 @@ export interface AlphaNumericPinFieldProps {
  */
 export function AlphaNumericPinField({
   id,
+  name,
   ref,
   value,
   onChange,
+  onBlur,
   length,
   required = false,
+  disabled = false,
   label,
   labelType = 'small',
   tooltip,
@@ -69,13 +82,24 @@ export function AlphaNumericPinField({
   uppercaseOnly = false,
   className,
   data,
+  'aria-invalid': ariaInvalid,
+  'aria-label': ariaLabel,
+  'aria-labelledby': ariaLabelledby,
+  'aria-describedby': ariaDescribedBy,
 }: AlphaNumericPinFieldProps) {
-  const { inputId, visibleError, errorId } = useFieldError({
+  const { inputId, visibleError, errorId, describedBy } = useFieldError({
     id,
     error,
     isTouched,
     hideError,
+    describedBy: ariaDescribedBy,
   })
+  const isInvalid =
+    (!!error && !!isTouched) ||
+    (ariaInvalid !== undefined &&
+      ariaInvalid !== false &&
+      ariaInvalid !== 'false')
+
   return (
     <div
       className={twMerge(
@@ -99,9 +123,16 @@ export function AlphaNumericPinField({
         <InputOTP
           id={inputId}
           ref={ref}
-          aria-label={label ? undefined : 'PIN code'}
+          name={name}
+          disabled={disabled}
+          onBlur={onBlur}
+          aria-invalid={ariaInvalid}
+          aria-label={
+            ariaLabel ?? (label || ariaLabelledby ? undefined : 'PIN code')
+          }
+          aria-labelledby={ariaLabelledby}
           aria-required={required || undefined}
-          aria-describedby={visibleError ? errorId : undefined}
+          aria-describedby={describedBy}
           maxLength={length}
           inputMode="text" // accept alphanumeric input
           pattern="[A-Za-z0-9]*" // restrict to alphanumeric at the input level
@@ -137,8 +168,7 @@ export function AlphaNumericPinField({
                   data-cy={`${data?.cy}-${index + 1}`}
                   data-test={`${data?.test}-${index + 1}`}
                   className={twMerge(
-                    !!error &&
-                      isTouched &&
+                    isInvalid &&
                       'border-destructive bg-destructive-background border-y',
                     className?.inputItem
                   )}

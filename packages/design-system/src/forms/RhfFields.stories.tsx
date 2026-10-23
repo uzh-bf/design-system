@@ -1,14 +1,20 @@
+import { Formik, Form as FormikForm } from 'formik'
 import { useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import FormikPinField from './FormikPinField'
 
 import { Button } from '../Button'
 import MultiSelect from '../MultiSelect'
 import Select from '../Select'
 import {
   Form,
+  RhfAlphaNumericPinField,
   RhfMultiSelect,
   RhfNumberField,
+  RhfPinField,
   RhfSelectField,
+  RhfSwitchField,
+  RhfTextareaField,
   RhfTextField,
 } from '../react-hook-form'
 
@@ -423,3 +429,196 @@ function ErrorTimingForm() {
 }
 
 export const ErrorTiming = () => <ErrorTimingForm />
+
+type BasicValues = {
+  notes: string
+  enabled: boolean
+  pin: string
+  code: string
+}
+function BasicInputsForm({ explicit = false }: { explicit?: boolean }) {
+  const [disabled, setDisabled] = useState(false)
+  const [submitted, setSubmitted] = useState('')
+  const [native, setNative] = useState('')
+  const form = useForm<BasicValues>({
+    mode: 'onBlur',
+    disabled,
+    defaultValues: { notes: '', enabled: false, pin: '', code: '' },
+  })
+  const notesRef = useRef<HTMLTextAreaElement>(null)
+  const switchRef = useRef<HTMLButtonElement>(null)
+  const pinRef = useRef<HTMLInputElement>(null)
+  const codeRef = useRef<HTMLInputElement>(null)
+  const control = explicit ? form.control : undefined
+  const content = (
+    <form
+      noValidate
+      className="flex w-full max-w-96 flex-col gap-4"
+      onSubmit={form.handleSubmit((values) =>
+        setSubmitted(JSON.stringify(values))
+      )}
+    >
+      <RhfTextareaField
+        control={control}
+        name="notes"
+        label="Notes"
+        description="Longer text for the activity."
+        maxLength={40}
+        ref={notesRef}
+        rules={{ required: 'Enter notes.' }}
+        data={{ test: 'rhf-notes' }}
+      />
+      <RhfSwitchField
+        control={control}
+        name="enabled"
+        label="Enabled"
+        ref={switchRef}
+        rules={{ validate: (value) => value || 'Enable this option.' }}
+        data={{ test: 'rhf-enabled' }}
+      />
+      <RhfPinField
+        control={control}
+        name="pin"
+        label="Numeric PIN"
+        length={4}
+        ref={pinRef}
+        rules={{ minLength: { value: 4, message: 'Enter four digits.' } }}
+        data={{ test: 'rhf-pin' }}
+      />
+      <RhfAlphaNumericPinField
+        control={control}
+        name="code"
+        label="Access code"
+        length={4}
+        uppercaseOnly
+        ref={codeRef}
+        data={{ test: 'rhf-code' }}
+      />
+      <div className="flex flex-wrap gap-2">
+        <Button type="submit" data-test="rhf-basic-submit">
+          Submit
+        </Button>
+        <Button
+          type="button"
+          data-test="rhf-basic-native"
+          onClick={(event) => {
+            if (!event?.currentTarget.form) return
+            setNative(
+              JSON.stringify(
+                Object.fromEntries(new FormData(event.currentTarget.form))
+              )
+            )
+          }}
+        >
+          Read native values
+        </Button>
+        <Button
+          type="button"
+          data-test="rhf-basic-reset"
+          onClick={() =>
+            form.reset({
+              notes: 'Reset',
+              enabled: true,
+              pin: '0021',
+              code: 'AB12',
+            })
+          }
+        >
+          Reset values
+        </Button>
+        <Button
+          type="button"
+          data-test="rhf-basic-reset-field"
+          onClick={() => form.resetField('pin')}
+        >
+          Reset PIN
+        </Button>
+        <Button
+          type="button"
+          data-test="rhf-basic-set-value"
+          onClick={() => form.setValue('pin', '0007')}
+        >
+          Set PIN
+        </Button>
+        <Button
+          type="button"
+          data-test="rhf-basic-disable"
+          onClick={() => setDisabled((value) => !value)}
+        >
+          Toggle disabled
+        </Button>
+        {[
+          ['notes', notesRef],
+          ['switch', switchRef],
+          ['pin', pinRef],
+          ['code', codeRef],
+        ].map(([name, ref]) => (
+          <Button
+            key={String(name)}
+            type="button"
+            data-test={`rhf-basic-focus-${name}`}
+            onClick={() =>
+              (
+                ref as React.RefObject<
+                  HTMLTextAreaElement | HTMLButtonElement | HTMLInputElement
+                >
+              ).current?.focus()
+            }
+          >
+            Focus {String(name)}
+          </Button>
+        ))}
+      </div>
+      <output data-test="rhf-basic-submitted">{submitted}</output>
+      <output data-test="rhf-basic-native-values">{native}</output>
+      <output data-test="rhf-basic-values">
+        {JSON.stringify(form.watch())}
+      </output>
+      <output data-test="rhf-basic-touched">
+        {JSON.stringify(form.formState.touchedFields)}
+      </output>
+      <output data-test="rhf-basic-dirty">
+        {JSON.stringify(form.formState.dirtyFields)}
+      </output>
+    </form>
+  )
+  return explicit ? content : <Form {...form}>{content}</Form>
+}
+
+export const BasicInputs = () => <BasicInputsForm />
+export const ExplicitBasicInputs = () => <BasicInputsForm explicit />
+
+export const FormikPinCompatibility = () => (
+  <Formik
+    initialValues={{ pin: '' }}
+    validate={(values) =>
+      values.pin.length === 4 ? {} : { pin: 'Enter four digits.' }
+    }
+    onSubmit={() => undefined}
+  >
+    {(form) => (
+      <FormikForm className="flex w-full max-w-96 flex-col gap-4">
+        <FormikPinField
+          name="pin"
+          label="Legacy PIN"
+          length={4}
+          required
+          data={{ test: 'legacy-pin' }}
+        />
+        <output data-test="legacy-pin-state">
+          {JSON.stringify({
+            value: form.values.pin,
+            touched: form.touched.pin ?? false,
+          })}
+        </output>
+        <Button
+          type="button"
+          data-test="legacy-pin-reset"
+          onClick={() => form.resetForm()}
+        >
+          Reset
+        </Button>
+      </FormikForm>
+    )}
+  </Formik>
+)

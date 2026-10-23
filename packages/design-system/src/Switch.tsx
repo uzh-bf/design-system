@@ -26,6 +26,12 @@ export interface SwitchProps {
   checked?: boolean
   onCheckedChange: (newValue: boolean) => void
   onBlur?: () => void
+  onFocusOut?: React.FocusEventHandler<HTMLButtonElement>
+  name?: string
+  'aria-label'?: string
+  'aria-labelledby'?: string
+  'aria-describedby'?: string
+  'aria-invalid'?: React.AriaAttributes['aria-invalid']
   disabled?: boolean
   label?: string
   ariaLabel?: string
@@ -72,6 +78,12 @@ export function Switch({
   checked,
   onCheckedChange,
   onBlur,
+  onFocusOut,
+  name,
+  'aria-label': nativeLabel,
+  'aria-labelledby': labelledBy,
+  'aria-describedby': describedBy,
+  'aria-invalid': invalid,
   fluid = false,
   error,
   hideError = false,
@@ -132,7 +144,16 @@ export function Switch({
       <RadixSwitch.Root
         id={inputId}
         ref={ref}
-        aria-label={!label ? (ariaLabel ?? 'Toggle') : undefined}
+        name={name}
+        aria-required={required || undefined}
+        aria-label={
+          !label
+            ? (nativeLabel ?? ariaLabel ?? (labelledBy ? undefined : 'Toggle'))
+            : undefined
+        }
+        aria-labelledby={labelledBy}
+        aria-describedby={describedBy}
+        aria-invalid={invalid}
         data-cy={data?.cy}
         data-test={data?.test}
         checked={checked}
@@ -140,13 +161,18 @@ export function Switch({
           'bg-input disabled:bg-muted relative cursor-pointer rounded-full border-0 disabled:cursor-not-allowed',
           checked && 'bg-primary-100',
           checked && disabled && 'bg-primary-20!',
-          !!error && !hideError && 'outline-destructive outline-2',
+          ((!!error && !hideError) ||
+            (invalid !== undefined &&
+              invalid !== false &&
+              invalid !== 'false')) &&
+            'outline-destructive outline-2',
           rootSize[size || 'md'],
           labelLeft && 'mr-2',
           className?.element
         )}
         onCheckedChange={!disabled ? onCheckedChange : () => null}
         onClick={() => (onBlur ? onBlur() : null)}
+        onBlur={onFocusOut}
         disabled={disabled}
       >
         <RadixSwitch.Thumb
