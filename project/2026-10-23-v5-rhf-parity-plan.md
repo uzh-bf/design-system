@@ -283,8 +283,8 @@ Required hosted CI passes at both tested source tips. The basic layer passes at
 `cf9549b89`; the picker layer passes at `4feb499d6`, including all accessibility
 shards, inventory closure, both RHF consumer cells and Build. Its browser jobs
 permit one fifteen-minute install within existing seventeen-minute step budgets.
-Final documentation-tip CI and a quiet settle remain before closing draft
-qualification. Main owns those remaining gates in standard mode.
+Final documentation tip `fdf4bc6ee` passes CI39970120724; the 14:51 UTC quiet
+settle is complete. Both drafts qualify; the approved CI follow-up is deactivated.
 
 ### Delivery and source
 
@@ -356,8 +356,10 @@ The unpublished candidate from `e49a96a4b705a296cb4f337d9d788ead344bac85` is
 `project/_local/rhf-parity-candidate/uzh-bf-design-system-5.0.0-alpha.5.tgz`.
 SHA-256: `b237f0d7f9b384c84f4027768d5c5391e72e22591c1146ef890f0603a7994f06`.
 All 264 installed package files match the archive byte-for-byte; all 11 adapters
-import through the dedicated entry with RHF 7.90.0 on Node 22. This artifact has
-not been published or accepted by a real consumer.
+import through the dedicated entry with RHF 7.90.0 on Node 22. This artifact remains
+unpublished. The subsequent GBL draft PR224 qualifies
+its recorded RHF journey against this exact candidate; see the current GA
+roadmap for consumer head, evidence boundary and the user merge hold.
 
 The configured simplifiers found no justified net reduction. Verified basic
 slot/width findings were fixed with measured regressions. The picker reviewer
@@ -369,13 +371,15 @@ reports and exact command receipts remain under `project/_local/reviews/`.
 
 ### Remaining boundary
 
-Both tested source tips pass hosted checks. Verify the final documentation-only
-tip and quiet settle before claiming completed draft qualification. No merge, marking ready,
+Both exact published draft heads pass hosted checks and quiet settle. No merge,
+marking ready,
 release/package publication, deployment, native goal or consumer-runtime change
 has occurred under this package.
 
-The selected real GBL RHF journey needs its own current-source consumer plan and
-browser proof against this exact candidate. Retained Klicker Formik evidence
+The selected real GBL RHF journey is delivered and qualified in consumer draft
+PR224 against this exact candidate. Its recorded consumer plan/review owns the
+evidence; later integrated-candidate acceptance is separate. Retained Klicker
+Formik evidence
 remains separate. Screen-reader, Safari and physical-device runs are still
 manual GA gates. Chart ownership, remaining Radix/auxiliary coverage and UZH
 acceptance continue under the roadmap after the consumer package.
