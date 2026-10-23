@@ -198,19 +198,26 @@ standard execution mode and the existing `project/` artifacts root remain in use
   reduction. Source risk reviews accept dependency, public-payload and RSC seams;
   one proposed guard-test finding was verified and retracted. Final review found
   an array-valued tooltip regression, corrected by restoring locale formatting
-  for non-null scalar and range values in the existing payload contract. The configured
-  integrated final review and exact-head hosted CI remain pending. All 42 chart
+  for non-null scalar and range values in the existing payload contract. Independent integrated source review and focused correction reviews pass.
+  Exact-head hosted CI remains pending. All 42 chart
   captures are published and rendered; the same unpublished archive matches all
   268 installed files at both Recharts endpoints. The a11y oracle and CI consumer
   matrix deliberately cover the six new stories and three endpoint cells.
-- **Budget decision:** named imports reduce the responsive wrapper to 10,223 bytes
-  at Recharts 3.8.0 and 10,885 at 3.10.1. The existing 34,000-byte ceiling passes;
+- **Budget decision:** named imports reduce the responsive wrapper to about 10.3 kB
+  at Recharts 3.8.0 and 11.0 kB at 3.10.1. The existing 34,000-byte ceiling passes;
   the historical 25,000-byte positive minimum fails. Recommend changing only that
   minimum to 8,000, retaining the ceiling and resolved-Recharts module marker.
   A disposable proposed-config experiment passes the full size/marker checks.
   The repository guard remains unchanged pending explicit approval.
-- **Next action:** finish final review and hosted qualification around the parked
+- **Next action:** finish hosted qualification around the parked
   budget decision. Apply the proposed bound only after approval, then qualify both
   exact draft tips. Keep consumer repositories, readiness conversion, merging,
   publication and deployment outside this package. Manual AT, Safari/device and
   separate integrated consumer acceptance remain GA gates.
+
+Source completion includes injective chart-style identifiers, omission of an
+all-null tooltip, and measured SVG sizing from an initially hidden panel.
+Reviewed synthetic captures remain applicable because their visible examples
+are unchanged. The positive-minimum proposal is the only outstanding user ruling;
+all other original and forge findings are resolved. Preserve the qualified source
+and keep this draft open while that ruling and hosted checks remain outstanding.

@@ -243,8 +243,8 @@ Current execution: the user approved both first plans on 2026-10-23.
 source review and local verification. [Chart draft #224](https://github.com/uzh-bf/design-system/pull/224)
 carries six plot families, tooltip composition, three packed/Next version cells
 and 42 published synthetic captures. The corrected Radix readiness test passes
-all 130 integrated behavioral contracts. Exact-head CI and final chart review
-remain qualification gates. ChartContainer now measures 10.2–10.9 kB; its 34 kB
+all 130 integrated behavioral contracts. Independent source reviews pass; exact-head CI
+remains a qualification gate. ChartContainer now measures 10.3–11.0 kB; its 34 kB
 ceiling passes, while its historical 25 kB positive minimum needs an explicit
 ruling. Keep that guard unchanged until approval; see the chart plan.
 
