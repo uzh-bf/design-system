@@ -185,6 +185,10 @@ test.describe('Primitive Tabs compatibility', () => {
     page,
   }) => {
     await gotoStory(page, 'tabs--primitive-omitted')
+    await expect(page.locator('[data-test="tabs-root-override"]')).toHaveCSS(
+      'flex-direction',
+      'row'
+    )
     const implicit = page.getByRole('tablist', { name: 'Implicit underline' })
     await expect(implicit).toHaveAttribute('data-variant', 'line')
     await expect(implicit).toHaveCSS('border-bottom-width', '1px')
@@ -195,6 +199,14 @@ test.describe('Primitive Tabs compatibility', () => {
     const override = page.getByRole('tablist', { name: 'Caller styling' })
     await expect(override).toHaveCSS('border-radius', '0px')
     await expect(override).toHaveCSS('column-gap', '20px')
+    await expect(override.getByRole('tab').first()).toHaveCSS(
+      'padding-left',
+      '32px'
+    )
+    await expect(override.getByRole('tab').first()).toHaveCSS(
+      'padding-top',
+      '16px'
+    )
     await gotoStory(page, 'tabs--primitive-variants')
     const lists = page.getByRole('tablist')
     await expect(lists).toHaveCount(4)
@@ -289,4 +301,10 @@ test('primary buttons keep readable text in neutral dark mode', async ({
   await page.mouse.down()
   await expect.poll(contrast).toBeGreaterThanOrEqual(4.5)
   await page.mouse.up()
+  const caller = page.locator('[data-test="button-caller-colors"]')
+  expect(
+    await caller.evaluate((element) => getComputedStyle(element).color)
+  ).not.toBe(
+    await button.evaluate((element) => getComputedStyle(element).color)
+  )
 })

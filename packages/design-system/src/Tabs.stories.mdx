@@ -594,16 +594,16 @@ export const PrimitiveVariants = () => (
 
 export const PrimitiveOmitted = () => (
   <div className="flex flex-col gap-4">
-    <TabsPrimitive defaultValue="one">
+    <TabsPrimitive defaultValue="one" className="flex-row" data-test="tabs-root-override">
       <TabsList aria-label="Implicit underline">
-        <TabsTrigger value="one">One</TabsTrigger><TabsTrigger value="two">Two</TabsTrigger>
+        <TabsTrigger value="one" className="px-8 py-4">One</TabsTrigger><TabsTrigger value="two">Two</TabsTrigger>
       </TabsList>
       <TabContentPrimitive value="one">First panel</TabContentPrimitive><TabContentPrimitive value="two">Second panel</TabContentPrimitive>
     </TabsPrimitive>
     <div data-test="tabs-helper" className={tabsListVariants()}>Underline helper without arguments</div>
     <TabsPrimitive defaultValue="one">
       <TabsList variant="default" aria-label="Caller styling" className="w-full gap-5 rounded-none">
-        <TabsTrigger value="one">One</TabsTrigger><TabsTrigger value="two">Two</TabsTrigger>
+        <TabsTrigger value="one" className="px-8 py-4">One</TabsTrigger><TabsTrigger value="two">Two</TabsTrigger>
       </TabsList>
       <TabContentPrimitive value="one">First panel</TabContentPrimitive><TabContentPrimitive value="two">Second panel</TabContentPrimitive>
     </TabsPrimitive>
