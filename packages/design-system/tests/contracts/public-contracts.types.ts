@@ -1,3 +1,6 @@
+import { createElement, type ComponentProps } from 'react'
+import { Button as PrimitiveButton, TabsList, tabsListVariants } from '../../src/primitives'
+
 import type {
   ButtonProps,
   NavigationProps,
@@ -100,3 +103,19 @@ acceptsWorkflowProps({
   ],
   onClick: () => undefined,
 })
+
+const primitiveSizes: ComponentProps<typeof PrimitiveButton>['size'][] = [
+  'default',
+  'sm',
+  'lg',
+  'icon',
+  'xs',
+  'icon-xs',
+  'icon-sm',
+  'icon-lg',
+]
+void primitiveSizes
+createElement(TabsList, { variant: 'default' })
+createElement(TabsList, { variant: 'line' })
+tabsListVariants()
+tabsListVariants({ variant: 'default', className: 'w-full' })

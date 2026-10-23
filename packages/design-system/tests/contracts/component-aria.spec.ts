@@ -87,3 +87,76 @@ test.describe('Collapsible trigger naming', () => {
     ).toHaveCount(0)
   })
 })
+
+test.describe('Primitive Tabs compatibility', () => {
+  test('preserves omitted underline and supports filled, line, vertical and caller styling', async ({
+    page,
+  }) => {
+    await gotoStory(page, 'tabs--primitive-omitted')
+    const implicit = page.getByRole('tablist', { name: 'Implicit underline' })
+    await expect(implicit).toHaveAttribute('data-variant', 'line')
+    await expect(implicit).toHaveCSS('border-bottom-width', '1px')
+    await expect(page.locator('[data-test="tabs-helper"]')).toHaveCSS(
+      'border-bottom-width',
+      '1px'
+    )
+    const override = page.getByRole('tablist', { name: 'Caller styling' })
+    await expect(override).toHaveCSS('border-radius', '0px')
+    await expect(override).toHaveCSS('column-gap', '20px')
+    await gotoStory(page, 'tabs--primitive-variants')
+    const lists = page.getByRole('tablist')
+    await expect(lists).toHaveCount(4)
+    await expect(lists.nth(0)).toHaveCSS('border-bottom-width', '0px')
+    await expect(lists.nth(1)).toHaveCSS('border-bottom-width', '1px')
+    for (const index of [2, 3]) {
+      const list = lists.nth(index)
+      await expect(list).toHaveAttribute('aria-orientation', 'vertical')
+      const tabs = list.getByRole('tab')
+      const first = await tabs.first().boundingBox()
+      const second = await tabs.nth(1).boundingBox()
+      expect(second!.y).toBeGreaterThan(first!.y)
+      await tabs.first().focus()
+      await page.keyboard.press('ArrowDown')
+      await expect(tabs.nth(1)).toBeFocused()
+      await expect(tabs.nth(1)).toHaveAttribute('aria-selected', 'true')
+    }
+    await gotoStory(page, 'tabs--primitive-controlled-manual')
+    const tabs = page.getByRole('tab')
+    await tabs.first().focus()
+    await page.keyboard.press('ArrowRight')
+    await expect(tabs.nth(1)).toBeFocused()
+    await expect(tabs.first()).toHaveAttribute('aria-selected', 'true')
+    await page.keyboard.press('Enter')
+    await expect(tabs.nth(1)).toHaveAttribute('aria-selected', 'true')
+    await page.keyboard.press('ArrowRight')
+    await expect(tabs.first()).toBeFocused()
+    await expect(tabs.nth(2)).toBeDisabled()
+  })
+
+  test('compact buttons retain the size ladder and usable icon bounds', async ({
+    page,
+  }) => {
+    await gotoStory(page, 'button--primitive-sizes')
+    const buttons = page.locator(STORY_SELECTOR).getByRole('button')
+    const heights = [24, 32, 40, 48, 24, 32, 40, 48]
+    for (let index = 0; index < heights.length; index += 1) {
+      const bounds = await buttons.nth(index).boundingBox()
+      expect(bounds!.height).toBe(heights[index])
+      expect(bounds!.width).toBeGreaterThanOrEqual(24)
+      if (index > 0) {
+        const previous = await buttons.nth(index - 1).boundingBox()
+        if (previous!.y === bounds!.y)
+          expect(
+            bounds!.x - previous!.x - previous!.width
+          ).toBeGreaterThanOrEqual(8)
+      }
+    }
+    const compactIcon = buttons.nth(4).locator('svg')
+    await expect(compactIcon).toHaveCSS('width', '12px')
+    await buttons.nth(4).focus()
+    await expect(buttons.nth(4)).toBeFocused()
+    expect(
+      await buttons.nth(4).evaluate((el) => getComputedStyle(el).boxShadow)
+    ).not.toBe('none')
+  })
+})
