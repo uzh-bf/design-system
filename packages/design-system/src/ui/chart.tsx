@@ -1,7 +1,12 @@
 'use client'
 
 import * as React from 'react'
-import * as RechartsPrimitive from 'recharts'
+import type * as RechartsPrimitive from 'recharts'
+import {
+  Legend as ChartLegend,
+  Tooltip as ChartTooltip,
+  ResponsiveContainer,
+} from 'recharts'
 
 import { cn } from '../lib/utils'
 
@@ -44,11 +49,9 @@ function ChartContainer({
   ...props
 }: React.ComponentProps<'div'> & {
   config: ChartConfig
-  children: React.ComponentProps<
-    typeof RechartsPrimitive.ResponsiveContainer
-  >['children']
+  children: React.ComponentProps<typeof ResponsiveContainer>['children']
   initialDimension?: React.ComponentProps<
-    typeof RechartsPrimitive.ResponsiveContainer
+    typeof ResponsiveContainer
   >['initialDimension']
 }) {
   const uniqueId = React.useId()
@@ -66,11 +69,9 @@ function ChartContainer({
         {...props}
       >
         <ChartStyle id={chartId} config={config} />
-        <RechartsPrimitive.ResponsiveContainer
-          initialDimension={initialDimension}
-        >
+        <ResponsiveContainer initialDimension={initialDimension}>
           {children}
-        </RechartsPrimitive.ResponsiveContainer>
+        </ResponsiveContainer>
       </div>
     </ChartContext.Provider>
   )
@@ -108,8 +109,6 @@ ${colorConfig
     />
   )
 }
-
-const ChartTooltip = RechartsPrimitive.Tooltip
 
 type ChartTooltipContentProps = Omit<
   React.ComponentProps<'div'>,
@@ -275,8 +274,6 @@ function ChartTooltipContent({
     </div>
   )
 }
-
-const ChartLegend = RechartsPrimitive.Legend
 
 function ChartLegendContent({
   className,
