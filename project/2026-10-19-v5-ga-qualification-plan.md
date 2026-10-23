@@ -1,5 +1,21 @@
 # v5 dependency remediation and candidate qualification
 
+## Subsequent consumer evidence and scope — 2026-10-23
+
+This package completed reviewed draft delivery at `870879614` in
+[PR218](https://github.com/uzh-bf/design-system/pull/218). Preserve its producing
+source, dependency dispositions, audit date and completed Progress below.
+The subsequent [consumer draft PR6652](https://github.com/uzh-bf/klicker-uzh/pull/6652)
+at `4f6e8c56e36b8ceeaa87ce859d2c736d7c9a71a4` closes the historical routing
+blocker and qualifies the exact candidate; the earlier blocked candidate row
+below records the state at this package's boundary, not the current queue.
+
+The [October 23 GA index](2026-08-10-v5-ga-readiness-roadmap.md#current-execution-index--2026-10-23)
+owns expanded RHF parity, full Radix/auxiliary coverage and current UZH alignment.
+Those are new packages, not unfinished work hidden inside this completed plan.
+Six tooling advisories remained at the October 19 audit; no fresh clearance or
+waiver is claimed. Manual and integrated release qualification remain open.
+
 ## Approval summary
 
 The theme and component-default changes are implemented in the unmerged draft stack. Green library checks do not establish acceptance in a real application. The user requested a Claude progress discussion, a persisted roadmap update and execution with a native goal. This is an **executable batch** within that instruction: correct stale status, remediate compatible dependency advisories, then qualify the resulting immutable package in the existing synthetic Klicker pilot.

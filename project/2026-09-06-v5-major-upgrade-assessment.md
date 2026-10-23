@@ -1,5 +1,20 @@
 # Later-major upgrade assessment
 
+## Superseding scope ruling — 2026-10-23
+
+The version holds below describe the completed compatible-remediation scope.
+The user now requires full official shadcn Radix capabilities and auxiliary
+integrations before v5 GA. [The current source/dependency matrix](2026-09-06-v5-shadcn-assessment.md#auxiliary-dependency-matrix)
+therefore requires pre-GA compatibility decisions for relevant Calendar,
+Resizable, Chart and Sonner migrations. In particular, current Chart source
+requires Recharts 3; “later major” cannot silently defer that requirement.
+
+Choose exact tested targets and preserve existing public contracts through
+adapters where needed. This is not authority to install every latest major,
+raise consumer peer minimums or migrate unrelated tooling. Zod/build/lint majors
+retain their separate justification. The [GA roadmap](2026-08-10-v5-ga-readiness-roadmap.md#next-implementation-packages)
+owns the new package sequence; no dependency was changed by this reconciliation.
+
 The compatible layer preserves current majors. These dispositions reflect the October 17 registry refresh, not a blanket claim of latest-version parity. The following migrations have concrete public or build implications and are not installed by this plan.
 
 | Family                                        | Local exposure, opportunity and migration requirement                                                                                                                                                                                                                                                                                                                                                                                       |

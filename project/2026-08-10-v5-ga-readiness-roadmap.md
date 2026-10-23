@@ -1,17 +1,19 @@
 # Roadmap — Design System v5 GA readiness
 
+The library qualification and historical Klicker exact-package pilot are complete at draft delivery. GA remains blocked by the expanded October 23 requirements: full Formik-to-RHF capability parity, the official shadcn Radix catalog and auxiliary integrations, current UZH alignment, and integrated consumer/manual qualification. The next implementation package is RHF parity; derive its bounded execution plan before changing source.
+
 ## Identity and status
 
-- Date: 2026-08-10; current execution index refreshed 2026-10-19
-- Status: GA blocked. Verified input correctness, consumer CSS and durable
-  contract-gate corrections and Phase 2 theme/default changes are delivered in
-  the existing draft stack. Historical Klicker acceptance covers an earlier
-  artifact; final-candidate consumer acceptance is blocked by the historical pilot's
-  local Next 16.2.10 Turbopack catch-all routing failure.
-  Dependency remediation, manual acceptance and broader candidate qualification remain open.
+- Date: 2026-08-10; current execution index refreshed 2026-10-23
+- Status: GA blocked. Input correctness, consumer CSS, durable contract gates,
+  UZH Phase 2 and compatible dependency remediation are delivered in the unmerged
+  draft stack. The historical Klicker pilot now qualifies the recorded candidate;
+  the earlier authentication blocker is resolved in its consumer draft. Expanded
+  RHF/Radix coverage, UZH default acceptance, unresolved tooling advisories,
+  representative consumers and manual accessibility/browser checks remain open.
 - Repository: `uzh-bf/design-system`
 - Release trunk: `v5`
-- Active qualification branch: `rs/v5-ga-qualification`
+- Qualification delivery branch: `rs/v5-ga-qualification`
 - Roadmap worktree:
   `/Users/rschlae/Git/df/design-system/trees/rs-v5-uzh-alignment`
 - Current delivery: draft stack [#210](https://github.com/uzh-bf/design-system/pull/210) →
@@ -31,7 +33,9 @@ Move v5 from a registry-proven prototype release to a GA candidate with an
 immutable release boundary, enforced package budgets, deterministic visual and
 accessibility gates, explicit React Server Components and theme-extension
 contracts, approved consumer-owned primary ramps where used, and representative
-real-application proof.
+real-application proof. Before GA, provide every existing Formik field capability
+through RHF, retain Formik through v5, support the full official shadcn Radix
+catalog and its auxiliaries, and verify UZH alignment against current official sources.
 
 ## Non-goals
 
@@ -41,8 +45,8 @@ real-application proof.
 - GA does not require every known consumer to complete a full migration. It
   requires a current compatibility matrix with no unknown critical break and
   representative VetSim, GBL demo-game, and Klicker evidence.
-- Formik compatibility exports are not removed without a separate consumer
-  inventory and semver ruling.
+- Formik exports, runtime support and public types remain through v5. Removal
+  belongs to v6 after RHF migration evidence and a consumer inventory.
 - No brand ramp, accessibility count, package budget, or visual threshold is
   invented before it is measured or approved.
 
@@ -98,84 +102,148 @@ Historical inputs:
   from the upstream Git tag refs. Later packages must use their official tool
   documentation when selecting Size Limit or Playwright configuration.
 
-## Current execution index — 2026-10-19
+## Current execution index — 2026-10-23
 
-Remote `v5` remains `80d6f229c`. The current defaults draft head is
-`2b35d856c`; producing runtime source is `f131398ce`, followed by helper/docs
-corrections. All 20 reported checks on each of the three Phase 2 draft heads
-pass or skip as expected. The local tarball SHA-256 is
-`306cbfc30128a49485aad2b20b95f01bc900a7ad9ae4ec8d2dbd87493ead7402`;
-it is unpublished and has no completed final-candidate real-consumer acceptance.
-Previously recorded registry tags are historical until re-read for release work.
-Qualification dependency source is `0126b42e0` in draft [PR218](https://github.com/uzh-bf/design-system/pull/218). Its immutable package and check evidence are tracked in the new plan.
-These facts supersede the August table below. The user approved the
-[qualification package](2026-10-19-v5-ga-qualification-plan.md) after requesting
-Claude consultation and a roadmap update. Draft delivery is authorized; target
-merges, readiness conversion, release publication and deployment remain gated.
+### Delivered evidence and its limits
 
-| Workstream | Current evidence | Remaining acceptance |
-| ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Existing v5 foundations | Size budgets, separate RSC/RHF entries, root themes, generic primary-ramp extension with a synthetic fixture, exact axe inventory and deterministic VRT implemented; metadata remains alpha.5 | Maintain protections through the integrated candidate; qualify actual consumer-owned ramp values where used |
-| Input correctness — [PR210](https://github.com/uzh-bf/design-system/pull/210) | Natural modal entry, empty twelve-hour periods, controlled resets, selected-date invariance and value-bearing names corrected; independent review accepted; current-head CI green | Retain these cases when integrating later layers |
-| Compatible dependencies — [PR211](https://github.com/uzh-bf/design-system/pull/211) | Compatible direct refresh and four supplied transitive paths corrected; peer/export contracts preserved; ownership docs clarified; independent review accepted; current-head CI green | October 19 [qualification PR218](https://github.com/uzh-bf/design-system/pull/218) updates compatible paths: production-workspace audit has zero findings; full audit retains four high/two moderate tooling advisories with explicit constraints and no waivers. Final source/legacy/consumer qualification remains separate; the focused shadcn comparison does not certify every copied primitive |
-| Fields and durable CI — [PR213](https://github.com/uzh-bf/design-system/pull/213) | Disabled selection/FormData, true multi-selection semantics and transformed FormField types implemented; disabled-close blur correction passes all 88 local contracts, complete independent review and hosted CI; contracts and RHF minimum/current packed/Next consumers gate release build | Retain the corrected disabled-transition and public-type cases through integration |
-| Consumer CSS and UZH Phase 1 | Existing fixes integrated after the field stack; scoped responsive defaults replace colliding utility pairs; 90 contracts, 803 accessibility cases, 23 pinned visuals, 688 token assertions and 336 CSS/override assertions pass; complete independent review accepted | [PR214](https://github.com/uzh-bf/design-system/pull/214) maintains hosted CI and browser evidence. The packed candidate installs and builds in the existing Klicker pilot; actual Formik save/reload and desktop/mobile modal checks pass. Broader release-candidate qualification remains open |
-| UZH Phase 2                                                                         | Coverage [PR215](https://github.com/uzh-bf/design-system/pull/215), tokens [PR216](https://github.com/uzh-bf/design-system/pull/216) and defaults [PR217](https://github.com/uzh-bf/design-system/pull/217) are implemented in the unmerged draft stack; final review corrections cover migration text preservation and internal tooltip bounds | Full runtime source CI passes; final helper corrections have focused proof and current draft checks. Refresh actual consumer acceptance, resolve the six remaining tooling advisories under PR218 constraints and keep manual AT/Safari/physical-device rows open                                                                                                                                     |
-| GA promotion — [PR179](https://github.com/uzh-bf/design-system/pull/179) | Draft v5 umbrella still conflicts with main | Reconcile in a promotion package and qualify an integrated candidate; merge, publication and deployment require separate authority |
+Host refs were refreshed on October 23. Release trunk `v5` is
+`80d6f229cdf8aa57384246bba0386d730484eecb`; the qualification source baseline is
+`870879614d4e2c5a826ac19d8623c4b1c05dd82d`, 84 commits ahead of v5 with no
+missing v5 commits. Its immediate PR base is `rs/v5-component-defaults`;
+`main=fad87a07e9cf262a3a117c5e815091c7b54fa151` is the later promotion boundary.
+Documentation reconciliation does not require integrating main into this stack.
 
-The [UZH alignment roadmap](2026-08-19-v5-uzh-alignment-roadmap.md) owns the
-remaining design phases. Its existing branch retains the original Phase 1 fixes
-and corrected input/dependency/field history through ordinary merges. The index
-records source, local verification, hosted checks and real consumer acceptance
-separately; green CI does not establish GA readiness.
+| Workstream                               | Delivered evidence                                                                                                                                                                                                                                                           | Remaining gate                                                                                                                                        |
+| ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Inputs, dependencies and field contracts | Drafts [PR210](https://github.com/uzh-bf/design-system/pull/210), [PR211](https://github.com/uzh-bf/design-system/pull/211) and [PR213](https://github.com/uzh-bf/design-system/pull/213) correct input/reset, disabled-selection, multi-select and transformed-type defects | Preserve these cases through the expanded catalog; existing RHF wrappers do not establish full Formik parity                                          |
+| Consumer CSS and UZH tokens/defaults     | [PR214](https://github.com/uzh-bf/design-system/pull/214) through [PR217](https://github.com/uzh-bf/design-system/pull/217) deliver scoped responsive CSS, palette/alias coverage, tokens and defaults                                                                       | Current official-source traceability, deliberate adaptations and new-default consumer proof remain required                                           |
+| Library qualification                    | [PR218](https://github.com/uzh-bf/design-system/pull/218) at the source baseline above has 18 successful checks and two expected skips; its [completed plan](2026-10-19-v5-ga-qualification-plan.md) owns the evidence                                                       | Six tooling advisories were still open in the October 19 full audit; refresh before remediation, retain constraints and close before GA               |
+| Historical Klicker pilot                 | [Draft PR6652](https://github.com/uzh-bf/klicker-uzh/pull/6652) at `4f6e8c56e36b8ceeaa87ce859d2c736d7c9a71a4` delivers the dev-only Webpack routing repair and consumer acceptance; eight required checks pass, with 997 browser passes and five skips                       | Retained Formik and palette/focus overrides limit this proof. It does not establish RHF parity, full new-default adoption or current-trunk acceptance |
+| Promotion                                | Existing [draft PR179](https://github.com/uzh-bf/design-system/pull/179) owns v5-to-main promotion and remains unreconciled                                                                                                                                                  | Qualify the integrated candidate after feature completion; readiness, merge and publication require named authority                                   |
 
-The user approved temporary exact-version exceptions for the 44 Radix versions
-blocked by Klicker's 14-day dependency policy. The candidate tarball, SHA256
-`7d676910791ef19875608b22407389ff9efc6fdf75b02377f736609001fc7524`,
-installed in the existing pilot at `1de7ad918`. All 245 installed build files
-and package metadata match the tarball. The container production build passes;
-synthetic delegated login, Formik create/cancel/reset, invalid-state protection,
-edit/save/reload, actionless footer omission, responsive modal layout and a
-1px dropdown separator pass in the real application. Desktop and 390px captures
-are maintained in PR214. Temporary configuration and lockfile changes were
-restored byte-for-byte; the checkout is clean, provider stopped and routes zero.
+The accepted unpublished candidate was produced from
+`0126b42e07da1fd52cbc1c1708f9e2dc9e902077`: file
+`uzh-bf-design-system-5.0.0-alpha.5.tgz`, SHA-256
+`f4208e6faebade6d775e663e43cebac8f7e27d46b70ab464a9ce2e3a99ec49a9`.
+The public registry alpha.5 is a different artifact, SHA-256
+`5b6a3c1a5f7963997aedd32ac007eeb9d76b7041b4f49141383684ae0df5df04`.
+The consumer delivery records separate installation/build and workflow evidence
+for these artifacts. A shared version string does not make them interchangeable;
+no candidate publication is implied.
 
-This qualifies the corrected package against that historical pilot, not current
-Klicker trunk or every consumer. The build reports translation and page-size
-warnings. Compact app navigation and editor-toolbar layout need consumer work;
-existing width/density overrides were retained. Phase 2 source defaults are implemented. Override retirement and final-candidate
-acceptance remain open; remove an override only after demonstrated equivalence.
+The October 23 review found the retained pilot stopped with unavailable routes.
+That is a current environment limitation, not a retraction of recorded passing
+journeys. Its previous user retention/pinning ruling remains relevant; refresh
+ownership and lifecycle evidence before resuming it. Do not restart or alter it
+for this documentation reconciliation. Optional review feedback in PR6652 remains
+to be dispositioned before consumer readiness.
 
-The approved [theme/defaults execution plan](2026-10-18-v5-theme-defaults-plan.md)
-and [accepted findings](2026-10-18-v5-progress-roadmap-findings.md) persist the
-October 18 review and implementation sequence. Phase 2 now includes the public-family/alias inventory,
-dense internal reference fixture, token graph, conservative migration helper and changed defaults.
-The [candidate matrix](2026-10-18-v5-theme-defaults-plan.md#candidate-and-manual-acceptance-matrix)
-records producing-source identities, passing automated evidence and remaining qualification limits.
-Final review corrections preserve JSX accessible names and make internal help/error tooltips inherit the viewport bound.
-The [Phase 2 sequence](2026-08-19-v5-uzh-alignment-roadmap.md#phase-2--token-model-and-visual-defaults-before-ga)
-remains the acceptance contract; it is no longer a queue of unimplemented source work.
+### Binding v5 GA scope
 
-Next, execute the [dependency and qualification plan](2026-10-19-v5-ga-qualification-plan.md):
-refresh and remediate compatible advisories, pack the resulting artifact, diagnose
-the historical pilot's local authentication failure, then qualify that exact
-artifact against recorded consumer refs and dependency-age policy. Unresolved
-advisories and unavailable acceptance remain explicit GA gates; this update grants
-no waiver. Prepare actual manual scenarios and keep those rows pending until run.
-The bounded October 19 pilot diagnosis isolates its authentication blocker to the
-local development bundler path: the unchanged handler returns providers JSON with
-Webpack; canonical Turbopack returns 404 before handler entry. This is environment
-diagnosis, not candidate acceptance or proof of a production auth defect. A
-permanent consumer repair remains a separate source package; actual acceptance
-stays open. Temporary configuration is restored and the pilot is stopped.
-Promotion reconciliation remains a later package at the existing
-[promotion draft](https://github.com/uzh-bf/design-system/pull/179).
-Manual screen-reader, Safari and physical-mobile evidence remain separate gates.
-Merge, readiness, publication and deployment remain separately authorized actions.
-Additive variants and the type-scale export remain v5.1.
-Formik remains supported in v5. Before v6, migration recipes must cover every
-used field family, and a packed consumer must build without Formik runtime or
-public types after the legacy wrappers, exports and dependency are removed.
+The October 23 user ruling selects full official shadcn **Radix** coverage and
+auxiliary dependencies. It does not request three complete primitive backends.
+A dependency used by an official Radix component, such as Base UI inside the
+current Combobox, belongs in the dependency compatibility assessment.
+
+| Formik family retained through v5 | Dedicated RHF counterpart at the source baseline | Completion requirement                                                |
+| --------------------------------- | ------------------------------------------------ | --------------------------------------------------------------------- |
+| Text                              | `RhfTextField`                                   | Verify full capability parity                                         |
+| Number                            | `RhfNumberField`                                 | Verify transient editing, bounds, stepper and reset semantics         |
+| Select                            | `RhfSelectField`                                 | Verify selection, external errors and focus behavior                  |
+| Textarea                          | Missing                                          | Add `RhfTextareaField` using the existing control                     |
+| Switch                            | Missing                                          | Add `RhfSwitchField`; associate required/error state accessibly       |
+| Color picker                      | Missing                                          | Add `RhfColorPicker` with equivalent selection/reset behavior         |
+| Date picker                       | Missing                                          | Add `RhfDatePicker`; preserve empty/date/keyboard semantics           |
+| Date/time picker                  | Missing                                          | Add `RhfDatetimePicker`; preserve time-zone and partial-edit behavior |
+| Numeric PIN                       | Missing                                          | Add `RhfPinField`; preserve paste, sanitization and focus behavior    |
+| Alphanumeric PIN                  | Missing                                          | Add `RhfAlphaNumericPinField`; preserve casing and character rules    |
+
+`RhfMultiSelect` is an additional existing RHF control, not a fourth covered
+Formik family. Retain and qualify it. Parity covers typed paths/values and
+transformed output; defaults, empty values, `reset`, `resetField`, `setValue`
+and same-value resets; touched/dirty and validation timing; server errors;
+disabled/required state; labels/descriptions/errors; refs and focus-on-error.
+It means equivalent user capabilities and documented API routes, not identical
+Formik-specific props or a second competing state model. Keep standalone
+controlled use available through the appropriate existing controls.
+
+Preserve [ADR0002](../docs/adr/0002-rhf-subpath-rsc-contract.md): RHF adapters and
+its retained Form API live in the optional `./react-hook-form` client entry;
+root and `./primitives` remain free of RHF runtime/type edges. Reuse the existing
+field hook, shell and controls. Keep the supported minimum/current RHF packed
+fixtures, including explicit protection for reset behavior that currently uses
+RHF's private state subscription. Formik stays supported throughout v5; its
+exports, types and runtime dependency are removed only in v6.
+
+The [current shadcn assessment](2026-09-06-v5-shadcn-assessment.md#full-radix-scope-and-release-review--2026-10-23)
+owns the pinned source, missing inventory, auxiliary dependencies and coverage
+rules. All official Radix capabilities must have a disposition and proof;
+shared filenames alone close no rows. Include official recipes, hooks/utilities,
+blocks and AI composition patterns in the compatibility inventory. Support their
+composition through the library and documented application seams without copying
+entire example applications into the package. Upstream styles are visual
+references; our neutral/UZH themes remain the delivery surfaces.
+
+The [current UZH review](2026-08-19-v5-uzh-alignment-roadmap.md#official-styleguide-review--2026-10-23)
+owns the 2.11.0 delta, palette/type/focus/form traceability and adaptation rules.
+Required upstream component variants and integrations belong before GA even when
+additive. Earlier blanket 5.1 deferrals no longer exclude these accepted RHF or
+Radix requirements. Unrelated additions retain their later horizon.
+
+### Next implementation packages
+
+The historical pilot repair/acceptance package selected October 19 is complete
+at its draft boundary; do not queue it again. Continue in this order:
+
+1. **RHF parity.** Derive a bounded plan from the ten-family matrix above and
+   the [completed W3 foundation](2026-08-09-v5-rhf-w3-plan.md). Name existing
+   controls, new thin adapters, public types/exports, relevant stories and stable
+   behavioral/packed seams. Qualify every family and retain Formik regression
+   proof. If an upstream control migration is a prerequisite, deliver that seam
+   before its adapter rather than duplicating widget logic.
+2. **Radix catalog and auxiliaries.** Use the pinned upstream snapshot and
+   capability matrix to group independently reviewable packages: existing API
+   deltas, missing controls/direction, auxiliary migrations, and messaging/code
+   compositions. Record dependency ownership, entry points, consumer-age policy,
+   compatibility adapters and budgets before installation. A current snapshot
+   does not justify blindly overwriting local themes or public contracts.
+3. **UZH and integrated acceptance.** Maintain traceability during the first
+   two packages, then qualify the complete candidate in neutral and UZH themes.
+   Distinguish retained consumer overrides from accepted defaults. Exercise a
+   representative RHF application alongside the existing Formik pilot and refresh
+   VetSim, GBL and Klicker candidate rows against exact consumer refs/artifacts.
+4. **Remaining qualification and promotion preparation.** Close tooling
+   advisories, resolve applicable review feedback, complete actual screen-reader,
+   Safari and physical-device scenarios, then reconcile PR179 and release
+   metadata under its separate authority boundary.
+
+Each implementation package receives its own reviewed execution plan and
+acceptance matrix before source changes. The current request authorizes the
+roadmap/plan reconciliation and its documentation delivery; it does not start
+those implementation packages, change stack topology, create a new native goal,
+or authorize merge, readiness, release, deployment or runtime changes.
+
+### Acceptance and verification ownership
+
+The implementing package owner records the frozen source, dependency versions,
+public API/intentional adaptation, test obligation and evidence for each affected
+row. Extend existing behavior/type/packed/browser seams for consequential missing
+contracts; add no tests that merely pin documentation or sample content. The
+integrated owner verifies all rows remain valid together, including root/RHF RSC
+isolation and optional-package tree shaking/budgets. Browser checks cover actual
+interaction, keyboard/RTL behavior, responsive states, both themes and relevant
+locales. Use real synthetic captures for changed UI; keep manual evidence pending
+until performed. No runtime is needed to verify this documentation-only update.
+
+## Completed package — Klicker pilot routing and exact-package acceptance
+
+The October 19 priority ruling was followed by a consumer-owned execution plan
+and [draft PR6652](https://github.com/uzh-bf/klicker-uzh/pull/6652). The completed
+historical pilot preserves authentication semantics, Formik and application
+layout while qualifying the exact artifacts described above. The former
+instruction to derive that pilot plan and repair its routing is superseded.
+Future current-trunk migration, full UZH-default adoption and RHF acceptance are
+new evidence boundaries, covered by the next implementation packages.
 
 ## Historical milestone state — 2026-08-10
 
@@ -595,9 +663,10 @@ readiness conversion, target merges, publication and deployment remain gated.
 
 ## Historical directly delegable tasks — 2026-08-10
 
-These foundation tasks are complete. The [current execution index](#current-execution-index--2026-10-18)
-and [theme/defaults execution plan](2026-10-18-v5-theme-defaults-plan.md) own
-current work: palette coverage, token/default changes and candidate qualification.
+These foundation tasks are complete. The [current execution index](#current-execution-index--2026-10-23)
+owns sequencing for RHF parity, full Radix coverage and integrated UZH/candidate
+qualification. Future reviewed package plans own execution. The completed
+[theme/defaults plan](2026-10-18-v5-theme-defaults-plan.md) remains historical evidence.
 
 | Task                                   | Owner                                                                    | Paths                                             | Verification                                           | Stop condition                      |
 | -------------------------------------- | ------------------------------------------------------------------------ | ------------------------------------------------- | ------------------------------------------------------ | ----------------------------------- |
@@ -622,6 +691,8 @@ Stop the active package and report when:
   publication, deployment, secret access, or production action.
 
 ## Progress
+
+- 2026-10-23: User expanded v5 GA to full Formik-to-RHF parity, retained Formik through v5, full official shadcn Radix coverage and auxiliaries, and current UZH alignment. Refreshed upstream release/source evidence, reconciled the completed Klicker draft pilot, and superseded blanket additive/major deferrals for required capabilities. This entry records requirements and planning; no feature implementation or release is claimed.
 
 - 2026-08-10: Reconciled remote `v5`, PRs #179/#195, npm dist-tags, VetSim
   delivery, and the clean local GBL W3 branch.
@@ -650,7 +721,10 @@ Stop the active package and report when:
   badge-default item, distinguish rendered typography from additive exports,
   scope consumer override retirement and retire the superseded P7 ruling.
 
-## October 18 correction status
+- 2026-10-19: Boundary review accepted the qualification package at reviewed draft delivery in [PR218](https://github.com/uzh-bf/design-system/pull/218), head `870879614`; its 18 successful checks and two expected publish/deploy skips close the package CI gate. Focused risk review and the corrected integrated review are accepted; no implementation was sent back. Actual consumer and manual acceptance remain GA gates.
+- 2026-10-19: User ruled [Klicker pilot routing repair and exact-package acceptance](#completed-package--klicker-pilot-routing-and-exact-package-acceptance) next, before tooling remediation, with direction-only scope approval. The stale instruction to execute the completed qualification plan is retracted. The consumer owner derives its execution plan; the completed qualification plan and its Progress remain unchanged.
+
+## Historical October 18 correction status
 
 All eight actionable findings from the supplied review are corrected in the
 unmerged draft stack, with passing source verification at `b8d607280`:
