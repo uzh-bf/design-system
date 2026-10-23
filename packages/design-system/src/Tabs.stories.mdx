@@ -1,5 +1,12 @@
 import { useState } from 'react'
 import { TabContent, Tabs } from './Tabs'
+import {
+  TabsContent as TabContentPrimitive,
+  Tabs as TabsPrimitive,
+  TabsList,
+  TabsTrigger,
+  tabsListVariants,
+} from './ui/tabs'
 
 {/* START README */}
 <div className="prose prose-sm max-w-none">
@@ -524,3 +531,121 @@ export const Controlled = () => {
     </Tabs>
   )
 }
+
+export const PrimitiveVariants = () => (
+  <div className="bg-background text-foreground flex flex-col gap-8 p-6 pt-16">
+    <section className="flex flex-col gap-2">
+      <h3 className="font-semibold">Horizontal · default (filled)</h3>
+      <TabsPrimitive defaultValue="overview">
+        <TabsList variant="default" aria-label="Filled tabs">
+          <TabsTrigger value="overview">Overview</TabsTrigger>
+          <TabsTrigger value="details">Details</TabsTrigger>
+          <TabsTrigger value="settings">Settings</TabsTrigger>
+        </TabsList>
+        <TabContentPrimitive value="overview">Overview content</TabContentPrimitive>
+        <TabContentPrimitive value="details">Details content</TabContentPrimitive>
+        <TabContentPrimitive value="settings">Settings content</TabContentPrimitive>
+      </TabsPrimitive>
+    </section>
+
+    <section className="flex flex-col gap-2">
+      <h3 className="font-semibold">Horizontal · line (underline)</h3>
+      <TabsPrimitive defaultValue="overview">
+        <TabsList variant="line" aria-label="Underline tabs">
+          <TabsTrigger value="overview">Overview</TabsTrigger>
+          <TabsTrigger value="details">Details</TabsTrigger>
+          <TabsTrigger value="settings">Settings</TabsTrigger>
+        </TabsList>
+        <TabContentPrimitive value="overview">Overview content</TabContentPrimitive>
+        <TabContentPrimitive value="details">Details content</TabContentPrimitive>
+        <TabContentPrimitive value="settings">Settings content</TabContentPrimitive>
+      </TabsPrimitive>
+    </section>
+
+    <section className="flex flex-col gap-2">
+      <h3 className="font-semibold">Vertical · default (filled)</h3>
+      <TabsPrimitive defaultValue="overview" orientation="vertical" className="w-72">
+        <TabsList variant="default" aria-label="Filled tabs">
+          <TabsTrigger value="overview">Overview</TabsTrigger>
+          <TabsTrigger value="details">Details</TabsTrigger>
+          <TabsTrigger value="settings">Settings</TabsTrigger>
+        </TabsList>
+        <TabContentPrimitive value="overview">Overview content</TabContentPrimitive>
+        <TabContentPrimitive value="details">Details content</TabContentPrimitive>
+        <TabContentPrimitive value="settings">Settings content</TabContentPrimitive>
+      </TabsPrimitive>
+    </section>
+
+    <section className="flex flex-col gap-2">
+      <h3 className="font-semibold">Vertical · line (underline)</h3>
+      <TabsPrimitive defaultValue="overview" orientation="vertical" className="w-72">
+        <TabsList variant="line" aria-label="Underline tabs">
+          <TabsTrigger value="overview">Overview</TabsTrigger>
+          <TabsTrigger value="details">Details</TabsTrigger>
+          <TabsTrigger value="settings">Settings</TabsTrigger>
+        </TabsList>
+        <TabContentPrimitive value="overview">Overview content</TabContentPrimitive>
+        <TabContentPrimitive value="details">Details content</TabContentPrimitive>
+        <TabContentPrimitive value="settings">Settings content</TabContentPrimitive>
+      </TabsPrimitive>
+    </section>
+  </div>
+)
+
+export const PrimitiveOmitted = () => (
+  <div className="flex flex-col gap-4">
+    <TabsPrimitive defaultValue="one" className="flex-row" data-test="tabs-root-override">
+      <TabsList aria-label="Implicit underline">
+        <TabsTrigger value="one" className="px-8 py-4">One</TabsTrigger><TabsTrigger value="two">Two</TabsTrigger>
+      </TabsList>
+      <TabContentPrimitive value="one">First panel</TabContentPrimitive><TabContentPrimitive value="two">Second panel</TabContentPrimitive>
+    </TabsPrimitive>
+    <div data-test="tabs-helper" className={tabsListVariants()}>Underline helper without arguments</div>
+    <TabsPrimitive defaultValue="one">
+      <TabsList variant="default" aria-label="Caller styling" className="w-full gap-5 rounded-none">
+        <TabsTrigger value="one" className="px-8 py-4">One</TabsTrigger><TabsTrigger value="two">Two</TabsTrigger>
+      </TabsList>
+      <TabContentPrimitive value="one">First panel</TabContentPrimitive><TabContentPrimitive value="two">Second panel</TabContentPrimitive>
+    </TabsPrimitive>
+  </div>
+)
+
+export const PrimitiveControlledManual = () => {
+  const [selectedTab, setSelectedTab] = useState('overview')
+
+  return (
+    <div className="flex flex-col gap-4">
+      <p>Use the arrow keys, then Enter or Space, to activate a tab.</p>
+      <TabsPrimitive
+        value={selectedTab}
+        onValueChange={setSelectedTab}
+        activationMode="manual"
+      >
+        <TabsList variant="default" aria-label="Filled tabs">
+          <TabsTrigger value="overview">Overview</TabsTrigger>
+          <TabsTrigger value="details">Details</TabsTrigger>
+          <TabsTrigger value="disabled" disabled>
+            Disabled
+          </TabsTrigger>
+        </TabsList>
+        <TabContentPrimitive value="overview">Overview content</TabContentPrimitive>
+        <TabContentPrimitive value="details">Details content</TabContentPrimitive>
+        <TabContentPrimitive value="disabled">Disabled content</TabContentPrimitive>
+      </TabsPrimitive>
+      <p>Selected: {selectedTab}</p>
+    </div>
+  )
+}
+
+export const LongGerman = () => (
+  <TabsPrimitive defaultValue="courses">
+    <TabsList variant="line" className="overflow-x-auto">
+      <TabsTrigger value="courses">Kursanmeldungen und Teilnehmendenverwaltung</TabsTrigger>
+      <TabsTrigger value="reports">Leistungsauswertungen und Rückmeldungen</TabsTrigger>
+      <TabsTrigger value="settings">Kurskonfiguration und Berechtigungen</TabsTrigger>
+    </TabsList>
+    <TabContentPrimitive value="courses">Kursübersicht</TabContentPrimitive>
+    <TabContentPrimitive value="reports">Auswertungen</TabContentPrimitive>
+    <TabContentPrimitive value="settings">Einstellungen</TabContentPrimitive>
+  </TabsPrimitive>
+)

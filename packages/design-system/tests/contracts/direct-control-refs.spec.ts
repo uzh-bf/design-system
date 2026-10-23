@@ -81,3 +81,9 @@ test.describe('direct-control ref contracts', () => {
     await expect(trigger).toBeFocused()
   })
 })
+
+test('NativeSelect ref targets the native select', async ({ page }) => {
+  await gotoStory(page, 'select--native-composition')
+  await page.locator('[data-test="focus-native-select"]').click()
+  await expect(page.locator('#native-single')).toBeFocused()
+})

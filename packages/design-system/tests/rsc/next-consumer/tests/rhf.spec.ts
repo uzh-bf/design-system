@@ -171,3 +171,15 @@ test('packed picker and selection compositions preserve all-family submitted val
   expect(new Date(values.day).getDate()).toBe(15)
   expect(new Date(values.timestamp).getHours()).toBe(9)
 })
+
+test('native select composes through the server root entry', async ({
+  page,
+}) => {
+  await page.goto('/')
+  const select = page.getByRole('combobox', {
+    name: 'Server-rendered native selection',
+  })
+  await expect(select).toHaveValue('one')
+  await select.selectOption('two')
+  await expect(select).toHaveValue('two')
+})

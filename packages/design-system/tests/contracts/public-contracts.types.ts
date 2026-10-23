@@ -1,3 +1,19 @@
+import { createElement, createRef, type ComponentProps } from 'react'
+import {
+  DirectionProvider as RootDirectionProvider,
+  NativeSelect as RootNativeSelect,
+} from '../../src'
+import {
+  DirectionProvider,
+  NativeSelect,
+  NativeSelectOptGroup,
+  NativeSelectOption,
+  Button as PrimitiveButton,
+  TabsList,
+  tabsListVariants,
+  useDirection,
+} from '../../src/primitives'
+
 import type {
   ButtonProps,
   NavigationProps,
@@ -100,3 +116,39 @@ acceptsWorkflowProps({
   ],
   onClick: () => undefined,
 })
+
+const nativeSelectRef = createRef<HTMLSelectElement>()
+createElement(NativeSelect, {
+  ref: nativeSelectRef,
+  size: 'sm',
+  name: 'selection',
+  multiple: true,
+  defaultValue: ['one'],
+  required: true,
+  style: { width: 200 },
+  onChange: (event) => event.currentTarget.selectedOptions,
+})
+createElement(RootNativeSelect, { ref: nativeSelectRef, defaultValue: 'one' })
+createElement(NativeSelectOption, { value: 'one', disabled: true })
+createElement(NativeSelectOptGroup, { label: 'Group', disabled: true })
+// @ts-expect-error NativeSelect reserves size for visual sizes, not native row count.
+createElement(NativeSelect, { size: 4 })
+createElement(DirectionProvider, { direction: 'rtl', dir: 'ltr' })
+createElement(RootDirectionProvider, { dir: 'rtl' })
+const useTypedDirection: (dir?: 'ltr' | 'rtl') => 'ltr' | 'rtl' = useDirection
+void useTypedDirection
+const primitiveSizes: ComponentProps<typeof PrimitiveButton>['size'][] = [
+  'default',
+  'sm',
+  'lg',
+  'icon',
+  'xs',
+  'icon-xs',
+  'icon-sm',
+  'icon-lg',
+]
+void primitiveSizes
+createElement(TabsList, { variant: 'default' })
+createElement(TabsList, { variant: 'line' })
+tabsListVariants()
+tabsListVariants({ variant: 'default', className: 'w-full' })
