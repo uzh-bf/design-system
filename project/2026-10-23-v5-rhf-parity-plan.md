@@ -310,7 +310,8 @@ runner and is not counted as passed. A single watcher owns that run.
 
 ### Picker layer and integrated candidate
 
-The dependent local branch `rs/v5-rhf-pickers` adds color, date and date/time
+[Draft PR220](https://github.com/uzh-bf/design-system/pull/220), branch
+`rs/v5-rhf-pickers`, adds color, date and date/time
 adapters, typed paths, the existing RHF reset signal, native focus seams and
 associated errors. Color retains staged edits and Apply/cancel behavior. Date
 and time retain `Date | undefined`, browsing and partial-edit behavior. Button
@@ -330,13 +331,26 @@ replaced. The new layers remain a separate native stack with custom trunk
 `rs/v5-ga-qualification`; the earlier eight-layer stack is unchanged.
 
 Remaining package gates: immutable picker slice reviews, inspected/published
-picker gallery, second draft creation and remote topology verification,
+picker gallery,
 integrated final review, current artifact identity and required hosted CI at both
-tips. The current lower layer is published; the upper layer has no PR yet.
-Native goals, merge, marking ready, release/publication, deployment and consumer
+tips. Both layers are published as drafts in native stack221, based on the
+qualification branch. Remote stack212 still has its original eight PRs and v5
+base. No topology repair or integration was needed.
+Native goals, merge, marking ready, release/package publication, deployment and consumer
 runtime changes have not been started by this package.
 
 After the DS drafts qualify, the selected GBL RHF journey requires its own
 consumer-owned plan and proof against the exact candidate. Retained Klicker
 Formik evidence remains separate. Screen-reader, Safari and physical-device
 acceptance are still manual GA gates; synthetic Chromium checks do not close them.
+
+
+The long-label capture exposed a shrinking legacy Switch track (25.5px instead
+of its declared 48px medium width). The smallest correction prevents flex
+shrinking and extends the measured localized-layout regression. This adds one
+shared-control path to the upper layer because that layer introduces the long-
+label qualification fixture; no public prop or topology change is needed.
+Both package layers remain within their substantive-line estimates.
+The initial isolated Playwright image uses Node24.16.0; final native checks and
+packed/RHF/Next qualification are refreshed with the pinned Node22.16.0 and
+pnpm10.30.0. The repository-pinned visual image remains its prescribed toolchain.

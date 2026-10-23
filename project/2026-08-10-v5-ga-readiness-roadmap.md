@@ -145,18 +145,18 @@ auxiliary dependencies. It does not request three complete primitive backends.
 A dependency used by an official Radix component, such as Base UI inside the
 current Combobox, belongs in the dependency compatibility assessment.
 
-| Formik family retained through v5 | Dedicated RHF counterpart in current draft work  | Completion requirement                                                |
-| --------------------------------- | ------------------------------------------------ | --------------------------------------------------------------------- |
-| Text                              | `RhfTextField`                                   | Verify full capability parity                                         |
-| Number                            | `RhfNumberField`                                 | Verify transient editing, bounds, stepper and reset semantics         |
-| Select                            | `RhfSelectField`                                 | Verify selection, external errors and focus behavior                  |
-| Textarea                          | `RhfTextareaField` in PR219                      | Add `RhfTextareaField` using the existing control                     |
-| Switch                            | `RhfSwitchField` in PR219                        | Add `RhfSwitchField`; associate required/error state accessibly       |
-| Color picker                      | `RhfColorPicker` in dependent draft              | Add `RhfColorPicker` with equivalent selection/reset behavior         |
-| Date picker                       | `RhfDatePicker` in dependent draft               | Add `RhfDatePicker`; preserve empty/date/keyboard semantics           |
-| Date/time picker                  | `RhfDatetimePicker` in dependent draft           | Add `RhfDatetimePicker`; preserve time-zone and partial-edit behavior |
-| Numeric PIN                       | `RhfPinField` in PR219                           | Add `RhfPinField`; preserve paste, sanitization and focus behavior    |
-| Alphanumeric PIN                  | `RhfAlphaNumericPinField` in PR219               | Add `RhfAlphaNumericPinField`; preserve casing and character rules    |
+| Formik family retained through v5 | Dedicated RHF counterpart in current draft work                                        | Completion requirement                                                |
+| --------------------------------- | -------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| Text                              | `RhfTextField`                                                                         | Verify full capability parity                                         |
+| Number                            | `RhfNumberField`                                                                       | Verify transient editing, bounds, stepper and reset semantics         |
+| Select                            | `RhfSelectField`                                                                       | Verify selection, external errors and focus behavior                  |
+| Textarea                          | [`RhfTextareaField` in PR219](https://github.com/uzh-bf/design-system/pull/219)        | Add `RhfTextareaField` using the existing control                     |
+| Switch                            | [`RhfSwitchField` in PR219](https://github.com/uzh-bf/design-system/pull/219)          | Add `RhfSwitchField`; associate required/error state accessibly       |
+| Color picker                      | [`RhfColorPicker` in PR220](https://github.com/uzh-bf/design-system/pull/220)          | Add `RhfColorPicker` with equivalent selection/reset behavior         |
+| Date picker                       | [`RhfDatePicker` in PR220](https://github.com/uzh-bf/design-system/pull/220)           | Add `RhfDatePicker`; preserve empty/date/keyboard semantics           |
+| Date/time picker                  | [`RhfDatetimePicker` in PR220](https://github.com/uzh-bf/design-system/pull/220)       | Add `RhfDatetimePicker`; preserve time-zone and partial-edit behavior |
+| Numeric PIN                       | [`RhfPinField` in PR219](https://github.com/uzh-bf/design-system/pull/219)             | Add `RhfPinField`; preserve paste, sanitization and focus behavior    |
+| Alphanumeric PIN                  | [`RhfAlphaNumericPinField` in PR219](https://github.com/uzh-bf/design-system/pull/219) | Add `RhfAlphaNumericPinField`; preserve casing and character rules    |
 
 `RhfMultiSelect` is an additional existing RHF control, not a fourth covered
 Formik family. Retain and qualify it. Parity covers typed paths/values and
@@ -209,7 +209,8 @@ Radix requirements. Unrelated additions retain their later horizon.
 
 [Draft PR219](https://github.com/uzh-bf/design-system/pull/219) adds textarea,
 switch and both PIN adapters, shared numeric control and the accepted RHF error
-contract. The dependent picker layer adds color, date and date/time. The
+contract. [Draft PR220](https://github.com/uzh-bf/design-system/pull/220) adds
+color, date and date/time. The
 [approved execution plan](2026-10-23-v5-rhf-parity-plan.md) owns exact source,
 checks, reviews and remaining gates. Draft source and synthetic checks do not
 establish GBL acceptance, integrated GA readiness or release authority.

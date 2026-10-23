@@ -641,6 +641,8 @@ test('localized adapter labels wrap and controls retain focus in both text direc
         expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(390)
       }
       if (story.endsWith('basic-inputs')) {
+        const switchBounds = await page.getByRole('switch').boundingBox()
+        expect(switchBounds!.width).toBeGreaterThanOrEqual(48)
         await page.locator(text('rhf-basic-focus-notes')).click()
         await expect(page.locator(text('rhf-notes'))).toBeFocused()
         await page.locator(text('rhf-notes')).fill('Synthetic note')
