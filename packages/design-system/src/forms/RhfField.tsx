@@ -37,7 +37,7 @@ export function RhfFieldShell({
   error,
   errorId,
   showError,
-  errorDisplay = 'tooltip',
+  errorDisplay = 'inline',
   className,
   data,
   children,

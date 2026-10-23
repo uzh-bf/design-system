@@ -181,10 +181,7 @@ export function useRhfField<
   const error = controller.fieldState.error?.message
   const errorMessage = error ? String(error) : undefined
   const hasError = Boolean(controller.fieldState.error)
-  const showError = Boolean(
-    hasError &&
-      (controller.fieldState.isTouched || controller.formState.isSubmitted)
-  )
+  const showError = hasError
   const labelId = props.label ? `${inputId}-label` : undefined
   const descriptionId =
     typeof props.description === 'undefined'

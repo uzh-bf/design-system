@@ -331,3 +331,184 @@ test.describe('RHF field wrappers', () => {
     await expect(page.getByRole('combobox', { name: 'Elements' })).toBeVisible()
   })
 })
+
+test('RHF-produced errors appear without touch, default inline and respect explicit suppression', async ({
+  page,
+}) => {
+  await gotoStory(page, 'rhf-fields--error-timing')
+  const live = page.locator(text('rhf-live-error'))
+  await live.fill('a')
+  await expect(live).toBeFocused()
+  await expect(live).toHaveAttribute('aria-invalid', 'true')
+  const liveErrorId = await live.getAttribute('aria-describedby')
+  expect(liveErrorId).toBeTruthy()
+  await expect(
+    page.locator(`[id="${liveErrorId}"][role="alert"]`)
+  ).toBeVisible()
+  await live.fill('valid')
+  await expect(live).toHaveAttribute('aria-invalid', 'false')
+  await page.locator(text('rhf-manual-errors')).click()
+  const manual = page.locator(text('rhf-manual-error'))
+  await expect(manual).toHaveAttribute('aria-invalid', 'true')
+  await expect(page.locator(text('rhf-error-touched'))).not.toContainText(
+    'manual'
+  )
+  const ids = (await manual.getAttribute('aria-describedby'))!.split(/\s+/)
+  await expect(
+    page.locator(ids.map((id) => `[id="${id}"][role="alert"]`).join(','))
+  ).toBeVisible()
+  const hidden = page.locator(text('rhf-hidden-error'))
+  await expect(hidden).toHaveAttribute('aria-invalid', 'true')
+  await expect(hidden).not.toHaveAttribute('aria-describedby')
+  const tooltip = page.locator(text('rhf-tooltip-error'))
+  await expect(tooltip).toHaveAttribute('aria-invalid', 'true')
+  const tooltipId = await tooltip.getAttribute('aria-describedby')
+  expect(tooltipId).toBeTruthy()
+  await expect(page.locator(`[id="${tooltipId}"][role="alert"]`)).toHaveClass(
+    /sr-only/
+  )
+  await page.locator(text('rhf-clear-errors')).click()
+  for (const input of [manual, hidden, tooltip])
+    await expect(input).toHaveAttribute('aria-invalid', 'false')
+})
+
+for (const story of [
+  'rhf-fields--basic-inputs',
+  'rhf-fields--explicit-basic-inputs',
+]) {
+  test(`${story}: values, native form participation, blur, reset and actual focus targets`, async ({
+    page,
+  }) => {
+    await gotoStory(page, story)
+    const notes = page.getByRole('textbox', { name: 'Notes', exact: true })
+    const toggle = page.getByRole('switch', { name: 'Enabled', exact: true })
+    const pin = page.getByRole('textbox', { name: 'Numeric PIN', exact: true })
+    const code = page.getByRole('textbox', { name: 'Access code', exact: true })
+    await notes.fill('An activity')
+    await toggle.click()
+    await expect(page.locator(text('rhf-basic-touched'))).not.toContainText(
+      'enabled'
+    )
+    await toggle.press('Tab')
+    await expect(page.locator(text('rhf-basic-touched'))).toContainText(
+      'enabled'
+    )
+    for (const [input, pasted, expected] of [
+      [pin, '0a 01234', '0012'],
+      [code, 'a!b 12x', 'AB12'],
+    ] as const) {
+      await input.evaluate((element, value) => {
+        const clipboard = new DataTransfer()
+        clipboard.setData('text', value)
+        element.dispatchEvent(
+          new ClipboardEvent('paste', {
+            bubbles: true,
+            cancelable: true,
+            clipboardData: clipboard,
+          })
+        )
+      }, pasted)
+      await expect(input).toHaveValue(expected)
+    }
+    await page.locator(text('rhf-basic-submit')).click()
+    await expect(page.locator(text('rhf-basic-submitted'))).toHaveText(
+      JSON.stringify({
+        notes: 'An activity',
+        enabled: true,
+        pin: '0012',
+        code: 'AB12',
+      })
+    )
+    await page.locator(text('rhf-basic-native')).click()
+    await expect(page.locator(text('rhf-basic-native-values'))).toContainText(
+      '"notes":"An activity"'
+    )
+    for (const [target, input] of [
+      ['notes', notes],
+      ['switch', toggle],
+      ['pin', pin],
+      ['code', code],
+    ] as const) {
+      await page.locator(text(`rhf-basic-focus-${target}`)).click()
+      await expect(input).toBeFocused()
+    }
+    await page.locator(text('rhf-basic-reset')).click()
+    await expect(notes).toHaveValue('Reset')
+    await expect(pin).toHaveValue('0021')
+    await expect(code).toHaveValue('AB12')
+    await page.locator(text('rhf-basic-set-value')).click()
+    await expect(pin).toHaveValue('0007')
+    await page.locator(text('rhf-basic-reset-field')).click()
+    await expect(pin).toHaveValue('0021')
+    await page.locator(text('rhf-basic-disable')).click()
+    for (const input of [notes, toggle, pin, code])
+      await expect(input).toBeDisabled()
+    await page.locator(text('rhf-basic-native')).click()
+    await expect(page.locator(text('rhf-basic-native-values'))).toHaveText('{}')
+  })
+}
+
+test('shared numeric PIN preserves Formik paste, touched timing and reset', async ({
+  page,
+}) => {
+  await gotoStory(page, 'rhf-fields--formik-pin-compatibility')
+  const pin = page.getByRole('textbox', { name: 'Legacy PIN *', exact: true })
+  await expect(page.locator(text('legacy-pin-state'))).toHaveText(
+    JSON.stringify({ value: '', touched: false })
+  )
+  await pin.evaluate((element) => {
+    const data = new DataTransfer()
+    data.setData('text', '0a 01234')
+    element.dispatchEvent(
+      new ClipboardEvent('paste', {
+        bubbles: true,
+        cancelable: true,
+        clipboardData: data,
+      })
+    )
+  })
+  await expect(pin).toHaveValue('0012')
+  await expect(page.locator(text('legacy-pin-state'))).toHaveText(
+    JSON.stringify({ value: '0012', touched: true })
+  )
+  await page.locator(text('legacy-pin-reset')).click()
+  await expect(pin).toHaveValue('')
+  await expect(page.locator(text('legacy-pin-state'))).toHaveText(
+    JSON.stringify({ value: '', touched: false })
+  )
+})
+
+test('basic adapter padding applies once and fluid switches span the field row', async ({
+  page,
+}) => {
+  await gotoStory(page, 'rhf-fields--basic-inputs')
+  const notes = page.getByRole('textbox', { name: 'Notes', exact: true })
+  const toggle = page.getByRole('switch', { name: 'Enabled', exact: true })
+  const pin = page.getByRole('textbox', { name: 'Numeric PIN', exact: true })
+  const code = page.getByRole('textbox', { name: 'Access code', exact: true })
+  for (const control of [notes, toggle, pin, code]) {
+    const horizontalPadding = await control.evaluate((element) => {
+      let padding = 0
+      for (
+        let node = element.parentElement;
+        node && node.tagName !== 'FORM';
+        node = node.parentElement
+      ) {
+        const style = getComputedStyle(node)
+        padding +=
+          parseFloat(style.paddingLeft) + parseFloat(style.paddingRight)
+      }
+      return padding
+    })
+    expect(horizontalPadding).toBe(32)
+  }
+  const dimensions = await toggle.evaluate((element) => {
+    const inner = element.parentElement!
+    const row = inner.parentElement!
+    return {
+      inner: inner.getBoundingClientRect().width,
+      row: row.getBoundingClientRect().width,
+    }
+  })
+  expect(Math.abs(dimensions.inner - dimensions.row)).toBeLessThan(1)
+})
