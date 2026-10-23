@@ -728,12 +728,15 @@ function PickerInputsForm({
         control={control}
         name="date"
         label={
-          localized
-            ? 'Geplanter Durchführungstag für die gemeinsame Auswertung der fiktiven Gruppenarbeit'
-            : 'Activity date'
+          explicit
+            ? undefined
+            : localized
+              ? 'Geplanter Durchführungstag für die gemeinsame Auswertung der fiktiven Gruppenarbeit'
+              : 'Activity date'
         }
+        aria-label={explicit ? 'Activity date' : undefined}
         className={localized ? { label: 'min-w-0 flex-wrap' } : undefined}
-        required
+        required={!explicit}
         description="The selected calendar day."
         ref={dateRef}
         dataTrigger={{ test: 'rhf-date-trigger' }}

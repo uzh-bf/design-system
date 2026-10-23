@@ -559,6 +559,14 @@ for (const story of [
     page,
   }) => {
     await gotoStory(page, story)
+    const date = page.locator(text('rhf-date-trigger'))
+    const assertDateName = async () => {
+      const visibleValue = (await date.innerText()).trim()
+      await expect(date).toHaveAccessibleName(
+        new RegExp(visibleValue.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+      )
+    }
+    await assertDateName()
     const time = page.locator(text('rhf-time-trigger'))
     await time.click()
     const hours = page.getByRole('textbox', { name: 'Hours', exact: true })
@@ -595,6 +603,7 @@ for (const story of [
     )
     expect(cleared.date).toBeUndefined()
     expect(cleared.timestamp).toBeUndefined()
+    await assertDateName()
     await page.locator(text('rhf-picker-reset')).click()
     await page.locator(text('rhf-picker-submit')).click()
     const submitted = JSON.parse(

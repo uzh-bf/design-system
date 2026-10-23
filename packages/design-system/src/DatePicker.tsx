@@ -120,6 +120,9 @@ export function DatePicker({
   const generatedId = useId()
   const inputId = id ?? generatedId
   const valueId = `${inputId}-value`
+  const dateLabel = date
+    ? dayjs(date).format('DD.MM.YYYY')
+    : (placeholder ?? 'Pick a date')
   const [open, setOpen] = useState(false)
   const openRef = useRef(false)
   const blurNotified = useRef(false)
@@ -171,7 +174,11 @@ export function DatePicker({
           <PopoverTrigger disabled={disabled} asChild>
             <Button
               id={inputId}
-              aria-label={labelledBy || label ? undefined : ariaLabel}
+              aria-label={
+                labelledBy || label || !ariaLabel
+                  ? undefined
+                  : `${ariaLabel} ${dateLabel}`
+              }
               aria-labelledby={
                 labelledBy || label
                   ? `${labelledBy ?? `${inputId}-label`} ${valueId}`
@@ -205,11 +212,7 @@ export function DatePicker({
                 icon={faCalendar}
                 className="text-content-muted mr-2.5 h-4 w-4"
               />
-              <span id={valueId}>
-                {date
-                  ? dayjs(date).format('DD.MM.YYYY')
-                  : (placeholder ?? 'Pick a date')}
-              </span>
+              <span id={valueId}>{dateLabel}</span>
             </Button>
           </PopoverTrigger>
           {error && !hideError && isTouched && (
