@@ -484,7 +484,9 @@ test('basic adapter padding applies once and fluid switches span the field row',
   await gotoStory(page, 'rhf-fields--basic-inputs')
   const notes = page.getByRole('textbox', { name: 'Notes', exact: true })
   const toggle = page.getByRole('switch', { name: 'Enabled', exact: true })
-  for (const control of [notes, toggle]) {
+  const pin = page.getByRole('textbox', { name: 'Numeric PIN', exact: true })
+  const code = page.getByRole('textbox', { name: 'Access code', exact: true })
+  for (const control of [notes, toggle, pin, code]) {
     const horizontalPadding = await control.evaluate((element) => {
       let padding = 0
       for (

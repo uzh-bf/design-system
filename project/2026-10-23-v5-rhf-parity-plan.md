@@ -277,7 +277,7 @@ substitute or a claim of GA readiness.
 
 ## Progress
 
-- Status: executable batch approved by the user on October23. Active slice2;
+- Status: executable batch approved by the user on October23. Active slice2 correction;
   implementation owner main, standard execution mode.
 - Completed: four interview rulings accepted; ADR0006/0007 and roadmap/assessment
   reconciliation committed separately as `afcc2b912eef289772af624ef767e92262c20ce3`.
@@ -312,3 +312,25 @@ substitute or a claim of GA readiness.
 - Next: finish first-layer qualification, commit/review and native draft creation,
   then continue the picker layer. No native goal, merge,
   ready conversion, publication, deployment or consumer-runtime change started.
+
+### First-layer draft and correction evidence
+
+Draft PR219 is based on `rs/v5-ga-qualification`; the prior stack remains
+unchanged. First tip81f6a3e3f passed both RHF packed/Next cells,71contracts,
+29pinnedvisuals,704CSS token assertions, budgets and74relevant a11y cases.
+Five reviewed synthetic captures were uploaded through `gh` and rendered in
+GitHub; private receipts preserve bytes/source and image load verification.
+Hosted CI is still watched separately and is not represented as passed.
+
+Forge review found duplicate root styling and a narrow fluid switch. The first
+correction3858c0f61 passed types/lint and20RHFcontracts, including a measured
+padding/width regression. Same-child risk review confirmed it and found the
+same field-slot duplication on both PIN adapters; main accepted and fixed those
+instances with the same observable regression. Required review remains pending
+integrated final acceptance. No human review was requested and no merge occurred.
+The unpublished picker layer was stashed while correcting the lower branch;
+restore its latest named stash after propagating the correction natively.
+
+The review-driven correction stays inside the approved public contract and two
+layer topology. The overall first layer remains within its estimated1,200–1,800
+substantive lines; no additional PR boundary is introduced.

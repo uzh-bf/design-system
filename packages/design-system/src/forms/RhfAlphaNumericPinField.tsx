@@ -78,7 +78,10 @@ export function RhfAlphaNumericPinField<
         error={state.error}
         isTouched={state.fieldState.isTouched}
         uppercaseOnly={props.uppercaseOnly}
-        className={props.className}
+        className={{
+          input: props.className?.input,
+          inputItem: props.className?.inputItem,
+        }}
         data={props.data}
         aria-label={props['aria-label']}
         aria-labelledby={props['aria-labelledby'] ?? state.labelId}

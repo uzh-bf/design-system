@@ -483,6 +483,7 @@ function BasicInputsForm({ explicit = false }: { explicit?: boolean }) {
         control={control}
         name="pin"
         label="Numeric PIN"
+        className={{ field: 'p-4' }}
         length={4}
         ref={pinRef}
         rules={{ minLength: { value: 4, message: 'Enter four digits.' } }}
@@ -492,6 +493,7 @@ function BasicInputsForm({ explicit = false }: { explicit?: boolean }) {
         control={control}
         name="code"
         label="Access code"
+        className={{ field: 'p-4' }}
         length={4}
         uppercaseOnly
         ref={codeRef}
