@@ -79,3 +79,20 @@ A component outside `ui/` that predates the primitive layer and renders a
 visibly different control from the primitive it shadows. Consumers import these
 almost exclusively, which is why defects concentrate here.
 _Avoid_: the old components, the compat layer
+
+### Form and composition coverage
+
+**RHF field adapter**:
+A design-system field that binds an existing control to React Hook Form while
+preserving its user-facing input capabilities.
+_Avoid_: Formik replacement, second control implementation
+
+**Formik capability parity**:
+Availability through RHF of every user-facing capability supplied by the ten
+retained Formik field families; equivalent capabilities may use different APIs.
+_Avoid_: matching wrapper count, identical Formik props
+
+**Block compatibility**:
+An official shadcn application composition working with this library's public
+components and themes while the consuming application owns the block source.
+_Avoid_: block ownership, bundled application blocks

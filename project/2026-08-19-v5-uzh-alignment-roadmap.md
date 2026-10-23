@@ -2,7 +2,67 @@
 
 **Date:** 2026-08-19 · **Baseline:** `origin/v5` at `80d6f229c`, published `5.0.0-alpha.5`
 **Supersedes:** `project/2026-08-01-v5-release-readiness-stacks-roadmap.md` (stacks A–D and the release sequence are all merged; it stays readable as history)
-**Status (2026-10-18):** Phase 0 decisions are recorded. Phase 1 source fixes and scoped responsive CSS are integrated with the corrected input/dependency/field stack on `rs/v5-uzh-alignment` and delivered in [draft PR214](https://github.com/uzh-bf/design-system/pull/214). Hosted checks pass at `b8d607280`; the corrected packed candidate passes the historical Klicker pilot. These drafts are unmerged. Phase 2 and full release-candidate qualification still block GA. npm still serves `5.0.0-alpha.5` on `alpha` and `4.1.8` on `latest`; the corrected local tarball is not a published release.
+**Historical status (2026-10-18; superseded by the follow-up below):** Phase 0 decisions are recorded. Phase 1 source fixes and scoped responsive CSS are integrated with the corrected input/dependency/field stack on `rs/v5-uzh-alignment` and delivered in [draft PR214](https://github.com/uzh-bf/design-system/pull/214). Hosted checks pass at `b8d607280`; the corrected packed candidate passes the historical Klicker pilot. These drafts are unmerged. Phase 2 and full release-candidate qualification still block GA. npm still serves `5.0.0-alpha.5` on `alpha` and `4.1.8` on `latest`; the corrected local tarball is not a published release.
+
+Current follow-up (October 23): Phase 2 and the library qualification are delivered
+in the unmerged draft stack through [PR218](https://github.com/uzh-bf/design-system/pull/218).
+The subsequent [Klicker pilot PR6652](https://github.com/uzh-bf/klicker-uzh/pull/6652)
+qualifies the historical exact candidate and delivers its local routing repair.
+Its retained Formik and palette/focus overrides leave RHF parity and complete
+new-default acceptance open. The [GA roadmap](2026-08-10-v5-ga-readiness-roadmap.md#current-execution-index--2026-10-23)
+now requires full RHF/Formik capability parity, official shadcn Radix coverage
+with auxiliaries, current UZH alignment and integrated/manual qualification.
+The dated audits and completed plan scopes below remain historical evidence.
+
+## Official styleguide review — 2026-10-23
+
+The [official release index](https://www.frontend.uzh.ch/prod/releases.json)
+identifies [2.11.0, released October 22](https://www.frontend.uzh.ch/prod/releases/2.11.0/index.html).
+Its [compiled CSS](https://www.frontend.uzh.ch/prod/releases/2.11.0/assets/css/main.css)
+was compared with 2.10.0, alongside the current component pages and
+[official colour/type reference](https://www.cd.uzh.ch/de/elements.html).
+The release index provides no changelog/details for 2.11.0. The findings below
+are a scoped source comparison, not an exhaustive release diff or a new live
+product accessibility audit. Raw public-source receipts remain ignored locally.
+
+| Area                        | Current official evidence                                                                                                                                                       | v5 disposition and acceptance                                                                                                                                                                                                                    |
+| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Palette and semantics       | The corporate manual supplies official swatches; the web guide's form messages use functional green/red with tinted backgrounds                                                 | Keep the recorded official-family/house-family distinction and legacy aliases through v5. Our semantic status assignments are application choices; verify every intended text/fill pair rather than calling the mapping an official prescription |
+| Typography                  | The guide labels its family Source Sans Pro and regular/semibold weights; its CSS serves SourceSans3 regular, italic, semibold and semibold-italic WOFF2 assets                 | Verify the package's Source Sans 3 delivery, fallback, loading, weight and text metrics. Retain ADR0005's application scale/weights; do not reinstate obsolete cached weight or heading-size claims                                              |
+| Buttons and forms           | Sampled `.Button`, `.Input`, `.Select` and `.FormMessage` declaration blocks match 2.10.0; the base button remains neutral, weight 400 and pill-shaped                          | Keep the accepted application geometry and action semantics. Required/readonly/disabled, autocomplete, descriptions and linked error recovery belong in the RHF parity and accessibility matrices                                                |
+| Keyboard focus              | FlyingFocus remains an animated shared indicator. Its outer/inner pseudo-element offsets changed from -19/-18px to -13/-12px; FocusOnly dropped prefixed clip-path declarations | Record this actual 2.11 delta. Retain the per-control application indicator; qualify visibility, contrast, clipping, overlays and reduced motion independently. Copying the shared indicator or its global outline suppression is not required   |
+| Tables and adaptive layouts | Sampled `.Table` rules match 2.10.0; no new universal light-blue header rule was established                                                                                    | Retain settled header/body wrapping choices and verify overflow, zoom and compact layouts. Shared source declarations alone establish no browser or assistive-technology pass                                                                    |
+
+The 2.10/2.11 CSS hashes are respectively
+`2df715e4f4ec8e8f674bdd7ae3126bf7fa2b425da4c5788c495d678eb27390b8`
+and `48a5dc275818ff67e967d712b501b6659b00a48e1974c9c4a45ed5e85e7742f8`.
+A changed stylesheet does not invalidate unchanged sampled component rules.
+
+[UZH's web policy](https://www.kommunikation.uzh.ch/de/web/policies/cd.html)
+describes Web-CD as binding for UZH websites, including sites outside its CMS.
+[ADR0005](../docs/adr/0005-uzh-corporate-design-is-a-reference-not-a-constraint.md)
+records this project's application adaptations; it grants no institutional
+exemption or conformance certificate. Maintain a traceability row for each
+applicable official rule: source/version, implementation, adaptation rationale,
+consumer surface and actual verification. Use official logo assets where needed;
+typographic recreations are not official assets.
+
+The neutral and UZH themes share behavior. The UZH theme must carry its verified
+brand values consistently through focus, errors, overlays and auxiliary widgets.
+The existing unsupported UZH-dark posture remains explicit; upstream RTL
+capabilities need an inventory and keyboard/layout proof. A requirement for
+institutional conformance or a change to that dark-mode posture needs a named
+ruling rather than a silent interpretation of “alignment.”
+
+## Release scope clarification — 2026-10-23
+
+The October 23 user requirements supersede the broad “anything additive can
+follow in a minor” rule below. Full RHF parity and official Radix capabilities,
+including their required variants, recipes and auxiliary integrations, are v5 GA
+requirements even where additive. Unrelated application conveniences may remain
+5.1. Preserve Formik through v5; remove its public exports/types/runtime only in
+v6, alongside separately planned convergence. Completed Phase 1/2 delivery is
+not reopened; the expanded coverage and integrated acceptance are new work.
 
 ## Official-source correction — 2026-10-18
 
@@ -37,7 +97,9 @@ That collapses most of what the earlier draft filed as rulings into facts:
 
 ## The GA boundary, and why the ruling is urgent
 
-One rule orders this entire roadmap:
+The original visual-change rule below still prevents deferring changed defaults.
+The October 23 scope clarification additionally pulls the agreed additive
+RHF/Radix capabilities into GA:
 
 > Anything that changes what already-written consumer code renders must land before 5.0.0 GA. Anything purely additive can follow in a minor.
 
@@ -45,8 +107,8 @@ The token-model work fails that test hard. Adding interaction-state tokens and r
 
 | Release | Contents | Rationale |
 | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------ |
-| **5.0.0 GA** | All A-defects, all six CD defects, every token value and naming decision, every changed visual default, the migration-guide delta table | Breaking or visual — cannot move later |
-| **5.1** | Purely additive API: `Modal size`, `Button icon-sm` / `destructive-outline` / `success`, Accordion size variants, form `fullWidth`, exported type-scale token | New surface, no existing rendering changes |
+| **5.0.0 GA** | All A-defects, all six CD defects, every token value and naming decision, every changed visual default, the migration-guide delta table, full RHF parity and required official Radix APIs/auxiliaries | Breaking or visual — cannot move later |
+| **5.1** | Purely additive API: `Modal size`, non-upstream Button `destructive-outline` / `success`, Accordion size variants, form `fullWidth`, exported type-scale token | New surface, no existing rendering changes |
 | **6.0** | The legacy-wrapper convergence (finding C15), removal of the deprecated `--color-uzh-*` families | Architectural; needs an ADR of its own |
 
 Phase 0 was on the GA critical path. Its decisions below are settled; Phase 2 implements them before GA.
@@ -182,14 +244,25 @@ Coverage is delivered in [PR215](https://github.com/uzh-bf/design-system/pull/21
 - **C14** — let ordinary table body content wrap by default; explicit `whitespace-nowrap` remains available to consumers.
 - **C13** — a `--disabled` token replacing `text-slate-400!`; folds naturally into the B2 tokenization sweep.
 
-The dependency dispositions remain dated: the compatible layer was selected on October 17. Later DayPicker, Resizable Panels, chart, toast, validation and build-tool majors need their own compatibility case; they are not automatic GA prerequisites. Preserve the RHF 7.59.0/7.90.0 matrix and revisit candidate metadata and advisories at qualification. A focused shadcn comparison does not establish parity across every copied primitive.
+The compatible layer was selected on October 17. The October 23 full-Radix requirement now requires pre-GA compatibility dispositions for relevant DayPicker, Resizable Panels, chart and toast migrations. Unrelated validation/build-tool majors are not automatic GA prerequisites. Preserve the RHF 7.59.0/7.90.0 matrix and revisit candidate metadata and advisories at qualification. A focused shadcn comparison does not establish parity across every copied primitive.
 
-## Phase 3 — additive API only → 5.1
+## Additional GA API scope — 2026-10-23
 
-What is left once the GA rule has taken the default changes: new surface that alters nothing already rendering.
+The pinned official Radix Button supports `xs`, `icon-xs`, `icon-sm` and
+`icon-lg`, absent from our current primitive's size variants. Deliver these in
+the pre-GA Radix API package, preserving existing sizes and application geometry.
+The [shadcn capability matrix](2026-09-06-v5-shadcn-assessment.md#catalog-inventory-and-compatibility)
+owns this gap. These additions extend the current GA scope; they do not reopen
+the completed Phase 2 defaults package.
+
+## Phase 3 — unrelated additive API → 5.1
+
+These are historical candidate conveniences. Check each against the accepted
+official Radix API before deferring it: required upstream variants belong in GA.
+Only additions outside that coverage can remain here.
 
 - **C10** — `Modal size="sm|md|lg|xl|full"` presets on the 520px base, replacing 15+ distinct hand-rolled width overrides in Klicker alone.
-- **C2 (partial)** — `icon-sm` (`size-8`) alongside the existing `icon`, plus `destructive-outline` and `success` variants so status buttons stop hand-rolling `border-red-400` / `border-green-700`.
+- **C2 (non-upstream variants)** — `destructive-outline` and `success` convenience variants; official Button size gaps belong to GA below the Phase 2 source record, not this list.
 - **C3** — Accordion trigger size variants against the fixed 52px, keeping the current height as the default.
 - **C9 (partial)** — a `fullWidth` prop and a documented horizontal-label layout for form fields.
 - **B6** — export the existing type scale without changing current rendering.
@@ -207,15 +280,20 @@ This needs a canonical-layer decision per component, wrapper styling aligned to 
 - **Report line numbers are historical.** The CD review measured `53d12495d`; merged `origin/v5` is `80d6f229c`, and the corrected draft source is `b8d607280`. Verify source claims against the applicable ref rather than the review's old lines.
 - **Consumer workarounds provide acceptance cases.** The historical Klicker pilot retains width/density overrides. Remove an override when the corresponding changed default demonstrably replaces it; application-specific layout constraints may remain. Additive modal size presets belong to v5.1 and do not block Phase 2.
 - **Theme ownership is settled.** [ADR 0003](../docs/adr/0003-uzh-primary-ramp-override-boundary.md) assigns full approved primary-ramp overrides to consumers; [ADR 0004](../docs/adr/0004-themeprovider-root-sync.md) fixes document-root placement. The generic contract and synthetic fixture already exist. Any actual branded values need approval in the consumer candidate that uses them; no DS-owned branded export is required for base UZH GA.
-- **Existing worktree:** `trees/rs-v5-uzh-alignment` on `rs/v5-uzh-alignment`. Preserve its original fixes and use ordinary merge propagation from the field layer; do not recreate the branch.
+- **Existing worktree:** `trees/rs-v5-uzh-alignment`, currently on `rs/v5-ga-qualification` at source baseline `870879614`. Preserve the existing stack and worktree. Future implementation plans resolve their branch/base from live state; this update does not alter topology.
 
 ## Immediate next actions
 
-1. Retain the source qualification recorded in [PR214](https://github.com/uzh-bf/design-system/pull/214), including eleven component and five real-application captures. The packed acceptance proves the historical pilot; record new source/artifact refs when refreshing it.
-2. Retain the implemented coverage/token/default protections and verify live draft checks for the final helper/documentation head. The approved execution plan and candidate matrix hold exact source and evidence identities.
-3. Refresh candidate acceptance after the token/default work, including relevant consumer override retirement and the outstanding manual accessibility/browser evidence.
-4. Keep additive Phase 3 APIs in v5.1. Keep wrapper convergence and complete Formik public-type/runtime removal in v6.
-5. Reconcile the existing v5 umbrella and qualify the integrated candidate in its promotion package; target merges, publication and deployment retain their separate authority gates.
+1. Retain the completed token/default and historical exact-candidate evidence.
+   The previous routing-blocked candidate instruction is superseded by PR6652.
+2. Derive the RHF parity implementation plan from the GA roadmap's ten-family
+   matrix; preserve Formik and the optional RHF/RSC entry contract.
+3. Complete the pinned official Radix API/recipe/auxiliary matrix and implement
+   missing capabilities in bounded packages with explicit dependency migrations.
+4. Apply the UZH traceability above throughout those packages, then qualify the
+   integrated candidate and actual new defaults in representative consumers.
+5. Complete manual accessibility/browser/device evidence and promotion
+   preparation. Merge, publication and deployment retain named authority gates.
 
 ## October 18 evidence and remaining gates
 
