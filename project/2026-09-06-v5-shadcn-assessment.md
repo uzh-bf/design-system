@@ -85,8 +85,11 @@ The 11 missing matching primitives are:
 A custom root Combobox or a shared filename does not establish current primitive
 API equivalence. The 52 shared names still need public exports/subcomponents,
 props/variants/orientation, composition, refs, keyboard/RTL and state comparison.
-Examples include Tabs orientation/list variants, Calendar navigation/types,
-Chart tooltip/legend types and Resizable refs/persistence. Record an intentional
+A further pinned [Button comparison](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/bases/radix/ui/button.tsx)
+confirms four missing size variants: `xs`, `icon-xs`, `icon-sm` and `icon-lg`;
+these are GA API gaps, not v5.1 conveniences. Other seams to compare include
+Tabs orientation/list variants, Calendar navigation/types, Chart tooltip/legend
+types and Resizable refs/persistence. Record an intentional
 visual adaptation separately from a missing functional capability. Preserve the
 neutral/UZH themes, existing caller class precedence and legacy exports.
 

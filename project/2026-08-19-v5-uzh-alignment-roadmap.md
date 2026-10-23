@@ -107,8 +107,8 @@ The token-model work fails that test hard. Adding interaction-state tokens and r
 
 | Release | Contents | Rationale |
 | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------ |
-| **5.0.0 GA** | All A-defects, all six CD defects, every token value and naming decision, every changed visual default, the migration-guide delta table | Breaking or visual — cannot move later |
-| **5.1** | Purely additive API: `Modal size`, `Button icon-sm` / `destructive-outline` / `success`, Accordion size variants, form `fullWidth`, exported type-scale token | New surface, no existing rendering changes |
+| **5.0.0 GA** | All A-defects, all six CD defects, every token value and naming decision, every changed visual default, the migration-guide delta table, full RHF parity and required official Radix APIs/auxiliaries | Breaking or visual — cannot move later |
+| **5.1** | Purely additive API: `Modal size`, non-upstream Button `destructive-outline` / `success`, Accordion size variants, form `fullWidth`, exported type-scale token | New surface, no existing rendering changes |
 | **6.0** | The legacy-wrapper convergence (finding C15), removal of the deprecated `--color-uzh-*` families | Architectural; needs an ADR of its own |
 
 Phase 0 was on the GA critical path. Its decisions below are settled; Phase 2 implements them before GA.
@@ -246,6 +246,15 @@ Coverage is delivered in [PR215](https://github.com/uzh-bf/design-system/pull/21
 
 The compatible layer was selected on October 17. The October 23 full-Radix requirement now requires pre-GA compatibility dispositions for relevant DayPicker, Resizable Panels, chart and toast migrations. Unrelated validation/build-tool majors are not automatic GA prerequisites. Preserve the RHF 7.59.0/7.90.0 matrix and revisit candidate metadata and advisories at qualification. A focused shadcn comparison does not establish parity across every copied primitive.
 
+## Additional GA API scope — 2026-10-23
+
+The pinned official Radix Button supports `xs`, `icon-xs`, `icon-sm` and
+`icon-lg`, absent from our current primitive's size variants. Deliver these in
+the pre-GA Radix API package, preserving existing sizes and application geometry.
+The [shadcn capability matrix](2026-09-06-v5-shadcn-assessment.md#catalog-inventory-and-compatibility)
+owns this gap. These additions extend the current GA scope; they do not reopen
+the completed Phase 2 defaults package.
+
 ## Phase 3 — unrelated additive API → 5.1
 
 These are historical candidate conveniences. Check each against the accepted
@@ -253,7 +262,7 @@ official Radix API before deferring it: required upstream variants belong in GA.
 Only additions outside that coverage can remain here.
 
 - **C10** — `Modal size="sm|md|lg|xl|full"` presets on the 520px base, replacing 15+ distinct hand-rolled width overrides in Klicker alone.
-- **C2 (partial)** — `icon-sm` (`size-8`) alongside the existing `icon`, plus `destructive-outline` and `success` variants so status buttons stop hand-rolling `border-red-400` / `border-green-700`.
+- **C2 (non-upstream variants)** — `destructive-outline` and `success` convenience variants; official Button size gaps belong to GA below the Phase 2 source record, not this list.
 - **C3** — Accordion trigger size variants against the fixed 52px, keeping the current height as the default.
 - **C9 (partial)** — a `fullWidth` prop and a documented horizontal-label layout for form fields.
 - **B6** — export the existing type scale without changing current rendering.
