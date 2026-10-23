@@ -279,19 +279,20 @@ substitute or a claim of GA readiness.
 
 Status: both draft layers are published; implementation, local verification and
 configured slice reviews are complete. Integrated final review passes through the configured AGY fallback.
-Required hosted CI passes at the basic-field tip. The picker layer's packed
-consumer setup passed with a longer install allowance; an accessibility shard
-then hit the same five-minute setup timeout before tests ran. All browser jobs
-in its CI now permit one fifteen-minute install within their existing
-seventeen-minute step budgets; hosted qualification of that correction remains
-pending. Main owns the remaining gates in standard mode.
+Required hosted CI passes at both tested source tips. The basic layer passes at
+`cf9549b89`; the picker layer passes at `4feb499d6`, including all accessibility
+shards, inventory closure, both RHF consumer cells and Build. Its browser jobs
+permit one fifteen-minute install within existing seventeen-minute step budgets.
+Final documentation-tip CI and a quiet settle remain before closing draft
+qualification. Main owns those remaining gates in standard mode.
 
 ### Delivery and source
 
 - [Basic fields draft PR219](https://github.com/uzh-bf/design-system/pull/219):
   `cf9549b89a29660993ab312492ad640bba73d13d`, based on the qualification branch.
 - [Picker draft PR220](https://github.com/uzh-bf/design-system/pull/220):
-  executable source `e49a96a4b705a296cb4f337d9d788ead344bac85`, based on basic fields.
+  package executable source `e49a96a4b705a296cb4f337d9d788ead344bac85`, passing
+  workflow tip `4feb499d6319ade99d103aa9c14824d324b33e3d`, based on basic fields.
 - Native stack221 has exactly these two layers and custom trunk
   `rs/v5-ga-qualification`. Remote stack212 retains its original eight PRs and
   `v5` base. No topology repair or target integration was needed.
@@ -328,15 +329,17 @@ reused explicitly. No new serious/critical accessibility exception was added.
 The earlier basic tip independently passed its relevant types/lint, 71 focused
 contracts, 74 axe cases, both RHF/Next cells, pinned visuals, CSS and budgets.
 Its final slot corrections pass 20 focused RHF cases, including measured padding
-and fluid width. Hosted CI at the final basic tip passes after one setup retry.
-The picker layer's remaining hosted gate is independent of those passing checks.
+and fluid width. Hosted [basic CI](https://github.com/uzh-bf/design-system/actions/runs/39949970459)
+passes after one setup retry. Hosted [picker CI](https://github.com/uzh-bf/design-system/actions/runs/39967459521)
+passes after the bounded installation correction; all test and build jobs ran,
+with tag-only Publish skipped. The separate build workflow also passes.
 
 The workflow install override preserves the existing step/job timeouts and
 all verification commands. YAML formatting, effective settings for each browser
 job and three simulated installer exit paths confirm one bounded 900-second
-attempt and failure propagation. These
-focused checks do not prove mirror availability; hosted execution remains
-required. No new maintained test is needed for this declarative timing change.
+attempt and failure propagation. Hosted execution then verifies the setting,
+including the previously failing accessibility shard. No new maintained test
+is needed for this declarative timing change.
 Package source, candidate bytes and reviewed UI behavior are unchanged, so their
 passing evidence and configured reviews remain applicable.
 
@@ -366,9 +369,8 @@ reports and exact command receipts remain under `project/_local/reviews/`.
 
 ### Remaining boundary
 
-Finish the picker layer's hosted checks before claiming completed draft
-qualification. The basic layer passes; the corrected browser install budget
-needs a fresh hosted run. Local green checks do not close that gate. No merge, marking ready,
+Both tested source tips pass hosted checks. Verify the final documentation-only
+tip and quiet settle before claiming completed draft qualification. No merge, marking ready,
 release/package publication, deployment, native goal or consumer-runtime change
 has occurred under this package.
 

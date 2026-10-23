@@ -1,6 +1,6 @@
 # Roadmap — Design System v5 GA readiness
 
-The library qualification and historical Klicker exact-package pilot are complete at draft delivery. GA remains blocked by the expanded October 23 requirements: full Formik-to-RHF capability parity, the official shadcn Radix catalog and auxiliary integrations, current UZH alignment, and integrated consumer/manual qualification. The next implementation package is RHF parity; derive its bounded execution plan before changing source.
+The library qualification and historical Klicker exact-package pilot are complete at draft delivery. RHF parity is implemented and both tested source tips pass hosted CI; final documentation-tip checks and quiet settle remain. GA still requires real-consumer acceptance, the official shadcn Radix catalog and auxiliary integrations, current UZH alignment, and integrated manual qualification.
 
 ## Identity and status
 
@@ -212,7 +212,10 @@ switch and both PIN adapters, the shared numeric control and the accepted RHF
 error contract. [Draft PR220](https://github.com/uzh-bf/design-system/pull/220)
 adds color, date and date/time. All ten families have draft implementations;
 Formik is retained through v5. Local all-family checks and configured slice
-reviews pass. Integrated final review passes; hosted CI remains open.
+reviews pass. Integrated final review passes. Hosted CI passes at basic tip
+`cf9549b89` and picker workflow tip `4feb499d6`, including both RHF consumer
+versions and all accessibility shards. The final documentation-only tip and
+quiet settle remain before closing draft qualification.
 
 The [approved execution plan](2026-10-23-v5-rhf-parity-plan.md#progress) records
 source, exact unpublished candidate, installed-file proof and remaining gates.
