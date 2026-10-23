@@ -277,80 +277,95 @@ substitute or a claim of GA readiness.
 
 ## Progress
 
-Status: implementation complete locally through the picker slice; draft delivery
-and integrated review are in progress. Main remains the accountable owner in
-standard mode. No product ruling or new execution approval is needed.
+Status: both draft layers are published; implementation, local verification and
+configured slice reviews are complete. Integrated final review passes through the configured AGY fallback.
+Required hosted CI is queued without an assigned runner, so completed draft
+qualification remains pending. Main owns the remaining gates in standard mode.
 
-Decision commit `afcc2b912eef289772af624ef767e92262c20ce3` contains the accepted
-ADRs and roadmap reconciliation. The configured planner approved this plan in
-round2. Claude reached its weekly limit before documentation review; the
-explicitly approved AGY Gemini 3.8 Flash high fallback passed canonical schema
-validation with no findings. Private review receipts are retained under
-`project/_local/reviews/`. The decision commit is pushed on the qualification
-branch and reflected in [draft PR218](https://github.com/uzh-bf/design-system/pull/218).
+### Delivery and source
 
-### Basic layer
+- [Basic fields draft PR219](https://github.com/uzh-bf/design-system/pull/219):
+  `cf9549b89a29660993ab312492ad640bba73d13d`, based on the qualification branch.
+- [Picker draft PR220](https://github.com/uzh-bf/design-system/pull/220):
+  executable source `e49a96a4b705a296cb4f337d9d788ead344bac85`, based on basic fields.
+- Native stack221 has exactly these two layers and custom trunk
+  `rs/v5-ga-qualification`. Remote stack212 retains its original eight PRs and
+  `v5` base. No topology repair or target integration was needed.
+- Decision commit `afcc2b912eef289772af624ef767e92262c20ce3` was reviewed through
+  the explicitly approved bounded AGY fallback and is reflected in
+  [qualification draft PR218](https://github.com/uzh-bf/design-system/pull/218).
 
-[Draft PR219](https://github.com/uzh-bf/design-system/pull/219), tip
-`cf9549b89a29660993ab312492ad640bba73d13d`, adds the accepted error contract,
-textarea, switch and both PIN adapters. Its base is `rs/v5-ga-qualification`.
-The source keeps Formik and shares the numeric control. Slice simplification
-and risk review were completed; verified slot ownership and fluid-width findings
-were corrected with measured browser regressions. A later forge comment repeats
-the fluid-width issue already corrected and covered by that regression.
+All ten retained Formik families now have RHF adapters in draft source, alongside
+multi-select. Formik remains supported through v5. The optional client subpath,
+inline/RHF-owned error contract, typed values and transformed submissions,
+actual control refs, reset semantics and application-owned timezone/resolver
+policy are preserved. Color retains staged Apply/cancel behavior. Long synthetic
+German labels use the existing styling hooks; compact LTR/RTL checks cover label
+bounds and focus rather than claiming complete locale support.
 
-The initial basic tip passed types/lint, 71 focused browser contracts, 74 relevant
-axe story cases, both RHF packed/Next cells, 29 pinned visuals, 704 packed CSS
-token assertions and package budgets. All styling corrections pass 20 focused
-RHF contracts. Four corrected neutral/UZH desktop/mobile captures replace the
-superseded error-state images in the PR; the unchanged timing capture is marked
-historical. Attachment read-back and byte receipts are retained privately.
-Hosted CI at the current tip is queued on `ubuntu-latest`; it has no assigned
-runner and is not counted as passed. A single watcher owns that run.
+### Verification
 
-### Picker layer and integrated candidate
+Final native checks use checksum-verified Node 22.16.0 and root pnpm 10.30.0 in the
+isolated tool container. Packed fixtures retain their own pinned pnpm 11.21.0.
+Initial image runs used Node 24.16.0; final verification refreshes the pinned
+Node 22 boundary. The deterministic visual suite uses its repository-pinned
+Playwright image and architecture.
 
-[Draft PR220](https://github.com/uzh-bf/design-system/pull/220), branch
-`rs/v5-rhf-pickers`, adds color, date and date/time
-adapters, typed paths, the existing RHF reset signal, native focus seams and
-associated errors. Color retains staged edits and Apply/cancel behavior. Date
-and time retain `Date | undefined`, browsing and partial-edit behavior. Button
-triggers expose required markers through their labels rather than unsupported
-`aria-required`; accessible names include visible date/time values. The first
-accessibility run identified these association defects; the corrected 98-story
-run passes without new serious/critical exceptions.
+At `adc5d46f5`, package build:tsc, workspace check/lint and formatting pass, with
+110 behavioral contracts, 136 relevant axe story cases, 29 pinned visual cases,
+704 packed CSS assertions and package budgets. Frozen packed type/runtime cells
+pass at RHF 7.59.0 and 7.90.0. Both cells pass Next 16.2.9 Turbopack/Webpack builds
+and eight browser cases. The final name correction changes only the aria-label-
+only date route; two affected selected/empty-date cases, 28 axe story cases,
+types/lint/format and a fresh package build pass at `e49a96a4b`. Other matrix paths,
+types, reset and dependency boundaries are unchanged, so passing evidence is
+reused explicitly. No new serious/critical accessibility exception was added.
 
-The integrated source passes types/lint, 74 RHF/shared-input/field behavior cases,
-both RHF 7.59.0/7.90.0 packed type/runtime cells and Next Turbopack/Webpack builds
-with eight browser cases per cell, 29 pinned visual cases, packed CSS and budgets.
-Long German-label fixtures exercise existing wrapping hooks; compact LTR/RTL
-layout and focus checks pass. All 102 relevant axe story cases pass, including
-these fixtures. The current gallery and final exact-source checks are being
-finished before publication. No existing control or dependency major was
-replaced. The new layers remain a separate native stack with custom trunk
-`rs/v5-ga-qualification`; the earlier eight-layer stack is unchanged.
+The earlier basic tip independently passed its relevant types/lint, 71 focused
+contracts, 74 axe cases, both RHF/Next cells, pinned visuals, CSS and budgets.
+Its final slot corrections pass 20 focused RHF cases, including measured padding
+and fluid width. Hosted CI at each current PR tip remains a separate gate.
 
-Remaining package gates: immutable picker slice reviews, inspected/published
-picker gallery,
-integrated final review, current artifact identity and required hosted CI at both
-tips. Both layers are published as drafts in native stack221, based on the
-qualification branch. Remote stack212 still has its original eight PRs and v5
-base. No topology repair or integration was needed.
-Native goals, merge, marking ready, release/package publication, deployment and consumer
-runtime changes have not been started by this package.
+Both PR galleries contain inspected synthetic captures with source/date/hash
+receipts: four corrected basic states plus one unchanged historical timing state,
+and nine picker/long-label/direction states. All 14 native attachments were read
+back and rendered in GitHub at their expected image dimensions. No screenshots
+are committed. Existing visible captures remain applicable after the final
+programmatic-name correction, which changes no captured layout.
 
-After the DS drafts qualify, the selected GBL RHF journey requires its own
-consumer-owned plan and proof against the exact candidate. Retained Klicker
-Formik evidence remains separate. Screen-reader, Safari and physical-device
-acceptance are still manual GA gates; synthetic Chromium checks do not close them.
+### Exact candidate and reviews
+
+The unpublished candidate from `e49a96a4b705a296cb4f337d9d788ead344bac85` is
+`project/_local/rhf-parity-candidate/uzh-bf-design-system-5.0.0-alpha.5.tgz`.
+SHA-256: `b237f0d7f9b384c84f4027768d5c5391e72e22591c1146ef890f0603a7994f06`.
+All 264 installed package files match the archive byte-for-byte; all 11 adapters
+import through the dedicated entry with RHF 7.90.0 on Node 22. This artifact has
+not been published or accepted by a real consumer.
+
+The configured simplifiers found no justified net reduction. Verified basic
+slot/width findings were fixed with measured regressions. The picker reviewer
+covered all 20 upper-layer paths, found the aria-label-only date-value omission,
+and accepted its correction in the same-child correction pass. No slice finding
+remains open. Integrated final review uses AGY Gemini 3.8 Flash high after the
+reusable Claude weekly-limit failure; its canonical-schema-validated verdict passes with no findings. Private
+reports and exact command receipts remain under `project/_local/reviews/`.
+
+### Remaining boundary
+
+Finish hosted checks before claiming completed draft qualification. Jobs are queued on `ubuntu-latest` without an assigned runner;
+local green checks do not close that external gate. No merge, marking ready,
+release/package publication, deployment, native goal or consumer-runtime change
+has occurred under this package.
+
+The selected real GBL RHF journey needs its own current-source consumer plan and
+browser proof against this exact candidate. Retained Klicker Formik evidence
+remains separate. Screen-reader, Safari and physical-device runs are still
+manual GA gates. Chart ownership, remaining Radix/auxiliary coverage and UZH
+acceptance continue under the roadmap after the consumer package.
 
 
-The long-label capture exposed a shrinking legacy Switch track (25.5px instead
-of its declared 48px medium width). The smallest correction prevents flex
-shrinking and extends the measured localized-layout regression. This adds one
-shared-control path to the upper layer because that layer introduces the long-
-label qualification fixture; no public prop or topology change is needed.
-Both package layers remain within their substantive-line estimates.
-The initial isolated Playwright image uses Node24.16.0; final native checks and
-packed/RHF/Next qualification are refreshed with the pinned Node22.16.0 and
-pnpm10.30.0. The repository-pinned visual image remains its prescribed toolchain.
+The exact task-owned `ds-v5-rhf-checks` tool container is stopped and verified
+exited. Its browser session is closed; relevant logs, candidate and gallery
+receipts remain in the ignored artifact area. No retained consumer runtime was
+touched or deleted. Source and archive qualification remain valid after the
+final documentation-only progress update.

@@ -208,12 +208,17 @@ Radix requirements. Unrelated additions retain their later horizon.
 ### RHF implementation progress — 2026-10-23
 
 [Draft PR219](https://github.com/uzh-bf/design-system/pull/219) adds textarea,
-switch and both PIN adapters, shared numeric control and the accepted RHF error
-contract. [Draft PR220](https://github.com/uzh-bf/design-system/pull/220) adds
-color, date and date/time. The
-[approved execution plan](2026-10-23-v5-rhf-parity-plan.md) owns exact source,
-checks, reviews and remaining gates. Draft source and synthetic checks do not
-establish GBL acceptance, integrated GA readiness or release authority.
+switch and both PIN adapters, the shared numeric control and the accepted RHF
+error contract. [Draft PR220](https://github.com/uzh-bf/design-system/pull/220)
+adds color, date and date/time. All ten families have draft implementations;
+Formik is retained through v5. Local all-family checks and configured slice
+reviews pass. Integrated final review passes; hosted CI remains open.
+
+The [approved execution plan](2026-10-23-v5-rhf-parity-plan.md#progress) records
+source, exact unpublished candidate, installed-file proof and remaining gates.
+Draft source and synthetic checks do not establish GBL acceptance, integrated
+GA readiness or release authority. The selected consumer journey remains next
+after DS draft qualification.
 
 ### Next implementation packages
 
