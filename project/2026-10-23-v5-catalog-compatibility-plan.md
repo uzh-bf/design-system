@@ -138,5 +138,11 @@ review. Private review transcripts record findings and dispositions.
 - Substantive executable delta: zero; planned outputs are project artifacts and
   status documentation. Source coverage (63 UI,67 examples,30 blocks,70 chart
   recipes,21 AI patterns), relative paths and immutable source links pass.
-  New-document Prettier3.5.3 and diff checks pass; final review and draft CI
-  delivery remain pending.
+  New-document Prettier3.5.3 and diff checks pass. Draft PR222 is published
+  above PR220. CI40015271872 passes the initial documentation head46c615e6d;
+  required complete Claude review remains unexecuted pending disclosure approval.
+- Completion revalidation found two previously accepted chart-plan corrections
+  absent from the actual Scope paragraphs. The follow-up makes zero/null and
+  initialDimension behavior explicit and names the chart contract test; it also
+  corrects Button's proposed 24px rung wording. No new implementation scope.
+  Updated-head CI and the complete independent final review remain gates.

@@ -59,14 +59,18 @@ ReactDOM, react-is, RHF or a second Recharts runtime.
    `src/Chart.tsx` exports. Preserve `ChartConfig`, container, tooltip, legend,
    style helper and import paths. Replace obsolete Tooltip-prop derivation with
    supported custom-content typing; preserve formatter/name/label payload
-   behavior, custom icons and caller class precedence. Honor new accessibility
+   behavior, custom icons and caller class precedence. Correct the verified
+   `item.value &&` defect: render zero and omit null/undefined values, preserving
+   explicit formatter output. Add the pinned `initialDimension` option with its
+   320×200 fallback and preserve explicit caller sizing. Honor new accessibility
    behavior and controlled interaction, without unsafe casts hiding API failures.
 3. **Compositions and packed proof.** Extend existing `Chart.stories.mdx` with
    representative six plot families (area, bar, line, pie, radar, radial) and tooltip states from the
    pinned gallery. Extend existing public types/browser and packed Next seams
    for direct Recharts composition, responsive sizing and dependency identity.
-   Add only a narrowly named chart behavior contract file if existing generic
-   contract files cannot express these related chart obligations coherently.
+   Add the named `tests/contracts/chart-composition.spec.ts` for cohesive
+   chart interaction, zero/null values and `initialDimension` behavior, using
+   test-owned synthetic fixtures.
 4. **Qualify and document.** Update `packages/design-system/MIGRATION.md`,
    existing chart docs, affected matrix rows and this plan's Progress. Document
    install changes and consequential Recharts 3 migration differences, then
@@ -175,5 +179,6 @@ follow this package and retain their own authority.
 - Drafted 2026-10-23; source remains unchanged.
 - Native planner approved after one correction round; bounded user approval
   remains pending. Proposed ranges are untested.
-- Immediate next step: challenge the complete plan against the inventory and
-  actual minimum/current package metadata, then present bounded approval.
+- Next action: complete the catalog package's independent final review, then
+  present bounded implementation approval. The three cells and named test scope
+  are concrete proposals; implementation and version qualification remain open.
