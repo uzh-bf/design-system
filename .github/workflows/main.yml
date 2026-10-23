@@ -5,6 +5,11 @@ on:
 permissions:
   contents: read
 
+env:
+  # Fresh-runner system packages can take longer than five minutes.
+  PLAYWRIGHT_INSTALL_TIMEOUT: "900"
+  PLAYWRIGHT_INSTALL_ATTEMPTS: "1"
+
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -182,10 +187,6 @@ jobs:
         run: corepack enable
       - name: Install Playwright browser
         timeout-minutes: 17
-        env:
-          # Fresh-runner system packages can take longer than five minutes.
-          PLAYWRIGHT_INSTALL_TIMEOUT: "900"
-          PLAYWRIGHT_INSTALL_ATTEMPTS: "1"
         run: bash .github/scripts/install-playwright-browser.sh
       - name: Verify packed imports and public declarations
         run: sh packages/design-system/tests/rsc/packed-consumers/scripts/verify.sh

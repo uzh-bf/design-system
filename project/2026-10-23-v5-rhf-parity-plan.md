@@ -280,10 +280,11 @@ substitute or a claim of GA readiness.
 Status: both draft layers are published; implementation, local verification and
 configured slice reviews are complete. Integrated final review passes through the configured AGY fallback.
 Required hosted CI passes at the basic-field tip. The picker layer's packed
-consumer setup repeatedly exceeded the five-minute Playwright install attempt,
-before tests ran. Its CI now permits one fifteen-minute install within the
-existing seventeen-minute step budget; hosted qualification of that correction
-remains pending. Main owns the remaining gates in standard mode.
+consumer setup passed with a longer install allowance; an accessibility shard
+then hit the same five-minute setup timeout before tests ran. All browser jobs
+in its CI now permit one fifteen-minute install within their existing
+seventeen-minute step budgets; hosted qualification of that correction remains
+pending. Main owns the remaining gates in standard mode.
 
 ### Delivery and source
 
@@ -330,9 +331,10 @@ Its final slot corrections pass 20 focused RHF cases, including measured padding
 and fluid width. Hosted CI at the final basic tip passes after one setup retry.
 The picker layer's remaining hosted gate is independent of those passing checks.
 
-The consumer-job install override preserves the existing step/job timeouts and
-all verification commands. YAML formatting and three simulated installer exit
-paths confirm one bounded 900-second attempt and failure propagation. These
+The workflow install override preserves the existing step/job timeouts and
+all verification commands. YAML formatting, effective settings for each browser
+job and three simulated installer exit paths confirm one bounded 900-second
+attempt and failure propagation. These
 focused checks do not prove mirror availability; hosted execution remains
 required. No new maintained test is needed for this declarative timing change.
 Package source, candidate bytes and reviewed UI behavior are unchanged, so their
@@ -365,7 +367,7 @@ reports and exact command receipts remain under `project/_local/reviews/`.
 ### Remaining boundary
 
 Finish the picker layer's hosted checks before claiming completed draft
-qualification. The basic layer passes; the corrected consumer install budget
+qualification. The basic layer passes; the corrected browser install budget
 needs a fresh hosted run. Local green checks do not close that gate. No merge, marking ready,
 release/package publication, deployment, native goal or consumer-runtime change
 has occurred under this package.
@@ -381,4 +383,4 @@ The exact task-owned `ds-v5-rhf-checks` tool container is stopped and verified
 exited. Its browser session is closed; relevant logs, candidate and gallery
 receipts remain in the ignored artifact area. No retained consumer runtime was
 touched or deleted. Source and archive qualification remain valid after the
-documentation and consumer-job timing updates.
+documentation and workflow timing updates.
