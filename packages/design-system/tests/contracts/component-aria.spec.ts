@@ -265,49 +265,60 @@ test.describe('Primitive Tabs compatibility', () => {
   })
 })
 
-test('primary buttons keep readable text in neutral dark mode', async ({
-  page,
-}) => {
-  await page.addInitScript(() => {
-    localStorage.setItem('ladle-theme', JSON.stringify('neutral'))
-    localStorage.setItem('ladle-dark', 'true')
+for (const scenario of [
+  { theme: 'neutral', dark: false },
+  { theme: 'uzh', dark: false },
+  { theme: 'neutral', dark: true },
+]) {
+  test(`primary buttons keep readable text in ${scenario.theme} ${scenario.dark ? 'dark' : 'light'}`, async ({
+    page,
+  }) => {
+    await page.addInitScript((state) => {
+      localStorage.setItem('ladle-theme', JSON.stringify(state.theme))
+      localStorage.setItem('ladle-dark', JSON.stringify(state.dark))
+    }, scenario)
+    await gotoStory(page, 'button--primitive-sizes')
+    const button = page.locator('[data-slot="button"]').first()
+    const contrast = (target = button) =>
+      target.evaluate((element) => {
+        const context = document.createElement('canvas').getContext('2d')!
+        const luminance = (color: string) => {
+          context.fillStyle = color
+          context.fillRect(0, 0, 1, 1)
+          const values = [...context.getImageData(0, 0, 1, 1).data]
+            .slice(0, 3)
+            .map((value) => {
+              const channel = value / 255
+              return channel <= 0.04045
+                ? channel / 12.92
+                : ((channel + 0.055) / 1.055) ** 2.4
+            })
+          return values[0] * 0.2126 + values[1] * 0.7152 + values[2] * 0.0722
+        }
+        const style = getComputedStyle(element)
+        const fg = luminance(style.color)
+        const bg = luminance(style.backgroundColor)
+        return (Math.max(fg, bg) + 0.05) / (Math.min(fg, bg) + 0.05)
+      })
+    await expect.poll(() => contrast()).toBeGreaterThanOrEqual(4.5)
+    await button.hover()
+    await expect.poll(() => contrast()).toBeGreaterThanOrEqual(4.5)
+    await page.mouse.down()
+    await expect.poll(() => contrast()).toBeGreaterThanOrEqual(4.5)
+    await page.mouse.up()
+    const selected = page.locator('[data-test="button-selected-primary"]')
+    await expect.poll(() => contrast(selected)).toBeGreaterThanOrEqual(4.5)
+    await selected.hover()
+    await expect.poll(() => contrast(selected)).toBeGreaterThanOrEqual(4.5)
+    await page.mouse.down()
+    await expect.poll(() => contrast(selected)).toBeGreaterThanOrEqual(4.5)
+    await page.mouse.up()
+    const caller = page.locator('[data-test="button-caller-colors"]')
+    if (scenario.dark)
+      expect(
+        await caller.evaluate((element) => getComputedStyle(element).color)
+      ).not.toBe(
+        await button.evaluate((element) => getComputedStyle(element).color)
+      )
   })
-  await gotoStory(page, 'button--primitive-sizes')
-  const button = page.locator('[data-slot="button"]').first()
-  const contrast = (target = button) =>
-    target.evaluate((element) => {
-      const context = document.createElement('canvas').getContext('2d')!
-      const luminance = (color: string) => {
-        context.fillStyle = color
-        context.fillRect(0, 0, 1, 1)
-        const values = [...context.getImageData(0, 0, 1, 1).data]
-          .slice(0, 3)
-          .map((value) => {
-            const channel = value / 255
-            return channel <= 0.04045
-              ? channel / 12.92
-              : ((channel + 0.055) / 1.055) ** 2.4
-          })
-        return values[0] * 0.2126 + values[1] * 0.7152 + values[2] * 0.0722
-      }
-      const style = getComputedStyle(element)
-      const fg = luminance(style.color)
-      const bg = luminance(style.backgroundColor)
-      return (Math.max(fg, bg) + 0.05) / (Math.min(fg, bg) + 0.05)
-    })
-  await expect.poll(() => contrast()).toBeGreaterThanOrEqual(4.5)
-  await button.hover()
-  await expect.poll(() => contrast()).toBeGreaterThanOrEqual(4.5)
-  await page.mouse.down()
-  await expect.poll(() => contrast()).toBeGreaterThanOrEqual(4.5)
-  await page.mouse.up()
-  await expect
-    .poll(() => contrast(page.locator('[data-test="button-selected-primary"]')))
-    .toBeGreaterThanOrEqual(4.5)
-  const caller = page.locator('[data-test="button-caller-colors"]')
-  expect(
-    await caller.evaluate((element) => getComputedStyle(element).color)
-  ).not.toBe(
-    await button.evaluate((element) => getComputedStyle(element).color)
-  )
-})
+}
