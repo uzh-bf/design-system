@@ -512,3 +512,163 @@ test('basic adapter padding applies once and fluid switches span the field row',
   })
   expect(Math.abs(dimensions.inner - dimensions.row)).toBeLessThan(1)
 })
+
+for (const story of [
+  'rhf-fields--picker-inputs',
+  'rhf-fields--explicit-picker-inputs',
+]) {
+  test(`${story}: color stages until Apply, cancels, resets and marks touched only after close`, async ({
+    page,
+  }) => {
+    await gotoStory(page, story)
+    const trigger = page.locator(text('rhf-color-trigger'))
+    await trigger.click()
+    const hex = page.locator(text('rhf-color-hex'))
+    await hex.fill('bf0d3e')
+    await expect(page.locator(text('rhf-picker-values'))).toContainText(
+      '"color":"#0028a5"'
+    )
+    await expect(page.locator(text('rhf-picker-touched'))).not.toContainText(
+      'color'
+    )
+    await page.keyboard.press('Escape')
+    await expect(trigger).toBeFocused()
+    await expect(page.locator(text('rhf-picker-touched'))).toContainText(
+      'color'
+    )
+    await trigger.click()
+    await expect(hex).toHaveValue(/0028a5/i)
+    await hex.fill('bf0d3e')
+    await page.locator(text('rhf-color-apply')).click()
+    await expect(page.locator(text('rhf-picker-values'))).toContainText(
+      '"color":"#bf0d3e"'
+    )
+    await trigger.click()
+    await hex.fill('ffffff')
+    await page.locator(text('rhf-picker-reset-color')).dispatchEvent('click')
+    await expect(hex).toHaveValue(/0028a5/i)
+    await page.keyboard.press('Escape')
+    await page.locator(text('rhf-picker-set-color')).click()
+    await trigger.click()
+    await expect(hex).toHaveValue(/bf0d3e/i)
+    await page.locator(text('rhf-picker-disable')).dispatchEvent('click')
+    await expect(trigger).toBeDisabled()
+    await expect(page.getByRole('dialog')).toHaveCount(0)
+  })
+  test(`${story}: date/time browsing, transient drafts and same-value resets preserve the form contract`, async ({
+    page,
+  }) => {
+    await gotoStory(page, story)
+    const date = page.locator(text('rhf-date-trigger'))
+    const assertDateName = async () => {
+      const visibleValue = (await date.innerText()).trim()
+      await expect(date).toHaveAccessibleName(
+        new RegExp(visibleValue.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+      )
+    }
+    await assertDateName()
+    const time = page.locator(text('rhf-time-trigger'))
+    await time.click()
+    const hours = page.getByRole('textbox', { name: 'Hours', exact: true })
+    await expect(hours).toBeVisible()
+    await page.locator(text('rhf-time-next')).click()
+    await hours.fill('10')
+    const edited = JSON.parse(
+      await page.locator(text('rhf-picker-values')).innerText()
+    )
+    expect(new Date(edited.timestamp).getDate()).toBe(15)
+    expect(new Date(edited.timestamp).getMonth()).toBe(4)
+    await hours.fill('')
+    await page.locator(text('rhf-picker-set-same')).dispatchEvent('click')
+    await expect(hours).toHaveValue('10')
+    await page.locator(text('rhf-picker-reset')).dispatchEvent('click')
+    await expect(hours).toHaveValue('09')
+    await page.keyboard.press('Escape')
+    await expect(time).toBeFocused()
+    for (const target of ['color', 'date', 'time']) {
+      await page.locator(text(`rhf-picker-focus-${target}`)).click()
+      await expect(page.locator(text(`rhf-${target}-trigger`))).toBeFocused()
+    }
+    await page.locator(text('rhf-date-trigger')).click()
+    await page.locator(text('rhf-date-next')).click()
+    await page.keyboard.press('Escape')
+    const browsed = JSON.parse(
+      await page.locator(text('rhf-picker-values')).innerText()
+    )
+    expect(new Date(browsed.date).getDate()).toBe(15)
+    expect(new Date(browsed.date).getMonth()).toBe(4)
+    await page.locator(text('rhf-picker-clear')).click()
+    const cleared = JSON.parse(
+      await page.locator(text('rhf-picker-values')).innerText()
+    )
+    expect(cleared.date).toBeUndefined()
+    expect(cleared.timestamp).toBeUndefined()
+    await assertDateName()
+    await page.locator(text('rhf-picker-reset')).click()
+    await page.locator(text('rhf-picker-submit')).click()
+    const submitted = JSON.parse(
+      await page.locator(text('rhf-picker-submitted')).innerText()
+    )
+    expect(new Date(submitted.date).getDate()).toBe(15)
+    expect(new Date(submitted.timestamp).getHours()).toBe(9)
+  })
+}
+
+test('picker server errors associate once and required refs focus the visible triggers', async ({
+  page,
+}) => {
+  await gotoStory(page, 'rhf-fields--picker-inputs')
+  await page.locator(text('rhf-picker-errors')).click()
+  for (const target of ['color', 'date', 'time']) {
+    const trigger = page.locator(text(`rhf-${target}-trigger`))
+    await expect(trigger).toHaveAttribute('aria-invalid', 'true')
+    const ids = (await trigger.getAttribute('aria-describedby'))!.split(/\s+/)
+    await expect(
+      page.locator(ids.map((id) => `[id="${id}"][role="alert"]`).join(','))
+    ).toHaveCount(1)
+  }
+})
+
+test('localized adapter labels wrap and controls retain focus in both text directions', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  for (const direction of ['ltr', 'rtl']) {
+    for (const story of [
+      'rhf-fields--localized-basic-inputs',
+      'rhf-fields--localized-picker-inputs',
+    ]) {
+      await gotoStory(page, story)
+      await page.evaluate((dir) => {
+        document.documentElement.dir = dir
+      }, direction)
+      const labels = page.locator('form[lang="de"] label')
+      for (const label of await labels.all()) {
+        const bounds = await label.boundingBox()
+        expect(bounds).not.toBeNull()
+        expect(bounds!.x).toBeGreaterThanOrEqual(0)
+        expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(390)
+      }
+      if (story.endsWith('basic-inputs')) {
+        const switchBounds = await page.getByRole('switch').boundingBox()
+        expect(switchBounds!.width).toBeGreaterThanOrEqual(48)
+        await page.locator(text('rhf-basic-focus-notes')).click()
+        await expect(page.locator(text('rhf-notes'))).toBeFocused()
+        await page.locator(text('rhf-notes')).fill('Synthetic note')
+        await page.locator(text('rhf-basic-focus-pin')).click()
+        await expect(page.locator('input[name="pin"]')).toBeFocused()
+      } else {
+        const trigger = page.locator(text('rhf-date-trigger'))
+        await trigger.click()
+        await expect(page.getByRole('dialog')).toBeVisible()
+        await page.keyboard.press('Escape')
+        await expect(trigger).toBeFocused()
+        const visibleValue = (await trigger.innerText()).trim()
+        expect(await trigger.getAttribute('aria-labelledby')).toBeTruthy()
+        await expect(trigger).toHaveAccessibleName(
+          new RegExp(visibleValue.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+        )
+      }
+    }
+  }
+})

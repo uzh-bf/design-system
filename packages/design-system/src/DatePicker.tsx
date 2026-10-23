@@ -4,7 +4,15 @@ import { faCalendar } from '@fortawesome/free-regular-svg-icons'
 import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import dayjs from 'dayjs'
-import React, { Dispatch, SetStateAction } from 'react'
+import React, {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+} from 'react'
 import { DayPicker } from 'react-day-picker'
 import { twMerge } from 'tailwind-merge'
 import FormLabel from './FormLabel'
@@ -23,6 +31,12 @@ export interface DatePickerClassName {
 
 export interface DatePickerProps {
   id?: string
+  onBlur?: () => void
+  resetKey?: number
+  'aria-label'?: string
+  'aria-labelledby'?: string
+  'aria-describedby'?: string
+  'aria-invalid'?: React.AriaAttributes['aria-invalid']
   ref?: React.Ref<HTMLButtonElement>
   date: Date | undefined
   onDateChange: Dispatch<SetStateAction<Date | undefined>>
@@ -76,6 +90,12 @@ export interface DatePickerProps {
  */
 export function DatePicker({
   id,
+  onBlur,
+  resetKey,
+  'aria-label': ariaLabel,
+  'aria-labelledby': labelledBy,
+  'aria-describedby': describedBy,
+  'aria-invalid': invalid,
   ref,
   date,
   onDateChange,
@@ -97,8 +117,37 @@ export function DatePicker({
   dataNextMonth,
   dataPreviousMonth,
 }: DatePickerProps) {
+  const generatedId = useId()
+  const inputId = id ?? generatedId
+  const valueId = `${inputId}-value`
+  const dateLabel = date
+    ? dayjs(date).format('DD.MM.YYYY')
+    : (placeholder ?? 'Pick a date')
+  const [open, setOpen] = useState(false)
+  const openRef = useRef(false)
+  const blurNotified = useRef(false)
+  const notifyBlur = useCallback(() => {
+    if (blurNotified.current) return
+    blurNotified.current = true
+    onBlur?.()
+  }, [onBlur])
+  useEffect(() => {
+    if (!disabled || !openRef.current) return
+    openRef.current = false
+    setOpen(false)
+    notifyBlur()
+  }, [disabled, notifyBlur])
   return (
-    <Popover>
+    <Popover
+      open={open}
+      onOpenChange={(next) => {
+        if (next && disabled) return
+        if (next) blurNotified.current = false
+        else if (openRef.current) notifyBlur()
+        openRef.current = next
+        setOpen(next)
+      }}
+    >
       <div
         className={twMerge(
           'flex w-[280px] flex-row',
@@ -109,7 +158,8 @@ export function DatePicker({
       >
         {label && (
           <FormLabel
-            id={id}
+            id={inputId}
+            labelId={`${inputId}-label`}
             required={required}
             label={label}
             labelType={labelType}
@@ -123,6 +173,25 @@ export function DatePicker({
         <div className="flex flex-row gap-2">
           <PopoverTrigger disabled={disabled} asChild>
             <Button
+              id={inputId}
+              aria-label={
+                labelledBy || label || !ariaLabel
+                  ? undefined
+                  : `${ariaLabel} ${dateLabel}`
+              }
+              aria-labelledby={
+                labelledBy || label
+                  ? `${labelledBy ?? `${inputId}-label`} ${valueId}`
+                  : undefined
+              }
+              aria-describedby={describedBy}
+              aria-invalid={invalid}
+              onFocus={() => {
+                blurNotified.current = false
+              }}
+              onBlur={() => {
+                if (!openRef.current) notifyBlur()
+              }}
               ref={ref}
               type="button"
               variant="outline"
@@ -130,8 +199,10 @@ export function DatePicker({
               className={twMerge(
                 'border-control-border text-content hover:bg-surface-hover h-10 min-w-[200px] justify-start rounded-md px-3 text-left text-sm font-normal',
                 !date && 'text-content-muted',
-                !!error &&
-                  isTouched &&
+                ((!!error && isTouched) ||
+                  (invalid !== undefined &&
+                    invalid !== false &&
+                    invalid !== 'false')) &&
                   'border-destructive bg-destructive-background',
                 className?.input
               )}
@@ -141,11 +212,7 @@ export function DatePicker({
                 icon={faCalendar}
                 className="text-content-muted mr-2.5 h-4 w-4"
               />
-              {date ? (
-                dayjs(date).format('DD.MM.YYYY')
-              ) : (
-                <span>{placeholder ?? 'Pick a date'}</span>
-              )}
+              <span id={valueId}>{dateLabel}</span>
             </Button>
           </PopoverTrigger>
           {error && !hideError && isTouched && (
@@ -166,11 +233,13 @@ export function DatePicker({
         </div>
       </div>
       <PopoverContent
+        aria-label={ariaLabel || label || placeholder || 'Pick a date'}
         className="w-auto border-none bg-transparent p-0 shadow-none"
         align={align}
       >
         <Calendar
-          id={id}
+          id={`${inputId}-calendar`}
+          key={resetKey}
           mode="single"
           captionLayout={captionLayout}
           weekStartsOn={1}
@@ -178,7 +247,7 @@ export function DatePicker({
           selected={date}
           defaultMonth={date}
           onSelect={(newDate) => {
-            if (typeof newDate !== 'undefined') {
+            if (!disabled && typeof newDate !== 'undefined') {
               onDateChange(newDate)
             }
           }}

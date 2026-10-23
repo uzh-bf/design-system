@@ -9,6 +9,9 @@ import Select from '../Select'
 import {
   Form,
   RhfAlphaNumericPinField,
+  RhfColorPicker,
+  RhfDatePicker,
+  RhfDatetimePicker,
   RhfMultiSelect,
   RhfNumberField,
   RhfPinField,
@@ -436,7 +439,13 @@ type BasicValues = {
   pin: string
   code: string
 }
-function BasicInputsForm({ explicit = false }: { explicit?: boolean }) {
+function BasicInputsForm({
+  explicit = false,
+  localized = false,
+}: {
+  explicit?: boolean
+  localized?: boolean
+}) {
   const [disabled, setDisabled] = useState(false)
   const [submitted, setSubmitted] = useState('')
   const [native, setNative] = useState('')
@@ -453,6 +462,7 @@ function BasicInputsForm({ explicit = false }: { explicit?: boolean }) {
   const content = (
     <form
       noValidate
+      lang={localized ? 'de' : undefined}
       className="flex w-full max-w-96 flex-col gap-4"
       onSubmit={form.handleSubmit((values) =>
         setSubmitted(JSON.stringify(values))
@@ -461,10 +471,17 @@ function BasicInputsForm({ explicit = false }: { explicit?: boolean }) {
       <RhfTextareaField
         control={control}
         name="notes"
-        label="Notes"
+        label={
+          localized
+            ? 'Zusätzliche Hinweise zur gemeinsamen Vorbereitung der fiktiven Projektwoche'
+            : 'Notes'
+        }
         description="Longer text for the activity."
         maxLength={40}
-        className={{ root: 'p-4' }}
+        className={{
+          root: 'p-4',
+          label: localized ? 'min-w-0 flex-wrap' : undefined,
+        }}
         ref={notesRef}
         rules={{ required: 'Enter notes.' }}
         data={{ test: 'rhf-notes' }}
@@ -472,9 +489,16 @@ function BasicInputsForm({ explicit = false }: { explicit?: boolean }) {
       <RhfSwitchField
         control={control}
         name="enabled"
-        label="Enabled"
+        label={
+          localized
+            ? 'Erinnerungen an die nächsten Arbeitsschritte für die fiktive Lerngruppe aktivieren'
+            : 'Enabled'
+        }
         fluid
-        className={{ root: 'p-4' }}
+        className={{
+          root: 'p-4',
+          label: localized ? 'min-w-0 flex-wrap' : undefined,
+        }}
         ref={switchRef}
         rules={{ validate: (value) => value || 'Enable this option.' }}
         data={{ test: 'rhf-enabled' }}
@@ -482,8 +506,15 @@ function BasicInputsForm({ explicit = false }: { explicit?: boolean }) {
       <RhfPinField
         control={control}
         name="pin"
-        label="Numeric PIN"
-        className={{ field: 'p-4' }}
+        label={
+          localized
+            ? 'Vierstellige numerische Kennzahl für den Zugang zur fiktiven Gruppenübung'
+            : 'Numeric PIN'
+        }
+        className={{
+          field: 'p-4',
+          label: localized ? 'min-w-0 flex-wrap' : undefined,
+        }}
         length={4}
         ref={pinRef}
         rules={{ minLength: { value: 4, message: 'Enter four digits.' } }}
@@ -492,8 +523,15 @@ function BasicInputsForm({ explicit = false }: { explicit?: boolean }) {
       <RhfAlphaNumericPinField
         control={control}
         name="code"
-        label="Access code"
-        className={{ field: 'p-4' }}
+        label={
+          localized
+            ? 'Alphanumerischer Zugangscode für den geschützten Bereich der fiktiven Lernaktivität'
+            : 'Access code'
+        }
+        className={{
+          field: 'p-4',
+          label: localized ? 'min-w-0 flex-wrap' : undefined,
+        }}
         length={4}
         uppercaseOnly
         ref={codeRef}
@@ -592,6 +630,7 @@ function BasicInputsForm({ explicit = false }: { explicit?: boolean }) {
 
 export const BasicInputs = () => <BasicInputsForm />
 export const ExplicitBasicInputs = () => <BasicInputsForm explicit />
+export const LocalizedBasicInputs = () => <BasicInputsForm localized />
 
 export const FormikPinCompatibility = () => (
   <Formik
@@ -627,3 +666,206 @@ export const FormikPinCompatibility = () => (
     )}
   </Formik>
 )
+
+const pickerDefaults = {
+  color: '#0028a5',
+  date: new Date(2025, 4, 15, 9, 30),
+  timestamp: new Date(2025, 4, 15, 9, 30),
+}
+type PickerValues = {
+  color: string
+  date: Date | undefined
+  timestamp: Date | undefined
+}
+function PickerInputsForm({
+  explicit = false,
+  localized = false,
+}: {
+  explicit?: boolean
+  localized?: boolean
+}) {
+  const [disabled, setDisabled] = useState(false)
+  const form = useForm<PickerValues>({
+    mode: 'onBlur',
+    disabled,
+    defaultValues: pickerDefaults,
+  })
+  const [submitted, setSubmitted] = useState('')
+  const colorRef = useRef<HTMLButtonElement>(null)
+  const dateRef = useRef<HTMLButtonElement>(null)
+  const timeRef = useRef<HTMLButtonElement>(null)
+  const control = explicit ? form.control : undefined
+  const content = (
+    <form
+      noValidate
+      lang={localized ? 'de' : undefined}
+      className="flex w-full max-w-96 flex-col gap-4"
+      onSubmit={form.handleSubmit((value) =>
+        setSubmitted(JSON.stringify(value))
+      )}
+    >
+      <RhfColorPicker
+        control={control}
+        name="color"
+        label={
+          localized
+            ? 'Kennfarbe zur übersichtlichen Zuordnung der fiktiven Gruppenaktivität im Semesterplan'
+            : 'Activity color'
+        }
+        className={localized ? { label: 'min-w-0 flex-wrap' } : undefined}
+        required
+        description="Choose a color and apply it."
+        submitText="Apply color"
+        colorLabel="Hex color"
+        triggerAriaLabel="Choose activity color"
+        presetColors={['#0028a5', '#bf0d3e']}
+        ref={colorRef}
+        dataTrigger={{ test: 'rhf-color-trigger' }}
+        dataHexInput={{ test: 'rhf-color-hex' }}
+        dataSubmit={{ test: 'rhf-color-apply' }}
+      />
+      <RhfDatePicker
+        control={control}
+        name="date"
+        label={
+          explicit
+            ? undefined
+            : localized
+              ? 'Geplanter Durchführungstag für die gemeinsame Auswertung der fiktiven Gruppenarbeit'
+              : 'Activity date'
+        }
+        aria-label={explicit ? 'Activity date' : undefined}
+        className={localized ? { label: 'min-w-0 flex-wrap' } : undefined}
+        required={!explicit}
+        description="The selected calendar day."
+        ref={dateRef}
+        dataTrigger={{ test: 'rhf-date-trigger' }}
+        dataCalendar={{ test: 'rhf-date-calendar' }}
+        dataNextMonth={{ test: 'rhf-date-next' }}
+      />
+      <RhfDatetimePicker
+        control={control}
+        name="timestamp"
+        label={
+          localized
+            ? 'Vollständiges Datum mit Uhrzeit für den Beginn der fiktiven Abschlusspräsentation'
+            : 'Activity time'
+        }
+        className={localized ? { label: 'min-w-0 flex-wrap' } : undefined}
+        required
+        description="Date and time remain Date values."
+        ref={timeRef}
+        hourCycle={12}
+        defaultPopupValue={pickerDefaults.timestamp}
+        dataTrigger={{ test: 'rhf-time-trigger' }}
+        dataHours={{ test: 'rhf-time-hours' }}
+        dataMinutes={{ test: 'rhf-time-minutes' }}
+        dataNextMonth={{ test: 'rhf-time-next' }}
+      />
+      <div className="flex flex-wrap gap-2">
+        <Button type="submit" data-test="rhf-picker-submit">
+          Submit pickers
+        </Button>
+        <Button
+          type="button"
+          data-test="rhf-picker-reset"
+          onClick={() => form.reset(pickerDefaults)}
+        >
+          Reset pickers
+        </Button>
+        <Button
+          type="button"
+          data-test="rhf-picker-reset-color"
+          onClick={() => form.resetField('color')}
+        >
+          Reset color
+        </Button>
+        <Button
+          type="button"
+          data-test="rhf-picker-set-same"
+          onClick={() =>
+            form.setValue('timestamp', form.getValues('timestamp'))
+          }
+        >
+          Set same time
+        </Button>
+        <Button
+          type="button"
+          data-test="rhf-picker-set-color"
+          onClick={() => form.setValue('color', '#bf0d3e')}
+        >
+          Set color
+        </Button>
+        <Button
+          type="button"
+          data-test="rhf-picker-clear"
+          onClick={() => {
+            form.setValue('date', undefined)
+            form.setValue('timestamp', undefined)
+          }}
+        >
+          Clear dates
+        </Button>
+        <Button
+          type="button"
+          data-test="rhf-picker-errors"
+          onClick={() => {
+            form.setError('color', {
+              type: 'server',
+              message: 'Choose another color.',
+            })
+            form.setError('date', {
+              type: 'server',
+              message: 'Choose another date.',
+            })
+            form.setError('timestamp', {
+              type: 'server',
+              message: 'Choose another time.',
+            })
+          }}
+        >
+          Server errors
+        </Button>
+        <Button
+          type="button"
+          data-test="rhf-picker-disable"
+          onClick={() => setDisabled((value) => !value)}
+        >
+          Toggle disabled
+        </Button>
+        <Button
+          type="button"
+          data-test="rhf-picker-focus-color"
+          onClick={() => colorRef.current?.focus()}
+        >
+          Focus color
+        </Button>
+        <Button
+          type="button"
+          data-test="rhf-picker-focus-date"
+          onClick={() => dateRef.current?.focus()}
+        >
+          Focus date
+        </Button>
+        <Button
+          type="button"
+          data-test="rhf-picker-focus-time"
+          onClick={() => timeRef.current?.focus()}
+        >
+          Focus time
+        </Button>
+      </div>
+      <output data-test="rhf-picker-values">
+        {JSON.stringify(form.watch())}
+      </output>
+      <output data-test="rhf-picker-touched">
+        {JSON.stringify(form.formState.touchedFields)}
+      </output>
+      <output data-test="rhf-picker-submitted">{submitted}</output>
+    </form>
+  )
+  return explicit ? content : <Form {...form}>{content}</Form>
+}
+export const PickerInputs = () => <PickerInputsForm />
+export const ExplicitPickerInputs = () => <PickerInputsForm explicit />
+export const LocalizedPickerInputs = () => <PickerInputsForm localized />
