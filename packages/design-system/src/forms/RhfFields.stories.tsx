@@ -341,3 +341,85 @@ export const NumberRange = () => <NumberRangeForm />
 export const ExplicitControl = () => <Harness explicitControl />
 
 export const Disabled = () => <Harness disabled />
+
+function ErrorTimingForm() {
+  const form = useForm<{
+    live: string
+    manual: string
+    hidden: string
+    tooltip: string
+  }>({
+    mode: 'onChange',
+    defaultValues: { live: '', manual: '', hidden: '', tooltip: '' },
+  })
+  return (
+    <Form {...form}>
+      <form
+        className="flex w-full max-w-96 flex-col gap-4"
+        onSubmit={form.handleSubmit(() => undefined)}
+      >
+        <RhfTextField
+          name="live"
+          label="Live validation"
+          rules={{
+            minLength: {
+              value: 3,
+              message: 'Enter at least three characters.',
+            },
+          }}
+          data={{ test: 'rhf-live-error' }}
+        />
+        <RhfTextField
+          name="manual"
+          label="Server validation"
+          description="A server error can arrive before touch."
+          data={{ test: 'rhf-manual-error' }}
+        />
+        <RhfTextField
+          name="hidden"
+          label="Hidden message"
+          hideError
+          data={{ test: 'rhf-hidden-error' }}
+        />
+        <RhfTextField
+          name="tooltip"
+          label="Tooltip message"
+          errorDisplay="tooltip"
+          data={{ test: 'rhf-tooltip-error' }}
+        />
+        <Button
+          type="button"
+          data-test="rhf-manual-errors"
+          onClick={() => {
+            form.setError('manual', {
+              type: 'server',
+              message: 'This value is unavailable.',
+            })
+            form.setError('hidden', {
+              type: 'server',
+              message: 'Suppressed error.',
+            })
+            form.setError('tooltip', {
+              type: 'server',
+              message: 'Tooltip recovery guidance.',
+            })
+          }}
+        >
+          Set server errors
+        </Button>
+        <Button
+          type="button"
+          data-test="rhf-clear-errors"
+          onClick={() => form.clearErrors()}
+        >
+          Clear errors
+        </Button>
+        <output data-test="rhf-error-touched">
+          {JSON.stringify(form.formState.touchedFields)}
+        </output>
+      </form>
+    </Form>
+  )
+}
+
+export const ErrorTiming = () => <ErrorTimingForm />

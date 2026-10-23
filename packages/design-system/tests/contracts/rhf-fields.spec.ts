@@ -331,3 +331,43 @@ test.describe('RHF field wrappers', () => {
     await expect(page.getByRole('combobox', { name: 'Elements' })).toBeVisible()
   })
 })
+
+test('RHF-produced errors appear without touch, default inline and respect explicit suppression', async ({
+  page,
+}) => {
+  await gotoStory(page, 'rhf-fields--error-timing')
+  const live = page.locator(text('rhf-live-error'))
+  await live.fill('a')
+  await expect(live).toBeFocused()
+  await expect(live).toHaveAttribute('aria-invalid', 'true')
+  const liveErrorId = await live.getAttribute('aria-describedby')
+  expect(liveErrorId).toBeTruthy()
+  await expect(
+    page.locator(`[id="${liveErrorId}"][role="alert"]`)
+  ).toBeVisible()
+  await live.fill('valid')
+  await expect(live).toHaveAttribute('aria-invalid', 'false')
+  await page.locator(text('rhf-manual-errors')).click()
+  const manual = page.locator(text('rhf-manual-error'))
+  await expect(manual).toHaveAttribute('aria-invalid', 'true')
+  await expect(page.locator(text('rhf-error-touched'))).not.toContainText(
+    'manual'
+  )
+  const ids = (await manual.getAttribute('aria-describedby'))!.split(/\s+/)
+  await expect(
+    page.locator(ids.map((id) => `[id="${id}"][role="alert"]`).join(','))
+  ).toBeVisible()
+  const hidden = page.locator(text('rhf-hidden-error'))
+  await expect(hidden).toHaveAttribute('aria-invalid', 'true')
+  await expect(hidden).not.toHaveAttribute('aria-describedby')
+  const tooltip = page.locator(text('rhf-tooltip-error'))
+  await expect(tooltip).toHaveAttribute('aria-invalid', 'true')
+  const tooltipId = await tooltip.getAttribute('aria-describedby')
+  expect(tooltipId).toBeTruthy()
+  await expect(page.locator(`[id="${tooltipId}"][role="alert"]`)).toHaveClass(
+    /sr-only/
+  )
+  await page.locator(text('rhf-clear-errors')).click()
+  for (const input of [manual, hidden, tooltip])
+    await expect(input).toHaveAttribute('aria-invalid', 'false')
+})
