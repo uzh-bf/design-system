@@ -1,6 +1,7 @@
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
+import { NativeSelect, NativeSelectOption, NativeSelectOptGroup } from './primitives'
 import Select from './Select'
 import { fruitsValues, groupValues } from './values'
 
@@ -593,3 +594,53 @@ return (
   />
 </div>
 ) }
+
+
+export const NativeComposition = () => {
+  const ref = useRef(null)
+  const [value, setValue] = useState('blue')
+  const [submitted, setSubmitted] = useState(null)
+  return (
+    <form
+      className="bg-background text-foreground flex max-w-lg flex-col gap-4 p-6 pt-16"
+      data-test="native-form"
+      onSubmit={(event) => {
+        event.preventDefault()
+        const data = new FormData(event.currentTarget)
+        setSubmitted({ single: data.get('single'), controlled: data.get('controlled'), multiple: data.getAll('multiple'), disabled: data.has('disabled') })
+      }}
+    >
+      <label htmlFor="native-single">Verantwortliche Organisationseinheit auswählen</label>
+      <NativeSelect
+        id="native-single" name="single" required defaultValue=""
+        ref={ref} className="w-full" style={{ minWidth: 180 }}
+        aria-describedby="native-help" aria-invalid="true"
+      >
+        <NativeSelectOption value="">Bitte auswählen</NativeSelectOption>
+        <NativeSelectOptGroup label="Organisationseinheiten">
+          <NativeSelectOption value="research">Forschung und wissenschaftliche Zusammenarbeit</NativeSelectOption>
+          <NativeSelectOption value="teaching">Lehre</NativeSelectOption>
+        </NativeSelectOptGroup>
+      </NativeSelect>
+      <p id="native-help">Eine Organisationseinheit ist erforderlich.</p>
+      <button type="button" data-test="focus-native-select" onClick={() => ref.current?.focus()}>Fokus auf Auswahl</button>
+      <label htmlFor="native-controlled">Controlled selection</label>
+      <NativeSelect id="native-controlled" name="controlled" size="sm" value={value} onChange={(event) => setValue(event.target.value)}>
+        <NativeSelectOption value="blue">Blue</NativeSelectOption>
+        <NativeSelectOption value="gold">Gold</NativeSelectOption>
+      </NativeSelect>
+      <label htmlFor="native-multiple">Mehrere Aufgabenbereiche</label>
+      <NativeSelect id="native-multiple" name="multiple" multiple defaultValue={['research', 'teaching']}>
+        <NativeSelectOption value="research">Forschung</NativeSelectOption>
+        <NativeSelectOption value="teaching">Lehre</NativeSelectOption>
+        <NativeSelectOption value="admin">Administration</NativeSelectOption>
+      </NativeSelect>
+      <label htmlFor="native-disabled">Disabled selection</label>
+      <NativeSelect id="native-disabled" name="disabled" defaultValue="held" disabled>
+        <NativeSelectOption value="held">Unavailable</NativeSelectOption>
+      </NativeSelect>
+      <button type="submit" data-test="submit-native">Submit selections</button>
+      <output data-test="native-result">{JSON.stringify(submitted)}</output>
+    </form>
+  )
+}

@@ -88,6 +88,98 @@ test.describe('Collapsible trigger naming', () => {
   })
 })
 
+test.describe('NativeSelect composition', () => {
+  test('preserves native form values, constraint validation and wrapper placement', async ({
+    page,
+  }) => {
+    await gotoStory(page, 'select--native-composition')
+    const single = page.locator('#native-single')
+    const form = page.locator('[data-test="native-form"]')
+    expect(
+      await single.evaluate(
+        (element: HTMLSelectElement) => element.validity.valueMissing
+      )
+    ).toBe(true)
+    await expect(single).toHaveAttribute('aria-invalid', 'true')
+    await expect(single).toHaveAttribute('aria-describedby', 'native-help')
+    await expect(single).toHaveCSS('min-width', '180px')
+    await expect(single.locator('..')).toHaveClass(/w-full/)
+    await single.selectOption('research')
+    expect(
+      await single.evaluate(
+        (element: HTMLSelectElement) => element.validity.valid
+      )
+    ).toBe(true)
+    await page.locator('#native-controlled').selectOption('gold')
+    await expect(page.locator('#native-controlled')).toHaveValue('gold')
+    const multiple = page.locator('#native-multiple')
+    await expect(
+      multiple.locator('..').locator('[data-slot="native-select-icon"]')
+    ).toHaveCount(0)
+    expect((await multiple.boundingBox())?.height).toBeGreaterThan(40)
+    await multiple.selectOption(['research', 'admin'])
+    const data = await form.evaluate((element: HTMLFormElement) => {
+      const values = new FormData(element)
+      return {
+        single: values.get('single'),
+        controlled: values.get('controlled'),
+        multiple: values.getAll('multiple'),
+        disabled: values.has('disabled'),
+      }
+    })
+    expect(data).toEqual({
+      single: 'research',
+      controlled: 'gold',
+      multiple: ['research', 'admin'],
+      disabled: false,
+    })
+    await page.locator('[data-test="submit-native"]').click()
+    expect(
+      JSON.parse(await page.locator('[data-test="native-result"]').innerText())
+    ).toEqual(data)
+    await single.focus()
+    await single.press('Home')
+    await single.press('ArrowDown')
+    await expect(single).toHaveValue('research')
+    await expect(page.locator('#native-disabled')).toBeDisabled()
+  })
+})
+
+test.describe('Direction context', () => {
+  test('uses direction precedence for horizontal keys, nested overrides and portaled controls', async ({
+    page,
+  }) => {
+    await gotoStory(page, 'public-contracts--direction')
+    await expect(page.locator('[data-test="direction-outer"]')).toHaveText(
+      'rtl'
+    )
+    await expect(page.locator('[data-test="direction-inner"]')).toHaveText(
+      'ltr'
+    )
+    await expect(page.locator('[data-test="direction-inherited"]')).toHaveText(
+      'rtl'
+    )
+    const outer = page.locator('[data-test="direction-tabs"]')
+    await expect(outer).toHaveAttribute('dir', 'rtl')
+    await outer.getByRole('tab').first().focus()
+    await page.keyboard.press('ArrowLeft')
+    await expect(outer.getByRole('tab').nth(1)).toBeFocused()
+    await expect(outer.getByRole('tab').nth(1)).toHaveAttribute(
+      'aria-selected',
+      'true'
+    )
+    const inner = page.locator('[data-test="direction-inner-tabs"]')
+    await expect(inner).toHaveAttribute('dir', 'ltr')
+    await inner.getByRole('tab').first().focus()
+    await page.keyboard.press('ArrowRight')
+    await expect(inner.getByRole('tab').nth(1)).toBeFocused()
+    await page.locator('[data-test="direction-select"]').click()
+    await expect(page.getByRole('listbox')).toHaveAttribute('dir', 'rtl')
+    await page.keyboard.press('Escape')
+    await expect(page.locator('[data-test="direction-select"]')).toBeFocused()
+  })
+})
+
 test.describe('Primitive Tabs compatibility', () => {
   test('preserves omitted underline and supports filled, line, vertical and caller styling', async ({
     page,

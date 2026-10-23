@@ -145,5 +145,7 @@ Routine reversible adapters and implementation details remain executor choices.
 - Branch: `rs/v5-component-compatibility`, existing worktree `trees/rs-v5-uzh-alignment`; native stack 221 addition approved. Reuse completed planner and catalog reviews; no behavior/risk change since approval.
 - Active slice: Button/Tabs, executor owns only those two primitives and their existing stories. Main owns native select/direction, shared contract files, dependency/export integration and proof. Route: executor; acceptance: existing type, button and Tabs browser contracts.
 - Runtime: resume exact `ds-v5-rhf-checks` tool container, source `/source` bound read-only to this worktree; editable verification copy `/workspace`. It is not DevPod/devrouter managed. Stop after final runtime-dependent proof.
-- Test delta: none yet. Substantive size: 0 lines; implementation not started.
-- Next action: implement and verify the two controls before native select/direction integration; continue to qualified draft delivery.
+- Test delta: extended existing type, browser, ref and packed/Next seams; seven new stories registered in the existing exact a11y inventory. No separate runner or baseline-debt allowance.
+- Controls committed in `f6b76d273`, corrected in `62ec52f58` after measured filled-tab contrast and scoped orientation fixes. New native controls and their direct dependency are implemented; checks and draft delivery continue.
+- Source/type/lint, focused13browser cases, fourteen new-story a11y cases, both current packed fixtures and both Next bundlers pass. All-package contracts, minimum RHF, visual/theme/size checks and reviews are tracked in the private verification journal.
+- Next action: commit native select/direction with shared contracts and locks, finish its reviews and integrated proof, then publish the qualified draft and continue Recharts.

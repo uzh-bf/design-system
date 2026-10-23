@@ -12,6 +12,32 @@ There is no JS theme engine — switching is a pure CSS-variable cascade.
 The `uzh` theme adapts brand elements to dense application interfaces; it does not
 establish whole-application CD conformance or institutional approval of consumer branding.
 
+## Additive primitive compatibility
+
+Primitive `Button` adds `xs`, `icon-xs`, `icon-sm` and `icon-lg`. The new 24px
+rung supports dense application groups; measure actual target spacing and focus
+visibility in the consumer. Existing `default`, `sm`, `lg` and `icon` geometry
+and root `Button` props remain unchanged.
+
+Primitive `TabsList` accepts `variant="default"` for filled tabs and `"line"`
+for underline tabs. Omitting the variant preserves the previous full-width
+underline treatment; `tabsListVariants()` has that same omission behavior.
+Primitive `Tabs orientation="vertical"` changes layout and Radix keyboard
+navigation together. Callers keep the final `className` override.
+
+`NativeSelect`, `NativeSelectOption` and `NativeSelectOptGroup` are available
+from root and primitives. They preserve native select values, form submission,
+validation and refs. `size="sm" | "default"` selects visual geometry; numeric
+HTML row counts are not part of this API. `className` styles the wrapper while
+`style`, native props and `ref` reach the select. Multiple selection keeps its
+native row geometry and omits the single-selection chevron.
+
+`DirectionProvider` and `useDirection` share scoped Radix context through both
+entries. `direction` takes precedence over `dir`; an omitted value inherits the
+nearest context, defaulting to LTR. Set document/element `dir` separately when
+native text flow also needs changing. Context reaches Radix portals and nested
+providers can override it.
+
 ## Breaking change: CSS delivery
 
 v5 delivers component styles as a single **precompiled stylesheet** that you must
