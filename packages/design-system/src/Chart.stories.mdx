@@ -395,7 +395,7 @@ export const TooltipStates = () => {
               content={
                 <ChartTooltipContent
                   formatter={(value) => (
-                    <span data-test="formatted-tooltip-value">
+                    <span data-test="formatted-tooltip-value" data-value={value}>
                       {value === 0 ? '0 units' : `${String(value)} units`}
                     </span>
                   )}

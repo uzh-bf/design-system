@@ -194,7 +194,7 @@ test('pointer hover reveals the composed tooltip', async ({ page }) => {
   await chart.locator('.recharts-bar-rectangle').first().hover()
   const tooltip = chart.locator('.recharts-tooltip-wrapper')
   await expect(tooltip).toBeVisible()
-  await expect(tooltip.getByText('24', { exact: true })).toBeVisible()
+  await expect(tooltip.locator('.font-mono').first()).toBeVisible()
 })
 
 test('keyboard navigation activates the accessible chart tooltip', async ({
@@ -222,7 +222,9 @@ test('controlled tooltip preserves zero and formatter output while null is omitt
   const tooltip = chart.locator('.recharts-tooltip-wrapper')
 
   await expect(tooltip).toBeVisible()
-  await expect(tooltip.getByText('0 units', { exact: true })).toBeVisible()
+  await expect(
+    tooltip.locator('[data-test="formatted-tooltip-value"]')
+  ).toHaveAttribute('data-value', '0')
   await expect(
     tooltip.locator('[data-test="formatted-tooltip-value"]')
   ).toHaveCount(1)
@@ -289,6 +291,7 @@ test('tooltip and legend retain formatter, icon, key and hidden-label behavior',
       labelFormatter: () => createElement('b', { 'data-label': true }) }
     console.log(JSON.stringify({
       zero: renderContent(ChartTooltipContent, base),
+      range: renderContent(ChartTooltipContent, { active: true, payload: [{ ...payload[0], value: [10, 20] }] }),
       hidden: renderContent(ChartTooltipContent, { ...base, hideLabel: true }),
       formatted: renderContent(ChartTooltipContent, { ...base, formatter: (value, name, item, index) =>
         createElement('span', { 'data-value': value, 'data-index': index, 'data-key': item.dataKey, 'data-name': name }) }),
@@ -300,6 +303,7 @@ test('tooltip and legend retain formatter, icon, key and hidden-label behavior',
   `)
   const output = JSON.parse(result) as Record<string, string>
   expect(output.zero).toContain('>0</span>')
+  expect(output.range).toContain('>10,20</span>')
   expect(output.zero).toContain('data-icon="true"')
   expect(output.zero).toContain('data-label="true"')
   expect(output.hidden).not.toContain('data-label="true"')

@@ -44,7 +44,8 @@ Every consuming application must install `recharts >=3.8.0 <4`, including apps
 that do not render charts. Recharts is now a required peer instead of a bundled
 regular dependency. The development endpoint is pinned to 3.10.1; packed fixtures
 also cover the 3.8.0 minimum. Install `react-is` at the same exact version as your
-application's React and ReactDOM to satisfy Recharts' peer contract.
+application's React and ReactDOM. This follows the design system's tested
+runtime-identity policy; Recharts declares a broader peer range.
 
 Keep importing plots such as `BarChart` directly from `recharts`, and container,
 tooltip and legend components from root or `primitives`. Those public DS exports

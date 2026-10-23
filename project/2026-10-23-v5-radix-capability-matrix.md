@@ -221,15 +221,15 @@ static alias/API disposition; representative behavior proof follows package risk
 
 ## Implemented compatibility packages
 
-The component layer in draft #223 adds compact Button sizes, filled/line/vertical
+The component layer in [draft #223](https://github.com/uzh-bf/design-system/pull/223) adds compact Button sizes, filled/line/vertical
 Tabs, NativeSelect and shared Direction context. Its omission defaults, caller
 class precedence and legacy Formik/RHF boundaries remain covered. The table above
 records the original pinned-source comparison; these four gaps now have source
 and browser evidence in the component plan.
 
 The following Recharts layer implements the required application-owned peer
-`>=3.8.0 <4`, with exact development3.10.1. Local packed proof passes3.8.0 and
-3.10.1 with RHF7.90.0, plus3.10.1 with RHF7.59.0. Each cell checks shared runtime
+`>=3.8.0 <4`, with exact development version 3.10.1. Local packed proof passes 3.8.0 and
+3.10.1 with RHF 7.90.0, plus 3.10.1 with RHF 7.59.0. Each cell checks shared runtime
 identity, strict root/dedicated imports and both Next builds with chart behavior.
 Six plot families and tooltip recipes have representative browser coverage;
 this does not qualify every upstream recipe or complete the remaining Radix gaps.
@@ -304,7 +304,7 @@ Exact proposals below must be qualified in their implementing package.
 | Resizable Panels                              | 3.0.6 / ^4 / 4.14.8                                          | Propose library runtime4.14.8 with retained legacy wrapper adapter, refs/persistence/keyboard proof                                                                                                                    |
 | Sonner                                        | 1.7.4 / ^2 / 2.0.8                                           | Propose library runtime2.0.8; preserve Toaster props/theme/caller classes; application directly importing sonner declares its own compatible dependency                                                                |
 | cn / scoped Radix                             | local helper/scoped packages / cn^0.2.2 + umbrella / cn0.5.0 | Retain local helper/scoped modules unless an actual behavior or CSS integration gap requires a bounded adapter. No automatic dependency churn                                                                          |
-| React/RHF/Formik/styling                      | Existing declared peer ranges; RHF7.59.0/7.90.0 tested       | Applications supply peers; RHF remains optional and isolated. Formik stays throughv5; no Zod major is inferred from app schema examples                                                                                |
+| React/RHF/Formik/styling                      | Existing declared peer ranges; RHF 7.59.0/7.90.0 tested       | Applications supply peers; RHF remains optional and isolated. Formik stays throughv5; no Zod major is inferred from app schema examples                                                                                |
 | cmdk / Embla / input-otp / Vaul / next-themes | 1.1.1 / 8.6.0 / 1.5.0 / 1.1.2 / 0.4.6 locally                | Existing library runtimes; preserve direct public behavior, update only for a verified compatibility requirement                                                                                                       |
 | @shadcn/helpers / AI SDK / TanStack AI        | helper0.3.0; SDK7/TanStack ranges in upstream manifest       | App/demo-only tooling and transport, not automatic DS runtimes. Each application selects its SDK and backend; scripts may use helpers for synthetic demos                                                              |
 | TanStack Table / DnD / QR / routing/auth      | Block/recipe direct imports                                  | Application-owned and declared by application, even if a matching transitive DS runtime exists. No application dependency is installed by copying block source                                                         |

@@ -177,19 +177,40 @@ follow this package and retain their own authority.
 
 ## Progress
 
-- User approved both implementation plans on 2026-10-23. Full-path package in standard execution mode; project artifacts root `project/`.
-- This layer follows the approved component layer in native stack 221, branch `rs/v5-recharts-compatibility`, using the same worktree. Main serializes shared manifests, lockfiles, exports and topology.
-- Reuse completed planner and catalog reviews. Approved endpoint proposals remain unqualified until the three packed cells pass.
-- Component source completed at `8549b7c48` in [draft #223](https://github.com/uzh-bf/design-system/pull/223), with local qualification and independent review; lower hosted CI continues on that preserved head. Overlap only independent qualification; stack order and gates remain unchanged.
-- Active work: ownership/build seam. Approved Recharts branch created above the component layer. Main owns manifests, locks, fixture guards and topology; main now owns remaining chart corrections after the executor returned; the completed patch and verification evidence are reused.
-- Actual declarations for 3.8.0/3.10.1 and current official docs inspected. Seven synthetic dependency-identity guard cases pass in an isolated temporary experiment. Peer/version promises remain unqualified pending real packed endpoints.
-- Recharts 3.10.1 installs and canonical source/types build. Exclude only the unimported historical `src/original/chart.tsx` from app/build TypeScript configs, preserving that Recharts 2 reference verbatim.
-- The seven recipes share `src/Chart.examples.ts` and `src/ChartFrame.tsx`, separating typed fixtures from shared presentation because MDX cannot declare unexported module constants. Multiple existing story functions consume it; it is outside package entries. No new public control layer.
-- Ownership/build and chart adaptation committed as6af2bc0c4; simplification found no warranted reduction. Canonical types/lint/build and all existing upper size ceilings pass; six-family, pointer/keyboard, zero/null/formatter, scoped SSR dimensions and visibility/resize checks pass. Fourteen chart a11y cases pass without new serious/critical debt. Seven dependency-guard regression cases pass.
-- All three Recharts/RHF packed cells pass strict root/dedicated imports, runtime identity and Next Turbopack/Webpack builds with10browser cases each. Hosted checks, full review, screenshots and exact archive proof remain delivery gates.
-- Next action: commit the verified ownership/source slice, then qualify the packed-composition slice and both exact draft tips. No consumer repository writes or merges.
+Checkpoint: 2026-10-24. The user approved both executable plans on 2026-10-23;
+standard execution mode and the existing `project/` artifacts root remain in use.
 
-- Scope extensions completing the approved contract: the existing CI consumer matrix now contains the same three endpoint cells; the exact a11y oracle adds six named stories. `Chart.examples.ts` and `ChartFrame.tsx` are shared story helpers with multiple callers, outside public entries. No new package tool or backend.
-
-- Verified blocker: named Recharts imports remove retained unused Tooltip/Legend edges, reducing the ChartContainer positive control from62,260bytes to10,885bytes. The unchanged34,000 upper limit passes; its historical25,000 lower sanity bound fails. No budget was changed. A precise user ruling is needed before changing that bound; retain the resolved Recharts-module marker.
-- One full behavioral run passed128cases and reproduced the existing RHF outside-click blur race. A bounded pointer-target diagnostic passed10times and observed option focus before Radix registered its deferred outside-pointer listener; this supports a readiness race but did not reproduce the failure. The original failure remains recorded; chart-only12 and affected a11y14 pass. Do not claim the full run passed.
+- **Implemented:** [chart draft #224](https://github.com/uzh-bf/design-system/pull/224)
+  follows [component draft #223](https://github.com/uzh-bf/design-system/pull/223)
+  in native stack 221. Main owns remaining integration and qualification. Required
+  Recharts ownership, custom-content types, zero/null formatting, initial sizing,
+  all six plot families and tooltip recipes are implemented. The shared story
+  helpers have multiple callers and stay outside public entries. Only the
+  unimported historical Recharts 2 chart is excluded from app/build type checks.
+- **Verified locally:** types, lint, formatting, build, 12 chart contracts,
+  14 chart accessibility cases, 704 packed-CSS assertions and seven dependency
+  guard cases pass. All three frozen Recharts/RHF cells pass strict root/dedicated
+  imports, runtime identity, both Next builds and 10 browser cases. The lower
+  test-only readiness correction `30e001315` waits one task for Radix's deferred
+  outside-pointer listener: ten repeats and all 130 integrated contracts pass.
+  Earlier failures and the producing diagnostic evidence remain in the journal.
+- **Reviewed and evidenced:** both slice simplifications found no warranted
+  reduction. Source risk reviews accept dependency, public-payload and RSC seams;
+  one proposed guard-test finding was verified and retracted. Final review found
+  an array-valued tooltip regression, corrected by restoring locale formatting
+  for non-null scalar and range values in the existing payload contract. The configured
+  integrated final review and exact-head hosted CI remain pending. All 42 chart
+  captures are published and rendered; the same unpublished archive matches all
+  268 installed files at both Recharts endpoints. The a11y oracle and CI consumer
+  matrix deliberately cover the six new stories and three endpoint cells.
+- **Budget decision:** named imports reduce the responsive wrapper to 10,223 bytes
+  at Recharts 3.8.0 and 10,885 at 3.10.1. The existing 34,000-byte ceiling passes;
+  the historical 25,000-byte positive minimum fails. Recommend changing only that
+  minimum to 8,000, retaining the ceiling and resolved-Recharts module marker.
+  A disposable proposed-config experiment passes the full size/marker checks.
+  The repository guard remains unchanged pending explicit approval.
+- **Next action:** finish final review and hosted qualification around the parked
+  budget decision. Apply the proposed bound only after approval, then qualify both
+  exact draft tips. Keep consumer repositories, readiness conversion, merging,
+  publication and deployment outside this package. Manual AT, Safari/device and
+  separate integrated consumer acceptance remain GA gates.

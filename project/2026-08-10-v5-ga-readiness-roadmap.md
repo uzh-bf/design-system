@@ -238,14 +238,15 @@ The approved [catalog planning package](2026-10-23-v5-catalog-compatibility-plan
 owns evidence reconciliation, the finite
 [Radix capability matrix](2026-10-23-v5-radix-capability-matrix.md) and derived plans.
 
-Current execution: the user approved both first plans on 2026-10-23. The
-component layer is delivered in [draft #223](https://github.com/uzh-bf/design-system/pull/223)
-with final source review and local verification; exact-head hosted qualification
-is tracked there. Recharts source, six-family/tooltip coverage and all three
-packed/Next version cells pass locally. Named imports reduce the responsive
-wrapper to10.9kB; its historical25kB positive minimum now needs an explicit budget
-ruling, while the34kB ceiling passes. Keep the guard unchanged until that ruling.
-See the chart plan for remaining full-suite/CI/review qualification.
+Current execution: the user approved both first plans on 2026-10-23.
+[Component draft #223](https://github.com/uzh-bf/design-system/pull/223) has final
+source review and local verification. [Chart draft #224](https://github.com/uzh-bf/design-system/pull/224)
+carries six plot families, tooltip composition, three packed/Next version cells
+and 42 published synthetic captures. The corrected Radix readiness test passes
+all 130 integrated behavioral contracts. Exact-head CI and final chart review
+remain qualification gates. ChartContainer now measures 10.2–10.9 kB; its 34 kB
+ceiling passes, while its historical 25 kB positive minimum needs an explicit
+ruling. Keep that guard unchanged until approval; see the chart plan.
 
 1. **Small component compatibility.** Follow the reviewed
    [component plan](2026-10-23-v5-component-compatibility-plan.md) for Button
