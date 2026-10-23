@@ -284,24 +284,30 @@ test('series visibility and responsive width update chart geometry', async ({
     .toBeLessThanOrEqual(1)
 })
 
-test('chart recovers when its containing panel becomes visible', async ({
+test('chart recovers when its containing panel starts hidden', async ({
   page,
 }) => {
+  await page.addInitScript(() => {
+    const hiddenPanel = new CSSStyleSheet()
+    hiddenPanel.replaceSync(
+      '[data-test="chart-default"] { display: none !important }'
+    )
+    document.adoptedStyleSheets = [hiddenPanel, ...document.adoptedStyleSheets]
+  })
   await gotoChart(page, 'chart--default', 'neutral')
   const chart = page.locator('[data-test="chart-default"]')
   const surface = chart.locator('svg.recharts-surface')
-  await expect(surface).toBeVisible()
-  await chart.evaluate((element) => {
-    element.style.display = 'none'
-  })
-  await expect(surface).not.toBeVisible()
-  await chart.evaluate((element) => {
-    element.style.display = ''
-  })
+  await expect(chart).not.toBeVisible()
+  await page.evaluate(() => document.adoptedStyleSheets[0].replaceSync(''))
   await expect(surface).toBeVisible()
   await expect
-    .poll(async () => (await surface.boundingBox())?.width ?? 0)
-    .toBeGreaterThan(0)
+    .poll(async () =>
+      Math.abs(
+        (await surface.boundingBox())!.width -
+          (await chart.boundingBox())!.width
+      )
+    )
+    .toBeLessThanOrEqual(1)
 })
 
 test('tooltip and legend retain formatter, icon, key and hidden-label behavior', () => {
