@@ -180,5 +180,7 @@ follow this package and retain their own authority.
 - User approved both implementation plans on 2026-10-23. Full-path package in standard execution mode; project artifacts root `project/`.
 - This layer follows the approved component layer in native stack 221, branch `rs/v5-recharts-compatibility`, using the same worktree. Main serializes shared manifests, lockfiles, exports and topology.
 - Reuse completed planner and catalog reviews. Approved endpoint proposals remain unqualified until the three packed cells pass.
-- Active predecessor: component compatibility. No Recharts source/dependency change yet; substantive size 0 lines and test delta none.
-- Next action after component draft qualification: settle the existing type/build seam, delegate chart source, implement packed identity checks and qualify the three approved cells.
+- Component source completed at `989249c6d` in [draft #223](https://github.com/uzh-bf/design-system/pull/223), with local qualification and independent review; lower hosted CI continues on that preserved head. Overlap only independent qualification; stack order and gates remain unchanged.
+- Active work: ownership/build seam. Approved Recharts branch created above the component layer. Main owns manifests, locks, fixture guards and topology; executor owns the named chart source/stories/type/browser patch.
+- Actual declarations for 3.8.0/3.10.1 and current official docs inspected. Seven synthetic dependency-identity guard cases pass in an isolated temporary experiment. Peer/version promises remain unqualified pending real packed endpoints.
+- Next action: install the approved peer/dev versions, verify and commit the chart slice, integrate packed identity checks and all three cells, then finish both exact draft tips. No consumer repository writes or merges.
