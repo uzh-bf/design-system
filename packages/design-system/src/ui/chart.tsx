@@ -55,7 +55,10 @@ function ChartContainer({
   >['initialDimension']
 }) {
   const uniqueId = React.useId()
-  const chartId = `chart-${id || uniqueId}`.replace(/[^a-zA-Z0-9_-]/g, '')
+  const chartId = `chart-${id || uniqueId}`.replace(
+    /[^a-zA-Z0-9-]/g,
+    (character) => `_${character.charCodeAt(0).toString(16)}_`
+  )
 
   return (
     <ChartContext.Provider value={{ config }}>
@@ -139,12 +142,20 @@ function ChartTooltipContent({
 }: ChartTooltipContentProps) {
   const { config } = useChart()
 
+  const visiblePayload = React.useMemo(
+    () =>
+      payload?.filter(
+        (item) => item.value !== null && item.value !== undefined
+      ),
+    [payload]
+  )
+
   const tooltipLabel = React.useMemo(() => {
-    if (hideLabel || !payload?.length) {
+    if (hideLabel || !payload?.length || !visiblePayload?.length) {
       return null
     }
 
-    const [item] = payload
+    const [item] = visiblePayload
     const key = `${labelKey || item?.dataKey || item?.name || 'value'}`
     const itemConfig = getPayloadConfigFromPayload(config, item, key)
     const value =
@@ -173,13 +184,14 @@ function ChartTooltipContent({
     labelClassName,
     config,
     labelKey,
+    visiblePayload,
   ])
 
-  if (!active || !payload?.length) {
+  if (!active || !payload?.length || !visiblePayload?.length) {
     return null
   }
 
-  const nestLabel = payload.length === 1 && indicator !== 'dot'
+  const nestLabel = visiblePayload.length === 1 && indicator !== 'dot'
 
   return (
     <div

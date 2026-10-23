@@ -86,6 +86,10 @@ test('generated chart ids produce a scoped theme rule', () => {
 
   expect(chartId).toMatch(/^chart-[a-zA-Z0-9_-]+$/)
   expect(markup).toContain(`[data-chart=${chartId}]`)
+  const ids = ['report:2026', 'report2026', 'report_3a_2026'].map(
+    (id) => renderChart('bar', undefined, id).match(/data-chart="([^"]+)"/)?.[1]
+  )
+  expect(new Set(ids).size).toBe(ids.length)
 })
 
 test('all six chart families expose rendered marks', async ({ page }) => {
@@ -175,6 +179,20 @@ for (const scenario of [
     expect(ratios.length).toBeGreaterThan(0)
     for (const ratio of ratios) expect(ratio).toBeGreaterThanOrEqual(3)
 
+    const mark = chart.locator('.recharts-bar-rectangle path').first()
+    const before = await mark.evaluate(
+      (element) => getComputedStyle(element).fill
+    )
+    if (scenario.dark)
+      await page.locator('#ladle-theme-controls input').uncheck()
+    else
+      await page
+        .locator('#ladle-theme-controls select')
+        .selectOption(scenario.theme === 'neutral' ? 'uzh' : 'neutral')
+    await expect
+      .poll(() => mark.evaluate((element) => getComputedStyle(element).fill))
+      .not.toBe(before)
+
     await gotoChart(page, 'chart--radial', scenario.theme, scenario.dark)
     const rings = page.locator(
       '[data-test="chart-radial"] .recharts-radial-bar-sector'
@@ -249,12 +267,21 @@ test('series visibility and responsive width update chart geometry', async ({
   await page.locator('[data-test="chart-series-toggle"]').click()
   await expect.poll(() => bars.count()).toBe(initialBars)
 
-  const initialWidth = (await chart.boundingBox())?.width
+  const surface = chart.locator('svg.recharts-surface')
+  const initialWidth = (await surface.boundingBox())?.width
   expect(initialWidth).toBeGreaterThan(0)
   await page.locator('[data-test="chart-width-toggle"]').click()
   await expect
-    .poll(async () => (await chart.boundingBox())?.width)
+    .poll(async () => (await surface.boundingBox())?.width)
     .toBeLessThan(initialWidth ?? 0)
+  await expect
+    .poll(async () =>
+      Math.abs(
+        (await surface.boundingBox())!.width -
+          (await chart.boundingBox())!.width
+      )
+    )
+    .toBeLessThanOrEqual(1)
 })
 
 test('chart recovers when its containing panel becomes visible', async ({
@@ -291,6 +318,7 @@ test('tooltip and legend retain formatter, icon, key and hidden-label behavior',
       labelFormatter: () => createElement('b', { 'data-label': true }) }
     console.log(JSON.stringify({
       zero: renderContent(ChartTooltipContent, base),
+      empty: renderContent(ChartTooltipContent, { active: true, className: 'empty-tooltip-contract', payload: payload.slice(1) }),
       range: renderContent(ChartTooltipContent, { active: true, payload: [{ ...payload[0], value: [10, 20] }] }),
       hidden: renderContent(ChartTooltipContent, { ...base, hideLabel: true }),
       formatted: renderContent(ChartTooltipContent, { ...base, formatter: (value, name, item, index) =>
@@ -304,6 +332,7 @@ test('tooltip and legend retain formatter, icon, key and hidden-label behavior',
   const output = JSON.parse(result) as Record<string, string>
   expect(output.zero).toContain('>0</span>')
   expect(output.range).toContain('>10,20</span>')
+  expect(output.empty).not.toContain('empty-tooltip-contract')
   expect(output.zero).toContain('data-icon="true"')
   expect(output.zero).toContain('data-label="true"')
   expect(output.hidden).not.toContain('data-label="true"')
