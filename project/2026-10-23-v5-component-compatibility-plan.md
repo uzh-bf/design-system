@@ -6,15 +6,16 @@ Close the first pinned Radix API gaps: four Button sizes, Tabs list variants and
 vertical layout, native HTML select composition and a public direction context.
 Preserve existing component defaults, legacy APIs, both supported themes and
 caller class precedence. Existing applications gain additive composition APIs.
-This reviewed execution proposal awaits bounded user approval.
+Approval mode: executable batch. The user approved this reviewed plan on
+2026-10-23, including its native stack layer, verification and draft delivery.
 
 - Repository/target: `uzh-bf/design-system`, release trunk `v5`.
 - Prerequisite: the [catalog package](2026-10-23-v5-catalog-compatibility-plan.md)
   and [matrix](2026-10-23-v5-radix-capability-matrix.md) reviewed and delivered.
-- Proposed delivery: a single component-compatibility draft above the catalog
+- Approved delivery: a single component-compatibility draft above the catalog
   layer using native `gh stack`, branch `rs/v5-component-compatibility`, in the
   existing `trees/rs-v5-uzh-alignment` worktree. Parent owns topology. This plan
-  proposes that addition; it grants no creation/rearrangement authority by itself.
+  records the approved addition; main remains the sole topology owner.
 - Execution owner: main session in standard mode; delegate settled disjoint
   implementation to one executor after establishing the compatibility seam.
 - Terminal: focused behavior/type/browser/packed checks, synthetic screenshot
@@ -139,8 +140,10 @@ Routine reversible adapters and implementation details remain executor choices.
 
 ## Progress
 
-- Drafted 2026-10-23 from the accepted catalog-first recommendation.
-- Native planner approved after one correction round; bounded user approval
-  remains pending. No source changes started.
-- Delivery achieved: proposed plan in the catalog documentation package.
-- Next action: review against the complete matrix, then bounded approval.
+- Approved by the user on 2026-10-23 together with the Recharts plan; full-path package, standard execution mode, project artifacts root `project/`.
+- Starting source/base: `1144f6e620588e3872d0dfd21f9e9a69132dfeac`, qualified catalog [draft #222](https://github.com/uzh-bf/design-system/pull/222). Fresh refs: 104 ahead/0 behind `origin/v5`; 288 ahead/3 behind `origin/main`. Target remains v5; no integration blocker exists.
+- Branch: `rs/v5-component-compatibility`, existing worktree `trees/rs-v5-uzh-alignment`; native stack 221 addition approved. Reuse completed planner and catalog reviews; no behavior/risk change since approval.
+- Active slice: Button/Tabs, executor owns only those two primitives and their existing stories. Main owns native select/direction, shared contract files, dependency/export integration and proof. Route: executor; acceptance: existing type, button and Tabs browser contracts.
+- Runtime: resume exact `ds-v5-rhf-checks` tool container, source `/source` bound read-only to this worktree; editable verification copy `/workspace`. It is not DevPod/devrouter managed. Stop after final runtime-dependent proof.
+- Test delta: none yet. Substantive size: 0 lines; implementation not started.
+- Next action: implement and verify the two controls before native select/direction integration; continue to qualified draft delivery.
