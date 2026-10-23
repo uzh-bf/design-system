@@ -274,8 +274,8 @@ test('primary buttons keep readable text in neutral dark mode', async ({
   })
   await gotoStory(page, 'button--primitive-sizes')
   const button = page.locator('[data-slot="button"]').first()
-  const contrast = () =>
-    button.evaluate((element) => {
+  const contrast = (target = button) =>
+    target.evaluate((element) => {
       const context = document.createElement('canvas').getContext('2d')!
       const luminance = (color: string) => {
         context.fillStyle = color
@@ -295,12 +295,15 @@ test('primary buttons keep readable text in neutral dark mode', async ({
       const bg = luminance(style.backgroundColor)
       return (Math.max(fg, bg) + 0.05) / (Math.min(fg, bg) + 0.05)
     })
-  await expect.poll(contrast).toBeGreaterThanOrEqual(4.5)
+  await expect.poll(() => contrast()).toBeGreaterThanOrEqual(4.5)
   await button.hover()
-  await expect.poll(contrast).toBeGreaterThanOrEqual(4.5)
+  await expect.poll(() => contrast()).toBeGreaterThanOrEqual(4.5)
   await page.mouse.down()
-  await expect.poll(contrast).toBeGreaterThanOrEqual(4.5)
+  await expect.poll(() => contrast()).toBeGreaterThanOrEqual(4.5)
   await page.mouse.up()
+  await expect
+    .poll(() => contrast(page.locator('[data-test="button-selected-primary"]')))
+    .toBeGreaterThanOrEqual(4.5)
   const caller = page.locator('[data-test="button-caller-colors"]')
   expect(
     await caller.evaluate((element) => getComputedStyle(element).color)
