@@ -17,7 +17,7 @@ function Tabs({
       data-orientation={orientation}
       orientation={orientation}
       className={cn(
-        'group/tabs flex gap-2 data-[orientation=horizontal]:flex-col data-[orientation=vertical]:flex-row',
+        'flex gap-2 data-[orientation=horizontal]:flex-col data-[orientation=vertical]:flex-row',
         className
       )}
       {...props}
@@ -26,12 +26,12 @@ function Tabs({
 }
 
 const tabsListVariants = cva(
-  'group/tabs-list inline-flex items-center justify-start text-muted-foreground group-data-[orientation=vertical]/tabs:h-fit group-data-[orientation=vertical]/tabs:flex-col',
+  'group/tabs-list inline-flex items-center justify-start text-muted-foreground aria-[orientation=vertical]:h-fit aria-[orientation=vertical]:flex-col',
   {
     variants: {
       variant: {
         default: 'w-fit gap-1 rounded-lg bg-muted p-1',
-        line: 'border-border w-full gap-7 border-b group-data-[orientation=vertical]/tabs:border-r group-data-[orientation=vertical]/tabs:border-b-0',
+        line: 'border-border w-full gap-7 border-b aria-[orientation=vertical]:w-fit aria-[orientation=vertical]:gap-0 aria-[orientation=vertical]:border-e aria-[orientation=vertical]:border-b-0',
       },
     },
     defaultVariants: {
@@ -64,7 +64,7 @@ function TabsTrigger({
     <TabsPrimitive.Trigger
       data-slot="tabs-trigger"
       className={cn(
-        'data-[state=active]:border-b-primary-100 data-[state=active]:text-primary-100 text-muted-foreground hover:text-foreground focus-visible:ring-ring/50 group-data-[variant=default]/tabs-list:data-[state=active]:bg-background group-data-[variant=default]/tabs-list:data-[state=active]:text-foreground -mb-px inline-flex cursor-pointer items-center justify-center gap-1.5 border-b-2 border-b-transparent px-0 py-3 text-sm font-medium whitespace-nowrap transition-colors group-data-[orientation=vertical]/tabs:mb-0 group-data-[orientation=vertical]/tabs:w-full group-data-[orientation=vertical]/tabs:justify-start group-data-[variant=default]/tabs-list:mb-0 group-data-[variant=default]/tabs-list:rounded-md group-data-[variant=default]/tabs-list:border-b-0 group-data-[variant=default]/tabs-list:px-3 group-data-[variant=default]/tabs-list:py-1.5 focus-visible:rounded-sm focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 data-[state=active]:font-semibold group-data-[variant=default]/tabs-list:data-[state=active]:border-b-transparent group-data-[variant=default]/tabs-list:data-[state=active]:font-medium',
+        'data-[state=active]:border-b-primary-100 data-[state=active]:text-primary-100 text-muted-foreground hover:text-foreground focus-visible:ring-ring/50 group-data-[variant=default]/tabs-list:data-[state=active]:bg-background group-data-[variant=default]/tabs-list:data-[state=active]:text-foreground group-data-[variant=default]/tabs-list:text-foreground -mb-px inline-flex cursor-pointer items-center justify-center gap-1.5 border-b-2 border-b-transparent px-0 py-3 text-sm font-medium whitespace-nowrap transition-colors group-data-[variant=default]/tabs-list:mb-0 group-data-[variant=default]/tabs-list:rounded-md group-data-[variant=default]/tabs-list:border-b-0 group-data-[variant=default]/tabs-list:px-3 group-data-[variant=default]/tabs-list:py-1.5 focus-visible:rounded-sm focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 data-[orientation=vertical]:mb-0 data-[orientation=vertical]:w-full data-[orientation=vertical]:justify-start data-[state=active]:font-semibold group-data-[variant=default]/tabs-list:data-[state=active]:border-b-transparent',
         className
       )}
       {...props}
