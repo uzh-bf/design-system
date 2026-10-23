@@ -127,7 +127,7 @@ export function Button({
           : '',
         className?.root,
         active && 'border-primary-100 bg-primary-20 hover:bg-primary-20',
-        active && primary && 'text-primary-100',
+        active && primary && 'text-primary-100 active:bg-primary-20',
         active ? className?.active : ''
       )}
       data-cy={data?.cy}
