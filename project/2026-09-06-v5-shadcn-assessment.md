@@ -123,6 +123,14 @@ chart abstraction. Qualify the planned Recharts 3 migration against existing
 consumer charts and current official recipes. Resolve consumer dependency
 versions and verify one compatible Recharts runtime in the packed consumer.
 
+The October 23 ruling in
+[ADR0007](../docs/adr/0007-application-owned-recharts-runtime.md) assigns
+Recharts 3 to an application-supplied required peer, with a development
+dependency for library checks. Every consumer must satisfy that peer, including
+applications without charts. Preserve current chart import paths; select and
+test the supported range during the chart package. Peer metadata alone does not
+establish one runtime, and this decision promises no optional chart installation.
+
 Use the pinned gallery as the capability checklist, with representative behavior
 proof across area, bar, line, pie, radar, radial and tooltip recipes. Verify
 responsive measurement, controlled interaction, formatting, legend/tooltip APIs,
@@ -168,6 +176,13 @@ state on both field and input. Keep our existing Form API for compatibility;
 add current Field recipes and complete all ten Formik-equivalent RHF families.
 Keep RHF runtime and declaration dependencies out of raw primitives and the
 root RSC boundary, preserving the existing Formik compatibility exports.
+
+[ADR0006](../docs/adr/0006-rhf-error-presentation-and-validation-ownership.md)
+records the accepted RHF UX change: inline errors by default across existing and
+new adapters, tooltip opt-in, and visibility following errors RHF has produced
+under the application's validation settings or `setError`. Preserve explicit
+caller suppression and the legacy Formik behavior. Use Controller/Field recipes
+for other upstream inputs without requiring a named adapter for every primitive.
 
 For each component family, use behavior/type checks at the stable seam plus
 packed-consumer proof. Qualify keyboard focus/escape, refs, required/disabled/error

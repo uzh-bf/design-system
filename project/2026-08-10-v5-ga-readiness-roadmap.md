@@ -167,6 +167,13 @@ It means equivalent user capabilities and documented API routes, not identical
 Formik-specific props or a second competing state model. Keep standalone
 controlled use available through the appropriate existing controls.
 
+The accepted October 23 interview rulings are recorded in
+[ADR0006](../docs/adr/0006-rhf-error-presentation-and-validation-ownership.md):
+all RHF adapters default to inline errors, with tooltip opt-in, and show errors
+already produced by RHF without an extra touched/submitted gate. This deliberately
+changes the four existing adapters as well as the seven new ones. Respect caller
+suppression and preserve Formik presentation and validation behavior.
+
 Preserve [ADR0002](../docs/adr/0002-rhf-subpath-rsc-contract.md): RHF adapters and
 its retained Form API live in the optional `./react-hook-form` client entry;
 root and `./primitives` remain free of RHF runtime/type edges. Reuse the existing
@@ -186,6 +193,12 @@ components. Charts retain direct Recharts composition, with our theme, tooltip
 and legend support. Upstream styles are visual references; our neutral/UZH themes
 remain the delivery surfaces.
 
+[ADR0007](../docs/adr/0007-application-owned-recharts-runtime.md) selects an
+application-owned, required Recharts 3 peer for the later chart package, with a
+library development dependency. It affects installation for every consumer,
+including non-chart applications. Select the supported range and prove one
+compatible runtime in packed consumers; the dependency change is not part of RHF.
+
 The [current UZH review](2026-08-19-v5-uzh-alignment-roadmap.md#official-styleguide-review--2026-10-23)
 owns the 2.11.0 delta, palette/type/focus/form traceability and adaptation rules.
 Required upstream component variants and integrations belong before GA even when
@@ -203,6 +216,11 @@ at its draft boundary; do not queue it again. Continue in this order:
    behavioral/packed seams. Qualify every family and retain Formik regression
    proof. If an upstream control migration is a prerequisite, deliver that seam
    before its adapter rather than duplicating widget logic.
+   The accepted application proof route is a refreshed GBL RHF journey plus
+   packed synthetic coverage of every family, alongside retained Klicker Formik
+   acceptance. A real Klicker RHF migration is not an additional GA requirement.
+   GBL source/artifact qualification belongs to its consumer-owned execution
+   plan; historical pilot evidence does not close it.
 2. **Radix catalog and auxiliaries.** Use the pinned upstream snapshot and
    capability matrix to group independently reviewable packages: existing API
    deltas, missing controls/direction, auxiliary migrations, and messaging/code
