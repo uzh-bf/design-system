@@ -279,8 +279,11 @@ substitute or a claim of GA readiness.
 
 Status: both draft layers are published; implementation, local verification and
 configured slice reviews are complete. Integrated final review passes through the configured AGY fallback.
-Required hosted CI is queued without an assigned runner, so completed draft
-qualification remains pending. Main owns the remaining gates in standard mode.
+Required hosted CI passes at the basic-field tip. The picker layer's packed
+consumer setup repeatedly exceeded the five-minute Playwright install attempt,
+before tests ran. Its CI now permits one fifteen-minute install within the
+existing seventeen-minute step budget; hosted qualification of that correction
+remains pending. Main owns the remaining gates in standard mode.
 
 ### Delivery and source
 
@@ -324,7 +327,16 @@ reused explicitly. No new serious/critical accessibility exception was added.
 The earlier basic tip independently passed its relevant types/lint, 71 focused
 contracts, 74 axe cases, both RHF/Next cells, pinned visuals, CSS and budgets.
 Its final slot corrections pass 20 focused RHF cases, including measured padding
-and fluid width. Hosted CI at each current PR tip remains a separate gate.
+and fluid width. Hosted CI at the final basic tip passes after one setup retry.
+The picker layer's remaining hosted gate is independent of those passing checks.
+
+The consumer-job install override preserves the existing step/job timeouts and
+all verification commands. YAML formatting and three simulated installer exit
+paths confirm one bounded 900-second attempt and failure propagation. These
+focused checks do not prove mirror availability; hosted execution remains
+required. No new maintained test is needed for this declarative timing change.
+Package source, candidate bytes and reviewed UI behavior are unchanged, so their
+passing evidence and configured reviews remain applicable.
 
 Both PR galleries contain inspected synthetic captures with source/date/hash
 receipts: four corrected basic states plus one unchanged historical timing state,
@@ -352,8 +364,9 @@ reports and exact command receipts remain under `project/_local/reviews/`.
 
 ### Remaining boundary
 
-Finish hosted checks before claiming completed draft qualification. Jobs are queued on `ubuntu-latest` without an assigned runner;
-local green checks do not close that external gate. No merge, marking ready,
+Finish the picker layer's hosted checks before claiming completed draft
+qualification. The basic layer passes; the corrected consumer install budget
+needs a fresh hosted run. Local green checks do not close that gate. No merge, marking ready,
 release/package publication, deployment, native goal or consumer-runtime change
 has occurred under this package.
 
@@ -368,4 +381,4 @@ The exact task-owned `ds-v5-rhf-checks` tool container is stopped and verified
 exited. Its browser session is closed; relevant logs, candidate and gallery
 receipts remain in the ignored artifact area. No retained consumer runtime was
 touched or deleted. Source and archive qualification remain valid after the
-final documentation-only progress update.
+documentation and consumer-job timing updates.
