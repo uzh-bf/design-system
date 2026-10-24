@@ -269,18 +269,21 @@ preserve existing evidence. No human reviewer requests or review replies.
 - Local full accessibility run:851pass and4mounttimeouts during a concurrent
   fixture rebuild; stable rerun passes all8theme/story cases. Hosted full accessibility/visual gates
   pass at the published source tip; final tip qualification remains pending.
-- Configured Claude final review is blocked before dispatch by automatic approval
-  review's payload/destination permission requirement. One bounded question is
-  pending for the three approved layer reviews; no review payload was sent.
-  Complete independent work while that gate remains parked.
+- User authorized the bounded configured Claude reviews for all three layers.
+  The first complete review found three compatibility defects, all reproduced
+  in the browser: standalone Card parts lost padding, omitted ToggleGroup
+  orientation changed arrow-key behavior, and iconless Alert actions indented
+  desktop text. Variable fallbacks, unchanged omitted orientation, and action-only
+  spacing correct them. All 11 focused cases, types, lint, formatting and Ladle
+  build pass. Refreshed package/gallery proof and the focused review remain.
 - Hosted CI passes at `2371521dd`. Two subsequent review findings exposed gaps
   in the tests: the compact Switch ref case targeted the default control, and
   Alert placement lacked desktop coverage. The corrected compact target and
   wide/narrow desktop checks pass in an 11-case focused run. Types, lint,
   formatting and Ladle build pass. These fixture/test changes preserve package
   code and rendered appearance; existing packed and screenshot proof is reused.
-- Next action: qualify the feedback correction's CI and complete the pending
-  configured final review before advancing to the interactions layer.
+- Next action: finish correction proof and the configured review's focused pass,
+  then qualify the current draft head before advancing to interactions.
 
 ### Planning review
 

@@ -27,7 +27,7 @@ function CardHeader({ className, ...props }: React.ComponentProps<'div'>) {
     <div
       data-slot="card-header"
       className={cn(
-        '@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-1 px-(--card-inset-x) pt-(--card-inset-y) pb-(--card-header-bottom) has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6',
+        '@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-1 px-[var(--card-inset-x,calc(var(--spacing)*6))] pt-[var(--card-inset-y,calc(var(--spacing)*5))] pb-[var(--card-header-bottom,calc(var(--spacing)*2))] has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6',
         className
       )}
       {...props}
@@ -76,7 +76,7 @@ function CardContent({ className, ...props }: React.ComponentProps<'div'>) {
     <div
       data-slot="card-content"
       className={cn(
-        'px-(--card-inset-x) pt-(--card-content-top) pb-(--card-inset-y)',
+        'px-[var(--card-inset-x,calc(var(--spacing)*6))] pt-[var(--card-content-top,calc(var(--spacing)*3))] pb-[var(--card-inset-y,calc(var(--spacing)*5))]',
         className
       )}
       {...props}
@@ -89,7 +89,7 @@ function CardFooter({ className, ...props }: React.ComponentProps<'div'>) {
     <div
       data-slot="card-footer"
       className={cn(
-        'bg-muted flex items-center justify-end gap-2 border-t px-(--card-inset-x) py-(--card-footer-y)',
+        'bg-muted flex items-center justify-end gap-2 border-t px-[var(--card-inset-x,calc(var(--spacing)*6))] py-[var(--card-footer-y,calc(var(--spacing)*3.5))]',
         className
       )}
       {...props}

@@ -43,6 +43,18 @@ for (const theme of ['neutral', 'uzh'] as const) {
     await expect(
       page.locator('[data-test="card-nested"] > [data-slot="card-content"]')
     ).toHaveCSS('padding-left', '24px')
+    for (const [part, top, bottom] of [
+      ['header', 20, 8],
+      ['content', 12, 20],
+      ['footer', 14, 14],
+    ] as const) {
+      const standalone = page.locator(
+        `[data-test="standalone-card-parts"] [data-slot="card-${part}"]`
+      )
+      await expect(standalone).toHaveCSS('padding-left', '24px')
+      await expect(standalone).toHaveCSS('padding-top', `${top}px`)
+      await expect(standalone).toHaveCSS('padding-bottom', `${bottom}px`)
+    }
     const itemPadding = async (size: string) =>
       page
         .locator(`[data-test="item-${size}"]`)
@@ -67,24 +79,27 @@ for (const theme of ['neutral', 'uzh'] as const) {
     )
     await page.getByRole('button', { name: 'Acknowledge' }).click()
     await expect(page.locator('[data-test="action-count"]')).toHaveText('1')
-    const boxes = await page.locator('[data-slot="alert"]').evaluate((node) => {
-      const description = node
-        .querySelector('[data-slot="alert-description"]')!
-        .getBoundingClientRect()
-      const action = node
-        .querySelector('[data-slot="alert-action"]')!
-        .getBoundingClientRect()
-      const root = node.getBoundingClientRect()
-      return {
-        overlap:
-          description.left < action.right &&
-          description.right > action.left &&
-          description.top < action.bottom &&
-          description.bottom > action.top,
-        actionInside:
-          action.right <= root.right && action.bottom <= root.bottom,
-      }
-    })
+    const boxes = await page
+      .locator('[data-slot="alert"]')
+      .first()
+      .evaluate((node) => {
+        const description = node
+          .querySelector('[data-slot="alert-description"]')!
+          .getBoundingClientRect()
+        const action = node
+          .querySelector('[data-slot="alert-action"]')!
+          .getBoundingClientRect()
+        const root = node.getBoundingClientRect()
+        return {
+          overlap:
+            description.left < action.right &&
+            description.right > action.left &&
+            description.top < action.bottom &&
+            description.bottom > action.top,
+          actionInside:
+            action.right <= root.right && action.bottom <= root.bottom,
+        }
+      })
     expect(boxes).toEqual({ overlap: false, actionInside: true })
     expect(
       await page.evaluate(
@@ -99,37 +114,52 @@ for (const theme of ['neutral', 'uzh'] as const) {
     await page.setViewportSize({ width: 1280, height: 1000 })
     await gotoStory(page, 'shared-presentation--surfaces', theme)
     const surface = page.locator('[data-test="shared-surfaces"]')
-    const alert = surface.locator('[data-slot="alert"]')
+    const alerts = await surface.locator('[data-slot="alert"]').all()
 
     for (const width of ['100%', '320px']) {
       await surface.evaluate((node, value) => {
         node.style.width = value
       }, width)
-      const layout = await alert.evaluate((node) => {
-        const description = node.querySelector(
-          '[data-slot="alert-description"]'
-        )!
-        const text = description.getBoundingClientRect()
-        const action = node
-          .querySelector('[data-slot="alert-action"]')!
-          .getBoundingClientRect()
-        const root = node.getBoundingClientRect()
-        return {
-          actionInside:
-            action.left >= root.left &&
-            action.right <= root.right &&
-            action.top >= root.top &&
-            action.bottom <= root.bottom,
-          separateColumn: action.left >= text.right,
-          descriptionFits:
-            description.scrollWidth <= description.clientWidth + 1,
-        }
-      })
-      expect(layout).toEqual({
-        actionInside: true,
-        separateColumn: true,
-        descriptionFits: true,
-      })
+      for (const alert of alerts) {
+        const layout = await alert.evaluate((node) => {
+          const description = node.querySelector(
+            '[data-slot="alert-description"]'
+          )!
+          const text = description.getBoundingClientRect()
+          const action = node
+            .querySelector('[data-slot="alert-action"]')!
+            .getBoundingClientRect()
+          const root = node.getBoundingClientRect()
+          return {
+            actionInside:
+              action.left >= root.left &&
+              action.right <= root.right &&
+              action.top >= root.top &&
+              action.bottom <= root.bottom,
+            separateColumn: action.left >= text.right,
+            descriptionFits:
+              description.scrollWidth <= description.clientWidth + 1,
+          }
+        })
+        expect(layout).toEqual({
+          actionInside: true,
+          separateColumn: true,
+          descriptionFits: true,
+        })
+      }
+      const alignment = await surface
+        .locator('[data-test="alert-without-icon"]')
+        .evaluate((node) => {
+          const title = node.querySelector('[data-slot="alert-title"]')!
+          return {
+            actual: title.getBoundingClientRect().left,
+            expected:
+              node.getBoundingClientRect().left +
+              Number.parseFloat(getComputedStyle(node).borderLeftWidth) +
+              Number.parseFloat(getComputedStyle(node).paddingLeft),
+          }
+        })
+      expect(alignment.actual).toBeCloseTo(alignment.expected, 1)
     }
   })
 }
@@ -165,6 +195,12 @@ test('controls preserve native submission, alias precedence and directional grou
   await expect(spaced).toHaveCSS('gap', '8px')
   await joined.getByRole('button', { name: 'Option A', exact: true }).click()
   await expect(page.locator('[data-test="toggle-value"]')).toHaveText('["a"]')
+  const joinedItems = joined.getByRole('button')
+  await joinedItems.nth(0).focus()
+  await page.keyboard.press('ArrowDown')
+  await expect(joinedItems.nth(1)).toBeFocused()
+  await page.keyboard.press('ArrowUp')
+  await expect(joinedItems.nth(0)).toBeFocused()
   const vertical = page.locator('[data-test="toggle-vertical"]')
   await expect(vertical).toHaveAttribute('data-orientation', 'vertical')
   const items = await vertical.locator('[data-slot="toggle-group-item"]').all()

@@ -71,6 +71,15 @@ export const Surfaces = () => {
           </Button>
         </AlertAction>
       </Alert>
+      <Alert data-test="alert-without-icon">
+        <AlertTitle>Notification</AlertTitle>
+        <AlertDescription>
+          Details remain aligned without an icon.
+        </AlertDescription>
+        <AlertAction>
+          <Button size="sm">Review</Button>
+        </AlertAction>
+      </Alert>
       <output data-test="action-count">{actions}</output>
       <div className="flex flex-wrap items-center gap-3">
         {([undefined, 'default', 'sm', 'md', 'lg'] as const).map((size) => (
@@ -143,6 +152,13 @@ export const Surfaces = () => {
           </Card>
         </CardContent>
       </Card>
+      <div className="rounded-md border" data-test="standalone-card-parts">
+        <CardHeader>
+          <CardTitle>Standalone parts</CardTitle>
+        </CardHeader>
+        <CardContent>Content in a custom container.</CardContent>
+        <CardFooter>Footer</CardFooter>
+      </div>
       <ItemGroup role="list" aria-label="Example resources">
         <Item role="listitem" size="xs" data-test="item-xs">
           <ItemMedia>

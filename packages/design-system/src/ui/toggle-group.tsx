@@ -24,7 +24,7 @@ function ToggleGroup({
   variant,
   size,
   spacing = 0,
-  orientation = 'horizontal',
+  orientation,
   style,
   children,
   ...props

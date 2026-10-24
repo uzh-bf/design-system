@@ -4,7 +4,7 @@ import * as React from 'react'
 import { cn } from '../lib/utils'
 
 const alertVariants = cva(
-  'group/alert relative w-full rounded-md border px-4 py-3.5 text-sm grid has-[>svg]:grid-cols-[calc(var(--spacing)*5)_1fr] grid-cols-[0_1fr] sm:has-data-[slot=alert-action]:grid-cols-[0_minmax(0,1fr)_auto] sm:has-[>svg]:has-data-[slot=alert-action]:grid-cols-[calc(var(--spacing)*5)_minmax(0,1fr)_auto] has-[>svg]:gap-x-3 sm:has-data-[slot=alert-action]:gap-x-3 gap-y-0.5 items-start [&>svg]:size-5 [&>svg]:translate-y-px [&>svg]:text-current',
+  'group/alert relative w-full rounded-md border px-4 py-3.5 text-sm grid has-[>svg]:grid-cols-[calc(var(--spacing)*5)_1fr] grid-cols-[0_1fr] sm:has-data-[slot=alert-action]:grid-cols-[0_minmax(0,1fr)_auto] sm:has-[>svg]:has-data-[slot=alert-action]:grid-cols-[calc(var(--spacing)*5)_minmax(0,1fr)_auto] has-[>svg]:gap-x-3 gap-y-0.5 items-start [&>svg]:size-5 [&>svg]:translate-y-px [&>svg]:text-current',
   {
     variants: {
       variant: {
@@ -87,7 +87,7 @@ const AlertAction = React.forwardRef<
     ref={ref}
     data-slot="alert-action"
     className={cn(
-      'col-start-3 row-start-1 self-start justify-self-end max-sm:col-start-2 max-sm:row-start-auto max-sm:mt-2 max-sm:justify-self-start',
+      'col-start-3 row-start-1 self-start justify-self-end max-sm:col-start-2 max-sm:row-start-auto max-sm:mt-2 max-sm:justify-self-start sm:ms-3 sm:group-has-[>svg]/alert:ms-0',
       className
     )}
     {...props}
