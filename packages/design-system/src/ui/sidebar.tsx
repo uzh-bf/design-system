@@ -38,6 +38,7 @@ type SidebarContextProps = {
   setOpen: (open: boolean) => void
   openMobile: boolean
   setOpenMobile: (open: boolean) => void
+  mobileOpenerRef: React.RefObject<HTMLElement | null>
   isMobile: boolean
   toggleSidebar: () => void
 }
@@ -68,6 +69,7 @@ function SidebarProvider({
 }) {
   const isMobile = useIsMobile()
   const [openMobile, setOpenMobile] = React.useState(false)
+  const mobileOpenerRef = React.useRef<HTMLElement | null>(null)
 
   // This is the internal state of the sidebar.
   // We use openProp and setOpenProp for control from outside the component.
@@ -121,9 +123,19 @@ function SidebarProvider({
       isMobile,
       openMobile,
       setOpenMobile,
+      mobileOpenerRef,
       toggleSidebar,
     }),
-    [state, open, setOpen, isMobile, openMobile, setOpenMobile, toggleSidebar]
+    [
+      state,
+      open,
+      setOpen,
+      isMobile,
+      openMobile,
+      setOpenMobile,
+      mobileOpenerRef,
+      toggleSidebar,
+    ]
   )
 
   return (
@@ -156,19 +168,36 @@ function Sidebar({
   variant = 'sidebar',
   collapsible = 'offcanvas',
   className,
+  style,
   children,
+  ref,
   ...props
 }: React.ComponentProps<'div'> & {
   side?: 'left' | 'right'
   variant?: 'sidebar' | 'floating' | 'inset'
   collapsible?: 'offcanvas' | 'icon' | 'none'
 }) {
-  const { isMobile, state, openMobile, setOpenMobile } = useSidebar()
+  const { isMobile, state, openMobile, setOpenMobile, mobileOpenerRef } =
+    useSidebar()
+
+  const restoreMobileFocus = React.useCallback(
+    (event: Event) => {
+      const opener = mobileOpenerRef.current
+      mobileOpenerRef.current = null
+      if (!opener?.isConnected) return
+
+      event.preventDefault()
+      opener.focus()
+    },
+    [mobileOpenerRef]
+  )
 
   if (collapsible === 'none') {
     return (
       <div
+        ref={ref}
         data-slot="sidebar"
+        style={style}
         className={cn(
           'bg-sidebar text-sidebar-foreground flex h-full w-(--sidebar-width) flex-col',
           className
@@ -182,18 +211,32 @@ function Sidebar({
 
   if (isMobile) {
     return (
-      <Sheet open={openMobile} onOpenChange={setOpenMobile} {...props}>
+      <Sheet open={openMobile} onOpenChange={setOpenMobile}>
         <SheetContent
+          ref={ref}
           data-sidebar="sidebar"
           data-slot="sidebar"
           data-mobile="true"
-          className="bg-sidebar text-sidebar-foreground w-(--sidebar-width) p-0 [&>button]:hidden"
+          className={cn(
+            'bg-sidebar text-sidebar-foreground w-(--sidebar-width) p-0 [&>button]:hidden',
+            className
+          )}
           style={
             {
               '--sidebar-width': SIDEBAR_WIDTH_MOBILE,
+              ...style,
             } as React.CSSProperties
           }
           side={side}
+          {...props}
+          onOpenAutoFocus={() => {
+            if (!mobileOpenerRef.current?.isConnected) {
+              const activeElement = document.activeElement
+              mobileOpenerRef.current =
+                activeElement instanceof HTMLElement ? activeElement : null
+            }
+          }}
+          onCloseAutoFocus={restoreMobileFocus}
         >
           <SheetHeader className="sr-only">
             <SheetTitle>Sidebar</SheetTitle>
@@ -227,7 +270,9 @@ function Sidebar({
         )}
       />
       <div
+        ref={ref}
         data-slot="sidebar-container"
+        style={style}
         className={cn(
           'ds-sidebar-container fixed inset-y-0 z-10 h-svh w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear',
           side === 'left'
@@ -258,7 +303,7 @@ function SidebarTrigger({
   onClick,
   ...props
 }: React.ComponentProps<typeof Button>) {
-  const { toggleSidebar } = useSidebar()
+  const { toggleSidebar, isMobile, openMobile, mobileOpenerRef } = useSidebar()
 
   return (
     <Button
@@ -269,6 +314,9 @@ function SidebarTrigger({
       className={cn('size-7', className)}
       onClick={(event) => {
         onClick?.(event)
+        if (isMobile && !openMobile) {
+          mobileOpenerRef.current = event.currentTarget
+        }
         toggleSidebar()
       }}
       {...props}

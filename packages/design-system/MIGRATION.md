@@ -1057,3 +1057,14 @@ Toasters without adding a required provider. Brand ownership remains ADR0004's
 document-root contract. Existing explicit-corner offsets are retained; omitted
 and centered positions retain native placement. Neutral light/dark and UZH light
 are qualified; UZH dark remains outside the current acceptance claim.
+
+## Mobile Sidebar compatibility
+
+Sidebar forwards caller div attributes, `dir`, classes, styles and refs to its
+rendered mobile Sheet content. The `side` option still selects the physical
+left or right edge independently of text direction. Closing the mobile Sidebar
+returns focus to its mounted opener through the Sheet lifecycle.
+
+`SidebarProvider` keeps desktop `open` / `onOpenChange` control separate from
+its internal mobile visibility. Existing widths, static `collapsible="none"`
+behavior, keyboard shortcut and write-only state cookie remain supported.

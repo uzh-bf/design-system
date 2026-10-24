@@ -244,18 +244,26 @@ provider changes and new automations remain outside this package.
   container. Twenty-four synthetic captures are inspected. Simplification and risk review
   are complete after the reproduced OS-precedence correction; the refreshed
   full179/881and three packed matrices pass. Configured final review and hosted
-  CI precede qualification. The verified native listener lesson is recorded in
+  CI pass at `1a2db9391`; the journal and draft description record final
+  qualification without moving that held tip. The verified native listener lesson is recorded in
   `docs/solutions/integration/sonner-system-listener-overrides-resolved-mode.md`.
 - Three Toast story callers share `tests/_support/toast-root.ts` because MDX
   cannot declare an unexported module helper. These concrete callers justify
   the small test-support file; it is outside public library entries and adds
   no story or product API. Caller-mode and native DOM assumptions were checked
   against actual Sonner2 output; no positioning facade or suppression was added.
-- Sidebar implementation starts after Sonner independently qualifies. Its scope
+- Sidebar implementation follows independently qualified Sonner. Its scope
   remains mobile caller props/direction/focus with existing state and geometry.
-- Immediate next action: commit the verified Sonner slice, run simplification
-  and risk review while the remaining checks finish, then deliver its qualified
-  draft. Continue into Sidebar under the same finite batch authority.
+- Sidebar source, public types and seven focused browser cases pass, including
+  opened mobile accessibility in all three supported theme states. Explicit
+  trigger capture fixes the reproduced return-to-previous-focus failure;
+  Sheet open/close callbacks cover keyboard and custom opening. Full package
+  checks, independent reviews, captures and hosted CI remain pending.
+  The layer is one package despite exceeding its estimate: the small component
+  change and its synthetic story/type/browser proof protect the same mobile
+  contract. Splitting that proof would leave an incomplete integration point.
+- Immediate next action: implement and independently qualify Sidebar above the
+  held Sonner tip under the same finite batch authority.
 
 The Sonner layer remains one notification compatibility package: source option
 and theme behavior, declarations, store identity and browser/packed proof form

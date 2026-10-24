@@ -4,6 +4,8 @@ import {
   NativeSelect as RootNativeSelect,
   ResizablePanel as RootResizablePanel,
   ResizablePanelGroup as RootResizablePanelGroup,
+  Sidebar as RootSidebar,
+  SidebarProvider as RootSidebarProvider,
   Toaster as RootToaster,
   toast as rootToast,
 } from '../../src'
@@ -15,6 +17,8 @@ import {
   Button as PrimitiveButton,
   ResizablePanel,
   ResizablePanelGroup,
+  Sidebar,
+  SidebarProvider,
   TabsList,
   Toaster,
   tabsListVariants,
@@ -22,6 +26,31 @@ import {
   useGroupRef,
   usePanelRef,
 } from '../../src/primitives'
+
+createElement(RootSidebarProvider, {
+  open: true,
+  onOpenChange: (open) => void open,
+})
+createElement(RootSidebar, {
+  dir: 'rtl',
+  side: 'right',
+  ref: createRef<HTMLDivElement>(),
+  id: 'typed-root-sidebar',
+  className: 'caller-sidebar',
+  style: { width: 300 },
+  'aria-label': 'Application navigation',
+})
+createElement(SidebarProvider, { defaultOpen: false })
+createElement(Sidebar, {
+  dir: 'ltr',
+  side: 'left',
+  collapsible: 'none',
+  ref: createRef<HTMLDivElement>(),
+})
+// @ts-expect-error Sidebar keeps its div ref across static, mobile and desktop layouts.
+createElement(Sidebar, { ref: createRef<HTMLButtonElement>() })
+// @ts-expect-error Mobile visibility remains internal to SidebarProvider.
+createElement(SidebarProvider, { openMobile: true })
 
 createElement(RootToaster, {
   id: 'typed-toaster',
