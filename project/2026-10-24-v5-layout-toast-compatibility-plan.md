@@ -236,9 +236,13 @@ provider changes and new automations remain outside this package.
   declarations, source option/theme merging and packed Next acceptance are
   integrated. Fifteen dependency cases, static checks/build, seven focused
   behavior/opened-axe cases and focused source scanning pass. Full behavior and
-  selector runs pass (170 plus9cases). Accessibility, visual and packed matrices
-  are running. Reviews, captures,
-  exact archive proof and hosted CI follow.
+  selector runs pass (170 plus9cases), as do881accessibility cases,29pinned
+  visual regressions,704theme assertions and unchanged package budgets. All
+  three packed cells and12Nextbrowser cases per bundler pass. Exact archive
+  `152ac691a649c2b46175bb1997a80158b3e96278ad46339ef60a523923e7f0c8`
+  matches270installed files;448tracked package sources match the producing
+  container. Twenty-four synthetic captures are inspected. Simplification is
+  complete with no findings; risk/final review and hosted CI precede qualification.
 - Three Toast story callers share `tests/_support/toast-root.ts` because MDX
   cannot declare an unexported module helper. These concrete callers justify
   the small test-support file; it is outside public library entries and adds
