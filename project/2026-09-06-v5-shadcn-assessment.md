@@ -223,7 +223,7 @@ Qualify DayPicker 9 source/type/locale compatibility before proposing a major
 migration; the registry install tag alone does not require DayPicker 10.
 
 The [GA roadmap](2026-08-10-v5-ga-readiness-roadmap.md#next-implementation-packages)
-now starts with the bounded compound Combobox plan, preserving the root API,
+now starts with the [reviewed compound Combobox plan](2026-10-24-v5-combobox-compatibility-plan.md), preserving the root API,
 and an early static sweep of all pinned examples, blocks and AI patterns. Every
 remaining delta needs a package owner and proof or an already-approved adaptation.
 Shared APIs/Calendar and layout/toast follow; messaging/clarification and
@@ -232,3 +232,11 @@ capabilities, including @shadcn/react-backed scrolling/questionnaire, remain
 library-owned. Blocks, AI transports and application state remain application-owned.
 Future topology and implementation need their reviewed plans; GBL and Klicker
 remain unmerged by the October23 user ruling.
+
+The [October 24 static composition assessment](2026-10-24-v5-composition-compatibility-assessment.md)
+accounts for all 67 examples, 30 blocks and 21 AI patterns, including actual
+AI demo/variant bodies and reachable preview cards. Confirmation and Suggestion
+need messaging primitives despite narrower installation snippets. Cross-package
+Card/Item/AlertDialog requirements in Combobox examples remain Shared API work;
+they do not widen the proposed Combobox implementation. Static source coverage
+does not establish compilation or representative browser acceptance.

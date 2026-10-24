@@ -255,12 +255,15 @@ markers all pass. These completed packages are not queued again.
 The October 24 Opus 5.5 discussion and main-session verification retain the
 binding GA scope and refine the next sequence:
 
-1. **Combobox plan and early static composition sweep.** Derive a bounded plan
-   for the compound primitive, preserving the root Combobox and its public types.
+1. **Combobox plan and early static composition sweep.** The reviewed
+   [Combobox plan](2026-10-24-v5-combobox-compatibility-plan.md) proposes the compound
+   primitive while preserving the root Combobox and its public types.
    Propose topology in that plan; a new stack above the chart draft is a proposal,
    not an approved topology change. Start static compatibility accounting of all
    pinned examples, blocks and AI patterns alongside planning, so concrete gaps
-   feed the shared-API packages before they close. Qualify Base UI dependency and
+   feed the shared-API packages before they close. The [static assessment](2026-10-24-v5-composition-compatibility-assessment.md)
+   records exact identity dispositions and cross-package dependencies; it is
+   source evidence, not type/browser qualification. Qualify Base UI dependency and
    entry budgets, single/multiple selection, controlled state, forms/RHF,
    keyboard/RTL and focus/dismissal inside Dialog, Sheet and Drawer.
 2. **Shared APIs and Calendar.** Assign every concrete matrix delta, including
