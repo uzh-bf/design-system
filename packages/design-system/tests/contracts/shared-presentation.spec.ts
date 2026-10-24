@@ -137,12 +137,18 @@ test('controls preserve native submission, alias precedence and directional grou
   const alias = page.locator('[data-test="pagination-text"]')
   await expect(alias).toContainText('Earlier')
   await expect(alias).toHaveAttribute('href', '#previous')
+  await expect(alias).toHaveAccessibleName('Earlier')
   const legacy = page.locator('[data-test="pagination-label"]')
   await expect(legacy).toContainText('Legacy next')
-  await expect(legacy).toHaveAccessibleName('Native pagination override')
+  await expect(legacy).toHaveAccessibleName(
+    'Legacy next: native pagination override'
+  )
   await expect(
     page.locator('[data-test="pagination-empty"] .ds-pagination-label')
   ).toBeEmpty()
+  await expect(
+    page.locator('[data-test="pagination-empty"]')
+  ).toHaveAccessibleName(/.+/)
 })
 
 test('retained element contracts and caller sizing compose with public parts', async ({

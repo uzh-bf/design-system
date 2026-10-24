@@ -52,7 +52,6 @@ export default { title: 'Shared presentation' }
 
 export const Surfaces = () => {
   const [actions, setActions] = useState(0)
-  const actionRef = useRef<HTMLDivElement>(null)
   return (
     <div
       className="grid w-full max-w-4xl gap-6 p-4"
@@ -66,11 +65,7 @@ export const Surfaces = () => {
           display. The action remains available when the explanation occupies
           several lines.
         </AlertDescription>
-        <AlertAction
-          ref={actionRef}
-          data-test="alert-action"
-          title="Notification actions"
-        >
+        <AlertAction data-test="alert-action" title="Notification actions">
           <Button size="sm" onClick={() => setActions(actions + 1)}>
             Acknowledge
           </Button>
@@ -91,13 +86,18 @@ export const Surfaces = () => {
             <AvatarFallback>AB</AvatarFallback>
             <AvatarBadge
               data-test={`avatar-badge-${size ?? 'omitted'}`}
+              role="img"
               aria-label="Available"
             >
               <Check />
             </AvatarBadge>
           </Avatar>
         ))}
-        <AvatarGroup aria-label="Example participants" data-test="avatar-group">
+        <AvatarGroup
+          role="group"
+          aria-label="Example participants"
+          data-test="avatar-group"
+        >
           <Avatar>
             <AvatarFallback>CD</AvatarFallback>
           </Avatar>
@@ -312,7 +312,7 @@ export const Controls = () => {
           href="#next"
           text="Ignored alias"
           label="Legacy next"
-          aria-label="Native pagination override"
+          aria-label="Legacy next: native pagination override"
           data-test="pagination-label"
         />
         <PaginationNext

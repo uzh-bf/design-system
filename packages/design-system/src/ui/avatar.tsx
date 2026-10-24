@@ -108,7 +108,7 @@ function AvatarGroupCount({
     <div
       data-slot="avatar-group-count"
       className={cn(
-        'bg-muted text-muted-foreground ring-background relative flex size-8 shrink-0 items-center justify-center rounded-full text-xs font-medium ring-2',
+        'bg-muted text-foreground ring-background relative flex size-8 shrink-0 items-center justify-center rounded-full text-xs font-medium ring-2',
         className
       )}
       {...props}

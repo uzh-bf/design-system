@@ -934,7 +934,9 @@ Card omission and explicit `default` retain existing insets. Avatar's explicit
 `Switch` adds compact `size="sm"`. `ToggleGroup` adds `spacing` and vertical
 layout: omission remains joined, while positive spacing separates items.
 Pagination Previous/Next accept upstream `text` alongside existing `label`;
-`label` takes precedence, including an empty string. InputOTP defaults
+`label` takes precedence, including an empty string. Custom pagination text also
+sets its default accessible name; an explicit native `aria-label` still wins.
+InputOTP defaults
 `spellCheck` to false and accepts an explicit caller override.
 
 Some composition contracts remain deliberate adaptations. ItemGroup has no
