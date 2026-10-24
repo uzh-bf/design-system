@@ -601,6 +601,7 @@ test.describe('layout auxiliaries: Sonner', () => {
   test('updates from the DS root dark class without remounting the toaster', async ({
     page,
   }) => {
+    await page.emulateMedia({ colorScheme: 'light', reducedMotion: 'reduce' })
     await gotoStory(page, toastRootThemeStory)
 
     const toast = await showToast(
@@ -614,6 +615,22 @@ test.describe('layout auxiliaries: Sonner', () => {
     await toaster.evaluate((element) => {
       element.setAttribute('data-compat-mount', 'initial')
     })
+    await page.evaluate(() => {
+      matchMedia('(prefers-color-scheme: dark)').addEventListener(
+        'change',
+        () => {
+          document.body.dataset.osChangeObserved = 'true'
+        },
+        { once: true }
+      )
+    })
+    await page.emulateMedia({ colorScheme: 'dark', reducedMotion: 'reduce' })
+    await expect(page.locator('body')).toHaveAttribute(
+      'data-os-change-observed',
+      'true'
+    )
+    await settle(page)
+    await expect(toaster).toHaveAttribute('data-sonner-theme', 'light')
 
     await storyControl(page, 'toggle-root-dark').click()
     await expect(page.locator('html')).toHaveClass(/\bdark\b/)

@@ -22,18 +22,25 @@ function validTheme(theme: string | undefined): SonnerTheme | undefined {
   return undefined
 }
 
-function useRootTheme(): SonnerTheme | undefined {
-  const [theme, setTheme] = React.useState<SonnerTheme>()
+function useDocumentModes() {
+  const [modes, setModes] = React.useState<{
+    root: SonnerTheme | undefined
+    system: 'light' | 'dark'
+  }>({ root: undefined, system: 'light' })
 
   React.useEffect(() => {
     const root = document.documentElement
+    const media = window.matchMedia('(prefers-color-scheme: dark)')
     const sync = () => {
-      if (root.dataset.theme !== 'neutral' && root.dataset.theme !== 'uzh') {
-        setTheme(undefined)
-        return
-      }
-
-      setTheme(root.classList.contains('dark') ? 'dark' : 'light')
+      setModes({
+        root:
+          root.dataset.theme === 'neutral' || root.dataset.theme === 'uzh'
+            ? root.classList.contains('dark')
+              ? 'dark'
+              : 'light'
+            : undefined,
+        system: media.matches ? 'dark' : 'light',
+      })
     }
     const observer = new MutationObserver(sync)
 
@@ -41,12 +48,16 @@ function useRootTheme(): SonnerTheme | undefined {
       attributes: true,
       attributeFilter: ['data-theme', 'class'],
     })
+    media.addEventListener('change', sync)
     sync()
 
-    return () => observer.disconnect()
+    return () => {
+      observer.disconnect()
+      media.removeEventListener('change', sync)
+    }
   }, [])
 
-  return theme
+  return modes
 }
 
 const Toaster = ({
@@ -58,7 +69,7 @@ const Toaster = ({
   ...props
 }: ToasterProps) => {
   const { theme: nextTheme, forcedTheme } = useTheme()
-  const rootTheme = useRootTheme()
+  const { root: rootTheme, system: systemTheme } = useDocumentModes()
   const resolvedTheme =
     validTheme(theme) ??
     validTheme(forcedTheme) ??
@@ -69,7 +80,7 @@ const Toaster = ({
 
   return (
     <Sonner
-      theme={resolvedTheme}
+      theme={resolvedTheme === 'system' ? systemTheme : resolvedTheme}
       className={twMerge(
         'toaster group',
         props.position === 'top-right' ? 'top-3! right-3!' : '',
