@@ -1,6 +1,7 @@
+import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Locator, type Page } from '@playwright/test'
 
-import { gotoStory } from '../_support/ladle'
+import { TOOLBAR_SELECTOR, gotoStory, settle } from '../_support/ladle'
 
 async function readJson<T>(locator: Locator): Promise<T> {
   return JSON.parse(await locator.innerText()) as T
@@ -435,4 +436,298 @@ test.describe('layout auxiliaries: Panels', () => {
       5
     )
   })
+})
+
+const toastOptionsStory = 'toast--sonner-options'
+const toastRootThemeStory = 'toast--sonner-root-theme'
+const toastProviderThemeStory = 'toast--sonner-provider-theme'
+
+const storyControl = (page: Page, testId: string) =>
+  page.locator(`[data-test="${testId}"]`)
+
+const sonnerToast = (page: Page, testId: string) =>
+  page.locator(`[data-testid="${testId}"]`)
+
+async function showToast(
+  page: Page,
+  trigger: string,
+  testId: string
+): Promise<Locator> {
+  await storyControl(page, trigger).click()
+  const toast = sonnerToast(page, testId)
+  await expect(toast).toBeVisible()
+  await expect(toast).toHaveAttribute('data-mounted', 'true')
+  return toast
+}
+
+async function seriousOrCriticalViolations(page: Page) {
+  await settle(page)
+  const { violations } = await new AxeBuilder({ page })
+    .exclude(TOOLBAR_SELECTOR)
+    .analyze()
+  return violations
+    .filter(({ impact }) => impact === 'serious' || impact === 'critical')
+    .map(({ id, nodes }) => ({
+      id,
+      nodes: nodes.map(({ target, failureSummary }) => ({
+        target,
+        failureSummary,
+      })),
+    }))
+}
+
+test.describe('layout auxiliaries: Sonner', () => {
+  test('merges caller options and honors explicit style and icon overrides', async ({
+    page,
+  }) => {
+    await gotoStory(page, toastOptionsStory)
+
+    const success = await showToast(
+      page,
+      'show-success-toast',
+      'sonner-success-toast'
+    )
+    const toaster = page.locator('.caller-toaster-class')
+    await expect(toaster).toHaveAttribute('data-sonner-toaster', 'true')
+    expect(
+      await toaster.evaluate((element) =>
+        (element as HTMLElement).style.getPropertyValue('--normal-bg')
+      )
+    ).toBe('var(--popover)')
+    await expect(toaster).toHaveAttribute('data-sonner-theme', 'light')
+    await expect(success).toHaveClass(/caller-toast-class/)
+    await expect(success.locator('[data-icon] svg')).toHaveCount(1)
+    const defaults = await success.evaluate((element) => {
+      const style = getComputedStyle(element)
+      const description = element.querySelector('[data-description]')
+      return {
+        borderRadius: style.borderRadius,
+        boxShadow: style.boxShadow,
+        borderWidth: style.borderTopWidth,
+        fontWeight: description
+          ? getComputedStyle(description).fontWeight
+          : '0',
+      }
+    })
+    expect(parseFloat(defaults.borderRadius)).toBeCloseTo(8, 1)
+    expect(defaults.boxShadow).not.toBe('none')
+    expect(parseFloat(defaults.borderWidth)).toBeGreaterThan(0)
+    expect(Number(defaults.fontWeight)).toBeGreaterThanOrEqual(600)
+
+    const generic = await showToast(
+      page,
+      'show-generic-toast',
+      'sonner-generic-toast'
+    )
+    await expect(generic.locator('[data-title]')).toHaveClass(
+      /caller-title-class/
+    )
+    await expect(generic.locator('[data-content]')).toHaveClass(
+      /caller-content-class/
+    )
+    await expect(generic.locator('[data-close-button]')).toHaveClass(
+      /caller-close-class/
+    )
+
+    const unstyled = await showToast(
+      page,
+      'show-unstyled-toast',
+      'sonner-unstyled-toast'
+    )
+    await expect(unstyled).toHaveAttribute('data-styled', 'false')
+
+    await storyControl(page, 'toggle-overrides').click()
+    await expect(toaster).toHaveCSS('--border-radius', '13px')
+    await expect(toaster).toHaveCSS('--normal-bg', 'rgb(24 72 48)')
+
+    const error = await showToast(
+      page,
+      'show-error-toast',
+      'sonner-error-toast'
+    )
+    await expect(error).toHaveCSS('border-radius', '13px')
+    await expect(error.locator('[data-test="caller-error-icon"]')).toBeVisible()
+  })
+
+  test('keeps native actions, callbacks, dismissal, reduced motion and positioning', async ({
+    page,
+  }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    await gotoStory(page, toastOptionsStory)
+    expect(
+      await page.evaluate(
+        () => matchMedia('(prefers-reduced-motion: reduce)').matches
+      )
+    ).toBe(true)
+
+    await storyControl(page, 'position-top-right').click()
+    await showToast(page, 'show-generic-toast', 'sonner-generic-toast')
+    const toaster = page.locator('.caller-toaster-class')
+    await expect(toaster).toHaveAttribute('data-sonner-toaster', 'true')
+    await expect(toaster).toHaveAttribute('data-sonner-theme', 'light')
+    await expect(toaster).toHaveAttribute('data-x-position', 'right')
+    await expect(toaster).toHaveAttribute('data-y-position', 'top')
+    await expect(toaster).toHaveCSS('top', '12px')
+    await expect(toaster).toHaveCSS('right', '12px')
+
+    await storyControl(page, 'position-bottom-center').click()
+    await expect(toaster).toHaveAttribute('data-x-position', 'center')
+    await expect(toaster).toHaveAttribute('data-y-position', 'bottom')
+    await expect
+      .poll(async () => {
+        const box = await toaster.boundingBox()
+        if (!box) return Infinity
+        const viewportCenter = await page.evaluate(() => innerWidth / 2)
+        return Math.abs(box.x + box.width / 2 - viewportCenter)
+      })
+      .toBeLessThanOrEqual(1)
+
+    await storyControl(page, 'position-default').click()
+    await expect(toaster).not.toHaveCSS('right', '12px')
+
+    const actionToast = await showToast(
+      page,
+      'show-action-toast',
+      'sonner-action-toast'
+    )
+    await actionToast.getByRole('button', { name: 'Apply' }).click()
+    await expect(storyControl(page, 'action-count')).toHaveText('1')
+    await expect(actionToast).toBeVisible()
+    await actionToast.locator('[data-close-button]').click()
+    await expect(actionToast).toHaveCount(0)
+    await expect(storyControl(page, 'dismiss-count')).toHaveText('1')
+  })
+
+  test('updates from the DS root dark class without remounting the toaster', async ({
+    page,
+  }) => {
+    await gotoStory(page, toastRootThemeStory)
+
+    const toast = await showToast(
+      page,
+      'trigger-root-theme-toast',
+      'sonner-root-theme-toast'
+    )
+    const toaster = page.locator('[data-sonner-toaster]')
+    await expect(toaster).toHaveAttribute('data-sonner-toaster', 'true')
+    await expect(toaster).toHaveAttribute('data-sonner-theme', 'light')
+    await toaster.evaluate((element) => {
+      element.setAttribute('data-compat-mount', 'initial')
+    })
+
+    await storyControl(page, 'toggle-root-dark').click()
+    await expect(page.locator('html')).toHaveClass(/\bdark\b/)
+    await expect(storyControl(page, 'root-dark')).toHaveText('true')
+    await expect(toaster).toHaveAttribute('data-sonner-theme', 'dark')
+    await expect(toaster).toHaveAttribute('data-compat-mount', 'initial')
+    await expect(toast).toBeVisible()
+
+    await storyControl(page, 'toggle-root-dark').click()
+    await expect(storyControl(page, 'root-dark')).toHaveText('false')
+    await expect(toaster).toHaveAttribute('data-sonner-theme', 'light')
+    await expect(toaster).toHaveAttribute('data-compat-mount', 'initial')
+
+    await page.emulateMedia({
+      colorScheme: 'dark',
+      reducedMotion: 'reduce',
+    })
+    await page.evaluate(() => {
+      document.documentElement.removeAttribute('data-theme')
+    })
+    await expect(page.locator('html')).not.toHaveAttribute('data-theme')
+    await expect(toaster).toHaveAttribute('data-sonner-theme', 'dark')
+    await expect(toaster).toHaveAttribute('data-compat-mount', 'initial')
+    await expect(toast).toBeVisible()
+    await page.evaluate(() => {
+      document.documentElement.setAttribute('data-theme', 'host-theme')
+    })
+    await expect(toaster).toHaveAttribute('data-sonner-theme', 'dark')
+  })
+
+  test('uses next-themes before root mode and an explicit theme before both', async ({
+    page,
+  }) => {
+    await gotoStory(page, toastProviderThemeStory)
+
+    const root = page.locator('html')
+    await showToast(
+      page,
+      'trigger-provider-theme-toast',
+      'sonner-provider-theme-toast'
+    )
+    const toaster = page.locator('[data-sonner-toaster]')
+    await expect(toaster).toHaveAttribute('data-sonner-toaster', 'true')
+    await expect(root).toHaveClass(/\bdark\b/)
+    await expect(root).toHaveAttribute('data-theme', 'neutral')
+    await expect(root).toHaveAttribute('data-next-mode', 'light')
+    await expect(toaster).toHaveAttribute('data-sonner-theme', 'light')
+
+    await storyControl(page, 'toggle-explicit-dark').click()
+    await expect(toaster).toHaveAttribute('data-sonner-theme', 'dark')
+
+    await storyControl(page, 'toggle-explicit-dark').click()
+    await expect(toaster).toHaveAttribute('data-sonner-theme', 'light')
+  })
+
+  for (const [theme, dark] of [
+    ['neutral', false],
+    ['neutral', true],
+    ['uzh', false],
+  ] as const) {
+    test(`opened toast is contained and axe-clean at 390px in ${theme}${dark ? '-dark' : '-light'}`, async ({
+      page,
+    }) => {
+      await page.setViewportSize({ width: 390, height: 844 })
+      await page.addInitScript(
+        ({ isDark }) => {
+          window.localStorage.setItem('ladle-dark', JSON.stringify(isDark))
+        },
+        { isDark: dark }
+      )
+      await gotoStory(page, toastOptionsStory, theme)
+
+      const root = page.locator('html')
+      await expect(root).toHaveAttribute('data-theme', theme)
+      expect(
+        await root.evaluate((element) => element.classList.contains('dark'))
+      ).toBe(dark)
+
+      const toast = await showToast(
+        page,
+        'show-generic-toast',
+        'sonner-generic-toast'
+      )
+      const toaster = page.locator('.caller-toaster-class')
+      await expect(toaster).toHaveAttribute('data-sonner-toaster', 'true')
+      await expect(toaster).toHaveAttribute(
+        'data-sonner-theme',
+        dark ? 'dark' : 'light'
+      )
+      const box = await toast.boundingBox()
+      expect(box).not.toBeNull()
+      expect(box!.x).toBeGreaterThanOrEqual(0)
+      expect(box!.x + box!.width).toBeLessThanOrEqual(390)
+      expect(
+        await page.evaluate(
+          () =>
+            document.documentElement.scrollWidth -
+            document.documentElement.clientWidth
+        )
+      ).toBeLessThanOrEqual(1)
+
+      const colors = await toast.evaluate((element) => {
+        const description = element.querySelector('[data-description]')
+        return {
+          background: getComputedStyle(element).backgroundColor,
+          description: description
+            ? getComputedStyle(description).color
+            : 'missing',
+        }
+      })
+      expect(colors.background).not.toBe('rgba(0, 0, 0, 0)')
+      expect(colors.description).not.toBe('missing')
+      expect(colors.description).not.toBe('rgba(0, 0, 0, 0)')
+      expect(await seriousOrCriticalViolations(page)).toEqual([])
+    })
+  }
 })

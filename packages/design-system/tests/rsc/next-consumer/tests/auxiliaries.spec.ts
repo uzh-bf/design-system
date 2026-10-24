@@ -1,5 +1,38 @@
 import { expect, test, type Page } from '@playwright/test'
 
+test('application Sonner shares the DS toaster and hydrates root and explicit modes', async ({
+  page,
+}) => {
+  const errors: string[] = []
+  page.on('pageerror', (error) => errors.push(String(error)))
+  page.on('console', (message) => {
+    if (
+      message.type() === 'error' &&
+      /hydrat|did not match|server rendered html/i.test(message.text())
+    ) {
+      errors.push(message.text())
+    }
+  })
+  await page.goto('/')
+  const toaster = page.locator('[data-sonner-toaster]')
+  await page.locator('[data-test="packed-application-toast"]').click()
+  await expect(toaster.locator('[data-sonner-toast]')).toHaveCount(1)
+  await expect(toaster).toHaveAttribute('data-sonner-theme', 'light')
+  await expect(toaster.locator('[data-sonner-toast]')).toHaveAttribute(
+    'data-type',
+    'success'
+  )
+  await page.locator('[data-test="packed-toast-toggle-root-mode"]').click()
+  await expect(toaster).toHaveAttribute('data-sonner-theme', 'dark')
+  await expect(toaster.locator('[data-sonner-toast]')).toHaveCount(1)
+  await page.locator('[data-test="packed-toast-explicit-light"]').click()
+  await expect(toaster).toHaveAttribute('data-sonner-theme', 'light')
+  await expect(toaster.locator('[data-sonner-toast]')).toHaveCount(1)
+  await toaster.locator('[data-close-button]').click()
+  await expect(toaster.locator('[data-sonner-toast]')).toHaveCount(0)
+  expect(errors).toEqual([])
+})
+
 const rootStorageKey = 'react-resizable-panels:packed-root-persistence'
 const nativeStorageKey = 'react-resizable-panels:packed-native-persistence'
 
