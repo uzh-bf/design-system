@@ -336,7 +336,6 @@ export const Compatibility = () => {
   return (
     <div
       className="bg-background text-foreground min-h-svh overflow-x-hidden"
-      data-test="sidebar-compatibility"
     >
       <div className="flex flex-wrap items-center gap-2 border-b p-2 pt-16 text-xs">
         <button
@@ -389,7 +388,6 @@ export const Compatibility = () => {
         </button>
         <output data-test="sidebar-side-state">{side}</output>
         <output data-test="sidebar-direction-state">{direction}</output>
-        <output data-test="sidebar-collapsible-state">{collapsible}</output>
         <output data-test="sidebar-controlled-state">
           {String(desktopOpen)}
         </output>
@@ -418,7 +416,7 @@ export const Compatibility = () => {
           side={side}
           collapsible={collapsible}
         >
-          <SidebarHeader className="p-3">
+          <SidebarHeader className="p-3 group-data-[collapsible=icon]:hidden">
             <p className="text-sm font-semibold">Compatibility navigation</p>
             <button
               type="button"
@@ -449,12 +447,18 @@ export const Compatibility = () => {
                 <SidebarMenu>
                   <SidebarMenuItem>
                     <SidebarMenuButton asChild>
-                      <a href="#sidebar-overview">Overview</a>
+                      <a href="#sidebar-overview">
+                        <GalleryVerticalEnd />
+                        <span>Overview</span>
+                      </a>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
                     <SidebarMenuButton asChild>
-                      <a href="#sidebar-settings">Settings</a>
+                      <a href="#sidebar-search">
+                        <Search />
+                        <span>Search</span>
+                      </a>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 </SidebarMenu>
@@ -466,15 +470,12 @@ export const Compatibility = () => {
         <SidebarInset className="min-w-0">
           <header className="flex min-h-16 flex-wrap items-center gap-2 border-b p-2">
             <SidebarTrigger
-              id="sidebar-story-trigger-a"
               data-test="sidebar-trigger-a"
             />
             <SidebarTrigger
-              id="sidebar-story-trigger-b"
               data-test="sidebar-trigger-b"
             />
             <button
-              id="sidebar-story-shortcut-opener"
               type="button"
               className="rounded border px-2 py-1 text-xs"
               data-test="sidebar-shortcut-opener"
@@ -485,7 +486,6 @@ export const Compatibility = () => {
           <div className="min-w-0 p-3">
             <div
               className="w-60 max-w-full overflow-hidden rounded border"
-              data-test="sidebar-static-shell"
             >
               <Sidebar
                 id="sidebar-story-static"
