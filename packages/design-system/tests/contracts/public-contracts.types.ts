@@ -2,6 +2,8 @@ import { createElement, createRef, type ComponentProps } from 'react'
 import {
   DirectionProvider as RootDirectionProvider,
   NativeSelect as RootNativeSelect,
+  ResizablePanel as RootResizablePanel,
+  ResizablePanelGroup as RootResizablePanelGroup,
 } from '../../src'
 import {
   DirectionProvider,
@@ -9,17 +11,57 @@ import {
   NativeSelectOptGroup,
   NativeSelectOption,
   Button as PrimitiveButton,
+  ResizablePanel,
+  ResizablePanelGroup,
   TabsList,
   tabsListVariants,
   useDirection,
+  useGroupRef,
+  usePanelRef,
 } from '../../src/primitives'
 
+import type {
+  ImperativePanelGroupHandle,
+  ImperativePanelHandle,
+} from 'react-resizable-panels'
 import type {
   ButtonProps,
   NavigationProps,
   ProgressProps,
   WorkflowProps,
 } from '../../src'
+
+createElement(RootResizablePanelGroup, {
+  direction: 'horizontal',
+  autoSaveId: 'typed-layout',
+  keyboardResizeBy: 5,
+  tagName: 'section',
+  ref: createRef<ImperativePanelGroupHandle>(),
+  onLayout: (layout) => layout.map((size) => size.toFixed(1)),
+})
+createElement(RootResizablePanel, {
+  defaultSize: 30,
+  order: 1,
+  ref: createRef<ImperativePanelHandle>(),
+  onResize: (size, previous) => size + (previous ?? 0),
+})
+createElement(ResizablePanelGroup, {
+  orientation: 'vertical',
+  groupRef: createRef<ReturnType<typeof useGroupRef>['current']>(),
+  onLayoutChange: (layout) => {
+    Object.values(layout).forEach((size) => size.toFixed(1))
+  },
+})
+createElement(ResizablePanel, {
+  defaultSize: '30%',
+  minSize: 100,
+  panelRef: createRef<ReturnType<typeof usePanelRef>['current']>(),
+  onResize: (size) => size.asPercentage + size.inPixels,
+})
+// @ts-expect-error Root Resizable keeps percentage numbers rather than v4 unit strings.
+createElement(RootResizablePanel, { defaultSize: '30%' })
+// @ts-expect-error Native primitives use orientation rather than the v3 direction prop.
+createElement(ResizablePanelGroup, { direction: 'horizontal' })
 
 function acceptsButtonProps(props: ButtonProps) {
   return props

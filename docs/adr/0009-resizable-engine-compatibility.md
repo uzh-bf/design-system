@@ -14,7 +14,7 @@ tags, ordering and saved layouts. Primitive components follow the pinned officia
 shadcn Radix recipe's v4 contracts, including pixel numbers, percentage strings,
 layout maps and native refs. Existing primitive consumers must migrate or use
 the retained root family. Components from the two families cannot share a group;
-root layouts are not automatically converted to the v4 persistence format.
+the DS performs no conversion of existing root layouts to the v4 persistence format.
 
 A complete v3 facade on v4 was rejected because v4 lacks several v3 contracts;
 emulating them would create a maintained resizing facade. Aliasing v3 instead

@@ -225,8 +225,8 @@ deployment, merge or ready conversion is implied by green draft CI.
   Prior Shared API/Calendar batch is complete. The user subsequently approved
   this complete reviewed batch, including the material primitive migration,
   dependency choices and three-layer topology.
-- Source baseline remains frozen at Calendar `0f7b78ba2`. No implementation,
-  dependency, stack or consumer change has been made for this package.
+- The starting baseline is Calendar `0f7b78ba2`. Panels implementation is active
+  on its approved branch; no consumer repository has changed.
 - Current research/prototype receipts are in the ignored layout review journal.
   The first alias arrangement failed npm legacy identity; the revised canonical
   legacy arrangement passed the narrow identity probe under npm and pnpm.
@@ -248,3 +248,13 @@ deployment, merge or ready conversion is implied by green draft CI.
 - Execution started on rs/v5-panels-compatibility above frozen Calendar0f7.
   Native stack initialized locally; no PR exists yet. Main owns slice1, then
   delegates slice2 while integrating package and Next proof.
+
+- Panels core check/lint/build and13dependency-validator cases pass. The default
+  packed cell and11Nextbrowser cases under each of Turbopack/Webpack pass after
+  supplying native SSR-safe storage and fixing a saved-layout test race.
+  Full contracts/selectors:172pass; focused Resizable axe:6pass; package/CSS
+  budgets and704theme-token checks pass. The worker completed one focused
+  correction and is closed. Both remaining packed version cells pass, including browser contracts under
+  both bundlers. Full accessibility:875pass; pinned visual regression:29pass.
+  Reviews, final screenshots/artifact proof and hosted CI still precede draft
+  qualification.
