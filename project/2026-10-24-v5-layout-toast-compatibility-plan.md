@@ -257,13 +257,21 @@ provider changes and new automations remain outside this package.
 - Sidebar source, public types and seven focused browser cases pass, including
   opened mobile accessibility in all three supported theme states. Explicit
   trigger capture fixes the reproduced return-to-previous-focus failure;
-  Sheet open/close callbacks cover keyboard and custom opening. Full package
-  checks, independent reviews, captures and hosted CI remain pending.
+  Sheet open/close callbacks cover keyboard and custom opening. Focus bookkeeping
+  stays private within the existing provider; both public entries reject access
+  to it. Slice risk review and simplification are complete. Native checks,
+  186 behavior/selector cases, 883 accessibility cases with fresh inventory
+  artifacts, all three packed cells and both Next bundlers pass. Unchanged
+  budgets and theme checks pass; 29 visual comparisons are retained alongside
+  fresh changed-story checks. Twelve synthetic captures are inspected. Archive
+  `c33633da14a1d4d87926ff3c5da0a7d6660cb092514ad0dce542a8935c2c15bd`
+  matches all 270 installed files; 448 tracked package sources match the container.
+  Configured final review and hosted CI remain before draft qualification.
   The layer is one package despite exceeding its estimate: the small component
   change and its synthetic story/type/browser proof protect the same mobile
   contract. Splitting that proof would leave an incomplete integration point.
-- Immediate next action: complete private focus isolation, independent reviews
-  and remaining Sidebar qualification above the held Sonner tip.
+- Immediate next action: complete final review and hosted qualification for
+  Sidebar above the held Sonner tip. Preserve the verified implementation.
 
 The Sonner layer remains one notification compatibility package: source option
 and theme behavior, declarations, store identity and browser/packed proof form

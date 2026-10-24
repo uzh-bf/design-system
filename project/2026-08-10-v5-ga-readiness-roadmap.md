@@ -292,7 +292,8 @@ browser qualification. The next implementation packages are:
    `88b397d4d` with exact package proof, independent reviews, captures and hosted CI.
    Sonner draft [#230](https://github.com/uzh-bf/design-system/pull/230) qualifies at
    `1a2db9391` with caller-option merging, modes and shared-store proof.
-   Sidebar is active for mobile direction, caller props and focus. Keep all three drafts
+   Sidebar source/local proof is complete for mobile direction, caller props and
+   focus; final review and hosted qualification remain. Keep all three drafts
    independently qualified and unmerged; serialize manifest/lock changes.
 3. **Messaging/clarification and code/highlighting.** Use separate bounded
    packages for the required presentation/scroll/questionnaire surfaces and
