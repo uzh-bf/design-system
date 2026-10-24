@@ -244,23 +244,28 @@ preserve existing evidence. No human reviewer requests or review replies.
   review, exact archive/installed-file proof and 18 published captures pass.
   Runtime and browser are stopped. Preserve that lower tip.
 - Active draft [#226](https://github.com/uzh-bf/design-system/pull/226):
-  interactions implemented at `b0c46d1a7`, based on the held presentation tip.
-  Full behavioral contracts:146pass; six themed accessibility cases pass.
-  Types, lint, formatting, build, focused scanner and all three packed/Next
-  endpoint cells pass both bundlers. Exact archive SHA-256
-  `75dd0ad7b6a0bc34d0e1172f073a3962c1e1b5d96060c69481e1d230871b2e90`
-  matches all268installed files. Thirty-six synthetic captures are inspected;
-  native publication, configured final review and hosted qualification remain.
+  interaction source `8cc3b0e1b` passes all 146 behavioral contracts, six themed
+  accessibility cases, types, lint, formatting, builds and the focused scanner.
+  All three packed/Next endpoint cells pass both bundlers. Current exact archive
+  SHA-256 `374730d4fa27349e2c50b065d94921f4edf676a8f9775a56acbc19bea37fabfa`
+  matches all 268 installed files. All 442 tracked package files match the producing
+  container source. Native gallery publication includes 42 inspected captures;
+  configured final review and current-head hosted qualification remain.
 - Exact-head CI at `9057da570` passes, including all accessibility shards,
   visual regression and all three packed cells. Greptile then identified compact
-  AlertDialog width classes overriding caller widths. Two new browser assertions
-  reproduced384px instead of the requested512px. Applying the compact class
-  conditionally restores caller precedence; full146behavioral and six themed
-  accessibility cases pass. Refresh exact package proof and affected captures,
-  obtain the focused risk correction and final review, then qualify the new tip.
+  AlertDialog width classes overriding caller widths. Two browser assertions
+  reproduced 384px instead of the requested 512px. Applying the compact class
+  conditionally restores caller precedence. The focused source review passes;
+  six fresh width-override captures cover all supported surfaces at 390/1280.
+- The final archive audit found a stale migration document in the tool copy.
+  Synchronizing that document yields the current archive above. All 267 other
+  entries match the passing packed/Next candidate byte-for-byte, preserving its
+  runtime proof. Earlier candidate hashes identify historical tool archives;
+  they do not identify the complete current package. No executable source or
+  dependency changed during that archive correction.
 - Simplifier inspected the complete interaction range and found no useful
-  reduction. Required risk review is running. Substantive size:1012added/deleted
-  lines, excluding project artifacts;19paths. The single synthetic harness and
+  reduction. The full source risk review and its focused correction pass. Substantive size:1027 added/deleted
+  lines, excluding project artifacts;20 paths. The single synthetic harness and
   behavioral seam carry most of the size and protect coupled caller/focus/portal
   contracts. Keep this one approved interaction package.
 - An extra audit of an open modal menu reports `aria-hidden-focus` on Ladle's
@@ -312,7 +317,7 @@ preserve existing evidence. No human reviewer requests or review replies.
   wide/narrow desktop checks pass in an 11-case focused run. Types, lint,
   formatting and Ladle build pass. These fixture/test changes preserve package
   code and rendered appearance; existing packed and screenshot proof is reused.
-- Next action: finish interaction reviews, native gallery publication and hosted
+- Next action: finish the configured final review and hosted
   qualification, hold that tip, then execute the approved Calendar layer.
 
 ### Planning review
