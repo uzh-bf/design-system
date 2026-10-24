@@ -61,7 +61,7 @@ a wholesale move to the upstream `cn` package or radix-ui umbrella is unnecessar
 | Small components             | Button sizes/data markers, Tabs variants/orientation, NativeSelect, Direction                                                                                                                                                                              | [Reviewed execution plan](2026-10-23-v5-component-compatibility-plan.md); types, keyboard/RTL, ref/native form, both themes and packed budgets                                        |
 | Chart                        | Recharts 3 required peer, initialDimension and tooltip/legend/current recipe APIs                                                                                                                                                                          | [Reviewed execution plan](2026-10-23-v5-recharts-compatibility-plan.md); minimum/current packed runtime and six families plus tooltip category                                        |
 | Shared API                   | AlertAction, AlertDialogMedia/size/actions, Avatar groups/badge/default-size route, Badge ghost/link, Card size, Carousel hook, Popover parts, Dialog/Sheet options, Select sizing/position/icon, Switch size, ToggleGroup spacing, Spinner/Empty/Kbd/Item element typing; menu inset/options, Item xs/list semantics, Command indicator/options, Pagination text/label, InputOTP behavior and public data markers | Own bounded plan; retain all existing local defaults and expose compatible upstream routes; source-comparable rows also require relevant existing proof and RTL/prop/ref verification |
-| Calendar                     | Locale-aware formatter/day button, date recipes, DayPicker compatibility                                                                                                                                                                                   | Own plan after RHF; prove picker/reset/locale/keyboard and current/minimum supported runtime. DayPicker 10 is a proposal, not a prerequisite inferred from its latest version         |
+| Calendar                     | Locale-aware formatter/day button, date recipes, DayPicker compatibility                                                                                                                                                                                   | [Proposed plan](2026-10-24-v5-calendar-compatibility-plan.md); prove picker/reset/locale/keyboard on exact pinned DayPicker 9.14.0. No minimum/current DayPicker matrix or major migration is proposed |
 | Layout/toast auxiliaries     | Panels 4 adapter, Sonner 2 caller-option/theme integration and Sidebar direction                                                                                                                                                                               | Own bounded plan(s); refs/persistence, keyboard/touch, focus/portal and caller precedence                                                                                             |
 | Retained Combobox recipe | Existing root Radix Popover/cmdk contract; current compound Base UI API and parity-only variants excluded | [Retention record](2026-10-24-v5-combobox-compatibility-plan.md) and ADR0008; preserve existing behavior and MultiSelect/RHF support. No new engine or layer; eligible Shared API gaps remain |
 | Messaging/clarification/code | All remaining eligible UI, @shadcn/react, highlighting and shared CSS utilities                                                                                                                                                                             | Own plans; compound exports, scroll/step state, copy/highlight, SSR, reduced motion and asset/entry budgets                                                                           |
@@ -83,6 +83,31 @@ after any concrete shared API gaps are implemented. Group labels
 below assign verification, not a promise to rewrite every existing control.
 Supported surfaces are neutral-light/dark and UZH-light; UZH-dark is unsupported.
 ADR0005 preserves documented application geometry, density and semantic colours.
+
+### October 24 planning corrections
+
+The [Shared API execution proposal](2026-10-24-v5-shared-api-compatibility-plan.md)
+owns the current gap/retention decisions. The source inventory below retains its
+baseline comparisons; it must not be interpreted as an instruction to rewrite
+already delivered or deliberately adapted behavior.
+
+- Button sizes/markers and Tabs variants/orientation are delivered in #223.
+  Select already has size/hideIcon; its remaining proof includes actual compact
+  geometry, explicit position routes and upstream data markers.
+- ItemDescription already accepts paragraph props and renders a paragraph.
+  Item xs is missing. ItemGroup's generic semantics were retained deliberately
+  by the accessibility remediation; do not add a list role without list items.
+- EmptyDescription renders a div, KbdGroup renders kbd, and Spinner renders a
+  named status span. Their local types accurately describe those elements;
+  upstream type/render differences do not justify incompatible refs or casts.
+- Calendar's locale proposal uses the exact 9.14.0 runtime. The ineffective
+  DateTimePicker yearRange option remains a picker-contract follow-up. The
+  official non-Gregorian import-replacement recipe remains application-owned
+  composition qualification; this is not a packaged engine-switching claim.
+
+These are source-backed planning dispositions, not new runtime passes. Shared
+API and Calendar source execution and the proposed stack still need approval.
+
 
 ## Shared UI: actual exports and concrete deltas
 
