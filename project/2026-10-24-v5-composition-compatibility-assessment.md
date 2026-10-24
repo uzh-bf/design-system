@@ -42,7 +42,7 @@ and compact geometry. The draft qualifies at `4d5f60fc6` with complete final
 review, hosted CI, native captures and exact packed proof. These close the
 approved concrete Shared API gaps; the identity tables below remain the historical static
 assessment. They do not become full example or block runtime passes. Calendar draft228 implements its bounded locale/grid contract and passes local
-source/package checks; final qualification remains. Layout/toast, messaging/highlighting and representative integrated compositions
+source/package checks; qualification evidence is recorded in that draft. Layout/toast, messaging/highlighting and representative integrated compositions
 retain their assigned owners. The existing open-menu Ladle-root accessibility
 audit residual is tracked in the capability matrix and GA roadmap.
 

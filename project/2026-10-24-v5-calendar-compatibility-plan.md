@@ -191,8 +191,8 @@ started for these planning documents.
   at4d5f60fc6caa15e1f13ebcdffe0a936d9e17d7e9, including configured final reviews,
   exact artifacts, browser evidence, independent hostedCI and quiet feedback.
 - Active branch:rs/v5-calendar-compatibility, immediate baseline4d5f60fc6.
-  Required delivery: qualified draft; achieved: approved plan committed before
-  implementation. Main owns the coupled locale/grid/source/type contract, then
+  Required delivery: qualified draft; achieved: complete implementation with
+  local proof and final-review corrections. Main owns the coupled locale/grid/source/type contract, then
   delegates the named fixture/test seam while handling docs and integration.
 - Current docs lookup resolves DayPicker main/v10; use installed9.14.0 source
   and the pinned shadcn recipe for signatures. No dependency migration.
@@ -235,7 +235,7 @@ started for these planning documents.
   after settling transitions. This is a named GA picker contrast follow-up;
   capture evidence records it without a new waiver or suppression.
 
-- Current source d7ec046a3 passes source risk review plus its focused correction;
+- Earlier source d7ec046a3 passes source risk review plus its focused correction;
   simplification is applied. All156behavioral contracts and10themed axe cases
   pass; the fixture-only follow-up passes its9focused contracts and static checks.
   All three packed/Next cells pass both bundlers at872fd38d9. Final source audit
@@ -265,3 +265,19 @@ started for these planning documents.
   now state it explicitly; a native-default browser assertion protects the
   distinction from raw Calendar omission. No picker default is changed.
   Fresh packed proof and the single focused final-review correction remain.
+
+- Held package source6250e43fb passes all three refreshed packed/Next endpoint
+  cells with both bundlers, native check/lint/format/build, full156behavioral and
+  10themed accessibility cases, plus9focused default-locale contracts. Exact
+  archiveSHA-256 `557b0503824115a591d81e0e211b691450067c1d99fed67ce2943716fe265e5c`
+  matches all268installed files; all444tracked package files match the producing
+  tool copy. This supersedes the earlier executable candidate hashes above.
+- Thirty-six native captures are inspected, uploaded and byte-verified. The
+  initial30unchanged German/English states retain their original source/date;
+  six current Persian/Gregorian captures prove the corrected locale route.
+  Existing UZH error-placeholder contrast debt stays explicitly recorded.
+- Final substantive size:1379added/deleted lines excluding project artifacts;
+  16changed paths, including the named673-line harness and499-line contract spec.
+  Delivery qualification, configured focused final-review disposition and
+  exact-head hosted CI are recorded in draft228 and the ignored review journal.
+  Hold the tested source; no further status-only commit is needed after green.

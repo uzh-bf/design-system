@@ -103,9 +103,9 @@ approved locale formatter/day metadata and canonical grid hook with retained
 legacy customization. Locale objects, explicit direction/timezone, caller
 formatters/components and picker value ownership are verified in the named
 Calendar contract seam. Local156behavioral/10themed accessibility cases, three
-packed/Next cells, source reviews and exact archive/source audit pass. Thirty
-captures are inspected; final review, native read-back and hosted qualification
-remain. This closes the bounded locale package when qualified, while yearRange,
+packed/Next cells, source reviews and exact archive/source audit pass. Thirty-six
+inspected native captures and exact source/archive proof are recorded in the
+draft; its description records final-review and hosted qualification status. This closes the bounded locale package when qualified, while yearRange,
 application-owned non-Gregorian recipes and the contrast follow-up below remain.
 
 ### October 24 planning corrections
