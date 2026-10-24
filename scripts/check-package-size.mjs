@@ -27,7 +27,7 @@ const requiredChecks = [
 
 const positiveMinimums = {
   "Calendar positive control": 25_000,
-  "Chart positive control": 25_000,
+  "Chart positive control": 8_000,
   "Carousel positive control": 13_000,
 };
 

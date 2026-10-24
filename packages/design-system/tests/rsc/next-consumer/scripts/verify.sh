@@ -24,6 +24,7 @@ cp -R "$fixture_dir/." "$run_fixture/"
 
 rhf_version=$(node "$fixture_dir/../rhf-matrix.mjs" stage "$run_fixture")
 echo "react-hook-form matrix cell: $rhf_version"
+node "$fixture_dir/../packed-consumers/scripts/assert-installed-dependencies.mjs" stage "$run_fixture"
 
 node "$fixture_dir/../prepare-packed-artifact.mjs" \
   "$package_dir" \

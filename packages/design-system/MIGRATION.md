@@ -38,6 +38,33 @@ nearest context, defaulting to LTR. Set document/element `dir` separately when
 native text flow also needs changing. Context reaches Radix portals and nested
 providers can override it.
 
+## Breaking change: application-owned Recharts 3
+
+Every consuming application must install `recharts >=3.8.0 <4`, including apps
+that do not render charts. Recharts is now a required peer instead of a bundled
+regular dependency. The development endpoint is pinned to 3.10.1; packed fixtures
+also cover the 3.8.0 minimum. Install `react-is` at the same exact version as your
+application's React and ReactDOM. This follows the design system's tested
+runtime-identity policy; Recharts declares a broader peer range.
+
+Keep importing plots such as `BarChart` directly from `recharts`, and container,
+tooltip and legend components from root or `primitives`. Those public DS exports
+remain available. `ChartTooltipContent` uses Recharts 3 custom-content types,
+renders numeric zero, and omits null/undefined values before calling a formatter.
+`ChartLegendContent` accepts Recharts 3 legend payloads.
+
+`ChartContainer` supplies an initial 320×200 measurement and accepts an
+`initialDimension` override. The parent still needs a measurable width and height
+or aspect ratio. An initial measurement does not create SVG content during SSR;
+Recharts completes rendering in the browser. Use reactive `--chart-*` colors,
+measure series contrast, and provide labels, patterns or text alternatives.
+
+Recharts 3 enables its accessibility layer by default. Keyboard navigation no
+longer invokes `onMouseMove`; use the tooltip state APIs for controlled behavior.
+Choose `defaultIndex` for initial selection rather than a removed plot-level
+`activeIndex`. Check custom refs and tooltip payload integrations against the
+[Recharts migration guide](https://github.com/recharts/recharts/wiki/3.0-migration-guide).
+
 ## Breaking change: CSS delivery
 
 v5 delivers component styles as a single **precompiled stylesheet** that you must

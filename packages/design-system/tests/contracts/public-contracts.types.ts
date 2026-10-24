@@ -152,3 +152,67 @@ createElement(TabsList, { variant: 'default' })
 createElement(TabsList, { variant: 'line' })
 tabsListVariants()
 tabsListVariants({ variant: 'default', className: 'w-full' })
+
+import type {
+  DefaultTooltipContentProps,
+  LegendPayload,
+  TooltipContentProps,
+} from 'recharts'
+import { Bar, BarChart, Tooltip as RechartsTooltip } from 'recharts'
+import {
+  ChartContainer,
+  ChartLegendContent,
+  ChartTooltip,
+  ChartTooltipContent,
+} from '../../src'
+
+const chartConfig = {
+  published: {
+    label: 'Published',
+    color: 'var(--theme-color-primary)',
+  },
+}
+
+createElement(
+  ChartContainer,
+  {
+    config: chartConfig,
+    children: null,
+    initialDimension: { width: 360, height: 240 },
+    style: { minHeight: 240, width: '100%' },
+  },
+  createElement(
+    BarChart,
+    { data: [{ month: 'January', published: 0 }] },
+    createElement(ChartTooltip, {
+      defaultIndex: 0,
+      content: createElement(ChartTooltipContent),
+    }),
+    createElement(Bar, { dataKey: 'published' })
+  )
+)
+
+const tooltipContentProps: Partial<TooltipContentProps> = {
+  active: true,
+  accessibilityLayer: true,
+  activeIndex: '0',
+  coordinate: undefined,
+  label: 'January',
+  payload: [],
+  labelFormatter: (label, payload) => {
+    void payload
+    return label
+  },
+}
+createElement(ChartTooltipContent, tooltipContentProps)
+createElement(RechartsTooltip, {
+  content: createElement(ChartTooltipContent),
+})
+
+const defaultTooltipContentProps: DefaultTooltipContentProps = { payload: [] }
+void defaultTooltipContentProps
+
+const legendPayload: LegendPayload[] = [
+  { value: 'Published', dataKey: 'published' },
+]
+createElement(ChartLegendContent, { payload: legendPayload })

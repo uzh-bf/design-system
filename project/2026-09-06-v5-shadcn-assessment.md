@@ -42,9 +42,14 @@ The version query still identifies deferred major migrations for DayPicker, Resi
 
 ## Full Radix scope and release review — 2026-10-23
 
-The user selected the **full official Radix catalog and auxiliary dependencies**
-as v5 GA scope. Earlier focused Field/InputGroup/default comparisons are useful
-history; they do not qualify this larger contract. Required capabilities may no
+The October24 user ruling selects the **supported official Radix-compatible
+catalog and compatible auxiliary dependencies, with documented exceptions** under
+[ADR0008](../docs/adr/0008-radix-compatible-shadcn-scope.md). This narrows the earlier
+blanket catalog requirement. Backend-independent components and compatible
+auxiliaries remain eligible; excluded backend-only implementations and variants
+are inventoried without becoming mandatory custom rewrite work.
+Earlier focused Field/InputGroup/default comparisons are useful history; they
+do not qualify this larger contract. Required eligible capabilities may no
 longer be deferred merely because their APIs are additive or need an auxiliary
 major migration. The [GA roadmap](2026-08-10-v5-ga-readiness-roadmap.md#current-execution-index--2026-10-23)
 owns ordering and acceptance; this section owns the upstream comparison boundary.
@@ -154,7 +159,7 @@ must resolve to exact tested versions during the implementing package.
 | Sonner                           | `sonner`, `next-themes`                                                             | 1.7.4 / 0.4.6; qualify current toast behavior, announcements and themes                                                                                                               |
 | Carousel / Command               | `embla-carousel-react` / `cmdk`                                                     | 8.6.0 / 1.1.1; verify current composition and interactions                                                                                                                            |
 | Drawer / OTP                     | `vaul` / `input-otp`                                                                | 1.1.2 / 1.5.0; verify overlays, keyboard, paste and controlled state                                                                                                                  |
-| Combobox                         | `@base-ui/react`                                                                    | Absent; current official Radix-catalog Combobox uses Base UI internally, without implying a full second backend                                                                       |
+| Combobox                         | `@base-ui/react`                                                                    | Excluded under ADR0008. Retain official Radix Popover/cmdk recipe; compound API and parity-only variants excluded. Preserve existing MultiSelect/RHF.                                 |
 | Message Scroller / Questionnaire | `@shadcn/react`                                                                     | Absent; assess headless ownership, state/serialization, scroll anchoring and accessibility                                                                                            |
 | Highlighted code hook            | `shiki`                                                                             | Absent; assess async highlighting, bundles, SSR/client boundaries and copy interactions                                                                                               |
 | `utils` / class composition      | `cn`                                                                                | Absent; local helper wraps clsx/tailwind-merge. Qualify a compatible migration or adapter, including class precedence and consumer-defined theme groups                               |
@@ -206,16 +211,41 @@ behavioral pass. Six existing modules also have export gaps; size/option and
 layout gaps extend beyond the11 missing files. Current shared CSS utilities
 (scroll-fade/shimmer) belong in auxiliary compatibility, including reduced motion.
 
-The [small component plan](2026-10-23-v5-component-compatibility-plan.md) and
-[Recharts plan](2026-10-23-v5-recharts-compatibility-plan.md) are the first derived
-execution proposals. Preserve current scoped Radix and class helpers unless a
-verified gap needs an adapter. Recharts moves early because ADR0007 affects every
-consumer installation. Calendar's pinned source still uses DayPicker9; latest10
-alone is not evidence that a major migration is required. Keep Combobox's new
-compound primitive separate from the retained root API.
+Status reconciled October 24: the [small component plan](2026-10-23-v5-component-compatibility-plan.md)
+and [Recharts plan](2026-10-23-v5-recharts-compatibility-plan.md) are implemented
+and qualified at drafts [#223](https://github.com/uzh-bf/design-system/pull/223)
+and [#224](https://github.com/uzh-bf/design-system/pull/224), respectively.
+NativeSelect and Direction close two missing filenames; the original inventory
+and remaining shared API/behavior gaps still require their assigned packages.
+Preserve current scoped Radix and class helpers unless a verified gap needs an
+adapter. The required Recharts peer affects every consumer installation; the
+final integrated consumer candidate remains a separate qualification boundary.
 
-The matrix proposes dependency ownership and test endpoints without changing
-manifests or claiming their qualification. It retains library ownership of all
-required UI capabilities, including @shadcn/react-backed scrolling/questionnaire;
-application ownership applies to blocks, AI transports and application state.
-GBL and Klicker remain unmerged by the October23 user ruling.
+The pinned [registry install declaration](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/bases/radix/ui/_registry.ts#L166)
+uses `react-day-picker@latest`, while the same revision's [workspace package](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/package.json#L87)
+uses `^9.7.0`. These are distinct sources, not one conflicting manifest.
+Qualify DayPicker 9 source/type/locale compatibility before proposing a major
+migration; the registry install tag alone does not require DayPicker 10.
+
+The [GA roadmap](2026-08-10-v5-ga-readiness-roadmap.md#next-implementation-packages)
+now starts with Shared APIs/Calendar after [ADR0008](../docs/adr/0008-radix-compatible-shadcn-scope.md)
+settled the [retained Combobox recipe](2026-10-24-v5-combobox-compatibility-plan.md).
+The newer compound API and parity-only variants are excluded; no replacement
+engine or new Combobox layer is required. Existing root, MultiSelect and RHF
+capabilities remain supported. The static sweep retains all pinned examples,
+blocks and AI patterns, with explicit exclusions and mixed coverage. Eligible
+deltas still need an owner and proof. Layout/toast follows; messaging/clarification and
+code/highlighting retain separate runtime and acceptance boundaries. Required UI
+capabilities, including @shadcn/react-backed scrolling/questionnaire, remain
+library-owned. Blocks, AI transports and application state remain application-owned.
+Future topology and implementation need their reviewed plans; GBL and Klicker
+remain unmerged by the October23 user ruling.
+
+The [October 24 static composition assessment](2026-10-24-v5-composition-compatibility-assessment.md)
+accounts for all 67 examples, 30 blocks and 21 AI patterns, including actual
+AI demo/variant bodies and reachable preview cards. Confirmation and Suggestion
+need messaging primitives despite narrower installation snippets. Cross-package
+Card/Item/AlertDialog requirements in Combobox examples remain Shared API work;
+they do not widen Combobox scope. Base UI-dependent examples retain their
+identity with excluded compound portions and eligible Shared API obligations. Static source coverage
+does not establish compilation or representative browser acceptance.
