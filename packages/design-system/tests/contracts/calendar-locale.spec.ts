@@ -24,6 +24,7 @@ test.describe('calendar locale and DayPicker contracts', () => {
       { selector: '[data-test="calendar-en"]', code: 'en-US' },
       { selector: '[data-test="calendar-de"]', code: 'de' },
       { selector: '[data-test="calendar-ar"]', code: 'ar-SA' },
+      { selector: '[data-test="calendar-fa"]', code: 'fa-IR' },
     ] as const
 
     for (const { selector, code } of cases) {
@@ -34,6 +35,7 @@ test.describe('calendar locale and DayPicker contracts', () => {
           Array.from({ length: 12 }, (_, month) =>
             new Date(2026, month, 1).toLocaleString(localeCode, {
               month: 'short',
+              calendar: 'gregory',
             })
           ),
         code
@@ -43,10 +45,21 @@ test.describe('calendar locale and DayPicker contracts', () => {
       const dayCell = calendar.locator('td[data-day="2026-10-15"]')
       const dayButton = dayCell.getByRole('button')
       const expectedDay = await page.evaluate(
-        (localeCode) => new Date(2026, 9, 15).toLocaleDateString(localeCode),
+        (localeCode) =>
+          new Date(2026, 9, 15).toLocaleDateString(localeCode, {
+            calendar: 'gregory',
+          }),
         code
       )
       await expect(dayButton).toHaveAttribute('data-day', expectedDay)
+      const gregorianYear = await page.evaluate(
+        (localeCode) =>
+          new Intl.NumberFormat(localeCode, { useGrouping: false }).format(
+            2026
+          ),
+        code
+      )
+      expect(await dayButton.getAttribute('data-day')).toContain(gregorianYear)
       const visibleDay = (await dayButton.innerText()).trim()
       expect(await dayButton.getAttribute('aria-label')).toContain(visibleDay)
     }
@@ -62,6 +75,14 @@ test.describe('calendar locale and DayPicker contracts', () => {
       )
     )
     await expect(hostOptions).toHaveText(expectedHostMonths)
+    await expect(
+      page.locator(
+        '[data-test="calendar-host"] td[data-day="2026-10-15"] button'
+      )
+    ).toHaveAttribute(
+      'data-day',
+      await page.evaluate(() => new Date(2026, 9, 15).toLocaleDateString())
+    )
     const englishOptions = await page
       .locator('[data-test="calendar-en"] .rdp-months_dropdown option')
       .allTextContents()
@@ -446,5 +467,33 @@ test.describe('calendar locale and DayPicker contracts', () => {
     await expect(
       page.locator('[data-test="formik-datetime-value"]')
     ).toHaveText(JSON.stringify(initialDatetime))
+    await page.locator('[data-test="formik-default-locale"]').click()
+    await datetimeTrigger.click()
+    const defaultCalendar = page.locator(
+      '[data-test="formik-datetime-calendar"]'
+    )
+    await expect(
+      defaultCalendar.locator('.rdp-months_dropdown option')
+    ).toHaveText(
+      await page.evaluate(() =>
+        Array.from({ length: 12 }, (_, month) =>
+          new Date(2026, month).toLocaleString('en-US', {
+            month: 'short',
+            calendar: 'gregory',
+          })
+        )
+      )
+    )
+    await expect(
+      defaultCalendar.locator('td[data-day="2026-10-12"] button')
+    ).toHaveAttribute(
+      'data-day',
+      await page.evaluate(() =>
+        new Date(2026, 9, 12).toLocaleDateString('en-US', {
+          calendar: 'gregory',
+        })
+      )
+    )
+    await page.keyboard.press('Escape')
   })
 })

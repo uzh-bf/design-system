@@ -1,4 +1,4 @@
-import { arSA, de, enUS } from 'date-fns/locale'
+import { arSA, de, enUS, faIR } from 'date-fns/locale'
 import { Formik, useFormikContext } from 'formik'
 import {
   createContext,
@@ -219,6 +219,12 @@ export const LocaleAndOverrides = () => (
         label="Arabic locale"
         test="calendar-ar"
         locale={arSA}
+        dir="rtl"
+      />
+      <LocaleCalendar
+        label="Persian locale, Gregorian dates"
+        test="calendar-fa"
+        locale={faIR}
         dir="rtl"
       />
     </div>
@@ -558,6 +564,7 @@ function FormikFields({
   onToggleDisabled: () => void
 }) {
   const formik = useFormikContext<FormValues>()
+  const [locale, setLocale] = useState<DayPickerProps['locale']>(de)
   const setEmptyInvalid = () => {
     void formik.setValues({ date: undefined, datetime: undefined }, false)
     formik.setErrors({
@@ -596,7 +603,7 @@ function FormikFields({
           disabled={disabled}
           label="Date and time"
           defaultPopupValue={FORM_INITIAL.datetime}
-          locale={de}
+          locale={locale}
           name="datetime"
           required
         />
@@ -608,6 +615,13 @@ function FormikFields({
           onClick={setEmptyInvalid}
         >
           Set empty invalid values
+        </Button>
+        <Button
+          type="button"
+          data-test="formik-default-locale"
+          onClick={() => setLocale(undefined)}
+        >
+          Use default picker locale
         </Button>
         <Button type="button" data-test="formik-reset" onClick={reset}>
           Reset form

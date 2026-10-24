@@ -253,3 +253,15 @@ started for these planning documents.
   16changed paths. The named629-line harness and450-line contract spec carry
   most of this approved locale/override/bounds/selection/timezone/form portfolio.
   Keep this one coherent Calendar package; no new behavior owner or dependency.
+
+- A forge review exposed an Intl calendar mismatch for locales such as faIR.
+  One semantic Gregorian-label case reproduced the failure. Explicit locales
+  now request Gregorian formatting for month labels and day metadata, matching
+  the existing date engine; omitted raw Calendar locale keeps host formatting.
+  Full156behavioral and10theme axe cases pass, with9focused contracts also
+  covering the retained enUS DateTimePicker default after the final doc update.
+- Initial configured Claude review at7147676d7 found only the missing
+  DateTimePicker enUS-default explanation. Migration and the locale props entry
+  now state it explicitly; a native-default browser assertion protects the
+  distinction from raw Calendar omission. No picker default is changed.
+  Fresh packed proof and the single focused final-review correction remain.
