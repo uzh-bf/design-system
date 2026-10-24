@@ -232,7 +232,6 @@ export const Compatibility = () => {
     expand: 0,
     resize: 0,
   })
-  const [storageWrites, setStorageWrites] = useState(0)
   const [disabledLayout, setDisabledLayout] = useState([])
   const [rtlLayout, setRtlLayout] = useState([])
   const customStorage = useMemo(
@@ -240,7 +239,6 @@ export const Compatibility = () => {
       getItem: (name) => window.localStorage.getItem(`root-story:${name}`),
       setItem: (name, value) => {
         window.localStorage.setItem(`root-story:${name}`, value)
-        setStorageWrites((count) => count + 1)
       },
     }),
     []
@@ -249,7 +247,7 @@ export const Compatibility = () => {
     setCallbacks((counts) => ({ ...counts, [name]: counts[name] + 1 }))
 
   return (
-    <div className="flex max-w-5xl flex-col gap-4">
+    <div className="bg-background text-foreground flex max-w-5xl flex-col gap-4">
       <div className="prose prose-sm max-w-none">
         Synthetic root contracts cover v3 percentages, refs and callbacks,
         custom tags, ordering, nesting, custom storage, keyboard and pointer
@@ -295,7 +293,6 @@ export const Compatibility = () => {
         <output data-test="root-ref-panel">{JSON.stringify(refPanel)}</output>
         <output data-test="root-collapsed">{String(collapsed)}</output>
         <output data-test="root-callbacks">{JSON.stringify(callbacks)}</output>
-        <output data-test="root-storage-writes">{storageWrites}</output>
       </div>
 
       <ResizablePanelGroup
@@ -437,7 +434,7 @@ export const NativeCompatibility = () => {
     )
 
   return (
-    <div className="flex max-w-5xl flex-col gap-4">
+    <div className="bg-background text-foreground flex max-w-5xl flex-col gap-4">
       <div className="prose prose-sm max-w-none">
         Synthetic native contracts cover v4 percentage strings and pixel numbers,
         layout maps, helper refs, collapse and expand, nested orientation,
