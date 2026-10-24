@@ -185,13 +185,13 @@ function CustomDayFixture() {
             selected={OCTOBER_15}
           />
           <output
-            className="text-xs break-words"
+            className="min-w-0 text-xs [overflow-wrap:anywhere]"
             data-test="custom-day-clicked"
           >
             {clicked}
           </output>
           <output
-            className="text-xs break-words"
+            className="min-w-0 text-xs [overflow-wrap:anywhere]"
             data-test="custom-day-selected"
           >
             {selected?.getTime() ?? 'empty'}
@@ -226,19 +226,6 @@ export const LocaleAndOverrides = () => (
   </Surface>
 )
 
-function BoundsCalendar({ test }: { test: string }) {
-  return (
-    <Calendar
-      aria-label={`${test} calendar`}
-      labels={{ labelNav: () => `${test} navigation` }}
-      captionLayout="dropdown"
-      data={{ test }}
-      defaultMonth={new Date(2026, 0, 15, 12)}
-      mode="single"
-    />
-  )
-}
-
 export const BoundsAndNavigation = () => (
   <Surface>
     <div className="grid min-w-0 gap-6 lg:grid-cols-3">
@@ -254,7 +241,14 @@ export const BoundsAndNavigation = () => (
       </section>
       <section aria-label="Default bounds">
         <h2 className="mb-2 text-sm font-semibold">Default bounds</h2>
-        <BoundsCalendar test="bounds-default" />
+        <Calendar
+          aria-label="bounds-default calendar"
+          labels={{ labelNav: () => 'bounds-default navigation' }}
+          captionLayout="dropdown"
+          data={{ test: 'bounds-default' }}
+          defaultMonth={new Date(2026, 0, 15, 12)}
+          mode="single"
+        />
       </section>
       <section aria-label="Explicit bounds">
         <h2 className="mb-2 text-sm font-semibold">Explicit bounds</h2>
@@ -298,7 +292,10 @@ function SelectionFixture() {
           onSelect={setSingle}
           selected={single}
         />
-        <output className="text-xs break-words" data-test="single-value">
+        <output
+          className="min-w-0 text-xs [overflow-wrap:anywhere]"
+          data-test="single-value"
+        >
           {single?.toISOString() ?? 'empty'}
         </output>
       </section>
@@ -313,7 +310,10 @@ function SelectionFixture() {
           onSelect={setMultiple}
           selected={multiple}
         />
-        <output className="text-xs break-words" data-test="multiple-value">
+        <output
+          className="min-w-0 text-xs [overflow-wrap:anywhere]"
+          data-test="multiple-value"
+        >
           {JSON.stringify(multiple?.map((date) => date.getTime()) ?? [])}
         </output>
       </section>
@@ -328,7 +328,10 @@ function SelectionFixture() {
           onSelect={setRange}
           selected={range}
         />
-        <output className="text-xs break-words" data-test="range-value">
+        <output
+          className="min-w-0 text-xs [overflow-wrap:anywhere]"
+          data-test="range-value"
+        >
           {JSON.stringify({
             from: range?.from?.getTime() ?? null,
             to: range?.to?.getTime() ?? null,
@@ -388,10 +391,16 @@ function TimeZoneFixture() {
   return (
     <section aria-label="Time zones" className="min-w-0">
       <h2 className="mb-2 text-sm font-semibold">Time zones</h2>
-      <output className="text-xs break-words" data-test="browser-time-zone">
+      <output
+        className="min-w-0 text-xs [overflow-wrap:anywhere]"
+        data-test="browser-time-zone"
+      >
         {Intl.DateTimeFormat().resolvedOptions().timeZone}
       </output>
-      <output className="text-xs break-words" data-test="host-instant-day">
+      <output
+        className="min-w-0 text-xs [overflow-wrap:anywhere]"
+        data-test="host-instant-day"
+      >
         {new Date(FIXED_INSTANT).toLocaleDateString('en-CA', {
           timeZone: 'America/Los_Angeles',
         })}
@@ -411,10 +420,16 @@ function TimeZoneFixture() {
             startMonth={new TZDate(2026, 0, 1, 'UTC')}
             endMonth={new TZDate(2027, 0, 1, 'UTC')}
           />
-          <output className="text-xs break-words" data-test="utc-value">
+          <output
+            className="min-w-0 text-xs [overflow-wrap:anywhere]"
+            data-test="utc-value"
+          >
             {utcValue?.getTime() ?? 'empty'}
           </output>
-          <output className="text-xs break-words" data-test="utc-display">
+          <output
+            className="min-w-0 text-xs [overflow-wrap:anywhere]"
+            data-test="utc-display"
+          >
             {utcValue?.toLocaleDateString('en-CA', { timeZone: 'UTC' }) ??
               'empty'}
           </output>
@@ -433,11 +448,14 @@ function TimeZoneFixture() {
             startMonth={new TZDate(2026, 0, 1, 'Pacific/Kiritimati')}
             endMonth={new TZDate(2027, 0, 1, 'Pacific/Kiritimati')}
           />
-          <output className="text-xs break-words" data-test="kiritimati-value">
+          <output
+            className="min-w-0 text-xs [overflow-wrap:anywhere]"
+            data-test="kiritimati-value"
+          >
             {kiritimatiValue?.getTime() ?? 'empty'}
           </output>
           <output
-            className="text-xs break-words"
+            className="min-w-0 text-xs [overflow-wrap:anywhere]"
             data-test="kiritimati-display"
           >
             {kiritimatiValue?.toLocaleDateString('en-CA', {
@@ -556,7 +574,7 @@ function FormikFields({
 
   return (
     <div className="grid min-w-0 gap-4">
-      <div data-test="formik-fields" className="grid gap-4">
+      <div data-test="formik-fields" className="grid min-w-0 gap-4">
         <FormikDatePicker
           aria-invalid={Boolean(formik.touched.date && formik.errors.date)}
           dataCalendar={{ test: 'formik-date-calendar' }}
@@ -602,13 +620,22 @@ function FormikFields({
           Toggle disabled
         </Button>
       </div>
-      <output className="text-xs break-words" data-test="formik-date-value">
+      <output
+        className="min-w-0 text-xs [overflow-wrap:anywhere]"
+        data-test="formik-date-value"
+      >
         {JSON.stringify(serializeDate(formik.values.date))}
       </output>
-      <output className="text-xs break-words" data-test="formik-datetime-value">
+      <output
+        className="min-w-0 text-xs [overflow-wrap:anywhere]"
+        data-test="formik-datetime-value"
+      >
         {JSON.stringify(serializeDate(formik.values.datetime))}
       </output>
-      <output className="text-xs break-words" data-test="formik-state">
+      <output
+        className="min-w-0 text-xs [overflow-wrap:anywhere]"
+        data-test="formik-state"
+      >
         {JSON.stringify({
           disabled,
           errors: formik.errors,
@@ -621,7 +648,10 @@ function FormikFields({
 
 export const FormikPickers = () => (
   <Surface>
-    <section aria-label="Formik date pickers" className="max-w-md">
+    <section
+      aria-label="Formik date pickers"
+      className="w-full max-w-md min-w-0"
+    >
       <h2 className="mb-2 text-sm font-semibold">Formik fields</h2>
       <FormikPickersFixture />
     </section>

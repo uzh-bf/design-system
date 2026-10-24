@@ -217,3 +217,12 @@ started for these planning documents.
   The named five-state harness and single contract spec account for most of the
   package size; their locale/override/bounds/timezone/form obligations stay in
   this one approved Calendar layer. Configured reviews, captures and CI remain.
+
+- Draft [#228](https://github.com/uzh-bf/design-system/pull/228) is registered as
+  the third member of native stack227. Full source proof at577c038da passes all
+  three packed/Next cells and exact archive60596158 with268installed matches.
+  Source files are audited against the tool copy before final archive generation.
+- Simplification removed a single-caller bounds wrapper. Phone capture exposed
+  a synthetic JSON output widening its grid; constrained fixture columns and
+  wrapping correct it. Nine focused contracts still pass. These harness changes
+  require fresh captures and emitted-CSS/package proof, now running.
