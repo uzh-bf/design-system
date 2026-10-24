@@ -206,16 +206,29 @@ behavioral pass. Six existing modules also have export gaps; size/option and
 layout gaps extend beyond the11 missing files. Current shared CSS utilities
 (scroll-fade/shimmer) belong in auxiliary compatibility, including reduced motion.
 
-The [small component plan](2026-10-23-v5-component-compatibility-plan.md) and
-[Recharts plan](2026-10-23-v5-recharts-compatibility-plan.md) are the first derived
-execution proposals. Preserve current scoped Radix and class helpers unless a
-verified gap needs an adapter. Recharts moves early because ADR0007 affects every
-consumer installation. Calendar's pinned source still uses DayPicker9; latest10
-alone is not evidence that a major migration is required. Keep Combobox's new
-compound primitive separate from the retained root API.
+Status reconciled October 24: the [small component plan](2026-10-23-v5-component-compatibility-plan.md)
+and [Recharts plan](2026-10-23-v5-recharts-compatibility-plan.md) are implemented
+and qualified at drafts [#223](https://github.com/uzh-bf/design-system/pull/223)
+and [#224](https://github.com/uzh-bf/design-system/pull/224), respectively.
+NativeSelect and Direction close two missing filenames; the original inventory
+and remaining shared API/behavior gaps still require their assigned packages.
+Preserve current scoped Radix and class helpers unless a verified gap needs an
+adapter. The required Recharts peer affects every consumer installation; the
+final integrated consumer candidate remains a separate qualification boundary.
 
-The matrix proposes dependency ownership and test endpoints without changing
-manifests or claiming their qualification. It retains library ownership of all
-required UI capabilities, including @shadcn/react-backed scrolling/questionnaire;
-application ownership applies to blocks, AI transports and application state.
-GBL and Klicker remain unmerged by the October23 user ruling.
+The pinned [registry install declaration](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/bases/radix/ui/_registry.ts#L166)
+uses `react-day-picker@latest`, while the same revision's [workspace package](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/package.json#L87)
+uses `^9.7.0`. These are distinct sources, not one conflicting manifest.
+Qualify DayPicker 9 source/type/locale compatibility before proposing a major
+migration; the registry install tag alone does not require DayPicker 10.
+
+The [GA roadmap](2026-08-10-v5-ga-readiness-roadmap.md#next-implementation-packages)
+now starts with the bounded compound Combobox plan, preserving the root API,
+and an early static sweep of all pinned examples, blocks and AI patterns. Every
+remaining delta needs a package owner and proof or an already-approved adaptation.
+Shared APIs/Calendar and layout/toast follow; messaging/clarification and
+code/highlighting retain separate runtime and acceptance boundaries. Required UI
+capabilities, including @shadcn/react-backed scrolling/questionnaire, remain
+library-owned. Blocks, AI transports and application state remain application-owned.
+Future topology and implementation need their reviewed plans; GBL and Klicker
+remain unmerged by the October23 user ruling.

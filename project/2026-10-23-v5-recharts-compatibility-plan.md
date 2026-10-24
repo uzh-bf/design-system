@@ -182,7 +182,7 @@ standard execution mode and the existing `project/` artifacts root remain in use
 
 - **Implemented:** [chart draft #224](https://github.com/uzh-bf/design-system/pull/224)
   follows [component draft #223](https://github.com/uzh-bf/design-system/pull/223)
-  in native stack 221. Main owns remaining integration and qualification. Required
+  in native stack 221. Integration and draft qualification are complete. Required
   Recharts ownership, custom-content types, zero/null formatting, initial sizing,
   all six plot families and tooltip recipes are implemented. The shared story
   helpers have multiple callers and stay outside public entries. Only the
@@ -199,7 +199,9 @@ standard execution mode and the existing `project/` artifacts root remain in use
   one proposed guard-test finding was verified and retracted. Final review found
   an array-valued tooltip regression, corrected by restoring locale formatting
   for non-null scalar and range values in the existing payload contract. Independent integrated source review and focused correction reviews pass.
-  Exact-head hosted CI remains pending. All 42 chart
+  [Hosted CI](https://github.com/uzh-bf/design-system/actions/runs/40075381528) passes
+  at `43c54a557838528c87b0d2ffc53a8daa0b30f122`; the final quiet settle completed
+  after 07:57:12 UTC on October 24 with no unresolved feedback. All 42 chart
   captures are published and rendered; the same unpublished archive matches all
   268 installed files at both Recharts endpoints. The a11y oracle and CI consumer
   matrix deliberately cover the six new stories and three endpoint cells.
@@ -209,15 +211,17 @@ standard execution mode and the existing `project/` artifacts root remain in use
   The user approved changing only that minimum to 8,000 on 2026-10-24. The
   34,000-byte ceiling and resolved-Recharts module marker remain intact.
   The complete size/marker check passes with the applied calibration.
-- **Next action:** qualify the applied budget calibration through exact-head CI
-  and a final feedback settle. The component draft is already qualified. Keep
-  consumer repositories, readiness conversion, merging,
-  publication and deployment outside this package. Manual AT, Safari/device and
-  separate integrated consumer acceptance remain GA gates.
+- **Terminal reached:** both component and chart drafts qualify at their recorded
+  heads. The [GA roadmap](2026-08-10-v5-ga-readiness-roadmap.md#next-implementation-packages)
+  owns the next Combobox plan and remaining catalog packages. Consumer writes,
+  readiness conversion, merging, publication and deployment remain outside this
+  package. Manual AT, Safari/device and separate integrated consumer acceptance
+  remain GA gates.
 
 Source completion includes injective chart-style identifiers, omission of an
 all-null tooltip, and measured SVG sizing from an initially hidden panel.
 Reviewed synthetic captures remain applicable because their visible examples
 are unchanged. The size ruling is approved, and all original and forge findings
-are resolved. Preserve this package source; record final exact-head CI and settle
-evidence in the journal and PR description without another status-only commit.
+are resolved. Final exact-head CI and settle evidence are retained in the journal
+and draft description. Later roadmap-only edits do not invalidate passing
+package/artifact proof when executable source and acceptance remain unchanged.

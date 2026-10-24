@@ -1,10 +1,10 @@
 # Roadmap — Design System v5 GA readiness
 
-The library qualification and historical Klicker exact-package pilot are complete at draft delivery. RHF parity and the GBL exact-candidate journey qualify at their published draft heads. GA still requires the official shadcn Radix catalog and auxiliary integrations, integrated candidate consumer acceptance, current UZH alignment, and manual qualification. GBL and Klicker remain unmerged by user ruling.
+The historical Klicker pilot, RHF parity, selected GBL journey, component compatibility and Recharts 3 qualify at their recorded draft boundaries. The older qualification layer retains a browser-install CI failure. GA still requires the remaining official shadcn Radix catalog and auxiliaries, integrated candidate consumer acceptance, current UZH alignment, and manual qualification. GBL and Klicker remain unmerged by user ruling.
 
 ## Identity and status
 
-- Date: 2026-08-10; current execution index refreshed 2026-10-23
+- Date: 2026-08-10; current execution index refreshed 2026-10-24
 - Status: GA blocked. Input correctness, consumer CSS, durable contract gates,
   UZH Phase 2 and compatible dependency remediation are delivered in the unmerged
   draft stack. The historical Klicker pilot now qualifies the recorded candidate;
@@ -25,8 +25,11 @@ The library qualification and historical Klicker exact-package pilot are complet
   [#217](https://github.com/uzh-bf/design-system/pull/217) →
   [#218](https://github.com/uzh-bf/design-system/pull/218), followed by native stack221
   [RHF fields219](https://github.com/uzh-bf/design-system/pull/219) →
-  [RHF pickers220](https://github.com/uzh-bf/design-system/pull/220).
-  The catalog documentation layer continues above220. Merges remain separately gated.
+  [RHF pickers220](https://github.com/uzh-bf/design-system/pull/220) →
+  [catalog222](https://github.com/uzh-bf/design-system/pull/222) →
+  [components223](https://github.com/uzh-bf/design-system/pull/223) →
+  [Recharts224](https://github.com/uzh-bf/design-system/pull/224).
+  Future package topology belongs in its reviewed plan. Merges remain separately gated.
 - Audience: maintainers and future execution agents preparing v5 for GA and
   migrating the first production consumers.
 
@@ -109,10 +112,10 @@ Historical inputs:
 
 ### Delivered evidence and its limits
 
-Host refs were refreshed on October 23. Release trunk `v5` is
-`80d6f229cdf8aa57384246bba0386d730484eecb`; the qualification source baseline is
-`870879614d4e2c5a826ac19d8623c4b1c05dd82d`, 84 commits ahead of v5 with no
-missing v5 commits. Its immediate PR base is `rs/v5-component-defaults`;
+Host refs were refreshed on October 24. Release trunk `v5` is
+`80d6f229cdf8aa57384246bba0386d730484eecb`; the qualified chart tip is
+`43c54a557838528c87b0d2ffc53a8daa0b30f122`, 125 commits ahead of v5 with no
+missing v5 commits. Its immediate PR base is `rs/v5-component-compatibility`;
 `main=fad87a07e9cf262a3a117c5e815091c7b54fa151` is the later promotion boundary.
 Documentation reconciliation does not require integrating main into this stack.
 
@@ -120,7 +123,7 @@ Documentation reconciliation does not require integrating main into this stack.
 | ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Inputs, dependencies and field contracts | Drafts [PR210](https://github.com/uzh-bf/design-system/pull/210), [PR211](https://github.com/uzh-bf/design-system/pull/211) and [PR213](https://github.com/uzh-bf/design-system/pull/213) correct input/reset, disabled-selection, multi-select and transformed-type defects | Preserve these input cases through the expanded catalog; RHF parity is qualified in drafts PR219/220                                          |
 | Consumer CSS and UZH tokens/defaults     | [PR214](https://github.com/uzh-bf/design-system/pull/214) through [PR217](https://github.com/uzh-bf/design-system/pull/217) deliver scoped responsive CSS, palette/alias coverage, tokens and defaults                                                                       | Current official-source traceability, deliberate adaptations and new-default consumer proof remain required                                           |
-| Library qualification                    | [PR218](https://github.com/uzh-bf/design-system/pull/218) at the source baseline above has 18 successful checks and two expected skips; its [completed plan](2026-10-19-v5-ga-qualification-plan.md) owns the evidence                                                       | Six tooling advisories were still open in the October 19 full audit; refresh before remediation, retain constraints and close before GA               |
+| Library qualification                    | The [completed plan](2026-10-19-v5-ga-qualification-plan.md) records prior source qualification. Current [PR218](https://github.com/uzh-bf/design-system/pull/218) at `afcc2b912` failed browser installation before behavioral tests; later draft tips pass the full gates | Reconcile this lower-layer gate before landing. Six tooling advisories remained in the October 19 audit; refresh their current status before remediation and GA |
 | Historical Klicker pilot                 | [Draft PR6652](https://github.com/uzh-bf/klicker-uzh/pull/6652) at `4f6e8c56e36b8ceeaa87ce859d2c736d7c9a71a4` delivers the dev-only Webpack routing repair and consumer acceptance; eight required checks pass, with 997 browser passes and five skips                       | Retained Formik and palette/focus overrides limit this proof. It does not establish RHF parity, full new-default adoption or current-trunk acceptance |
 | Promotion                                | Existing [draft PR179](https://github.com/uzh-bf/design-system/pull/179) owns v5-to-main promotion and remains unreconciled                                                                                                                                                  | Qualify the integrated candidate after feature completion; readiness, merge and publication require named authority                                   |
 
@@ -138,7 +141,7 @@ The October 23 review found the retained pilot stopped with unavailable routes.
 That is a current environment limitation, not a retraction of recorded passing
 journeys. Its previous user retention/pinning ruling remains relevant; refresh
 ownership and lifecycle evidence before resuming it. Do not restart or alter it
-for this documentation reconciliation. The October23 exact-head commit status still has `final-ai-review` pending.
+for this documentation reconciliation. The October24 exact-head commit status still has `final-ai-review` pending.
 Keep that current review state distinct from historical passing source/browser
 acceptance; its required-gate classification has not been established here.
 
@@ -198,10 +201,10 @@ and legend support. Upstream styles are visual references; our neutral/UZH theme
 remain the delivery surfaces.
 
 [ADR0007](../docs/adr/0007-application-owned-recharts-runtime.md) selects an
-application-owned, required Recharts 3 peer for the later chart package, with a
-library development dependency. It affects installation for every consumer,
-including non-chart applications. Select the supported range and prove one
-compatible runtime in packed consumers; the dependency change is not part of RHF.
+application-owned, required Recharts 3 peer, implemented by the chart package with
+range `>=3.8.0 <4` and development version 3.10.1. It affects installation for
+every consumer, including non-chart applications. Minimum/current packed runtime
+identity is qualified; final integrated consumer acceptance remains separate.
 
 The [current UZH review](2026-08-19-v5-uzh-alignment-roadmap.md#official-styleguide-review--2026-10-23)
 owns the 2.11.0 delta, palette/type/focus/form traceability and adaptation rules.
@@ -238,39 +241,70 @@ The approved [catalog planning package](2026-10-23-v5-catalog-compatibility-plan
 owns evidence reconciliation, the finite
 [Radix capability matrix](2026-10-23-v5-radix-capability-matrix.md) and derived plans.
 
-Current execution: the user approved both first plans on 2026-10-23.
-[Component draft #223](https://github.com/uzh-bf/design-system/pull/223) is qualified
-with source review, local verification and passing exact-head CI. [Chart draft #224](https://github.com/uzh-bf/design-system/pull/224)
-carries six plot families, tooltip composition, three packed/Next version cells
-and 42 published synthetic captures. The corrected Radix readiness test passes
-all 130 integrated behavioral contracts. Independent source reviews pass; exact-head CI
-remains a qualification gate. ChartContainer now measures 10.3–11.0 kB; its 34 kB
-ceiling passes. On 2026-10-24 the user approved calibrating its historical 25 kB
-positive minimum to 8 kB while preserving the ceiling and dependency markers.
-Final exact-head CI and feedback qualification remain; see the chart plan.
+The first two implementation packages are complete at qualified draft delivery.
+[Component draft #223](https://github.com/uzh-bf/design-system/pull/223) qualifies
+at `30e0013151f24476f8308aef8dfd6a6affcb1a8e`; [chart draft #224](https://github.com/uzh-bf/design-system/pull/224)
+qualifies at `43c54a557838528c87b0d2ffc53a8daa0b30f122` with [passing CI](https://github.com/uzh-bf/design-system/actions/runs/40075381528),
+completed independent reviews and the final quiet settle. The [component plan](2026-10-23-v5-component-compatibility-plan.md#progress)
+and [chart plan](2026-10-23-v5-recharts-compatibility-plan.md#progress) own their
+proof. Recharts covers six plot families and tooltip composition, three
+packed/Next version cells and 42 synthetic captures. ChartContainer measures
+10.3–11.0 kB; the approved 8 kB positive minimum, 34 kB ceiling and dependency
+markers all pass. These completed packages are not queued again.
 
-1. **Small component compatibility.** Follow the reviewed
-   [component plan](2026-10-23-v5-component-compatibility-plan.md) for Button
-   sizes, Tabs variants/orientation, NativeSelect and Direction/RTL. Preserve
-   existing defaults, public compatibility, both themes and caller precedence.
-2. **Recharts ownership and compatibility.** Follow the reviewed
-   [chart plan](2026-10-23-v5-recharts-compatibility-plan.md). Settle ADR0007's
-   required consumer peer before publication or repeated final consumer proof.
-   Keep direct Recharts composition and qualify six chart families and the tooltip recipe category.
-3. **Remaining catalog and auxiliaries.** Use the matrix for shared API deltas,
-   a dedicated Combobox package, Calendar/DayPicker, Resizable/Sonner and missing
-   messaging/code/clarification components. Keep manifests and integration
-   serialized. Verify representative application-owned blocks and AI patterns.
-4. **Integrated GA qualification.** Refresh official-source drift once, tooling
-   advisories and package metadata; qualify one integrated exact candidate in
-   representative consumers. Complete screen-reader, Safari and device proof,
-   then reconcile PR179 under its separate promotion authority boundary.
+The October 24 Opus 5.5 discussion and main-session verification retain the
+binding GA scope and refine the next sequence:
 
-Derived plans propose implementation scope and topology; their bounded approval
-precedes source/dependency changes. This documentation delivery does not
-implement those packages or authorize merge, readiness, release, deployment,
-consumer writes or runtime changes. Its native goal ends at reviewed plans and
-verified documentation draft delivery.
+1. **Combobox plan and early static composition sweep.** Derive a bounded plan
+   for the compound primitive, preserving the root Combobox and its public types.
+   Propose topology in that plan; a new stack above the chart draft is a proposal,
+   not an approved topology change. Start static compatibility accounting of all
+   pinned examples, blocks and AI patterns alongside planning, so concrete gaps
+   feed the shared-API packages before they close. Qualify Base UI dependency and
+   entry budgets, single/multiple selection, controlled state, forms/RHF,
+   keyboard/RTL and focus/dismissal inside Dialog, Sheet and Drawer.
+2. **Shared APIs and Calendar.** Assign every concrete matrix delta, including
+   menu item options, Item semantics/sizes, Pagination aliases and element types.
+   Preserve legacy defaults while exposing compatible upstream routes. Thread
+   locale through Calendar formatting/day rendering and prove existing picker,
+   reset, keyboard and type contracts. Keep DayPicker 9 unless a verified gap
+   requires a separately assessed migration. Disjoint source work may proceed
+   after its plans settle; export integration has one owner.
+3. **Layout and toast auxiliaries.** Plan Panels 4 compatibility, preserving
+   existing panel props, persistence, refs and keyboard/touch behavior. The Sonner
+   package owns caller-option merging and brand/light-dark theme integration;
+   supplying an unrelated toast option must not discard DS defaults. Include
+   Sidebar direction and mobile sheet behavior. Serialize manifest/lock changes.
+4. **Messaging/clarification and code/highlighting.** Use separate bounded
+   packages for the required presentation/scroll/questionnaire surfaces and
+   code/highlighting. Their distinct @shadcn/react and Shiki runtime, scrolling,
+   copy, SSR/hydration and asset-loading risks need separate acceptance. Prove
+   reduced motion, CSS headroom and dependency isolation for unrelated imports;
+   keep highlighting lazy. Application blocks and AI transports/state remain
+   application-owned.
+5. **Composition and integrated GA qualification.** After static disposition,
+   verify representative packed dashboard/sidebar/auth and AI compositions.
+   Refresh official-source drift, tooling advisories and package/peer metadata
+   once at final qualification. Accept one integrated exact candidate, with
+   archive and installed-file proof, in representative consumers under their
+   own plans. Complete screen-reader, Safari and device evidence, then reconcile
+   [promotion PR179](https://github.com/uzh-bf/design-system/pull/179), whose
+   current conflicts and older failed checks remain a separate gate.
+
+Each matrix row needs implemented equivalence with proof, an adaptation covered
+by an accepted ADR/plan, or a scheduled gap with a package owner. Existing rulings
+remain authoritative; only material unresolved departures need a new decision.
+Correct the shipped migration guide's contradictory RHF touched/submitted timing
+paragraph with the next source package, retaining ADR0006's accepted behavior.
+Distinguish the pinned DayPicker registry install tag from its workspace baseline.
+Existing compact Button bounds/spacing and bar contrast checks already pass;
+reuse those results instead of adding duplicate tests. Manual and genuinely
+different composition evidence remain separate obligations.
+
+This update authorizes no new implementation or topology. Derived execution
+plans retain their bounded approval requirement. Lower-layer CI reconciliation,
+consumer writes, readiness, merges, publication, deployment and promotion remain
+separately gated; neither a green top tip nor this discussion clears them.
 
 ### Acceptance and verification ownership
 

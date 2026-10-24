@@ -4,17 +4,28 @@
 **Supersedes:** `project/2026-08-01-v5-release-readiness-stacks-roadmap.md` (stacks A–D and the release sequence are all merged; it stays readable as history)
 **Historical status (2026-10-18; superseded by the follow-up below):** Phase 0 decisions are recorded. Phase 1 source fixes and scoped responsive CSS are integrated with the corrected input/dependency/field stack on `rs/v5-uzh-alignment` and delivered in [draft PR214](https://github.com/uzh-bf/design-system/pull/214). Hosted checks pass at `b8d607280`; the corrected packed candidate passes the historical Klicker pilot. These drafts are unmerged. Phase 2 and full release-candidate qualification still block GA. npm still serves `5.0.0-alpha.5` on `alpha` and `4.1.8` on `latest`; the corrected local tarball is not a published release.
 
-Current follow-up (October 23): Phase 2 and the library qualification are delivered
+Current follow-up (updated October 24): Phase 2 and the library qualification source are delivered
 in the unmerged draft stack through [PR218](https://github.com/uzh-bf/design-system/pull/218).
 The subsequent [Klicker pilot PR6652](https://github.com/uzh-bf/klicker-uzh/pull/6652)
 qualifies the historical exact candidate and delivers its local routing repair.
 Its retained Formik and palette/focus overrides limit new-default acceptance.
 RHF parity now qualifies in DS drafts219/220, with the selected exact-candidate
-GBL RHF journey qualified in draft224. GBL and Klicker remain unmerged by user
-ruling; integrated candidate and manual UZH acceptance remain open. The [GA roadmap](2026-08-10-v5-ga-readiness-roadmap.md#current-execution-index--2026-10-23)
+GBL RHF journey qualified in draft224. The October 24 reconciliation also records
+qualified [DS component draft223](https://github.com/uzh-bf/design-system/pull/223)
+and [DS chart draft224](https://github.com/uzh-bf/design-system/pull/224).
+GBL and Klicker remain unmerged by user ruling; integrated candidate and manual
+UZH acceptance remain open. The [GA roadmap](2026-08-10-v5-ga-readiness-roadmap.md#current-execution-index--2026-10-23)
 now requires full RHF/Formik capability parity, official shadcn Radix coverage
 with auxiliaries, current UZH alignment and integrated/manual qualification.
 The dated audits and completed plan scopes below remain historical evidence.
+
+The [remaining sequence](2026-08-10-v5-ga-readiness-roadmap.md#next-implementation-packages)
+starts with Combobox planning and early static composition checks. Shared
+APIs/Calendar, layout/toast and messaging/code packages must carry the supported
+theme, focus, locale and reduced-motion contracts through their new surfaces.
+Existing ADR0005 adaptations remain authoritative. Complete official-rule
+traceability and integrated/manual consumer proof before any GA alignment claim;
+the package's source qualification is not institutional CD certification.
 
 ## Official styleguide review — 2026-10-23
 
