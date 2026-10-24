@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { de } from 'date-fns/locale'
 import { DateTimePicker } from './DatetimePicker'
 
 {/* START README */}
@@ -10,7 +11,7 @@ Use this component when you need to:
 - Collect both date and time inputs in forms with precise control over granularity
 - Create event scheduling interfaces with flexible time precision requirements
 - Implement appointment booking with customizable display formats and hour cycles
-- Build international applications with locale-specific date and time formatting
+- Localize calendar labels and configure trigger formats and time-control labels separately
 - Provide comprehensive datetime selection with validation and error handling
 
 The component supports combined date and time selection, multiple granularity levels (day, hour, minute, second), 12/24-hour time format options, custom display formatting, locale and internationalization support, and extensive testing attributes for all interactive elements.
@@ -26,7 +27,7 @@ The props for the DatetimePicker component are as follows:
 - @param disabled - Whether the picker is disabled.
 - @param hourCycle - Whether to use 12-hour or 24-hour time format.
 - @param placeholder - Placeholder text shown when no date is selected / the state is undefined.
-- @param yearRange - The range of years to display in the year dropdown, relative to the current year.
+- @param yearRange - Retained compatibility option; the current Calendar navigation bounds are not changed by this prop.
 - @param displayFormat - The dayjs format string to display the date in the input field.
 - @param granularity - The smallest unit displayed by the picker (e.g., 'second', 'minute', 'hour', 'day').
 - @param className - Optional object to override default styling for trigger, input, label, tooltip, and error.
@@ -47,7 +48,7 @@ The props for the DatetimePicker component are as follows:
 - @param align - The alignment of the label ('start', 'center', or 'end').
 - @param required - Whether the label should indicate a required field.
 - @param tooltip - Tooltip content shown with the label.
-- @param locale - The locale for date formatting and calendar display.
+- @param locale - A DayPicker locale object for calendar labels; trigger formatting and time-control labels are separate.
 - @param weekStartsOn - The day the week starts on in the calendar.
 - @param showWeekNumber - Whether to show the week number in the calendar.
 - @param showOutsideDays - Whether to show days from adjacent months in the calendar.
@@ -93,11 +94,11 @@ Props (DatetimePicker component):
 - disabled?: boolean - Whether the picker is disabled
 - hourCycle?: 12 | 24 - Time format cycle (default: 24)
 - placeholder?: string - Placeholder text when no datetime is selected
-- yearRange?: number - Years to show in dropdown relative to current (default: 10)
+- yearRange?: number - Retained option without a current effect on Calendar navigation bounds
 - displayFormat?: string - Day.js format string for display (default: "DD/MM/YYYY HH:mm")
 - granularity?: 'day' | 'hour' | 'minute' | 'second' - Smallest time unit displayed
 - defaultPopupValue?: Date - Default datetime when popup opens
-- locale?: string - Locale for date/time formatting
+- locale?: DayPickerProps['locale'] - Locale object for calendar labels
 - weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6 - First day of week (0 = Sunday)
 - showWeekNumber?: boolean - Whether to display week numbers
 - showOutsideDays?: boolean - Whether to show adjacent month days
@@ -173,7 +174,7 @@ defaultTime.setHours(14, 0, 0, 0) // 2:00 PM
 <DatetimePicker
   value={meetingTime}
   onChange={setMeetingTime}
-  locale="de-DE"
+  locale={de}
   displayFormat="DD.MM.YYYY HH:mm"
   weekStartsOn={1} // Monday
   showWeekNumber
@@ -246,11 +247,11 @@ Hour Cycle Options:
 
 - 12: 12-hour format with AM/PM indicators
 - 24: 24-hour format (default)
-- Automatic integration with locale settings
+- Calendar locale objects and explicit week-start settings
 
 Internationalization:
 
-- Full locale support for date/time formatting
+- Trigger text follows the supplied dayjs display format; time-control labels use timeLabels
 - Configurable week start day
 - Optional week number display
 - Localized month and day names

@@ -196,6 +196,24 @@ started for these planning documents.
   delegates the named fixture/test seam while handling docs and integration.
 - Current docs lookup resolves DayPicker main/v10; use installed9.14.0 source
   and the pinned shadcn recipe for signatures. No dependency migration.
+- Core locale/grid changes pass types, lint and formatting. Existing picker,
+  RHF, composite-ref and selector cases:60pass. Focused scanner:0findings/errors.
+  A bounded browser comparison against the qualified lower archive confirms
+  unchanged Calendar/grid/day geometry on all three supported surfaces at
+  390/1280px. A separate de-locale probe fails both host-locale metadata/month
+  oracles on the old source and passes both on the corrected source in all6cells.
+- The complete named harness and nine Calendar contract cases are integrated.
+  All14focused Calendar/composite cases pass after correcting fixture ref
+  ownership, Formik validation races and a test-clock/TZDate incompatibility.
+  Native Date plus fixed instants and explicit fixture bounds protects the
+  timezone case; production date ownership and engines are unchanged.
 - Known navigation/yearRange and application-owned non-Gregorian recipe work
   remain named follow-ups. Next: implement the bounded locale contract and its
   first useful browser proof, then complete all declared acceptance gates.
+
+- Integrated source verification:156behavioral contracts and10new themed axe
+  cases pass; no new waiver or budget. Package build passes after correcting two
+  harness-only strict types. All three packed/Next endpoint cells are running.
+  The named five-state harness and single contract spec account for most of the
+  package size; their locale/override/bounds/timezone/form obligations stay in
+  this one approved Calendar layer. Configured reviews, captures and CI remain.

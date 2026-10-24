@@ -243,14 +243,15 @@ preserve existing evidence. No human reviewer requests or review replies.
   qualifies at `2d8b02a6f`: complete hosted CI, initial/focused configured final
   review, exact archive/installed-file proof and 18 published captures pass.
   Runtime and browser are stopped. Preserve that lower tip.
-- Active draft [#226](https://github.com/uzh-bf/design-system/pull/226):
+- Qualified interaction draft [#226](https://github.com/uzh-bf/design-system/pull/226):
   interaction source `8cc3b0e1b` passes all 146 behavioral contracts, six themed
   accessibility cases, types, lint, formatting, builds and the focused scanner.
   All three packed/Next endpoint cells pass both bundlers. Current exact archive
   SHA-256 `374730d4fa27349e2c50b065d94921f4edf676a8f9775a56acbc19bea37fabfa`
   matches all 268 installed files. All 442 tracked package files match the producing
   container source. Native gallery publication includes 42 inspected captures;
-  configured final review and current-head hosted qualification remain.
+  configured initial/focused final review, complete current-head hosted CI and
+  quiet feedback settling pass at `4d5f60fc6`.
 - Exact-head CI at `9057da570` passes, including all accessibility shards,
   visual regression and all three packed cells. Greptile then identified compact
   AlertDialog width classes overriding caller widths. Two browser assertions
@@ -317,8 +318,8 @@ preserve existing evidence. No human reviewer requests or review replies.
   wide/narrow desktop checks pass in an 11-case focused run. Types, lint,
   formatting and Ladle build pass. These fixture/test changes preserve package
   code and rendered appearance; existing packed and screenshot proof is reused.
-- Next action: finish the configured final review and hosted
-  qualification, hold that tip, then execute the approved Calendar layer.
+- Both Shared API layers qualify. Preserve their held tips; the approved
+  Calendar layer is active at `rs/v5-calendar-compatibility`.
 
 ### Planning review
 

@@ -284,7 +284,7 @@ browser qualification. The next implementation packages are:
    ineffective `yearRange` option and the application-owned non-Gregorian recipe
    remain named follow-ups; locale qualification alone does not close them.
    Presentation/control draft [#225](https://github.com/uzh-bf/design-system/pull/225)
-   qualifies at `2d8b02a6f`; overlay/menu draft [#226](https://github.com/uzh-bf/design-system/pull/226) passes local behavioral and package gates. Reviews, native gallery publication and hosted qualification are active, then Calendar. An extra open-menu audit reproduces an existing Ladle-root `aria-hidden-focus` result on the lower exact package; keep it in GA accessibility follow-up.
+   qualifies at `2d8b02a6f`; overlay/menu draft [#226](https://github.com/uzh-bf/design-system/pull/226) qualifies at `4d5f60fc6` with configured final review, complete hosted CI, exact artifact proof and 42 published captures. Calendar locale compatibility is the active approved layer. An extra open-menu audit reproduces an existing Ladle-root `aria-hidden-focus` result on the lower exact package; keep it in GA accessibility follow-up.
 2. **Layout and toast auxiliaries.** Plan Panels 4 compatibility, preserving
    existing panel props, persistence, refs and keyboard/touch behavior. The Sonner
    package owns caller-option merging and brand/light-dark theme integration;

@@ -722,7 +722,7 @@ type DateTimePickerRef = HTMLButtonElement
  * @param captionLayout - The layout of the calendar caption (dropdown or label).
  * @param required - Whether the label should indicate a required field.
  * @param tooltip - Tooltip content shown with the label.
- * @param locale - The locale for date formatting and calendar display.
+ * @param locale - The DayPicker locale object for calendar labels; trigger formatting and time-control labels are configured separately.
  * @param weekStartsOn - The day the week starts on in the calendar.
  * @param showWeekNumber - Whether to show the week number in the calendar.
  * @param showOutsideDays - Whether to show days from adjacent months in the calendar.

@@ -17,6 +17,7 @@ function Calendar({
   classNames,
   showOutsideDays = true,
   captionLayout = 'label',
+  locale,
   buttonVariant = 'ghost',
   formatters,
   components,
@@ -42,9 +43,10 @@ function Calendar({
         className
       )}
       captionLayout={captionLayout}
+      locale={locale}
       formatters={{
         formatMonthDropdown: (date) =>
-          date.toLocaleString('default', { month: 'short' }),
+          date.toLocaleString(locale?.code, { month: 'short' }),
         ...formatters,
       }}
       startMonth={new Date(new Date().getFullYear() - 1, 0)}
@@ -90,7 +92,7 @@ function Calendar({
             : 'flex h-7 items-center gap-1 rounded-md pl-2 pr-1 text-sm [&>svg]:size-3.5 [&>svg]:text-muted-foreground',
           defaultClassNames.caption_label
         ),
-        table: 'w-full border-collapse',
+        month_grid: cn('w-full border-collapse', defaultClassNames.month_grid),
         weekdays: cn('mb-1 flex gap-0.5', defaultClassNames.weekdays),
         weekday: cn(
           'h-6 flex-1 select-none rounded-md text-center text-xs leading-6 font-normal text-muted-foreground',
@@ -135,6 +137,8 @@ function Calendar({
         ),
         hidden: cn('invisible', defaultClassNames.hidden),
         ...classNames,
+        ...(classNames?.month_grid === undefined &&
+          classNames?.table !== undefined && { month_grid: classNames.table }),
       }}
       components={{
         Root: ({ className, rootRef, ...props }) => {
@@ -172,7 +176,9 @@ function Calendar({
             <ChevronDownIcon className={cn('size-4', className)} {...props} />
           )
         },
-        DayButton: CalendarDayButton,
+        DayButton: (dayProps) => (
+          <CalendarDayButton locale={locale} {...dayProps} />
+        ),
         WeekNumber: ({ children, ...props }) => {
           return (
             <td {...props}>
@@ -197,8 +203,11 @@ function CalendarDayButton({
   className,
   day,
   modifiers,
+  locale,
   ...props
-}: React.ComponentProps<typeof DayButton>) {
+}: React.ComponentProps<typeof DayButton> & {
+  locale?: React.ComponentProps<typeof DayPicker>['locale']
+}) {
   const defaultClassNames = getDefaultClassNames()
   // Keep the displayed day as a word speech input can match, even when the date label uses an ordinal.
   const visibleDay =
@@ -216,7 +225,7 @@ function CalendarDayButton({
       ref={ref}
       variant="ghost"
       size="icon"
-      data-day={day.date.toLocaleDateString()}
+      data-day={day.date.toLocaleDateString(locale?.code)}
       data-selected-single={
         modifiers.selected &&
         !modifiers.range_start &&

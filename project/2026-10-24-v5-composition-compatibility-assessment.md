@@ -38,9 +38,9 @@ were copied into the library.
 Presentation draft #225 qualifies at `2d8b02a6f`. Interaction draft
 [#226](https://github.com/uzh-bf/design-system/pull/226) implements the approved
 Popover parts, overlay options, menu insets, Command checks and Select markers
-and compact geometry. Local contracts and all packed/Next endpoint cells pass;
-full final review and hosted qualification remain. These close concrete source
-gaps when qualified; the identity tables below remain the historical static
+and compact geometry. The draft qualifies at `4d5f60fc6` with complete final
+review, hosted CI, native captures and exact packed proof. These close the
+approved concrete Shared API gaps; the identity tables below remain the historical static
 assessment. They do not become full example or block runtime passes. Calendar,
 layout/toast, messaging/highlighting and representative integrated compositions
 retain their assigned owners. The existing open-menu Ladle-root accessibility
