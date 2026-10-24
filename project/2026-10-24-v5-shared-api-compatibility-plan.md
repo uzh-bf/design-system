@@ -251,8 +251,16 @@ preserve existing evidence. No human reviewer requests or review replies.
   remain. Required delivery layer: qualified drafts; achieved: approved plan.
 - Runtime: exact custom tool container `ds-v5-rhf-checks`, source-mounted read-only
   from this worktree, resumed for checks; no consumer runtime touched.
-- Next action: commit this approved shared plan, implement the bounded first
-  layer and complete its independently green draft boundary before layer2.
+- Presentation implementation integrated: all ten assigned UI modules, root
+  exports, three deterministic story states, public types, native/ref/paste and
+  composition coverage. Complete browser contracts:136 passed. Types, lint,
+  format and Ladle build pass; focused scanner reports zero findings/errors.
+- Verified Card regression fixed: compact styles now preserve caller padding
+  and nested default density through scoped CSS variables. No dependency change.
+- Active qualification: changed-story accessibility sweep and three packed/Next
+  endpoint cells. Reviews, screenshot publication, final budgets and CI remain.
+- Next action: commit the verified slice, run simplifier/risk review, complete
+  remaining first-tip proof and publish its draft before advancing layer2.
 
 ### Planning review
 

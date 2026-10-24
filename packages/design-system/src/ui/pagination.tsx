@@ -68,9 +68,13 @@ function PaginationLink({
 
 function PaginationPrevious({
   label,
+  text,
   className,
   ...props
-}: React.ComponentProps<typeof PaginationLink> & { label?: string }) {
+}: React.ComponentProps<typeof PaginationLink> & {
+  label?: string
+  text?: string
+}) {
   return (
     <PaginationLink
       aria-label="Go to previous page"
@@ -79,16 +83,20 @@ function PaginationPrevious({
       {...props}
     >
       <ChevronLeftIcon />
-      <span className="ds-pagination-label">{label ?? 'Previous'}</span>
+      <span className="ds-pagination-label">{label ?? text ?? 'Previous'}</span>
     </PaginationLink>
   )
 }
 
 function PaginationNext({
   label,
+  text,
   className,
   ...props
-}: React.ComponentProps<typeof PaginationLink> & { label?: string }) {
+}: React.ComponentProps<typeof PaginationLink> & {
+  label?: string
+  text?: string
+}) {
   return (
     <PaginationLink
       aria-label="Go to next page"
@@ -96,7 +104,7 @@ function PaginationNext({
       className={cn('gap-1 px-2.5 sm:pr-2.5', className)}
       {...props}
     >
-      <span className="ds-pagination-label">{label ?? 'Next'}</span>
+      <span className="ds-pagination-label">{label ?? text ?? 'Next'}</span>
       <ChevronRightIcon />
     </PaginationLink>
   )

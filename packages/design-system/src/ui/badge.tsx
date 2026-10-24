@@ -22,6 +22,9 @@ const badgeVariants = cva(
         destructive: destructiveBadge,
         outline:
           'text-foreground [a&]:hover:bg-accent [a&]:hover:text-accent-foreground',
+        ghost:
+          'border-transparent text-foreground [a&]:hover:bg-accent [a&]:hover:text-accent-foreground',
+        link: 'border-transparent bg-transparent text-primary underline-offset-4 hover:underline',
         success:
           'border-transparent bg-success text-success-foreground [a&]:hover:bg-success/90',
         warning:
@@ -38,7 +41,7 @@ const badgeVariants = cva(
 
 function Badge({
   className,
-  variant,
+  variant = 'default',
   asChild = false,
   ...props
 }: React.ComponentProps<'span'> &
@@ -48,6 +51,7 @@ function Badge({
   return (
     <Comp
       data-slot="badge"
+      data-variant={variant}
       className={cn(badgeVariants({ variant }), className)}
       {...props}
     />

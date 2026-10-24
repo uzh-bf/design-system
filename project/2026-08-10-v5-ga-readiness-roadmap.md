@@ -276,11 +276,11 @@ browser qualification. The next implementation packages are:
    reset, keyboard and type contracts. Keep DayPicker 9 unless a verified gap
    requires a separately assessed migration. Disjoint source work may proceed
    after its plans settle; export integration has one owner.
-   The proposed [Shared API plan](2026-10-24-v5-shared-api-compatibility-plan.md)
+   The approved [Shared API plan](2026-10-24-v5-shared-api-compatibility-plan.md)
    and [Calendar plan](2026-10-24-v5-calendar-compatibility-plan.md) define two
    Shared API draft layers followed by Calendar in a separate native stack above
-   the chart branch. Preparation is authorized; source execution and this new
-   topology await approval. Calendar retains exact DayPicker 9.14.0. Its known
+   the chart branch. The user approved execution and this topology on October24;
+   delivery remains qualified drafts without merging. Calendar retains exact DayPicker 9.14.0. Its known
    ineffective `yearRange` option and the application-owned non-Gregorian recipe
    remain named follow-ups; locale qualification alone does not close them.
 2. **Layout and toast auxiliaries.** Plan Panels 4 compatibility, preserving

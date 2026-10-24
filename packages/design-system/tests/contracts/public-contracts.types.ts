@@ -216,3 +216,81 @@ const legendPayload: LegendPayload[] = [
   { value: 'Published', dataKey: 'published' },
 ]
 createElement(ChartLegendContent, { payload: legendPayload })
+
+import {
+  AlertAction as RootAlertAction,
+  AvatarBadge as RootAvatarBadge,
+  AvatarGroup as RootAvatarGroup,
+  AvatarGroupCount as RootAvatarGroupCount,
+  useCarousel as rootUseCarousel,
+} from '../../src'
+import {
+  AlertAction,
+  Avatar,
+  AvatarBadge,
+  AvatarGroup,
+  AvatarGroupCount,
+  Badge,
+  Card,
+  EmptyDescription,
+  InputOTP,
+  Item,
+  KbdGroup,
+  PaginationNext,
+  PaginationPrevious,
+  Spinner,
+  Switch,
+  ToggleGroup,
+  useCarousel,
+} from '../../src/primitives'
+
+const divRef = createRef<HTMLDivElement>()
+const spanRef = createRef<HTMLSpanElement>()
+createElement(AlertAction, {
+  ref: divRef,
+  title: 'Action',
+  onClick: (event) => {
+    const target: HTMLDivElement = event.currentTarget
+    void target
+  },
+})
+createElement(RootAlertAction, { ref: divRef })
+createElement(Avatar, { size: 'default', ref: spanRef })
+createElement(Avatar, { size: 'md' })
+createElement(AvatarBadge, { ref: spanRef })
+createElement(RootAvatarBadge, { ref: spanRef })
+createElement(AvatarGroup, { ref: divRef })
+createElement(RootAvatarGroup, { ref: divRef })
+createElement(AvatarGroupCount, { ref: divRef })
+createElement(RootAvatarGroupCount, { ref: divRef })
+createElement(Badge, { variant: 'ghost', ref: spanRef })
+createElement(Badge, { variant: 'link', asChild: true })
+createElement(Card, { size: 'sm', ref: divRef })
+createElement(Item, { size: 'xs', ref: divRef })
+createElement(PaginationNext, {
+  text: 'Alias',
+  label: '',
+  ref: createRef<HTMLAnchorElement>(),
+})
+createElement(PaginationPrevious, { text: 'Alias', 'aria-label': 'Override' })
+createElement(Switch, {
+  size: 'sm',
+  name: 'enabled',
+  ref: createRef<HTMLButtonElement>(),
+})
+createElement(ToggleGroup, {
+  type: 'single',
+  spacing: 2,
+  orientation: 'vertical',
+  dir: 'rtl',
+})
+createElement(InputOTP, { maxLength: 4, spellCheck: true, children: null })
+createElement(EmptyDescription, { ref: divRef })
+createElement(KbdGroup, { ref: createRef<HTMLElement>() })
+createElement(Spinner, { ref: spanRef, className: 'size-4' })
+// @ts-expect-error The retained Spinner is a span, not an SVG element.
+createElement(Spinner, { ref: createRef<SVGSVGElement>() })
+// @ts-expect-error Compact Card supports only the documented size variants.
+createElement(Card, { size: 'dense' })
+const carouselHook: typeof useCarousel = rootUseCarousel
+void carouselHook

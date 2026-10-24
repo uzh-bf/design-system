@@ -87,3 +87,14 @@ test('NativeSelect ref targets the native select', async ({ page }) => {
   await page.locator('[data-test="focus-native-select"]').click()
   await expect(page.locator('#native-single')).toBeFocused()
 })
+
+test('compact primitive Switch forwards its button ref and keyboard state', async ({
+  page,
+}) => {
+  await gotoStory(page, 'shared-presentation--controls')
+  await page.locator('[data-test="focus-switch"]').click()
+  const control = page.locator('[data-test="switch-omitted"]')
+  await expect(control).toBeFocused()
+  await page.keyboard.press('Space')
+  await expect(control).toHaveAttribute('aria-checked', 'true')
+})
