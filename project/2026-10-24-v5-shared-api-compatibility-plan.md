@@ -239,6 +239,16 @@ preserve existing evidence. No human reviewer requests or review replies.
 
 ## Progress
 
+- Presentation draft [#225](https://github.com/uzh-bf/design-system/pull/225)
+  qualifies at `2d8b02a6f`: complete hosted CI, initial/focused configured final
+  review, exact archive/installed-file proof and 18 published captures pass.
+  Runtime and browser are stopped. Preserve that lower tip.
+- Active layer: `rs/v5-shared-interactions`, based on that qualified tip. Two
+  bounded source executors completed the six menu/overlay modules; main owns
+  remaining public parts, harness, types and integration. Initial types/lint pass.
+  Browser verification is correcting fixture overlap with Ladle controls and
+  proving compact Select height under a stretching form row. No dependencies or
+  omission defaults change. Initial builds/tests precede slice commit/reviews.
 - October 24: user approved both plans and the three-layer topology, including
   ordinary pushes and qualified draft delivery; native goal active.
 - Active slice: presentation and controls. Baseline1138e71352225d1d428e9c8b4ec21742f7666daa;

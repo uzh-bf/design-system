@@ -283,6 +283,8 @@ browser qualification. The next implementation packages are:
    delivery remains qualified drafts without merging. Calendar retains exact DayPicker 9.14.0. Its known
    ineffective `yearRange` option and the application-owned non-Gregorian recipe
    remain named follow-ups; locale qualification alone does not close them.
+   Presentation/control draft [#225](https://github.com/uzh-bf/design-system/pull/225)
+   qualifies at `2d8b02a6f`; overlays/menus are the active layer, then Calendar.
 2. **Layout and toast auxiliaries.** Plan Panels 4 compatibility, preserving
    existing panel props, persistence, refs and keyboard/touch behavior. The Sonner
    package owns caller-option merging and brand/light-dark theme integration;
