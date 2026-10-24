@@ -239,16 +239,51 @@ preserve existing evidence. No human reviewer requests or review replies.
 
 ## Progress
 
+- Presentation draft [#225](https://github.com/uzh-bf/design-system/pull/225)
+  qualifies at `2d8b02a6f`: complete hosted CI, initial/focused configured final
+  review, exact archive/installed-file proof and 18 published captures pass.
+  Runtime and browser are stopped. Preserve that lower tip.
+- Active draft [#226](https://github.com/uzh-bf/design-system/pull/226):
+  interaction source `8cc3b0e1b` passes all 146 behavioral contracts, six themed
+  accessibility cases, types, lint, formatting, builds and the focused scanner.
+  All three packed/Next endpoint cells pass both bundlers. Current exact archive
+  SHA-256 `374730d4fa27349e2c50b065d94921f4edf676a8f9775a56acbc19bea37fabfa`
+  matches all 268 installed files. All 442 tracked package files match the producing
+  container source. Native gallery publication includes 42 inspected captures;
+  configured final review and current-head hosted qualification remain.
+- Exact-head CI at `9057da570` passes, including all accessibility shards,
+  visual regression and all three packed cells. Greptile then identified compact
+  AlertDialog width classes overriding caller widths. Two browser assertions
+  reproduced 384px instead of the requested 512px. Applying the compact class
+  conditionally restores caller precedence. The focused source review passes;
+  six fresh width-override captures cover all supported surfaces at 390/1280.
+- The final archive audit found a stale migration document in the tool copy.
+  Synchronizing that document yields the current archive above. All 267 other
+  entries match the passing packed/Next candidate byte-for-byte, preserving its
+  runtime proof. Earlier candidate hashes identify historical tool archives;
+  they do not identify the complete current package. No executable source or
+  dependency changed during that archive correction.
+- Simplifier inspected the complete interaction range and found no useful
+  reduction. The full source risk review and its focused correction pass. Substantive size:1027 added/deleted
+  lines, excluding project artifacts;20 paths. The single synthetic harness and
+  behavioral seam carry most of the size and protect coupled caller/focus/portal
+  contracts. Keep this one approved interaction package.
+- An extra audit of an open modal menu reports `aria-hidden-focus` on Ladle's
+  root across the three supported surfaces. The same synthetic menu reproduces
+  it with the exact qualified lower archive. Record it as an existing GA
+  accessibility follow-up; no waiver, budget or menu modality change is included.
 - October 24: user approved both plans and the three-layer topology, including
-  ordinary pushes and qualified draft delivery; native goal active.
-- Active slice: presentation and controls. Baseline1138e71352225d1d428e9c8b4ec21742f7666daa;
+  ordinary pushes and qualified draft delivery. The existing native goal retains
+  its earlier blocked status; execution authorization has been restored.
+- Original presentation baseline:1138e71352225d1d428e9c8b4ec21742f7666daa;
   fresh host fetch shows chart upstream0/0 and main313ahead/3behind. Chart branch
   is the approved prerequisite; no main integration is needed.
 - Branch `rs/v5-shared-presentation` created and adopted by native stack tooling in the
   existing worktree. Existing stack221 remains unchanged. Main owns topology.
 - Planning and native planner hardening complete. Implementation, configured
   reviews, browser/gallery, exact packed proof, CI and three draft deliveries
-  remain. Required delivery layer: qualified drafts; achieved: approved plan.
+  remain for the upper layers. Required delivery: three qualified drafts;
+  achieved: qualified presentation and implemented interaction draft.
 - Runtime: exact custom tool container `ds-v5-rhf-checks`, source-mounted read-only
   from this worktree, resumed for checks; no consumer runtime touched.
 - Presentation implementation integrated: all ten assigned UI modules, root
@@ -268,22 +303,22 @@ preserve existing evidence. No human reviewer requests or review replies.
   are complete.
 - Local full accessibility run:851pass and4mounttimeouts during a concurrent
   fixture rebuild; stable rerun passes all8theme/story cases. Hosted full accessibility/visual gates
-  pass at the published source tip; final tip qualification remains pending.
+  pass at the qualified presentation tip.
 - User authorized the bounded configured Claude reviews for all three layers.
   The first complete review found three compatibility defects, all reproduced
   in the browser: standalone Card parts lost padding, omitted ToggleGroup
   orientation changed arrow-key behavior, and iconless Alert actions indented
   desktop text. Variable fallbacks, unchanged omitted orientation, and action-only
   spacing correct them. All 11 focused cases, types, lint, formatting and Ladle
-  build pass. Refreshed package/gallery proof and the focused review remain.
+  build pass. Refreshed proof and the focused review subsequently passed.
 - Hosted CI passes at `2371521dd`. Two subsequent review findings exposed gaps
   in the tests: the compact Switch ref case targeted the default control, and
   Alert placement lacked desktop coverage. The corrected compact target and
   wide/narrow desktop checks pass in an 11-case focused run. Types, lint,
   formatting and Ladle build pass. These fixture/test changes preserve package
   code and rendered appearance; existing packed and screenshot proof is reused.
-- Next action: finish correction proof and the configured review's focused pass,
-  then qualify the current draft head before advancing to interactions.
+- Next action: finish the configured final review and hosted
+  qualification, hold that tip, then execute the approved Calendar layer.
 
 ### Planning review
 

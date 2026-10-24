@@ -294,3 +294,59 @@ createElement(Spinner, { ref: createRef<SVGSVGElement>() })
 createElement(Card, { size: 'dense' })
 const carouselHook: typeof useCarousel = rootUseCarousel
 void carouselHook
+
+import {
+  AlertDialogMedia as RootAlertDialogMedia,
+  PopoverDescription as RootPopoverDescription,
+  PopoverHeader as RootPopoverHeader,
+  PopoverTitle as RootPopoverTitle,
+} from '../../src'
+import {
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  CommandItem,
+  ContextMenuCheckboxItem,
+  ContextMenuRadioItem,
+  DialogFooter,
+  DropdownMenuCheckboxItem,
+  DropdownMenuRadioItem,
+  MenubarCheckboxItem,
+  MenubarRadioItem,
+  SheetContent,
+} from '../../src/primitives'
+
+createElement(RootAlertDialogMedia, { ref: divRef })
+createElement(RootPopoverHeader, { ref: divRef })
+createElement(RootPopoverTitle, {
+  ref: divRef,
+  onClick: (event) => {
+    const div: HTMLDivElement = event.currentTarget
+    void div
+  },
+})
+createElement(RootPopoverDescription, {
+  ref: createRef<HTMLParagraphElement>(),
+})
+createElement(AlertDialogContent, { size: 'sm', ref: divRef })
+createElement(AlertDialogAction, {
+  variant: 'outline',
+  size: 'sm',
+  type: 'submit',
+  ref: createRef<HTMLButtonElement>(),
+})
+createElement(AlertDialogCancel, {
+  variant: 'ghost',
+  size: 'xs',
+  asChild: true,
+})
+createElement(DialogFooter, { showCloseButton: true, ref: divRef })
+createElement(SheetContent, { showCloseButton: false, ref: divRef })
+createElement(CommandItem, { 'data-checked': true, ref: divRef })
+createElement(CommandItem, { 'data-checked': 'false' })
+createElement(DropdownMenuCheckboxItem, { inset: true })
+createElement(DropdownMenuRadioItem, { inset: true, value: 'a' })
+createElement(ContextMenuCheckboxItem, { inset: true })
+createElement(ContextMenuRadioItem, { inset: true, value: 'a' })
+createElement(MenubarCheckboxItem, { inset: true })
+createElement(MenubarRadioItem, { inset: true, value: 'a' })

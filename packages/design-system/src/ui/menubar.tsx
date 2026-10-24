@@ -115,13 +115,18 @@ function MenubarCheckboxItem({
   className,
   children,
   checked,
+  inset,
   ...props
-}: React.ComponentProps<typeof MenubarPrimitive.CheckboxItem>) {
+}: React.ComponentProps<typeof MenubarPrimitive.CheckboxItem> & {
+  inset?: boolean
+}) {
   return (
     <MenubarPrimitive.CheckboxItem
       data-slot="menubar-checkbox-item"
+      data-inset={inset}
       className={cn(
         'text-content focus:bg-primary-container focus:text-primary-100 relative flex h-9 cursor-pointer items-center gap-2 rounded-md py-0 pr-2.5 pl-8 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:cursor-not-allowed data-disabled:opacity-50',
+        inset && 'pl-12',
         className
       )}
       checked={checked}
@@ -140,13 +145,18 @@ function MenubarCheckboxItem({
 function MenubarRadioItem({
   className,
   children,
+  inset,
   ...props
-}: React.ComponentProps<typeof MenubarPrimitive.RadioItem>) {
+}: React.ComponentProps<typeof MenubarPrimitive.RadioItem> & {
+  inset?: boolean
+}) {
   return (
     <MenubarPrimitive.RadioItem
       data-slot="menubar-radio-item"
+      data-inset={inset}
       className={cn(
         'text-content focus:bg-primary-container focus:text-primary-100 relative flex h-9 cursor-pointer items-center gap-2 rounded-md py-0 pr-2.5 pl-8 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:cursor-not-allowed data-disabled:opacity-50',
+        inset && 'pl-12',
         className
       )}
       {...props}
