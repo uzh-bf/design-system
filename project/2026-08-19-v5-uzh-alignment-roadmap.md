@@ -20,8 +20,10 @@ with auxiliaries, current UZH alignment and integrated/manual qualification.
 The dated audits and completed plan scopes below remain historical evidence.
 
 The [remaining sequence](2026-08-10-v5-ga-readiness-roadmap.md#next-implementation-packages)
-starts with Combobox planning and early static composition checks. Shared
-APIs/Calendar, layout/toast and messaging/code packages must carry the supported
+starts with Shared APIs/Calendar after [ADR0008](../docs/adr/0008-radix-compatible-shadcn-scope.md)
+settled the retained Combobox recipe and backend exclusions. Static composition
+accounting retains excluded portions and eligible gaps. Shared APIs/Calendar,
+layout/toast and messaging/code packages must carry the supported
 theme, focus, locale and reduced-motion contracts through their new surfaces.
 Existing ADR0005 adaptations remain authoritative. Complete official-rule
 traceability and integrated/manual consumer proof before any GA alignment claim;

@@ -1,6 +1,6 @@
 # Roadmap — Design System v5 GA readiness
 
-The historical Klicker pilot, RHF parity, selected GBL journey, component compatibility and Recharts 3 qualify at their recorded draft boundaries. The older qualification layer retains a browser-install CI failure. GA still requires the remaining official shadcn Radix catalog and auxiliaries, integrated candidate consumer acceptance, current UZH alignment, and manual qualification. GBL and Klicker remain unmerged by user ruling.
+The historical Klicker pilot, RHF parity, selected GBL journey, component compatibility and Recharts 3 qualify at their recorded draft boundaries. The older qualification layer retains a browser-install CI failure. GA still requires the remaining supported Radix-compatible shadcn catalog and auxiliaries, with the documented exceptions in ADR0008, integrated candidate consumer acceptance, current UZH alignment, and manual qualification. GBL and Klicker remain unmerged by user ruling.
 
 ## Identity and status
 
@@ -40,8 +40,9 @@ immutable release boundary, enforced package budgets, deterministic visual and
 accessibility gates, explicit React Server Components and theme-extension
 contracts, approved consumer-owned primary ramps where used, and representative
 real-application proof. Before GA, provide every existing Formik field capability
-through RHF, retain Formik through v5, support the full official shadcn Radix
-catalog and its auxiliaries, and verify UZH alignment against current official sources.
+through RHF, retain Formik through v5, support the official Radix-compatible shadcn
+catalog and auxiliaries with [ADR0008's documented exceptions](../docs/adr/0008-radix-compatible-shadcn-scope.md),
+and verify UZH alignment against current official sources.
 
 ## Non-goals
 
@@ -147,13 +148,15 @@ acceptance; its required-gate classification has not been established here.
 
 ### Binding v5 GA scope
 
-The October 23 user ruling selects full official shadcn **Radix** coverage and
-compatible auxiliary dependencies. The October 24 clarification explicitly
-excludes Base UI and React Aria backends. Inspect imports and dependency closure:
-a source under a Radix registry path can still use an excluded backend. The
-current upstream Combobox does so and requires a Radix composition assessment,
-not adoption of Base UI. Keep its user-facing capability gaps explicit; the
-backend exclusion alone does not establish equivalent functionality.
+The October 24 user ruling adopts [ADR0008](../docs/adr/0008-radix-compatible-shadcn-scope.md):
+the supported official Radix-compatible shadcn catalog and compatible auxiliaries,
+with documented backend exclusions. This narrows the October 23 blanket catalog
+requirement. Backend-independent components remain eligible. Base UI/React Aria
+implementations without an accepted official Radix route are excluded from
+mandatory GA scope; excluded items remain inventoried and are not marked implemented.
+Mixed examples retain their eligible requirements. Preserve existing consumer
+contracts, Formik/RHF parity, `MultiSelect` and `RhfMultiSelect`; separately named
+capabilities require an explicit decision rather than automatic retirement.
 
 | Formik family retained through v5 | Qualified RHF counterpart | Evidence boundary |
 | --- | --- | --- |
@@ -258,39 +261,34 @@ markers all pass. These completed packages are not queued again.
 The October 24 Opus 5.5 discussion, verified findings and subsequent Radix-only
 user ruling set the next sequence:
 
-1. **Radix-only Combobox assessment and static composition findings.** The
-   [corrected Combobox direction](2026-10-24-v5-combobox-compatibility-plan.md)
-   withdraws the Base UI dependency, compound API and direction bridge proposal.
-   Preserve the root Combobox and compose existing Radix Popover/cmdk Command
-   primitives. Before a bounded execution plan, disposition editable input,
-   object values, multiple selection and chips against concrete Radix recipes;
-   these capabilities remain open rather than implicitly satisfied or removed.
-   Exact Base UI compound API compatibility is excluded. The [static assessment](2026-10-24-v5-composition-compatibility-assessment.md)
-   accounts for all pinned examples, blocks and AI patterns, retaining affected
-   identities and cross-package dependencies. It is source evidence, not type or
-   browser qualification. A future execution plan owns topology, API and entry
-   budgets, forms/RHF, keyboard/RTL and Dialog/Sheet/Drawer interaction proof;
-   no new layer or implementation is authorized by the withdrawn proposal.
-2. **Shared APIs and Calendar.** Assign every concrete matrix delta, including
+[ADR0008](../docs/adr/0008-radix-compatible-shadcn-scope.md) settles the Combobox
+scope disposition. Retain the [official Radix recipe and existing root contract](2026-10-24-v5-combobox-compatibility-plan.md);
+exclude the newer Base UI compound implementation and parity-only variants.
+No new Combobox engine or draft layer is required. The [static assessment](2026-10-24-v5-composition-compatibility-assessment.md)
+retains all example/block/pattern identities, separating excluded portions from
+eligible Shared API and chart obligations. Its source accounting is not type or
+browser qualification. The next implementation packages are:
+
+1. **Shared APIs and Calendar.** Assign every concrete matrix delta, including
    menu item options, Item semantics/sizes, Pagination aliases and element types.
    Preserve legacy defaults while exposing compatible upstream routes. Thread
    locale through Calendar formatting/day rendering and prove existing picker,
    reset, keyboard and type contracts. Keep DayPicker 9 unless a verified gap
    requires a separately assessed migration. Disjoint source work may proceed
    after its plans settle; export integration has one owner.
-3. **Layout and toast auxiliaries.** Plan Panels 4 compatibility, preserving
+2. **Layout and toast auxiliaries.** Plan Panels 4 compatibility, preserving
    existing panel props, persistence, refs and keyboard/touch behavior. The Sonner
    package owns caller-option merging and brand/light-dark theme integration;
    supplying an unrelated toast option must not discard DS defaults. Include
    Sidebar direction and mobile sheet behavior. Serialize manifest/lock changes.
-4. **Messaging/clarification and code/highlighting.** Use separate bounded
+3. **Messaging/clarification and code/highlighting.** Use separate bounded
    packages for the required presentation/scroll/questionnaire surfaces and
    code/highlighting. Their distinct @shadcn/react and Shiki runtime, scrolling,
    copy, SSR/hydration and asset-loading risks need separate acceptance. Prove
    reduced motion, CSS headroom and dependency isolation for unrelated imports;
    keep highlighting lazy. Application blocks and AI transports/state remain
    application-owned.
-5. **Composition and integrated GA qualification.** After static disposition,
+4. **Composition and integrated GA qualification.** After static disposition,
    verify representative packed dashboard/sidebar/auth and AI compositions.
    Refresh official-source drift, tooling advisories and package/peer metadata
    once at final qualification. Accept one integrated exact candidate, with
@@ -299,9 +297,10 @@ user ruling set the next sequence:
    [promotion PR179](https://github.com/uzh-bf/design-system/pull/179), whose
    current conflicts and older failed checks remain a separate gate.
 
-Each matrix row needs implemented equivalence with proof, an adaptation covered
-by an accepted ADR/plan, or a scheduled gap with a package owner. Existing rulings
-remain authoritative; only material unresolved departures need a new decision.
+Each matrix row needs implemented equivalence with proof, an accepted retained
+recipe, a scheduled eligible gap with an owner, or an explicit ADR0008 exclusion.
+Exclusions are closed scope dispositions, not implementation or parity passes.
+Existing rulings remain authoritative; only material unresolved departures need a new decision.
 Correct the shipped migration guide's contradictory RHF touched/submitted timing
 paragraph with the next source package, retaining ADR0006's accepted behavior.
 Distinguish the pinned DayPicker registry install tag from its workspace baseline.

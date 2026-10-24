@@ -2,52 +2,44 @@
 
 ## Approval summary
 
-The October 24 user ruling keeps v5 on Radix variants and rejects Base UI.
-This supersedes the earlier proposal to install `@base-ui/react@1.9.0`, expose
-sixteen Base UI compound identifiers and add a Radix-to-Base direction bridge.
-That proposal was never implemented or approved for implementation. Its planner
-and final-review approvals do not qualify this revised direction.
+The October 24 user approval adopts [ADR0008](../docs/adr/0008-radix-compatible-shadcn-scope.md):
+support official Radix-compatible components and compatible auxiliaries with
+documented exceptions. Retain the existing root Combobox's official Radix
+Popover/cmdk recipe. The newer Base UI compound API and its parity-only variants
+are excluded from mandatory GA scope; no replacement engine or new Combobox
+stack layer is required.
 
-The existing root Combobox already composes our Radix Popover and cmdk Command.
-Keep that implementation and its public types. Further composition should reuse
-those public primitives and the existing theme, direction and form contracts.
-The current upstream file under `registry/bases/radix/ui/combobox.tsx` imports
-Base UI despite its directory name; it is a backend exception to assess, not an
-installation target. Exact compatibility with its compound API is not promised.
+Existing `Combobox`, `MultiSelect` and `RhfMultiSelect` behavior, removable chips,
+public types, accessibility and form contracts remain required. An exclusion of
+upstream API parity cannot retire an existing or separately requested capability.
+The previous Base UI dependency, sixteen-export and direction-bridge proposal
+remains withdrawn. Shared API gaps discovered in mixed examples remain assigned
+to their existing package owners.
 
-The current package corrects the plan, roadmap, dependency matrix and static
-composition assessment. The next execution package must identify which requested
-capabilities the existing Radix composition supplies and which require an
-explicit Radix adaptation. Multiple selection, editable input, object values and
-chips remain visible capability questions; rejecting Base UI does not prove or
-silently remove them. GBL and Klicker merges remain held.
-
-Approval mode: **direction-only**. The user has selected the backend and
-withdrawn the Base UI proposal. This correction authorizes no component changes,
-new dependency, new public API or new stack layer. A bounded Radix execution
-contract follows the capability assessment; the rejected implementation is not
-started under its former plan or review receipts.
+Approval mode: **executable batch, documentation only**. Record ADR0008 and
+reconcile the existing roadmap, matrix, assessments and this retention record on
+the existing draft branch. Completion is consistent source-backed documents,
+focused checks, configured final review, ordinary push and draft description
+read-back. No component, dependency, new API, stack, consumer, runtime, merge,
+release or deployment change is authorized. Shared APIs and Calendar are next
+under their own bounded execution plans.
 
 ## Binding backend and compatibility contract
 
-- Use Radix variants and existing compatible auxiliaries such as cmdk. Base UI
-  and React Aria implementations are outside the selected v5 backend scope.
-- Inspect actual imports and dependency closure, not just a registry directory
-  or the default URL returned by the CLI. An auxiliary cannot introduce an
-  excluded primitive backend through its transitive dependencies.
-- Preserve root `Combobox`, `ComboboxItem`, `ComboboxProps` and
-  `ComboboxClassName`. Preserve the optional RHF entry, Formik through v5 and the
-  existing raw primitive door under ADR0001/0002.
-- Reuse `Popover`, `PopoverTrigger`, `PopoverContent`, `PopoverAnchor` and the
-  existing Command parts from `./primitives`. Do not manufacture the sixteen
-  Base UI identifiers as aliases or claim their props and behavior are equivalent.
-- Keep applications responsible for item data, selection, async retrieval,
-  validation and submission. No product primitive, data owner or persistence
-  policy changes in this documentation correction.
+ADR0008 owns eligibility, exclusions, mixed composition and reconsideration.
+ADR0001/0002 retain the root and primitive doors and optional RHF entry; Formik
+remains supported through v5. No product primitive, data owner or persistence
+policy changes in this package.
+
+Keep root `Combobox`, `ComboboxItem`, `ComboboxProps` and `ComboboxClassName`.
+Preserve existing `MultiSelect` and `RhfMultiSelect`, including multi-selection,
+chips, labels, errors, reset and focus behavior. Applications continue owning
+item data, selection, async retrieval, validation and submission. Do not expose
+the sixteen Base UI identifiers as aliases or promise their props and behavior.
 
 ## Verified source and supported foundation
 
-Planning correction baseline: `786c2474acc703dd1007b0bb3f3a3336f0a8601a`,
+Scope-recording baseline: `2b9e4ad080a9522b1b9bb1842842d92b685f2807`,
 [chart draft #224](https://github.com/uzh-bf/design-system/pull/224), branch
 `rs/v5-recharts-compatibility`, existing `trees/rs-v5-uzh-alignment` worktree.
 Host fetch is current; the task branch matches its upstream. The later main
@@ -63,6 +55,8 @@ that default is not evidence of an eligible Radix implementation.
 The [official legacy Combobox guide](https://v3.shadcn.com/docs/components/combobox)
 and current Context7 lookup describe the classic Popover/Command composition.
 This is explicitly an older composition reference, not the current compound API.
+The [classic example at the existing catalog pin](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/examples/combobox-demo.tsx)
+and its Radix/cmdk dependencies are verified in ADR0008; no catalog repin is needed.
 The [Radix Popover reference](https://www.radix-ui.com/primitives/docs/components/popover)
 owns focus, dismissal, positioning and `asChild` contracts. Our local
 [`Combobox.tsx`](../packages/design-system/src/Combobox.tsx) already composes
@@ -73,62 +67,55 @@ disabled state and search keywords, and the trigger exposes its ref. Preserve
 its existing accessible trigger/input distinction instead of copying an older
 example's duplicate combobox roles.
 
-## Radix capability assessment before the next execution plan
+## Retained contract and excluded variants
 
 The [static composition assessment](2026-10-24-v5-composition-compatibility-assessment.md)
-retains every pinned identity. The Combobox owner must disposition each affected
-recipe without changing the global source pin to conceal a backend mismatch.
+retains every pinned identity. Its excluded compound portions have a closed scope
+disposition under ADR0008, not an implementation pass.
 
-| Capability or composition                                   | Current evidence and next acceptance boundary                                                                                                                                                                                                         |
-| ----------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Searchable single selection                                 | Existing root control and Popover/Command foundation; reuse unchanged proof and qualify any actual changes. Preserve current selection and ref behavior.                                                                                              |
-| Caller-owned open state, groups and custom item rendering   | Public Popover/Command parts provide composition routes; compile a concrete recipe before claiming compatibility. Root configuration props need not change.                                                                                           |
-| Native form and RHF Controller/Field composition            | Applications own value mapping and submission. Prove label/help/error association, reset, disabled state and ref focus using the selected Radix recipe; no new RHF adapter family is assumed.                                                         |
-| Editable input, object values, multiple selection and chips | Remain unresolved Radix adaptation requirements. Define observable selection, search, removal and keyboard behavior before choosing a public API. Do not claim that Command selection state alone supplies multi-select or Base UI generic contracts. |
-| Current compound examples and `preview-02`                  | Source-level Base UI APIs require application recipe adaptation. Keep exact API compatibility excluded; retain missing user capabilities and Shared API dependencies as explicit gaps until their Radix route is designed and verified.               |
+| Capability or composition                                                       | Accepted scope                                                                                                                                                                                                                 |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Root Combobox search and single selection                                       | Retain the current string-value API, disabled items, search, accessible trigger/input roles and trigger ref. Reuse unchanged proof and verify actual changes.                                                                  |
+| Raw Popover/Command composition                                                 | Keep existing public parts. Eligible Shared API gaps remain assigned to that package; this does not create a new compound Combobox contract.                                                                                   |
+| Existing MultiSelect and RHF contracts                                          | Preserve multi-selection/chips and accepted field value, error, reset, disabled and focus behavior. These existing capabilities are not excluded by the compound API decision.                                                 |
+| New compound editable-input, object-value, multiple-selection and chip variants | Excluded where requested only to match the Base UI compound API. No custom engine, sixteen-part API or automatic GA rewrite requirement. Separately named consumer requirements remain visible for an explicit scope decision. |
+| Current compound examples and `preview-02`                                      | Exclude compound Combobox portions while retaining eligible Card, Item, AlertDialog, chart and other Shared API obligations. No full unchanged-example compatibility claim.                                                    |
 
-The owner records a capability as supported with proof, covered by a reviewed
-Radix adaptation, or an unresolved gap with an owner. A backend exclusion does
-not count as completed capability parity. Missing Card size, Item `xs` and newer
-AlertDialog parts remain Shared API work rather than expanding this control.
+No new Combobox implementation package is queued. A separately requested
+capability, migration blocker or new official Radix route can reopen an item as
+specified in ADR0008; it does not silently change the backend or existing API.
 
 ## Verification and delivery boundary
 
-This correction changes project Markdown only. Check local links, source-backed
-claims, formatter scope, exact diff and consistency across the five affected
-documents. Reuse the existing package, browser and exact-archive evidence for its
-recorded source; no new behavior or runtime acceptance follows from these edits.
-Main owns documentation and disposition; a read-only explorer audits backend
-imports, a planner challenges the revised direction, and the configured final
-reviewer checks the immutable committed correction. Execution mode remains
+This package changes documentation only: ADR0008, the GA and UZH roadmap
+pointers, capability matrix, shadcn assessment, composition assessment and this
+retention record. Main owns the coupled policy reconciliation. Mechanical edits
+stay local because delegation overhead exceeds that work; the completed Astra
+and Claude policy advice is reused after the user's approval. The configured
+final reviewer checks the complete committed delta. Execution mode remains
 standard because no allowlisted runtime model identity is exposed.
 
-A later Radix execution plan must name its exact source/API scope, owner and
-proposed draft topology. It must prove relevant keyboard/search/empty/disabled
-and form behavior, focus and dismissal inside Dialog/Sheet/Drawer, nested RTL,
-responsive layout and supported themes. New generic value APIs require actual
-JSX inference proof. Packed root/primitives imports stay RHF-free; the dedicated
-RHF route and supported Next/Recharts/RHF matrix remain protected. Check emitted
-CSS, entry budgets and absence of excluded backend runtimes in the resulting
-package and consumer dependency closure. Existing limits are not raised by default.
-Manual screen-reader, Safari/device and integrated exact-candidate consumer
-acceptance remain separate GA gates.
+Check local links, source-backed claims, formatter scope, exact diff and policy
+consistency. Preserve all inventory identities and distinguish eligible gaps,
+retained recipes and exclusions. Existing package, browser and archive evidence
+remains valid for its recorded source; these edits prove no new runtime behavior.
+No application or container startup, new maintained test or screenshot is needed.
+The existing draft gallery remains evidence for its recorded chart source.
 
-No new stack or implementation branch is created by this correction. The earlier
-`rs/v5-combobox-compatibility` layer was proposed for the rejected package and has
-no implementation authorization. Keep current stack membership and history.
-No readiness conversion, merge, package publication, deployment, consumer writes,
-new automation, provider changes or human review request is authorized here.
+Later implementing packages qualify their eligible import/dependency closure,
+API, keyboard/form/overlay/RTL/theme behavior, emitted CSS and package budgets.
+Reuse existing verification tooling; this decision adds no generic resolver or
+new enforcement framework. RHF isolation, supported package matrices and separate
+manual screen-reader, Safari/device and exact-candidate consumer acceptance
+remain protected. Keep the draft unmerged and current stack membership intact.
 
 ## Progress
 
-- October 24 user correction: Radix variants only; Base UI proposal withdrawn.
-- Revised direction passed planner review. This qualifies the documentation
-  correction, not a replacement implementation contract.
-- Existing package source, dependencies, lockfile and runtime are unchanged.
-- Earlier Base UI implementation requirements and their review approval are
-  superseded. Reusable source observations and static identity accounting remain
-  evidence for their stated scope, with backend eligibility corrected.
-- This package persists the correction on existing [draft #224](https://github.com/uzh-bf/design-system/pull/224). The next source
-  package needs the bounded Radix capability contract described above; it must
-  not execute the withdrawn compound plan.
+- October 24: user approved the Astra/Claude recommendation to exclude
+  incompatible upstream implementations without bespoke replacements.
+- ADR0008 records the policy and source-pinned legacy Combobox exception.
+  Earlier mandatory advanced-variant rewrite wording is superseded.
+- Existing source, dependencies, MultiSelect/RHF/Formik support and runtime are
+  unchanged. This is scope recording, not new component acceptance.
+- Deliver on existing [draft #224](https://github.com/uzh-bf/design-system/pull/224).
+  Shared APIs and Calendar are next; no new Combobox layer is required.
