@@ -5,14 +5,14 @@ import { createRequire } from 'node:module'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-function installedPackage(requireFrom, packageName) {
+function installedPackage(requireFrom, packageName, actualName = packageName) {
   const entry = fs.realpathSync(requireFrom.resolve(packageName))
   let directory = path.dirname(entry)
   while (true) {
     const manifestPath = path.join(directory, 'package.json')
     if (fs.existsSync(manifestPath)) {
       const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'))
-      if (manifest.name === packageName && manifest.version) {
+      if (manifest.name === actualName && manifest.version) {
         return { manifest, directory, require: createRequire(manifestPath) }
       }
     }
@@ -36,10 +36,21 @@ export function assertInstalledDependencies(fixtureArg) {
   const mismatches = []
 
   for (const [name, expected] of Object.entries(manifest.dependencies ?? {})) {
-    const installed = installedPackage(requireFromPackage, name)
-    if (installed.manifest.version !== expected) {
+    const panelsAlias = name === 'react-resizable-panels-v4'
+    if (
+      panelsAlias &&
+      !/^npm:react-resizable-panels@4\.\d+\.\d+$/.test(expected)
+    ) {
+      throw new Error('Resizable v4 must use an exact npm alias')
+    }
+    const expectedName = panelsAlias ? 'react-resizable-panels' : name
+    const expectedVersion = panelsAlias
+      ? expected.slice('npm:react-resizable-panels@'.length)
+      : expected
+    const installed = installedPackage(requireFromPackage, name, expectedName)
+    if (installed.manifest.version !== expectedVersion) {
       mismatches.push(
-        `${name}: expected ${expected}, found ${installed.manifest.version}`
+        `${name}: expected ${expectedVersion}, found ${installed.manifest.version}`
       )
     }
   }
@@ -47,6 +58,24 @@ export function assertInstalledDependencies(fixtureArg) {
     throw new Error(
       `packed dependency version mismatches:\n${mismatches.join('\n')}`
     )
+  }
+  if (fixture.dependencies?.['react-resizable-panels']) {
+    const application = installedPackage(
+      requireFromFixture,
+      'react-resizable-panels'
+    )
+    const library = installedPackage(
+      requireFromPackage,
+      'react-resizable-panels'
+    )
+    if (
+      fixture.dependencies['react-resizable-panels'] !== '3.0.6' ||
+      application.manifest.version !== '3.0.6' ||
+      library.manifest.version !== '3.0.6' ||
+      application.directory !== library.directory
+    ) {
+      throw new Error('Legacy resizable compositions must share the v3 runtime')
+    }
   }
   if (
     manifest.dependencies?.recharts ||

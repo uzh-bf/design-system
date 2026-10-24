@@ -285,11 +285,13 @@ browser qualification. The next implementation packages are:
    remain named follow-ups; locale qualification alone does not close them.
    Presentation/control draft [#225](https://github.com/uzh-bf/design-system/pull/225)
    qualifies at `2d8b02a6f`; overlay/menu draft [#226](https://github.com/uzh-bf/design-system/pull/226) qualifies at `4d5f60fc6` with configured final review, complete hosted CI, exact artifact proof and 42 published captures. Calendar draft [#228](https://github.com/uzh-bf/design-system/pull/228) implements locale/grid compatibility with local behavioral, packed and source-review proof. Implementation and local proof are complete, including the supplied-locale Gregorian correction and retained enUS datetime default. Final qualification evidence is recorded in the draft description. An extra open-menu audit reproduces an existing Ladle-root `aria-hidden-focus` result on the lower exact package; keep it in GA accessibility follow-up.
-2. **Layout and toast auxiliaries.** Plan Panels 4 compatibility, preserving
-   existing panel props, persistence, refs and keyboard/touch behavior. The Sonner
-   package owns caller-option merging and brand/light-dark theme integration;
-   supplying an unrelated toast option must not discard DS defaults. Include
-   Sidebar direction and mobile sheet behavior. Serialize manifest/lock changes.
+2. **Layout and toast auxiliaries.** The user approved the [three-layer execution plan](2026-10-24-v5-layout-toast-compatibility-plan.md).
+   Retain canonical Panels3.0.6 for root compatibility and expose native Panels4.14.8
+   through raw primitives using the internal alias and exported helpers. Panels
+   source and initial package/browser proof are in progress; qualification remains
+   pending. Sonner2.0.8 owns caller-option merging and brand/light-dark integration;
+   Sidebar owns mobile direction, caller props and focus. Keep all three drafts
+   independently qualified and unmerged; serialize manifest/lock changes.
 3. **Messaging/clarification and code/highlighting.** Use separate bounded
    packages for the required presentation/scroll/questionnaire surfaces and
    code/highlighting. Their distinct @shadcn/react and Shiki runtime, scrolling,
@@ -310,8 +312,8 @@ Each matrix row needs implemented equivalence with proof, an accepted retained
 recipe, a scheduled eligible gap with an owner, or an explicit ADR0008 exclusion.
 Exclusions are closed scope dispositions, not implementation or parity passes.
 Existing rulings remain authoritative; only material unresolved departures need a new decision.
-Correct the shipped migration guide's contradictory RHF touched/submitted timing
-paragraph with the next source package, retaining ADR0006's accepted behavior.
+Both current RHF error-presentation paragraphs agree with ADR0006's accepted
+behavior; the earlier timing-paragraph correction instruction is superseded.
 Distinguish the pinned DayPicker registry install tag from its workspace baseline.
 Existing compact Button bounds/spacing and bar contrast checks already pass;
 reuse those results instead of adding duplicate tests. Manual and genuinely

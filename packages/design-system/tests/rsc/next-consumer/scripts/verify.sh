@@ -59,6 +59,7 @@ function resolveModule(directory, specifier) {
 function assertGraph(entry) {
   const queue = [path.resolve(distDir, entry)]
   const visited = new Set()
+  const resizableImports = new Set()
 
   while (queue.length > 0) {
     const file = queue.shift()
@@ -69,6 +70,9 @@ function assertGraph(entry) {
     if (rhfImport.test(code)) {
       throw new Error(`${entry} reaches react-hook-form through ${path.relative(distDir, file)}`)
     }
+    for (const match of code.matchAll(/(?:from\s+|import\s*)['"](react-resizable-panels(?:-v4)?)['"]/g)) {
+      resizableImports.add(match[1])
+    }
 
     for (const match of code.matchAll(relativeImport)) {
       const child = resolveModule(path.dirname(file), match[2])
@@ -76,6 +80,10 @@ function assertGraph(entry) {
     }
   }
 
+  const expectedEngine = entry === 'index.js' ? 'react-resizable-panels' : 'react-resizable-panels-v4'
+  if (resizableImports.size !== 1 || !resizableImports.has(expectedEngine)) {
+    throw new Error(`${entry} has the wrong resizable engine boundary: ${[...resizableImports]}`)
+  }
   return visited.size
 }
 
@@ -160,30 +168,44 @@ NODE
   node "$fixture_dir/../rhf-matrix.mjs" assert-installed "$run_fixture"
   node "$fixture_dir/../packed-consumers/scripts/assert-installed-dependencies.mjs" "$run_fixture"
   pnpm exec next build
+)
+
+run_browser_contracts() {
+  (
+    cd "$run_fixture"
+    exec node node_modules/next/dist/bin/next start --hostname 127.0.0.1 --port "$fixture_port"
+  ) >"$run_root/next-start.log" 2>&1 &
+  server_pid=$!
+
+  attempt=0
+  while ! curl --fail --silent --output /dev/null "http://127.0.0.1:$fixture_port/"; do
+    if ! kill -0 "$server_pid" 2>/dev/null; then
+      cat "$run_root/next-start.log" >&2
+      exit 1
+    fi
+    attempt=$((attempt + 1))
+    if test "$attempt" -ge 60; then
+      cat "$run_root/next-start.log" >&2
+      exit 1
+    fi
+    sleep 1
+  done
+
+  (
+    cd "$run_fixture"
+    RSC_FIXTURE_PORT="$fixture_port" pnpm exec playwright test
+  )
+
+  kill "$server_pid" 2>/dev/null || true
+  wait "$server_pid" 2>/dev/null || true
+  server_pid=''
+}
+
+run_browser_contracts
+
+(
+  cd "$run_fixture"
   pnpm exec next build --webpack
 )
 
-(
-  cd "$run_fixture"
-  exec node node_modules/next/dist/bin/next start --hostname 127.0.0.1 --port "$fixture_port"
-) >"$run_root/next-start.log" 2>&1 &
-server_pid=$!
-
-attempt=0
-while ! curl --fail --silent --output /dev/null "http://127.0.0.1:$fixture_port/"; do
-  if ! kill -0 "$server_pid" 2>/dev/null; then
-    cat "$run_root/next-start.log" >&2
-    exit 1
-  fi
-  attempt=$((attempt + 1))
-  if test "$attempt" -ge 60; then
-    cat "$run_root/next-start.log" >&2
-    exit 1
-  fi
-  sleep 1
-done
-
-(
-  cd "$run_fixture"
-  RSC_FIXTURE_PORT="$fixture_port" pnpm exec playwright test
-)
+run_browser_contracts
