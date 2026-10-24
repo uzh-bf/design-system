@@ -258,3 +258,15 @@ deployment, merge or ready conversion is implied by green draft CI.
   both bundlers. Full accessibility:875pass; pinned visual regression:29pass.
   Reviews, final screenshots/artifact proof and hosted CI still precede draft
   qualification.
+
+- Panels implementation is committed; dedicated simplification accepted removal
+  of an unused story storage counter. Package archive SHA-256
+  `c813b909129941b5ffd4c7f683c773afdcc712d1d44f899250c69b49419d978f`
+  matches all270installed files; all447tracked package sources match the
+  producing container. Existing root source remains byte-equivalent.
+- The Panels layer has31paths including9generated lockfiles and4project
+  documents. Human-authored delta exceeds the estimate because the two distinct
+  engine contracts need diagnostic stories, behavioral proof and packed Next
+  SSR/reload verification. It remains one compatibility package as approved;
+  separating these proofs would leave the engine migration unqualified.
+  Dedicated simplification found only one unused diagnostic counter.
