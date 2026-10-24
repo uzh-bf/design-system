@@ -243,22 +243,35 @@ preserve existing evidence. No human reviewer requests or review replies.
   qualifies at `2d8b02a6f`: complete hosted CI, initial/focused configured final
   review, exact archive/installed-file proof and 18 published captures pass.
   Runtime and browser are stopped. Preserve that lower tip.
-- Active layer: `rs/v5-shared-interactions`, based on that qualified tip. Two
-  bounded source executors completed the six menu/overlay modules; main owns
-  remaining public parts, harness, types and integration. Initial types/lint pass.
-  Browser verification is correcting fixture overlap with Ladle controls and
-  proving compact Select height under a stretching form row. No dependencies or
-  omission defaults change. Initial builds/tests precede slice commit/reviews.
+- Active draft [#226](https://github.com/uzh-bf/design-system/pull/226):
+  interactions implemented at `b0c46d1a7`, based on the held presentation tip.
+  Full behavioral contracts:146pass; six themed accessibility cases pass.
+  Types, lint, formatting, build, focused scanner and all three packed/Next
+  endpoint cells pass both bundlers. Exact archive SHA-256
+  `75dd0ad7b6a0bc34d0e1172f073a3962c1e1b5d96060c69481e1d230871b2e90`
+  matches all268installed files. Thirty-six synthetic captures are inspected;
+  native publication, configured final review and hosted qualification remain.
+- Simplifier inspected the complete interaction range and found no useful
+  reduction. Required risk review is running. Substantive size:1012added/deleted
+  lines, excluding project artifacts;19paths. The single synthetic harness and
+  behavioral seam carry most of the size and protect coupled caller/focus/portal
+  contracts. Keep this one approved interaction package.
+- An extra audit of an open modal menu reports `aria-hidden-focus` on Ladle's
+  root across the three supported surfaces. The same synthetic menu reproduces
+  it with the exact qualified lower archive. Record it as an existing GA
+  accessibility follow-up; no waiver, budget or menu modality change is included.
 - October 24: user approved both plans and the three-layer topology, including
-  ordinary pushes and qualified draft delivery; native goal active.
-- Active slice: presentation and controls. Baseline1138e71352225d1d428e9c8b4ec21742f7666daa;
+  ordinary pushes and qualified draft delivery. The existing native goal retains
+  its earlier blocked status; execution authorization has been restored.
+- Original presentation baseline:1138e71352225d1d428e9c8b4ec21742f7666daa;
   fresh host fetch shows chart upstream0/0 and main313ahead/3behind. Chart branch
   is the approved prerequisite; no main integration is needed.
 - Branch `rs/v5-shared-presentation` created and adopted by native stack tooling in the
   existing worktree. Existing stack221 remains unchanged. Main owns topology.
 - Planning and native planner hardening complete. Implementation, configured
   reviews, browser/gallery, exact packed proof, CI and three draft deliveries
-  remain. Required delivery layer: qualified drafts; achieved: approved plan.
+  remain for the upper layers. Required delivery: three qualified drafts;
+  achieved: qualified presentation and implemented interaction draft.
 - Runtime: exact custom tool container `ds-v5-rhf-checks`, source-mounted read-only
   from this worktree, resumed for checks; no consumer runtime touched.
 - Presentation implementation integrated: all ten assigned UI modules, root
@@ -278,22 +291,22 @@ preserve existing evidence. No human reviewer requests or review replies.
   are complete.
 - Local full accessibility run:851pass and4mounttimeouts during a concurrent
   fixture rebuild; stable rerun passes all8theme/story cases. Hosted full accessibility/visual gates
-  pass at the published source tip; final tip qualification remains pending.
+  pass at the qualified presentation tip.
 - User authorized the bounded configured Claude reviews for all three layers.
   The first complete review found three compatibility defects, all reproduced
   in the browser: standalone Card parts lost padding, omitted ToggleGroup
   orientation changed arrow-key behavior, and iconless Alert actions indented
   desktop text. Variable fallbacks, unchanged omitted orientation, and action-only
   spacing correct them. All 11 focused cases, types, lint, formatting and Ladle
-  build pass. Refreshed package/gallery proof and the focused review remain.
+  build pass. Refreshed proof and the focused review subsequently passed.
 - Hosted CI passes at `2371521dd`. Two subsequent review findings exposed gaps
   in the tests: the compact Switch ref case targeted the default control, and
   Alert placement lacked desktop coverage. The corrected compact target and
   wide/narrow desktop checks pass in an 11-case focused run. Types, lint,
   formatting and Ladle build pass. These fixture/test changes preserve package
   code and rendered appearance; existing packed and screenshot proof is reused.
-- Next action: finish correction proof and the configured review's focused pass,
-  then qualify the current draft head before advancing to interactions.
+- Next action: finish interaction reviews, native gallery publication and hosted
+  qualification, hold that tip, then execute the approved Calendar layer.
 
 ### Planning review
 

@@ -33,6 +33,19 @@ and their referenced `apps/v4/examples/radix` bodies. No moving-main source
 silently changes this finite denominator. No application code or dependencies
 were copied into the library.
 
+## Shared API execution checkpoint
+
+Presentation draft #225 qualifies at `2d8b02a6f`. Interaction draft
+[#226](https://github.com/uzh-bf/design-system/pull/226) implements the approved
+Popover parts, overlay options, menu insets, Command checks and Select markers
+and compact geometry. Local contracts and all packed/Next endpoint cells pass;
+full final review and hosted qualification remain. These close concrete source
+gaps when qualified; the identity tables below remain the historical static
+assessment. They do not become full example or block runtime passes. Calendar,
+layout/toast, messaging/highlighting and representative integrated compositions
+retain their assigned owners. The existing open-menu Ladle-root accessibility
+audit residual is tracked in the capability matrix and GA roadmap.
+
 ## Registry examples
 
 The [example manifest](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/bases/radix/examples/_registry.ts)
