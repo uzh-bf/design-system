@@ -42,9 +42,12 @@ The version query still identifies deferred major migrations for DayPicker, Resi
 
 ## Full Radix scope and release review — 2026-10-23
 
-The user selected the **full official Radix catalog and auxiliary dependencies**
-as v5 GA scope. Earlier focused Field/InputGroup/default comparisons are useful
-history; they do not qualify this larger contract. Required capabilities may no
+The user selected the **full official Radix catalog and compatible auxiliary dependencies**
+as v5 GA scope. The October24 clarification excludes Base UI and React Aria
+primitive backends, including transitive adoption through an auxiliary. Treat
+Radix-labelled files using either backend as explicit adaptation gaps.
+Earlier focused Field/InputGroup/default comparisons are useful history; they
+do not qualify this larger contract. Required capabilities may no
 longer be deferred merely because their APIs are additive or need an auxiliary
 major migration. The [GA roadmap](2026-08-10-v5-ga-readiness-roadmap.md#current-execution-index--2026-10-23)
 owns ordering and acceptance; this section owns the upstream comparison boundary.
@@ -154,7 +157,7 @@ must resolve to exact tested versions during the implementing package.
 | Sonner                           | `sonner`, `next-themes`                                                             | 1.7.4 / 0.4.6; qualify current toast behavior, announcements and themes                                                                                                               |
 | Carousel / Command               | `embla-carousel-react` / `cmdk`                                                     | 8.6.0 / 1.1.1; verify current composition and interactions                                                                                                                            |
 | Drawer / OTP                     | `vaul` / `input-otp`                                                                | 1.1.2 / 1.5.0; verify overlays, keyboard, paste and controlled state                                                                                                                  |
-| Combobox                         | `@base-ui/react`                                                                    | Absent; current official Radix-catalog Combobox uses Base UI internally, without implying a full second backend                                                                       |
+| Combobox                         | `@base-ui/react`                                                                    | Excluded backend by the October24 user ruling; the Radix-labelled source imports Base UI. Preserve Radix Popover/cmdk composition and assess remaining capabilities explicitly        |
 | Message Scroller / Questionnaire | `@shadcn/react`                                                                     | Absent; assess headless ownership, state/serialization, scroll anchoring and accessibility                                                                                            |
 | Highlighted code hook            | `shiki`                                                                             | Absent; assess async highlighting, bundles, SSR/client boundaries and copy interactions                                                                                               |
 | `utils` / class composition      | `cn`                                                                                | Absent; local helper wraps clsx/tailwind-merge. Qualify a compatible migration or adapter, including class precedence and consumer-defined theme groups                               |
@@ -223,8 +226,12 @@ Qualify DayPicker 9 source/type/locale compatibility before proposing a major
 migration; the registry install tag alone does not require DayPicker 10.
 
 The [GA roadmap](2026-08-10-v5-ga-readiness-roadmap.md#next-implementation-packages)
-now starts with the [reviewed compound Combobox plan](2026-10-24-v5-combobox-compatibility-plan.md), preserving the root API,
-and an early static sweep of all pinned examples, blocks and AI patterns. Every
+now starts with the [corrected Radix-only Combobox direction](2026-10-24-v5-combobox-compatibility-plan.md), preserving the root API
+and existing Popover/cmdk foundation. The user rejected Base UI, including its
+use inside Radix-labelled registry files. The compound Base UI proposal is
+withdrawn; its sixteen-part API is not a compatibility promise. Editable input,
+object values, multiple selection and chips need an explicit Radix assessment.
+The static sweep retains all pinned examples, blocks and AI patterns. Every
 remaining delta needs a package owner and proof or an already-approved adaptation.
 Shared APIs/Calendar and layout/toast follow; messaging/clarification and
 code/highlighting retain separate runtime and acceptance boundaries. Required UI
@@ -238,5 +245,6 @@ accounts for all 67 examples, 30 blocks and 21 AI patterns, including actual
 AI demo/variant bodies and reachable preview cards. Confirmation and Suggestion
 need messaging primitives despite narrower installation snippets. Cross-package
 Card/Item/AlertDialog requirements in Combobox examples remain Shared API work;
-they do not widen the proposed Combobox implementation. Static source coverage
+they do not widen Combobox scope. Base UI-dependent examples retain their
+identity and an open Radix adaptation disposition. Static source coverage
 does not establish compilation or representative browser acceptance.

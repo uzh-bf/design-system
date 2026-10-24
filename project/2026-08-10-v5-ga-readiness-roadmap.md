@@ -148,9 +148,12 @@ acceptance; its required-gate classification has not been established here.
 ### Binding v5 GA scope
 
 The October 23 user ruling selects full official shadcn **Radix** coverage and
-auxiliary dependencies. It does not request three complete primitive backends.
-A dependency used by an official Radix component, such as Base UI inside the
-current Combobox, belongs in the dependency compatibility assessment.
+compatible auxiliary dependencies. The October 24 clarification explicitly
+excludes Base UI and React Aria backends. Inspect imports and dependency closure:
+a source under a Radix registry path can still use an excluded backend. The
+current upstream Combobox does so and requires a Radix composition assessment,
+not adoption of Base UI. Keep its user-facing capability gaps explicit; the
+backend exclusion alone does not establish equivalent functionality.
 
 | Formik family retained through v5 | Qualified RHF counterpart | Evidence boundary |
 | --- | --- | --- |
@@ -252,20 +255,22 @@ packed/Next version cells and 42 synthetic captures. ChartContainer measures
 10.3–11.0 kB; the approved 8 kB positive minimum, 34 kB ceiling and dependency
 markers all pass. These completed packages are not queued again.
 
-The October 24 Opus 5.5 discussion and main-session verification retain the
-binding GA scope and refine the next sequence:
+The October 24 Opus 5.5 discussion, verified findings and subsequent Radix-only
+user ruling set the next sequence:
 
-1. **Combobox plan and early static composition sweep.** The reviewed
-   [Combobox plan](2026-10-24-v5-combobox-compatibility-plan.md) proposes the compound
-   primitive while preserving the root Combobox and its public types.
-   Propose topology in that plan; a new stack above the chart draft is a proposal,
-   not an approved topology change. Start static compatibility accounting of all
-   pinned examples, blocks and AI patterns alongside planning, so concrete gaps
-   feed the shared-API packages before they close. The [static assessment](2026-10-24-v5-composition-compatibility-assessment.md)
-   records exact identity dispositions and cross-package dependencies; it is
-   source evidence, not type/browser qualification. Qualify Base UI dependency and
-   entry budgets, single/multiple selection, controlled state, forms/RHF,
-   keyboard/RTL and focus/dismissal inside Dialog, Sheet and Drawer.
+1. **Radix-only Combobox assessment and static composition findings.** The
+   [corrected Combobox direction](2026-10-24-v5-combobox-compatibility-plan.md)
+   withdraws the Base UI dependency, compound API and direction bridge proposal.
+   Preserve the root Combobox and compose existing Radix Popover/cmdk Command
+   primitives. Before a bounded execution plan, disposition editable input,
+   object values, multiple selection and chips against concrete Radix recipes;
+   these capabilities remain open rather than implicitly satisfied or removed.
+   Exact Base UI compound API compatibility is excluded. The [static assessment](2026-10-24-v5-composition-compatibility-assessment.md)
+   accounts for all pinned examples, blocks and AI patterns, retaining affected
+   identities and cross-package dependencies. It is source evidence, not type or
+   browser qualification. A future execution plan owns topology, API and entry
+   budgets, forms/RHF, keyboard/RTL and Dialog/Sheet/Drawer interaction proof;
+   no new layer or implementation is authorized by the withdrawn proposal.
 2. **Shared APIs and Calendar.** Assign every concrete matrix delta, including
    menu item options, Item semantics/sizes, Pagination aliases and element types.
    Preserve legacy defaults while exposing compatible upstream routes. Thread
