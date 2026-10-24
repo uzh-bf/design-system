@@ -35,6 +35,9 @@ export const W1_THEME_EXTENSION_STORY_IDS = [
 ] as const
 
 export const EXPECTED_STORY_IDS = [
+  'shared-presentation--controls',
+  'shared-presentation--retained-composition',
+  'shared-presentation--surfaces',
   'accordion--default',
   'alert--default',
   'alert--destructive',
