@@ -246,7 +246,7 @@ deployment, merge or ready conversion is implied by green draft CI.
   approval of the executable batch is recorded.
 
 - Execution started on rs/v5-panels-compatibility above frozen Calendar0f7.
-  Native stack initialized locally; no PR exists yet. Main owns slice1, then
+  Native stack initialized locally; draft [#229](https://github.com/uzh-bf/design-system/pull/229) exists. Main owns slice1, then
   delegates slice2 while integrating package and Next proof.
 
 - Panels core check/lint/build and13dependency-validator cases pass. The default
@@ -261,7 +261,7 @@ deployment, merge or ready conversion is implied by green draft CI.
 
 - Panels implementation is committed; dedicated simplification accepted removal
   of an unused story storage counter. Package archive SHA-256
-  `c813b909129941b5ffd4c7f683c773afdcc712d1d44f899250c69b49419d978f`
+  `bcf790782bd8ce61502be54c84d3e70704026aea44195847156d3308398dceb7`
   matches all270installed files; all447tracked package sources match the
   producing container. Existing root source remains byte-equivalent.
 - The Panels layer has31paths including9generated lockfiles and4project
@@ -270,3 +270,12 @@ deployment, merge or ready conversion is implied by green draft CI.
   SSR/reload verification. It remains one compatibility package as approved;
   separating these proofs would leave the engine migration unqualified.
   Dedicated simplification found only one unused diagnostic counter.
+
+- Panels simplification and independent slice risk review are complete. Eight
+  synthetic screenshots cover retained nesting, both families, desktop/phone,
+  neutral-light/dark and UZH-light. Native uploads are verified byte-for-byte.
+  Diagnostic dark backgrounds/prose pass two extra accessibility audits.
+  The final archive changes only the added scoped dark-prose CSS utility from
+  the passing matrix candidate; all runtime JavaScript is identical. Fresh
+  budgets and704theme assertions pass. Configured final review, hosted CI,
+  rendered-forge verification and quiet feedback settle remain.
