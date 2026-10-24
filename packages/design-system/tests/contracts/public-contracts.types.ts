@@ -350,3 +350,34 @@ createElement(ContextMenuCheckboxItem, { inset: true })
 createElement(ContextMenuRadioItem, { inset: true, value: 'a' })
 createElement(MenubarCheckboxItem, { inset: true })
 createElement(MenubarRadioItem, { inset: true, value: 'a' })
+
+import { de } from 'date-fns/locale'
+import { CalendarDay, DayButton, type DayPickerProps } from 'react-day-picker'
+import { Calendar, CalendarDayButton } from '../../src/primitives'
+
+const calendarLocale: DayPickerProps['locale'] = de
+const calendarDayProps: ComponentProps<typeof DayButton> = {
+  day: new CalendarDay(new Date(2026, 9, 15), new Date(2026, 9)),
+  modifiers: {},
+  children: 15,
+}
+createElement(CalendarDayButton, {
+  ...calendarDayProps,
+  locale: calendarLocale,
+})
+createElement(Calendar, {
+  locale: calendarLocale,
+  dir: 'rtl',
+  timeZone: 'UTC',
+  classNames: { table: 'legacy-grid', month_grid: 'canonical-grid' },
+  components: {
+    DayButton: (props) =>
+      createElement(CalendarDayButton, { ...props, locale: calendarLocale }),
+  },
+  formatters: {
+    formatMonthDropdown: (month, dateLib) =>
+      dateLib?.format(month, 'LLLL') ?? '',
+  },
+})
+// @ts-expect-error Calendar locale requires a DayPicker locale object.
+createElement(CalendarDayButton, { ...calendarDayProps, locale: 'de-DE' })

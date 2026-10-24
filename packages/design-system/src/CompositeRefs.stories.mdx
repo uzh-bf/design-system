@@ -47,6 +47,23 @@ export const Default = () => {
   const [range, setRange] = useState(undefined)
   const [dateTime, setDateTime] = useState(undefined)
 
+  const serializeRange = (currentRange) => {
+    const serializeDate = (date) =>
+      date
+        ? {
+            day: date.getDate(),
+            month: date.getMonth() + 1,
+            timestamp: date.getTime(),
+            year: date.getFullYear(),
+          }
+        : null
+
+    return {
+      from: serializeDate(currentRange?.from),
+      to: serializeDate(currentRange?.to),
+    }
+  }
+
   return (
     <div className="flex max-w-3xl flex-col gap-4">
       <div className="flex items-center gap-2">
@@ -259,6 +276,16 @@ export const Default = () => {
           onClick={() => dateRangePickerRef.current?.focus()}
         >
           Focus date range picker
+        </button>
+        <output data-test="selected-range">
+          {JSON.stringify(serializeRange(range))}
+        </output>
+        <button
+          type="button"
+          data-test="reset-date-range"
+          onClick={() => setRange(undefined)}
+        >
+          Reset date range
         </button>
       </div>
 

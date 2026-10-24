@@ -35,6 +35,11 @@ export const W1_THEME_EXTENSION_STORY_IDS = [
 ] as const
 
 export const EXPECTED_STORY_IDS = [
+  'calendar-compatibility--bounds-and-navigation',
+  'calendar-compatibility--direction-and-timezone',
+  'calendar-compatibility--formik-pickers',
+  'calendar-compatibility--locale-and-overrides',
+  'calendar-compatibility--selection-and-grid-hooks',
   'shared-interactions--command-and-select',
   'shared-interactions--menus',
   'shared-interactions--overlays',

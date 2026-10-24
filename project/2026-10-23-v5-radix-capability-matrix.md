@@ -93,9 +93,20 @@ sizes, Carousel hook, Pagination aliases, Switch size, ToggleGroup spacing and
 InputOTP spellcheck precedence. Retained DOM and generic ItemGroup adaptations
 are documented. The draft qualifies at `2d8b02a6f` with complete hosted CI,
 configured final review, exact packed proof and 18 published real captures.
-Overlay/menu draft [#226](https://github.com/uzh-bf/design-system/pull/226) implements the approved parts/options at `b0c46d1a7`. Local146behavioral, six themed accessibility and all three packed/Next endpoint cells pass; independent final review, native capture publication and hosted qualification remain. An extra open-menu audit reproduces an existing `aria-hidden-focus` result on the Ladle root using the exact lower archive; retain it as a GA accessibility follow-up. Calendar rows
-remain assigned to their following layers. The baseline table below is historical
+Overlay/menu draft [#226](https://github.com/uzh-bf/design-system/pull/226) qualifies at `4d5f60fc6`: all146behavioral contracts, complete hosted CI, configured initial/focused final review, exact archive/source audit and42published captures pass. Caller compact width precedence was reproduced and corrected. An extra open-menu audit reproduces an existing `aria-hidden-focus` result on the Ladle root using the exact lower archive; retain it as a GA accessibility follow-up. Calendar locale/grid compatibility is the active approved layer. The baseline table below is historical
 comparison evidence, not the current implementation status of those delivered APIs.
+
+### Calendar implementation checkpoint
+
+[Draft #228](https://github.com/uzh-bf/design-system/pull/228) implements the
+approved locale formatter/day metadata and canonical grid hook with retained
+legacy customization. Locale objects, explicit direction/timezone, caller
+formatters/components and picker value ownership are verified in the named
+Calendar contract seam. Local156behavioral/10themed accessibility cases, three
+packed/Next cells, source reviews and exact archive/source audit pass. Thirty-six
+inspected native captures and exact source/archive proof are recorded in the
+draft; its description records final-review and hosted qualification status. This closes the bounded locale package when qualified, while yearRange,
+application-owned non-Gregorian recipes and the contrast follow-up below remain.
 
 ### October 24 planning corrections
 
@@ -392,3 +403,14 @@ exclusions without claiming unchanged-example compatibility. Record manual scree
 Refresh upstream drift once at final qualification and disposition it without
 silently expanding this pinned finite scope. Candidate publication, consumer
 merges and integrated GA acceptance remain separate gates.
+
+### Calendar empty-error audit follow-up
+
+An extra synthetic empty-error audit reproduces a pre-existing UZH contrast
+failure on DatePicker and DateTimePicker placeholder text: `#666666` on
+`#ffdbcc`,4.44:1 rather than4.5:1. The exact qualified lower archive shows the
+same computed colours and axe result after transitions settle. The Calendar
+locale package changes neither these controls nor their colour tokens. Track a
+bounded picker/error-state contrast correction before GA; no waiver, suppression
+or current-package accessibility pass is implied by the existing closed-story
+checks. Manual qualification and exact integrated consumer acceptance stay open.

@@ -969,3 +969,35 @@ focus and cmdk selection remain separate. CommandShortcut suppresses that check.
 Legacy caller-owned indicators, including the root Combobox, omit `data-checked`
 and gain no extra indicator or reserved spacing. CommandDialog still supplies its
 implicit Command wrapper; close-button defaults and separator filtering remain.
+
+## Calendar locale and grid compatibility
+
+Calendar now applies the supplied DayPicker locale object to its default month
+dropdown labels and day metadata. Supplied locales use Gregorian formatting to
+match the date engine, including locales whose Intl default is another calendar.
+Omitted Calendar locale retains browser-default
+formatting. A custom formatter or DayButton still replaces the default and keeps
+its native arguments, labels and handlers. CalendarDayButton accepts the same
+optional locale object for direct DayPicker compositions.
+
+Use `classNames.month_grid` for the month table. The legacy `classNames.table`
+customization remains supported when the canonical key is omitted; an explicit
+canonical value wins. Explicit `dir` and `timeZone` continue to pass through
+Calendar. Date values remain caller-owned; localized `data-day` strings are
+presentation metadata rather than a date-storage format.
+
+DateTimePicker's locale is a DayPicker locale object, such as `de` imported from
+`date-fns/locale`. DateTimePicker retains its existing `enUS` default, so an
+omitted picker locale now produces en-US month labels and day metadata. Pass
+`locale={de}` for German calendars. This default also applies through the Formik
+and RHF datetime bindings. Trigger text follows `displayFormat`
+and dayjs; time-control labels use `timeLabels`. Standalone DatePicker and
+DateRangePicker retain their numeric trigger formats and existing props, and
+Formik and RHF bindings retain their value/reset/error ownership.
+
+The retained DateTimePicker `yearRange` option currently does not change Calendar
+navigation bounds. Its contract repair remains a separate follow-up. Calendar's
+omitted bounds remain January of the current year minus one through January of
+the current year plus 99; explicit native bounds still win. Application-owned
+non-Gregorian recipes and manual screen-reader/Safari/device qualification remain
+separate from this locale update.

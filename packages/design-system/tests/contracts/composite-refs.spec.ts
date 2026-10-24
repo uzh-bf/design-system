@@ -131,6 +131,60 @@ test.describe('composite ref contracts', () => {
     await expect(colorTrigger).toBeFocused()
   })
 
+  test('reports and resets an actual date range selection', async ({
+    page,
+  }) => {
+    await page.clock.setFixedTime(new Date('2026-10-20T18:00:00Z'))
+    await gotoStory(page, story)
+
+    const trigger = page.locator('[data-test="ref-date-range-picker"]')
+    await trigger.click()
+    const firstMonth = page.locator('[data-slot="calendar"] .rdp-month').first()
+    const availableDays = firstMonth.locator(
+      'td[data-day]:not([data-outside="true"]) button:not([disabled])'
+    )
+    const fromCell = availableDays.nth(4).locator('xpath=..')
+    const toCell = availableDays.nth(14).locator('xpath=..')
+    const fromDay = (await fromCell.getAttribute('data-day'))!
+    const toDay = (await toCell.getAttribute('data-day'))!
+
+    await fromCell.getByRole('button').click()
+    await toCell.getByRole('button').click()
+    const selected = JSON.parse(
+      (await page.locator('[data-test="selected-range"]').innerText())!
+    ) as {
+      from: { day: number; month: number; timestamp: number; year: number }
+      to: { day: number; month: number; timestamp: number; year: number }
+    }
+    const toDateParts = (value: string) => {
+      const [year, month, day] = value.split('-').map(Number)
+      return { day, month, year }
+    }
+    expect(selected.from).toMatchObject(toDateParts(fromDay))
+    expect(selected.to).toMatchObject(toDateParts(toDay))
+    await expect(
+      page.locator('[data-slot="calendar"] button[data-range-start="true"]')
+    ).toHaveCount(1)
+    await expect(
+      page.locator('[data-slot="calendar"] button[data-range-end="true"]')
+    ).toHaveCount(1)
+
+    await page.keyboard.press('Escape')
+    await expect(trigger).toBeFocused()
+    await page.locator('[data-test="reset-date-range"]').click()
+    await expect(page.locator('[data-test="selected-range"]')).toHaveText(
+      JSON.stringify({ from: null, to: null })
+    )
+    await expect(trigger).toHaveAttribute('aria-expanded', 'false')
+    await trigger.click()
+    await availableDays.nth(2).click()
+    const resetSelection = JSON.parse(
+      (await page.locator('[data-test="selected-range"]').innerText())!
+    ) as { from: object | null; to: object | null }
+    expect(resetSelection.from).not.toBeNull()
+    await page.keyboard.press('Escape')
+  })
+
   test('resets Table sorting through the imperative ref', async ({ page }) => {
     await gotoStory(page, 'table--reset-table')
 
