@@ -84,14 +84,24 @@ export const Overlays = () => {
       className="bg-background text-foreground flex flex-wrap gap-4 p-4 pt-16"
       data-test="shared-overlays"
     >
-      {([undefined, 'sm'] as const).map((size) => (
-        <AlertDialog key={size ?? 'omitted'}>
+      {(
+        [
+          { name: 'omitted', size: undefined },
+          { name: 'sm', size: 'sm' },
+          { name: 'wide', size: 'sm', className: 'sm:max-w-lg' },
+        ] as const
+      ).map(({ name, size, ...contentProps }) => (
+        <AlertDialog key={name}>
           <AlertDialogTrigger asChild>
-            <Button data-test={`open-alert-${size ?? 'omitted'}`}>
-              Confirm {size ?? 'default'}
+            <Button data-test={`open-alert-${name}`}>
+              Confirm {name === 'omitted' ? 'default' : name}
             </Button>
           </AlertDialogTrigger>
-          <AlertDialogContent size={size} data-test="alert-content">
+          <AlertDialogContent
+            size={size}
+            data-test="alert-content"
+            {...contentProps}
+          >
             <AlertDialogHeader>
               <AlertDialogMedia title="Information" data-test="alert-media">
                 <Info aria-hidden="true" />

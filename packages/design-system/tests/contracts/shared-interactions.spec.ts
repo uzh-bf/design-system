@@ -50,6 +50,12 @@ for (const theme of ['neutral', 'uzh'] as const) {
       await expect(page.locator('[data-test="alert-content"]')).toHaveCount(0)
     }
     expect(widths[3]).toBeLessThan(widths[2])
+    await page.locator('[data-test="open-alert-wide"]').click()
+    const wide = page.locator('[data-test="alert-content"]')
+    await expect(wide).toHaveCSS('max-width', '512px')
+    expect((await wide.boundingBox())!.width).toBeGreaterThan(widths[3])
+    await page.getByRole('button', { name: 'Cancel', exact: true }).click()
+    await expect(wide).toHaveCount(0)
   })
 
   test(`close flags and explicit portal ownership preserve focus (${theme})`, async ({

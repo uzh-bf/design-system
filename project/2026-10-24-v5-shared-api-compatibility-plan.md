@@ -251,6 +251,13 @@ preserve existing evidence. No human reviewer requests or review replies.
   `75dd0ad7b6a0bc34d0e1172f073a3962c1e1b5d96060c69481e1d230871b2e90`
   matches all268installed files. Thirty-six synthetic captures are inspected;
   native publication, configured final review and hosted qualification remain.
+- Exact-head CI at `9057da570` passes, including all accessibility shards,
+  visual regression and all three packed cells. Greptile then identified compact
+  AlertDialog width classes overriding caller widths. Two new browser assertions
+  reproduced384px instead of the requested512px. Applying the compact class
+  conditionally restores caller precedence; full146behavioral and six themed
+  accessibility cases pass. Refresh exact package proof and affected captures,
+  obtain the focused risk correction and final review, then qualify the new tip.
 - Simplifier inspected the complete interaction range and found no useful
   reduction. Required risk review is running. Substantive size:1012added/deleted
   lines, excluding project artifacts;19paths. The single synthetic harness and
