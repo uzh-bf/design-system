@@ -239,14 +239,15 @@ owns evidence reconciliation, the finite
 [Radix capability matrix](2026-10-23-v5-radix-capability-matrix.md) and derived plans.
 
 Current execution: the user approved both first plans on 2026-10-23.
-[Component draft #223](https://github.com/uzh-bf/design-system/pull/223) has final
-source review and local verification. [Chart draft #224](https://github.com/uzh-bf/design-system/pull/224)
+[Component draft #223](https://github.com/uzh-bf/design-system/pull/223) is qualified
+with source review, local verification and passing exact-head CI. [Chart draft #224](https://github.com/uzh-bf/design-system/pull/224)
 carries six plot families, tooltip composition, three packed/Next version cells
 and 42 published synthetic captures. The corrected Radix readiness test passes
 all 130 integrated behavioral contracts. Independent source reviews pass; exact-head CI
 remains a qualification gate. ChartContainer now measures 10.3–11.0 kB; its 34 kB
-ceiling passes, while its historical 25 kB positive minimum needs an explicit
-ruling. Keep that guard unchanged until approval; see the chart plan.
+ceiling passes. On 2026-10-24 the user approved calibrating its historical 25 kB
+positive minimum to 8 kB while preserving the ceiling and dependency markers.
+Final exact-head CI and feedback qualification remain; see the chart plan.
 
 1. **Small component compatibility.** Follow the reviewed
    [component plan](2026-10-23-v5-component-compatibility-plan.md) for Button

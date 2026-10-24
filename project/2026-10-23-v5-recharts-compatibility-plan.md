@@ -205,19 +205,19 @@ standard execution mode and the existing `project/` artifacts root remain in use
   matrix deliberately cover the six new stories and three endpoint cells.
 - **Budget decision:** named imports reduce the responsive wrapper to about 10.3 kB
   at Recharts 3.8.0 and 11.0 kB at 3.10.1. The existing 34,000-byte ceiling passes;
-  the historical 25,000-byte positive minimum fails. Recommend changing only that
-  minimum to 8,000, retaining the ceiling and resolved-Recharts module marker.
-  A disposable proposed-config experiment passes the full size/marker checks.
-  The repository guard remains unchanged pending explicit approval.
-- **Next action:** finish hosted qualification around the parked
-  budget decision. Apply the proposed bound only after approval, then qualify both
-  exact draft tips. Keep consumer repositories, readiness conversion, merging,
+  the historical 25,000-byte positive minimum rejected this legitimate reduction.
+  The user approved changing only that minimum to 8,000 on 2026-10-24. The
+  34,000-byte ceiling and resolved-Recharts module marker remain intact.
+  The complete size/marker check passes with the applied calibration.
+- **Next action:** qualify the applied budget calibration through exact-head CI
+  and a final feedback settle. The component draft is already qualified. Keep
+  consumer repositories, readiness conversion, merging,
   publication and deployment outside this package. Manual AT, Safari/device and
   separate integrated consumer acceptance remain GA gates.
 
 Source completion includes injective chart-style identifiers, omission of an
 all-null tooltip, and measured SVG sizing from an initially hidden panel.
 Reviewed synthetic captures remain applicable because their visible examples
-are unchanged. The positive-minimum proposal is the only outstanding user ruling;
-all other original and forge findings are resolved. Preserve the qualified source
-and keep this draft open while that ruling and hosted checks remain outstanding.
+are unchanged. The size ruling is approved, and all original and forge findings
+are resolved. Preserve this package source; record final exact-head CI and settle
+evidence in the journal and PR description without another status-only commit.
