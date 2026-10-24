@@ -38,12 +38,21 @@ type SidebarContextProps = {
   setOpen: (open: boolean) => void
   openMobile: boolean
   setOpenMobile: (open: boolean) => void
-  mobileOpenerRef: React.RefObject<HTMLElement | null>
   isMobile: boolean
   toggleSidebar: () => void
 }
 
 const SidebarContext = React.createContext<SidebarContextProps | null>(null)
+const SidebarOpenerContext =
+  React.createContext<React.RefObject<HTMLElement | null> | null>(null)
+
+function useSidebarOpener() {
+  const opener = React.useContext(SidebarOpenerContext)
+  if (!opener) {
+    throw new Error('useSidebarOpener must be used within a SidebarProvider.')
+  }
+  return opener
+}
 
 function useSidebar() {
   const context = React.useContext(SidebarContext)
@@ -123,19 +132,9 @@ function SidebarProvider({
       isMobile,
       openMobile,
       setOpenMobile,
-      mobileOpenerRef,
       toggleSidebar,
     }),
-    [
-      state,
-      open,
-      setOpen,
-      isMobile,
-      openMobile,
-      setOpenMobile,
-      mobileOpenerRef,
-      toggleSidebar,
-    ]
+    [state, open, setOpen, isMobile, openMobile, setOpenMobile, toggleSidebar]
   )
 
   return (
@@ -156,7 +155,9 @@ function SidebarProvider({
           )}
           {...props}
         >
-          {children}
+          <SidebarOpenerContext.Provider value={mobileOpenerRef}>
+            {children}
+          </SidebarOpenerContext.Provider>
         </div>
       </TooltipProvider>
     </SidebarContext.Provider>
@@ -177,8 +178,8 @@ function Sidebar({
   variant?: 'sidebar' | 'floating' | 'inset'
   collapsible?: 'offcanvas' | 'icon' | 'none'
 }) {
-  const { isMobile, state, openMobile, setOpenMobile, mobileOpenerRef } =
-    useSidebar()
+  const { isMobile, state, openMobile, setOpenMobile } = useSidebar()
+  const mobileOpenerRef = useSidebarOpener()
 
   const restoreMobileFocus = React.useCallback(
     (event: Event) => {
@@ -303,7 +304,8 @@ function SidebarTrigger({
   onClick,
   ...props
 }: React.ComponentProps<typeof Button>) {
-  const { toggleSidebar, isMobile, openMobile, mobileOpenerRef } = useSidebar()
+  const { toggleSidebar, isMobile, openMobile } = useSidebar()
+  const mobileOpenerRef = useSidebarOpener()
 
   return (
     <Button

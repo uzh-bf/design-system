@@ -262,8 +262,8 @@ provider changes and new automations remain outside this package.
   The layer is one package despite exceeding its estimate: the small component
   change and its synthetic story/type/browser proof protect the same mobile
   contract. Splitting that proof would leave an incomplete integration point.
-- Immediate next action: implement and independently qualify Sidebar above the
-  held Sonner tip under the same finite batch authority.
+- Immediate next action: complete private focus isolation, independent reviews
+  and remaining Sidebar qualification above the held Sonner tip.
 
 The Sonner layer remains one notification compatibility package: source option
 and theme behavior, declarations, store identity and browser/packed proof form

@@ -8,6 +8,7 @@ import {
   SidebarProvider as RootSidebarProvider,
   Toaster as RootToaster,
   toast as rootToast,
+  useSidebar as rootUseSidebar,
 } from '../../src'
 import {
   DirectionProvider,
@@ -25,7 +26,15 @@ import {
   useDirection,
   useGroupRef,
   usePanelRef,
+  useSidebar,
 } from '../../src/primitives'
+
+declare const rootSidebarState: ReturnType<typeof rootUseSidebar>
+declare const primitiveSidebarState: ReturnType<typeof useSidebar>
+// @ts-expect-error Mobile focus bookkeeping remains private to SidebarProvider.
+void rootSidebarState.mobileOpenerRef
+// @ts-expect-error Primitive consumers receive the same public sidebar state.
+void primitiveSidebarState.mobileOpenerRef
 
 createElement(RootSidebarProvider, {
   open: true,
