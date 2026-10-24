@@ -359,6 +359,7 @@ export const EXPECTED_STORY_IDS = [
   'select-field--tooltip',
   'separator--default',
   'sheet--default',
+  'sidebar--compatibility',
   'sidebar--default',
   'skeleton--default',
   'slider--compact',
