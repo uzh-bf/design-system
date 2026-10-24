@@ -84,6 +84,18 @@ below assign verification, not a promise to rewrite every existing control.
 Supported surfaces are neutral-light/dark and UZH-light; UZH-dark is unsupported.
 ADR0005 preserves documented application geometry, density and semantic colours.
 
+### Shared presentation implementation checkpoint
+
+[Draft #225](https://github.com/uzh-bf/design-system/pull/225) implements the
+presentation/control portion of the [approved plan](2026-10-24-v5-shared-api-compatibility-plan.md):
+AlertAction, Avatar parts/default-size route, Badge variants, Card/Item compact
+sizes, Carousel hook, Pagination aliases, Switch size, ToggleGroup spacing and
+InputOTP spellcheck precedence. Retained DOM and generic ItemGroup adaptations
+are documented. Source-backed tests, packed endpoints and browser evidence exist;
+final review and draft qualification remain open. Overlay/menu and Calendar rows
+remain assigned to their following layers. The baseline table below is historical
+comparison evidence, not the current implementation status of those delivered APIs.
+
 ### October 24 planning corrections
 
 The [Shared API execution proposal](2026-10-24-v5-shared-api-compatibility-plan.md)

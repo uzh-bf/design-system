@@ -54,7 +54,7 @@ export const Surfaces = () => {
   const [actions, setActions] = useState(0)
   return (
     <div
-      className="grid w-full max-w-4xl gap-6 p-4"
+      className="bg-background text-foreground grid w-full max-w-4xl gap-6 p-4"
       data-test="shared-surfaces"
     >
       <Alert variant="info">
@@ -185,7 +185,10 @@ export const Controls = () => {
   const [pin, setPin] = useState('')
   const switchRef = useRef<HTMLButtonElement>(null)
   return (
-    <div className="grid max-w-xl gap-6 p-4" data-test="shared-controls">
+    <div
+      className="bg-background text-foreground grid max-w-xl gap-6 p-4"
+      data-test="shared-controls"
+    >
       <form
         className="grid gap-4"
         onSubmit={(event) => {
@@ -342,7 +345,10 @@ function CarouselState() {
 }
 
 export const RetainedComposition = () => (
-  <div className="grid w-full max-w-lg gap-6 p-4" data-test="shared-retained">
+  <div
+    className="bg-background text-foreground grid w-full max-w-lg gap-6 p-4"
+    data-test="shared-retained"
+  >
     <div className="flex items-center gap-4">
       <Spinner data-test="spinner-default" />
       <Button disabled>

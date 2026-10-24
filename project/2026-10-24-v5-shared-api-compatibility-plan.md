@@ -257,8 +257,21 @@ preserve existing evidence. No human reviewer requests or review replies.
   format and Ladle build pass; focused scanner reports zero findings/errors.
 - Verified Card regression fixed: compact styles now preserve caller padding
   and nested default density through scoped CSS variables. No dependency change.
-- Active qualification: changed-story accessibility sweep and three packed/Next
-  endpoint cells. Reviews, screenshot publication, final budgets and CI remain.
+- First source tip `bfb0a75d3` published as draft
+  [#225](https://github.com/uzh-bf/design-system/pull/225). Three packed/Next
+  endpoint cells pass both bundlers; the exact archive matches all268installed
+  files. Size/module-marker,704token and336responsive CSS checks pass.
+- Simplification and focused risk-review correction pass. AvatarGroupCount
+  contrast and custom Pagination accessible names were corrected without waivers;
+  new4behavior/6themed axe cases pass. Captures cover18synthetic states across
+  neutral-light/dark andUZH-light at390/1280; publication is pending.
+- Local full accessibility run:851pass and4mounttimeouts during a concurrent
+  fixture rebuild; stable rerun passes all8theme/story cases. Hosted full accessibility/visual gates
+  pass at the published source tip; final tip qualification remains pending.
+- Configured Claude final review is blocked before dispatch by automatic approval
+  review's payload/destination permission requirement. One bounded question is
+  pending for the three approved layer reviews; no review payload was sent.
+  Complete independent work while that gate remains parked.
 - Next action: commit the verified slice, run simplifier/risk review, complete
   remaining first-tip proof and publish its draft before advancing layer2.
 
