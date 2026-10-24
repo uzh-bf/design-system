@@ -234,3 +234,22 @@ started for these planning documents.
   Main reproduced the same colours and axe finding with the exact lower archive
   after settling transitions. This is a named GA picker contrast follow-up;
   capture evidence records it without a new waiver or suppression.
+
+- Current source d7ec046a3 passes source risk review plus its focused correction;
+  simplification is applied. All156behavioral contracts and10themed axe cases
+  pass; the fixture-only follow-up passes its9focused contracts and static checks.
+  All three packed/Next cells pass both bundlers at872fd38d9. Final source audit
+  matches all444tracked package files; archiveSHA-256
+  `9b1a7210ad78b075d7e27a0a721a37d2ce88da1939898e25e0f90c81f515aaa3`
+  matches all268installed files. Only a source map and comment-bearing
+  declarations differ from the passing872candidate; runtimeJS/CSS are identical.
+- Thirty real captures are inspected across neutral light/dark and UZH light at
+  390/1280px. Capture interactions verify locale options, RTL range/focus,
+  disabled selection, time editing and Formik errors. Fifteen extra state audits
+  include the one pre-existing UZH empty-error contrast failure recorded above;
+  no all-open-state accessibility claim is made. Native publication/read-back,
+  configured final review and hosted exact-head qualification are finishing.
+- Substantive size:1305added/deleted lines excluding project artifacts across
+  16changed paths. The named629-line harness and450-line contract spec carry
+  most of this approved locale/override/bounds/selection/timezone/form portfolio.
+  Keep this one coherent Calendar package; no new behavior owner or dependency.

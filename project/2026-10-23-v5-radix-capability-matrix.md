@@ -96,6 +96,18 @@ configured final review, exact packed proof and 18 published real captures.
 Overlay/menu draft [#226](https://github.com/uzh-bf/design-system/pull/226) qualifies at `4d5f60fc6`: all146behavioral contracts, complete hosted CI, configured initial/focused final review, exact archive/source audit and42published captures pass. Caller compact width precedence was reproduced and corrected. An extra open-menu audit reproduces an existing `aria-hidden-focus` result on the Ladle root using the exact lower archive; retain it as a GA accessibility follow-up. Calendar locale/grid compatibility is the active approved layer. The baseline table below is historical
 comparison evidence, not the current implementation status of those delivered APIs.
 
+### Calendar implementation checkpoint
+
+[Draft #228](https://github.com/uzh-bf/design-system/pull/228) implements the
+approved locale formatter/day metadata and canonical grid hook with retained
+legacy customization. Locale objects, explicit direction/timezone, caller
+formatters/components and picker value ownership are verified in the named
+Calendar contract seam. Local156behavioral/10themed accessibility cases, three
+packed/Next cells, source reviews and exact archive/source audit pass. Thirty
+captures are inspected; final review, native read-back and hosted qualification
+remain. This closes the bounded locale package when qualified, while yearRange,
+application-owned non-Gregorian recipes and the contrast follow-up below remain.
+
 ### October 24 planning corrections
 
 The [Shared API execution proposal](2026-10-24-v5-shared-api-compatibility-plan.md)
