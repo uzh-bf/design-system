@@ -203,7 +203,6 @@ export const Controls = () => {
             checked={checked}
             onCheckedChange={setChecked}
             data-test="switch-omitted"
-            ref={switchRef}
           />
         </label>
         <label className="flex items-center gap-3">
@@ -212,7 +211,7 @@ export const Controls = () => {
         </label>
         <label className="flex items-center gap-3">
           Small switch
-          <Switch size="sm" data-test="switch-sm" />
+          <Switch size="sm" data-test="switch-sm" ref={switchRef} />
         </label>
         <label className="flex items-center gap-3">
           Disabled switch

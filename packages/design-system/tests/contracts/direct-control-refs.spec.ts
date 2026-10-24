@@ -93,7 +93,7 @@ test('compact primitive Switch forwards its button ref and keyboard state', asyn
 }) => {
   await gotoStory(page, 'shared-presentation--controls')
   await page.locator('[data-test="focus-switch"]').click()
-  const control = page.locator('[data-test="switch-omitted"]')
+  const control = page.locator('[data-test="switch-sm"]')
   await expect(control).toBeFocused()
   await page.keyboard.press('Space')
   await expect(control).toHaveAttribute('aria-checked', 'true')

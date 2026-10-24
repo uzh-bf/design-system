@@ -264,7 +264,8 @@ preserve existing evidence. No human reviewer requests or review replies.
 - Simplification and focused risk-review correction pass. AvatarGroupCount
   contrast and custom Pagination accessible names were corrected without waivers;
   new4behavior/6themed axe cases pass. Captures cover18synthetic states across
-  neutral-light/dark andUZH-light at390/1280; publication is pending.
+  neutral-light/dark andUZH-light at390/1280; all native uploads and byte readbacks
+  are complete.
 - Local full accessibility run:851pass and4mounttimeouts during a concurrent
   fixture rebuild; stable rerun passes all8theme/story cases. Hosted full accessibility/visual gates
   pass at the published source tip; final tip qualification remains pending.
@@ -272,8 +273,14 @@ preserve existing evidence. No human reviewer requests or review replies.
   review's payload/destination permission requirement. One bounded question is
   pending for the three approved layer reviews; no review payload was sent.
   Complete independent work while that gate remains parked.
-- Next action: commit the verified slice, run simplifier/risk review, complete
-  remaining first-tip proof and publish its draft before advancing layer2.
+- Hosted CI passes at `2371521dd`. Two subsequent review findings exposed gaps
+  in the tests: the compact Switch ref case targeted the default control, and
+  Alert placement lacked desktop coverage. The corrected compact target and
+  wide/narrow desktop checks pass in an 11-case focused run. Types, lint,
+  formatting and Ladle build pass. These fixture/test changes preserve package
+  code and rendered appearance; existing packed and screenshot proof is reused.
+- Next action: qualify the feedback correction's CI and complete the pending
+  configured final review before advancing to the interactions layer.
 
 ### Planning review
 

@@ -92,6 +92,46 @@ for (const theme of ['neutral', 'uzh'] as const) {
       )
     ).toBe(true)
   })
+
+  test(`keeps desktop Alert actions clear of the description in wide and narrow containers (${theme})`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1280, height: 1000 })
+    await gotoStory(page, 'shared-presentation--surfaces', theme)
+    const surface = page.locator('[data-test="shared-surfaces"]')
+    const alert = surface.locator('[data-slot="alert"]')
+
+    for (const width of ['100%', '320px']) {
+      await surface.evaluate((node, value) => {
+        node.style.width = value
+      }, width)
+      const layout = await alert.evaluate((node) => {
+        const description = node.querySelector(
+          '[data-slot="alert-description"]'
+        )!
+        const text = description.getBoundingClientRect()
+        const action = node
+          .querySelector('[data-slot="alert-action"]')!
+          .getBoundingClientRect()
+        const root = node.getBoundingClientRect()
+        return {
+          actionInside:
+            action.left >= root.left &&
+            action.right <= root.right &&
+            action.top >= root.top &&
+            action.bottom <= root.bottom,
+          separateColumn: action.left >= text.right,
+          descriptionFits:
+            description.scrollWidth <= description.clientWidth + 1,
+        }
+      })
+      expect(layout).toEqual({
+        actionInside: true,
+        separateColumn: true,
+        descriptionFits: true,
+      })
+    }
+  })
 }
 
 test('controls preserve native submission, alias precedence and directional groups', async ({
