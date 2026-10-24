@@ -39,6 +39,7 @@ const markerExpectations = [
       /node_modules[\\/].*(recharts|d3-[^\\/]+|victory-vendor)[\\/]/,
       /node_modules[\\/].*embla-carousel[\\/]/,
       /node_modules[\\/].*react-resizable-panels[\\/]/,
+      /node_modules[\\/].*sonner[\\/]/,
     ],
   },
   {
@@ -48,6 +49,7 @@ const markerExpectations = [
       /node_modules[\\/].*(recharts|d3-[^\\/]+|victory-vendor)[\\/]/,
       /node_modules[\\/].*embla-carousel[\\/]/,
       /node_modules[\\/].*react-resizable-panels[\\/]/,
+      /node_modules[\\/].*sonner[\\/]/,
     ],
   },
   {

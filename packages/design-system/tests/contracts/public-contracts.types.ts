@@ -4,6 +4,8 @@ import {
   NativeSelect as RootNativeSelect,
   ResizablePanel as RootResizablePanel,
   ResizablePanelGroup as RootResizablePanelGroup,
+  Toaster as RootToaster,
+  toast as rootToast,
 } from '../../src'
 import {
   DirectionProvider,
@@ -14,11 +16,30 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
   TabsList,
+  Toaster,
   tabsListVariants,
   useDirection,
   useGroupRef,
   usePanelRef,
 } from '../../src/primitives'
+
+createElement(RootToaster, {
+  id: 'typed-toaster',
+  theme: 'dark',
+  containerAriaLabel: 'Synthetic notification region',
+  swipeDirections: ['top', 'left'],
+  icons: { close: createElement('span') },
+  toastOptions: {
+    toasterId: 'typed-toaster',
+    unstyled: true,
+    classNames: { content: 'typed-content', loading: 'typed-loading' },
+  },
+})
+createElement(Toaster, { theme: 'system', mobileOffset: { bottom: 16 } })
+rootToast({
+  message: createElement('span'),
+  options: { toasterId: 'typed-toaster', testId: 'typed-notification' },
+})
 
 import type {
   ImperativePanelGroupHandle,

@@ -1033,3 +1033,27 @@ application-owned. The DS performs no storage conversion. When server rendering,
 provide server-safe storage to `useDefaultLayout`; its native default accesses
 browser `localStorage`. Applications using both families can include both
 upstream engines. No custom resizing engine or global provider is introduced.
+
+## Sonner 2 notification compatibility
+
+The design system uses Sonner 2.0.8. Existing root `toast({ message, options,
+type })` calls remain supported. Native Sonner options, including toaster IDs,
+custom icons and swipe directions, flow through the DS Toaster.
+
+Applications that call `toast` directly from `sonner` alongside a DS Toaster
+must declare the matching `sonner@2.0.8` dependency and resolve the same runtime.
+A separate installation has its own notification store and cannot deliver to
+that Toaster. The packed Next fixture proves the matching application dependency
+can emit a toast rendered by the DS Toaster; it is not a promise that arbitrary
+package-manager layouts share one store.
+
+Caller `className`, `style`, `icons` and `toastOptions` preserve DS defaults for
+unrelated settings. Caller values take precedence for the same option or styled
+part, and the generic root trigger retains arbitrary Sonner class-name keys.
+Explicit Toaster `theme` takes precedence over a configured next-themes mode.
+Without either, a DS-themed document follows its root `dark` class; without a
+DS root theme, native system behavior applies. Root mode changes update mounted
+Toasters without adding a required provider. Brand ownership remains ADR0004's
+document-root contract. Existing explicit-corner offsets are retained; omitted
+and centered positions retain native placement. Neutral light/dark and UZH light
+are qualified; UZH dark remains outside the current acceptance claim.

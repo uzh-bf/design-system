@@ -59,24 +59,31 @@ export function assertInstalledDependencies(fixtureArg) {
       `packed dependency version mismatches:\n${mismatches.join('\n')}`
     )
   }
-  if (fixture.dependencies?.['react-resizable-panels']) {
-    const application = installedPackage(
-      requireFromFixture,
-      'react-resizable-panels'
-    )
-    const library = installedPackage(
-      requireFromPackage,
-      'react-resizable-panels'
-    )
+  for (const [name, version, message] of [
+    [
+      'react-resizable-panels',
+      '3.0.6',
+      'Legacy resizable compositions must share the v3 runtime',
+    ],
+    [
+      'sonner',
+      '2.0.8',
+      'Direct application toasts must share the Sonner 2 runtime',
+    ],
+  ]) {
+    if (!fixture.dependencies?.[name]) continue
+    const application = installedPackage(requireFromFixture, name)
+    const library = installedPackage(requireFromPackage, name)
     if (
-      fixture.dependencies['react-resizable-panels'] !== '3.0.6' ||
-      application.manifest.version !== '3.0.6' ||
-      library.manifest.version !== '3.0.6' ||
+      fixture.dependencies[name] !== version ||
+      application.manifest.version !== version ||
+      library.manifest.version !== version ||
       application.directory !== library.directory
     ) {
-      throw new Error('Legacy resizable compositions must share the v3 runtime')
+      throw new Error(message)
     }
   }
+
   if (
     manifest.dependencies?.recharts ||
     manifest.peerDependencies?.recharts !== '>=3.8.0 <4' ||

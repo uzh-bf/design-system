@@ -42,7 +42,7 @@ and compact geometry. The draft qualifies at `4d5f60fc6` with complete final
 review, hosted CI, native captures and exact packed proof. These close the
 approved concrete Shared API gaps; the identity tables below remain the historical static
 assessment. They do not become full example or block runtime passes. Calendar draft228 implements its bounded locale/grid contract and passes local
-source/package checks; qualification evidence is recorded in that draft. The approved [layout/toast plan](2026-10-24-v5-layout-toast-compatibility-plan.md) now has native Panels4 and retained root3 source with local behavioral/packed proof in progress. Its review/hosted qualification remains pending. Sonner/Sidebar, messaging/highlighting and representative integrated compositions
+source/package checks; qualification evidence is recorded in that draft. The approved [layout/toast plan](2026-10-24-v5-layout-toast-compatibility-plan.md) has qualified native Panels4 and retained root3 draft [#229](https://github.com/uzh-bf/design-system/pull/229) at88b397d4d, with local/packed proof, complete reviews and hosted CI. Sonner integration is active; Sidebar, messaging/highlighting and representative integrated compositions
 retain their assigned owners. The existing open-menu Ladle-root accessibility
 audit residual is tracked in the capability matrix and GA roadmap.
 
@@ -80,8 +80,9 @@ Representative concrete seams:
   routes for other examples do not waive menu inset, semantic/type, option or
   caller-precedence deltas listed in the matrix.
 - `resizable-example.tsx:4,32,136` imports the Panels 4 Layout type and uses
-  orientation, percentage sizing and layout callbacks. Current DS wrappers own
-  Panels 3. Preserve existing props while qualifying the selected adapter.
+  orientation, percentage sizing and layout callbacks. Native DS primitives now
+  use Panels 4 and export Layout/ref/persistence helpers; retained root wrappers
+  preserve Panels 3. Keep each group within one family under ADR0009.
 - Calendar's custom month formatter and day button need consistent locale
   propagation. `CalendarDayButton` and `ChartConfig` are already exported;
   they are not missing-export findings.

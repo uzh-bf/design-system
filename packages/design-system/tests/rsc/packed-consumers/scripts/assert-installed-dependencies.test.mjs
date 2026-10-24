@@ -134,20 +134,32 @@ test('still rejects a mismatched ordinary dependency version', (t) => {
   )
 })
 
-for (const duplicate of [false, true]) {
-  test(`legacy application panels ${duplicate ? 'reject duplicate identity' : 'share library identity'}`, (t) => {
-    const x = fixture(t)
-    const p = path.join(x.root, 'package.json')
-    const manifest = JSON.parse(fs.readFileSync(p))
-    manifest.dependencies['react-resizable-panels'] = '3.0.6'
-    fs.writeFileSync(p, JSON.stringify(manifest))
-    x.add('react-resizable-panels', '3.0.6')
-    if (duplicate) {
-      x.add('react-resizable-panels', '3.0.6', path.join(x.ds, 'node_modules'))
-      assert.throws(
-        () => assertInstalledDependencies(x.root),
-        /share the v3 runtime/
-      )
-    } else assert.doesNotThrow(() => assertInstalledDependencies(x.root))
-  })
+for (const [name, version, label, error] of [
+  [
+    'react-resizable-panels',
+    '3.0.6',
+    'legacy application panels',
+    /share the v3 runtime/,
+  ],
+  [
+    'sonner',
+    '2.0.8',
+    'direct application toasts',
+    /share the Sonner 2 runtime/,
+  ],
+]) {
+  for (const duplicate of [false, true]) {
+    test(`${label} ${duplicate ? 'reject duplicate identity' : 'share library identity'}`, (t) => {
+      const x = fixture(t)
+      const p = path.join(x.root, 'package.json')
+      const manifest = JSON.parse(fs.readFileSync(p))
+      manifest.dependencies[name] = version
+      fs.writeFileSync(p, JSON.stringify(manifest))
+      x.add(name, version)
+      if (duplicate) {
+        x.add(name, version, path.join(x.ds, 'node_modules'))
+        assert.throws(() => assertInstalledDependencies(x.root), error)
+      } else assert.doesNotThrow(() => assertInstalledDependencies(x.root))
+    })
+  }
 }

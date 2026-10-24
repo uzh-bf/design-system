@@ -288,8 +288,9 @@ browser qualification. The next implementation packages are:
 2. **Layout and toast auxiliaries.** The user approved the [three-layer execution plan](2026-10-24-v5-layout-toast-compatibility-plan.md).
    Retain canonical Panels3.0.6 for root compatibility and expose native Panels4.14.8
    through raw primitives using the internal alias and exported helpers. Panels
-   source and initial package/browser proof are in progress; qualification remains
-   pending. Sonner2.0.8 owns caller-option merging and brand/light-dark integration;
+   draft [#229](https://github.com/uzh-bf/design-system/pull/229) qualifies at
+   `88b397d4d` with exact package proof, independent reviews, captures and hosted CI.
+   Sonner2.0.8 caller-option merging and brand/light-dark integration are active;
    Sidebar owns mobile direction, caller props and focus. Keep all three drafts
    independently qualified and unmerged; serialize manifest/lock changes.
 3. **Messaging/clarification and code/highlighting.** Use separate bounded

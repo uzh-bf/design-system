@@ -101,6 +101,7 @@ export function toast({
   return toastOriginal(message, {
     ...options,
     classNames: {
+      ...options?.classNames,
       closeButton: twMerge(
         'bg-background! text-foreground! border-border!',
         options?.classNames?.closeButton
