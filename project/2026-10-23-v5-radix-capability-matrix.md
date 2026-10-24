@@ -391,3 +391,14 @@ exclusions without claiming unchanged-example compatibility. Record manual scree
 Refresh upstream drift once at final qualification and disposition it without
 silently expanding this pinned finite scope. Candidate publication, consumer
 merges and integrated GA acceptance remain separate gates.
+
+### Calendar empty-error audit follow-up
+
+An extra synthetic empty-error audit reproduces a pre-existing UZH contrast
+failure on DatePicker and DateTimePicker placeholder text: `#666666` on
+`#ffdbcc`,4.44:1 rather than4.5:1. The exact qualified lower archive shows the
+same computed colours and axe result after transitions settle. The Calendar
+locale package changes neither these controls nor their colour tokens. Track a
+bounded picker/error-state contrast correction before GA; no waiver, suppression
+or current-package accessibility pass is implied by the existing closed-story
+checks. Manual qualification and exact integrated consumer acceptance stay open.

@@ -226,3 +226,11 @@ started for these planning documents.
   a synthetic JSON output widening its grid; constrained fixture columns and
   wrapping correct it. Nine focused contracts still pass. These harness changes
   require fresh captures and emitted-CSS/package proof, now running.
+
+- The source risk review found a remaining yearRange comment/story claim that
+  contradicted the documented no-effect contract. The property comment, @param
+  and story bullet now agree; effective runtime bounds are unchanged.
+- Extra empty-error UZH audit: existing placeholder contrast4.44:1 fails4.5:1.
+  Main reproduced the same colours and axe finding with the exact lower archive
+  after settling transitions. This is a named GA picker contrast follow-up;
+  capture evidence records it without a new waiver or suppression.
