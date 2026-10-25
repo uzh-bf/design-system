@@ -190,6 +190,8 @@
   --theme-ui-disabled-thumb: var(--muted);
   --theme-ui-disabled-border: var(--border);
   --disabled: var(--muted-foreground);
+  /* Error text appears on both dark surfaces and the destructive fill. */
+  --theme-destructive-text: var(--destructive-foreground);
 
   --theme-success-background: oklch(0.24 0.04 150);
   --theme-warning-background: oklch(0.26 0.04 80);

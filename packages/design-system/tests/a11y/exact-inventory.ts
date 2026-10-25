@@ -35,6 +35,10 @@ export const W1_THEME_EXTENSION_STORY_IDS = [
 ] as const
 
 export const EXPECTED_STORY_IDS = [
+  'application-compositions--dashboard',
+  'application-compositions--authentication',
+  'application-compositions--conversation',
+  'application-compositions--persian-calendar',
   'calendar-compatibility--bounds-and-navigation',
   'calendar-compatibility--direction-and-timezone',
   'calendar-compatibility--formik-pickers',
