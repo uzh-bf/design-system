@@ -182,9 +182,12 @@ avoiding status-only commits that restart green CI.
 
 Source/local qualification is complete in
 [draft #233](https://github.com/uzh-bf/design-system/pull/233), above held Sidebar
-`be62259b0` in native stack231. Plan-first commit: `9e44d1186`. Package executable
-source: `31f6f5ab9`; final fixture/test correction: `5271dac43`. The latter changes
-no library, MDX, manifest, lockfile or shipped-package input. Delegated writers
+`be62259b0` in native stack231. Plan-first commit: `9e44d1186`. Package runtime
+source remains `31f6f5ab9`; fixture/test correction `5271dac43` and the final
+review correction preserve library APIs, dependencies and style tokens. The
+final correction aligns README storage guidance with ADR0010 and consolidates
+common native assertions, retaining mixed-entry sizing/reset, vertical keys,
+packed identities and SSR coverage. Delegated writers
 and slice reviewers are closed. No native goal or automation was created.
 
 Native planner round2 and the optional AGY challenge approved the plan. The
@@ -207,8 +210,9 @@ The unpublished archive SHA-256 is
 all 268 files match the installed copy. Fresh npm/pnpm probes of that archive prove
 shared engine/export identity and mixed SSR composition. The 400 checked source
 and fixture inputs match the verification workspace. Eight real captures at
-`31f6f5ab9` retain exact rendered-source applicability after the test-only
-correction; all uploads pass PNG/hash readback and render in the draft.
+`31f6f5ab9` retain rendered-source applicability: every named-story function body
+is byte-identical after the README-only edit. An additional README capture
+remains required for the corrected guidance; all uploads pass PNG/hash readback and render in the draft.
 
 The original null-only persistence guard reproduced stale geometry after reload.
 An application-owned cookie snapshot fixes server/hydration agreement; the native
@@ -217,12 +221,17 @@ MIGRATION.md. The native helper's limited legacy read does not qualify arbitrary
 application layouts. Consumer migration and exact-candidate acceptance remain
 separate, alongside manual screen-reader/Safari/device and integrated GA gates.
 
-The exact custom verification container is stopped with its source mount and
-`Running=false` verified. Its isolated browser is closed. No consumer runtime was
-touched. No merge, readiness, publication or deployment was performed.
+The earlier exact custom verification runtime was released. The same
+source-identified container resumed only for this final correction and README
+capture. Stop it after the last check and record fresh release in the execution
+journal. No consumer runtime was touched. No merge, readiness, publication or deployment was performed.
 
-Delivery remains pending the configured integrated final review, final published
-head's hosted checks and quiet feedback qualification. Hold the final published
+The integrated review identified two low-severity guidance/test-duplication
+findings. Both are corrected; fresh types/lint/format/build, six native cases,
+four Resizable smokes and six accessibility cases pass. The rebuilt packed
+archive remains byte-identical, preserving the complete packed matrix evidence.
+Delivery remains pending the same reviewer's one focused correction pass, final
+published head's hosted checks and quiet feedback qualification. Hold the final published
 head after this documentation checkpoint. Record those final outcomes in the
 existing draft description and ignored execution journal, avoiding another
 status-only commit and CI restart. No further implementation slice is planned.

@@ -261,7 +261,7 @@ test.describe('layout auxiliaries: Panels', () => {
     )
   })
 
-  test('custom storage restores root and native layouts after reload', async ({
+  test('custom storage restores the native layout after reload', async ({
     page,
   }) => {
     await freshStory(page, 'resizable--compatibility')
@@ -277,20 +277,9 @@ test.describe('layout auxiliaries: Panels', () => {
       page.locator('#root-story-left'),
       0.4
     )
-
-    await freshStory(page, 'resizable--native-compatibility')
-    const nativeState = page.locator('[data-test="native-units-layout-state"]')
-    await page.locator('[data-test="native-set-layout"]').click()
-    await expectLayoutValue(nativeState, 'native-percent-panel', 40)
-    await expectLayoutValue(nativeState, 'native-pixel-panel', 30)
-    await expectLayoutValue(nativeState, 'native-auto-panel', 30)
-    await page.reload()
-    await expectLayoutValue(nativeState, 'native-percent-panel', 40)
-    await expectLayoutValue(nativeState, 'native-pixel-panel', 30)
-    await expectLayoutValue(nativeState, 'native-auto-panel', 30)
   })
 
-  test('native door keeps percent and pixel sizing, mixed components, refs and native reset', async ({
+  test('mixed entries retain percent/pixel sizing, layout conservation and neighboring resets', async ({
     page,
   }) => {
     await freshStory(page, 'resizable--native-compatibility')
@@ -308,62 +297,15 @@ test.describe('layout auxiliaries: Panels', () => {
     await expectPanelShare(group, percentPanel, 0.3)
     await expectPanelPixels(pixelPanel, 120)
 
-    await page.locator('[data-test="native-read-refs"]').click()
-    await expectLayoutKeys(page.locator('[data-test="native-ref-layout"]'), [
-      'native-percent-panel',
-      'native-pixel-panel',
-      'native-auto-panel',
-    ])
-    const nativeRefPanel = page.locator('[data-test="native-ref-panel"]')
-    await expect
-      .poll(async () => await nativeRefPanel.innerText())
-      .not.toBe('null')
-    const initialSize = await readJson<PanelSize>(nativeRefPanel)
-    expect(Math.abs(initialSize.inPixels - 120)).toBeLessThanOrEqual(2)
-
-    const pointerBefore = await readMap(layoutState)
-    await dragWithMouse(page, page.locator('#native-units-separator'), 56)
-    await expect
-      .poll(async () => (await readMap(layoutState))['native-percent-panel'])
-      .toBeGreaterThan(pointerBefore['native-percent-panel']! + 1)
+    await page.locator('[data-test="native-set-layout"]').click()
+    await expectLayoutValue(layoutState, 'native-percent-panel', 40)
 
     await page.locator('[data-test="native-resize-pixels"]').click()
-    await expect
-      .poll(async () =>
-        readJson<PanelSize>(
-          page.locator('[data-test="native-ref-panel"]')
-        ).then(({ inPixels }) => inPixels)
-      )
-      .toBeGreaterThan(133)
     await expectPanelPixels(pixelPanel, 136)
     const resizedLayout = await readMap(layoutState)
     expect(
       Object.values(resizedLayout).reduce((sum, value) => sum + value, 0)
     ).toBeCloseTo(100, 1)
-
-    const resizeEvents = page.locator('[data-test="native-resize-events"]')
-    await expect
-      .poll(async () =>
-        (await readJson<ResizeRecord[]>(resizeEvents)).some(
-          (event) => event.previous !== undefined
-        )
-      )
-      .toBe(true)
-    await expect
-      .poll(
-        async () =>
-          (await readJson<ResizeRecord[]>(resizeEvents)).at(-1)?.current
-            .inPixels
-      )
-      .toBeCloseTo(136, 0)
-    const latestResize = (await readJson<ResizeRecord[]>(resizeEvents))
-      .filter((event) => event.previous !== undefined)
-      .at(-1)
-    expect(latestResize?.id).toBe('native-pixel-panel')
-    expect(Math.abs(latestResize!.current.inPixels - 136)).toBeLessThanOrEqual(
-      2
-    )
-    expect(latestResize?.previous?.inPixels).toBeGreaterThan(0)
 
     const groupWidth = (await group.boundingBox())!.width
     const rebalancedPixels =
@@ -375,30 +317,6 @@ test.describe('layout auxiliaries: Panels', () => {
     await expectPanelPixels(pixelPanel, rebalancedPixels)
     await page.locator('#native-remainder-separator').dblclick()
     await expectPanelPixels(pixelPanel, 120)
-
-    await page.locator('[data-test="native-collapse"]').click()
-    await page.locator('[data-test="native-read-refs"]').click()
-    await expect(page.locator('[data-test="native-collapsed"]')).toHaveText(
-      'true'
-    )
-    await expect
-      .poll(async () =>
-        readJson<PanelSize>(
-          page.locator('[data-test="native-ref-panel"]')
-        ).then(({ inPixels }) => inPixels)
-      )
-      .toBeLessThan(120)
-    const collapsedSize = await readJson<PanelSize>(
-      page.locator('[data-test="native-ref-panel"]')
-    )
-    expect(collapsedSize.inPixels).toBeGreaterThan(0)
-    expect(collapsedSize.asPercentage).toBeGreaterThan(0)
-    expect(Math.abs(collapsedSize.inPixels - 48)).toBeLessThanOrEqual(2)
-    await page.locator('[data-test="native-expand"]').click()
-    await page.locator('[data-test="native-read-refs"]').click()
-    await expect(page.locator('[data-test="native-collapsed"]')).toHaveText(
-      'false'
-    )
 
     await expect(page.locator('#native-nested-vertical')).toHaveCSS(
       'flex-direction',
@@ -417,7 +335,7 @@ test.describe('layout auxiliaries: Panels', () => {
       .toBeGreaterThan(nestedBefore)
   })
 
-  test('root and native doors share pointer, keyboard bounds, disabled and RTL behavior', async ({
+  test('native pointer, keyboard bounds, disabled and RTL behavior', async ({
     page,
   }) => {
     await freshStory(page, 'resizable--compatibility')
@@ -477,7 +395,7 @@ test.describe('layout auxiliaries: Panels', () => {
       viewport: { width: 760, height: 960 },
     })
 
-    test('both doors resize from an actual touch drag', async ({ page }) => {
+    test('native panels resize from an actual touch drag', async ({ page }) => {
       await freshStory(page, 'resizable--compatibility')
       expect(
         await page.evaluate(() => matchMedia('(pointer: coarse)').matches)
@@ -489,21 +407,6 @@ test.describe('layout auxiliaries: Panels', () => {
       await expect
         .poll(async () => (await readMap(rootState))['root-story-left'])
         .toBeGreaterThan(rootBefore['root-story-left']! + 1)
-
-      await freshStory(page, 'resizable--native-compatibility')
-      const nativeState = page.locator(
-        '[data-test="native-units-layout-state"]'
-      )
-      await expectLayoutKeys(nativeState, [
-        'native-percent-panel',
-        'native-pixel-panel',
-        'native-auto-panel',
-      ])
-      const nativeBefore = await readMap(nativeState)
-      await dragWithTouch(page, page.locator('#native-units-separator'), 72)
-      await expect
-        .poll(async () => (await readMap(nativeState))['native-percent-panel'])
-        .toBeGreaterThan(nativeBefore['native-percent-panel']! + 1)
     })
   })
 })

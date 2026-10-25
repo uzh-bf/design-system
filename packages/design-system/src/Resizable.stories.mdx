@@ -29,8 +29,8 @@ resizing, and a native double-click reset.
 The exported `useGroupRef`, `usePanelRef` and `useDefaultLayout` helpers expose
 the native imperative and persistence APIs. Saved layouts are ID-keyed maps.
 Native 4.14.8 provides a limited legacy-read fallback. The design system adds
-no converter; reusing application-owned storage still requires acceptance and a
-new ID.
+no converter; use a new persistence ID unless application acceptance proves
+reuse of existing storage.
 </div>
 {/* END README */}
 

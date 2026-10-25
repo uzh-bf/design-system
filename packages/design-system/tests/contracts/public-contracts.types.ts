@@ -132,8 +132,6 @@ createElement(ResizablePanel, {
   panelRef: createRef<ReturnType<typeof usePanelRef>['current']>(),
   onResize: (size) => size.asPercentage + size.inPixels,
 })
-// @ts-expect-error Both entries use native orientation instead of direction.
-createElement(RootResizablePanelGroup, { direction: 'horizontal' })
 // @ts-expect-error Native persistence is supplied through useDefaultLayout.
 createElement(RootResizablePanelGroup, { autoSaveId: 'legacy-layout' })
 createElement(RootResizablePanelGroup, {
