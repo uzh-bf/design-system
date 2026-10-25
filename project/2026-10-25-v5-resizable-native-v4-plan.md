@@ -180,36 +180,49 @@ avoiding status-only commits that restart green CI.
 
 ## Progress
 
-Implementation is integrated on `rs/v5-resizable-native-v4` above held Sidebar
-`be62259b0`; plan-first commit `9e44d1186`. Native planner round2 and optional
-AGY challenge approved the plan. The configured Claude advisor supports the
-single-engine choice. The trusted native executor completed its three bounded
-paths and one MDX correction; main integrated the remaining MDX parsing and
-verified native reset/callback timing corrections. All writers are closed.
+Source/local qualification is complete in
+[draft #233](https://github.com/uzh-bf/design-system/pull/233), above held Sidebar
+`be62259b0` in native stack231. Plan-first commit: `9e44d1186`. Package executable
+source: `31f6f5ab9`; final fixture/test correction: `5271dac43`. The latter changes
+no library, MDX, manifest, lockfile or shipped-package input. Delegated writers
+and slice reviewers are closed. No native goal or automation was created.
 
-Canonical4.14.8 type checks, package build and dependency12-case suite pass.
-All6 focused browser interaction cases pass. npm/pnpm packed identity and mixed
-SSR probes pass. The Next persisted-layout geometry case reproduced a mismatch
-with the old null-only storage guard, then passed all12 cases under each bundler
-with a shared cookie-backed server/hydration snapshot. This fixture integration
-adds the existing server page to the named path set; library behavior stays native.
-Updated docs cover both numeric unit meanings, removed APIs, storage ownership
-and the native legacy-read limitation. ADR0010 supersedes ADR0009.
+Native planner round2 and the optional AGY challenge approved the plan. The
+configured Claude advisor supports one canonical engine at the major boundary.
+The simplifier's write-only fixture storage mirror was removed. The risk reviewer
+approved the focused correction: the reset test now distinguishes native neighbor
+rebalancing from resetting all panels, and vertical ArrowDown coverage is restored.
+The proposed unchanged-neighbor assertion was rejected against exact native
+behavior; a computed geometry assertion verifies the real contract.
 
-Final native check/lint/format/build and the focused five-file scan pass. The
-current story inventory is unchanged; all6 focused accessibility and700 existing
-contract/smoke cases pass. The three packed/Next matrix cells are running. The exact unpublished archive matches all268 installed files, and eight inspected
-screenshots are published in [draft #233](https://github.com/uzh-bf/design-system/pull/233).
-The simplifier identified a write-only fixture storage mirror, now removed. The
-risk review found a reset-test distinction gap; corrected coverage asserts native
-neighbor rebalancing and restores vertical ArrowDown behavior. Fresh focused tests
-and lint/format pass; the affected three-cell Next matrix passes both bundlers. The same
-reviewer follow-up, integrated final review and final-head hosted CI remain. No new native goal or automation.
-The exact custom container remains active only for this verification.
+Local evidence passes: types, lint, format, package build, 12 dependency validation
+cases, six focused interaction cases, six focused accessibility cases and 700
+existing contract/smoke cases. All three packed dependency cells pass; the final
+fixture correction also passes all 12 Next cases under both bundlers in all three
+cells. Size/module boundaries and 704 theme assertions pass. Focused scans have
+zero findings/errors. The story inventory and screenshot baselines are unchanged.
 
-Required delivery: one qualified draft above
-[#232](https://github.com/uzh-bf/design-system/pull/232). Migration [draft #233](https://github.com/uzh-bf/design-system/pull/233) exists
-at the initial integrated head. Next: commit the reviewed fixture/test correction,
-verify the same reviewer follow-up and exact candidate, and ordinarily push the
-final qualified draft head. Native
-runtime release and final exact-head qualification stay mandatory before completion.
+The unpublished archive SHA-256 is
+`eea9a8f060479ed56e66e745fcfe49728649910aa4077ed099b67c0c4d095d7e`;
+all 268 files match the installed copy. Fresh npm/pnpm probes of that archive prove
+shared engine/export identity and mixed SSR composition. The 400 checked source
+and fixture inputs match the verification workspace. Eight real captures at
+`31f6f5ab9` retain exact rendered-source applicability after the test-only
+correction; all uploads pass PNG/hash readback and render in the draft.
+
+The original null-only persistence guard reproduced stale geometry after reload.
+An application-owned cookie snapshot fixes server/hydration agreement; the native
+engine remains unchanged. This verified constraint is captured in ADR0010 and
+MIGRATION.md. The native helper's limited legacy read does not qualify arbitrary
+application layouts. Consumer migration and exact-candidate acceptance remain
+separate, alongside manual screen-reader/Safari/device and integrated GA gates.
+
+The exact custom verification container is stopped with its source mount and
+`Running=false` verified. Its isolated browser is closed. No consumer runtime was
+touched. No merge, readiness, publication or deployment was performed.
+
+Delivery remains pending the configured integrated final review, final published
+head's hosted checks and quiet feedback qualification. Hold the final published
+head after this documentation checkpoint. Record those final outcomes in the
+existing draft description and ignored execution journal, avoiding another
+status-only commit and CI restart. No further implementation slice is planned.

@@ -296,6 +296,10 @@ browser qualification. The next implementation packages are:
    Sidebar draft [#232](https://github.com/uzh-bf/design-system/pull/232) qualifies
    at `be62259b0` for mobile direction, caller props and focus. Keep all three drafts
    independently qualified and unmerged; serialize manifest/lock changes.
+   Unified Resizable [draft #233](https://github.com/uzh-bf/design-system/pull/233)
+   implements ADR0010 with local browser/accessibility, exact package and independent
+   risk-review proof. Its draft description records final review/CI qualification;
+   earlier dual-engine evidence applies only to the earlier candidate.
 3. **Messaging/clarification and code/highlighting.** Use separate bounded
    packages for the required presentation/scroll/questionnaire surfaces and
    code/highlighting. Their distinct @shadcn/react and Shiki runtime, scrolling,
