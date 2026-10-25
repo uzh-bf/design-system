@@ -35,7 +35,6 @@ const aliases: Record<string, keyof typeof languages> = {
 }
 
 let highlighterPromise: Promise<HighlighterCore> | undefined
-const loadedLanguages = new Set<keyof typeof languages>()
 const languagePromises = new Map<keyof typeof languages, Promise<void>>()
 
 function getHighlighter() {
@@ -90,12 +89,10 @@ async function loadLanguage(
   shiki: HighlighterCore,
   language: keyof typeof languages
 ) {
-  if (loadedLanguages.has(language)) return
   let pending = languagePromises.get(language)
   if (!pending) {
     pending = languages[language]().then(async (grammar) => {
       await shiki.loadLanguage(grammar)
-      loadedLanguages.add(language)
     })
     languagePromises.set(language, pending)
   }
