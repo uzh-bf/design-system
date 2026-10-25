@@ -110,7 +110,6 @@ export function AuxiliaryLeaf({
       setItem: (key: string, value: string) => {
         values[key] = value
         if (typeof window !== 'undefined') {
-          window.localStorage.setItem(key, value)
           document.cookie = `ds-fixture-panel-layouts=${encodeURIComponent(JSON.stringify(values))}; Path=/; SameSite=Lax`
         }
       },

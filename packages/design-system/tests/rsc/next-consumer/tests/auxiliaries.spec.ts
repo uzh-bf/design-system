@@ -84,8 +84,6 @@ test('packed Panels share native layouts and persist conditional panel sets', as
   })
 
   await page.goto('/')
-  await page.evaluate(() => localStorage.clear())
-  await page.reload()
 
   const rootSection = page.locator('[data-test="packed-root-layout"]')
   const nativeSection = page.locator('[data-test="packed-native-layout"]')

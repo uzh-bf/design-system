@@ -198,12 +198,18 @@ and the native legacy-read limitation. ADR0010 supersedes ADR0009.
 
 Final native check/lint/format/build and the focused five-file scan pass. The
 current story inventory is unchanged; all6 focused accessibility and700 existing
-contract/smoke cases pass. The three packed/Next matrix cells are running. Final immutable slice reviews, exact candidate proof, screenshot publication,
-integrated final review and hosted CI remain. No new native goal or automation.
+contract/smoke cases pass. The three packed/Next matrix cells are running. The exact unpublished archive matches all268 installed files, and eight inspected
+screenshots are published in [draft #233](https://github.com/uzh-bf/design-system/pull/233).
+The simplifier identified a write-only fixture storage mirror, now removed. The
+risk review found a reset-test distinction gap; corrected coverage asserts native
+neighbor rebalancing and restores vertical ArrowDown behavior. Fresh focused tests
+and lint/format pass; the affected three-cell Next matrix passes both bundlers. The same
+reviewer follow-up, integrated final review and final-head hosted CI remain. No new native goal or automation.
 The exact custom container remains active only for this verification.
 
 Required delivery: one qualified draft above
-[#232](https://github.com/uzh-bf/design-system/pull/232). No PR exists for this
-migration yet. Next: commit the coherent migration, complete its required reviews
-and final qualification, then deliver the draft with an ordinary push. Native
+[#232](https://github.com/uzh-bf/design-system/pull/232). Migration [draft #233](https://github.com/uzh-bf/design-system/pull/233) exists
+at the initial integrated head. Next: commit the reviewed fixture/test correction,
+verify the same reviewer follow-up and exact candidate, and ordinarily push the
+final qualified draft head. Native
 runtime release and final exact-head qualification stay mandatory before completion.

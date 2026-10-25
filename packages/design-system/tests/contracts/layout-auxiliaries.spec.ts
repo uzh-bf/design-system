@@ -365,9 +365,14 @@ test.describe('layout auxiliaries: Panels', () => {
     )
     expect(latestResize?.previous?.inPixels).toBeGreaterThan(0)
 
+    const groupWidth = (await group.boundingBox())!.width
+    const rebalancedPixels =
+      136 + ((resizedLayout['native-percent-panel']! - 30) / 100) * groupWidth
+    expect(Math.abs(rebalancedPixels - 120)).toBeGreaterThan(2)
     await page.locator('#native-units-separator').dblclick()
     await expectLayoutValue(layoutState, 'native-percent-panel', 30)
     await expectPanelShare(group, percentPanel, 0.3)
+    await expectPanelPixels(pixelPanel, rebalancedPixels)
     await page.locator('#native-remainder-separator').dblclick()
     await expectPanelPixels(pixelPanel, 120)
 
@@ -403,6 +408,13 @@ test.describe('layout auxiliaries: Panels', () => {
       page.locator('[data-test="native-nested-layout-state"]'),
       ['native-nested-top', 'native-nested-bottom']
     )
+    const nestedState = page.locator('[data-test="native-nested-layout-state"]')
+    const nestedBefore = (await readMap(nestedState))['native-nested-top']!
+    await page.locator('#native-nested-vertical').getByRole('separator').focus()
+    await page.keyboard.press('ArrowDown')
+    await expect
+      .poll(async () => (await readMap(nestedState))['native-nested-top'])
+      .toBeGreaterThan(nestedBefore)
   })
 
   test('root and native doors share pointer, keyboard bounds, disabled and RTL behavior', async ({
