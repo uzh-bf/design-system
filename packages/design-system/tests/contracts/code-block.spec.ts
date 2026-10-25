@@ -120,6 +120,44 @@ test('highlighting is opt-in and stays readable across streamed values and unsup
   await expect(content).toContainText('{"ok":true}')
   await page.locator('[data-test="code-language"]').selectOption('typescript')
   await expect(content.locator('[style*="--shiki"]').first()).toBeVisible()
+
+  const chunks = [
+    '/* streamed',
+    '/* streamed\ncomment',
+    '/* streamed\ncomment */\nconst complete = 1',
+  ]
+  for (const chunk of chunks) {
+    await page.locator('[data-test="code-input"]').fill(chunk)
+    await expect(content).toContainText(chunk.split('\n').at(-1)!)
+  }
+  const readLines = async (target: typeof content) =>
+    target.locator('[data-slot="code-block-line"]').evaluateAll((nodes) =>
+      nodes.map((node) => ({
+        text: node.textContent,
+        tokens: Array.from(node.querySelectorAll('[style*="--shiki"]')).map(
+          (token) => ({
+            text: token.textContent,
+            style: token.getAttribute('style'),
+          })
+        ),
+      }))
+    )
+  const fresh = await page.context().newPage()
+  await gotoStory(fresh, 'code-block--configured', 'uzh')
+  await fresh.locator('[data-test="code-input"]').fill(chunks.at(-1)!)
+  await fresh.locator('[data-test="highlight-toggle"]').check()
+  const freshContent = fresh.locator('[data-test="code-content"]')
+  await expect(freshContent.locator('[style*="--shiki"]').first()).toBeVisible()
+  await expect
+    .poll(() => readLines(content))
+    .toEqual(await readLines(freshContent))
+  const replacement = 'const replacement = 2\nreplacement'
+  await page.locator('[data-test="code-input"]').fill(replacement)
+  await fresh.locator('[data-test="code-input"]').fill(replacement)
+  await expect
+    .poll(() => readLines(content))
+    .toEqual(await readLines(freshContent))
+  await fresh.close()
 })
 
 test('code content scrolls with the keyboard and wraps within narrow RTL composition', async ({
@@ -144,6 +182,12 @@ test('code content scrolls with the keyboard and wraps within narrow RTL composi
     .poll(() => content.evaluate((node) => node.scrollLeft))
     .toBeGreaterThan(0)
   await page.locator('[data-test="wrap-toggle"]').check()
+  await expect
+    .poll(() => content.evaluate((node) => node.scrollWidth - node.clientWidth))
+    .toBeLessThanOrEqual(1)
+  await page
+    .locator('[data-test="code-input"]')
+    .fill('https://example.test/' + 'x'.repeat(240))
   await expect
     .poll(() => content.evaluate((node) => node.scrollWidth - node.clientWidth))
     .toBeLessThanOrEqual(1)

@@ -340,7 +340,7 @@ function CodeBlockContent({
 }
 
 const codeBlockLineVariants = cva(
-  'text-foreground relative block min-h-lh after:absolute after:top-0 after:end-1 after:select-none',
+  'text-foreground relative block min-h-lh min-w-0 after:absolute after:top-0 after:end-1 after:select-none',
   {
     variants: {
       variant: {
