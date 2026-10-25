@@ -1002,37 +1002,91 @@ the current year plus 99; explicit native bounds still win. Application-owned
 non-Gregorian recipes and manual screen-reader/Safari/device qualification remain
 separate from this locale update.
 
-## Resizable engine contracts
+## Resizable: one native Panels 4 contract
 
-The root Resizable family retains `react-resizable-panels` 3.0.6. Existing
-`direction`, numeric percentage sizes, refs, callbacks, custom tags, ordering
-and `autoSaveId`/`storage` behavior remain supported. Existing saved layouts keep
-their v3 format.
+Both root and primitive `ResizablePanelGroup`, `ResizablePanel` and
+`ResizableHandle` exports now share the official shadcn Radix recipe and one
+`react-resizable-panels@4.14.8` runtime. The root v3 compatibility contract from
+earlier v5 drafts has been removed at this major-version boundary (ADR0010).
+Components and helpers from the two DS entries can now share a group.
 
-The raw Resizable family from `@uzh-bf/design-system/primitives` now follows the
-official Panels 4.14.8 recipe. This is a pre-GA primitive API migration:
+**Panel size inputs changed meaning.** In v3, `defaultSize={30}` meant 30%; in
+v4 it means 30 pixels. Use `defaultSize="30%"`, `minSize="20%"` and
+`maxSize="80%"` when migrating percentage constraints. The same rule applies to
+`collapsedSize` and `panel.resize()`: `resize(30)` requests 30px and
+`resize("30%")` requests 30%. TypeScript cannot catch a number that used to mean
+percentages. Other native CSS size units remain available.
 
-- Use `orientation` in place of `direction`.
-- Numeric sizes mean pixels; use a percentage string such as `"30%"` for
-  percentages.
-- Use `groupRef`/`panelRef` for imperative handles and `elementRef` for DOM refs.
-  Native panel `getSize()` returns pixel and percentage information.
-- Use native ID-keyed layout maps and `onLayoutChange`/`onLayoutChanged`, rather
-  than v3 positional arrays and `onLayout`.
+Layout maps are different: `group.setLayout({ left: 30, right: 70 })` still uses
+percentage numbers, as do `getLayout()` and layout callbacks. Assign stable panel
+IDs; replace v3 positional arrays and `onLayout` with native maps and
+`onLayoutChange`/`onLayoutChanged`. Prefer `onLayoutChanged` for saving after an
+interaction completes; its metadata distinguishes user interaction from other
+updates and provides the requested layout before constraints were applied.
 
-Import `Layout`, `useDefaultLayout`, `useGroupRef` and `usePanelRef` from the
-primitive entry alongside that complete Resizable family. This also works when
-an application retains the canonical v3 dependency for existing compositions;
-the library's v4 dependency alias is internal. Root components and native
-primitive components cannot share one group. Directly imported components from
-a second v4 installation may also use a different context.
+```tsx
+// Before: v3 panel sizes were percentage numbers.
+<ResizablePanelGroup direction="horizontal">
+  <ResizablePanel defaultSize={30} />
+  <ResizableHandle />
+  <ResizablePanel defaultSize={70} />
+</ResizablePanelGroup>
 
-Use the root family when retaining the v3 contract. Migrating to the primitive
-family requires explicit prop/ref and persistence changes; old saved layouts are
-application-owned. The DS performs no storage conversion. When server rendering,
-provide server-safe storage to `useDefaultLayout`; its native default accesses
-browser `localStorage`. Applications using both families can include both
-upstream engines. No custom resizing engine or global provider is introduced.
+// After: both v5 public entries use native v4 size inputs.
+<ResizablePanelGroup orientation="horizontal">
+  <ResizablePanel id="left" defaultSize="30%" />
+  <ResizableHandle />
+  <ResizablePanel id="right" defaultSize="70%" />
+</ResizablePanelGroup>
+```
+
+Use `groupRef`/`panelRef` for native imperative handles and `elementRef` for DOM
+refs. Import `useDefaultLayout`, `useGroupRef`, `usePanelRef`, `Layout`,
+`GroupImperativeHandle`, `PanelImperativeHandle` and `PanelSize` from either DS
+entry. Panel `getSize()` returns `{ asPercentage, inPixels }`; native handles keep
+`collapse()`, `expand()` and `isCollapsed()`. Replace `isExpanded()` with
+`!isCollapsed()`, retain IDs in application code instead of calling `getId()`, and
+use `resize()` for an explicit expansion target instead of `expand(minSize)`.
+
+Several v3 props have no identical native replacement:
+
+- `onCollapse`/`onExpand`: observe `onResize(size, id, previousSize)` and the
+  configured collapsed threshold or inspect `isCollapsed()`. Resize payloads
+  include pixel and percentage sizes; the previous payload can be undefined.
+- `onDragging` and `keyboardResizeBy`: no equivalent drag lifecycle callback or
+  configurable keyboard step. `onLayoutChanged` reports completed layout updates
+  and interaction metadata, rather than drag start/end events.
+- `tagName` and `order`: native controls render divs in DOM order. Put semantic
+  elements inside panels and keep stable panel IDs for conditional compositions.
+- `hitAreaMargins`: configure the group's `resizeTargetMinimumSize` for fine and
+  coarse pointer targets. Native separator double-click resets a neighboring panel with a default size;
+  opt out with `disableDoubleClick` when that behavior is unwanted.
+
+Update custom CSS from `data-panel-group-direction` to the native orientation
+markers. Groups use `aria-orientation`; separators describe their own axis, so a
+vertical group has a horizontal separator. Panel `className` applies to an inner
+div, while the engine owns layout styles on its outer element. Check custom
+selectors and flex/overflow assumptions during migration.
+
+Replace `autoSaveId` and group `storage` with
+`useDefaultLayout({ id, storage, panelIds })`, passing its `defaultLayout` and
+`onLayoutChanged` into the group. Supply IDs matching the mounted panels to save
+separate layouts for conditional panel sets. When server rendering, provide
+storage whose server-render and hydration snapshots agree; the native default
+accesses browser `localStorage`. A `typeof window` guard alone can still return
+different initial layouts on the server and client, leaving geometry inconsistent
+after hydration. A server-readable cookie snapshot is one application-owned
+option; another is explicitly deferring a persisted layout until client mount.
+Existing v3 layouts remain application-owned. The DS adds no migration or deletion
+step. The upstream helper can read certain legacy records when IDs match; this
+limited fallback does not qualify every existing layout. Choose a new persistence
+ID unless application acceptance proves reuse or an explicit conversion. Old v3
+sizing/ref/callback/storage contracts are not emulated.
+
+Applications directly importing Panels alongside DS components must declare
+matching `react-resizable-panels@4.14.8` and resolve the same runtime. Packed
+fixtures verify the matching arrangement under npm and pnpm; arbitrary versions
+or duplicate installations are not guaranteed to share component context.
 
 ## Sonner 2 notification compatibility
 

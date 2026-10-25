@@ -7,12 +7,74 @@ async function readJson<T>(locator: Locator): Promise<T> {
   return JSON.parse(await locator.innerText()) as T
 }
 
-async function readArray(locator: Locator): Promise<number[]> {
-  return readJson<number[]>(locator)
-}
-
 async function readMap(locator: Locator): Promise<Record<string, number>> {
   return readJson<Record<string, number>>(locator)
+}
+
+type PanelSize = {
+  asPercentage: number
+  inPixels: number
+}
+
+type ResizeRecord = {
+  current: PanelSize
+  id: string | number | undefined
+  previous: PanelSize | undefined
+}
+
+async function freshStory(page: Page, story: string) {
+  await gotoStory(page, story)
+  await page.evaluate(() => localStorage.clear())
+  await gotoStory(page, story)
+}
+
+async function expectLayoutKeys(
+  locator: Locator,
+  expected: string[]
+): Promise<void> {
+  await expect
+    .poll(async () => Object.keys(await readMap(locator)).sort())
+    .toEqual(expected.sort())
+}
+
+async function expectLayoutValue(
+  locator: Locator,
+  id: string,
+  expected: number
+): Promise<void> {
+  await expect
+    .poll(async () => (await readMap(locator))[id])
+    .toBeCloseTo(expected, 2)
+}
+
+async function expectPanelShare(
+  group: Locator,
+  panel: Locator,
+  expected: number
+): Promise<void> {
+  await expect
+    .poll(async () => {
+      const [groupBox, panelBox] = await Promise.all([
+        group.boundingBox(),
+        panel.boundingBox(),
+      ])
+      return groupBox && panelBox
+        ? Math.abs(panelBox.width / groupBox.width - expected)
+        : Number.POSITIVE_INFINITY
+    })
+    .toBeLessThan(0.02)
+}
+
+async function expectPanelPixels(
+  panel: Locator,
+  expected: number
+): Promise<void> {
+  await expect
+    .poll(async () => {
+      const box = await panel.boundingBox()
+      return box ? Math.abs(box.width - expected) : Number.POSITIVE_INFINITY
+    })
+    .toBeLessThanOrEqual(2)
 }
 
 async function dragWithMouse(page: Page, separator: Locator, distance: number) {
@@ -64,7 +126,7 @@ async function dragWithTouch(page: Page, separator: Locator, distance: number) {
 
 test.describe('layout auxiliaries: Panels', () => {
   test('keeps the existing default appearance', async ({ page }) => {
-    await gotoStory(page, 'resizable--default')
+    await freshStory(page, 'resizable--default')
 
     const group = page.locator('[data-test="default-root-group"]')
     const left = page.locator('[data-test="default-root-left"]')
@@ -91,255 +153,309 @@ test.describe('layout auxiliaries: Panels', () => {
     )
   })
 
-  test('root keeps percentages, refs, callbacks, tags, order and nesting', async ({
+  test('root door exposes native maps, refs, payloads and nonzero collapse', async ({
     page,
   }) => {
-    await gotoStory(page, 'resizable--compatibility')
+    await freshStory(page, 'resizable--compatibility')
 
     const group = page.locator('#root-story-group')
     const left = page.locator('#root-story-left')
-    const right = page.locator('#root-story-right')
     const layoutState = page.locator('[data-test="root-layout-state"]')
     const nestedState = page.locator('[data-test="root-nested-layout-state"]')
-    await expect.poll(async () => (await readArray(layoutState)).length).toBe(2)
-    await expect.poll(async () => (await readArray(nestedState)).length).toBe(2)
-
-    const layout = await readArray(layoutState)
-    const nestedLayout = await readArray(nestedState)
-    expect(layout[0]).toBeCloseTo(30, 5)
-    expect(layout[1]).toBeCloseTo(70, 5)
-    expect(nestedLayout[0]).toBeCloseTo(60, 5)
-    expect(nestedLayout[1]).toBeCloseTo(40, 5)
-
-    const groupBox = await group.boundingBox()
-    const leftBox = await left.boundingBox()
-    const rightBox = await right.boundingBox()
-    expect(groupBox).not.toBeNull()
-    expect(leftBox).not.toBeNull()
-    expect(rightBox).not.toBeNull()
-    expect(Math.abs(leftBox!.width / groupBox!.width - 0.3)).toBeLessThan(0.02)
-    expect(Math.abs(rightBox!.width / groupBox!.width - 0.7)).toBeLessThan(0.02)
-    await expect(group).toHaveJSProperty('tagName', 'NAV')
-    await expect(left).toHaveJSProperty('tagName', 'ASIDE')
-    await expect(page.locator('#root-nested-group')).toHaveJSProperty(
-      'tagName',
-      'SECTION'
-    )
+    await expectLayoutKeys(layoutState, ['root-story-left', 'root-story-right'])
+    await expectLayoutKeys(nestedState, [
+      'root-nested-top',
+      'root-nested-bottom',
+    ])
+    await expectLayoutValue(layoutState, 'root-story-left', 30)
+    await expectLayoutValue(layoutState, 'root-story-right', 70)
+    await expectLayoutValue(nestedState, 'root-nested-top', 60)
+    await expectLayoutValue(nestedState, 'root-nested-bottom', 40)
+    await expectPanelShare(group, left, 0.3)
 
     await page.locator('[data-test="root-read-refs"]').click()
     const refLayoutState = page.locator('[data-test="root-ref-layout"]')
-    await expect
-      .poll(async () => (await refLayoutState.innerText()) !== 'null')
-      .toBe(true)
-    const refLayout = await readArray(refLayoutState)
-    expect(refLayout).toHaveLength(layout.length)
-    refLayout.forEach((size, index) =>
-      expect(size).toBeCloseTo(layout[index]!, 5)
+    await expectLayoutKeys(refLayoutState, [
+      'root-story-left',
+      'root-story-right',
+    ])
+    const refLayout = await readMap(refLayoutState)
+    const layout = await readMap(layoutState)
+    expect(refLayout['root-story-left']).toBeCloseTo(
+      layout['root-story-left']!,
+      5
     )
-    const refPanelState = page.locator('[data-test="root-ref-panel"]')
+    const rootRefPanel = page.locator('[data-test="root-ref-panel"]')
     await expect
-      .poll(async () => (await refPanelState.innerText()) !== 'null')
+      .poll(async () => await rootRefPanel.innerText())
+      .not.toBe('null')
+    const panelRef = await readJson<PanelSize>(rootRefPanel)
+    expect(panelRef.asPercentage).toBeCloseTo(30, 2)
+    expect(panelRef.inPixels).toBeGreaterThan(0)
+
+    await page.locator('[data-test="root-set-layout"]').click()
+    await expectLayoutValue(layoutState, 'root-story-left', 40)
+    await expectLayoutValue(layoutState, 'root-story-right', 60)
+    await expectPanelShare(group, left, 0.4)
+
+    await page.locator('[data-test="root-resize-pixels"]').click()
+    await expect
+      .poll(async () => {
+        const size = await readJson<PanelSize>(
+          page.locator('[data-test="root-ref-panel"]')
+        )
+        return size.inPixels
+      })
+      .toBeCloseTo(96, 0)
+    const leftBox = await left.boundingBox()
+    expect(leftBox).not.toBeNull()
+    expect(Math.abs(leftBox!.width - 96)).toBeLessThanOrEqual(2)
+
+    const resizeEvents = page.locator('[data-test="root-resize-events"]')
+    await expect
+      .poll(async () =>
+        (await readJson<ResizeRecord[]>(resizeEvents)).some(
+          (event) => event.previous !== undefined
+        )
+      )
       .toBe(true)
-    const panelRef = await readJson<{ collapsed: boolean; size: number }>(
-      refPanelState
-    )
-    expect(panelRef.collapsed).toBe(false)
-    expect(panelRef.size).toBeCloseTo(30, 5)
+    await expect
+      .poll(
+        async () =>
+          (await readJson<ResizeRecord[]>(resizeEvents)).at(-1)?.current
+            .inPixels
+      )
+      .toBeCloseTo(96, 0)
+    const latestResize = (await readJson<ResizeRecord[]>(resizeEvents))
+      .filter((event) => event.previous !== undefined)
+      .at(-1)
+    expect(latestResize?.id).toBe('root-story-left')
+    expect(latestResize?.current).toEqual({
+      asPercentage: expect.any(Number),
+      inPixels: expect.any(Number),
+    })
+    expect(latestResize?.previous).toEqual({
+      asPercentage: expect.any(Number),
+      inPixels: expect.any(Number),
+    })
+    expect(Math.abs(latestResize!.current.inPixels - 96)).toBeLessThanOrEqual(2)
 
     await page.locator('[data-test="root-collapse"]').click()
+    await page.locator('[data-test="root-read-refs"]').click()
     await expect(page.locator('[data-test="root-collapsed"]')).toHaveText(
       'true'
     )
+    await expect
+      .poll(async () =>
+        readJson<PanelSize>(page.locator('[data-test="root-ref-panel"]')).then(
+          ({ inPixels }) => inPixels
+        )
+      )
+      .toBeGreaterThan(0)
+    await expectPanelPixels(left, 32)
+
     await page.locator('[data-test="root-expand"]').click()
+    await page.locator('[data-test="root-read-refs"]').click()
     await expect(page.locator('[data-test="root-collapsed"]')).toHaveText(
       'false'
     )
-    const callbacks = await readJson<Record<string, number>>(
-      page.locator('[data-test="root-callbacks"]')
-    )
-    expect(callbacks.collapse).toBeGreaterThanOrEqual(1)
-    expect(callbacks.expand).toBeGreaterThanOrEqual(1)
-    expect(callbacks.resize).toBeGreaterThanOrEqual(1)
   })
 
-  test('native keeps v4 percentages, pixels, layout maps, refs and fallback orientation', async ({
+  test('custom storage restores root and native layouts after reload', async ({
     page,
   }) => {
-    await gotoStory(page, 'resizable--native-compatibility')
+    await freshStory(page, 'resizable--compatibility')
+    const rootState = page.locator('[data-test="root-layout-state"]')
+    await page.locator('[data-test="root-set-layout"]').click()
+    await expectLayoutValue(rootState, 'root-story-left', 40)
+    await expectLayoutValue(rootState, 'root-story-right', 60)
+    await page.reload()
+    await expectLayoutValue(rootState, 'root-story-left', 40)
+    await expectLayoutValue(rootState, 'root-story-right', 60)
+    await expectPanelShare(
+      page.locator('#root-story-group'),
+      page.locator('#root-story-left'),
+      0.4
+    )
+
+    await freshStory(page, 'resizable--native-compatibility')
+    const nativeState = page.locator('[data-test="native-units-layout-state"]')
+    await page.locator('[data-test="native-set-layout"]').click()
+    await expectLayoutValue(nativeState, 'native-percent-panel', 40)
+    await expectLayoutValue(nativeState, 'native-pixel-panel', 30)
+    await expectLayoutValue(nativeState, 'native-auto-panel', 30)
+    await page.reload()
+    await expectLayoutValue(nativeState, 'native-percent-panel', 40)
+    await expectLayoutValue(nativeState, 'native-pixel-panel', 30)
+    await expectLayoutValue(nativeState, 'native-auto-panel', 30)
+  })
+
+  test('native door keeps percent and pixel sizing, mixed components, refs and native reset', async ({
+    page,
+  }) => {
+    await freshStory(page, 'resizable--native-compatibility')
 
     const group = page.locator('#native-units-group')
     const percentPanel = page.locator('#native-percent-panel')
     const pixelPanel = page.locator('#native-pixel-panel')
     const layoutState = page.locator('[data-test="native-units-layout-state"]')
-    await expect
-      .poll(async () => Object.keys(await readMap(layoutState)).sort())
-      .toEqual(
-        [
-          'native-percent-panel',
-          'native-pixel-panel',
-          'native-auto-panel',
-        ].sort()
-      )
-    const layout = await readMap(layoutState)
-    expect(layout['native-percent-panel']).toBeCloseTo(30, 5)
-
-    const groupBox = await group.boundingBox()
-    const percentBox = await percentPanel.boundingBox()
-    const pixelBox = await pixelPanel.boundingBox()
-    expect(groupBox).not.toBeNull()
-    expect(percentBox).not.toBeNull()
-    expect(pixelBox).not.toBeNull()
-    expect(Math.abs(percentBox!.width / groupBox!.width - 0.3)).toBeLessThan(
-      0.02
-    )
-    expect(Math.abs(pixelBox!.width - 120)).toBeLessThanOrEqual(2)
+    await expectLayoutKeys(layoutState, [
+      'native-percent-panel',
+      'native-pixel-panel',
+      'native-auto-panel',
+    ])
+    await expectLayoutValue(layoutState, 'native-percent-panel', 30)
+    await expectPanelShare(group, percentPanel, 0.3)
+    await expectPanelPixels(pixelPanel, 120)
 
     await page.locator('[data-test="native-read-refs"]').click()
-    const refLayoutState = page.locator('[data-test="native-ref-layout"]')
+    await expectLayoutKeys(page.locator('[data-test="native-ref-layout"]'), [
+      'native-percent-panel',
+      'native-pixel-panel',
+      'native-auto-panel',
+    ])
+    const nativeRefPanel = page.locator('[data-test="native-ref-panel"]')
     await expect
-      .poll(async () => (await refLayoutState.innerText()) !== 'null')
-      .toBe(true)
-    const refLayout = await readMap(refLayoutState)
-    expect(refLayout['native-percent-panel']).toBeCloseTo(
-      layout['native-percent-panel']!,
-      5
-    )
-    const refSizeState = page.locator('[data-test="native-ref-size"]')
+      .poll(async () => await nativeRefPanel.innerText())
+      .not.toBe('null')
+    const initialSize = await readJson<PanelSize>(nativeRefPanel)
+    expect(Math.abs(initialSize.inPixels - 120)).toBeLessThanOrEqual(2)
+
+    const pointerBefore = await readMap(layoutState)
+    await dragWithMouse(page, page.locator('#native-units-separator'), 56)
     await expect
-      .poll(async () => (await refSizeState.innerText()) !== 'null')
+      .poll(async () => (await readMap(layoutState))['native-percent-panel'])
+      .toBeGreaterThan(pointerBefore['native-percent-panel']! + 1)
+
+    await page.locator('[data-test="native-resize-pixels"]').click()
+    await expect
+      .poll(async () =>
+        readJson<PanelSize>(
+          page.locator('[data-test="native-ref-panel"]')
+        ).then(({ inPixels }) => inPixels)
+      )
+      .toBeGreaterThan(133)
+    await expectPanelPixels(pixelPanel, 136)
+    const resizedLayout = await readMap(layoutState)
+    expect(
+      Object.values(resizedLayout).reduce((sum, value) => sum + value, 0)
+    ).toBeCloseTo(100, 1)
+
+    const resizeEvents = page.locator('[data-test="native-resize-events"]')
+    await expect
+      .poll(async () =>
+        (await readJson<ResizeRecord[]>(resizeEvents)).some(
+          (event) => event.previous !== undefined
+        )
+      )
       .toBe(true)
-    const refSize = await readJson<{ asPercentage: number; inPixels: number }>(
-      refSizeState
+    await expect
+      .poll(
+        async () =>
+          (await readJson<ResizeRecord[]>(resizeEvents)).at(-1)?.current
+            .inPixels
+      )
+      .toBeCloseTo(136, 0)
+    const latestResize = (await readJson<ResizeRecord[]>(resizeEvents))
+      .filter((event) => event.previous !== undefined)
+      .at(-1)
+    expect(latestResize?.id).toBe('native-pixel-panel')
+    expect(Math.abs(latestResize!.current.inPixels - 136)).toBeLessThanOrEqual(
+      2
     )
-    expect(Math.abs(refSize.inPixels - 120)).toBeLessThanOrEqual(2)
+    expect(latestResize?.previous?.inPixels).toBeGreaterThan(0)
+
+    await page.locator('#native-units-separator').dblclick()
+    await expectLayoutValue(layoutState, 'native-percent-panel', 30)
+    await expectPanelShare(group, percentPanel, 0.3)
+    await page.locator('#native-remainder-separator').dblclick()
+    await expectPanelPixels(pixelPanel, 120)
 
     await page.locator('[data-test="native-collapse"]').click()
+    await page.locator('[data-test="native-read-refs"]').click()
+    await expect(page.locator('[data-test="native-collapsed"]')).toHaveText(
+      'true'
+    )
     await expect
       .poll(async () =>
-        readJson<{ collapsed: boolean }>(
-          page.locator('[data-test="native-collapse-state"]')
-        ).then(({ collapsed }) => collapsed)
+        readJson<PanelSize>(
+          page.locator('[data-test="native-ref-panel"]')
+        ).then(({ inPixels }) => inPixels)
       )
-      .toBe(true)
+      .toBeLessThan(120)
+    const collapsedSize = await readJson<PanelSize>(
+      page.locator('[data-test="native-ref-panel"]')
+    )
+    expect(collapsedSize.inPixels).toBeGreaterThan(0)
+    expect(collapsedSize.asPercentage).toBeGreaterThan(0)
+    expect(Math.abs(collapsedSize.inPixels - 48)).toBeLessThanOrEqual(2)
     await page.locator('[data-test="native-expand"]').click()
-    await expect
-      .poll(async () =>
-        readJson<{ collapsed: boolean }>(
-          page.locator('[data-test="native-collapse-state"]')
-        ).then(({ collapsed }) => collapsed)
-      )
-      .toBe(false)
+    await page.locator('[data-test="native-read-refs"]').click()
+    await expect(page.locator('[data-test="native-collapsed"]')).toHaveText(
+      'false'
+    )
 
     await expect(page.locator('#native-nested-vertical')).toHaveCSS(
       'flex-direction',
       'column'
     )
-    await expect
-      .poll(async () =>
-        Object.keys(
-          await readMap(
-            page.locator('[data-test="native-nested-layout-state"]')
-          )
-        ).sort()
-      )
-      .toEqual(['native-nested-top', 'native-nested-bottom'].sort())
-    expect(
-      await readJson<{ count: number }>(
-        page.locator('[data-test="native-resize-events"]')
-      ).then(({ count }) => count)
-    ).toBeGreaterThan(0)
+    await expectLayoutKeys(
+      page.locator('[data-test="native-nested-layout-state"]'),
+      ['native-nested-top', 'native-nested-bottom']
+    )
   })
 
-  test('root resizes with pointer, keyboard bounds, disabled handles and RTL', async ({
+  test('root and native doors share pointer, keyboard bounds, disabled and RTL behavior', async ({
     page,
   }) => {
-    await gotoStory(page, 'resizable--compatibility')
+    await freshStory(page, 'resizable--compatibility')
 
-    const pointerState = page.locator('[data-test="root-layout-state"]')
-    const pointerBefore = await readArray(pointerState)
+    const rootState = page.locator('[data-test="root-layout-state"]')
+    await expectLayoutKeys(rootState, ['root-story-left', 'root-story-right'])
+    const rootBefore = await readMap(rootState)
     await dragWithMouse(page, page.locator('#root-story-separator'), 64)
     await expect
-      .poll(async () => (await readArray(pointerState))[0])
-      .toBeGreaterThan(pointerBefore[0]! + 1)
+      .poll(async () => (await readMap(rootState))['root-story-left'])
+      .toBeGreaterThan(rootBefore['root-story-left']! + 1)
 
-    const keyboardState = pointerState
     const keyboardSeparator = page.locator('#root-story-separator')
-    const keyboardBefore = await readArray(keyboardState)
+    const keyboardBefore = await readMap(rootState)
     await keyboardSeparator.focus()
+    await expect(keyboardSeparator).toBeFocused()
     await page.keyboard.press('ArrowRight')
     await expect
-      .poll(async () => (await readArray(keyboardState))[0])
-      .toBeCloseTo(keyboardBefore[0]! + 5, 5)
+      .poll(async () => (await readMap(rootState))['root-story-left'])
+      .toBeGreaterThan(keyboardBefore['root-story-left']! + 1)
+
+    const boundsState = page.locator('[data-test="root-bounds-layout-state"]')
+    const boundsSeparator = page.locator('#root-bounds-separator')
+    await boundsSeparator.focus()
     await page.keyboard.press('Home')
-    await expect.poll(async () => (await readArray(keyboardState))[0]).toBe(0)
+    await expectLayoutValue(boundsState, 'root-bounds-left', 20)
     await page.keyboard.press('End')
-    await expect.poll(async () => (await readArray(keyboardState))[0]).toBe(80)
-    expect(
-      (
-        await readJson<Record<string, number>>(
-          page.locator('[data-test="root-callbacks"]')
-        )
-      ).resize
-    ).toBeGreaterThan(0)
+    await expectLayoutValue(boundsState, 'root-bounds-left', 80)
 
     const disabledState = page.locator(
       '[data-test="root-disabled-layout-state"]'
     )
-    const disabledBefore = await readArray(disabledState)
+    await expectLayoutKeys(disabledState, [
+      'root-disabled-left',
+      'root-disabled-right',
+    ])
+    const disabledBefore = await readMap(disabledState)
     await dragWithMouse(page, page.locator('#root-disabled-separator'), 64)
-    expect(await readArray(disabledState)).toEqual(disabledBefore)
+    await settle(page)
+    expect(await readMap(disabledState)).toEqual(disabledBefore)
 
     const rtlState = page.locator('[data-test="root-rtl-layout-state"]')
-    const rtlGroup = page.locator('#root-rtl-group')
-    const rtlBefore = await readArray(rtlState)
-    await expect(rtlGroup).toHaveAttribute('dir', 'rtl')
+    await expectLayoutKeys(rtlState, ['root-rtl-left', 'root-rtl-right'])
+    const rtlBefore = await readMap(rtlState)
+    await expect(page.locator('#root-rtl-group')).toHaveAttribute('dir', 'rtl')
     await page.locator('#root-rtl-separator').focus()
     await page.keyboard.press('ArrowRight')
     await expect
-      .poll(async () => (await readArray(rtlState))[0])
-      .toBeLessThan(rtlBefore[0]!)
-  })
-
-  test('native resizes vertically by keyboard and honors pointer, disabled and RTL', async ({
-    page,
-  }) => {
-    await gotoStory(page, 'resizable--native-compatibility')
-
-    const pointerState = page.locator('[data-test="native-units-layout-state"]')
-    const pointerBefore = await readMap(pointerState)
-    await dragWithMouse(page, page.locator('#native-units-separator'), 56)
-    await expect
-      .poll(async () => (await readMap(pointerState))['native-percent-panel'])
-      .toBeGreaterThan(pointerBefore['native-percent-panel']! + 1)
-
-    const verticalState = page.locator(
-      '[data-test="native-nested-layout-state"]'
-    )
-    const verticalBefore = await readMap(verticalState)
-    await page.locator('#native-nested-separator').focus()
-    await page.keyboard.press('ArrowDown')
-    await expect
-      .poll(async () => (await readMap(verticalState))['native-nested-top'])
-      .toBeGreaterThan(verticalBefore['native-nested-top']! + 1)
-
-    const disabledState = page.locator(
-      '[data-test="native-disabled-layout-state"]'
-    )
-    const disabledBefore = await readMap(disabledState)
-    await dragWithMouse(page, page.locator('#native-disabled-separator'), 56)
-    expect(await readMap(disabledState)).toEqual(disabledBefore)
-
-    const rtlState = page.locator('[data-test="native-rtl-layout-state"]')
-    const rtlBefore = await readMap(rtlState)
-    await expect(page.locator('#native-rtl-group')).toHaveAttribute(
-      'dir',
-      'rtl'
-    )
-    await page.locator('#native-rtl-separator').focus()
-    await page.keyboard.press('ArrowRight')
-    await expect
-      .poll(async () => (await readMap(rtlState))['native-rtl-left'])
-      .toBeLessThan(rtlBefore['native-rtl-left']!)
+      .poll(async () => (await readMap(rtlState))['root-rtl-left'])
+      .toBeLessThan(rtlBefore['root-rtl-left']!)
   })
 
   test.describe('coarse pointer', () => {
@@ -349,92 +465,34 @@ test.describe('layout auxiliaries: Panels', () => {
       viewport: { width: 760, height: 960 },
     })
 
-    test('root and native layouts resize from a touch drag', async ({
-      page,
-    }) => {
-      await gotoStory(page, 'resizable--compatibility')
+    test('both doors resize from an actual touch drag', async ({ page }) => {
+      await freshStory(page, 'resizable--compatibility')
       expect(
         await page.evaluate(() => matchMedia('(pointer: coarse)').matches)
       ).toBe(true)
       const rootState = page.locator('[data-test="root-layout-state"]')
-      const rootBefore = await readArray(rootState)
+      await expectLayoutKeys(rootState, ['root-story-left', 'root-story-right'])
+      const rootBefore = await readMap(rootState)
       await dragWithTouch(page, page.locator('#root-story-separator'), 72)
       await expect
-        .poll(async () => (await readArray(rootState))[0])
-        .toBeGreaterThan(rootBefore[0]! + 1)
+        .poll(async () => (await readMap(rootState))['root-story-left'])
+        .toBeGreaterThan(rootBefore['root-story-left']! + 1)
 
-      await gotoStory(page, 'resizable--native-compatibility')
+      await freshStory(page, 'resizable--native-compatibility')
       const nativeState = page.locator(
         '[data-test="native-units-layout-state"]'
       )
+      await expectLayoutKeys(nativeState, [
+        'native-percent-panel',
+        'native-pixel-panel',
+        'native-auto-panel',
+      ])
       const nativeBefore = await readMap(nativeState)
       await dragWithTouch(page, page.locator('#native-units-separator'), 72)
       await expect
         .poll(async () => (await readMap(nativeState))['native-percent-panel'])
         .toBeGreaterThan(nativeBefore['native-percent-panel']! + 1)
     })
-  })
-
-  test('restores root custom storage and native default storage after reload', async ({
-    page,
-  }) => {
-    await gotoStory(page, 'resizable--compatibility')
-    await page.evaluate(() => localStorage.clear())
-    await gotoStory(page, 'resizable--compatibility')
-
-    const rootState = page.locator('[data-test="root-layout-state"]')
-    const rootBefore = await readArray(rootState)
-    const rootStorageBefore = await page.evaluate(() =>
-      JSON.stringify({ ...localStorage })
-    )
-    await page.locator('#root-story-separator').focus()
-    await page.keyboard.press('ArrowRight')
-    await expect
-      .poll(async () => (await readArray(rootState))[0])
-      .toBeGreaterThan(rootBefore[0]! + 1)
-    const rootAfter = await readArray(rootState)
-    await expect
-      .poll(async () =>
-        page.evaluate(() => JSON.stringify({ ...localStorage }))
-      )
-      .not.toBe(rootStorageBefore)
-    expect(
-      await page.evaluate(() =>
-        Object.entries(localStorage).some(
-          ([key, value]) =>
-            key.includes('root-story-persistence') && value.length > 0
-        )
-      )
-    ).toBe(true)
-    await gotoStory(page, 'resizable--compatibility')
-    const restoredRoot = await readArray(rootState)
-    expect(restoredRoot[0]).toBeCloseTo(rootAfter[0]!, 5)
-    expect(restoredRoot[1]).toBeCloseTo(rootAfter[1]!, 5)
-
-    await page.evaluate(() => localStorage.clear())
-    await gotoStory(page, 'resizable--native-compatibility')
-    const nativeState = page.locator('[data-test="native-units-layout-state"]')
-    const nativeBefore = await readMap(nativeState)
-    const nativeStorageBefore = await page.evaluate(() =>
-      JSON.stringify({ ...localStorage })
-    )
-    await page.locator('#native-units-separator').focus()
-    await page.keyboard.press('ArrowRight')
-    await expect
-      .poll(async () => (await readMap(nativeState))['native-percent-panel'])
-      .toBeGreaterThan(nativeBefore['native-percent-panel']! + 1)
-    const nativeAfter = await readMap(nativeState)
-    await expect
-      .poll(async () =>
-        page.evaluate(() => JSON.stringify({ ...localStorage }))
-      )
-      .not.toBe(nativeStorageBefore)
-    await gotoStory(page, 'resizable--native-compatibility')
-    const restored = await readMap(nativeState)
-    expect(restored['native-percent-panel']).toBeCloseTo(
-      nativeAfter['native-percent-panel']!,
-      5
-    )
   })
 })
 

@@ -286,14 +286,15 @@ browser qualification. The next implementation packages are:
    Presentation/control draft [#225](https://github.com/uzh-bf/design-system/pull/225)
    qualifies at `2d8b02a6f`; overlay/menu draft [#226](https://github.com/uzh-bf/design-system/pull/226) qualifies at `4d5f60fc6` with configured final review, complete hosted CI, exact artifact proof and 42 published captures. Calendar draft [#228](https://github.com/uzh-bf/design-system/pull/228) implements locale/grid compatibility with local behavioral, packed and source-review proof. Implementation and local proof are complete, including the supplied-locale Gregorian correction and retained enUS datetime default. Final qualification evidence is recorded in the draft description. An extra open-menu audit reproduces an existing Ladle-root `aria-hidden-focus` result on the lower exact package; keep it in GA accessibility follow-up.
 2. **Layout and toast auxiliaries.** The user approved the [three-layer execution plan](2026-10-24-v5-layout-toast-compatibility-plan.md).
-   Retain canonical Panels3.0.6 for root compatibility and expose native Panels4.14.8
-   through raw primitives using the internal alias and exported helpers. Panels
+   The subsequent [native Resizable migration](2026-10-25-v5-resizable-native-v4-plan.md)
+   supersedes ADR0009: use canonical Panels4.14.8 throughout breaking v5, with one
+   shared root/primitive contract and explicit migration guidance (ADR0010). Earlier Panels
    draft [#229](https://github.com/uzh-bf/design-system/pull/229) qualifies at
    `88b397d4d` with exact package proof, independent reviews, captures and hosted CI.
    Sonner draft [#230](https://github.com/uzh-bf/design-system/pull/230) qualifies at
    `1a2db9391` with caller-option merging, modes and shared-store proof.
-   Sidebar source/local proof is complete for mobile direction, caller props and
-   focus; final review and hosted qualification remain. Keep all three drafts
+   Sidebar draft [#232](https://github.com/uzh-bf/design-system/pull/232) qualifies
+   at `be62259b0` for mobile direction, caller props and focus. Keep all three drafts
    independently qualified and unmerged; serialize manifest/lock changes.
 3. **Messaging/clarification and code/highlighting.** Use separate bounded
    packages for the required presentation/scroll/questionnaire surfaces and

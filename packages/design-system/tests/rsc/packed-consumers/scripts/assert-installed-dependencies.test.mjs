@@ -102,32 +102,13 @@ test('accepts the supported minimum endpoint', (t) => {
   assert.doesNotThrow(() => assertInstalledDependencies(x.root))
 })
 
-for (const [label, name, version, passes] of [
-  ['exact alias', 'react-resizable-panels', '4.14.8', true],
-  ['wrong alias target', 'another-package', '4.14.8', false],
-  ['wrong alias version', 'react-resizable-panels', '4.14.7', false],
-]) {
-  test(`validates the resizable ${label}`, (t) => {
-    const x = fixture(t)
-    const p = path.join(x.ds, 'package.json')
-    const manifest = JSON.parse(fs.readFileSync(p))
-    manifest.dependencies = {
-      'react-resizable-panels-v4': 'npm:react-resizable-panels@4.14.8',
-    }
-    fs.writeFileSync(p, JSON.stringify(manifest))
-    x.add('react-resizable-panels-v4', version, x.modules, { name })
-    if (passes) assert.doesNotThrow(() => assertInstalledDependencies(x.root))
-    else assert.throws(() => assertInstalledDependencies(x.root))
-  })
-}
-
 test('still rejects a mismatched ordinary dependency version', (t) => {
   const x = fixture(t)
   const p = path.join(x.ds, 'package.json')
   const manifest = JSON.parse(fs.readFileSync(p))
-  manifest.dependencies = { 'react-resizable-panels': '3.0.6' }
+  manifest.dependencies = { 'react-resizable-panels': '4.14.8' }
   fs.writeFileSync(p, JSON.stringify(manifest))
-  x.add('react-resizable-panels', '3.0.5')
+  x.add('react-resizable-panels', '4.14.7')
   assert.throws(
     () => assertInstalledDependencies(x.root),
     /packed dependency version mismatches/
@@ -137,9 +118,9 @@ test('still rejects a mismatched ordinary dependency version', (t) => {
 for (const [name, version, label, error] of [
   [
     'react-resizable-panels',
-    '3.0.6',
-    'legacy application panels',
-    /share the v3 runtime/,
+    '4.14.8',
+    'native application panels',
+    /share the native v4 runtime/,
   ],
   [
     'sonner',

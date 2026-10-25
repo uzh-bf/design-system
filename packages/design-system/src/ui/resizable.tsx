@@ -1,7 +1,7 @@
 'use client'
 
 import { GripVerticalIcon } from 'lucide-react'
-import * as ResizablePrimitive from 'react-resizable-panels-v4'
+import * as ResizablePrimitive from 'react-resizable-panels'
 
 import { cn } from '../lib/utils'
 
@@ -56,5 +56,10 @@ export {
   useDefaultLayout,
   useGroupRef,
   usePanelRef,
-} from 'react-resizable-panels-v4'
-export type { Layout } from 'react-resizable-panels-v4'
+} from 'react-resizable-panels'
+export type {
+  GroupImperativeHandle,
+  Layout,
+  PanelImperativeHandle,
+  PanelSize,
+} from 'react-resizable-panels'

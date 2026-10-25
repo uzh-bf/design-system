@@ -1,10 +1,27 @@
 import { Button, NativeSelect, NativeSelectOption } from '@uzh-bf/design-system'
 import { Button as PrimitiveButton } from '@uzh-bf/design-system/primitives'
+import { cookies } from 'next/headers'
 import { AuxiliaryLeaf } from './auxiliary-leaf'
 import { ChartLeaf } from './chart-leaf'
 import { RhfLeaf } from './rhf-leaf'
 
-export default function Page() {
+export default async function Page() {
+  let initialLayouts: Record<string, string> = {}
+  const persisted = (await cookies()).get('ds-fixture-panel-layouts')?.value
+  if (persisted) {
+    try {
+      const parsed: unknown = JSON.parse(persisted)
+      if (
+        parsed &&
+        typeof parsed === 'object' &&
+        !Array.isArray(parsed) &&
+        Object.values(parsed).every((value) => typeof value === 'string')
+      )
+        initialLayouts = parsed as Record<string, string>
+    } catch {
+      // An invalid fixture cookie falls back to the native default layout.
+    }
+  }
   return (
     <main>
       <h1>RSC contract</h1>
@@ -17,7 +34,7 @@ export default function Page() {
       </NativeSelect>
       <ChartLeaf />
       <RhfLeaf />
-      <AuxiliaryLeaf />
+      <AuxiliaryLeaf initialLayouts={initialLayouts} />
     </main>
   )
 }

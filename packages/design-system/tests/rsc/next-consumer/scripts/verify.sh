@@ -80,7 +80,7 @@ function assertGraph(entry) {
     }
   }
 
-  const expectedEngine = entry === 'index.js' ? 'react-resizable-panels' : 'react-resizable-panels-v4'
+  const expectedEngine = 'react-resizable-panels'
   if (resizableImports.size !== 1 || !resizableImports.has(expectedEngine)) {
     throw new Error(`${entry} has the wrong resizable engine boundary: ${[...resizableImports]}`)
   }

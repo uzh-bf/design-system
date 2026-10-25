@@ -5,14 +5,14 @@ import { createRequire } from 'node:module'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-function installedPackage(requireFrom, packageName, actualName = packageName) {
+function installedPackage(requireFrom, packageName) {
   const entry = fs.realpathSync(requireFrom.resolve(packageName))
   let directory = path.dirname(entry)
   while (true) {
     const manifestPath = path.join(directory, 'package.json')
     if (fs.existsSync(manifestPath)) {
       const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'))
-      if (manifest.name === actualName && manifest.version) {
+      if (manifest.name === packageName && manifest.version) {
         return { manifest, directory, require: createRequire(manifestPath) }
       }
     }
@@ -36,18 +36,8 @@ export function assertInstalledDependencies(fixtureArg) {
   const mismatches = []
 
   for (const [name, expected] of Object.entries(manifest.dependencies ?? {})) {
-    const panelsAlias = name === 'react-resizable-panels-v4'
-    if (
-      panelsAlias &&
-      !/^npm:react-resizable-panels@4\.\d+\.\d+$/.test(expected)
-    ) {
-      throw new Error('Resizable v4 must use an exact npm alias')
-    }
-    const expectedName = panelsAlias ? 'react-resizable-panels' : name
-    const expectedVersion = panelsAlias
-      ? expected.slice('npm:react-resizable-panels@'.length)
-      : expected
-    const installed = installedPackage(requireFromPackage, name, expectedName)
+    const expectedVersion = expected
+    const installed = installedPackage(requireFromPackage, name)
     if (installed.manifest.version !== expectedVersion) {
       mismatches.push(
         `${name}: expected ${expectedVersion}, found ${installed.manifest.version}`
@@ -62,8 +52,8 @@ export function assertInstalledDependencies(fixtureArg) {
   for (const [name, version, message] of [
     [
       'react-resizable-panels',
-      '3.0.6',
-      'Legacy resizable compositions must share the v3 runtime',
+      '4.14.8',
+      'Resizable compositions must share the native v4 runtime',
     ],
     [
       'sonner',

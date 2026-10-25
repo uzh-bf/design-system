@@ -42,7 +42,7 @@ and compact geometry. The draft qualifies at `4d5f60fc6` with complete final
 review, hosted CI, native captures and exact packed proof. These close the
 approved concrete Shared API gaps; the identity tables below remain the historical static
 assessment. They do not become full example or block runtime passes. Calendar draft228 implements its bounded locale/grid contract and passes local
-source/package checks; qualification evidence is recorded in that draft. The approved [layout/toast plan](2026-10-24-v5-layout-toast-compatibility-plan.md) has qualified native Panels4 and retained root3 draft [#229](https://github.com/uzh-bf/design-system/pull/229) at88b397d4d, with local/packed proof, complete reviews and hosted CI. Sonner draft [#230](https://github.com/uzh-bf/design-system/pull/230) qualifies at1a2db9391 with options, modes, same-store package proof, final review and hosted CI. Sidebar source/local package, mobile and focus proof is complete; final review and hosted qualification remain. Messaging/highlighting and representative integrated compositions
+source/package checks; qualification evidence is recorded in that draft. The approved [layout/toast plan](2026-10-24-v5-layout-toast-compatibility-plan.md) has qualified native Panels4 and retained root3 draft [#229](https://github.com/uzh-bf/design-system/pull/229) at88b397d4d, with local/packed proof, complete reviews and hosted CI. Sonner draft [#230](https://github.com/uzh-bf/design-system/pull/230) qualifies at1a2db9391 with options, modes, same-store package proof, final review and hosted CI. Sidebar draft [#232](https://github.com/uzh-bf/design-system/pull/232) qualifies atbe62259b0 with final review and hosted CI. The [October25 native Resizable plan](2026-10-25-v5-resizable-native-v4-plan.md) supersedes root3 retention; its unified candidate still needs fresh integrated qualification. Messaging/highlighting and representative integrated compositions
 retain their assigned owners. The existing open-menu Ladle-root accessibility
 audit residual is tracked in the capability matrix and GA roadmap.
 
@@ -80,9 +80,11 @@ Representative concrete seams:
   routes for other examples do not waive menu inset, semantic/type, option or
   caller-precedence deltas listed in the matrix.
 - `resizable-example.tsx:4,32,136` imports the Panels 4 Layout type and uses
-  orientation, percentage sizing and layout callbacks. Native DS primitives now
-  use Panels 4 and export Layout/ref/persistence helpers; retained root wrappers
-  preserve Panels 3. Keep each group within one family under ADR0009.
+  orientation, percentage sizing and layout callbacks. The subsequent
+  [native Resizable migration](2026-10-25-v5-resizable-native-v4-plan.md) moves both
+  doors to canonical Panels4.14.8 and shared helpers under ADR0010. Earlier
+  root3/native4 proof belongs to the prior candidate; unified candidate acceptance
+  is tracked separately.
 - Calendar's custom month formatter and day button need consistent locale
   propagation. `CalendarDayButton` and `ChartConfig` are already exported;
   they are not missing-export findings.

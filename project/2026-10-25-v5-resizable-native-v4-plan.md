@@ -15,7 +15,9 @@ keep numeric percentages. Orientation, imperative
 refs, callbacks and persistence use native v4 contracts. Removed v3 features
 include custom element tags, ordering, keyboard step configuration and separate
 collapse/expand/drag callbacks. Document the supported replacements and gaps;
-do not emulate removed APIs or silently convert application-owned saved layouts.
+do not emulate removed APIs or add a conversion of application-owned saved layouts.
+The native helper retains its own limited legacy-read fallback; application
+acceptance must prove reuse or select a new persistence ID.
 Formik, RHF isolation and other components remain outside this migration.
 
 Approval mode: **executable batch under the user's October25 instruction to
@@ -122,7 +124,7 @@ Slice1 includes dependency definitions and existing lock variants for the librar
 root-only packed consumer and Next consumer. It updates `src/Resizable.tsx`,
 `src/ui/resizable.tsx`, `src/original/resizable.tsx`, public type fixtures,
 installed-dependency validator/tests, packed runtime import checks, Next verify
-script and `app/auxiliary-leaf.tsx`. Remove alias special handling and protect
+script, `app/auxiliary-leaf.tsx` and its existing server `app/page.tsx`. Remove alias special handling and protect
 canonical name/version plus shared identity. The root-only packed pnpm fixture
 asserts root/primitive component and helper identity. Next uses matching direct
 application4 components mixed with both DS doors under each bundler. The existing
@@ -154,7 +156,7 @@ and docs; execution evidence stays under the existing ignored reviews directory.
 | Consequential failure                                                | Coverage disposition and owning seam (slice1)                                                                                                                                                                                                                                                                                                                                                                     |
 | -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Numeric sizes silently change meaning; old refs survive incorrectly  | Replace/consolidate v3 type and Ladle cases: percent/pixel sizing, native refs/map callbacks, collapse/expand, Home/End, nonzero collapsedSize and onResize current/previous payloads.                                                                                                                                                                                                                            |
-| Context or storage differs between doors or package managers         | Extend existing root-only pnpm runtime checks for identical exports/helpers and validator duplicate rejection. Replace/consolidate Next arrays with native maps, mixed root/primitive/direct matching Panel, custom storage save/reload, and conditional panel sets using matching panelIds. Restore actual sizes for each set; do not assume a flat storage representation. Run bounded npm/pnpm identity probe. |
+| Context or storage differs between doors or package managers         | Extend existing root-only pnpm runtime checks for identical exports/helpers and validator duplicate rejection. Replace/consolidate Next arrays with native maps, mixed root/primitive/direct matching Panel, custom storage with an identical cookie-backed server/hydration snapshot, save/reload, and conditional panel sets using matching panelIds. Restore actual sizes for each set; do not assume a flat storage representation. Run bounded npm/pnpm identity probe. |
 | Native upgrade loses interaction or styling                          | Replace/consolidate obsolete v3 Ladle cases, retaining pointer, touch, RTL, vertical/nested, disabled and focus protection. Add native double-click reset and layout-ID obligations in the existing story/spec; no parallel duplicate suite for each door.                                                                                                                                                        |
 | Installed package or SSR proof tests a stale tree                    | Extend existing exact archive/installed-file proof, both Next bundlers and existing packed React/RHF minimum/current cells; update native dependency and emitted graph checks.                                                                                                                                                                                                                                    |
 | Removal widens unrelated entry payloads or accessibility regressions | None new: run existing types/lint/format/build, entry graph, size budgets, theme and a11y inventory/contracts. Preserve thresholds; reuse unaffected Sonner/Sidebar evidence.                                                                                                                                                                                                                                     |
@@ -178,15 +180,30 @@ avoiding status-only commits that restart green CI.
 
 ## Progress
 
-Planning: native planner approved round2 after five verified corrections:
-coupled slice acceptance, pixel inputs versus percentage maps, exact fixture
-dependencies/identity, concrete persistence/behavior coverage and review timing.
-The optional opposing-provider challenge remains pending; it cannot replace the
-required planner. Implementation not started.
-Planning consultation and exact upstream declarations are retained under
-`project/_local/reviews/2026-10-25-resizable-*`.
-Required delivery: one qualified draft above #232. Achieved: assessment only.
-The existing exact custom container has resumed for implementation verification
-(Node24.16.0, pnpm10.30.0). No active writer, CI watcher or new native goal. Next:
-commit the reviewed plan, then implement the canonical API and native evidence
-within the user's requested v5 upgrade scope.
+Implementation is integrated on `rs/v5-resizable-native-v4` above held Sidebar
+`be62259b0`; plan-first commit `9e44d1186`. Native planner round2 and optional
+AGY challenge approved the plan. The configured Claude advisor supports the
+single-engine choice. The trusted native executor completed its three bounded
+paths and one MDX correction; main integrated the remaining MDX parsing and
+verified native reset/callback timing corrections. All writers are closed.
+
+Canonical4.14.8 type checks, package build and dependency12-case suite pass.
+All6 focused browser interaction cases pass. npm/pnpm packed identity and mixed
+SSR probes pass. The Next persisted-layout geometry case reproduced a mismatch
+with the old null-only storage guard, then passed all12 cases under each bundler
+with a shared cookie-backed server/hydration snapshot. This fixture integration
+adds the existing server page to the named path set; library behavior stays native.
+Updated docs cover both numeric unit meanings, removed APIs, storage ownership
+and the native legacy-read limitation. ADR0010 supersedes ADR0009.
+
+Final native check/lint/format/build and the focused five-file scan pass. The
+current story inventory is unchanged; all6 focused accessibility and700 existing
+contract/smoke cases pass. The three packed/Next matrix cells are running. Final immutable slice reviews, exact candidate proof, screenshot publication,
+integrated final review and hosted CI remain. No new native goal or automation.
+The exact custom container remains active only for this verification.
+
+Required delivery: one qualified draft above
+[#232](https://github.com/uzh-bf/design-system/pull/232). No PR exists for this
+migration yet. Next: commit the coherent migration, complete its required reviews
+and final qualification, then deliver the draft with an ordinary push. Native
+runtime release and final exact-head qualification stay mandatory before completion.
