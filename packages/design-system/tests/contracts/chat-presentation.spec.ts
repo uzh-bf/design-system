@@ -103,11 +103,25 @@ test('trace controlled disclosure and raw composition retain keyboard behavior',
   await expect(page.locator('[data-slot="attachment-action"]')).toBeVisible()
 })
 
-test('vertical attachment media and labels stay inside their cards', async ({
+test('narrow variants contain separator labels and vertical attachments', async ({
   page,
 }) => {
   await page.setViewportSize({ width: 390, height: 844 })
   await gotoStory(page, 'chat-presentation--variants')
+  const marker = page.locator('[data-test="marker-separator"]')
+  const markerBox = await marker.boundingBox()
+  const labelBox = await marker
+    .locator('[data-slot="marker-content"]')
+    .boundingBox()
+  expect(labelBox!.x).toBeGreaterThanOrEqual(markerBox!.x)
+  expect(labelBox!.x + labelBox!.width).toBeLessThanOrEqual(
+    markerBox!.x + markerBox!.width
+  )
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth
+    )
+  ).toBe(true)
   const cards = page.locator(
     '[data-slot="attachment"][data-orientation="vertical"]'
   )

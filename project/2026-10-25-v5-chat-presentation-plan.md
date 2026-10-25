@@ -402,7 +402,8 @@ gated actions. Do independent authorized work before raising a blocker.
 
 Chat presentation and native scrolling are implemented on
 `rs/v5-chat-presentation` above held Resizable draft
-[#233](https://github.com/uzh-bf/design-system/pull/233). Draft creation is pending.
+[#233](https://github.com/uzh-bf/design-system/pull/233). Chat is now
+[draft234](https://github.com/uzh-bf/design-system/pull/234) in native stack231.
 The six ergonomic root wrappers preserve named styling slots, typed config,
 native attributes/events/refs and structured selectors; natural compound parts
 remain under `./primitives`. Native0.3.1 owns scrolling and shared context.
@@ -429,10 +430,17 @@ these corrections. The apparent Trace clipping was capture during its native
 opening animation; no disclosure-source change was needed. Bubble padding uses
 existing utilities and retains ghost styling within the unchanged CSS30kB budget.
 
-Remaining chat work: capture/review real
-synthetic screenshots, refresh final archive/current consumer proof, complete
-integrated final review, push/create/attach a draft, then qualify its exact CI
-head and quiet feedback. The active verification container is source-bound to
+Seven real synthetic captures are inspected and attached to draft234; read-only
+forge rendering passed. The current packed cell repeated both Next bundlers and
+npm/pnpm runtime composition; exact archive/installed proof matched292 files.
+A Greptile finding was reproduced: separator content used flex-none and exceeded
+a phone viewport. Removing that constraint preserves ordinary labels and permits
+long labels to wrap. The existing narrow-variant contract now checks label and
+attachment containment;8interactions and8a11y cases pass after the fix.
+
+Remaining chat work: refresh the affected captures and exact archive proof,
+complete integrated final review and its focused correction, then qualify the
+final exact CI head and quiet feedback. The active verification container is source-bound to
 this worktree and must be stopped after final runtime verification.
 
 Questionnaire starts only after chat qualification, on `rs/v5-questionnaire`.

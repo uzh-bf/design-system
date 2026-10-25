@@ -251,8 +251,15 @@ export const Variants = () => (
     </section>
     <section className="grid gap-4" aria-label="Marker variants">
       {(['default', 'separator', 'border'] as const).map((variant) => (
-        <Marker key={variant} variant={variant} icon={<CheckIcon />}>
-          {variant}
+        <Marker
+          key={variant}
+          variant={variant}
+          icon={<CheckIcon />}
+          data={{ test: `marker-${variant}` }}
+        >
+          {variant === 'separator'
+            ? 'Synthetic separator context with a long label that should wrap within the conversation at narrow widths.'
+            : variant}
         </Marker>
       ))}
     </section>
