@@ -1254,3 +1254,6 @@ The light syntax theme adjusts GitHub Light's keyword red for readable contrast
 on the supported highlighted/diff line backgrounds. Other token colours and
 the dark syntax theme retain the upstream palette; active highlighted UZH
 states have their own accessibility checks.
+
+See the [highlighting and utility packaging notes](../../docs/solutions/integration/lazy-highlighting-and-consumer-utility-metadata.md)
+for the server/client and consumer-compilation boundaries behind these APIs.

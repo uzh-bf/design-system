@@ -235,55 +235,38 @@ backend requirement or material contract/topology change is a concrete blocker.
 
 ## Progress
 
-Implementation is prepared in the existing task worktree on
-`rs/v5-code-highlighting`, above held Questionnaire base `2a8d3f401`.
-Display/highlighting slice1 is committed as `4ac4d6d7f`; the prepared utility
-slice and documentation remain uncommitted while slice1 reviews run. The CSS
-decision is resolved at34kB. No new draft or push exists.
-The existing six-layer stack and consumer repositories remain untouched.
-Planner round2 approved the hardened plan. The optional opposing-provider pass
-was unavailable; required source reviews remain armed. The executor is closed
-and main owns the integrated source.
+Implemented as one package above held Questionnaire base `2a8d3f401` in
+[draft #236](https://github.com/uzh-bf/design-system/pull/236). The existing
+six-layer stack remains intact. Display/highlighting and utilities have separate
+commits; ten reviewed synthetic screenshots are published and render correctly.
+A further narrow wrapped-token capture records the verified overflow correction.
 
-Both component doors, ergonomic props, copy/fallback/error behavior, lazy Shiki
-helpers/hook and utility families are implemented. Verification passes include
-package types/lint/build, 728 stable browser contracts/smokes, five new focused
-contracts, six closed-story accessibility cases, 704 theme assertions, 336
-responsive assertions, packed CSS/compiler utility proof, all three packed
-consumer cells and both Next bundlers across current/minimum dependency cells.
-The existing type, accessibility, packed Next and CSS seams were extended;
-no parallel application or test framework was added. Focused executable-source
-Opengrep reports no findings. Shared build-directory contention in an early
-parallel matrix attempt was diagnosed; the three minimum matrices passed when
-serialized.
+The user approved the 34 kB CSS ceiling. The integrated stylesheet measured
+32,460 Brotli bytes after the readable shimmer adaptation; JavaScript budgets
+are unchanged. Types, lint, package/Ladle builds, size/dependency markers,
+728 stable browser contracts/smokes, six closed accessibility cases, 704 token
+and 336 responsive assertions, packed CSS/compiler utility checks, three packed
+consumer cells and both Next bundlers pass. The current Next cell was refreshed
+for the explicit post-activation request assertion. Later narrow source changes
+rerun their affected checks rather than the unchanged complete portfolio.
 
-Active-state checks found and verified corrections for the UZH highlighted
-keyword contrast and neutral-dark copy-error contrast. The final focused
-browser run passes all five cases; eight synthetic responsive/theme/error/RTL/
-reduced-motion captures have no serious or critical axe findings. Their ignored
-gallery records the dirty-tree fingerprint and the engineering capture-tool
-limitation. Manual screen-reader, Safari and device qualification remains open.
-The candidate archive matches all 304 installed files; exact receipts and
-producing logs live in `project/_local/reviews/2026-10-25-code-highlighting-progress.md`.
+The display simplifier removed redundant successful-language bookkeeping; the
+utility simplifier found no justified reduction. Running Trace and processing
+Attachment captures prompted a readable light shimmer highlight. Code content
+retains its unmasked horizontal surface; message/attachment regions use native
+scroll-aware fades. UZH keyword and dark copy-error contrast corrections pass
+active-state accessibility checks. The new unbroken-token overflow was reproduced
+before correction; five focused contracts pass after the fix. The same existing
+cases now compare append-streamed syntax across a multiline comment with fresh
+highlighting and verify replacement of the completed prefix.
 
-CSS baseline is 29,984 Brotli bytes; the integrated candidate measures 32,479.
-The user approved the 34 kB CSS ceiling on October25. JavaScript thresholds
-remain unchanged. The measured budget decision is resolved; implementation
-simplification, risk review and final review are pending their immutable
-committed ranges. Continue the planned separate slice commits and their reviews
-through draft/CI qualification. Runtime ownership and stopped-state receipts
-are recorded in the same ignored progress journal.
+All 304 installed files match the refreshed unpublished archive. Producing logs,
+exact archive receipts, capture provenance and review reports remain in the
+ignored `project/_local/` area. The task runtime is stopped with fresh source-bind
+verification. Consumer repositories/runtimes remain outside this package.
 
-Slice1 simplification accepted: the retained language-promise map replaces a
-redundant success Set. The trusted native simplifier completed; trusted Claude
-slice review is running on the immutable range. The full candidate passes all
-size and dependency-marker gates. Code content deliberately retains an unmasked
-horizontal surface for line numbers and diff cues; message/attachment fade
-adoption follows slice2. Current packed Next proof is being refreshed for its
-stronger post-activation request assertion.
-
-Normal-motion capture review found that the upstream light shimmer highlight
-washed out status text. The default now follows the theme foreground, while
-custom colours and all utility identifiers retain their native contracts.
-Affected running Trace/processing Attachment captures and packed CSS checks
-are refreshed before the utility slice is committed.
+Independent source risk reviews, the integrated final review and exact-head
+hosted CI/feedback qualification remain pending. Continue those gates and their
+bounded corrections on this draft; do not mark the package complete early.
+Manual AT/Safari/device, representative compositions, integrated exact-candidate
+consumer acceptance and v5 GA retain their separate roadmap gates.

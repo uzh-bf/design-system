@@ -128,7 +128,8 @@ Panels4, chat and Questionnaire packages qualify at their recorded draft heads.
 [Chat234](https://github.com/uzh-bf/design-system/pull/234) holds48c6b91a6;
 [Questionnaire235](https://github.com/uzh-bf/design-system/pull/235) holds2a8d3f401. Their final reviews,
 hosted checks, exact archive proof and feedback settle are complete. Current
-implementation is [CodeBlock/highlighting and utility compatibility](2026-10-25-v5-code-highlighting-plan.md).
+implementation is [CodeBlock/highlighting and utility compatibility](2026-10-25-v5-code-highlighting-plan.md),
+delivered for qualification in [draft #236](https://github.com/uzh-bf/design-system/pull/236).
 The dated chart-tip snapshot below remains historical evidence, not today's tip.
 
 Host refs were refreshed on October 24. Release trunk `v5` is
