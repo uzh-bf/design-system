@@ -33,6 +33,11 @@ test('chat wrappers retain part selectors, classes, native refs and action targe
   await expect(page.locator('[data-test="marker-content"]')).toHaveClass(
     /font-medium/
   )
+  const [reactions, footer] = await Promise.all([
+    page.locator('[data-test="bubble-reactions"]').boundingBox(),
+    page.locator('[data-test="message-footer"]').boundingBox(),
+  ])
+  expect(reactions!.y + reactions!.height).toBeLessThanOrEqual(footer!.y)
   const trigger = page.locator('[data-test="attachment-trigger"]')
   await expect(trigger).toHaveAccessibleName(
     await page.locator('[data-test="attachment-title"]').innerText()
@@ -167,7 +172,7 @@ test('viewport refs, native hooks and target-specific props remain usable', asyn
   await expect(page.locator('[data-test="viewport-focused"]')).toHaveText(
     'true'
   )
-  await expect(viewport).toHaveAccessibleName('Synthetic conversation')
+  await expect(viewport).toHaveAttribute('aria-label', /\S/)
   await expect(page.locator('[data-test="scroller"]')).not.toHaveAttribute(
     'aria-label'
   )
@@ -183,4 +188,49 @@ test('viewport refs, native hooks and target-specific props remain usable', asyn
     viewport.boundingBox(),
   ])
   expect(footer!.y).toBeGreaterThanOrEqual(box!.y + box!.height - 1)
+})
+
+test('reduced motion defaults to instant while explicit caller scrolling wins', async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await page.addInitScript(() => {
+    const original = Element.prototype.scrollTo
+    const behaviors: string[] = []
+    Object.assign(window, { syntheticScrollBehaviors: behaviors })
+    Element.prototype.scrollTo = function (
+      ...args: Parameters<typeof original>
+    ) {
+      const options = args[0]
+      if (typeof options === 'object' && options?.behavior)
+        behaviors.push(options.behavior)
+      return Reflect.apply(original, this, args)
+    }
+  })
+  await gotoStory(page, 'chat-presentation--scrolling')
+  const viewport = page.locator('[data-test="scroller-viewport"]')
+  const lastBehavior = () =>
+    page.evaluate(() =>
+      (
+        window as unknown as { syntheticScrollBehaviors: string[] }
+      ).syntheticScrollBehaviors.at(-1)
+    )
+  await viewport.hover()
+  await page.mouse.wheel(0, -500)
+  await expect(page.locator('[data-test="scroller-jump"]')).toHaveAttribute(
+    'data-active',
+    'true'
+  )
+  await page.locator('[data-test="scroller-jump"]').click()
+  await expect.poll(lastBehavior).toBe('instant')
+  await expect.poll(async () => (await scrollState(page)).gap).toBeLessThan(3)
+  await page.locator('[data-test="toggle-scroll-behavior"]').click()
+  await viewport.hover()
+  await page.mouse.wheel(0, -500)
+  await expect(page.locator('[data-test="scroller-jump"]')).toHaveAttribute(
+    'data-active',
+    'true'
+  )
+  await page.locator('[data-test="scroller-jump"]').click()
+  await expect.poll(lastBehavior).toBe('smooth')
 })

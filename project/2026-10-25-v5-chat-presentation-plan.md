@@ -450,3 +450,11 @@ The presentation risk review approved its focused dark-contrast correction;
 its simplifier found no justified reduction. Scroller slice reviews, final
 package matrix, screenshots, integrated final review and hosted CI remain.
 Questionnaire implementation starts only after this first draft qualifies.
+
+All three packed dependency cells pass native runtime validation and 14 browser
+cases under both Next bundlers. The default cell also passes mixed native/DS
+SSR under npm and pnpm. Package budgets and 704 theme assertions pass. A final
+visual correction keeps root Bubble reactions in flow above the message footer;
+it retains the primitive placement API and has geometry coverage. Reduced-motion
+and explicit scroll behavior checks pass with the browser media setting applied
+explicitly. Final captures and integrated review follow the frozen correction.

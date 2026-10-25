@@ -333,6 +333,7 @@ function ScrollerFooter() {
 export const Scrolling = () => {
   const [items, setItems] = useState(INITIAL_MESSAGES)
   const [stream, setStream] = useState(1)
+  const [smooth, setSmooth] = useState(false)
   const [focused, setFocused] = useState(false)
   const viewportRef = useRef<HTMLDivElement>(null)
   const [events, setEvents] = useState(0)
@@ -343,6 +344,12 @@ export const Scrolling = () => {
     >
       <h1 className="text-xl font-semibold">Conversation scrolling</h1>
       <div className="flex flex-wrap gap-2">
+        <Button
+          data-test="toggle-scroll-behavior"
+          onClick={() => setSmooth((v) => !v)}
+        >
+          Toggle explicit smooth behavior
+        </Button>
         <Button
           data-test="append-message"
           onClick={() =>
@@ -399,6 +406,7 @@ export const Scrolling = () => {
         ref={viewportRef}
         style={{ height: 420 }}
         autoScroll
+        buttonProps={{ behavior: smooth ? 'smooth' : undefined }}
         items={[
           ...items,
           {

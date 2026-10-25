@@ -2,6 +2,7 @@
 
 import type { ComponentProps, ReactNode } from 'react'
 import { testAttrs, type TestSelectors } from './lib/testSelectors'
+import { cn } from './lib/utils'
 import {
   BubbleContent,
   BubbleReactions,
@@ -39,7 +40,10 @@ export function Bubble({
       {reactions != null && (
         <BubbleReactions
           {...testAttrs(dataReactions)}
-          className={className?.reactions}
+          className={cn(
+            'static mt-1 translate-y-0 self-end',
+            className?.reactions
+          )}
         >
           {reactions}
         </BubbleReactions>
