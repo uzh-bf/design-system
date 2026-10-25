@@ -410,7 +410,7 @@ archive matched all292 installed files. ADR0011 records the regular native pin
 and shared-context obligation.
 
 Questionnaire is [draft235](https://github.com/uzh-bf/design-system/pull/235),
-based on that held chat head. Executable source is `5e22de507`. It provides all16
+based on that held chat head. Executable source is `5e22de507`. It provides all official
 natural compound parts and an ergonomic root with readonly configuration, named
 styling slots, structured selectors, native form ref/events, controlled active
 item and localizable progress/actions/errors. Inputs retain native type and
