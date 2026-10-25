@@ -23,7 +23,7 @@ module.exports = [
     name: "design-system CSS",
     path: entry("design-system.css"),
     webpack: false,
-    limit: "30 kB",
+    limit: "34 kB",
     ...common,
   },
   {

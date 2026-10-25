@@ -288,3 +288,32 @@ test('packed Questionnaire hydrates metadata, submits FormData and shares native
     await context.close()
   }
 })
+
+test('packed server highlighting remains readable before JavaScript', async ({
+  browser,
+}) => {
+  const context = await browser.newContext({ javaScriptEnabled: false })
+  const page = await context.newPage()
+  await page.goto('/?mode=server-code')
+  await expect(page.locator('[data-test="server-code"]')).toBeVisible()
+  await expect(
+    page.locator('[data-test="server-code"] [style*="--shiki"]').first()
+  ).toBeVisible()
+  await expect(page.locator('[data-test="packed-code-client"]')).toHaveCount(0)
+  await context.close()
+})
+
+test('packed client highlighting activates after opt-in', async ({ page }) => {
+  const requests: string[] = []
+  page.on('request', (request) => {
+    if (request.url().includes('/_next/static/')) requests.push(request.url())
+  })
+  await page.goto('/?mode=client-code')
+  const content = page.locator('[data-test="packed-code-content"]')
+  await expect(content).toBeVisible()
+  await expect(content.locator('[style*="--shiki"]')).toHaveCount(0)
+  const before = new Set(requests)
+  await page.locator('[data-test="packed-highlight-toggle"]').click()
+  await expect(content.locator('[style*="--shiki"]').first()).toBeVisible()
+  expect(requests.some((url) => !before.has(url))).toBe(true)
+})

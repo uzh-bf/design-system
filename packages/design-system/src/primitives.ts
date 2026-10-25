@@ -64,3 +64,7 @@ export * from './ui/message'
 export * from './ui/message-scroller'
 export * from './ui/questionnaire'
 export * from './ui/trace'
+
+export { useHighlightedCode } from './hooks/use-highlighted-code'
+export { highlightCode, loadHighlighter } from './lib/highlighter'
+export * from './ui/code-block'

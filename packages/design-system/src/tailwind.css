@@ -578,3 +578,27 @@
     }
   }
 }
+
+@layer utilities {
+  [data-slot='code-block-line-content'] span[style*='--shiki-light'] {
+    color: var(--shiki-light);
+    font-style: var(--shiki-light-font-style, normal);
+    font-weight: var(--shiki-light-font-weight, inherit);
+    text-decoration: var(--shiki-light-text-decoration, none);
+  }
+  .dark [data-slot='code-block-line-content'] span[style*='--shiki-dark'] {
+    color: var(--shiki-dark);
+    font-style: var(--shiki-dark-font-style, normal);
+    font-weight: var(--shiki-dark-font-weight, inherit);
+    text-decoration: var(--shiki-dark-text-decoration, none);
+  }
+}
+
+@supports (content: counter(line) / '') {
+  @layer utilities {
+    [data-slot='code-block-content'][data-numbered]
+      [data-slot='code-block-line']::before {
+      content: counter(line) / '';
+    }
+  }
+}

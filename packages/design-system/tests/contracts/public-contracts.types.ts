@@ -731,3 +731,54 @@ createElement(RootQuestionnaire, {
     },
   ],
 })
+
+import {
+  CodeBlock as RootCodeBlock,
+  highlightCode,
+  loadHighlighter,
+  useHighlightedCode,
+} from '../../src'
+import {
+  CodeBlock,
+  CodeBlockContent,
+  CodeBlockCopyButton,
+  CodeBlockLine,
+} from '../../src/primitives'
+createElement(RootCodeBlock, {
+  code: 'x',
+  title: 'Native tooltip',
+  titleContent: createElement('em', {}, 'Example'),
+  ref: createRef<HTMLDivElement>(),
+  contentProps: { ref: createRef<HTMLPreElement>() },
+  copy: {
+    ref: createRef<HTMLButtonElement>(),
+    labels: { copy: 'Copy source' },
+  },
+  data: { cy: 'code', test: 'code' },
+  className: { content: 'max-h-64' },
+})
+createElement(RootCodeBlock, {
+  children: createElement(CodeBlockContent, {}, 'x'),
+})
+createElement(CodeBlock, {
+  children: createElement(CodeBlockLine, { variant: 'added' }, 'x'),
+})
+createElement(CodeBlockCopyButton, {
+  value: 'x',
+  onClick: (event) => event.preventDefault(),
+})
+void highlightCode('x', 'typescript')
+void loadHighlighter('ansi')
+void useHighlightedCode
+// @ts-expect-error Generated code and custom children are exclusive.
+createElement(RootCodeBlock, { code: 'x', children: 'custom' })
+// @ts-expect-error Root styles retain semantic slots.
+createElement(RootCodeBlock, { code: 'x', className: 'flat' })
+// @ts-expect-error The native title remains a string tooltip.
+createElement(RootCodeBlock, { code: 'x', title: createElement('em') })
+
+createElement(RootCodeBlock, {
+  code: 'x',
+  // @ts-expect-error The configured copy action owns its button/ref semantics.
+  copy: { asChild: true },
+})

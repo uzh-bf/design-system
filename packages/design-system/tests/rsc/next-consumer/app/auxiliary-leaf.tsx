@@ -4,6 +4,7 @@ import { MessageScroller as ApplicationScroller } from '@shadcn/react/message-sc
 import { Questionnaire as ApplicationQuestionnaire } from '@shadcn/react/questionnaire'
 import {
   Bubble,
+  CodeBlock,
   Message,
   MessageScroller,
   Questionnaire,
@@ -330,5 +331,28 @@ export function AuxiliaryLeaf({
         </output>
       </section>
     </div>
+  )
+}
+
+export function PackedCodeClient() {
+  const [highlight, setHighlight] = useState(false)
+  return (
+    <section data-test="packed-code-client-section">
+      <button
+        type="button"
+        data-test="packed-highlight-toggle"
+        onClick={() => setHighlight(true)}
+      >
+        Highlight source
+      </button>
+      <CodeBlock
+        code={'const packed = 42\n'}
+        language="typescript"
+        highlight={highlight}
+        titleContent="Packed source"
+        data={{ test: 'packed-code-client' }}
+        dataContent={{ test: 'packed-code-content' }}
+      />
+    </section>
   )
 }
