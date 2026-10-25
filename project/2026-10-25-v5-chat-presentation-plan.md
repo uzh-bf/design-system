@@ -55,7 +55,8 @@ after completed planning review and user approval. Questionnaire updates its Pro
 as the second phase; no plan-only draft is created.
 
 ADRs0001/0002 own public entry and RHF isolation; ADR0008 owns the supported
-backend scope. No product primitive is created: these are presentation and
+backend scope. ADR0011 records the already-approved native runtime ownership
+and mixed-context obligation. Its new file is docs/adr/0011-native-chat-runtime.md. No product primitive is created: these are presentation and
 interaction surfaces composing application-owned conversation, attachments,
 workflow status and answers. They do not own network effects or product policy.
 
@@ -447,3 +448,11 @@ Questionnaire starts only after chat qualification, on `rs/v5-questionnaire`.
 Its approved native form/ergonomic interfaces and second draft topology remain
 as specified above. No implementation or PR exists yet. Both drafts remain
 unmerged; consumer acceptance and integrated manual GA remain separate gates.
+
+Integrated Claude review identified standalone Bubble end-alignment/width and
+AttachmentGroup overflow-cue gaps. Restore the native alignment and width cap;
+retain a visible native scrollbar and focusable group rather than an undefined
+fade utility. The narrow-variant check covers both compositions. ADR0011 records
+the approved regular exact-pin decision. One focused final correction follows
+verification; the original response also needs its reflection array corrected
+to the shared schema's required string. No new runtime or public API is added.

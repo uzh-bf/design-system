@@ -9,11 +9,12 @@ import { Trace } from './Trace'
 import {
   AttachmentAction,
   AttachmentActions,
+  AttachmentGroup,
   AttachmentTitle,
   AttachmentTrigger,
   Attachment as RawAttachment,
 } from './ui/attachment'
-import { BubbleContent, Bubble as RawBubble } from './ui/bubble'
+import { BubbleContent, BubbleGroup, Bubble as RawBubble } from './ui/bubble'
 import { Button } from './ui/button'
 import { MessageContent, Message as RawMessage } from './ui/message'
 import {
@@ -249,6 +250,25 @@ export const Variants = () => (
         </Bubble>
       ))}
     </section>
+    <BubbleGroup data-test="standalone-bubbles">
+      <Bubble align="end" data={{ test: 'standalone-root-bubble' }}>
+        A standalone response with sufficient content to exercise its width
+        limit in a narrow conversation.
+      </Bubble>
+      <RawBubble align="end" data-test="standalone-primitive-bubble">
+        <BubbleContent>Standalone native composition</BubbleContent>
+      </RawBubble>
+    </BubbleGroup>
+    <AttachmentGroup
+      aria-label="Additional attachments"
+      data-test="attachment-group"
+    >
+      {Array.from({ length: 8 }, (_, index) => (
+        <RawAttachment key={index}>
+          <AttachmentTitle>Synthetic file {index + 1}</AttachmentTitle>
+        </RawAttachment>
+      ))}
+    </AttachmentGroup>
     <section className="grid gap-4" aria-label="Marker variants">
       {(['default', 'separator', 'border'] as const).map((variant) => (
         <Marker

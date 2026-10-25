@@ -176,9 +176,10 @@ function AttachmentTrigger({
 function AttachmentGroup({ className, ...props }: React.ComponentProps<'div'>) {
   return (
     <div
+      tabIndex={0}
       data-slot="attachment-group"
       className={cn(
-        'scroll-fade-x scrollbar-none flex min-w-0 snap-x snap-mandatory scroll-px-1 gap-3 overflow-x-auto overscroll-x-contain py-1 *:data-[slot=attachment]:flex-none *:data-[slot=attachment]:snap-start',
+        'flex min-w-0 snap-x snap-mandatory scroll-px-1 gap-3 overflow-x-auto overscroll-x-contain py-1 *:data-[slot=attachment]:snap-start',
         className
       )}
       {...props}

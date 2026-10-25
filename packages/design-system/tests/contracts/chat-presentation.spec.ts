@@ -108,6 +108,29 @@ test('narrow variants contain separator labels and vertical attachments', async 
 }) => {
   await page.setViewportSize({ width: 390, height: 844 })
   await gotoStory(page, 'chat-presentation--variants')
+  const groupBox = await page
+    .locator('[data-test="standalone-bubbles"]')
+    .boundingBox()
+  for (const name of [
+    'standalone-root-bubble',
+    'standalone-primitive-bubble',
+  ]) {
+    const box = await page.locator(`[data-test="${name}"]`).boundingBox()
+    expect(
+      Math.abs(box!.x + box!.width - groupBox!.x - groupBox!.width)
+    ).toBeLessThan(1)
+    expect(box!.width).toBeLessThanOrEqual(groupBox!.width * 0.8 + 1)
+  }
+  const attachments = page.locator('[data-test="attachment-group"]')
+  await attachments.focus()
+  await expect(attachments).toBeFocused()
+  expect(
+    await attachments.evaluate((el) => el.scrollWidth > el.clientWidth)
+  ).toBe(true)
+  await page.keyboard.press('ArrowRight')
+  await expect
+    .poll(() => attachments.evaluate((el) => el.scrollLeft))
+    .toBeGreaterThan(0)
   const marker = page.locator('[data-test="marker-separator"]')
   const markerBox = await marker.boundingBox()
   const labelBox = await marker

@@ -1172,3 +1172,6 @@ mixing its native provider/parts with DS parts must declare the same version and
 resolve the same context runtime. The packed npm/pnpm default fixtures verify
 that arrangement; arbitrary duplicate installations are not guaranteed. No
 Shiki, Markdown, transport or model package is loaded by these components.
+[ADR0011](../../docs/adr/0011-native-chat-runtime.md) records dependency ownership
+and the shared-context requirement. AttachmentGroup keeps a native scrollbar
+and is keyboard-focusable; callers can override its native tabIndex.
