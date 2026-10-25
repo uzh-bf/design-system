@@ -206,13 +206,15 @@ cells. Size/module boundaries and 704 theme assertions pass. Focused scans have
 zero findings/errors. The story inventory and screenshot baselines are unchanged.
 
 The unpublished archive SHA-256 is
-`eea9a8f060479ed56e66e745fcfe49728649910aa4077ed099b67c0c4d095d7e`;
-all 268 files match the installed copy. Fresh npm/pnpm probes of that archive prove
-shared engine/export identity and mixed SSR composition. The 400 checked source
+`5c2fa4d4c1624de54d2fc17c70612e07acf55b406e36e3fc518128c5cde8dae0`;
+all 268 files match the installed copy. npm/pnpm probes of the prior archive
+prove shared engine/export identity and mixed SSR composition; reuse is justified
+by byte-identical executable files, manifest and dependencies. The 400 checked source
 and fixture inputs match the verification workspace. Eight real captures at
 `31f6f5ab9` retain rendered-source applicability: every named-story function body
-is byte-identical after the README-only edit. An additional README capture
-remains required for the corrected guidance; all uploads pass PNG/hash readback and render in the draft.
+is byte-identical after the README-only edit. A ninth README capture at
+`55c4e3dab` records the corrected storage guidance;
+all uploads pass PNG/hash readback and render in the draft.
 
 The original null-only persistence guard reproduced stale geometry after reload.
 An application-owned cookie snapshot fixes server/hydration agreement; the native
@@ -221,17 +223,23 @@ MIGRATION.md. The native helper's limited legacy read does not qualify arbitrary
 application layouts. Consumer migration and exact-candidate acceptance remain
 separate, alongside manual screen-reader/Safari/device and integrated GA gates.
 
-The earlier exact custom verification runtime was released. The same
-source-identified container resumed only for this final correction and README
-capture. Stop it after the last check and record fresh release in the execution
-journal. No consumer runtime was touched. No merge, readiness, publication or deployment was performed.
+The exact custom verification runtime was released after each runtime-dependent
+check. Its final package rebuild and release are recorded in the execution
+journal. No consumer runtime was touched. No merge, readiness, publication or
+deployment was performed.
 
 The integrated review identified two low-severity guidance/test-duplication
 findings. Both are corrected; fresh types/lint/format/build, six native cases,
 four Resizable smokes and six accessibility cases pass. The rebuilt packed
 archive remains byte-identical, preserving the complete packed matrix evidence.
-Delivery remains pending the same reviewer's one focused correction pass, final
-published head's hosted checks and quiet feedback qualification. Hold the final published
-head after this documentation checkpoint. Record those final outcomes in the
+The same reviewer's focused correction pass approved `55c4e3dab`, whose hosted
+checks also pass. Its native-source observation exposed an additional orientation
+documentation error: groups set inline flex direction; only separators emit
+`aria-orientation`. The final documentation correction changes only MIGRATION.md
+in the packed archive; all executable files, manifest and dependencies remain
+byte-identical. Reuse the full runtime and packed matrix evidence. Delivery
+awaits the final documentation head's hosted checks and quiet feedback
+qualification. Hold that final published head after this correction. Record
+those final outcomes in the
 existing draft description and ignored execution journal, avoiding another
 status-only commit and CI restart. No further implementation slice is planned.

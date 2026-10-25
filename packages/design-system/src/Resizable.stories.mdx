@@ -132,7 +132,7 @@ Migration from v3:
 - Replace onCollapse and onExpand with onResize or the native panel ref. There is no native drag lifecycle callback.
 - Remove tagName, order, hitAreaMargins and keyboardResizeBy. Use native divs, stable IDs and group resizeTargetMinimumSize.
 - Native double-click resets a neighboring panel with a default size; other panels rebalance. It can be disabled per separator.
-- Panel className applies to an inner div; group and separator orientation use aria-orientation.
+- Panel className applies to an inner div. Groups set inline flex direction; separators expose their own axis through aria-orientation.
 
 Related Components:
 

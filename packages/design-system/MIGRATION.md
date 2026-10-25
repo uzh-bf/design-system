@@ -1062,11 +1062,13 @@ Several v3 props have no identical native replacement:
   coarse pointer targets. Native separator double-click resets a neighboring panel with a default size;
   opt out with `disableDoubleClick` when that behavior is unwanted.
 
-Update custom CSS from `data-panel-group-direction` to the native orientation
-markers. Groups use `aria-orientation`; separators describe their own axis, so a
-vertical group has a horizontal separator. Panel `className` applies to an inner
-div, while the engine owns layout styles on its outer element. Check custom
-selectors and flex/overflow assumptions during migration.
+Replace custom CSS that relies on `data-panel-group-direction`. Native groups
+set inline flex direction without emitting an orientation attribute; use
+caller-owned classes or data attributes for additional group styling.
+Separators expose `aria-orientation` for their own axis, so a vertical group has
+a horizontal separator. Panel `className` applies to an inner div, while the
+engine owns layout styles on its outer element. Check custom selectors and
+flex/overflow assumptions during migration.
 
 Replace `autoSaveId` and group `storage` with
 `useDefaultLayout({ id, storage, panelIds })`, passing its `defaultLayout` and
