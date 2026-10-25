@@ -51,8 +51,9 @@ audit residual is tracked in the capability matrix and GA roadmap.
 All approved shared/Calendar/layout/toast/native Resizable layers qualify in
 their draft descriptions. [Chat234](https://github.com/uzh-bf/design-system/pull/234)
 and [Questionnaire235](https://github.com/uzh-bf/design-system/pull/235) qualify
-at48c6b91a6 and2a8d3f401. The remaining code/highlighting and utility gaps belong to the
-[active approved plan](2026-10-25-v5-code-highlighting-plan.md). These deliveries
+at48c6b91a6 and2a8d3f401. Code/highlighting and utility source qualification is delivered in
+[draft #236](https://github.com/uzh-bf/design-system/pull/236) under its
+[approved plan](2026-10-25-v5-code-highlighting-plan.md). These deliveries
 close their source/behavior contracts, not every static example/block/pattern
 identity below. Integrated application composition retains its own acceptance.
 

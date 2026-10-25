@@ -235,41 +235,41 @@ backend requirement or material contract/topology change is a concrete blocker.
 
 ## Progress
 
-Implemented as one package above held Questionnaire base `2a8d3f401` in
-[draft #236](https://github.com/uzh-bf/design-system/pull/236). The existing
-six-layer stack remains intact. Display/highlighting and utilities have separate
-commits; ten reviewed synthetic screenshots are published and render correctly.
-A further narrow wrapped-token capture records the verified overflow correction.
+Implementation and source qualification are complete in
+[draft #236](https://github.com/uzh-bf/design-system/pull/236), above the held
+Questionnaire base `2a8d3f401`. Display/highlighting and utilities retain separate
+commits. The original stack and consumer repositories remain unchanged.
 
-The user approved the 34 kB CSS ceiling. The integrated stylesheet measured
-32,460 Brotli bytes after the readable shimmer adaptation; JavaScript budgets
-are unchanged. Types, lint, package/Ladle builds, size/dependency markers,
-728 stable browser contracts/smokes, six closed accessibility cases, 704 token
-and 336 responsive assertions, packed CSS/compiler utility checks, three packed
-consumer cells and both Next bundlers pass. The current Next cell was refreshed
-for the explicit post-activation request assertion. Later narrow source changes
-rerun their affected checks rather than the unchanged complete portfolio.
+Both simplification passes and both source risk reviews, including their bounded
+corrections, are complete. The integrated configured Claude review of source tip
+`bd7f5441d` found no code blocker; its one advisory requested the helper/hook
+consequence now recorded in ADR0001. The complete 37-path reviewed range, schema
+validation and documentation-only follow-up are recorded locally. The isolated
+advisory check of the exact locked Shiki dependency closure found no known
+advisories; no repository-wide audit or new enforcement was added.
 
-The display simplifier removed redundant successful-language bookkeeping; the
-utility simplifier found no justified reduction. Running Trace and processing
-Attachment captures prompted a readable light shimmer highlight. Code content
-retains its unmasked horizontal surface; message/attachment regions use native
-scroll-aware fades. UZH keyword and dark copy-error contrast corrections pass
-active-state accessibility checks. The new unbroken-token overflow was reproduced
-before correction; five focused contracts pass after the fix. The same existing
-cases now compare append-streamed syntax across a multiline comment with fresh
-highlighting and verify replacement of the completed prefix.
+The final candidate is 32,424 Brotli CSS bytes under the user-approved 34 kB
+ceiling. JavaScript thresholds are unchanged. Its unpublished archive matches
+all 304 installed files. Types, lint, formatting, package/Ladle builds, size and
+static import markers pass. The stable portfolio includes 728 browser
+contracts/smokes, six closed accessibility cases, 704 token and 336 responsive
+assertions, packed CSS/compiler utilities, three packed consumer cells and both
+Next bundlers. Affected focused contracts and current Next cells were refreshed
+for append-streamed grammar state, prefix replacement, unbroken-token wrapping,
+actual grammar-delivery checks, readable script-body controls and recovery after
+browser asset failure. All these checks pass.
 
-All 304 installed files match the refreshed unpublished archive. Producing logs,
-exact archive receipts, capture provenance and review reports remain in the
-ignored `project/_local/` area. The task runtime is stopped with fresh source-bind
-verification. Consumer repositories/runtimes remain outside this package.
+Twelve inspected synthetic screenshots are published and render correctly,
+including UZH mobile, dark mode, denied copy, RTL, reduced motion and actual
+focused scrolling. The focus mask override passes for packed and consumer-
+compiled styles. Code content deliberately remains unmasked. The exact task
+runtime is stopped with fresh source-bind verification; all task browsers and
+reviewers have completed or closed.
 
-The display risk review and its correction pass have no blocker. The utility
-review found no compiler/readability defect; its focus verification concern led
-to a direct browser check and an explicit focus mask override. Its focused
-correction, integrated final review and exact-head hosted CI/feedback
-qualification remain pending. Continue those gates and their
-bounded corrections on this draft; do not mark the package complete early.
+Source tip `bd7f5441d` passed hosted checks and feedback settle. Final documentation
+changes preserve the reviewed executable source and archive. Exact final-tip CI
+and feedback qualification are recorded in the maintained draft description and
+ignored verification journal so a green result does not create another source
+commit. No merge, readiness, release or consumer deployment is authorized.
 Manual AT/Safari/device, representative compositions, integrated exact-candidate
-consumer acceptance and v5 GA retain their separate roadmap gates.
+consumer acceptance and v5 GA remain separate roadmap gates.

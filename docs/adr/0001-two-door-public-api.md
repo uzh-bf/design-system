@@ -46,3 +46,7 @@ whenever that entry loads.
   true optionality is deferred to a later release.
 - Re-prefixing the primitives, or shipping compatibility shims, was rejected:
   both re-introduce the duplication this decision removes.
+- The [approved code-highlighting plan](../../project/2026-10-25-v5-code-highlighting-plan.md)
+  also exposes the server-callable `highlightCode`/`loadHighlighter` helpers and
+  `useHighlightedCode` at both existing doors. The hook retains its own client
+  module directive; these compatible auxiliaries do not add a public subpath.
