@@ -505,3 +505,94 @@ createElement(Calendar, {
 })
 // @ts-expect-error Calendar locale requires a DayPicker locale object.
 createElement(CalendarDayButton, { ...calendarDayProps, locale: 'de-DE' })
+
+import type {
+  AttachmentProps,
+  BubbleProps,
+  MarkerProps,
+  MessageProps,
+  TraceProps,
+} from '../../src'
+import {
+  Attachment as ChatAttachment,
+  Bubble as ChatBubble,
+  Marker as ChatMarker,
+  Message as ChatMessage,
+  Trace as ChatTrace,
+} from '../../src'
+createElement(
+  ChatMessage,
+  {
+    avatar: 'U',
+    className: { root: 'p-2', content: 'gap-2' },
+    dataContent: { test: 'body' },
+    ref: createRef<HTMLDivElement>(),
+    'aria-label': 'Conversation item',
+  },
+  'Body'
+)
+createElement(
+  ChatBubble,
+  {
+    variant: 'muted',
+    reactions: 'Helpful',
+    className: { content: 'rounded-md' },
+  },
+  'Text'
+)
+createElement(
+  ChatMarker,
+  {
+    icon: '✓',
+    className: { icon: 'size-4' },
+    ref: createRef<HTMLDivElement>(),
+  },
+  'Saved'
+)
+createElement(ChatAttachment, {
+  title: 'File',
+  triggerProps: {
+    onClick: (event) => {
+      event.preventDefault()
+    },
+  },
+  triggerRef: createRef<HTMLButtonElement>(),
+  className: { trigger: 'ring-2' },
+})
+createElement(ChatTrace, {
+  items: [
+    {
+      id: 'x',
+      title: 'Step',
+      content: 'Details',
+      open: false,
+      onOpenChange: (open) => void open,
+    },
+  ],
+})
+const chatProps: [
+  MessageProps,
+  BubbleProps,
+  MarkerProps,
+  AttachmentProps,
+  TraceProps,
+] = [
+  { children: 'Body' },
+  { children: 'Text' },
+  { icon: '✓' },
+  { title: 'File' },
+  { items: [] },
+]
+void chatProps
+// @ts-expect-error Root wrappers use semantic styling slots.
+createElement(ChatMessage, { className: 'flat' })
+// @ts-expect-error Fixed root Marker composition does not replace its DOM element.
+createElement(ChatMarker, { asChild: true })
+// @ts-expect-error Attachment needs a title or explicit name for its trigger.
+createElement(ChatAttachment, { triggerProps: {} })
+// @ts-expect-error Custom attachment content and configured parts are exclusive.
+createElement(ChatAttachment, { children: 'Custom', title: 'File' })
+// @ts-expect-error Trace controlled expansion must report changes.
+createElement(ChatTrace, { items: [{ id: 'x', title: 'Step', open: true }] })
+// @ts-expect-error Configured rows and custom content are exclusive.
+createElement(ChatTrace, { items: [], children: 'Other' })

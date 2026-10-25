@@ -436,6 +436,27 @@
   }
 }
 
+@utility shimmer {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    height: 1px;
+    background: currentColor;
+    animation: var(--animate-shimmer);
+    pointer-events: none;
+  }
+}
+
+@utility shimmer-none {
+  &::after {
+    display: none;
+  }
+}
+
 @layer utilities {
   /* custom keyframes for animations */
   @keyframes shimmer {

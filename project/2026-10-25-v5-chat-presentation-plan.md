@@ -429,3 +429,12 @@ optional AGY response was empty despite success status; it is unpassed. All
 review findings and dispositions are retained in the ignored planning journal.
 The concrete two-layer batch was approved. The first implementation slice now
 starts; Questionnaire remains blocked on qualification of the chat draft.
+
+Presentation tracer: all five root wrappers and canonical primitive families are
+implemented with the approved prop contracts and source adaptations. Types, lint,
+format and Ladle build pass. Four focused interaction checks, six neutral/UZH
+accessibility cases and three new-story smokes pass after correcting unreadable
+alpha-muted descriptions and using the existing destructive text token. Three
+new story IDs extend the oracle without adding allowed violations. The focused
+source scan has zero findings/errors. Scrolling is prepared as a separate
+uncommitted tracer; independent reviews of presentation follow its commit.

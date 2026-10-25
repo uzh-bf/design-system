@@ -1124,3 +1124,27 @@ returns focus to its mounted opener through the Sheet lifecycle.
 `SidebarProvider` keeps desktop `open` / `onOpenChange` control separate from
 its internal mobile visibility. Existing widths, static `collapsible="none"`
 behavior, keyboard shortcut and write-only state cookie remain supported.
+
+## Chat presentation components
+
+The root entry supplies ergonomic `Message`, `Bubble`, `Marker`, `Attachment`
+and `Trace` composites. Their `className` prop uses named slots, and `data` or
+part-specific selectors retain the `{ cy, test }` contract. The primitive entry
+provides the official compound parts under their natural names. These five new
+same-name exports follow the existing entry-selection rule: choose the root for
+configured content and parts, or `./primitives` for full native composition.
+
+Message accepts avatar/header/footer nodes around its children. Bubble composes
+content and reactions, and Marker composes an icon and content. Trace accepts
+stable-ID configured items or custom children; controlled disclosures require
+`onOpenChange`. These components render application-owned content and status.
+They do not execute tools, render Markdown or manage conversation state.
+
+Attachment renders passive content unless `triggerProps` configures its native
+button. Its label comes from explicit ARIA attributes, `triggerAriaLabel`, or
+the configured title. `triggerRef` targets that button; the component ref and
+outer native events target the div. Action buttons remain independently operable
+above the trigger overlay. Custom attachment children and configured content
+parts are exclusive. Uploads, navigation and object-URL lifetimes stay with the
+application. Fixed root compositions keep their DOM targets; use primitives for
+polymorphic parts.
