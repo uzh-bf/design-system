@@ -1224,7 +1224,7 @@ and on unsupported-language or loading/tokenization failure. Failed asset loads
 can be retained by the browser's module cache; reload the page
 after connectivity returns if enabling highlighting again still shows plain code.
 Core, JavaScript regex engine, themes and individual grammars load lazily from
-exact Shiki4.5.0.
+exact Shiki 4.5.0.
 No language source is sent to a remote service. The package renders React text
 and style nodes, never untrusted HTML. The Shiki package contains other engines,
 but this implementation imports neither its full bundle nor WASM.
@@ -1248,7 +1248,8 @@ timelines fall back to readable endpoints. Visible native scrollbars are retaine
 for code/message/attachment scrolling; application markup owns its focus order.
 Code content keeps its full horizontal surface and native scrollbar instead of
 masking line numbers or diff cues. Message and attachment regions adopt the
-scroll-aware fade utilities.
+scroll-aware fade utilities. Fades are removed while the scrolling region or
+one of its actions has focus, preserving the complete focus indicator.
 
 These APIs add presentation and code rendering; Markdown parsing, AI transports,
 application services and maintained forks of official blocks remain application-owned.

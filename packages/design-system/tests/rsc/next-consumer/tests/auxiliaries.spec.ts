@@ -314,7 +314,10 @@ test('packed server highlighting remains readable before JavaScript', async ({
   })
   await hydratedPage.goto('/?mode=server-code')
   await hydratedPage.waitForLoadState('networkidle')
-  expect((await Promise.all(scripts)).some(hasTypeScriptGrammar)).toBe(false)
+  const serverScripts = await Promise.all(scripts)
+  expect(serverScripts.length).toBeGreaterThan(0)
+  expect(serverScripts.every((script) => script.length > 0)).toBe(true)
+  expect(serverScripts.some(hasTypeScriptGrammar)).toBe(false)
   await hydrated.close()
 })
 
@@ -336,7 +339,10 @@ test('packed client highlighting activates after opt-in', async ({ page }) => {
   await expect(content).toBeVisible()
   await expect(content.locator('[style*="--shiki"]')).toHaveCount(0)
   await page.waitForLoadState('networkidle')
-  expect((await Promise.all(scripts)).some(hasTypeScriptGrammar)).toBe(false)
+  const initialScripts = await Promise.all(scripts)
+  expect(initialScripts.length).toBeGreaterThan(0)
+  expect(initialScripts.every((script) => script.length > 0)).toBe(true)
+  expect(initialScripts.some(hasTypeScriptGrammar)).toBe(false)
   await page.locator('[data-test="packed-highlight-toggle"]').click()
   await expect(content.locator('[style*="--shiki"]').first()).toBeVisible()
   await expect

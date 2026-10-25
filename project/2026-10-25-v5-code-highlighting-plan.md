@@ -265,8 +265,11 @@ exact archive receipts, capture provenance and review reports remain in the
 ignored `project/_local/` area. The task runtime is stopped with fresh source-bind
 verification. Consumer repositories/runtimes remain outside this package.
 
-Independent source risk reviews, the integrated final review and exact-head
-hosted CI/feedback qualification remain pending. Continue those gates and their
+The display risk review and its correction pass have no blocker. The utility
+review found no compiler/readability defect; its focus verification concern led
+to a direct browser check and an explicit focus mask override. Its focused
+correction, integrated final review and exact-head hosted CI/feedback
+qualification remain pending. Continue those gates and their
 bounded corrections on this draft; do not mark the package complete early.
 Manual AT/Safari/device, representative compositions, integrated exact-candidate
 consumer acceptance and v5 GA retain their separate roadmap gates.

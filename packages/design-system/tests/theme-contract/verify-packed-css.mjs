@@ -1074,6 +1074,19 @@ try {
         'Packed utility reduced-motion/readability contract failed: ' +
           JSON.stringify(reduced)
       )
+    await page.emulateMedia({ reducedMotion: 'no-preference' })
+    await page.evaluate(() => {
+      const action = document.createElement('button')
+      action.id = 'focused-scroll-action'
+      document.querySelector('#fade').append(action)
+    })
+    await page.locator('#focused-scroll-action').focus()
+    if (
+      (await page
+        .locator('#fade')
+        .evaluate((node) => getComputedStyle(node).maskImage)) !== 'none'
+    )
+      throw new Error('A focused scrolling action is still masked by a fade')
   }
   await page.emulateMedia({ reducedMotion: 'no-preference' })
   await page.setContent(

@@ -153,7 +153,10 @@ test('highlighting is opt-in and stays readable across streamed values and unsup
     .toEqual(await readLines(freshContent))
   const replacement = 'const replacement = 2\nreplacement'
   await page.locator('[data-test="code-input"]').fill(replacement)
+  await fresh.reload()
   await fresh.locator('[data-test="code-input"]').fill(replacement)
+  await fresh.locator('[data-test="highlight-toggle"]').check()
+  await expect(freshContent.locator('[style*="--shiki"]').first()).toBeVisible()
   await expect
     .poll(() => readLines(content))
     .toEqual(await readLines(freshContent))

@@ -1117,6 +1117,10 @@
   }
 }
 
+[class*='scroll-fade']:focus-within {
+  --scroll-fade-mask: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   [class*='scroll-fade'] {
     --scroll-fade-mask: none;
