@@ -639,8 +639,9 @@ type DateTimePickerProps = {
   hourCycle?: 12 | 24
   placeholder?: string
   /**
-   * Retained compatibility option. This currently does not change Calendar's
-   * navigation bounds; year-range behavior is a separate contract follow-up.
+   * Navigation years before and after the current year, rounded down and capped
+   * at 100. Zero shows the current year; omitted or invalid values retain the
+   * Calendar defaults. Selection and validation are independent of navigation.
    */
   yearRange?: number
   // dayjs format string to display the date in the input field.
@@ -698,7 +699,7 @@ type DateTimePickerRef = HTMLButtonElement
  * @param disabled - Whether the picker is disabled.
  * @param hourCycle - Whether to use 12-hour or 24-hour time format.
  * @param placeholder - Placeholder text shown when no date is selected / the state is undefined.
- * @param yearRange - Retained compatibility option without a current effect on Calendar navigation bounds.
+ * @param yearRange - Navigation years before and after the current year, rounded down and capped at 100; omitted or invalid values retain Calendar defaults.
  * @param displayFormat - The dayjs format string to display the date in the input field.
  * @param granularity - The smallest unit displayed by the picker (e.g., 'second', 'minute', 'hour', 'day').
  * @param className - Optional object to override default styling for trigger, input, label, tooltip, and error.
@@ -745,6 +746,7 @@ const DateTimePicker = ({
   displayFormat,
   granularity = 'second',
   placeholder = 'Pick a date',
+  yearRange,
   error,
   hideError,
   isTouched,
@@ -760,6 +762,13 @@ const DateTimePicker = ({
   ...props
 }: DateTimePickerProps) => {
   const generatedId = React.useId()
+  const navigationYears =
+    typeof yearRange === 'number' &&
+    Number.isFinite(yearRange) &&
+    yearRange >= 0
+      ? Math.min(100, Math.floor(yearRange))
+      : undefined
+  const currentYear = new Date().getFullYear()
   const inputId = id ?? generatedId
   const labelId = `${inputId}-label`
   const dateValueId = `${inputId}-date-value`
@@ -894,8 +903,10 @@ const DateTimePicker = ({
                 ((!!error && isTouched) ||
                   (invalid !== undefined &&
                     invalid !== false &&
-                    invalid !== 'false')) &&
+                    invalid !== 'false')) && [
                   'border-destructive bg-destructive-background',
+                  !displayDate && 'text-content-secondary',
+                ],
                 className?.input
               )}
               ref={ref}
@@ -967,6 +978,10 @@ const DateTimePicker = ({
         >
           <Calendar
             mode="single"
+            {...(navigationYears !== undefined && {
+              startMonth: new Date(currentYear - navigationYears, 0),
+              endMonth: new Date(currentYear + navigationYears, 11),
+            })}
             captionLayout={captionLayout}
             disabled={disabled}
             selected={displayDate}

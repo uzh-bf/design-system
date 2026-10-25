@@ -1,3 +1,4 @@
+import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 
 import { gotoStory } from '../_support/ladle'
@@ -496,4 +497,150 @@ test.describe('calendar locale and DayPicker contracts', () => {
     )
     await page.keyboard.press('Escape')
   })
+})
+
+test.describe('picker navigation and error contrast', () => {
+  test('normalizes year ranges and preserves omitted navigation defaults', async ({
+    page,
+  }) => {
+    await openStory(page, 'bounds-and-navigation')
+    const range = page.locator('[data-test="picker-year-range"]')
+    const trigger = page.locator('[data-test="picker-bounds-trigger"]')
+    const calendar = page.locator('[data-test="picker-bounds-calendar"]')
+    for (const [input, low, high] of [
+      ['2', 2024, 2028],
+      ['0', 2026, 2026],
+      ['fraction', 2024, 2028],
+      ['capped', 1926, 2126],
+      ['negative', 2025, 2125],
+      ['nan', 2025, 2125],
+      ['infinity', 2025, 2125],
+      ['omitted', 2025, 2125],
+    ] as const) {
+      await range.selectOption(input)
+      await trigger.click()
+      const years = await calendar
+        .locator('.rdp-years_dropdown option')
+        .evaluateAll((options) =>
+          options.map((option) => Number((option as HTMLOptionElement).value))
+        )
+      expect(years[0]).toBe(low)
+      expect(years.at(-1)).toBe(high)
+      expect(years.length).toBe(high - low + 1)
+      await calendar.locator('.rdp-years_dropdown').selectOption(String(high))
+      await expect(
+        calendar.locator('.rdp-months_dropdown option:not(:disabled)').last()
+      ).toHaveAttribute(
+        'value',
+        ['negative', 'nan', 'infinity', 'omitted'].includes(input) ? '0' : '11'
+      )
+      await page.keyboard.press('Escape')
+      await expect(calendar).toBeHidden()
+    }
+    await expect(
+      page.locator('[data-test="picker-bounds-changes"]')
+    ).toHaveText('0')
+  })
+
+  test('clamps visible navigation without mutating out-of-window values or time', async ({
+    page,
+  }) => {
+    await openStory(page, 'bounds-and-navigation')
+    const calendar = page.locator('[data-test="picker-bounds-calendar"]')
+    const value = page.locator('[data-test="picker-bounds-value"]')
+    const trigger = page.locator('[data-test="picker-bounds-trigger"]')
+    await page.locator('[data-test="picker-bounds-outside"]').click()
+    const outside = JSON.parse((await value.textContent())!)
+    expect(outside).toMatchObject({ year: 2018, hour: 14, minute: 35 })
+    await trigger.click()
+    await expect(calendar.locator('.rdp-years_dropdown')).toHaveValue('2024')
+    await expect(calendar.locator('.rdp-months_dropdown')).toHaveValue('0')
+    await calendar.locator('.rdp-years_dropdown').selectOption('2028')
+    await expect(value).toHaveText(JSON.stringify(outside))
+    await page.keyboard.press('Escape')
+    await expect(trigger).toBeFocused()
+    await gotoStory(page, 'calendar-compatibility--bounds-and-navigation')
+    await page.locator('[data-test="picker-bounds-clear"]').click()
+    await trigger.click()
+    await expect(calendar.locator('.rdp-years_dropdown')).toHaveValue('2028')
+    await expect(calendar.locator('.rdp-months_dropdown')).toHaveValue('11')
+    await expect(value).toHaveText('null')
+    await page.keyboard.press('Escape')
+    await page.locator('[data-test="picker-bounds-reset"]').click()
+    await trigger.click()
+    await expect(calendar.locator('.rdp-years_dropdown')).toHaveValue('2026')
+    await expect(calendar.locator('.rdp-months_dropdown')).toHaveValue('9')
+    await expect(
+      page.locator('[data-test="picker-bounds-changes"]')
+    ).toHaveText('0')
+  })
+
+  test('passes yearRange through RHF and Formik without adapter changes', async ({
+    page,
+  }) => {
+    await openStory(page, 'bounds-and-navigation')
+    await page.locator('[data-test="picker-year-range"]').selectOption('0')
+    for (const adapter of ['rhf', 'formik']) {
+      const trigger = page.locator(`[data-test="picker-${adapter}-trigger"]`)
+      await trigger.click()
+      const calendar = page.locator(`[data-test="picker-${adapter}-calendar"]`)
+      await expect(calendar.locator('.rdp-years_dropdown option')).toHaveCount(
+        1
+      )
+      await expect(calendar.locator('.rdp-years_dropdown')).toHaveValue('2026')
+      await page.keyboard.press('Escape')
+      await expect(trigger).toBeFocused()
+    }
+  })
+
+  for (const [theme, dark] of [
+    ['uzh', false],
+    ['neutral', false],
+    ['neutral', true],
+  ] as const) {
+    test(`empty validation states remain legible (${theme}, dark=${dark})`, async ({
+      page,
+    }) => {
+      await page.addInitScript(
+        (isDark) => localStorage.setItem('ladle-dark', JSON.stringify(isDark)),
+        dark
+      )
+      await gotoStory(page, 'calendar-compatibility--formik-pickers', theme)
+      await page.locator('[data-test="formik-empty-invalid"]').click()
+      for (const id of ['formik-date-trigger', 'formik-datetime-trigger']) {
+        await expect(page.locator(`[data-test="${id}"]`)).toHaveAttribute(
+          'aria-invalid',
+          'true'
+        )
+      }
+      const formik = await new AxeBuilder({ page })
+        .include('[data-test="formik-fields"]')
+        .withRules(['color-contrast'])
+        .analyze()
+      expect(formik.violations).toEqual([])
+      await gotoStory(
+        page,
+        'calendar-compatibility--bounds-and-navigation',
+        theme
+      )
+      await page.locator('[data-test="picker-bounds-clear"]').click()
+      await page.locator('[data-test="picker-bounds-invalid"]').click()
+      await expect(
+        page.locator('[data-test="picker-rhf-trigger"]')
+      ).toHaveAttribute('aria-invalid', 'true')
+      const standalone = await new AxeBuilder({ page })
+        .include('[data-test="picker-bounds-trigger"]')
+        .include('[data-test="picker-empty-date"]')
+        .include('[data-test="picker-rhf-trigger"]')
+        .withRules(['color-contrast'])
+        .analyze()
+      expect(standalone.violations).toEqual([])
+      await page.locator('[data-test="picker-bounds-reset"]').click()
+      const selected = await new AxeBuilder({ page })
+        .include('[data-test="picker-bounds-trigger"]')
+        .withRules(['color-contrast'])
+        .analyze()
+      expect(selected.violations).toEqual([])
+    })
+  }
 })

@@ -18,11 +18,15 @@ import {
   type DateRange,
   type DayPickerProps,
 } from 'react-day-picker'
+import { useForm } from 'react-hook-form'
 
 import { Calendar, CalendarDayButton } from './Calendar'
+import { DatePicker } from './DatePicker'
+import { DateTimePicker } from './DatetimePicker'
 import FormikDatePicker from './forms/FormikDatePicker'
 import FormikDatetimePicker from './forms/FormikDatetimePicker'
 import { Button } from './primitives'
+import { Form, RhfDatetimePicker } from './react-hook-form'
 
 export default { title: 'Calendar compatibility' }
 
@@ -270,8 +274,136 @@ export const BoundsAndNavigation = () => (
         />
       </section>
     </div>
+    <PickerBoundsFixture />
   </Surface>
 )
+
+function PickerBoundsFixture() {
+  const year = new Date().getFullYear()
+  const initial = new Date(year, 9, 15, 14, 35, 10)
+  const [range, setRange] = useState('2')
+  const [value, setValue] = useState<Date | undefined>(initial)
+  const [changes, setChanges] = useState(0)
+  const [resetKey, setResetKey] = useState(0)
+  const [invalid, setInvalid] = useState(false)
+  const form = useForm<{ datetime: Date | undefined }>({
+    defaultValues: { datetime: undefined },
+  })
+  const ranges: Record<string, number | undefined> = {
+    '2': 2,
+    '0': 0,
+    fraction: 2.9,
+    capped: 1000,
+    negative: -1,
+    nan: NaN,
+    infinity: Infinity,
+    omitted: undefined,
+  }
+  const yearRange = ranges[range]
+  return (
+    <section aria-label="Picker navigation bounds" className="grid gap-4">
+      <h2 className="text-sm font-semibold">Picker navigation bounds</h2>
+      <label className="grid max-w-xs gap-1">
+        Years before and after this year
+        <select
+          data-test="picker-year-range"
+          value={range}
+          onChange={(event) => setRange(event.target.value)}
+        >
+          {Object.keys(ranges).map((key) => (
+            <option key={key} value={key}>
+              {key}
+            </option>
+          ))}
+        </select>
+      </label>
+      <div className="flex flex-wrap gap-3">
+        <Button
+          data-test="picker-bounds-outside"
+          onClick={() => setValue(new Date(year - 8, 9, 15, 14, 35, 10))}
+        >
+          Set a date outside the navigation window
+        </Button>
+        <Button
+          data-test="picker-bounds-clear"
+          onClick={() => {
+            setValue(undefined)
+            setResetKey((key) => key + 1)
+          }}
+        >
+          Clear the date
+        </Button>
+        <Button
+          data-test="picker-bounds-reset"
+          onClick={() => setValue(initial)}
+        >
+          Reset the date
+        </Button>
+        <Button
+          data-test="picker-bounds-invalid"
+          onClick={() => {
+            setInvalid((state) => !state)
+            if (invalid) form.clearErrors('datetime')
+            else
+              form.setError('datetime', {
+                type: 'manual',
+                message: 'Choose a date',
+              })
+          }}
+        >
+          Toggle validation
+        </Button>
+      </div>
+      <div className="flex flex-wrap gap-6">
+        <DateTimePicker
+          label="Bounded date and time"
+          value={value}
+          resetKey={resetKey}
+          yearRange={yearRange}
+          defaultPopupValue={new Date(year + 8, 9, 15, 14, 35, 10)}
+          aria-invalid={invalid}
+          dataTrigger={{ test: 'picker-bounds-trigger' }}
+          dataCalendar={{ test: 'picker-bounds-calendar' }}
+          onChange={(date) => {
+            setValue(date)
+            setChanges((count) => count + 1)
+          }}
+        />
+        <DatePicker
+          label="Empty date"
+          aria-invalid={invalid}
+          dataTrigger={{ test: 'picker-empty-date' }}
+        />
+        <Form {...form}>
+          <RhfDatetimePicker
+            control={form.control}
+            name="datetime"
+            label="RHF date and time"
+            yearRange={yearRange}
+            dataTrigger={{ test: 'picker-rhf-trigger' }}
+            dataCalendar={{ test: 'picker-rhf-calendar' }}
+          />
+        </Form>
+        <Formik
+          initialValues={{ datetime: initial }}
+          onSubmit={() => undefined}
+        >
+          <FormikDatetimePicker
+            name="datetime"
+            label="Formik date and time"
+            yearRange={yearRange}
+            dataTrigger={{ test: 'picker-formik-trigger' }}
+            dataCalendar={{ test: 'picker-formik-calendar' }}
+          />
+        </Formik>
+      </div>
+      <output data-test="picker-bounds-value">
+        {JSON.stringify(serializeDate(value))}
+      </output>
+      <output data-test="picker-bounds-changes">{changes}</output>
+    </section>
+  )
+}
 
 function SelectionFixture() {
   const [single, setSingle] = useState<Date | undefined>(OCTOBER_15)
