@@ -90,6 +90,7 @@ export const EXPECTED_STORY_IDS = [
   'chart--tooltip-states',
   'chat-presentation--presentation',
   'chat-presentation--rtl',
+  'chat-presentation--scrolling',
   'chat-presentation--variants',
   'checkbox--content',
   'checkbox--default',

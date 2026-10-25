@@ -4,6 +4,7 @@ import { Attachment } from './Attachment'
 import { Bubble } from './Bubble'
 import { Marker } from './Marker'
 import { Message } from './Message'
+import { MessageScroller, useMessageScroller } from './MessageScroller'
 import { Trace } from './Trace'
 import {
   AttachmentAction,
@@ -15,6 +16,14 @@ import {
 import { BubbleContent, Bubble as RawBubble } from './ui/bubble'
 import { Button } from './ui/button'
 import { MessageContent, Message as RawMessage } from './ui/message'
+import {
+  MessageScroller as RawScroller,
+  MessageScrollerButton as RawScrollerButton,
+  MessageScrollerContent as RawScrollerContent,
+  MessageScrollerItem as RawScrollerItem,
+  MessageScrollerProvider as RawScrollerProvider,
+  MessageScrollerViewport as RawScrollerViewport,
+} from './ui/message-scroller'
 
 export const Presentation = () => {
   const [open, setOpen] = useState(false)
@@ -24,7 +33,7 @@ export const Presentation = () => {
   const [refTarget, setRefTarget] = useState('')
   return (
     <main
-      className="mx-auto flex max-w-2xl flex-col gap-4 p-4"
+      className="bg-background text-foreground mx-auto flex max-w-2xl flex-col gap-4 p-4"
       data-test="chat-presentation"
     >
       <h1 className="text-xl font-semibold">Conversation presentation</h1>
@@ -215,7 +224,7 @@ export const Rtl = () => (
 
 export const Variants = () => (
   <main
-    className="mx-auto flex max-w-2xl flex-col gap-8 p-4"
+    className="bg-background text-foreground mx-auto flex max-w-2xl flex-col gap-8 p-4"
     data-test="chat-variants"
   >
     <h1 className="text-xl font-semibold">Conversation variants</h1>
@@ -273,3 +282,169 @@ export const Variants = () => (
     </section>
   </main>
 )
+
+const INITIAL_MESSAGES = Array.from({ length: 24 }, (_, index) => ({
+  id: `message-${index}`,
+  content: (
+    <p
+      className="bg-muted rounded-md p-3"
+      data-test={`message-content-${index}`}
+    >
+      Synthetic message {index + 1}
+    </p>
+  ),
+}))
+
+function ScrollerFooter() {
+  const { scrollToEnd, scrollToStart, scrollToMessage } = useMessageScroller()
+  const [result, setResult] = useState(false)
+  return (
+    <div className="flex flex-wrap gap-2 p-2">
+      <Button
+        data-test="scroll-start"
+        onClick={() => setResult(scrollToStart({ behavior: 'instant' }))}
+      >
+        Start
+      </Button>
+      <Button
+        data-test="scroll-end"
+        onClick={() => setResult(scrollToEnd({ behavior: 'instant' }))}
+      >
+        End
+      </Button>
+      <Button
+        data-test="scroll-anchor"
+        onClick={() =>
+          setResult(
+            scrollToMessage('message-10', {
+              behavior: 'instant',
+              align: 'start',
+            })
+          )
+        }
+      >
+        Anchor
+      </Button>
+      <output data-test="scroll-command">{String(result)}</output>
+    </div>
+  )
+}
+
+export const Scrolling = () => {
+  const [items, setItems] = useState(INITIAL_MESSAGES)
+  const [stream, setStream] = useState(1)
+  const [focused, setFocused] = useState(false)
+  const viewportRef = useRef<HTMLDivElement>(null)
+  const [events, setEvents] = useState(0)
+  return (
+    <main
+      className="bg-background text-foreground mx-auto flex max-w-2xl flex-col gap-3 p-4"
+      data-test="chat-scrolling"
+    >
+      <h1 className="text-xl font-semibold">Conversation scrolling</h1>
+      <div className="flex flex-wrap gap-2">
+        <Button
+          data-test="append-message"
+          onClick={() =>
+            setItems((v) => [
+              ...v,
+              {
+                id: `new-${v.length}`,
+                content: (
+                  <p className="bg-muted rounded-md p-3">
+                    New synthetic message
+                  </p>
+                ),
+              },
+            ])
+          }
+        >
+          Append
+        </Button>
+        <Button
+          data-test="prepend-message"
+          onClick={() =>
+            setItems((v) => [
+              {
+                id: `old-${v.length}`,
+                content: (
+                  <p className="bg-muted rounded-md p-3">
+                    Earlier synthetic message
+                  </p>
+                ),
+              },
+              ...v,
+            ])
+          }
+        >
+          Prepend
+        </Button>
+        <Button
+          data-test="grow-message"
+          onClick={() => setStream((v) => v + 1)}
+        >
+          Grow last message
+        </Button>
+        <Button
+          data-test="focus-viewport"
+          onClick={() => {
+            viewportRef.current?.focus()
+            setFocused(viewportRef.current === document.activeElement)
+          }}
+        >
+          Focus viewport
+        </Button>
+      </div>
+      <MessageScroller
+        ref={viewportRef}
+        style={{ height: 420 }}
+        autoScroll
+        items={[
+          ...items,
+          {
+            id: 'stream',
+            content: (
+              <p
+                className="bg-muted rounded-md p-3"
+                style={{ minHeight: stream * 45 }}
+              >
+                Growing synthetic content
+              </p>
+            ),
+          },
+        ]}
+        ariaLabel="Synthetic conversation"
+        data={{ test: 'scroller' }}
+        dataViewport={{ test: 'scroller-viewport' }}
+        dataContent={{ test: 'scroller-content' }}
+        dataButton={{ test: 'scroller-jump' }}
+        dataFooter={{ test: 'scroller-footer' }}
+        className={{
+          root: 'border-border rounded-md border',
+          viewport: 'px-3',
+          content: 'gap-3',
+          item: 'min-w-0',
+          button: 'z-20',
+          footer: 'border-t',
+          spacer: 'min-h-0',
+        }}
+        viewportProps={{ onScroll: () => setEvents((v) => v + 1) }}
+        footer={<ScrollerFooter />}
+      />
+      <output data-test="viewport-focused">{String(focused)}</output>
+      <output data-test="viewport-events">{events}</output>
+      <RawScrollerProvider defaultScrollPosition="start">
+        <RawScroller style={{ height: 120 }}>
+          <RawScrollerViewport aria-label="Primitive conversation">
+            <RawScrollerContent>
+              <RawScrollerItem messageId="raw">
+                <span>Raw composed message</span>
+              </RawScrollerItem>
+            </RawScrollerContent>
+          </RawScrollerViewport>
+          <RawScrollerButton />
+        </RawScroller>
+      </RawScrollerProvider>
+    </main>
+  )
+}

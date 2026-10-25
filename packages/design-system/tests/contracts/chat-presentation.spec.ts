@@ -109,3 +109,78 @@ for (const theme of ['neutral', 'uzh'] as const) {
     )
   })
 }
+
+async function scrollState(page: import('@playwright/test').Page) {
+  return page.locator('[data-test="scroller-viewport"]').evaluate((el) => ({
+    top: el.scrollTop,
+    gap: el.scrollHeight - el.clientHeight - el.scrollTop,
+  }))
+}
+
+test('native scrolling follows the live edge, yields to user intent and preserves prepend geometry', async ({
+  page,
+}) => {
+  await gotoStory(page, 'chat-presentation--scrolling')
+  const viewport = page.locator('[data-test="scroller-viewport"]')
+  await expect.poll(async () => (await scrollState(page)).gap).toBeLessThan(3)
+  await page.locator('[data-test="append-message"]').click()
+  await page.locator('[data-test="grow-message"]').click()
+  await expect.poll(async () => (await scrollState(page)).gap).toBeLessThan(3)
+  await viewport.hover()
+  await page.mouse.wheel(0, -650)
+  await expect
+    .poll(async () => (await scrollState(page)).gap)
+    .toBeGreaterThan(150)
+  const before = await viewport.evaluate((el) => el.scrollTop)
+  await page.locator('[data-test="append-message"]').click()
+  await expect
+    .poll(async () => Math.abs((await scrollState(page)).top - before))
+    .toBeLessThan(3)
+  const anchor = page.locator('[data-message-id="message-10"]')
+  const relativeTop = async () => {
+    const [a, v] = await Promise.all([
+      anchor.boundingBox(),
+      viewport.boundingBox(),
+    ])
+    return a!.y - v!.y
+  }
+  const anchorBefore = await relativeTop()
+  await page.locator('[data-test="prepend-message"]').click()
+  await expect
+    .poll(async () => Math.abs((await relativeTop()) - anchorBefore))
+    .toBeLessThan(3)
+  await expect(page.locator('[data-test="scroller-jump"]')).toHaveAttribute(
+    'data-active',
+    'true'
+  )
+  await page.locator('[data-test="scroller-jump"]').click()
+  await expect.poll(async () => (await scrollState(page)).gap).toBeLessThan(3)
+})
+
+test('viewport refs, native hooks and target-specific props remain usable', async ({
+  page,
+}) => {
+  await gotoStory(page, 'chat-presentation--scrolling')
+  const viewport = page.locator('[data-test="scroller-viewport"]')
+  await page.locator('[data-test="focus-viewport"]').click()
+  await expect(viewport).toBeFocused()
+  await expect(page.locator('[data-test="viewport-focused"]')).toHaveText(
+    'true'
+  )
+  await expect(viewport).toHaveAccessibleName('Synthetic conversation')
+  await expect(page.locator('[data-test="scroller"]')).not.toHaveAttribute(
+    'aria-label'
+  )
+  await page.locator('[data-test="scroll-anchor"]').click()
+  await expect(page.locator('[data-test="scroll-command"]')).toHaveText('true')
+  await expect
+    .poll(async () =>
+      Number(await page.locator('[data-test="viewport-events"]').innerText())
+    )
+    .toBeGreaterThan(0)
+  const [footer, box] = await Promise.all([
+    page.locator('[data-test="scroller-footer"]').boundingBox(),
+    viewport.boundingBox(),
+  ])
+  expect(footer!.y).toBeGreaterThanOrEqual(box!.y + box!.height - 1)
+})

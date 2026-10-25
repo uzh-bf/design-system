@@ -438,3 +438,15 @@ alpha-muted descriptions and using the existing destructive text token. Three
 new story IDs extend the oracle without adding allowed violations. The focused
 source scan has zero findings/errors. Scrolling is prepared as a separate
 uncommitted tracer; independent reviews of presentation follow its commit.
+
+Conversation scrolling is implemented with native0.3.1, safe viewport refs,
+provider options, footer hooks, structured selectors and preserved native
+defaults. Six interaction cases and eight neutral/UZH accessibility cases pass;
+the first current-version packed cell passes npm/pnpm mixed-provider SSR and
+14 Next browser cases under both bundlers, including no-JavaScript readability.
+Final styling consolidation reuses DS variables instead of long repeated
+selectors. Existing CSS and JS budgets pass without changing their limits.
+The presentation risk review approved its focused dark-contrast correction;
+its simplifier found no justified reduction. Scroller slice reviews, final
+package matrix, screenshots, integrated final review and hosted CI remain.
+Questionnaire implementation starts only after this first draft qualifies.

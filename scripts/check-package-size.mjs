@@ -40,6 +40,7 @@ const markerExpectations = [
       /node_modules[\\/].*embla-carousel[\\/]/,
       /node_modules[\\/].*react-resizable-panels[\\/]/,
       /node_modules[\\/].*sonner[\\/]/,
+      /node_modules[\\/].*@shadcn[+\\/]react[\\/]/,
     ],
   },
   {
@@ -50,6 +51,7 @@ const markerExpectations = [
       /node_modules[\\/].*embla-carousel[\\/]/,
       /node_modules[\\/].*react-resizable-panels[\\/]/,
       /node_modules[\\/].*sonner[\\/]/,
+      /node_modules[\\/].*@shadcn[+\\/]react[\\/]/,
     ],
   },
   {

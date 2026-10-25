@@ -14,29 +14,26 @@ function BubbleGroup({ className, ...props }: React.ComponentProps<'div'>) {
 }
 
 const bubbleVariants = cva(
-  'group/bubble relative flex w-fit max-w-[80%] min-w-0 flex-col gap-1 group-data-[align=end]/message:self-end data-[align=end]:self-end data-[variant=ghost]:max-w-full',
+  'group/bubble relative flex w-fit min-w-0 flex-col',
   {
     variants: {
       variant: {
         default:
-          '*:data-[slot=bubble-content]:bg-primary *:data-[slot=bubble-content]:text-primary-foreground [&>[data-slot=bubble-content]:is(button,a):hover]:bg-primary/80',
+          '[--bubble-bg:var(--primary)] [--bubble-fg:var(--primary-foreground)]',
         secondary:
-          '*:data-[slot=bubble-content]:bg-secondary *:data-[slot=bubble-content]:text-secondary-foreground [&>[data-slot=bubble-content]:is(button,a):hover]:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)]',
-        muted:
-          '*:data-[slot=bubble-content]:bg-muted [&>[data-slot=bubble-content]:is(button,a):hover]:bg-[color-mix(in_oklch,var(--muted),var(--foreground)_5%)]',
+          '[--bubble-bg:var(--secondary)] [--bubble-fg:var(--secondary-foreground)]',
+        muted: '[--bubble-bg:var(--muted)] [--bubble-fg:var(--foreground)]',
         tinted:
-          '*:data-[slot=bubble-content]:bg-[oklch(from_var(--primary)_0.93_calc(c*0.4)_h)] *:data-[slot=bubble-content]:text-foreground dark:*:data-[slot=bubble-content]:bg-[oklch(from_var(--primary)_0.3_calc(c*0.4)_h)] [&>[data-slot=bubble-content]:is(button,a):hover]:bg-[oklch(from_var(--primary)_0.88_calc(c*0.5)_h)] dark:[&>[data-slot=bubble-content]:is(button,a):hover]:bg-[oklch(from_var(--primary)_0.35_calc(c*0.5)_h)]',
+          '[--bubble-bg:color-mix(in_oklab,var(--primary)_15%,var(--background))] [--bubble-fg:var(--foreground)]',
         outline:
-          '*:data-[slot=bubble-content]:border-border *:data-[slot=bubble-content]:bg-background [&>[data-slot=bubble-content]:is(button,a):hover]:bg-muted [&>[data-slot=bubble-content]:is(button,a):hover]:text-foreground dark:[&>[data-slot=bubble-content]:is(button,a):hover]:bg-input/30',
+          '[--bubble-bg:var(--background)] [--bubble-fg:var(--foreground)] [--bubble-border:var(--border)]',
         ghost:
-          'border-none *:data-[slot=bubble-content]:rounded-none *:data-[slot=bubble-content]:bg-transparent *:data-[slot=bubble-content]:p-0 [&>[data-slot=bubble-content]:is(button,a):hover]:bg-muted [&>[data-slot=bubble-content]:is(button,a):hover]:text-foreground dark:[&>[data-slot=bubble-content]:is(button,a):hover]:bg-muted/50',
+          '[--bubble-bg:transparent] [--bubble-fg:var(--foreground)] [--bubble-padding:0px]',
         destructive:
-          '*:data-[slot=bubble-content]:bg-destructive/10 *:data-[slot=bubble-content]:text-destructive-text dark:*:data-[slot=bubble-content]:text-destructive dark:*:data-[slot=bubble-content]:bg-destructive/20 [&>[data-slot=bubble-content]:is(button,a):hover]:bg-destructive/20 dark:[&>[data-slot=bubble-content]:is(button,a):hover]:bg-destructive/30',
+          '[--bubble-bg:color-mix(in_oklab,var(--destructive)_10%,var(--background))] [--bubble-fg:var(--theme-destructive-text)] dark:[--bubble-fg:var(--destructive)]',
       },
     },
-    defaultVariants: {
-      variant: 'default',
-    },
+    defaultVariants: { variant: 'default' },
   }
 )
 
@@ -73,7 +70,7 @@ function BubbleContent({
     <Comp
       data-slot="bubble-content"
       className={cn(
-        '[button,a]:focus-visible:border-ring [button,a]:focus-visible:ring-ring/30 w-fit max-w-full min-w-0 overflow-hidden rounded-3xl border border-transparent px-3 py-2.5 text-sm leading-relaxed wrap-break-word group-data-[align=end]/bubble:self-end [button]:text-start [button,a]:transition-colors [button,a]:outline-none [button,a]:focus-visible:ring-3',
+        'focus-visible:ring-ring w-fit max-w-full min-w-0 overflow-hidden rounded-3xl border border-[var(--bubble-border,transparent)] bg-[var(--bubble-bg)] px-[var(--bubble-padding,0.75rem)] py-[var(--bubble-padding,0.625rem)] text-sm leading-relaxed wrap-break-word text-[var(--bubble-fg)] group-data-[align=end]/bubble:self-end focus-visible:ring-2',
         className
       )}
       {...props}

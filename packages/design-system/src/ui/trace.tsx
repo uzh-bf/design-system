@@ -12,10 +12,7 @@ function Trace({ className, ...props }: React.ComponentProps<'div'>) {
   return (
     <div
       data-slot="trace"
-      className={cn(
-        '*:has-[>[data-slot=trace-line]]:focus-visible:ring-ring/30 flex w-full min-w-0 flex-col gap-2 *:has-[>[data-slot=trace-line]]:flex *:has-[>[data-slot=trace-line]]:w-fit *:has-[>[data-slot=trace-line]]:max-w-full *:has-[>[data-slot=trace-line]]:min-w-0 *:has-[>[data-slot=trace-line]]:rounded-lg *:has-[>[data-slot=trace-line]]:text-start *:has-[>[data-slot=trace-line]]:outline-none *:has-[>[data-slot=trace-line]]:focus-visible:ring-3',
-        className
-      )}
+      className={cn('flex w-full min-w-0 flex-col gap-2', className)}
       {...props}
     />
   )
@@ -33,7 +30,7 @@ function TraceLine({
       data-slot="trace-line"
       data-status={status}
       className={cn(
-        'text-muted-foreground in-[a:hover,button:hover]:text-foreground data-[status=error]:text-destructive-text dark:data-[status=error]:text-destructive data-[status=error]:in-[a:hover,button:hover]:text-destructive-text dark:data-[status=error]:in-[a:hover,button:hover]:text-destructive data-[status=running]:*:data-[slot=trace-title]:shimmer flex w-fit max-w-full min-w-0 items-center gap-2 text-sm transition-colors in-[a,button]:cursor-pointer',
+        'text-muted-foreground data-[status=error]:text-destructive-text dark:data-[status=error]:text-destructive data-[status=running]:*:data-[slot=trace-title]:shimmer flex w-fit max-w-full min-w-0 items-center gap-2 text-sm transition-colors',
         className
       )}
       {...props}
@@ -47,7 +44,7 @@ function TraceIcon({ className, ...props }: React.ComponentProps<'span'>) {
       data-slot="trace-icon"
       aria-hidden="true"
       className={cn(
-        "flex size-4 shrink-0 items-center justify-center [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 [[data-slot=trace-title]~&]:-ml-1",
+        "flex size-4 shrink-0 items-center justify-center [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4",
         className
       )}
       {...props}

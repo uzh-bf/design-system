@@ -52,4 +52,50 @@ node "$fixture_dir/../prepare-packed-artifact.mjs" \
   node --input-type=module -e "const root = await import('@uzh-bf/design-system'); const rhf = await import('@uzh-bf/design-system/react-hook-form'); await import('@uzh-bf/design-system/primitives'); for (const specifier of ['@uzh-bf/design-system/css', '@uzh-bf/design-system/preflight.css']) { const resolved = await import.meta.resolve(specifier); if (!resolved.endsWith('.css')) throw new Error('CSS export did not resolve: ' + specifier); } if (root.FormLabel === rhf.FormLabel) throw new Error('root and RHF FormLabel exports are not distinct'); if (typeof rhf.RhfTextField !== 'function') throw new Error('dedicated RHF export missing');"
 )
 
+if test "${RHF_VERSION:-7.90.0}" = "7.90.0" && test "${RECHARTS_VERSION:-3.10.1}" = "3.10.1"; then
+  npm_fixture="$run_root/npm-native-context"
+  mkdir -p "$npm_fixture"
+  node --input-type=module - "$run_fixture/consumers/root-only/package.json" "$npm_fixture/package.json" <<'NODE'
+import fs from 'node:fs'
+const manifest = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'))
+manifest.name = 'packed-native-context'
+manifest.dependencies['@uzh-bf/design-system'] = '../packed-consumers/.artifacts/design-system.tgz'
+delete manifest.devDependencies
+delete manifest.packageManager
+fs.writeFileSync(process.argv[3], JSON.stringify(manifest))
+NODE
+  npm --prefix "$npm_fixture" install --ignore-scripts --no-audit --no-fund
+  for native_fixture in "$run_fixture/consumers/root-only" "$npm_fixture"; do
+    node --input-type=module - "$native_fixture" <<'NODE'
+import assert from 'node:assert/strict'
+import fs from 'node:fs'
+import { createRequire } from 'node:module'
+import path from 'node:path'
+import { pathToFileURL } from 'node:url'
+const directory = process.argv[2]
+const app = createRequire(path.join(directory, 'package.json'))
+const manifestPath = app.resolve('@uzh-bf/design-system/package.json')
+const library = createRequire(manifestPath)
+const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'))
+assert.equal(app.resolve('@shadcn/react/message-scroller'), library.resolve('@shadcn/react/message-scroller'))
+const { createElement: h } = await import(pathToFileURL(app.resolve('react')))
+const { renderToString } = await import(pathToFileURL(app.resolve('react-dom/server')))
+const native = await import(pathToFileURL(app.resolve('@shadcn/react/message-scroller')))
+const root = await import(new URL(manifest.exports['.'].import, pathToFileURL(manifestPath)))
+const parts = await import(new URL(manifest.exports['./primitives'].import, pathToFileURL(manifestPath)))
+assert.equal(root.useMessageScroller, parts.useMessageScroller)
+assert.equal(root.useMessageScroller, native.useMessageScroller)
+const message = h(root.Message, null, h(root.Bubble, null, 'Synthetic'))
+const item = h(parts.MessageScrollerItem, { messageId: 'synthetic' }, message)
+const content = h(parts.MessageScrollerContent, null, item)
+const viewport = h(parts.MessageScrollerViewport, null, content)
+const group = h(parts.MessageScroller, null, viewport)
+const html = renderToString(h(native.MessageScroller.Provider, { defaultScrollPosition: 'start' }, group))
+assert.match(html, /data-message-id="synthetic"/)
+assert.match(html, /data-slot="bubble-content"/)
+console.log('mixed native provider and DS presentation SSR pass')
+NODE
+  done
+fi
+
 echo 'packed peer, type, runtime, CSS, legacy typesVersions, and migration contracts pass'

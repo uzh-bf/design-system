@@ -436,6 +436,13 @@
   }
 }
 
+@utility scrollbar-thin {
+  scrollbar-width: thin;
+}
+@utility scrollbar-gutter-stable {
+  scrollbar-gutter: stable;
+}
+
 @utility shimmer {
   position: relative;
 

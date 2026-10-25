@@ -596,3 +596,42 @@ createElement(ChatAttachment, { children: 'Custom', title: 'File' })
 createElement(ChatTrace, { items: [{ id: 'x', title: 'Step', open: true }] })
 // @ts-expect-error Configured rows and custom content are exclusive.
 createElement(ChatTrace, { items: [], children: 'Other' })
+
+import {
+  MessageScroller as ChatMessageScroller,
+  useMessageScroller as rootMessageScroll,
+} from '../../src'
+import {
+  MessageScrollerViewport,
+  MessageScroller as PrimitiveMessageScroller,
+  useMessageScroller as primitiveMessageScroll,
+} from '../../src/primitives'
+createElement(ChatMessageScroller, {
+  items: [{ id: 'm1', content: 'Body', data: { test: 'row' } }],
+  ref: createRef<HTMLDivElement>(),
+  autoScroll: true,
+  defaultScrollPosition: 'end',
+  viewportProps: {
+    preserveScrollOnPrepend: true,
+    'aria-label': 'Messages',
+    onScroll: (event) => void event.currentTarget.scrollTop,
+  },
+  buttonProps: { behavior: 'instant', direction: 'start' },
+  className: { viewport: 'p-2', footer: 'border-t' },
+  footer: 'Composer',
+})
+createElement(MessageScrollerViewport, {
+  ref: createRef<HTMLDivElement>(),
+  preserveScrollOnPrepend: true,
+})
+const sameScrollHook: typeof rootMessageScroll = primitiveMessageScroll
+void sameScrollHook
+// @ts-expect-error Native Root registration ref is internal; use Viewport or root composite ref.
+createElement(PrimitiveMessageScroller, { ref: createRef<HTMLDivElement>() })
+// @ts-expect-error Configured list and custom content are exclusive.
+createElement(ChatMessageScroller, { items: [], children: 'Other' })
+createElement(ChatMessageScroller, {
+  items: [],
+  // @ts-expect-error Root composite ref targets the viewport div.
+  ref: createRef<HTMLButtonElement>(),
+})
