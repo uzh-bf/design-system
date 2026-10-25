@@ -401,65 +401,47 @@ gated actions. Do independent authorized work before raising a blocker.
 
 ## Progress
 
-Chat presentation and scrolling are qualified at held head
-`48c6b91a6c41aa487b82e0426f1b5621e2bac925` in
-[draft234](https://github.com/uzh-bf/design-system/pull/234), above held
-[draft233](https://github.com/uzh-bf/design-system/pull/233). The final hosted
-CI40205922338 passed all checks, including all packed cells, both Next bundlers,
-four accessibility shards, inventory protocol and final build. Greptile reviewed
-this head without remaining findings; its earlier Marker thread was resolved
-automatically. Final feedback remained quiet for more than five minutes.
-Configured Claude completed the full review and one focused correction with PASS;
-the final response validated against the shared schema.
+Both approved layers are implemented in native stack231. Chat
+[draft234](https://github.com/uzh-bf/design-system/pull/234) is qualified at held
+`48c6b91a6c41aa487b82e0426f1b5621e2bac925`, above held Resizable
+[draft233](https://github.com/uzh-bf/design-system/pull/233). Its exact hosted CI,
+independent review, feedback settle and published screenshots passed. Its final
+archive matched all292 installed files. ADR0011 records the regular native pin
+and shared-context obligation.
 
-The six ergonomic wrappers and natural compound parts preserve approved props.
-Eight focused browser contracts, eight theme accessibility cases, the earlier
-711-case stable integrated suite, unchanged size budgets and 704 theme assertions
-pass. Seven real synthetic screenshots are inspected, attached and render on
-GitHub. Final archive SHA256
-`fc9eeb8fbafbe63b7feb861f584d1762598f50dd63d10867f9513234f82749c6`
-matches all292 installed files. ADR0011 records the regular pin/shared runtime
-obligation. Review corrections restored standalone Bubble alignment/width,
-keyboard AttachmentGroup scrolling and narrow Marker/attachment containment.
+Questionnaire is [draft235](https://github.com/uzh-bf/design-system/pull/235),
+based on that held chat head. Executable source is `5e22de507`. It provides all16
+natural compound parts and an ergonomic root with readonly configuration, named
+styling slots, structured selectors, native form ref/events, controlled active
+item and localizable progress/actions/errors. Inputs retain native type and
+association restrictions and require a visible or explicit accessible name.
+The native engine owns selection, validation, shortcuts, skip/reset and FormData.
+RHF/Formik, persistence and application submission effects remain separate.
 
-The task container was stopped and its exact source bind verified. No consumer
-runtime or repository was touched. Native goal state is empty; no new goal or
-automation was created for this batch. Draft234 remains held and unmerged.
+Questionnaire verification passed:
 
-Questionnaire is now active on `rs/v5-questionnaire`, based on the exact qualified
-chat head. Fresh fetch confirms chat0ahead/behind; default main drift is358ahead,
-3behind and does not select this draft's target. Main owns story/types/browser
-and packed verification, exports, docs, CSS integration and delivery. Native
-worker Rawls owns only ui/questionnaire.tsx and Questionnaire.tsx, with the full
-settled approved contract; complete plan context stays on a trusted route.
-No Questionnaire PR exists yet. Remaining: implement and verify native form
-contracts/ergonomic props, simplify/risk review, final package/browser/captures,
-independent final review, then push/attach/qualify the second draft in stack231.
-Both drafts stay unmerged; manual assistive-technology/device/GA and separate
-consumer acceptance remain independent gates.
+- Types, lint, formatting and unchanged package size/dependency boundaries.
+- Twelve chat/form interaction contracts and eight Questionnaire accessibility
+  cases; the full stable contract/smoke suite passed720 cases.
+- Required-error states: zero axe violations in neutral dark and UZH light.
+- All three packed dependency cells:15 Next cases per bundler, native context
+  and SSR/hydration/readable server metadata. Default npm/pnpm composition passed.
+- All704 theme assertions; exact archive matched296 installed files with zero
+  mismatches. Archive SHA256 is
+  `aa59f73871c9c1fa7eb9f3c89acd1260bc06e60faca999d480fffbc2df509798`.
 
+The source slice risk review approved all15 paths without findings. Its dedicated
+simplifier removed four duplicated native action-label defaults; the native
+fallbacks and configured localization were verified. Final configured Claude
+review is running against executable source5e22de507 and the complete layer.
+Hosted CI is pending. Seven inspected synthetic captures are attached to draft235;
+publication receipts are retained locally. Final forge rendering, review/CI and
+quiet feedback checks remain before this second draft qualifies.
 
-Questionnaire source is implemented with all16 native parts and the ergonomic
-configured root. Readonly item/choice/input config, named slots, selectors,
-form ref/events, active item callbacks and localizable progress/actions/errors
-are wired. Configured freeform inputs require a visible or explicit accessible
-name. The form's ARIA name remains on the form; progress has its independent
-localized name. Error descriptions attach to freeform inputs only while invalid.
-Native state and FormData own answers; no RHF/Formik or second form engine.
-
-Current acceptance: types, lint and formatting pass. Twelve chat/form browser
-contracts and eight Questionnaire accessibility cases across both themes pass.
-Existing package budgets pass after removing redundant optional text-wrap and
-margin rules; no ceiling changed. The canonical native choice input uses the
-existing theme text token with the installed forms styles. Focused source scan
-reported no findings. These are local results; packed matrices, independent
-slice/final reviews, captures and hosted draft qualification remain pending.
-
-
-Slice simplification completed on48c6b91a6..01e7d37da. Main verified and accepted
-removing four duplicated native action-label fallbacks; native0.3.1 already owns
-those defaults and configured localization still flows through children. No new
-tests or abstractions were needed. Required-error state axe checks have zero
-violations for neutral dark and UZH light. Current/minimum RHF packed cells pass
-15 browser cases under each bundler; Recharts minimum and full stable browser
-suite continue. Slice risk review remains active on the committed slice.
+The source-bound task verification container was stopped after final local proof;
+its exact worktree bind and exited state were verified. No consumer repository
+or runtime was touched. Both drafts remain draft and unmerged. Manual assistive
+technology, Safari/device checks, integrated GA and separate exact-candidate
+consumer acceptance remain independent gates. No new package or automation starts
+inside this batch. Final qualification will be recorded in the existing ignored
+journal and draft description without another status-only source commit.
