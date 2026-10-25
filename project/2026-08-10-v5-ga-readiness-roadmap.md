@@ -13,7 +13,7 @@ The historical Klicker pilot, RHF parity, selected GBL journey, component compat
   representative consumers and manual accessibility/browser checks remain open.
 - Repository: `uzh-bf/design-system`
 - Release trunk: `v5`
-- Qualification delivery branch: `rs/v5-ga-qualification`
+- Current source delivery branch: `rs/v5-composition-proof`; the earlier qualification layer remains `rs/v5-ga-qualification`
 - Roadmap worktree:
   `/Users/rschlae/Git/df/design-system/trees/rs-v5-uzh-alignment`
 - Current delivery: draft stack [#210](https://github.com/uzh-bf/design-system/pull/210) →
@@ -901,7 +901,7 @@ checks. Manual qualification and exact integrated consumer acceptance stay open.
 
 ## October25 quality closure checkpoint
 
-The [approved quality plan](2026-10-25-v5-quality-closure-plan.md) follows the qualified CodeBlock draft. Local source now restores DateTimePicker year navigation and fixes empty-invalid picker contrast using existing component foreground tokens. Focused calendar/form/menu tests pass; final source review, package evidence, captures and exact-head CI remain pending until recorded in its draft description.
+The [approved quality plan](2026-10-25-v5-quality-closure-plan.md) follows the qualified CodeBlock draft. Local source now restores DateTimePicker year navigation and fixes empty-invalid picker contrast using existing component foreground tokens. Focused calendar/form/menu tests, independent final review, exact package proof, captures and exact-head CI qualify [quality draft #237](https://github.com/uzh-bf/design-system/pull/237) at `059844953`.
 
 The opened modal-menu `aria-hidden-focus` finding reproduces in a standalone DS page and unmodified Radix DropdownMenu/ContextMenu. DropdownMenu/ContextMenu Tab/Shift+Tab remains contained and Escape restores focus. Menubar has no hidden-focus finding, and Escape restores its trigger; its non-modal Tab behavior is not a containment claim. This establishes upstream provenance, not assistive-technology acceptance. Keep the finding as a GA upstream/manual gate without a waiver or modality change. Representative public-entry compositions follow this source package. Final qualification records runtime-pin drift; version changes need their own evaluated acceptance. Consumer/manual evidence and merge/release authority remain separate.
 
@@ -909,3 +909,16 @@ The opened modal-menu `aria-hidden-focus` finding reproduces in a standalone DS 
 ## October25 representative composition execution
 
 The [quality draft #237](https://github.com/uzh-bf/design-system/pull/237) qualifies at `059844953`, including independent review, all required hosted checks, exact package proof and quiet feedback. The [approved composition plan](2026-10-25-v5-composition-qualification-plan.md) now owns dashboard/sidebar/chart, RHF form, chat/code/questionnaire and native Persian recipe proof through public entry points. Its complete finite identity disposition remains in the composition assessment; representative evidence does not mean every upstream identity executed. Both source layers remain drafts. Final source/dependency drift and advisory refresh follows after compositions; manual and exact consumer acceptance remain separate.
+
+
+### Integrated candidate drift and advisory refresh — October25
+
+Opus next-step consultation confirmed the order: finish representative composition qualification, then retain one exact integrated candidate for source/package proof and report external gates. Composition checks now cover 765 contracts/smokes plus 24 strengthened keyboard/theme/viewport journeys, including linked errors, actual Questionnaire FormData, visible appended messages and the native Persian display/metadata distinction. Four Ladle stories raise the built inventory to 530. These representative journeys do not execute every original upstream identity; consumers own acceptance of their copied application assemblies.
+
+Official shadcn source advanced 18 commits from pinned `3d98900e9b73c45f035f8109e9d41ba6a51685e7` to [481d5233](https://github.com/shadcn-ui/ui/commit/481d523374745e77d0cf9c53a4115ab5dd7c8481). The compared files are templates, registry-directory metadata, root manifest/lockfile and a template workflow. No pinned Radix component, example/block or native auxiliary source changed. Retain the source denominator. The [UZH production index](https://www.frontend.uzh.ch/prod/index.html) still lists 2.11.0; its CSS SHA-256 remains `48a5dc275818ff67e967d712b501b6659b00a48e1974c9c4a45ed5e85e7742f8`.
+
+Registry refresh: @shadcn/react0.3.1, Recharts3.10.1, Sonner2.0.8, Shiki4.5.0 and Ladle5.1.1 match current latest tags. RHF current-cell7.90.0 trails7.91.0; minimum7.59.0 remains the declared compatibility boundary. Panels4.14.8 trails4.15.0. DayPicker9.14.0 trails10.0.2, Vite6.4.4 trails8.3.5 and TypeScript5.8.3 trails7.0.2. shadcn CLI latest is4.22.1; it is a generator, not an application runtime. This assessment changes no dependency or lockfile. The next evaluated dependency package owns the RHF/Panel minor choices and their compatibility evidence; unrelated majors stay separately evaluated.
+
+The fresh full-lockfile audit reports nine unique advisories across ten package occurrences (five high, three moderate, two low occurrences), superseding the older six-advisory snapshot. They affect `extract-zip`, `basic-ftp`, `postcss-selector-parser`, `fast-uri` and `zod`. Most paths are size-limit browser/tooling dependencies; selector-parser is typography tooling. Zod3.25.76 is also a declared DS runtime dependency, so this is **not** a tooling-only finding. [GHSA-mrhx-c7xc-m3w5](https://github.com/advisories/GHSA-mrhx-c7xc-m3w5) marks versions below4.6.6 affected. Focused source search finds no Zod import in DS source; package removal or a major upgrade still needs a separately evaluated dependency contract and consumer proof. No risk acceptance or remediation is claimed here. The next bounded dependency plan must classify each actual path, prefer compatible fixes where available, and present any removal/major/advisory-acceptance ruling before dependent work. Advisory remediation remains a GA gate while composition draft qualification continues independently.
+
+Remaining external gates: manual AT/Safari/physical devices, the documented native modal-menu warning, exact integrated candidate acceptance in representative consumers, lower-layer CI reconciliation and promotion PR179 conflicts. Keep all drafts unmerged; GBL/Klicker merge holds remain. Source/package success establishes none of those separate gates.

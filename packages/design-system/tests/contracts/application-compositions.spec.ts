@@ -34,10 +34,12 @@ async function journey(
   if (story === 'dashboard') {
     const opener = page.locator('[data-test="comp-sidebar-trigger"]')
     if (width === 390) {
-      await opener.click()
+      await opener.focus()
+      await page.keyboard.press('Enter')
       await checkAccessibility(page)
     }
-    await page.locator('[data-test="comp-nav-reports"]').click()
+    await page.locator('[data-test="comp-nav-reports"]').focus()
+    await page.keyboard.press('Enter')
     await expect(page.locator('[data-test="comp-section"]')).toHaveAttribute(
       'data-section',
       'reports'
@@ -53,14 +55,23 @@ async function journey(
     await bar.hover()
     await expect(chart.locator('.recharts-tooltip-wrapper')).toBeVisible()
   } else if (story === 'authentication') {
-    await page.locator('[data-test="comp-auth-submit"]').click()
+    await page.locator('[data-test="comp-auth-submit"]').focus()
+    await page.keyboard.press('Enter')
     const email = page.locator('input[name="email"]')
     await expect(email).toBeFocused()
     await expect(email).toHaveAttribute('aria-invalid', 'true')
+    const messageIds = (await email.getAttribute('aria-describedby'))?.split(
+      /\s+/
+    )
+    expect(messageIds?.length).toBeGreaterThan(0)
+    for (const id of messageIds ?? []) {
+      await expect(page.locator(`[id="${id}"]`)).toBeVisible()
+    }
     await checkAccessibility(page)
     await email.fill('learner@example.invalid')
     await page.locator('input[name="password"]').fill('synthetic-passphrase')
-    await page.locator('[data-test="comp-auth-submit"]').click()
+    await page.locator('[data-test="comp-auth-submit"]').focus()
+    await page.keyboard.press('Enter')
     await expect(
       page.locator('[data-test="comp-auth-result"]')
     ).toHaveAttribute('data-submitted', 'true')
@@ -77,10 +88,25 @@ async function journey(
     await page
       .locator('[data-test="comp-message-input"]')
       .fill('Synthetic follow-up')
-    await page.locator('[data-test="comp-send"]').click()
+    await page.locator('[data-test="comp-message-input"]').press('Enter')
     await expect(count).toHaveText(String(before + 1))
+    const appended = page.locator(`[data-test="comp-message-${before + 1}"]`)
+    const viewport = page.locator('[data-test="comp-message-viewport"]')
+    await expect
+      .poll(async () => {
+        const message = await appended.boundingBox()
+        const frame = await viewport.boundingBox()
+        return (
+          !!message &&
+          !!frame &&
+          message.y >= frame.y - 1 &&
+          message.y + message.height <= frame.y + frame.height + 1
+        )
+      })
+      .toBe(true)
     const trace = page.locator('[data-test="comp-trace"] button').first()
-    await trace.click()
+    await trace.focus()
+    await page.keyboard.press('Enter')
     await expect(trace).toHaveAttribute('aria-expanded', 'true')
     const copy = page.locator('[data-test="comp-code-copy"]')
     await copy.click()
@@ -88,11 +114,18 @@ async function journey(
     await expect
       .poll(() => page.evaluate(() => navigator.clipboard.readText()))
       .toBe(code)
+    const choice = page.locator('[data-test="comp-questionnaire-choice"] input')
+    const submittedEntry = [
+      await choice.getAttribute('name'),
+      await choice.inputValue(),
+    ]
     await page.locator('[data-test="comp-questionnaire-choice"]').click()
     await page.locator('[data-test="comp-questionnaire-submit"]').click()
     const result = page.locator('[data-test="comp-questionnaire-result"]')
     await expect(result).toHaveAttribute('data-submitted', 'true')
-    expect((await result.textContent())?.trim().length).toBeGreaterThan(0)
+    expect(JSON.parse((await result.textContent()) ?? 'null')).toEqual([
+      submittedEntry,
+    ])
   } else {
     const calendar = page.locator('[data-test="comp-persian-calendar"]')
     const output = page.locator('[data-test="comp-persian-value"]')
@@ -101,6 +134,11 @@ async function journey(
       .locator('button[data-selected-single="true"]')
       .first()
     const day = (await selected.innerText()).trim()
+    const metadata = (await selected.getAttribute('data-day')) ?? ''
+    const gregorian = metadata
+      .replace(/[۰-۹]/g, (digit) => String(digit.charCodeAt(0) - 0x06f0))
+      .replaceAll('/', '-')
+    expect(gregorian).toBe(new Date(timestamp).toISOString().slice(0, 10))
     expect(await selected.getAttribute('aria-label')).toContain(day)
     const caption = calendar.locator('.rdp-month_caption')
     const expectedMonth = await page.evaluate(
@@ -127,6 +165,8 @@ async function journey(
     const newTimestamp = await output.getAttribute('data-timestamp')
     await page.locator('[data-test="comp-persian-toggle"]').click()
     await expect(output).toHaveAttribute('data-timestamp', newTimestamp!)
+    const presentedDay = (await selected.innerText()).trim()
+    expect(await selected.getAttribute('aria-label')).toContain(presentedDay)
   }
 }
 
@@ -148,6 +188,7 @@ for (const surface of surfaces)
           `application-compositions--${story}`,
           surface.theme
         )
+        await checkAccessibility(page)
         await journey(page, story, width)
         const dimensions = await page.evaluate(() => ({
           viewport: innerWidth,

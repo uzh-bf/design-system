@@ -493,7 +493,7 @@ export const Conversation = () => {
                       variant={message.align === 'end' ? 'secondary' : 'muted'}
                       reactions={
                         message.author === 'Assistant' ? (
-                          <span className="text-muted-foreground text-xs">
+                          <span className="text-foreground text-xs">
                             Synthetic source
                           </span>
                         ) : undefined
@@ -652,8 +652,7 @@ function PersianDayButton(props: ComponentProps<typeof CalendarDayButton>) {
   return <CalendarDayButton {...props} locale={faIR} />
 }
 
-function formatSelectedDate(date: Date | undefined, persian: boolean) {
-  if (!date) return 'No date selected'
+function formatSelectedDate(date: Date, persian: boolean) {
   return new Intl.DateTimeFormat(
     persian ? 'fa-IR-u-ca-persian' : 'en-US-u-ca-persian',
     {
