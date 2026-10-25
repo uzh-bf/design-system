@@ -1220,8 +1220,11 @@ client hook through either existing door. `loadHighlighter(language)` and async
 `highlightCode(code, language)` are available through those same entries for
 server composition. The helpers return null for unsupported languages; callers
 can render ordinary split lines. The hook displays plain lines while loading
-and on unsupported-language or loading/tokenization failure. Core, JavaScript
-regex engine, themes and individual grammars load lazily from exact Shiki4.5.0.
+and on unsupported-language or loading/tokenization failure. Failed asset loads
+can be retained by the browser's module cache; reload the page
+after connectivity returns if enabling highlighting again still shows plain code.
+Core, JavaScript regex engine, themes and individual grammars load lazily from
+exact Shiki4.5.0.
 No language source is sent to a remote service. The package renders React text
 and style nodes, never untrusted HTML. The Shiki package contains other engines,
 but this implementation imports neither its full bundle nor WASM.

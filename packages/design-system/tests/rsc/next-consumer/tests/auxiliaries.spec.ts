@@ -301,19 +301,45 @@ test('packed server highlighting remains readable before JavaScript', async ({
   ).toBeVisible()
   await expect(page.locator('[data-test="packed-code-client"]')).toHaveCount(0)
   await context.close()
+
+  const hydrated = await browser.newContext()
+  const hydratedPage = await hydrated.newPage()
+  const scripts: Promise<string>[] = []
+  hydratedPage.on('response', (response) => {
+    if (
+      response.url().includes('/_next/static/') &&
+      response.url().endsWith('.js')
+    )
+      scripts.push(response.text().catch(() => ''))
+  })
+  await hydratedPage.goto('/?mode=server-code')
+  await hydratedPage.waitForLoadState('networkidle')
+  expect((await Promise.all(scripts)).some(hasTypeScriptGrammar)).toBe(false)
+  await hydrated.close()
 })
 
+function hasTypeScriptGrammar(script: string) {
+  return /["']?scopeName["']?\s*:\s*["']source\.ts["']/.test(script)
+}
+
 test('packed client highlighting activates after opt-in', async ({ page }) => {
-  const requests: string[] = []
-  page.on('request', (request) => {
-    if (request.url().includes('/_next/static/')) requests.push(request.url())
+  const scripts: Promise<string>[] = []
+  page.on('response', (response) => {
+    if (
+      response.url().includes('/_next/static/') &&
+      response.url().endsWith('.js')
+    )
+      scripts.push(response.text().catch(() => ''))
   })
   await page.goto('/?mode=client-code')
   const content = page.locator('[data-test="packed-code-content"]')
   await expect(content).toBeVisible()
   await expect(content.locator('[style*="--shiki"]')).toHaveCount(0)
-  const before = new Set(requests)
+  await page.waitForLoadState('networkidle')
+  expect((await Promise.all(scripts)).some(hasTypeScriptGrammar)).toBe(false)
   await page.locator('[data-test="packed-highlight-toggle"]').click()
   await expect(content.locator('[style*="--shiki"]').first()).toBeVisible()
-  expect(requests.some((url) => !before.has(url))).toBe(true)
+  await expect
+    .poll(async () => (await Promise.all(scripts)).some(hasTypeScriptGrammar))
+    .toBe(true)
 })
