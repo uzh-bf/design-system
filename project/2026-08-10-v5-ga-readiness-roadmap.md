@@ -4,7 +4,7 @@ The historical Klicker pilot, RHF parity, selected GBL journey, component compat
 
 ## Identity and status
 
-- Date: 2026-08-10; current execution index refreshed 2026-10-24
+- Date: 2026-08-10; current execution index refreshed 2026-10-25
 - Status: GA blocked. Input correctness, consumer CSS, durable contract gates,
   UZH Phase 2 and compatible dependency remediation are delivered in the unmerged
   draft stack. The historical Klicker pilot now qualifies the recorded candidate;
@@ -29,7 +29,17 @@ The historical Klicker pilot, RHF parity, selected GBL journey, component compat
   [catalog222](https://github.com/uzh-bf/design-system/pull/222) →
   [components223](https://github.com/uzh-bf/design-system/pull/223) →
   [Recharts224](https://github.com/uzh-bf/design-system/pull/224).
-  Future package topology belongs in its reviewed plan. Merges remain separately gated.
+  Later qualified [Shared API225](https://github.com/uzh-bf/design-system/pull/225),
+  [Shared API226](https://github.com/uzh-bf/design-system/pull/226) and
+  [Calendar228](https://github.com/uzh-bf/design-system/pull/228) lead into native
+  stack231: [Panels229](https://github.com/uzh-bf/design-system/pull/229),
+  [Sonner230](https://github.com/uzh-bf/design-system/pull/230),
+  [Sidebar232](https://github.com/uzh-bf/design-system/pull/232),
+  [unified Resizable233](https://github.com/uzh-bf/design-system/pull/233),
+  [chat234](https://github.com/uzh-bf/design-system/pull/234) and
+  [Questionnaire235](https://github.com/uzh-bf/design-system/pull/235).
+  The [approved CodeBlock/highlighting plan](2026-10-25-v5-code-highlighting-plan.md)
+  starts a separate one-layer package above the held Questionnaire draft. Merges remain separately gated.
 - Audience: maintainers and future execution agents preparing v5 for GA and
   migrating the first production consumers.
 
@@ -112,6 +122,14 @@ Historical inputs:
 ## Current execution index — 2026-10-23
 
 ### Delivered evidence and its limits
+
+October25 checkpoint: all approved Shared API, Calendar, layout/toast, unified
+Panels4, chat and Questionnaire packages qualify at their recorded draft heads.
+[Chat234](https://github.com/uzh-bf/design-system/pull/234) holds48c6b91a6;
+[Questionnaire235](https://github.com/uzh-bf/design-system/pull/235) holds2a8d3f401. Their final reviews,
+hosted checks, exact archive proof and feedback settle are complete. Current
+implementation is [CodeBlock/highlighting and utility compatibility](2026-10-25-v5-code-highlighting-plan.md).
+The dated chart-tip snapshot below remains historical evidence, not today's tip.
 
 Host refs were refreshed on October 24. Release trunk `v5` is
 `80d6f229cdf8aa57384246bba0386d730484eecb`; the qualified chart tip is
@@ -300,7 +318,10 @@ browser qualification. The next implementation packages are:
    implements ADR0010 with local browser/accessibility, exact package and independent
    risk-review proof. Its draft description records final review/CI qualification;
    earlier dual-engine evidence applies only to the earlier candidate.
-3. **Messaging/clarification and code/highlighting.** Use separate bounded
+3. **Messaging/clarification and code/highlighting.** Messaging and Questionnaire
+   qualify in the held chat and Questionnaire drafts above. The next active CodeBlock
+   package is defined by its [approved plan](2026-10-25-v5-code-highlighting-plan.md).
+   Use separate bounded
    packages for the required presentation/scroll/questionnaire surfaces and
    code/highlighting. Their distinct @shadcn/react and Shiki runtime, scrolling,
    copy, SSR/hydration and asset-loading risks need separate acceptance. Prove

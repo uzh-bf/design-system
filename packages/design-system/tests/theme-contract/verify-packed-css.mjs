@@ -1044,6 +1044,66 @@ try {
     `[theme-contract] ${layoutAssertions} responsive and consumer override assertions passed`
   )
 
+  const utilityCss = String(
+    await postcss([tailwindPostcss({ base: packageDir })]).process(
+      `@import "tailwindcss" source(none); @import "${packedCssPath}"; @source inline("scroll-fade-x scroll-fade-8 shimmer shimmer-once shimmer-reverse shimmer-duration-700 shimmer-spread-6 shimmer-angle-30 shimmer-color-primary no-scrollbar");`,
+      { from: path.join(packageDir, 'utility-consumer.css') }
+    )
+  )
+  for (const sheet of [packedCss, utilityCss]) {
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    await page.setContent(
+      `<html><head><style>${sheet}</style></head><body><p id="shine" class="shimmer shimmer-once shimmer-reverse shimmer-duration-700 shimmer-spread-6 shimmer-angle-30">Synthetic status</p><div id="fade" class="scroll-fade-x scroll-fade-8 no-scrollbar" style="width:120px;overflow:auto"><div style="width:600px">Synthetic overflow</div></div></body></html>`
+    )
+    const reduced = await page.evaluate(() => ({
+      fill: getComputedStyle(document.querySelector('#shine'))
+        .webkitTextFillColor,
+      color: getComputedStyle(document.querySelector('#shine')).color,
+      background: getComputedStyle(document.querySelector('#shine'))
+        .backgroundImage,
+      mask: getComputedStyle(document.querySelector('#fade')).maskImage,
+      hidden: getComputedStyle(document.querySelector('#fade')).scrollbarWidth,
+    }))
+    if (
+      reduced.fill !== reduced.color ||
+      reduced.background !== 'none' ||
+      reduced.mask !== 'none' ||
+      reduced.hidden !== 'none'
+    )
+      throw new Error(
+        'Packed utility reduced-motion/readability contract failed: ' +
+          JSON.stringify(reduced)
+      )
+  }
+  await page.emulateMedia({ reducedMotion: 'no-preference' })
+  await page.setContent(
+    `<html dir="rtl"><head><style>${utilityCss}</style></head><body><p id="shine" class="shimmer shimmer-once shimmer-reverse shimmer-duration-700 shimmer-spread-6 shimmer-angle-30">Synthetic status</p><div id="fade" class="scroll-fade-x scroll-fade-8" style="width:120px;overflow:auto"><div style="width:600px">Synthetic overflow</div></div></body></html>`
+  )
+  const utility = await page.evaluate(() => ({
+    duration: getComputedStyle(document.querySelector('#shine'))
+      .animationDuration,
+    count: getComputedStyle(document.querySelector('#shine'))
+      .animationIterationCount,
+    angle: getComputedStyle(document.querySelector('#shine')).getPropertyValue(
+      '--shimmer-angle'
+    ),
+    size: getComputedStyle(document.querySelector('#fade')).getPropertyValue(
+      '--scroll-fade-size'
+    ),
+  }))
+  if (
+    utility.duration !== '0.7s' ||
+    utility.count !== '1' ||
+    !utility.angle.includes('30') ||
+    !utility.size
+  )
+    throw new Error(
+      'Consumer-generated utility parameters failed: ' + JSON.stringify(utility)
+    )
+  console.log(
+    '[theme-contract] packed and consumer-compiled scrolling/shimmer utilities preserve parameters, RTL and reduced-motion readability'
+  )
+
   await browser.close()
 
   /* ---- Record and assert ---- */

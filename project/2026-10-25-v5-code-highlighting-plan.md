@@ -31,7 +31,7 @@ one package. Do not append a seventh layer to stack231 or alter its topology.
 
 Acceptance includes typed props/refs/selectors, real copy/failure/scroll/wrap and
 highlighting interactions, theme/RTL/reduced-motion coverage, server and hydrated
-packed Next proof, unchanged package budgets, independent reviews, inspected
+packed Next proof, the approved CSS ceiling and unchanged JavaScript budgets, independent reviews, inspected
 synthetic screenshots, exact installed-archive proof and qualified hosted CI.
 Ordinary commits/pushes and draft delivery are authorized. Merging, readiness,
 force/protected pushes, publishing, deployment, consumer writes, human messages
@@ -138,9 +138,10 @@ After utility proof, apply the matching supported fade treatment to code content
 MessageScroller and AttachmentGroup, or record a verified deliberate adaptation
 if masking conflicts with focus/readability. Do not add a custom scrolling engine.
 The settled native scrolling algorithms and qualified earlier PRs are preserved.
-No budget increase or unrelated CSS pruning is authorized. If required utility
-coverage cannot fit with reasonable local implementation, record actual size
-and ask about that material budget boundary.
+The user explicitly approved a 34 kB compiled CSS ceiling after the measured
+overflow. The integrated candidate measures 32,479 Brotli bytes against the
+29,984-byte baseline. JavaScript thresholds remain unchanged. Do not prune
+unrelated CSS or raise any other budget.
 
 ### Ownership, slices and verification portfolio
 
@@ -150,13 +151,13 @@ three ui/highlighter/hook modules; main owns the root and all other paths.
 Slice2 depends on the usable slice1 API; slice3 depends on both and accepts only
 the exact final draft. Native role/model availability is recorded before dispatch.
 
-| Workstream                      | Owner and scope                                                                                                          | Acceptance                                                                                       |
-| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
-| Plan, seams and delivery        | Main; exports/manifests/lockfiles, root wrapper, tests, source integration, docs, runtime and forge                      | One functional package with exact proof and draft delivery                                       |
-| Code parts and highlighting     | Trusted executor; new ui/code-block.tsx, lib/highlighter.tsx and hooks/use-highlighted-code.ts only after plan hardening | Eight parts, native props, lazy helpers/hook and error-safe copy                                 |
-| CSS compatibility               | Main; existing CSS/copy paths and two affected chat class lists                                                          | Compiled/default and consumer-compiled utility behavior within unchanged budgets                 |
-| Simplification and risk reviews | Dedicated read-only reviewers on committed ranges                                                                        | One net-simplification pass and one combined risk disposition per substantive slice              |
-| Integrated final review         | Configured Claude read-only exact complete range                                                                         | Correctness, spec, maintainability, focused code/dependency security and architecture/SSR lenses |
+| Workstream                      | Owner and scope                                                                                                          | Acceptance                                                                                                   |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
+| Plan, seams and delivery        | Main; exports/manifests/lockfiles, root wrapper, tests, source integration, docs, runtime and forge                      | One functional package with exact proof and draft delivery                                                   |
+| Code parts and highlighting     | Trusted executor; new ui/code-block.tsx, lib/highlighter.tsx and hooks/use-highlighted-code.ts only after plan hardening | Eight parts, native props, lazy helpers/hook and error-safe copy                                             |
+| CSS compatibility               | Main; existing CSS/copy paths and two affected chat class lists                                                          | Compiled/default and consumer-compiled utility behavior within approved CSS and unchanged JavaScript budgets |
+| Simplification and risk reviews | Dedicated read-only reviewers on committed ranges                                                                        | One net-simplification pass and one combined risk disposition per substantive slice                          |
+| Integrated final review         | Configured Claude read-only exact complete range                                                                         | Correctness, spec, maintainability, focused code/dependency security and architecture/SSR lenses             |
 
 1. Code display tracer: add ui/code-block.tsx, CodeBlock.tsx, lib/highlighter.tsx,
    hooks/use-highlighted-code.ts, CodeBlock.stories.tsx and code-block.spec.ts.
@@ -176,14 +177,14 @@ the exact final draft. Native role/model availability is recorded before dispatc
    exact archive proof, complete final review, ordinary push/draft creation,
    exact-head hosted qualification and feedback settle. Preserve held heads.
 
-| Observable risk                                            | Maintained test seam                                                                                                                                           |
-| ---------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Props/refs/selectors or custom/config union breaks         | Existing public-contracts.types.ts and test-selectors.types.ts; new code-block.spec.ts contract suite with synthetic fixtures                                  |
-| Copy writes wrong text, lies on failure or steals focus    | Same browser suite: native clipboard/fallback/rejection/cancel, native form and meaningful refs/selectors                                                      |
-| Streaming/language race or load failure hides/injects text | Add new cases in the same suite and existing packed Next fixture; assert token/source text behavior, not fixture wording; HTML-looking synthetic text remains text                  |
-| Scrolling/wrap/diff/motion/theme/RTL fails                 | New CodeBlock.stories.tsx plus existing ChatPresentation story; narrow/wide and supported themes, real geometry/keyboard/axe/captures                          |
-| Package mixes client/server or eager heavy modules         | Existing check-package-size.mjs, packed root-only type probe, Next app/page.tsx and auxiliary-leaf/tests, both bundlers and current/minimum RHF/Recharts cells |
-| Utility styles missing after packing                       | Extend existing verify-packed-css.mjs using test-owned utility fixtures and computed masks/colour/fill/animation under normal/reduced/RTL conditions           |
+| Observable risk                                            | Maintained test seam                                                                                                                                               |
+| ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Props/refs/selectors or custom/config union breaks         | Existing public-contracts.types.ts and test-selectors.types.ts; new code-block.spec.ts contract suite with synthetic fixtures                                      |
+| Copy writes wrong text, lies on failure or steals focus    | Same browser suite: native clipboard/fallback/rejection/cancel, native form and meaningful refs/selectors                                                          |
+| Streaming/language race or load failure hides/injects text | Add new cases in the same suite and existing packed Next fixture; assert token/source text behavior, not fixture wording; HTML-looking synthetic text remains text |
+| Scrolling/wrap/diff/motion/theme/RTL fails                 | New CodeBlock.stories.tsx plus existing ChatPresentation story; narrow/wide and supported themes, real geometry/keyboard/axe/captures                              |
+| Package mixes client/server or eager heavy modules         | Existing check-package-size.mjs, packed root-only type probe, Next app/page.tsx and auxiliary-leaf/tests, both bundlers and current/minimum RHF/Recharts cells     |
+| Utility styles missing after packing                       | Extend existing verify-packed-css.mjs using test-owned utility fixtures and computed masks/colour/fill/animation under normal/reduced/RTL conditions               |
 
 New files permitted under packages/design-system/src: ui/code-block.tsx,
 CodeBlock.tsx, CodeBlock.stories.tsx, lib/highlighter.tsx,
@@ -234,15 +235,55 @@ backend requirement or material contract/topology change is a concrete blocker.
 
 ## Progress
 
-Planning: frozen derived plan for the approved next package. Host refs refreshed;
-base235 held at2a8d3f401, task worktree clean before this plan. New local stack
-initialized with rs/v5-questionnaire trunk and one rs/v5-code-highlighting layer.
-No implementation, dependency install, commit, push or draft exists yet.
-Planner round1 REVISE; title/native attribute collision, early CSS feasibility,
-independently observable server/client modes and first-slice dependency order
-are accepted and corrected. Round2 APPROVED by the same native planner. Optional AGY rival dispatch
-was rejected by automatic approval review as new private payload egress; this
-fail-open pass is skipped, with no workaround. Existing runtime was resumed
-with exact /source bind; baseline package check passes. CSS baseline Brotli
-29984B against30000B is recorded; this is an early material feasibility gate.
-No native goal was requested or created for this package.
+Implementation is prepared in the existing task worktree on
+`rs/v5-code-highlighting`, above held Questionnaire base `2a8d3f401`.
+Display/highlighting slice1 is committed as `4ac4d6d7f`; the prepared utility
+slice and documentation remain uncommitted while slice1 reviews run. The CSS
+decision is resolved at34kB. No new draft or push exists.
+The existing six-layer stack and consumer repositories remain untouched.
+Planner round2 approved the hardened plan. The optional opposing-provider pass
+was unavailable; required source reviews remain armed. The executor is closed
+and main owns the integrated source.
+
+Both component doors, ergonomic props, copy/fallback/error behavior, lazy Shiki
+helpers/hook and utility families are implemented. Verification passes include
+package types/lint/build, 728 stable browser contracts/smokes, five new focused
+contracts, six closed-story accessibility cases, 704 theme assertions, 336
+responsive assertions, packed CSS/compiler utility proof, all three packed
+consumer cells and both Next bundlers across current/minimum dependency cells.
+The existing type, accessibility, packed Next and CSS seams were extended;
+no parallel application or test framework was added. Focused executable-source
+Opengrep reports no findings. Shared build-directory contention in an early
+parallel matrix attempt was diagnosed; the three minimum matrices passed when
+serialized.
+
+Active-state checks found and verified corrections for the UZH highlighted
+keyword contrast and neutral-dark copy-error contrast. The final focused
+browser run passes all five cases; eight synthetic responsive/theme/error/RTL/
+reduced-motion captures have no serious or critical axe findings. Their ignored
+gallery records the dirty-tree fingerprint and the engineering capture-tool
+limitation. Manual screen-reader, Safari and device qualification remains open.
+The candidate archive matches all 304 installed files; exact receipts and
+producing logs live in `project/_local/reviews/2026-10-25-code-highlighting-progress.md`.
+
+CSS baseline is 29,984 Brotli bytes; the integrated candidate measures 32,479.
+The user approved the 34 kB CSS ceiling on October25. JavaScript thresholds
+remain unchanged. The measured budget decision is resolved; implementation
+simplification, risk review and final review are pending their immutable
+committed ranges. Continue the planned separate slice commits and their reviews
+through draft/CI qualification. Runtime ownership and stopped-state receipts
+are recorded in the same ignored progress journal.
+
+Slice1 simplification accepted: the retained language-promise map replaces a
+redundant success Set. The trusted native simplifier completed; trusted Claude
+slice review is running on the immutable range. The full candidate passes all
+size and dependency-marker gates. Code content deliberately retains an unmasked
+horizontal surface for line numbers and diff cues; message/attachment fade
+adoption follows slice2. Current packed Next proof is being refreshed for its
+stronger post-activation request assertion.
+
+Normal-motion capture review found that the upstream light shimmer highlight
+washed out status text. The default now follows the theme foreground, while
+custom colours and all utility identifiers retain their native contracts.
+Affected running Trace/processing Attachment captures and packed CSS checks
+are refreshed before the utility slice is committed.

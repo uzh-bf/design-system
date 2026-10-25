@@ -94,6 +94,14 @@ if (!publicTheme.nodes?.length)
   throw new Error('Public palette metadata is missing')
 css += `\n${publicTheme.toString()}\n`
 
+// Consumer-defined utility values are compiled by the application's Tailwind.
+// Browsers ignore these compiler directives in the precompiled stylesheet.
+sourceTheme.walkAtRules('utility', (rule) => {
+  if (/^(?:scroll-fade|shimmer|no-scrollbar)(?:-|$)/.test(rule.params)) {
+    css += `\n${rule.toString()}\n`
+  }
+})
+
 fs.writeFileSync(cssPath, css)
 
 // Fail the build rather than silently shipping the base64-bloated stylesheet:

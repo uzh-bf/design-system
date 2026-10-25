@@ -681,7 +681,7 @@ surfaces an editor warning. New code should use the react-hook-form `Form`
 binding (`Form` + `FormField` + a control) instead. `formik` remains a v5 peer
 dependency so existing Formik usage keeps compiling until the v6 removal.
 
-## New exports
+## Theme exports
 
 | Export          | Purpose                                                                                                                                  |
 | --------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
@@ -1194,3 +1194,63 @@ The configured root derives both metadata and rendered parts from its one item
 collection. Native `noValidate` defaults to true while the questionnaire validates
 required answers; set it to false to include browser input validity checks.
 Application code owns persistence, branching, cancellation and submission effects.
+
+## Code presentation and optional highlighting
+
+The root `CodeBlock` follows the configured component interface: pass `code`,
+optional `titleContent`, `footer`, `actions`, `language`, `highlight`, `wrap`,
+`lineNumbers`, `startLine`, readonly line configuration and named `className`
+slots. Native `title` remains the string tooltip. Native root attributes/events
+and the div ref pass through; `contentProps` forwards the pre ref and attributes.
+Use `data`/named part selectors as with the chat components. Generated code and
+custom children are exclusive; custom composition owns its internal part styles.
+
+The primitive entry exports all eight natural parts. Compose `CodeBlockContent`
+and `CodeBlockLine` explicitly for server-generated highlighted lines. Copy
+buttons use the original exact source, independent of displayed line numbers or
+the ignored trailing display newline. Caller click cancellation prevents writes.
+The native clipboard is preferred; a bounded selection-preserving fallback is
+attempted when unavailable or rejected. A denied copy reports an accessible
+error and `onCopyError`; it never reports success. `onCopied` reports success.
+Use the typed `copy` options to localize copy/copied/error labels or disable
+copy with `copy={false}`. Code content remains LTR inside RTL applications.
+
+Highlighting defaults off. `useHighlightedCode(code, language)` is an explicit
+client hook through either existing door. `loadHighlighter(language)` and async
+`highlightCode(code, language)` are available through those same entries for
+server composition. The helpers return null for unsupported languages; callers
+can render ordinary split lines. The hook displays plain lines while loading
+and on unsupported-language or loading/tokenization failure. Core, JavaScript
+regex engine, themes and individual grammars load lazily from exact Shiki4.5.0.
+No language source is sent to a remote service. The package renders React text
+and style nodes, never untrusted HTML. The Shiki package contains other engines,
+but this implementation imports neither its full bundle nor WASM.
+
+Supported names are bash, css, diff, html, javascript, json, jsx, markdown, python,
+sql, tsx, typescript and yaml; aliases match the official recipe (js/md/py/sh/
+shell/shellscript/ts/yml/zsh). ANSI output uses `ansi` and does not carry colour
+state between lines. Streaming retains completed lines and grammar state;
+replacing code or changing language invalidates the corresponding cache.
+
+The compiled stylesheet supplies scroll-fade/no-scrollbar and the official text
+shimmer family, including once/reverse/colour/duration/spread/angle options.
+Consumer Tailwind compilation can generate parameterized values using the
+retained utility metadata. Ordinary component styles need only the documented
+CSS import. `shimmer` now follows the official text treatment on new chat
+surfaces. Its default light highlight uses the theme foreground to keep status
+text readable throughout the animation; explicit `shimmer-color-*` values remain
+available. Skeleton `animate-shimmer` retains its existing behavior. Reduced
+motion leaves ordinary readable text and disables fades. Unsupported scroll
+timelines fall back to readable endpoints. Visible native scrollbars are retained
+for code/message/attachment scrolling; application markup owns its focus order.
+Code content keeps its full horizontal surface and native scrollbar instead of
+masking line numbers or diff cues. Message and attachment regions adopt the
+scroll-aware fade utilities.
+
+These APIs add presentation and code rendering; Markdown parsing, AI transports,
+application services and maintained forks of official blocks remain application-owned.
+
+The light syntax theme adjusts GitHub Light's keyword red for readable contrast
+on the supported highlighted/diff line backgrounds. Other token colours and
+the dark syntax theme retain the upstream palette; active highlighted UZH
+states have their own accessibility checks.
