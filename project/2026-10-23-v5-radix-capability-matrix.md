@@ -421,3 +421,10 @@ locale package changes neither these controls nor their colour tokens. Track a
 bounded picker/error-state contrast correction before GA; no waiver, suppression
 or current-package accessibility pass is implied by the existing closed-story
 checks. Manual qualification and exact integrated consumer acceptance stay open.
+
+
+## October25 quality follow-up
+
+The [quality closure plan](2026-10-25-v5-quality-closure-plan.md) supersedes the historical `yearRange` no-effect and placeholder-contrast follow-up rows above. Its local source supplies bounded native year navigation and existing-token empty-invalid text; current draft qualification evidence will be recorded separately. Direction/NativeSelect, native `@shadcn/react` chat and Questionnaire, and CodeBlock are delivered by the linked component/chat/code drafts; baseline missing-API tables remain historical comparison evidence.
+
+The modal DropdownMenu/ContextMenu axe hidden-focus finding reproduces with bare pinned Radix outside Ladle. DS and native keyboard diagnostics keep Tab/Shift+Tab inside and restore the opener on Escape; Ladle Menubar has no such finding. Retain the upstream/manual GA gate, without suppressing the audit or changing modality. The UZH roadmap's per-rule table owns official-source traceability and pending consumer evidence.

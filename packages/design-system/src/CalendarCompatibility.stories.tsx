@@ -301,7 +301,10 @@ function PickerBoundsFixture() {
   }
   const yearRange = ranges[range]
   return (
-    <section aria-label="Picker navigation bounds" className="grid gap-4">
+    <section
+      aria-label="Picker navigation bounds"
+      className="grid min-w-0 gap-4"
+    >
       <h2 className="text-sm font-semibold">Picker navigation bounds</h2>
       <label className="grid max-w-xs gap-1">
         Years before and after this year
@@ -371,6 +374,8 @@ function PickerBoundsFixture() {
         />
         <DatePicker
           label="Empty date"
+          date={undefined}
+          onDateChange={() => undefined}
           aria-invalid={invalid}
           dataTrigger={{ test: 'picker-empty-date' }}
         />
@@ -397,7 +402,10 @@ function PickerBoundsFixture() {
           />
         </Formik>
       </div>
-      <output data-test="picker-bounds-value">
+      <output
+        className="min-w-0 text-xs [overflow-wrap:anywhere]"
+        data-test="picker-bounds-value"
+      >
         {JSON.stringify(serializeDate(value))}
       </output>
       <output data-test="picker-bounds-changes">{changes}</output>

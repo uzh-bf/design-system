@@ -39,7 +39,7 @@ The historical Klicker pilot, RHF parity, selected GBL journey, component compat
   [chat234](https://github.com/uzh-bf/design-system/pull/234) and
   [Questionnaire235](https://github.com/uzh-bf/design-system/pull/235).
   The [approved CodeBlock/highlighting plan](2026-10-25-v5-code-highlighting-plan.md)
-  starts a separate one-layer package above the held Questionnaire draft. Merges remain separately gated.
+  qualified [draft #236](https://github.com/uzh-bf/design-system/pull/236) at `f654685e6` above the held Questionnaire draft. The [quality closure plan](2026-10-25-v5-quality-closure-plan.md) now owns picker contrast/year navigation and UZH traceability. Merges remain separately gated.
 - Audience: maintainers and future execution agents preparing v5 for GA and
   migrating the first production consumers.
 
@@ -128,8 +128,7 @@ Panels4, chat and Questionnaire packages qualify at their recorded draft heads.
 [Chat234](https://github.com/uzh-bf/design-system/pull/234) holds48c6b91a6;
 [Questionnaire235](https://github.com/uzh-bf/design-system/pull/235) holds2a8d3f401. Their final reviews,
 hosted checks, exact archive proof and feedback settle are complete. Current
-implementation is [CodeBlock/highlighting and utility compatibility](2026-10-25-v5-code-highlighting-plan.md),
-delivered for qualification in [draft #236](https://github.com/uzh-bf/design-system/pull/236).
+[CodeBlock/highlighting and utility compatibility](2026-10-25-v5-code-highlighting-plan.md) qualified in [draft #236](https://github.com/uzh-bf/design-system/pull/236) at `f654685e6`. Current source work follows the [quality closure plan](2026-10-25-v5-quality-closure-plan.md).
 The dated chart-tip snapshot below remains historical evidence, not today's tip.
 
 Host refs were refreshed on October 24. Release trunk `v5` is
@@ -299,9 +298,7 @@ browser qualification. The next implementation packages are:
    and [Calendar plan](2026-10-24-v5-calendar-compatibility-plan.md) define two
    Shared API draft layers followed by Calendar in a separate native stack above
    the chart branch. The user approved execution and this topology on October24;
-   delivery remains qualified drafts without merging. Calendar retains exact DayPicker 9.14.0. Its known
-   ineffective `yearRange` option and the application-owned non-Gregorian recipe
-   remain named follow-ups; locale qualification alone does not close them.
+   delivery remains qualified drafts without merging. Calendar retains exact DayPicker 9.14.0. The [quality closure plan](2026-10-25-v5-quality-closure-plan.md) owns its retained `yearRange` repair; the application-owned non-Gregorian recipe remains composition work. Locale qualification alone does not close either gate.
    Presentation/control draft [#225](https://github.com/uzh-bf/design-system/pull/225)
    qualifies at `2d8b02a6f`; overlay/menu draft [#226](https://github.com/uzh-bf/design-system/pull/226) qualifies at `4d5f60fc6` with configured final review, complete hosted CI, exact artifact proof and 42 published captures. Calendar draft [#228](https://github.com/uzh-bf/design-system/pull/228) implements locale/grid compatibility with local behavioral, packed and source-review proof. Implementation and local proof are complete, including the supplied-locale Gregorian correction and retained enUS datetime default. Final qualification evidence is recorded in the draft description. An extra open-menu audit reproduces an existing Ladle-root `aria-hidden-focus` result on the lower exact package; keep it in GA accessibility follow-up.
 2. **Layout and toast auxiliaries.** The user approved the [three-layer execution plan](2026-10-24-v5-layout-toast-compatibility-plan.md).
@@ -320,8 +317,8 @@ browser qualification. The next implementation packages are:
    risk-review proof. Its draft description records final review/CI qualification;
    earlier dual-engine evidence applies only to the earlier candidate.
 3. **Messaging/clarification and code/highlighting.** Messaging and Questionnaire
-   qualify in the held chat and Questionnaire drafts above. The next active CodeBlock
-   package is defined by its [approved plan](2026-10-25-v5-code-highlighting-plan.md).
+   qualify in the held chat and Questionnaire drafts above. The CodeBlock
+   package qualified in [draft #236](https://github.com/uzh-bf/design-system/pull/236) at `f654685e6`, under its [approved plan](2026-10-25-v5-code-highlighting-plan.md).
    Use separate bounded
    packages for the required presentation/scroll/questionnaire surfaces and
    code/highlighting. Their distinct @shadcn/react and Shiki runtime, scrolling,
@@ -900,3 +897,10 @@ locale package changes neither these controls nor their colour tokens. Track a
 bounded picker/error-state contrast correction before GA; no waiver, suppression
 or current-package accessibility pass is implied by the existing closed-story
 checks. Manual qualification and exact integrated consumer acceptance stay open.
+
+
+## October25 quality closure checkpoint
+
+The [approved quality plan](2026-10-25-v5-quality-closure-plan.md) follows the qualified CodeBlock draft. Local source now restores DateTimePicker year navigation and fixes empty-invalid picker contrast using existing component foreground tokens. Focused calendar/form/menu tests pass; final source review, package evidence, captures and exact-head CI remain pending until recorded in its draft description.
+
+The opened modal-menu `aria-hidden-focus` finding reproduces in a standalone DS page and unmodified Radix DropdownMenu/ContextMenu. Actual Tab/Shift+Tab remains contained and Escape restores focus; Menubar passes the same focused journey. This establishes upstream provenance, not assistive-technology acceptance. Keep the finding as a GA upstream/manual gate without a waiver or modality change. Representative public-entry compositions follow this source package. Final qualification records runtime-pin drift; version changes need their own evaluated acceptance. Consumer/manual evidence and merge/release authority remain separate.
