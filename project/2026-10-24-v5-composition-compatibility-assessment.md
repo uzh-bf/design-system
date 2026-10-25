@@ -210,7 +210,7 @@ rather than replacing them with unverified upstream defaults.
 
 ## Representative composition disposition — October25
 
-The finite denominator remains67registryexamples,30officialblockIDs and21AIpatternpages at the pinned source revision. The table gives each identity exactly one primary disposition. A mapping to a representative names the integration seam that was exercised; it does not claim the original upstream source executed. Source-level component gaps delivered in the linked drafts retain their own type/behavior/package evidence. Application-owned services never absorb an eligible missing DS control contract.
+The finite denominator remains 67 registry examples, 30 official block IDs and 21 AI pattern pages at the pinned source revision. The table gives each identity exactly one primary disposition. A mapping to a representative names the integration seam that was exercised; it does not claim the original upstream source executed. Source-level component gaps delivered in the linked drafts retain their own type/behavior/package evidence. Application-owned services never absorb an eligible missing DS control contract.
 
 | Kind and exact identity | Primary disposition | Evidence reference / remaining obligation |
 | --- | --- | --- |

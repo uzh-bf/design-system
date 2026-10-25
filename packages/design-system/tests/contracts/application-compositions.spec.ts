@@ -85,13 +85,29 @@ async function journey(
   } else if (story === 'conversation') {
     const count = page.locator('[data-test="comp-message-count"]')
     const before = Number(await count.textContent())
-    await page
-      .locator('[data-test="comp-message-input"]')
-      .fill('Synthetic follow-up')
-    await page.locator('[data-test="comp-message-input"]').press('Enter')
-    await expect(count).toHaveText(String(before + 1))
-    const appended = page.locator(`[data-test="comp-message-${before + 1}"]`)
+    const input = page.locator('[data-test="comp-message-input"]')
     const viewport = page.locator('[data-test="comp-message-viewport"]')
+    for (let index = 0; index < 10; index++) {
+      await input.fill(`Synthetic history message ${index}`)
+      await input.press('Enter')
+    }
+    await expect
+      .poll(() =>
+        viewport.evaluate(
+          (element) => element.scrollHeight - element.clientHeight
+        )
+      )
+      .toBeGreaterThan(0)
+    const previousScroll = await viewport.evaluate(
+      (element) => element.scrollTop
+    )
+    await input.fill('Synthetic follow-up')
+    await input.press('Enter')
+    await expect(count).toHaveText(String(before + 11))
+    const appended = page.locator(`[data-test="comp-message-${before + 11}"]`)
+    await expect
+      .poll(() => viewport.evaluate((element) => element.scrollTop))
+      .toBeGreaterThan(previousScroll)
     await expect
       .poll(async () => {
         const message = await appended.boundingBox()
@@ -134,6 +150,15 @@ async function journey(
       .locator('button[data-selected-single="true"]')
       .first()
     const day = (await selected.innerText()).trim()
+    const expectedDay = await page.evaluate(
+      (time) =>
+        new Intl.DateTimeFormat('fa-IR-u-ca-persian', {
+          day: 'numeric',
+          timeZone: 'UTC',
+        }).format(new Date(time)),
+      timestamp
+    )
+    expect(day).toBe(expectedDay)
     const metadata = (await selected.getAttribute('data-day')) ?? ''
     const gregorian = metadata
       .replace(/[۰-۹]/g, (digit) => String(digit.charCodeAt(0) - 0x06f0))

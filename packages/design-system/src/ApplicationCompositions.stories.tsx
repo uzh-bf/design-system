@@ -76,7 +76,7 @@ function DashboardSurface() {
 
   return (
     <>
-      <Sidebar aria-label="Course navigation">
+      <Sidebar>
         <SidebarHeader className="border-sidebar-border border-b p-4">
           <p className="text-sidebar-foreground text-sm font-semibold">
             Learning studio
@@ -86,31 +86,33 @@ function DashboardSurface() {
           </p>
         </SidebarHeader>
         <SidebarContent>
-          <SidebarGroup>
-            <SidebarGroupLabel>Workspace</SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                <SidebarMenuItem>
-                  <SidebarMenuButton
-                    isActive={section === 'overview'}
-                    data-test="comp-nav-overview"
-                    onClick={() => selectSection('overview')}
-                  >
-                    Overview
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-                <SidebarMenuItem>
-                  <SidebarMenuButton
-                    isActive={section === 'reports'}
-                    data-test="comp-nav-reports"
-                    onClick={() => selectSection('reports')}
-                  >
-                    Reports
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
+          <nav aria-label="Course navigation">
+            <SidebarGroup>
+              <SidebarGroupLabel>Workspace</SidebarGroupLabel>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton
+                      isActive={section === 'overview'}
+                      data-test="comp-nav-overview"
+                      onClick={() => selectSection('overview')}
+                    >
+                      Overview
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton
+                      isActive={section === 'reports'}
+                      data-test="comp-nav-reports"
+                      onClick={() => selectSection('reports')}
+                    >
+                      Reports
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+          </nav>
         </SidebarContent>
       </Sidebar>
 
@@ -689,7 +691,6 @@ export const PersianCalendar = () => {
               variant="outline"
               onClick={() => setPersian((value) => !value)}
               data-test="comp-persian-toggle"
-              aria-pressed={!persian}
             >
               {persian ? 'Use English, LTR' : 'Use Persian, RTL'}
             </Button>
