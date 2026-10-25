@@ -635,3 +635,99 @@ createElement(ChatMessageScroller, {
   // @ts-expect-error Root composite ref targets the viewport div.
   ref: createRef<HTMLButtonElement>(),
 })
+
+import {
+  Questionnaire as RootQuestionnaire,
+  type QuestionnaireProps,
+} from '../../src'
+import {
+  Questionnaire,
+  QuestionnaireChoice,
+  QuestionnaireInput,
+  QuestionnaireItem,
+} from '../../src/primitives'
+const questions: QuestionnaireProps = {
+  items: [
+    {
+      name: 'format',
+      title: 'Format',
+      required: true,
+      data: { test: 'question' },
+      choices: [
+        {
+          value: 'brief',
+          label: 'Brief',
+          defaultChecked: true,
+          onChange: (event) => void event.target.checked,
+          data: { test: 'answer' },
+        },
+      ],
+      input: { label: 'Other', type: 'text', data: { test: 'input' } },
+    },
+  ],
+  ref: createRef<HTMLFormElement>(),
+  className: { root: 'p-4', choice: 'border', input: 'rounded-md' },
+  data: { test: 'form' },
+  dataActions: { test: 'actions' },
+  item: 'format',
+  onItemChange: (item) => void item,
+  onSubmit: (event) => void new FormData(event.currentTarget),
+  onReset: (event) => void event.currentTarget.reset,
+}
+void questions
+createElement(RootQuestionnaire, questions)
+createElement(Questionnaire, {
+  items: [{ name: 'x', choices: [{ value: 'one' }] }],
+  ref: createRef<HTMLFormElement>(),
+})
+createElement(QuestionnaireItem, { name: 'x', multiple: true })
+createElement(QuestionnaireChoice, {
+  value: 'one',
+  checked: false,
+  onChange: (event) => void event.target.checked,
+})
+createElement(QuestionnaireInput, { type: 'email', 'aria-label': 'Other' })
+// @ts-expect-error Native engine owns answer association.
+createElement(QuestionnaireInput, { name: 'external' })
+// @ts-expect-error Native freeform input excludes external forms.
+createElement(QuestionnaireInput, { form: 'elsewhere' })
+// @ts-expect-error File upload is not a native freeform answer type.
+createElement(QuestionnaireInput, { type: 'file' })
+// @ts-expect-error Root fixed form retains semantic styling slots.
+createElement(RootQuestionnaire, { items: [], className: 'flat' })
+// @ts-expect-error Configured questions and custom children are exclusive.
+createElement(RootQuestionnaire, { items: [], children: 'other' })
+createElement(RootQuestionnaire, {
+  items: [],
+  // @ts-expect-error Root reference targets the native form.
+  ref: createRef<HTMLDivElement>(),
+})
+createElement(RootQuestionnaire, {
+  items: [
+    {
+      name: 'x',
+      title: 'X',
+      input: {
+        label: 'Answer',
+        // @ts-expect-error Root freeform configuration retains native type restriction.
+        type: 'checkbox',
+      },
+    },
+  ],
+})
+
+createElement(RootQuestionnaire, {
+  items: [
+    { name: 'x', title: 'X', input: { 'aria-label': 'Answer', type: 'text' } },
+  ],
+})
+createElement(RootQuestionnaire, {
+  items: [
+    {
+      name: 'x',
+      title: 'X',
+      // @ts-expect-error A configured input requires a visible or explicit accessible name.
+      input: { type: 'text' },
+    },
+  ],
+})

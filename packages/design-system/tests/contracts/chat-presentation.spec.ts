@@ -306,3 +306,136 @@ test('reduced motion defaults to instant while explicit caller scrolling wins', 
   await page.locator('[data-test="scroller-jump"]').click()
   await expect.poll(lastBehavior).toBe('smooth')
 })
+
+test('questionnaire validates, preserves multiple answers, skips and resets through native form events', async ({
+  page,
+}) => {
+  await gotoStory(page, 'questionnaire--configured')
+  const form = page.locator('[data-test="questionnaire"]')
+  const progress = page.locator('[data-test="questionnaire-progress"]')
+  await expect(form).toHaveAccessibleName(await page.locator('h1').innerText())
+  await expect(progress).not.toHaveAccessibleName(
+    await page.locator('h1').innerText()
+  )
+  await expect(progress).toHaveAttribute('aria-valuemax', '3')
+  await expect(progress).toHaveAttribute('aria-valuenow', '1')
+  await expect(page.locator('[data-test="question-disabled"]')).toBeHidden()
+  await expect(
+    page.locator('[data-test="choice-disabled"] input')
+  ).toBeDisabled()
+  await expect(form).toHaveClass(/rounded-md/)
+  await expect(page.locator('[data-test="choice-brief"]')).toHaveClass(
+    /rounded-md/
+  )
+  await page.locator('[data-test="questionnaire-next"]').click()
+  const first = page.locator('[data-test="question-format"]')
+  await expect(first).toHaveAttribute('aria-invalid', 'true')
+  const error = first.getByRole('alert')
+  await expect(error).toBeVisible()
+  const described = await first.getAttribute('aria-describedby')
+  expect(described?.split(' ')).toContain(await error.getAttribute('id'))
+  await first.focus()
+  await page.keyboard.press('a')
+  await expect(page.locator('[data-test="choice-brief"] input')).toBeChecked()
+  await page.locator('[data-test="questionnaire-next"]').click()
+  await expect(page.locator('[data-test="question-tools"]')).toBeFocused()
+  await page.locator('[data-test="choice-table"] input').check()
+  await page.locator('[data-test="choice-diagram"] input').check()
+  await expect(page.locator('[data-test="input-tools"]')).toHaveAccessibleName(
+    /\S/
+  )
+  const inputDescription = await page
+    .locator('[data-test="input-tools"]')
+    .getAttribute('aria-describedby')
+  const inputErrorId = await page
+    .locator('[data-test="question-tools"] [data-slot="questionnaire-error"]')
+    .getAttribute('id')
+  expect(inputDescription?.split(' ') ?? []).not.toContain(inputErrorId)
+  await page.locator('[data-test="input-tools"]').fill('Outline')
+  await page.locator('[data-test="questionnaire-previous"]').click()
+  await expect(page.locator('[data-test="choice-brief"] input')).toBeChecked()
+  await page.locator('[data-test="questionnaire-next"]').click()
+  await expect(page.locator('[data-test="choice-table"] input')).toBeChecked()
+  await expect(page.locator('[data-test="choice-diagram"] input')).toBeChecked()
+  await expect(page.locator('[data-test="input-tools"]')).toHaveValue('Outline')
+  await page.locator('[data-test="questionnaire-next"]').click()
+  await expect(progress).toHaveAttribute('aria-valuenow', '3')
+  await page.locator('[data-test="questionnaire-skip"]').click()
+  await expect
+    .poll(async () =>
+      JSON.parse(
+        await page.locator('[data-test="questionnaire-answers"]').innerText()
+      )
+    )
+    .toEqual([
+      ['format', 'brief'],
+      ['tools', 'table'],
+      ['tools', 'diagram'],
+      ['tools', 'Outline'],
+    ])
+  await page.locator('[data-test="questionnaire-reset"]').click()
+  await expect(page.locator('[data-test="questionnaire-active"]')).toHaveText(
+    'format'
+  )
+  await expect(
+    page.locator('[data-test="choice-brief"] input')
+  ).not.toBeChecked()
+  await expect
+    .poll(async () =>
+      JSON.parse(
+        await page.locator('[data-test="questionnaire-events"]').innerText()
+      )
+    )
+    .toMatchObject({ submitted: 1, reset: 1 })
+  await page.locator('[data-test="questionnaire-active-notes"]').click()
+  await expect(page.locator('[data-test="question-notes"]')).toBeFocused()
+  await page.locator('[data-test="input-notes"]').fill('Synthetic note')
+  await page.locator('[data-test="questionnaire-submit"]').click()
+  await expect(first).toBeVisible()
+  expect(await page.locator('form form, button button').count()).toBe(0)
+})
+
+for (const theme of ['neutral', 'uzh'] as const) {
+  test(`questionnaire uses localized progress and actions within narrow RTL layout (${theme})`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    await gotoStory(page, 'questionnaire--localized', theme)
+    const progress = page.locator('[data-test="localized-progress"]')
+    await expect(progress).toHaveAttribute(
+      'aria-valuetext',
+      await progress.innerText()
+    )
+    await expect(
+      page.locator('[data-test="questionnaire-localized"]')
+    ).toHaveCSS('direction', 'rtl')
+    await expect(
+      page.locator('[data-test="localized-next"]')
+    ).toHaveAccessibleName(/\S/)
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth
+      )
+    ).toBe(true)
+    await page.locator('[data-test="localized-next"]').click()
+    await expect(page.getByRole('alert')).toBeVisible()
+    await expect(progress).toHaveAttribute('aria-valuenow', '1')
+  })
+}
+
+test('Questionnaire preserves native input validity when opted in', async ({
+  page,
+}) => {
+  await gotoStory(page, 'questionnaire--native-validity')
+  const input = page.locator('[data-test="validity-email"]')
+  await input.fill('invalid')
+  await page.locator('[data-test="validity-submit"]').click()
+  await expect(page.locator('[data-test="validity-submitted"]')).toHaveText('0')
+  await expect(input).toBeFocused()
+  expect(
+    await input.evaluate((el) => (el as HTMLInputElement).validity.typeMismatch)
+  ).toBe(true)
+  await input.fill('synthetic@example.test')
+  await page.locator('[data-test="validity-submit"]').click()
+  await expect(page.locator('[data-test="validity-submitted"]')).toHaveText('1')
+})

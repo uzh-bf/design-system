@@ -93,7 +93,17 @@ const group = h(parts.MessageScroller, null, viewport)
 const html = renderToString(h(native.MessageScroller.Provider, { defaultScrollPosition: 'start' }, group))
 assert.match(html, /data-message-id="synthetic"/)
 assert.match(html, /data-slot="bubble-content"/)
-console.log('mixed native provider and DS presentation SSR pass')
+const nativeForm = await import(pathToFileURL(app.resolve('@shadcn/react/questionnaire')))
+const question = h(parts.QuestionnaireItem, { name: 'format', required: true },
+  h(parts.QuestionnaireTitle, null, 'Format'),
+  h(parts.QuestionnaireChoices, null, h(parts.QuestionnaireChoice, { value: 'brief' }, 'Brief')))
+const formHtml = renderToString(h(nativeForm.Questionnaire.Root, {
+  items: [{ name: 'format', required: true, choices: [{ value: 'brief' }] }],
+}, h(parts.QuestionnaireProgress), question, h(parts.QuestionnaireSubmit)))
+assert.match(formHtml, /aria-valuenow="1"/)
+assert.match(formHtml, /aria-valuemax="1"/)
+assert.match(formHtml, /data-slot="questionnaire-choice"/)
+console.log('mixed native provider and DS presentation/form SSR pass')
 NODE
   done
 fi

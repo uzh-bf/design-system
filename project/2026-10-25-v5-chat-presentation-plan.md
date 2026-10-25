@@ -401,58 +401,56 @@ gated actions. Do independent authorized work before raising a blocker.
 
 ## Progress
 
-Chat presentation and native scrolling are implemented on
-`rs/v5-chat-presentation` above held Resizable draft
-[#233](https://github.com/uzh-bf/design-system/pull/233). Chat is now
-[draft234](https://github.com/uzh-bf/design-system/pull/234) in native stack231.
-The six ergonomic root wrappers preserve named styling slots, typed config,
-native attributes/events/refs and structured selectors; natural compound parts
-remain under `./primitives`. Native0.3.1 owns scrolling and shared context.
+Chat presentation and scrolling are qualified at held head
+`48c6b91a6c41aa487b82e0426f1b5621e2bac925` in
+[draft234](https://github.com/uzh-bf/design-system/pull/234), above held
+[draft233](https://github.com/uzh-bf/design-system/pull/233). The final hosted
+CI40205922338 passed all checks, including all packed cells, both Next bundlers,
+four accessibility shards, inventory protocol and final build. Greptile reviewed
+this head without remaining findings; its earlier Marker thread was resolved
+automatically. Final feedback remained quiet for more than five minutes.
+Configured Claude completed the full review and one focused correction with PASS;
+the final response validated against the shared schema.
 
-Planning approved after three native planner rounds. Trusted Claude architecture
-advice was verified. The optional AGY challenge returned an empty response and
-provides no approval evidence. Presentation simplification found no justified
-reduction; its risk review approved the focused dark error-text correction.
-Scroller simplification found no justified reduction; its risk review approved
-`15dff62ae..d980b1d6d` with no findings.
+The six ergonomic wrappers and natural compound parts preserve approved props.
+Eight focused browser contracts, eight theme accessibility cases, the earlier
+711-case stable integrated suite, unchanged size budgets and 704 theme assertions
+pass. Seven real synthetic screenshots are inspected, attached and render on
+GitHub. Final archive SHA256
+`fc9eeb8fbafbe63b7feb861f584d1762598f50dd63d10867f9513234f82749c6`
+matches all292 installed files. ADR0011 records the regular pin/shared runtime
+obligation. Review corrections restored standalone Bubble alignment/width,
+keyboard AttachmentGroup scrolling and narrow Marker/attachment containment.
 
-Types, lint, format, build, existing JS/CSS budgets, 13 dependency validation
-cases and 704 packed theme assertions pass. The stable integrated contract/smoke
-run passed711 cases, and focused chat accessibility passed8 cases across both
-themes. All three packed dependency cells passed14 Next browser cases under
-both bundlers; the current cell also proved npm/pnpm shared native context and
-readable server content without JavaScript. Their environment and dependency
-contracts are unchanged by final presentation-only corrections.
+The task container was stopped and its exact source bind verified. No consumer
+runtime or repository was touched. Native goal state is empty; no new goal or
+automation was created for this batch. Draft234 remains held and unmerged.
 
-Final visual inspection corrected root reaction/footer overlap and vertical
-attachment media overflow. Geometry coverage now checks both, plus settled Trace
-expansion. Eight focused interactions and eight accessibility cases pass after
-these corrections. The apparent Trace clipping was capture during its native
-opening animation; no disclosure-source change was needed. Bubble padding uses
-existing utilities and retains ghost styling within the unchanged CSS30kB budget.
+Questionnaire is now active on `rs/v5-questionnaire`, based on the exact qualified
+chat head. Fresh fetch confirms chat0ahead/behind; default main drift is358ahead,
+3behind and does not select this draft's target. Main owns story/types/browser
+and packed verification, exports, docs, CSS integration and delivery. Native
+worker Rawls owns only ui/questionnaire.tsx and Questionnaire.tsx, with the full
+settled approved contract; complete plan context stays on a trusted route.
+No Questionnaire PR exists yet. Remaining: implement and verify native form
+contracts/ergonomic props, simplify/risk review, final package/browser/captures,
+independent final review, then push/attach/qualify the second draft in stack231.
+Both drafts stay unmerged; manual assistive-technology/device/GA and separate
+consumer acceptance remain independent gates.
 
-Seven real synthetic captures are inspected and attached to draft234; read-only
-forge rendering passed. The current packed cell repeated both Next bundlers and
-npm/pnpm runtime composition; exact archive/installed proof matched292 files.
-A Greptile finding was reproduced: separator content used flex-none and exceeded
-a phone viewport. Removing that constraint preserves ordinary labels and permits
-long labels to wrap. The existing narrow-variant contract now checks label and
-attachment containment;8interactions and8a11y cases pass after the fix.
 
-Remaining chat work: refresh the affected captures and exact archive proof,
-complete integrated final review and its focused correction, then qualify the
-final exact CI head and quiet feedback. The active verification container is source-bound to
-this worktree and must be stopped after final runtime verification.
+Questionnaire source is implemented with all16 native parts and the ergonomic
+configured root. Readonly item/choice/input config, named slots, selectors,
+form ref/events, active item callbacks and localizable progress/actions/errors
+are wired. Configured freeform inputs require a visible or explicit accessible
+name. The form's ARIA name remains on the form; progress has its independent
+localized name. Error descriptions attach to freeform inputs only while invalid.
+Native state and FormData own answers; no RHF/Formik or second form engine.
 
-Questionnaire starts only after chat qualification, on `rs/v5-questionnaire`.
-Its approved native form/ergonomic interfaces and second draft topology remain
-as specified above. No implementation or PR exists yet. Both drafts remain
-unmerged; consumer acceptance and integrated manual GA remain separate gates.
-
-Integrated Claude review identified standalone Bubble end-alignment/width and
-AttachmentGroup overflow-cue gaps. Restore the native alignment and width cap;
-retain a visible native scrollbar and focusable group rather than an undefined
-fade utility. The narrow-variant check covers both compositions. ADR0011 records
-the approved regular exact-pin decision. One focused final correction follows
-verification; the original response also needs its reflection array corrected
-to the shared schema's required string. No new runtime or public API is added.
+Current acceptance: types, lint and formatting pass. Twelve chat/form browser
+contracts and eight Questionnaire accessibility cases across both themes pass.
+Existing package budgets pass after removing redundant optional text-wrap and
+margin rules; no ceiling changed. The canonical native choice input uses the
+existing theme text token with the installed forms styles. Focused source scan
+reported no findings. These are local results; packed matrices, independent
+slice/final reviews, captures and hosted draft qualification remain pending.

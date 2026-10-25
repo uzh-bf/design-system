@@ -5,7 +5,9 @@ import {
   Message,
   MessageScroller,
   NativeSelect,
+  Questionnaire,
   type MessageScrollerProps,
+  type QuestionnaireProps,
 } from '@uzh-bf/design-system'
 import '@uzh-bf/design-system/css'
 import '@uzh-bf/design-system/preflight.css'
@@ -35,3 +37,19 @@ const messageList: MessageScrollerProps = {
 void messageList
 void Message
 void MessageScroller
+
+const clarification: QuestionnaireProps = {
+  items: [
+    {
+      name: 'format',
+      title: 'Format',
+      choices: [{ value: 'brief', label: 'Brief' }],
+      input: { label: 'Other', type: 'text' },
+    },
+  ],
+  className: { root: 'p-2', choice: 'rounded-md' },
+  data: { test: 'clarification' },
+  onSubmit: (event) => void new FormData(event.currentTarget),
+}
+void clarification
+void Questionnaire
