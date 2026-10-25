@@ -122,7 +122,7 @@ function MessageScrollerButton({
       direction={direction}
       behavior={behavior ?? (prefersReducedMotion ? 'instant' : 'smooth')}
       className={cn(
-        'absolute start-1/2 bottom-4 z-10 -translate-x-1/2 transition-opacity data-[active=false]:pointer-events-none data-[active=false]:opacity-0 data-[direction=start]:top-4 data-[direction=start]:bottom-auto rtl:translate-x-1/2 data-[direction=start]:[&_svg]:rotate-180',
+        'absolute start-1/2 bottom-4 z-10 -translate-x-1/2 rounded-full border shadow-sm transition-opacity data-[active=false]:pointer-events-none data-[active=false]:opacity-0 data-[direction=start]:top-4 data-[direction=start]:bottom-auto rtl:translate-x-1/2 data-[direction=start]:[&_svg]:rotate-180',
         className
       )}
       render={render ?? <Button variant={variant} size={size} />}

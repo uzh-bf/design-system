@@ -27,8 +27,7 @@ const bubbleVariants = cva(
           '[--bubble-bg:color-mix(in_oklab,var(--primary)_15%,var(--background))] [--bubble-fg:var(--foreground)]',
         outline:
           '[--bubble-bg:var(--background)] [--bubble-fg:var(--foreground)] [--bubble-border:var(--border)]',
-        ghost:
-          '[--bubble-bg:transparent] [--bubble-fg:var(--foreground)] [--bubble-padding:0px]',
+        ghost: '[--bubble-bg:transparent] [--bubble-fg:var(--foreground)]',
         destructive:
           '[--bubble-bg:color-mix(in_oklab,var(--destructive)_10%,var(--background))] [--bubble-fg:var(--theme-destructive-text)] dark:[--bubble-fg:var(--destructive)]',
       },
@@ -70,7 +69,7 @@ function BubbleContent({
     <Comp
       data-slot="bubble-content"
       className={cn(
-        'focus-visible:ring-ring w-fit max-w-full min-w-0 overflow-hidden rounded-3xl border border-[var(--bubble-border,transparent)] bg-[var(--bubble-bg)] px-[var(--bubble-padding,0.75rem)] py-[var(--bubble-padding,0.625rem)] text-sm leading-relaxed wrap-break-word text-[var(--bubble-fg)] group-data-[align=end]/bubble:self-end focus-visible:ring-2',
+        'focus-visible:ring-ring w-fit max-w-full min-w-0 overflow-hidden rounded-3xl border border-[var(--bubble-border,transparent)] bg-[var(--bubble-bg)] px-3 py-2.5 text-sm leading-relaxed wrap-break-word text-[var(--bubble-fg)] group-data-[align=end]/bubble:self-end group-data-[variant=ghost]/bubble:p-0 focus-visible:ring-2',
         className
       )}
       {...props}

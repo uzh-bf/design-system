@@ -45,7 +45,7 @@ function Attachment({
 }
 
 const attachmentMediaVariants = cva(
-  'relative flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-md bg-muted text-foreground group-data-[orientation=vertical]/attachment:aspect-square group-data-[orientation=vertical]/attachment:size-full group-data-[state=error]/attachment:text-destructive-text dark:group-data-[state=error]/attachment:text-destructive [&_svg]:size-4',
+  'relative flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-md bg-muted text-foreground group-data-[orientation=vertical]/attachment:aspect-square group-data-[orientation=vertical]/attachment:w-full group-data-[orientation=vertical]/attachment:h-auto group-data-[state=error]/attachment:text-destructive-text dark:group-data-[state=error]/attachment:text-destructive [&_svg]:size-4',
   {
     variants: {
       variant: { icon: '', image: '[&_img]:size-full [&_img]:object-cover' },

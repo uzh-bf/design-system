@@ -400,61 +400,42 @@ gated actions. Do independent authorized work before raising a blocker.
 
 ## Progress
 
-Implementation approved. Branch rs/v5-chat-presentation starts with the reviewed
-plan; no implementation commit or PR exists yet; #233 remains held. Main has verified the native public archive,
-registry source and nearest existing props. One public-source explorer completed
-and closed. Claude architecture advice completed; main verified its native engine facts
-and incorporated the two-layer recommendation, controlled Trace union, readable
-SSR, provider/footer ownership, named attachment actions and localization.
-Bubble/Marker root wrappers are retained because they actually compose content
-with icon/reactions and the user requested ergonomic slot interfaces. Use the
-canonical UI's existing Lucide route rather than switching primitives to
-FontAwesome. Native names follow ADR0001; no Chat-prefixed aliases are added.
-Native planner approved the corrected frozen plan in round3. Its findings
-closed missing attachment action props, native freeform restrictions, scroller
-option/ref routing, runnable runtime proof and explicit ownership. The optional
-AGY opposing-provider challenge exited successfully but returned no response or
-structured result, so it provides no passed review evidence. The required native
-planner approval remains valid. The user approved the concrete two-layer batch; implementation is active. No application runtime or new automation was started.
+Chat presentation and native scrolling are implemented on
+`rs/v5-chat-presentation` above held Resizable draft
+[#233](https://github.com/uzh-bf/design-system/pull/233). Draft creation is pending.
+The six ergonomic root wrappers preserve named styling slots, typed config,
+native attributes/events/refs and structured selectors; natural compound parts
+remain under `./primitives`. Native0.3.1 owns scrolling and shared context.
 
-One Jev batch used only public npm facts and a synthetic/public planning-role
-summary: one pinned-role local check, one API citation deferred. Main resolved
-the citation by direct metadata and packed-import inspection; it is not a passed
-independent review. Browser consultation cannot receive this unpublished plan
-under the current public-only destination boundary, so keep the complete planning
-review on trusted configured routes. No private plan text was sent to ChatGPT.
+Planning approved after three native planner rounds. Trusted Claude architecture
+advice was verified. The optional AGY challenge returned an empty response and
+provides no approval evidence. Presentation simplification found no justified
+reduction; its risk review approved the focused dark error-text correction.
+Scroller simplification found no justified reduction; its risk review approved
+`15dff62ae..d980b1d6d` with no findings.
 
-Planning acceptance: native planner APPROVED after three bounded rounds. The
-optional AGY response was empty despite success status; it is unpassed. All
-review findings and dispositions are retained in the ignored planning journal.
-The concrete two-layer batch was approved. The first implementation slice now
-starts; Questionnaire remains blocked on qualification of the chat draft.
+Types, lint, format, build, existing JS/CSS budgets, 13 dependency validation
+cases and 704 packed theme assertions pass. The stable integrated contract/smoke
+run passed711 cases, and focused chat accessibility passed8 cases across both
+themes. All three packed dependency cells passed14 Next browser cases under
+both bundlers; the current cell also proved npm/pnpm shared native context and
+readable server content without JavaScript. Their environment and dependency
+contracts are unchanged by final presentation-only corrections.
 
-Presentation tracer: all five root wrappers and canonical primitive families are
-implemented with the approved prop contracts and source adaptations. Types, lint,
-format and Ladle build pass. Four focused interaction checks, six neutral/UZH
-accessibility cases and three new-story smokes pass after correcting unreadable
-alpha-muted descriptions and using the existing destructive text token. Three
-new story IDs extend the oracle without adding allowed violations. The focused
-source scan has zero findings/errors. Scrolling is prepared as a separate
-uncommitted tracer; independent reviews of presentation follow its commit.
+Final visual inspection corrected root reaction/footer overlap and vertical
+attachment media overflow. Geometry coverage now checks both, plus settled Trace
+expansion. Eight focused interactions and eight accessibility cases pass after
+these corrections. The apparent Trace clipping was capture during its native
+opening animation; no disclosure-source change was needed. Bubble padding uses
+existing utilities and retains ghost styling within the unchanged CSS30kB budget.
 
-Conversation scrolling is implemented with native0.3.1, safe viewport refs,
-provider options, footer hooks, structured selectors and preserved native
-defaults. Six interaction cases and eight neutral/UZH accessibility cases pass;
-the first current-version packed cell passes npm/pnpm mixed-provider SSR and
-14 Next browser cases under both bundlers, including no-JavaScript readability.
-Final styling consolidation reuses DS variables instead of long repeated
-selectors. Existing CSS and JS budgets pass without changing their limits.
-The presentation risk review approved its focused dark-contrast correction;
-its simplifier found no justified reduction. Scroller slice reviews, final
-package matrix, screenshots, integrated final review and hosted CI remain.
-Questionnaire implementation starts only after this first draft qualifies.
+Remaining chat work: capture/review real
+synthetic screenshots, refresh final archive/current consumer proof, complete
+integrated final review, push/create/attach a draft, then qualify its exact CI
+head and quiet feedback. The active verification container is source-bound to
+this worktree and must be stopped after final runtime verification.
 
-All three packed dependency cells pass native runtime validation and 14 browser
-cases under both Next bundlers. The default cell also passes mixed native/DS
-SSR under npm and pnpm. Package budgets and 704 theme assertions pass. A final
-visual correction keeps root Bubble reactions in flow above the message footer;
-it retains the primitive placement API and has geometry coverage. Reduced-motion
-and explicit scroll behavior checks pass with the browser media setting applied
-explicitly. Final captures and integrated review follow the frozen correction.
+Questionnaire starts only after chat qualification, on `rs/v5-questionnaire`.
+Its approved native form/ergonomic interfaces and second draft topology remain
+as specified above. No implementation or PR exists yet. Both drafts remain
+unmerged; consumer acceptance and integrated manual GA remain separate gates.

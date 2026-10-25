@@ -78,7 +78,18 @@ test('trace controlled disclosure and raw composition retain keyboard behavior',
   await toggle.focus()
   await page.keyboard.press('Enter')
   await expect(toggle).toHaveAttribute('aria-expanded', 'true')
-  await expect(page.locator('[data-test="trace-detail"]')).toBeVisible()
+  const detail = page.locator('[data-test="trace-detail"]')
+  await expect(detail).toBeVisible()
+  await expect
+    .poll(async () =>
+      detail.evaluate((el) => {
+        const content = el.closest('[data-slot="trace-collapsible-content"]')!
+        const outer = content.getBoundingClientRect()
+        const inner = el.getBoundingClientRect()
+        return outer.height > 0 && inner.bottom <= outer.bottom + 1
+      })
+    )
+    .toBe(true)
   await page.keyboard.press('Space')
   await expect(toggle).toHaveAttribute('aria-expanded', 'false')
   await expect(page.locator('[data-test="trace-error"]')).toHaveAttribute(
@@ -90,6 +101,30 @@ test('trace controlled disclosure and raw composition retain keyboard behavior',
     page.locator('[data-test="primitive-message"] [data-slot="bubble-content"]')
   ).toBeVisible()
   await expect(page.locator('[data-slot="attachment-action"]')).toBeVisible()
+})
+
+test('vertical attachment media and labels stay inside their cards', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  await gotoStory(page, 'chat-presentation--variants')
+  const cards = page.locator(
+    '[data-slot="attachment"][data-orientation="vertical"]'
+  )
+  for (const card of await cards.all()) {
+    const bounds = await card.boundingBox()
+    for (const part of ['attachment-media', 'attachment-title']) {
+      const child = await card.locator(`[data-slot="${part}"]`).boundingBox()
+      expect(child!.y).toBeGreaterThanOrEqual(bounds!.y)
+      expect(child!.y + child!.height).toBeLessThanOrEqual(
+        bounds!.y + bounds!.height
+      )
+    }
+    const media = await card
+      .locator('[data-slot="attachment-media"]')
+      .boundingBox()
+    expect(Math.abs(media!.width - media!.height)).toBeLessThan(1)
+  }
 })
 
 for (const theme of ['neutral', 'uzh'] as const) {
