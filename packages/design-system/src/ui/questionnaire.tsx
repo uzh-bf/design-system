@@ -175,7 +175,6 @@ function QuestionnaireActions({
 }
 
 function QuestionnairePrevious({
-  children,
   className,
   size = 'default',
   variant = 'outline',
@@ -193,14 +192,11 @@ function QuestionnairePrevious({
         className
       )}
       {...props}
-    >
-      {children ?? 'Previous'}
-    </QuestionnairePrimitive.Previous>
+    />
   )
 }
 
 function QuestionnaireSkip({
-  children,
   className,
   size = 'default',
   variant = 'outline',
@@ -218,14 +214,11 @@ function QuestionnaireSkip({
         className
       )}
       {...props}
-    >
-      {children ?? 'Skip'}
-    </QuestionnairePrimitive.Skip>
+    />
   )
 }
 
 function QuestionnaireNext({
-  children,
   className,
   size = 'default',
   variant = 'default',
@@ -243,14 +236,11 @@ function QuestionnaireNext({
         className
       )}
       {...props}
-    >
-      {children ?? 'Next'}
-    </QuestionnairePrimitive.Next>
+    />
   )
 }
 
 function QuestionnaireSubmit({
-  children,
   className,
   size = 'default',
   variant = 'default',
@@ -268,9 +258,7 @@ function QuestionnaireSubmit({
         className
       )}
       {...props}
-    >
-      {children ?? 'Submit'}
-    </QuestionnairePrimitive.Submit>
+    />
   )
 }
 
