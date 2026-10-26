@@ -55,15 +55,9 @@ const PACKAGES = {
   "policy-parent": {
     "1.0.0": { dependencies: { "policy-leaf": "1.0.1" } },
   },
-  "policy-under-exempt": {
-    "1.0.0": {},
-  },
-  "policy-unrelated": {
-    "1.0.0": {},
-  },
   "react-resizable-panels": {
     "4.14.7": {},
-    "4.14.8": { dependencies: { "policy-under-exempt": "1.0.0" } },
+    "4.14.8": { dependencies: { "policy-leaf": "1.0.1" } },
   },
 };
 
@@ -87,10 +81,9 @@ function isYoungPublication(name, version, currentMode) {
     (currentMode === "young-other-panels" &&
       name === "react-resizable-panels" &&
       version === "4.14.7") ||
-    (currentMode === "young-unrelated" && name === "policy-unrelated") ||
     (currentMode === "young-transitive" &&
       ((name === "react-resizable-panels" && version === "4.14.8") ||
-        name === "policy-under-exempt"))
+        (name === "policy-leaf" && version === "1.0.1")))
   );
 }
 
@@ -682,8 +675,8 @@ async function main() {
       await assertRejectedFreshAndFrozen(
         target,
         "unrelated-young",
-        { "policy-unrelated": "1.0.0" },
-        "young-unrelated",
+        { "policy-leaf": "1.0.1" },
+        "young",
       );
       await assertRejectedFreshAndFrozen(
         target,
@@ -723,14 +716,11 @@ async function main() {
       "--lockfile-only",
       "--ignore-scripts",
     ]);
-    const exemptMissingTimeAccepted = missingExemptTimeResult.code === 0;
-    if (!exemptMissingTimeAccepted) {
-      assertRejected(
-        "excluded package missing publication time gate",
-        missingExemptTimeResult,
-        /MISSING_TIME|publish.*time|missing.*time/i,
-      );
-    }
+    assertRejected(
+      "excluded package missing publication time gate",
+      missingExemptTimeResult,
+      /MISSING_TIME|publish.*time|missing.*time/i,
+    );
 
     const unknown = await createCase(
       rootTarget,
@@ -798,9 +788,7 @@ async function main() {
       "missing-time, unknown-setting, override, and build approval controls pass",
     );
     console.log(
-      exemptMissingTimeAccepted
-        ? "react-resizable-panels@4.14.8 missing publication time is accepted by pnpm's exact exemption; graph metadata proof remains required"
-        : "react-resizable-panels@4.14.8 missing publication time is rejected despite the exact exemption",
+      "react-resizable-panels@4.14.8 missing publication time is rejected despite the exact exemption",
     );
     console.log(
       `Verified pnpm ${EXPECTED_PNPM} policy across ${targets.length} workspace configs`,

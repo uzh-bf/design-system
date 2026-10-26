@@ -4,7 +4,7 @@ The historical Klicker pilot, RHF parity, selected GBL journey, supported Radix 
 
 ## Panels exception and current dependency package — October 26
 
-Exact `react-resizable-panels@4.14.8` has the user's explicit age exception. Continue pnpm 12.12.1 adoption in [draft #241](https://github.com/uzh-bf/design-system/pull/241) under the [amended execution plan](2026-10-26-v5-pnpm12-migration-plan.md). The fourteen-day rule remains strict for every other package and version. The earlier November 3 calendar hold is superseded; current graph, native-build, package/browser, review and CI qualification remain required. Advisory closure, manual accessibility and exact real-consumer acceptance remain GA gates.
+Exact `react-resizable-panels@4.14.8` has the user's explicit age exception. Continue pnpm 12.12.1 adoption in [draft #241](https://github.com/uzh-bf/design-system/pull/241) under the [amended execution plan](2026-10-26-v5-pnpm12-migration-plan.md). The fourteen-day rule remains strict for every other package and version. The earlier November 3 calendar hold is superseded; current graph, native-build, package/browser, review and CI qualification remain required. Advisory closure, manual accessibility and exact real-consumer acceptance remain GA gates. A reproducible native Recharts keyboard-tooltip resize defect is also open: both supported endpoints can retain a stale tooltip coordinate and overflow a compact viewport. The pre-migration graph reproduces it; immediate green viewport assertions do not close this finding.
 
 ## Identity and status
 

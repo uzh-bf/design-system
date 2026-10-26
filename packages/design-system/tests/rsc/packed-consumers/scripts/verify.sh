@@ -94,6 +94,7 @@ delete manifest.packageManager
 fs.writeFileSync(process.argv[3], JSON.stringify(manifest))
 NODE
   npm --prefix "$npm_fixture" install --ignore-scripts --no-audit --no-fund
+  node "$fixture_dir/scripts/assert-installed-dependencies.mjs" release-age "$npm_fixture/package-lock.json"
   for native_fixture in "$run_fixture/consumers/root-only" "$npm_fixture"; do
     node --input-type=module - "$native_fixture" <<'NODE'
 import assert from 'node:assert/strict'
