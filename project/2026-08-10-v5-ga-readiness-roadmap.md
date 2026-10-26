@@ -305,7 +305,9 @@ dependency, lockfile, stack topology or consumer repository.
    deprecated tools. Name security fixes that conflict with the 14-day cutoff.
 2. **Coordinated eligible dependency graph.** Enforce and verify
    `minimumReleaseAge: 20160` for direct/transitive selections in root and all 8
-   isolated fixture locks. Preserve minimum
+   isolated fixture locks. A coordinated pnpm11 migration is needed for strict
+   frozen-lock validation; a root pnpm10 setting alone does not clear that gate.
+   Preserve minimum
    RHF/Recharts cells and ADR0010's exact shared Panels contract. A current pin's
    maturity date does not authorize a downgrade or a blanket exception.
 3. **Consumer peer reconciliation and exact archive acceptance.** Resolve chart,
