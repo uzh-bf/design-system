@@ -294,7 +294,9 @@ const TimePeriodSelect = React.forwardRef<
         <Select
           value={period}
           disabled={disabled}
-          onValueChange={(value: Period) => handleValueChange(value)}
+          onValueChange={(value) => {
+            if (value === 'AM' || value === 'PM') handleValueChange(value)
+          }}
         >
           <SelectTrigger
             ref={ref}

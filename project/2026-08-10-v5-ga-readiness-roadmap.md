@@ -2,6 +2,10 @@
 
 The historical Klicker pilot, RHF parity, selected GBL journey, supported Radix components and auxiliaries, Recharts 3 and representative compositions qualify at their recorded draft boundaries. GA remains blocked by dependency advisories and release-age compliance, integrated candidate consumer acceptance, manual qualification and promotion reconciliation. The older qualification layer retains a browser-install CI failure. GBL and Klicker remain unmerged by user ruling.
 
+## Panels exception and current dependency package — October 26
+
+Exact `react-resizable-panels@4.14.8` has the user's explicit age exception. Continue pnpm 12.12.1 adoption in [draft #241](https://github.com/uzh-bf/design-system/pull/241) under the [amended execution plan](2026-10-26-v5-pnpm12-migration-plan.md). The fourteen-day rule remains strict for every other package and version. The earlier November 3 calendar hold is superseded; current graph, native-build, package/browser, review and CI qualification remain required. Advisory closure, manual accessibility and exact real-consumer acceptance remain GA gates.
+
 ## Identity and status
 
 - Date: 2026-08-10; current execution index refreshed 2026-10-26

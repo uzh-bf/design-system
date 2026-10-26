@@ -24,7 +24,7 @@ for the full upgrade guide, including new exports, props, and variants.
 ## Prerequisites
 
 - Node.js version 22 (as specified in the project configuration)
-- pnpm 10.30.0+ (recommended) or npm
+- pnpm 12.12.1 for repository development (npm remains supported for consuming the published package)
 
 ## Local Development
 

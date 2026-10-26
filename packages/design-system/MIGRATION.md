@@ -798,6 +798,7 @@ hatch for the largest cases.
 
 ### Also changed in this release
 
+- **Repository development uses pnpm 12.12.1.** The root and isolated consumer fixtures enforce a fourteen-day publication window during resolution and frozen installs. Only exact `react-resizable-panels@4.14.8` has an approved age exception, preserving its native selector behavior. This does not waive advisory or consumer compatibility checks. Public peer ranges and component prop interfaces remain unchanged.
 - **Empty modal footers no longer render.** A `Modal` with neither
   `onPrimaryAction` nor `onSecondaryAction` previously drew the footer's top
   divider above empty space; it now renders no footer at all.

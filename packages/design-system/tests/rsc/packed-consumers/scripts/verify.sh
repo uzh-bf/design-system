@@ -84,6 +84,10 @@ manifest.overrides = {
   'es-toolkit': '1.52.0',
   'unist-util-visit': '5.1.0',
   'unist-util-visit-parents': '6.0.2',
+  '@shikijs/vscode-textmate': '10.0.2',
+  immer: '11.1.21',
+  postcss: '8.5.29',
+  'source-map-js': '1.2.2',
 }
 delete manifest.devDependencies
 delete manifest.packageManager

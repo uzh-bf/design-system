@@ -36,6 +36,10 @@ The integrated Opus review requested one migration-note correction documenting d
 
 These are roadmap recommendations, not approved version changes. Work that can be investigated independently may overlap; executable batches still need concrete reviewed plans. Do not reopen the completed RHF, component or composition implementations merely to repeat unchanged proof.
 
+## Panels exception and pnpm 12 adoption — October 26
+
+The user approved an exact age exception for `react-resizable-panels@4.14.8`, superseding the calendar hold. The existing [draft #241](https://github.com/uzh-bf/design-system/pull/241) now carries coordinated pnpm 12.12.1 source adoption. All four effective workspaces retain strict 20160-minute enforcement, missing-date rejection and untrusted-lock verification, with only that exact exclusion. Native re-resolution preserves mature baseline records and avoids unrelated updates; all nine generated locks include pnpm's manager/platform document. Full graph, native-build, package, browser, review and hosted-CI qualification is in progress. Existing advisory, manual accessibility and real-consumer gates remain separate. This exception conveys no advisory clearance.
+
 ## Approved pnpm12 preparation — October26
 
 The [reviewed migration plan](2026-10-26-v5-pnpm12-migration-plan.md) selects exact pnpm12.12.1 and mature same-major candidates. Actual native CLI/configuration, synthetic age rejection and copied frozen-lock rejection are verified in the [qualification record](2026-10-26-v5-pnpm12-qualification-plan.md). The user approved preparation while retaining Panels4.14.8 and its independent native `id`/`data-testid` behavior. Older4.14.4 preserves our `data-test`, but changes that upstream behavior and is rejected.

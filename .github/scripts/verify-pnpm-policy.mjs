@@ -17,6 +17,11 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const EXPECTED_PNPM = "12.12.1";
+const AGE_EXCLUSION_KEY = "minimumReleaseAgeExclude";
+const AGE_EXCLUSION_VERSION = "4.14.8";
+const AGE_EXCLUSION_ENTRY = `react-resizable-panels@${AGE_EXCLUSION_VERSION}`;
+const PUBLICATION_METADATA_URL =
+  "https://registry.npmjs.org/react-resizable-panels";
 const POLICY = new Map([
   ["minimumReleaseAge", "20160"],
   ["minimumReleaseAgeStrict", "true"],
@@ -50,6 +55,16 @@ const PACKAGES = {
   "policy-parent": {
     "1.0.0": { dependencies: { "policy-leaf": "1.0.1" } },
   },
+  "policy-under-exempt": {
+    "1.0.0": {},
+  },
+  "policy-unrelated": {
+    "1.0.0": {},
+  },
+  "react-resizable-panels": {
+    "4.14.7": {},
+    "4.14.8": { dependencies: { "policy-under-exempt": "1.0.0" } },
+  },
 };
 
 const scriptRoot = path.resolve(
@@ -58,6 +73,26 @@ const scriptRoot = path.resolve(
 );
 const oldTime = new Date(Date.now() - 31 * 24 * 60 * 60 * 1000).toISOString();
 const youngTime = new Date(Date.now() - 60 * 60 * 1000).toISOString();
+const AGE_ERROR_PATTERN =
+  /MINIMUM_RELEASE_AGE|minimum.*release.*age|too young|recently published/i;
+
+function isYoungPublication(name, version, currentMode) {
+  return (
+    (currentMode === "young" &&
+      name === "policy-leaf" &&
+      version === "1.0.1") ||
+    (currentMode === "young-exempt" &&
+      name === "react-resizable-panels" &&
+      version === "4.14.8") ||
+    (currentMode === "young-other-panels" &&
+      name === "react-resizable-panels" &&
+      version === "4.14.7") ||
+    (currentMode === "young-unrelated" && name === "policy-unrelated") ||
+    (currentMode === "young-transitive" &&
+      ((name === "react-resizable-panels" && version === "4.14.8") ||
+        name === "policy-under-exempt"))
+  );
+}
 
 class UsageError extends Error {}
 
@@ -101,6 +136,7 @@ function policyErrors(text, label) {
     }
 
     const [, key, rawValue = ""] = match;
+    if (key === AGE_EXCLUSION_KEY) continue;
     if (!POLICY.has(key)) {
       if (!NON_POLICY_KEYS.has(key))
         errors.push(`${label}: unknown top-level setting ${key}`);
@@ -121,6 +157,51 @@ function policyErrors(text, label) {
 
   for (const key of POLICY.keys()) {
     if (!values.has(key)) errors.push(`${label}: missing setting ${key}`);
+  }
+
+  const lines = text.split(/\r?\n/);
+  const exclusionKeys = [];
+  for (const [index, line] of lines.entries()) {
+    if (/^\s/.test(line)) continue;
+    const match = /^([A-Za-z][A-Za-z0-9]*):(?:[ \t]*(.*))?$/.exec(line);
+    if (!match || match[1] !== AGE_EXCLUSION_KEY) continue;
+    exclusionKeys.push(index);
+    if ((match[2] ?? "").trim()) {
+      errors.push(
+        `${label}:${index + 1}: ${AGE_EXCLUSION_KEY} must use a block sequence`,
+      );
+      continue;
+    }
+
+    const entries = [];
+    for (let next = index + 1; next < lines.length; next += 1) {
+      const itemLine = lines[next];
+      if (!itemLine.trim() || itemLine.trimStart().startsWith("#")) continue;
+      if (!/^\s/.test(itemLine)) break;
+      const item = /^ +-(?: +(.*))?$/.exec(itemLine);
+      if (!item) {
+        errors.push(
+          `${label}:${next + 1}: ${AGE_EXCLUSION_KEY} must contain only block sequence entries`,
+        );
+        continue;
+      }
+      entries.push((item[1] ?? "").trim());
+    }
+
+    if (entries.length !== 1) {
+      errors.push(
+        `${label}:${index + 1}: ${AGE_EXCLUSION_KEY} must contain exactly one entry, received ${entries.length}`,
+      );
+    } else if (entries[0] !== AGE_EXCLUSION_ENTRY) {
+      errors.push(
+        `${label}:${index + 1}: ${AGE_EXCLUSION_KEY} entry must be exactly ${AGE_EXCLUSION_ENTRY}, received ${entries[0] || "an empty entry"}`,
+      );
+    }
+  }
+  if (exclusionKeys.length !== 1) {
+    errors.push(
+      `${label}: ${AGE_EXCLUSION_KEY} must be defined exactly once, received ${exclusionKeys.length}`,
+    );
   }
   return errors;
 }
@@ -210,6 +291,59 @@ function assertRejected(label, result, pattern) {
   }
 }
 
+async function verifyExactExemptionPublication() {
+  let response;
+  try {
+    response = await fetch(PUBLICATION_METADATA_URL, {
+      headers: { accept: "application/json" },
+      signal: AbortSignal.timeout(10000),
+    });
+  } catch (error) {
+    throw new Error(
+      `cannot fetch publication metadata for ${AGE_EXCLUSION_ENTRY}: ${boundedOutput(error.message)}`,
+    );
+  }
+  if (!response.ok) {
+    throw new Error(
+      `cannot fetch publication metadata for ${AGE_EXCLUSION_ENTRY}: HTTP ${response.status}`,
+    );
+  }
+
+  let metadata;
+  try {
+    metadata = await response.json();
+  } catch (error) {
+    throw new Error(
+      `invalid publication metadata for ${AGE_EXCLUSION_ENTRY}: ${boundedOutput(error.message)}`,
+    );
+  }
+  const versions = metadata?.versions;
+  if (
+    !versions ||
+    typeof versions !== "object" ||
+    !Object.hasOwn(versions, AGE_EXCLUSION_VERSION)
+  ) {
+    throw new Error(`publication metadata is missing ${AGE_EXCLUSION_ENTRY}`);
+  }
+
+  const publishedAt = metadata?.time?.[AGE_EXCLUSION_VERSION];
+  const publishedTime =
+    typeof publishedAt === "string" ? Date.parse(publishedAt) : Number.NaN;
+  if (!Number.isFinite(publishedTime)) {
+    throw new Error(
+      `publication metadata has no valid time for ${AGE_EXCLUSION_ENTRY}`,
+    );
+  }
+  if (publishedTime > Date.now()) {
+    throw new Error(
+      `publication metadata has a future time for ${AGE_EXCLUSION_ENTRY}: ${publishedAt}`,
+    );
+  }
+  console.log(
+    `Verified publication metadata for ${AGE_EXCLUSION_ENTRY}: ${publishedAt}`,
+  );
+}
+
 async function exists(file) {
   try {
     await access(file);
@@ -256,6 +390,8 @@ async function main() {
       `selected pnpm executable is ${version}; expected ${EXPECTED_PNPM}`,
     );
   }
+
+  await verifyExactExemptionPublication();
 
   const work = await mkdtemp(path.join(tmpdir(), "design-system-pnpm-policy."));
   let server;
@@ -339,10 +475,9 @@ async function main() {
         const times = { created: oldTime };
         for (const [version, fields] of Object.entries(PACKAGES[name])) {
           const data = tarballs.get(`${name}@${version}`);
-          const publishedAt =
-            mode === "young" && name === "policy-leaf" && version === "1.0.1"
-              ? youngTime
-              : oldTime;
+          const publishedAt = isYoungPublication(name, version, mode)
+            ? youngTime
+            : oldTime;
           times[version] = publishedAt;
           versions[version] = {
             name,
@@ -366,7 +501,11 @@ async function main() {
             name,
             "dist-tags": { latest: versionNames.sort().at(-1) },
             versions,
-            ...(mode === "missing-time" ? {} : { time: times }),
+            ...(mode === "missing-time" ||
+            (mode === "missing-time-exempt" &&
+              name === "react-resizable-panels")
+              ? {}
+              : { time: times }),
           }),
         );
       } catch {
@@ -425,6 +564,49 @@ async function main() {
       return result;
     }
 
+    async function assertRejectedFreshAndFrozen(
+      target,
+      label,
+      dependencies,
+      youngMode,
+    ) {
+      const fresh = await createCase(target, `${label}-fresh`, dependencies);
+      mode = youngMode;
+      const freshResult = await runPnpm(fresh, [
+        "install",
+        "--lockfile-only",
+        "--ignore-scripts",
+      ]);
+      assertRejected(
+        `${target.label} ${label} fresh age gate`,
+        freshResult,
+        AGE_ERROR_PATTERN,
+      );
+
+      const frozen = await createCase(target, `${label}-frozen`, dependencies);
+      mode = "old";
+      const lockResult = await runPnpm(frozen, [
+        "install",
+        "--lockfile-only",
+        "--ignore-scripts",
+      ]);
+      assertSuccess(
+        `${target.label} ${label} mature lock creation`,
+        lockResult,
+      );
+      mode = youngMode;
+      const frozenResult = await runPnpm(frozen, [
+        "install",
+        "--frozen-lockfile",
+        "--ignore-scripts",
+      ]);
+      assertRejected(
+        `${target.label} ${label} frozen age gate`,
+        frozenResult,
+        AGE_ERROR_PATTERN,
+      );
+    }
+
     for (const target of targets) {
       mode = "old";
       const positive = await createCase(target, "positive", {
@@ -464,11 +646,53 @@ async function main() {
         assertRejected(
           `${target.label} ${kind} frozen age gate`,
           result,
-          /MINIMUM_RELEASE_AGE|minimum.*release.*age|too young|recently published/i,
+          AGE_ERROR_PATTERN,
         );
       }
+
+      mode = "young-exempt";
+      const exempt = await createCase(target, "young-exempt", {
+        "react-resizable-panels": "4.14.8",
+      });
+      result = await runPnpm(exempt, [
+        "install",
+        "--lockfile-only",
+        "--ignore-scripts",
+      ]);
+      assertSuccess(
+        `${target.label} exact young exemption fresh install`,
+        result,
+      );
+      result = await runPnpm(exempt, [
+        "install",
+        "--frozen-lockfile",
+        "--ignore-scripts",
+      ]);
+      assertSuccess(
+        `${target.label} exact young exemption frozen install`,
+        result,
+      );
+
+      await assertRejectedFreshAndFrozen(
+        target,
+        "other-panels-version",
+        { "react-resizable-panels": "4.14.7" },
+        "young-other-panels",
+      );
+      await assertRejectedFreshAndFrozen(
+        target,
+        "unrelated-young",
+        { "policy-unrelated": "1.0.0" },
+        "young-unrelated",
+      );
+      await assertRejectedFreshAndFrozen(
+        target,
+        "young-under-exempt",
+        { "react-resizable-panels": "4.14.8" },
+        "young-transitive",
+      );
       console.log(
-        `${target.label}: mature frozen install and direct/transitive age gates pass`,
+        `${target.label}: mature, exact exemption, and direct/transitive age gates pass`,
       );
     }
 
@@ -487,6 +711,26 @@ async function main() {
       missingTimeResult,
       /MISSING_TIME|publish.*time|missing.*time/i,
     );
+
+    mode = "missing-time-exempt";
+    const missingExemptTime = await createCase(
+      rootTarget,
+      "missing-time-exempt",
+      { "react-resizable-panels": "4.14.8" },
+    );
+    const missingExemptTimeResult = await runPnpm(missingExemptTime, [
+      "install",
+      "--lockfile-only",
+      "--ignore-scripts",
+    ]);
+    const exemptMissingTimeAccepted = missingExemptTimeResult.code === 0;
+    if (!exemptMissingTimeAccepted) {
+      assertRejected(
+        "excluded package missing publication time gate",
+        missingExemptTimeResult,
+        /MISSING_TIME|publish.*time|missing.*time/i,
+      );
+    }
 
     const unknown = await createCase(
       rootTarget,
@@ -552,6 +796,11 @@ async function main() {
 
     console.log(
       "missing-time, unknown-setting, override, and build approval controls pass",
+    );
+    console.log(
+      exemptMissingTimeAccepted
+        ? "react-resizable-panels@4.14.8 missing publication time is accepted by pnpm's exact exemption; graph metadata proof remains required"
+        : "react-resizable-panels@4.14.8 missing publication time is rejected despite the exact exemption",
     );
     console.log(
       `Verified pnpm ${EXPECTED_PNPM} policy across ${targets.length} workspace configs`,
