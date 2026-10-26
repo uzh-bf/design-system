@@ -80,20 +80,18 @@ import fs from 'node:fs'
 const manifest = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'))
 manifest.name = 'packed-native-context'
 manifest.dependencies['@uzh-bf/design-system'] = '../packed-consumers/.artifacts/design-system.tgz'
-manifest.overrides = {
-  'es-toolkit': '1.52.0',
-  'unist-util-visit': '5.1.0',
-  'unist-util-visit-parents': '6.0.2',
-  '@shikijs/vscode-textmate': '10.0.2',
-  immer: '11.1.21',
-  postcss: '8.5.29',
-  'source-map-js': '1.2.2',
-}
+const panelsArtifact =
+  'https://registry.npmjs.org/react-resizable-panels/-/react-resizable-panels-4.14.8.tgz'
+// The date cutoff filters exact version ranges too. Retain this native runtime
+// through its exact registry artifact; the closure check still validates its date.
+manifest.dependencies['react-resizable-panels'] = panelsArtifact
+manifest.overrides = { 'react-resizable-panels@4.14.8': panelsArtifact }
 delete manifest.devDependencies
 delete manifest.packageManager
 fs.writeFileSync(process.argv[3], JSON.stringify(manifest))
 NODE
-  npm --prefix "$npm_fixture" install --ignore-scripts --no-audit --no-fund
+  npm_before=$(node -e 'process.stdout.write(new Date(Date.now() - 20160 * 60 * 1000).toISOString())')
+  npm --prefix "$npm_fixture" install --before "$npm_before" --ignore-scripts --no-audit --no-fund
   node "$fixture_dir/scripts/assert-installed-dependencies.mjs" release-age "$npm_fixture/package-lock.json"
   for native_fixture in "$run_fixture/consumers/root-only" "$npm_fixture"; do
     node --input-type=module - "$native_fixture" <<'NODE'
