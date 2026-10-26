@@ -20,11 +20,13 @@ with auxiliaries, current UZH alignment and integrated/manual qualification.
 The dated audits and completed plan scopes below remain historical evidence.
 
 The [remaining sequence](2026-08-10-v5-ga-readiness-roadmap.md#next-implementation-packages)
-starts with Shared APIs/Calendar after [ADR0008](../docs/adr/0008-radix-compatible-shadcn-scope.md)
-settled the retained Combobox recipe and backend exclusions. Static composition
-accounting retains excluded portions and eligible gaps. Shared APIs/Calendar,
-layout/toast and messaging/code packages must carry the supported
-theme, focus, locale and reduced-motion contracts through their new surfaces.
+now begins with dependency/advisory and consumer-peer reconciliation under the
+[October26 review](2026-10-26-v5-dependency-compatibility-review.md), including the
+14-day cutoff and all frozen fixture locks. Shared APIs/Calendar, layout/toast,
+messaging/code and representative compositions qualify at their recorded draft
+boundaries. [ADR0008](../docs/adr/0008-radix-compatible-shadcn-scope.md) retains the
+official Radix Combobox recipe and backend exclusions. Preserve theme, focus,
+locale and reduced-motion contracts through dependency changes.
 Existing ADR0005 adaptations remain authoritative. Complete official-rule
 traceability and integrated/manual consumer proof before any GA alignment claim;
 the package's source qualification is not institutional CD certification.
@@ -41,10 +43,11 @@ release index still lists2.11.0 and its CSS matches the October23 source receipt
 The quality package closes picker error-state contrast and records per-rule
 traceability in [draft #237](https://github.com/uzh-bf/design-system/pull/237) at
 `059844953`, with passing hosted CI and independent review. Representative
-compositions are implemented with local browser evidence under the
-[composition plan](2026-10-25-v5-composition-qualification-plan.md); their final
-draft qualification, manual AT/Safari/device and exact integrated consumer
-acceptance remain open. This source checkpoint grants no institutional CD certification.
+compositions qualify in [draft #239](https://github.com/uzh-bf/design-system/pull/239)
+at `1eeeca318` under the [composition plan](2026-10-25-v5-composition-qualification-plan.md).
+Manual AT/Safari/device and exact integrated consumer acceptance remain open.
+The October26 dependency review changes no UZH tokens or official-rule acceptance;
+this source checkpoint grants no institutional CD certification.
 
 ## Official styleguide review — 2026-10-23
 

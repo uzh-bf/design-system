@@ -60,6 +60,14 @@ Reuse the source-owned verification container only for needed checks. Verify exa
 
 ## Progress
 
+Current checkpoint (October26): [draft #239](https://github.com/uzh-bf/design-system/pull/239)
+qualified at `1eeeca318`, including the final Opus correction pass, exact-head CI
+and quiet feedback settle. The source runtime was stopped. The source package is
+complete; older next-action paragraphs below are historical execution receipts.
+The [dependency/consumer review](2026-10-26-v5-dependency-compatibility-review.md)
+owns subsequent maturity/advisory and consumer-peer planning; no new source work
+or runtime resume is implied by this roadmap follow-up.
+
 The quality layer [#237](https://github.com/uzh-bf/design-system/pull/237) qualifies at `059844953`. Its 737 contract/smoke checks, independent reviews, exact archive proof and hosted CI remain valid for that boundary. The reviewed composition plan was committed before implementation; the planner approved the third challenge round. The story executor handed its bounded patch back to main, which owns tests, integration and delivery.
 
 The four public-entry stories are implemented in [draft #239](https://github.com/uzh-bf/design-system/pull/239), above the held quality layer in native stack 238. Ladle contains 530 stories. The finite assessment accounts for all 67 registry examples, 30 official block IDs and 21 AI patterns without claiming execution of every original identity. Consumers own their application assemblies.

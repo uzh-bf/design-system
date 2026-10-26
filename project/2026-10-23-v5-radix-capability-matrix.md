@@ -375,6 +375,15 @@ Synthetic scripts suffice; no paid AI requests are needed for compatibility.
 
 ## Dependency ownership and proposed version boundary
 
+The [October26 complete dependency review](2026-10-26-v5-dependency-compatibility-review.md)
+now owns current versions, the 14-day publication cutoff, all 9 lockfile advisory
+matches, consumer peer gaps and toolchain compatibility. The table below retains
+its dated source/implementation comparison; its registry-latest column is not an
+age-eligible installation recommendation. Native `@shadcn/react` 0.3.1, Recharts
+3.10.1 and RHF's current 7.90.0 cell are mature; Panels 4.14.8 and several Radix
+patches require explicit maturity disposition. Preserve the pinned source scope
+and existing ergonomic props while evaluating dependency changes.
+
 The live npm metadata read on2026-10-23 is an availability check, not tested
 compatibility. The inventory package did not change locks/versions. Recharts and Direction are
 now implemented and qualified below; remaining proposals require their own
