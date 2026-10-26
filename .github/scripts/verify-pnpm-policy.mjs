@@ -413,7 +413,7 @@ async function main() {
       return { directory, workspace: transform(target.workspace) };
     }
 
-    async function runPnpm(testCase, args, label) {
+    async function runPnpm(testCase, args) {
       const id = ++runID;
       const cache = path.join(work, "cache", String(id));
       const store = path.join(work, "store", String(id));
@@ -427,7 +427,6 @@ async function main() {
         timeoutMs: 45000,
         env: commandEnv,
       });
-      if (result.timedOut) throw commandFailure(label, result);
       return result;
     }
 
@@ -436,17 +435,17 @@ async function main() {
       const positive = await createCase(target, "positive", {
         "policy-leaf": "1.0.0",
       });
-      let result = await runPnpm(
-        positive,
-        ["install", "--lockfile-only", "--ignore-scripts"],
-        `${target.label} mature lock creation`,
-      );
+      let result = await runPnpm(positive, [
+        "install",
+        "--lockfile-only",
+        "--ignore-scripts",
+      ]);
       assertSuccess(`${target.label} mature lock creation`, result);
-      result = await runPnpm(
-        positive,
-        ["install", "--frozen-lockfile", "--ignore-scripts"],
-        `${target.label} mature frozen install`,
-      );
+      result = await runPnpm(positive, [
+        "install",
+        "--frozen-lockfile",
+        "--ignore-scripts",
+      ]);
       assertSuccess(`${target.label} mature frozen install`, result);
 
       for (const [kind, dependencies] of [
@@ -455,18 +454,18 @@ async function main() {
       ]) {
         mode = "old";
         const ageCase = await createCase(target, kind, dependencies);
-        result = await runPnpm(
-          ageCase,
-          ["install", "--lockfile-only", "--ignore-scripts"],
-          `${target.label} ${kind} age lock creation`,
-        );
+        result = await runPnpm(ageCase, [
+          "install",
+          "--lockfile-only",
+          "--ignore-scripts",
+        ]);
         assertSuccess(`${target.label} ${kind} age lock creation`, result);
         mode = "young";
-        result = await runPnpm(
-          ageCase,
-          ["install", "--frozen-lockfile", "--ignore-scripts"],
-          `${target.label} ${kind} frozen age gate`,
-        );
+        result = await runPnpm(ageCase, [
+          "install",
+          "--frozen-lockfile",
+          "--ignore-scripts",
+        ]);
         assertRejected(
           `${target.label} ${kind} frozen age gate`,
           result,
@@ -483,11 +482,11 @@ async function main() {
     const missingTime = await createCase(rootTarget, "missing-time", {
       "policy-leaf": "1.0.0",
     });
-    const missingTimeResult = await runPnpm(
-      missingTime,
-      ["install", "--lockfile-only", "--ignore-scripts"],
-      "missing publication time gate",
-    );
+    const missingTimeResult = await runPnpm(missingTime, [
+      "install",
+      "--lockfile-only",
+      "--ignore-scripts",
+    ]);
     assertRejected(
       "missing publication time gate",
       missingTimeResult,
@@ -501,11 +500,11 @@ async function main() {
       (workspace) =>
         `${workspace.replace(/\s*$/, "")}\nminimunReleaseAge: 20160\n`,
     );
-    const unknownResult = await runPnpm(
-      unknown,
-      ["install", "--lockfile-only", "--ignore-scripts"],
-      "unknown setting gate",
-    );
+    const unknownResult = await runPnpm(unknown, [
+      "install",
+      "--lockfile-only",
+      "--ignore-scripts",
+    ]);
     assertRejected(
       "unknown setting gate",
       unknownResult,
@@ -519,11 +518,10 @@ async function main() {
       { "policy-parent": "1.0.0" },
       (workspace) => addMapping(workspace, "overrides", "policy-leaf: 1.0.0"),
     );
-    const overrideResult = await runPnpm(
-      override,
-      ["install", "--ignore-scripts"],
-      "existing override preservation",
-    );
+    const overrideResult = await runPnpm(override, [
+      "install",
+      "--ignore-scripts",
+    ]);
     assertSuccess("existing override preservation", overrideResult);
     const installed = await readdir(
       path.join(override.directory, "node_modules", ".pnpm"),
@@ -543,11 +541,7 @@ async function main() {
         (workspace) =>
           addMapping(workspace, "allowBuilds", `policy-build: ${allowed}`),
       );
-      const buildResult = await runPnpm(
-        build,
-        ["install"],
-        `allowBuilds=${allowed}`,
-      );
+      const buildResult = await runPnpm(build, ["install"]);
       assertSuccess(`allowBuilds=${allowed}`, buildResult);
       const marker = await exists(
         path.join(

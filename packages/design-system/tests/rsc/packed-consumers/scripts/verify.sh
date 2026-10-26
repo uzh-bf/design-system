@@ -2,6 +2,24 @@
 
 set -eu
 
+assert_pnpm_version() {
+  expected_pnpm_version=$(
+    node --input-type=module -e '
+      import fs from "node:fs";
+      const value = JSON.parse(fs.readFileSync("package.json", "utf8")).packageManager;
+      if (typeof value !== "string" || !/^pnpm@\d+\.\d+\.\d+$/.test(value)) {
+        throw new Error("staged packageManager must be an exact pnpm version");
+      }
+      process.stdout.write(value.slice(5));
+    '
+  )
+  actual_pnpm_version=$(pnpm --version)
+  if test "$actual_pnpm_version" != "$expected_pnpm_version"; then
+    echo "expected pnpm $expected_pnpm_version from staged package.json; got $actual_pnpm_version" >&2
+    exit 1
+  fi
+}
+
 fixture_dir=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
 package_dir=$(CDPATH= cd -- "$fixture_dir/../../.." && pwd)
 run_root=$(mktemp -d "${TMPDIR:-/tmp}/design-system-packed.XXXXXX")
@@ -31,21 +49,7 @@ node "$fixture_dir/../prepare-packed-artifact.mjs" \
 
 (
   cd "$run_fixture/consumers/root-only"
-  expected_pnpm_version=$(
-    node --input-type=module -e '
-      import fs from "node:fs";
-      const value = JSON.parse(fs.readFileSync("package.json", "utf8")).packageManager;
-      if (typeof value !== "string" || !/^pnpm@\d+\.\d+\.\d+$/.test(value)) {
-        throw new Error("staged packageManager must be an exact pnpm version");
-      }
-      process.stdout.write(value.slice(5));
-    '
-  )
-  actual_pnpm_version=$(pnpm --version)
-  if test "$actual_pnpm_version" != "$expected_pnpm_version"; then
-    echo "expected pnpm $expected_pnpm_version from staged package.json; got $actual_pnpm_version" >&2
-    exit 1
-  fi
+  assert_pnpm_version
   pnpm install --frozen-lockfile
   node "$fixture_dir/scripts/assert-installed-dependencies.mjs" "$run_fixture/consumers/root-only"
   pnpm exec tsc -p tsconfig.json
@@ -59,21 +63,7 @@ node "$fixture_dir/../prepare-packed-artifact.mjs" \
 
 (
   cd "$run_fixture/consumers/dedicated"
-  expected_pnpm_version=$(
-    node --input-type=module -e '
-      import fs from "node:fs";
-      const value = JSON.parse(fs.readFileSync("package.json", "utf8")).packageManager;
-      if (typeof value !== "string" || !/^pnpm@\d+\.\d+\.\d+$/.test(value)) {
-        throw new Error("staged packageManager must be an exact pnpm version");
-      }
-      process.stdout.write(value.slice(5));
-    '
-  )
-  actual_pnpm_version=$(pnpm --version)
-  if test "$actual_pnpm_version" != "$expected_pnpm_version"; then
-    echo "expected pnpm $expected_pnpm_version from staged package.json; got $actual_pnpm_version" >&2
-    exit 1
-  fi
+  assert_pnpm_version
   pnpm install --frozen-lockfile
   node "$fixture_dir/../rhf-matrix.mjs" assert-installed "$run_fixture/consumers/dedicated"
   node "$fixture_dir/scripts/assert-installed-dependencies.mjs" "$run_fixture/consumers/dedicated"
