@@ -1,6 +1,18 @@
 # pnpm 12 and a mature dependency graph
 
-## Approval summary
+## Approved Panels age exception — October 26
+
+The user explicitly instructed: “make an exception for panels then so we can proceed.” This supersedes the preparation-only calendar hold and no-age-waiver instructions below for exactly `react-resizable-panels@4.14.8`. Resume the coordinated pnpm 12.12.1 migration in the existing [draft #241](https://github.com/uzh-bf/design-system/pull/241), preserving its base and all lower stack heads. Earlier preparation restrictions remain historical evidence where superseded here.
+
+Use one exact `minimumReleaseAgeExclude` entry in each of the four effective workspaces. Keep `minimumReleaseAge: 20160`, strict resolution, missing-date rejection and `trustLockfile: false`; no package-only selector, range, wildcard or other exception is approved. The exception changes only release-age eligibility for this exact pair. Native selector behavior, ADR0010, public props, Radix, RHF/Formik, dependency selections and remaining advisory gates retain their existing contracts.
+
+Acceptance requires all nine frozen locks and the fresh npm closure to satisfy the age rule except this exact pair. Verify publication dates before applying the exception; missing, invalid or future dates still fail. Extend the existing verifier to validate exclusion contents and exercise fresh/frozen success, neighboring-version rejection, unrelated young-package rejection and young transitive rejection beneath exempt Panels. If pnpm bypasses missing-date validation for exempt packages, independent graph metadata verification must close that gap before qualification.
+
+Main owns graph, manifests, CI, runtime and integration; one bounded executor owns the existing policy verifier. The independent planner reviewed this delta and its three findings are incorporated: exact exclusion validation, exception-boundary controls and explicit continuation authority. Standard execution mode and the original full-path verification/review requirements apply. First useful acceptance is actual pnpm 12.12.1 resolving the copied real graph under these settings; no further prerequisite is added without a demonstrated connection to that result.
+
+Terminal: update and qualify the same draft with exact migrated graph/archive evidence, native builds, browser matrices, configured final review and hosted CI. No new stack layer or native goal. No new monitoring automation, merge, readiness, release/publication, deployment, consumer writes or provider/agent changes are authorized. A blocking supported CI observer may complete the draft qualification; scheduling any later wakeup remains separate.
+
+## Approval summary (historical preparation ruling)
 
 Move the design-system root, CI and isolated consumer fixtures to exact pnpm 12.12.1. Enforce the fourteen-day publication window during resolution and frozen installation, including transitive and platform packages. Requalify mature same-major alternatives instead of waiting for the whole current graph to age. Deliver one proposed fifth draft layer above dependency cleanup #240, with the package manager, configuration, dependency graph and verification in the same layer.
 
@@ -217,6 +229,10 @@ These are selected registry candidates, not a promise that a generated graph wil
 | `webpack`                              | 5.112.0      | 5.111.1                                                       |
 
 ## Progress
+
+Current continuation: the preparation draft qualified at `a3a6b8877` after hosted CI and quiet settle; its sole heartbeat was deleted. The new direct Panels exception instruction resumes steps 2–4 under the exact exception above. Main has refreshed refs; task has no configured upstream, matches its published head, is 208 ahead/0 behind v5 and 392 ahead/3 behind main. Live immediate base remains `rs/v5-dependency-pruning@252f966f5`; no integration blocker exists. Root outcome is coordinated pnpm 12 with the fourteen-day rule and preserved component contracts. Next action: resolve the real copied graph and verify the exact exception before activating tracked manifests/configs/locks.
+
+Historical preparation evidence:
 
 Preparation is implemented on `rs/v5-pnpm12-policy` above held #240. Plan-first commit `7ad30d137` records the approved preparation alternative; `6344b2302` adds the policy/executable-version/selector checks, with simplification in `a2b36717f`. No active package-manager pin, dependency, workspace configuration, lock, workflow or Vercel command changes. ADR0010 and exact Panels4.14.8 remain binding.
 
