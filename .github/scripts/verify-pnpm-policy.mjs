@@ -23,12 +23,7 @@ const POLICY = new Map([
   ["minimumReleaseAgeIgnoreMissingTime", "false"],
   ["trustLockfile", "false"],
 ]);
-const NON_POLICY_KEYS = new Set([
-  "allowBuilds",
-  "onlyBuiltDependencies",
-  "overrides",
-  "packages",
-]);
+const NON_POLICY_KEYS = new Set(["allowBuilds", "overrides", "packages"]);
 const CONFIGS = [
   ["root", "pnpm-workspace.yaml"],
   [
