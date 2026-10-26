@@ -170,8 +170,11 @@ the existing mature transitive baseline and adds no young versions. The bounded
 slice reviews pass. Opus requested a migration note for direct Zod ownership;
 it is added and the shipped archive/fixture identity is refreshed in
 [draft #240](https://github.com/uzh-bf/design-system/pull/240). Final-head hosted
-qualification remains pending. Remaining fast-uri/selector-parser and fixture
-Next/Sharp/PostCSS/source-map findings, retained young pins, pnpm 11 policy,
+qualification and quiet feedback settle passed for #240 at `252f966f5`.
+Current-head Greptile is quota-paused; the completed integrated Opus review
+and exact executable equivalence cover the corrected migration note. Remaining
+fast-uri/selector-parser and fixture Next/Sharp/PostCSS/source-map findings,
+retained young pins, pnpm policy,
 manual/consumer/promotion gates stay open. This is not GA advisory closure.
 
 ### Delivered evidence and its limits
@@ -321,9 +324,11 @@ dependency, lockfile, stack topology or consumer repository.
    deprecated tools. Name security fixes that conflict with the 14-day cutoff.
 2. **Coordinated eligible dependency graph.** Enforce and verify
    `minimumReleaseAge: 20160` for direct/transitive selections in root and all 8
-   isolated fixture locks. A coordinated pnpm11 migration is needed for strict
-   frozen-lock validation; a root pnpm10 setting alone does not clear that gate.
-   Preserve minimum
+   isolated fixture locks. The approved [pnpm12 preparation plan](2026-10-26-v5-pnpm12-migration-plan.md)
+   selects exact12.12.1 and mature same-major alternatives. Retain Panels4.14.8
+   and its native selector behavior. Preparation leaves active pins/configs/locks
+   unchanged; strict adoption waits until that pin matures November3 at23:54
+   Europe/Zurich. No age waiver or scheduled continuation is approved. Preserve minimum
    RHF/Recharts cells and ADR0010's exact shared Panels contract. A current pin's
    maturity date does not authorize a downgrade or a blanket exception.
 3. **Consumer peer reconciliation and exact archive acceptance.** Resolve chart,
