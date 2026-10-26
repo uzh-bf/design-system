@@ -158,6 +158,19 @@ application acceptance. Private consumer snapshots remain in the ignored local
 assessment; the public review carries shared acceptance gates without their
 versions or commit references.
 
+The first bounded [dependency pruning package](2026-10-26-v5-dependency-remediation-plan.md)
+now has passing local source/package evidence above the composition draft. It
+removes unused DS Zod and the inactive Size Limit timing/browser chain:72root
+package records disappear, with no new registry version records. Root advisory
+matches fall9→5; all9frozenlocks fall37→33unique. EachfixturegraphdropsZod
+without changing its retained package versions. Seven budgets, a failing canary,
+3packedcells and102Nextcases pass;303nonmanifestpackagefiles are unchanged.
+Fresh npm verification is constrained to the existing mature transitive baseline
+and adds no young versions. Independent reviews and exact-head hosted CI still
+own draft qualification. Remaining fast-uri/selector-parser and fixture
+Next/Sharp/PostCSS/source-map findings, retained young pins, pnpm11 policy,
+manual/consumer/promotion gates stay open; this is not GA advisory closure.
+
 ### Delivered evidence and its limits
 
 October25 checkpoint: all approved Shared API, Calendar, layout/toast, unified
