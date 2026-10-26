@@ -33,9 +33,20 @@ overrides:
   caniuse-lite@: 1.0.30001815
   immer@: 11.1.21
   postcss@: 8.5.29
+  next@16.4.1>postcss: 8.5.29
 minimumReleaseAge: 20160
 minimumReleaseAgeStrict: true
 minimumReleaseAgeIgnoreMissingTime: false
 trustLockfile: false
 minimumReleaseAgeExclude:
   - react-resizable-panels@4.14.8
+  - next@16.4.1
+  - '@next/env@16.4.1'
+  - '@next/swc-darwin-x64@16.4.1'
+  - '@next/swc-darwin-arm64@16.4.1'
+  - '@next/swc-linux-x64-gnu@16.4.1'
+  - '@next/swc-linux-x64-musl@16.4.1'
+  - '@next/swc-win32-x64-msvc@16.4.1'
+  - '@next/swc-linux-arm64-gnu@16.4.1'
+  - '@next/swc-linux-arm64-musl@16.4.1'
+  - '@next/swc-win32-arm64-msvc@16.4.1'

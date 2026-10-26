@@ -18,10 +18,29 @@ import { fileURLToPath } from "node:url";
 
 const EXPECTED_PNPM = "12.12.1";
 const AGE_EXCLUSION_KEY = "minimumReleaseAgeExclude";
-const AGE_EXCLUSION_VERSION = "4.14.8";
-const AGE_EXCLUSION_ENTRY = `react-resizable-panels@${AGE_EXCLUSION_VERSION}`;
-const PUBLICATION_METADATA_URL =
-  "https://registry.npmjs.org/react-resizable-panels";
+const PANELS_EXCLUSION_ENTRY = "react-resizable-panels@4.14.8";
+const NEXT_VERSION = "16.4.1";
+const NEXT_TRAIN_PACKAGE_NAMES = [
+  "next",
+  "@next/env",
+  "@next/swc-darwin-x64",
+  "@next/swc-darwin-arm64",
+  "@next/swc-linux-x64-gnu",
+  "@next/swc-linux-x64-musl",
+  "@next/swc-win32-x64-msvc",
+  "@next/swc-linux-arm64-gnu",
+  "@next/swc-linux-arm64-musl",
+  "@next/swc-win32-arm64-msvc",
+];
+const NEXT_TRAIN_ENTRIES = NEXT_TRAIN_PACKAGE_NAMES.map(
+  (name) => `${name}@${NEXT_VERSION}`,
+);
+const PANELS_EXCLUSIONS = [PANELS_EXCLUSION_ENTRY];
+const NEXT_CONSUMER_EXCLUSIONS = [
+  PANELS_EXCLUSION_ENTRY,
+  ...NEXT_TRAIN_ENTRIES,
+];
+const PUBLICATION_METADATA_ORIGIN = "https://registry.npmjs.org";
 const POLICY = new Map([
   ["minimumReleaseAge", "20160"],
   ["minimumReleaseAgeStrict", "true"],
@@ -30,18 +49,21 @@ const POLICY = new Map([
 ]);
 const NON_POLICY_KEYS = new Set(["allowBuilds", "overrides", "packages"]);
 const CONFIGS = [
-  ["root", "pnpm-workspace.yaml"],
+  ["root", "pnpm-workspace.yaml", PANELS_EXCLUSIONS],
   [
     "next-consumer",
     "packages/design-system/tests/rsc/next-consumer/pnpm-workspace.yaml",
+    NEXT_CONSUMER_EXCLUSIONS,
   ],
   [
     "packed-dedicated",
     "packages/design-system/tests/rsc/packed-consumers/consumers/dedicated/pnpm-workspace.yaml",
+    PANELS_EXCLUSIONS,
   ],
   [
     "packed-root-only",
     "packages/design-system/tests/rsc/packed-consumers/consumers/root-only/pnpm-workspace.yaml",
+    PANELS_EXCLUSIONS,
   ],
 ];
 const PACKAGES = {
@@ -59,6 +81,15 @@ const PACKAGES = {
     "4.14.7": {},
     "4.14.8": { dependencies: { "policy-leaf": "1.0.1" } },
   },
+  ...Object.fromEntries(
+    NEXT_TRAIN_PACKAGE_NAMES.map((name) => [
+      name,
+      {
+        "16.4.0": {},
+        [NEXT_VERSION]: {},
+      },
+    ]),
+  ),
 };
 
 const scriptRoot = path.resolve(
@@ -67,6 +98,8 @@ const scriptRoot = path.resolve(
 );
 const oldTime = new Date(Date.now() - 31 * 24 * 60 * 60 * 1000).toISOString();
 const youngTime = new Date(Date.now() - 60 * 60 * 1000).toISOString();
+const invalidTime = "not-a-publication-time";
+const futureTime = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
 const AGE_ERROR_PATTERN =
   /MINIMUM_RELEASE_AGE|minimum.*release.*age|too young|recently published/i;
 
@@ -83,6 +116,15 @@ function isYoungPublication(name, version, currentMode) {
       version === "4.14.7") ||
     (currentMode === "young-transitive" &&
       ((name === "react-resizable-panels" && version === "4.14.8") ||
+        (name === "policy-leaf" && version === "1.0.1"))) ||
+    (currentMode === "young-next-train" &&
+      NEXT_TRAIN_PACKAGE_NAMES.includes(name) &&
+      version === NEXT_VERSION) ||
+    (currentMode === "young-other-next" &&
+      NEXT_TRAIN_PACKAGE_NAMES.includes(name) &&
+      version === "16.4.0") ||
+    (currentMode === "young-next-transitive" &&
+      ((NEXT_TRAIN_PACKAGE_NAMES.includes(name) && version === NEXT_VERSION) ||
         (name === "policy-leaf" && version === "1.0.1")))
   );
 }
@@ -114,7 +156,33 @@ function parseArguments(argv) {
   return { root: path.resolve(root), pnpm };
 }
 
-function policyErrors(text, label) {
+function normalizeExclusionEntry(rawEntry) {
+  const entry = rawEntry.trim();
+  if (entry.length >= 2 && entry.startsWith("'") && entry.endsWith("'")) {
+    return entry.slice(1, -1).replaceAll("''", "'");
+  }
+  if (entry.length >= 2 && entry.startsWith('"') && entry.endsWith('"')) {
+    try {
+      const unquoted = JSON.parse(entry);
+      if (typeof unquoted === "string") return unquoted;
+    } catch {
+      // Keep malformed quoting visible to the exact-entry comparison.
+    }
+  }
+  return entry;
+}
+
+function findExclusionEntryLine(text, expectedEntry) {
+  for (const line of text.split(/\r?\n/)) {
+    const item = /^ +-(?: +(.*))?$/.exec(line);
+    if (item && normalizeExclusionEntry(item[1] ?? "") === expectedEntry) {
+      return line;
+    }
+  }
+  return undefined;
+}
+
+function policyErrors(text, label, expectedEntries) {
   const values = new Map();
   const errors = [];
 
@@ -154,6 +222,7 @@ function policyErrors(text, label) {
 
   const lines = text.split(/\r?\n/);
   const exclusionKeys = [];
+  const observedEntries = [];
   for (const [index, line] of lines.entries()) {
     if (/^\s/.test(line)) continue;
     const match = /^([A-Za-z][A-Za-z0-9]*):(?:[ \t]*(.*))?$/.exec(line);
@@ -166,7 +235,6 @@ function policyErrors(text, label) {
       continue;
     }
 
-    const entries = [];
     for (let next = index + 1; next < lines.length; next += 1) {
       const itemLine = lines[next];
       if (!itemLine.trim() || itemLine.trimStart().startsWith("#")) continue;
@@ -178,23 +246,36 @@ function policyErrors(text, label) {
         );
         continue;
       }
-      entries.push((item[1] ?? "").trim());
-    }
-
-    if (entries.length !== 1) {
-      errors.push(
-        `${label}:${index + 1}: ${AGE_EXCLUSION_KEY} must contain exactly one entry, received ${entries.length}`,
-      );
-    } else if (entries[0] !== AGE_EXCLUSION_ENTRY) {
-      errors.push(
-        `${label}:${index + 1}: ${AGE_EXCLUSION_KEY} entry must be exactly ${AGE_EXCLUSION_ENTRY}, received ${entries[0] || "an empty entry"}`,
-      );
+      observedEntries.push(normalizeExclusionEntry(item[1] ?? ""));
     }
   }
   if (exclusionKeys.length !== 1) {
     errors.push(
       `${label}: ${AGE_EXCLUSION_KEY} must be defined exactly once, received ${exclusionKeys.length}`,
     );
+  }
+
+  const expected = new Set(expectedEntries);
+  const counts = new Map();
+  for (const entry of observedEntries) {
+    counts.set(entry, (counts.get(entry) ?? 0) + 1);
+    if (!expected.has(entry)) {
+      errors.push(
+        `${label}: ${AGE_EXCLUSION_KEY} has unexpected entry ${entry || "an empty entry"}`,
+      );
+    }
+  }
+  for (const entry of expected) {
+    const count = counts.get(entry) ?? 0;
+    if (count === 0) {
+      errors.push(
+        `${label}: ${AGE_EXCLUSION_KEY} is missing exact entry ${entry}`,
+      );
+    } else if (count > 1) {
+      errors.push(
+        `${label}: ${AGE_EXCLUSION_KEY} duplicates exact entry ${entry}`,
+      );
+    }
   }
   return errors;
 }
@@ -284,56 +365,89 @@ function assertRejected(label, result, pattern) {
   }
 }
 
-async function verifyExactExemptionPublication() {
-  let response;
+async function assertRejectedError(label, operation, pattern) {
   try {
-    response = await fetch(PUBLICATION_METADATA_URL, {
-      headers: { accept: "application/json" },
-      signal: AbortSignal.timeout(10000),
-    });
+    await operation();
   } catch (error) {
+    if (pattern.test(error.message)) return;
     throw new Error(
-      `cannot fetch publication metadata for ${AGE_EXCLUSION_ENTRY}: ${boundedOutput(error.message)}`,
+      `${label} failed with an unexpected error: ${boundedOutput(error.message)}`,
     );
   }
-  if (!response.ok) {
-    throw new Error(
-      `cannot fetch publication metadata for ${AGE_EXCLUSION_ENTRY}: HTTP ${response.status}`,
-    );
-  }
+  throw new Error(`${label} did not fail with the expected policy error`);
+}
 
-  let metadata;
-  try {
-    metadata = await response.json();
-  } catch (error) {
-    throw new Error(
-      `invalid publication metadata for ${AGE_EXCLUSION_ENTRY}: ${boundedOutput(error.message)}`,
-    );
-  }
-  const versions = metadata?.versions;
-  if (
-    !versions ||
-    typeof versions !== "object" ||
-    !Object.hasOwn(versions, AGE_EXCLUSION_VERSION)
-  ) {
-    throw new Error(`publication metadata is missing ${AGE_EXCLUSION_ENTRY}`);
-  }
+function assertPolicyValidationRejects(
+  label,
+  workspace,
+  expectedEntries,
+  pattern,
+) {
+  const errors = policyErrors(workspace, label, expectedEntries);
+  if (errors.some((error) => pattern.test(error))) return;
+  throw new Error(
+    `${label} did not report the expected exact-exemption error: ${errors.join("; ")}`,
+  );
+}
 
-  const publishedAt = metadata?.time?.[AGE_EXCLUSION_VERSION];
-  const publishedTime =
-    typeof publishedAt === "string" ? Date.parse(publishedAt) : Number.NaN;
-  if (!Number.isFinite(publishedTime)) {
-    throw new Error(
-      `publication metadata has no valid time for ${AGE_EXCLUSION_ENTRY}`,
-    );
-  }
-  if (publishedTime > Date.now()) {
-    throw new Error(
-      `publication metadata has a future time for ${AGE_EXCLUSION_ENTRY}: ${publishedAt}`,
-    );
+async function verifyExactExemptionPublication({
+  registry = PUBLICATION_METADATA_ORIGIN,
+  entries = [...new Set(CONFIGS.flatMap(([, , expected]) => expected))],
+} = {}) {
+  const outcomes = await Promise.all(
+    entries.map(async (entry) => {
+      const separator = entry.lastIndexOf("@");
+      const name = entry.slice(0, separator);
+      const version = entry.slice(separator + 1);
+      let response;
+      try {
+        response = await fetch(
+          `${registry.replace(/\/$/, "")}/${encodeURIComponent(name)}`,
+          {
+            headers: { accept: "application/json" },
+            signal: AbortSignal.timeout(10000),
+          },
+        );
+      } catch (error) {
+        return `cannot fetch publication metadata for ${entry}: ${boundedOutput(error.message)}`;
+      }
+      if (!response.ok) {
+        return `cannot fetch publication metadata for ${entry}: HTTP ${response.status}`;
+      }
+
+      let metadata;
+      try {
+        metadata = await response.json();
+      } catch (error) {
+        return `invalid publication metadata for ${entry}: ${boundedOutput(error.message)}`;
+      }
+      const versions = metadata?.versions;
+      if (
+        !versions ||
+        typeof versions !== "object" ||
+        !Object.hasOwn(versions, version)
+      ) {
+        return `publication metadata is missing ${entry}`;
+      }
+
+      const publishedAt = metadata?.time?.[version];
+      const publishedTime =
+        typeof publishedAt === "string" ? Date.parse(publishedAt) : Number.NaN;
+      if (!Number.isFinite(publishedTime)) {
+        return `publication metadata has no valid time for ${entry}`;
+      }
+      if (publishedTime > Date.now()) {
+        return `publication metadata has a future time for ${entry}: ${publishedAt}`;
+      }
+      return undefined;
+    }),
+  );
+  const errors = outcomes.filter(Boolean);
+  if (errors.length > 0) {
+    throw new Error(`publication metadata is invalid:\n${errors.join("\n")}`);
   }
   console.log(
-    `Verified publication metadata for ${AGE_EXCLUSION_ENTRY}: ${publishedAt}`,
+    `Verified valid, non-future publication metadata for ${entries.length} exact exemptions`,
   );
 }
 
@@ -351,11 +465,11 @@ async function main() {
   const targets = [];
   const errors = [];
 
-  for (const [label, relativePath] of CONFIGS) {
+  for (const [label, relativePath, expectedEntries] of CONFIGS) {
     try {
       const workspace = await readFile(path.join(root, relativePath), "utf8");
-      errors.push(...policyErrors(workspace, relativePath));
-      targets.push({ label, workspace });
+      errors.push(...policyErrors(workspace, relativePath, expectedEntries));
+      targets.push({ label, workspace, expectedEntries });
     } catch (error) {
       errors.push(`${relativePath}: ${error.message}`);
     }
@@ -364,6 +478,61 @@ async function main() {
     throw new Error(
       `workspace policy is not enforceable:\n${errors.join("\n")}`,
     );
+
+  const nextTarget = targets.find((target) => target.label === "next-consumer");
+  const rootTarget = targets.find((target) => target.label === "root");
+  if (!nextTarget || !rootTarget) {
+    throw new Error(
+      "required root and next-consumer policy targets are missing",
+    );
+  }
+  const nextEntryLine = findExclusionEntryLine(
+    nextTarget.workspace,
+    NEXT_TRAIN_ENTRIES[0],
+  );
+  const scopedNextEntryLine = findExclusionEntryLine(
+    nextTarget.workspace,
+    NEXT_TRAIN_ENTRIES[1],
+  );
+  if (!nextEntryLine || !scopedNextEntryLine) {
+    throw new Error("validated Next exemption entries are missing");
+  }
+  assertPolicyValidationRejects(
+    "missing Next train entry",
+    nextTarget.workspace.replace(`${nextEntryLine}\n`, ""),
+    nextTarget.expectedEntries,
+    /missing exact entry next@16\.4\.1/,
+  );
+  assertPolicyValidationRejects(
+    "duplicate Next train entry",
+    `${nextTarget.workspace.replace(/\s*$/, "")}\n${scopedNextEntryLine}\n`,
+    nextTarget.expectedEntries,
+    /duplicates exact entry @next\/env@16\.4\.1/,
+  );
+  assertPolicyValidationRejects(
+    "ranged Next train entry",
+    nextTarget.workspace.replace(nextEntryLine, "  - next@^16.4.1"),
+    nextTarget.expectedEntries,
+    /unexpected entry next@\^16\.4\.1/,
+  );
+  assertPolicyValidationRejects(
+    "ranged scoped Next train entry",
+    nextTarget.workspace.replace(
+      scopedNextEntryLine,
+      "  - '@next/env@^16.4.1'",
+    ),
+    nextTarget.expectedEntries,
+    /unexpected entry @next\/env@\^16\.4\.1/,
+  );
+  assertPolicyValidationRejects(
+    "Next entries in root workspace",
+    `${rootTarget.workspace.replace(/\s*$/, "")}\n  - next@16.4.1\n`,
+    rootTarget.expectedEntries,
+    /unexpected entry next@16\.4\.1/,
+  );
+  console.log(
+    "workspace-specific exact exemption lists reject missing, duplicate, ranged, and off-workspace entries",
+  );
 
   let version;
   try {
@@ -412,7 +581,10 @@ async function main() {
       for (const [version, fields] of Object.entries(versions)) {
         const source = path.join(work, "tar-input", name, version);
         const packageDir = path.join(source, "package");
-        const archive = path.join(source, `${name}-${version}.tgz`);
+        const archive = path.join(
+          source,
+          `${encodeURIComponent(name)}-${version}.tgz`,
+        );
         await mkdir(packageDir, { recursive: true });
         await writeFile(
           path.join(packageDir, "package.json"),
@@ -442,35 +614,36 @@ async function main() {
 
     server = createServer((request, response) => {
       try {
-        const pathname = decodeURIComponent(
-          new URL(request.url, "http://registry").pathname,
+        const pathname = new URL(request.url, "http://registry").pathname;
+        const tarballMatch = /^\/tarballs\/([^/]+)\/(\d+\.\d+\.\d+)\.tgz$/.exec(
+          pathname,
         );
-        const tarballMatch =
-          /^\/([^/]+)\/-\/([^/]+)-(\d+\.\d+\.\d+)\.tgz$/.exec(pathname);
         if (tarballMatch) {
-          const [, name, fileName, version] = tarballMatch;
+          const [, encodedName, version] = tarballMatch;
+          const name = decodeURIComponent(encodedName);
           const data = tarballs.get(`${name}@${version}`);
-          if (!data || fileName !== name) throw new Error("not found");
+          if (!data) throw new Error("not found");
           response.setHeader("content-type", "application/octet-stream");
           response.end(data);
           return;
         }
 
-        const name = pathname.slice(1);
-        if (
-          !pathname.startsWith("/") ||
-          pathname.slice(2).includes("/") ||
-          !PACKAGES[name]
-        ) {
+        const name = decodeURIComponent(pathname.slice(1));
+        if (!pathname.startsWith("/") || !PACKAGES[name]) {
           throw new Error("not found");
         }
         const versions = {};
         const times = { created: oldTime };
         for (const [version, fields] of Object.entries(PACKAGES[name])) {
           const data = tarballs.get(`${name}@${version}`);
-          const publishedAt = isYoungPublication(name, version, mode)
-            ? youngTime
-            : oldTime;
+          const publishedAt =
+            mode === "invalid-time"
+              ? invalidTime
+              : mode === "future-time"
+                ? futureTime
+                : isYoungPublication(name, version, mode)
+                  ? youngTime
+                  : oldTime;
           times[version] = publishedAt;
           versions[version] = {
             name,
@@ -479,7 +652,7 @@ async function main() {
             dist: {
               integrity: `sha512-${createHash("sha512").update(data).digest("base64")}`,
               shasum: createHash("sha1").update(data).digest("hex"),
-              tarball: `http://127.0.0.1:${server.address().port}/${name}/-/${name}-${version}.tgz`,
+              tarball: `http://127.0.0.1:${server.address().port}/tarballs/${encodeURIComponent(name)}/${version}.tgz`,
             },
           };
         }
@@ -515,6 +688,44 @@ async function main() {
       });
     });
     const registry = `http://127.0.0.1:${server.address().port}`;
+
+    mode = "old";
+    await verifyExactExemptionPublication({
+      registry,
+      entries: nextTarget.expectedEntries,
+    });
+    for (const [metadataMode, label, pattern] of [
+      [
+        "missing-time",
+        "missing publication time for exact exemptions",
+        /no valid time/,
+      ],
+      [
+        "invalid-time",
+        "invalid publication time for exact exemptions",
+        /no valid time/,
+      ],
+      [
+        "future-time",
+        "future publication time for exact exemptions",
+        /future time/,
+      ],
+    ]) {
+      mode = metadataMode;
+      await assertRejectedError(
+        label,
+        () =>
+          verifyExactExemptionPublication({
+            registry,
+            entries: nextTarget.expectedEntries,
+          }),
+        pattern,
+      );
+    }
+    mode = "old";
+    console.log(
+      "publication metadata controls reject missing, invalid, and future times for the Next consumer allowlist",
+    );
 
     async function createCase(
       target,
@@ -689,7 +900,56 @@ async function main() {
       );
     }
 
-    const rootTarget = targets[0];
+    const nextTrainDependencies = Object.fromEntries(
+      NEXT_TRAIN_PACKAGE_NAMES.map((name) => [name, NEXT_VERSION]),
+    );
+    mode = "young-next-train";
+    const nextTrain = await createCase(
+      nextTarget,
+      "young-next-train",
+      nextTrainDependencies,
+    );
+    let nextResult = await runPnpm(nextTrain, [
+      "install",
+      "--lockfile-only",
+      "--ignore-scripts",
+    ]);
+    assertSuccess(
+      "next-consumer coherent young Next train install",
+      nextResult,
+    );
+    nextResult = await runPnpm(nextTrain, [
+      "install",
+      "--frozen-lockfile",
+      "--ignore-scripts",
+    ]);
+    assertSuccess(
+      "next-consumer coherent young Next train frozen install",
+      nextResult,
+    );
+
+    await assertRejectedFreshAndFrozen(
+      nextTarget,
+      "other-next-version",
+      { next: "16.4.0" },
+      "young-other-next",
+    );
+    await assertRejectedFreshAndFrozen(
+      rootTarget,
+      "next-train-outside-next-consumer",
+      nextTrainDependencies,
+      "young-next-train",
+    );
+    await assertRejectedFreshAndFrozen(
+      nextTarget,
+      "young-transitive-with-next-train",
+      { next: NEXT_VERSION, "policy-parent": "1.0.0" },
+      "young-next-transitive",
+    );
+    console.log(
+      "next-consumer: coherent Next train exemption and workspace, version, and transitive age gates pass",
+    );
+
     mode = "missing-time";
     const missingTime = await createCase(rootTarget, "missing-time", {
       "policy-leaf": "1.0.0",
