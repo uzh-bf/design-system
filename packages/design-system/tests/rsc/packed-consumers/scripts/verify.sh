@@ -31,6 +31,21 @@ node "$fixture_dir/../prepare-packed-artifact.mjs" \
 
 (
   cd "$run_fixture/consumers/root-only"
+  expected_pnpm_version=$(
+    node --input-type=module -e '
+      import fs from "node:fs";
+      const value = JSON.parse(fs.readFileSync("package.json", "utf8")).packageManager;
+      if (typeof value !== "string" || !/^pnpm@\d+\.\d+\.\d+$/.test(value)) {
+        throw new Error("staged packageManager must be an exact pnpm version");
+      }
+      process.stdout.write(value.slice(5));
+    '
+  )
+  actual_pnpm_version=$(pnpm --version)
+  if test "$actual_pnpm_version" != "$expected_pnpm_version"; then
+    echo "expected pnpm $expected_pnpm_version from staged package.json; got $actual_pnpm_version" >&2
+    exit 1
+  fi
   pnpm install --frozen-lockfile
   node "$fixture_dir/scripts/assert-installed-dependencies.mjs" "$run_fixture/consumers/root-only"
   pnpm exec tsc -p tsconfig.json
@@ -44,6 +59,21 @@ node "$fixture_dir/../prepare-packed-artifact.mjs" \
 
 (
   cd "$run_fixture/consumers/dedicated"
+  expected_pnpm_version=$(
+    node --input-type=module -e '
+      import fs from "node:fs";
+      const value = JSON.parse(fs.readFileSync("package.json", "utf8")).packageManager;
+      if (typeof value !== "string" || !/^pnpm@\d+\.\d+\.\d+$/.test(value)) {
+        throw new Error("staged packageManager must be an exact pnpm version");
+      }
+      process.stdout.write(value.slice(5));
+    '
+  )
+  actual_pnpm_version=$(pnpm --version)
+  if test "$actual_pnpm_version" != "$expected_pnpm_version"; then
+    echo "expected pnpm $expected_pnpm_version from staged package.json; got $actual_pnpm_version" >&2
+    exit 1
+  fi
   pnpm install --frozen-lockfile
   node "$fixture_dir/../rhf-matrix.mjs" assert-installed "$run_fixture/consumers/dedicated"
   node "$fixture_dir/scripts/assert-installed-dependencies.mjs" "$run_fixture/consumers/dedicated"
@@ -88,6 +118,24 @@ const { renderToString } = await import(pathToFileURL(app.resolve('react-dom/ser
 const native = await import(pathToFileURL(app.resolve('@shadcn/react/message-scroller')))
 const root = await import(new URL(manifest.exports['.'].import, pathToFileURL(manifestPath)))
 const parts = await import(new URL(manifest.exports['./primitives'].import, pathToFileURL(manifestPath)))
+for (const entry of [root, parts]) {
+  const html = renderToString(h(entry.ResizablePanelGroup, {
+    id: 'ssr-group', 'data-testid': 'group-selector', 'data-test': 'group-test',
+  },
+  h(entry.ResizablePanel, {
+    id: 'ssr-panel', 'data-testid': 'panel-selector', 'data-test': 'panel-test', defaultSize: '50%',
+  }, 'Synthetic'),
+  h(entry.ResizableHandle, {
+    id: 'ssr-separator', 'data-testid': 'separator-selector', 'data-test': 'separator-test',
+  }),
+  h(entry.ResizablePanel, { id: 'ssr-remainder', defaultSize: '50%' }, 'Synthetic')))
+  for (const kind of ['group', 'panel', 'separator']) {
+    const element = html.match(new RegExp(`<div[^>]*id="ssr-${kind}"[^>]*>`))?.[0]
+    assert.ok(element, `server-rendered ${kind} missing`)
+    assert.ok(element.includes(`data-testid="${kind}-selector"`), `${kind} replaced caller data-testid`)
+    assert.ok(element.includes(`data-test="${kind}-test"`), `${kind} replaced caller data-test`)
+  }
+}
 assert.equal(root.useMessageScroller, parts.useMessageScroller)
 assert.equal(root.useMessageScroller, native.useMessageScroller)
 const message = h(root.Message, null, h(root.Bubble, null, 'Synthetic'))

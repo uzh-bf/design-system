@@ -282,6 +282,8 @@ export const Compatibility = () => {
 
       <ResizablePanelGroup
         id="root-story-group"
+        data-testid="root-story-group-testid"
+        data-test="root-story-group-test"
         orientation="horizontal"
         groupRef={groupRef}
         defaultLayout={persistence.defaultLayout}
@@ -292,6 +294,8 @@ export const Compatibility = () => {
       >
         <ResizablePanel
           id="root-story-left"
+          data-testid="root-story-left-testid"
+          data-test="root-story-left-test"
           panelRef={panelRef}
           defaultSize="30%"
           minSize={48}
@@ -309,6 +313,8 @@ export const Compatibility = () => {
         </ResizablePanel>
         <ResizableHandle
           id="root-story-separator"
+          data-testid="root-story-separator-testid"
+          data-test="root-story-separator-test"
           aria-label="Resize root native panels"
         />
         <ResizablePanel
@@ -518,6 +524,8 @@ export const NativeCompatibility = () => {
 
       <NativeResizablePanelGroup
         id="native-units-group"
+        data-testid="native-units-group-testid"
+        data-test="native-units-group-test"
         orientation="horizontal"
         groupRef={groupRef}
         defaultLayout={persistence.defaultLayout}
@@ -538,6 +546,8 @@ export const NativeCompatibility = () => {
         />
         <NativeResizablePanel
           id="native-pixel-panel"
+          data-testid="native-pixel-panel-testid"
+          data-test="native-pixel-panel-test"
           panelRef={panelRef}
           defaultSize={120}
           minSize={80}
@@ -552,7 +562,12 @@ export const NativeCompatibility = () => {
         >
           <div className="h-full bg-muted/20" />
         </NativeResizablePanel>
-        <NativeResizableHandle id="native-remainder-separator" aria-label="Resize native units remainder" />
+        <NativeResizableHandle
+          id="native-remainder-separator"
+          data-testid="native-remainder-separator-testid"
+          data-test="native-remainder-separator-test"
+          aria-label="Resize native units remainder"
+        />
         <NativeResizablePanel id="native-auto-panel">
           <NativeResizablePanelGroup
             id="native-nested-vertical"

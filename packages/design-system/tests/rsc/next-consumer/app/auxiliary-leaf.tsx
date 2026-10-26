@@ -124,6 +124,8 @@ function PackedRootLayout({
       <h2>Shared resizable layout</h2>
       <RootGroup
         id="packed-root-group"
+        data-testid="packed-root-group-testid"
+        data-test="packed-root-group-test"
         groupRef={rootRef}
         orientation="horizontal"
         defaultLayout={persistence.defaultLayout}
@@ -134,9 +136,17 @@ function PackedRootLayout({
         <ApplicationPanel id="root-left" defaultSize="30%" minSize="10%">
           Left
         </ApplicationPanel>
-        <ResizableHandle aria-label="Resize shared panels" withHandle />
+        <ResizableHandle
+          id="packed-root-separator"
+          data-testid="packed-root-separator-testid"
+          data-test="packed-root-separator-test"
+          aria-label="Resize shared panels"
+          withHandle
+        />
         <RootPanel
           id="root-right"
+          data-testid="root-right-testid"
+          data-test="root-right-test"
           defaultSize={expanded ? '50%' : '70%'}
           minSize="10%"
         >
@@ -295,6 +305,8 @@ export function AuxiliaryLeaf({
         <h2>Native resizable layout</h2>
         <ResizablePanelGroup
           id="packed-native-group"
+          data-testid="packed-native-group-testid"
+          data-test="packed-native-group-test"
           groupRef={groupRef}
           orientation="horizontal"
           defaultLayout={defaultLayout}
@@ -310,8 +322,20 @@ export function AuxiliaryLeaf({
           >
             Left
           </ResizablePanel>
-          <ResizableHandle aria-label="Resize native panels" withHandle />
-          <ResizablePanel id="native-right" defaultSize="70%" minSize="10%">
+          <ResizableHandle
+            id="packed-native-separator"
+            data-testid="packed-native-separator-testid"
+            data-test="packed-native-separator-test"
+            aria-label="Resize native panels"
+            withHandle
+          />
+          <ResizablePanel
+            id="native-right"
+            data-testid="native-right-testid"
+            data-test="native-right-test"
+            defaultSize="70%"
+            minSize="10%"
+          >
             Right
           </ResizablePanel>
         </ResizablePanelGroup>
