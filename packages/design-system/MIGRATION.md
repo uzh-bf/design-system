@@ -604,6 +604,9 @@ v5 also **drops `@hookform/resolvers`** — the design system never imported it,
 it was dead weight in the dependency tree. If you use an RHF resolver such as
 `zodResolver`, depend on `@hookform/resolvers` directly in your app.
 
+v5 also drops the unused `zod` runtime dependency. Apps that import `zod`,
+including those using `zodResolver`, must declare it directly.
+
 ### RHF field wrappers
 
 The v5 alpha provides turnkey RHF wrappers for the generic controls needed by

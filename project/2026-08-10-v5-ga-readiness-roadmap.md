@@ -165,10 +165,12 @@ records disappear, with no new registry version records. Root advisory matches
 fall from 9 to 5; all nine frozen locks fall from 37 to 33 unique advisories.
 Each fixture graph drops Zod without changing its retained package versions.
 Seven budgets, a failing canary, three packed cells and 102 Next browser cases
-pass; 303 non-manifest package files are unchanged. Fresh npm verification uses
+pass; every executable package file is unchanged. Fresh npm verification uses
 the existing mature transitive baseline and adds no young versions. The bounded
-slice reviews pass; integrated final review and exact-head hosted CI still own
-draft qualification. Remaining fast-uri/selector-parser and fixture
+slice reviews pass. Opus requested a migration note for direct Zod ownership;
+it is added and the shipped archive/fixture identity is refreshed in
+[draft #240](https://github.com/uzh-bf/design-system/pull/240). Final-head hosted
+qualification remains pending. Remaining fast-uri/selector-parser and fixture
 Next/Sharp/PostCSS/source-map findings, retained young pins, pnpm 11 policy,
 manual/consumer/promotion gates stay open. This is not GA advisory closure.
 
