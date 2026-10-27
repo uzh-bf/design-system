@@ -266,11 +266,11 @@ provider changes and new automations remain outside this package.
   fresh changed-story checks. Twelve synthetic captures are inspected. Archive
   `c33633da14a1d4d87926ff3c5da0a7d6660cb092514ad0dce542a8935c2c15bd`
   matches all 270 installed files; 448 tracked package sources match the container.
-  Configured final review and hosted CI remain before draft qualification.
+  The historical Sidebar draft qualified at be62259b0 after final review and hosted CI. The newly propagated head awaits its own CI; the PR description records its current exact qualification.
   The layer is one package despite exceeding its estimate: the small component
   change and its synthetic story/type/browser proof protect the same mobile
   contract. Splitting that proof would leave an incomplete integration point.
-- Immediate next action: complete final review and hosted qualification for
+- Historical next action, since completed at be62259b0: final review and hosted qualification for
   Sidebar above the held Sonner tip. Preserve the verified implementation.
 
 The Sonner layer remains one notification compatibility package: source option
