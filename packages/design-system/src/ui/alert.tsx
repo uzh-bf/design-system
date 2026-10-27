@@ -13,18 +13,16 @@ const alertVariants = cva(
         // treatment: tinted bg + 4px coloured left border + variant-coloured icon.
         default: 'bg-card text-card-foreground',
         neutral: 'bg-muted text-foreground border-l-4 border-l-border',
-        info: 'bg-info-background text-foreground border-l-4 border-l-info [&>svg]:text-info-foreground dark:[&>svg]:text-info *:data-[slot=alert-description]:text-foreground/80',
+        info: 'bg-info-background text-info-text border-l-4 border-l-info [&>svg]:text-info-foreground dark:[&>svg]:text-info *:data-[slot=alert-description]:text-info-text',
         success:
-          'bg-success-background text-foreground border-l-4 border-l-success [&>svg]:text-success-foreground dark:[&>svg]:text-success *:data-[slot=alert-description]:text-foreground/80',
+          'bg-success-background text-success-text border-l-4 border-l-success [&>svg]:text-success-foreground dark:[&>svg]:text-success *:data-[slot=alert-description]:text-success-text',
         // warning icon uses the dark -foreground (not the light amber main) so it
         // stays visible on the light warning tint; in dark mode the tint is dark,
         // so the icon flips to the bright amber main instead.
         warning:
           'bg-warning-background text-foreground border-l-4 border-l-warning [&>svg]:text-warning-foreground dark:[&>svg]:text-warning *:data-[slot=alert-description]:text-foreground/80',
-        // The description does not fade like the other variants do. Those fade
-        // text-foreground, which is near-black and survives it; destructive
-        // text is already a mid-tone colour on a tinted fill, so an opacity
-        // fade drops it under 4.5:1.
+        // The error description does not fade. Its mid-tone text on a tinted
+        // fill would drop below 4.5:1 if an opacity fade were applied.
         error:
           'bg-destructive-background text-destructive-text border-l-4 border-l-destructive *:data-[slot=alert-description]:text-destructive-text',
         destructive:

@@ -34,7 +34,7 @@ _Avoid_: palette, ramp, scale, colour set
 One step of a family's ladder. `-100` is its selected accent and `-20` its light
 tint; the labels do not guarantee a lightness ordering. The retained Blue `-80`
 is darker than Blue `-100`. Official families use selected published swatches;
-Phase 2 corrects the remaining legacy values and identifies the house families.
+The Phase 2 token layer realigns legacy values and identifies the house families.
 _Avoid_: shade, step, tint level
 
 **Official family**:
@@ -45,8 +45,8 @@ _Avoid_: brand colour, corporate colour
 **House family**:
 A colour family with no counterpart in the manual, kept because consumers depend
 on it. Carries the `df-` prefix precisely so it does not read as a brand claim.
-Phase 2 will introduce `df-grey` and `df-darkgreen`; the current source still
-uses the legacy `uzh-grey` and `uzh-darkgreen` names.
+The Phase 2 token layer introduces `df-grey` and `df-darkgreen`; the legacy
+`uzh-grey` and `uzh-darkgreen` names remain deprecated aliases through 5.x.
 _Avoid_: custom colour, extra colour, off-palette family
 
 **Status set**:
@@ -56,9 +56,9 @@ are project decisions, distinct from the official web templates' functional
 green/red mapping. Phase 2 coordinates the tokens and verifies the intended pairs.
 _Avoid_: alert colours, semantic colours, feedback colours
 
-### Naming planned for Phase 2
+### Palette naming through 5.x
 
-These mappings are settled design decisions and are not yet implemented.
+These mappings are implemented in the Phase 2 token draft; release qualification remains separate.
 When Phase 2 lands, the legacy identifiers will remain deprecated aliases
 through 5.x and will be removed in 6.0.
 

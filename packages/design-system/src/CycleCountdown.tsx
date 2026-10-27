@@ -89,7 +89,7 @@ export function CycleCountdown({
       <div
         className={twMerge(
           'flex flex-col items-center justify-center font-mono leading-none tabular-nums',
-          isDangerState ? 'text-destructive' : 'text-[#111111]',
+          isDangerState ? 'text-destructive' : 'text-content',
           className?.countdown
         )}
       >
@@ -103,7 +103,7 @@ export function CycleCountdown({
         >
           {Math.max(0, value)}
         </span>
-        <span className="mt-1 font-sans text-[11px] leading-none font-normal text-[#A3A3A3]">
+        <span className="text-disabled mt-1 font-sans text-[11px] leading-none font-normal">
           sec
         </span>
       </div>

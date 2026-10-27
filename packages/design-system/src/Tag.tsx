@@ -48,7 +48,7 @@ export function Tag({
       data-cy={data?.cy}
       data-test={data?.test}
       className={twMerge(
-        'inline-flex h-6 w-max items-center gap-1.5 rounded-sm border border-transparent bg-[#EFEFEF] px-2 text-xs font-medium text-[#333333]',
+        'bg-surface-muted text-content-secondary inline-flex h-6 w-max items-center gap-1.5 rounded-sm border border-transparent px-2 text-xs font-medium',
         active &&
           'border-primary-100 bg-primary-20 text-primary-100 font-semibold',
         dashed && 'border-border bg-background border-dashed',

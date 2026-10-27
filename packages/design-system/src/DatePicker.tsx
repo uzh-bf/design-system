@@ -128,8 +128,8 @@ export function DatePicker({
               variant="outline"
               disabled={disabled}
               className={twMerge(
-                'h-10 min-w-[200px] justify-start rounded-md border-[#E0E0E0] px-3 text-left text-sm font-normal text-[#111111] hover:bg-[#FAFAFA]',
-                !date && 'text-[#666666]',
+                'border-control-border text-content hover:bg-surface-hover h-10 min-w-[200px] justify-start rounded-md px-3 text-left text-sm font-normal',
+                !date && 'text-content-muted',
                 !!error &&
                   isTouched &&
                   'border-destructive bg-destructive-background',
@@ -139,7 +139,7 @@ export function DatePicker({
             >
               <FontAwesomeIcon
                 icon={faCalendar}
-                className="mr-2.5 h-4 w-4 text-[#666666]"
+                className="text-content-muted mr-2.5 h-4 w-4"
               />
               {date ? (
                 dayjs(date).format('DD.MM.YYYY')

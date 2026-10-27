@@ -27,6 +27,14 @@ test.describe('composite ref contracts', () => {
       await page.locator(`[data-test="${action}"]`).click()
       await expect(page.locator(target)).toBeFocused()
     }
+
+    const sliderTrack = page
+      .locator('[data-test="ref-slider"]')
+      .locator('xpath=../preceding-sibling::span[1]')
+    await expect(sliderTrack).toHaveCSS(
+      'background-color',
+      'rgb(239, 239, 239)'
+    )
   })
 
   test('keeps stateful trigger focus and dismissal behavior intact', async ({
