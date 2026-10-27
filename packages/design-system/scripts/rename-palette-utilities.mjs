@@ -126,8 +126,7 @@ export function renamePaletteUtilities(source) {
         : -1
     const afterTag = tagEnd < 0 ? '' : before.slice(tagEnd + 1)
     const jsxText =
-      tagEnd >= 0 &&
-      afterTag.split('{').length === afterTag.split('}').length
+      tagEnd >= 0 && afterTag.split('{').length === afterTag.split('}').length
     if (jsxText || (!attribute && !declaration && !expression)) {
       code += source[index++]
       continue
