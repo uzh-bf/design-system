@@ -124,20 +124,12 @@ export function renamePaletteUtilities(source) {
       )
     const tagStart = before.lastIndexOf('<')
     const tagEnd =
-      tagStart >= 0 &&
-      !/[\w$]/.test(before[tagStart - 1] ?? '') &&
-      /^<[A-Za-z]/.test(before.slice(tagStart))
+      tagStart >= 0 && /^<\/?[A-Za-z]/.test(before.slice(tagStart))
         ? findJsxTagEnd(before, tagStart)
         : -1
     const afterTag = tagEnd < 0 ? '' : before.slice(tagEnd + 1)
     const jsxText =
-      tagEnd >= 0 &&
-      !/\/\s*>$/.test(before.slice(tagStart, tagEnd + 1)) &&
-      afterTag.split('{').length === afterTag.split('}').length
-    if (jsxText || (!attribute && !declaration && !expression)) {
-      code += source[index++]
-      continue
-    }
+      tagEnd >= 0 && afterTag.split('{').length === afterTag.split('}').length
     let end = index + 1
     while (end < source.length) {
       if (source[end] === '\\') {
@@ -146,6 +138,17 @@ export function renamePaletteUtilities(source) {
       }
       if (source[end] === quote) break
       end++
+    }
+    if (jsxText || (!attribute && !declaration && !expression)) {
+      const value = source.slice(index + 1, end)
+      if (
+        end < source.length &&
+        !/[<\r\n]/.test(value) &&
+        value.split(/\s+/).some((token) => renameToken(token) !== token)
+      )
+        unsupported.push({ offset: index, reason: 'ambiguous quote context' })
+      code += source[index++]
+      continue
     }
     if (end >= source.length) {
       unsupported.push({ offset: index, reason: 'unterminated quote' })
