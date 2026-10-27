@@ -1,10 +1,10 @@
 # Roadmap — Design System v5 GA readiness
 
-The historical Klicker pilot, RHF parity, selected GBL journey, supported Radix components and auxiliaries, Recharts 3 and representative compositions qualify at their recorded draft boundaries. GA remains blocked by dependency advisories and release-age compliance, integrated candidate consumer acceptance, manual qualification and promotion reconciliation. The older qualification layer retains a browser-install CI failure. GBL and Klicker remain unmerged by user ruling.
+The historical Klicker pilot, RHF parity, selected GBL journey, supported Radix components and auxiliaries, Recharts 3 and representative compositions qualify at their recorded draft boundaries. GA remains blocked by dependency advisories and release-age compliance, integrated candidate consumer acceptance, manual qualification and promotion reconciliation. The older qualification layer's browser-install CI failure is resolved at its recorded October27 draft boundary. GBL and Klicker remain unmerged by user ruling.
 
 ## Panels exception and current dependency package — October 26
 
-Exact `react-resizable-panels@4.14.8` has the user's explicit age exception. Continue pnpm 12.12.1 adoption in [draft #241](https://github.com/uzh-bf/design-system/pull/241) under the [amended execution plan](2026-10-26-v5-pnpm12-migration-plan.md). The fourteen-day rule remains strict for every other package and version. The earlier November 3 calendar hold is superseded; current graph, native-build, package/browser, review and CI qualification remain required. Advisory closure, manual accessibility and exact real-consumer acceptance remain GA gates. A reproducible native Recharts keyboard-tooltip resize defect is also open: both supported endpoints can retain a stale tooltip coordinate and overflow a compact viewport. The pre-migration graph reproduces it; immediate green viewport assertions do not close this finding.
+Exact `react-resizable-panels@4.14.8` has the user's explicit age exception. Continue pnpm 12.12.1 adoption in [draft #241](https://github.com/uzh-bf/design-system/pull/241) under the [amended execution plan](2026-10-26-v5-pnpm12-migration-plan.md). The fourteen-day rule remains strict for every other package and version. The earlier November 3 calendar hold is superseded; current graph, native-build, package/browser, review and CI qualification remain required. Advisory closure, manual accessibility and exact real-consumer acceptance remain GA gates. A reproducible native Recharts keyboard-tooltip resize defect is also open: both supported endpoints can retain a stale tooltip coordinate and overflow a compact viewport. The pre-migration graph reproduces it; immediate green viewport assertions do not close this finding. No dependency source patch or weakened check is permitted.
 
 ## Identity and status
 
@@ -204,13 +204,13 @@ missing v5 commits. Its immediate PR base is `rs/v5-component-compatibility`;
 `main=fad87a07e9cf262a3a117c5e815091c7b54fa151` is the later promotion boundary.
 Documentation reconciliation does not require integrating main into this stack.
 
-| Workstream                               | Delivered evidence                                                                                                                                                                                                                                                           | Remaining gate                                                                                                                                        |
-| ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Inputs, dependencies and field contracts | Drafts [PR210](https://github.com/uzh-bf/design-system/pull/210), [PR211](https://github.com/uzh-bf/design-system/pull/211) and [PR213](https://github.com/uzh-bf/design-system/pull/213) correct input/reset, disabled-selection, multi-select and transformed-type defects | Preserve these input cases through the expanded catalog; RHF parity is qualified in drafts PR219/220                                          |
-| Consumer CSS and UZH tokens/defaults     | [PR214](https://github.com/uzh-bf/design-system/pull/214) through [PR217](https://github.com/uzh-bf/design-system/pull/217) deliver scoped responsive CSS, palette/alias coverage, tokens and defaults                                                                       | Current official-source traceability, deliberate adaptations and new-default consumer proof remain required                                           |
-| Library qualification                    | The [completed plan](2026-10-19-v5-ga-qualification-plan.md) records prior source qualification. Current [PR218](https://github.com/uzh-bf/design-system/pull/218) at `afcc2b912` failed browser installation before behavioral tests; later draft tips pass the full gates | Reconcile this lower-layer gate before landing. Six tooling advisories remained in the October 19 audit; refresh their current status before remediation and GA |
-| Historical Klicker pilot                 | [Draft PR6652](https://github.com/uzh-bf/klicker-uzh/pull/6652) at `4f6e8c56e36b8ceeaa87ce859d2c736d7c9a71a4` delivers the dev-only Webpack routing repair and consumer acceptance; eight required checks pass, with 997 browser passes and five skips                       | Retained Formik and palette/focus overrides limit this proof. It does not establish RHF parity, full new-default adoption or current-trunk acceptance |
-| Promotion                                | Existing [draft PR179](https://github.com/uzh-bf/design-system/pull/179) owns v5-to-main promotion and remains unreconciled                                                                                                                                                  | Qualify the integrated candidate after feature completion; readiness, merge and publication require named authority                                   |
+| Workstream                               | Delivered evidence                                                                                                                                                                                                                                                           | Remaining gate                                                                                                                                                  |
+| ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Inputs, dependencies and field contracts | Drafts [PR210](https://github.com/uzh-bf/design-system/pull/210), [PR211](https://github.com/uzh-bf/design-system/pull/211) and [PR213](https://github.com/uzh-bf/design-system/pull/213) correct input/reset, disabled-selection, multi-select and transformed-type defects | Preserve these input cases through the expanded catalog; RHF parity is qualified in drafts PR219/220                                                            |
+| Consumer CSS and UZH tokens/defaults     | [PR214](https://github.com/uzh-bf/design-system/pull/214) through [PR217](https://github.com/uzh-bf/design-system/pull/217) deliver scoped responsive CSS, palette/alias coverage, tokens and defaults                                                                       | Current official-source traceability, deliberate adaptations and new-default consumer proof remain required                                                     |
+| Library qualification                    | The [completed plan](2026-10-19-v5-ga-qualification-plan.md) records prior source qualification. Current [PR218](https://github.com/uzh-bf/design-system/pull/218) at `afcc2b912` failed browser installation before behavioral tests; later draft tips pass the full gates  | Reconcile this lower-layer gate before landing. Six tooling advisories remained in the October 19 audit; refresh their current status before remediation and GA |
+| Historical Klicker pilot                 | [Draft PR6652](https://github.com/uzh-bf/klicker-uzh/pull/6652) at `4f6e8c56e36b8ceeaa87ce859d2c736d7c9a71a4` delivers the dev-only Webpack routing repair and consumer acceptance; eight required checks pass, with 997 browser passes and five skips                       | Retained Formik and palette/focus overrides limit this proof. It does not establish RHF parity, full new-default adoption or current-trunk acceptance           |
+| Promotion                                | Existing [draft PR179](https://github.com/uzh-bf/design-system/pull/179) owns v5-to-main promotion and remains unreconciled                                                                                                                                                  | Qualify the integrated candidate after feature completion; readiness, merge and publication require named authority                                             |
 
 The accepted unpublished candidate was produced from
 `0126b42e07da1fd52cbc1c1708f9e2dc9e902077`: file
@@ -242,18 +242,18 @@ Mixed examples retain their eligible requirements. Preserve existing consumer
 contracts, Formik/RHF parity, `MultiSelect` and `RhfMultiSelect`; separately named
 capabilities require an explicit decision rather than automatic retirement.
 
-| Formik family retained through v5 | Qualified RHF counterpart | Evidence boundary |
-| --- | --- | --- |
-| Text | `RhfTextField` | [Draft PR219](https://github.com/uzh-bf/design-system/pull/219); all-family behavioral/type/packed proof |
-| Number | `RhfNumberField` | [Draft PR219](https://github.com/uzh-bf/design-system/pull/219); all-family behavioral/type/packed proof |
-| Select | `RhfSelectField` | [Draft PR219](https://github.com/uzh-bf/design-system/pull/219); all-family behavioral/type/packed proof |
-| Textarea | `RhfTextareaField` | [Draft PR219](https://github.com/uzh-bf/design-system/pull/219); all-family behavioral/type/packed proof |
-| Switch | `RhfSwitchField` | [Draft PR219](https://github.com/uzh-bf/design-system/pull/219); all-family behavioral/type/packed proof |
-| Color picker | `RhfColorPicker` | [Draft PR220](https://github.com/uzh-bf/design-system/pull/220); all-family behavioral/type/packed proof |
-| Date picker | `RhfDatePicker` | [Draft PR220](https://github.com/uzh-bf/design-system/pull/220); all-family behavioral/type/packed proof |
-| Date/time picker | `RhfDatetimePicker` | [Draft PR220](https://github.com/uzh-bf/design-system/pull/220); all-family behavioral/type/packed proof |
-| Numeric PIN | `RhfPinField` | [Draft PR219](https://github.com/uzh-bf/design-system/pull/219); all-family behavioral/type/packed proof |
-| Alphanumeric PIN | `RhfAlphaNumericPinField` | [Draft PR219](https://github.com/uzh-bf/design-system/pull/219); all-family behavioral/type/packed proof |
+| Formik family retained through v5 | Qualified RHF counterpart | Evidence boundary                                                                                        |
+| --------------------------------- | ------------------------- | -------------------------------------------------------------------------------------------------------- |
+| Text                              | `RhfTextField`            | [Draft PR219](https://github.com/uzh-bf/design-system/pull/219); all-family behavioral/type/packed proof |
+| Number                            | `RhfNumberField`          | [Draft PR219](https://github.com/uzh-bf/design-system/pull/219); all-family behavioral/type/packed proof |
+| Select                            | `RhfSelectField`          | [Draft PR219](https://github.com/uzh-bf/design-system/pull/219); all-family behavioral/type/packed proof |
+| Textarea                          | `RhfTextareaField`        | [Draft PR219](https://github.com/uzh-bf/design-system/pull/219); all-family behavioral/type/packed proof |
+| Switch                            | `RhfSwitchField`          | [Draft PR219](https://github.com/uzh-bf/design-system/pull/219); all-family behavioral/type/packed proof |
+| Color picker                      | `RhfColorPicker`          | [Draft PR220](https://github.com/uzh-bf/design-system/pull/220); all-family behavioral/type/packed proof |
+| Date picker                       | `RhfDatePicker`           | [Draft PR220](https://github.com/uzh-bf/design-system/pull/220); all-family behavioral/type/packed proof |
+| Date/time picker                  | `RhfDatetimePicker`       | [Draft PR220](https://github.com/uzh-bf/design-system/pull/220); all-family behavioral/type/packed proof |
+| Numeric PIN                       | `RhfPinField`             | [Draft PR219](https://github.com/uzh-bf/design-system/pull/219); all-family behavioral/type/packed proof |
+| Alphanumeric PIN                  | `RhfAlphaNumericPinField` | [Draft PR219](https://github.com/uzh-bf/design-system/pull/219); all-family behavioral/type/packed proof |
 
 `RhfMultiSelect` is an additional existing RHF control, not a fourth covered
 Formik family. Retain and qualify it. Parity covers typed paths/values and
@@ -952,16 +952,16 @@ Stop the active package and report when:
 All eight actionable findings from the supplied review are corrected in the
 unmerged draft stack, with passing source verification at `b8d607280`:
 
-| Review finding | Disposition | Evidence or remaining gate |
+| Review finding                                            | Disposition                                      | Evidence or remaining gate                                                                                                                                                  |
 | --------------------------------------------------------- | ------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Responsive consumer CSS collision | Scoped component defaults implemented in Phase 1 | Independently compiled CSS across both themes/four widths; explicit primitive utility overrides; real Klicker modal desktop/mobile checks and explicit header override pass |
-| Calendar browsing changes selected date during time edits | Corrected in PR210 | Each time segment preserves selected calendar date after month browsing |
-| Missing behavioral and consumer release gates | Corrected in PR213 | Contract job and frozen RHF 7.59.0/7.90.0 packed/Next jobs are prerequisites; injected failing contract fails the actual command |
-| Modal arrows unreachable after keyboard opening | Corrected in PR210 | Natural trigger → Enter → arrow sequence; nested controls retain their keys |
-| Empty twelve-hour picker discards PM | Corrected in PR210 | Pending period applies when hours, minutes or seconds are entered first; controlled reset/synchronization cases |
-| Open selection remains mutable when disabled | Corrected in PR213 | Standalone and RHF close/mutation guards; named disabled Select absent from FormData; disabled-close blur follow-up reproduced and corrected in both themes |
-| Highlight exposed as multiple selection | Corrected in PR213 | Independent highlight and selected values, multiselectable listbox, consistent dialog popup relation; keyboard/filter/external-update checks |
-| FormField rejects transformed output | Corrected in PR213 | Public packed declaration fixture with inferred string input/number output at both supported RHF versions |
+| Responsive consumer CSS collision                         | Scoped component defaults implemented in Phase 1 | Independently compiled CSS across both themes/four widths; explicit primitive utility overrides; real Klicker modal desktop/mobile checks and explicit header override pass |
+| Calendar browsing changes selected date during time edits | Corrected in PR210                               | Each time segment preserves selected calendar date after month browsing                                                                                                     |
+| Missing behavioral and consumer release gates             | Corrected in PR213                               | Contract job and frozen RHF 7.59.0/7.90.0 packed/Next jobs are prerequisites; injected failing contract fails the actual command                                            |
+| Modal arrows unreachable after keyboard opening           | Corrected in PR210                               | Natural trigger → Enter → arrow sequence; nested controls retain their keys                                                                                                 |
+| Empty twelve-hour picker discards PM                      | Corrected in PR210                               | Pending period applies when hours, minutes or seconds are entered first; controlled reset/synchronization cases                                                             |
+| Open selection remains mutable when disabled              | Corrected in PR213                               | Standalone and RHF close/mutation guards; named disabled Select absent from FormData; disabled-close blur follow-up reproduced and corrected in both themes                 |
+| Highlight exposed as multiple selection                   | Corrected in PR213                               | Independent highlight and selected values, multiselectable listbox, consistent dialog popup relation; keyboard/filter/external-update checks                                |
+| FormField rejects transformed output                      | Corrected in PR213                               | Public packed declaration fixture with inferred string input/number output at both supported RHF versions                                                                   |
 
 The compatible dependency layer retains the selected major lines and updates
 only the supplied inherited transitive paths. This is bounded maintenance, not
@@ -993,13 +993,11 @@ bounded picker/error-state contrast correction before GA; no waiver, suppression
 or current-package accessibility pass is implied by the existing closed-story
 checks. Manual qualification and exact integrated consumer acceptance stay open.
 
-
 ## October25 quality closure checkpoint
 
 The [approved quality plan](2026-10-25-v5-quality-closure-plan.md) follows the qualified CodeBlock draft. Local source now restores DateTimePicker year navigation and fixes empty-invalid picker contrast using existing component foreground tokens. Focused calendar/form/menu tests, independent final review, exact package proof, captures and exact-head CI qualify [quality draft #237](https://github.com/uzh-bf/design-system/pull/237) at `059844953`.
 
 The opened modal-menu `aria-hidden-focus` finding reproduces in a standalone DS page and unmodified Radix DropdownMenu/ContextMenu. DropdownMenu/ContextMenu Tab/Shift+Tab remains contained and Escape restores focus. Menubar has no hidden-focus finding, and Escape restores its trigger; its non-modal Tab behavior is not a containment claim. This establishes upstream provenance, not assistive-technology acceptance. Keep the finding as a GA upstream/manual gate without a waiver or modality change. Representative public-entry compositions follow this source package. Final qualification records runtime-pin drift; version changes need their own evaluated acceptance. Consumer/manual evidence and merge/release authority remain separate.
-
 
 ## October25 representative composition execution
 
