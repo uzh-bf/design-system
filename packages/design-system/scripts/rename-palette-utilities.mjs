@@ -50,6 +50,30 @@ function renameToken(token) {
   )
 }
 
+function findJsxTagEnd(source, start) {
+  let braces = 0
+  let quote = ''
+  for (let index = start; index < source.length; index++) {
+    const character = source[index]
+    if (quote) {
+      if (character === '\\') {
+        index++
+        continue
+      }
+      if (character === quote) quote = ''
+      continue
+    }
+    if (['"', "'", '`'].includes(character)) {
+      quote = character
+      continue
+    }
+    if (character === '{') braces++
+    if (character === '}' && braces > 0) braces--
+    if (character === '>' && braces === 0) return index
+  }
+  return -1
+}
+
 /** Rename complete static utility tokens; leave interpolated strings untouched. */
 export function renamePaletteUtilities(source) {
   const unsupported = []
@@ -96,12 +120,16 @@ export function renamePaletteUtilities(source) {
     const declaration = /\b(?:const|let|var)\s+[\w$]+\s*=\s*$/.test(before)
     const expression = /(?:^\s*|[([,:?=]\s*|=>\s*|\breturn\s+)$/.test(before)
     const tagStart = before.lastIndexOf('<')
-    const tagEnd = before.lastIndexOf('>')
-    const afterTag = before.slice(tagEnd + 1)
+    const tagEnd =
+      tagStart >= 0 && /^<\/?[A-Za-z]/.test(before.slice(tagStart))
+        ? findJsxTagEnd(before, tagStart)
+        : -1
+    const afterTag = tagEnd < 0 ? '' : before.slice(tagEnd + 1)
     const jsxText =
       tagStart >= 0 &&
       /^<\/?[A-Za-z]/.test(before.slice(tagStart)) &&
       tagEnd > tagStart &&
+      tagEnd < index &&
       afterTag.split('{').length === afterTag.split('}').length
     if (jsxText || (!attribute && !declaration && !expression)) {
       code += source[index++]
@@ -124,7 +152,8 @@ export function renamePaletteUtilities(source) {
     const value = source.slice(index + 1, end)
     if (quote === "'" && /[<\r\n]/.test(value)) {
       unsupported.push({ offset: index, reason: 'ambiguous quote context' })
-      code += source[index++]
+      code += source.slice(index, end + 1)
+      index = end + 1
       continue
     }
     const ordinaryString =
