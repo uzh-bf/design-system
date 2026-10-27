@@ -17,6 +17,9 @@ The component supports combined date and time selection, multiple granularity le
 
 The props for the DatetimePicker component are as follows:
 
+- @param id - Optional trigger id associated with the visible label.
+- @param ariaLabel - Accessible name when no visible label is provided.
+- @param timeLabels - Optional localized names for hours, minutes, seconds, and period controls.
 - @param value - The currently selected date value.
 - @param onChange - Callback function called when the date value changes.
 - @param onMonthChange - Callback function called when the displayed month changes.
@@ -48,6 +51,13 @@ The props for the DatetimePicker component are as follows:
 - @param weekStartsOn - The day the week starts on in the calendar.
 - @param showWeekNumber - Whether to show the week number in the calendar.
 - @param showOutsideDays - Whether to show days from adjacent months in the calendar.
+
+Time segments support native selection, typing, deletion, and paste. One or two
+digits update the selected date, clamped to the segment's range. Empty or
+malformed text leaves the date unchanged and restores its displayed value on
+blur. Up/down arrows increment or decrement; left/right arrows move between
+segments at the caret boundaries. External value updates synchronize the open
+time editor, including AM/PM.
 </div>
 {/* END README */}
 

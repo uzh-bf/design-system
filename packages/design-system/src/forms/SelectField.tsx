@@ -27,6 +27,7 @@ interface SelectFieldProps {
   disabled?: boolean
   error?: string
   hideError?: boolean
+  ariaInvalid?: boolean
   contentPosition?: 'item-aligned' | 'popper'
   className?: {
     root?: string
@@ -90,6 +91,7 @@ export function SelectField({
   disabled = false,
   error,
   hideError = false,
+  ariaInvalid,
   contentPosition = 'item-aligned',
   className,
   ...props
@@ -102,6 +104,7 @@ export function SelectField({
     isTouched: true,
     hideError,
   })
+  const resolvedAriaInvalid = ariaInvalid ?? !!error
   return (
     <div className={twMerge('flex w-max flex-col', className?.root)}>
       <div
@@ -146,6 +149,7 @@ export function SelectField({
             }}
             contentPosition={contentPosition}
             {...props}
+            ariaInvalid={resolvedAriaInvalid}
           />
           {visibleError && (
             <FieldErrorIndicator error={visibleError} errorId={errorId} />
