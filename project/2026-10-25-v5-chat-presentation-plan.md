@@ -439,10 +439,11 @@ a phone viewport. Removing that constraint preserves ordinary labels and permits
 long labels to wrap. The existing narrow-variant contract now checks label and
 attachment containment;8interactions and8a11y cases pass after the fix.
 
-Remaining chat work: refresh the affected captures and exact archive proof,
-complete integrated final review and its focused correction, then qualify the
-final exact CI head and quiet feedback. The active verification container is source-bound to
-this worktree and must be stopped after final runtime verification.
+Historical chat qualification completed at48c6b91a6 after refreshed captures,
+exact archive proof, integrated review and exact-head CI/quiet settlement.
+The newly propagated candidate requires its own hosted CI. Current qualification
+is recorded in the draft description and local verification journal; all runtime
+and consumer acceptance boundaries remain separate.
 
 Questionnaire starts only after chat qualification, on `rs/v5-questionnaire`.
 Its approved native form/ergonomic interfaces and second draft topology remain
