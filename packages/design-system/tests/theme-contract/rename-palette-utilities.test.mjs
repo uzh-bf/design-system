@@ -54,6 +54,21 @@ test('renames static class strings in JSX conditions and preserves rejected valu
   assert.equal(renamed.changes, 2)
   assert.deepEqual(renamed.unsupported, [])
 
+  for (const input of [
+    ...['&&', '||', '??'].map(
+      (operator) => `<div className={active ${operator} 'bg-uzh-red-100'} />`
+    ),
+    "useState<string>('')\nconst cls = 'bg-uzh-red-100'",
+    "<div />\nconst cls = 'bg-uzh-red-100'",
+    "<div></div>\nconst cls = 'bg-uzh-red-100'",
+  ]) {
+    const result = renamePaletteUtilities(input)
+    assert.equal(result.code, input.replace('bg-uzh-red', 'bg-uzh-orange'))
+    assert.equal(result.changes, 1)
+    assert.deepEqual(result.unsupported, [])
+    assert.equal(renamePaletteUtilities(result.code).changes, 0)
+  }
+
   const rejected = `<div title='<span class="bg-uzh-red-100">' />`
   const preserved = renamePaletteUtilities(rejected)
   assert.equal(preserved.code, rejected)
