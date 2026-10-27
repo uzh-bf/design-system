@@ -5,6 +5,11 @@ on:
 permissions:
   contents: read
 
+env:
+  # Fresh-runner system packages can take longer than five minutes.
+  PLAYWRIGHT_INSTALL_TIMEOUT: "900"
+  PLAYWRIGHT_INSTALL_ATTEMPTS: "1"
+
 jobs:
   lint:
     runs-on: ubuntu-latest
