@@ -53,7 +53,8 @@ test('renames static class strings in JSX conditions and preserves rejected valu
   const renamed = renamePaletteUtilities(conditional)
   assert.equal(
     renamed.code,
-    "<div className={count > 1 ? 'bg-uzh-orange-100' : 'bg-df-grey-100'} />"
+    "<div className={count > 1 ? 'bg-uzh-orange-100' : 'bg-" +
+      "df-grey-100'} />"
   )
   assert.equal(renamed.changes, 2)
   assert.deepEqual(renamed.unsupported, [])
