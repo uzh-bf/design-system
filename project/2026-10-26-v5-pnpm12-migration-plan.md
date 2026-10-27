@@ -12,6 +12,26 @@ Main owns graph, manifests, CI, runtime and integration; one bounded executor ow
 
 Terminal: update and qualify the same draft with exact migrated graph/archive evidence, native builds, browser matrices, configured final review and hosted CI. No new stack layer or native goal. No new monitoring automation, merge, readiness, release/publication, deployment, consumer writes or provider/agent changes are authorized. A blocking supported CI observer may complete the draft qualification; scheduling any later wakeup remains separate.
 
+## Convergence override maintenance — October 27
+
+The empty-range selector `name@` is a pnpm [convergence override](https://github.com/pnpm/pnpm/blob/main/pnpm/docs/settings/dependency-resolution.md). It rewrites compatible plain-semver dependency edges to the exact target; incompatible ranges keep their resolution. It is not an unconditional all-versions pin. Preserve the Recharts3.8 minimum cell's compatible Immer10 graph when reviewing the Immer11 convergence target. The exact12.12.1 frozen/fresh graph and peer-endpoint receipts remain the pinned-runtime evidence; the explanation uses current upstream documentation.
+
+All retained targets live in the four effective `pnpm-workspace.yaml` files: root, `packages/design-system/tests/rsc/next-consumer`, `packages/design-system/tests/rsc/packed-consumers/consumers/dedicated`, and `packages/design-system/tests/rsc/packed-consumers/consumers/root-only`. Review every convergence target at the next explicitly approved dependency refresh once its intended same-major candidate meets the fourteen-day threshold, or when a relevant advisory requires a separately ruled response. The source configurations are the complete pin inventory; include their Radix, Rollup platform, TypeScript/ESLint, webpack, browser-data, Shiki/TextMate/Oniguruma, Immer, PostCSS and remaining package trains in that review. No pin expires automatically.
+
+The October26 metadata recorded these useful checkpoints; refresh registry dates, ranges and advisories before selecting a version:
+
+| Train                              | Recorded candidate                                        | Fourteen-day checkpoint UTC                             |
+| ---------------------------------- | --------------------------------------------------------- | ------------------------------------------------------- |
+| Radix primitive patch train        | Version-specific patches in the configuration inventory   | October26 around21:03; verify each package's exact date |
+| @axe-core/playwright               | 4.14.0                                                    | October29 13:33:17.706                                  |
+| webpack                            | 5.112.0                                                   | October29 22:26:48.350                                  |
+| PostCSS                            | 8.5.31                                                    | November1 19:39:43.015                                  |
+| Rollup and matching platform train | 4.64.10                                                   | November1 14:48:55.725; verify each platform pair       |
+| Immer11                            | 11.2.9                                                    | November5 11:26:03.287                                  |
+| Other retained targets             | Intended same-major candidate after fresh metadata review | Next approved refresh or relevant advisory              |
+
+Retire or retarget a convergence override only after the affected frozen/fresh graphs, peer endpoints, archive and consumer checks qualify. Keep overrides needed for incompatible supported ranges. Retiring the exact Panels exception or the later isolated Next exception is a separate policy change. This note changes no dependency, graph edge, age exception or advisory disposition, and schedules no wakeup.
+
 ## Approval summary (historical preparation ruling)
 
 Move the design-system root, CI and isolated consumer fixtures to exact pnpm 12.12.1. Enforce the fourteen-day publication window during resolution and frozen installation, including transitive and platform packages. Requalify mature same-major alternatives instead of waiting for the whole current graph to age. Deliver one proposed fifth draft layer above dependency cleanup #240, with the package manager, configuration, dependency graph and verification in the same layer.

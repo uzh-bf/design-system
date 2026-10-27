@@ -15,9 +15,9 @@ import {
 
 {/* START README */}
 <div className="prose prose-sm max-w-none">
-The `Resizable` root family and the `Group`, `Panel` and `Separator` family under
-`@uzh-bf/design-system/primitives` use the same native Panels 4 contract and
-component implementation. Use either door, or mix their components in one
+Both public entries export `ResizablePanelGroup`, `ResizablePanel` and
+`ResizableHandle`. These wrap native Panels 4 `Group`, `Panel` and `Separator`
+with the same contract and component implementation. Use either door, or mix their components in one
 group, when you need adjustable split panes, dashboards, editors or sidebars.
 
 Panels 4 interprets numeric panel sizes as pixels. Write percentage sizes as
@@ -46,7 +46,7 @@ Available Stories:
 - Compatibility: Group and panel refs, layout maps, payloads, bounds, collapse, persistence and interactions through the root entry
 - NativeCompatibility: Percent and pixel sizing, mixed root/primitive components, callbacks, persistence and nesting through the primitive entry
 
-Props (Group):
+Props (ResizablePanelGroup):
 
 - orientation: "horizontal" | "vertical" - Layout direction; defaults to horizontal
 - defaultLayout: Layout - Initial ID-to-percentage map
@@ -58,7 +58,7 @@ Props (Group):
 - resizeTargetMinimumSize: { coarse: number; fine: number } - Minimum pointer target in pixels
 - className: string - Additional CSS classes
 
-Props (Panel):
+Props (ResizablePanel):
 
 - defaultSize: number | string - Initial pixel, percentage or CSS-unit size
 - minSize / maxSize: number | string - Pixel, percentage or CSS-unit constraints
@@ -70,7 +70,7 @@ Props (Panel):
 - disabled: boolean - Prevent direct and indirect panel resizing
 - className: string - Applied to the panel's nested inner div
 
-Props (Separator):
+Props (ResizableHandle):
 
 - className: string - Additional CSS classes
 - withHandle: boolean - Show the visual grip

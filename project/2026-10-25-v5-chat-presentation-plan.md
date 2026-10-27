@@ -401,6 +401,9 @@ gated actions. Do independent authorized work before raising a blocker.
 
 ## Progress
 
+Historical chat draft234 qualified at48c6b91a6 and Questionnaire draft235 at2a8d3f401 after their recorded final reviews, exact archive proof, CI and quiet settlement. The paragraphs below retain implementation chronology; their in-progress language describes those historical checkpoints. Newly propagated heads need their own CI, with current qualification recorded in each PR description and the local journal.
+
+
 Both approved layers are implemented in native stack231. Chat
 [draft234](https://github.com/uzh-bf/design-system/pull/234) is qualified at held
 `48c6b91a6c41aa487b82e0426f1b5621e2bac925`, above held Resizable
@@ -432,11 +435,8 @@ Questionnaire verification passed:
 
 The source slice risk review approved all15 paths without findings. Its dedicated
 simplifier removed four duplicated native action-label defaults; the native
-fallbacks and configured localization were verified. Final configured Claude
-review is running against executable source5e22de507 and the complete layer.
-Hosted CI is pending. Seven inspected synthetic captures are attached to draft235;
-publication receipts are retained locally. Final forge rendering, review/CI and
-quiet feedback checks remain before this second draft qualifies.
+fallbacks and configured localization were verified. The historical final configured Claude review covered executable source5e22de507 and the complete layer; it and hosted CI completed before qualification at2a8d3f401. Seven inspected synthetic captures are attached to draft235;
+publication receipts are retained locally. Final forge rendering, review/CI and quiet feedback checks completed at the historical2a8d3f401 qualification.
 
 The source-bound task verification container was stopped after final local proof;
 its exact worktree bind and exited state were verified. No consumer repository
