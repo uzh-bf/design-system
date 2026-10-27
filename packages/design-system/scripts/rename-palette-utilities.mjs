@@ -118,15 +118,22 @@ export function renamePaletteUtilities(source) {
     const before = source.slice(0, index)
     const attribute = /\b([\w:-]+)\s*=\s*\{?\s*$/.exec(before)?.[1]
     const declaration = /\b(?:const|let|var)\s+[\w$]+\s*=\s*$/.test(before)
-    const expression = /(?:^\s*|[([,:?=]\s*|=>\s*|\breturn\s+)$/.test(before)
+    const expression =
+      /(?:^\s*|[([,:?=]\s*|=>\s*|&&\s*|\|\|\s*|\?\?\s*|\breturn\s+)$/.test(
+        before
+      )
     const tagStart = before.lastIndexOf('<')
     const tagEnd =
-      tagStart >= 0 && /^<\/?[A-Za-z]/.test(before.slice(tagStart))
+      tagStart >= 0 &&
+      !/[\w$]/.test(before[tagStart - 1] ?? '') &&
+      /^<[A-Za-z]/.test(before.slice(tagStart))
         ? findJsxTagEnd(before, tagStart)
         : -1
     const afterTag = tagEnd < 0 ? '' : before.slice(tagEnd + 1)
     const jsxText =
-      tagEnd >= 0 && afterTag.split('{').length === afterTag.split('}').length
+      tagEnd >= 0 &&
+      !/\/\s*>$/.test(before.slice(tagStart, tagEnd + 1)) &&
+      afterTag.split('{').length === afterTag.split('}').length
     if (jsxText || (!attribute && !declaration && !expression)) {
       code += source[index++]
       continue
