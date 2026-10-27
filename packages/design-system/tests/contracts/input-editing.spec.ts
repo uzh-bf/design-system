@@ -264,6 +264,21 @@ for (const theme of ['neutral', 'uzh'] as const) {
       })
     }
 
+    test('keeps shared menu item sizing off labels and separators', async ({
+      page,
+    }) => {
+      await page.getByRole('button', { name: 'Sized menu' }).click()
+      await expect(page.locator('#contract-item')).toHaveCSS('height', '48px')
+      const separator = await page.locator('#contract-separator').boundingBox()
+      const label = await page.locator('#contract-label').boundingBox()
+      expect(separator).not.toBeNull()
+      expect(label).not.toBeNull()
+      expect(separator!.height).toBeLessThan(4)
+      expect(label!.height).toBeLessThan(48)
+      await page.keyboard.press('Escape')
+      await expect(page.getByRole('menu')).toHaveCount(0)
+    })
+
     test('scopes modal arrow navigation and preserves control editing', async ({
       page,
     }) => {
@@ -275,6 +290,11 @@ for (const theme of ['neutral', 'uzh'] as const) {
       await expect(
         page.locator('[data-test="navigation-dialog"]')
       ).toBeFocused()
+      await expect(
+        page.locator(
+          '[data-test="navigation-dialog"] [data-slot="dialog-footer"]'
+        )
+      ).toHaveCount(0)
       await page.keyboard.press('ArrowRight')
       await expect(position).toHaveText('1')
       await page.keyboard.press('ArrowLeft')
@@ -297,6 +317,16 @@ for (const theme of ['neutral', 'uzh'] as const) {
       await expect(position).toHaveText('0')
       await surface.press('Shift+ArrowRight')
       await expect(position).toHaveText('0')
+      const close = page.getByRole('button', { name: 'Close', exact: true })
+      await close.focus()
+      const keyboardRing = await close.evaluate(
+        (element) => getComputedStyle(element).boxShadow
+      )
+      await surface.click()
+      await close.focus()
+      expect(
+        await close.evaluate((element) => getComputedStyle(element).boxShadow)
+      ).not.toBe(keyboardRing)
       await page.keyboard.press('Escape')
       await expect(page.locator('[data-test="navigation-dialog"]')).toBeHidden()
       await page.locator('[data-test="background-input"]').press('ArrowRight')

@@ -4,15 +4,18 @@
 
 - Date: 2026-08-10; current execution index refreshed 2026-10-18
 - Status: GA blocked. Verified input correctness, consumer CSS and durable
-  contract-gate gaps are being remediated in the existing draft stack.
+  contract-gate corrections are delivered in the existing draft stack. Current
+  Klicker candidate acceptance passes locally; Phase 2, manual qualification
+  and the broader release-candidate consumer matrix remain open.
 - Repository: `uzh-bf/design-system`
 - Release trunk: `v5`
-- Active corrective branch: `rs/v5-input-stabilization`
+- Active corrective branch: `rs/v5-uzh-alignment`
 - Roadmap worktree:
-  `/Users/rschlae/Git/df/design-system/trees/rs/v5-input-stabilization`
+  `/Users/rschlae/Git/df/design-system/trees/rs-v5-uzh-alignment`
 - Current delivery: draft stack [#210](https://github.com/uzh-bf/design-system/pull/210) →
   [#211](https://github.com/uzh-bf/design-system/pull/211) →
-  [#213](https://github.com/uzh-bf/design-system/pull/213). Merges remain separately gated.
+  [#213](https://github.com/uzh-bf/design-system/pull/213) →
+  [#214](https://github.com/uzh-bf/design-system/pull/214). Merges remain separately gated.
 - Audience: maintainers and future execution agents preparing v5 for GA and
   migrating the first production consumers.
 
@@ -21,8 +24,8 @@
 Move v5 from a registry-proven prototype release to a GA candidate with an
 immutable release boundary, enforced package budgets, deterministic visual and
 accessibility gates, explicit React Server Components and theme-extension
-contracts, a reviewed Klicker brand profile, and representative real-application
-proof.
+contracts, approved consumer-owned primary ramps where used, and representative
+real-application proof.
 
 ## Non-goals
 
@@ -48,8 +51,14 @@ proof.
 3. Every future Design System or consumer PR receives its own reviewed
    execution plan. This roadmap controls milestone order and gates; it does not
    replace package-level plans.
-4. Accepted ADRs own durable public contracts. A change to the two-door public
-   API must first supersede `docs/adr/0001-two-door-public-api.md`.
+4. Accepted ADRs own durable public contracts. [ADR 0002](../docs/adr/0002-rhf-subpath-rsc-contract.md)
+   partly supersedes [ADR 0001](../docs/adr/0001-two-door-public-api.md): root and
+   primitives retain RSC isolation; optional RHF composites use the dedicated
+   `./react-hook-form` client entry. [ADR 0003](../docs/adr/0003-uzh-primary-ramp-override-boundary.md)
+   and [ADR 0004](../docs/adr/0004-themeprovider-root-sync.md) settle consumer ramp
+   ownership and document-root placement. [ADR 0005](../docs/adr/0005-uzh-corporate-design-is-a-reference-not-a-constraint.md)
+   owns the application-design posture. Change the applicable ADR before changing
+   its contract.
 5. PR [#179](https://github.com/uzh-bf/design-system/pull/179) is the existing
    `v5 -> main` promotion boundary. It is not a source branch for feature work
    and is not replaced merely because it is broad or stale.
@@ -72,10 +81,9 @@ Historical inputs:
 - `rs-sliced-development-workflow` owns package plans, slice commits,
   verification, review, and PR finish.
 - `writing-for-agents` keeps each work package executable without chat history.
-- The configured planner completed a read-only planning-stage pass with
-  `DONE_WITH_CONCERNS`. Its three concerns are retained as explicit gates:
-  React Server Components export design, Klicker brand-ramp ownership, and the
-  inconsistent accessibility baseline count.
+- The August planning pass raised RSC export design, brand-ramp ownership and
+  accessibility baseline accounting. Accepted ADRs and implemented gates now
+  resolve those foundation questions; the current index controls remaining work.
 - Security-sensitive release changes, public API rulings, architecture,
   integration, and external side effects remain in the main session. Bounded
   implementation may be delegated only after a package plan fixes its paths,
@@ -86,33 +94,62 @@ Historical inputs:
 
 ## Current execution index — 2026-10-18
 
-Remote `v5` is `80d6f229c`. Its implemented foundations supersede the historical
+Remote `v5` is `80d6f229c`; the corrected draft source is `b8d607280`, with
+[passing hosted CI](https://github.com/uzh-bf/design-system/actions/runs/39157156790).
+npm still serves `5.0.0-alpha.5` on `alpha` and `4.1.8` on `latest`; the corrected
+local tarball has not been published. These facts supersede the historical
 August status table below. The user approved verified-review remediation and
 this roadmap update; draft delivery is authorized, while target merges,
 readiness conversion, release publication and deployment remain gated.
 
-| Workstream                                                                    | Verified state                                                                                                                            | Owner and next acceptance                                                                                                                               |
-| ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Size, RSC/RHF entries, root themes, exact axe inventory and deterministic VRT | Implemented in v5; release metadata is alpha.5                                                                                            | Maintain existing protections; historical consumer proofs do not accept a later integrated candidate                                                    |
-| Input stabilization                                                           | Draft PR210; two introduced regressions and inherited calendar/time coupling reopened acceptance                                          | Main: natural keyboard-open navigation, empty12h period and date invariance, both-theme contracts and exact-head CI                                     |
-| Compatible dependencies                                                       | Draft PR211; compatible updates and focused shadcn assessment complete                                                                    | Main: carry input correction upward, preserve peer/export contracts, triage only supplied transitive paths and correct ownership docs                   |
-| Shared field/selection behavior                                               | Draft PR213; help/inline errors implemented; disabled transitions, actual multi-selection semantics and transformed FormField remain open | Main plus bounded executor: browser/FormData/keyboard and packed public types                                                                           |
-| Durable contracts and consumers | Field draft adds behavioral contracts and frozen RHF minimum/current packed and Next jobs to release prerequisites; local matrix verification in progress | Main: current-head hosted proof, failure propagation and isolated server cleanup before completed delivery |
-| Consumer CSS and UZH alignment                                                | Separate branch retains partial Phase1 fixes; CSS ownership and real consumer loop remain incomplete                                      | Main: independent consumer stylesheet collision/customization proof; integrate existing fixes and confirm real consumer behavior                        |
-| UZH pre-GA defaults and tokens                                                | Phase0 rulings recorded; Phase2 remains planned                                                                                           | Existing UZH roadmap owns interaction/status/neutral/focus/typography and default changes; finish only with reviewed visuals, axe and consumer evidence |
-| GA promotion                                                                  | PR179 is draft and conflicts with main                                                                                                    | Separate promotion package after integrated candidate/consumer acceptance; no release inferred from green CI                                            |
+| Workstream | Current evidence | Remaining acceptance |
+| --- | --- | --- |
+| Existing v5 foundations | Size budgets, separate RSC/RHF entries, root themes, generic primary-ramp extension with a synthetic fixture, exact axe inventory and deterministic VRT implemented; metadata remains alpha.5 | Maintain protections through the integrated candidate; qualify actual consumer-owned ramp values where used |
+| Input correctness — [PR210](https://github.com/uzh-bf/design-system/pull/210) | Natural modal entry, empty twelve-hour periods, controlled resets, selected-date invariance and value-bearing names corrected; independent review accepted; current-head CI green | Retain these cases when integrating later layers |
+| Compatible dependencies — [PR211](https://github.com/uzh-bf/design-system/pull/211) | Compatible direct refresh and four supplied transitive paths corrected; peer/export contracts preserved; ownership docs clarified; independent review accepted; current-head CI green | Reassess remaining advisories and deferred majors before GA; a focused shadcn comparison does not certify every copied primitive |
+| Fields and durable CI — [PR213](https://github.com/uzh-bf/design-system/pull/213) | Disabled selection/FormData, true multi-selection semantics and transformed FormField types implemented; disabled-close blur correction passes all 88 local contracts, complete independent review and hosted CI; contracts and RHF minimum/current packed/Next consumers gate release build | Retain the corrected disabled-transition and public-type cases through integration |
+| Consumer CSS and UZH Phase 1 | Existing fixes integrated after the field stack; scoped responsive defaults replace colliding utility pairs; 90 contracts, 803 accessibility cases, 23 pinned visuals, 688 token assertions and 336 CSS/override assertions pass; complete independent review accepted | [PR214](https://github.com/uzh-bf/design-system/pull/214) maintains hosted CI and browser evidence. The packed candidate installs and builds in the existing Klicker pilot; actual Formik save/reload and desktop/mobile modal checks pass. Broader release-candidate qualification remains open |
+| UZH Phase 2 | Phase 0 decisions settled; token/value/default changes are specified but unimplemented | Follow the ordered design roadmap: establish family/alias coverage, implement tokens and defaults, then review visuals, migration and zero-waiver accessibility proof |
+| GA promotion — [PR179](https://github.com/uzh-bf/design-system/pull/179) | Draft v5 umbrella still conflicts with main | Reconcile in a promotion package and qualify an integrated candidate; merge, publication and deployment require separate authority |
 
-The existing [UZH alignment roadmap](https://github.com/uzh-bf/design-system/blob/271d018b52a0c93bb8b13b28f789c35d2ee66a15/project/2026-08-19-v5-uzh-alignment-roadmap.md)
-owns its detailed design phases. Its local branch is two commits beyond that
-remote snapshot; preserve both unpublished corrections during integration.
-This index does not create a competing design roadmap or call Phase2 complete.
+The [UZH alignment roadmap](2026-08-19-v5-uzh-alignment-roadmap.md) owns the
+remaining design phases. Its existing branch retains the original Phase 1 fixes
+and corrected input/dependency/field history through ordinary merges. The index
+records source, local verification, hosted checks and real consumer acceptance
+separately; green CI does not establish GA readiness.
 
-Correction order: fix input acceptance; propagate lower history without force;
-close shared-field and durable CI gaps; finish CSS/UZH Phase1 with consumer
-proof; then complete pre-GA design work and a separately authorized candidate.
-Historical Formik support remains in v5. Migration recipes must cover used
-field families; v6 removal includes public Formik-specific types and a packed
-consumer without Formik, alongside wrapper/export/dependency removal.
+The user approved temporary exact-version exceptions for the 44 Radix versions
+blocked by Klicker's 14-day dependency policy. The candidate tarball, SHA256
+`7d676910791ef19875608b22407389ff9efc6fdf75b02377f736609001fc7524`,
+installed in the existing pilot at `1de7ad918`. All 245 installed build files
+and package metadata match the tarball. The container production build passes;
+synthetic delegated login, Formik create/cancel/reset, invalid-state protection,
+edit/save/reload, actionless footer omission, responsive modal layout and a
+1px dropdown separator pass in the real application. Desktop and 390px captures
+are maintained in PR214. Temporary configuration and lockfile changes were
+restored byte-for-byte; the checkout is clean, provider stopped and routes zero.
+
+This qualifies the corrected package against that historical pilot, not current
+Klicker trunk or every consumer. The build reports translation and page-size
+warnings. Compact app navigation and editor-toolbar layout need consumer work;
+existing width/density overrides were retained. Phase 2 must retire the overrides
+corresponding to its default changes and refresh candidate acceptance.
+
+The next implementation package is Phase 2's public-family/alias inventory and
+dense internal reference fixture, followed by its token/default changes. The
+existing synthetic theme fixture proves the extension contract but does not
+establish every family/rung/alias or intended text/fill pair. Scope and acceptance
+live in the [Phase 2 sequence](2026-08-19-v5-uzh-alignment-roadmap.md#phase-2--token-model-and-visual-defaults-before-ga).
+
+After Phase 2, reconcile the promotion boundary and qualify the integrated
+candidate against recorded consumer refs and an immutable packed artifact,
+rechecking the consumer dependency-age policy.
+Manual screen-reader, Safari and physical-mobile evidence remain separate gates.
+Merge, readiness, publication and deployment remain separately authorized actions.
+Additive variants and the type-scale export remain v5.1.
+Formik remains supported in v5. Before v6, migration recipes must cover every
+used field family, and a packed consumer must build without Formik runtime or
+public types after the legacy wrappers, exports and dependency are removed.
 
 ## Historical milestone state — 2026-08-10
 
@@ -130,7 +167,12 @@ consumer without Formik, alongside wrapper/export/dependency removal.
 | Brand override and Klicker          | Not started                            | D8 gives a direction, but the complete approved ramp, ownership, profile, and consumer migration do not exist.                                                                                                       |
 | GA promotion                        | Held                                   | PR #179 is draft and spans 170 commits and 275 files; its current checks are not fresh GA evidence.                                                                                                                  |
 
-## Dependency sequence
+## Historical dependency sequence — 2026-08-10
+
+The graph below records the original foundation plan. Completed foundations are
+not queued again; the current execution index and UZH Phase 2 sequence control
+the next work. In particular, ADR 0003/0004 supersede P7's original ownership
+question and its proposed DS-owned branded profile.
 
 ```mermaid
 flowchart TD
@@ -161,13 +203,13 @@ flowchart TD
   P7 --> R --> P8 --> P9 --> P10
 ```
 
-P1, P2, and P3 may be planned independently after P0, but each remains a
-separate PR. P4 establishes the trustworthy accessibility denominator before
-repair work. P5 protects later visual fixes. P7 waits for the theme contract
-and visual foundation. Klicker consumes a separately authorized candidate
-alpha containing P1-P7.
+In that original sequence, P1, P2 and P3 could be planned independently after P0,
+each in a separate PR. P4 established the accessibility denominator before
+repair work; P5 protected later visual fixes. P7 depended on the theme contract
+and visual foundation, ahead of a separately authorized candidate for Klicker.
+The current P7 acceptance below follows the later ownership ADRs.
 
-## Test portfolio
+## Historical foundation test portfolio
 
 | Consequential risk                                                   | Existing protection                             | Test obligation                                     | Primary seam                                      | Distinct failure caught                                           | Owner |
 | -------------------------------------------------------------------- | ----------------------------------------------- | --------------------------------------------------- | ------------------------------------------------- | ----------------------------------------------------------------- | ----- |
@@ -183,7 +225,12 @@ alpha containing P1-P7.
 | Older consumers hide a critical compatibility break                  | Historical source audits                        | Extend each consumer's existing build/browser seam  | Per-repository packed-candidate probe             | Unknown critical break remains at GA                              | P9    |
 | Promotion uses stale checks or wrong package metadata                | Alpha release guard and registry readback       | Rerun established portfolio; no promotion-only test | PR #179, tag/version mapping, registry dry run    | Wrong commit/version/dist-tag is promoted                         | P10   |
 
-## Work packages
+## Foundation work-package reference
+
+These entries retain the original implementation rationale. Consult the current
+index before selecting work; completed source and gates supersede their future
+tense. P7 below is updated to the accepted ownership contract and remaining
+consumer qualification.
 
 ### P0 — Close PR #195 safely
 
@@ -395,31 +442,25 @@ publish actions`; final progress/review commit.
 - Stop: A fix needs an unresolved product/design ruling, baseline increases, or
   the harness does not prove the changed state.
 
-### P7 — Implement the supported brand-override profile
+### P7 — Brand extension delivered; consumer qualification retained
 
-- Problem: Klicker needs a sky-blue primary family. A single primary color does
-  not drive the complete focus, sidebar, contrast, and interaction graph.
-- Evidence: D8 approved a full primary-ramp override direction; no complete
-  approved ramp or ownership decision exists.
-- Recommendation: DS owns a generic extension contract and a reviewed Klicker
-  acceptance fixture. The actual branded profile may be DS-owned CSS or
-  consumer-owned CSS following that contract; the design owner must rule.
-- Required ruling: Obtain the complete approved ramp and decide profile
-  ownership. Do not derive intermediate colors from one primary value.
-- Risk: Unapproved colors, incomplete bridge tokens, UZH confusion, contrast
-  regressions, or app-specific branding shipped as corporate UZH defaults.
-- Do after ruling: Implement document-root profile variables; bridge primary,
-  focus, ring, sidebar, and foreground tokens; document import/order; add a
-  Ladle fixture and migration example.
-- Check: AA contrast calculations; computed-token tests; default neutral/UZH
-  non-regression; P5 profile VRT; keyboard focus; packed CSS/docs.
-- Test obligation: Extend theme contract and VRT; add focused computed-token
-  assertions.
-- Delivery boundary: One full-path DS PR after P3 and P5; publication separate.
-- Commit shape: ADR/plan if DS owns the profile; implementation; docs/VRT;
-  final evidence.
-- Stop: Missing design approval, ownership ambiguity, incomplete token graph,
-  or contrast failure.
+- Status: ADR 0003 settles consumer ownership of a complete design-approved
+  primary ramp. ADR 0004 settles document-root application. DS owns the generic
+  extension contract and derived bridges; it does not export a Klicker brand
+  profile. The earlier ownership ruling and proposed DS profile are superseded.
+- Evidence: `ThemeExtensionContract.stories.tsx` and packed computed-token/browser
+  checks cover neutral, UZH and a synthetic full-ramp override. Synthetic values
+  demonstrate mechanics; they are not approved consumer branding.
+- Remaining acceptance: For a candidate using a consumer override, record its
+  exact source ref and approved full ramp, then verify intended text/fill
+  contrast, primary/focus/sidebar bridges, keyboard focus and packed stylesheet
+  order. Base UZH GA does not depend on creating a separately branded DS export.
+- Scope: Actual brand values and their approval stay with the consumer. Extend
+  existing contract/VRT seams only for gaps exposed by the candidate; preserve
+  default neutral/UZH behaviour and requalify bridges changed by Phase 2.
+- Stop: The consumer candidate requires an unapproved or incomplete ramp, or
+  its tested token graph or contrast fails. That blocks the affected consumer
+  acceptance branch rather than reopening the settled generic ownership model.
 
 ### P8 — Migrate Klicker as the GA acceptance consumer
 
@@ -434,8 +475,8 @@ publish actions`; final progress/review commit.
 - Risk: Multi-app blast radius, Formik/RHF scope creep, React duplication,
   package import collisions, or branding drift.
 - Do: Inventory all DS manifests/imports; update package versions coherently;
-  import compiled CSS; remove source scans/font injection; select UZH plus the
-  approved profile; move raw primitives to `/primitives`; use the ruled RHF
+  import compiled CSS; remove source scans/font injection; select UZH plus any
+  approved consumer-owned primary ramp; move raw primitives to `/primitives`; use the ruled RHF
   entry only where needed; preserve application-specific components.
 - Check: Frozen install; repository-native checks; relevant production builds;
   one React runtime; representative manage/PWA/control/auth/chat/docs browser
@@ -565,34 +606,46 @@ Stop the active package and report when:
 
 - 2026-10-18: User approved working through the independently verified review
   findings. Reconciled the current index with remote v5, existing draft heads
-  and the separate UZH branch. Earlier completed draft-delivery receipts remain
-  historical; input correctness acceptance and missing durable gates are open.
+  and the separate UZH branch. The correction status below records the completed
+  source fixes, durable gates and historical packed-pilot acceptance.
+- 2026-10-18: A two-round read-only Claude consultation challenged remaining
+  sequencing against current source and ADRs. Updated the existing roadmaps to
+  put family/alias coverage before palette/default changes, restore the missing
+  badge-default item, distinguish rendered typography from additive exports,
+  scope consumer override retirement and retire the superseded P7 ruling.
 
 
 ## October 18 correction status
 
-The input and compatible-dependency drafts now contain corrected natural modal
-focus, calendar date invariance, pending twelve-hour periods for all segments,
-controlled null resets and value-bearing accessible names. Full lower-layer
-behavioral checks pass. The dependency draft also pins the four reviewed
-transitive maintenance paths and clarifies peer versus regular dependency
-ownership. Independent review accepts both committed layers. Hosted checks
-remain a separate gate.
+All eight actionable findings from the supplied review are corrected in the
+unmerged draft stack, with passing source verification at `b8d607280`:
 
-The field draft implements disabled-selection guards, actual MultiSelect
-selection semantics, transformed FormField output and durable consumer gates.
-The existing packed fixtures now cover minimum/current RHF versions and Next
-reset, numeric draft, ref, disabled, validation and submission behavior. Their
-server lifecycle uses distinct ports and direct process ownership. Local
-verification, current-head CI and refreshed visible evidence must finish before
-these rows can be marked delivered.
+| Review finding | Disposition | Evidence or remaining gate |
+| --- | --- | --- |
+| Responsive consumer CSS collision | Scoped component defaults implemented in Phase 1 | Independently compiled CSS across both themes/four widths; explicit primitive utility overrides; real Klicker modal desktop/mobile checks and explicit header override pass |
+| Calendar browsing changes selected date during time edits | Corrected in PR210 | Each time segment preserves selected calendar date after month browsing |
+| Missing behavioral and consumer release gates | Corrected in PR213 | Contract job and frozen RHF 7.59.0/7.90.0 packed/Next jobs are prerequisites; injected failing contract fails the actual command |
+| Modal arrows unreachable after keyboard opening | Corrected in PR210 | Natural trigger → Enter → arrow sequence; nested controls retain their keys |
+| Empty twelve-hour picker discards PM | Corrected in PR210 | Pending period applies when hours, minutes or seconds are entered first; controlled reset/synchronization cases |
+| Open selection remains mutable when disabled | Corrected in PR213 | Standalone and RHF close/mutation guards; named disabled Select absent from FormData; disabled-close blur follow-up reproduced and corrected in both themes |
+| Highlight exposed as multiple selection | Corrected in PR213 | Independent highlight and selected values, multiselectable listbox, consistent dialog popup relation; keyboard/filter/external-update checks |
+| FormField rejects transformed output | Corrected in PR213 | Public packed declaration fixture with inferred string input/number output at both supported RHF versions |
 
-The UZH Phase 1 branch remains a separate draft package after this stack.
-Its completed source fixes and migration table must be retained while scoped
-responsive component CSS and the independent-stylesheet regression matrix land.
-The existing Klicker acceptance workspace currently has no DevPod, and canonical
-startup fails because its devcontainer postCreateCommand lacks waitFor. Historical
-consumer probes are not current runtime acceptance. Phase 2's token/default
-work remains GA scope; additive presets/variants stay in v5.1. Wrapper convergence
-and complete Formik runtime/public-type removal stay in v6. Screen-reader,
-Safari and physical-mobile evidence remain open release qualifications.
+The compatible dependency layer retains the selected major lines and updates
+only the supplied inherited transitive paths. This is bounded maintenance, not
+a broad security assessment or evidence of zero remaining vulnerabilities.
+The shadcn assessment covers selected components and capabilities; dependency
+updates do not synchronize copied primitive source automatically. Remaining
+majors and unused dependency ownership stay separate decisions.
+
+Current packed-candidate acceptance passes in the historical Klicker pilot after
+the approved temporary lifecycle/dependency exceptions. It does not replace
+the refreshed multi-consumer qualification of the eventual release candidate.
+The original consumer policy and tracked files are restored; no consumer source
+change or delivery is included.
+
+Phase 2 token/default work remains required before GA. Manual screen-reader,
+Safari and physical-mobile qualification remain open. PR129's historical Formik
+auto-submit remains conditional on a concrete consumer need; PR135's Stencil
+package remains a separate initiative. No target merge, ready conversion,
+release publication or deployment is part of this remediation goal.

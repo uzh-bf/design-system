@@ -19,7 +19,7 @@ const buttonVariants = cva(
           'bg-secondary text-secondary-foreground hover:bg-secondary/80 disabled:hover:bg-secondary',
         ghost:
           'hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 disabled:hover:bg-accent',
-        link: 'text-primary underline-offset-4 hover:underline',
+        link: 'text-link underline-offset-4 hover:underline',
       },
       // fixed-height ladder matching the reference (sm/md/lg = 32/40/48px, font 14/15/16, px 12/16/20)
       size: {

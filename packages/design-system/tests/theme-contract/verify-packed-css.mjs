@@ -82,6 +82,8 @@ const SENTINEL_TOKENS = [
   '--theme-info-foreground',
   '--theme-info-background',
   '--theme-destructive-text',
+  '--theme-color-link',
+  '--theme-color-link-visited',
   '--destructive-foreground',
   '--destructive-background',
   '--notification',
@@ -220,6 +222,8 @@ const BASE = {
     '--theme-info-foreground': 'oklch(98.5% 0 0)',
     '--theme-info-background': 'oklch(96% .03 240)',
     '--theme-destructive-text': '#b91c1c',
+    '--theme-color-link': '#1d4ed8',
+    '--theme-color-link-visited': '#6d28d9',
     '--destructive-foreground': 'oklch(98.38% .0035 247.86)',
     '--destructive-background': 'oklch(97.05% .0129 17.38)',
     '--notification': 'oklch(57.71% .2152 27.33)',
@@ -266,7 +270,9 @@ const BASE = {
     '--theme-info': '#1ea7c4',
     '--theme-info-foreground': '#111',
     '--theme-info-background': '#dbf4f9',
-    '--theme-destructive-text': '#111',
+    '--theme-destructive-text': '#bf0d3e',
+    '--theme-color-link': '#365dd5',
+    '--theme-color-link-visited': '#5972c5',
     '--destructive-foreground': '#111',
     '--destructive-background': '#ffdbcc',
     '--notification': '#bf0d3e',
@@ -314,6 +320,8 @@ const BASE = {
     '--theme-info-foreground': 'oklch(98.5% 0 0)',
     '--theme-info-background': 'oklch(24% .04 245)',
     '--theme-destructive-text': '#b91c1c',
+    '--theme-color-link': '#60a5fa',
+    '--theme-color-link-visited': '#a78bfa',
     '--destructive-foreground': 'oklch(98.38% .0035 247.86)',
     '--destructive-background': 'oklch(55.6% .191 22.216)',
     '--notification': 'oklch(70.4% .191 22.216)',
@@ -360,7 +368,9 @@ const BASE = {
     '--theme-info': '#1ea7c4',
     '--theme-info-foreground': '#111',
     '--theme-info-background': 'oklch(25% .04 200)',
-    '--theme-destructive-text': '#111',
+    '--theme-destructive-text': '#bf0d3e',
+    '--theme-color-link': '#7596ff',
+    '--theme-color-link-visited': '#bdc9e8',
     '--destructive-foreground': '#111',
     '--destructive-background': '#ffdbcc',
     '--notification': '#bf0d3e',
@@ -535,6 +545,216 @@ try {
       }, cell.tokens)
     }
   }
+  // Compile a consumer independently, with conflicting utilities used elsewhere.
+  // Component nodes use scoped defaults; explicit utilities still take priority.
+  const { default: postcss } = await import('postcss')
+  const { default: tailwindPostcss } = await import('@tailwindcss/postcss')
+  // Browsers hide visited history from script. Substitute the complementary
+  // link state to verify that the compiled selector targets the anchor itself.
+  const visitedSelectors = []
+  postcss.parse(packedCss).walkRules((rule) => {
+    if (
+      rule.selector.includes('prose-a') &&
+      rule.selector.includes('text-link-visited')
+    ) {
+      visitedSelectors.push(rule.selector.replace(/(?<!\\):visited/g, ':link'))
+    }
+  })
+  const packedProse = readFileSync(
+    path.join(extractDir, 'package', 'dist', 'Prose.js'),
+    'utf8'
+  )
+  const visitedClass = packedProse.match(
+    /[\w:-]*prose-a[\w:-]*text-link-visited/
+  )
+  if (!visitedClass) throw new Error('packed Prose has no visited link class')
+  await page.setContent(
+    `<div class="${visitedClass[0]}"><a id="prose-link" href="https://example.invalid/visited-contract">Link</a></div>`
+  )
+  const visitedTargetsAnchor = await page.evaluate(
+    (selectors) =>
+      selectors.some((selector) =>
+        document.getElementById('prose-link').matches(selector)
+      ),
+    visitedSelectors
+  )
+  if (!visitedTargetsAnchor)
+    throw new Error('packed Prose visited selector does not target its anchor')
+  console.log('[theme-contract] Prose visited selector targets the anchor')
+
+  const consumerCss = String(
+    await postcss([tailwindPostcss({ base: packageDir })]).process(
+      '@import "tailwindcss" source(none); @source inline("text-center flex-col-reverse flex-col hidden w-full gap-0.5 p-6 grid-cols-5 col-span-2 max-w-96 max-w-[calc(100%-2rem)]");',
+      { from: path.join(packageDir, 'consumer-contract.css') }
+    )
+  )
+  const layouts = [
+    [
+      'header',
+      'ds-dialog-header',
+      'textAlign',
+      ['center', 'left', 'left', 'left'],
+      'text-center',
+      'center',
+    ],
+    [
+      'footer',
+      'ds-dialog-footer',
+      'flexDirection',
+      ['column-reverse', 'row', 'row', 'row'],
+      'flex-col-reverse',
+      'column-reverse',
+    ],
+    [
+      'calendar',
+      'ds-calendar-months',
+      'flexDirection',
+      ['column', 'column', 'row', 'row'],
+      'flex-col',
+      'column',
+    ],
+    [
+      'pagination',
+      'ds-pagination-label',
+      'display',
+      ['none', 'block', 'block', 'block'],
+      'hidden',
+      'none',
+    ],
+    [
+      'sidebar-root',
+      'ds-sidebar-root',
+      'display',
+      ['none', 'none', 'block', 'block'],
+      'hidden',
+      'none',
+    ],
+    [
+      'sidebar-container',
+      'ds-sidebar-container',
+      'display',
+      ['none', 'none', 'flex', 'flex'],
+      'hidden',
+      'none',
+    ],
+    [
+      'sidebar-rail',
+      'ds-sidebar-rail',
+      'display',
+      ['none', 'flex', 'flex', 'flex'],
+      'hidden',
+      'none',
+    ],
+    [
+      'drawer',
+      'ds-drawer-header',
+      'gap',
+      ['2px', '2px', '6px', '6px'],
+      'gap-0.5',
+      '2px',
+    ],
+    [
+      'empty',
+      'ds-empty',
+      'paddingTop',
+      ['24px', '24px', '48px', '48px'],
+      'p-6',
+      '24px',
+    ],
+    [
+      'action',
+      'ds-collapsible-action',
+      'gridColumnStart',
+      ['span 2', 'span 3', 'span 4', 'span 5'],
+      'col-span-2',
+      'span 2',
+    ],
+    [
+      'alert',
+      'ds-alert-dialog-content',
+      'maxWidth',
+      ['calc(100% - 32px)', '520px', '520px', '520px'],
+      'max-w-96',
+      '384px',
+    ],
+    [
+      'nav-content',
+      'ds-navigation-menu-content',
+      'width',
+      ['300px', '300px', '80px', '80px'],
+      'w-full',
+      '300px',
+    ],
+    [
+      'nav-viewport',
+      'ds-navigation-menu-viewport',
+      'width',
+      ['300px', '300px', '180px', '180px'],
+      'w-full',
+      '300px',
+    ],
+  ]
+  let layoutAssertions = 0
+  for (const theme of ['neutral', 'uzh']) {
+    for (const [widthIndex, width] of [390, 700, 900, 1100].entries()) {
+      await page.setViewportSize({ width, height: 844 })
+      for (const withConsumer of [false, true]) {
+        const nodes = layouts
+          .map(([id, cls, , , override]) => {
+            const style =
+              id === 'nav-content'
+                ? 'display:inline-block'
+                : id === 'nav-viewport'
+                  ? '--radix-navigation-menu-viewport-width:180px'
+                  : ''
+            const child =
+              id === 'nav-content' ? '<div style="width:80px"></div>' : ''
+            return `<div id="${id}" class="${cls}" style="${style}">${child}</div><div id="${id}-override" class="${cls} ${override}" style="${style}">${child}</div>`
+          })
+          .join('')
+        await page.setContent(
+          `<!doctype html><html data-theme="${theme}"><head><style>${packedCss}</style>${withConsumer ? `<style>${consumerCss}</style>` : ''}</head><body><div style="width:300px">${nodes}<div id="grid" class="ds-collapsible-actions" style="display:grid;width:300px"></div><div id="grid-override" class="ds-collapsible-actions grid-cols-5" style="display:grid;width:300px"></div></div></body></html>`
+        )
+        for (const [id, , property, expected, , overridden] of layouts) {
+          const actualValue = await page
+            .locator(`[id="${id}"]`)
+            .evaluate((el, prop) => getComputedStyle(el)[prop], property)
+          if (actualValue !== expected[widthIndex])
+            throw new Error(
+              `${theme}/${width}/${withConsumer}/${id}: ${actualValue} != ${expected[widthIndex]}`
+            )
+          layoutAssertions++
+          if (withConsumer) {
+            const overrideValue = await page
+              .locator(`[id="${id}-override"]`)
+              .evaluate((el, prop) => getComputedStyle(el)[prop], property)
+            if (overrideValue !== overridden)
+              throw new Error(
+                `${id} explicit override: ${overrideValue} != ${overridden}`
+              )
+            layoutAssertions++
+          }
+        }
+        const measured = await page.evaluate(() => ({
+          grid: getComputedStyle(
+            document.getElementById('grid')
+          ).gridTemplateColumns.split(' ').length,
+          gridOverride: getComputedStyle(
+            document.getElementById('grid-override')
+          ).gridTemplateColumns.split(' ').length,
+        }))
+        if (measured.grid !== [5, 7, 9, 11][widthIndex])
+          throw new Error('responsive action grid changed')
+        if (withConsumer && measured.gridOverride !== 5)
+          throw new Error('explicit action grid override failed')
+        layoutAssertions += withConsumer ? 2 : 1
+      }
+    }
+  }
+  console.log(
+    `[theme-contract] ${layoutAssertions} responsive and consumer override assertions passed`
+  )
+
   await browser.close()
 
   /* ---- Record and assert ---- */

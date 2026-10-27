@@ -6,6 +6,7 @@
 
 @import 'tw-animate-css';
 @import './themes.css';
+@import './component-layout.css';
 @plugin '@tailwindcss/typography';
 @plugin '@tailwindcss/forms';
 
@@ -171,6 +172,10 @@
   --color-destructive-foreground: var(--destructive-foreground);
   --color-destructive-background: var(--destructive-background);
   --color-notification: var(--notification);
+
+  /* links — resolved per theme via --theme-* (see themes.css) */
+  --color-link: var(--theme-color-link);
+  --color-link-visited: var(--theme-color-link-visited);
 
   /* status colours — resolved per theme via --theme-* (see themes.css) */
   --color-success: var(--theme-success);
