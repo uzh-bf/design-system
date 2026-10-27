@@ -43,6 +43,26 @@ test('preserves non-utility identifiers, attribute values, comments and unmatche
   assert.equal(preserved.unsupported.length, 1)
 })
 
+test('renames static class strings in JSX conditions and preserves rejected values', () => {
+  const conditional =
+    "<div className={count > 1 ? 'bg-uzh-red-100' : 'bg-uzh-grey-100'} />"
+  const renamed = renamePaletteUtilities(conditional)
+  assert.equal(
+    renamed.code,
+    "<div className={count > 1 ? 'bg-uzh-orange-100' : 'bg-df-grey-100'} />"
+  )
+  assert.equal(renamed.changes, 2)
+  assert.deepEqual(renamed.unsupported, [])
+
+  const rejected = `<div title='<span class="bg-uzh-red-100">' />`
+  const preserved = renamePaletteUtilities(rejected)
+  assert.equal(preserved.code, rejected)
+  assert.equal(preserved.changes, 0)
+  assert.deepEqual(preserved.unsupported, [
+    { offset: rejected.indexOf("'"), reason: 'ambiguous quote context' },
+  ])
+})
+
 test('rewrites CSS apply lists and ordinary static utility strings', () => {
   const result = renamePaletteUtilities(
     `.a { @apply\n focus:bg-uzh-grey-40 text-uzh-red; } const classes = 'dark:decoration-uzh-yellow-20 ring-offset-uzh-turqoise-100/25'`
