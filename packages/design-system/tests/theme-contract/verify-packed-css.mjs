@@ -103,6 +103,58 @@ const CORE_TOKENS = [
   ...GENERIC_TOKENS,
 ]
 
+/* ---- Fixed public palette (independent expectation literals) ---- */
+const PALETTE = [
+  ['uzh-blue', '#0028a5'],
+  ['uzh-blue-100', '#0028a5'],
+  ['uzh-blue-80', '#001e7c'],
+  ['uzh-blue-60', '#3062ff'],
+  ['uzh-blue-40', '#7596ff'],
+  ['uzh-blue-20', '#bdc9e8'],
+  ['uzh-grey', '#a3adb7'],
+  ['uzh-grey-100', '#a3adb7'],
+  ['uzh-grey-80', '#b5bdc5'],
+  ['uzh-grey-60', '#c8ced4'],
+  ['uzh-grey-40', '#dadee2'],
+  ['uzh-grey-20', '#edeff1'],
+  ['uzh-red', '#dc6027'],
+  ['uzh-red-100', '#dc6027'],
+  ['uzh-red-80', '#e38052'],
+  ['uzh-red-60', '#eaa07d'],
+  ['uzh-red-40', '#f1bfa9'],
+  ['uzh-red-20', '#f8dfd4'],
+  ['uzh-berry', '#bf0d3e'],
+  ['uzh-berry-100', '#bf0d3e'],
+  ['uzh-berry-80', '#d9305f'],
+  ['uzh-berry-60', '#f3537f'],
+  ['uzh-berry-40', '#f78caa'],
+  ['uzh-berry-20', '#fbc6d4'],
+  ['uzh-yellow', '#fede00'],
+  ['uzh-yellow-100', '#fede00'],
+  ['uzh-yellow-80', '#fbe651'],
+  ['uzh-yellow-60', '#fcec7c'],
+  ['uzh-yellow-40', '#fdf3a8'],
+  ['uzh-yellow-20', '#fef9d3'],
+  ['uzh-lightgreen', '#91c34a'],
+  ['uzh-lightgreen-100', '#91c34a'],
+  ['uzh-lightgreen-80', '#aad470'],
+  ['uzh-lightgreen-60', '#bfdfc4'],
+  ['uzh-lightgreen-40', '#d5e9b7'],
+  ['uzh-lightgreen-20', '#eaf4db'],
+  ['uzh-darkgreen', '#2a7f62'],
+  ['uzh-darkgreen-100', '#2a7f62'],
+  ['uzh-darkgreen-80', '#569d85'],
+  ['uzh-darkgreen-60', '#80b6a4'],
+  ['uzh-darkgreen-40', '#abcec2'],
+  ['uzh-darkgreen-20', '#d5e7e1'],
+  ['uzh-turqoise', '#0b82a0'],
+  ['uzh-turqoise-100', '#0b82a0'],
+  ['uzh-turqoise-80', '#3c9fb6'],
+  ['uzh-turqoise-60', '#6bb7c7'],
+  ['uzh-turqoise-40', '#9ed0d9'],
+  ['uzh-turqoise-20', '#cfe8ec'],
+]
+
 /* ---- Document roots ---- */
 
 const ROOTS = {
@@ -549,6 +601,86 @@ try {
   // Component nodes use scoped defaults; explicit utilities still take priority.
   const { default: postcss } = await import('postcss')
   const { default: tailwindPostcss } = await import('@tailwindcss/postcss')
+  const packedClasses = new Set()
+  postcss.parse(packedCss).walkRules((rule) => {
+    if (/^\.[a-z][a-z0-9-]*$/.test(rule.selector))
+      packedClasses.add(rule.selector.slice(1))
+  })
+  const paletteUtilities = PALETTE.flatMap(([name, expected]) =>
+    ['bg', 'text', 'border'].map((prefix) => ({
+      name: `${prefix}-${name}`,
+      expected,
+      property: {
+        bg: 'backgroundColor',
+        text: 'color',
+        border: 'borderTopColor',
+      }[prefix],
+    }))
+  )
+  const available = paletteUtilities.filter(({ name }) =>
+    packedClasses.has(name)
+  )
+  const missing = paletteUtilities.filter(
+    ({ name }) => !packedClasses.has(name)
+  )
+  // These utilities ship before the token layer completes the full palette.
+  // Keep their presence independent of the CSS inventory under test.
+  const required = [
+    ...[
+      'uzh-blue',
+      'uzh-grey',
+      'uzh-red',
+      'uzh-berry',
+      'uzh-yellow',
+      'uzh-lightgreen',
+      'uzh-darkgreen',
+      'uzh-turqoise',
+    ].flatMap((family) =>
+      [100, 80, 60, 40, 20].map((rung) => `bg-${family}-${rung}`)
+    ),
+    'text-uzh-blue-100',
+    'border-uzh-blue-80',
+    'border-uzh-grey-100',
+    'border-uzh-grey-80',
+    'text-uzh-red-100',
+  ]
+  const lost = required.filter((name) => !packedClasses.has(name))
+  if (lost.length)
+    throw new Error(`Packed palette utilities missing: ${lost.join(', ')}`)
+  for (const theme of ['neutral', 'uzh']) {
+    await page.setContent(
+      `<html data-theme="${theme}"><head><style>${packedCss}</style></head><body></body></html>`
+    )
+    const failures = await page.evaluate((utilities) => {
+      const probe = document.createElement('div')
+      const oracle = document.createElement('div')
+      document.body.append(probe, oracle)
+      const failures = []
+      for (const { name, expected, property } of utilities) {
+        probe.className = name
+        oracle.style[property] = expected
+        if (
+          getComputedStyle(probe)[property] !==
+          getComputedStyle(oracle)[property]
+        )
+          failures.push(name)
+      }
+      probe.remove()
+      oracle.remove()
+      return failures
+    }, available)
+    if (failures.length)
+      throw new Error(
+        `Packed palette values differ (${theme}): ${failures.join(', ')}`
+      )
+  }
+  console.log(
+    `[theme-contract] palette inventory: ${available.length}/${paletteUtilities.length} emitted; available values verified in neutral/UZH`
+  )
+  console.log(
+    `[theme-contract] absent utilities require token-layer delivery (not counted as passes): ${missing.map(({ name }) => name).join(', ')}`
+  )
+
   // Browsers hide visited history from script. Substitute the complementary
   // link state to verify that the compiled selector targets the anchor itself.
   const visitedSelectors = []

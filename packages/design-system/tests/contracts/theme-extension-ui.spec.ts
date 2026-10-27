@@ -312,3 +312,28 @@ test('keeps a consumer ramp override inside the ThemeProvider subtree', async ({
 
   await expectContractState(page, CONSUMER_RAMP_STATE)
 })
+
+for (const state of STATES) {
+  test(`reference composition keeps ramp ownership and tab keyboard behavior (${state.theme}${state.ramp ? '-synthetic' : ''})`, async ({
+    page,
+  }) => {
+    const reference = {
+      ...state,
+      storyId: state.ramp
+        ? 'theme-extension-contract--reference-synthetic-ramp'
+        : 'theme-extension-contract--reference',
+    }
+    await gotoStory(page, reference.storyId, reference.theme)
+    await applyDocumentRootState(page, reference)
+    const colors = await readProbeColors(page)
+    await expect(
+      page.locator('[data-test="theme-reference-primary"]')
+    ).toHaveCSS('background-color', colors.primary)
+    const tabs = page.getByRole('tab')
+    await tabs.first().focus()
+    await tabs.first().press('ArrowRight')
+    await expect(tabs.nth(1)).toHaveAttribute('aria-selected', 'true')
+    await expect(tabs.nth(1)).toBeFocused()
+    await expect(page.getByRole('tabpanel')).toBeVisible()
+  })
+}
