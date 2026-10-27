@@ -1,5 +1,20 @@
 # v5 theme defaults and candidate qualification
 
+## Subsequent qualification and scope — 2026-10-23
+
+This package's delivered source and historical candidate matrix remain intact.
+The later [Klicker draft PR6652](https://github.com/uzh-bf/klicker-uzh/pull/6652)
+at `4f6e8c56e36b8ceeaa87ce859d2c736d7c9a71a4` qualifies the recorded exact
+candidate and repairs local development routing. The [current GA index](2026-08-10-v5-ga-readiness-roadmap.md#delivered-evidence-and-its-limits)
+distinguishes unpublished and registry artifacts. Retained Formik and consumer
+palette/focus overrides leave RHF parity and all-new-default proof open.
+
+The [UZH 2.11.0 review](2026-08-19-v5-uzh-alignment-roadmap.md#official-styleguide-review--2026-10-23)
+updates official-source evidence. The user's full RHF/Radix scope supersedes
+this package's blanket additive-API deferral: required upstream capabilities
+belong before GA. This dated note does not reopen completed Progress or claim
+that expanded features, manual qualification or promotion are delivered.
+
 ## Approval summary
 
 Consumers need predictable palette utilities, theme-relative interaction states and readable component defaults before v5 GA. The user approved working through the reviewed findings and roadmap with a native goal, and required this plan and the findings to be persisted first. This is an **executable batch**, using the existing v5 worktree and draft stack. The [accepted findings](2026-10-18-v5-progress-roadmap-findings.md) record the problem and evidence.

@@ -1,5 +1,14 @@
 # Compatible dependency selection — 2026-09-06
 
+## Current scope boundary — 2026-10-23
+
+The selection table below remains the dated compatible-refresh record; the
+[qualification plan](2026-10-19-v5-ga-qualification-plan.md) records subsequent
+remediation. It is not a current-latest or full-shadcn coverage certificate.
+The [October 23 Radix/auxiliary matrix](2026-09-06-v5-shadcn-assessment.md#auxiliary-dependency-matrix)
+now governs required source/API and dependency migration decisions before GA.
+Refreshing npm packages alone does not synchronize copied component source.
+
 Registry metadata was refreshed on 2026-10-17 for all 71 direct dependencies. Exact stable targets retain existing majors and pre-1.0 minor lines. Consumer peer ranges, root/sibling manifests and release version remain unchanged. Compatibility is provisional until package, browser and packed-consumer verification passes.
 
 Radix release notes describe improvements to form reset, nested keyboard handling, dialog ARIA references and iOS input editing: https://www.radix-ui.com/primitives/docs/overview/releases. Individual packages are retained; adopting the aggregate radix-ui package is unnecessary.
