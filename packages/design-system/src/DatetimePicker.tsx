@@ -884,7 +884,7 @@ const DateTimePicker = ({
               ariaLabel={error}
               delay={0}
               className={{
-                tooltip: twMerge('max-w-120 text-sm', className?.error),
+                tooltip: twMerge('text-sm', className?.error),
               }}
             >
               <FontAwesomeIcon

@@ -44,7 +44,7 @@ One rule orders this entire roadmap:
 The token-model work fails that test hard. Adding interaction-state tokens and rewiring button and menu states to them (finding B1) re-values tokens that 84 call sites across 45 Klicker files depend on. Land it after GA and it is a 6.0. So:
 
 | Release | Contents | Rationale |
-|---|---|---|
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------ |
 | **5.0.0 GA** | All A-defects, all six CD defects, every token value and naming decision, every changed visual default, the migration-guide delta table | Breaking or visual — cannot move later |
 | **5.1** | Purely additive API: `Modal size`, `Button icon-sm` / `destructive-outline` / `success`, Accordion size variants, form `fullWidth`, exported type-scale token | New surface, no existing rendering changes |
 | **6.0** | The legacy-wrapper convergence (finding C15), removal of the deprecated `--color-uzh-*` families | Architectural; needs an ADR of its own |
@@ -56,7 +56,7 @@ Phase 0 was on the GA critical path. Its decisions below are settled; Phase 2 im
 Read this table with the correction above in hand: the consumer review's column reports what the bundle claims, and the bundle is a reconstruction that defers to the manual. Where the two columns diverge on a brand value, the manual wins by default and the row is a defect in the bundle, not an open question.
 
 | Subject | CD review | Consumer review | Disposition |
-|---|---|---|---|
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Secondary colour | #14 — Berry `#BF0D3E`, verified official, keep | B5 — `DESIGN.md` says `#DC6027`; v5 pre-empted an unruled question | **`#DC6027` is off-palette. Berry remains an accent family; default/secondary button variants are neutral. Palette names and action semantics are distinct contracts** |
 | Warning hue | #14 — Gold `#FFC845`, verified official, keep | B5 — spec says gold `#F3AB00` | **Both are official Gold swatches. Phase 0 selects shade 4 for the application accent; that selection is a project decision** |
 | Focus ring | #12 — point `--default-ring-color` at `--color-ring` (solid UZH Blue) | B4 — bundle specifies translucent `rgba(0,40,165,0.18)` at 3px | **Keep the ruled per-control indicator and fix internal ring consistency. Official 2.10.0 also has Flyingfocus; the earlier border-only premise was incorrect** |
@@ -161,7 +161,7 @@ The October 18 Claude consultation confirmed the following sequence after source
 4. **Review the result and migration.** Regenerate pinned VRT baselines once per coherent visual package after its changes settle; inspect every intentional diff. Require alias/computed-style proof, AA for intended text/fill pairs, zero waived serious/critical axe cases, keyboard interactions, public types, RHF minimum/current packed/Next checks and size budgets. Maintain the migration delta table and rename guidance. Compare the touched badge/tooltip/table/tabs source with current shadcn documentation; copied primitives are not updated by dependency bumps.
 5. **Qualify the eventual candidate.** Record the exact packed artifact and consumer refs for refreshed acceptance, remove only demonstrated redundant overrides corresponding to changed defaults, and recheck consumer dependency-age policy. Manual screen-reader, Safari and physical-mobile evidence remain separate acceptance rows. UZH dark remains unsupported and outside this matrix.
 
-Coverage is delivered in [PR215](https://github.com/uzh-bf/design-system/pull/215). The token layer is under verification; changed component defaults and integrated qualification remain pending. The execution plan records exact producing runs and gate states.
+Coverage is delivered in [PR215](https://github.com/uzh-bf/design-system/pull/215). The token layer is delivered in draft [PR216](https://github.com/uzh-bf/design-system/pull/216), including accepted review corrections. Changed component defaults are delivered in draft [PR217](https://github.com/uzh-bf/design-system/pull/217). Final review corrections preserve JSX accessible names in migration and remove six redundant internal tooltip width overrides. Full hosted runtime source qualification passes. Claude correction findings are dispositioned; main verified the final narrow helper guard/diagnostics without claiming a later clean independent rereview. The candidate matrix separates automated proof from blocked actual-consumer and manual acceptance. The execution plan records exact producing runs and gate states.
 
 ### Token and typography scope
 
@@ -175,7 +175,7 @@ Coverage is delivered in [PR215](https://github.com/uzh-bf/design-system/pull/21
 **Changed defaults, which the GA rule puts here rather than in 5.1.** Each is backed by measured override economics rather than preference — Button 138 overrides on 201 usages, UserNotification 99 on 137, Tooltip 32 on 36. An 89% override rate is a wrong default, and a wrong default cannot be corrected in a minor.
 
 - **Badge default** — implement the settled container tint (blue-20 fill, blue-100 text), retaining solid as an explicit variant.
-- **C8 / C9 (partial)** — set a readable `text-sm` tooltip default with tokenized appearance, and a primitive max-width of 20rem constrained to the viewport. Retain explicit wrapper/caller width precedence and verify both layers. The primitive currently uses `text-xs`; the wrapper already bounds width at `max-w-120`, and label help already portals. Verify keyboard and portal behaviour inside modals and sticky headers rather than adding another portal.
+- **C8 / C9 (partial)** — set a readable `text-sm` tooltip default with tokenized appearance, and a primitive max-width of 20rem constrained to the viewport. Retain explicit wrapper/caller width precedence and verify both layers. The baseline primitive used `text-xs`; Phase 2 uses `text-sm`, bounds both layers to the viewport and removes redundant internal width overrides. Label help already portals. Verify keyboard and portal behaviour inside modals and sticky headers rather than adding another portal.
 - **C7** — raise UserNotification default padding and type to the alert treatment; retain tinted fills as ruled in Phase 0.
 - **C2 (partial)** — remove the filled hover overlay from the borderless/basic variant, which paints a button-like surface on things consumers use as plain links in 50 files.
 - **C6** — `TabsList` defaults to a full-width spanning track instead of `w-fit`, with an explicit caller width utility as the opt-out.
@@ -202,7 +202,7 @@ This needs a canonical-layer decision per component, wrapper styling aligned to 
 
 ## Constraints that shape every phase
 
-- **Visual churn batches.** VRT currently has 23 container-pinned snapshots behind a blocking CI gate, regenerated only inside Docker via `packages/design-system/scripts/visual-regression.sh`. Phase 2 token/default work needs intentional diff review and regeneration once per coherent visual package. The font-weight change was dropped. Local results and hosted checks remain separate evidence.
+- **Visual churn batches.** Phase 1 had 23 container-pinned snapshots; Phase 2 extends the set to 29 behind a blocking CI gate, regenerated only inside Docker via `packages/design-system/scripts/visual-regression.sh`. Phase 2 token/default work needs intentional diff review and regeneration once per coherent visual package. The font-weight change was dropped. Local results and hosted checks remain separate evidence.
 - **The a11y inventory is zero-waiver.** `EXACT_SERIOUS_CRITICAL_INVENTORY = []`, enforced by both the sharded `a11y` job and the `a11y-protocol` job. Any colour change re-runs it.
 - **Report line numbers are historical.** The CD review measured `53d12495d`; merged `origin/v5` is `80d6f229c`, and the corrected draft source is `b8d607280`. Verify source claims against the applicable ref rather than the review's old lines.
 - **Consumer workarounds provide acceptance cases.** The historical Klicker pilot retains width/density overrides. Remove an override when the corresponding changed default demonstrably replaces it; application-specific layout constraints may remain. Additive modal size presets belong to v5.1 and do not block Phase 2.
@@ -212,11 +212,10 @@ This needs a canonical-layer decision per component, wrapper styling aligned to 
 ## Immediate next actions
 
 1. Retain the source qualification recorded in [PR214](https://github.com/uzh-bf/design-system/pull/214), including eleven component and five real-application captures. The packed acceptance proves the historical pilot; record new source/artifact refs when refreshing it.
-2. Start Phase 2 with the public-family/alias inventory and dense internal reference fixture, then follow its ordered acceptance steps above. Its approved execution plan is linked above; coverage precedes token changes.
+2. Retain the implemented coverage/token/default protections and verify live draft checks for the final helper/documentation head. The approved execution plan and candidate matrix hold exact source and evidence identities.
 3. Refresh candidate acceptance after the token/default work, including relevant consumer override retirement and the outstanding manual accessibility/browser evidence.
 4. Keep additive Phase 3 APIs in v5.1. Keep wrapper convergence and complete Formik public-type/runtime removal in v6.
 5. Reconcile the existing v5 umbrella and qualify the integrated candidate in its promotion package; target merges, publication and deployment retain their separate authority gates.
-
 
 ## October 18 evidence and remaining gates
 

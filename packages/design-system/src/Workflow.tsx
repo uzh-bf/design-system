@@ -314,7 +314,7 @@ export function WorkflowItem({
           delay={1500}
           asChild
           className={{
-            tooltip: 'z-20 max-w-120',
+            tooltip: 'z-20',
           }}
         >
           <button

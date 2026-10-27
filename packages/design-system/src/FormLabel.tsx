@@ -38,7 +38,7 @@ export function FormLabel({
             'text-foreground mt-1 -mb-0.5 text-[13px] leading-6 font-semibold',
           className?.label
         ),
-        tooltip: twMerge('max-w-120 text-sm font-normal', className?.tooltip),
+        tooltip: twMerge('text-sm font-normal', className?.tooltip),
         tooltipSymbol: twMerge(labelType === 'small' && 'h-2.5! w-2.5!'),
       }}
       tooltip={tooltip}

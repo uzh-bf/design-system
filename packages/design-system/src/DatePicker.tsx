@@ -154,7 +154,7 @@ export function DatePicker({
               ariaLabel={error}
               delay={0}
               className={{
-                tooltip: twMerge('max-w-120 text-sm', className?.tooltip),
+                tooltip: twMerge('text-sm', className?.tooltip),
               }}
             >
               <FontAwesomeIcon

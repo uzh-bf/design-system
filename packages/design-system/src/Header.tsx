@@ -28,10 +28,7 @@ export function H1({ id, data, className, children }: HeaderProps) {
       id={id}
       data-cy={data?.cy}
       data-test={data?.test}
-      className={twMerge(
-        'mb-[0.2em] font-sans text-2xl font-semibold',
-        className?.root
-      )}
+      className={twMerge('font-sans text-2xl font-semibold', className?.root)}
     >
       {children}
     </h1>
@@ -53,10 +50,7 @@ export function H2({ id, data, className, children }: HeaderProps) {
       id={id}
       data-cy={data?.cy}
       data-test={data?.test}
-      className={twMerge(
-        'mb-[0.2em] font-sans text-xl font-semibold',
-        className?.root
-      )}
+      className={twMerge('font-sans text-xl font-semibold', className?.root)}
     >
       {children}
     </h2>
@@ -78,10 +72,7 @@ export function H3({ id, data, className, children }: HeaderProps) {
       id={id}
       data-cy={data?.cy}
       data-test={data?.test}
-      className={twMerge(
-        'mb-[0.2em] font-sans text-lg font-semibold',
-        className?.root
-      )}
+      className={twMerge('font-sans text-lg font-semibold', className?.root)}
     >
       {children}
     </h3>
@@ -103,10 +94,7 @@ export function H4({ id, data, className, children }: HeaderProps) {
       id={id}
       data-cy={data?.cy}
       data-test={data?.test}
-      className={twMerge(
-        'text-md mb-[0.2em] font-sans font-semibold',
-        className?.root
-      )}
+      className={twMerge('text-md font-sans font-semibold', className?.root)}
     >
       {children}
     </h4>
