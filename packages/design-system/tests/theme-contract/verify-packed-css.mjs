@@ -802,8 +802,30 @@ try {
   const missing = paletteUtilities.filter(
     ({ name }) => !packedClasses.has(name)
   )
-  if (!available.some(({ name }) => name === 'bg-uzh-blue-100'))
-    throw new Error('Packed palette positive control is missing')
+  // These utilities ship before the token layer completes the full palette.
+  // Keep their presence independent of the CSS inventory under test.
+  const required = [
+    ...[
+      'uzh-blue',
+      'uzh-grey',
+      'uzh-red',
+      'uzh-berry',
+      'uzh-yellow',
+      'uzh-lightgreen',
+      'uzh-darkgreen',
+      'uzh-turqoise',
+    ].flatMap((family) =>
+      [100, 80, 60, 40, 20].map((rung) => `bg-${family}-${rung}`)
+    ),
+    'text-uzh-blue-100',
+    'border-uzh-blue-80',
+    'border-uzh-grey-100',
+    'border-uzh-grey-80',
+    'text-uzh-red-100',
+  ]
+  const lost = required.filter((name) => !packedClasses.has(name))
+  if (lost.length)
+    throw new Error(`Packed palette utilities missing: ${lost.join(', ')}`)
   for (const theme of ['neutral', 'uzh']) {
     await page.setContent(
       `<html data-theme="${theme}"><head><style>${packedCss}</style></head><body></body></html>`
