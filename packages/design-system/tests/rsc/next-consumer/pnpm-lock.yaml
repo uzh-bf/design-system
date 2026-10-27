@@ -24,7 +24,7 @@ importers:
         version: 4.1.11
       '@uzh-bf/design-system':
         specifier: file:.artifacts/design-system.tgz
-        version: file:.artifacts/design-system.tgz(@fortawesome/fontawesome-svg-core@6.7.2)(@fortawesome/free-regular-svg-icons@6.7.2)(@fortawesome/free-solid-svg-icons@6.7.2)(@fortawesome/react-fontawesome@0.2.2(@fortawesome/fontawesome-svg-core@6.7.2)(react@19.2.7))(@tailwindcss/postcss@4.1.11)(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(class-variance-authority@0.7.1)(clsx@2.1.1)(dayjs@1.11.13)(formik@2.4.6(@types/react@19.1.8)(react@19.2.7))(lucide-react@0.522.0(react@19.2.7))(postcss@8.4.41)(react-dom@19.2.7(react@19.2.7))(react-hook-form@7.80.0(react@19.2.7))(react@19.2.7)(tailwind-merge@3.3.1)(tailwindcss@4.1.11)(tw-animate-css@1.3.4)
+        version: file:.artifacts/design-system.tgz(@fortawesome/fontawesome-svg-core@6.7.2)(@fortawesome/free-regular-svg-icons@6.7.2)(@fortawesome/free-solid-svg-icons@6.7.2)(@fortawesome/react-fontawesome@0.2.2(@fortawesome/fontawesome-svg-core@6.7.2)(react@19.2.7))(@tailwindcss/postcss@4.1.11)(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(class-variance-authority@0.7.1)(clsx@2.1.1)(dayjs@1.11.13)(formik@2.4.6(@types/react@19.1.8)(react@19.2.7))(lucide-react@0.522.0(react@19.2.7))(postcss@8.4.41)(react-dom@19.2.7(react@19.2.7))(react-hook-form@7.90.0(@types/react@19.1.8)(react@19.2.7))(react@19.2.7)(tailwind-merge@3.3.1)(tailwindcss@4.1.11)(tw-animate-css@1.3.4)
       class-variance-authority:
         specifier: 0.7.1
         version: 0.7.1
@@ -53,8 +53,8 @@ importers:
         specifier: 19.2.7
         version: 19.2.7(react@19.2.7)
       react-hook-form:
-        specifier: 7.80.0
-        version: 7.80.0(react@19.2.7)
+        specifier: 7.90.0
+        version: 7.90.0(@types/react@19.1.8)(react@19.2.7)
       tailwind-merge:
         specifier: 3.3.1
         version: 3.3.1
@@ -1689,7 +1689,7 @@ packages:
   '@uzh-bf/design-system@file:.artifacts/design-system.tgz':
     resolution:
       {
-        integrity: sha512-WEoHdmAKfmwVc5wpF/GJqJjgczKHEF9AS1068U7JBOp6pl7KfPUR/Fb3oEyyqa1kkK0K3wexWTAarKSLkJ5j7w==,
+        integrity: sha512-V25yafe7UvdnJZujXMgbJXh6UYrhNTyB9MFvjs6wDYIdiz6OmQ3oWbcR6E+TL70kaESqkaNFXtMW7wUoSwkr0w==,
         tarball: file:.artifacts/design-system.tgz,
       }
     version: 5.0.0-alpha.5
@@ -2296,14 +2296,18 @@ packages:
         integrity: sha512-suNP+J1VU1MWFKcyt7RtjiSWUjvidmQSlqu+eHslq+342xCbGTYmC0mEhPCOHxlW0CywylOC1u2DFAT+bv4dBw==,
       }
 
-  react-hook-form@7.80.0:
+  react-hook-form@7.90.0:
     resolution:
       {
-        integrity: sha512-4P+fk6oXsxY+6xSj7Euhc2sumQD8zQqCuVHoJwoyp9EchP+IUW9OESB7uHFJOKsIBQ4MQqYE84INJFqUCYNoOg==,
+        integrity: sha512-+NdG0FLzCPhFOp2NNxaUYLF9fyZhNjx9FTBBSYWF71/l6BBlmIc/j6xlp3DbaHWLJbIG7Zd8oznA19xJClU97w==,
       }
     engines: { node: '>=18.0.0' }
     peerDependencies:
+      '@types/react': '*'
       react: ^16.8.0 || ^17 || ^18 || ^19
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
 
   react-is@16.13.1:
     resolution:
@@ -3658,7 +3662,7 @@ snapshots:
     dependencies:
       csstype: 3.2.3
 
-  '@uzh-bf/design-system@file:.artifacts/design-system.tgz(@fortawesome/fontawesome-svg-core@6.7.2)(@fortawesome/free-regular-svg-icons@6.7.2)(@fortawesome/free-solid-svg-icons@6.7.2)(@fortawesome/react-fontawesome@0.2.2(@fortawesome/fontawesome-svg-core@6.7.2)(react@19.2.7))(@tailwindcss/postcss@4.1.11)(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(class-variance-authority@0.7.1)(clsx@2.1.1)(dayjs@1.11.13)(formik@2.4.6(@types/react@19.1.8)(react@19.2.7))(lucide-react@0.522.0(react@19.2.7))(postcss@8.4.41)(react-dom@19.2.7(react@19.2.7))(react-hook-form@7.80.0(react@19.2.7))(react@19.2.7)(tailwind-merge@3.3.1)(tailwindcss@4.1.11)(tw-animate-css@1.3.4)':
+  '@uzh-bf/design-system@file:.artifacts/design-system.tgz(@fortawesome/fontawesome-svg-core@6.7.2)(@fortawesome/free-regular-svg-icons@6.7.2)(@fortawesome/free-solid-svg-icons@6.7.2)(@fortawesome/react-fontawesome@0.2.2(@fortawesome/fontawesome-svg-core@6.7.2)(react@19.2.7))(@tailwindcss/postcss@4.1.11)(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(class-variance-authority@0.7.1)(clsx@2.1.1)(dayjs@1.11.13)(formik@2.4.6(@types/react@19.1.8)(react@19.2.7))(lucide-react@0.522.0(react@19.2.7))(postcss@8.4.41)(react-dom@19.2.7(react@19.2.7))(react-hook-form@7.90.0(@types/react@19.1.8)(react@19.2.7))(react@19.2.7)(tailwind-merge@3.3.1)(tailwindcss@4.1.11)(tw-animate-css@1.3.4)':
     dependencies:
       '@fortawesome/fontawesome-svg-core': 6.7.2
       '@fortawesome/free-regular-svg-icons': 6.7.2
@@ -3716,7 +3720,7 @@ snapshots:
       vaul: 1.1.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       zod: 3.25.76
     optionalDependencies:
-      react-hook-form: 7.80.0(react@19.2.7)
+      react-hook-form: 7.90.0(@types/react@19.1.8)(react@19.2.7)
     transitivePeerDependencies:
       - '@types/react'
       - '@types/react-dom'
@@ -4024,9 +4028,11 @@ snapshots:
 
   react-fast-compare@2.0.4: {}
 
-  react-hook-form@7.80.0(react@19.2.7):
+  react-hook-form@7.90.0(@types/react@19.1.8)(react@19.2.7):
     dependencies:
       react: 19.2.7
+    optionalDependencies:
+      '@types/react': 19.1.8
 
   react-is@16.13.1: {}
 

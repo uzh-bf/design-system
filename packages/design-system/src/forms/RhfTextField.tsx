@@ -1,6 +1,6 @@
 'use client'
 
-import type { Ref } from 'react'
+import type { InputHTMLAttributes, Ref } from 'react'
 import type { FieldPathByValue, FieldValues } from 'react-hook-form'
 import { RhfFieldShell } from './RhfField'
 import TextField, { type TextFieldOnChangeProps } from './TextField'
@@ -15,6 +15,16 @@ export type RhfTextFieldProps<
   RhfFieldProps<TFieldValues, TName, TContext, TTransformedValues>,
   'className'
 > &
+  Omit<
+    InputHTMLAttributes<HTMLInputElement>,
+    | 'className'
+    | 'onChange'
+    | 'value'
+    | 'defaultValue'
+    | 'name'
+    | 'id'
+    | 'onBlur'
+  > &
   Omit<
     TextFieldOnChangeProps,
     | 'id'
@@ -77,7 +87,8 @@ export function RhfTextField<
       descriptionId={state.descriptionId}
       error={state.error}
       errorId={state.errorId}
-      showError={state.showError}
+      showError={state.showError && !props.hideError}
+      errorDisplay={props.errorDisplay}
       className={props.className}
       data={props.data}
     >

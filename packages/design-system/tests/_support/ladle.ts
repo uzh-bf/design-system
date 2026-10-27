@@ -116,7 +116,7 @@ async function expectRequestedTheme(
  * quiet window with no DOM mutations. Components that tick forever, such as
  * `Countdown` at `intervalDelay={0}`, never go quiet — the cap releases those.
  */
-async function settle(page: Page): Promise<void> {
+export async function settle(page: Page): Promise<void> {
   await page.evaluate(
     async ([idleMs, maxMs, fontsMs]) => {
       // Bounded: a face that never settles must not hang the whole test.

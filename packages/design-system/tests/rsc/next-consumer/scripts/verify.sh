@@ -6,7 +6,7 @@ fixture_dir=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
 package_dir=$(CDPATH= cd -- "$fixture_dir/../../.." && pwd)
 run_root=$(mktemp -d "${TMPDIR:-/tmp}/design-system-rsc.XXXXXX")
 run_fixture="$run_root/next-consumer"
-fixture_port=${RSC_FIXTURE_PORT:-4173}
+fixture_port=${RSC_FIXTURE_PORT:-$(node --input-type=module -e 'import net from "node:net"; const server = net.createServer(); server.listen(0, "127.0.0.1", () => { console.log(server.address().port); server.close(); });')}
 server_pid=''
 
 cleanup() {
@@ -21,6 +21,9 @@ trap cleanup EXIT INT TERM
 
 mkdir -p "$run_fixture/.artifacts"
 cp -R "$fixture_dir/." "$run_fixture/"
+
+rhf_version=$(node "$fixture_dir/../rhf-matrix.mjs" stage "$run_fixture")
+echo "react-hook-form matrix cell: $rhf_version"
 
 node "$fixture_dir/../prepare-packed-artifact.mjs" \
   "$package_dir" \
@@ -153,6 +156,7 @@ NODE
 (
   cd "$run_fixture"
   pnpm install --frozen-lockfile
+  node "$fixture_dir/../rhf-matrix.mjs" assert-installed "$run_fixture"
   node "$fixture_dir/../packed-consumers/scripts/assert-installed-dependencies.mjs" "$run_fixture"
   pnpm exec next build
   pnpm exec next build --webpack
@@ -160,12 +164,16 @@ NODE
 
 (
   cd "$run_fixture"
-  RSC_FIXTURE_PORT="$fixture_port" pnpm exec next start --hostname 127.0.0.1 --port "$fixture_port"
+  exec node node_modules/next/dist/bin/next start --hostname 127.0.0.1 --port "$fixture_port"
 ) >"$run_root/next-start.log" 2>&1 &
 server_pid=$!
 
 attempt=0
 while ! curl --fail --silent --output /dev/null "http://127.0.0.1:$fixture_port/"; do
+  if ! kill -0 "$server_pid" 2>/dev/null; then
+    cat "$run_root/next-start.log" >&2
+    exit 1
+  fi
   attempt=$((attempt + 1))
   if test "$attempt" -ge 60; then
     cat "$run_root/next-start.log" >&2

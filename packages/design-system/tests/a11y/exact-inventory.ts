@@ -145,6 +145,8 @@ export const EXPECTED_STORY_IDS = [
   'empty--default',
   'field--default',
   'field-actions-contract--default',
+  'field-ux-contract--rhf',
+  'field-ux-contract--standalone',
   'field--with-error',
   'form--default',
   'form-label--large',
