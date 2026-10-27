@@ -40,7 +40,11 @@ test('preserves non-utility identifiers, attribute values, comments and unmatche
     possessive.replace('bg-uzh-red p-2', 'bg-uzh-orange p-2')
   )
   assert.equal(preserved.changes, 1)
-  assert.equal(preserved.unsupported.length, 1)
+  assert.ok(
+    preserved.unsupported.some(
+      ({ reason }) => reason === 'non-class attribute or ambiguous assignment'
+    )
+  )
 })
 
 test('renames static class strings in JSX conditions and preserves rejected values', () => {
@@ -54,19 +58,29 @@ test('renames static class strings in JSX conditions and preserves rejected valu
   assert.equal(renamed.changes, 2)
   assert.deepEqual(renamed.unsupported, [])
 
-  for (const input of [
-    ...['&&', '||', '??'].map(
-      (operator) => `<div className={active ${operator} 'bg-uzh-red-100'} />`
-    ),
-    "useState<string>('')\nconst cls = 'bg-uzh-red-100'",
-    "<div />\nconst cls = 'bg-uzh-red-100'",
-    "<div></div>\nconst cls = 'bg-uzh-red-100'",
-  ]) {
+  for (const operator of ['&&', '||', '??']) {
+    const input = `<div className={active ${operator} 'bg-uzh-red-100'} />`
     const result = renamePaletteUtilities(input)
     assert.equal(result.code, input.replace('bg-uzh-red', 'bg-uzh-orange'))
     assert.equal(result.changes, 1)
     assert.deepEqual(result.unsupported, [])
     assert.equal(renamePaletteUtilities(result.code).changes, 0)
+  }
+
+  for (const input of [
+    "useState<string>('')\nconst cls = 'bg-uzh-red-100'",
+    "<div />\nconst cls = 'bg-uzh-red-100'",
+    "<div></div>\nconst cls = 'bg-uzh-red-100'",
+    "const pick = <T,>(v: T) => v\nconst cls = 'bg-uzh-red-100'",
+    "const pick = <T extends string>(v: T) => v\nconst cls = 'bg-uzh-red-100'",
+    "<p><b>x</b>, 'bg-uzh-red-100'</p>",
+  ]) {
+    const result = renamePaletteUtilities(input)
+    assert.equal(result.code, input)
+    assert.equal(result.changes, 0)
+    assert.deepEqual(result.unsupported, [
+      { offset: input.indexOf("'bg-"), reason: 'ambiguous quote context' },
+    ])
   }
 
   const rejected = `<div title='<span class="bg-uzh-red-100">' />`
