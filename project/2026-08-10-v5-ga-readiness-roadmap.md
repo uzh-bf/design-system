@@ -2,6 +2,8 @@
 
 The historical Klicker pilot, RHF parity, selected GBL journey, component compatibility and Recharts 3 qualify at their recorded draft boundaries. The older qualification layer retains a browser-install CI failure. GA still requires the remaining supported Radix-compatible shadcn catalog and auxiliaries, with the documented exceptions in ADR0008, integrated candidate consumer acceptance, current UZH alignment, and manual qualification. GBL and Klicker remain unmerged by user ruling.
 
+The native Recharts keyboard tooltip resize counterexample remains an explicit GA/chart gate: an active tooltip can retain its old horizontal position after a390px shrink. Existing immediate overflow checks and previously passing chart contracts do not close that gate. Preserve exact real-consumer and manual accessibility acceptance separately; no dependency source patch or weakened check is permitted.
+
 ## Identity and status
 
 - Date: 2026-08-10; current execution index refreshed 2026-10-25
