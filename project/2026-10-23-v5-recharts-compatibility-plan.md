@@ -175,6 +175,10 @@ compatible narrower proven range may be proposed with evidence before changing
 the approved support promise. Publication and final integrated consumer proof
 follow this package and retain their own authority.
 
+## Open GA chart gate
+
+Native Recharts keyboard tooltip acceptance remains open. After shrinking an active keyboard tooltip to390px, its horizontal coordinate can remain at the previous width and the document can reach561px. The current immediate overflow assertion and the recorded twelve chart contracts do not qualify tooltip positioning after the shrink settles. Their passing results cover their recorded checks only. This is a GA/chart gate; development-stack preparation may continue. No source patch, fork, workaround, peer-floor change, skip or weakened assertion is authorized.
+
 ## Progress
 
 Checkpoint: 2026-10-24. The user approved both executable plans on 2026-10-23;
