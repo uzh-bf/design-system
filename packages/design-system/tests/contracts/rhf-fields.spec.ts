@@ -289,7 +289,9 @@ test.describe('RHF field wrappers', () => {
 
     await multiSelect.click()
     await expect(multiSelect).toHaveAttribute('aria-expanded', 'true')
-    await page.locator('body').dispatchEvent('pointerdown')
+    await page
+      .locator(text('blur-contract-outside'))
+      .click({ position: { x: 350, y: 20 } })
     await expect(page.locator(text('multi-select-blur-count'))).toHaveText('2')
   })
 
