@@ -1,10 +1,12 @@
 'use client'
 
 import { MessageScroller as ApplicationScroller } from '@shadcn/react/message-scroller'
+import { Questionnaire as ApplicationQuestionnaire } from '@shadcn/react/questionnaire'
 import {
   Bubble,
   Message,
   MessageScroller,
+  Questionnaire,
   ResizablePanelGroup as RootGroup,
   ResizableHandle as RootHandle,
   ResizablePanel as RootPanel,
@@ -17,6 +19,13 @@ import {
   MessageScrollerItem,
   MessageScrollerViewport,
   MessageScroller as NativeGroup,
+  QuestionnaireActions,
+  QuestionnaireChoice,
+  QuestionnaireChoices,
+  QuestionnaireItem,
+  QuestionnaireProgress,
+  QuestionnaireSubmit,
+  QuestionnaireTitle,
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
@@ -31,6 +40,61 @@ import {
   type LayoutStorage,
 } from 'react-resizable-panels'
 import { toast as applicationToast } from 'sonner'
+
+function PackedQuestionnaire() {
+  const [answer, setAnswer] = useState<[string, FormDataEntryValue][]>([])
+  return (
+    <section data-test="packed-questionnaire-section">
+      <h2>Clarification form</h2>
+      <Questionnaire
+        items={[
+          {
+            name: 'format',
+            title: 'Format',
+            required: true,
+            choices: [
+              {
+                value: 'brief',
+                label: 'Brief',
+                data: { test: 'packed-question-brief' },
+              },
+            ],
+          },
+        ]}
+        data={{ test: 'packed-questionnaire' }}
+        dataProgress={{ test: 'packed-question-progress' }}
+        dataSubmit={{ test: 'packed-question-submit' }}
+        onSubmit={(event) => {
+          event.preventDefault()
+          setAnswer([...new FormData(event.currentTarget)])
+        }}
+      />
+      <output data-test="packed-question-answer">
+        {JSON.stringify(answer)}
+      </output>
+      <ApplicationQuestionnaire.Root
+        items={[
+          { name: 'native', required: true, choices: [{ value: 'one' }] },
+        ]}
+        onSubmit={(event) => event.preventDefault()}
+        data-test="packed-mixed-questionnaire"
+      >
+        <QuestionnaireProgress data-test="packed-mixed-question-progress" />
+        <QuestionnaireItem name="native" required>
+          <QuestionnaireTitle>Mixed native form</QuestionnaireTitle>
+          <QuestionnaireChoices>
+            <QuestionnaireChoice value="one" data-test="packed-mixed-choice">
+              One
+            </QuestionnaireChoice>
+          </QuestionnaireChoices>
+        </QuestionnaireItem>
+        <QuestionnaireActions>
+          <QuestionnaireSubmit data-test="packed-mixed-submit" />
+        </QuestionnaireActions>
+      </ApplicationQuestionnaire.Root>
+    </section>
+  )
+}
 
 function PackedRootLayout({
   expanded,
@@ -180,6 +244,7 @@ export function AuxiliaryLeaf({
   return (
     <div>
       <PackedChat />
+      <PackedQuestionnaire />
       <PackedRootLayout
         key={String(expanded)}
         expanded={expanded}

@@ -1175,3 +1175,22 @@ Shiki, Markdown, transport or model package is loaded by these components.
 [ADR0011](../../docs/adr/0011-native-chat-runtime.md) records dependency ownership
 and the shared-context requirement. AttachmentGroup keeps a native scrollbar
 and is keyboard-focusable; callers can override its native tabIndex.
+
+### Clarification questionnaires
+
+Root `Questionnaire` accepts readonly item definitions with titles, descriptions,
+choices and optional labeled freeform inputs. It provides the established named
+styling slots, item/part selectors, native form ref/events and localizable action,
+progress and error labels. Input configuration retains the native supported type
+union and excludes `name`/`form`; the engine owns answer association. Native
+`item`, `defaultItem` and `onItemChange` control the active question. Use the
+submit event's `currentTarget` with `FormData`; no separate answer transport or
+RHF/Formik binding is introduced.
+
+The primitive entry exposes the official natural compound names for custom
+composition. Supply native root item metadata matching the rendered parts when
+server-rendering, so progress, active items and actions agree during hydration.
+The configured root derives both metadata and rendered parts from its one item
+collection. Native `noValidate` defaults to true while the questionnaire validates
+required answers; set it to false to include browser input validity checks.
+Application code owns persistence, branching, cancellation and submission effects.

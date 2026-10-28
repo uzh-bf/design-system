@@ -231,3 +231,60 @@ test('packed server transcript stays readable without JavaScript', async ({
     await context.close()
   }
 })
+
+test('packed Questionnaire hydrates metadata, submits FormData and shares native context', async ({
+  page,
+  browser,
+}) => {
+  const errors: string[] = []
+  page.on('pageerror', (e) => errors.push(e.message))
+  page.on('console', (m) => {
+    if (
+      m.type() === 'error' &&
+      /hydrat|did not match|server rendered html/i.test(m.text())
+    )
+      errors.push(m.text())
+  })
+  const response = await page.goto('/')
+  expect(response?.status()).toBe(200)
+  const progress = page.locator('[data-test="packed-question-progress"]')
+  await expect(progress).toHaveAttribute('aria-valuenow', '1')
+  await expect(progress).toHaveAttribute('aria-valuemax', '1')
+  await page.locator('[data-test="packed-question-submit"]').click()
+  await expect(
+    page.locator('[data-test="packed-questionnaire"] [aria-invalid=true]')
+  ).not.toHaveCount(0)
+  await page.locator('[data-test="packed-question-brief"] input').check()
+  await page.locator('[data-test="packed-question-submit"]').click()
+  await expect
+    .poll(async () =>
+      JSON.parse(
+        await page.locator('[data-test="packed-question-answer"]').innerText()
+      )
+    )
+    .toEqual([['format', 'brief']])
+  await page.locator('[data-test="packed-mixed-choice"] input').check()
+  await expect(
+    page.locator('[data-test="packed-mixed-question-progress"]')
+  ).toHaveAttribute('aria-valuemax', '1')
+  expect(errors).toEqual([])
+  const context = await browser.newContext({ javaScriptEnabled: false })
+  try {
+    const server = await context.newPage()
+    await server.goto('/')
+    await expect(
+      server.locator('[data-test="packed-question-progress"]')
+    ).toHaveAttribute('aria-valuenow', '1')
+    await expect(
+      server.locator('[data-test="packed-question-progress"]')
+    ).toHaveAttribute('aria-valuemax', '1')
+    await expect(
+      server.locator('[data-test="packed-question-brief"] input')
+    ).toBeVisible()
+    await expect(
+      server.locator('[data-test="packed-question-submit"]')
+    ).toBeVisible()
+  } finally {
+    await context.close()
+  }
+})
