@@ -945,3 +945,27 @@ relationship applies. EmptyDescription renders a div, KbdGroup a kbd element,
 and Spinner a status span. Their props and refs match the rendered element.
 Spinner keeps its 28px default; use `className="size-4"` inside compact controls.
 The Spinner does not accept SVG-only props or refs.
+
+## Shared overlay and menu compatibility
+
+The primitive entry adds `AlertDialogMedia`, compact AlertDialog Content, Button
+variants/sizes on Action and Cancel, and Popover Header/Title/Description. The
+matching root AlertDialog and Popover modules re-export their new parts. Popover
+Title renders a div and Description a paragraph; their props and refs match.
+
+`DialogFooter showCloseButton` defaults to false. `SheetContent showCloseButton`
+defaults to true. Dialog and Popover keep caller-owned portal composition;
+AlertDialog and Sheet retain their automatic portal/overlay. Existing root Modal
+and other wrappers keep their own public APIs.
+
+Checkbox and radio menu parts accept `inset`; omission preserves the indicator
+reserve and caller classes still win. Raw Dropdown content retains the Radix
+alignment default. Select keeps its `popper` omission default and explicit
+`item-aligned` route, exposes position markers, and gives explicit `size="sm"`
+a compact 32px trigger. Omitted/default trigger geometry is unchanged.
+
+`CommandItem data-checked` adds a trailing check only for explicit true. Keyboard
+focus and cmdk selection remain separate. CommandShortcut suppresses that check.
+Legacy caller-owned indicators, including the root Combobox, omit `data-checked`
+and gain no extra indicator or reserved spacing. CommandDialog still supplies its
+implicit Command wrapper; close-button defaults and separator filtering remain.

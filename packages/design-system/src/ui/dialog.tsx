@@ -5,6 +5,7 @@ import { XIcon } from 'lucide-react'
 import * as React from 'react'
 
 import { cn } from '../lib/utils'
+import { Button } from './button'
 
 function Dialog({
   ...props
@@ -93,7 +94,14 @@ function DialogHeader({ className, ...props }: React.ComponentProps<'div'>) {
   )
 }
 
-function DialogFooter({ className, ...props }: React.ComponentProps<'div'>) {
+function DialogFooter({
+  className,
+  showCloseButton = false,
+  children,
+  ...props
+}: React.ComponentProps<'div'> & {
+  showCloseButton?: boolean
+}) {
   return (
     <div
       data-slot="dialog-footer"
@@ -102,7 +110,14 @@ function DialogFooter({ className, ...props }: React.ComponentProps<'div'>) {
         className
       )}
       {...props}
-    />
+    >
+      {children}
+      {showCloseButton && (
+        <DialogClose asChild>
+          <Button variant="outline">Close</Button>
+        </DialogClose>
+      )}
+    </div>
   )
 }
 

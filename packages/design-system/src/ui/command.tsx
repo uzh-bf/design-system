@@ -1,7 +1,8 @@
 'use client'
 
+import { Slot, Slottable } from '@radix-ui/react-slot'
 import { Command as CommandPrimitive, useCommandState } from 'cmdk'
-import { SearchIcon } from 'lucide-react'
+import { CheckIcon, SearchIcon } from 'lucide-react'
 import * as React from 'react'
 
 import { cn } from '../lib/utils'
@@ -146,18 +147,49 @@ function CommandSeparator({
 }
 
 function CommandItem({
+  asChild = false,
   className,
+  children,
+  'data-checked': checked,
   ...props
-}: React.ComponentProps<typeof CommandPrimitive.Item>) {
+}: React.ComponentProps<typeof CommandPrimitive.Item> & {
+  'data-checked'?: boolean | 'true' | 'false'
+}) {
+  const indicator =
+    checked === true || checked === 'true' ? (
+      <CheckIcon
+        aria-hidden="true"
+        data-slot="command-item-indicator"
+        className="ml-auto size-4 shrink-0 group-has-data-[slot=command-shortcut]/command-item:hidden"
+      />
+    ) : null
+  let content = children
+  if (indicator) {
+    content = asChild ? (
+      <Slot>
+        <Slottable>{children}</Slottable>
+        {indicator}
+      </Slot>
+    ) : (
+      <>
+        {children}
+        {indicator}
+      </>
+    )
+  }
   return (
     <CommandPrimitive.Item
+      asChild={asChild}
       data-slot="command-item"
+      data-checked={checked}
       className={cn(
-        'data-[selected=true]:bg-primary-20 data-[selected=true]:text-primary-100 relative flex cursor-pointer items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-50 data-[selected=true]:font-semibold',
+        'group/command-item data-[selected=true]:bg-primary-20 data-[selected=true]:text-primary-100 relative flex cursor-pointer items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-50 data-[selected=true]:font-semibold',
         className
       )}
       {...props}
-    />
+    >
+      {content}
+    </CommandPrimitive.Item>
   )
 }
 

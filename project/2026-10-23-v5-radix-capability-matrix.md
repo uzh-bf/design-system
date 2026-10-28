@@ -91,8 +91,9 @@ presentation/control portion of the [approved plan](2026-10-24-v5-shared-api-com
 AlertAction, Avatar parts/default-size route, Badge variants, Card/Item compact
 sizes, Carousel hook, Pagination aliases, Switch size, ToggleGroup spacing and
 InputOTP spellcheck precedence. Retained DOM and generic ItemGroup adaptations
-are documented. Source-backed tests, packed endpoints and browser evidence exist;
-final review and draft qualification remain open. Overlay/menu and Calendar rows
+are documented. The draft qualifies at `2d8b02a6f` with complete hosted CI,
+configured final review, exact packed proof and 18 published real captures.
+Overlay/menu draft [#226](https://github.com/uzh-bf/design-system/pull/226) implements the approved parts/options at `b0c46d1a7`. Local146behavioral, six themed accessibility and all three packed/Next endpoint cells pass; independent final review, native capture publication and hosted qualification remain. An extra open-menu audit reproduces an existing `aria-hidden-focus` result on the Ladle root using the exact lower archive; retain it as a GA accessibility follow-up. Calendar rows
 remain assigned to their following layers. The baseline table below is historical
 comparison evidence, not the current implementation status of those delivered APIs.
 
