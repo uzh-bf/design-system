@@ -4,6 +4,7 @@ import {
   ResizablePanelGroup as RootGroup,
   ResizableHandle as RootHandle,
   ResizablePanel as RootPanel,
+  Toaster,
 } from '@uzh-bf/design-system'
 import {
   ResizableHandle,
@@ -19,6 +20,7 @@ import {
   Panel as ApplicationPanel,
   type ImperativePanelGroupHandle,
 } from 'react-resizable-panels'
+import { toast as applicationToast } from 'sonner'
 
 const layoutStorage = {
   getItem: (key: string) =>
@@ -34,6 +36,9 @@ export function AuxiliaryLeaf() {
   const panelRef = usePanelRef()
   const [rootLayout, setRootLayout] = useState<number[]>([])
   const [nativeLayout, setNativeLayout] = useState<Layout>({})
+  const [explicitToastTheme, setExplicitToastTheme] = useState<
+    'light' | undefined
+  >()
   const { defaultLayout, onLayoutChanged } = useDefaultLayout({
     id: 'packed-native-persistence',
     storage: layoutStorage,
@@ -68,6 +73,40 @@ export function AuxiliaryLeaf() {
         <output data-test="packed-root-layout-state">
           {JSON.stringify(rootLayout)}
         </output>
+      </section>
+      <section data-test="packed-shared-toast">
+        <h2>Application toast runtime</h2>
+        <Toaster
+          id="packed-shared-store"
+          theme={explicitToastTheme}
+          position="bottom-right"
+          closeButton
+        />
+        <button
+          data-test="packed-application-toast"
+          onClick={() =>
+            applicationToast.success('Synthetic application notification', {
+              id: 'packed-application-toast',
+              toasterId: 'packed-shared-store',
+              duration: Infinity,
+              description: 'Emitted through the application Sonner dependency',
+            })
+          }
+        >
+          Emit application toast
+        </button>
+        <button
+          data-test="packed-toast-toggle-root-mode"
+          onClick={() => document.documentElement.classList.toggle('dark')}
+        >
+          Toggle application root mode
+        </button>
+        <button
+          data-test="packed-toast-explicit-light"
+          onClick={() => setExplicitToastTheme('light')}
+        >
+          Use explicit light toast mode
+        </button>
       </section>
       <section data-test="packed-native-layout">
         <h2>Native resizable layout</h2>

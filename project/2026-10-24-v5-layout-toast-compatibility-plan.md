@@ -219,63 +219,48 @@ Manual screen-reader, Safari and physical-device proof and integrated exact
 candidate consumer acceptance remain separate GA boundaries. No package release,
 deployment, merge or ready conversion is implied by green draft CI.
 
-## Progress and review provenance
+## Progress
 
-- October24: user authorized this planning goal after the next-package summary.
-  Prior Shared API/Calendar batch is complete. The user subsequently approved
-  this complete reviewed batch, including the material primitive migration,
-  dependency choices and three-layer topology.
-- The starting baseline is Calendar `0f7b78ba2`. Panels implementation is active
-  on its approved branch; no consumer repository has changed.
-- Current research/prototype receipts are in the ignored layout review journal.
-  The first alias arrangement failed npm legacy identity; the revised canonical
-  legacy arrangement passed the narrow identity probe under npm and pnpm.
-- Configured public-only Claude advisor and one focused correction recommend the
-  dual-engine boundary with canonical v3, native v4 helper re-exports and explicit
-  package/migration limits. Neither was given this unpublished plan.
-- Both current RHF error paragraphs agree with ADR0006; the roadmap correction
-  instruction is stale and will be reconciled in the owning implementation.
-- Read-only Sonner/Sidebar mapping completed. Verified generic Toast class loss,
-  mobile caller-prop loss, direction omission and the unproven focus-return seam
-  are included in the owning layers. Preserve native omitted/center toast
-  placement, desktop-only controlled Sidebar state and existing static Sidebar.
-- Round1 planner requested changed-component Next hydration, explicit mobile
-  prop/ref acceptance, alias-validator negative cases and exact slice ownership.
-  Main verified all four findings and incorporated them. The same configured
-  planner approved round2. The required hardening loop is complete; human
-  approval of the executable batch is recorded.
+Human approval: the full reviewed batch was approved on October24. Planner
+hardening approved round2; execution mode remains standard and the native goal
+is active. Merge, ready conversion, publishing, deployment, consumer writes,
+provider changes and new automations remain outside this package.
 
-- Execution started on rs/v5-panels-compatibility above frozen Calendar0f7.
-  Native stack initialized locally; draft [#229](https://github.com/uzh-bf/design-system/pull/229) exists. Main owns slice1, then
-  delegates slice2 while integrating package and Next proof.
+- Panels draft [#229](https://github.com/uzh-bf/design-system/pull/229) qualifies
+  at `88b397d4df4ddef3f9f6081ceacdc705b73d9604`: full CI, configured final review,
+  risk review, simplification, exact archive/installed proof, eight published
+  captures and a quiet feedback check pass. The head is held. Runtime stopped
+  and isolated browser closed after that layer's final proof.
+- Sonner is active on `rs/v5-sonner-compatibility` above that head; draft [#230](https://github.com/uzh-bf/design-system/pull/230)
+  is open in native stack231. Exact2.0.8, eight fixture locks, matching application runtime, public
+  declarations, source option/theme merging and packed Next acceptance are
+  integrated. Fifteen dependency cases, static checks/build, seven focused
+  behavior/opened-axe cases and focused source scanning pass. Full behavior and
+  selector runs pass (170 plus9cases), as do881accessibility cases,29pinned
+  visual regressions,704theme assertions and unchanged package budgets. All
+  three packed cells and12Nextbrowser cases per bundler pass. Exact archive
+  `0242f9587a76890f5aea2e2b959dcb5cff7560434c1c26a117d6a901f5f97b36`
+  matches270installed files;448tracked package sources match the producing
+  container. Twenty-four synthetic captures are inspected. Simplification and risk review
+  are complete after the reproduced OS-precedence correction; the refreshed
+  full179/881and three packed matrices pass. Configured final review and hosted
+  CI precede qualification. The verified native listener lesson is recorded in
+  `docs/solutions/integration/sonner-system-listener-overrides-resolved-mode.md`.
+- Three Toast story callers share `tests/_support/toast-root.ts` because MDX
+  cannot declare an unexported module helper. These concrete callers justify
+  the small test-support file; it is outside public library entries and adds
+  no story or product API. Caller-mode and native DOM assumptions were checked
+  against actual Sonner2 output; no positioning facade or suppression was added.
+- Sidebar implementation starts after Sonner independently qualifies. Its scope
+  remains mobile caller props/direction/focus with existing state and geometry.
+- Immediate next action: commit the verified Sonner slice, run simplification
+  and risk review while the remaining checks finish, then deliver its qualified
+  draft. Continue into Sidebar under the same finite batch authority.
 
-- Panels core check/lint/build and13dependency-validator cases pass. The default
-  packed cell and11Nextbrowser cases under each of Turbopack/Webpack pass after
-  supplying native SSR-safe storage and fixing a saved-layout test race.
-  Full contracts/selectors:172pass; focused Resizable axe:6pass; package/CSS
-  budgets and704theme-token checks pass. The worker completed one focused
-  correction and is closed. Both remaining packed version cells pass, including browser contracts under
-  both bundlers. Full accessibility:875pass; pinned visual regression:29pass.
-  Reviews, final screenshots/artifact proof and hosted CI still precede draft
-  qualification.
-
-- Panels implementation is committed; dedicated simplification accepted removal
-  of an unused story storage counter. Package archive SHA-256
-  `bcf790782bd8ce61502be54c84d3e70704026aea44195847156d3308398dceb7`
-  matches all270installed files; all447tracked package sources match the
-  producing container. Existing root source remains byte-equivalent.
-- The Panels layer has31paths including9generated lockfiles and4project
-  documents. Human-authored delta exceeds the estimate because the two distinct
-  engine contracts need diagnostic stories, behavioral proof and packed Next
-  SSR/reload verification. It remains one compatibility package as approved;
-  separating these proofs would leave the engine migration unqualified.
-  Dedicated simplification found only one unused diagnostic counter.
-
-- Panels simplification and independent slice risk review are complete. Eight
-  synthetic screenshots cover retained nesting, both families, desktop/phone,
-  neutral-light/dark and UZH-light. Native uploads are verified byte-for-byte.
-  Diagnostic dark backgrounds/prose pass two extra accessibility audits.
-  The final archive changes only the added scoped dark-prose CSS utility from
-  the passing matrix candidate; all runtime JavaScript is identical. Fresh
-  budgets and704theme assertions pass. Configured final review, hosted CI,
-  rendered-forge verification and quiet feedback settle remain.
+The Sonner layer remains one notification compatibility package: source option
+and theme behavior, declarations, store identity and browser/packed proof form
+one reviewable contract. Human-authored verification exceeds the estimate; lock
+and project-document changes are accounted separately in the execution journal.
+Current producing logs, review dispositions, exact hashes and final-tip CI/settle
+receipts remain in the ignored execution journal and each draft description;
+final green status will not trigger another tracked status commit.

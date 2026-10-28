@@ -1,5 +1,8 @@
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { ThemeProvider as NextThemeProvider } from 'next-themes'
+import { useEffect, useState } from 'react'
+import { useRestoreDocumentRoot } from '../tests/_support/toast-root'
 import Button from './Button'
 import { Toaster, toast } from './Toast'
 
@@ -49,6 +52,9 @@ Available Stories:
 - Success: Pre-styled success toast variant
 - Warning: Pre-styled warning toast variant
 - Error: Pre-styled error toast variant
+- Sonner Options: Caller class, style, toast-option and icon precedence
+- Sonner Root Theme: Live design-system root mode updates
+- Sonner Provider Theme: next-themes and explicit theme precedence
 
 Components:
 
@@ -395,5 +401,299 @@ export const Error = () => {
         Trigger
       </Button>
     </>
+  )
+}
+
+export const SonnerOptions = () => {
+  useRestoreDocumentRoot()
+  const [overrides, setOverrides] = useState(false)
+  const [position, setPosition] = useState()
+  const [actionCount, setActionCount] = useState(0)
+  const [dismissCount, setDismissCount] = useState(0)
+
+  return (
+    <>
+      <Toaster
+        id="sonner-options-toaster"
+        className="caller-toaster-class"
+        closeButton
+        position={position}
+        style={
+          overrides
+            ? {
+                '--normal-bg': 'rgb(24 72 48)',
+                '--normal-text': 'rgb(255 255 255)',
+                '--normal-border': 'rgb(16 48 32)',
+                '--border-radius': '13px',
+              }
+            : { outlineOffset: '2px' }
+        }
+        icons={
+          overrides
+            ? {
+                error: (
+                  <span data-test="caller-error-icon" aria-hidden="true">
+                    !
+                  </span>
+                ),
+              }
+            : undefined
+        }
+        toastOptions={{
+          duration: 60000,
+          classNames: {
+            toast: 'caller-toast-class',
+            description: overrides ? 'font-bold! text-white!' : 'font-bold!',
+          },
+        }}
+      />
+      <div className="bg-background text-foreground flex max-w-full flex-wrap gap-2 p-4 pt-28">
+        <button
+          type="button"
+          data-test="show-success-toast"
+          className="rounded border px-3 py-2 text-sm"
+          onClick={() =>
+            toast({
+              message: 'Success compatibility toast',
+              type: 'success',
+              options: {
+                description: 'Caller description appearance',
+                duration: 60000,
+                testId: 'sonner-success-toast',
+                toasterId: 'sonner-options-toaster',
+              },
+            })
+          }
+        >
+          Show success toast
+        </button>
+        <button
+          type="button"
+          data-test="show-error-toast"
+          className="rounded border px-3 py-2 text-sm"
+          onClick={() =>
+            toast({
+              message: 'Error compatibility toast',
+              type: 'error',
+              options: {
+                duration: 60000,
+                description: 'Caller icon and style checks.',
+                testId: 'sonner-error-toast',
+                toasterId: 'sonner-options-toaster',
+              },
+            })
+          }
+        >
+          Show error toast
+        </button>
+        <button
+          type="button"
+          data-test="show-generic-toast"
+          className="rounded border px-3 py-2 text-sm"
+          onClick={() =>
+            toast({
+              message: 'Generic compatibility toast',
+              options: {
+                duration: 60000,
+                description: 'Caller keys remain on the generic DS toast.',
+                testId: 'sonner-generic-toast',
+                toasterId: 'sonner-options-toaster',
+                classNames: {
+                  title: 'caller-title-class',
+                  content: 'caller-content-class',
+                  closeButton: 'caller-close-class',
+                },
+              },
+            })
+          }
+        >
+          Show generic toast
+        </button>
+        <button
+          type="button"
+          data-test="show-action-toast"
+          className="rounded border px-3 py-2 text-sm"
+          onClick={() =>
+            toast({
+              message: 'Action compatibility toast',
+              options: {
+                duration: 60000,
+                testId: 'sonner-action-toast',
+                toasterId: 'sonner-options-toaster',
+                action: {
+                  label: 'Apply',
+                  onClick: (event) => {
+                    event.preventDefault()
+                    setActionCount((count) => count + 1)
+                  },
+                },
+                onDismiss: () => setDismissCount((count) => count + 1),
+              },
+            })
+          }
+        >
+          Show action toast
+        </button>
+        <button
+          type="button"
+          data-test="show-unstyled-toast"
+          className="rounded border px-3 py-2 text-sm"
+          onClick={() =>
+            toast({
+              message: 'Unstyled compatibility toast',
+              options: {
+                duration: 60000,
+                testId: 'sonner-unstyled-toast',
+                toasterId: 'sonner-options-toaster',
+                unstyled: true,
+              },
+            })
+          }
+        >
+          Show unstyled toast
+        </button>
+        <button
+          type="button"
+          data-test="toggle-overrides"
+          className="rounded border px-3 py-2 text-sm"
+          onClick={() => setOverrides((enabled) => !enabled)}
+        >
+          Toggle caller overrides
+        </button>
+        <button
+          type="button"
+          data-test="position-default"
+          className="rounded border px-3 py-2 text-sm"
+          onClick={() => setPosition(undefined)}
+        >
+          Omit position
+        </button>
+        <button
+          type="button"
+          data-test="position-top-right"
+          className="rounded border px-3 py-2 text-sm"
+          onClick={() => setPosition('top-right')}
+        >
+          Top right position
+        </button>
+        <button
+          type="button"
+          data-test="position-bottom-center"
+          className="rounded border px-3 py-2 text-sm"
+          onClick={() => setPosition('bottom-center')}
+        >
+          Bottom center position
+        </button>
+        <output data-test="action-count">{actionCount}</output>
+        <output data-test="dismiss-count">{dismissCount}</output>
+      </div>
+    </>
+  )
+}
+
+export const SonnerRootTheme = () => {
+  useRestoreDocumentRoot()
+  const [rootDark, setRootDark] = useState(false)
+
+  useEffect(() => {
+    setRootDark(document.documentElement.classList.contains('dark'))
+  }, [])
+
+  const toggleRootDark = () => {
+    const root = document.documentElement
+    const next = !root.classList.contains('dark')
+    root.classList.toggle('dark', next)
+    setRootDark(next)
+  }
+
+  return (
+    <>
+      <Toaster
+        id="sonner-root-theme-toaster"
+        closeButton
+        toastOptions={{ duration: 60000 }}
+      />
+      <div className="bg-background text-foreground flex max-w-full flex-wrap items-center gap-2 p-4 pt-28">
+        <button
+          type="button"
+          data-test="trigger-root-theme-toast"
+          className="rounded border px-3 py-2 text-sm"
+          onClick={() =>
+            toast({
+              message: 'Root theme compatibility toast',
+              options: {
+                duration: 60000,
+                description: 'This toast stays mounted across root changes.',
+                testId: 'sonner-root-theme-toast',
+                toasterId: 'sonner-root-theme-toaster',
+              },
+            })
+          }
+        >
+          Show root theme toast
+        </button>
+        <button
+          type="button"
+          data-test="toggle-root-dark"
+          className="rounded border px-3 py-2 text-sm"
+          onClick={toggleRootDark}
+        >
+          Toggle root dark mode
+        </button>
+        <output data-test="root-dark">{String(rootDark)}</output>
+      </div>
+    </>
+  )
+}
+
+export const SonnerProviderTheme = () => {
+  useRestoreDocumentRoot()
+  const [explicitDark, setExplicitDark] = useState(false)
+
+  useEffect(() => {
+    document.documentElement.classList.add('dark')
+  }, [])
+
+  return (
+    <NextThemeProvider
+      attribute="data-next-mode"
+      defaultTheme="dark"
+      forcedTheme="light"
+      enableSystem={false}
+      enableColorScheme={false}
+    >
+      <Toaster
+        id="sonner-provider-theme-toaster"
+        theme={explicitDark ? 'dark' : undefined}
+        toastOptions={{ duration: 60000 }}
+      />
+      <div className="bg-background text-foreground flex max-w-full flex-wrap gap-2 p-4 pt-28">
+        <button
+          type="button"
+          data-test="trigger-provider-theme-toast"
+          className="rounded border px-3 py-2 text-sm"
+          onClick={() =>
+            toast({
+              message: 'Provider theme compatibility toast',
+              options: {
+                duration: 60000,
+                testId: 'sonner-provider-theme-toast',
+                toasterId: 'sonner-provider-theme-toaster',
+              },
+            })
+          }
+        >
+          Show provider theme toast
+        </button>
+        <button
+          type="button"
+          data-test="toggle-explicit-dark"
+          className="rounded border px-3 py-2 text-sm"
+          onClick={() => setExplicitDark((enabled) => !enabled)}
+        >
+          Toggle explicit dark theme
+        </button>
+      </div>
+    </NextThemeProvider>
   )
 }
