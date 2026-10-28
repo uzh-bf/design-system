@@ -1,11 +1,49 @@
-import { Button, NativeSelect, NativeSelectOption } from '@uzh-bf/design-system'
-import { Button as PrimitiveButton } from '@uzh-bf/design-system/primitives'
+import {
+  Button,
+  highlightCode,
+  NativeSelect,
+  NativeSelectOption,
+} from '@uzh-bf/design-system'
+import {
+  CodeBlock,
+  CodeBlockContent,
+  CodeBlockLine,
+  Button as PrimitiveButton,
+} from '@uzh-bf/design-system/primitives'
 import { cookies } from 'next/headers'
-import { AuxiliaryLeaf } from './auxiliary-leaf'
+import { AuxiliaryLeaf, PackedCodeClient } from './auxiliary-leaf'
 import { ChartLeaf } from './chart-leaf'
 import { RhfLeaf } from './rhf-leaf'
 
-export default async function Page() {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: Promise<{ mode?: string }>
+}) {
+  const { mode } = await searchParams
+  if (mode === 'server-code') {
+    const code = 'const server = 42\n'
+    const lines = (await highlightCode(code, 'typescript')) ?? code.split('\n')
+    return (
+      <main>
+        <h1>Server source</h1>
+        <CodeBlock>
+          <CodeBlockContent data-test="server-code" lineNumbers>
+            {lines.map((line, index) => (
+              <CodeBlockLine key={index}>{line}</CodeBlockLine>
+            ))}
+          </CodeBlockContent>
+        </CodeBlock>
+      </main>
+    )
+  }
+  if (mode === 'client-code')
+    return (
+      <main>
+        <h1>Client source</h1>
+        <PackedCodeClient />
+      </main>
+    )
   let initialLayouts: Record<string, string> = {}
   const persisted = (await cookies()).get('ds-fixture-panel-layouts')?.value
   if (persisted) {

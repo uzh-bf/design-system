@@ -29,6 +29,19 @@ Existing ADR0005 adaptations remain authoritative. Complete official-rule
 traceability and integrated/manual consumer proof before any GA alignment claim;
 the package's source qualification is not institutional CD certification.
 
+## October25 implementation checkpoint
+
+Shared APIs/Calendar, Sonner/Sidebar, unified native Panels4 and chat/Questionnaire
+are qualified drafts through [235](https://github.com/uzh-bf/design-system/pull/235),
+which holds2a8d3f401. New surfaces retain the ergonomic root props and supported
+neutral/UZH themes. CodeBlock/highlighting and compatible utilities are source-
+qualified in [draft #236](https://github.com/uzh-bf/design-system/pull/236) under
+the [approved plan](2026-10-25-v5-code-highlighting-plan.md). The official
+release index still lists2.11.0 and its CSS matches the October23 source receipt.
+Complete per-rule traceability, picker error-state contrast, representative
+compositions, manual AT/Safari/device and exact integrated consumer acceptance
+remain open. This source checkpoint grants no institutional CD certification.
+
 ## Official styleguide review — 2026-10-23
 
 The [official release index](https://www.frontend.uzh.ch/prod/releases.json)

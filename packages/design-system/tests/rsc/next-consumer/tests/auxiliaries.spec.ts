@@ -288,3 +288,64 @@ test('packed Questionnaire hydrates metadata, submits FormData and shares native
     await context.close()
   }
 })
+
+test('packed server highlighting remains readable before JavaScript', async ({
+  browser,
+}) => {
+  const context = await browser.newContext({ javaScriptEnabled: false })
+  const page = await context.newPage()
+  await page.goto('/?mode=server-code')
+  await expect(page.locator('[data-test="server-code"]')).toBeVisible()
+  await expect(
+    page.locator('[data-test="server-code"] [style*="--shiki"]').first()
+  ).toBeVisible()
+  await expect(page.locator('[data-test="packed-code-client"]')).toHaveCount(0)
+  await context.close()
+
+  const hydrated = await browser.newContext()
+  const hydratedPage = await hydrated.newPage()
+  const scripts: Promise<string>[] = []
+  hydratedPage.on('response', (response) => {
+    if (
+      response.url().includes('/_next/static/') &&
+      response.url().endsWith('.js')
+    )
+      scripts.push(response.text().catch(() => ''))
+  })
+  await hydratedPage.goto('/?mode=server-code')
+  await hydratedPage.waitForLoadState('networkidle')
+  const serverScripts = await Promise.all(scripts)
+  expect(serverScripts.length).toBeGreaterThan(0)
+  expect(serverScripts.every((script) => script.length > 0)).toBe(true)
+  expect(serverScripts.some(hasTypeScriptGrammar)).toBe(false)
+  await hydrated.close()
+})
+
+function hasTypeScriptGrammar(script: string) {
+  return /["']?scopeName["']?\s*:\s*["']source\.ts["']/.test(script)
+}
+
+test('packed client highlighting activates after opt-in', async ({ page }) => {
+  const scripts: Promise<string>[] = []
+  page.on('response', (response) => {
+    if (
+      response.url().includes('/_next/static/') &&
+      response.url().endsWith('.js')
+    )
+      scripts.push(response.text().catch(() => ''))
+  })
+  await page.goto('/?mode=client-code')
+  const content = page.locator('[data-test="packed-code-content"]')
+  await expect(content).toBeVisible()
+  await expect(content.locator('[style*="--shiki"]')).toHaveCount(0)
+  await page.waitForLoadState('networkidle')
+  const initialScripts = await Promise.all(scripts)
+  expect(initialScripts.length).toBeGreaterThan(0)
+  expect(initialScripts.every((script) => script.length > 0)).toBe(true)
+  expect(initialScripts.some(hasTypeScriptGrammar)).toBe(false)
+  await page.locator('[data-test="packed-highlight-toggle"]').click()
+  await expect(content.locator('[style*="--shiki"]').first()).toBeVisible()
+  await expect
+    .poll(async () => (await Promise.all(scripts)).some(hasTypeScriptGrammar))
+    .toBe(true)
+})

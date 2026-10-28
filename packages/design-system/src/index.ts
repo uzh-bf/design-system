@@ -96,3 +96,7 @@ export * from './Message'
 export * from './MessageScroller'
 export * from './Questionnaire'
 export * from './Trace'
+
+export * from './CodeBlock'
+export { useHighlightedCode } from './hooks/use-highlighted-code'
+export { highlightCode, loadHighlighter } from './lib/highlighter'

@@ -46,6 +46,17 @@ source/package checks; qualification evidence is recorded in that draft. The app
 retain their assigned owners. The existing open-menu Ladle-root accessibility
 audit residual is tracked in the capability matrix and GA roadmap.
 
+## October25 delivery checkpoint
+
+All approved shared/Calendar/layout/toast/native Resizable layers qualify in
+their draft descriptions. [Chat234](https://github.com/uzh-bf/design-system/pull/234)
+and [Questionnaire235](https://github.com/uzh-bf/design-system/pull/235) qualify
+at48c6b91a6 and2a8d3f401. Code/highlighting and utility source qualification is delivered in
+[draft #236](https://github.com/uzh-bf/design-system/pull/236) under its
+[approved plan](2026-10-25-v5-code-highlighting-plan.md). These deliveries
+close their source/behavior contracts, not every static example/block/pattern
+identity below. Integrated application composition retains its own acceptance.
+
 ## Registry examples
 
 The [example manifest](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/bases/radix/examples/_registry.ts)

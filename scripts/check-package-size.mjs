@@ -41,6 +41,7 @@ const markerExpectations = [
       /node_modules[\\/].*react-resizable-panels[\\/]/,
       /node_modules[\\/].*sonner[\\/]/,
       /node_modules[\\/].*@shadcn[+\\/]react[\\/]/,
+      /node_modules[\\/].*(?:shiki|@shikijs[+\\/])/,
     ],
   },
   {
@@ -52,6 +53,7 @@ const markerExpectations = [
       /node_modules[\\/].*react-resizable-panels[\\/]/,
       /node_modules[\\/].*sonner[\\/]/,
       /node_modules[\\/].*@shadcn[+\\/]react[\\/]/,
+      /node_modules[\\/].*(?:shiki|@shikijs[+\\/])/,
     ],
   },
   {
@@ -212,13 +214,46 @@ function runMarkerChecks() {
   }
 }
 
+function assertLazyHighlighting() {
+  for (const entry of [
+    "CodeBlock.js",
+    "ui/code-block.js",
+    "lib/highlighter.js",
+  ]) {
+    const pending = [path.join(dist, entry)];
+    const seen = new Set();
+    while (pending.length) {
+      const file = pending.pop();
+      if (seen.has(file)) continue;
+      seen.add(file);
+      const code = readFileSync(file, "utf8");
+      for (const match of code.matchAll(
+        /(?:import|export)\s+[^;]*?\sfrom\s*['"]([^'"]+)['"]/g,
+      )) {
+        const specifier = match[1];
+        assert(
+          !/^(?:shiki|@shikijs)(?:\/|$)/.test(specifier),
+          `${entry} eagerly imports ${specifier}`,
+        );
+        if (specifier.startsWith("."))
+          pending.push(path.resolve(path.dirname(file), specifier));
+      }
+    }
+  }
+  console.log(
+    "Plain CodeBlock and helper static graphs exclude Shiki runtime.",
+  );
+}
+
 try {
   assert(
     readdirSync(dist).length > 0,
     `Missing built package output at ${path.relative(root, dist)}`,
   );
-  runBudgetChecks();
+  assertLazyHighlighting();
   runMarkerChecks();
+  console.log("Package dependency markers passed.");
+  runBudgetChecks();
   console.log("Package size budgets and W3 dependency markers passed.");
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
