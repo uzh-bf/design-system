@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.0.0-alpha.6](https://github.com/uzh-bf/design-system/compare/v5.0.0-alpha.5...v5.0.0-alpha.6) (2026-10-28)
+
+### Enhancements
+
+- Add complete React Hook Form field capability parity while retaining Formik through v5 and the dedicated RHF entry.
+- Expand official Radix-compatible shadcn primitives and auxiliaries, native Recharts 3 composition, Calendar, Sidebar, Resizable, toast, chat, Questionnaire and CodeBlock support.
+- Align UZH application tokens and improve picker navigation, contrast, focus/ref behavior and representative application compositions.
+- Enforce pnpm 12 and the fourteen-day dependency policy with the previously approved exact exceptions; remove unused dependency ownership and qualify native Next consumer fixtures.
+
+### Alpha testing limits
+
+- Native Recharts keyboard tooltips can overflow after a viewport shrink. No dependency patch or workaround is included.
+- Manual assistive-technology, Safari/device and exact current-candidate application acceptance remain GA gates.
+- Root parser/URI tooling advisories await mature same-major fixes; this test alpha does not claim GA advisory closure.
+
 ## [5.0.0-alpha.5](https://github.com/uzh-bf/design-system/compare/v5.0.0-alpha.4...v5.0.0-alpha.5) (2026-08-18)
 
 All entries below land through [#207](https://github.com/uzh-bf/design-system/pull/207) ([736028a](https://github.com/uzh-bf/design-system/commit/736028a61784f69fb9f61d9094e604b66569a0e2)), which remediates the findings of the v5 GA package review.

@@ -1,5 +1,13 @@
 # Migration: v4 → v5 (dual theme)
 
+## Alpha.6 testing checkpoint
+
+Install the exact `@uzh-bf/design-system@5.0.0-alpha.6` candidate for application evaluation. This alpha includes RHF capability parity alongside retained Formik, expanded Radix-compatible shadcn surfaces, native Recharts 3 composition, layout/chat/code components and the UZH application-token work. The public component contracts below remain authoritative.
+
+Keep application-owned Recharts within `>=3.8.0 <4` and check every installed peer against this package's manifest; an older pilot's peer graph is not current-candidate acceptance. The native keyboard tooltip can retain a stale horizontal coordinate after shrinking the viewport. Manual assistive-technology/Safari/device and real-application acceptance remain open. This release provides a test candidate, with no GA claim or dependency patch.
+
+Consumers enforcing a minimum release age may reject a newly published alpha. Any explicit candidate exception belongs to that consumer's separately approved test change; this release changes no consumer policy or repository.
+
 v5 introduces a **dual-theme** system. The same components now render under two
 themes, selected by a `data-theme` attribute:
 
