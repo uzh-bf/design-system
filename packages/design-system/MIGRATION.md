@@ -1001,3 +1001,35 @@ omitted bounds remain January of the current year minus one through January of
 the current year plus 99; explicit native bounds still win. Application-owned
 non-Gregorian recipes and manual screen-reader/Safari/device qualification remain
 separate from this locale update.
+
+## Resizable engine contracts
+
+The root Resizable family retains `react-resizable-panels` 3.0.6. Existing
+`direction`, numeric percentage sizes, refs, callbacks, custom tags, ordering
+and `autoSaveId`/`storage` behavior remain supported. Existing saved layouts keep
+their v3 format.
+
+The raw Resizable family from `@uzh-bf/design-system/primitives` now follows the
+official Panels 4.14.8 recipe. This is a pre-GA primitive API migration:
+
+- Use `orientation` in place of `direction`.
+- Numeric sizes mean pixels; use a percentage string such as `"30%"` for
+  percentages.
+- Use `groupRef`/`panelRef` for imperative handles and `elementRef` for DOM refs.
+  Native panel `getSize()` returns pixel and percentage information.
+- Use native ID-keyed layout maps and `onLayoutChange`/`onLayoutChanged`, rather
+  than v3 positional arrays and `onLayout`.
+
+Import `Layout`, `useDefaultLayout`, `useGroupRef` and `usePanelRef` from the
+primitive entry alongside that complete Resizable family. This also works when
+an application retains the canonical v3 dependency for existing compositions;
+the library's v4 dependency alias is internal. Root components and native
+primitive components cannot share one group. Directly imported components from
+a second v4 installation may also use a different context.
+
+Use the root family when retaining the v3 contract. Migrating to the primitive
+family requires explicit prop/ref and persistence changes; old saved layouts are
+application-owned. The DS performs no storage conversion. When server rendering,
+provide server-safe storage to `useDefaultLayout`; its native default accesses
+browser `localStorage`. Applications using both families can include both
+upstream engines. No custom resizing engine or global provider is introduced.

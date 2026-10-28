@@ -1375,7 +1375,7 @@ packages:
   '@uzh-bf/design-system@file:../../.artifacts/design-system.tgz':
     resolution:
       {
-        integrity: sha512-+CD+srk7+JHxyINN/BuvKD4Y+ro1oJxSXXPyseRxnYYNMh0vUlETqO6rRvogqjUNpoJiX6xbBM+8VhLOWdn9QA==,
+        integrity: sha512-piXtOj8TzqXBJlmjQDvcGoNqKTBZe/Aebe4ihle5Yy2H/7jUUwz3e1l9VCkC4Ww5L1kgCMqe70MglsekzO/IBQ==,
         tarball: file:../../.artifacts/design-system.tgz,
       }
     version: 5.0.0-alpha.5
@@ -1981,6 +1981,15 @@ packages:
     peerDependencies:
       react: ^16.14.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc
       react-dom: ^16.14.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc
+
+  react-resizable-panels@4.14.8:
+    resolution:
+      {
+        integrity: sha512-kVot7JCIZct85ZY87vww95R7tI25VSTjHpEAIIy2YcsOtbtwG6l1+vDD6TCYgmgE/JSp0ADqNooHn97Y6dMOFw==,
+      }
+    peerDependencies:
+      react: ^18.0.0 || ^19.0.0
+      react-dom: ^18.0.0 || ^19.0.0
 
   react-style-singleton@2.2.3:
     resolution:
@@ -3182,6 +3191,7 @@ snapshots:
       react-day-picker: 9.14.0(react@19.2.7)
       react-dom: 19.2.7(react@19.2.7)
       react-resizable-panels: 3.0.6(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      react-resizable-panels-v4: react-resizable-panels@4.14.8(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       recharts: 3.10.1(@types/react@19.1.8)(react-dom@19.2.7(react@19.2.7))(react-is@19.2.7)(react@19.2.7)(redux@5.0.1)
       sonner: 1.7.4(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       tailwind-merge: 3.3.1
@@ -3486,6 +3496,11 @@ snapshots:
       '@types/react': 19.1.8
 
   react-resizable-panels@3.0.6(react-dom@19.2.7(react@19.2.7))(react@19.2.7):
+    dependencies:
+      react: 19.2.7
+      react-dom: 19.2.7(react@19.2.7)
+
+  react-resizable-panels@4.14.8(react-dom@19.2.7(react@19.2.7))(react@19.2.7):
     dependencies:
       react: 19.2.7
       react-dom: 19.2.7(react@19.2.7)

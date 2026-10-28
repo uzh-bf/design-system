@@ -38,6 +38,7 @@ const markerExpectations = [
       /node_modules[\\/].*(date-fns|react-day-picker)[\\/]/,
       /node_modules[\\/].*(recharts|d3-[^\\/]+|victory-vendor)[\\/]/,
       /node_modules[\\/].*embla-carousel[\\/]/,
+      /node_modules[\\/].*react-resizable-panels[\\/]/,
     ],
   },
   {
@@ -46,6 +47,7 @@ const markerExpectations = [
       /node_modules[\\/].*(date-fns|react-day-picker)[\\/]/,
       /node_modules[\\/].*(recharts|d3-[^\\/]+|victory-vendor)[\\/]/,
       /node_modules[\\/].*embla-carousel[\\/]/,
+      /node_modules[\\/].*react-resizable-panels[\\/]/,
     ],
   },
   {
