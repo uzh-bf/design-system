@@ -1,5 +1,6 @@
 import { Button, NativeSelect, NativeSelectOption } from '@uzh-bf/design-system'
 import { Button as PrimitiveButton } from '@uzh-bf/design-system/primitives'
+import { ChartLeaf } from './chart-leaf'
 import { RhfLeaf } from './rhf-leaf'
 
 export default function Page() {
@@ -13,6 +14,7 @@ export default function Page() {
         <NativeSelectOption value="one">One</NativeSelectOption>
         <NativeSelectOption value="two">Two</NativeSelectOption>
       </NativeSelect>
+      <ChartLeaf />
       <RhfLeaf />
     </main>
   )

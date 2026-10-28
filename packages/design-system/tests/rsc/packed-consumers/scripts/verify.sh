@@ -19,6 +19,9 @@ cp -R "$fixture_dir/consumers/dedicated" "$run_fixture/consumers/"
 
 rhf_version=$(node "$fixture_dir/../rhf-matrix.mjs" stage "$run_fixture/consumers/dedicated")
 echo "react-hook-form matrix cell: $rhf_version"
+node --test "$fixture_dir/scripts/assert-installed-dependencies.test.mjs"
+node "$fixture_dir/scripts/assert-installed-dependencies.mjs" stage "$run_fixture/consumers/root-only"
+node "$fixture_dir/scripts/assert-installed-dependencies.mjs" stage "$run_fixture/consumers/dedicated"
 
 node "$fixture_dir/../prepare-packed-artifact.mjs" \
   "$package_dir" \

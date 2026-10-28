@@ -175,10 +175,57 @@ compatible narrower proven range may be proposed with evidence before changing
 the approved support promise. Publication and final integrated consumer proof
 follow this package and retain their own authority.
 
+## Open GA chart gate
+
+Native Recharts keyboard tooltip acceptance remains open. After shrinking an active keyboard tooltip to390px, its horizontal coordinate can remain at the previous width and the document can reach561px. The current immediate overflow assertion and the recorded twelve chart contracts do not qualify tooltip positioning after the shrink settles. Their passing results cover their recorded checks only. This is a GA/chart gate; development-stack preparation may continue. No source patch, fork, workaround, peer-floor change, skip or weakened assertion is authorized.
+
 ## Progress
 
-- User approved both implementation plans on 2026-10-23. Full-path package in standard execution mode; project artifacts root `project/`.
-- This layer follows the approved component layer in native stack 221, branch `rs/v5-recharts-compatibility`, using the same worktree. Main serializes shared manifests, lockfiles, exports and topology.
-- Reuse completed planner and catalog reviews. Approved endpoint proposals remain unqualified until the three packed cells pass.
-- Active predecessor: component compatibility. No Recharts source/dependency change yet; substantive size 0 lines and test delta none.
-- Next action after component draft qualification: settle the existing type/build seam, delegate chart source, implement packed identity checks and qualify the three approved cells.
+Checkpoint: 2026-10-24. The user approved both executable plans on 2026-10-23;
+standard execution mode and the existing `project/` artifacts root remain in use.
+
+- **Implemented:** [chart draft #224](https://github.com/uzh-bf/design-system/pull/224)
+  follows [component draft #223](https://github.com/uzh-bf/design-system/pull/223)
+  in native stack 221. Integration and draft qualification are complete. Required
+  Recharts ownership, custom-content types, zero/null formatting, initial sizing,
+  all six plot families and tooltip recipes are implemented. The shared story
+  helpers have multiple callers and stay outside public entries. Only the
+  unimported historical Recharts 2 chart is excluded from app/build type checks.
+- **Verified locally:** types, lint, formatting, build, 12 chart contracts,
+  14 chart accessibility cases, 704 packed-CSS assertions and seven dependency
+  guard cases pass. All three frozen Recharts/RHF cells pass strict root/dedicated
+  imports, runtime identity, both Next builds and 10 browser cases. The lower
+  test-only readiness correction `30e001315` waits one task for Radix's deferred
+  outside-pointer listener: ten repeats and all 130 integrated contracts pass.
+  Earlier failures and the producing diagnostic evidence remain in the journal.
+- **Reviewed and evidenced:** both slice simplifications found no warranted
+  reduction. Source risk reviews accept dependency, public-payload and RSC seams;
+  one proposed guard-test finding was verified and retracted. Final review found
+  an array-valued tooltip regression, corrected by restoring locale formatting
+  for non-null scalar and range values in the existing payload contract. Independent integrated source review and focused correction reviews pass.
+  [Hosted CI](https://github.com/uzh-bf/design-system/actions/runs/40075381528) passes
+  at `43c54a557838528c87b0d2ffc53a8daa0b30f122`; the final quiet settle completed
+  after 07:57:12 UTC on October 24 with no unresolved feedback. All 42 chart
+  captures are published and rendered; the same unpublished archive matches all
+  268 installed files at both Recharts endpoints. The a11y oracle and CI consumer
+  matrix deliberately cover the six new stories and three endpoint cells.
+- **Budget decision:** named imports reduce the responsive wrapper to about 10.3 kB
+  at Recharts 3.8.0 and 11.0 kB at 3.10.1. The existing 34,000-byte ceiling passes;
+  the historical 25,000-byte positive minimum rejected this legitimate reduction.
+  The user approved changing only that minimum to 8,000 on 2026-10-24. The
+  34,000-byte ceiling and resolved-Recharts module marker remain intact.
+  The complete size/marker check passes with the applied calibration.
+- **Terminal reached:** both component and chart drafts qualify at their recorded
+  heads. The [GA roadmap](2026-08-10-v5-ga-readiness-roadmap.md#next-implementation-packages)
+  owns the next Combobox plan and remaining catalog packages. Consumer writes,
+  readiness conversion, merging, publication and deployment remain outside this
+  package. Manual AT, Safari/device and separate integrated consumer acceptance
+  remain GA gates.
+
+Source completion includes injective chart-style identifiers, omission of an
+all-null tooltip, and measured SVG sizing from an initially hidden panel.
+Reviewed synthetic captures remain applicable because their visible examples
+are unchanged. The size ruling is approved, and all original and forge findings
+are resolved. Final exact-head CI and settle evidence are retained in the journal
+and draft description. Later roadmap-only edits do not invalidate passing
+package/artifact proof when executable source and acceptance remain unchanged.
