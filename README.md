@@ -142,3 +142,27 @@ import {
   <FieldDescription id="search-help">Search project names.</FieldDescription>
 </Field>;
 ```
+
+### React Hook Form field adapters
+
+Import RHF adapters from `@uzh-bf/design-system/react-hook-form` and install
+its supported `react-hook-form` peer. The root and `./primitives` entries stay
+free of RHF runtime and declaration dependencies. Formik remains supported
+through v5; removal belongs to v6.
+
+The dedicated entry supports `RhfTextField`, `RhfNumberField`, `RhfSelectField`,
+`RhfMultiSelect`, `RhfTextareaField`, `RhfSwitchField`, `RhfPinField` and
+`RhfAlphaNumericPinField`. Use a FormProvider (the exported `Form`) or pass
+`control` explicitly. Fields retain typed value paths and transformed submit
+values; PINs use strings to preserve leading zeros. Schemas and resolvers belong
+to the application. Color, date and date/time adapters are the next stack layer.
+
+RHF messages now default to inline presentation. Select `errorDisplay="tooltip"`
+for the earlier presentation or `hideError` to suppress the message while keeping
+invalid state. Validation timing follows the application's RHF settings and
+`setError`; adapters no longer add an extra touched/submitted gate. Formik error
+presentation and timing retain their existing behavior.
+
+The standalone numeric `PinField` shares its controlled implementation with
+Formik and RHF. `Switch` retains its legacy `onBlur` click callback; native
+focus-leaving notifications use `onFocusOut`, which the RHF adapter binds to RHF.

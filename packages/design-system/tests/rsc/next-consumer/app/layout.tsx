@@ -1,3 +1,4 @@
+import '@uzh-bf/design-system/css'
 import type { Metadata } from 'next'
 import './globals.css'
 

@@ -1,9 +1,13 @@
 import type { Control } from 'react-hook-form'
 
 import {
+  RhfAlphaNumericPinField,
   RhfMultiSelect,
   RhfNumberField,
+  RhfPinField,
   RhfSelectField,
+  RhfSwitchField,
+  RhfTextareaField,
   RhfTextField,
 } from '../../src/react-hook-form'
 
@@ -13,6 +17,7 @@ type Values = {
   count: number
   location: string
   elements: string[]
+  enabled: boolean
 }
 
 declare const control: Control<Values>
@@ -116,3 +121,39 @@ const invalidInputMode = (
 
 void invalidMaxLength
 void invalidInputMode
+
+const newFieldTypes = (
+  <>
+    <RhfTextareaField control={control} name="name" maxLength={40} />
+    <RhfSwitchField control={control} name="enabled" />
+    <RhfPinField control={control} name="name" length={4} />
+    <RhfAlphaNumericPinField
+      control={control}
+      name="name"
+      length={4}
+      uppercaseOnly
+    />
+  </>
+)
+void newFieldTypes
+// @ts-expect-error Textarea requires a string-valued path.
+const invalidTextarea = <RhfTextareaField control={control} name="amount" />
+// @ts-expect-error Switch requires a boolean-valued path.
+const invalidSwitch = <RhfSwitchField control={control} name="name" />
+// @ts-expect-error PIN values retain leading zeros as strings.
+const invalidPin = <RhfPinField control={control} name="count" length={4} />
+const invalidTextareaField = (
+  // @ts-expect-error Formik field props must not enter the RHF adapter API.
+  <RhfTextareaField control={control} name="name" field={{ name: 'name' }} />
+)
+const invalidTextareaProp = (
+  // @ts-expect-error Arbitrary props must not be accepted through an index signature.
+  <RhfTextareaField control={control} name="name" unsupported />
+)
+void [
+  invalidTextarea,
+  invalidSwitch,
+  invalidPin,
+  invalidTextareaField,
+  invalidTextareaProp,
+]

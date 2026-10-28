@@ -104,3 +104,40 @@ test('blocks submit and reports an error until the required name is provided', a
 
   await expect(page.getByTestId('submitted-value')).toHaveText('required-name')
 })
+
+test('packed basic adapters hydrate, submit typed values and retain PIN leading zeros', async ({
+  page,
+}) => {
+  await page.goto('/')
+  await page.getByRole('textbox', { name: 'Name', exact: true }).fill('packed')
+  await page.getByRole('textbox', { name: 'Notes', exact: true }).fill('A note')
+  const toggle = page.getByRole('switch', { name: 'Enabled', exact: true })
+  const geometry = await toggle.evaluate((element) => ({
+    width: element.getBoundingClientRect().width,
+    height: element.getBoundingClientRect().height,
+    computedWidth: getComputedStyle(element).width,
+    computedHeight: getComputedStyle(element).height,
+    spacing: getComputedStyle(element).getPropertyValue('--spacing'),
+    display: getComputedStyle(element).display,
+  }))
+  expect(geometry.width, JSON.stringify(geometry)).toBeGreaterThan(0)
+  expect(geometry.height, JSON.stringify(geometry)).toBeGreaterThan(0)
+  await toggle.click()
+  await page
+    .getByRole('textbox', { name: 'Numeric PIN', exact: true })
+    .fill('0012')
+  await page
+    .getByRole('textbox', { name: 'Access code', exact: true })
+    .fill('ab12')
+  await page.getByRole('button', { name: 'Submit RHF form' }).click()
+  await expect(page.getByTestId('all-values')).toHaveText(
+    JSON.stringify({
+      name: 'packed',
+      amount: '',
+      notes: 'A note',
+      enabled: true,
+      pin: '0012',
+      code: 'AB12',
+    })
+  )
+})

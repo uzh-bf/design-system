@@ -1,8 +1,12 @@
 'use client'
 
+export * from './forms/RhfAlphaNumericPinField'
 export * from './forms/RhfMultiSelect'
 export * from './forms/RhfNumberField'
+export * from './forms/RhfPinField'
 export * from './forms/RhfSelectField'
+export * from './forms/RhfSwitchField'
+export * from './forms/RhfTextareaField'
 export * from './forms/RhfTextField'
 export {
   Form,
