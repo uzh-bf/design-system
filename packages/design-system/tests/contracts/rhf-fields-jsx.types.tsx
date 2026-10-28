@@ -2,6 +2,9 @@ import type { Control } from 'react-hook-form'
 
 import {
   RhfAlphaNumericPinField,
+  RhfColorPicker,
+  RhfDatePicker,
+  RhfDatetimePicker,
   RhfMultiSelect,
   RhfNumberField,
   RhfPinField,
@@ -18,6 +21,8 @@ type Values = {
   location: string
   elements: string[]
   enabled: boolean
+  day: Date | undefined
+  requiredDay: Date
 }
 
 declare const control: Control<Values>
@@ -157,3 +162,35 @@ void [
   invalidTextareaField,
   invalidTextareaProp,
 ]
+
+const pickerFieldTypes = (
+  <>
+    <RhfColorPicker
+      control={control}
+      name="name"
+      submitText="Apply"
+      colorLabel="Hex"
+      triggerAriaLabel="Choose color"
+    />
+    <RhfDatePicker control={control} name="day" />
+    <RhfDatetimePicker control={control} name="day" hourCycle={12} />
+  </>
+)
+void pickerFieldTypes
+// @ts-expect-error Dates retain Date/undefined instead of string serialization.
+const invalidDatePath = <RhfDatePicker control={control} name="name" />
+const invalidRequiredDate = (
+  // @ts-expect-error Clearing requires an undefined-capable date path.
+  <RhfDatetimePicker control={control} name="requiredDay" />
+)
+const invalidColorPath = (
+  <RhfColorPicker
+    control={control}
+    // @ts-expect-error Color values require strings.
+    name="enabled"
+    submitText="Apply"
+    colorLabel="Hex"
+    triggerAriaLabel="Choose color"
+  />
+)
+void [invalidDatePath, invalidRequiredDate, invalidColorPath]

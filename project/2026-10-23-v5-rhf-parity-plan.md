@@ -277,60 +277,112 @@ substitute or a claim of GA readiness.
 
 ## Progress
 
-- Status: executable batch approved by the user on October23. Active slice2 correction;
-  implementation owner main, standard execution mode.
-- Completed: four interview rulings accepted; ADR0006/0007 and roadmap/assessment
-  reconciliation committed separately as `afcc2b912eef289772af624ef767e92262c20ce3`.
-  Native stack initialized with custom trunk `rs/v5-ga-qualification` and first
-  layer `rs/v5-rhf-fields`; no earlier-stack topology changed.
-- Planning review: same configured planner `01a16863-27e9-7ba3-94ab-618a87306f10`
-  APPROVED in round2 after verified textarea-name/type coverage and ownership
-  sequencing corrections. Optional rival pass produced no usable review and is
-  unpassed; the native review remains valid. Transcript:
-  `project/_local/reviews/2026-10-23-rhf-parity-plan-hardening.md`.
-- Verified dependency: `afcc2b912eef289772af624ef767e92262c20ce3`; refreshed refs
-  October23,89 ahead/0 behind v5. No target integration is needed for this batch.
-- Required delivery: two reviewed, independently green draft PRs. Achieved:
-  approved plan and local native topology. Remaining: slices1–4; real GBL
-  qualification remains a separately planned consumer package afterward.
-- Documentation review: Claude weekly-limit failure occurred before useful work.
-  User explicitly authorized bounded AGY Gemini3.8Flash high fallback review of
-  the five-file decision commit plus supporting form source, excluding this
-  unpublished plan and sensitive data. That distinct final review is running;
-  preserve its private receipts and finish it before publishing the decision
-  commit. No additional destination authorization is inferred.
-- Slice1 complete at `a306197715d7ff704dad9277f3c2d6f6a2dcb4f9`: package
-  types/lint, built Ladle and16focused RHF browser cases pass. Configured
-  simplifier and risk reviewer returned no findings; private reports retained.
-- Slice2 source adds textarea, switch and both PIN adapters, shared numeric
-  control, minimal legacy seams and behavioral/type/packed/Next fixtures.
-  Seventy-one browser contracts and package types/lint pass. Both packed type/
-  runtime cells pass; Next cells, deterministic visuals and layer review remain
-  in progress. Captured neutral/UZH390/1440synthetic errors; manualGA proof open.
-- Documentation fallback passes canonical schema with no findings after its
-  bounded same-conversation correction; `afcc2b912` pushed and PR218 body updated.
-- Next: finish first-layer qualification, commit/review and native draft creation,
-  then continue the picker layer. No native goal, merge,
-  ready conversion, publication, deployment or consumer-runtime change started.
+Status: both draft layers are published; implementation, local verification and
+configured slice reviews are complete. Integrated final review passes through the configured AGY fallback.
+Required hosted CI passes at both tested source tips. The basic layer passes at
+`cf9549b89`; the picker layer passes at `4feb499d6`, including all accessibility
+shards, inventory closure, both RHF consumer cells and Build. Its browser jobs
+permit one fifteen-minute install within existing seventeen-minute step budgets.
+Final documentation-tip CI and a quiet settle remain before closing draft
+qualification. Main owns those remaining gates in standard mode.
 
-### First-layer draft and correction evidence
+### Delivery and source
 
-Draft PR219 is based on `rs/v5-ga-qualification`; the prior stack remains
-unchanged. First tip81f6a3e3f passed both RHF packed/Next cells,71contracts,
-29pinnedvisuals,704CSS token assertions, budgets and74relevant a11y cases.
-Five reviewed synthetic captures were uploaded through `gh` and rendered in
-GitHub; private receipts preserve bytes/source and image load verification.
-Hosted CI is still watched separately and is not represented as passed.
+- [Basic fields draft PR219](https://github.com/uzh-bf/design-system/pull/219):
+  `cf9549b89a29660993ab312492ad640bba73d13d`, based on the qualification branch.
+- [Picker draft PR220](https://github.com/uzh-bf/design-system/pull/220):
+  package executable source `e49a96a4b705a296cb4f337d9d788ead344bac85`, passing
+  workflow tip `4feb499d6319ade99d103aa9c14824d324b33e3d`, based on basic fields.
+- Native stack221 has exactly these two layers and custom trunk
+  `rs/v5-ga-qualification`. Remote stack212 retains its original eight PRs and
+  `v5` base. No topology repair or target integration was needed.
+- Decision commit `afcc2b912eef289772af624ef767e92262c20ce3` was reviewed through
+  the explicitly approved bounded AGY fallback and is reflected in
+  [qualification draft PR218](https://github.com/uzh-bf/design-system/pull/218).
 
-Forge review found duplicate root styling and a narrow fluid switch. The first
-correction3858c0f61 passed types/lint and20RHFcontracts, including a measured
-padding/width regression. Same-child risk review confirmed it and found the
-same field-slot duplication on both PIN adapters; main accepted and fixed those
-instances with the same observable regression. Required review remains pending
-integrated final acceptance. No human review was requested and no merge occurred.
-The unpublished picker layer was stashed while correcting the lower branch;
-restore its latest named stash after propagating the correction natively.
+All ten retained Formik families now have RHF adapters in draft source, alongside
+multi-select. Formik remains supported through v5. The optional client subpath,
+inline/RHF-owned error contract, typed values and transformed submissions,
+actual control refs, reset semantics and application-owned timezone/resolver
+policy are preserved. Color retains staged Apply/cancel behavior. Long synthetic
+German labels use the existing styling hooks; compact LTR/RTL checks cover label
+bounds and focus rather than claiming complete locale support.
 
-The review-driven correction stays inside the approved public contract and two
-layer topology. The overall first layer remains within its estimated1,200–1,800
-substantive lines; no additional PR boundary is introduced.
+### Verification
+
+Final native checks use checksum-verified Node 22.16.0 and root pnpm 10.30.0 in the
+isolated tool container. Packed fixtures retain their own pinned pnpm 11.21.0.
+Initial image runs used Node 24.16.0; final verification refreshes the pinned
+Node 22 boundary. The deterministic visual suite uses its repository-pinned
+Playwright image and architecture.
+
+At `adc5d46f5`, package build:tsc, workspace check/lint and formatting pass, with
+110 behavioral contracts, 136 relevant axe story cases, 29 pinned visual cases,
+704 packed CSS assertions and package budgets. Frozen packed type/runtime cells
+pass at RHF 7.59.0 and 7.90.0. Both cells pass Next 16.2.9 Turbopack/Webpack builds
+and eight browser cases. The final name correction changes only the aria-label-
+only date route; two affected selected/empty-date cases, 28 axe story cases,
+types/lint/format and a fresh package build pass at `e49a96a4b`. Other matrix paths,
+types, reset and dependency boundaries are unchanged, so passing evidence is
+reused explicitly. No new serious/critical accessibility exception was added.
+
+The earlier basic tip independently passed its relevant types/lint, 71 focused
+contracts, 74 axe cases, both RHF/Next cells, pinned visuals, CSS and budgets.
+Its final slot corrections pass 20 focused RHF cases, including measured padding
+and fluid width. Hosted [basic CI](https://github.com/uzh-bf/design-system/actions/runs/39949970459)
+passes after one setup retry. Hosted [picker CI](https://github.com/uzh-bf/design-system/actions/runs/39967459521)
+passes after the bounded installation correction; all test and build jobs ran,
+with tag-only Publish skipped. The separate build workflow also passes.
+
+The workflow install override preserves the existing step/job timeouts and
+all verification commands. YAML formatting, effective settings for each browser
+job and three simulated installer exit paths confirm one bounded 900-second
+attempt and failure propagation. Hosted execution then verifies the setting,
+including the previously failing accessibility shard. No new maintained test
+is needed for this declarative timing change.
+Package source, candidate bytes and reviewed UI behavior are unchanged, so their
+passing evidence and configured reviews remain applicable.
+
+Both PR galleries contain inspected synthetic captures with source/date/hash
+receipts: four corrected basic states plus one unchanged historical timing state,
+and nine picker/long-label/direction states. All 14 native attachments were read
+back and rendered in GitHub at their expected image dimensions. No screenshots
+are committed. Existing visible captures remain applicable after the final
+programmatic-name correction, which changes no captured layout.
+
+### Exact candidate and reviews
+
+The unpublished candidate from `e49a96a4b705a296cb4f337d9d788ead344bac85` is
+`project/_local/rhf-parity-candidate/uzh-bf-design-system-5.0.0-alpha.5.tgz`.
+SHA-256: `b237f0d7f9b384c84f4027768d5c5391e72e22591c1146ef890f0603a7994f06`.
+All 264 installed package files match the archive byte-for-byte; all 11 adapters
+import through the dedicated entry with RHF 7.90.0 on Node 22. This artifact has
+not been published or accepted by a real consumer.
+
+The configured simplifiers found no justified net reduction. Verified basic
+slot/width findings were fixed with measured regressions. The picker reviewer
+covered all 20 upper-layer paths, found the aria-label-only date-value omission,
+and accepted its correction in the same-child correction pass. No slice finding
+remains open. Integrated final review uses AGY Gemini 3.8 Flash high after the
+reusable Claude weekly-limit failure; its canonical-schema-validated verdict passes with no findings. Private
+reports and exact command receipts remain under `project/_local/reviews/`.
+
+### Remaining boundary
+
+Both tested source tips pass hosted checks. Verify the final documentation-only
+tip and quiet settle before claiming completed draft qualification. No merge, marking ready,
+release/package publication, deployment, native goal or consumer-runtime change
+has occurred under this package.
+
+The selected real GBL RHF journey needs its own current-source consumer plan and
+browser proof against this exact candidate. Retained Klicker Formik evidence
+remains separate. Screen-reader, Safari and physical-device runs are still
+manual GA gates. Chart ownership, remaining Radix/auxiliary coverage and UZH
+acceptance continue under the roadmap after the consumer package.
+
+
+The exact task-owned `ds-v5-rhf-checks` tool container is stopped and verified
+exited. Its browser session is closed; relevant logs, candidate and gallery
+receipts remain in the ignored artifact area. No retained consumer runtime was
+touched or deleted. Source and archive qualification remain valid after the
+documentation and workflow timing updates.

@@ -320,6 +320,7 @@ TimePeriodSelect.displayName = 'TimePeriodSelect'
 interface TimePickerInputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   picker: TimePickerType
+  resetKey?: number
   date?: Date | null
   onDateChange?: (date: Date | undefined) => void
   period?: Period
@@ -344,6 +345,7 @@ const TimePickerInput = React.forwardRef<
       onKeyDown,
       onBlur,
       picker,
+      resetKey,
       period,
       onLeftFocus,
       onRightFocus,
@@ -355,16 +357,19 @@ const TimePickerInput = React.forwardRef<
     const [draft, setDraft] = React.useState<string | null>(null)
     const lastEmittedTimestamp = React.useRef<number | undefined>(undefined)
     const previousPicker = React.useRef(picker)
+    const previousReset = React.useRef(resetKey)
     const calculatedValue = getDateByType(date, picker)
 
     React.useEffect(() => {
       if (
         date?.getTime() !== lastEmittedTimestamp.current ||
-        picker !== previousPicker.current
+        picker !== previousPicker.current ||
+        resetKey !== previousReset.current
       )
         setDraft(null)
       previousPicker.current = picker
-    }, [date, picker, period])
+      previousReset.current = resetKey
+    }, [date, picker, period, resetKey])
 
     const commitValue = (nextValue: string) => {
       const nextDate = setDateByType(
@@ -457,6 +462,7 @@ interface TimePickerProps {
   date?: Date | null
   onChange?: (date: Date | undefined) => void
   disabled?: boolean
+  resetKey?: number
   hourCycle?: 12 | 24
   /**
    * Determines the smallest unit that is displayed in the datetime picker.
@@ -478,6 +484,7 @@ const TimePicker = React.forwardRef<TimePickerRef, TimePickerProps>(
   (
     {
       date,
+      resetKey,
       onChange,
       disabled = false,
       hourCycle = 24,
@@ -502,7 +509,7 @@ const TimePicker = React.forwardRef<TimePickerRef, TimePickerProps>(
       : pendingPeriod
     React.useEffect(() => {
       if (!date) setPendingPeriod('AM')
-    }, [date])
+    }, [date, resetKey])
     const inputDate =
       date ??
       new Date(
@@ -532,6 +539,7 @@ const TimePicker = React.forwardRef<TimePickerRef, TimePickerProps>(
         <TimePickerInput
           disabled={disabled}
           picker={hourCycle === 24 ? 'hours' : '12hours'}
+          resetKey={resetKey}
           date={inputDate}
           id={`${instanceId}-hours`}
           aria-label={timeLabels?.hours ?? 'Hours'}
@@ -550,6 +558,7 @@ const TimePicker = React.forwardRef<TimePickerRef, TimePickerProps>(
               picker="minutes"
               id={`${instanceId}-minutes`}
               aria-label={timeLabels?.minutes ?? 'Minutes'}
+              resetKey={resetKey}
               date={inputDate}
               onDateChange={onChange}
               ref={minuteRef}
@@ -570,6 +579,7 @@ const TimePicker = React.forwardRef<TimePickerRef, TimePickerProps>(
               picker="seconds"
               id={`${instanceId}-seconds`}
               aria-label={timeLabels?.seconds ?? 'Seconds'}
+              resetKey={resetKey}
               date={inputDate}
               onDateChange={onChange}
               ref={secondRef}
@@ -609,6 +619,11 @@ TimePicker.displayName = 'TimePicker'
 
 type Granularity = 'day' | 'hour' | 'minute' | 'second'
 type DateTimePickerProps = {
+  onBlur?: () => void
+  resetKey?: number
+  'aria-labelledby'?: string
+  'aria-describedby'?: string
+  'aria-invalid'?: React.AriaAttributes['aria-invalid']
   /** Control id used to associate the visible field label. */
   id?: string
   /** Accessible name when no visible label is supplied. */
@@ -715,6 +730,11 @@ type DateTimePickerRef = HTMLButtonElement
  */
 const DateTimePicker = ({
   id,
+  onBlur,
+  resetKey,
+  'aria-labelledby': externalLabel,
+  'aria-describedby': describedBy,
+  'aria-invalid': invalid,
   ariaLabel,
   timeLabels,
   locale = enUS,
@@ -746,6 +766,21 @@ const DateTimePicker = ({
   const labelId = `${inputId}-label`
   const dateValueId = `${inputId}-date-value`
   const timeValueId = `${inputId}-time-value`
+  const [open, setOpen] = React.useState(false)
+  const openRef = React.useRef(false)
+  const blurNotified = React.useRef(false)
+  const notifyBlur = React.useCallback(() => {
+    if (blurNotified.current) return
+    blurNotified.current = true
+    onBlur?.()
+  }, [onBlur])
+  React.useEffect(() => {
+    if (!disabled || !openRef.current) return
+    openRef.current = false
+    setOpen(false)
+    notifyBlur()
+  }, [disabled, notifyBlur])
+  const defaultPopupTimestamp = defaultPopupValue.getTime()
   const [month, setMonth] = React.useState<Date>(value ?? defaultPopupValue)
   const [displayDate, setDisplayDate] = React.useState<Date | undefined>(
     value ?? undefined
@@ -767,7 +802,8 @@ const DateTimePicker = ({
   React.useEffect(() => {
     setDisplayDate(value)
     if (value) setMonth(value)
-  }, [value])
+    else if (resetKey !== undefined) setMonth(new Date(defaultPopupTimestamp))
+  }, [value, resetKey, defaultPopupTimestamp])
 
   const handleMonthChange = (nextMonth: Date | undefined) => {
     if (!nextMonth) return
@@ -776,7 +812,7 @@ const DateTimePicker = ({
   }
 
   const onSelect = (newDay?: Date) => {
-    if (!newDay) {
+    if (!newDay || disabled) {
       return
     }
     onChange?.(newDay)
@@ -785,7 +821,16 @@ const DateTimePicker = ({
   }
 
   return (
-    <Popover>
+    <Popover
+      open={open}
+      onOpenChange={(next) => {
+        if (next && disabled) return
+        if (next) blurNotified.current = false
+        else if (openRef.current) notifyBlur()
+        openRef.current = next
+        setOpen(next)
+      }}
+    >
       <div
         className={twMerge(
           'flex w-[280px] flex-row',
@@ -813,14 +858,26 @@ const DateTimePicker = ({
             <Button
               id={inputId}
               aria-labelledby={
-                label
-                  ? [labelId, dateValueId, useSplitTrigger && timeValueId]
+                externalLabel || label
+                  ? [
+                      externalLabel ?? labelId,
+                      dateValueId,
+                      useSplitTrigger && timeValueId,
+                    ]
                       .filter(Boolean)
                       .join(' ')
                   : undefined
               }
+              aria-describedby={describedBy}
+              aria-invalid={invalid}
+              onFocus={() => {
+                blurNotified.current = false
+              }}
+              onBlur={() => {
+                if (!openRef.current) notifyBlur()
+              }}
               aria-label={
-                !label && ariaLabel
+                !label && !externalLabel && ariaLabel
                   ? [
                       ariaLabel,
                       triggerDateLabel,
@@ -836,8 +893,10 @@ const DateTimePicker = ({
               className={cn(
                 'border-control-border text-content hover:bg-surface-hover h-10 min-w-[220px] justify-start overflow-hidden rounded-md px-0 text-left text-sm font-normal',
                 !displayDate && 'text-content-muted px-3',
-                !!error &&
-                  isTouched &&
+                ((!!error && isTouched) ||
+                  (invalid !== undefined &&
+                    invalid !== false &&
+                    invalid !== 'false')) &&
                   'border-destructive bg-destructive-background',
                 className?.input
               )}
@@ -896,7 +955,7 @@ const DateTimePicker = ({
         </div>
       </div>
       <PopoverContent
-        aria-labelledby={label ? labelId : undefined}
+        aria-labelledby={externalLabel ?? (label ? labelId : undefined)}
         aria-label={label ? undefined : (ariaLabel ?? placeholder)}
         className="w-auto border-none bg-transparent p-0 shadow-none"
         align={align}
@@ -941,9 +1000,11 @@ const DateTimePicker = ({
           {granularity !== 'day' && (
             <div className="border-control-border bg-surface border-t p-3">
               <TimePicker
+                resetKey={resetKey}
                 timeLabels={timeLabels}
                 disabled={disabled}
                 onChange={(value) => {
+                  if (disabled) return
                   onChange?.(value)
                   setDisplayDate(value)
                   if (value) {

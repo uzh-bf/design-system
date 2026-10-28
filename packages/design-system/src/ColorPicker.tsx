@@ -2,7 +2,7 @@
 
 import { faPalette, IconDefinition } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { HexColorInput, HexColorPicker } from 'react-colorful'
 import { twMerge } from 'tailwind-merge'
 import Button from './Button'
@@ -29,6 +29,13 @@ export interface ColorPickerClassName {
 }
 
 export interface ColorPickerProps {
+  id?: string
+  onBlur?: () => void
+  resetKey?: number
+  hideError?: boolean
+  'aria-labelledby'?: string
+  'aria-describedby'?: string
+  'aria-invalid'?: React.AriaAttributes['aria-invalid']
   ref?: React.Ref<HTMLButtonElement>
   color: string
   label?: string
@@ -90,6 +97,13 @@ const POPOVER_PLACEMENT = {
  * @returns A ColorPicker component that allows users to select a color and submit it.
  */
 export function ColorPicker({
+  id,
+  onBlur,
+  resetKey,
+  hideError,
+  'aria-labelledby': labelledBy,
+  'aria-describedby': describedBy,
+  'aria-invalid': invalid,
   ref,
   color,
   label,
@@ -120,10 +134,38 @@ export function ColorPicker({
 
   const [colorPickerOpen, setColorPickerOpen] = useState(false)
   const [newColor, setNewColor] = useState(color)
+  const openRef = useRef(false)
+  const blurNotified = useRef(false)
+  const notifyBlur = useCallback(() => {
+    if (blurNotified.current) return
+    blurNotified.current = true
+    onBlur?.()
+  }, [onBlur])
+  useEffect(() => {
+    setNewColor(color)
+  }, [color, resetKey])
+  useEffect(() => {
+    if (!disabled || !openRef.current) return
+    openRef.current = false
+    setColorPickerOpen(false)
+    setNewColor(color)
+    notifyBlur()
+  }, [disabled, color, notifyBlur])
   // Reuses the form-field error wiring: `inputId` names the hex input, and the
   // error surfaces both as the existing tooltip and as a hidden alert node the
   // trigger points at via aria-describedby.
-  const { inputId, visibleError, errorId } = useFieldError({ error, isTouched })
+  const {
+    inputId,
+    visibleError,
+    errorId,
+    describedBy: mergedDescribedBy,
+  } = useFieldError({
+    id: id ? `${id}-hex` : undefined,
+    error,
+    isTouched,
+    hideError,
+    describedBy,
+  })
   const { side, align } = POPOVER_PLACEMENT[position]
 
   return (
@@ -137,6 +179,7 @@ export function ColorPicker({
     >
       {label && (
         <FormLabel
+          id={id}
           required={required}
           label={label}
           labelType={labelType}
@@ -155,6 +198,12 @@ export function ColorPicker({
           <Popover
             open={colorPickerOpen}
             onOpenChange={(open) => {
+              if (open && disabled) return
+              if (open) {
+                blurNotified.current = false
+                setNewColor(color)
+              } else if (openRef.current) notifyBlur()
+              openRef.current = open
               setColorPickerOpen(open)
               // Dismissing (Escape, outside click) discards the pending choice,
               // matching the previous outside-click behaviour. Submitting closes
@@ -166,9 +215,19 @@ export function ColorPicker({
           >
             <PopoverTrigger asChild>
               <Button
+                id={id}
+                type="button"
                 ref={ref}
                 aria-label={triggerAriaLabel}
-                aria-describedby={visibleError ? errorId : undefined}
+                aria-labelledby={labelledBy}
+                aria-describedby={mergedDescribedBy}
+                aria-invalid={invalid}
+                onFocus={() => {
+                  blurNotified.current = false
+                }}
+                onBlur={() => {
+                  if (!openRef.current) notifyBlur()
+                }}
                 disabled={disabled}
                 data={dataTrigger}
                 className={{
@@ -199,7 +258,9 @@ export function ColorPicker({
               <HexColorPicker
                 style={{ width: '300px', height: '150px' }}
                 color={newColor}
-                onChange={setNewColor}
+                onChange={(next) => {
+                  if (!disabled) setNewColor(next)
+                }}
               />
               <div className="grid grid-cols-1 justify-items-center gap-0.5 pl-2">
                 {PRESET_COURSE_COLORS.map((presetColor, index) => (
@@ -213,7 +274,10 @@ export function ColorPicker({
                       ),
                     }}
                     style={{ backgroundColor: presetColor }}
-                    onClick={() => setNewColor(presetColor)}
+                    disabled={disabled}
+                    onClick={() => {
+                      if (!disabled) setNewColor(presetColor)
+                    }}
                   />
                 ))}
               </div>
@@ -243,8 +307,11 @@ export function ColorPicker({
                       'focus:border-primary-100 border-border h-9 w-24 rounded border pl-2 placeholder-slate-400',
                       className?.input
                     )}
+                    disabled={disabled}
                     color={newColor}
-                    onChange={setNewColor}
+                    onChange={(next) => {
+                      if (!disabled) setNewColor(next)
+                    }}
                     {...testAttrs(dataHexInput)}
                   />
                 </div>
@@ -260,10 +327,13 @@ export function ColorPicker({
                   onClick={(e) => {
                     e?.preventDefault()
                     e?.stopPropagation()
+                    if (disabled) return
                     onSubmit(newColor)
+                    openRef.current = false
                     setColorPickerOpen(false)
+                    notifyBlur()
                   }}
-                  disabled={color === newColor}
+                  disabled={disabled || color === newColor}
                   data={dataSubmit}
                 >
                   {submitText}

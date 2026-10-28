@@ -848,11 +848,15 @@ free of RHF runtime and declaration dependencies. Formik remains supported
 through v5; removal belongs to v6.
 
 The dedicated entry supports `RhfTextField`, `RhfNumberField`, `RhfSelectField`,
-`RhfMultiSelect`, `RhfTextareaField`, `RhfSwitchField`, `RhfPinField` and
-`RhfAlphaNumericPinField`. Use a FormProvider (the exported `Form`) or pass
+`RhfMultiSelect`, `RhfTextareaField`, `RhfSwitchField`, `RhfPinField`,
+`RhfAlphaNumericPinField`, `RhfColorPicker`, `RhfDatePicker` and
+`RhfDatetimePicker`. Use a FormProvider (the exported `Form`) or pass
 `control` explicitly. Fields retain typed value paths and transformed submit
 values; PINs use strings to preserve leading zeros. Schemas and resolvers belong
-to the application. Color, date and date/time adapters are the next stack layer.
+to the application. Color changes commit on Apply; closing discards staged edits.
+Date fields use `Date | undefined`, retaining the application's timezone policy.
+Picker reset, external updates and same-value resets discard transient editing
+state.
 
 RHF messages now default to inline presentation. Select `errorDisplay="tooltip"`
 for the earlier presentation or `hideError` to suppress the message while keeping
