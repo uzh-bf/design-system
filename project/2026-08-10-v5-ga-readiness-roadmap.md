@@ -126,6 +126,12 @@ Historical inputs:
 
 ## Current execution index — 2026-10-23
 
+### Approved native dependency continuation — October 26
+
+The pnpm 12.12.1 migration qualified in [draft #241](https://github.com/uzh-bf/design-system/pull/241) at `2314cbeda`, including the user-approved exact Panels 4.14.8 age exception. The [native advisory plan](2026-10-26-v5-native-advisory-remediation-plan.md) proceeds with the user-approved exact Next 16.4.1 env/SWC release exception in the isolated Next fixtures. Other dependencies keep strict fourteen-day enforcement and valid publication metadata. Source delivery remains draft-only.
+
+Local proof now covers all three native frozen Next16.4.1 cells, matching env/SWC, Sharp0.35.5 and fixture-scoped nested PostCSS8.5.29. The full1,476-pair graph has zero unapproved age violations and zero advisory matches in eight fixture locks; five root parser/URI occurrences remain deferred. All305 installed DS files match the unchanged archive. All three cells pass17 browser cases on each bundler,102 total; reviews and hosted checks remain pending. The rejected Recharts patch route is removed; native keyboard-tooltip resize, manual accessibility, exact real-consumer acceptance and promotion remain open.
+
 ### Dependency and consumer checkpoint — 2026-10-26
 
 The [complete dependency review](2026-10-26-v5-dependency-compatibility-review.md)
@@ -328,13 +334,13 @@ dependency, lockfile, stack topology or consumer repository.
    deprecated tools. Name security fixes that conflict with the 14-day cutoff.
 2. **Coordinated eligible dependency graph.** Enforce and verify
    `minimumReleaseAge: 20160` for direct/transitive selections in root and all 8
-   isolated fixture locks. The approved [pnpm12 preparation plan](2026-10-26-v5-pnpm12-migration-plan.md)
-   selects exact12.12.1 and mature same-major alternatives. Retain Panels4.14.8
-   and its native selector behavior. Preparation leaves active pins/configs/locks
-   unchanged; strict adoption waits until that pin matures November3 at23:54
-   Europe/Zurich. No age waiver or scheduled continuation is approved. Preserve minimum
-   RHF/Recharts cells and ADR0010's exact shared Panels contract. A current pin's
-   maturity date does not authorize a downgrade or a blanket exception.
+   isolated fixture locks. The [pnpm12 migration plan](2026-10-26-v5-pnpm12-migration-plan.md)
+   delivered exact12.12.1 with mature same-major alternatives and the user-approved
+   exact Panels4.14.8 exception. Its draft qualified at `2314cbeda`. The current
+   native Next slice adds only the exact16.4.1 release train exception to its
+   isolated workspace. Root parser/URI fixes remain deferred to their normal
+   maturity dates. Preserve minimum RHF/Recharts cells and ADR0010's exact shared
+   Panels contract. No blanket exception or scheduled continuation is approved.
 3. **Consumer peer reconciliation and exact archive acceptance.** Resolve chart,
    icon and required peer ownership before representative Klicker/GBL/Vet proof.
    Preserve the GBL/Klicker merge holds and historical candidate boundaries.
