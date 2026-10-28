@@ -60,6 +60,11 @@ import fs from 'node:fs'
 const manifest = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'))
 manifest.name = 'packed-native-context'
 manifest.dependencies['@uzh-bf/design-system'] = '../packed-consumers/.artifacts/design-system.tgz'
+manifest.overrides = {
+  'es-toolkit': '1.52.0',
+  'unist-util-visit': '5.1.0',
+  'unist-util-visit-parents': '6.0.2',
+}
 delete manifest.devDependencies
 delete manifest.packageManager
 fs.writeFileSync(process.argv[3], JSON.stringify(manifest))

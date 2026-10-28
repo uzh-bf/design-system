@@ -74,8 +74,7 @@
     "react-resizable-panels": "4.14.8",
     "shiki": "4.5.0",
     "sonner": "2.0.8",
-    "vaul": "1.1.2",
-    "zod": "3.25.76"
+    "vaul": "1.1.2"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.14.0",

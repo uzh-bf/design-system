@@ -167,7 +167,6 @@ function runMarkerChecks() {
             path: markerCase.entryPath,
             import: { [markerCase.entryPath]: markerCase.importStatement },
             limit: "1000 kB",
-            running: false,
           },
         ])}`,
         "module.exports[0].modifyWebpackConfig = webpackConfig => ({",

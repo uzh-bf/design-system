@@ -160,6 +160,22 @@ application acceptance. Private consumer snapshots remain in the ignored local
 assessment; the public review carries shared acceptance gates without their
 versions or commit references.
 
+The first bounded [dependency pruning package](2026-10-26-v5-dependency-remediation-plan.md)
+has passing local source/package evidence above the composition draft. It removes
+unused DS Zod and the inactive Size Limit timing/browser chain: 72 root package
+records disappear, with no new registry version records. Root advisory matches
+fall from 9 to 5; all nine frozen locks fall from 37 to 33 unique advisories.
+Each fixture graph drops Zod without changing its retained package versions.
+Seven budgets, a failing canary, three packed cells and 102 Next browser cases
+pass; every executable package file is unchanged. Fresh npm verification uses
+the existing mature transitive baseline and adds no young versions. The bounded
+slice reviews pass. Opus requested a migration note for direct Zod ownership;
+it is added and the shipped archive/fixture identity is refreshed in
+[draft #240](https://github.com/uzh-bf/design-system/pull/240). Final-head hosted
+qualification remains pending. Remaining fast-uri/selector-parser and fixture
+Next/Sharp/PostCSS/source-map findings, retained young pins, pnpm 11 policy,
+manual/consumer/promotion gates stay open. This is not GA advisory closure.
+
 ### Delivered evidence and its limits
 
 October25 checkpoint: all approved Shared API, Calendar, layout/toast, unified
