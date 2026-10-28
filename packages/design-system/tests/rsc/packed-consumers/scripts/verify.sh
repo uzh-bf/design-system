@@ -2,6 +2,24 @@
 
 set -eu
 
+assert_pnpm_version() {
+  expected_pnpm_version=$(
+    node --input-type=module -e '
+      import fs from "node:fs";
+      const value = JSON.parse(fs.readFileSync("package.json", "utf8")).packageManager;
+      if (typeof value !== "string" || !/^pnpm@\d+\.\d+\.\d+$/.test(value)) {
+        throw new Error("staged packageManager must be an exact pnpm version");
+      }
+      process.stdout.write(value.slice(5));
+    '
+  )
+  actual_pnpm_version=$(pnpm --version)
+  if test "$actual_pnpm_version" != "$expected_pnpm_version"; then
+    echo "expected pnpm $expected_pnpm_version from staged package.json; got $actual_pnpm_version" >&2
+    exit 1
+  fi
+}
+
 fixture_dir=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
 package_dir=$(CDPATH= cd -- "$fixture_dir/../../.." && pwd)
 run_root=$(mktemp -d "${TMPDIR:-/tmp}/design-system-packed.XXXXXX")
@@ -31,6 +49,7 @@ node "$fixture_dir/../prepare-packed-artifact.mjs" \
 
 (
   cd "$run_fixture/consumers/root-only"
+  assert_pnpm_version
   pnpm install --frozen-lockfile
   node "$fixture_dir/scripts/assert-installed-dependencies.mjs" "$run_fixture/consumers/root-only"
   pnpm exec tsc -p tsconfig.json
@@ -44,6 +63,7 @@ node "$fixture_dir/../prepare-packed-artifact.mjs" \
 
 (
   cd "$run_fixture/consumers/dedicated"
+  assert_pnpm_version
   pnpm install --frozen-lockfile
   node "$fixture_dir/../rhf-matrix.mjs" assert-installed "$run_fixture/consumers/dedicated"
   node "$fixture_dir/scripts/assert-installed-dependencies.mjs" "$run_fixture/consumers/dedicated"
@@ -60,16 +80,19 @@ import fs from 'node:fs'
 const manifest = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'))
 manifest.name = 'packed-native-context'
 manifest.dependencies['@uzh-bf/design-system'] = '../packed-consumers/.artifacts/design-system.tgz'
-manifest.overrides = {
-  'es-toolkit': '1.52.0',
-  'unist-util-visit': '5.1.0',
-  'unist-util-visit-parents': '6.0.2',
-}
+const panelsArtifact =
+  'https://registry.npmjs.org/react-resizable-panels/-/react-resizable-panels-4.14.8.tgz'
+// The date cutoff filters exact version ranges too. Retain this native runtime
+// through its exact registry artifact; the closure check still validates its date.
+manifest.dependencies['react-resizable-panels'] = panelsArtifact
+manifest.overrides = { 'react-resizable-panels@4.14.8': panelsArtifact }
 delete manifest.devDependencies
 delete manifest.packageManager
 fs.writeFileSync(process.argv[3], JSON.stringify(manifest))
 NODE
-  npm --prefix "$npm_fixture" install --ignore-scripts --no-audit --no-fund
+  npm_before=$(node -e 'process.stdout.write(new Date(Date.now() - 20160 * 60 * 1000).toISOString())')
+  npm --prefix "$npm_fixture" install --before "$npm_before" --ignore-scripts --no-audit --no-fund
+  node "$fixture_dir/scripts/assert-installed-dependencies.mjs" release-age "$npm_fixture/package-lock.json"
   for native_fixture in "$run_fixture/consumers/root-only" "$npm_fixture"; do
     node --input-type=module - "$native_fixture" <<'NODE'
 import assert from 'node:assert/strict'
@@ -88,6 +111,24 @@ const { renderToString } = await import(pathToFileURL(app.resolve('react-dom/ser
 const native = await import(pathToFileURL(app.resolve('@shadcn/react/message-scroller')))
 const root = await import(new URL(manifest.exports['.'].import, pathToFileURL(manifestPath)))
 const parts = await import(new URL(manifest.exports['./primitives'].import, pathToFileURL(manifestPath)))
+for (const entry of [root, parts]) {
+  const html = renderToString(h(entry.ResizablePanelGroup, {
+    id: 'ssr-group', 'data-testid': 'group-selector', 'data-test': 'group-test',
+  },
+  h(entry.ResizablePanel, {
+    id: 'ssr-panel', 'data-testid': 'panel-selector', 'data-test': 'panel-test', defaultSize: '50%',
+  }, 'Synthetic'),
+  h(entry.ResizableHandle, {
+    id: 'ssr-separator', 'data-testid': 'separator-selector', 'data-test': 'separator-test',
+  }),
+  h(entry.ResizablePanel, { id: 'ssr-remainder', defaultSize: '50%' }, 'Synthetic')))
+  for (const kind of ['group', 'panel', 'separator']) {
+    const element = html.match(new RegExp(`<div[^>]*id="ssr-${kind}"[^>]*>`))?.[0]
+    assert.ok(element, `server-rendered ${kind} missing`)
+    assert.ok(element.includes(`data-testid="${kind}-selector"`), `${kind} replaced caller data-testid`)
+    assert.ok(element.includes(`data-test="${kind}-test"`), `${kind} replaced caller data-test`)
+  }
+}
 assert.equal(root.useMessageScroller, parts.useMessageScroller)
 assert.equal(root.useMessageScroller, native.useMessageScroller)
 const message = h(root.Message, null, h(root.Bubble, null, 'Synthetic'))

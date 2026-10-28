@@ -77,6 +77,20 @@ async function expectPanelPixels(
     .toBeLessThanOrEqual(2)
 }
 
+async function expectCallerAttributes(
+  page: Page,
+  ids: string[]
+): Promise<void> {
+  for (const id of ids) {
+    const element = page.locator(`#${id}`)
+    await expect(element).toHaveAttribute('id', id)
+    await expect(element).toHaveAttribute('data-testid', `${id}-testid`)
+    await expect(element).toHaveAttribute('data-test', `${id}-test`)
+    await expect(page.locator(`[data-testid="${id}-testid"]`)).toHaveCount(1)
+    await expect(page.locator(`[data-test="${id}-test"]`)).toHaveCount(1)
+  }
+}
+
 async function dragWithMouse(page: Page, separator: Locator, distance: number) {
   await separator.scrollIntoViewIfNeeded()
   const box = await separator.boundingBox()
@@ -174,6 +188,11 @@ test.describe('layout auxiliaries: Panels', () => {
     await expectPanelShare(group, left, 0.3)
 
     await page.locator('[data-test="root-read-refs"]').click()
+    await expectCallerAttributes(page, [
+      'root-story-group',
+      'root-story-left',
+      'root-story-separator',
+    ])
     const refLayoutState = page.locator('[data-test="root-ref-layout"]')
     await expectLayoutKeys(refLayoutState, [
       'root-story-left',
@@ -301,6 +320,11 @@ test.describe('layout auxiliaries: Panels', () => {
     await expectLayoutValue(layoutState, 'native-percent-panel', 40)
 
     await page.locator('[data-test="native-resize-pixels"]').click()
+    await expectCallerAttributes(page, [
+      'native-units-group',
+      'native-pixel-panel',
+      'native-remainder-separator',
+    ])
     await expectPanelPixels(pixelPanel, 136)
     const resizedLayout = await readMap(layoutState)
     expect(

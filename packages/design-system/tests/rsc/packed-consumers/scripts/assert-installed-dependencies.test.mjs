@@ -3,7 +3,53 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import { test } from 'node:test'
-import { assertInstalledDependencies } from './assert-installed-dependencies.mjs'
+import {
+  assertInstalledDependencies,
+  assertRegistryReleaseAge,
+} from './assert-installed-dependencies.mjs'
+
+const TEST_NOW = Date.parse('2026-10-20T00:00:00.000Z')
+const DAY_MS = 24 * 60 * 60 * 1000
+const MATURE_TIME = new Date(TEST_NOW - 15 * DAY_MS).toISOString()
+const YOUNG_TIME = new Date(TEST_NOW - 60 * 60 * 1000).toISOString()
+
+function releaseAgeLock(t, records) {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'ds-release-age-test-'))
+  t.after(() => fs.rmSync(root, { recursive: true, force: true }))
+  const lockPath = path.join(root, 'package-lock.json')
+  fs.writeFileSync(
+    lockPath,
+    JSON.stringify({
+      lockfileVersion: 3,
+      packages: {
+        '': { name: 'synthetic-release-age', version: '1.0.0' },
+        ...records,
+      },
+    })
+  )
+  return lockPath
+}
+
+function registryRecord(name, version, extra = {}) {
+  const archive = name.split('/').at(-1)
+  return {
+    version,
+    resolved: `https://registry.npmjs.org/${name}/-/${archive}-${version}.tgz`,
+    ...extra,
+  }
+}
+
+function registryMetadata(name, publishedAtByVersion) {
+  return {
+    versions: Object.fromEntries(
+      Object.keys(publishedAtByVersion).map((version) => [
+        version,
+        { name, version },
+      ])
+    ),
+    time: publishedAtByVersion,
+  }
+}
 
 function fixture(t) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'ds-dependency-test-'))
@@ -161,5 +207,176 @@ test('rejects duplicate first-party chat runtime context at the matching version
   assert.throws(
     () => assertInstalledDependencies(x.root),
     /share the native shadcn runtime/
+  )
+})
+
+test('accepts mature deduplicated registry packages', async (t) => {
+  const lockPath = releaseAgeLock(t, {
+    'node_modules/mature-package': registryRecord('mature-package', '1.0.0'),
+    'node_modules/parent/node_modules/mature-package': registryRecord(
+      'mature-package',
+      '1.0.0'
+    ),
+  })
+  let fetches = 0
+  const summary = await assertRegistryReleaseAge(lockPath, {
+    now: () => TEST_NOW,
+    fetchMetadata: async (name) => {
+      fetches += 1
+      return registryMetadata(name, { '1.0.0': MATURE_TIME })
+    },
+  })
+  assert.equal(fetches, 1)
+  assert.equal(summary.registryRecords, 2)
+  assert.equal(summary.uniqueRegistryPackages, 1)
+  assert.equal(summary.youngExemptions, 0)
+})
+
+test('accepts only the exact young react-resizable-panels release', async (t) => {
+  const lockPath = releaseAgeLock(t, {
+    'node_modules/react-resizable-panels': registryRecord(
+      'react-resizable-panels',
+      '4.14.8'
+    ),
+  })
+  const summary = await assertRegistryReleaseAge(lockPath, {
+    now: () => TEST_NOW,
+    fetchMetadata: async (name) =>
+      registryMetadata(name, { '4.14.8': YOUNG_TIME }),
+  })
+  assert.equal(summary.youngExemptions, 1)
+})
+
+for (const [label, recordPath, name, version, extra] of [
+  [
+    'other panels version',
+    'node_modules/react-resizable-panels',
+    'react-resizable-panels',
+    '4.14.7',
+    {},
+  ],
+  [
+    'unrelated package',
+    'node_modules/unrelated-young',
+    'unrelated-young',
+    '1.0.0',
+    {},
+  ],
+  [
+    'transitive package',
+    'node_modules/parent/node_modules/transitive-young',
+    'transitive-young',
+    '1.0.0',
+    {},
+  ],
+  [
+    'platform package',
+    'node_modules/@platform/native',
+    '@platform/native',
+    '1.0.0',
+    { cpu: ['arm64'], os: ['darwin'], optional: true },
+  ],
+]) {
+  test(`rejects young ${label} outside the exact exemption`, async (t) => {
+    const lockPath = releaseAgeLock(t, {
+      [recordPath]: registryRecord(name, version, extra),
+    })
+    await assert.rejects(
+      assertRegistryReleaseAge(lockPath, {
+        now: () => TEST_NOW,
+        fetchMetadata: async (fetchedName) =>
+          registryMetadata(fetchedName, { [version]: YOUNG_TIME }),
+      }),
+      /below minimum release age/
+    )
+  })
+}
+
+for (const [label, metadata, error] of [
+  [
+    'missing version metadata',
+    { versions: {}, time: { '4.14.8': YOUNG_TIME } },
+    /version metadata is missing/,
+  ],
+  [
+    'missing publication time',
+    { versions: { '4.14.8': { version: '4.14.8' } }, time: {} },
+    /missing or invalid/,
+  ],
+  [
+    'invalid publication time',
+    {
+      versions: { '4.14.8': { version: '4.14.8' } },
+      time: { '4.14.8': 'not-a-date' },
+    },
+    /missing or invalid/,
+  ],
+  [
+    'future publication time',
+    {
+      versions: { '4.14.8': { version: '4.14.8' } },
+      time: { '4.14.8': new Date(TEST_NOW + 60_000).toISOString() },
+    },
+    /future/,
+  ],
+]) {
+  test(`rejects ${label} even for the exact exemption`, async (t) => {
+    const lockPath = releaseAgeLock(t, {
+      'node_modules/react-resizable-panels': registryRecord(
+        'react-resizable-panels',
+        '4.14.8'
+      ),
+    })
+    await assert.rejects(
+      assertRegistryReleaseAge(lockPath, {
+        now: () => TEST_NOW,
+        fetchMetadata: async () => metadata,
+      }),
+      error
+    )
+  })
+}
+
+test('skips only root, links, and local file archives', async (t) => {
+  const lockPath = releaseAgeLock(t, {
+    'node_modules/local-archive': {
+      version: '1.0.0',
+      resolved: 'file:../local-archive.tgz',
+    },
+    'node_modules/linked-library': {
+      resolved: '../linked-library',
+      link: true,
+    },
+    'node_modules/mature-package': registryRecord('mature-package', '1.0.0'),
+  })
+  const fetched = []
+  const summary = await assertRegistryReleaseAge(lockPath, {
+    now: () => TEST_NOW,
+    fetchMetadata: async (name) => {
+      fetched.push(name)
+      return registryMetadata(name, { '1.0.0': MATURE_TIME })
+    },
+  })
+  assert.deepEqual(fetched, ['mature-package'])
+  assert.equal(summary.registryRecords, 1)
+  assert.equal(summary.localRecords, 2)
+  assert.equal(summary.rootRecords, 1)
+})
+
+test('rejects a non-registry package source', async (t) => {
+  const lockPath = releaseAgeLock(t, {
+    'node_modules/unsupported': {
+      version: '1.0.0',
+      resolved: 'https://example.com/unsupported-1.0.0.tgz',
+    },
+  })
+  await assert.rejects(
+    assertRegistryReleaseAge(lockPath, {
+      now: () => TEST_NOW,
+      fetchMetadata: async () => {
+        throw new Error('metadata fetch must not run')
+      },
+    }),
+    /unsupported non-registry package source/
   )
 })

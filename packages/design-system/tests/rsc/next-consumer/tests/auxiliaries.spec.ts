@@ -120,6 +120,21 @@ test('packed Panels share native layouts and persist conditional panel sets', as
   await expectPanelShare(rootGroup, page.locator('#root-left'), 0.4)
 
   await nativeResize.click()
+  for (const id of [
+    'packed-root-group',
+    'root-right',
+    'packed-root-separator',
+    'packed-native-group',
+    'native-right',
+    'packed-native-separator',
+  ]) {
+    const element = page.locator(`#${id}`)
+    await expect(element).toHaveAttribute('id', id)
+    await expect(element).toHaveAttribute('data-testid', `${id}-testid`)
+    await expect(element).toHaveAttribute('data-test', `${id}-test`)
+    await expect(page.locator(`[data-testid="${id}-testid"]`)).toHaveCount(1)
+    await expect(page.locator(`[data-test="${id}-test"]`)).toHaveCount(1)
+  }
   await expectLayout(nativeState, {
     'native-left': 40,
     'native-right': 60,
