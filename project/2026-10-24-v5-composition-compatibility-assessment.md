@@ -42,7 +42,7 @@ and compact geometry. The draft qualifies at `4d5f60fc6` with complete final
 review, hosted CI, native captures and exact packed proof. These close the
 approved concrete Shared API gaps; the identity tables below remain the historical static
 assessment. They do not become full example or block runtime passes. Calendar draft228 implements its bounded locale/grid contract and passes local
-source/package checks; qualification evidence is recorded in that draft. The approved [layout/toast plan](2026-10-24-v5-layout-toast-compatibility-plan.md) has qualified native Panels4 and retained root3 draft [#229](https://github.com/uzh-bf/design-system/pull/229) at88b397d4d, with local/packed proof, complete reviews and hosted CI. Sonner integration is active; Sidebar, messaging/highlighting and representative integrated compositions
+source/package checks; qualification evidence is recorded in that draft. The approved [layout/toast plan](2026-10-24-v5-layout-toast-compatibility-plan.md) has qualified native Panels4 and retained root3 draft [#229](https://github.com/uzh-bf/design-system/pull/229) at88b397d4d, with local/packed proof, complete reviews and hosted CI. Sonner draft [#230](https://github.com/uzh-bf/design-system/pull/230) qualifies at1a2db9391 with options, modes, same-store package proof, final review and hosted CI. Sidebar source/local package, mobile and focus proof is complete; final review and hosted qualification remain. Messaging/highlighting and representative integrated compositions
 retain their assigned owners. The existing open-menu Ladle-root accessibility
 audit residual is tracked in the capability matrix and GA roadmap.
 

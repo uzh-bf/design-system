@@ -748,3 +748,311 @@ test.describe('layout auxiliaries: Sonner', () => {
     })
   }
 })
+
+const sidebarStory = 'sidebar--compatibility'
+
+const sidebarDialog = (page: Page) => page.getByRole('dialog')
+
+async function expectNamedDialog(dialog: Locator) {
+  await expect(dialog).toBeVisible()
+  await expect(dialog).toHaveAccessibleName(/\S+/)
+}
+
+async function expectSidebarAtEdge(
+  page: Page,
+  content: Locator,
+  side: 'left' | 'right'
+) {
+  await expect
+    .poll(async () => {
+      const box = await content.boundingBox()
+      if (!box) return Infinity
+      const viewportWidth = await page.evaluate(() => innerWidth)
+      const edge = side === 'left' ? box.x : viewportWidth - (box.x + box.width)
+      return Math.abs(edge)
+    })
+    .toBeLessThanOrEqual(1)
+}
+
+async function expectFocusInside(page: Page, dialog: Locator) {
+  for (let index = 0; index < 8; index += 1) {
+    expect(
+      await dialog.evaluate((element) =>
+        element.contains(document.activeElement)
+      )
+    ).toBe(true)
+    await page.keyboard.press('Tab')
+  }
+}
+
+test.describe('layout auxiliaries: Sidebar', () => {
+  test('forwards the mobile div contract and keeps side physical in RTL', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    await gotoStory(page, sidebarStory)
+
+    await storyControl(page, 'sidebar-side-right').click()
+    await storyControl(page, 'sidebar-dir-rtl').click()
+    await expect(storyControl(page, 'sidebar-side-state')).toHaveText('right')
+    await expect(storyControl(page, 'sidebar-direction-state')).toHaveText(
+      'rtl'
+    )
+
+    const trigger = storyControl(page, 'sidebar-trigger-a')
+    await trigger.click()
+    const dialog = sidebarDialog(page)
+    await expectNamedDialog(dialog)
+    const content = storyControl(page, 'sidebar-shell')
+    await expect(content).toBeVisible()
+
+    await expect(content).toHaveAttribute('data-mobile', 'true')
+    await expect(content).toHaveAttribute('id', 'sidebar-compatibility-content')
+    await expect(content).toHaveAttribute(
+      'data-caller',
+      'sidebar-compatibility'
+    )
+    await expect(content).toHaveAttribute(
+      'aria-roledescription',
+      'Application navigation'
+    )
+    await expect(content).toHaveAttribute('dir', 'rtl')
+    await expect(content).toHaveCSS('direction', 'rtl')
+    await expect(content).toHaveClass(/\bcaller-sidebar-class\b/)
+    await expect(content).toHaveClass(/\bbg-sidebar\b/)
+    await expect(content).toHaveCSS('outline-offset', '3px')
+    await expect(content).toHaveCSS('width', '288px')
+    await expectSidebarAtEdge(page, content, 'right')
+
+    await storyControl(page, 'sidebar-read-ref').click()
+    const refState = await readJson<{
+      id: string
+      slot: string
+      caller: string
+      dir: string
+    }>(storyControl(page, 'sidebar-ref-state'))
+    expect(refState).toEqual({
+      id: 'sidebar-compatibility-content',
+      slot: 'sidebar',
+      caller: 'sidebar-compatibility',
+      dir: 'rtl',
+    })
+
+    await page.keyboard.press('Escape')
+    await expect(dialog).toHaveCount(0)
+    await expect(trigger).toBeFocused()
+
+    await storyControl(page, 'sidebar-side-left').click()
+    await storyControl(page, 'sidebar-dir-ltr').click()
+    await trigger.click()
+    await expectNamedDialog(dialog)
+    await expect(content).toHaveAttribute('dir', 'ltr')
+    await expect(content).toHaveCSS('direction', 'ltr')
+    await expect(content).toHaveCSS('width', '288px')
+    await expectSidebarAtEdge(page, content, 'left')
+    await page.keyboard.press('Escape')
+    await expect(dialog).toHaveCount(0)
+  })
+
+  test('traps focus and returns it to the mounted opener through Escape and backdrop', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    await gotoStory(page, sidebarStory)
+
+    const dialog = sidebarDialog(page)
+    const triggerA = storyControl(page, 'sidebar-trigger-a')
+    const triggerB = storyControl(page, 'sidebar-trigger-b')
+    await expect(storyControl(page, 'sidebar-controlled-state')).toHaveText(
+      'true'
+    )
+    await expect(storyControl(page, 'sidebar-desktop-changes')).toHaveText('0')
+
+    await triggerB.click()
+    await expectNamedDialog(dialog)
+    await settle(page)
+    expect(
+      await dialog.evaluate((element) =>
+        element.contains(document.activeElement)
+      )
+    ).toBe(true)
+    await expectFocusInside(page, dialog)
+    await expect(storyControl(page, 'sidebar-controlled-state')).toHaveText(
+      'true'
+    )
+    await expect(storyControl(page, 'sidebar-desktop-changes')).toHaveText('0')
+
+    await page.keyboard.press('Escape')
+    await expect(dialog).toHaveCount(0)
+    await expect(triggerB).toBeFocused()
+    await expect(storyControl(page, 'sidebar-controlled-state')).toHaveText(
+      'true'
+    )
+    await expect(storyControl(page, 'sidebar-desktop-changes')).toHaveText('0')
+
+    await triggerB.focus()
+    await triggerA.dispatchEvent('click')
+    await expectNamedDialog(dialog)
+    await settle(page)
+    const box = await dialog.boundingBox()
+    expect(box).not.toBeNull()
+    const backdropX = box!.x < 1 ? box!.width + 8 : box!.x - 8
+    await page.mouse.click(backdropX, 32)
+    await expect(dialog).toHaveCount(0)
+    await expect(triggerA).toBeFocused()
+    await expect(storyControl(page, 'sidebar-controlled-state')).toHaveText(
+      'true'
+    )
+    await expect(storyControl(page, 'sidebar-desktop-changes')).toHaveText('0')
+
+    const shortcutOpener = storyControl(page, 'sidebar-shortcut-opener')
+    await shortcutOpener.focus()
+    await page.keyboard.press('Control+b')
+    await expectNamedDialog(dialog)
+    await page.keyboard.press('Escape')
+    await expect(dialog).toHaveCount(0)
+    await expect(shortcutOpener).toBeFocused()
+    await expect(storyControl(page, 'sidebar-controlled-state')).toHaveText(
+      'true'
+    )
+    await expect(storyControl(page, 'sidebar-desktop-changes')).toHaveText('0')
+  })
+
+  test('switches mobile and desktop geometry at 767/768 while static stays static', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 767, height: 900 })
+    await gotoStory(page, sidebarStory)
+
+    const shell = storyControl(page, 'sidebar-shell')
+    const staticSidebar = storyControl(page, 'sidebar-static')
+    const dialog = sidebarDialog(page)
+    await expect(shell).toHaveCount(0)
+    await expect(dialog).toHaveCount(0)
+    await expect(staticSidebar).toBeVisible()
+    await expect(staticSidebar).toHaveCSS('width', '240px')
+
+    await storyControl(page, 'sidebar-trigger-a').click()
+    await expectNamedDialog(dialog)
+    await expect(shell).toHaveCSS('width', '288px')
+    await page.keyboard.press('Escape')
+    await expect(dialog).toHaveCount(0)
+
+    await page.setViewportSize({ width: 768, height: 900 })
+    await settle(page)
+    await expect(shell).toBeVisible()
+    await expect(shell).not.toHaveAttribute('data-mobile', 'true')
+    await expect(shell).toHaveCSS('width', '240px')
+    await expect(staticSidebar).toHaveCSS('width', '240px')
+    await expect(dialog).toHaveCount(0)
+
+    await page.setViewportSize({ width: 767, height: 900 })
+    await settle(page)
+    await expect(shell).toHaveCount(0)
+    await expect(dialog).toHaveCount(0)
+    await expect(staticSidebar).toHaveCSS('width', '240px')
+  })
+
+  test('preserves desktop control, icon width, shortcut and the seven-day write-only cookie', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1280, height: 900 })
+    await gotoStory(page, sidebarStory)
+
+    const shell = storyControl(page, 'sidebar-shell')
+    await expect(shell).toHaveCSS('width', '240px')
+    await storyControl(page, 'sidebar-trigger-a').click()
+    await expect(storyControl(page, 'sidebar-controlled-state')).toHaveText(
+      'false'
+    )
+    await expect(storyControl(page, 'sidebar-desktop-changes')).toHaveText('1')
+
+    await storyControl(page, 'sidebar-collapsible-icon').click()
+    await settle(page)
+    await expect(shell).toHaveCSS('width', '48px')
+
+    const cookies = await page.context().cookies()
+    const sidebarCookie = cookies.find(({ name }) => name === 'sidebar_state')
+    expect(sidebarCookie).toBeDefined()
+    expect(sidebarCookie!.value).toBe('false')
+    expect(sidebarCookie!.path).toBe('/')
+    const nowSeconds = Date.now() / 1000
+    expect(sidebarCookie!.expires).toBeGreaterThan(nowSeconds + 604_740)
+    expect(sidebarCookie!.expires).toBeLessThan(nowSeconds + 604_860)
+
+    await gotoStory(page, sidebarStory)
+    await expect(storyControl(page, 'sidebar-controlled-state')).toHaveText(
+      'true'
+    )
+    await expect(storyControl(page, 'sidebar-desktop-changes')).toHaveText('0')
+    expect(
+      (await page.context().cookies()).find(
+        ({ name }) => name === 'sidebar_state'
+      )?.value
+    ).toBe('false')
+
+    await storyControl(page, 'sidebar-shortcut-opener').focus()
+    await page.keyboard.press('Control+b')
+    await expect(storyControl(page, 'sidebar-controlled-state')).toHaveText(
+      'false'
+    )
+    await expect(storyControl(page, 'sidebar-desktop-changes')).toHaveText('1')
+    await page.keyboard.press('Control+b')
+    await expect(storyControl(page, 'sidebar-controlled-state')).toHaveText(
+      'true'
+    )
+    await expect(storyControl(page, 'sidebar-desktop-changes')).toHaveText('2')
+    expect(
+      (await page.context().cookies()).find(
+        ({ name }) => name === 'sidebar_state'
+      )?.value
+    ).toBe('true')
+
+    await gotoStory(page, 'sidebar--default')
+    const uncontrolledSidebar = page.locator(
+      '[data-slot="sidebar"].ds-sidebar-root'
+    )
+    const uncontrolledTrigger = page.locator('[data-sidebar="trigger"]')
+    await expect(uncontrolledSidebar).toHaveAttribute('data-state', 'expanded')
+    await uncontrolledTrigger.click()
+    await expect(uncontrolledSidebar).toHaveAttribute('data-state', 'collapsed')
+    await uncontrolledTrigger.click()
+    await expect(uncontrolledSidebar).toHaveAttribute('data-state', 'expanded')
+  })
+
+  for (const [theme, dark] of [
+    ['neutral', false],
+    ['neutral', true],
+    ['uzh', false],
+  ] as const) {
+    test(`opened mobile Sidebar is contained and axe-clean at 390px in ${theme}${dark ? '-dark' : '-light'}`, async ({
+      page,
+    }) => {
+      await page.setViewportSize({ width: 390, height: 844 })
+      await page.addInitScript(
+        ({ isDark }) => {
+          window.localStorage.setItem('ladle-dark', JSON.stringify(isDark))
+        },
+        { isDark: dark }
+      )
+      await gotoStory(page, sidebarStory, theme)
+
+      const root = page.locator('html')
+      await expect(root).toHaveAttribute('data-theme', theme)
+      expect(
+        await root.evaluate((element) => element.classList.contains('dark'))
+      ).toBe(dark)
+
+      await storyControl(page, 'sidebar-trigger-a').click()
+      const dialog = sidebarDialog(page)
+      await expectNamedDialog(dialog)
+      const content = storyControl(page, 'sidebar-shell')
+      await expect(content).toHaveCSS('width', '288px')
+      await expectSidebarAtEdge(page, content, 'left')
+      expect(await seriousOrCriticalViolations(page)).toEqual([])
+
+      await page.keyboard.press('Escape')
+      await expect(dialog).toHaveCount(0)
+    })
+  }
+})

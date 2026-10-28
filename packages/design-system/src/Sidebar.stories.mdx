@@ -1,5 +1,5 @@
 import { Check, ChevronsUpDown, GalleryVerticalEnd, Search } from 'lucide-react'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -323,3 +323,196 @@ return (
   </SidebarInset>
 </SidebarProvider>
 ) }
+
+export const Compatibility = () => {
+  const contentRef = useRef(null)
+  const [side, setSide] = useState('left')
+  const [direction, setDirection] = useState('ltr')
+  const [collapsible, setCollapsible] = useState('offcanvas')
+  const [desktopOpen, setDesktopOpen] = useState(true)
+  const [desktopChanges, setDesktopChanges] = useState(0)
+  const [refState, setRefState] = useState('null')
+
+  return (
+    <div
+      className="bg-background text-foreground min-h-svh overflow-x-hidden"
+    >
+      <div className="flex flex-wrap items-center gap-2 border-b p-2 pt-16 text-xs">
+        <button
+          type="button"
+          className="rounded border px-2 py-1"
+          data-test="sidebar-side-left"
+          onClick={() => setSide('left')}
+        >
+          Side left
+        </button>
+        <button
+          type="button"
+          className="rounded border px-2 py-1"
+          data-test="sidebar-side-right"
+          onClick={() => setSide('right')}
+        >
+          Side right
+        </button>
+        <button
+          type="button"
+          className="rounded border px-2 py-1"
+          data-test="sidebar-collapsible-offcanvas"
+          onClick={() => setCollapsible('offcanvas')}
+        >
+          Offcanvas
+        </button>
+        <button
+          type="button"
+          className="rounded border px-2 py-1"
+          data-test="sidebar-collapsible-icon"
+          onClick={() => setCollapsible('icon')}
+        >
+          Icon
+        </button>
+        <button
+          type="button"
+          className="rounded border px-2 py-1"
+          data-test="sidebar-dir-ltr"
+          onClick={() => setDirection('ltr')}
+        >
+          Direction ltr
+        </button>
+        <button
+          type="button"
+          className="rounded border px-2 py-1"
+          data-test="sidebar-dir-rtl"
+          onClick={() => setDirection('rtl')}
+        >
+          Direction rtl
+        </button>
+        <output data-test="sidebar-side-state">{side}</output>
+        <output data-test="sidebar-direction-state">{direction}</output>
+        <output data-test="sidebar-controlled-state">
+          {String(desktopOpen)}
+        </output>
+        <output data-test="sidebar-desktop-changes">{desktopChanges}</output>
+      </div>
+
+      <SidebarProvider
+        open={desktopOpen}
+        onOpenChange={(open) => {
+          setDesktopOpen(open)
+          setDesktopChanges((count) => count + 1)
+        }}
+      >
+        <Sidebar
+          ref={contentRef}
+          id="sidebar-compatibility-content"
+          data-test="sidebar-shell"
+          data-caller="sidebar-compatibility"
+          aria-roledescription="Application navigation"
+          className="caller-sidebar-class"
+          style={{
+            outline: '2px solid transparent',
+            outlineOffset: '3px',
+          }}
+          dir={direction}
+          side={side}
+          collapsible={collapsible}
+        >
+          <SidebarHeader className="p-3 group-data-[collapsible=icon]:hidden">
+            <p className="text-sm font-semibold">Compatibility navigation</p>
+            <button
+              type="button"
+              className="w-fit rounded border px-2 py-1 text-xs"
+              data-test="sidebar-read-ref"
+              onClick={() => {
+                const element = contentRef.current
+                setRefState(
+                  element
+                    ? JSON.stringify({
+                        id: element.id,
+                        slot: element.getAttribute('data-slot'),
+                        caller: element.getAttribute('data-caller'),
+                        dir: element.getAttribute('dir'),
+                      })
+                    : 'null'
+                )
+              }}
+            >
+              Read content ref
+            </button>
+            <output data-test="sidebar-ref-state">{refState}</output>
+          </SidebarHeader>
+          <SidebarContent>
+            <SidebarGroup>
+              <SidebarGroupLabel>Navigation</SidebarGroupLabel>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton asChild>
+                      <a href="#sidebar-overview">
+                        <GalleryVerticalEnd />
+                        <span>Overview</span>
+                      </a>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton asChild>
+                      <a href="#sidebar-search">
+                        <Search />
+                        <span>Search</span>
+                      </a>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+          </SidebarContent>
+        </Sidebar>
+
+        <SidebarInset className="min-w-0">
+          <header className="flex min-h-16 flex-wrap items-center gap-2 border-b p-2">
+            <SidebarTrigger
+              data-test="sidebar-trigger-a"
+            />
+            <SidebarTrigger
+              data-test="sidebar-trigger-b"
+            />
+            <button
+              type="button"
+              className="rounded border px-2 py-1 text-xs"
+              data-test="sidebar-shortcut-opener"
+            >
+              Shortcut surface
+            </button>
+          </header>
+          <div className="min-w-0 p-3">
+            <div
+              className="w-60 max-w-full overflow-hidden rounded border"
+            >
+              <Sidebar
+                id="sidebar-story-static"
+                data-test="sidebar-static"
+                role="navigation"
+                aria-label="Static navigation"
+                collapsible="none"
+                className="h-24"
+                dir={direction}
+              >
+                <SidebarHeader className="p-2 text-xs">
+                  Static sidebar
+                </SidebarHeader>
+                <SidebarContent>
+                  <SidebarMenu>
+                    <SidebarMenuItem>
+                      <SidebarMenuButton asChild>
+                        <a href="#sidebar-static-link">Static link</a>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  </SidebarMenu>
+                </SidebarContent>
+              </Sidebar>
+            </div>
+          </div>
+        </SidebarInset>
+      </SidebarProvider>
+    </div>
+  )
+}

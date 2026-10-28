@@ -244,18 +244,34 @@ provider changes and new automations remain outside this package.
   container. Twenty-four synthetic captures are inspected. Simplification and risk review
   are complete after the reproduced OS-precedence correction; the refreshed
   full179/881and three packed matrices pass. Configured final review and hosted
-  CI precede qualification. The verified native listener lesson is recorded in
+  CI pass at `1a2db9391`; the journal and draft description record final
+  qualification without moving that held tip. The verified native listener lesson is recorded in
   `docs/solutions/integration/sonner-system-listener-overrides-resolved-mode.md`.
 - Three Toast story callers share `tests/_support/toast-root.ts` because MDX
   cannot declare an unexported module helper. These concrete callers justify
   the small test-support file; it is outside public library entries and adds
   no story or product API. Caller-mode and native DOM assumptions were checked
   against actual Sonner2 output; no positioning facade or suppression was added.
-- Sidebar implementation starts after Sonner independently qualifies. Its scope
+- Sidebar implementation follows independently qualified Sonner. Its scope
   remains mobile caller props/direction/focus with existing state and geometry.
-- Immediate next action: commit the verified Sonner slice, run simplification
-  and risk review while the remaining checks finish, then deliver its qualified
-  draft. Continue into Sidebar under the same finite batch authority.
+- Sidebar source, public types and seven focused browser cases pass, including
+  opened mobile accessibility in all three supported theme states. Explicit
+  trigger capture fixes the reproduced return-to-previous-focus failure;
+  Sheet open/close callbacks cover keyboard and custom opening. Focus bookkeeping
+  stays private within the existing provider; both public entries reject access
+  to it. Slice risk review and simplification are complete. Native checks,
+  186 behavior/selector cases, 883 accessibility cases with fresh inventory
+  artifacts, all three packed cells and both Next bundlers pass. Unchanged
+  budgets and theme checks pass; 29 visual comparisons are retained alongside
+  fresh changed-story checks. Twelve synthetic captures are inspected. Archive
+  `c33633da14a1d4d87926ff3c5da0a7d6660cb092514ad0dce542a8935c2c15bd`
+  matches all 270 installed files; 448 tracked package sources match the container.
+  The historical Sidebar draft qualified at be62259b0 after final review and hosted CI. The newly propagated head awaits its own CI; the PR description records its current exact qualification.
+  The layer is one package despite exceeding its estimate: the small component
+  change and its synthetic story/type/browser proof protect the same mobile
+  contract. Splitting that proof would leave an incomplete integration point.
+- Historical next action, since completed at be62259b0: final review and hosted qualification for
+  Sidebar above the held Sonner tip. Preserve the verified implementation.
 
 The Sonner layer remains one notification compatibility package: source option
 and theme behavior, declarations, store identity and browser/packed proof form
