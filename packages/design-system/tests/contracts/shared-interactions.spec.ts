@@ -243,3 +243,33 @@ for (const theme of ['neutral', 'uzh'] as const) {
     ).toEqual({ omitted: 'b', popper: 'b', 'item-aligned': 'b' })
   })
 }
+
+for (const [selector, button] of [
+  ['open-dropdown', 'left'],
+  ['open-context', 'right'],
+  ['open-menubar', 'left'],
+] as const) {
+  test(`menu focus remains contained and Escape restores the opener (${selector})`, async ({
+    page,
+  }) => {
+    await gotoStory(page, 'shared-interactions--menus')
+    const trigger = page.locator(`[data-test="${selector}"]`)
+    await trigger.focus()
+    await trigger.click({ button })
+    const menu = page.getByRole('menu').first()
+    await expect(menu).toBeVisible()
+    if (selector !== 'open-menubar') {
+      for (const key of ['Tab', 'Shift+Tab']) {
+        await page.keyboard.press(key)
+        expect(
+          await menu.evaluate((element) =>
+            element.contains(document.activeElement)
+          )
+        ).toBe(true)
+      }
+    }
+    await page.keyboard.press('Escape')
+    await expect(menu).toBeHidden()
+    await expect(trigger).toBeFocused()
+  })
+}

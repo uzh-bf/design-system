@@ -27,7 +27,7 @@ The props for the DatetimePicker component are as follows:
 - @param disabled - Whether the picker is disabled.
 - @param hourCycle - Whether to use 12-hour or 24-hour time format.
 - @param placeholder - Placeholder text shown when no date is selected / the state is undefined.
-- @param yearRange - Retained compatibility option; the current Calendar navigation bounds are not changed by this prop.
+- @param yearRange - Navigation years before and after the current year, rounded down and capped at 100; omitted or invalid values retain Calendar defaults.
 - @param displayFormat - The dayjs format string to display the date in the input field.
 - @param granularity - The smallest unit displayed by the picker (e.g., 'second', 'minute', 'hour', 'day').
 - @param className - Optional object to override default styling for trigger, input, label, tooltip, and error.
@@ -94,7 +94,7 @@ Props (DatetimePicker component):
 - disabled?: boolean - Whether the picker is disabled
 - hourCycle?: 12 | 24 - Time format cycle (default: 24)
 - placeholder?: string - Placeholder text when no datetime is selected
-- yearRange?: number - Retained option without a current effect on Calendar navigation bounds
+- yearRange?: number - Navigation years before and after this year, rounded down and capped at 100; zero means this year only
 - displayFormat?: string - Day.js format string for display (default: "DD/MM/YYYY HH:mm")
 - granularity?: 'day' | 'hour' | 'minute' | 'second' - Smallest time unit displayed
 - defaultPopupValue?: Date - Default datetime when popup opens
@@ -258,7 +258,7 @@ Internationalization:
 
 Calendar Configuration:
 
-- Existing Calendar navigation bounds; yearRange contract repair remains a follow-up
+- Explicit yearRange navigation with unchanged omitted Calendar bounds and independent selected value
 - Week start day customization (Sunday = 0)
 - Outside days display control
 - Month navigation with callbacks

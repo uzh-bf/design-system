@@ -995,10 +995,15 @@ and dayjs; time-control labels use `timeLabels`. Standalone DatePicker and
 DateRangePicker retain their numeric trigger formats and existing props, and
 Formik and RHF bindings retain their value/reset/error ownership.
 
-The retained DateTimePicker `yearRange` option currently does not change Calendar
-navigation bounds. Its contract repair remains a separate follow-up. Calendar's
-omitted bounds remain January of the current year minus one through January of
-the current year plus 99; explicit native bounds still win. Application-owned
+DateTimePicker `yearRange` now controls navigation from January of the current
+year minus the range through December of the current year plus the range.
+Finite nonnegative numbers are rounded down and capped at 100; zero shows only
+the current year. Omitted, negative, NaN and infinite values retain Calendar's
+January-of-last-year through January-of-year-plus-99 defaults. Navigation and
+dropdown bounds are independent of selection and form validation. An
+out-of-window value stays selected and displayed in the trigger; the calendar
+opens at the nearest navigation boundary. Formik and RHF pass the option
+through. Raw Calendar retains its native explicit bound props. Application-owned
 non-Gregorian recipes and manual screen-reader/Safari/device qualification remain
 separate from this locale update.
 

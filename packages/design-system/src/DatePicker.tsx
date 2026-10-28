@@ -202,8 +202,10 @@ export function DatePicker({
                 ((!!error && isTouched) ||
                   (invalid !== undefined &&
                     invalid !== false &&
-                    invalid !== 'false')) &&
+                    invalid !== 'false')) && [
                   'border-destructive bg-destructive-background',
+                  !date && 'text-content-secondary',
+                ],
                 className?.input
               )}
               {...testAttrs(dataTrigger)}
