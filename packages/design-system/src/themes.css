@@ -190,6 +190,8 @@
   --theme-ui-disabled-thumb: var(--muted);
   --theme-ui-disabled-border: var(--border);
   --disabled: var(--muted-foreground);
+  /* Error text appears on both dark surfaces and the destructive fill. */
+  --theme-destructive-text: var(--destructive-foreground);
 
   --theme-success-background: oklch(0.24 0.04 150);
   --theme-warning-background: oklch(0.26 0.04 80);
@@ -198,9 +200,9 @@
   /* links need their own dark values. The light pair is chosen for white and
      reaches only 2.95:1 and 2.79:1 on the dark surface. These lift the same
      blue/violet pairing to 7.79:1 and 7.27:1 on --background, and stay above
-     6.5:1 on the lighter --card. No a11y story renders a dark root, so this
-     pairing is verified by the packed-CSS contract and by hand, not by the
-     inventory. */
+     6.5:1 on the lighter --card. The exact-inventory sweep does not render a
+     dark root, so this pairing is verified by the packed-CSS contract and
+     by hand, not by the inventory. */
   --theme-color-link: #60a5fa;
   --theme-color-link-visited: #a78bfa;
 }

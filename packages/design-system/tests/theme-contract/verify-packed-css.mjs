@@ -415,7 +415,7 @@ const BASE = {
     '--theme-info': 'oklch(50% .14 245)',
     '--theme-info-foreground': 'oklch(98.5% 0 0)',
     '--theme-info-background': 'oklch(24% .04 245)',
-    '--theme-destructive-text': '#b91c1c',
+    '--theme-destructive-text': 'oklch(98.38% .0035 247.86)',
     '--theme-color-link': '#60a5fa',
     '--theme-color-link-visited': '#a78bfa',
     '--destructive-foreground': 'oklch(98.38% .0035 247.86)',

@@ -1,21 +1,22 @@
 # Roadmap — Design System v5 GA readiness
 
-The historical Klicker pilot, RHF parity, selected GBL journey, component compatibility and Recharts 3 qualify at their recorded draft boundaries. The older qualification layer retains a browser-install CI failure. GA still requires the remaining supported Radix-compatible shadcn catalog and auxiliaries, with the documented exceptions in ADR0008, integrated candidate consumer acceptance, current UZH alignment, and manual qualification. GBL and Klicker remain unmerged by user ruling.
+The historical Klicker pilot, RHF parity, selected GBL journey, supported Radix components and auxiliaries, Recharts 3 and representative compositions qualify at their recorded draft boundaries. GA remains blocked by dependency advisories and release-age compliance, integrated candidate consumer acceptance, manual qualification and promotion reconciliation. The older qualification layer retains a browser-install CI failure. GBL and Klicker remain unmerged by user ruling.
 
 The native Recharts keyboard tooltip resize counterexample remains an explicit GA/chart gate: an active tooltip can retain its old horizontal position after a390px shrink. Existing immediate overflow checks and previously passing chart contracts do not close that gate. Preserve exact real-consumer and manual accessibility acceptance separately; no dependency source patch or weakened check is permitted.
 
 ## Identity and status
 
-- Date: 2026-08-10; current execution index refreshed 2026-10-25
+- Date: 2026-08-10; current execution index refreshed 2026-10-26
 - Status: GA blocked. Input correctness, consumer CSS, durable contract gates,
-  UZH Phase 2 and compatible dependency remediation are delivered in the unmerged
+  UZH Phase 2 and the earlier October 19 dependency remediation are delivered in the unmerged
   draft stack. The historical Klicker pilot now qualifies the recorded candidate;
-  the earlier authentication blocker is resolved in its consumer draft. Expanded
-  Radix coverage, integrated UZH default acceptance, unresolved tooling advisories,
-  representative consumers and manual accessibility/browser checks remain open.
+  the earlier authentication blocker is resolved in its consumer draft.
+  Integrated UZH default acceptance, runtime/tooling/fixture advisories,
+  dependency maturity, representative consumers and manual accessibility/browser
+  checks remain open.
 - Repository: `uzh-bf/design-system`
 - Release trunk: `v5`
-- Qualification delivery branch: `rs/v5-ga-qualification`
+- Current source delivery branch: `rs/v5-composition-proof`; the earlier qualification layer remains `rs/v5-ga-qualification`
 - Roadmap worktree:
   `/Users/rschlae/Git/df/design-system/trees/rs-v5-uzh-alignment`
 - Current delivery: draft stack [#210](https://github.com/uzh-bf/design-system/pull/210) →
@@ -41,7 +42,7 @@ The native Recharts keyboard tooltip resize counterexample remains an explicit G
   [chat234](https://github.com/uzh-bf/design-system/pull/234) and
   [Questionnaire235](https://github.com/uzh-bf/design-system/pull/235).
   The [approved CodeBlock/highlighting plan](2026-10-25-v5-code-highlighting-plan.md)
-  qualified [draft #236](https://github.com/uzh-bf/design-system/pull/236) at `f654685e6` above the held Questionnaire draft. The [quality closure plan](2026-10-25-v5-quality-closure-plan.md) now owns picker contrast/year navigation and UZH traceability. Merges remain separately gated.
+  qualified [draft #236](https://github.com/uzh-bf/design-system/pull/236) at `f654685e6` above the held Questionnaire draft. [Quality draft #237](https://github.com/uzh-bf/design-system/pull/237) qualifies at `059844953`; [composition draft #239](https://github.com/uzh-bf/design-system/pull/239) qualifies at `1eeeca318`. The October26 dependency/consumer review below owns the next roadmap sequence. Merges remain separately gated.
 - Audience: maintainers and future execution agents preparing v5 for GA and
   migrating the first production consumers.
 
@@ -123,6 +124,42 @@ Historical inputs:
 
 ## Current execution index — 2026-10-23
 
+### Dependency and consumer checkpoint — 2026-10-26
+
+The [complete dependency review](2026-10-26-v5-dependency-compatibility-review.md)
+owns the dated inventory, publication cutoff, advisory matches, shadcn crosswalk,
+consumer snapshots and toolchain constraints. Opus 5.5 challenged the ordering and
+confirmed that dependency ownership and maturity need explicit disposition before
+another integrated candidate. This supersedes the unfiltered registry-latest
+advice in the October25 drift section.
+
+The cutoff is October 12 at 06:00:49 UTC, exactly 14 days before the assessment.
+RHF 7.90.0 is already the mature current cell; 7.91.0 is too young. Native
+`@shadcn/react` 0.3.1 and Recharts 3.10.1 are current and mature. CLI 4.22.1 is too
+young; 4.21.4 is the mature generator. Retain the pinned Radix-only source scope
+and the ergonomic prop contracts. API/source qualification does not establish
+release-age compliance: 83 root lock records and 28 in each isolated fixture lock
+are immature at this cutoff. Panels 4.14.8 matures November 3; the last current
+transitive pin matures November 5. Waiting addresses age only, not advisories.
+
+The successful public-dependency bulk advisory check reproduces 9 unique root
+advisories and finds 37 unique across all 9 locks. Next fixtures include critical
+matches; root-only audit results never covered them. The mature Next 16.4.0
+remains affected, while fixed 16.4.1 is too young until October 28. Preserve this
+timing decision explicitly. Prefer verified removal of unused DS runtime Zod;
+its separate tooling copy and the size-limit/browser chain require their own
+remediation. No advisory waiver, exception or version change is approved here.
+
+Modern consumers broadly declare React 19/Tailwind 4, but the latest integrated
+peer contract is not accepted by the old pilots. Klicker locks Recharts 3.0.2 and
+GBL 2.15.4, below the required 3.8 floor. Thesis uses FA 7/ReactFA 3 against current
+FA 6/ReactFA 0.2 peers. Optional-present RHF must meet the supported minimum.
+An allowed peer range and a resolved compatible graph are distinct evidence;
+missing direct peers and auto-installed lock tuples are metadata gaps, not
+application acceptance. Private consumer snapshots remain in the ignored local
+assessment; the public review carries shared acceptance gates without their
+versions or commit references.
+
 ### Delivered evidence and its limits
 
 October25 checkpoint: all approved Shared API, Calendar, layout/toast, unified
@@ -130,7 +167,7 @@ Panels4, chat and Questionnaire packages qualify at their recorded draft heads.
 [Chat234](https://github.com/uzh-bf/design-system/pull/234) holds48c6b91a6;
 [Questionnaire235](https://github.com/uzh-bf/design-system/pull/235) holds2a8d3f401. Their final reviews,
 hosted checks, exact archive proof and feedback settle are complete. Current
-[CodeBlock/highlighting and utility compatibility](2026-10-25-v5-code-highlighting-plan.md) qualified in [draft #236](https://github.com/uzh-bf/design-system/pull/236) at `f654685e6`. Current source work follows the [quality closure plan](2026-10-25-v5-quality-closure-plan.md).
+[CodeBlock/highlighting and utility compatibility](2026-10-25-v5-code-highlighting-plan.md) qualified in [draft #236](https://github.com/uzh-bf/design-system/pull/236) at `f654685e6`. Quality and representative compositions subsequently qualified in [draft #237](https://github.com/uzh-bf/design-system/pull/237) and [draft #239](https://github.com/uzh-bf/design-system/pull/239) at the recorded heads above.
 The dated chart-tip snapshot below remains historical evidence, not today's tip.
 
 Host refs were refreshed on October 24. Release trunk `v5` is
@@ -261,6 +298,33 @@ candidate or registry contents. The user explicitly holds GBL and Klicker merges
 
 ### Next implementation packages
 
+The October 26 dependency/consumer review recommends this order. These packages
+require their own bounded execution plans; this roadmap update changes no
+dependency, lockfile, stack topology or consumer repository.
+
+1. **Advisory and dependency contracts.** Disposition root and isolated fixture
+   findings, unused Zod ownership, size-limit/browser paths, peer floors and
+   deprecated tools. Name security fixes that conflict with the 14-day cutoff.
+2. **Coordinated eligible dependency graph.** Enforce and verify
+   `minimumReleaseAge: 20160` for direct/transitive selections in root and all 8
+   isolated fixture locks. A coordinated pnpm11 migration is needed for strict
+   frozen-lock validation; a root pnpm10 setting alone does not clear that gate.
+   Preserve minimum
+   RHF/Recharts cells and ADR0010's exact shared Panels contract. A current pin's
+   maturity date does not authorize a downgrade or a blanket exception.
+3. **Consumer peer reconciliation and exact archive acceptance.** Resolve chart,
+   icon and required peer ownership before representative Klicker/GBL/Vet proof.
+   Preserve the GBL/Klicker merge holds and historical candidate boundaries.
+4. **Required support/toolchain migrations.** Evaluate unsupported ESLint and
+   ReactFA, then coupled Vite/SWC/Ladle/declaration tooling. TypeScript 7 conflicts
+   with the current mature parser peer range; unrelated legacy-package majors
+   remain separate. See the review for Node/pnpm/CI pin coordination.
+5. **Manual and promotion gates.** Complete AT/Safari/device and upstream menu
+   disposition; reconcile lower CI and [promotion PR179](https://github.com/uzh-bf/design-system/pull/179) before separately authorized
+   readiness, merge or publication.
+
+#### Delivered catalog sequence — October24–25
+
 The historical Klicker repair and RHF/GBL package are complete at their draft
 boundaries. Do not repeat their unchanged acceptance or reopen those packages.
 The approved [catalog planning package](2026-10-23-v5-catalog-compatibility-plan.md)
@@ -287,7 +351,7 @@ exclude the newer Base UI compound implementation and parity-only variants.
 No new Combobox engine or draft layer is required. The [static assessment](2026-10-24-v5-composition-compatibility-assessment.md)
 retains all example/block/pattern identities, separating excluded portions from
 eligible Shared API and chart obligations. Its source accounting is not type or
-browser qualification. The next implementation packages are:
+browser qualification. The delivered sequence and remaining external gates are:
 
 1. **Shared APIs and Calendar.** Assign every concrete matrix delta, including
    menu item options, Item semantics/sizes, Pagination aliases and element types.
@@ -903,6 +967,27 @@ checks. Manual qualification and exact integrated consumer acceptance stay open.
 
 ## October25 quality closure checkpoint
 
-The [approved quality plan](2026-10-25-v5-quality-closure-plan.md) follows the qualified CodeBlock draft. Local source now restores DateTimePicker year navigation and fixes empty-invalid picker contrast using existing component foreground tokens. Focused calendar/form/menu tests pass; final source review, package evidence, captures and exact-head CI remain pending until recorded in its draft description.
+The [approved quality plan](2026-10-25-v5-quality-closure-plan.md) follows the qualified CodeBlock draft. Local source now restores DateTimePicker year navigation and fixes empty-invalid picker contrast using existing component foreground tokens. Focused calendar/form/menu tests, independent final review, exact package proof, captures and exact-head CI qualify [quality draft #237](https://github.com/uzh-bf/design-system/pull/237) at `059844953`.
 
 The opened modal-menu `aria-hidden-focus` finding reproduces in a standalone DS page and unmodified Radix DropdownMenu/ContextMenu. DropdownMenu/ContextMenu Tab/Shift+Tab remains contained and Escape restores focus. Menubar has no hidden-focus finding, and Escape restores its trigger; its non-modal Tab behavior is not a containment claim. This establishes upstream provenance, not assistive-technology acceptance. Keep the finding as a GA upstream/manual gate without a waiver or modality change. Representative public-entry compositions follow this source package. Final qualification records runtime-pin drift; version changes need their own evaluated acceptance. Consumer/manual evidence and merge/release authority remain separate.
+
+
+## October25 representative composition execution
+
+The [quality draft #237](https://github.com/uzh-bf/design-system/pull/237) qualifies at `059844953`, including independent review, all required hosted checks, exact package proof and quiet feedback. The [composition plan](2026-10-25-v5-composition-qualification-plan.md) qualifies [draft #239](https://github.com/uzh-bf/design-system/pull/239) at `1eeeca318` for dashboard/sidebar/chart, RHF form, chat/code/questionnaire and native Persian recipe proof through public entry points. Its complete finite identity disposition remains in the composition assessment; representative evidence does not mean every upstream identity executed. Both source layers remain drafts. The October26 dependency/consumer checkpoint supersedes the raw latest-version advice below; manual and exact consumer acceptance remain separate.
+
+### Integrated candidate drift and advisory refresh — October25
+
+The [October26 review](2026-10-26-v5-dependency-compatibility-review.md) supersedes
+this section's unfiltered latest-version recommendations and root-only advisory
+scope. The source comparison and qualified composition evidence remain valid.
+
+Opus next-step consultation confirmed the order: finish representative composition qualification, then retain one exact integrated candidate for source/package proof and report external gates. Composition checks now cover 765 contracts/smokes plus 24 strengthened keyboard/theme/viewport journeys, including linked errors, actual Questionnaire FormData, visible appended messages and the native Persian display/metadata distinction. Four Ladle stories raise the built inventory to 530. These representative journeys do not execute every original upstream identity; consumers own acceptance of their copied application assemblies.
+
+Official shadcn source advanced 18 commits from pinned `3d98900e9b73c45f035f8109e9d41ba6a51685e7` to [481d5233](https://github.com/shadcn-ui/ui/commit/481d523374745e77d0cf9c53a4115ab5dd7c8481). The compared files are templates, registry-directory metadata, root manifest/lockfile and a template workflow. No pinned Radix component, example/block or native auxiliary source changed. Retain the source denominator. The [UZH production index](https://www.frontend.uzh.ch/prod/index.html) still lists 2.11.0; its CSS SHA-256 remains `48a5dc275818ff67e967d712b501b6659b00a48e1974c9c4a45ed5e85e7742f8`.
+
+Registry refresh: @shadcn/react0.3.1, Recharts3.10.1, Sonner2.0.8, Shiki4.5.0 and Ladle5.1.1 match current latest tags. RHF current-cell7.90.0 trails7.91.0; minimum7.59.0 remains the declared compatibility boundary. Panels4.14.8 trails4.15.0. DayPicker9.14.0 trails10.0.2, Vite6.4.4 trails8.3.5 and TypeScript5.8.3 trails7.0.2. shadcn CLI latest is4.22.1; it is a generator, not an application runtime. This assessment changes no dependency or lockfile. The next evaluated dependency package owns the RHF/Panel minor choices and their compatibility evidence; unrelated majors stay separately evaluated.
+
+The fresh full-lockfile audit reports nine unique advisories across ten package occurrences (five high, three moderate, two low occurrences), superseding the older six-advisory snapshot. They affect `extract-zip`, `basic-ftp`, `postcss-selector-parser`, `fast-uri` and `zod`. Most paths are size-limit browser/tooling dependencies; selector-parser is typography tooling. Zod3.25.76 is also a declared DS runtime dependency, so this is **not** a tooling-only finding. [GHSA-mrhx-c7xc-m3w5](https://github.com/advisories/GHSA-mrhx-c7xc-m3w5) marks versions below4.6.6 affected. Focused source search finds no Zod import in DS source; package removal or a major upgrade still needs a separately evaluated dependency contract and consumer proof. No risk acceptance or remediation is claimed here. The next bounded dependency plan must classify each actual path, prefer compatible fixes where available, and present any removal/major/advisory-acceptance ruling before dependent work. Advisory remediation remains a GA gate while composition draft qualification continues independently.
+
+Remaining external gates: manual AT/Safari/physical devices, the documented native modal-menu warning, exact integrated candidate acceptance in representative consumers, lower-layer CI reconciliation and promotion PR179 conflicts. Keep all drafts unmerged; GBL/Klicker merge holds remain. Source/package success establishes none of those separate gates.
