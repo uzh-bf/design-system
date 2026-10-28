@@ -1,3 +1,4 @@
+import { DirectionProvider, useDirection, Tabs as PrimitiveTabs, TabsList, TabsTrigger, TabsContent, Select as PrimitiveSelect, SelectTrigger, SelectValue, SelectContent, SelectGroup, SelectItem } from './primitives'
 import Button from './Button'
 import ColorPicker from './ColorPicker'
 import DatePicker from './DatePicker'
@@ -180,3 +181,39 @@ export const Default = () => (
     />
   </div>
 )
+
+
+export const Direction = () => {
+  const Probe = ({ id }) => <output data-test={id}>{useDirection()}</output>
+  return (
+    <div className="bg-background text-foreground flex max-w-2xl flex-col gap-6 p-6 pt-16">
+      <DirectionProvider dir="ltr" direction="rtl">
+        <Probe id="direction-outer" />
+        <PrimitiveTabs defaultValue="one" data-test="direction-tabs">
+          <TabsList aria-label="RTL navigation">
+            <TabsTrigger value="one">الأول</TabsTrigger>
+            <TabsTrigger value="two">الثاني</TabsTrigger>
+            <TabsTrigger value="three">الثالث</TabsTrigger>
+          </TabsList>
+          <TabsContent value="one">First panel</TabsContent>
+          <TabsContent value="two">Second panel</TabsContent>
+          <TabsContent value="three">Third panel</TabsContent>
+        </PrimitiveTabs>
+        <PrimitiveSelect defaultValue="one">
+          <SelectTrigger aria-label="RTL portal" data-test="direction-select"><SelectValue /></SelectTrigger>
+          <SelectContent><SelectGroup><SelectItem value="one">الأول</SelectItem><SelectItem value="two">الثاني</SelectItem></SelectGroup></SelectContent>
+        </PrimitiveSelect>
+        <DirectionProvider direction="ltr">
+          <Probe id="direction-inner" />
+          <PrimitiveTabs defaultValue="one" data-test="direction-inner-tabs">
+            <TabsList aria-label="Nested LTR navigation">
+              <TabsTrigger value="one">One</TabsTrigger><TabsTrigger value="two">Two</TabsTrigger>
+            </TabsList>
+            <TabsContent value="one">Nested first</TabsContent><TabsContent value="two">Nested second</TabsContent>
+          </PrimitiveTabs>
+        </DirectionProvider>
+        <DirectionProvider><Probe id="direction-inherited" /></DirectionProvider>
+      </DirectionProvider>
+    </div>
+  )
+}

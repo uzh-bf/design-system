@@ -6,6 +6,16 @@ remain open where stated. Date: 2026-10-23. Local baseline:
 [GA roadmap](2026-08-10-v5-ga-readiness-roadmap.md#next-implementation-packages)
 owns ordering; this matrix owns the finite capability denominator.
 
+## Component implementation delta
+
+The approved component layer adds Button `xs`/`icon-xs`/`icon-sm`/`icon-lg`,
+`tabsListVariants`, filled/underline Tabs and vertical layout, plus the missing
+NativeSelect and Direction exports. Omitted Tabs variants retain the underline
+adaptation. Direction is a direct scoped Radix dependency. The pinned inventory
+below remains the baseline comparison; these four rows are implemented in the
+component draft and remain subject to its final review, packed checks and CI.
+The local UI module count becomes 55; nine of the 63 pinned sources remain absent.
+
 ## Source identity and interpretation
 
 Upstream is [shadcn-ui/ui at3d98900](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7),

@@ -6,16 +6,17 @@ Migrate the existing chart composition to Recharts 3 and implement ADR0007's
 required application-owned runtime. Applications keep importing directly from
 Recharts and using our existing container, tooltip, legend and theme support.
 Every design-system consumer must satisfy the new peer, even without charts.
-This reviewed execution proposal awaits bounded user approval.
+Approval mode: executable batch. The user approved this reviewed plan on
+2026-10-23, including the next native stack layer and qualified draft delivery.
 
 - Repository/target: `uzh-bf/design-system`, release trunk `v5`.
 - Prerequisite: reviewed [catalog matrix](2026-10-23-v5-radix-capability-matrix.md)
   and completed [catalog documentation package](2026-10-23-v5-catalog-compatibility-plan.md).
-- Proposed branch: `rs/v5-recharts-compatibility`, one draft layer following the
+- Approved branch: `rs/v5-recharts-compatibility`, one draft layer following the
   component-compatibility layer in native stack221, in the existing worktree.
   Chart investigation may precede that layer; shared manifest/lock integration
-  and topology remain serialized and parent-owned. This proposal grants no
-  implementation-layer creation/rearrangement authority by itself.
+  and topology remain serialized and parent-owned. This plan records the approved
+  layer addition; main remains the sole topology owner.
 - Main owns integration and dependency/public contracts; a bounded executor may
   adapt settled chart internals while main extends packed acceptance.
 - Terminal: six-family and tooltip-category synthetic chart proof, exact packed/dependency proof,
@@ -176,9 +177,8 @@ follow this package and retain their own authority.
 
 ## Progress
 
-- Drafted 2026-10-23; source remains unchanged.
-- Native planner approved after one correction round; bounded user approval
-  remains pending. Proposed ranges are untested.
-- Next action: complete the catalog package's independent final review, then
-  present bounded implementation approval. The three cells and named test scope
-  are concrete proposals; implementation and version qualification remain open.
+- User approved both implementation plans on 2026-10-23. Full-path package in standard execution mode; project artifacts root `project/`.
+- This layer follows the approved component layer in native stack 221, branch `rs/v5-recharts-compatibility`, using the same worktree. Main serializes shared manifests, lockfiles, exports and topology.
+- Reuse completed planner and catalog reviews. Approved endpoint proposals remain unqualified until the three packed cells pass.
+- Active predecessor: component compatibility. No Recharts source/dependency change yet; substantive size 0 lines and test delta none.
+- Next action after component draft qualification: settle the existing type/build seam, delegate chart source, implement packed identity checks and qualify the three approved cells.
