@@ -824,11 +824,12 @@ the corresponding help or error node disappears; caller-owned references remain.
 SelectField also accepts the existing camel-case `ariaDescribedBy` spelling.
 
 Use `errorDisplay="inline"` to show one visible validation message below a control.
-The default remains `"tooltip"`. `hideError` hides the error message and its
-reference while preserving invalid state. Standalone text, number and textarea
-fields retain their touched gate; SelectField still displays an error whenever
-one is supplied. RHF wrappers retain touched/submitted validation timing and
-continue to own values, change/blur handlers and refs.
+Standalone fields default to `"tooltip"`; RHF adapters default to `"inline"`.
+`hideError` hides the error message and its reference while preserving invalid
+state. Standalone text, number and textarea fields retain their touched gate;
+SelectField displays an error whenever one is supplied. RHF adapters display
+errors already produced by RHF without an extra touched/submitted gate. RHF
+continues to own validation timing, values, change/blur handlers and refs.
 
 ```tsx
 <TextField
@@ -920,3 +921,27 @@ presentation and timing retain their existing behavior.
 The standalone numeric `PinField` shares its controlled implementation with
 Formik and RHF. `Switch` retains its legacy `onBlur` click callback; native
 focus-leaving notifications use `onFocusOut`, which the RHF adapter binds to RHF.
+
+## Shared presentation compatibility
+
+The primitive entry adds `AlertAction`, `AvatarBadge`, `AvatarGroup`,
+`AvatarGroupCount` and the existing `useCarousel` hook. Their matching root
+modules re-export these additions. Existing root wrappers keep their own APIs.
+
+`Badge` adds `ghost` and `link`; `Card` adds `size="sm"`; `Item` adds `size="xs"`.
+Card omission and explicit `default` retain existing insets. Avatar's explicit
+`default` is 32px, matching omission; `sm`/`md`/`lg` remain 28/40/56px.
+`Switch` adds compact `size="sm"`. `ToggleGroup` adds `spacing` and vertical
+layout: omission remains joined, while positive spacing separates items.
+Pagination Previous/Next accept upstream `text` alongside existing `label`;
+`label` takes precedence, including an empty string. Custom pagination text also
+sets its default accessible name; an explicit native `aria-label` still wins.
+InputOTP defaults
+`spellCheck` to false and accepts an explicit caller override.
+
+Some composition contracts remain deliberate adaptations. ItemGroup has no
+implicit list role; supply a valid list/listitem structure when that semantic
+relationship applies. EmptyDescription renders a div, KbdGroup a kbd element,
+and Spinner a status span. Their props and refs match the rendered element.
+Spinner keeps its 28px default; use `className="size-4"` inside compact controls.
+The Spinner does not accept SVG-only props or refs.

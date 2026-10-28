@@ -343,3 +343,20 @@ for (const theme of ['neutral', 'uzh'] as const) {
     })
   })
 }
+
+test('primitive OTP preserves paste and caller spellcheck precedence', async ({
+  page,
+}) => {
+  await gotoStory(page, 'shared-presentation--controls')
+  const input = page.locator('[data-test="otp-default"]')
+  await expect(input).toHaveAttribute('spellcheck', 'false')
+  await expect(page.locator('[data-test="otp-override"]')).toHaveAttribute(
+    'spellcheck',
+    'true'
+  )
+  await page.context().grantPermissions(['clipboard-read', 'clipboard-write'])
+  await page.evaluate(() => navigator.clipboard.writeText('4826'))
+  await input.focus()
+  await page.keyboard.press('ControlOrMeta+V')
+  await expect(input).toHaveValue('4826')
+})
