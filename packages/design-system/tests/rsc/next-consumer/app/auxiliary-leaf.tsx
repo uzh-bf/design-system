@@ -1,6 +1,10 @@
 'use client'
 
+import { MessageScroller as ApplicationScroller } from '@shadcn/react/message-scroller'
 import {
+  Bubble,
+  Message,
+  MessageScroller,
   ResizablePanelGroup as RootGroup,
   ResizableHandle as RootHandle,
   ResizablePanel as RootPanel,
@@ -9,6 +13,10 @@ import {
   useGroupRef as useRootGroupRef,
 } from '@uzh-bf/design-system'
 import {
+  MessageScrollerContent,
+  MessageScrollerItem,
+  MessageScrollerViewport,
+  MessageScroller as NativeGroup,
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
@@ -97,6 +105,48 @@ function PackedRootLayout({
   )
 }
 
+function PackedChat() {
+  const [messages, setMessages] = useState(18)
+  return (
+    <section data-test="packed-chat">
+      <h2>Chat composition</h2>
+      <button
+        data-test="packed-chat-append"
+        onClick={() => setMessages((v) => v + 1)}
+      >
+        Append message
+      </button>
+      <MessageScroller
+        autoScroll
+        style={{ height: 200 }}
+        data={{ test: 'packed-scroller' }}
+        dataViewport={{ test: 'packed-scroller-viewport' }}
+        items={Array.from({ length: messages }, (_, index) => ({
+          id: `packed-${index}`,
+          content: (
+            <Message>
+              <Bubble variant="muted">Synthetic message {index + 1}</Bubble>
+            </Message>
+          ),
+        }))}
+      />
+      <ApplicationScroller.Provider defaultScrollPosition="start">
+        <NativeGroup style={{ height: 80 }}>
+          <MessageScrollerViewport aria-label="Mixed native conversation">
+            <MessageScrollerContent>
+              <MessageScrollerItem messageId="mixed">
+                <span data-test="packed-mixed-message">
+                  Shared native context
+                </span>
+              </MessageScrollerItem>
+            </MessageScrollerContent>
+          </MessageScrollerViewport>
+        </NativeGroup>
+      </ApplicationScroller.Provider>
+    </section>
+  )
+}
+
 export function AuxiliaryLeaf({
   initialLayouts,
 }: {
@@ -129,6 +179,7 @@ export function AuxiliaryLeaf({
 
   return (
     <div>
+      <PackedChat />
       <PackedRootLayout
         key={String(expanded)}
         expanded={expanded}

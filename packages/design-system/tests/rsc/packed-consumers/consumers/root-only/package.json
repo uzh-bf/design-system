@@ -4,6 +4,7 @@
   "type": "module",
   "packageManager": "pnpm@11.21.0",
   "dependencies": {
+    "@shadcn/react": "0.3.1",
     "@fortawesome/fontawesome-svg-core": "6.7.2",
     "@fortawesome/free-regular-svg-icons": "6.7.2",
     "@fortawesome/free-solid-svg-icons": "6.7.2",

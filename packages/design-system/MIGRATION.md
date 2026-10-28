@@ -1124,3 +1124,54 @@ returns focus to its mounted opener through the Sheet lifecycle.
 `SidebarProvider` keeps desktop `open` / `onOpenChange` control separate from
 its internal mobile visibility. Existing widths, static `collapsible="none"`
 behavior, keyboard shortcut and write-only state cookie remain supported.
+
+## Chat presentation components
+
+The root entry supplies ergonomic `Message`, `Bubble`, `Marker`, `Attachment`
+and `Trace` composites. Their `className` prop uses named slots, and `data` or
+part-specific selectors retain the `{ cy, test }` contract. The primitive entry
+provides the official compound parts under their natural names. These five new
+same-name exports follow the existing entry-selection rule: choose the root for
+configured content and parts, or `./primitives` for full native composition.
+
+Message accepts avatar/header/footer nodes around its children. Bubble composes
+content and reactions, and Marker composes an icon and content. Trace accepts
+stable-ID configured items or custom children; controlled disclosures require
+`onOpenChange`. These components render application-owned content and status.
+They do not execute tools, render Markdown or manage conversation state.
+
+Attachment renders passive content unless `triggerProps` configures its native
+button. Its label comes from explicit ARIA attributes, `triggerAriaLabel`, or
+the configured title. `triggerRef` targets that button; the component ref and
+outer native events target the div. Action buttons remain independently operable
+above the trigger overlay. Custom attachment children and configured content
+parts are exclusive. Uploads, navigation and object-URL lifetimes stay with the
+application. Fixed root compositions keep their DOM targets; use primitives for
+polymorphic parts.
+
+### Native conversation scrolling
+
+Root `MessageScroller` accepts stable-ID items or custom children, named styling
+slots, part selectors, provider behavior options, `viewportProps`, `buttonProps`
+and an optional footer. Its `ref` targets the scroll viewport. Footer components
+are inside the native provider and can call the shared scroller hooks; keep a
+composer outside the scrolling viewport. Native autoScroll defaults to false;
+set it explicitly for streaming conversations. Native initial position is end,
+with prepend-position preservation enabled.
+
+The primitive `MessageScroller` root deliberately omits `ref`: in pinned
+`@shadcn/react@0.3.1`, a caller root ref replaces internal engine registration.
+Use `MessageScrollerViewport` or the root composite for a viewport ref. Both
+entries preserve readable server HTML before hydration and retain native pending
+markers without hiding the transcript. Optional first-paint positioning scripts
+and CSP nonces belong to the application. Reduced-motion defaults use instant
+jump scrolling; an explicit button behavior remains caller-controlled.
+
+`@shadcn/react` is a regular package dependency pinned to0.3.1. Applications
+mixing its native provider/parts with DS parts must declare the same version and
+resolve the same context runtime. The packed npm/pnpm default fixtures verify
+that arrangement; arbitrary duplicate installations are not guaranteed. No
+Shiki, Markdown, transport or model package is loaded by these components.
+[ADR0011](../../docs/adr/0011-native-chat-runtime.md) records dependency ownership
+and the shared-context requirement. AttachmentGroup keeps a native scrollbar
+and is keyboard-focusable; callers can override its native tabIndex.

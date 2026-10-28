@@ -505,3 +505,133 @@ createElement(Calendar, {
 })
 // @ts-expect-error Calendar locale requires a DayPicker locale object.
 createElement(CalendarDayButton, { ...calendarDayProps, locale: 'de-DE' })
+
+import type {
+  AttachmentProps,
+  BubbleProps,
+  MarkerProps,
+  MessageProps,
+  TraceProps,
+} from '../../src'
+import {
+  Attachment as ChatAttachment,
+  Bubble as ChatBubble,
+  Marker as ChatMarker,
+  Message as ChatMessage,
+  Trace as ChatTrace,
+} from '../../src'
+createElement(
+  ChatMessage,
+  {
+    avatar: 'U',
+    className: { root: 'p-2', content: 'gap-2' },
+    dataContent: { test: 'body' },
+    ref: createRef<HTMLDivElement>(),
+    'aria-label': 'Conversation item',
+  },
+  'Body'
+)
+createElement(
+  ChatBubble,
+  {
+    variant: 'muted',
+    reactions: 'Helpful',
+    className: { content: 'rounded-md' },
+  },
+  'Text'
+)
+createElement(
+  ChatMarker,
+  {
+    icon: '✓',
+    className: { icon: 'size-4' },
+    ref: createRef<HTMLDivElement>(),
+  },
+  'Saved'
+)
+createElement(ChatAttachment, {
+  title: 'File',
+  triggerProps: {
+    onClick: (event) => {
+      event.preventDefault()
+    },
+  },
+  triggerRef: createRef<HTMLButtonElement>(),
+  className: { trigger: 'ring-2' },
+})
+createElement(ChatTrace, {
+  items: [
+    {
+      id: 'x',
+      title: 'Step',
+      content: 'Details',
+      open: false,
+      onOpenChange: (open) => void open,
+    },
+  ],
+})
+const chatProps: [
+  MessageProps,
+  BubbleProps,
+  MarkerProps,
+  AttachmentProps,
+  TraceProps,
+] = [
+  { children: 'Body' },
+  { children: 'Text' },
+  { icon: '✓' },
+  { title: 'File' },
+  { items: [] },
+]
+void chatProps
+// @ts-expect-error Root wrappers use semantic styling slots.
+createElement(ChatMessage, { className: 'flat' })
+// @ts-expect-error Fixed root Marker composition does not replace its DOM element.
+createElement(ChatMarker, { asChild: true })
+// @ts-expect-error Attachment needs a title or explicit name for its trigger.
+createElement(ChatAttachment, { triggerProps: {} })
+// @ts-expect-error Custom attachment content and configured parts are exclusive.
+createElement(ChatAttachment, { children: 'Custom', title: 'File' })
+// @ts-expect-error Trace controlled expansion must report changes.
+createElement(ChatTrace, { items: [{ id: 'x', title: 'Step', open: true }] })
+// @ts-expect-error Configured rows and custom content are exclusive.
+createElement(ChatTrace, { items: [], children: 'Other' })
+
+import {
+  MessageScroller as ChatMessageScroller,
+  useMessageScroller as rootMessageScroll,
+} from '../../src'
+import {
+  MessageScrollerViewport,
+  MessageScroller as PrimitiveMessageScroller,
+  useMessageScroller as primitiveMessageScroll,
+} from '../../src/primitives'
+createElement(ChatMessageScroller, {
+  items: [{ id: 'm1', content: 'Body', data: { test: 'row' } }],
+  ref: createRef<HTMLDivElement>(),
+  autoScroll: true,
+  defaultScrollPosition: 'end',
+  viewportProps: {
+    preserveScrollOnPrepend: true,
+    'aria-label': 'Messages',
+    onScroll: (event) => void event.currentTarget.scrollTop,
+  },
+  buttonProps: { behavior: 'instant', direction: 'start' },
+  className: { viewport: 'p-2', footer: 'border-t' },
+  footer: 'Composer',
+})
+createElement(MessageScrollerViewport, {
+  ref: createRef<HTMLDivElement>(),
+  preserveScrollOnPrepend: true,
+})
+const sameScrollHook: typeof rootMessageScroll = primitiveMessageScroll
+void sameScrollHook
+// @ts-expect-error Native Root registration ref is internal; use Viewport or root composite ref.
+createElement(PrimitiveMessageScroller, { ref: createRef<HTMLDivElement>() })
+// @ts-expect-error Configured list and custom content are exclusive.
+createElement(ChatMessageScroller, { items: [], children: 'Other' })
+createElement(ChatMessageScroller, {
+  items: [],
+  // @ts-expect-error Root composite ref targets the viewport div.
+  ref: createRef<HTMLButtonElement>(),
+})

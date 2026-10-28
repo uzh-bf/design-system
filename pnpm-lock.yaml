@@ -180,6 +180,9 @@ importers:
       '@radix-ui/react-tooltip':
         specifier: 1.4.1
         version: 1.4.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@shadcn/react':
+        specifier: 0.3.1
+        version: 0.3.1(@types/react@19.3.0)(react@19.1.0)
       '@tailwindcss/postcss':
         specifier: ^4.1.11
         version: 4.1.11
@@ -2663,6 +2666,17 @@ packages:
 
   '@rushstack/ts-command-line@5.0.1':
     resolution: {integrity: sha512-bsbUucn41UXrQK7wgM8CNM/jagBytEyJqXw/umtI8d68vFm1Jwxh1OtLrlW7uGZgjCWiiPH6ooUNa1aVsuVr3Q==}
+
+  '@shadcn/react@0.3.1':
+    resolution: {integrity: sha512-2gOR0HDMtWeRsCZfNDaU0YDFdgH3zsDQ6lz67Fv/y/qjY9y+R8kJqAn6q56phqv7/zHi0wqURjntrNO9zL7vnQ==}
+    peerDependencies:
+      '@types/react': '>=19'
+      react: '>=19'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      react:
+        optional: true
 
   '@sindresorhus/merge-streams@2.3.0':
     resolution: {integrity: sha512-LtoMMhxAlorcGhmFYI+LhPgbPZCkgP6ra1YL604EeF6U98pLlQ3iWIGMdWSC+vWmPBWBNgmDBAhnAobLROJmwg==}
@@ -9667,6 +9681,11 @@ snapshots:
       string-argv: 0.3.2
     transitivePeerDependencies:
       - '@types/node'
+
+  '@shadcn/react@0.3.1(@types/react@19.3.0)(react@19.1.0)':
+    optionalDependencies:
+      '@types/react': 19.3.0
+      react: 19.1.0
 
   '@sindresorhus/merge-streams@2.3.0': {}
 

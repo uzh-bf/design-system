@@ -1134,6 +1134,20 @@ packages:
       react-redux:
         optional: true
 
+  '@shadcn/react@0.3.1':
+    resolution:
+      {
+        integrity: sha512-2gOR0HDMtWeRsCZfNDaU0YDFdgH3zsDQ6lz67Fv/y/qjY9y+R8kJqAn6q56phqv7/zHi0wqURjntrNO9zL7vnQ==,
+      }
+    peerDependencies:
+      '@types/react': '>=19'
+      react: '>=19'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      react:
+        optional: true
+
   '@standard-schema/spec@1.1.0':
     resolution:
       {
@@ -1375,7 +1389,7 @@ packages:
   '@uzh-bf/design-system@file:../../.artifacts/design-system.tgz':
     resolution:
       {
-        integrity: sha512-8k9hBZHrtiahJeJqUU7jpB26GoeFxdV8g51djfOruZXNomAt2XSOIV6n27VhEhZ//0QTtOtdADJIBitdOpYD1A==,
+        integrity: sha512-PNIC8jNYvMEcKfxdeBG1XS01LvF3qwLIRYQhU0+iDc3rnZ09XcNMMr92rW034vUpTxhzbxVa6JKLSVfBV4xYrA==,
         tarball: file:../../.artifacts/design-system.tgz,
       }
     version: 5.0.0-alpha.5
@@ -3014,6 +3028,11 @@ snapshots:
       react: 19.2.7
       react-redux: 9.3.0(@types/react@19.1.8)(react@19.2.7)(redux@5.0.1)
 
+  '@shadcn/react@0.3.1(@types/react@19.1.8)(react@19.2.7)':
+    optionalDependencies:
+      '@types/react': 19.1.8
+      react: 19.2.7
+
   '@standard-schema/spec@1.1.0': {}
 
   '@standard-schema/utils@0.3.0': {}
@@ -3164,6 +3183,7 @@ snapshots:
       '@radix-ui/react-toggle': 1.2.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@radix-ui/react-toggle-group': 1.2.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@radix-ui/react-tooltip': 1.4.1(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      '@shadcn/react': 0.3.1(@types/react@19.1.8)(react@19.2.7)
       '@tailwindcss/postcss': 4.1.11
       class-variance-authority: 0.7.1
       clsx: 2.1.1

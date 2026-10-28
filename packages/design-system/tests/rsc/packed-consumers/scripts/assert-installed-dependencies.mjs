@@ -6,7 +6,11 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 function installedPackage(requireFrom, packageName) {
-  const entry = fs.realpathSync(requireFrom.resolve(packageName))
+  const entryPoint =
+    packageName === '@shadcn/react'
+      ? '@shadcn/react/message-scroller'
+      : packageName
+  const entry = fs.realpathSync(requireFrom.resolve(entryPoint))
   let directory = path.dirname(entry)
   while (true) {
     const manifestPath = path.join(directory, 'package.json')
@@ -50,6 +54,11 @@ export function assertInstalledDependencies(fixtureArg) {
     )
   }
   for (const [name, version, message] of [
+    [
+      '@shadcn/react',
+      '0.3.1',
+      'Chat compositions must share the native shadcn runtime',
+    ],
     [
       'react-resizable-panels',
       '4.14.8',

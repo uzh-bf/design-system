@@ -182,3 +182,52 @@ test('packed Panels share native layouts and persist conditional panel sets', as
   })
   expect(errors).toEqual([])
 })
+
+test('packed chat hydrates and shares the application native provider', async ({
+  page,
+}) => {
+  const errors: string[] = []
+  page.on('pageerror', (error) => errors.push(error.message))
+  page.on('console', (message) => {
+    if (
+      message.type() === 'error' &&
+      /hydrat|server rendered html|did not match/i.test(message.text())
+    )
+      errors.push(message.text())
+  })
+  await page.goto('/')
+  const viewport = page.locator('[data-test="packed-scroller-viewport"]')
+  await expect(viewport).toBeVisible()
+  const gap = () =>
+    viewport.evaluate((el) => el.scrollHeight - el.clientHeight - el.scrollTop)
+  await expect.poll(gap).toBeLessThan(3)
+  await page.locator('[data-test="packed-chat-append"]').click()
+  await expect.poll(gap).toBeLessThan(3)
+  await expect(page.locator('[data-test="packed-mixed-message"]')).toBeVisible()
+  expect(errors).toEqual([])
+})
+
+test('packed server transcript stays readable without JavaScript', async ({
+  browser,
+}) => {
+  const context = await browser.newContext({ javaScriptEnabled: false })
+  const page = await context.newPage()
+  try {
+    await page.goto('/')
+    await expect(
+      page.locator('[data-test="packed-scroller-viewport"]')
+    ).toBeVisible()
+    await expect(
+      page
+        .locator(
+          '[data-test="packed-scroller"] [data-slot="message-scroller-item"]'
+        )
+        .first()
+    ).toBeVisible()
+    await expect(
+      page.locator('[data-test="packed-mixed-message"]')
+    ).toBeVisible()
+  } finally {
+    await context.close()
+  }
+})

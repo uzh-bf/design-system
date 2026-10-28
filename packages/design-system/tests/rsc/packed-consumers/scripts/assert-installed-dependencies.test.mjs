@@ -144,3 +144,22 @@ for (const [name, version, label, error] of [
     })
   }
 }
+
+test('rejects duplicate first-party chat runtime context at the matching version', (t) => {
+  const x = fixture(t)
+  const p = path.join(x.root, 'package.json')
+  const m = JSON.parse(fs.readFileSync(p, 'utf8'))
+  m.dependencies['@shadcn/react'] = '0.3.1'
+  fs.writeFileSync(p, JSON.stringify(m))
+  const addNative = (base) =>
+    x.add('@shadcn/react', '0.3.1', base, {
+      exports: { './message-scroller': './index.js' },
+    })
+  addNative(x.modules)
+  assert.doesNotThrow(() => assertInstalledDependencies(x.root))
+  addNative(path.join(x.ds, 'node_modules'))
+  assert.throws(
+    () => assertInstalledDependencies(x.root),
+    /share the native shadcn runtime/
+  )
+})
