@@ -2,20 +2,61 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-## [5.0.0-alpha.6](https://github.com/uzh-bf/design-system/compare/v5.0.0-alpha.5...v5.0.0-alpha.6) (2026-10-28)
+## [5.0.0-alpha.7](https://github.com/uzh-bf/design-system/compare/v5.0.0-alpha.5...v5.0.0-alpha.7) (2026-10-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* **resizable:** use native Panels 4 through both entries (#233)
+
+### Bug Fixes
+
+* **calendar:** align locale metadata and preserve picker contracts ([#228](https://github.com/uzh-bf/design-system/issues/228)) ([ce380d4](https://github.com/uzh-bf/design-system/commit/ce380d469259ca03d3c66380a8073a7cc8810e8c))
+* **controls:** restore accessible input and keyboard behavior ([#210](https://github.com/uzh-bf/design-system/issues/210)) ([e5a734e](https://github.com/uzh-bf/design-system/commit/e5a734e48feb547cedfc3f54a6653ce9bc5192fc))
+* **deps:** qualify native Next 16.4.1 fixtures ([#242](https://github.com/uzh-bf/design-system/issues/242)) ([3d4145f](https://github.com/uzh-bf/design-system/commit/3d4145f0690b3228fe7529cd46721617c2f11687))
+* **pickers:** restore year navigation and error contrast ([#237](https://github.com/uzh-bf/design-system/issues/237)) ([a475e8c](https://github.com/uzh-bf/design-system/commit/a475e8cd86964ed0935c031fd8d2999b09a8d592))
+* **sidebar:** preserve mobile props and opener focus ([#232](https://github.com/uzh-bf/design-system/issues/232)) ([274b7ae](https://github.com/uzh-bf/design-system/commit/274b7aedcc915340815b722249eb9d9069dac1e6))
+* **theme:** preserve responsive component layouts and UZH visual contracts ([#214](https://github.com/uzh-bf/design-system/issues/214)) ([0f5e730](https://github.com/uzh-bf/design-system/commit/0f5e730476969c9c8d0de64b03ea38aa96813ee0)), closes [#365DD5](https://github.com/uzh-bf/design-system/issues/365DD5) [#5972C5](https://github.com/uzh-bf/design-system/issues/5972C5) [#1D4ED8](https://github.com/uzh-bf/design-system/issues/1D4ED8) [#6D28D9](https://github.com/uzh-bf/design-system/issues/6D28D9) [#111111](https://github.com/uzh-bf/design-system/issues/111111) [#BF0D3](https://github.com/uzh-bf/design-system/issues/BF0D3) [#BD3902](https://github.com/uzh-bf/design-system/issues/BD3902) [#bf0d3](https://github.com/uzh-bf/design-system/issues/bf0d3) [#c5224](https://github.com/uzh-bf/design-system/issues/c5224) [#bf0d3](https://github.com/uzh-bf/design-system/issues/bf0d3) [#111111](https://github.com/uzh-bf/design-system/issues/111111)
+
 
 ### Enhancements
 
-- Add complete React Hook Form field capability parity while retaining Formik through v5 and the dedicated RHF entry.
-- Expand official Radix-compatible shadcn primitives and auxiliaries, native Recharts 3 composition, Calendar, Sidebar, Resizable, toast, chat, Questionnaire and CodeBlock support.
-- Align UZH application tokens and improve picker navigation, contrast, focus/ref behavior and representative application compositions.
-- Enforce pnpm 12 and the fourteen-day dependency policy with the previously approved exact exceptions; remove unused dependency ownership and qualify native Next consumer fixtures.
+* **chart:** support application-owned Recharts 3 and themed recipes ([#224](https://github.com/uzh-bf/design-system/issues/224)) ([a822118](https://github.com/uzh-bf/design-system/commit/a822118e1844cf567755f006e42335e476d4b9aa))
+* **chat:** add themed presentation and native scrolling ([#234](https://github.com/uzh-bf/design-system/issues/234)) ([21d39d1](https://github.com/uzh-bf/design-system/commit/21d39d11795dd88585d07c8becb1cde8df935355))
+* **code:** add CodeBlock, lazy highlighting and shadcn utilities ([#236](https://github.com/uzh-bf/design-system/issues/236)) ([30ed5c3](https://github.com/uzh-bf/design-system/commit/30ed5c3b0417da4f57b63ce657954cf8a2275361))
+* **components:** align shared presentation and control APIs ([#225](https://github.com/uzh-bf/design-system/issues/225)) ([6e54cca](https://github.com/uzh-bf/design-system/commit/6e54ccaa133c5b9838cee88634472a7b7895a7f2)), closes [#365DD5](https://github.com/uzh-bf/design-system/issues/365DD5) [#5972C5](https://github.com/uzh-bf/design-system/issues/5972C5) [#1D4ED8](https://github.com/uzh-bf/design-system/issues/1D4ED8) [#6D28D9](https://github.com/uzh-bf/design-system/issues/6D28D9) [#111111](https://github.com/uzh-bf/design-system/issues/111111) [#BF0D3](https://github.com/uzh-bf/design-system/issues/BF0D3) [#BD3902](https://github.com/uzh-bf/design-system/issues/BD3902) [#bf0d3](https://github.com/uzh-bf/design-system/issues/bf0d3) [#c5224](https://github.com/uzh-bf/design-system/issues/c5224) [#bf0d3](https://github.com/uzh-bf/design-system/issues/bf0d3) [#111111](https://github.com/uzh-bf/design-system/issues/111111)
+* **components:** extend Radix overlay and menu composition ([#226](https://github.com/uzh-bf/design-system/issues/226)) ([4edc5ac](https://github.com/uzh-bf/design-system/commit/4edc5acf049bdc469677c6bb08cb28d82940ed50))
+* **components:** improve readable defaults and caller overrides ([#217](https://github.com/uzh-bf/design-system/issues/217)) ([866b1e3](https://github.com/uzh-bf/design-system/commit/866b1e3b82dd629792678eb089e875ff3937937b))
+* **compositions:** verify public application journeys ([#239](https://github.com/uzh-bf/design-system/issues/239)) ([af1acfa](https://github.com/uzh-bf/design-system/commit/af1acfa0b22cc95ddb7a12e4445aa02cbe177226))
+* **controls:** extend v5 primitive compatibility ([#223](https://github.com/uzh-bf/design-system/issues/223)) ([0cf9958](https://github.com/uzh-bf/design-system/commit/0cf9958025e48f84adf64123c149431a021f497d))
+* **forms:** add native Questionnaire with ergonomic props ([#235](https://github.com/uzh-bf/design-system/issues/235)) ([ce3eabc](https://github.com/uzh-bf/design-system/commit/ce3eabcb013f7280079916a148517069882e4682))
+* **forms:** complete RHF color date and time adapters ([#220](https://github.com/uzh-bf/design-system/issues/220)) ([a6d526a](https://github.com/uzh-bf/design-system/commit/a6d526ab40342fd0cee9dab76a322329a8771254))
+* **forms:** extend RHF fields with textarea switch and PIN adapters ([#219](https://github.com/uzh-bf/design-system/issues/219)) ([7011647](https://github.com/uzh-bf/design-system/commit/70116476936bf52f8398446a052c2bdb7d1c9d86)), closes [#365DD5](https://github.com/uzh-bf/design-system/issues/365DD5) [#5972C5](https://github.com/uzh-bf/design-system/issues/5972C5) [#1D4ED8](https://github.com/uzh-bf/design-system/issues/1D4ED8) [#6D28D9](https://github.com/uzh-bf/design-system/issues/6D28D9) [#111111](https://github.com/uzh-bf/design-system/issues/111111) [#BF0D3](https://github.com/uzh-bf/design-system/issues/BF0D3) [#BD3902](https://github.com/uzh-bf/design-system/issues/BD3902) [#bf0d3](https://github.com/uzh-bf/design-system/issues/bf0d3) [#c5224](https://github.com/uzh-bf/design-system/issues/c5224) [#bf0d3](https://github.com/uzh-bf/design-system/issues/bf0d3) [#111111](https://github.com/uzh-bf/design-system/issues/111111)
+* **forms:** unify field help and validation ([#213](https://github.com/uzh-bf/design-system/issues/213)) ([904f0c3](https://github.com/uzh-bf/design-system/commit/904f0c37a605b1d25f6a25f93a7c57d887b70bca))
+* **resizable:** align primitives with native Panels 4 ([#229](https://github.com/uzh-bf/design-system/issues/229)) ([4569ac9](https://github.com/uzh-bf/design-system/commit/4569ac9e1e69c63738e37b4c6870d6f81473f0ca)), closes [#365DD5](https://github.com/uzh-bf/design-system/issues/365DD5) [#5972C5](https://github.com/uzh-bf/design-system/issues/5972C5) [#1D4ED8](https://github.com/uzh-bf/design-system/issues/1D4ED8) [#6D28D9](https://github.com/uzh-bf/design-system/issues/6D28D9) [#111111](https://github.com/uzh-bf/design-system/issues/111111) [#BF0D3](https://github.com/uzh-bf/design-system/issues/BF0D3) [#BD3902](https://github.com/uzh-bf/design-system/issues/BD3902) [#bf0d3](https://github.com/uzh-bf/design-system/issues/bf0d3) [#c5224](https://github.com/uzh-bf/design-system/issues/c5224) [#bf0d3](https://github.com/uzh-bf/design-system/issues/bf0d3) [#111111](https://github.com/uzh-bf/design-system/issues/111111)
+* **resizable:** use native Panels 4 through both entries ([#233](https://github.com/uzh-bf/design-system/issues/233)) ([980b507](https://github.com/uzh-bf/design-system/commit/980b507f9bbae2668c35053b67376240f4793eb0))
+* **theme:** align palette utilities and interaction tokens ([#216](https://github.com/uzh-bf/design-system/issues/216)) ([caf5656](https://github.com/uzh-bf/design-system/commit/caf565686fb066853c7e5fa3ddd39272b294dc24))
+* **toast:** align Sonner options and theme behavior ([#230](https://github.com/uzh-bf/design-system/issues/230)) ([6c0575d](https://github.com/uzh-bf/design-system/commit/6c0575d63b1c30416f2c4d31c2139db680f08831))
 
-### Alpha testing limits
 
-- Native Recharts keyboard tooltips can overflow after a viewport shrink. No dependency patch or workaround is included.
-- Manual assistive-technology, Safari/device and exact current-candidate application acceptance remain GA gates.
-- Root parser/URI tooling advisories await mature same-major fixes; this test alpha does not claim GA advisory closure.
+### Build and CI
+
+* **deps:** modernize v5 dependencies and compatibility checks ([#211](https://github.com/uzh-bf/design-system/issues/211)) ([c7de321](https://github.com/uzh-bf/design-system/commit/c7de321e41bdbc12c454de901d1cfa73d74f2a4b))
+* **deps:** prune unused schema and browser timing paths ([#240](https://github.com/uzh-bf/design-system/issues/240)) ([b3dab6e](https://github.com/uzh-bf/design-system/commit/b3dab6eeb4163f26a04192b492e2e08891563e00))
+* **deps:** remediate compatible v5 dependency advisories ([#218](https://github.com/uzh-bf/design-system/issues/218)) ([4d23c29](https://github.com/uzh-bf/design-system/commit/4d23c2993aaef87a065a2b68631deb154e3a6db1))
+* **tooling:** adopt pnpm 12 with exact Panels exception ([#241](https://github.com/uzh-bf/design-system/issues/241)) ([83e683b](https://github.com/uzh-bf/design-system/commit/83e683b5f48673562d1d1a034abb0c764f9fdcc5))
+
+
+### Documentation
+
+* **project:** add v5 alpha release plan ([50ab98c](https://github.com/uzh-bf/design-system/commit/50ab98c2b85b72ac2b3fb2434fecd03f8fd8ee67))
+* **v5:** record Radix coverage and migration plans ([#222](https://github.com/uzh-bf/design-system/issues/222)) ([f745b68](https://github.com/uzh-bf/design-system/commit/f745b68e98d2d62b95ad86852d031e9e03a599e9))
+
+
+### Other
+
+* **release:** prepare design system 5.0.0-alpha.6 ([2db4980](https://github.com/uzh-bf/design-system/commit/2db49802f886a55c2ac6ab02e930d426bad8ab36))
+* **theme:** cover packed palette and reference compositions ([#215](https://github.com/uzh-bf/design-system/issues/215)) ([e90a7e6](https://github.com/uzh-bf/design-system/commit/e90a7e69a1b0f1756949e7cf06255a115c9093fb))
 
 ## [5.0.0-alpha.5](https://github.com/uzh-bf/design-system/compare/v5.0.0-alpha.4...v5.0.0-alpha.5) (2026-08-18)
 
