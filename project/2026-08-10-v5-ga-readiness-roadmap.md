@@ -286,7 +286,7 @@ browser qualification. The next implementation packages are:
    ineffective `yearRange` option and the application-owned non-Gregorian recipe
    remain named follow-ups; locale qualification alone does not close them.
    Presentation/control draft [#225](https://github.com/uzh-bf/design-system/pull/225)
-   qualifies at `2d8b02a6f`; overlay/menu draft [#226](https://github.com/uzh-bf/design-system/pull/226) passes local behavioral and package gates. Reviews, native gallery publication and hosted qualification are active, then Calendar. An extra open-menu audit reproduces an existing Ladle-root `aria-hidden-focus` result on the lower exact package; keep it in GA accessibility follow-up.
+   qualifies at `2d8b02a6f`; overlay/menu draft [#226](https://github.com/uzh-bf/design-system/pull/226) qualifies at `4d5f60fc6` with configured final review, complete hosted CI, exact artifact proof and 42 published captures. Calendar draft [#228](https://github.com/uzh-bf/design-system/pull/228) implements locale/grid compatibility with local behavioral, packed and source-review proof. Implementation and local proof are complete, including the supplied-locale Gregorian correction and retained enUS datetime default. Final qualification evidence is recorded in the draft description. An extra open-menu audit reproduces an existing Ladle-root `aria-hidden-focus` result on the lower exact package; keep it in GA accessibility follow-up.
 2. **Layout and toast auxiliaries.** Plan Panels 4 compatibility, preserving
    existing panel props, persistence, refs and keyboard/touch behavior. The Sonner
    package owns caller-option merging and brand/light-dark theme integration;
@@ -859,3 +859,14 @@ Safari and physical-mobile qualification remain open. PR129's historical Formik
 auto-submit remains conditional on a concrete consumer need; PR135's Stencil
 package remains a separate initiative. No target merge, ready conversion,
 release publication or deployment is part of this remediation goal.
+
+### Calendar empty-error audit follow-up
+
+An extra synthetic empty-error audit reproduces a pre-existing UZH contrast
+failure on DatePicker and DateTimePicker placeholder text: `#666666` on
+`#ffdbcc`,4.44:1 rather than4.5:1. The exact qualified lower archive shows the
+same computed colours and axe result after transitions settle. The Calendar
+locale package changes neither these controls nor their colour tokens. Track a
+bounded picker/error-state contrast correction before GA; no waiver, suppression
+or current-package accessibility pass is implied by the existing closed-story
+checks. Manual qualification and exact integrated consumer acceptance stay open.
