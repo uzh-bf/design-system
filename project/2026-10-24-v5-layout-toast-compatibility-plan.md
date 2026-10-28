@@ -1,5 +1,10 @@
 # v5 layout, toast and Sidebar compatibility
 
+The completed batch below records the original dual-engine contract. The user
+subsequently selected one native Panels4 contract for breaking v5; see the
+[October25 migration plan](2026-10-25-v5-resizable-native-v4-plan.md) and ADR0010.
+Earlier package proof remains evidence of the earlier source only.
+
 ## Approval summary
 
 Qualify the remaining layout and toast auxiliaries used by the pinned official

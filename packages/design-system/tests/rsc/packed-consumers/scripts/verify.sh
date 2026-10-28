@@ -39,7 +39,7 @@ node "$fixture_dir/../prepare-packed-artifact.mjs" \
     exit 1
   fi
   test ! -e node_modules/react-hook-form
-  node --input-type=module -e "const root = await import('@uzh-bf/design-system'); await import('@uzh-bf/design-system/primitives'); for (const specifier of ['@uzh-bf/design-system/css', '@uzh-bf/design-system/preflight.css']) { const resolved = await import.meta.resolve(specifier); if (!resolved.endsWith('.css')) throw new Error('CSS export did not resolve: ' + specifier); } if (typeof root.Button !== 'function') throw new Error('root Button export missing');"
+  node --input-type=module -e "const root = await import('@uzh-bf/design-system'); const primitives = await import('@uzh-bf/design-system/primitives'); for (const name of ['ResizablePanelGroup', 'ResizablePanel', 'ResizableHandle', 'useDefaultLayout', 'useGroupRef', 'usePanelRef']) { if (root[name] !== primitives[name]) throw new Error('Resizable entries do not share identity: ' + name); } for (const specifier of ['@uzh-bf/design-system/css', '@uzh-bf/design-system/preflight.css']) { const resolved = await import.meta.resolve(specifier); if (!resolved.endsWith('.css')) throw new Error('CSS export did not resolve: ' + specifier); } if (typeof root.Button !== 'function') throw new Error('root Button export missing');"
 )
 
 (

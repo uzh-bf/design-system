@@ -1,179 +1,138 @@
-import { useMemo, useRef, useState } from 'react'
+import { useMemo, useState } from 'react'
 import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
+  useDefaultLayout,
+  useGroupRef,
+  usePanelRef,
 } from './Resizable'
 import {
   ResizableHandle as NativeResizableHandle,
   ResizablePanel as NativeResizablePanel,
   ResizablePanelGroup as NativeResizablePanelGroup,
-  useDefaultLayout,
-  useGroupRef,
-  usePanelRef,
 } from './ui/resizable'
 
 {/* START README */}
 <div className="prose prose-sm max-w-none">
-The `Resizable` component provides user-controlled resizable panels with drag handles, enabling flexible layout customization. Users can adjust panel sizes by dragging resize handles to create personalized workspace arrangements.
+Both public entries export `ResizablePanelGroup`, `ResizablePanel` and
+`ResizableHandle`. These wrap native Panels 4 `Group`, `Panel` and `Separator`
+with the same contract and component implementation. Use either door, or mix their components in one
+group, when you need adjustable split panes, dashboards, editors or sidebars.
 
-Use this component when you need to:
+Panels 4 interprets numeric panel sizes as pixels. Write percentage sizes as
+strings, such as `defaultSize="30%"`. Group layouts and layout callbacks still
+use numbers as percentages. Groups support horizontal and vertical orientation,
+nested layouts, constraints, disabled controls, RTL, keyboard and pointer
+resizing, and a native double-click reset.
 
-- Create split-pane layouts that users can customize
-- Build resizable dashboard panels or content areas
-- Implement adjustable sidebars or content sections
-- Provide flexible workspace layouts that adapt to user preferences
-
-The resizable system supports both horizontal and vertical layouts, nested panel groups, minimum/maximum size constraints, and smooth resize animations. It maintains responsive behavior and provides accessible keyboard navigation for resize operations.
-
-The root `Resizable` family retains the Panels 3 percentage-based contract and
-saved layouts. The native `Group`, `Panel` and `Separator` recipe under
-`@uzh-bf/design-system/primitives` follows Panels 4: numbers are pixels,
-percentage strings use `%`, and other native CSS units remain supported;
-layouts are maps and the exported ref/persistence hooks own imperative and
-saved state. Keep each group within one family.
+The exported `useGroupRef`, `usePanelRef` and `useDefaultLayout` helpers expose
+the native imperative and persistence APIs. Saved layouts are ID-keyed maps.
+Native 4.14.8 provides a limited legacy-read fallback. The design system adds
+no converter; use a new persistence ID unless application acceptance proves
+reuse of existing storage.
 </div>
 {/* END README */}
 
 {/*
 AI_DOCUMENTATION_START
 
-Technical Overview: Root Resizable retains the react-resizable-panels 3 contract; native Group/Panel/Separator follows the Panels 4 recipe
-Dependencies: react-resizable-panels, react-resizable-panels-v4 (internal alias)
+Technical Overview: Both Resizable entry points use the official shadcn Radix Panels 4 recipe with one component identity
+Dependencies: react-resizable-panels@4.14.8
 
 Available Stories:
 
-- Default: Nested horizontal and vertical resizable panels with drag handles
-- Compatibility: Root v3 percentage, ref, callback, storage and interaction proof
-- NativeCompatibility: Native v4 units, layout map, helper, storage and interaction proof
+- Default: Nested horizontal and vertical panels through the root Resizable entry
+- Compatibility: Group and panel refs, layout maps, payloads, bounds, collapse, persistence and interactions through the root entry
+- NativeCompatibility: Percent and pixel sizing, mixed root/primitive components, callbacks, persistence and nesting through the primitive entry
 
-Props (ResizablePanelGroup component):
+Props (ResizablePanelGroup):
 
-- direction: "horizontal" | "vertical" - Layout direction for panels
-- className: string - Additional CSS classes
-- autoSaveId: string - Unique ID for saving panel sizes to localStorage
-- onLayout: (sizes: number[]) => void - Callback when panel sizes change
-- storage: PanelGroupStorage - Custom storage implementation for panel sizes
-
-Props (ResizablePanel component):
-
-- defaultSize: number - Initial size percentage (0-100)
-- minSize: number - Minimum size percentage
-- maxSize: number - Maximum size percentage
-- collapsible: boolean - Whether panel can collapse completely
-- collapsedSize: number - Size when collapsed
-- onCollapse: () => void - Callback when panel collapses
-- onExpand: () => void - Callback when panel expands
-- onResize: (size: number) => void - Callback when panel resizes
+- orientation: "horizontal" | "vertical" - Layout direction; defaults to horizontal
+- defaultLayout: Layout - Initial ID-to-percentage map
+- onLayoutChange: (layout: Layout) => void - Called continuously while the layout changes
+- onLayoutChanged: (layout: Layout, meta) => void - Called after a completed change; use for persistence
+- groupRef: Ref<GroupImperativeHandle> - Native getLayout/setLayout API
+- elementRef: Ref<HTMLDivElement> - DOM ref for the group
+- disabled: boolean - Disable resizing for the group
+- resizeTargetMinimumSize: { coarse: number; fine: number } - Minimum pointer target in pixels
 - className: string - Additional CSS classes
 
-Props (ResizableHandle component):
+Props (ResizablePanel):
+
+- defaultSize: number | string - Initial pixel, percentage or CSS-unit size
+- minSize / maxSize: number | string - Pixel, percentage or CSS-unit constraints
+- collapsible: boolean - Allow the panel to collapse
+- collapsedSize: number | string - Nonzero or zero collapsed size
+- panelRef: Ref<PanelImperativeHandle> - Native collapse/expand/getSize/resize API
+- elementRef: Ref<HTMLDivElement> - DOM ref for the panel
+- onResize: (current, id, previous) => void - Receives PanelSize values and the stable panel ID
+- disabled: boolean - Prevent direct and indirect panel resizing
+- className: string - Applied to the panel's nested inner div
+
+Props (ResizableHandle):
 
 - className: string - Additional CSS classes
-- withHandle: boolean - Whether to show visual handle indicator
-- disabled: boolean - Whether handle is disabled
-- onDragging: (isDragging: boolean) => void - Callback for drag state
+- withHandle: boolean - Show the visual grip
+- disabled: boolean - Disable this separator
+- disableDoubleClick: boolean - Disable native default-size reset
+- elementRef: Ref<HTMLDivElement> - DOM ref for the separator
+- children: ReactNode - Custom separator content
 
-Component Structure:
+Size interpretation:
 
-- ResizablePanelGroup from Resizable: Legacy v3 root container with percentage layout props
-- ResizablePanel and ResizableHandle from Resizable: Legacy v3 child controls
-- NativeResizablePanelGroup from ui/resizable: Panels 4 Group with pixel/percentage strings
-- NativeResizablePanel and NativeResizableHandle from ui/resizable: Panels 4 Panel and Separator controls
+- defaultSize={120}, minSize={80}, maxSize={240} and panelRef.current?.resize(120) use pixels.
+- defaultSize="30%" and resize("30%") use percentages of the group.
+- Layout maps and onLayoutChange/onLayoutChanged values use numeric percentages.
+- Strings with another CSS unit, such as "16rem", use that unit.
 
 Usage Examples:
 
 ```tsx
-// Basic horizontal split
-<ResizablePanelGroup direction="horizontal" className="min-h-[200px] rounded-lg border">
-  <ResizablePanel defaultSize={30}>
-    <div className="flex h-full items-center justify-center p-6">
-      <span className="font-semibold">Sidebar</span>
-    </div>
+<ResizablePanelGroup orientation="horizontal">
+  <ResizablePanel id="sidebar" defaultSize="30%" minSize="20%">
+    <div className="flex h-full items-center justify-center p-6">Sidebar</div>
   </ResizablePanel>
   <ResizableHandle withHandle />
-  <ResizablePanel defaultSize={70}>
-    <div className="flex h-full items-center justify-center p-6">
-      <span className="font-semibold">Main Content</span>
-    </div>
+  <ResizablePanel id="content" defaultSize="70%">
+    <div className="flex h-full items-center justify-center p-6">Content</div>
   </ResizablePanel>
 </ResizablePanelGroup>
 
-// Nested layouts
-<ResizablePanelGroup direction="horizontal" className="min-h-[400px] rounded-lg border">
-  <ResizablePanel defaultSize={25} minSize={15} maxSize={40}>
-    <div className="flex h-full items-center justify-center p-6">
-      <span className="font-semibold">Sidebar</span>
-    </div>
-  </ResizablePanel>
-  <ResizableHandle />
-  <ResizablePanel defaultSize={75}>
-    <ResizablePanelGroup direction="vertical">
-      <ResizablePanel defaultSize={60}>
-        <div className="flex h-full items-center justify-center p-6">
-          <span className="font-semibold">Editor</span>
-        </div>
-      </ResizablePanel>
-      <ResizableHandle />
-      <ResizablePanel defaultSize={40} minSize={20}>
-        <div className="flex h-full items-center justify-center p-6">
-          <span className="font-semibold">Terminal</span>
-        </div>
-      </ResizablePanel>
-    </ResizablePanelGroup>
-  </ResizablePanel>
-</ResizablePanelGroup>
+// A pixel-sized panel uses a number; a percentage uses a string.
+<ResizablePanel defaultSize={240} minSize={160}>
+  Navigation
+</ResizablePanel>
 
-// With localStorage persistence
+// Imperative layout maps use percentages.
+groupRef.current?.setLayout({ sidebar: 40, content: 60 })
+panelRef.current?.resize(200) // pixels
+
+// Persist each conditional panel set by its matching IDs.
+const { defaultLayout, onLayoutChanged } = useDefaultLayout({
+  id: 'editor-layout',
+  panelIds,
+  storage: ssrSafeStorage,
+})
+
 <ResizablePanelGroup
-  direction="horizontal"
-  autoSaveId="my-layout"
-  className="min-h-[300px] rounded-lg border"
+  defaultLayout={defaultLayout}
+  onLayoutChanged={onLayoutChanged}
 >
-  <ResizablePanel defaultSize={30} collapsible>
-    <div className="flex h-full items-center justify-center p-6">
-      <span className="font-semibold">Collapsible Panel</span>
-    </div>
-  </ResizablePanel>
-  <ResizableHandle withHandle />
-  <ResizablePanel defaultSize={70}>
-    <div className="flex h-full items-center justify-center p-6">
-      <span className="font-semibold">Main Panel</span>
-    </div>
-  </ResizablePanel>
-</ResizablePanelGroup>
-
-// Dashboard layout
-<ResizablePanelGroup direction="vertical" className="min-h-[500px] rounded-lg border">
-  <ResizablePanel defaultSize={20} minSize={10}>
-    <div className="flex h-full items-center justify-center p-6 bg-muted/50">
-      <span className="font-semibold">Header</span>
-    </div>
-  </ResizablePanel>
-  <ResizableHandle />
-  <ResizablePanel defaultSize={80}>
-    <ResizablePanelGroup direction="horizontal">
-      <ResizablePanel defaultSize={20} minSize={15} collapsible>
-        <div className="flex h-full items-center justify-center p-6">
-          <span className="font-semibold">Nav</span>
-        </div>
-      </ResizablePanel>
-      <ResizableHandle />
-      <ResizablePanel defaultSize={60}>
-        <div className="flex h-full items-center justify-center p-6">
-          <span className="font-semibold">Content</span>
-        </div>
-      </ResizablePanel>
-      <ResizableHandle />
-      <ResizablePanel defaultSize={20} minSize={15}>
-        <div className="flex h-full items-center justify-center p-6">
-          <span className="font-semibold">Aside</span>
-        </div>
-      </ResizablePanel>
-    </ResizablePanelGroup>
-  </ResizablePanel>
+  {panels}
 </ResizablePanelGroup>
 ```
+
+Migration from v3:
+
+- Replace direction with orientation and use percentage strings for numeric percentage defaults.
+- Replace React refs with groupRef/panelRef; use elementRef for DOM access.
+- Replace positional layout arrays with ID-keyed layout maps.
+- Replace autoSaveId and onLayout with useDefaultLayout and onLayoutChanged.
+- Replace onCollapse and onExpand with onResize or the native panel ref. There is no native drag lifecycle callback.
+- Remove tagName, order, hitAreaMargins and keyboardResizeBy. Use native divs, stable IDs and group resizeTargetMinimumSize.
+- Native double-click resets a neighboring panel with a default size; other panels rebalance. It can be disabled per separator.
+- Panel className applies to an inner div. Groups set inline flex direction; separators expose their own axis through aria-orientation.
 
 Related Components:
 
@@ -188,28 +147,28 @@ AI_DOCUMENTATION_END
 export const Default = () => {
   return (
     <ResizablePanelGroup
-      direction="horizontal"
+      orientation="horizontal"
       className="max-w-md rounded-lg border md:min-w-[450px]"
       data-test="default-root-group"
     >
-      <ResizablePanel defaultSize={50} data-test="default-root-left">
+      <ResizablePanel defaultSize="50%" data-test="default-root-left">
         <div className="flex h-[200px] items-center justify-center p-6">
           <span className="font-semibold">One</span>
         </div>
       </ResizablePanel>
       <ResizableHandle />
-      <ResizablePanel defaultSize={50}>
+      <ResizablePanel defaultSize="50%">
         <ResizablePanelGroup
-          direction="vertical"
+          orientation="vertical"
           data-test="default-root-nested"
         >
-          <ResizablePanel defaultSize={25} data-test="default-root-top">
+          <ResizablePanel defaultSize="25%" data-test="default-root-top">
             <div className="flex h-full items-center justify-center p-6">
               <span className="font-semibold">Two</span>
             </div>
           </ResizablePanel>
           <ResizableHandle />
-          <ResizablePanel defaultSize={75} data-test="default-root-bottom">
+          <ResizablePanel defaultSize="75%" data-test="default-root-bottom">
             <div className="flex h-full items-center justify-center p-6">
               <span className="font-semibold">Three</span>
             </div>
@@ -219,39 +178,42 @@ export const Default = () => {
     </ResizablePanelGroup>
   )
 }
+
 export const Compatibility = () => {
-  const groupRef = useRef(null)
-  const panelRef = useRef(null)
-  const [layout, setLayout] = useState([])
-  const [nestedLayout, setNestedLayout] = useState([])
+  const rootStoryStorage = useMemo(() => ({
+    getItem: (name) => typeof window === 'undefined' ? null : window.localStorage.getItem('resizable-root-story:' + name),
+    setItem: (name, value) => {
+      if (typeof window !== 'undefined') window.localStorage.setItem('resizable-root-story:' + name, value)
+    },
+  }), [])
+  const groupRef = useGroupRef()
+  const panelRef = usePanelRef()
+  const [layout, setLayout] = useState({})
+  const [nestedLayout, setNestedLayout] = useState({})
+  const [boundsLayout, setBoundsLayout] = useState({})
+  const [disabledLayout, setDisabledLayout] = useState({})
+  const [rtlLayout, setRtlLayout] = useState({})
   const [refLayout, setRefLayout] = useState(null)
   const [refPanel, setRefPanel] = useState(null)
   const [collapsed, setCollapsed] = useState(false)
-  const [callbacks, setCallbacks] = useState({
-    collapse: 0,
-    expand: 0,
-    resize: 0,
+  const [resizeEvents, setResizeEvents] = useState([])
+  const persistence = useDefaultLayout({
+    id: 'root-story-persistence',
+    panelIds: ['root-story-left', 'root-story-right'],
+    storage: rootStoryStorage,
   })
-  const [disabledLayout, setDisabledLayout] = useState([])
-  const [rtlLayout, setRtlLayout] = useState([])
-  const customStorage = useMemo(
-    () => ({
-      getItem: (name) => window.localStorage.getItem(`root-story:${name}`),
-      setItem: (name, value) => {
-        window.localStorage.setItem(`root-story:${name}`, value)
-      },
-    }),
-    []
-  )
-  const incrementCallback = (name) =>
-    setCallbacks((counts) => ({ ...counts, [name]: counts[name] + 1 }))
+
+  const readPanel = () => {
+    setRefPanel(panelRef.current?.getSize() ?? null)
+    setCollapsed(panelRef.current?.isCollapsed() ?? false)
+  }
 
   return (
-    <div className="bg-background text-foreground flex max-w-5xl flex-col gap-4">
+    <div className="bg-background text-foreground flex max-w-5xl flex-col gap-4 [&_output]:min-w-0 [&_output]:break-all">
       <div className="prose prose-sm max-w-none dark:prose-invert">
-        Synthetic root contracts cover v3 percentages, refs and callbacks,
-        custom tags, ordering, nesting, custom storage, keyboard and pointer
-        resizing, disabled controls, RTL and coarse input.
+        Compatibility through the root entry covers native percentage sizing,
+        ID-keyed layouts, group and panel refs, onResize payloads, nonzero
+        collapse, bounds, custom persistence and interactions.
       </div>
       <div className="flex flex-wrap items-center gap-2">
         <button
@@ -259,29 +221,50 @@ export const Compatibility = () => {
           data-test="root-read-refs"
           onClick={() => {
             setRefLayout(groupRef.current?.getLayout() ?? null)
-            setRefPanel(
-              panelRef.current
-                ? {
-                    collapsed: panelRef.current.isCollapsed(),
-                    size: panelRef.current.getSize(),
-                  }
-                : null
-            )
+            readPanel()
           }}
         >
           Read root refs
         </button>
         <button
           type="button"
+          data-test="root-set-layout"
+          onClick={() =>
+            groupRef.current?.setLayout({
+              'root-story-left': 40,
+              'root-story-right': 60,
+            })
+          }
+        >
+          Set root layout
+        </button>
+        <button
+          type="button"
+          data-test="root-resize-pixels"
+          onClick={() => {
+            panelRef.current?.resize(96)
+            readPanel()
+          }}
+        >
+          Resize root panel to pixels
+        </button>
+        <button
+          type="button"
           data-test="root-collapse"
-          onClick={() => panelRef.current?.collapse()}
+          onClick={() => {
+            panelRef.current?.collapse()
+            readPanel()
+          }}
         >
           Collapse root panel
         </button>
         <button
           type="button"
           data-test="root-expand"
-          onClick={() => panelRef.current?.expand()}
+          onClick={() => {
+            panelRef.current?.expand()
+            readPanel()
+          }}
         >
           Expand root panel
         </button>
@@ -292,65 +275,58 @@ export const Compatibility = () => {
         <output data-test="root-ref-layout">{JSON.stringify(refLayout)}</output>
         <output data-test="root-ref-panel">{JSON.stringify(refPanel)}</output>
         <output data-test="root-collapsed">{String(collapsed)}</output>
-        <output data-test="root-callbacks">{JSON.stringify(callbacks)}</output>
+        <output data-test="root-resize-events">
+          {JSON.stringify(resizeEvents)}
+        </output>
       </div>
 
       <ResizablePanelGroup
         id="root-story-group"
-        ref={groupRef}
-        direction="horizontal"
-        tagName="nav"
-        aria-label="Root percentage layout"
-        autoSaveId="root-story-persistence"
-        storage={customStorage}
-        keyboardResizeBy={5}
-        onLayout={setLayout}
+        orientation="horizontal"
+        groupRef={groupRef}
+        defaultLayout={persistence.defaultLayout}
+        onLayoutChange={setLayout}
+        onLayoutChanged={persistence.onLayoutChanged}
+        aria-label="Root native layout"
         style={{ height: 180 }}
       >
         <ResizablePanel
           id="root-story-left"
-          ref={panelRef}
-          order={1}
-          defaultSize={30}
-          minSize={20}
-          maxSize={80}
+          panelRef={panelRef}
+          defaultSize="30%"
+          minSize={48}
+          maxSize="80%"
           collapsible
-          collapsedSize={0}
-          tagName="aside"
-          onCollapse={() => {
-            setCollapsed(true)
-            incrementCallback('collapse')
+          collapsedSize={32}
+          onResize={(current, id, previous) => {
+            setResizeEvents((events) =>
+              [...events, { current, id, previous }].slice(-8)
+            )
+            readPanel()
           }}
-          onExpand={() => {
-            setCollapsed(false)
-            incrementCallback('expand')
-          }}
-          onResize={() => incrementCallback('resize')}
         >
           <div className="h-full bg-muted/30" />
         </ResizablePanel>
         <ResizableHandle
           id="root-story-separator"
-          aria-label="Resize ordered root panels"
+          aria-label="Resize root native panels"
         />
         <ResizablePanel
           id="root-story-right"
-          order={2}
-          defaultSize={70}
-          tagName="article"
+          defaultSize="70%"
+          minSize="20%"
         >
           <ResizablePanelGroup
             id="root-nested-group"
-            direction="vertical"
-            tagName="section"
-            aria-label="Nested root layout"
-            onLayout={setNestedLayout}
+            orientation="vertical"
+            onLayoutChange={setNestedLayout}
+            aria-label="Nested root native layout"
           >
-            <ResizablePanel order={1} defaultSize={60}>
+            <ResizablePanel id="root-nested-top" defaultSize="60%">
               <div className="h-full bg-muted/20" />
             </ResizablePanel>
-            <ResizableHandle aria-label="Resize nested root panels" />
-            <ResizablePanel order={2} defaultSize={40}>
+            <ResizableHandle aria-label="Resize nested root native panels" />
+            <ResizablePanel id="root-nested-bottom" defaultSize="40%">
               <div className="h-full bg-muted/10" />
             </ResizablePanel>
           </ResizablePanelGroup>
@@ -358,20 +334,51 @@ export const Compatibility = () => {
       </ResizablePanelGroup>
 
       <ResizablePanelGroup
+        id="root-bounds-group"
+        orientation="horizontal"
+        onLayoutChange={setBoundsLayout}
+        style={{ height: 120 }}
+      >
+        <ResizablePanel
+          id="root-bounds-left"
+          defaultSize="50%"
+          minSize="20%"
+          maxSize="80%"
+        >
+          <div className="h-full bg-muted/30" />
+        </ResizablePanel>
+        <ResizableHandle
+          id="root-bounds-separator"
+          aria-label="Resize bounded root panels"
+        />
+        <ResizablePanel
+          id="root-bounds-right"
+          defaultSize="50%"
+          minSize="20%"
+          maxSize="80%"
+        >
+          <div className="h-full bg-muted/10" />
+        </ResizablePanel>
+      </ResizablePanelGroup>
+      <output data-test="root-bounds-layout-state">
+        {JSON.stringify(boundsLayout)}
+      </output>
+
+      <ResizablePanelGroup
         id="root-disabled-group"
-        direction="horizontal"
-        onLayout={setDisabledLayout}
+        orientation="horizontal"
+        onLayoutChange={setDisabledLayout}
         style={{ height: 140 }}
       >
-        <ResizablePanel defaultSize={50}>
+        <ResizablePanel id="root-disabled-left" defaultSize="50%">
           <div className="h-full bg-muted/30" />
         </ResizablePanel>
         <ResizableHandle
           id="root-disabled-separator"
           disabled
-          aria-label="Disabled root resize handle"
+          aria-label="Disabled root native resize handle"
         />
-        <ResizablePanel defaultSize={50}>
+        <ResizablePanel id="root-disabled-right" defaultSize="50%">
           <div className="h-full bg-muted/10" />
         </ResizablePanel>
       </ResizablePanelGroup>
@@ -381,19 +388,19 @@ export const Compatibility = () => {
 
       <ResizablePanelGroup
         id="root-rtl-group"
-        direction="horizontal"
+        orientation="horizontal"
         dir="rtl"
-        onLayout={setRtlLayout}
+        onLayoutChange={setRtlLayout}
         style={{ height: 140 }}
       >
-        <ResizablePanel defaultSize={50}>
+        <ResizablePanel id="root-rtl-left" defaultSize="50%">
           <div className="h-full bg-muted/30" />
         </ResizablePanel>
         <ResizableHandle
           id="root-rtl-separator"
-          aria-label="Resize RTL root panels"
+          aria-label="Resize RTL root native panels"
         />
-        <ResizablePanel defaultSize={50}>
+        <ResizablePanel id="root-rtl-right" defaultSize="50%">
           <div className="h-full bg-muted/10" />
         </ResizablePanel>
       </ResizablePanelGroup>
@@ -405,16 +412,20 @@ export const Compatibility = () => {
 }
 
 export const NativeCompatibility = () => {
+  const nativeStoryStorage = useMemo(() => ({
+    getItem: (name) => typeof window === 'undefined' ? null : window.localStorage.getItem('resizable-native-story:' + name),
+    setItem: (name, value) => {
+      if (typeof window !== 'undefined') window.localStorage.setItem('resizable-native-story:' + name, value)
+    },
+  }), [])
   const groupRef = useGroupRef()
   const panelRef = usePanelRef()
   const [layout, setLayout] = useState({})
   const [nestedLayout, setNestedLayout] = useState({})
   const [refLayout, setRefLayout] = useState(null)
-  const [refSize, setRefSize] = useState(null)
-  const [collapseState, setCollapseState] = useState(null)
-  const [resizeEvents, setResizeEvents] = useState({ count: 0 })
-  const [disabledLayout, setDisabledLayout] = useState({})
-  const [rtlLayout, setRtlLayout] = useState({})
+  const [refPanel, setRefPanel] = useState(null)
+  const [collapsed, setCollapsed] = useState(false)
+  const [resizeEvents, setResizeEvents] = useState([])
   const persistence = useDefaultLayout({
     id: 'native-story-persistence',
     panelIds: [
@@ -422,24 +433,20 @@ export const NativeCompatibility = () => {
       'native-pixel-panel',
       'native-auto-panel',
     ],
+    storage: nativeStoryStorage,
   })
-  const readPanel = () =>
-    setCollapseState(
-      panelRef.current
-        ? {
-            collapsed: panelRef.current.isCollapsed(),
-            size: panelRef.current.getSize(),
-          }
-        : null
-    )
+
+  const readPanel = () => {
+    setRefPanel(panelRef.current?.getSize() ?? null)
+    setCollapsed(panelRef.current?.isCollapsed() ?? false)
+  }
 
   return (
-    <div className="bg-background text-foreground flex max-w-5xl flex-col gap-4">
+    <div className="bg-background text-foreground flex max-w-5xl flex-col gap-4 [&_output]:min-w-0 [&_output]:break-all">
       <div className="prose prose-sm max-w-none dark:prose-invert">
-        Synthetic native contracts cover v4 percentage strings and pixel numbers,
-        layout maps, helper refs, collapse and expand, nested orientation,
-        persistence, keyboard and pointer resizing, disabled controls, RTL and
-        coarse input.
+        NativeCompatibility mixes both public doors in one group and covers
+        percentage strings, pixel numbers and resize calls, layout and resize
+        maps, refs, nonzero collapse, payloads, nesting and custom persistence.
       </div>
       <div className="flex flex-wrap items-center gap-2">
         <button
@@ -447,22 +454,51 @@ export const NativeCompatibility = () => {
           data-test="native-read-refs"
           onClick={() => {
             setRefLayout(groupRef.current?.getLayout() ?? null)
-            setRefSize(panelRef.current?.getSize() ?? null)
+            readPanel()
           }}
         >
           Read native refs
         </button>
         <button
           type="button"
+          data-test="native-set-layout"
+          onClick={() =>
+            groupRef.current?.setLayout({
+              'native-percent-panel': 40,
+              'native-pixel-panel': 30,
+              'native-auto-panel': 30,
+            })
+          }
+        >
+          Set native layout
+        </button>
+        <button
+          type="button"
+          data-test="native-resize-pixels"
+          onClick={() => {
+            panelRef.current?.resize(136)
+            readPanel()
+          }}
+        >
+          Resize native panel to pixels
+        </button>
+        <button
+          type="button"
           data-test="native-collapse"
-          onClick={() => panelRef.current?.collapse()}
+          onClick={() => {
+            panelRef.current?.collapse()
+            readPanel()
+          }}
         >
           Collapse native panel
         </button>
         <button
           type="button"
           data-test="native-expand"
-          onClick={() => panelRef.current?.expand()}
+          onClick={() => {
+            panelRef.current?.expand()
+            readPanel()
+          }}
         >
           Expand native panel
         </button>
@@ -473,10 +509,8 @@ export const NativeCompatibility = () => {
           {JSON.stringify(nestedLayout)}
         </output>
         <output data-test="native-ref-layout">{JSON.stringify(refLayout)}</output>
-        <output data-test="native-ref-size">{JSON.stringify(refSize)}</output>
-        <output data-test="native-collapse-state">
-          {JSON.stringify(collapseState)}
-        </output>
+        <output data-test="native-ref-panel">{JSON.stringify(refPanel)}</output>
+        <output data-test="native-collapsed">{String(collapsed)}</output>
         <output data-test="native-resize-events">
           {JSON.stringify(resizeEvents)}
         </output>
@@ -491,16 +525,16 @@ export const NativeCompatibility = () => {
         onLayoutChanged={persistence.onLayoutChanged}
         style={{ height: 140 }}
       >
-        <NativeResizablePanel
+        <ResizablePanel
           id="native-percent-panel"
           defaultSize="30%"
           minSize="15%"
         >
           <div className="h-full bg-muted/30" />
-        </NativeResizablePanel>
-        <NativeResizableHandle
+        </ResizablePanel>
+        <ResizableHandle
           id="native-units-separator"
-          aria-label="Resize native units"
+          aria-label="Resize mixed native units"
         />
         <NativeResizablePanel
           id="native-pixel-panel"
@@ -508,14 +542,17 @@ export const NativeCompatibility = () => {
           defaultSize={120}
           minSize={80}
           collapsible
-          onResize={() => {
-            setResizeEvents((events) => ({ count: events.count + 1 }))
+          collapsedSize={48}
+          onResize={(current, id, previous) => {
+            setResizeEvents((events) =>
+              [...events, { current, id, previous }].slice(-8)
+            )
             readPanel()
           }}
         >
           <div className="h-full bg-muted/20" />
         </NativeResizablePanel>
-        <NativeResizableHandle aria-label="Resize native units remainder" />
+        <NativeResizableHandle id="native-remainder-separator" aria-label="Resize native units remainder" />
         <NativeResizablePanel id="native-auto-panel">
           <NativeResizablePanelGroup
             id="native-nested-vertical"
@@ -535,50 +572,6 @@ export const NativeCompatibility = () => {
           </NativeResizablePanelGroup>
         </NativeResizablePanel>
       </NativeResizablePanelGroup>
-
-      <NativeResizablePanelGroup
-        id="native-disabled-group"
-        orientation="horizontal"
-        onLayoutChange={setDisabledLayout}
-        style={{ height: 140 }}
-      >
-        <NativeResizablePanel defaultSize="50%">
-          <div className="h-full bg-muted/30" />
-        </NativeResizablePanel>
-        <NativeResizableHandle
-          id="native-disabled-separator"
-          disabled
-          aria-label="Disabled native resize handle"
-        />
-        <NativeResizablePanel defaultSize="50%">
-          <div className="h-full bg-muted/10" />
-        </NativeResizablePanel>
-      </NativeResizablePanelGroup>
-      <output data-test="native-disabled-layout-state">
-        {JSON.stringify(disabledLayout)}
-      </output>
-
-      <NativeResizablePanelGroup
-        id="native-rtl-group"
-        orientation="horizontal"
-        dir="rtl"
-        onLayoutChange={setRtlLayout}
-        style={{ height: 140 }}
-      >
-        <NativeResizablePanel id="native-rtl-left" defaultSize="50%">
-          <div className="h-full bg-muted/30" />
-        </NativeResizablePanel>
-        <NativeResizableHandle
-          id="native-rtl-separator"
-          aria-label="Resize RTL native panels"
-        />
-        <NativeResizablePanel id="native-rtl-right" defaultSize="50%">
-          <div className="h-full bg-muted/10" />
-        </NativeResizablePanel>
-      </NativeResizablePanelGroup>
-      <output data-test="native-rtl-layout-state">
-        {JSON.stringify(rtlLayout)}
-      </output>
     </div>
   )
 }

@@ -9,6 +9,9 @@ import {
   Toaster as RootToaster,
   toast as rootToast,
   useSidebar as rootUseSidebar,
+  useDefaultLayout as useRootDefaultLayout,
+  useGroupRef as useRootGroupRef,
+  usePanelRef as useRootPanelRef,
 } from '../../src'
 import {
   DirectionProvider,
@@ -80,29 +83,41 @@ rootToast({
 })
 
 import type {
-  ImperativePanelGroupHandle,
-  ImperativePanelHandle,
-} from 'react-resizable-panels'
-import type {
   ButtonProps,
+  GroupImperativeHandle,
+  Layout,
   NavigationProps,
+  PanelImperativeHandle,
+  PanelSize,
   ProgressProps,
   WorkflowProps,
 } from '../../src'
 
+declare const typedLayout: Layout
+declare const typedSize: PanelSize
+void typedLayout
+void typedSize
+const rootGroupHook: typeof useGroupRef = useRootGroupRef
+const rootPanelHook: typeof usePanelRef = useRootPanelRef
+void rootGroupHook
+void rootPanelHook
+void useRootDefaultLayout
 createElement(RootResizablePanelGroup, {
-  direction: 'horizontal',
-  autoSaveId: 'typed-layout',
-  keyboardResizeBy: 5,
-  tagName: 'section',
-  ref: createRef<ImperativePanelGroupHandle>(),
-  onLayout: (layout) => layout.map((size) => size.toFixed(1)),
+  orientation: 'horizontal',
+  groupRef: createRef<GroupImperativeHandle>(),
+  onLayoutChanged: (layout, meta) => {
+    void Object.values(layout)
+    void meta.isUserInteraction
+  },
 })
 createElement(RootResizablePanel, {
-  defaultSize: 30,
-  order: 1,
-  ref: createRef<ImperativePanelHandle>(),
-  onResize: (size, previous) => size + (previous ?? 0),
+  defaultSize: '30%',
+  panelRef: createRef<PanelImperativeHandle>(),
+  onResize: (size, id, previous) => {
+    void size.inPixels
+    void id
+    void previous?.asPercentage
+  },
 })
 createElement(ResizablePanelGroup, {
   orientation: 'vertical',
@@ -117,8 +132,16 @@ createElement(ResizablePanel, {
   panelRef: createRef<ReturnType<typeof usePanelRef>['current']>(),
   onResize: (size) => size.asPercentage + size.inPixels,
 })
-// @ts-expect-error Root Resizable keeps percentage numbers rather than v4 unit strings.
-createElement(RootResizablePanel, { defaultSize: '30%' })
+// @ts-expect-error Native persistence is supplied through useDefaultLayout.
+createElement(RootResizablePanelGroup, { autoSaveId: 'legacy-layout' })
+createElement(RootResizablePanelGroup, {
+  // @ts-expect-error Imperative handles use groupRef; elementRef receives a div.
+  elementRef: createRef<GroupImperativeHandle>(),
+})
+// @ts-expect-error Native callbacks replace the removed v3 collapse event.
+createElement(RootResizablePanel, { onCollapse: () => undefined })
+// @ts-expect-error Native panels follow DOM order.
+createElement(ResizablePanel, { order: 1 })
 // @ts-expect-error Native primitives use orientation rather than the v3 direction prop.
 createElement(ResizablePanelGroup, { direction: 'horizontal' })
 

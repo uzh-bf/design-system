@@ -5,6 +5,8 @@ import {
   ResizableHandle as RootHandle,
   ResizablePanel as RootPanel,
   Toaster,
+  useDefaultLayout as useRootDefaultLayout,
+  useGroupRef as useRootGroupRef,
 } from '@uzh-bf/design-system'
 import {
   ResizableHandle,
@@ -15,26 +17,107 @@ import {
   usePanelRef,
   type Layout,
 } from '@uzh-bf/design-system/primitives'
-import { useRef, useState } from 'react'
+import { useMemo, useState } from 'react'
 import {
   Panel as ApplicationPanel,
-  type ImperativePanelGroupHandle,
+  type LayoutStorage,
 } from 'react-resizable-panels'
 import { toast as applicationToast } from 'sonner'
 
-const layoutStorage = {
-  getItem: (key: string) =>
-    typeof window === 'undefined' ? null : window.localStorage.getItem(key),
-  setItem: (key: string, value: string) => {
-    if (typeof window !== 'undefined') window.localStorage.setItem(key, value)
-  },
+function PackedRootLayout({
+  expanded,
+  storage,
+}: {
+  expanded: boolean
+  storage: LayoutStorage
+}) {
+  const rootRef = useRootGroupRef()
+  const [layout, setLayout] = useState<Layout>({})
+  const panelIds = useMemo(
+    () =>
+      expanded
+        ? ['root-left', 'root-right', 'root-extra']
+        : ['root-left', 'root-right'],
+    [expanded]
+  )
+  const persistence = useRootDefaultLayout({
+    id: 'packed-root-persistence',
+    storage,
+    panelIds,
+  })
+
+  return (
+    <section data-test="packed-root-layout">
+      <h2>Shared resizable layout</h2>
+      <RootGroup
+        id="packed-root-group"
+        groupRef={rootRef}
+        orientation="horizontal"
+        defaultLayout={persistence.defaultLayout}
+        onLayoutChanged={persistence.onLayoutChanged}
+        onLayoutChange={setLayout}
+        style={{ height: 140 }}
+      >
+        <ApplicationPanel id="root-left" defaultSize="30%" minSize="10%">
+          Left
+        </ApplicationPanel>
+        <ResizableHandle aria-label="Resize shared panels" withHandle />
+        <RootPanel
+          id="root-right"
+          defaultSize={expanded ? '50%' : '70%'}
+          minSize="10%"
+        >
+          Right
+        </RootPanel>
+        {expanded && (
+          <>
+            <RootHandle aria-label="Resize extra panel" />
+            <ResizablePanel id="root-extra" defaultSize="20%" minSize="10%">
+              Extra
+            </ResizablePanel>
+          </>
+        )}
+      </RootGroup>
+      <button
+        data-test="packed-root-resize"
+        onClick={() =>
+          rootRef.current?.setLayout(
+            expanded
+              ? { 'root-left': 20, 'root-right': 50, 'root-extra': 30 }
+              : { 'root-left': 40, 'root-right': 60 }
+          )
+        }
+      >
+        Resize shared panels
+      </button>
+      <output data-test="packed-root-layout-state">
+        {JSON.stringify(layout)}
+      </output>
+    </section>
+  )
 }
 
-export function AuxiliaryLeaf() {
-  const rootRef = useRef<ImperativePanelGroupHandle>(null)
+export function AuxiliaryLeaf({
+  initialLayouts,
+}: {
+  initialLayouts: Record<string, string>
+}) {
+  const layoutStorage = useMemo(() => {
+    // Hydration must read the same persisted snapshot as the server render.
+    const values = { ...initialLayouts }
+    return {
+      getItem: (key: string) => values[key] ?? null,
+      setItem: (key: string, value: string) => {
+        values[key] = value
+        if (typeof window !== 'undefined') {
+          document.cookie = `ds-fixture-panel-layouts=${encodeURIComponent(JSON.stringify(values))}; Path=/; SameSite=Lax`
+        }
+      },
+    }
+  }, [initialLayouts])
   const groupRef = useGroupRef()
   const panelRef = usePanelRef()
-  const [rootLayout, setRootLayout] = useState<number[]>([])
+  const [expanded, setExpanded] = useState(false)
   const [nativeLayout, setNativeLayout] = useState<Layout>({})
   const [explicitToastTheme, setExplicitToastTheme] = useState<
     'light' | undefined
@@ -46,34 +129,17 @@ export function AuxiliaryLeaf() {
 
   return (
     <div>
-      <section data-test="packed-root-layout">
-        <h2>Legacy resizable layout</h2>
-        <RootGroup
-          id="packed-root-group"
-          autoSaveId="packed-root-persistence"
-          ref={rootRef}
-          direction="horizontal"
-          onLayout={setRootLayout}
-          style={{ height: 140 }}
-        >
-          <ApplicationPanel id="root-left" defaultSize={30} minSize={10}>
-            Left
-          </ApplicationPanel>
-          <RootHandle aria-label="Resize legacy panels" withHandle />
-          <RootPanel id="root-right" defaultSize={70} minSize={10}>
-            Right
-          </RootPanel>
-        </RootGroup>
-        <button
-          data-test="packed-root-resize"
-          onClick={() => rootRef.current?.setLayout([40, 60])}
-        >
-          Resize legacy panels
-        </button>
-        <output data-test="packed-root-layout-state">
-          {JSON.stringify(rootLayout)}
-        </output>
-      </section>
+      <PackedRootLayout
+        key={String(expanded)}
+        expanded={expanded}
+        storage={layoutStorage}
+      />
+      <button
+        data-test="packed-root-toggle-panels"
+        onClick={() => setExpanded((value) => !value)}
+      >
+        Toggle extra panel
+      </button>
       <section data-test="packed-shared-toast">
         <h2>Application toast runtime</h2>
         <Toaster

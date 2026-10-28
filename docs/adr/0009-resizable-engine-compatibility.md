@@ -1,6 +1,9 @@
 # Retain legacy resizing while exposing the native Panels 4 recipe
 
-Status: Accepted (2026-10-24)
+Status: Superseded by [ADR0010](0010-single-native-resizable-contract.md) (2026-10-25).
+
+The following records the earlier dual-engine decision. ADR0010 moves both doors
+to native Panels 4 during the breaking v5 release.
 
 Keep `react-resizable-panels` 3.0.6 under its existing dependency name for the
 root Resizable family. The raw `./primitives` family uses the official Panels
