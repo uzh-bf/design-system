@@ -8,8 +8,10 @@ Current follow-up (October 23): Phase 2 and the library qualification are delive
 in the unmerged draft stack through [PR218](https://github.com/uzh-bf/design-system/pull/218).
 The subsequent [Klicker pilot PR6652](https://github.com/uzh-bf/klicker-uzh/pull/6652)
 qualifies the historical exact candidate and delivers its local routing repair.
-Its retained Formik and palette/focus overrides leave RHF parity and complete
-new-default acceptance open. The [GA roadmap](2026-08-10-v5-ga-readiness-roadmap.md#current-execution-index--2026-10-23)
+Its retained Formik and palette/focus overrides limit new-default acceptance.
+RHF parity now qualifies in DS drafts219/220, with the selected exact-candidate
+GBL RHF journey qualified in draft224. GBL and Klicker remain unmerged by user
+ruling; integrated candidate and manual UZH acceptance remain open. The [GA roadmap](2026-08-10-v5-ga-readiness-roadmap.md#current-execution-index--2026-10-23)
 now requires full RHF/Formik capability parity, official shadcn Radix coverage
 with auxiliaries, current UZH alignment and integrated/manual qualification.
 The dated audits and completed plan scopes below remain historical evidence.
@@ -284,16 +286,14 @@ This needs a canonical-layer decision per component, wrapper styling aligned to 
 
 ## Immediate next actions
 
-1. Retain the completed token/default and historical exact-candidate evidence.
-   The previous routing-blocked candidate instruction is superseded by PR6652.
-2. Derive the RHF parity implementation plan from the GA roadmap's ten-family
-   matrix; preserve Formik and the optional RHF/RSC entry contract.
-3. Complete the pinned official Radix API/recipe/auxiliary matrix and implement
-   missing capabilities in bounded packages with explicit dependency migrations.
-4. Apply the UZH traceability above throughout those packages, then qualify the
-   integrated candidate and actual new defaults in representative consumers.
-5. Complete manual accessibility/browser/device evidence and promotion
-   preparation. Merge, publication and deployment retain named authority gates.
+The [GA roadmap current index](2026-08-10-v5-ga-readiness-roadmap.md#next-implementation-packages)
+owns ordering after completed RHF and GBL qualification. The
+[catalog planning package](2026-10-23-v5-catalog-compatibility-plan.md) maps the
+pinned public scope before further source/dependency changes. Prioritize small
+component compatibility and the Recharts peer contract, then remaining shared
+API deltas, auxiliaries and messaging compositions. Maintain official-source
+traceability and both supported themes in every package. Final integrated
+consumer and manual accessibility/browser evidence remain GA gates.
 
 ## October 18 evidence and remaining gates
 

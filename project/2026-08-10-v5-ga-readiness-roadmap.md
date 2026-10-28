@@ -1,6 +1,6 @@
 # Roadmap — Design System v5 GA readiness
 
-The library qualification and historical Klicker exact-package pilot are complete at draft delivery. RHF parity is implemented and both tested source tips pass hosted CI; final documentation-tip checks and quiet settle remain. GA still requires real-consumer acceptance, the official shadcn Radix catalog and auxiliary integrations, current UZH alignment, and integrated manual qualification.
+The library qualification and historical Klicker exact-package pilot are complete at draft delivery. RHF parity and the GBL exact-candidate journey qualify at their published draft heads. GA still requires the official shadcn Radix catalog and auxiliary integrations, integrated candidate consumer acceptance, current UZH alignment, and manual qualification. GBL and Klicker remain unmerged by user ruling.
 
 ## Identity and status
 
@@ -9,7 +9,7 @@ The library qualification and historical Klicker exact-package pilot are complet
   UZH Phase 2 and compatible dependency remediation are delivered in the unmerged
   draft stack. The historical Klicker pilot now qualifies the recorded candidate;
   the earlier authentication blocker is resolved in its consumer draft. Expanded
-  RHF/Radix coverage, UZH default acceptance, unresolved tooling advisories,
+  Radix coverage, integrated UZH default acceptance, unresolved tooling advisories,
   representative consumers and manual accessibility/browser checks remain open.
 - Repository: `uzh-bf/design-system`
 - Release trunk: `v5`
@@ -23,7 +23,10 @@ The library qualification and historical Klicker exact-package pilot are complet
   [#215](https://github.com/uzh-bf/design-system/pull/215) →
   [#216](https://github.com/uzh-bf/design-system/pull/216) →
   [#217](https://github.com/uzh-bf/design-system/pull/217) →
-  [#218](https://github.com/uzh-bf/design-system/pull/218). Merges remain separately gated.
+  [#218](https://github.com/uzh-bf/design-system/pull/218), followed by native stack221
+  [RHF fields219](https://github.com/uzh-bf/design-system/pull/219) →
+  [RHF pickers220](https://github.com/uzh-bf/design-system/pull/220).
+  The catalog documentation layer continues above220. Merges remain separately gated.
 - Audience: maintainers and future execution agents preparing v5 for GA and
   migrating the first production consumers.
 
@@ -115,7 +118,7 @@ Documentation reconciliation does not require integrating main into this stack.
 
 | Workstream                               | Delivered evidence                                                                                                                                                                                                                                                           | Remaining gate                                                                                                                                        |
 | ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Inputs, dependencies and field contracts | Drafts [PR210](https://github.com/uzh-bf/design-system/pull/210), [PR211](https://github.com/uzh-bf/design-system/pull/211) and [PR213](https://github.com/uzh-bf/design-system/pull/213) correct input/reset, disabled-selection, multi-select and transformed-type defects | Preserve these cases through the expanded catalog; existing RHF wrappers do not establish full Formik parity                                          |
+| Inputs, dependencies and field contracts | Drafts [PR210](https://github.com/uzh-bf/design-system/pull/210), [PR211](https://github.com/uzh-bf/design-system/pull/211) and [PR213](https://github.com/uzh-bf/design-system/pull/213) correct input/reset, disabled-selection, multi-select and transformed-type defects | Preserve these input cases through the expanded catalog; RHF parity is qualified in drafts PR219/220                                          |
 | Consumer CSS and UZH tokens/defaults     | [PR214](https://github.com/uzh-bf/design-system/pull/214) through [PR217](https://github.com/uzh-bf/design-system/pull/217) deliver scoped responsive CSS, palette/alias coverage, tokens and defaults                                                                       | Current official-source traceability, deliberate adaptations and new-default consumer proof remain required                                           |
 | Library qualification                    | [PR218](https://github.com/uzh-bf/design-system/pull/218) at the source baseline above has 18 successful checks and two expected skips; its [completed plan](2026-10-19-v5-ga-qualification-plan.md) owns the evidence                                                       | Six tooling advisories were still open in the October 19 full audit; refresh before remediation, retain constraints and close before GA               |
 | Historical Klicker pilot                 | [Draft PR6652](https://github.com/uzh-bf/klicker-uzh/pull/6652) at `4f6e8c56e36b8ceeaa87ce859d2c736d7c9a71a4` delivers the dev-only Webpack routing repair and consumer acceptance; eight required checks pass, with 997 browser passes and five skips                       | Retained Formik and palette/focus overrides limit this proof. It does not establish RHF parity, full new-default adoption or current-trunk acceptance |
@@ -135,8 +138,9 @@ The October 23 review found the retained pilot stopped with unavailable routes.
 That is a current environment limitation, not a retraction of recorded passing
 journeys. Its previous user retention/pinning ruling remains relevant; refresh
 ownership and lifecycle evidence before resuming it. Do not restart or alter it
-for this documentation reconciliation. Optional review feedback in PR6652 remains
-to be dispositioned before consumer readiness.
+for this documentation reconciliation. The October23 exact-head commit status still has `final-ai-review` pending.
+Keep that current review state distinct from historical passing source/browser
+acceptance; its required-gate classification has not been established here.
 
 ### Binding v5 GA scope
 
@@ -145,18 +149,18 @@ auxiliary dependencies. It does not request three complete primitive backends.
 A dependency used by an official Radix component, such as Base UI inside the
 current Combobox, belongs in the dependency compatibility assessment.
 
-| Formik family retained through v5 | Dedicated RHF counterpart in current draft work                                        | Completion requirement                                                |
-| --------------------------------- | -------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| Text                              | `RhfTextField`                                                                         | Verify full capability parity                                         |
-| Number                            | `RhfNumberField`                                                                       | Verify transient editing, bounds, stepper and reset semantics         |
-| Select                            | `RhfSelectField`                                                                       | Verify selection, external errors and focus behavior                  |
-| Textarea                          | [`RhfTextareaField` in PR219](https://github.com/uzh-bf/design-system/pull/219)        | Add `RhfTextareaField` using the existing control                     |
-| Switch                            | [`RhfSwitchField` in PR219](https://github.com/uzh-bf/design-system/pull/219)          | Add `RhfSwitchField`; associate required/error state accessibly       |
-| Color picker                      | [`RhfColorPicker` in PR220](https://github.com/uzh-bf/design-system/pull/220)          | Add `RhfColorPicker` with equivalent selection/reset behavior         |
-| Date picker                       | [`RhfDatePicker` in PR220](https://github.com/uzh-bf/design-system/pull/220)           | Add `RhfDatePicker`; preserve empty/date/keyboard semantics           |
-| Date/time picker                  | [`RhfDatetimePicker` in PR220](https://github.com/uzh-bf/design-system/pull/220)       | Add `RhfDatetimePicker`; preserve time-zone and partial-edit behavior |
-| Numeric PIN                       | [`RhfPinField` in PR219](https://github.com/uzh-bf/design-system/pull/219)             | Add `RhfPinField`; preserve paste, sanitization and focus behavior    |
-| Alphanumeric PIN                  | [`RhfAlphaNumericPinField` in PR219](https://github.com/uzh-bf/design-system/pull/219) | Add `RhfAlphaNumericPinField`; preserve casing and character rules    |
+| Formik family retained through v5 | Qualified RHF counterpart | Evidence boundary |
+| --- | --- | --- |
+| Text | `RhfTextField` | [Draft PR219](https://github.com/uzh-bf/design-system/pull/219); all-family behavioral/type/packed proof |
+| Number | `RhfNumberField` | [Draft PR219](https://github.com/uzh-bf/design-system/pull/219); all-family behavioral/type/packed proof |
+| Select | `RhfSelectField` | [Draft PR219](https://github.com/uzh-bf/design-system/pull/219); all-family behavioral/type/packed proof |
+| Textarea | `RhfTextareaField` | [Draft PR219](https://github.com/uzh-bf/design-system/pull/219); all-family behavioral/type/packed proof |
+| Switch | `RhfSwitchField` | [Draft PR219](https://github.com/uzh-bf/design-system/pull/219); all-family behavioral/type/packed proof |
+| Color picker | `RhfColorPicker` | [Draft PR220](https://github.com/uzh-bf/design-system/pull/220); all-family behavioral/type/packed proof |
+| Date picker | `RhfDatePicker` | [Draft PR220](https://github.com/uzh-bf/design-system/pull/220); all-family behavioral/type/packed proof |
+| Date/time picker | `RhfDatetimePicker` | [Draft PR220](https://github.com/uzh-bf/design-system/pull/220); all-family behavioral/type/packed proof |
+| Numeric PIN | `RhfPinField` | [Draft PR219](https://github.com/uzh-bf/design-system/pull/219); all-family behavioral/type/packed proof |
+| Alphanumeric PIN | `RhfAlphaNumericPinField` | [Draft PR219](https://github.com/uzh-bf/design-system/pull/219); all-family behavioral/type/packed proof |
 
 `RhfMultiSelect` is an additional existing RHF control, not a fourth covered
 Formik family. Retain and qualify it. Parity covers typed paths/values and
@@ -205,65 +209,57 @@ Required upstream component variants and integrations belong before GA even when
 additive. Earlier blanket 5.1 deferrals no longer exclude these accepted RHF or
 Radix requirements. Unrelated additions retain their later horizon.
 
-### RHF implementation progress — 2026-10-23
+### RHF and consumer qualification — 2026-10-23
 
-[Draft PR219](https://github.com/uzh-bf/design-system/pull/219) adds textarea,
-switch and both PIN adapters, the shared numeric control and the accepted RHF
-error contract. [Draft PR220](https://github.com/uzh-bf/design-system/pull/220)
-adds color, date and date/time. All ten families have draft implementations;
-Formik is retained through v5. Local all-family checks and configured slice
-reviews pass. Integrated final review passes. Hosted CI passes at basic tip
-`cf9549b89` and picker workflow tip `4feb499d6`, including both RHF consumer
-versions and all accessibility shards. The final documentation-only tip and
-quiet settle remain before closing draft qualification.
+[Draft PR219](https://github.com/uzh-bf/design-system/pull/219) qualifies basic
+fields at `cf9549b89a29660993ab312492ad640bba73d13d`.
+[Draft PR220](https://github.com/uzh-bf/design-system/pull/220) qualifies pickers
+at `fdf4bc6eeead63a1eb33a7821c71032e921f0312`.
+[Basic CI](https://github.com/uzh-bf/design-system/actions/runs/39949970459)
+and [final picker CI](https://github.com/uzh-bf/design-system/actions/runs/39970120724)
+pass, including both RHF versions, accessibility inventory and visual checks.
+Independent reviews and the 14:51 UTC quiet settle are complete. The bounded
+CI follow-up was deactivated. Formik remains supported through v5.
 
-The [approved execution plan](2026-10-23-v5-rhf-parity-plan.md#progress) records
-source, exact unpublished candidate, installed-file proof and remaining gates.
-Draft source and synthetic checks do not establish GBL acceptance, integrated
-GA readiness or release authority. The selected consumer journey remains next
-after DS draft qualification.
+[GBL draft PR224](https://github.com/uzh-bf/gbl-uzh/pull/224) at
+`afeee07fea23165153704e0e213548f6d3808cb0` passes its current CI and the recorded
+independent final review. It qualifies the selected synthetic RHF journey
+against the exact unpublished RHF candidate. The consumer plan and draft body
+own archive/installed-file proof and limitations; its task runtime is stopped.
+The [DS plan](2026-10-23-v5-rhf-parity-plan.md#progress) owns the library proof.
+These results qualify the recorded candidate, not the later integrated GA
+candidate or registry contents. The user explicitly holds GBL and Klicker merges.
 
 ### Next implementation packages
 
-The historical pilot repair/acceptance package selected October 19 is complete
-at its draft boundary; do not queue it again. Continue in this order:
+The historical Klicker repair and RHF/GBL package are complete at their draft
+boundaries. Do not repeat their unchanged acceptance or reopen those packages.
+The approved [catalog planning package](2026-10-23-v5-catalog-compatibility-plan.md)
+owns evidence reconciliation, the finite
+[Radix capability matrix](2026-10-23-v5-radix-capability-matrix.md) and derived plans.
 
-1. **RHF parity.** Finish the [approved execution plan](2026-10-23-v5-rhf-parity-plan.md)
-   for the ten-family matrix above, extending the
-   [completed W3 foundation](2026-08-09-v5-rhf-w3-plan.md). Review both draft
-   layers, qualify every family and retain Formik regression proof. If an upstream
-   control migration is a prerequisite, deliver that seam
-   before its adapter rather than duplicating widget logic.
-   The accepted application proof route is a refreshed GBL RHF journey plus
-   packed synthetic coverage of every family, alongside retained Klicker Formik
-   acceptance. A real Klicker RHF migration is not an additional GA requirement.
-   GBL source/artifact qualification belongs to its consumer-owned execution
-   plan; historical pilot evidence does not close it.
-2. **Radix catalog and auxiliaries.** Use the pinned upstream snapshot and
-   capability matrix to group independently reviewable packages: existing API
-   deltas, missing controls/direction, auxiliary migrations, and messaging/code
-   compositions. Record dependency ownership, entry points, consumer-age policy,
-   compatibility adapters and budgets before installation. A current snapshot
-   does not justify blindly overwriting local themes or public contracts.
-   Within this work, qualify chart-gallery capabilities using direct Recharts
-   composition, then verify representative official blocks against the packed
-   components. Block source and block-only dependencies stay with the application;
-   neither gallery becomes a maintained collection of package exports.
-3. **UZH and integrated acceptance.** Maintain traceability during the first
-   two packages, then qualify the complete candidate in neutral and UZH themes.
-   Distinguish retained consumer overrides from accepted defaults. Exercise a
-   representative RHF application alongside the existing Formik pilot and refresh
-   VetSim, GBL and Klicker candidate rows against exact consumer refs/artifacts.
-4. **Remaining qualification and promotion preparation.** Close tooling
-   advisories, resolve applicable review feedback, complete actual screen-reader,
-   Safari and physical-device scenarios, then reconcile PR179 and release
-   metadata under its separate authority boundary.
+1. **Small component compatibility.** Follow the reviewed
+   [component plan](2026-10-23-v5-component-compatibility-plan.md) for Button
+   sizes, Tabs variants/orientation, NativeSelect and Direction/RTL. Preserve
+   existing defaults, public compatibility, both themes and caller precedence.
+2. **Recharts ownership and compatibility.** Follow the reviewed
+   [chart plan](2026-10-23-v5-recharts-compatibility-plan.md). Settle ADR0007's
+   required consumer peer before publication or repeated final consumer proof.
+   Keep direct Recharts composition and qualify six chart families and the tooltip recipe category.
+3. **Remaining catalog and auxiliaries.** Use the matrix for shared API deltas,
+   a dedicated Combobox package, Calendar/DayPicker, Resizable/Sonner and missing
+   messaging/code/clarification components. Keep manifests and integration
+   serialized. Verify representative application-owned blocks and AI patterns.
+4. **Integrated GA qualification.** Refresh official-source drift once, tooling
+   advisories and package metadata; qualify one integrated exact candidate in
+   representative consumers. Complete screen-reader, Safari and device proof,
+   then reconcile PR179 under its separate promotion authority boundary.
 
-Each implementation package receives its own reviewed execution plan and
-acceptance matrix before source changes. The current request authorizes the
-roadmap/plan reconciliation and its documentation delivery; it does not start
-those implementation packages, change stack topology, create a new native goal,
-or authorize merge, readiness, release, deployment or runtime changes.
+Derived plans propose implementation scope and topology; their bounded approval
+precedes source/dependency changes. This documentation delivery does not
+implement those packages or authorize merge, readiness, release, deployment,
+consumer writes or runtime changes. Its native goal ends at reviewed plans and
+verified documentation draft delivery.
 
 ### Acceptance and verification ownership
 

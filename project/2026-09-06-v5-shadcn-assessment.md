@@ -195,3 +195,27 @@ This is a source/release inventory and acceptance design, not a completed API
 parity audit or implementation. The October 18 audit counts above are historical;
 the [October 19 qualification plan](2026-10-19-v5-ga-qualification-plan.md)
 records later compatible remediation and six remaining tooling advisories.
+
+## Complete inventory and next plans — 2026-10-23
+
+The [capability and dependency matrix](2026-10-23-v5-radix-capability-matrix.md)
+now accounts for all63 UI sources, the fileless Form route,67 registry examples,
+30 block IDs, hook/highlighter infrastructure, seven chart recipe categories and
+21 Radix AI patterns. Source-comparable means inspected source shape, not a
+behavioral pass. Six existing modules also have export gaps; size/option and
+layout gaps extend beyond the11 missing files. Current shared CSS utilities
+(scroll-fade/shimmer) belong in auxiliary compatibility, including reduced motion.
+
+The [small component plan](2026-10-23-v5-component-compatibility-plan.md) and
+[Recharts plan](2026-10-23-v5-recharts-compatibility-plan.md) are the first derived
+execution proposals. Preserve current scoped Radix and class helpers unless a
+verified gap needs an adapter. Recharts moves early because ADR0007 affects every
+consumer installation. Calendar's pinned source still uses DayPicker9; latest10
+alone is not evidence that a major migration is required. Keep Combobox's new
+compound primitive separate from the retained root API.
+
+The matrix proposes dependency ownership and test endpoints without changing
+manifests or claiming their qualification. It retains library ownership of all
+required UI capabilities, including @shadcn/react-backed scrolling/questionnaire;
+application ownership applies to blocks, AI transports and application state.
+GBL and Klicker remain unmerged by the October23 user ruling.
